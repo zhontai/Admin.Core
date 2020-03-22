@@ -1,10 +1,10 @@
 {
-  //Swagger文档
+  //Swagger鏂囨。
   "swagger": false,
-  //Api地址
+  //Api鍦板潃
   "urls": "http://*:8081",
   "aop": {
-    //事物
+    //浜嬬墿
     "transaction": false
   }
 }
