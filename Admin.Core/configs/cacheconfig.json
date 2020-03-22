@@ -1,0 +1,8 @@
+{
+  //ª∫¥Ê¿‡–Õ Memory = 0,Redis = 1
+  "type": 1,
+  //Redis≈‰÷√
+  "redis": {
+    "connectionString": "127.0.0.1:6379,password=,defaultDatabase=2"
+  }
+}
