@@ -1,7 +1,7 @@
 {
-  //»º´æÀàĞÍ Memory = 0,Redis = 1
-  "type": 1,
-  //RedisÅäÖÃ
+  //ç¼“å­˜ç±»å‹ Memory = 0,Redis = 1
+  "type": 0,
+  //Redisé…ç½®
   "redis": {
     "connectionString": "127.0.0.1:6379,password=,defaultDatabase=2"
   }
