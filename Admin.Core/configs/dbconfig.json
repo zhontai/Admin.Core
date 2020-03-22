@@ -1,7 +1,7 @@
 {
-  //Êı¾İ¿âÀàĞÍ MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
+  //æ•°æ®åº“ç±»å‹ MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
   "type": 0,
-  //Á¬½Ó×Ö·û´®
+  //è¿æ¥å­—ç¬¦ä¸²
   //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
   //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1" "Data Source=F:\\data\\admindb.db; Pooling=true;Min Pool Size=1"
   "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
