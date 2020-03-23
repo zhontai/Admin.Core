@@ -2,9 +2,8 @@
 一个基于.Net Core开发的权限管理系统，后续会增加更多实用的功能。
 
 ### 在线体验
-演示地址：https://www.admin.zhontai.net
-
-文档地址：https://www.zhontai.net
+演示地址：https://www.admin.zhontai.net/
+文档地址：https://www.zhontai.net/
 
 *********************************************************
 ### 项目下载后，直接编译运行项目
