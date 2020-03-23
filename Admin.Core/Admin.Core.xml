@@ -522,7 +522,7 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql)">
+        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.Boolean,System.String)">
             <summary>
             同步结构
             </summary>

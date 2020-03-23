@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using FreeSql;
+using FreeSql.Aop;
 using FreeSql.DataAnnotations;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
-using FreeSql.Aop;
 
 namespace Admin.Core.Db
 {
@@ -46,7 +46,7 @@ namespace Admin.Core.Db
         /// <summary>
         /// 同步结构
         /// </summary>
-        public static void SyncStructure(IFreeSql db)
+        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null)
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -61,9 +61,8 @@ namespace Admin.Core.Db
             //    }
             //};
 
-            // 同步结构
-            Console.WriteLine("\r\nsync structure started");
-            db.CodeFirst.SyncStructure(
+            var types = new Type[]
+            {
                 typeof(DictionaryEntity),
                 typeof(ApiEntity),
                 typeof(ViewEntity),
@@ -72,8 +71,26 @@ namespace Admin.Core.Db
                 typeof(RoleEntity),
                 typeof(UserRoleEntity),
                 typeof(RolePermissionEntity)
-            );
-            Console.WriteLine("sync structure succeed\r\n");
+            };
+
+            foreach (var type in types)
+            {
+                try
+                {
+                    db.CodeFirst.ConfigEntity(type, a =>
+                    {
+                        a.Property("Id").IsIdentity(autoIncrement);
+                    });
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            // 同步结构
+            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : "sync structure")} started");
+            db.CodeFirst.SyncStructure(types);
+            Console.WriteLine($"{(msg.NotNull() ? msg : "sync structure")} succeed\r\n");
         }
 
         /// <summary>
@@ -85,8 +102,7 @@ namespace Admin.Core.Db
         /// <returns></returns>
         private static async Task InitData<T>(IFreeSql db,T[] data) where T : class
         {
-            var table = typeof(T).GetCustomAttributes(true)
-                .FirstOrDefault(x => x.GetType() == typeof(TableAttribute)) as TableAttribute;
+            var table = typeof(T).GetCustomAttributes(typeof(TableAttribute),false).FirstOrDefault() as TableAttribute;
             var tableName = table.Name;
 
             try
@@ -159,6 +175,8 @@ namespace Admin.Core.Db
 
                 db.Aop.AuditValue += SyncDataAuditValue;
 
+                SyncStructure(db, false ,"sync structure for sync data");
+
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"Db\Data\data.json");
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);
@@ -172,6 +190,8 @@ namespace Admin.Core.Db
                 await InitData(db, data.RolePermissions);
 
                 db.Aop.AuditValue -= SyncDataAuditValue;
+
+                SyncStructure(db, true, "sync structure for sync data");
 
                 Console.WriteLine("sync data succeed\r\n");
             }
