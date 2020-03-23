@@ -1,10 +1,10 @@
 {
-  //·¢ĞĞÕß
+  //å‘è¡Œè€…
   "issuer": "http://www.zhontai.com",
-  //¶©ÔÄÕß
+  //è®¢é˜…è€…
   "audience": "http://www.zhontai.com",
-  //ÃØÔ¿
+  //ç§˜é’¥
   "securityKey": "ertJKl#521*a@790asD&",
-  //ÓĞĞ§ÆÚ(·ÖÖÓ)
+  //æœ‰æ•ˆæœŸ(åˆ†é’Ÿ)
   "expires": 120
 }

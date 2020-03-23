@@ -7,18 +7,18 @@
   {
     _logger = logger;
   }
-  _logger.LogDebug(1, "µ÷ÊÔ");
+  _logger.LogDebug(1, "è°ƒè¯•");
 
-  »ò
+  æˆ–
 
   private readonly ILogger _logger;
   constructor()
   {
     _logger = LogManager.GetLogger("loggerName"); 
-    »ò 
+    æˆ– 
     _logger = LogManager.GetCurrentClassLogger();
   }
-   _logger.Error("´íÎó");
+   _logger.Error("é”™è¯¯");
   */
   "nLog": {
     "extensions": {
@@ -27,19 +27,19 @@
       }
     },
     "targets": {
-      //µ÷ÊÔ
+      //è°ƒè¯•
       "debug": {
         "type": "File",
         "fileName": "logs\\debug-${shortdate}.log",
         "layout": "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}"
       },
-      //¾¯¸æ
+      //è­¦å‘Š
       "warn": {
         "type": "File",
         "fileName": "logs\\warn-${shortdate}.log",
         "layout": "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}"
       },
-      //´íÎó
+      //é”™è¯¯
       "error": {
         "type": "File",
         "fileName": "logs\\error-${shortdate}.log",
@@ -65,7 +65,7 @@
         "maxlevel": "Fatal",
         "writeTo": "error"
       },
-      //Ìø¹ı²»ÖØÒªµÄÎ¢ÈíÈÕÖ¾
+      //è·³è¿‡ä¸é‡è¦çš„å¾®è½¯æ—¥å¿—
       {
         "logger": "Microsoft.*",
         "maxLevel": "Info",
