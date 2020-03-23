@@ -8,7 +8,7 @@ namespace Admin.Core.Extensions
     {
         public static bool HasAttribute<T>(this MethodInfo method)
         {
-            return method.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(T)) is T;
+            return method.GetCustomAttributes(typeof(T), false).FirstOrDefault() is T;
 
         }
 
