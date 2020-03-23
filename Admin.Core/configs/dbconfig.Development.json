@@ -1,27 +1,27 @@
 {
-  //Éú³ÉÊı¾İ
+  //ç”Ÿæˆæ•°æ®
   "generateData": false,
-  //¼àÌıËùÓĞ²Ù×÷
+  //ç›‘å¬æ‰€æœ‰æ“ä½œ
   "monitorCommand": false,
-  //¼àÌıCurd²Ù×÷
+  //ç›‘å¬Curdæ“ä½œ
   "curd": true,
 
-  //Í¬²½½á¹¹
+  //åŒæ­¥ç»“æ„
   "syncStructure": true,
-  //Í¬²½Êı¾İ
+  //åŒæ­¥æ•°æ®
   "syncData": true,
-  //½¨¿â
+  //å»ºåº“
   "createDb": true,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
-  //½¨¿âÁ¬½Ó×Ö·û´®
+  //å»ºåº“è¿æ¥å­—ç¬¦ä¸²
   //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd={}; Charset=utf8mb4;"
   "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
-  //½¨¿â½Å±¾
+  //å»ºåº“è„šæœ¬
   //MySql "CREATE DATABASE `{admindb}` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
   "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
 
-  //Êı¾İ¿âÀàĞÍ MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
+  //æ•°æ®åº“ç±»å‹ MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
   "type": 4,
-  //Á¬½Ó×Ö·û´®
+  //è¿æ¥å­—ç¬¦ä¸²
   "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
 }
