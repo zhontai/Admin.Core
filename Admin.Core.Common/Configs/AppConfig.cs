@@ -16,6 +16,11 @@
         public string Urls { get; set; } = "http://*:8081";
 
         public AopConfig Aop { get; set; }
+
+        /// <summary>
+        /// 同步缓存键
+        /// </summary>
+        public bool SyncCacheKey { get; set; }
     }
 
     public class AopConfig

@@ -37,19 +37,6 @@ namespace Admin.Core.Service.Admin.Auth
 
         public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
         {
-            if (input.UserName.IsNull())
-            {
-                return ResponseOutput.NotOk("用户名不能为空！");
-            }
-            if (input.Password.IsNull())
-            {
-                return ResponseOutput.NotOk("密码不能为空！");
-            }
-            if (input.VerifyCode.IsNull())
-            {
-                return ResponseOutput.NotOk("验证码不能为空！");
-            }
-
             #region 验证码校验
             var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
             var exists = await _cache.ExistsAsync(verifyCodeKey);
@@ -81,17 +68,17 @@ namespace Admin.Core.Service.Admin.Auth
             #region 解密
             if (input.PasswordKey.NotNull())
             {
-                var passwordKey = string.Format(CacheKey.PassWordKey, input.PasswordKey);
-                var existsPasswordKey = await _cache.ExistsAsync(passwordKey);
+                var passwordEncryptKey = string.Format(CacheKey.PassWordEncryptKey, input.PasswordKey);
+                var existsPasswordKey = await _cache.ExistsAsync(passwordEncryptKey);
                 if (existsPasswordKey)
                 {
-                    var secretKey = await _cache.GetAsync(passwordKey);
-                    if (passwordKey.IsNull())
+                    var secretKey = await _cache.GetAsync(passwordEncryptKey);
+                    if (passwordEncryptKey.IsNull())
                     {
                         return ResponseOutput.NotOk("解密失败！",1);
                     }
                     input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                    await _cache.DelAsync(passwordKey);
+                    await _cache.DelAsync(passwordEncryptKey);
                 }
                 else
                 {
@@ -181,14 +168,14 @@ namespace Admin.Core.Service.Admin.Auth
             return ResponseOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> GetPassWordKeyAsync()
+        public async Task<IResponseOutput> GetPassWordEncryptKeyAsync()
         {
             //写入Redis
             var guid = Guid.NewGuid().ToString("N");
-            var key = string.Format(CacheKey.PassWordKey, guid);
-            var secretKey = StringHelper.GenerateRandom(8);
-            await _cache.SetAsync(key, secretKey, TimeSpan.FromMinutes(5));
-            var data = new { key = guid, secretKey };
+            var key = string.Format(CacheKey.PassWordEncryptKey, guid);
+            var encyptKey = StringHelper.GenerateRandom(8);
+            await _cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
+            var data = new { key = guid, encyptKey };
 
             return ResponseOutput.Ok(data);
         }

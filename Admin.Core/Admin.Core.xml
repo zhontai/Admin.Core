@@ -21,7 +21,7 @@
         </member>
         <member name="T:Admin.Core.Attributes.VersionRouteAttribute">
             <summary>
-            自定义路由 /api/{version}/[controler]/[action]
+            自定义路由 /api/{version}/[area]/[controler]/[action]
             </summary>
         </member>
         <member name="T:Admin.Core.Auth.IPermissionHandler">
@@ -135,7 +135,7 @@
             <param name="lastKey">上次验证码键</param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetPassWordKey">
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetPassWordEncryptKey">
             <summary>
             获取密钥
             </summary>
@@ -153,6 +153,24 @@
             根据登录信息生成Token
             </summary>
             <param name="input">登录信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.CacheController">
+            <summary>
+            缓存管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.CacheController.List">
+            <summary>
+            获取缓存列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.CacheController.Clear(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="cacheKey"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.DictionaryController">
@@ -261,7 +279,7 @@
         </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetPermissionList">
             <summary>
-            查询权限分配界面权限列表
+            查询角色权限-权限列表
             </summary>
             <returns></returns>
         </member>

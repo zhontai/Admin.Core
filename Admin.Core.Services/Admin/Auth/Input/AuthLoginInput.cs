@@ -1,4 +1,6 @@
-﻿namespace Admin.Core.Service.Admin.Auth.Input
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Admin.Core.Service.Admin.Auth.Input
 {
     /// <summary>
     /// 登录信息
@@ -8,11 +10,13 @@
         /// <summary>
         /// 账号
         /// </summary>
+        [Required(ErrorMessage = "用户名不能为空！")]
         public string UserName { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
+        [Required(ErrorMessage = "密码不能为空！")]
         public string Password { get; set; }
 
         /// <summary>
@@ -23,6 +27,7 @@
         /// <summary>
         /// 验证码
         /// </summary>
+        [Required(ErrorMessage = "验证码不能为空！")]
         public string VerifyCode { get; set; }
 
         /// <summary>

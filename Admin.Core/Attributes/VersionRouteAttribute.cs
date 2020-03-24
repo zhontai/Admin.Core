@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 namespace Admin.Core.Attributes
 {
     /// <summary>
-    /// 自定义路由 /api/{version}/[controler]/[action]
+    /// 自定义路由 /api/{version}/[area]/[controler]/[action]
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class VersionRouteAttribute : RouteAttribute, IApiDescriptionGroupNameProvider
     {
         public string GroupName { get; set; }
 
-        public VersionRouteAttribute(ApiVersion version, string actionName = "") : base($"/api/{version.ToString()}/[controller]/{actionName}")
+        public VersionRouteAttribute(ApiVersion version, string actionName = "") : base($"/api/{version.ToString()}/[area]/[controller]/{actionName}")
         {
             GroupName = version.ToString();
         }

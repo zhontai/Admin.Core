@@ -66,7 +66,7 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
-        /// 查询权限分配界面权限列表
+        /// 查询角色权限-权限列表
         /// </summary>
         /// <returns></returns>
         [HttpGet]

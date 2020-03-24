@@ -6,6 +6,12 @@ namespace Admin.Core.Repository
 {
     public interface IRepositoryBase<TEntity, TKey> : IBaseRepository<TEntity, TKey> where TEntity : class
     {
+        /// <summary>
+        /// 获得Dto
+        /// </summary>
+        /// <typeparam name="TDto"></typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<TDto> GetAsync<TDto>(TKey id);
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace Admin.Core
         
         public static int ToInt(this object thisValue, int errorValue)
         {
-            int reval = 0;
+            int reval;
             if (thisValue != null && thisValue != DBNull.Value && int.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;
@@ -40,7 +40,7 @@ namespace Admin.Core
         
         public static double ToMoney(this object thisValue)
         {
-            double reval = 0;
+            double reval;
             if (thisValue != null && thisValue != DBNull.Value && double.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;
@@ -50,7 +50,7 @@ namespace Admin.Core
         
         public static double ToMoney(this object thisValue, double errorValue)
         {
-            double reval = 0;
+            double reval;
             if (thisValue != null && thisValue != DBNull.Value && double.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;
@@ -72,7 +72,7 @@ namespace Admin.Core
         
         public static decimal ToDecimal(this object thisValue)
         {
-            Decimal reval = 0;
+            decimal reval;
             if (thisValue != null && thisValue != DBNull.Value && decimal.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;
@@ -82,7 +82,7 @@ namespace Admin.Core
         
         public static decimal ToDecimal(this object thisValue, decimal errorValue)
         {
-            Decimal reval = 0;
+            decimal reval;
             if (thisValue != null && thisValue != DBNull.Value && decimal.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;
@@ -102,7 +102,7 @@ namespace Admin.Core
         
         public static DateTime ToDate(this object thisValue, DateTime errorValue)
         {
-            DateTime reval = DateTime.MinValue;
+            DateTime reval;
             if (thisValue != null && thisValue != DBNull.Value && DateTime.TryParse(thisValue.ToString(), out reval))
             {
                 return reval;

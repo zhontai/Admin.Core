@@ -187,7 +187,7 @@ namespace Admin.Core.Service.Admin.View
                         label = labels != null && labels.Count > 0 ? labels[0] : string.Empty;
                         desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count() - 1)) : string.Empty;
 
-                        a.ParentId = pa?.Id;
+                        a.ParentId = pa.Id;
                         a.Label = label;
                         a.Description = desc;
                         a.Enabled = true;

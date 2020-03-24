@@ -16,6 +16,6 @@ namespace Admin.Core.Service.Admin.Auth
 
         Task<IResponseOutput> GetVerifyCodeAsync(string lastKey);
 
-        Task<IResponseOutput> GetPassWordKeyAsync();
+        Task<IResponseOutput> GetPassWordEncryptKeyAsync();
     }
 }
