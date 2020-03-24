@@ -11,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Admin\Cache\Output\**" />
     <Compile Remove="BASE\**" />
+    <EmbeddedResource Remove="Admin\Cache\Output\**" />
     <EmbeddedResource Remove="BASE\**" />
+    <None Remove="Admin\Cache\Output\**" />
     <None Remove="BASE\**" />
   </ItemGroup>
 

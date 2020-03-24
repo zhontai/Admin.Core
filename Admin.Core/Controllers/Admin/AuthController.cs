@@ -39,9 +39,9 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IResponseOutput> GetPassWordKey()
+        public async Task<IResponseOutput> GetPassWordEncryptKey()
         {
-            return await _authServices.GetPassWordKeyAsync();
+            return await _authServices.GetPassWordEncryptKeyAsync();
         }
 
         /// <summary>

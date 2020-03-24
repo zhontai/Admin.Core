@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel;
+
 namespace Admin.Core.Common.Cache
 {
     /// <summary>
@@ -9,16 +11,19 @@ namespace Admin.Core.Common.Cache
         /// <summary>
         /// 验证码 admin:verify:code:guid
         /// </summary>
+        [Description("验证码")]
         public const string VerifyCodeKey = "admin:verify:code:{0}";
 
         /// <summary>
-        /// 密码 admin:password:guid
+        /// 密码加密 admin:password:encrypt:guid
         /// </summary>
-        public const string PassWordKey = "admin:password:{0}";
+        [Description("密码加密")]
+        public const string PassWordEncryptKey = "admin:password:{0}";
 
         /// <summary>
         /// 用户权限 admin:user:用户主键:permissions
         /// </summary>
+        [Description("用户权限")]
         public const string UserPermissions = "admin:user:{0}:permissions";
     }
 }

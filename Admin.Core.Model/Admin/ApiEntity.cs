@@ -14,7 +14,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 所属模块
         /// </summary>
-		public long? ParentId { get; set; }
+		public long ParentId { get; set; }
 
         /// <summary>
         /// 接口命名

@@ -237,6 +237,24 @@
             映射配置
             </summary>
         </member>
+        <member name="T:Admin.Core.Service.Admin.Cache.ICacheService">
+            <summary>
+            缓存服务
+            </summary>	
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Cache.ICacheService.List">
+            <summary>
+            缓存列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Cache.ICacheService.ClearAsync(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="cacheKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput">
             <summary>
             添加
