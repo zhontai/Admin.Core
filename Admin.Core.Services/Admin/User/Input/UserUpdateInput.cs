@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Admin.Core.Service.Admin.User.Input
 {
     /// <summary>
@@ -14,11 +16,13 @@ namespace Admin.Core.Service.Admin.User.Input
         /// <summary>
         /// 账号
         /// </summary>
+        [Required(ErrorMessage = "请输入账号")]
         public string UserName { get; set; }
 
         /// <summary>
         /// 姓名
         /// </summary>
+        [Required(ErrorMessage = "请输入姓名")]
         public string Name { get; set; }
 
         /// <summary>

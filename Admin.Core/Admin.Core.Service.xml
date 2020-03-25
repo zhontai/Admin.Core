@@ -675,11 +675,6 @@
             修改密码
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.Password">
-            <summary>
-            密码
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.OldPassword">
             <summary>
             旧密码
@@ -693,6 +688,11 @@
         <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.ConfirmPassword">
             <summary>
             确认新密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.Password">
+            <summary>
+            密码
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.Version">
