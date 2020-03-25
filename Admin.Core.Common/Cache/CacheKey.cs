@@ -18,7 +18,7 @@ namespace Admin.Core.Common.Cache
         /// 密码加密 admin:password:encrypt:guid
         /// </summary>
         [Description("密码加密")]
-        public const string PassWordEncryptKey = "admin:password:{0}";
+        public const string PassWordEncryptKey = "admin:password:encrypt:{0}";
 
         /// <summary>
         /// 用户权限 admin:user:用户主键:permissions

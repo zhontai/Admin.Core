@@ -142,10 +142,10 @@ namespace Admin.Core.Db
                 switch (e.Property.Name)
                 {
                     case "CreatedUserId":
-                        e.Value = 1;
+                        e.Value = 2;
                         break;
                     case "CreatedUserName":
-                        e.Value = "小雪转中雪";
+                        e.Value = "xiaoxue";
                         break;
                 }
             }
@@ -154,10 +154,10 @@ namespace Admin.Core.Db
                 switch (e.Property.Name)
                 {
                     case "ModifiedUserId":
-                        e.Value = 1;
+                        e.Value = 2;
                         break;
                     case "ModifiedUserName":
-                        e.Value = "小雪转中雪";
+                        e.Value = "xiaoxue";
                         break;
                 }
             }

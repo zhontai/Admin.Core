@@ -124,7 +124,7 @@ namespace Admin.Core.Controllers.Admin
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         public async Task<IResponseOutput> UpdateGroup(PermissionUpdateGroupInput input)
         {
             return await _permissionServices.UpdateGroupAsync(input);
@@ -135,7 +135,7 @@ namespace Admin.Core.Controllers.Admin
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         public async Task<IResponseOutput> UpdateMenu(PermissionUpdateMenuInput input)
         {
             return await _permissionServices.UpdateMenuAsync(input);
@@ -146,7 +146,7 @@ namespace Admin.Core.Controllers.Admin
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         public async Task<IResponseOutput> UpdateApi(PermissionUpdateApiInput input)
         {
             return await _permissionServices.UpdateApiAsync(input);

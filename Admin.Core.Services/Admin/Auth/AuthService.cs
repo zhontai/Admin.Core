@@ -97,7 +97,8 @@ namespace Admin.Core.Service.Admin.Auth
             var claims = new[]
             {
                 new Claim(ClaimAttributes.UserId, user.Id.ToString()),
-                new Claim(ClaimAttributes.UserName, user.Name.IsNull()?user.NickName:user.Name)
+                new Claim(ClaimAttributes.UserName, user.UserName),
+                new Claim(ClaimAttributes.UserRealName, user.Name)
             };
             var token = _userToken.Build(claims);
 

@@ -51,6 +51,24 @@ namespace Admin.Core.Common.Auth
             }
         }
 
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string RealName
+        {
+            get
+            {
+                var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserRealName);
+
+                if (name != null && name.Value.NotNull())
+                {
+                    return name.Value;
+                }
+
+                return "";
+            }
+        }
+
 
         /// <summary>
         /// 用户IP
@@ -128,5 +146,10 @@ namespace Admin.Core.Common.Auth
         /// 用户名
         /// </summary>
         public const string UserName = "na";
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public const string UserRealName = "rna";
     }
 }
