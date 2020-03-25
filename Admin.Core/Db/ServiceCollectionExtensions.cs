@@ -50,7 +50,7 @@ namespace Admin.Core.Db
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                DbHelper.SyncStructure(fsql);
+                DbHelper.SyncStructure(fsql, dbType: dbConfig.Type.ToString());
             }
 
             //同步数据

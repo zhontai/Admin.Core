@@ -46,7 +46,7 @@ namespace Admin.Core.Db
         /// <summary>
         /// 同步结构
         /// </summary>
-        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null)
+        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null,string dbType = null)
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -88,9 +88,9 @@ namespace Admin.Core.Db
             }
 
             // 同步结构
-            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : "sync structure")} started");
+            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
             db.CodeFirst.SyncStructure(types);
-            Console.WriteLine($"{(msg.NotNull() ? msg : "sync structure")} succeed\r\n");
+            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Admin.Core.Db
                     if (data?.Length > 0)
                     {
                         await db.Insert<T>().AppendData(data).ExecuteAffrowsAsync();
-                        Console.WriteLine($"table:{tableName} sync data succeed");
+                        Console.WriteLine($"table: {tableName} sync data succeed");
                     }
                     else
                     {
@@ -353,7 +353,5 @@ namespace Admin.Core.Db
                 throw new Exception($"generate data failed。\n{ex.Message}\r\n");
             }
         }
-
-
     }
 }
