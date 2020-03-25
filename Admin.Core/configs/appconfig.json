@@ -7,7 +7,5 @@
   "aop": {
     //事物
     "transaction": false
-  },
-  //同步缓存键到数据库
-  "syncCacheKey": true
+  }
 }
