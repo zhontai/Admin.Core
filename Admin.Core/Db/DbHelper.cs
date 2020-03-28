@@ -46,7 +46,7 @@ namespace Admin.Core.Db
         /// <summary>
         /// 同步结构
         /// </summary>
-        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null,string dbType = null)
+        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null, DbConfig dbConfig = null)
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -90,9 +90,13 @@ namespace Admin.Core.Db
             }
 
             // 同步结构
-            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
-            db.CodeFirst.SyncStructure(types);
-            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
+            if (dbConfig.SyncStructure)
+            {
+                var dbType = dbConfig.Type.ToString();
+                Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+                db.CodeFirst.SyncStructure(types);
+                Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
+            }
         }
 
         /// <summary>

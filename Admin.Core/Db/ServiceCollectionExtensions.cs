@@ -47,11 +47,8 @@ namespace Admin.Core.Db
             var fsql = freeSqlBuilder.Build();
 
             #region 初始化数据库
-            //同步结构
-            if (dbConfig.SyncStructure)
-            {
-                DbHelper.SyncStructure(fsql, dbType: dbConfig.Type.ToString());
-            }
+            //同步结构，需要内部配置自增长
+            DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
 
             //同步数据
             if (dbConfig.SyncData)
