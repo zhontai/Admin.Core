@@ -9,6 +9,8 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Service.Admin.Auth.Input;
+using AutoMapper;
+using Admin.Core.Service.Admin.Auth.Output;
 
 namespace Admin.Core.Service.Admin.Auth
 {
@@ -16,6 +18,7 @@ namespace Admin.Core.Service.Admin.Auth
     {
         private readonly IUser _user;
         private readonly ICache _cache;
+        private readonly IMapper _mapper;
         private readonly IUserToken _userToken;
         private readonly IUserRepository _userRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
@@ -23,6 +26,7 @@ namespace Admin.Core.Service.Admin.Auth
         public AuthService(
             IUser user,
             ICache cache,
+            IMapper mapper,
             IUserToken userToken,
             IUserRepository userRepository,
             IRolePermissionRepository rolePermissionRepository
@@ -30,6 +34,7 @@ namespace Admin.Core.Service.Admin.Auth
         {
             _user = user;
             _cache = cache;
+            _mapper = mapper;
             _userToken = userToken;
             _userRepository = userRepository;
             _rolePermissionRepository = rolePermissionRepository;
@@ -59,7 +64,7 @@ namespace Admin.Core.Service.Admin.Auth
             }
             #endregion
 
-            var user = (await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync());
+            var user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
             if (!(user?.Id > 0))
             {
                 return ResponseOutput.NotOk("账号输入有误!", 3);
@@ -93,19 +98,9 @@ namespace Admin.Core.Service.Admin.Auth
                 return ResponseOutput.NotOk("密码输入有误！",4);
             }
 
-            //生成token信息
-            var claims = new[]
-            {
-                new Claim(ClaimAttributes.UserId, user.Id.ToString()),
-                new Claim(ClaimAttributes.UserName, user.UserName),
-                new Claim(ClaimAttributes.UserRealName, user.Name)
-            };
-            var token = _userToken.Build(claims);
+            var authLoginOutput = _mapper.Map<AuthLoginOutput>(user);
 
-            return ResponseOutput.Ok(new 
-            { 
-                token
-            });
+            return ResponseOutput.Ok(authLoginOutput);
         }
 
         public async Task<IResponseOutput> GetUserInfoAsync()

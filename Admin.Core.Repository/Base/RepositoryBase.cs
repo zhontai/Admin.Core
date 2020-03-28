@@ -1,6 +1,9 @@
 ﻿
-using FreeSql;
+
+using System;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
+using FreeSql;
 using Admin.Core.Common.Auth;
 
 namespace Admin.Core.Repository
@@ -14,10 +17,20 @@ namespace Admin.Core.Repository
             UnitOfWork = uow;
             _user = user;
         }
-
+        
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
             return Select.WhereDynamic(id).ToOneAsync<TDto>();
+        }
+
+        public virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp)
+        {
+            return Select.Where(exp).ToOneAsync();
+        }
+
+        public virtual Task<TDto> GetAsync<TDto>(Expression<Func<TEntity, bool>> exp)
+        {
+            return Select.Where(exp).ToOneAsync<TDto>();
         }
 
         public async Task<bool> SoftDeleteAsync(TKey id)

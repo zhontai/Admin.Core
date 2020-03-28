@@ -12,6 +12,11 @@ namespace Admin.Core.Model.Output
         /// </summary>
         [JsonIgnore]
         bool Success { get; }
+
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public string Msg { get;}
     }
 
     /// <summary>

@@ -83,16 +83,20 @@ namespace Admin.Core.Db
             fsql.Aop.AuditValue += (s, e) =>
             {
                 var user = services.BuildServiceProvider().GetService<IUser>();
+                if(user == null || !(user.Id > 0))
+                {
+                    return;
+                }
 
                 if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
                 {
                     switch (e.Property.Name)
                     {
                         case "CreatedUserId":
-                            e.Value = user?.Id;
+                            e.Value = user.Id;
                             break;
                         case "CreatedUserName":
-                            e.Value = user?.Name;
+                            e.Value = user.Name;
                             break;
                             //case "CreatedTime":
                             //    e.Value = DateTime.Now.Subtract(timeOffset);
@@ -104,10 +108,10 @@ namespace Admin.Core.Db
                     switch (e.Property.Name)
                     {
                         case "ModifiedUserId":
-                            e.Value = user?.Id;
+                            e.Value = user.Id;
                             break;
                         case "ModifiedUserName":
-                            e.Value = user?.Name;
+                            e.Value = user.Name;
                             break;
                             //case "ModifiedTime":
                             //    e.Value = DateTime.Now.Subtract(timeOffset);

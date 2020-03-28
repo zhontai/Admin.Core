@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Admin.Core.Common.Auth
 {
@@ -69,6 +66,21 @@ namespace Admin.Core.Common.Auth
             }
         }
 
+        /// <summary>
+        /// 登录日志Id
+        /// </summary>
+        public long LoginLogId
+        {
+            get
+            {
+                var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserLoginLogId);
+                if (id != null && id.Value.NotNull())
+                {
+                    return id.Value.ToLong();
+                }
+                return 0;
+            }
+        }
 
         /// <summary>
         /// 用户IP
@@ -111,25 +123,6 @@ namespace Admin.Core.Common.Auth
                 return _accessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
             }
         }
-
-        public bool IsAuthenticated()
-        {
-            return _accessor.HttpContext.User.Identity.IsAuthenticated;
-        }
-
-        public IEnumerable<Claim> GetClaimsIdentity()
-        {
-            return _accessor.HttpContext.User.Claims;
-        }
-
-        public List<string> GetClaimValueByType(string ClaimType)
-        {
-
-            return (from item in GetClaimsIdentity()
-                    where item.Type == ClaimType
-                    select item.Value).ToList();
-
-        }
     }
 
     /// <summary>
@@ -151,5 +144,10 @@ namespace Admin.Core.Common.Auth
         /// 姓名
         /// </summary>
         public const string UserRealName = "rna";
+
+        /// <summary>
+        /// 登录日志Id
+        /// </summary>
+        public const string UserLoginLogId = "llid";
     }
 }

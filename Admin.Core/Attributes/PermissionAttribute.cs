@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Admin.Core.Auth;
 using Admin.Core.Common.Auth;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Attributes
 {
@@ -13,7 +14,7 @@ namespace Admin.Core.Attributes
     /// 启用权限
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class PermissionAttribute : AuthorizeAttribute, IAuthorizationFilter
+    public class PermissionAttribute : AuthorizeAttribute, IAuthorizationFilter, IAsyncAuthorizationFilter
     {
         public async void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -42,6 +43,12 @@ namespace Admin.Core.Attributes
             {
                 context.Result = new ForbidResult();
             }
+        }
+
+        public Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        {
+            OnAuthorization(context);
+            return Task.CompletedTask;
         }
     }
 }
