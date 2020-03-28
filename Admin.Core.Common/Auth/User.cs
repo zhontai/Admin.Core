@@ -65,64 +65,6 @@ namespace Admin.Core.Common.Auth
                 return "";
             }
         }
-
-        /// <summary>
-        /// 登录日志Id
-        /// </summary>
-        public long LoginLogId
-        {
-            get
-            {
-                var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserLoginLogId);
-                if (id != null && id.Value.NotNull())
-                {
-                    return id.Value.ToLong();
-                }
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// 用户IP
-        /// </summary>
-        public string IP
-        {
-            get
-            {
-                if (_accessor?.HttpContext?.Connection == null)
-                    return "";
-
-                return _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            }
-        }
-
-        /// <summary>
-        /// 用户IPv4
-        /// </summary>
-        public string IPv4
-        {
-            get
-            {
-                if (_accessor?.HttpContext?.Connection == null)
-                    return "";
-
-                return _accessor.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-            }
-        }
-
-        /// <summary>
-        /// 用户IPv6
-        /// </summary>
-        public string IPv6
-        {
-            get
-            {
-                if (_accessor?.HttpContext?.Connection == null)
-                    return "";
-
-                return _accessor.HttpContext.Connection.RemoteIpAddress.MapToIPv6().ToString();
-            }
-        }
     }
 
     /// <summary>

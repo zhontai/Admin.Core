@@ -1,30 +1,27 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using AutoMapper;
-using Admin.Core.Common.Auth;
 using Admin.Core.Model.Input;
 using Admin.Core.Model.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.LoginLog.Input;
 using Admin.Core.Service.Admin.LoginLog.Output;
-using Microsoft.AspNetCore.Http;
+using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Service.Admin.LoginLog
 {	
 	public class LoginLogService : ILoginLogService
     {
-        private readonly IUser _user;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _context;
         private readonly ILoginLogRepository _loginLogRepository;
         public LoginLogService(
-            IUser user,
             IMapper mapper,
             IHttpContextAccessor context,
             ILoginLogRepository loginLogRepository
         )
         {
-            _user = user;
             _mapper = mapper;
             _context = context;
             _loginLogRepository = loginLogRepository;
@@ -54,7 +51,7 @@ namespace Admin.Core.Service.Admin.LoginLog
         {
             var res = new ResponseOutput<long>();
 
-            input.IP = _user.IP;
+            input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
             string ua = _context.HttpContext.Request.Headers["User-Agent"];
             var client = UAParser.Parser.GetDefault().Parse(ua);

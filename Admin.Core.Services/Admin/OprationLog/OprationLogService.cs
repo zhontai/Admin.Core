@@ -8,6 +8,7 @@ using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.OprationLog.Input;
 using Admin.Core.Service.Admin.OprationLog.Output;
+using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Service.Admin.OprationLog
 {	
@@ -62,7 +63,7 @@ namespace Admin.Core.Service.Admin.OprationLog
             input.BrowserInfo = ua;
 
             input.RealName = _user.RealName;
-            input.IP = _user.IP;
+            input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
             var entity = _mapper.Map<OprationLogEntity>(input);
             var id = (await _oprationLogRepository.InsertAsync(entity)).Id;
