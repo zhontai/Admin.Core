@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Admin.Core.Model.Output;
+using Admin.Core.Attributes;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -15,6 +16,7 @@ namespace Admin.Core.Controllers.Admin
     [Area("Admin")]
     [Route("api/[area]/[controller]/[action]")]
     [ApiController]
+    [NoOprationLog]
     public class ImgController : ControllerBase
     {
         /// <summary>

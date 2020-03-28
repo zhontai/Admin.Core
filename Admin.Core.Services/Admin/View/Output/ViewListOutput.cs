@@ -5,7 +5,7 @@
         /// <summary>
         /// 视图Id
         /// </summary>
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 视图父级

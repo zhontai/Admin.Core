@@ -32,6 +32,7 @@ using Admin.Core.Db;
 using Admin.Core.Common.Cache;
 using PermissionHandler = Admin.Core.Auth.PermissionHandler;
 using Admin.Core.Aop;
+using Admin.Core.Logs;
 
 namespace Admin.Core
 {
@@ -44,14 +45,16 @@ namespace Admin.Core
         public Startup(IWebHostEnvironment env)
         {
             _env = env;
-            _appConfig = new ConfigHelper().Get<AppConfig>("appconfig",env.EnvironmentName) ?? new AppConfig();
+            _appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(_appConfig);
+            services.AddSingleton(typeof(ApiHelper));
+
             #region AutoMapper 自动映射
-            var ServiceDll = Path.Combine(basePath, "Admin.Core.Service.dll");
-            var serviceAssembly = Assembly.LoadFrom(ServiceDll);
+            var serviceAssembly = Assembly.Load("Admin.Core.Service");
             services.AddAutoMapper(serviceAssembly);
             #endregion
 
@@ -83,11 +86,11 @@ namespace Admin.Core
                         //c.OrderActionsBy(o => o.RelativePath);
                     });
 
-                    var xmlModelPath = Path.Combine(basePath, "Admin.Core.Model.xml");
-                    c.IncludeXmlComments(xmlModelPath);
-
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
                     c.IncludeXmlComments(xmlPath, true);
+
+                    var xmlModelPath = Path.Combine(basePath, "Admin.Core.Model.xml");
+                    c.IncludeXmlComments(xmlModelPath);
 
                     var xmlServicesPath = Path.Combine(basePath, "Admin.Core.Service.xml");
                     c.IncludeXmlComments(xmlServicesPath);
@@ -132,7 +135,7 @@ namespace Admin.Core
             services.TryAddSingleton<IUserToken, UserToken>();
             services.AddScoped<IPermissionHandler, PermissionHandler>();
 
-            services.AddAuthentication(options => 
+            services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
@@ -156,9 +159,17 @@ namespace Admin.Core
             #endregion
 
             #region 控制器
-            services.AddControllers(options => 
-            { 
-                options.Filters.Add(typeof(GlobalExceptionFilter));
+            if (_appConfig.Log.Operation)
+            {
+                services.AddSingleton<ILogHandler, LogHandler>();
+            }
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<AdminExceptionFilter>();
+                if (_appConfig.Log.Operation)
+                {
+                    options.Filters.Add<LogActionFilter>();
+                }
             })
             //.AddFluentValidation(config =>
             //{
@@ -175,13 +186,13 @@ namespace Admin.Core
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
             #endregion
-            
+
             //数据库
             services.AddDb(_env);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
-            if(cacheConfig.Type == CacheType.Redis)
+            if (cacheConfig.Type == CacheType.Redis)
             {
                 var csredis = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionString);
                 RedisHelper.Initialization(csredis);
@@ -201,7 +212,7 @@ namespace Admin.Core
         public void ConfigureContainer(ContainerBuilder builder)
         {
             #region AutoFac IOC容器
-            
+
             try
             {
                 #region Aop
@@ -210,25 +221,23 @@ namespace Admin.Core
                 {
                     builder.RegisterType<TransactionInterceptor>();
                     interceptorServiceTypes.Add(typeof(TransactionInterceptor));
-                } 
+                }
                 #endregion
 
                 #region Service
-                var servicesDllFile = Path.Combine(basePath, "Admin.Core.Service.dll");
-                var assemblysServices = Assembly.LoadFrom(servicesDllFile);
-
+                var assemblysServices = Assembly.Load("Admin.Core.Service");
                 builder.RegisterAssemblyTypes(assemblysServices)
                 .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
+                .InstancePerDependency()
                 .EnableInterfaceInterceptors()
                 .InterceptedBy(interceptorServiceTypes.ToArray());
                 #endregion
 
                 #region Repository
-                var repositoryDllFile = Path.Combine(basePath, "Admin.Core.Repository.dll");
-                var assemblysRepository = Assembly.LoadFrom(repositoryDllFile);
+                var assemblysRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblysRepository)
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .InstancePerDependency();
                 #endregion
             }
             catch (Exception ex)
@@ -242,14 +251,7 @@ namespace Admin.Core
         {
             #region app配置
             //异常
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            app.UseExceptionHandler("/Error");
 
             //静态文件
             app.UseStaticFiles();

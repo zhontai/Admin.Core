@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Admin.Core.Model.Admin;
-using Admin.Core.Service.Admin.Permission.Input;
+using Admin.Core.Service.Admin.Auth.Output;
 
 namespace Admin.Core.Service.Admin.Auth
 {
@@ -11,7 +11,7 @@ namespace Admin.Core.Service.Admin.Auth
     {
         public MapConfig()
         {
-            
+            CreateMap<UserEntity, AuthLoginOutput>();
         }
     }
 }

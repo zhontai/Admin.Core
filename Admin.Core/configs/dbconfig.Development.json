@@ -23,5 +23,6 @@
   //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
   "type": 4,
   //连接字符串
+  //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
   "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
 }

@@ -70,7 +70,9 @@ namespace Admin.Core.Db
                 typeof(UserEntity),
                 typeof(RoleEntity),
                 typeof(UserRoleEntity),
-                typeof(RolePermissionEntity)
+                typeof(RolePermissionEntity),
+                typeof(OprationLogEntity),
+                typeof(LoginLogEntity)
             };
 
             foreach (var type in types)

@@ -14,16 +14,12 @@
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
     <Compile Remove="Hubs\**" />
-    <Compile Remove="Log\**" />
     <Content Remove="AutoMapper\**" />
     <Content Remove="Hubs\**" />
-    <Content Remove="Log\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
     <EmbeddedResource Remove="Hubs\**" />
-    <EmbeddedResource Remove="Log\**" />
     <None Remove="AutoMapper\**" />
     <None Remove="Hubs\**" />
-    <None Remove="Log\**" />
   </ItemGroup>
 
   <ItemGroup>
