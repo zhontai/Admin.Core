@@ -4,5 +4,7 @@
   //连接字符串
   //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
   //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1" "Data Source=F:\\data\\admindb.db; Pooling=true;Min Pool Size=1"
-  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+  //同步结构，由于Entity取消自增长，生产环境必须同步自增长结构
+  "syncStructure": true
 }
