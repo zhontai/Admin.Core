@@ -18,10 +18,7 @@ namespace Admin.Core
         public static void Main(string[] args)
         {
             Console.WriteLine("launching...");
-            var host = CreateHostBuilder(args).Build();
-            var appConfig = new ConfigHelper().Get<AppConfig>("appconfig") ?? new AppConfig();
-            Console.WriteLine($"{appConfig.Urls}\r\n");
-            host.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)

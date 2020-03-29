@@ -47,7 +47,13 @@ namespace Admin.Core.Logs
 
     public class ApiHelperDto
     {
+        /// <summary>
+        /// 接口名称
+        /// </summary>
         public string Label { get; set; }
+        /// <summary>
+        /// 接口地址
+        /// </summary>
         public string Path { get; set; }
     }
 }
