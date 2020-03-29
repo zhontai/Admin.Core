@@ -569,18 +569,20 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.Boolean,System.String,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig)">
             <summary>
             同步结构
             </summary>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.InitData``1(IFreeSql,``0[])">
+        <member name="M:Admin.Core.Db.DbHelper.InitDtData``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
             <summary>
-            初始化数据
+            初始化数据表数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="db"></param>
             <param name="data"></param>
+            <param name="tran"></param>
+            <param name="dbConfig"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
@@ -590,7 +592,7 @@
             <param name="s"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncData(IFreeSql)">
+        <member name="M:Admin.Core.Db.DbHelper.SyncData(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
             <summary>
             同步数据
             </summary>
@@ -603,12 +605,13 @@
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
+        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Admin.Core.Common.Configs.AppConfig)">
             <summary>
             添加数据库
             </summary>
             <param name="services"></param>
             <param name="env"></param>
+            <param name="appConfig"></param>
         </member>
         <member name="T:Admin.Core.Enums.ApiVersion">
             <summary>
@@ -668,6 +671,16 @@
         <member name="T:Admin.Core.Logs.ApiHelper">
             <summary>
             Api帮助类
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Logs.ApiHelperDto.Label">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Logs.ApiHelperDto.Path">
+            <summary>
+            接口地址
             </summary>
         </member>
         <member name="T:Admin.Core.Logs.ILogHandler">

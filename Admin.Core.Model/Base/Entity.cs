@@ -9,9 +9,9 @@ namespace Admin.Core.Model
     public class Entity<TKey> : IEntity
     {
         /// <summary>
-        /// 主键Id
+        /// 编号
         /// </summary>
-        [Column(Position = 1)]
+        [Column(Position = 1, IsIdentity = true)]
         public virtual TKey Id { get; set; }
     }
 

@@ -188,7 +188,7 @@ namespace Admin.Core
             #endregion
 
             //数据库
-            services.AddDb(_env);
+            services.AddDb(_env, _appConfig);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);

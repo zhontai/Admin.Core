@@ -27,14 +27,14 @@ namespace Admin.Core.Db
                 return;
             }
 
-            var fsql = new FreeSqlBuilder()
+            var db = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.CreateDbConnectionString)
                     .Build();
 
             try
             {
                 Console.WriteLine("\r\ncreate database started");
-                await fsql.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
+                await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
                 Console.WriteLine("create database succeed\r\n");
             }
             catch (Exception e)
@@ -46,7 +46,7 @@ namespace Admin.Core.Db
         /// <summary>
         /// 同步结构
         /// </summary>
-        public static void SyncStructure(IFreeSql db,bool autoIncrement = true, string msg = null, DbConfig dbConfig = null)
+        public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -61,7 +61,10 @@ namespace Admin.Core.Db
             //    }
             //};
 
-            var types = new Type[]
+            // 同步结构
+            var dbType = dbConfig.Type.ToString();
+            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+            db.CodeFirst.SyncStructure(new Type[]
             {
                 typeof(DictionaryEntity),
                 typeof(ApiEntity),
@@ -73,40 +76,25 @@ namespace Admin.Core.Db
                 typeof(RolePermissionEntity),
                 typeof(OprationLogEntity),
                 typeof(LoginLogEntity)
-            };
-
-            foreach (var type in types)
-            {
-                try
-                {
-                    db.CodeFirst.ConfigEntity(type, a =>
-                    {
-                        a.Property("Id").IsIdentity(autoIncrement);
-                    });
-                }
-                catch (Exception)
-                {
-                }
-            }
-
-            // 同步结构
-            if (dbConfig.SyncStructure)
-            {
-                var dbType = dbConfig.Type.ToString();
-                Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
-                db.CodeFirst.SyncStructure(types);
-                Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
-            }
+            });
+            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
         }
 
         /// <summary>
-        /// 初始化数据
+        /// 初始化数据表数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="db"></param>
         /// <param name="data"></param>
+        /// <param name="tran"></param>
+        /// <param name="dbConfig"></param>
         /// <returns></returns>
-        private static async Task InitData<T>(IFreeSql db,T[] data) where T : class
+        private static async Task InitDtData<T>(
+            IFreeSql db, 
+            T[] data, 
+            System.Data.Common.DbTransaction tran, 
+            DbConfig dbConfig = null
+        ) where T : class
         {
             var table = typeof(T).GetCustomAttributes(typeof(TableAttribute),false).FirstOrDefault() as TableAttribute;
             var tableName = table.Name;
@@ -117,7 +105,23 @@ namespace Admin.Core.Db
                 {
                     if (data?.Length > 0)
                     {
-                        await db.Insert<T>().AppendData(data).ExecuteAffrowsAsync();
+                        var insert = db.Insert<T>();
+
+                        if(tran != null)
+                        {
+                            insert = insert.WithTransaction(tran);
+                        }
+
+                        if(dbConfig.Type == DataType.SqlServer)
+                        {
+                            var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
+                            await db.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
+                        }
+                        else
+                        {
+                            await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
+                        }
+                        
                         Console.WriteLine($"table: {tableName} sync data succeed");
                     }
                     else
@@ -173,31 +177,39 @@ namespace Admin.Core.Db
         /// 同步数据
         /// </summary>
         /// <returns></returns>
-        public static async Task SyncData(IFreeSql db)
+        public static async Task SyncData(IFreeSql db, DbConfig dbConfig = null)
         {
             try
             {
+                //db.Aop.CurdBefore += (s, e) =>
+                //{
+                //    Console.WriteLine($"{e.Sql}\r\n");
+                //};
+
                 Console.WriteLine("\r\nsync data started");
 
                 db.Aop.AuditValue += SyncDataAuditValue;
 
-                SyncStructure(db, false ,"sync structure for sync data");
-
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"Db\Data\data.json");
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);
-                await InitData(db, data.Dictionaries);
-                await InitData(db, data.Apis);
-                await InitData(db, data.Views);
-                await InitData(db, data.Permissions);
-                await InitData(db, data.Users);
-                await InitData(db, data.Roles);
-                await InitData(db, data.UserRoles);
-                await InitData(db, data.RolePermissions);
+
+                using (var uow = db.CreateUnitOfWork())
+                using (var tran = uow.GetOrBeginTransaction())
+                {
+                    await InitDtData(db, data.Dictionaries, tran, dbConfig);
+                    await InitDtData(db, data.Apis, tran, dbConfig);
+                    await InitDtData(db, data.Views, tran, dbConfig);
+                    await InitDtData(db, data.Permissions, tran, dbConfig);
+                    await InitDtData(db, data.Users, tran, dbConfig);
+                    await InitDtData(db, data.Roles, tran, dbConfig);
+                    await InitDtData(db, data.UserRoles, tran, dbConfig);
+                    await InitDtData(db, data.RolePermissions, tran, dbConfig);
+
+                    uow.Commit();
+                }
 
                 db.Aop.AuditValue -= SyncDataAuditValue;
-
-                SyncStructure(db, true, "sync structure for sync data");
 
                 Console.WriteLine("sync data succeed\r\n");
             }

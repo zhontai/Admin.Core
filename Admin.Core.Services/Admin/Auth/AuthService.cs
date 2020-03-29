@@ -122,9 +122,9 @@ namespace Admin.Core.Service.Admin.Auth
                 .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == _user.Id)
                 .Include(a => a.Permission.View)
                 .Where(a => new[] { PermissionType.Group,PermissionType.Menu }.Contains(a.Permission.Type))
+                //.Distinct()
                 .OrderBy(a => a.Permission.ParentId)
                 .OrderBy(a => a.Permission.Sort)
-                .Distinct()
                 .ToListAsync(a => new
                 {
                     a.Permission.Id,

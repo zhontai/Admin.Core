@@ -2,7 +2,7 @@
   //Swagger文档
   "swagger": false,
   //Api地址
-  "urls": "http://*:8081",
+  "urls": "http://*:8888",
   //面向切面编程
   "aop": {
     //事物

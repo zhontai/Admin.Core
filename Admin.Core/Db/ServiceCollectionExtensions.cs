@@ -16,7 +16,8 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        public async static void AddDb(this IServiceCollection services, IHostEnvironment env)
+        /// <param name="appConfig"></param>
+        public async static void AddDb(this IServiceCollection services, IHostEnvironment env, AppConfig appConfig)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -48,12 +49,15 @@ namespace Admin.Core.Db
 
             #region 初始化数据库
             //同步结构，需要内部配置自增长
-            DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
+            if (dbConfig.SyncStructure)
+            {
+                DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
+            }
 
             //同步数据
             if (dbConfig.SyncData)
             {
-                await DbHelper.SyncData(fsql);
+                await DbHelper.SyncData(fsql, dbConfig);
             }
             #endregion
 
@@ -117,11 +121,13 @@ namespace Admin.Core.Db
                 }
             };
             #endregion
-
+            
             services.AddSingleton(fsql);
             services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
-            services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<IFreeSql>().CreateUnitOfWork());
+            services.AddScoped<IUnitOfWork>(sp => fsql.CreateUnitOfWork());
             #endregion
+
+            Console.WriteLine($"{appConfig.Urls}\r\n");
         }
     }
 }
