@@ -121,7 +121,8 @@ namespace Admin.Core.Service.Admin.Auth
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
                 .Where(a =>
                     _rolePermissionRepository.Select
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && b.PermissionId == a.Id && c.UserId == _user.Id)
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
+                    .Where(b => b.PermissionId == a.Id)
                     .Any()
                 )
                 .OrderBy(a => a.ParentId)
