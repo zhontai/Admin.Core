@@ -64,6 +64,10 @@ namespace Admin.Core.Db
             // 同步结构
             var dbType = dbConfig.Type.ToString();
             Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+            if(dbConfig.Type == DataType.Oracle)
+            {
+                db.CodeFirst.IsSyncStructureToUpper = true;
+            }
             db.CodeFirst.SyncStructure(new Type[]
             {
                 typeof(DictionaryEntity),
