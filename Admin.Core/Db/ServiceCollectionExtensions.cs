@@ -47,8 +47,12 @@ namespace Admin.Core.Db
 
             var fsql = freeSqlBuilder.Build();
 
+            services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
+            services.AddScoped<IUnitOfWork>(sp => fsql.CreateUnitOfWork());
+            services.AddSingleton(fsql);
+
             #region 初始化数据库
-            //同步结构，需要内部配置自增长
+            //同步结构
             if (dbConfig.SyncStructure)
             {
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
@@ -121,10 +125,6 @@ namespace Admin.Core.Db
                 }
             };
             #endregion
-            
-            services.AddSingleton(fsql);
-            services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
-            services.AddScoped<IUnitOfWork>(sp => fsql.CreateUnitOfWork());
             #endregion
 
             Console.WriteLine($"{appConfig.Urls}\r\n");
