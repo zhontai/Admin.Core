@@ -36,7 +36,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(4000)]
+        [Column(StringLength = 500)]
         public string Description { get; set; }
 
         /// <summary>
