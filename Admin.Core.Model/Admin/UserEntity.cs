@@ -50,7 +50,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 备注
         /// </summary>
-        [MaxLength(4000)]
+        [Column(StringLength = 500)]
         public string Remark { get; set; }
 
         [Navigate(ManyToMany = typeof(UserRoleEntity))]
