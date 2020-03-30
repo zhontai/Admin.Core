@@ -19,31 +19,15 @@ namespace Admin.Core.Model.Admin
         /// </summary>
 		public long PermissionId { get; set; }
 
-        #region 外键 => 导航属性，ManyToMany
         /// <summary>
         /// 角色
         /// </summary>
-        [Navigate("RoleId")]
         public RoleEntity Role { get; set; }
 
         /// <summary>
         /// 权限
         /// </summary>
-        [Navigate("PermissionId")]
         public PermissionEntity Permission { get; set; }
-
-        /// <summary>
-        /// 角色名称
-        /// </summary>
-        [Column(IsIgnore = true)]
-        public string RoleName { get; set; }
-
-        /// <summary>
-        /// 路由
-        /// </summary>
-        [Column(IsIgnore = true)]
-        public string ApiPath { get; set; }
-        #endregion
     }
 
 }

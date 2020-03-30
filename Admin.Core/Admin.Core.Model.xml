@@ -324,16 +324,6 @@
             权限
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.RoleName">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.ApiPath">
-            <summary>
-            路由
-            </summary>
-        </member>
         <member name="T:Admin.Core.Model.Admin.UserEntity">
             <summary>
             用户
