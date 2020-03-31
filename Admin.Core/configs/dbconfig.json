@@ -1,8 +1,29 @@
 {
+  //生成数据
+  "generateData": false,
+
+  //同步结构
+  "syncStructure": false,
+  //同步数据
+  "syncData": false,
+
+  //建库
+  "createDb": false,
+  //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
+  //建库连接字符串
+  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+  //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Pooling=true;Min Pool Size=1"
+  "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+  //建库脚本
+  //MySql "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+  //SqlServer "CREATE DATABASE [admindb]"
+  "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+
   //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
-  "type": 0,
+  "type": 4,
   //连接字符串
   //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-  //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1" "Data Source=F:\\data\\admindb.db; Pooling=true;Min Pool Size=1"
-  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+  //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1"
+  //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
 }
