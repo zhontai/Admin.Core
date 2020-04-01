@@ -8,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// 视图管理
     /// </summary>
 	[Table(Name = "ad_view")]
-    [Index("uk_view_path", "Path", true)]
+    [Index("uk_view_path", nameof(Path), true)]
     public class ViewEntity : EntityBase
     {
         /// <summary>

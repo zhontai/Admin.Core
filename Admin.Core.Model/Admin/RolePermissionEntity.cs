@@ -6,7 +6,7 @@ namespace Admin.Core.Model.Admin
     /// 角色权限
     /// </summary>
 	[Table(Name = "ad_role_permission")]
-    [Index("uk_role_permissioin_roleid_permissionid", "RoleId,PermissionId", true)]
+    [Index("uk_role_permissioin_roleid_permissionid", nameof(RoleId) + "," + nameof(PermissionId), true)]
     public class RolePermissionEntity: EntityAdd
     {
         /// <summary>

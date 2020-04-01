@@ -8,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// 接口管理
     /// </summary>
 	[Table(Name = "ad_api")]
-    [Index("uk_api_path", "Path", true)]
+    [Index("uk_api_path", nameof(Path), true)]
     public class ApiEntity : EntityBase
     {
         /// <summary>
