@@ -9,7 +9,7 @@ namespace Admin.Core.Model.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("uk_user_username", "UserName", true)]
+    [Index("uk_user_username", nameof(UserName), true)]
     public class UserEntity: EntityBase
     {
         /// <summary>

@@ -7,7 +7,7 @@ namespace Admin.Core.Model.Admin
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
-    [Index("uk_role_parentid_name", "ParentId,Name", true)]
+    [Index("uk_role_parentid_name", nameof(ParentId)+","+nameof(Name), true)]
     public class DictionaryEntity: EntityBase
     {
         /// <summary>

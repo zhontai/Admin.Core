@@ -8,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// 权限
     /// </summary>
 	[Table(Name = "ad_permission")]
-    [Index("uk_permission_parentid_label", "ParentId,Label", true)]
+    [Index("uk_permission_parentid_label", nameof(ParentId) + "," + nameof(Label), true)]
     public class PermissionEntity : EntityBase
     {
         /// <summary>

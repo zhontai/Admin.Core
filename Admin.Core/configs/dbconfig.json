@@ -3,12 +3,12 @@
   "generateData": false,
 
   //同步结构
-  "syncStructure": false,
+  "syncStructure": true,
   //同步数据
-  "syncData": false,
+  "syncData": true,
 
   //建库
-  "createDb": false,
+  "createDb": true,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
   //建库连接字符串
   //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
