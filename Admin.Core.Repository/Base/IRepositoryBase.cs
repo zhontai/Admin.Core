@@ -1,6 +1,8 @@
 ﻿
-using FreeSql;
+using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FreeSql;
 
 namespace Admin.Core.Repository
 {
@@ -13,6 +15,20 @@ namespace Admin.Core.Repository
         /// <param name="id"></param>
         /// <returns></returns>
         Task<TDto> GetAsync<TDto>(TKey id);
+
+        /// <summary>
+        /// 根据条件获取实体
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp);
+
+        /// <summary>
+        /// 根据条件获取Dto
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        Task<TDto> GetAsync<TDto>(Expression<Func<TEntity, bool>> exp);
 
         /// <summary>
         /// 软删除

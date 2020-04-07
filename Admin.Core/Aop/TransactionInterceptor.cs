@@ -32,6 +32,7 @@ namespace Admin.Core.Aop
                         if (invocation.Method.ReturnType == typeof(Task))
                         {
                             await (Task)invocation.ReturnValue;
+                            _unitOfWork.Commit();
                         }
                         else
                         {
@@ -49,6 +50,7 @@ namespace Admin.Core.Aop
                                 {
                                     _unitOfWork.Rollback();
                                 }
+                                _unitOfWork.Commit();
                             },
                             ex =>
                             {
@@ -65,19 +67,14 @@ namespace Admin.Core.Aop
                             {
                                 _unitOfWork.Rollback();
                             }
+                            _unitOfWork.Commit();
                         }
                     }
-
-                    _unitOfWork.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _unitOfWork.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    _unitOfWork.Close();
+                    throw ex;
                 }
             }
             else

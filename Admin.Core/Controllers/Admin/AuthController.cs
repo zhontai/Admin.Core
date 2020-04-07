@@ -1,10 +1,16 @@
 ﻿using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Admin.Core.Attributes;
 using Admin.Core.Model.Output;
 using Admin.Core.Service.Admin.Auth;
 using Admin.Core.Service.Admin.Auth.Input;
+using Admin.Core.Service.Admin.Auth.Output;
+using Admin.Core.Common.Auth;
+using System.Diagnostics;
+using Admin.Core.Service.Admin.LoginLog.Input;
+using Admin.Core.Service.Admin.LoginLog;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -13,12 +19,19 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class AuthController : AreaController
     {
-        
-        private readonly IAuthService _authServices;
-        
-        public AuthController(IAuthService authServices)
+        private readonly IUserToken _userToken;
+        private readonly IAuthService _authService;
+        private readonly ILoginLogService _loginLogService;
+
+        public AuthController(
+            IUserToken userToken,
+            IAuthService authServices,
+            ILoginLogService loginLogService
+        )
         {
-            _authServices = authServices;
+            _userToken = userToken;
+            _authService = authServices;
+            _loginLogService = loginLogService;
         }
 
         /// <summary>
@@ -28,9 +41,10 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [NoOprationLog]
         public async Task<IResponseOutput> GetVerifyCode(string lastKey)
         {
-            return await _authServices.GetVerifyCodeAsync(lastKey);
+            return await _authService.GetVerifyCodeAsync(lastKey);
         }
 
         /// <summary>
@@ -39,9 +53,10 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
+        [NoOprationLog]
         public async Task<IResponseOutput> GetPassWordEncryptKey()
         {
-            return await _authServices.GetPassWordEncryptKeyAsync();
+            return await _authService.GetPassWordEncryptKeyAsync();
         }
 
         /// <summary>
@@ -52,7 +67,7 @@ namespace Admin.Core.Controllers.Admin
         [Login]
         public async Task<IResponseOutput> GetUserInfo()
         {
-            return await _authServices.GetUserInfoAsync();
+            return await _authService.GetUserInfoAsync();
         }
 
         /// <summary>
@@ -63,9 +78,49 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [NoOprationLog]
         public async Task<IResponseOutput> Login(AuthLoginInput input)
         {
-            return await _authServices.LoginAsync(input);
+            var sw = new Stopwatch();
+            sw.Start();
+            var res = (await _authService.LoginAsync(input)) as IResponseOutput;
+            sw.Stop();
+
+            #region 添加登录日志
+            var loginLogAddInput = new LoginLogAddInput()
+            {
+                CreatedUserName = input.UserName,
+                ElapsedMilliseconds = sw.ElapsedMilliseconds,
+                Status = res.Success,
+                Msg = res.Msg
+            };
+
+            AuthLoginOutput user = null;
+            if (res.Success)
+            {
+                user = (res as IResponseOutput<AuthLoginOutput>).Data;
+                loginLogAddInput.CreatedUserId = user.Id;
+                loginLogAddInput.RealName = user.Name;
+            }
+
+            await _loginLogService.AddAsync(loginLogAddInput);
+            #endregion
+
+            if (!res.Success)
+            {
+                return res;
+            }
+
+            #region 生成token信息
+            var token = _userToken.Build(new[]
+            {
+                new Claim(ClaimAttributes.UserId, user.Id.ToString()),
+                new Claim(ClaimAttributes.UserName, user.UserName),
+                new Claim(ClaimAttributes.UserRealName, user.Name)
+            }); 
+            #endregion
+
+            return ResponseOutput.Ok(new { token });
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Claims;
 using Admin.Core.Model.Admin;
 using Admin.Core.Model.Output;
 using Admin.Core.Repository.Admin;
@@ -9,6 +8,8 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Service.Admin.Auth.Input;
+using AutoMapper;
+using Admin.Core.Service.Admin.Auth.Output;
 
 namespace Admin.Core.Service.Admin.Auth
 {
@@ -16,22 +17,25 @@ namespace Admin.Core.Service.Admin.Auth
     {
         private readonly IUser _user;
         private readonly ICache _cache;
-        private readonly IUserToken _userToken;
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly IPermissionRepository _permissionRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
 
         public AuthService(
             IUser user,
             ICache cache,
-            IUserToken userToken,
+            IMapper mapper,
             IUserRepository userRepository,
+            IPermissionRepository permissionRepository,
             IRolePermissionRepository rolePermissionRepository
         )
         {
             _user = user;
             _cache = cache;
-            _userToken = userToken;
+            _mapper = mapper;
             _userRepository = userRepository;
+            _permissionRepository = permissionRepository;
             _rolePermissionRepository = rolePermissionRepository;
         }
 
@@ -45,11 +49,11 @@ namespace Admin.Core.Service.Admin.Auth
                 var verifyCode = await _cache.GetAsync(verifyCodeKey);
                 if (string.IsNullOrEmpty(verifyCode))
                 {
-                    return ResponseOutput.NotOk("验证码已过期！",1);
+                    return ResponseOutput.NotOk("验证码已过期！", 1);
                 }
                 if (verifyCode.ToLower() != input.VerifyCode.ToLower())
                 {
-                    return ResponseOutput.NotOk("验证码输入有误！",2);
+                    return ResponseOutput.NotOk("验证码输入有误！", 2);
                 }
                 await _cache.DelAsync(verifyCodeKey);
             }
@@ -59,7 +63,7 @@ namespace Admin.Core.Service.Admin.Auth
             }
             #endregion
 
-            var user = (await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync());
+            var user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
             if (!(user?.Id > 0))
             {
                 return ResponseOutput.NotOk("账号输入有误!", 3);
@@ -75,14 +79,14 @@ namespace Admin.Core.Service.Admin.Auth
                     var secretKey = await _cache.GetAsync(passwordEncryptKey);
                     if (passwordEncryptKey.IsNull())
                     {
-                        return ResponseOutput.NotOk("解密失败！",1);
+                        return ResponseOutput.NotOk("解密失败！", 1);
                     }
                     input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
                     await _cache.DelAsync(passwordEncryptKey);
                 }
                 else
                 {
-                    return ResponseOutput.NotOk("解密失败！",1);
+                    return ResponseOutput.NotOk("解密失败！", 1);
                 }
             }
             #endregion
@@ -90,21 +94,12 @@ namespace Admin.Core.Service.Admin.Auth
             var password = MD5Encrypt.Encrypt32(input.Password);
             if (user.Password != password)
             {
-                return ResponseOutput.NotOk("密码输入有误！",4);
+                return ResponseOutput.NotOk("密码输入有误！", 4);
             }
 
-            //生成token信息
-            var claims = new[]
-            {
-                new Claim(ClaimAttributes.UserId, user.Id.ToString()),
-                new Claim(ClaimAttributes.UserName, user.Name.IsNull()?user.NickName:user.Name)
-            };
-            var token = _userToken.Build(claims);
+            var authLoginOutput = _mapper.Map<AuthLoginOutput>(user);
 
-            return ResponseOutput.Ok(new 
-            { 
-                token
-            });
+            return ResponseOutput.Ok(authLoginOutput);
         }
 
         public async Task<IResponseOutput> GetUserInfoAsync()
@@ -115,34 +110,37 @@ namespace Admin.Core.Service.Admin.Auth
             }
 
             var user = await _userRepository.Select.WhereDynamic(_user.Id)
-                .ToOneAsync(m=>new { 
+                .ToOneAsync(m => new {
                     m.NickName,
                     m.Name,
                     m.Avatar
                 });
 
             //获取菜单
-            var menus = await _rolePermissionRepository.Select
-                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == _user.Id)
-                .Include(a => a.Permission.View)
-                .Where(a => new[] { PermissionType.Group,PermissionType.Menu }.Contains(a.Permission.Type))
-                .OrderBy(a => a.Permission.ParentId)
-                .OrderBy(a => a.Permission.Sort)
-                .Distinct()
+            var menus = await _permissionRepository.Select
+                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                .Where(a =>
+                    _rolePermissionRepository.Select
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
+                .OrderBy(a => a.ParentId)
+                .OrderBy(a => a.Sort)
                 .ToListAsync(a => new
                 {
-                    a.Permission.Id,
-                    a.Permission.ParentId,
-                    a.Permission.Path,
-                    ViewPath = a.Permission.View.Path,
-                    a.Permission.Label,
+                    a.Id,
+                    a.ParentId,
+                    a.Path,
+                    ViewPath = a.View.Path,
+                    a.Label,
 
-                    a.Permission.Icon,
-                    a.Permission.Opened,
-                    a.Permission.Closable,
-                    a.Permission.Hidden,
-                    a.Permission.NewWindow,
-                    a.Permission.External
+                    a.Icon,
+                    a.Opened,
+                    a.Closable,
+                    a.Hidden,
+                    a.NewWindow,
+                    a.External
                 });
 
             return ResponseOutput.Ok(new { user, menus });

@@ -9,7 +9,7 @@ namespace Admin.Core.Model.Admin
     /// 角色
     /// </summary>
 	[Table(Name = "ad_role")]
-    [Index("uk_role_name", "Name", true)]
+    [Index("uk_role_name", nameof(Name), true)]
     public class RoleEntity: EntityBase
     {
         /// <summary>

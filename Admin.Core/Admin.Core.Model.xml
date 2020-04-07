@@ -89,6 +89,91 @@
             排序
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.LogAbstract">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.RealName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Admin.LoginLogEntity">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Admin.OprationLogEntity">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.OprationLogEntity.ApiLabel">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.OprationLogEntity.ApiPath">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.OprationLogEntity.ApiMethod">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.OprationLogEntity.Params">
+            <summary>
+            操作参数
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.PermissionEntity">
             <summary>
             权限
@@ -239,16 +324,6 @@
             权限
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.RoleName">
-            <summary>
-            角色名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.ApiPath">
-            <summary>
-            路由
-            </summary>
-        </member>
         <member name="T:Admin.Core.Model.Admin.UserEntity">
             <summary>
             用户
@@ -346,7 +421,7 @@
         </member>
         <member name="P:Admin.Core.Model.Entity`1.Id">
             <summary>
-            主键Id
+            编号
             </summary>
         </member>
         <member name="T:Admin.Core.Model.EntityAdd`1">
@@ -492,6 +567,11 @@
         <member name="P:Admin.Core.Model.Output.IResponseOutput.Success">
             <summary>
             是否成功
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Output.IResponseOutput.Msg">
+            <summary>
+            消息
             </summary>
         </member>
         <member name="T:Admin.Core.Model.Output.IResponseOutput`1">

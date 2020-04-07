@@ -16,7 +16,8 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        public async static void AddDb(this IServiceCollection services, IHostEnvironment env)
+        /// <param name="appConfig"></param>
+        public async static void AddDb(this IServiceCollection services, IHostEnvironment env, AppConfig appConfig)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -46,17 +47,21 @@ namespace Admin.Core.Db
 
             var fsql = freeSqlBuilder.Build();
 
+            services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
+            services.AddScoped<IUnitOfWork>(sp => fsql.CreateUnitOfWork());
+            services.AddSingleton(fsql);
+
             #region 初始化数据库
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                DbHelper.SyncStructure(fsql, dbType: dbConfig.Type.ToString());
+                DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
             }
 
             //同步数据
             if (dbConfig.SyncData)
             {
-                await DbHelper.SyncData(fsql);
+                await DbHelper.SyncData(fsql, dbConfig);
             }
             #endregion
 
@@ -83,16 +88,20 @@ namespace Admin.Core.Db
             fsql.Aop.AuditValue += (s, e) =>
             {
                 var user = services.BuildServiceProvider().GetService<IUser>();
+                if(user == null || !(user.Id > 0))
+                {
+                    return;
+                }
 
                 if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
                 {
                     switch (e.Property.Name)
                     {
                         case "CreatedUserId":
-                            e.Value = user?.Id;
+                            e.Value = user.Id;
                             break;
                         case "CreatedUserName":
-                            e.Value = user?.Name;
+                            e.Value = user.Name;
                             break;
                             //case "CreatedTime":
                             //    e.Value = DateTime.Now.Subtract(timeOffset);
@@ -104,10 +113,10 @@ namespace Admin.Core.Db
                     switch (e.Property.Name)
                     {
                         case "ModifiedUserId":
-                            e.Value = user?.Id;
+                            e.Value = user.Id;
                             break;
                         case "ModifiedUserName":
-                            e.Value = user?.Name;
+                            e.Value = user.Name;
                             break;
                             //case "ModifiedTime":
                             //    e.Value = DateTime.Now.Subtract(timeOffset);
@@ -116,11 +125,9 @@ namespace Admin.Core.Db
                 }
             };
             #endregion
-
-            services.AddSingleton(fsql);
-            services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
-            services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<IFreeSql>().CreateUnitOfWork());
             #endregion
+
+            Console.WriteLine($"{appConfig.Urls}\r\n");
         }
     }
 }

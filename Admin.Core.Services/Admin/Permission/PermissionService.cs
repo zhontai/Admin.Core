@@ -159,11 +159,6 @@ namespace Admin.Core.Service.Admin.Permission
         [Transaction]
         public async Task<IResponseOutput> AssignAsync(PermissionAssignInput input)
         {
-            if (!(input.RoleId > 0))
-            {
-                return ResponseOutput.NotOk("角色不能为空");
-            }
-
             //查询角色权限
             var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m=>m.PermissionId);
 

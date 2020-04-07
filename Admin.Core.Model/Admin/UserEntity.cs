@@ -9,7 +9,7 @@ namespace Admin.Core.Model.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("uk_user_username", "UserName", true)]
+    [Index("uk_user_username", nameof(UserName), true)]
     public class UserEntity: EntityBase
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 备注
         /// </summary>
-        [MaxLength(4000)]
+        [Column(StringLength = 500)]
         public string Remark { get; set; }
 
         [Navigate(ManyToMany = typeof(UserRoleEntity))]

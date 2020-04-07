@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Admin.Core.Model.Output;
 using Admin.Core.Service.Admin.Cache;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Admin.Core.Controllers.Admin
 {

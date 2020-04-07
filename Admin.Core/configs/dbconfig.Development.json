@@ -1,27 +1,6 @@
 {
-  //生成数据
-  "generateData": false,
   //监听所有操作
   "monitorCommand": false,
   //监听Curd操作
-  "curd": true,
-
-  //同步结构
-  "syncStructure": true,
-  //同步数据
-  "syncData": true,
-  //建库
-  "createDb": true,
-  //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
-  //建库连接字符串
-  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd={}; Charset=utf8mb4;"
-  "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
-  //建库脚本
-  //MySql "CREATE DATABASE `{admindb}` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
-  "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
-
-  //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
-  "type": 4,
-  //连接字符串
-  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+  "curd": true
 }
