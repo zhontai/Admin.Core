@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.5.5" />
-    <PackageReference Include="FreeSql" Version="1.4.0-preview20200401" />
-    <PackageReference Include="FreeSql.Provider.MySql" Version="1.4.0-preview20200401" />
-    <PackageReference Include="FreeSql.Provider.Oracle" Version="1.4.0-preview20200401" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="1.4.0-preview20200401" />
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="1.4.0-preview20200401" />
-    <PackageReference Include="FreeSql.Repository" Version="1.4.0-preview20200401" />
+    <PackageReference Include="CSRedisCore" Version="3.6.1" />
+    <PackageReference Include="FreeSql" Version="1.4.0-preview20200410" />
+    <PackageReference Include="FreeSql.Provider.MySql" Version="1.4.0-preview20200410" />
+    <PackageReference Include="FreeSql.Provider.Oracle" Version="1.4.0-preview20200410" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="1.4.0-preview20200410" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="1.4.0-preview20200410" />
+    <PackageReference Include="FreeSql.Repository" Version="1.4.0-preview20200410" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />
