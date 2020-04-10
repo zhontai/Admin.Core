@@ -77,7 +77,7 @@ namespace Admin.Core.Service.Admin.Auth
                 if (existsPasswordKey)
                 {
                     var secretKey = await _cache.GetAsync(passwordEncryptKey);
-                    if (passwordEncryptKey.IsNull())
+                    if (secretKey.IsNull())
                     {
                         return ResponseOutput.NotOk("解密失败！", 1);
                     }
