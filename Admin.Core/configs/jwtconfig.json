@@ -1,10 +1,10 @@
 {
   //发行者
-  "issuer": "http://www.zhontai.com",
+  "issuer": "https://www.admin.zhontai.com",
   //订阅者
-  "audience": "http://www.zhontai.com",
-  //秘钥
-  "securityKey": "ertJKl#521*a@790asD&",
+  "audience": "https://www.admin.zhontai.com",
+  //密钥
+  "securityKey": "ertJKl#521*a@790asD&1#",
   //有效期(分钟)
   "expires": 120
 }

@@ -7,7 +7,7 @@ namespace Admin.Core.Model.Admin
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
-    [Index("uk_role_parentid_name", nameof(ParentId)+","+nameof(Name), true)]
+    [Index("uk_dictionary_parentid_name", nameof(ParentId)+","+nameof(Name), true)]
     public class DictionaryEntity: EntityBase
     {
         /// <summary>
@@ -18,19 +18,19 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 字典名称
         /// </summary>
-        [MaxLength(50)]
+        [Column(StringLength = 50)]
         public string Name { get; set; }
 
         /// <summary>
         /// 字典编码
         /// </summary>
-        [MaxLength(50)]
+        [Column(StringLength = 50)]
         public string Code { get; set; }
 
         /// <summary>
         /// 字典值
         /// </summary>
-        [MaxLength(50)]
+        [Column(StringLength = 50)]
         public string Value { get; set; }
 
         /// <summary>

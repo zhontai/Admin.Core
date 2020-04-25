@@ -60,10 +60,10 @@ namespace Admin.Core.FrameWork.Service.User
 
         public async Task<IResponseOutput> PageAsync(PageInput<UserEntity> input)
         {
-            var key = input.Filter?.Name;
+            var key = input.Filter?.UserName;
 
             var list = await _userRepository.Select
-            .WhereIf(key.NotNull(), a => a.Status >= 0 && (a.UserName.Contains(key) || a.NickName.Contains(key) || a.Name.Contains(key)))
+            .WhereIf(key.NotNull(), a => a.Status >= 0 && (a.UserName.Contains(key) || a.NickName.Contains(key)))
             .Count(out var total)
             .OrderByDescending(true, a => a.Id)
             .IncludeMany(a => a.Roles.Select(b => new RoleEntity{ Name = b.Name }))

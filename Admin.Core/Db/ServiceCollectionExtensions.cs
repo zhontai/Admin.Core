@@ -16,8 +16,7 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        /// <param name="appConfig"></param>
-        public async static void AddDb(this IServiceCollection services, IHostEnvironment env, AppConfig appConfig)
+        public async static void AddDb(this IServiceCollection services, IHostEnvironment env)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -76,7 +75,10 @@ namespace Admin.Core.Db
             {
                 fsql.Aop.CurdBefore += (s, e) =>
                 {
-                    Console.WriteLine($"{e.Sql}\r\n");
+                    System.Threading.Tasks.Parallel.For(0, 1, body =>
+                    {
+                        Console.WriteLine($"{e.Sql}\r\n");
+                    });
                 };
             }
             #endregion
@@ -126,8 +128,6 @@ namespace Admin.Core.Db
             };
             #endregion
             #endregion
-
-            Console.WriteLine($"{appConfig.Urls}\r\n");
         }
     }
 }

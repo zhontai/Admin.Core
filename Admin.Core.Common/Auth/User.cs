@@ -49,13 +49,13 @@ namespace Admin.Core.Common.Auth
         }
 
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        public string RealName
+        public string NickName
         {
             get
             {
-                var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserRealName);
+                var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserNickName);
 
                 if (name != null && name.Value.NotNull())
                 {
@@ -85,11 +85,6 @@ namespace Admin.Core.Common.Auth
         /// <summary>
         /// 姓名
         /// </summary>
-        public const string UserRealName = "rna";
-
-        /// <summary>
-        /// 登录日志Id
-        /// </summary>
-        public const string UserLoginLogId = "llid";
+        public const string UserNickName = "nn";
     }
 }

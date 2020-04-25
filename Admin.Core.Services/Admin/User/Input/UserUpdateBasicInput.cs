@@ -1,4 +1,5 @@
 ﻿using Admin.Core.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace Admin.Core.Service.Admin.User.Input
 {
@@ -15,6 +16,7 @@ namespace Admin.Core.Service.Admin.User.Input
         /// <summary>
         /// 昵称
         /// </summary>
+        [Required(ErrorMessage = "请输入昵称")]
         public string NickName { get; set; }
 
         /// <summary>

@@ -6,9 +6,9 @@
     public class LoginLogAddInput
     {
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        public string RealName { get; set; }
+        public string NickName { get; set; }
 
         /// <summary>
         /// IP

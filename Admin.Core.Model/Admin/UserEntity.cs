@@ -15,31 +15,25 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 账号
         /// </summary>
-        [MaxLength(60)]
+        [Column(StringLength = 60)]
         public string UserName { get; set; }
 
         /// <summary>
         /// 密码
         /// </summary>
-        [MaxLength(60)]
+        [Column(StringLength = 60)]
         public string Password { get; set; }
-
-        /// <summary>
-        /// 姓名
-        /// </summary>
-        [MaxLength(60)]
-        public string Name { get; set; }
 
         /// <summary>
         /// 昵称
         /// </summary>
-        [MaxLength(60)]
+        [Column(StringLength = 60)]
         public string NickName { get; set; }
 
         /// <summary>
         /// 头像
         /// </summary>
-        [MaxLength(100)]
+       [Column(StringLength = 100)]
         public string Avatar { get; set; }
 
         /// <summary>

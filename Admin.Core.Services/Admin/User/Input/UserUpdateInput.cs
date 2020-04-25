@@ -20,12 +20,6 @@ namespace Admin.Core.Service.Admin.User.Input
         public string UserName { get; set; }
 
         /// <summary>
-        /// 姓名
-        /// </summary>
-        [Required(ErrorMessage = "请输入姓名")]
-        public string Name { get; set; }
-
-        /// <summary>
         /// 昵称
         /// </summary>
         public string NickName { get; set; }

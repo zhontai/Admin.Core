@@ -89,14 +89,84 @@
             排序
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.DocumentEntity">
+            <summary>
+            文档
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Name">
+            <summary>
+            命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Html">
+            <summary>
+            Html
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Opened">
+            <summary>
+            打开组
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentEntity.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Admin.DocumentType">
+            <summary>
+            文档类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DocumentType.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DocumentType.Markdown">
+            <summary>
+            Markdown文档
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.LogAbstract">
             <summary>
             日志
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.LogAbstract.RealName">
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.NickName">
             <summary>
-            姓名
+            昵称
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.LogAbstract.IP">
@@ -337,11 +407,6 @@
         <member name="P:Admin.Core.Model.Admin.UserEntity.Password">
             <summary>
             密码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.UserEntity.Name">
-            <summary>
-            姓名
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.UserEntity.NickName">

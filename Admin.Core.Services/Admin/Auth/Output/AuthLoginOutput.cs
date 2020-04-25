@@ -17,6 +17,6 @@ namespace Admin.Core.Service.Admin.Auth.Output
         /// <summary>
         /// 姓名
         /// </summary>
-        public string Name { get; set; }
+        public string NickName { get; set; }
     }
 }

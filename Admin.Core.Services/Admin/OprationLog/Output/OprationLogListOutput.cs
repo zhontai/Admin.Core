@@ -10,9 +10,9 @@ namespace Admin.Core.Service.Admin.OprationLog.Output
         public long Id { get; set; }
 
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        public string RealName { get; set; }
+        public string NickName { get; set; }
 
         /// <summary>
         /// 创建者
