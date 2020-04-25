@@ -112,7 +112,7 @@ namespace Admin.Core.Service.Admin.Auth
             var user = await _userRepository.Select.WhereDynamic(_user.Id)
                 .ToOneAsync(m => new {
                     m.NickName,
-                    m.Name,
+                    m.UserName,
                     m.Avatar
                 });
 

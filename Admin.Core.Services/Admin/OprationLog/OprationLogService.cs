@@ -62,7 +62,7 @@ namespace Admin.Core.Service.Admin.OprationLog
             input.Device = device;
             input.BrowserInfo = ua;
 
-            input.RealName = _user.RealName;
+            input.NickName = _user.NickName;
             input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
             var entity = _mapper.Map<OprationLogEntity>(input);

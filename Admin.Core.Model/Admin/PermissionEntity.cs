@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Admin.Core.Model.Admin;
 using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
@@ -19,7 +18,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 权限名称
         /// </summary>
-        [MaxLength(50)]
+        [Column(StringLength = 50)]
         public string Label { get; set; }
 
         /// <summary>
@@ -43,13 +42,13 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 菜单访问地址
         /// </summary>
-        [MaxLength(500)]
+        [Column(StringLength = 500)]
         public string Path { get; set; }
 
         /// <summary>
         /// 图标
         /// </summary>
-        [MaxLength(100)]
+        [Column(StringLength = 100)]
         public string Icon { get; set; }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 描述
         /// </summary>
-        [MaxLength(100)]
+        [Column(StringLength = 100)]
         public string Description { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Admin.Core.Db
         public RoleEntity[] Roles { get; set; }
         public UserRoleEntity[] UserRoles { get; set; }
         public RolePermissionEntity[] RolePermissions { get; set; }
+        public DocumentEntity[] Documents { get; set; }
     }
 }

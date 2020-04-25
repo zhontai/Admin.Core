@@ -1,5 +1,4 @@
-﻿using System;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Admin;
 
 namespace Admin.Core.Service.Admin.Permission.Output
 {

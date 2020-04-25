@@ -4,11 +4,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Autofac.Extensions.DependencyInjection;
 using NLog.Web;
-//using NLog;
-//using NLog.Extensions.Logging;
 using Admin.Core.Common.Helpers;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 using Admin.Core.Common.Configs;
+//using NLog;
+//using NLog.Extensions.Logging;
 //using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 
 namespace Admin.Core

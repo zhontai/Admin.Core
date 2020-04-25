@@ -218,33 +218,100 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Core.Controllers.Admin.DocumentController">
+            <summary>
+            文档管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetList(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            查询文档列表
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetGroup(System.Int64)">
+            <summary>
+            查询单条分组
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetMenu(System.Int64)">
+            <summary>
+            查询单条菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetContent(System.Int64)">
+            <summary>
+            查询单条文档内容
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetPlainList">
+            <summary>
+            查询精简文档列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.AddGroup(Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput)">
+            <summary>
+            新增分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.AddMenu(Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput)">
+            <summary>
+            新增菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateGroup(Admin.Core.Service.Admin.Document.Input.DocumentUpdateGroupInput)">
+            <summary>
+            修改分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateMenu(Admin.Core.Service.Admin.Document.Input.DocumentUpdateMenuInput)">
+            <summary>
+            修改菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateContent(Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput)">
+            <summary>
+            修改文档内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.SoftDelete(System.Int64)">
+            <summary>
+            删除文档
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Admin.ImgController">
             <summary>
             图片管理
             </summary>
         </member>
-        <member name="M:Admin.Core.Controllers.Admin.ImgController.Avatar(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,System.String)">
+        <member name="M:Admin.Core.Controllers.Admin.ImgController.AvatarUpload(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
-            获取头像
+            上传头像
             </summary>
             <param name="environment"></param>
-            <param name="fileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.ImgController.Download(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,System.String)">
-            <summary>
-            下载图片
-            </summary>
-            <param name="environment"></param>
-            <param name="fileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.ImgController.Upload(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
-            <summary>
-            上传图片
-            支持多图片上传
-            </summary>
-            <param name="environment"></param>
+            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.LoginLogController">
@@ -605,13 +672,12 @@
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Admin.Core.Common.Configs.AppConfig)">
+        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             添加数据库
             </summary>
             <param name="services"></param>
             <param name="env"></param>
-            <param name="appConfig"></param>
         </member>
         <member name="T:Admin.Core.Enums.ApiVersion">
             <summary>

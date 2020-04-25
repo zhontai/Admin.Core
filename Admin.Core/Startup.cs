@@ -14,7 +14,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Autofac;
@@ -30,17 +29,19 @@ using Admin.Core.Enums;
 using Admin.Core.Filters;
 using Admin.Core.Db;
 using Admin.Core.Common.Cache;
-using PermissionHandler = Admin.Core.Auth.PermissionHandler;
 using Admin.Core.Aop;
 using Admin.Core.Logs;
+using PermissionHandler = Admin.Core.Auth.PermissionHandler;
+using Microsoft.Extensions.Options;
+using Admin.Core.Extensions;
 
 namespace Admin.Core
 {
     public class Startup
     {
         private readonly IHostEnvironment _env;
+        private static string basePath => AppContext.BaseDirectory;
         private readonly AppConfig _appConfig;
-        private static string basePath => PlatformServices.Default.Application.ApplicationBasePath;
 
         public Startup(IWebHostEnvironment env)
         {
@@ -52,6 +53,10 @@ namespace Admin.Core
         {
             services.AddSingleton(_appConfig);
             services.AddSingleton(typeof(ApiHelper));
+
+            //上传配置
+            var uploadConfig = new ConfigHelper().Load("uploadconfig", _env.EnvironmentName, true);
+            services.Configure<UploadConfig>(uploadConfig);
 
             #region AutoMapper 自动映射
             var serviceAssembly = Assembly.Load("Admin.Core.Service");
@@ -188,7 +193,7 @@ namespace Admin.Core
             #endregion
 
             //数据库
-            services.AddDb(_env, _appConfig);
+            services.AddDb(_env);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
@@ -212,7 +217,6 @@ namespace Admin.Core
         public void ConfigureContainer(ContainerBuilder builder)
         {
             #region AutoFac IOC容器
-
             try
             {
                 #region Aop
@@ -247,14 +251,20 @@ namespace Admin.Core
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app, IHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
         {
+            //启动事件
+            lifetime.ApplicationStarted.Register(() =>
+            {
+                Console.WriteLine($"{_appConfig.Urls}\r\n");
+            });
+
             #region app配置
             //异常
             app.UseExceptionHandler("/Error");
 
             //静态文件
-            app.UseStaticFiles();
+            app.UseUploadConfig();
 
             //路由
             app.UseRouting();

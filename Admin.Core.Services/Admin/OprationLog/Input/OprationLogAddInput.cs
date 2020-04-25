@@ -6,9 +6,9 @@
     public class OprationLogAddInput
     {
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        public string RealName { get; set; }
+        public string NickName { get; set; }
 
         /// <summary>
         /// 接口名称

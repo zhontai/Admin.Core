@@ -16,8 +16,8 @@
         string Name { get; }
 
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        string RealName { get; }
+        string NickName { get; }
     }
 }

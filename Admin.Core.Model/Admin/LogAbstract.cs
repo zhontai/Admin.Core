@@ -9,33 +9,33 @@ namespace Admin.Core.Model.Admin
     public abstract class LogAbstract : EntityAdd
     {
         /// <summary>
-        /// 姓名
+        /// 昵称
         /// </summary>
-        [MaxLength(60)]
-        public string RealName { get; set; }
+        [Column(StringLength = 60)]
+        public string NickName { get; set; }
 
         /// <summary>
         /// IP
         /// </summary>
-        [MaxLength(100)]
+        [Column(StringLength = 100)]
         public string IP { get; set; }
 
         /// <summary>
         /// 浏览器
         /// </summary>
-        [MaxLength(100)]
+        [Column(StringLength = 100)]
         public string Browser { get; set; }
 
         /// <summary>
         /// 操作系统
         /// </summary>
-        [MaxLength(100)]
+        [Column(StringLength = 100)]
         public string Os { get; set; }
 
         /// <summary>
         /// 设备
         /// </summary>
-        [MaxLength(50)]
+        [Column(StringLength = 50)]
         public string Device { get; set; }
 
         /// <summary>

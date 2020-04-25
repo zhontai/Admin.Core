@@ -79,7 +79,8 @@ namespace Admin.Core.Db
                 typeof(UserRoleEntity),
                 typeof(RolePermissionEntity),
                 typeof(OprationLogEntity),
-                typeof(LoginLogEntity)
+                typeof(LoginLogEntity),
+                typeof(DocumentEntity)
             });
             Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
         }
@@ -201,6 +202,7 @@ namespace Admin.Core.Db
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
+                    await InitDtData(db, data.Documents, tran, dbConfig);
                     await InitDtData(db, data.Dictionaries, tran, dbConfig);
                     await InitDtData(db, data.Apis, tran, dbConfig);
                     await InitDtData(db, data.Views, tran, dbConfig);
@@ -302,7 +304,6 @@ namespace Admin.Core.Db
                     a.Id,
                     a.UserName,
                     a.Password,
-                    a.Name,
                     a.NickName,
                     a.Avatar,
                     a.Status,
