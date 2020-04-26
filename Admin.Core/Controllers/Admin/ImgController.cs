@@ -54,7 +54,6 @@ namespace Admin.Core.Controllers.Admin
         /// <summary>
         /// 上传头像
         /// </summary>
-        /// <param name="environment"></param>
         /// <param name="file"></param>
         /// <returns></returns>
         [HttpPost]
