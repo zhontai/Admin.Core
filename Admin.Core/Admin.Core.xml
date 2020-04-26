@@ -306,11 +306,10 @@
             图片管理
             </summary>
         </member>
-        <member name="M:Admin.Core.Controllers.Admin.ImgController.AvatarUpload(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:Admin.Core.Controllers.Admin.ImgController.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传头像
             </summary>
-            <param name="environment"></param>
             <param name="file"></param>
             <returns></returns>
         </member>

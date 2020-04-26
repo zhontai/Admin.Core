@@ -1,5 +1,4 @@
 using FreeSql.DataAnnotations;
-using System.ComponentModel.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
 {
