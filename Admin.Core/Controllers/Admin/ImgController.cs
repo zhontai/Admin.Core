@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -60,7 +59,7 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpPost]
         [Login]
-        public async Task<IResponseOutput> AvatarUpload([FromServices]IWebHostEnvironment environment, IFormFile file)
+        public async Task<IResponseOutput> AvatarUpload(IFormFile file)
         {
             if(file == null || file.Length < 1)
             {
