@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
