@@ -7,7 +7,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class LoginLogRepository : RepositoryBase<LoginLogEntity>, ILoginLogRepository
     {
-        public LoginLogRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public LoginLogRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

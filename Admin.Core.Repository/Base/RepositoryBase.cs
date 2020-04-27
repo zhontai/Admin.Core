@@ -11,10 +11,9 @@ namespace Admin.Core.Repository
     public abstract class RepositoryBase<TEntity,TKey> : BaseRepository<TEntity, TKey> where TEntity : class,new()
     {
         private readonly IUser _user;
-        protected RepositoryBase(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, null, null)
+        protected RepositoryBase(UnitOfWorkManager uowm, IUser user) : base(uowm.Orm, null, null)
         {
-            uow.Close();
-            UnitOfWork = uow;
+            uowm.Binding(this);
             _user = user;
         }
         
@@ -54,7 +53,7 @@ namespace Admin.Core.Repository
 
     public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, long> where TEntity : class, new()
     {
-        protected RepositoryBase(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        protected RepositoryBase(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

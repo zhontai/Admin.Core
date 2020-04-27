@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class DictionaryRepository : RepositoryBase<DictionaryEntity>, IDictionaryRepository
     {
-        public DictionaryRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public DictionaryRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

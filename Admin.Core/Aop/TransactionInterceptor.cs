@@ -5,26 +5,30 @@ using FreeSql;
 using Admin.Core.Common;
 using Admin.Core.Extensions;
 using Admin.Core.Model.Output;
-
+using System.Data;
 
 namespace Admin.Core.Aop
 {
     public class TransactionInterceptor : IInterceptor
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public TransactionInterceptor(IUnitOfWork unitOfWork)
+        IUnitOfWork _unitOfWork;
+        private readonly UnitOfWorkManager _unitOfWorkManager;
+        
+        public TransactionInterceptor(UnitOfWorkManager unitOfWorkManager)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public async void Intercept(IInvocation invocation)
         {
             var method = invocation.MethodInvocationTarget ?? invocation.Method;
+            
             if (method.HasAttribute<TransactionAttribute>())
             {
                 try
                 {
-                    _unitOfWork.Open();
+                    var transaction = method.GetAttribute<TransactionAttribute>();
+                    _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, transaction.IsolationLevel);
                     invocation.Proceed();
 
                     if (method.IsAsync())

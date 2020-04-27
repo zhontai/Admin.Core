@@ -32,7 +32,6 @@ using Admin.Core.Common.Cache;
 using Admin.Core.Aop;
 using Admin.Core.Logs;
 using PermissionHandler = Admin.Core.Auth.PermissionHandler;
-using Microsoft.Extensions.Options;
 using Admin.Core.Extensions;
 
 namespace Admin.Core
@@ -193,7 +192,7 @@ namespace Admin.Core
             #endregion
 
             //数据库
-            services.AddDb(_env);
+            services.AddDb(_env,_appConfig);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
@@ -251,13 +250,14 @@ namespace Admin.Core
             #endregion
         }
 
-        public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app)
         {
-            //启动事件
-            lifetime.ApplicationStarted.Register(() =>
-            {
-                Console.WriteLine($"{_appConfig.Urls}\r\n");
-            });
+            //启动事件 
+            //, IHostApplicationLifetime lifetime
+            //lifetime.ApplicationStarted.Register(() =>
+            //{
+            //    Console.WriteLine($"{_appConfig.Urls}\r\n");
+            //});
 
             #region app配置
             //异常

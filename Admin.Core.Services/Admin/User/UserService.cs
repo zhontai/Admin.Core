@@ -79,7 +79,7 @@ namespace Admin.Core.FrameWork.Service.User
             return ResponseOutput.Ok(data);
         }
 
-        [Transaction]
+        [Transaction(Propagation = FreeSql.Propagation.Requierd)]
         public async Task<IResponseOutput> AddAsync(UserAddInput input)
         {
             if (input.Password.IsNull())
@@ -96,7 +96,7 @@ namespace Admin.Core.FrameWork.Service.User
             {
                 return ResponseOutput.NotOk();
             }
-          
+
             if (input.RoleIds != null && input.RoleIds.Any())
             {
                 var roles = input.RoleIds.Select(d => new UserRoleEntity(user.Id, d));

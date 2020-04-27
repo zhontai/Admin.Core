@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class RolePermissionRepository : RepositoryBase<RolePermissionEntity>, IRolePermissionRepository
     {
-        public RolePermissionRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public RolePermissionRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

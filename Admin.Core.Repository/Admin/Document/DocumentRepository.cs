@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class DocumentRepository : RepositoryBase<DocumentEntity>, IDocumentRepository
     {
-        public DocumentRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public DocumentRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }
