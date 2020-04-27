@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
     {
-        public ViewRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public ViewRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
 
         }

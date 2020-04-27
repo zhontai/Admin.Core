@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using FreeSql;
 
 namespace Admin.Core.Common
 {
@@ -8,6 +10,7 @@ namespace Admin.Core.Common
     [AttributeUsage(AttributeTargets.Method, Inherited = true)]
     public class TransactionAttribute : Attribute
     {
-
+        public Propagation Propagation { get; set; } = Propagation.Requierd;
+        public IsolationLevel? IsolationLevel { get; set; }
     }
 }

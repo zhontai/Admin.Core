@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class ApiRepository : RepositoryBase<ApiEntity>, IApiRepository
     {
-        public ApiRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public ApiRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

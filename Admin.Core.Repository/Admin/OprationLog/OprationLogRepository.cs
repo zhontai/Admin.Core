@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class OprationLogRepository : RepositoryBase<OprationLogEntity>, IOprationLogRepository
     {
-        public OprationLogRepository(IFreeSql orm, IUnitOfWork uow, IUser user) : base(orm, uow, user)
+        public OprationLogRepository(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
         {
         }
     }

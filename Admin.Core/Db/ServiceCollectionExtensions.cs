@@ -16,7 +16,8 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        public async static void AddDb(this IServiceCollection services, IHostEnvironment env)
+        /// <param name="appConfig"></param>
+        public async static void AddDb(this IServiceCollection services, IHostEnvironment env, AppConfig appConfig)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -47,7 +48,7 @@ namespace Admin.Core.Db
             var fsql = freeSqlBuilder.Build();
 
             services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
-            services.AddScoped<IUnitOfWork>(sp => fsql.CreateUnitOfWork());
+            services.AddScoped<UnitOfWorkManager>();
             services.AddSingleton(fsql);
 
             #region 初始化数据库
@@ -128,6 +129,8 @@ namespace Admin.Core.Db
             };
             #endregion
             #endregion
+
+            Console.WriteLine($"{appConfig.Urls}\r\n");
         }
     }
 }
