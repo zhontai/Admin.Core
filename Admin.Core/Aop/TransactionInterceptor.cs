@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using FreeSql;
-using Admin.Core.Common;
 using Admin.Core.Extensions;
 using Admin.Core.Model.Output;
-using System.Data;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Aop
 {

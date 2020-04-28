@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
-using Admin.Core.Common;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
@@ -13,6 +12,7 @@ using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.User;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.FrameWork.Service.User
 {
@@ -79,7 +79,7 @@ namespace Admin.Core.FrameWork.Service.User
             return ResponseOutput.Ok(data);
         }
 
-        [Transaction(Propagation = FreeSql.Propagation.Requierd)]
+        [Transaction]
         public async Task<IResponseOutput> AddAsync(UserAddInput input)
         {
             if (input.Password.IsNull())

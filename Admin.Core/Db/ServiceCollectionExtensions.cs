@@ -46,7 +46,7 @@ namespace Admin.Core.Db
             #endregion
 
             var fsql = freeSqlBuilder.Build();
-
+            //fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
             services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
             services.AddScoped<UnitOfWorkManager>();
             services.AddSingleton(fsql);
