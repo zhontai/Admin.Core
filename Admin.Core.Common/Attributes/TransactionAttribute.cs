@@ -2,7 +2,7 @@
 using System.Data;
 using FreeSql;
 
-namespace Admin.Core.Common
+namespace Admin.Core.Common.Attributes
 {
     /// <summary>
     /// 启用事物

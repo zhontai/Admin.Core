@@ -2,13 +2,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
-using Admin.Core.Common;
 using Admin.Core.Model.Input;
 using Admin.Core.Model.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Api.Input;
 using Admin.Core.Service.Admin.Api.Output;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Service.Admin.Api
 {

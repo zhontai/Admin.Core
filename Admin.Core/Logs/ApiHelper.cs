@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Db;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Logs
 {
     /// <summary>
     /// Api帮助类
     /// </summary>
+    [SingleInstance]
     public class ApiHelper
     {
         private List<ApiHelperDto> _apis;

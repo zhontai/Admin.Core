@@ -75,6 +75,11 @@
         public long Size { get; set; }
 
         /// <summary>
+        /// 最大允许上传个数 -1不限制
+        /// </summary>
+        public int Limit { get; set; } = -1;
+
+        /// <summary>
         /// 文件格式
         /// </summary>
         public string[] ContentType { get; set; }

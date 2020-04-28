@@ -33,6 +33,7 @@ using Admin.Core.Aop;
 using Admin.Core.Logs;
 using PermissionHandler = Admin.Core.Auth.PermissionHandler;
 using Admin.Core.Extensions;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core
 {
@@ -51,7 +52,6 @@ namespace Admin.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(_appConfig);
-            services.AddSingleton(typeof(ApiHelper));
 
             //上传配置
             var uploadConfig = new ConfigHelper().Load("uploadconfig", _env.EnvironmentName, true);
@@ -228,8 +228,8 @@ namespace Admin.Core
                 #endregion
 
                 #region Service
-                var assemblysServices = Assembly.Load("Admin.Core.Service");
-                builder.RegisterAssemblyTypes(assemblysServices)
+                var assemblyServices = Assembly.Load("Admin.Core.Service");
+                builder.RegisterAssemblyTypes(assemblyServices)
                 .AsImplementedInterfaces()
                 .InstancePerDependency()
                 .EnableInterfaceInterceptors()
@@ -237,11 +237,18 @@ namespace Admin.Core
                 #endregion
 
                 #region Repository
-                var assemblysRepository = Assembly.Load("Admin.Core.Repository");
-                builder.RegisterAssemblyTypes(assemblysRepository)
+                var assemblyRepository = Assembly.Load("Admin.Core.Repository");
+                builder.RegisterAssemblyTypes(assemblyRepository)
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
                 #endregion
+
+                //单例注入
+                var assemblyCore = Assembly.Load("Admin.Core");
+                var assemblyCommon = Assembly.Load("Admin.Core.Common");
+                builder.RegisterAssemblyTypes(assemblyCore,assemblyCommon)
+                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
+                .SingleInstance();
             }
             catch (Exception ex)
             {
