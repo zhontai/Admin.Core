@@ -144,6 +144,21 @@
             描述
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.DocumentImageEntity">
+            <summary>
+            文档图片
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentImageEntity.DocumentId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DocumentImageEntity.Url">
+            <summary>
+            请求路径
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.DocumentType">
             <summary>
             文档类型
@@ -603,155 +618,6 @@
             <summary>
             版本
             </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Input.PageInput`1">
-            <summary>
-            通用分页信息输入类
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Input.PageInput`1.CurrentPage">
-            <summary>
-            当前页标
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Input.PageInput`1.PageSize">
-            <summary>
-            每页大小
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Input.PageInput`1.Filter">
-            <summary>
-            查询条件
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Output.IResponseOutput">
-            <summary>
-            输出数据接口
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.IResponseOutput.Success">
-            <summary>
-            是否成功
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.IResponseOutput.Msg">
-            <summary>
-            消息
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Output.IResponseOutput`1">
-            <summary>
-            响应数据泛型接口
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:Admin.Core.Model.Output.IResponseOutput`1.Data">
-            <summary>
-            返回数据
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Output.PageOutput`1">
-            <summary>
-            通用分页信息输出类
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.PageOutput`1.Total">
-            <summary>
-            数据总数
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.PageOutput`1.List">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Output.ResponseOutput`1">
-            <summary>
-            输出数据
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.ResponseOutput`1.Success">
-            <summary>
-            是否成功标记
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.ResponseOutput`1.Code">
-            <summary>
-            状态码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.ResponseOutput`1.Msg">
-            <summary>
-            消息
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Output.ResponseOutput`1.Data">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput`1.Ok(`0,System.String)">
-            <summary>
-            成功
-            </summary>
-            <param name="data">数据</param>
-            <param name="msg">消息</param>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput`1.NotOk(System.String,`0)">
-            <summary>
-            失败
-            </summary>
-            <param name="msg">消息</param>
-            <param name="data">数据</param>
-            <returns></returns>
-        </member>
-        <member name="T:Admin.Core.Model.Output.ResponseOutput">
-            <summary>
-            输出数据静态类
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.Ok``1(``0,System.String)">
-            <summary>
-            成功
-            </summary>
-            <param name="data">数据</param>
-            <param name="msg">消息</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.Ok">
-            <summary>
-            成功
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.NotOk``1(System.String,``0)">
-            <summary>
-            失败
-            </summary>
-            <param name="msg">消息</param>
-            <param name="data">数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.NotOk(System.String)">
-            <summary>
-            失败
-            </summary>
-            <param name="msg">消息</param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.Result``1(System.Boolean)">
-            <summary>
-            根据布尔值返回结果
-            </summary>
-            <param name="success"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Model.Output.ResponseOutput.Result(System.Boolean)">
-            <summary>
-            根据布尔值返回结果
-            </summary>
-            <param name="success"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>

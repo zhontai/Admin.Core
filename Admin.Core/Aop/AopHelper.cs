@@ -8,7 +8,7 @@ namespace Admin.Core.Aop
 {
     public class AopHelper
     {
-        public static async Task<T> ExecuteGenericMethod<T>(Task<T> returnValue, Action<T> callBackAction, Action<Exception> exceptionAction)
+        public static async Task<T> ExecuteGenericMethod<T>(Task<T> returnValue, Action<T> callBackAction, Action<Exception> exceptionAction, Action finallyAction)
         {
             try
             {
@@ -21,14 +21,18 @@ namespace Admin.Core.Aop
                 exceptionAction?.Invoke(ex);
                 throw;
             }
+            finally
+            {
+                finallyAction?.Invoke();
+            }
         }
 
-        public static object CallGenericMethod(IInvocation invocation, Action<object> callBackAction, Action<Exception> exceptionAction)
+        public static object CallGenericMethod(IInvocation invocation, Action<object> callBackAction, Action<Exception> exceptionAction, Action finallyAction)
         {
             return typeof(AopHelper)
             .GetMethod("ExecuteGenericMethod", BindingFlags.Public | BindingFlags.Static)
             .MakeGenericMethod(invocation.Method.ReturnType.GenericTypeArguments[0])
-            .Invoke(null, new object[] { invocation.ReturnValue, callBackAction, exceptionAction });
+            .Invoke(null, new object[] { invocation.ReturnValue, callBackAction, exceptionAction, finallyAction });
         }
     }
 }

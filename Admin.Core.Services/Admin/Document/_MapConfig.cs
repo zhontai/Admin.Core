@@ -13,6 +13,7 @@ namespace Admin.Core.Service.Admin.Document
         {
             CreateMap<DocumentAddGroupInput, DocumentEntity>();
             CreateMap<DocumentAddMenuInput, DocumentEntity>();
+            CreateMap<DocumentAddImageInput, DocumentImageEntity>();
 
             CreateMap<DocumentUpdateGroupInput, DocumentEntity>();
             CreateMap<DocumentUpdateMenuInput, DocumentEntity>();

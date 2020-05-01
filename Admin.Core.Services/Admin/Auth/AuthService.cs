@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Admin.Core.Model.Admin;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
@@ -18,6 +18,7 @@ namespace Admin.Core.Service.Admin.Auth
         private readonly IUser _user;
         private readonly ICache _cache;
         private readonly IMapper _mapper;
+        private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly IUserRepository _userRepository;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
@@ -26,6 +27,7 @@ namespace Admin.Core.Service.Admin.Auth
             IUser user,
             ICache cache,
             IMapper mapper,
+            VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
             IPermissionRepository permissionRepository,
             IRolePermissionRepository rolePermissionRepository
@@ -34,6 +36,7 @@ namespace Admin.Core.Service.Admin.Auth
             _user = user;
             _cache = cache;
             _mapper = mapper;
+            _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
             _rolePermissionRepository = rolePermissionRepository;
@@ -148,7 +151,7 @@ namespace Admin.Core.Service.Admin.Auth
 
         public async Task<IResponseOutput> GetVerifyCodeAsync(string lastKey)
         {
-            var img = VerifyCodeHelper.GetBase64String(out string code);
+            var img = _verifyCodeHelper.GetBase64String(out string code);
 
             //删除上次缓存的验证码
             if (lastKey.NotNull())

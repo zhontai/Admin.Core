@@ -89,5 +89,13 @@ namespace Admin.Core
             var bytes = encoding.GetBytes(s);
             return bytes.ToBase64();
         }
+
+        public static string ToPath(this string s)
+        {
+            if (s.IsNull())
+                return string.Empty;
+
+            return s.Replace(@"\", "/");
+        }
     }
 }

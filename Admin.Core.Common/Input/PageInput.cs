@@ -1,7 +1,7 @@
-﻿namespace Admin.Core.Model.Input
+﻿namespace Admin.Core.Common.Input
 {
     /// <summary>
-    /// 通用分页信息输入类
+    /// 分页信息输入
     /// </summary>
     public class PageInput<T>
     {

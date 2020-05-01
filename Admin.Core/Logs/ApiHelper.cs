@@ -28,7 +28,7 @@ namespace Admin.Core.Logs
                     return _apis;
 
                 _apis = new List<ApiHelperDto>();
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"Db\Data\data.json");
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Db/Data/data.json").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
                 var apis = JsonConvert.DeserializeObject<Data>(jsonData).Apis;
                 foreach (var api in apis)

@@ -19,6 +19,11 @@ namespace Admin.Core.Service.Admin.Document.Input
         public string Content { get; set; }
 
         /// <summary>
+        /// Html
+        /// </summary>
+        public string Html { get; set; }
+
+        /// <summary>
         /// °æ±¾
         /// </summary>
         public long Version { get; set; }

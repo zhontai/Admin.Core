@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Admin.Core.Model.Output
+namespace Admin.Core.Common.Output
 {
     /// <summary>
-    /// 输出数据接口
+    /// 响应数据输出接口
     /// </summary>
     public interface IResponseOutput
     {
@@ -20,7 +20,7 @@ namespace Admin.Core.Model.Output
     }
 
     /// <summary>
-    /// 响应数据泛型接口
+    /// 响应数据输出泛型接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IResponseOutput<T> : IResponseOutput

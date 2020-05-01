@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using FreeSql;
-using Admin.Core.Extensions;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Extensions;
+using Admin.Core.Common.Output;
 using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Aop
@@ -34,8 +34,20 @@ namespace Admin.Core.Aop
                     {
                         if (invocation.Method.ReturnType == typeof(Task))
                         {
-                            await (Task)invocation.ReturnValue;
-                            _unitOfWork.Commit();
+                            try
+                            {
+                                await (Task)invocation.ReturnValue;
+                                _unitOfWork.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                _unitOfWork.Rollback();
+                                throw ex;
+                            }
+                            finally
+                            {
+                                _unitOfWork.Dispose();
+                            }
                         }
                         else
                         {
@@ -53,11 +65,18 @@ namespace Admin.Core.Aop
                                 {
                                     _unitOfWork.Rollback();
                                 }
-                                _unitOfWork.Commit();
+                                else
+                                {
+                                    _unitOfWork.Commit();
+                                }
                             },
                             ex =>
                             {
                                 _unitOfWork.Rollback();
+                            },
+                            ()=>
+                            {
+                                _unitOfWork.Dispose();
                             });
                         }
                     }
@@ -70,6 +89,13 @@ namespace Admin.Core.Aop
                             {
                                 _unitOfWork.Rollback();
                             }
+                            else
+                            {
+                                _unitOfWork.Commit();
+                            }
+                        }
+                        else
+                        {
                             _unitOfWork.Commit();
                         }
                     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Permission;
 using Admin.Core.Service.Admin.Permission.Input;
 

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Extensions
+namespace Admin.Core.Common.Extensions
 {
     public static class MethodInfoExtensions
     {

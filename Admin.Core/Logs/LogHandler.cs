@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.OprationLog;
 using Admin.Core.Service.Admin.OprationLog.Input;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Admin.Core.Extensions
+namespace Admin.Core.Common.Extensions
 {
     public static class GuidExtensions
     {
