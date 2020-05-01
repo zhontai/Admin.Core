@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Admin.Core.Model.Output
+namespace Admin.Core.Common.Output
 {
     /// <summary>
-    /// 通用分页信息输出类
+    /// 分页信息输出
     /// </summary>
     public class PageOutput<T>
     {

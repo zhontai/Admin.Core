@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using StatusCodes = Admin.Core.Enums.StatusCodes;
+using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Auth
 {
@@ -39,7 +40,7 @@ namespace Admin.Core.Auth
                 new ResponseStatusData
                 {
                     Code = StatusCodes.Status401Unauthorized,
-                    Msg = StatusCodes.Status401Unauthorized.ToDescriptionOrString()
+                    Msg = StatusCodes.Status401Unauthorized.ToDescription()
                 },
                 new JsonSerializerSettings()
                 {
@@ -56,7 +57,7 @@ namespace Admin.Core.Auth
                 new ResponseStatusData
                 {
                     Code = StatusCodes.Status403Forbidden,
-                    Msg = StatusCodes.Status403Forbidden.ToDescriptionOrString()
+                    Msg = StatusCodes.Status403Forbidden.ToDescription()
                 },
                 new JsonSerializerSettings()
                 {

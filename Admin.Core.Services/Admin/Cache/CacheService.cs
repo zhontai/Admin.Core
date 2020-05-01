@@ -1,6 +1,6 @@
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel;

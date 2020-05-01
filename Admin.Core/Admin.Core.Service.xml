@@ -23,7 +23,7 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Service.Admin.Api.IApiService.PageAsync(Admin.Core.Model.Input.PageInput{Admin.Core.Model.Admin.ApiEntity})">
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.PageAsync(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.ApiEntity})">
             <summary>
             获得分页
             </summary>
@@ -390,6 +390,16 @@
             打开
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddImageInput.DocumentId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddImageInput.Url">
+            <summary>
+            请求路径
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.ParentId">
             <summary>
             父级节点
@@ -430,6 +440,11 @@
             内容
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Html">
+            <summary>
+            Html
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Version">
             <summary>
             版本
@@ -451,6 +466,36 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateMenuInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUploadImageInput.File">
+            <summary>
+            上传文件
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUploadImageInput.Id">
+            <summary>
+            文档编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Version">
             <summary>
             版本
             </summary>

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace Admin.Core.Model.Output
+namespace Admin.Core.Common.Output
 {
     /// <summary>
-    /// 输出数据
+    /// 响应数据输出
     /// </summary>
     public class ResponseOutput<T> : IResponseOutput<T>
     {
@@ -59,7 +59,7 @@ namespace Admin.Core.Model.Output
     }
 
     /// <summary>
-    /// 输出数据静态类
+    /// 响应数据静态输出
     /// </summary>
     public static partial class ResponseOutput
     {

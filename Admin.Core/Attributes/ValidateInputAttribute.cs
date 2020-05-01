@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using System.Threading.Tasks;
+using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Filters
 {
@@ -27,7 +28,7 @@ namespace Admin.Core.Filters
             string message;
             if (_env.IsProduction())
             {
-                message = Enums.StatusCodes.Status500InternalServerError.ToDescriptionOrString();
+                message = Enums.StatusCodes.Status500InternalServerError.ToDescription();
             }
             else
             {

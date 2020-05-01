@@ -9,25 +9,25 @@ namespace Admin.Core.Extensions
 {
     public static class UploadConfigApplicationBuilderExtensions
     {
-        private static void UseAvatar(IApplicationBuilder app, AvatarConfig avatarConfig)
+        private static void UseFileUploadConfig(IApplicationBuilder app, FileUploadConfig config)
         {
-            if (!Directory.Exists(avatarConfig.Path))
+            if (!Directory.Exists(config.UploadPath))
             {
-                Directory.CreateDirectory(avatarConfig.Path);
+                Directory.CreateDirectory(config.UploadPath);
             }
 
             app.UseStaticFiles(new StaticFileOptions() 
             {
-                RequestPath = avatarConfig.RequestPath,
-                FileProvider = new PhysicalFileProvider(avatarConfig.Path)
+                RequestPath = config.RequestPath,
+                FileProvider = new PhysicalFileProvider(config.UploadPath)
             });
         }
 
         public static void UseUploadConfig(this IApplicationBuilder app)
         {
             var uploadConfig = app.ApplicationServices.GetRequiredService<IOptions<UploadConfig>>();
-            var avatar = uploadConfig.Value.Avatar;
-            UseAvatar(app, avatar);
+            UseFileUploadConfig(app, uploadConfig.Value.Avatar);
+            UseFileUploadConfig(app, uploadConfig.Value.Document);
         }
     }
 

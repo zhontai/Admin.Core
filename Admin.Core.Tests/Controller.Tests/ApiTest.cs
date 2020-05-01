@@ -2,7 +2,7 @@
 using Moq;
 using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Api;
-using Admin.Core.Model.Input;
+using Admin.Core.Common.Input;
 using Admin.Core.Controllers.Admin;
 
 namespace Admin.Core.Tests.Controller.Tests

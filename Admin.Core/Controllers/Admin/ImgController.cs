@@ -1,11 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Attributes;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Configs;
@@ -20,11 +17,17 @@ namespace Admin.Core.Controllers.Admin
     {
         private readonly IUser _user;
         private readonly UploadConfig _uploadConfig;
-        
-        public ImgController(IUser user, IOptionsMonitor<UploadConfig> uploadConfig)
+        private readonly UploadHelper _uploadHelper;
+
+        public ImgController(
+            IUser user, 
+            IOptionsMonitor<UploadConfig> uploadConfig, 
+            UploadHelper uploadHelper
+        )
         {
             _user = user;
             _uploadConfig = uploadConfig.CurrentValue;
+            _uploadHelper = uploadHelper;
         }
 
         /*
@@ -40,7 +43,7 @@ namespace Admin.Core.Controllers.Admin
         [AllowAnonymous]
         public FileStreamResult Avatar([FromServices]IWebHostEnvironment environment, string fileName = "")
         {
-            string filePath = Path.Combine(environment.WebRootPath,"avatar", fileName);
+            string filePath = Path.Combine(environment.WebRootPath,"avatar", fileName).ToPath();
             var stream = System.IO.File.OpenRead(filePath);
             string fileExt = Path.GetExtension(filePath);
             var contentTypeProvider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
@@ -58,53 +61,16 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpPost]
         [Login]
-        public async Task<IResponseOutput> AvatarUpload(IFormFile file)
+        public async Task<IResponseOutput> AvatarUpload([FromForm]IFormFile file)
         {
-            if(file == null || file.Length < 1)
+            var config = _uploadConfig.Avatar;
+            var res = await _uploadHelper.UploadAsync(file, config, new { _user.Id });
+            if (res.Success)
             {
-                if (Request.Form.Files != null && Request.Form.Files.Any())
-                {
-                    file = Request.Form.Files[0];
-                }
+                return ResponseOutput.Ok(res.Data.FileRelativePath);
             }
 
-            if (file == null || file.Length < 1)
-            {
-                return ResponseOutput.NotOk("请上传头像！");
-            }
-
-            var avatar = _uploadConfig.Avatar;
-
-            //格式限制
-            if (!avatar.ContentType.Contains(file.ContentType))
-            {
-                return ResponseOutput.NotOk("图片格式错误");
-            }
-
-            //大小限制
-            if (!(file.Length <= avatar.Size))
-            {
-                return ResponseOutput.NotOk("图片过大");
-            }
-
-            var dateTimeFormat = avatar.DateTimeFormat.NotNull() ? DateTime.Now.ToString(avatar.DateTimeFormat) : "";
-            var format = avatar.Format.NotNull() ? string.Format(avatar.Format,_user.Id) : "";
-            var savePath = Path.Combine(dateTimeFormat, format);
-            var fullDirectory = Path.Combine(avatar.Path, savePath);
-            if (!Directory.Exists(fullDirectory))
-            {
-                Directory.CreateDirectory(fullDirectory);
-            }
-
-            var saveFileName = $"{new Snowfake(0).nextId()}{Path.GetExtension(file.FileName)}";
-            var fullPath = Path.Combine(fullDirectory, saveFileName);
-
-            using (var stream = new FileStream(fullPath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            return ResponseOutput.Ok(Path.Combine(savePath, saveFileName));
+            return ResponseOutput.NotOk("上传失败！");
         }
     }
 }

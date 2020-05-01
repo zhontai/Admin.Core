@@ -3,12 +3,21 @@ using System.IO;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Configs;
 
 namespace Admin.Core.Common.Helpers
 {
+    [SingleInstance]
     public class VerifyCodeHelper
     {
-        private static string GenerateRandom(int length)
+        private readonly AppConfig _appConfig;
+        public VerifyCodeHelper(AppConfig appConfig)
+        {
+            _appConfig = appConfig;
+        }
+
+        private string GenerateRandom(int length)
         {
             var chars = new StringBuilder();
             //验证码的字符集，去掉了一些容易混淆的字符 
@@ -22,7 +31,7 @@ namespace Admin.Core.Common.Helpers
             return chars.ToString();
         }
 
-        public static byte[] Draw(out string code, int length = 4)
+        public byte[] Draw(out string code, int length = 4)
         {
             int codeW = 110;
             int codeH = 36;
@@ -31,7 +40,7 @@ namespace Admin.Core.Common.Helpers
             //颜色列表，用于验证码、噪线、噪点 
             Color[] color = { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.Brown, Color.DarkBlue };
             //字体列表，用于验证码 
-            string[] font = { "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" };
+            string[] font = _appConfig.VarifyCode.Font;
 
             code = GenerateRandom(length);
 
@@ -73,7 +82,7 @@ namespace Admin.Core.Common.Helpers
             }
         }
 
-        public static string GetBase64String(out string code, int length = 4)
+        public string GetBase64String(out string code, int length = 4)
         {
             return Convert.ToBase64String(Draw(out code, length));
         }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Document;
 using Admin.Core.Service.Admin.Document.Input;
+using Admin.Core.Common.Configs;
+using Microsoft.Extensions.Options;
+using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -13,10 +16,18 @@ namespace Admin.Core.Controllers.Admin
     public class DocumentController : AreaController
     {
         private readonly IDocumentService _documentServices;
+        private readonly UploadConfig _uploadConfig;
+        private readonly UploadHelper _uploadHelper;
 
-        public DocumentController(IDocumentService documentServices)
+        public DocumentController(
+            IDocumentService documentServices, 
+            IOptionsMonitor<UploadConfig> uploadConfig,
+            UploadHelper uploadHelper
+        )
         {
             _documentServices = documentServices;
+            _uploadConfig = uploadConfig.CurrentValue;
+            _uploadHelper = uploadHelper;
         }
 
         /// <summary>
@@ -30,6 +41,17 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
             return await _documentServices.GetListAsync(key,start,end);
+        }
+
+        /// <summary>
+        /// 查询文档图片列表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResponseOutput> GetImageList(long id)
+        {
+            return await _documentServices.GetImageListAsync(id);
         }
 
         /// <summary>
@@ -139,6 +161,31 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> SoftDelete(long id)
         {
             return await _documentServices.SoftDeleteAsync(id);
+        }
+
+        /// <summary>
+        /// 上传文档图片
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResponseOutput> UploadImage([FromForm]DocumentUploadImageInput input)
+        {
+            var config = _uploadConfig.Document;
+            var res = await _uploadHelper.UploadAsync(input.File, config, new { input.Id });
+            if (res.Success)
+            {
+                //保存文档图片
+                var r = await _documentServices.AddImageAsync(new DocumentAddImageInput
+                {
+                    DocumentId = input.Id,
+                    Url = res.Data.FileRequestPath
+                });
+                if(r.Success)
+                return ResponseOutput.Ok(res.Data.FileRequestPath);
+            }
+
+            return ResponseOutput.NotOk("上传失败！");
         }
     }
 }

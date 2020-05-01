@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Admin.Core.Attributes;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Auth;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;

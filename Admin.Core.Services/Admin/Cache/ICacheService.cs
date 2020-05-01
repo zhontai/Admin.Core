@@ -1,6 +1,6 @@
 
 
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Cache

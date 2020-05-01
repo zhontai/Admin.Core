@@ -5,8 +5,8 @@ using AutoMapper;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
-using Admin.Core.Model.Input;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Input;
+using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.User;
@@ -122,7 +122,7 @@ namespace Admin.Core.FrameWork.Service.User
 
             _mapper.Map(input, entity);
             await _userRepository.UpdateAsync(entity);
-            await _userRoleRepository.Where(m => m.UserId == entity.Id).ToDelete().ExecuteAffrowsAsync();
+            await _userRoleRepository.DeleteAsync(a => a.UserId == entity.Id);
             if (input.RoleIds != null && input.RoleIds.Any())
             {
                 var roles = input.RoleIds.Select(d => new UserRoleEntity(entity.Id, d));

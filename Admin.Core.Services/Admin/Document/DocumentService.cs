@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Model.Admin;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Document.Input;
 using Admin.Core.Service.Admin.Document.Output;
 using Admin.Core.Common.Cache;
@@ -15,42 +15,42 @@ namespace Admin.Core.Service.Admin.Document
 	public class DocumentService : IDocumentService
     {
         private readonly IMapper _mapper;
-        private readonly ICache _cache;
-        private readonly IDocumentRepository _DocumentRepository;
+        private readonly IDocumentRepository _documentRepository;
+        private readonly IDocumentImageRepository _documentImageRepository;
 
         public DocumentService(
             IMapper mapper,
-            ICache cache,
-            IDocumentRepository DocumentRepository
+            IDocumentRepository DocumentRepository,
+            IDocumentImageRepository documentImageRepository
         )
         {
             _mapper = mapper;
-            _cache = cache;
-            _DocumentRepository = DocumentRepository;
+            _documentRepository = DocumentRepository;
+            _documentImageRepository = documentImageRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
         {
-            var result = await _DocumentRepository.GetAsync(id);
+            var result = await _documentRepository.GetAsync(id);
 
             return ResponseOutput.Ok(result);
         }
 
         public async Task<IResponseOutput> GetGroupAsync(long id)
         {
-            var result = await _DocumentRepository.GetAsync<DocumentGetGroupOutput>(id);
+            var result = await _documentRepository.GetAsync<DocumentGetGroupOutput>(id);
             return ResponseOutput.Ok(result);
         }
 
         public async Task<IResponseOutput> GetMenuAsync(long id)
         {
-            var result = await _DocumentRepository.GetAsync<DocumentGetMenuOutput>(id);
+            var result = await _documentRepository.GetAsync<DocumentGetMenuOutput>(id);
             return ResponseOutput.Ok(result);
         }
 
         public async Task<IResponseOutput> GetContentAsync(long id)
         {
-            var result = await _DocumentRepository.GetAsync<DocumentGetContentOutput>(id);
+            var result = await _documentRepository.GetAsync<DocumentGetContentOutput>(id);
             return ResponseOutput.Ok(result);
         }
 
@@ -61,7 +61,7 @@ namespace Admin.Core.Service.Admin.Document
                 end = end.Value.AddDays(1);
             }
 
-            var data = await _DocumentRepository
+            var data = await _documentRepository
                 .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Label.Contains(key))
                 .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
                 .OrderBy(a => a.ParentId)
@@ -71,20 +71,38 @@ namespace Admin.Core.Service.Admin.Document
             return ResponseOutput.Ok(data);
         }
 
+        public async Task<IResponseOutput> GetImageListAsync(long id)
+        {
+            var result = await _documentImageRepository.Select
+                .Where(a => a.DocumentId == id)
+                .OrderByDescending(a=>a.Id)
+                .ToListAsync(a => a.Url);
+
+            return ResponseOutput.Ok(result);
+        }
+
         public async Task<IResponseOutput> AddGroupAsync(DocumentAddGroupInput input)
         {
             var entity = _mapper.Map<DocumentEntity>(input);
-            var id = (await _DocumentRepository.InsertAsync(entity)).Id;
+            var id = (await _documentRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Ok(id > 0);
+            return ResponseOutput.Result(id > 0);
         }
 
         public async Task<IResponseOutput> AddMenuAsync(DocumentAddMenuInput input)
         {
             var entity = _mapper.Map<DocumentEntity>(input);
-            var id = (await _DocumentRepository.InsertAsync(entity)).Id;
+            var id = (await _documentRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Ok(id > 0);
+            return ResponseOutput.Result(id > 0);
+        }
+
+        public async Task<IResponseOutput> AddImageAsync(DocumentAddImageInput input)
+        {
+            var entity = _mapper.Map<DocumentImageEntity>(input);
+            var id = (await _documentImageRepository.InsertAsync(entity)).Id;
+
+            return ResponseOutput.Result(id > 0);
         }
 
         public async Task<IResponseOutput> UpdateGroupAsync(DocumentUpdateGroupInput input)
@@ -92,9 +110,9 @@ namespace Admin.Core.Service.Admin.Document
             var result = false;
             if (input != null && input.Id > 0)
             {
-                var entity = await _DocumentRepository.GetAsync(input.Id);
+                var entity = await _documentRepository.GetAsync(input.Id);
                 entity = _mapper.Map(input, entity);
-                result = (await _DocumentRepository.UpdateAsync(entity)) > 0;
+                result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
             return ResponseOutput.Result(result);
@@ -105,9 +123,9 @@ namespace Admin.Core.Service.Admin.Document
             var result = false;
             if (input != null && input.Id > 0)
             {
-                var entity = await _DocumentRepository.GetAsync(input.Id);
+                var entity = await _documentRepository.GetAsync(input.Id);
                 entity = _mapper.Map(input, entity);
-                result = (await _DocumentRepository.UpdateAsync(entity)) > 0;
+                result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
             return ResponseOutput.Result(result);
@@ -118,9 +136,9 @@ namespace Admin.Core.Service.Admin.Document
             var result = false;
             if (input != null && input.Id > 0)
             {
-                var entity = await _DocumentRepository.GetAsync(input.Id);
+                var entity = await _documentRepository.GetAsync(input.Id);
                 entity = _mapper.Map(input, entity);
-                result = (await _DocumentRepository.UpdateAsync(entity)) > 0;
+                result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
             return ResponseOutput.Result(result);
@@ -131,7 +149,7 @@ namespace Admin.Core.Service.Admin.Document
             var result = false;
             if (id > 0)
             {
-                result = (await _DocumentRepository.DeleteAsync(m => m.Id == id)) > 0;
+                result = (await _documentRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
             return ResponseOutput.Result(result);
@@ -139,13 +157,13 @@ namespace Admin.Core.Service.Admin.Document
 
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _DocumentRepository.SoftDeleteAsync(id);
+            var result = await _documentRepository.SoftDeleteAsync(id);
             return ResponseOutput.Result(result);
         }
 
         public async Task<IResponseOutput> GetPlainListAsync()
         {
-            var documents = await _DocumentRepository.Select
+            var documents = await _documentRepository.Select
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Opened });

@@ -1,16 +1,20 @@
 {
-  //Swagger文档
-  "swagger": false,
   //Api地址
   "urls": "http://*:8888",
+  //Swagger文档
+  "swagger": false,
   //面向切面编程
   "aop": {
     //事物
-    "transaction": false
+    "transaction": true
   },
   //日志
   "log": {
     //操作日志
     "operation": true
+  },
+  //验证码
+  "varifyCode": {
+    "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   }
 }

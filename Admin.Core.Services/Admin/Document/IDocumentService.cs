@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Threading.Tasks;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Document.Input;
 
 namespace Admin.Core.Service.Admin.Document
@@ -9,6 +9,8 @@ namespace Admin.Core.Service.Admin.Document
     public partial interface IDocumentService
     {
         Task<IResponseOutput> GetAsync(long id);
+
+        Task<IResponseOutput> GetImageListAsync(long id);
 
         Task<IResponseOutput> GetGroupAsync(long id);
 
@@ -23,6 +25,8 @@ namespace Admin.Core.Service.Admin.Document
         Task<IResponseOutput> AddGroupAsync(DocumentAddGroupInput input);
 
         Task<IResponseOutput> AddMenuAsync(DocumentAddMenuInput input);
+
+        Task<IResponseOutput> AddImageAsync(DocumentAddImageInput input);
 
         Task<IResponseOutput> UpdateGroupAsync(DocumentUpdateGroupInput input);
 

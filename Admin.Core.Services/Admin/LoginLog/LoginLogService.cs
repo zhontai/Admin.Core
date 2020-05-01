@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
-using Admin.Core.Model.Input;
-using Admin.Core.Model.Output;
+using Admin.Core.Common.Input;
+using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.LoginLog.Input;

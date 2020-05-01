@@ -24,6 +24,11 @@
         /// 日志配置
         /// </summary>
         public LogConfig Log { get; set; }
+
+        /// <summary>
+        /// 验证码配置
+        /// </summary>
+        public VarifyCodeConfig VarifyCode { get; set; }
     }
 
     /// <summary>
@@ -46,5 +51,16 @@
         /// 操作日志
         /// </summary>
         public bool Operation { get; set; }
+    }
+
+    /// <summary>
+    /// 验证码配置
+    /// </summary>
+    public class VarifyCodeConfig
+    {
+        /// <summary>
+        /// 操作日志
+        /// </summary>
+        public string[] Font { get; set; }
     }
 }
