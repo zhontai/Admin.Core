@@ -155,6 +155,17 @@ namespace Admin.Core.Service.Admin.Document
             return ResponseOutput.Result(result);
         }
 
+        public async Task<IResponseOutput> DeleteImageAsync(long documentId, string url)
+        {
+            var result = false;
+            if (documentId > 0 && url.NotNull())
+            {
+                result = (await _documentImageRepository.DeleteAsync(m => m.DocumentId == documentId && m.Url == url)) > 0;
+            }
+
+            return ResponseOutput.Result(result);
+        }
+
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
             var result = await _documentRepository.SoftDeleteAsync(id);

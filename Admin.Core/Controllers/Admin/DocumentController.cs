@@ -164,6 +164,18 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 删除图片
+        /// </summary>
+        /// <param name="documentId"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResponseOutput> DeleteImage(long documentId, string url)
+        {
+            return await _documentServices.DeleteImageAsync(documentId, url);
+        }
+
+        /// <summary>
         /// 上传文档图片
         /// </summary>
         /// <param name="input"></param>
@@ -176,13 +188,16 @@ namespace Admin.Core.Controllers.Admin
             if (res.Success)
             {
                 //保存文档图片
-                var r = await _documentServices.AddImageAsync(new DocumentAddImageInput
+                var r = await _documentServices.AddImageAsync(
+                new DocumentAddImageInput
                 {
                     DocumentId = input.Id,
                     Url = res.Data.FileRequestPath
                 });
-                if(r.Success)
-                return ResponseOutput.Ok(res.Data.FileRequestPath);
+                if (r.Success)
+                {
+                    return ResponseOutput.Ok(res.Data.FileRequestPath);
+                }
             }
 
             return ResponseOutput.NotOk("上传失败！");

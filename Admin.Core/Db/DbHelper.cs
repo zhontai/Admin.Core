@@ -202,7 +202,6 @@ namespace Admin.Core.Db
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
-                    await InitDtData(db, data.Documents, tran, dbConfig);
                     await InitDtData(db, data.Dictionaries, tran, dbConfig);
                     await InitDtData(db, data.Apis, tran, dbConfig);
                     await InitDtData(db, data.Views, tran, dbConfig);

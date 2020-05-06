@@ -36,6 +36,8 @@ namespace Admin.Core.Service.Admin.Document
 
         Task<IResponseOutput> DeleteAsync(long id);
 
+        Task<IResponseOutput> DeleteImageAsync(long documentId, string url);
+
         Task<IResponseOutput> SoftDeleteAsync(long id);
 
     }

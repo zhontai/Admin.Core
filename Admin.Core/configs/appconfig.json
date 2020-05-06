@@ -15,6 +15,7 @@
   },
   //验证码
   "varifyCode": {
+    // 字体
     "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   }
 }
