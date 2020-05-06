@@ -25,6 +25,11 @@
         public string UploadPath { get; set; }
 
         /// <summary>
+        /// 请求路径
+        /// </summary>
+        public string RequestPath { get; set; }
+
+        /// <summary>
         /// 相对路径
         /// </summary>
         public string RelativePath { get; set; }
@@ -50,9 +55,9 @@
         public string Extension { get; set; }
 
         /// <summary>
-        /// 请求路径
+        /// 文件目录
         /// </summary>
-        public string RequestPath { get; set; }
+        public string FileDirectory => System.IO.Path.Combine(UploadPath, RelativePath).ToPath();
 
         /// <summary>
         /// 文件请求路径
@@ -63,11 +68,6 @@
         /// 文件相对路径
         /// </summary>
         public string FileRelativePath => System.IO.Path.Combine(RelativePath, SaveName).ToPath();
-
-        /// <summary>
-        /// 文件目录
-        /// </summary>
-        public string FileDirectory => System.IO.Path.Combine(UploadPath, RelativePath).ToPath();
 
         /// <summary>
         /// 文件路径

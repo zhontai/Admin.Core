@@ -51,6 +51,7 @@ namespace Admin.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //应用配置
             services.AddSingleton(_appConfig);
 
             //上传配置
@@ -243,12 +244,13 @@ namespace Admin.Core
                 .InstancePerDependency();
                 #endregion
 
-                //单例注入
+                #region SingleInstance
                 var assemblyCore = Assembly.Load("Admin.Core");
                 var assemblyCommon = Assembly.Load("Admin.Core.Common");
-                builder.RegisterAssemblyTypes(assemblyCore,assemblyCommon)
+                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .SingleInstance();
+                .SingleInstance(); 
+                #endregion
             }
             catch (Exception ex)
             {

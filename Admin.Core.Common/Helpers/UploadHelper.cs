@@ -61,7 +61,7 @@ namespace Admin.Core.Common.Helpers
                 Directory.CreateDirectory(fileInfo.FileDirectory);
             }
 
-            fileInfo.SaveName = $"{new Snowfake(0).nextId()}.{fileInfo.Extension}";
+            fileInfo.SaveName = $"{IdWorkerHelper.GenId64()}.{fileInfo.Extension}";
 
             await SaveAsync(file, fileInfo.FilePath, cancellationToken);
 
