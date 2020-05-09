@@ -309,7 +309,7 @@ namespace Admin.Core
                     });
                     c.RoutePrefix = "";//直接根目录访问
                     c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
-                    c.DefaultModelsExpandDepth(-1);//不显示Models
+                    //c.DefaultModelsExpandDepth(-1);//不显示Models
                 });
             }
             #endregion

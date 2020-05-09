@@ -1,0 +1,1407 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Admin.Core.Service</name>
+    </assembly>
+    <members>
+        <member name="T:Admin.Core.Service.Admin.Api.IApiService">
+            <summary>
+            接口服务
+            </summary>	
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.GetAsync(System.Int64)">
+            <summary>
+            获得一条记录
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.ListAsync(System.String)">
+            <summary>
+            获得列表
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.PageAsync(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.ApiEntity})">
+            <summary>
+            获得分页
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.AddAsync(Admin.Core.Service.Admin.Api.Input.ApiAddInput)">
+            <summary>
+            添加
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.UpdateAsync(Admin.Core.Service.Admin.Api.Input.ApiUpdateInput)">
+            <summary>
+            修改
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.DeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            软删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量软删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Api.IApiService.SyncAsync(Admin.Core.Service.Admin.Api.Input.ApiSyncInput)">
+            <summary>
+            同步
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Api.Input.ApiAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.ParentId">
+            <summary>
+            所属模块
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.Label">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.Path">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.HttpMethods">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Api.Input.ApiSyncDto">
+            <summary>
+            接口同步Dto
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiSyncDto.Label">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiSyncDto.Path">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiSyncDto.ParentPath">
+            <summary>
+            父级路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiSyncDto.HttpMethods">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Api.Input.ApiSyncInput">
+            <summary>
+            接口同步
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Api.Input.ApiUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiUpdateInput.Id">
+            <summary>
+            接口Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Input.ApiUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Id">
+            <summary>
+            接口Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.ParentId">
+            <summary>
+            接口父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Name">
+            <summary>
+            接口命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Label">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Path">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.HttpMethods">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Api.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Auth.IAuthService">
+            <summary>
+            权限服务
+            </summary>	
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput">
+            <summary>
+            登录信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.PasswordKey">
+            <summary>
+            密码键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.VerifyCode">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.VerifyCodeKey">
+            <summary>
+            验证码键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.NickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Auth.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Cache.ICacheService">
+            <summary>
+            缓存服务
+            </summary>	
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Cache.ICacheService.List">
+            <summary>
+            缓存列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.Cache.ICacheService.ClearAsync(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="cacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.ParentId">
+            <summary>
+            字典父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Name">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Code">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Value">
+            <summary>
+            字典值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Dictionary.Input.DictionaryUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.ParentId">
+            <summary>
+            字典父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Name">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Code">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Value">
+            <summary>
+            字典值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Dictionary.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput.Name">
+            <summary>
+            命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput.Opened">
+            <summary>
+            打开
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddImageInput.DocumentId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddImageInput.Url">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.Name">
+            <summary>
+            命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Html">
+            <summary>
+            Html
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateGroupInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateGroupInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateMenuInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUpdateMenuInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUploadImageInput.File">
+            <summary>
+            上传文件
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Input.DocumentUploadImageInput.Id">
+            <summary>
+            文档编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentGetContentOutput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Name">
+            <summary>
+            命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Document.Output.DocumentListOutput.Opened">
+            <summary>
+            组打开
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Document.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Output.LoginLogListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.LoginLog.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.ApiLabel">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.ApiPath">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.ApiMethod">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Params">
+            <summary>
+            操作参数
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Input.OprationLogAddInput.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.ApiLabel">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.ApiPath">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.ApiMethod">
+            <summary>
+            接口提交方法
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.OprationLog.Output.OprationLogListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.OprationLog.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.ApiId">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Label">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Hidden">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Label">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Hidden">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Opened">
+            <summary>
+            打开
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.ViewId">
+            <summary>
+            视图
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Path">
+            <summary>
+            访问地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Label">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Hidden">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.Closable">
+            <summary>
+            可关闭
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.NewWindow">
+            <summary>
+            打开新窗口
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput.External">
+            <summary>
+            链接外显
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateApiInput.Id">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateApiInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateGroupInput.Id">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateGroupInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateMenuInput.Id">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateMenuInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Id">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Label">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Name">
+            <summary>
+            权限命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Path">
+            <summary>
+            访问地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.ApiPath">
+            <summary>
+            接口路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Opened">
+            <summary>
+            组打开
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Hidden">
+            <summary>
+            隐藏
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Permission.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Role.Input.RoleAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Input.RoleAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Input.RoleAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Input.RoleAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Role.Input.RoleUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Input.RoleUpdateInput.Id">
+            <summary>
+            接口Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Input.RoleUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Output.RoleListOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Output.RoleListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Output.RoleListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Output.RoleListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Role.Output.RoleListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Role.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.Input.UserAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.RoleIds">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput">
+            <summary>
+            修改密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.OldPassword">
+            <summary>
+            旧密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.ConfirmPassword">
+            <summary>
+            确认新密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput">
+            <summary>
+            更新基本信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.Input.UserUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.RoleIds">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.IUserService">
+            <summary>
+            用户服务
+            </summary>	
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.RoleNames">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.User.Output.UserListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.User.MapConfig">
+            <summary>
+            映射配置
+            双向映射 .ReverseMap()
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.View.Input.ViewAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.ParentId">
+            <summary>
+            所属节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.Name">
+            <summary>
+            视图命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.Label">
+            <summary>
+            视图名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.Path">
+            <summary>
+            视图路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Name">
+            <summary>
+            视图命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Path">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.ParentPath">
+            <summary>
+            父级路径
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.View.Input.ViewUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewUpdateInput.Id">
+            <summary>
+            视图Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.View.Input.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.View.IViewService">
+            <summary>
+            视图服务
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Service.Admin.View.IViewService.GetAsync(System.Int64)">
+            <summary>
+            获得一条记录
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Id">
+            <summary>
+            视图Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.ParentId">
+            <summary>
+            视图父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Name">
+            <summary>
+            视图命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Label">
+            <summary>
+            视图名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Path">
+            <summary>
+            视图路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="T:Admin.Core.FrameWork.Service.User.UserService">
+            <summary>
+            用户服务
+            </summary>	
+        </member>
+    </members>
+</doc>
