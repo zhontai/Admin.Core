@@ -19,7 +19,7 @@ namespace Admin.Core.Common.Configs
         public string Audience { get; set; }
 
         /// <summary>
-        /// 秘钥
+        /// 密钥
         /// </summary>
         public string SecurityKey { get; set; }
 

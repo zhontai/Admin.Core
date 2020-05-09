@@ -1,6 +1,7 @@
 using System;
-using FreeSql.DataAnnotations;
 using System.Collections.Generic;
+using Admin.Core.Common.BaseModel;
+using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
 {
@@ -34,7 +35,10 @@ namespace Admin.Core.Model.Admin
 		public int Sort { get; set; }
 
         [Navigate(ManyToMany = typeof(UserRoleEntity))]
-        public virtual ICollection<UserEntity> Users { get; set; }
+        public ICollection<UserEntity> Users { get; set; }
+
+        [Navigate(ManyToMany = typeof(RolePermissionEntity))]
+        public ICollection<PermissionEntity> Permissions { get; set; }
     }
 
 }

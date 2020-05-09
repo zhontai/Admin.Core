@@ -21,7 +21,6 @@ namespace Admin.Core.Service.Admin.Auth
         private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly IUserRepository _userRepository;
         private readonly IPermissionRepository _permissionRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
 
         public AuthService(
             IUser user,
@@ -29,8 +28,7 @@ namespace Admin.Core.Service.Admin.Auth
             IMapper mapper,
             VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
-            IPermissionRepository permissionRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IPermissionRepository permissionRepository
         )
         {
             _user = user;
@@ -39,7 +37,6 @@ namespace Admin.Core.Service.Admin.Auth
             _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
-            _rolePermissionRepository = rolePermissionRepository;
         }
 
         public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
@@ -123,7 +120,7 @@ namespace Admin.Core.Service.Admin.Auth
             var menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
                 .Where(a =>
-                    _rolePermissionRepository.Select
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
                     .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
                     .Where(b => b.PermissionId == a.Id)
                     .Any()

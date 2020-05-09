@@ -4,8 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\Admin.Core\bin\Debug\netcoreapp3.1\Admin.Core.Common.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.6.2" />
+    <PackageReference Include="CSRedisCore" Version="3.6.3" />
     <PackageReference Include="FreeSql" Version="1.4.0" />
     <PackageReference Include="FreeSql.Provider.MySql" Version="1.4.0" />
     <PackageReference Include="FreeSql.Provider.Oracle" Version="1.4.0" />

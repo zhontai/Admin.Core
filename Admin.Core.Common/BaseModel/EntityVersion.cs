@@ -1,6 +1,6 @@
 ﻿using FreeSql.DataAnnotations;
 
-namespace Admin.Core.Model
+namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
     /// 实体版本

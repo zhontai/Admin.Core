@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Common.Cache
 {
