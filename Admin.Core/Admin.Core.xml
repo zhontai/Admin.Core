@@ -1,0 +1,788 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Admin.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Admin.Core.Attributes.LoginAttribute">
+            <summary>
+            启用登录
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.NoOprationLogAttribute">
+            <summary>
+            禁用操作日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.PermissionAttribute">
+            <summary>
+            启用权限
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.ValidateInputAttribute">
+            <summary>
+            输入模型验证
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.VersionRouteAttribute">
+            <summary>
+            自定义路由 /api/{version}/[area]/[controler]/[action]
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Auth.IPermissionHandler">
+            <summary>
+            权限处理接口
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Auth.IPermissionHandler.ValidateAsync(System.String,System.String)">
+            <summary>
+            权限验证
+            </summary>
+            <param name="api"></param>
+            <param name="httpMethod"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Auth.PermissionHandler">
+            <summary>
+            权限处理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Auth.PermissionHandler.ValidateAsync(System.String,System.String)">
+            <summary>
+            权限验证
+            </summary>
+            <param name="api">接口路径</param>
+            <param name="httpMethod">http请求方法</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Auth.ResponseAuthenticationHandler">
+            <summary>
+            响应认证处理器
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.ApiController">
+            <summary>
+            接口管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.Get(System.Int64)">
+            <summary>
+            查询单条接口
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.GetList(System.String)">
+            <summary>
+            查询全部接口
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.ApiEntity})">
+            <summary>
+            查询分页接口
+            </summary>
+            <param name="model">分页模型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.Add(Admin.Core.Service.Admin.Api.Input.ApiAddInput)">
+            <summary>
+            新增接口
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.Update(Admin.Core.Service.Admin.Api.Input.ApiUpdateInput)">
+            <summary>
+            修改接口
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.SoftDelete(System.Int64)">
+            <summary>
+            删除接口
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除接口
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ApiController.Sync(Admin.Core.Service.Admin.Api.Input.ApiSyncInput)">
+            <summary>
+            同步接口
+            支持新增和修改接口
+            根据接口是否存在自动禁用和启用api
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.AreaController">
+            <summary>
+            域控制器
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.AuthController">
+            <summary>
+            授权管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetVerifyCode(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="lastKey">上次验证码键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetPassWordEncryptKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetUserInfo">
+            <summary>
+            查询用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.Login(Admin.Core.Service.Admin.Auth.Input.AuthLoginInput)">
+            <summary>
+            用户登录
+            根据登录信息生成Token
+            </summary>
+            <param name="input">登录信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.CacheController">
+            <summary>
+            缓存管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.CacheController.List">
+            <summary>
+            获取缓存列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.CacheController.Clear(System.String)">
+            <summary>
+            清除缓存
+            </summary>
+            <param name="cacheKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.DictionaryController">
+            <summary>
+            数据字典
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.Get(System.Int64)">
+            <summary>
+            查询单条数据字典
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.DictionaryEntity})">
+            <summary>
+            查询分页数据字典
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.Add(Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput)">
+            <summary>
+            新增数据字典
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.Update(Admin.Core.Service.Admin.Dictionary.Input.DictionaryUpdateInput)">
+            <summary>
+            修改数据字典
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.SoftDelete(System.Int64)">
+            <summary>
+            删除数据字典
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.DocumentController">
+            <summary>
+            文档管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetList(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            查询文档列表
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetImageList(System.Int64)">
+            <summary>
+            查询文档图片列表
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetGroup(System.Int64)">
+            <summary>
+            查询单条分组
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetMenu(System.Int64)">
+            <summary>
+            查询单条菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetContent(System.Int64)">
+            <summary>
+            查询单条文档内容
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.GetPlainList">
+            <summary>
+            查询精简文档列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.AddGroup(Admin.Core.Service.Admin.Document.Input.DocumentAddGroupInput)">
+            <summary>
+            新增分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.AddMenu(Admin.Core.Service.Admin.Document.Input.DocumentAddMenuInput)">
+            <summary>
+            新增菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateGroup(Admin.Core.Service.Admin.Document.Input.DocumentUpdateGroupInput)">
+            <summary>
+            修改分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateMenu(Admin.Core.Service.Admin.Document.Input.DocumentUpdateMenuInput)">
+            <summary>
+            修改菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UpdateContent(Admin.Core.Service.Admin.Document.Input.DocumentUpdateContentInput)">
+            <summary>
+            修改文档内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.SoftDelete(System.Int64)">
+            <summary>
+            删除文档
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.DeleteImage(System.Int64,System.String)">
+            <summary>
+            删除图片
+            </summary>
+            <param name="documentId"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DocumentController.UploadImage(Admin.Core.Service.Admin.Document.Input.DocumentUploadImageInput)">
+            <summary>
+            上传文档图片
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.LoginLogController">
+            <summary>
+            登录日志管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.LoginLogController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.LoginLogEntity})">
+            <summary>
+            查询分页登录日志
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.OprationLogController">
+            <summary>
+            操作日志管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.OprationLogController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.OprationLogEntity})">
+            <summary>
+            查询分页操作日志
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.PermissionController">
+            <summary>
+            权限管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetList(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            查询权限列表
+            </summary>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetGroup(System.Int64)">
+            <summary>
+            查询单条分组
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetMenu(System.Int64)">
+            <summary>
+            查询单条菜单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetApi(System.Int64)">
+            <summary>
+            查询单条接口
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetPermissionList">
+            <summary>
+            查询角色权限-权限列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetRolePermissionList(System.Int64)">
+            <summary>
+            查询角色权限
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddGroup(Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput)">
+            <summary>
+            新增分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddMenu(Admin.Core.Service.Admin.Permission.Input.PermissionAddMenuInput)">
+            <summary>
+            新增菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddApi(Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput)">
+            <summary>
+            新增接口
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateGroup(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateGroupInput)">
+            <summary>
+            修改分组
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateMenu(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateMenuInput)">
+            <summary>
+            修改菜单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateApi(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateApiInput)">
+            <summary>
+            修改接口
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.SoftDelete(System.Int64)">
+            <summary>
+            删除权限
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.Assign(Admin.Core.Service.Admin.Permission.Input.PermissionAssignInput)">
+            <summary>
+            保存角色权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.RoleController">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.Get(System.Int64)">
+            <summary>
+            查询单条角色
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.RoleEntity})">
+            <summary>
+            查询分页角色
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.Add(Admin.Core.Service.Admin.Role.Input.RoleAddInput)">
+            <summary>
+            新增角色
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.Update(Admin.Core.Service.Admin.Role.Input.RoleUpdateInput)">
+            <summary>
+            修改角色
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.SoftDelete(System.Int64)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.RoleController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除角色
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.GetBasic">
+            <summary>
+            查询用户基本信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.Get(System.Int64)">
+            <summary>
+            查询单条用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.UserEntity})">
+            <summary>
+            查询分页用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.Add(Admin.Core.Service.Admin.User.Input.UserAddInput)">
+            <summary>
+            新增用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.Update(Admin.Core.Service.Admin.User.Input.UserUpdateInput)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.SoftDelete(System.Int64)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.ChangePassword(Admin.Core.Service.Admin.User.Input.UserChangePasswordInput)">
+            <summary>
+            更新用户密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.UpdateBasic(Admin.Core.Service.Admin.User.Input.UserUpdateBasicInput)">
+            <summary>
+            更新用户基本信息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传头像
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.ViewController">
+            <summary>
+            视图管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.Get(System.Int64)">
+            <summary>
+            查询单条视图
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.GetList(System.String)">
+            <summary>
+            查询全部视图
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.ViewEntity})">
+            <summary>
+            查询分页视图
+            </summary>
+            <param name="model">分页模型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.Add(Admin.Core.Service.Admin.View.Input.ViewAddInput)">
+            <summary>
+            新增视图
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.Update(Admin.Core.Service.Admin.View.Input.ViewUpdateInput)">
+            <summary>
+            修改视图
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.SoftDelete(System.Int64)">
+            <summary>
+            删除视图
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除视图
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.ViewController.Sync(Admin.Core.Service.Admin.View.Input.ViewSyncInput)">
+            <summary>
+            同步视图
+            支持新增和修改视图
+            根据视图是否存在自动禁用和启用视图
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.BaseController">
+            <summary>
+            基础控制器
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Db.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.CreateDatabase(Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            创建数据库
+            </summary>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            同步结构
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.InitDtData``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            初始化数据表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="db"></param>
+            <param name="data"></param>
+            <param name="tran"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
+            <summary>
+            同步数据审计方法
+            </summary>
+            <param name="s"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.SyncData(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            同步数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.GenerateSimpleJsonData(IFreeSql)">
+            <summary>
+            生成极简数据
+            </summary>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Admin.Core.Common.Configs.AppConfig)">
+            <summary>
+            添加数据库
+            </summary>
+            <param name="services"></param>
+            <param name="env"></param>
+            <param name="appConfig"></param>
+        </member>
+        <member name="T:Admin.Core.Enums.ApiVersion">
+            <summary>
+            接口版本
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.ApiVersion.V1">
+            <summary>
+            V1 版本
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.ApiVersion.V2">
+            <summary>
+            V2 版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Enums.StatusCodes">
+            <summary>
+            状态码枚举
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status0NotOk">
+            <summary>
+            操作失败
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status1Ok">
+            <summary>
+            操作成功
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status401Unauthorized">
+            <summary>
+            未登录（需要重新登录）
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status403Forbidden">
+            <summary>
+            权限不足
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status404NotFound">
+            <summary>
+            资源不存在
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Enums.StatusCodes.Status500InternalServerError">
+            <summary>
+            系统内部错误（非业务代码里显式抛出的异常，例如由于数据不正确导致空指针异常、数据库异常等等）
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Filters.AdminExceptionFilter">
+            <summary>
+            Admin异常错误过滤
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Logs.ApiHelper">
+            <summary>
+            Api帮助类
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Logs.ApiHelperDto.Label">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Logs.ApiHelperDto.Path">
+            <summary>
+            接口地址
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Logs.ILogHandler">
+            <summary>
+            操作日志处理接口
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Logs.ILogHandler.LogAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            写操作日志
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Logs.LogHandler">
+            <summary>
+            操作日志处理
+            </summary>
+        </member>
+    </members>
+</doc>

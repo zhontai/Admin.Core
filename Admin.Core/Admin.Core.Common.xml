@@ -1,0 +1,1209 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Admin.Core.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Admin.Core.Common.Attributes.SingleInstanceAttribute">
+            <summary>
+            单例注入
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Attributes.TransactionAttribute">
+            <summary>
+            启用事物
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Attributes.TransactionAttribute.Propagation">
+            <summary>
+            事务传播方式
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Attributes.TransactionAttribute.IsolationLevel">
+            <summary>
+            事务隔离级别
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Auth.IUser">
+            <summary>
+            用户信息接口
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Auth.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.User.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.User.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.User.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Auth.ClaimAttributes">
+            <summary>
+            Claim属性
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserNickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.Entity`1.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntityAdd`1">
+            <summary>
+            实体创建审计
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityAdd`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityAdd`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityAdd`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntityBase`1">
+            <summary>
+            实体审计
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntitySoftDelete`1">
+            <summary>
+            实体软删除
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntitySoftDelete`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntityUpdate`1">
+            <summary>
+            实体修改审计
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityUpdate`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityUpdate`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityUpdate`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntityVersion`1">
+            <summary>
+            实体版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityVersion`1.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.IEntitySoftDelete.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.IEntityVersion.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Cache.CacheKey">
+            <summary>
+            缓存键
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.VerifyCodeKey">
+            <summary>
+            验证码 admin:verify:code:guid
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.PassWordEncryptKey">
+            <summary>
+            密码加密 admin:password:encrypt:guid
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.UserPermissions">
+            <summary>
+            用户权限 admin:user:用户主键:permissions
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Cache.CacheType">
+            <summary>
+            缓存类型
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Cache.ICache">
+            <summary>
+            缓存接口
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Del(System.String[])">
+            <summary>
+            用于在 key 存在时删除 key
+            </summary>
+            <param name="key">键</param>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.DelAsync(System.String[])">
+            <summary>
+            用于在 key 存在时删除 key
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.DelByPatternAsync(System.String)">
+            <summary>
+            用于在 key 模板存在时删除
+            </summary>
+            <param name="pattern">key模板</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Exists(System.String)">
+            <summary>
+            检查给定 key 是否存在
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.ExistsAsync(System.String)">
+            <summary>
+            检查给定 key 是否存在
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Get(System.String)">
+            <summary>
+            获取指定 key 的值
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Get``1(System.String)">
+            <summary>
+            获取指定 key 的值
+            </summary>
+            <typeparam name="T">byte[] 或其他类型</typeparam>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.GetAsync(System.String)">
+            <summary>
+            获取指定 key 的值
+            </summary>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.GetAsync``1(System.String)">
+            <summary>
+            获取指定 key 的值
+            </summary>
+            <typeparam name="T">byte[] 或其他类型</typeparam>
+            <param name="key">键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Set(System.String,System.Object)">
+            <summary>
+            设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.Set(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+            <param name="expire">有效期</param>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.SetAsync(System.String,System.Object)">
+            <summary>
+            设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.SetAsync(System.String,System.Object,System.TimeSpan)">
+            <summary>
+            设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
+            </summary>
+            <param name="key">键</param>
+            <param name="value">值</param>
+            <param name="expire">有效期</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Cache.MemoryCache">
+            <summary>
+            内存缓存
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Cache.RedisCache">
+            <summary>
+            Redis缓存
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.AppConfig">
+            <summary>
+            应用配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
+            <summary>
+            Swagger文档
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Urls">
+            <summary>
+            Api地址，默认 http://*:8888
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Aop">
+            <summary>
+            Aop配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Log">
+            <summary>
+            日志配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.VarifyCode">
+            <summary>
+            验证码配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.AopConfig">
+            <summary>
+            Aop配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AopConfig.Transaction">
+            <summary>
+            事物
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.LogConfig">
+            <summary>
+            日志配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.LogConfig.Operation">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.VarifyCodeConfig">
+            <summary>
+            验证码配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Font">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.CacheConfig">
+            <summary>
+            缓存配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.CacheConfig.Type">
+            <summary>
+            缓存类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.CacheConfig.Redis">
+            <summary>
+            Redis配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.RedisConfig.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.DbConfig">
+            <summary>
+            数据库配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.GenerateData">
+            <summary>
+            生成数据
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.SyncStructure">
+            <summary>
+            同步结构
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.SyncData">
+            <summary>
+            同步数据
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.CreateDb">
+            <summary>
+            建库
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.CreateDbConnectionString">
+            <summary>
+            建库连接字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.CreateDbSql">
+            <summary>
+            建库脚本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.MonitorCommand">
+            <summary>
+            监听所有操作
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.Curd">
+            <summary>
+            监听Curd操作
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.JwtConfig">
+            <summary>
+            Jwt配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.JwtConfig.Issuer">
+            <summary>
+            发行者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.JwtConfig.Audience">
+            <summary>
+            订阅者
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.JwtConfig.SecurityKey">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.JwtConfig.Expires">
+            <summary>
+            有效期(分钟)
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.UploadConfig">
+            <summary>
+            上传配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.UploadConfig.Avatar">
+            <summary>
+            头像上传配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.UploadConfig.Document">
+            <summary>
+            文档图片上传配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.FileUploadConfig">
+            <summary>
+            文件上传配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.UploadPath">
+            <summary>
+            上传路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.Format">
+            <summary>
+            路径格式
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.DateTimeFormat">
+            <summary>
+            路径日期格式
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.MaxSize">
+            <summary>
+            文件大小 10M = 10 * 1024 * 1024
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.Limit">
+            <summary>
+            最大允许上传个数 -1不限制
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.FileUploadConfig.ContentType">
+            <summary>
+            文件格式
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Extensions.GuidExtensions.IsNull(System.Guid)">
+            <summary>
+            判断Guid是否为空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Extensions.GuidExtensions.NotNull(System.Guid)">
+            <summary>
+            判断Guid是否不为空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Files.FileInfo">
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileInfo.#ctor(System.String,System.Int64)">
+            <summary>
+            初始化文件信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="size">大小</param>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.UploadPath">
+            <summary>
+            上传路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.RelativePath">
+            <summary>
+            相对路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.SaveName">
+            <summary>
+            保存名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.Size">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.Extension">
+            <summary>
+            扩展名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.FileDirectory">
+            <summary>
+            文件目录
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.FileRequestPath">
+            <summary>
+            文件请求路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.FileRelativePath">
+            <summary>
+            文件相对路径
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileInfo.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Files.FileSize">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.#ctor(System.Int64,Admin.Core.Common.Files.FileSizeUnit)">
+            <summary>
+            初始化文件大小
+            </summary>
+            <param name="size">文件大小</param>
+            <param name="unit">文件大小单位</param>
+        </member>
+        <member name="P:Admin.Core.Common.Files.FileSize.Size">
+            <summary>
+            文件字节长度
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.GetSize">
+            <summary>
+            获取文件大小，单位：字节
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.GetSizeByK">
+            <summary>
+            获取文件大小，单位：K
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.GetSizeByM">
+            <summary>
+            获取文件大小，单位：M
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.GetSizeByG">
+            <summary>
+            获取文件大小，单位：G
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Files.FileSize.ToString">
+            <summary>
+            输出描述
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Files.FileSizeUnit">
+            <summary>
+            文件大小单位
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Files.FileSizeUnit.Byte">
+            <summary>
+            字节
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Files.FileSizeUnit.K">
+            <summary>
+            K字节
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Files.FileSizeUnit.M">
+            <summary>
+            M字节
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Files.FileSizeUnit.G">
+            <summary>
+            G字节
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.ConfigHelper">
+            <summary>
+            配置帮助类
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConfigHelper.Load(System.String,System.String,System.Boolean)">
+            <summary>
+            加载配置文件
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="environmentName">环境名称</param>
+            <param name="reloadOnChange">自动更新</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConfigHelper.Get``1(System.String,System.String,System.Boolean)">
+            <summary>
+            获得配置信息
+            </summary>
+            <typeparam name="T">配置信息</typeparam>
+            <param name="fileName">文件名称</param>
+            <param name="environmentName">环境名称</param>
+            <param name="reloadOnChange">自动更新</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConfigHelper.Bind(System.String,System.Object,System.String,System.Boolean)">
+            <summary>
+            绑定实例配置信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="instance">实例配置</param>
+            <param name="environmentName">环境名称</param>
+            <param name="reloadOnChange">自动更新</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConsoleHelper.WriteErrorLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印错误信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConsoleHelper.WriteWarningLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印警告信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConsoleHelper.WriteInfoLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印正常信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.ConsoleHelper.WriteSuccessLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印成功的信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.DesEncrypt">
+            <summary>
+            Des加解密
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Encrypt(System.String,System.String)">
+            <summary>
+            DES+Base64加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Decrypt(System.String,System.String)">
+            <summary>
+            DES+Base64解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Encrypt4Hex(System.String,System.String,System.Boolean)">
+            <summary>
+            DES+16进制加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Decrypt4Hex(System.String,System.String)">
+            <summary>
+            DES+16进制解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Encrypt(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            DES加密
+            </summary>
+            <param name="encryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <param name="lowerCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.DesEncrypt.Decrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            DES解密
+            </summary>
+            <param name="decryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.FileHelper.WriteFile(System.String,System.String)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.FileHelper.WriteFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+            <param name="encode">编码格式</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.FileHelper.ReadFile(System.String)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.FileHelper.ReadFile(System.String,System.Text.Encoding)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="encode">编码格式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.IPHelper.IsIP(System.String)">
+            <summary>
+            是否为ip
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.MD5Encrypt">
+            <summary>
+            MD5加密
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.MD5Encrypt.Encrypt16(System.String)">
+            <summary>
+            16位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.MD5Encrypt.Encrypt32(System.String)">
+            <summary>
+            32位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.MD5Encrypt.Encrypt64(System.String)">
+            <summary>
+            64位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.StringHelper">
+            <summary>
+            字符串帮助类
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.StringHelper.GenerateRandom(System.Int32)">
+            <summary>
+            生成随机字符串，默认32位
+            </summary>
+            <param name="length">随机数长度</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.StringHelper.GenerateRandomNumber(System.Int32)">
+            <summary>
+            生成随机字符串，只包含数字
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UnicodeHelper.StringToUnicode(System.String)">
+            <summary>
+            字符串转Unicode码
+            </summary>
+            <returns>The to unicode.</returns>
+            <param name="value">Value.</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UnicodeHelper.UnicodeToString(System.String)">
+            <summary>
+            Unicode转字符串
+            </summary>
+            <returns>The to string.</returns>
+            <param name="unicode">Unicode.</param>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.UploadHelper">
+            <summary>
+            文件上传帮助类
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UploadHelper.UploadAsync(Microsoft.AspNetCore.Http.IFormFile,Admin.Core.Common.Configs.FileUploadConfig,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            上传单文件
+            </summary>
+            <param name="file"></param>
+            <param name="config"></param>
+            <param name="args"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UploadHelper.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="file"></param>
+            <param name="filePath"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Helpers.UtilConvert">
+            <summary>
+            数据类型转换
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UtilConvert.ToDouble(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换成Double/Single
+            </summary>
+            <param name="s"></param>
+            <param name="digits">小数位数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UtilConvert.ToHex(System.Byte[],System.Boolean)">
+            <summary>
+            转换为16进制
+            </summary>
+            <param name="bytes"></param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UtilConvert.HexToBytes(System.String)">
+            <summary>
+            16进制转字节数组
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.UtilConvert.ToBase64(System.Byte[])">
+            <summary>
+            转换为Base64
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Input.PageInput`1">
+            <summary>
+            分页信息输入
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Input.PageInput`1.CurrentPage">
+            <summary>
+            当前页标
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Input.PageInput`1.PageSize">
+            <summary>
+            每页大小
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Input.PageInput`1.Filter">
+            <summary>
+            查询条件
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Output.IResponseOutput">
+            <summary>
+            响应数据输出接口
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.IResponseOutput.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.IResponseOutput.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Output.IResponseOutput`1">
+            <summary>
+            响应数据输出泛型接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Admin.Core.Common.Output.IResponseOutput`1.Data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Output.OptionOutput">
+            <summary>
+            下拉选项输出
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.OptionOutput.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.OptionOutput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.OptionOutput.Disabled">
+            <summary>
+            禁用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.OptionOutput.Data">
+            <summary>
+            额外数据
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Output.PageOutput`1">
+            <summary>
+            分页信息输出
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.PageOutput`1.Total">
+            <summary>
+            数据总数
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.PageOutput`1.List">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Output.ResponseOutput`1">
+            <summary>
+            响应数据输出
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.ResponseOutput`1.Success">
+            <summary>
+            是否成功标记
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.ResponseOutput`1.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.ResponseOutput`1.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Output.ResponseOutput`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput`1.Ok(`0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput`1.NotOk(System.String,`0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Common.Output.ResponseOutput">
+            <summary>
+            响应数据静态输出
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.Ok``1(``0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.Ok">
+            <summary>
+            成功
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.NotOk``1(System.String,``0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.NotOk(System.String)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.Result``1(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Output.ResponseOutput.Result(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.IsNull(System.String)">
+            <summary>
+            判断字符串是否为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.NotNull(System.String)">
+            <summary>
+            判断字符串是否不为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.EqualsIgnoreCase(System.String,System.String)">
+            <summary>
+            与字符串进行比较，忽略大小写
+            </summary>
+            <param name="s"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.FirstCharToLower(System.String)">
+            <summary>
+            首字母转小写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.FirstCharToUpper(System.String)">
+            <summary>
+            首字母转大写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.ToBase64(System.String)">
+            <summary>
+            转为Base64，UTF-8格式
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
+            <summary>
+            转为Base64
+            </summary>
+            <param name="s"></param>
+            <param name="encoding">编码</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
