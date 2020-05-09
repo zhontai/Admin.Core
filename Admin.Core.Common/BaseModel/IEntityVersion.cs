@@ -1,7 +1,4 @@
-﻿using FreeSql.DataAnnotations;
-using Newtonsoft.Json;
-
-namespace Admin.Core.Model
+﻿namespace Admin.Core.Common.BaseModel
 {
     public interface IEntityVersion
     {

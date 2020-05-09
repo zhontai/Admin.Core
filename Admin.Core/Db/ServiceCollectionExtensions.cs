@@ -4,8 +4,8 @@ using Microsoft.Extensions.Hosting;
 using FreeSql;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Model;
 using Admin.Core.Common.Auth;
+using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Db
 {

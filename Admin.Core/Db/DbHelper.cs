@@ -10,6 +10,7 @@ using FreeSql.DataAnnotations;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
+using System.Reflection;
 
 namespace Admin.Core.Db
 {
@@ -195,7 +196,8 @@ namespace Admin.Core.Db
                 Console.WriteLine("\r\nsync data started");
 
                 db.Aop.AuditValue += SyncDataAuditValue;
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Db/Data/data.json").ToPath();
+               
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Db/Data/data.json").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Admin.Core
+namespace Admin.Core.Common.Helpers
 {
     /// <summary>
     /// 数据类型转换

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 
 namespace Admin.Core.Common.Helpers
@@ -28,7 +29,7 @@ namespace Admin.Core.Common.Helpers
         /// <returns></returns>
         public IConfiguration Load(string fileName, string environmentName = "", bool reloadOnChange = false)
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "configs");
+            var filePath = Path.Combine(AppContext.BaseDirectory, "configs");
             if (!Directory.Exists(filePath))
                 return null;
 

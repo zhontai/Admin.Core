@@ -58,6 +58,38 @@ namespace Admin.Core.FrameWork.Service.User
             return res.Ok(entityDto);
         }
 
+        public async Task<IResponseOutput> GetBasicAsync()
+        {
+            if (!(_user?.Id > 0))
+            {
+                return ResponseOutput.NotOk("未登录！");
+            }
+
+            var data = await _userRepository.GetAsync<UserUpdateBasicInput>(_user.Id);
+            return ResponseOutput.Ok(data);
+        }
+
+        public async Task<IList<string>> GetPermissionsAsync()
+        {
+            var key = string.Format(CacheKey.UserPermissions, _user.Id);
+            if (await _cache.ExistsAsync(key))
+            {
+                return await _cache.GetAsync<IList<string>>(key);
+            }
+            else
+            {
+                var userPermissoins = await _rolePermissionRepository.Select
+                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == _user.Id && a.Permission.Type == PermissionType.Api)
+                .Include(a => a.Permission.Api)
+                .Distinct()
+                .ToListAsync(a => a.Permission.Api.Path);
+
+                await _cache.SetAsync(key, userPermissoins);
+
+                return userPermissoins;
+            }
+        }
+
         public async Task<IResponseOutput> PageAsync(PageInput<UserEntity> input)
         {
             var key = input.Filter?.UserName;
@@ -99,7 +131,7 @@ namespace Admin.Core.FrameWork.Service.User
 
             if (input.RoleIds != null && input.RoleIds.Any())
             {
-                var roles = input.RoleIds.Select(d => new UserRoleEntity(user.Id, d));
+                var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });
                 await _userRoleRepository.InsertAsync(roles);
             }
 
@@ -114,22 +146,53 @@ namespace Admin.Core.FrameWork.Service.User
                 return ResponseOutput.NotOk();
             }
 
-            var entity = await _userRepository.GetAsync(input.Id);
-            if (!(entity?.Id > 0))
+            var user = await _userRepository.GetAsync(input.Id);
+            if (!(user?.Id > 0))
             {
                 return ResponseOutput.NotOk("用户不存在！");
             }
 
-            _mapper.Map(input, entity);
-            await _userRepository.UpdateAsync(entity);
-            await _userRoleRepository.DeleteAsync(a => a.UserId == entity.Id);
+            _mapper.Map(input, user);
+            await _userRepository.UpdateAsync(user);
+            await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
             if (input.RoleIds != null && input.RoleIds.Any())
             {
-                var roles = input.RoleIds.Select(d => new UserRoleEntity(entity.Id, d));
+                var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });
                 await _userRoleRepository.InsertAsync(roles);
             }
 
             return ResponseOutput.Ok();
+        }
+
+        public async Task<IResponseOutput> UpdateBasicAsync(UserUpdateBasicInput input)
+        {
+            var entity = await _userRepository.GetAsync(input.Id);
+            entity = _mapper.Map(input, entity);
+            var result = (await _userRepository.UpdateAsync(entity)) > 0;
+
+            return ResponseOutput.Result(result);
+        }
+
+        public async Task<IResponseOutput> ChangePasswordAsync(UserChangePasswordInput input)
+        {
+            if (input.ConfirmPassword != input.NewPassword)
+            {
+                return ResponseOutput.NotOk("新密码和确认密码不一致！");
+            }
+
+            var entity = await _userRepository.GetAsync(input.Id);
+            var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
+            if (oldPassword != entity.Password)
+            {
+                return ResponseOutput.NotOk("旧密码不正确！");
+            }
+
+            input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+
+            entity = _mapper.Map(input, entity);
+            var result = (await _userRepository.UpdateAsync(entity)) > 0;
+
+            return ResponseOutput.Result(result);
         }
 
         public async Task<IResponseOutput> DeleteAsync(long id)
@@ -155,69 +218,6 @@ namespace Admin.Core.FrameWork.Service.User
             var result = await _userRepository.SoftDeleteAsync(ids);
 
             return ResponseOutput.Result(result);
-        }
-
-        public async Task<IResponseOutput> ChangePasswordAsync(UserChangePasswordInput input)
-        {
-            if (input.ConfirmPassword != input.NewPassword)
-            {
-                return ResponseOutput.NotOk("新密码和确认密码不一致！");
-            }
-            
-            var entity = await _userRepository.GetAsync(input.Id);
-            var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
-            if (oldPassword != entity.Password)
-            {
-                return ResponseOutput.NotOk("旧密码不正确！");
-            }
-
-            input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
-            
-            entity = _mapper.Map(input, entity);
-            var result = (await _userRepository.UpdateAsync(entity))>0;
-            
-            return ResponseOutput.Result(result);
-        }
-
-        public async Task<IResponseOutput> UpdateBasicAsync(UserUpdateBasicInput input)
-        {
-            var entity = await _userRepository.GetAsync(input.Id);
-            entity = _mapper.Map(input, entity);
-            var result = (await _userRepository.UpdateAsync(entity)) > 0;
-
-            return ResponseOutput.Result(result);
-        }
-
-        public async Task<IResponseOutput> GetBasicAsync()
-        {
-            if (!(_user?.Id > 0))
-            {
-                return ResponseOutput.NotOk("未登录！");
-            }
-
-            var data = await _userRepository.Select.WhereDynamic(_user.Id).ToOneAsync<UserUpdateBasicInput>();
-            return ResponseOutput.Ok(data);
-        }
-
-        public async Task<IList<string>> GetPermissionsAsync()
-        {
-            var key = string.Format(CacheKey.UserPermissions, _user.Id);
-            if(await _cache.ExistsAsync(key))
-            {
-                return await _cache.GetAsync<IList<string>>(key);
-            }
-            else
-            {
-                var userPermissoins = await _rolePermissionRepository.Select
-                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == _user.Id && a.Permission.Type == PermissionType.Api)
-                .Include(a => a.Permission.Api)
-                .Distinct()
-                .ToListAsync(a => a.Permission.Api.Path);
-
-                await _cache.SetAsync(key, userPermissoins);
-                
-                return userPermissoins;
-            }
         }
     }
 }

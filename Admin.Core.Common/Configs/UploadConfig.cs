@@ -1,4 +1,7 @@
-﻿namespace Admin.Core.Common.Configs
+﻿using System;
+using System.IO;
+
+namespace Admin.Core.Common.Configs
 {
     /// <summary>
     /// 上传配置
@@ -21,10 +24,28 @@
     /// </summary>
     public class FileUploadConfig
     {
+        private string _uploadPath;
         /// <summary>
         /// 上传路径
         /// </summary>
-        public string UploadPath { get; set; }
+        public string UploadPath 
+        {
+            get
+            {
+                if (_uploadPath.IsNull())
+                {
+                    _uploadPath = Path.Combine(AppContext.BaseDirectory, "upload").ToPath();
+                }
+
+                if (!Path.IsPathRooted(_uploadPath))
+                {
+                    _uploadPath = Path.Combine(AppContext.BaseDirectory, _uploadPath).ToPath();
+                }
+
+                return _uploadPath;
+            }
+            set => _uploadPath = value;
+        }
 
         /// <summary>
         /// 请求路径

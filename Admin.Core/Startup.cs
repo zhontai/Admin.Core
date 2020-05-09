@@ -94,6 +94,9 @@ namespace Admin.Core
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
                     c.IncludeXmlComments(xmlPath, true);
 
+                    var xmlCommonPath = Path.Combine(basePath, "Admin.Core.Common.xml");
+                    c.IncludeXmlComments(xmlCommonPath, true);
+
                     var xmlModelPath = Path.Combine(basePath, "Admin.Core.Model.xml");
                     c.IncludeXmlComments(xmlModelPath);
 
@@ -305,6 +308,8 @@ namespace Admin.Core
                         c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"Admin.Core {version}");
                     });
                     c.RoutePrefix = "";//直接根目录访问
+                    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
+                    c.DefaultModelsExpandDepth(-1);//不显示Models
                 });
             }
             #endregion

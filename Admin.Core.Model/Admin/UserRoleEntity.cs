@@ -1,3 +1,4 @@
+using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
@@ -6,17 +7,9 @@ namespace Admin.Core.Model.Admin
     /// 用户角色
     /// </summary>
 	[Table(Name = "ad_user_role")]
-    [Index("uk_role_userid_roleid", nameof(UserId) + "," + nameof(RoleId), true)]
+    [Index("uk_user_role_userid_roleid", nameof(UserId) + "," + nameof(RoleId), true)]
     public class UserRoleEntity: EntityAdd
     {
-        public UserRoleEntity() { }
-
-        public UserRoleEntity(long userId, long roleId)
-        {
-            UserId = userId;
-            RoleId = roleId;
-        }
-
         /// <summary>
         /// 用户Id
         /// </summary>

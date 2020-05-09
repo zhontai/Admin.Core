@@ -1,19 +1,19 @@
-﻿using FreeSql.DataAnnotations;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using FreeSql.DataAnnotations;
 
-namespace Admin.Core.Model
+namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
     /// 实体创建审计
     /// </summary>
-    public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd
+    public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd<TKey> where TKey : struct
     {
         /// <summary>
         /// 创建者Id
         /// </summary>
         [Column(Position = -3, CanUpdate = false)]
-        public long? CreatedUserId { get; set; }
+        public TKey? CreatedUserId { get; set; }
 
         /// <summary>
         /// 创建者

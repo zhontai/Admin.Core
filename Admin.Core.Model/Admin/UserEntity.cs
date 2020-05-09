@@ -1,6 +1,7 @@
 using System;
-using FreeSql.DataAnnotations;
 using System.Collections.Generic;
+using Admin.Core.Common.BaseModel;
+using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin
 {

@@ -1,5 +1,5 @@
 ﻿
-namespace Admin.Core.Model
+namespace Admin.Core.Common.BaseModel
 {
     public interface IEntitySoftDelete
     {

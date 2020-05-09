@@ -1,5 +1,5 @@
-﻿using Admin.Core.Model;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.User.Input
 {
