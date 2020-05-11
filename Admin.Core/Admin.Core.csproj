@@ -4,6 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.2.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>xiaoxue</Authors>
+    <Company>xiaoxue</Company>
+    <RepositoryType>git</RepositoryType>
+    <Description>中台Admin后端WebApi</Description>
+    <PackageProjectUrl>https://github.com/zhontai/Admin.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
+    <PackageId>Admin.Core</PackageId>
+    <Product>Admin.Core</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
