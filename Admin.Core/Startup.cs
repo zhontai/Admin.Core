@@ -51,6 +51,9 @@ namespace Admin.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //数据库
+            services.AddDb(_env, _appConfig);
+
             //应用配置
             services.AddSingleton(_appConfig);
 
@@ -194,9 +197,6 @@ namespace Admin.Core
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
             #endregion
-
-            //数据库
-            services.AddDb(_env,_appConfig);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
