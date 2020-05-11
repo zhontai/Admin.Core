@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.2.0</Version>
+    <Authors>xiaoxue</Authors>
+    <Company>xiaoxue</Company>
+    <Description>中台Admin后端实体库</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zhontai/Admin.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
