@@ -2,17 +2,33 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.2.0</Version>
+    <Authors>xiaoxue</Authors>
+    <Company>xiaoxue</Company>
+    <Description>中台Admin后端通用库</Description>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/zhontai/Admin.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\Admin.Core\Admin.Core.Common.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSRedisCore" Version="3.6.2" />
-    <PackageReference Include="FreeSql" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Provider.MySql" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Provider.Oracle" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Provider.PostgreSQL" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="1.4.0" />
-    <PackageReference Include="FreeSql.Repository" Version="1.4.0" />
+    <PackageReference Include="CSRedisCore" Version="3.6.3" />
+    <PackageReference Include="FreeSql" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Provider.MySql" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Provider.Oracle" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Provider.PostgreSQL" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="1.5.0-preview0509" />
+    <PackageReference Include="FreeSql.Repository" Version="1.5.0-preview0509" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />

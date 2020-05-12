@@ -51,6 +51,9 @@ namespace Admin.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //数据库
+            services.AddDb(_env, _appConfig);
+
             //应用配置
             services.AddSingleton(_appConfig);
 
@@ -93,6 +96,9 @@ namespace Admin.Core
 
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
                     c.IncludeXmlComments(xmlPath, true);
+
+                    var xmlCommonPath = Path.Combine(basePath, "Admin.Core.Common.xml");
+                    c.IncludeXmlComments(xmlCommonPath, true);
 
                     var xmlModelPath = Path.Combine(basePath, "Admin.Core.Model.xml");
                     c.IncludeXmlComments(xmlModelPath);
@@ -191,9 +197,6 @@ namespace Admin.Core
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
             #endregion
-
-            //数据库
-            services.AddDb(_env,_appConfig);
 
             #region 缓存
             var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
@@ -305,6 +308,8 @@ namespace Admin.Core
                         c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"Admin.Core {version}");
                     });
                     c.RoutePrefix = "";//直接根目录访问
+                    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
+                    //c.DefaultModelsExpandDepth(-1);//不显示Models
                 });
             }
             #endregion

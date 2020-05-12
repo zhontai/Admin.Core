@@ -323,18 +323,6 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="T:Admin.Core.Controllers.Admin.ImgController">
-            <summary>
-            图片管理
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.ImgController.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            上传头像
-            </summary>
-            <param name="file"></param>
-            <returns></returns>
-        </member>
         <member name="T:Admin.Core.Controllers.Admin.LoginLogController">
             <summary>
             登录日志管理
@@ -575,6 +563,13 @@
             更新用户基本信息
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传头像
+            </summary>
+            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.ViewController">

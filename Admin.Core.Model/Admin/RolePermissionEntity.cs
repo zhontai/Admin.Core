@@ -1,3 +1,4 @@
+using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
 
 namespace Admin.Core.Model.Admin

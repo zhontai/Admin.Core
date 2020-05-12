@@ -1,4 +1,4 @@
-﻿using Admin.Core.Model;
+﻿using Admin.Core.Common.BaseModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Admin.Core.Service.Admin.User.Input

@@ -1,6 +1,7 @@
 ﻿using FreeSql.DataAnnotations;
+using System.ComponentModel;
 
-namespace Admin.Core.Model
+namespace Admin.Core.Common.BaseModel
 {
     public interface IEntity
     {
@@ -11,6 +12,7 @@ namespace Admin.Core.Model
         /// <summary>
         /// 编号
         /// </summary>
+        [Description("编号")]
         [Column(Position = 1, IsIdentity = true)]
         public virtual TKey Id { get; set; }
     }

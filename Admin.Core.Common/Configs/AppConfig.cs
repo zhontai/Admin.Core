@@ -11,9 +11,9 @@
         public bool Swagger { get; set; }
 
         /// <summary>
-        /// Api地址，默认 http://*:8081
+        /// Api地址，默认 http://*:8888
         /// </summary>
-        public string Urls { get; set; } = "http://*:8081";
+        public string Urls { get; set; } = "http://*:8888";
 
         /// <summary>
         /// Aop配置

@@ -5,6 +5,12 @@ using Admin.Core.Common.Input;
 using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.User.Input;
 using Microsoft.AspNetCore.Mvc;
+using Admin.Core.Attributes;
+using Microsoft.AspNetCore.Http;
+using Admin.Core.Common.Auth;
+using Admin.Core.Common.Configs;
+using Admin.Core.Common.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -13,10 +19,22 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class UserController : AreaController
     {
+        private readonly IUser _user;
+        private readonly UploadConfig _uploadConfig;
+        private readonly UploadHelper _uploadHelper;
+
         private readonly IUserService _userServices;
 
-        public UserController(IUserService userServices)
+        public UserController(
+            IUser user,
+            IOptionsMonitor<UploadConfig> uploadConfig,
+            UploadHelper uploadHelper, 
+            IUserService userServices
+        )
         {
+            _user = user;
+            _uploadConfig = uploadConfig.CurrentValue;
+            _uploadHelper = uploadHelper;
             _userServices = userServices;
         }
 
@@ -117,6 +135,25 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> UpdateBasic(UserUpdateBasicInput input)
         {
             return await _userServices.UpdateBasicAsync(input);
+        }
+
+        /// <summary>
+        /// 上传头像
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Login]
+        public async Task<IResponseOutput> AvatarUpload([FromForm]IFormFile file)
+        {
+            var config = _uploadConfig.Avatar;
+            var res = await _uploadHelper.UploadAsync(file, config, new { _user.Id });
+            if (res.Success)
+            {
+                return ResponseOutput.Ok(res.Data.FileRelativePath);
+            }
+
+            return ResponseOutput.NotOk("上传失败！");
         }
     }
 }
