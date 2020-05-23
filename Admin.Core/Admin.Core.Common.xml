@@ -229,6 +229,16 @@
             缓存类型
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Cache.CacheType.Memory">
+            <summary>
+            内存缓存
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheType.Redis">
+            <summary>
+            Redis缓存
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Cache.ICache">
             <summary>
             缓存接口
@@ -345,14 +355,14 @@
             应用配置
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
-            <summary>
-            Swagger文档
-            </summary>
-        </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Urls">
             <summary>
             Api地址，默认 http://*:8888
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
+            <summary>
+            Swagger文档
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Aop">
@@ -411,6 +421,11 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.CacheConfig.Redis">
+            <summary>
+            Redis配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.RedisConfig">
             <summary>
             Redis配置
             </summary>
@@ -855,6 +870,102 @@
             <param name="encode">编码格式</param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Core.Common.Helpers.HtmlHelper">
+            <summary>
+            Html操作相关类
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Helpers.HtmlHelper.CookieContainer">
+            <summary> 
+            Cookie
+            </summary> 
+        </member>
+        <member name="P:Admin.Core.Common.Helpers.HtmlHelper.Encoding">
+            <summary> 
+            语言
+            </summary> 
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHtml(System.String,System.String,System.Boolean,System.Net.CookieContainer)">
+            <summary>
+            获取HTML
+            </summary>
+            <param name="url">地址</param>
+            <param name="postData">post 提交的字符串</param>
+            <param name="isPost">是否是post</param>
+            <param name="cookieContainer">CookieContainer</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHtml(System.String,System.Net.CookieContainer)">
+            <summary>
+            获取HTML
+            </summary>
+            <param name="url">地址</param>
+            <param name="cookieContainer">CookieContainer</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetStream(System.String,System.Net.CookieContainer)">
+            <param name="url">地址</param>
+            <param name="cookieContainer">cookieContainer</param>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.NoHTML(System.String)">
+            <summary>
+            清除HTML标记
+            </summary>
+            <param name="Htmlstring"></param>
+            <returns>已经去除后的文字</returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.DelHtmlCode(System.String)">
+            <summary>
+            删除文本中带的HTML标记
+            </summary>
+            <param name="InString">输入要删除带HTML的字符串</param>    
+            <returns>返回处理过的字符串</returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHref(System.String)">
+            <summary>
+            获取页面的链接正则
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetImgSrc(System.String,System.String)">
+            <summary>
+            匹配页面的图片地址
+            </summary>
+            <param name="HtmlCode"></param>
+            <param name="imgHttp">要补充的http://路径信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetImg(System.String,System.String)">
+            <summary>
+            匹配<img src="" />中的图片路径实际链接
+            </summary>
+            <param name="ImgString"><img src="" />字符串</param>
+            <param name="imgHttp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.Get_Http(System.String)">
+            <summary>
+            以GET方式抓取远程页面内容
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.Post_Http(System.String,System.String,System.String)">
+            <summary>
+            以POST方式抓取远程页面内容
+            </summary>
+            <param name="url"></param>
+            <param name="postData">参数列表</param>
+            <param name="encodeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.ZipHtml(System.String)">
+            <summary>
+            压缩HTML输出
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.HtmlHelper.DelHtml(System.String,System.String)">
+            <summary>
+            过滤指定HTML标签
+            </summary>
+            <param name="s_TextStr">要过滤的字符</param>
+            <param name="html_Str">a img p div</param>
+        </member>
         <member name="M:Admin.Core.Common.Helpers.IPHelper.IsIP(System.String)">
             <summary>
             是否为ip
@@ -998,6 +1109,11 @@
         <member name="P:Admin.Core.Common.Input.PageInput`1.Filter">
             <summary>
             查询条件
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Input.PageInput`1.DynamicFilter">
+            <summary>
+            高级查询条件
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Output.IResponseOutput">

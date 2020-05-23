@@ -10,7 +10,6 @@ using FreeSql.DataAnnotations;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
-using System.Reflection;
 
 namespace Admin.Core.Db
 {

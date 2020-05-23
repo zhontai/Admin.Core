@@ -1,8 +1,8 @@
 {
   //发行者
-  "issuer": "https://www.admin.zhontai.com",
+  "issuer": "http://127.0.0.1:8888",
   //订阅者
-  "audience": "https://www.admin.zhontai.com",
+  "audience": "http://127.0.0.1:8888",
   //密钥
   "securityKey": "ertJKl#521*a@790asD&1#",
   //有效期(分钟)

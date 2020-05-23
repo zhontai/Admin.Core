@@ -18,11 +18,12 @@
   //建库连接字符串
   //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
   //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Pooling=true;Min Pool Size=1"
-  //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
+  //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
   "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
   //建库脚本
   //MySql "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
   //SqlServer "CREATE DATABASE [admindb]"
+  //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
   "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
 
   //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
@@ -31,7 +32,7 @@
   //连接字符串
   //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
   //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1"
-  //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
+  //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
   "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
 }

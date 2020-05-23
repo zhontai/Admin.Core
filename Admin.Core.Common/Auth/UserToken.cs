@@ -5,9 +5,11 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Admin.Core.Common.Configs;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Common.Auth
 {
+    [SingleInstance]
     public class UserToken : IUserToken
     {
         private readonly JwtConfig _jwtConfig;

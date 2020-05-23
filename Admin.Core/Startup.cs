@@ -23,7 +23,6 @@ using AutoMapper;
 //using FluentValidation.AspNetCore;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Configs;
-using Admin.Core.Common.Auth;
 using Admin.Core.Auth;
 using Admin.Core.Enums;
 using Admin.Core.Filters;
@@ -31,26 +30,33 @@ using Admin.Core.Db;
 using Admin.Core.Common.Cache;
 using Admin.Core.Aop;
 using Admin.Core.Logs;
-using PermissionHandler = Admin.Core.Auth.PermissionHandler;
 using Admin.Core.Extensions;
 using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Auth;
+
 
 namespace Admin.Core
 {
     public class Startup
     {
-        private readonly IHostEnvironment _env;
         private static string basePath => AppContext.BaseDirectory;
+        private readonly IHostEnvironment _env;
+        private readonly ConfigHelper _configHelper;
         private readonly AppConfig _appConfig;
 
         public Startup(IWebHostEnvironment env)
         {
             _env = env;
-            _appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
+            _configHelper = new ConfigHelper();
+            _appConfig = _configHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //用户信息
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<IUser, User>();
+
             //数据库
             services.AddDb(_env, _appConfig);
 
@@ -58,7 +64,7 @@ namespace Admin.Core
             services.AddSingleton(_appConfig);
 
             //上传配置
-            var uploadConfig = new ConfigHelper().Load("uploadconfig", _env.EnvironmentName, true);
+            var uploadConfig = _configHelper.Load("uploadconfig", _env.EnvironmentName, true);
             services.Configure<UploadConfig>(uploadConfig);
 
             #region AutoMapper 自动映射
@@ -76,6 +82,18 @@ namespace Admin.Core
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
+
+                /*
+                //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
+                c.AddPolicy("All", policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                    .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+                */
             });
             #endregion
 
@@ -139,13 +157,8 @@ namespace Admin.Core
             #endregion
 
             #region Jwt身份认证
-            var jwtConfig = new ConfigHelper().Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
+            var jwtConfig = _configHelper.Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
             services.TryAddSingleton(jwtConfig);
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.TryAddSingleton<IUser, User>();
-            services.TryAddSingleton<IUserToken, UserToken>();
-            services.AddScoped<IPermissionHandler, PermissionHandler>();
-
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -181,6 +194,8 @@ namespace Admin.Core
                 {
                     options.Filters.Add<LogActionFilter>();
                 }
+                //禁止去除ActionAsync后缀
+                options.SuppressAsyncSuffixInActionNames = false;
             })
             //.AddFluentValidation(config =>
             //{
@@ -199,7 +214,7 @@ namespace Admin.Core
             #endregion
 
             #region 缓存
-            var cacheConfig = new ConfigHelper().Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
+            var cacheConfig = _configHelper.Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
             if (cacheConfig.Type == CacheType.Redis)
             {
                 var csredis = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionString);
@@ -222,6 +237,20 @@ namespace Admin.Core
             #region AutoFac IOC容器
             try
             {
+                #region SingleInstance
+                //无接口注入单例
+                var assemblyCore = Assembly.Load("Admin.Core");
+                var assemblyCommon = Assembly.Load("Admin.Core.Common");
+                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
+                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
+                .SingleInstance();
+                //有接口注入单例
+                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
+                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
+                .AsImplementedInterfaces()
+                .SingleInstance();
+                #endregion
+
                 #region Aop
                 var interceptorServiceTypes = new List<Type>();
                 if (_appConfig.Aop.Transaction)
@@ -231,15 +260,6 @@ namespace Admin.Core
                 }
                 #endregion
 
-                #region Service
-                var assemblyServices = Assembly.Load("Admin.Core.Service");
-                builder.RegisterAssemblyTypes(assemblyServices)
-                .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(interceptorServiceTypes.ToArray());
-                #endregion
-
                 #region Repository
                 var assemblyRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblyRepository)
@@ -247,12 +267,13 @@ namespace Admin.Core
                 .InstancePerDependency();
                 #endregion
 
-                #region SingleInstance
-                var assemblyCore = Assembly.Load("Admin.Core");
-                var assemblyCommon = Assembly.Load("Admin.Core.Common");
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
-                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .SingleInstance(); 
+                #region Service
+                var assemblyServices = Assembly.Load("Admin.Core.Service");
+                builder.RegisterAssemblyTypes(assemblyServices)
+                .AsImplementedInterfaces()
+                .InstancePerDependency()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(interceptorServiceTypes.ToArray());
                 #endregion
             }
             catch (Exception ex)

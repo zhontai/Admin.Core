@@ -11,32 +11,32 @@ namespace Admin.Core.Common.Configs
         /// <summary>
         /// 数据库类型
         /// </summary>
-        public DataType Type { get; set; }
+        public DataType Type { get; set; } = DataType.Sqlite;
 
         /// <summary>
         /// 数据库字符串
         /// </summary>
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; set; } = "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1";
 
         /// <summary>
         /// 生成数据
         /// </summary>
-        public bool GenerateData { get; set; }
+        public bool GenerateData { get; set; } = false;
 
         /// <summary>
         /// 同步结构
         /// </summary>
-        public bool SyncStructure { get; set; }
+        public bool SyncStructure { get; set; } = true;
 
         /// <summary>
         /// 同步数据
         /// </summary>
-        public bool SyncData { get; set; }
+        public bool SyncData { get; set; } = true;
 
         /// <summary>
         /// 建库
         /// </summary>
-        public bool CreateDb { get; set; }
+        public bool CreateDb { get; set; } = true;
 
         /// <summary>
         /// 建库连接字符串
@@ -51,11 +51,11 @@ namespace Admin.Core.Common.Configs
         /// <summary>
         /// 监听所有操作
         /// </summary>
-        public bool MonitorCommand { get; set; }
+        public bool MonitorCommand { get; set; } = false;
 
         /// <summary>
         /// 监听Curd操作
         /// </summary>
-        public bool Curd { get; set; }
+        public bool Curd { get; set; } = false;
     }
 }
