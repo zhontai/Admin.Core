@@ -35,7 +35,11 @@ namespace Admin.Core.Repository
         public async Task<bool> SoftDeleteAsync(TKey id)
         {
             await UpdateDiy
-                .SetDto(new { IsDeleted = true, ModifiedUserId = _user.Id, ModifiedUserName = _user.Name })
+                .SetDto(new { 
+                    IsDeleted = true, 
+                    ModifiedUserId = _user.Id, 
+                    ModifiedUserName = _user.Name 
+                })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
             return true;
@@ -44,7 +48,11 @@ namespace Admin.Core.Repository
         public async Task<bool> SoftDeleteAsync(TKey[] ids)
         {
             await UpdateDiy
-                .SetDto(new { IsDeleted = true, ModifiedUserId = _user.Id, ModifiedUserName = _user.Name })
+                .SetDto(new { 
+                    IsDeleted = true, 
+                    ModifiedUserId = _user.Id, 
+                    ModifiedUserName = _user.Name 
+                })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
             return true;

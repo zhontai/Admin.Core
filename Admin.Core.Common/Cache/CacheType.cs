@@ -6,7 +6,13 @@ namespace Admin.Core.Common.Cache
     /// </summary>
     public enum CacheType
     {
+        /// <summary>
+        /// 内存缓存
+        /// </summary>
         Memory,
+        /// <summary>
+        /// Redis缓存
+        /// </summary>
         Redis
     }
 }

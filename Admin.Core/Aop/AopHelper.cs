@@ -19,7 +19,7 @@ namespace Admin.Core.Aop
             catch (Exception ex)
             {
                 exceptionAction?.Invoke(ex);
-                throw;
+                return default;
             }
             finally
             {

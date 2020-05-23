@@ -87,11 +87,11 @@ namespace Admin.Core.Db
             #region 审计数据
             //计算服务器时间
             //var serverTime = fsql.Select<T>().Limit(1).First(a => DateTime.local);
-            //var timeOffset = DateTime.UtcNow.Subtract(serverTime); 
+            //var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            var user = services.BuildServiceProvider().GetService<IUser>();
             fsql.Aop.AuditValue += (s, e) =>
             {
-                var user = services.BuildServiceProvider().GetService<IUser>();
-                if(user == null || !(user.Id > 0))
+                if (user == null || user.Id <= 0)
                 {
                     return;
                 }

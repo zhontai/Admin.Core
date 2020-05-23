@@ -13,7 +13,8 @@ namespace Admin.Core.Attributes
     {
         public string GroupName { get; set; }
 
-        public VersionRouteAttribute(ApiVersion version, string actionName = "") : base($"/api/{version.ToString()}/[area]/[controller]/{actionName}")
+        public VersionRouteAttribute(ApiVersion version = ApiVersion.V2, string action = "[action]")
+            : base($"/api/{version}/[area]/[controller]/{action}")
         {
             GroupName = version.ToString();
         }
