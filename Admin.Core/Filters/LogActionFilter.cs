@@ -10,9 +10,9 @@ namespace Admin.Core.Filters
     {
         private readonly ILogHandler _logHandler;
 
-        public LogActionFilter(ILogHandler opratoinLogHandler)
+        public LogActionFilter(ILogHandler logHandler)
         {
-            _logHandler = opratoinLogHandler;
+            _logHandler = logHandler;
         }
 
         public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)

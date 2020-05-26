@@ -32,7 +32,6 @@ namespace Admin.Core.Logs
             sw.Start();
 
             dynamic actionResult = (await next()).Result;
-
             sw.Stop();
 
             //操作参数

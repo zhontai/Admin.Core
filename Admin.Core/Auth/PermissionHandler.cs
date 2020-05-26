@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Admin.Core.Common.Attributes;
 using Admin.Core.Service.Admin.User;
 
 namespace Admin.Core.Auth
@@ -7,6 +8,7 @@ namespace Admin.Core.Auth
     /// <summary>
     /// 权限处理
     /// </summary>
+   [SingleInstance]
     public class PermissionHandler : IPermissionHandler
     {
         private readonly IUserService _userService;

@@ -6,29 +6,29 @@
     public class AppConfig
     {
         /// <summary>
-        /// Swagger文档
-        /// </summary>
-        public bool Swagger { get; set; }
-
-        /// <summary>
         /// Api地址，默认 http://*:8888
         /// </summary>
         public string Urls { get; set; } = "http://*:8888";
 
         /// <summary>
+        /// Swagger文档
+        /// </summary>
+        public bool Swagger { get; set; } = false;
+
+        /// <summary>
         /// Aop配置
         /// </summary>
-        public AopConfig Aop { get; set; }
+        public AopConfig Aop { get; set; } = new AopConfig();
 
         /// <summary>
         /// 日志配置
         /// </summary>
-        public LogConfig Log { get; set; }
+        public LogConfig Log { get; set; } = new LogConfig();
 
         /// <summary>
         /// 验证码配置
         /// </summary>
-        public VarifyCodeConfig VarifyCode { get; set; }
+        public VarifyCodeConfig VarifyCode { get; set; } = new VarifyCodeConfig();
     }
 
     /// <summary>
@@ -39,7 +39,7 @@
         /// <summary>
         /// 事物
         /// </summary>
-        public bool Transaction { get; set; }
+        public bool Transaction { get; set; } = true;
     }
 
     /// <summary>
@@ -50,7 +50,7 @@
         /// <summary>
         /// 操作日志
         /// </summary>
-        public bool Operation { get; set; }
+        public bool Operation { get; set; } = true;
     }
 
     /// <summary>
@@ -61,6 +61,6 @@
         /// <summary>
         /// 操作日志
         /// </summary>
-        public string[] Font { get; set; }
+        public string[] Font { get; set; } = { "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" };
     }
 }

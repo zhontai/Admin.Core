@@ -19,5 +19,10 @@
         /// 查询条件
         /// </summary>
         public T Filter { get; set; }
+
+        /// <summary>
+        /// 高级查询条件
+        /// </summary>
+        public FreeSql.Internal.Model.DynamicFilterInfo DynamicFilter { get; set; } = null;
     }
 }

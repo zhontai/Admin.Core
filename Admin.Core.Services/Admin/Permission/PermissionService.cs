@@ -59,16 +59,16 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> ListAsync(string key,DateTime? start,DateTime? end)
+        public async Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
             {
                 end = end.Value.AddDays(1);
             }
-            
+
             var data = await _permissionRepository
                 .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
-                .WhereIf(start.HasValue && end.HasValue,a=>a.CreatedTime.Value.BetweenEnd(start.Value,end.Value))
+                .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new PermissionListOutput { ApiPath = a.Api.Path });
