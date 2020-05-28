@@ -25,6 +25,11 @@ namespace Admin.Core.Service.Admin.Permission.Input
         public string Label { get; set; }
 
         /// <summary>
+        /// 权限编码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
         /// 说明
         /// </summary>
         public string Description { get; set; }

@@ -1,8 +1,13 @@
 {
   //缓存类型 Memory = 0,Redis = 1
   "type": 0,
+  //限流缓存类型 Memory = 0,Redis = 1
+  "typeRateLimit": 0,
   //Redis配置
   "redis": {
-    "connectionString": "127.0.0.1:6379,password=,defaultDatabase=2"
+    //连接字符串
+    "connectionString": "127.0.0.1:6379,password=,defaultDatabase=2",
+    //限流连接字符串
+    "connectionStringRateLimit": "127.0.0.1:6379,password=,defaultDatabase=0"
   }
 }

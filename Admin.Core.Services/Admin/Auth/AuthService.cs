@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Admin.Core.Model.Admin;
 using Admin.Core.Common.Output;
 using Admin.Core.Repository.Admin;
-using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
+using Admin.Core.Common.Configs;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Service.Admin.Auth.Input;
-using AutoMapper;
 using Admin.Core.Service.Admin.Auth.Output;
 
 namespace Admin.Core.Service.Admin.Auth
@@ -18,6 +19,7 @@ namespace Admin.Core.Service.Admin.Auth
         private readonly IUser _user;
         private readonly ICache _cache;
         private readonly IMapper _mapper;
+        private readonly AppConfig _appConfig;
         private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly IUserRepository _userRepository;
         private readonly IPermissionRepository _permissionRepository;
@@ -26,6 +28,7 @@ namespace Admin.Core.Service.Admin.Auth
             IUser user,
             ICache cache,
             IMapper mapper,
+            AppConfig appConfig,
             VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
             IPermissionRepository permissionRepository
@@ -34,6 +37,7 @@ namespace Admin.Core.Service.Admin.Auth
             _user = user;
             _cache = cache;
             _mapper = mapper;
+            _appConfig = appConfig;
             _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
@@ -42,24 +46,27 @@ namespace Admin.Core.Service.Admin.Auth
         public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
         {
             #region 验证码校验
-            var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
-            var exists = await _cache.ExistsAsync(verifyCodeKey);
-            if (exists)
+            if (_appConfig.VarifyCode.Enabled)
             {
-                var verifyCode = await _cache.GetAsync(verifyCodeKey);
-                if (string.IsNullOrEmpty(verifyCode))
+                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
+                var exists = await _cache.ExistsAsync(verifyCodeKey);
+                if (exists)
+                {
+                    var verifyCode = await _cache.GetAsync(verifyCodeKey);
+                    if (string.IsNullOrEmpty(verifyCode))
+                    {
+                        return ResponseOutput.NotOk("验证码已过期！", 1);
+                    }
+                    if (verifyCode.ToLower() != input.VerifyCode.ToLower())
+                    {
+                        return ResponseOutput.NotOk("验证码输入有误！", 2);
+                    }
+                    await _cache.DelAsync(verifyCodeKey);
+                }
+                else
                 {
                     return ResponseOutput.NotOk("验证码已过期！", 1);
                 }
-                if (verifyCode.ToLower() != input.VerifyCode.ToLower())
-                {
-                    return ResponseOutput.NotOk("验证码输入有误！", 2);
-                }
-                await _cache.DelAsync(verifyCodeKey);
-            }
-            else
-            {
-                return ResponseOutput.NotOk("验证码已过期！", 1);
             }
             #endregion
 
@@ -143,7 +150,17 @@ namespace Admin.Core.Service.Admin.Auth
                     a.External
                 });
 
-            return ResponseOutput.Ok(new { user, menus });
+            var permissions = await _permissionRepository.Select
+                .Where(a => a.Type == PermissionType.Api)
+                .Where(a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
+                .ToListAsync(a => a.Code);
+
+            return ResponseOutput.Ok(new { user, menus, permissions });
         }
 
         public async Task<IResponseOutput> GetVerifyCodeAsync(string lastKey)
@@ -161,8 +178,7 @@ namespace Admin.Core.Service.Admin.Auth
             var key = string.Format(CacheKey.VerifyCodeKey, guid);
             await _cache.SetAsync(key, code, TimeSpan.FromMinutes(5));
 
-            var data = new { key = guid, img };
-
+            var data = new AuthGetVerifyCodeOutput { Key = guid, Img = img };
             return ResponseOutput.Ok(data);
         }
 

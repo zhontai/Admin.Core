@@ -22,6 +22,12 @@ namespace Admin.Core.Model.Admin
         public string Label { get; set; }
 
         /// <summary>
+        /// 权限编码
+        /// </summary>
+        [Column(StringLength = 550)]
+        public string Code { get; set; }
+
+        /// <summary>
         /// 权限类型
         /// </summary>
         [Column(MapType = typeof(int),CanUpdate = false)]

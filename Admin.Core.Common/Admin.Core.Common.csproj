@@ -33,9 +33,9 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
     <PackageReference Include="UAParser" Version="3.1.44" />
   </ItemGroup>
 

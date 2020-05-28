@@ -375,6 +375,11 @@
             日志配置
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.RateLimit">
+            <summary>
+            限流
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.VarifyCode">
             <summary>
             验证码配置
@@ -405,6 +410,11 @@
             验证码配置
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Font">
             <summary>
             操作日志
@@ -420,6 +430,11 @@
             缓存类型
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Configs.CacheConfig.TypeRateLimit">
+            <summary>
+            限流缓存类型
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.Configs.CacheConfig.Redis">
             <summary>
             Redis配置
@@ -433,6 +448,11 @@
         <member name="P:Admin.Core.Common.Configs.RedisConfig.ConnectionString">
             <summary>
             连接字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.RedisConfig.ConnectionStringRateLimit">
+            <summary>
+            限流连接字符串
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Configs.DbConfig">
@@ -902,6 +922,9 @@
             <param name="cookieContainer">CookieContainer</param>
         </member>
         <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetStream(System.String,System.Net.CookieContainer)">
+            <summary>
+            获取字符流
+            </summary>
             <param name="url">地址</param>
             <param name="cookieContainer">cookieContainer</param>
         </member>

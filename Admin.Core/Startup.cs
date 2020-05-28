@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json;
@@ -33,19 +34,21 @@ using Admin.Core.Logs;
 using Admin.Core.Extensions;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
-
+using AspNetCoreRateLimit;
 
 namespace Admin.Core
 {
     public class Startup
     {
         private static string basePath => AppContext.BaseDirectory;
+        private readonly IConfiguration _configuration;
         private readonly IHostEnvironment _env;
         private readonly ConfigHelper _configHelper;
         private readonly AppConfig _appConfig;
 
-        public Startup(IWebHostEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _configuration = configuration;
             _env = env;
             _configHelper = new ConfigHelper();
             _appConfig = _configHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
@@ -228,6 +231,12 @@ namespace Admin.Core
             }
             #endregion
 
+            //IP限流
+            if (_appConfig.RateLimit)
+            {
+                services.AddIpRateLimit(_configuration, cacheConfig);
+            }
+
             //阻止NLog接收状态消息
             services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
         }
@@ -291,6 +300,12 @@ namespace Admin.Core
             //{
             //    Console.WriteLine($"{_appConfig.Urls}\r\n");
             //});
+
+            //IP限流
+            if (_appConfig.RateLimit)
+            {
+                app.UseIpRateLimiting();
+            }
 
             #region app配置
             //异常

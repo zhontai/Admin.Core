@@ -54,14 +54,16 @@ namespace Admin.Core.Service.Admin.LoginLog
             input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
             string ua = _context.HttpContext.Request.Headers["User-Agent"];
-            var client = UAParser.Parser.GetDefault().Parse(ua);
-            var device = client.Device.Family;
-            device = device.ToLower() == "other" ? "" : device;
-            input.Browser = client.UA.Family;
-            input.Os = client.OS.Family;
-            input.Device = device;
-            input.BrowserInfo = ua;
-
+            if (ua.NotNull())
+            {
+                var client = UAParser.Parser.GetDefault().Parse(ua);
+                var device = client.Device.Family;
+                device = device.ToLower() == "other" ? "" : device;
+                input.Browser = client.UA.Family;
+                input.Os = client.OS.Family;
+                input.Device = device;
+                input.BrowserInfo = ua;
+            }
             var entity = _mapper.Map<LoginLogEntity>(input);
             var id = (await _loginLogRepository.InsertAsync(entity)).Id;
 

@@ -232,6 +232,16 @@
             验证码键
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthGetVerifyCodeOutput.Key">
+            <summary>
+            缓存键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthGetVerifyCodeOutput.Img">
+            <summary>
+            图片
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.Id">
             <summary>
             主键Id
@@ -833,6 +843,11 @@
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Label">
             <summary>
             权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Code">
+            <summary>
+            权限编码
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Description">
