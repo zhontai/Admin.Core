@@ -15,7 +15,7 @@ namespace Admin.Core.Common.Helpers
     public class HtmlHelper
     {
         #region 私有字段
-        private readonly string _ContentType = "application/x-www-form-urlencoded";
+        private readonly string _ContentType = "application/json";
         private readonly string _Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/x-silverlight, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, application/x-silverlight-2-b1, */*";
         private readonly string _UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)";
         private int _Delay = 1000;
@@ -144,15 +144,15 @@ namespace Admin.Core.Common.Helpers
         #endregion
 
         #region 获取字符流
-        /// <summary>
-        /// 获取字符流
-        /// </summary>
         //---------------------------------------------------------------------------------------------------------------
         // 示例:
         // System.Net.CookieContainer cookie = new System.Net.CookieContainer(); 
         // Stream s = HttpHelper.GetStream("http://ptlogin2.qq.com/getimage?aid=15000102&0.43878429697395826", cookie);
         // picVerify.Image = Image.FromStream(s);
         //---------------------------------------------------------------------------------------------------------------
+        /// <summary>
+        /// 获取字符流
+        /// </summary>
         /// <param name="url">地址</param>
         /// <param name="cookieContainer">cookieContainer</param>
         public Stream GetStream(string url, CookieContainer cookieContainer)

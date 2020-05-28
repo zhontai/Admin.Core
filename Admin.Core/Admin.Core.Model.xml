@@ -274,6 +274,11 @@
             权限名称
             </summary>
         </member>
+        <member name="P:Admin.Core.Model.Admin.PermissionEntity.Code">
+            <summary>
+            权限编码
+            </summary>
+        </member>
         <member name="P:Admin.Core.Model.Admin.PermissionEntity.Type">
             <summary>
             权限类型

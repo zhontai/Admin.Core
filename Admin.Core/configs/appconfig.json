@@ -13,8 +13,11 @@
     //操作日志
     "operation": true
   },
+  //限流
+  "rateLimit": true,
   //验证码
   "varifyCode": {
+    "enabled": true,
     // 字体
     "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   }

@@ -27,7 +27,7 @@ namespace Admin.Core.Service.Admin.Auth.Input
         /// <summary>
         /// 验证码
         /// </summary>
-        [Required(ErrorMessage = "验证码不能为空！")]
+        //[Required(ErrorMessage = "验证码不能为空！")]
         public string VerifyCode { get; set; }
 
         /// <summary>

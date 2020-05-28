@@ -284,6 +284,7 @@ namespace Admin.Core.Db
                     a.Id,
                     a.ParentId,
                     a.Label,
+                    a.Code,
                     a.Type,
                     a.ViewId,
                     a.ApiId,

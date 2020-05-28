@@ -746,6 +746,14 @@
             系统内部错误（非业务代码里显式抛出的异常，例如由于数据不正确导致空指针异常、数据库异常等等）
             </summary>
         </member>
+        <member name="M:Admin.Core.Extensions.RateLimitServiceCollectionExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,Admin.Core.Common.Configs.CacheConfig)">
+            <summary>
+            添加Ip限流
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <param name="cacheConfig"></param>
+        </member>
         <member name="T:Admin.Core.Filters.AdminExceptionFilter">
             <summary>
             Admin异常错误过滤

@@ -39,7 +39,7 @@ namespace Admin.Core.Common.Helpers
 
             if (environmentName.NotNull())
             {
-                builder.AddJsonFile(fileName.ToLower() + "." + environmentName + ".json", true, reloadOnChange);
+                builder.AddJsonFile(fileName.ToLower() + "." + environmentName + ".json", optional: true, reloadOnChange: reloadOnChange);
             }
 
             return builder.Build();
