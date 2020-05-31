@@ -66,6 +66,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 查询单条权限点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResponseOutput> GetDot(long id)
+        {
+            return await _permissionServices.GetDotAsync(id);
+        }
+
+        /// <summary>
         /// 查询角色权限-权限列表
         /// </summary>
         /// <returns></returns>
@@ -120,6 +131,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 新增权限点
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResponseOutput> AddDot(PermissionAddDotInput input)
+        {
+            return await _permissionServices.AddDotAsync(input);
+        }
+
+        /// <summary>
         /// 修改分组
         /// </summary>
         /// <param name="input"></param>
@@ -150,6 +172,17 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> UpdateApi(PermissionUpdateApiInput input)
         {
             return await _permissionServices.UpdateApiAsync(input);
+        }
+
+        /// <summary>
+        /// 修改权限点
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IResponseOutput> UpdateDot(PermissionUpdateDotInput input)
+        {
+            return await _permissionServices.UpdateDotAsync(input);
         }
 
         /// <summary>

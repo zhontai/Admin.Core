@@ -382,6 +382,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetDot(System.Int64)">
+            <summary>
+            查询单条权限点
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetPermissionList">
             <summary>
             查询角色权限-权限列表
@@ -416,6 +423,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddDot(Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput)">
+            <summary>
+            新增权限点
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateGroup(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateGroupInput)">
             <summary>
             修改分组
@@ -433,6 +447,13 @@
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateApi(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateApiInput)">
             <summary>
             修改接口
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.UpdateDot(Admin.Core.Service.Admin.Permission.Input.PermissionUpdateDotInput)">
+            <summary>
+            修改权限点
             </summary>
             <param name="input"></param>
             <returns></returns>

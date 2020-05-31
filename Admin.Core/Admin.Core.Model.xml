@@ -364,6 +364,11 @@
             接口
             </summary>
         </member>
+        <member name="F:Admin.Core.Model.Admin.PermissionType.Dot">
+            <summary>
+            权限点
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.RoleEntity">
             <summary>
             角色

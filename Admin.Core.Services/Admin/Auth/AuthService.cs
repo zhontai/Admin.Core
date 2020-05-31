@@ -116,6 +116,7 @@ namespace Admin.Core.Service.Admin.Auth
                 return ResponseOutput.NotOk("未登录！");
             }
 
+            //用户信息
             var user = await _userRepository.Select.WhereDynamic(_user.Id)
                 .ToOneAsync(m => new {
                     m.NickName,
@@ -123,7 +124,7 @@ namespace Admin.Core.Service.Admin.Auth
                     m.Avatar
                 });
 
-            //获取菜单
+            //用户菜单
             var menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
                 .Where(a =>
@@ -150,8 +151,9 @@ namespace Admin.Core.Service.Admin.Auth
                     a.External
                 });
 
+            //用户权限点
             var permissions = await _permissionRepository.Select
-                .Where(a => a.Type == PermissionType.Api)
+                .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
                 .Where(a =>
                     _permissionRepository.Orm.Select<RolePermissionEntity>()
                     .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)

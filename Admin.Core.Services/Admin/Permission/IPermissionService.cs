@@ -16,6 +16,8 @@ namespace Admin.Core.Service.Admin.Permission
 
         Task<IResponseOutput> GetApiAsync(long id);
 
+        Task<IResponseOutput> GetDotAsync(long id);
+
         Task<IResponseOutput> GetPermissionList();
 
         Task<IResponseOutput> GetRolePermissionList(long roleId = 0);
@@ -28,11 +30,15 @@ namespace Admin.Core.Service.Admin.Permission
 
         Task<IResponseOutput> AddApiAsync(PermissionAddApiInput input);
 
+        Task<IResponseOutput> AddDotAsync(PermissionAddDotInput input);
+
         Task<IResponseOutput> UpdateGroupAsync(PermissionUpdateGroupInput input);
 
         Task<IResponseOutput> UpdateMenuAsync(PermissionUpdateMenuInput input);
 
         Task<IResponseOutput> UpdateApiAsync(PermissionUpdateApiInput input);
+
+        Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input);
 
         Task<IResponseOutput> DeleteAsync(long id);
 

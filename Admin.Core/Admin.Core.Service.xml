@@ -865,6 +865,36 @@
             图标
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Type">
+            <summary>
+            权限类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.ParentId">
+            <summary>
+            父级节点
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Label">
+            <summary>
+            权限名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Code">
+            <summary>
+            权限编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Type">
             <summary>
             权限类型
@@ -956,6 +986,16 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateApiInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateDotInput.Id">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionUpdateDotInput.Version">
             <summary>
             版本
             </summary>

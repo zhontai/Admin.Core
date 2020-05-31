@@ -59,6 +59,12 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(result);
         }
 
+        public async Task<IResponseOutput> GetDotAsync(long id)
+        {
+            var result = await _permissionRepository.GetAsync<PermissionGetDotOutput>(id);
+            return ResponseOutput.Ok(result);
+        }
+
         public async Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
@@ -100,6 +106,14 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(id > 0);
         }
 
+        public async Task<IResponseOutput> AddDotAsync(PermissionAddDotInput input)
+        {
+            var entity = _mapper.Map<PermissionEntity>(input);
+            var id = (await _permissionRepository.InsertAsync(entity)).Id;
+
+            return ResponseOutput.Ok(id > 0);
+        }
+
         public async Task<IResponseOutput> UpdateGroupAsync(PermissionUpdateGroupInput input)
         {
             var result = false;
@@ -127,6 +141,19 @@ namespace Admin.Core.Service.Admin.Permission
         }
 
         public async Task<IResponseOutput> UpdateApiAsync(PermissionUpdateApiInput input)
+        {
+            var result = false;
+            if (input != null && input.Id > 0)
+            {
+                var entity = await _permissionRepository.GetAsync(input.Id);
+                entity = _mapper.Map(input, entity);
+                result = (await _permissionRepository.UpdateAsync(entity)) > 0;
+            }
+
+            return ResponseOutput.Result(result);
+        }
+
+        public async Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)

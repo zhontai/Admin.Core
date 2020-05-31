@@ -17,6 +17,10 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 接口
         /// </summary>
-        Api = 3
+        Api = 3,
+        /// <summary>
+        /// 权限点
+        /// </summary>
+        Dot = 4
     }
 }

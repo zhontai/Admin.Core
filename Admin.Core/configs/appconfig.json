@@ -17,6 +17,7 @@
   "rateLimit": true,
   //验证码
   "varifyCode": {
+    //启用
     "enabled": true,
     // 字体
     "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
