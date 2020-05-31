@@ -92,10 +92,7 @@ namespace Admin.Core.FrameWork.Service.User
 
         public async Task<IResponseOutput> PageAsync(PageInput<UserEntity> input)
         {
-            var key = input.Filter?.UserName;
-
             var list = await _userRepository.Select
-            .WhereIf(key.NotNull(), a => a.Status >= 0 && (a.UserName.Contains(key) || a.NickName.Contains(key)))
             .WhereDynamicFilter(input.DynamicFilter)
             .Count(out var total)
             .OrderByDescending(true, a => a.Id)
