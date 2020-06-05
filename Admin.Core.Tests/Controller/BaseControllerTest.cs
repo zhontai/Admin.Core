@@ -40,7 +40,7 @@ namespace Admin.Core.Tests.Controller
 
         public async Task Login(AuthLoginInput input = null)
         {
-            if(input == null && _appConfig.VarifyCode.Enabled)
+            if(input == null && _appConfig.VarifyCode.Enable)
             {
                 var res = await _authService.GetVerifyCodeAsync("") as IResponseOutput<AuthGetVerifyCodeOutput>;
                 var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Data.Key);

@@ -14,11 +14,11 @@
     "operation": true
   },
   //限流
-  "rateLimit": true,
+  "rateLimit": false,
   //验证码
   "varifyCode": {
     //启用
-    "enabled": true,
+    "enable": true,
     // 字体
     "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   }

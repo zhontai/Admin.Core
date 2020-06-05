@@ -46,7 +46,7 @@ namespace Admin.Core.Service.Admin.Auth
         public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
         {
             #region 验证码校验
-            if (_appConfig.VarifyCode.Enabled)
+            if (_appConfig.VarifyCode.Enable)
             {
                 var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
                 var exists = await _cache.ExistsAsync(verifyCodeKey);

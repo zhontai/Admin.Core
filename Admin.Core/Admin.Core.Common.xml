@@ -84,6 +84,11 @@
             姓名
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.RefreshExpires">
+            <summary>
+            刷新有效期
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.BaseModel.Entity`1.Id">
             <summary>
             编号
@@ -410,7 +415,7 @@
             验证码配置
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Enabled">
+        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Enable">
             <summary>
             启用
             </summary>
@@ -533,6 +538,11 @@
         <member name="P:Admin.Core.Common.Configs.JwtConfig.Expires">
             <summary>
             有效期(分钟)
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.JwtConfig.RefreshExpires">
+            <summary>
+            刷新有效期(分钟)
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Configs.UploadConfig">

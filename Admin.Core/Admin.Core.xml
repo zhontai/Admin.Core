@@ -133,6 +133,13 @@
             授权管理
             </summary>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetToken(Admin.Core.Common.Output.ResponseOutput{Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput})">
+            <summary>
+            获得token
+            </summary>
+            <param name="output"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.AuthController.GetVerifyCode(System.String)">
             <summary>
             获取验证码
@@ -158,6 +165,14 @@
             根据登录信息生成Token
             </summary>
             <param name="input">登录信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.Refresh(System.String)">
+            <summary>
+            刷新Token
+            以旧换新
+            </summary>
+            <param name="token"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.CacheController">

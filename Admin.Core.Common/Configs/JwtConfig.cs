@@ -27,5 +27,10 @@ namespace Admin.Core.Common.Configs
         /// 有效期(分钟)
         /// </summary>
         public int Expires { get; set; } = 120;
+
+        /// <summary>
+        /// 刷新有效期(分钟)
+        /// </summary>
+        public int RefreshExpires { get; set; } = 480;
     }
 }

@@ -28,7 +28,7 @@
         /// <summary>
         /// 限流
         /// </summary>
-        public bool RateLimit { get; set; } = true;
+        public bool RateLimit { get; set; } = false;
 
         /// <summary>
         /// 验证码配置
@@ -66,7 +66,7 @@
         /// <summary>
         /// 启用
         /// </summary>
-        public bool Enabled { get; set; } = true;
+        public bool Enable { get; set; } = true;
         
         /// <summary>
         /// 操作日志
