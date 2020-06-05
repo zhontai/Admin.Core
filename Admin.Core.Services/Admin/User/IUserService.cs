@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
 
@@ -14,6 +15,8 @@ namespace Admin.Core.Service.Admin.User
     /// </summary>	
     public interface IUserService
 	{
+        Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id);
+
         Task<ResponseOutput<UserGetOutput>> GetAsync(long id);
 
         Task<IResponseOutput> PageAsync(PageInput<UserEntity> input);

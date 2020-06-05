@@ -13,6 +13,7 @@ using Admin.Core.Service.Admin.User;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
 using Admin.Core.Common.Attributes;
+using Admin.Core.Service.Admin.Auth.Output;
 
 namespace Admin.Core.FrameWork.Service.User
 {
@@ -43,6 +44,13 @@ namespace Admin.Core.FrameWork.Service.User
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _rolePermissionRepository = rolePermissionRepository;
+        }
+
+        public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
+        {
+            var output = new ResponseOutput<AuthLoginOutput>();
+            var entityDto = await _userRepository.GetAsync<AuthLoginOutput>(id);
+            return output.Ok(entityDto);
         }
 
         public async Task<ResponseOutput<UserGetOutput>> GetAsync(long id)

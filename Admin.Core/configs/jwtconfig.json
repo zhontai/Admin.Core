@@ -6,5 +6,7 @@
   //密钥
   "securityKey": "ertJKl#521*a@790asD&1#",
   //有效期(分钟)
-  "expires": 120
+  "expires": 120,
+  //刷新有效期(分钟) 10080 = 7天
+  "refreshExpires": 10080
 }

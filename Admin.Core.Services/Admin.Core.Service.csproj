@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.3.2</Version>
+    <Version>1.3.3</Version>
     <Authors>xiaoxue</Authors>
     <Company>xiaoxue</Company>
     <Description>中台Admin后端服务库</Description>

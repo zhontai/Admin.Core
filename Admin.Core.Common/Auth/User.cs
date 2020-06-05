@@ -87,5 +87,10 @@ namespace Admin.Core.Common.Auth
         /// 姓名
         /// </summary>
         public const string UserNickName = "nn";
+
+        /// <summary>
+        /// 刷新有效期
+        /// </summary>
+        public const string RefreshExpires = "re";
     }
 }

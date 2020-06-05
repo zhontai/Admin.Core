@@ -22,7 +22,6 @@ namespace Admin.Core.Controllers.Admin
         private readonly IUser _user;
         private readonly UploadConfig _uploadConfig;
         private readonly UploadHelper _uploadHelper;
-
         private readonly IUserService _userServices;
 
         public UserController(
