@@ -1,14 +1,14 @@
-namespace Admin.Core.Service.Admin.Permission.Input
+﻿namespace Admin.Core.Service.Admin.Permission.Input
 {
     public class PermissionUpdateApiInput : PermissionAddApiInput
     {
         /// <summary>
-        /// Ȩ��Id
+        /// 权限Id
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// �汾
+        /// 版本
         /// </summary>
         public long Version { get; set; }
     }

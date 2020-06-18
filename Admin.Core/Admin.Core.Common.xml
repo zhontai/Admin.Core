@@ -365,6 +365,11 @@
             Api地址，默认 http://*:8888
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.CorUrls">
+            <summary>
+            跨域地址，默认 http://*:9999
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
             <summary>
             Swagger文档
@@ -420,7 +425,7 @@
             启用
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Font">
+        <member name="P:Admin.Core.Common.Configs.VarifyCodeConfig.Fonts">
             <summary>
             操作日志
             </summary>
@@ -1004,6 +1009,19 @@
             是否为ip
             </summary>
             <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.IPHelper.GetIP(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            获得IP地址
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Helpers.IPHelper.GetMACIp">
+            <summary>
+            获得MAC地址
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Common.Helpers.MD5Encrypt">
