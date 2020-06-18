@@ -81,9 +81,10 @@ namespace Admin.Core
                 c.AddPolicy("Limit", policy =>
                 {
                     policy
-                    .WithOrigins(_appConfig.Urls)
+                    .WithOrigins(_appConfig.CorUrls)
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
 
                 /*
@@ -94,7 +95,8 @@ namespace Admin.Core
                     .AllowAnyOrigin()
                     .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
                 */
             });
@@ -185,11 +187,14 @@ namespace Admin.Core
             .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { }); ;
             #endregion
 
-            #region 控制器
+            #region 操作日志
             if (_appConfig.Log.Operation)
             {
                 services.AddSingleton<ILogHandler, LogHandler>();
             }
+            #endregion
+
+            #region 控制器
             services.AddControllers(options =>
             {
                 options.Filters.Add<AdminExceptionFilter>();
@@ -231,11 +236,12 @@ namespace Admin.Core
             }
             #endregion
 
-            //IP限流
+            #region IP限流
             if (_appConfig.RateLimit)
             {
                 services.AddIpRateLimit(_configuration, cacheConfig);
-            }
+            } 
+            #endregion
 
             //阻止NLog接收状态消息
             services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
@@ -301,13 +307,13 @@ namespace Admin.Core
             //    Console.WriteLine($"{_appConfig.Urls}\r\n");
             //});
 
+            #region app配置
             //IP限流
             if (_appConfig.RateLimit)
             {
                 app.UseIpRateLimiting();
             }
 
-            #region app配置
             //异常
             app.UseExceptionHandler("/Error");
 
@@ -343,7 +349,7 @@ namespace Admin.Core
                     {
                         c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"Admin.Core {version}");
                     });
-                    c.RoutePrefix = "";//直接根目录访问
+                    c.RoutePrefix = "";//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
                     c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
                     //c.DefaultModelsExpandDepth(-1);//不显示Models
                 });

@@ -40,7 +40,7 @@ namespace Admin.Core.Common.Helpers
             //颜色列表，用于验证码、噪线、噪点 
             Color[] color = { Color.Black, Color.Red, Color.Blue, Color.Green, Color.Orange, Color.Brown, Color.Brown, Color.DarkBlue };
             //字体列表，用于验证码 
-            string[] font = _appConfig.VarifyCode.Font;
+            string[] fonts = _appConfig.VarifyCode.Fonts;
 
             code = GenerateRandom(length);
 
@@ -69,7 +69,7 @@ namespace Admin.Core.Common.Helpers
                     Color clr;
                     for (int i = 0; i < code.Length; i++)
                     {
-                        fnt = font[rnd.Next(font.Length)];
+                        fnt = fonts[rnd.Next(fonts.Length)];
                         ft = new Font(fnt, fontSize);
                         clr = color[rnd.Next(color.Length)];
                         g.DrawString(code[i].ToString(), ft, new SolidBrush(clr), (float)i * 24 + 2, (float)0);

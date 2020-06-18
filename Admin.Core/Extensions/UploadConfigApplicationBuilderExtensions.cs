@@ -23,11 +23,13 @@ namespace Admin.Core.Extensions
             });
         }
 
-        public static void UseUploadConfig(this IApplicationBuilder app)
+        public static IApplicationBuilder UseUploadConfig(this IApplicationBuilder app)
         {
             var uploadConfig = app.ApplicationServices.GetRequiredService<IOptions<UploadConfig>>();
             UseFileUploadConfig(app, uploadConfig.Value.Avatar);
             UseFileUploadConfig(app, uploadConfig.Value.Document);
+
+            return app;
         }
     }
 

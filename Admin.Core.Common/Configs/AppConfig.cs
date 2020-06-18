@@ -8,7 +8,12 @@
         /// <summary>
         /// Api地址，默认 http://*:8888
         /// </summary>
-        public string Urls { get; set; } = "http://*:8888";
+        public string[] Urls { get; set; }// = new[]{ "http://*:8888" };
+
+        /// <summary>
+        /// 跨域地址，默认 http://*:9999
+        /// </summary>
+        public string[] CorUrls { get; set; }// = new[]{ "http://*:9999" };
 
         /// <summary>
         /// Swagger文档
@@ -67,10 +72,10 @@
         /// 启用
         /// </summary>
         public bool Enable { get; set; } = true;
-        
+
         /// <summary>
         /// 操作日志
         /// </summary>
-        public string[] Font { get; set; } = { "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" };
+        public string[] Fonts { get; set; }// = new[] { "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" };
     }
 }

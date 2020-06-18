@@ -16,9 +16,9 @@ namespace Admin.Core.Tests.Service.Repository.Admin
         [Fact]
         public async void GetAsyncByExpression()
         {
-            var id = 1;
-            var user = await _repositoryBase.GetAsync(a => a.Id == id);
-            Assert.Equal(id, user?.Id);
+            var userName = "admin";
+            var user = await _repositoryBase.GetAsync(a => a.UserName == userName);
+            Assert.Equal(userName, user?.UserName);
         }
     }
 }

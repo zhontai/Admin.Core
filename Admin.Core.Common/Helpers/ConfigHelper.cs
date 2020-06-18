@@ -72,7 +72,7 @@ namespace Admin.Core.Common.Helpers
         public void Bind(string fileName, object instance, string environmentName = "", bool reloadOnChange = false)
         {
             var configuration = Load(fileName, environmentName, reloadOnChange);
-            if (configuration == null)
+            if (configuration == null || instance == null)
                 return;
 
             configuration.Bind(instance);

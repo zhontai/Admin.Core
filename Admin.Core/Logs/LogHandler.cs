@@ -30,7 +30,6 @@ namespace Admin.Core.Logs
         {
             var sw = new Stopwatch();
             sw.Start();
-
             dynamic actionResult = (await next()).Result;
             sw.Stop();
 

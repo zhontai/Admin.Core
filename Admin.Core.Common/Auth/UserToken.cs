@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Attributes;
 using System.Linq;
-using Google.Protobuf.WellKnownTypes;
 
 namespace Admin.Core.Common.Auth
 {
@@ -21,7 +20,7 @@ namespace Admin.Core.Common.Auth
             _jwtConfig = jwtConfig;
         }
 
-        public string Build(Claim[] claims)
+        public string Create(Claim[] claims)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecurityKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

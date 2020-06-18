@@ -130,7 +130,7 @@ namespace Admin.Core.Db
             #endregion
             #endregion
 
-            Console.WriteLine($"{appConfig.Urls}\r\n");
+            Console.WriteLine($"{string.Join("\r\n", appConfig.Urls)}\r\n");
         }
     }
 }

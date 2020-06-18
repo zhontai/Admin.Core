@@ -55,7 +55,7 @@ namespace Admin.Core.Controllers.Admin
             }
 
             var user = output.Data;
-            var token = _userToken.Build(new[]
+            var token = _userToken.Create(new[]
             {
                 new Claim(ClaimAttributes.UserId, user.Id.ToString()),
                 new Claim(ClaimAttributes.UserName, user.UserName),
@@ -156,7 +156,6 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        [NoOprationLog]
         public async Task<IResponseOutput> Refresh([BindRequired] string token)
         {
             var userClaims = _userToken.Decode(token);
@@ -165,7 +164,7 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.NotOk();
             }
 
-            var refreshExpiresValue = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires).Value;
+            var refreshExpiresValue = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
             if (refreshExpiresValue.IsNull())
             {
                 return ResponseOutput.NotOk();
@@ -177,7 +176,11 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.NotOk("登录信息已过期");
             }
 
-            var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId).Value;
+            var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
+            if (userId.IsNull())
+            {
+                return ResponseOutput.NotOk();
+            }
             var output = await _userServices.GetLoginUserAsync(userId.ToLong());
 
             return GetToken(output);

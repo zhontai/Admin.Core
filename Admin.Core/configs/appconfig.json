@@ -1,6 +1,8 @@
 {
   //Api地址
-  "urls": "http://*:8888",
+  "urls": [ "http://*:8888" ],
+  //跨域地址
+  "corUrls": [ "http://*:9999" ],
   //Swagger文档
   "swagger": false,
   //面向切面编程
@@ -19,7 +21,7 @@
   "varifyCode": {
     //启用
     "enable": true,
-    // 字体
-    "font": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
+    //字体列表
+    "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   }
 }
