@@ -2,24 +2,41 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using NLog;
 using NLog.Web;
 using Autofac.Extensions.DependencyInjection;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Configs;
 using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using Microsoft.Extensions.Configuration;
-//using NLog;
+using System.Threading.Tasks;
 //using NLog.Extensions.Logging;
-//using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 
 namespace Admin.Core
 {
     public class Program
     {
-        public static void Main(string[] args)
+        private static AppConfig appConfig = new ConfigHelper().Get<AppConfig>("appconfig") ?? new AppConfig();
+        public static async Task<int> Main(string[] args)
         {
-            Console.WriteLine("launching...");
-            CreateHostBuilder(args).Build().Run();
+            var logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                Console.WriteLine("launching...");
+                var host = CreateHostBuilder(args).Build();
+                Console.WriteLine($"{string.Join("\r\n", appConfig.Urls)}\r\n");
+                await host.RunAsync();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Stopped program because of exception");
+                return 1;
+            }
+            finally
+            {
+                LogManager.Shutdown();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
@@ -28,22 +45,20 @@ namespace Admin.Core
             //var logConfig = new ConfigHelper().Load("logconfig", reloadOnChange: true).GetSection("nLog");
             //LogManager.Configuration = new NLogLoggingConfiguration(logConfig);
 
-            var appConfig = new ConfigHelper().Get<AppConfig>("appconfig") ?? new AppConfig();
-
             return Host.CreateDefaultBuilder(args)
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
-                //.UseEnvironment(EnvironmentName.Production)
+                //.UseEnvironment(Environments.Production)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((host, config) =>
                 {
                     if (appConfig.RateLimit)
                     {
-                        config.AddJsonFile("./configs/ratelimitconfig.json", optional: true, reloadOnChange: true)
+                        config.AddJsonFile("./configs/ratelimitconfig.json", optional: false, reloadOnChange: true)
 #if DEBUG
-                        .AddJsonFile("./configs/ratelimitconfig.Development.json", false)
+                        .AddJsonFile("./configs/ratelimitconfig.Development.json", true)
 #endif
                     ;
                     }

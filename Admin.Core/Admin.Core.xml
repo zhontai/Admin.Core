@@ -724,13 +724,12 @@
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,Admin.Core.Common.Configs.AppConfig)">
+        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             添加数据库
             </summary>
             <param name="services"></param>
             <param name="env"></param>
-            <param name="appConfig"></param>
         </member>
         <member name="T:Admin.Core.Enums.ApiVersion">
             <summary>

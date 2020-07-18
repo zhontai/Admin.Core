@@ -63,7 +63,7 @@ namespace Admin.Core.Db
 
             // 同步结构
             var dbType = dbConfig.Type.ToString();
-            Console.WriteLine($"\r\n{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
             if(dbConfig.Type == DataType.Oracle)
             {
                 db.CodeFirst.IsSyncStructureToUpper = true;
@@ -192,7 +192,7 @@ namespace Admin.Core.Db
                 //    Console.WriteLine($"{e.Sql}\r\n");
                 //};
 
-                Console.WriteLine("\r\nsync data started");
+                Console.WriteLine("sync data started");
 
                 db.Aop.AuditValue += SyncDataAuditValue;
                

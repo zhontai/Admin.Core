@@ -30,19 +30,19 @@
       //调试
       "debug": {
         "type": "File",
-        "fileName": "logs/debug-${shortdate}.log",
+        "fileName": "../logs/debug-${shortdate}.log",
         "layout": "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}"
       },
       //警告
       "warn": {
         "type": "File",
-        "fileName": "logs/warn-${shortdate}.log",
+        "fileName": "../logs/warn-${shortdate}.log",
         "layout": "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}"
       },
       //错误
       "error": {
         "type": "File",
-        "fileName": "logs/error-${shortdate}.log",
+        "fileName": "../logs/error-${shortdate}.log",
         "layout": "${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}|url: ${aspnet-request-url}|action: ${aspnet-mvc-action}"
       }
     },

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FreeSql;
@@ -16,8 +17,7 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        /// <param name="appConfig"></param>
-        public async static void AddDb(this IServiceCollection services, IHostEnvironment env, AppConfig appConfig)
+        public async static Task AddDb(this IServiceCollection services, IHostEnvironment env)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -76,10 +76,7 @@ namespace Admin.Core.Db
             {
                 fsql.Aop.CurdBefore += (s, e) =>
                 {
-                    System.Threading.Tasks.Parallel.For(0, 1, body =>
-                    {
-                        Console.WriteLine($"{e.Sql}\r\n");
-                    });
+                    Console.WriteLine($"{e.Sql}\r\n");
                 };
             }
             #endregion
@@ -129,8 +126,6 @@ namespace Admin.Core.Db
             };
             #endregion
             #endregion
-
-            Console.WriteLine($"{string.Join("\r\n", appConfig.Urls)}\r\n");
         }
     }
 }

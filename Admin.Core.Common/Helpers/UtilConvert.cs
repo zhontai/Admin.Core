@@ -109,7 +109,7 @@ namespace Admin.Core.Common.Helpers
             return errorValue;
         }
         
-        public static DateTime ToDate(this object thisValue)
+        public static DateTime ToDateTime(this object thisValue)
         {
             DateTime reval = DateTime.MinValue;
             if (thisValue != null && thisValue != DBNull.Value && DateTime.TryParse(thisValue.ToString(), out reval))
@@ -119,7 +119,7 @@ namespace Admin.Core.Common.Helpers
             return reval;
         }
         
-        public static DateTime ToDate(this object thisValue, DateTime errorValue)
+        public static DateTime ToDateTime(this object thisValue, DateTime errorValue)
         {
             DateTime reval;
             if (thisValue != null && thisValue != DBNull.Value && DateTime.TryParse(thisValue.ToString(), out reval))
@@ -128,7 +128,12 @@ namespace Admin.Core.Common.Helpers
             }
             return errorValue;
         }
-        
+
+        public static DateTime ToDateTime(this long milliseconds)
+        {
+            return Extensions.DateTimeExtensions.TimestampStart.AddMilliseconds(milliseconds);
+        }
+
         public static bool ToBool(this object thisValue)
         {
             bool reval = false;

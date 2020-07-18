@@ -24,6 +24,36 @@
             事务隔离级别
             </summary>
         </member>
+        <member name="T:Admin.Core.Common.Auth.ClaimAttributes">
+            <summary>
+            Claim属性
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.IdentityServerUserId">
+            <summary>
+            认证授权用户Id
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserNickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.RefreshExpires">
+            <summary>
+            刷新有效期
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.IUser">
             <summary>
             用户信息接口
@@ -64,29 +94,14 @@
             昵称
             </summary>
         </member>
-        <member name="T:Admin.Core.Common.Auth.ClaimAttributes">
+        <member name="T:Admin.Core.Common.Auth.UserIdentiyServer">
             <summary>
-            Claim属性
+            用户信息
             </summary>
         </member>
-        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserId">
+        <member name="P:Admin.Core.Common.Auth.UserIdentiyServer.Id">
             <summary>
             用户Id
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserName">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.UserNickName">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.RefreshExpires">
-            <summary>
-            刷新有效期
             </summary>
         </member>
         <member name="P:Admin.Core.Common.BaseModel.Entity`1.Id">
@@ -362,17 +377,22 @@
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Urls">
             <summary>
-            Api地址，默认 http://*:8888
+            Api地址，默认 http://*:8000
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.CorUrls">
             <summary>
-            跨域地址，默认 http://*:9999
+            跨域地址，默认 http://*:9000
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
             <summary>
             Swagger文档
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.IdentityServer">
+            <summary>
+            统一认证授权服务器
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Aop">
@@ -393,6 +413,21 @@
         <member name="P:Admin.Core.Common.Configs.AppConfig.VarifyCode">
             <summary>
             验证码配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Configs.IdentityServer">
+            <summary>
+            统一认证授权服务器配置
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.IdentityServer.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.IdentityServer.Url">
+            <summary>
+            地址
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Configs.AopConfig">
@@ -604,6 +639,26 @@
             <summary>
             文件格式
             </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Extensions.DateTimeExtensions.TimestampStart">
+            <summary>
+            时间戳起始日期
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Common.Extensions.DateTimeExtensions.ToTimestamp(System.DateTime,System.Boolean)">
+            <summary>
+            转换为时间戳
+            </summary>
+            <param name="dateTime"></param>
+            <param name="milliseconds">是否使用毫秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Extensions.DateTimeExtensions.GetWeekName(System.DateTime)">
+            <summary>
+            获取周几
+            </summary>
+            <param name="datetime"></param>
+            <returns></returns>
         </member>
         <member name="M:Admin.Core.Common.Extensions.GuidExtensions.IsNull(System.Guid)">
             <summary>

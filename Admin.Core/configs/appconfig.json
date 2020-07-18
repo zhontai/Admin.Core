@@ -1,10 +1,17 @@
 {
   //Api地址
-  "urls": [ "http://*:8888" ],
+  "urls": [ "http://*:8000" ],
   //跨域地址
-  "corUrls": [ "http://*:9999" ],
+  "corUrls": [ "http://*:9000" ],
   //Swagger文档
   "swagger": false,
+  //统一认证授权服务器
+  "IdentityServer": {
+    //启用
+    "enable": false,
+    //地址，开发认证地址前往appconfig.Development.json修改
+    "url": "https://login.zhontai.net"
+  },
   //面向切面编程
   "aop": {
     //事物

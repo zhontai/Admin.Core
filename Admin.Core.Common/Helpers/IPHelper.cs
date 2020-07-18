@@ -38,7 +38,7 @@ namespace Admin.Core.Common.Helpers
             {
                 ip = request.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             }
-            if (ip.IsNull() || !IsIP(ip))
+            if (ip.IsNull() || !IsIP(ip.Split(":")[0]))
             {
                 ip = "127.0.0.1";
             }

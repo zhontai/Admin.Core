@@ -35,6 +35,7 @@ using Admin.Core.Extensions;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using AspNetCoreRateLimit;
+using IdentityServer4.AccessTokenValidation;
 
 namespace Admin.Core
 {
@@ -58,10 +59,17 @@ namespace Admin.Core
         {
             //用户信息
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.TryAddSingleton<IUser, User>();
+            if (_appConfig.IdentityServer.Enable)
+            {
+                services.TryAddSingleton<IUser, UserIdentiyServer>();
+            }
+            else
+            {
+                services.TryAddSingleton<IUser, User>();
+            }
 
             //数据库
-            services.AddDb(_env, _appConfig);
+            services.AddDb(_env).Wait();
 
             //应用配置
             services.AddSingleton(_appConfig);
@@ -76,9 +84,9 @@ namespace Admin.Core
             #endregion
 
             #region Cors 跨域
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("Limit", policy =>
+                options.AddPolicy("Limit", policy =>
                 {
                     policy
                     .WithOrigins(_appConfig.CorUrls)
@@ -89,7 +97,7 @@ namespace Admin.Core
 
                 /*
                 //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
-                c.AddPolicy("All", policy =>
+                options.AddPolicy("All", policy =>
                 {
                     policy
                     .AllowAnyOrigin()
@@ -102,14 +110,62 @@ namespace Admin.Core
             });
             #endregion
 
+            #region Jwt身份认证授权
+            var jwtConfig = _configHelper.Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
+            services.TryAddSingleton(jwtConfig);
+
+            if (_appConfig.IdentityServer.Enable)
+            {
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
+                    options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
+                })
+                .AddIdentityServerAuthentication(options =>
+                 {
+                     options.Authority = _appConfig.IdentityServer.Url;
+                     options.RequireHttpsMetadata = false;
+                     options.SupportedTokens = SupportedTokens.Jwt;
+                     options.ApiName = "admin.server.api";
+                     options.ApiSecret = "secret";
+                 })
+                .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
+            }
+            else
+            {
+                services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
+                    options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtConfig.Issuer,
+                        ValidAudience = jwtConfig.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecurityKey)),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                })
+                .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
+            }
+            #endregion
+
             #region Swagger Api文档
             if (_env.IsDevelopment() || _appConfig.Swagger)
             {
-                services.AddSwaggerGen(c =>
+                services.AddSwaggerGen(options =>
                 {
                     typeof(ApiVersion).GetEnumNames().ToList().ForEach(version =>
                     {
-                        c.SwaggerDoc(version, new OpenApiInfo
+                        options.SwaggerDoc(version, new OpenApiInfo
                         {
                             Version = version,
                             Title = "Admin.Core"
@@ -118,73 +174,83 @@ namespace Admin.Core
                     });
 
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
-                    c.IncludeXmlComments(xmlPath, true);
+                    options.IncludeXmlComments(xmlPath, true);
 
                     var xmlCommonPath = Path.Combine(basePath, "Admin.Core.Common.xml");
-                    c.IncludeXmlComments(xmlCommonPath, true);
+                    options.IncludeXmlComments(xmlCommonPath, true);
 
                     var xmlModelPath = Path.Combine(basePath, "Admin.Core.Model.xml");
-                    c.IncludeXmlComments(xmlModelPath);
+                    options.IncludeXmlComments(xmlModelPath);
 
                     var xmlServicesPath = Path.Combine(basePath, "Admin.Core.Service.xml");
-                    c.IncludeXmlComments(xmlServicesPath);
+                    options.IncludeXmlComments(xmlServicesPath);
 
-                    //添加设置Token的按钮
-                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    #region 添加设置Token的按钮
+                    if (_appConfig.IdentityServer.Enable)
                     {
-                        Description = "Value: Bearer {token}",
-                        Name = "Authorization",
-                        In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer"
-                    });
-
-                    //添加Jwt验证设置
-                    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                    {
+                        //添加Jwt验证设置
+                        options.AddSecurityRequirement(new OpenApiSecurityRequirement()
                         {
-                            new OpenApiSecurityScheme
                             {
-                                Reference = new OpenApiReference
+                                new OpenApiSecurityScheme
                                 {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = "oauth2",
+                                        Type = ReferenceType.SecurityScheme
+                                    }
                                 },
-                                Scheme = "oauth2",
-                                Name = "Bearer",
-                                In = ParameterLocation.Header,
-                            },
-                            new List<string>()
-                        }
-                    });
+                                new List<string>()
+                            }
+                        });
+
+                        //统一认证
+                        options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                        {
+                            Type = SecuritySchemeType.OAuth2,
+                            Description = "oauth2登录授权",
+                            Flows = new OpenApiOAuthFlows
+                            {
+                                Implicit = new OpenApiOAuthFlow
+                                {
+                                    AuthorizationUrl = new Uri($"{_appConfig.IdentityServer.Url}/connect/authorize"),
+                                    Scopes = new Dictionary<string, string>
+                                    {
+                                        { "admin.server.api", "admin后端api" }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    else
+                    {
+                        //添加Jwt验证设置
+                        options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                        {
+                            {
+                                new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Id = "Bearer",
+                                        Type = ReferenceType.SecurityScheme
+                                    }
+                                },
+                                new List<string>()
+                            }
+                        });
+
+                        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                        {
+                            Description = "Value: Bearer {token}",
+                            Name = "Authorization",
+                            In = ParameterLocation.Header,
+                            Type = SecuritySchemeType.ApiKey
+                        });
+                    } 
+                    #endregion
                 });
             }
-            #endregion
-
-            #region Jwt身份认证
-            var jwtConfig = _configHelper.Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
-            services.TryAddSingleton(jwtConfig);
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
-                options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtConfig.Issuer,
-                    ValidAudience = jwtConfig.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecurityKey)),
-                    ClockSkew = TimeSpan.Zero
-                };
-            })
-            .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { }); ;
             #endregion
 
             #region 操作日志
@@ -300,13 +366,6 @@ namespace Admin.Core
 
         public void Configure(IApplicationBuilder app)
         {
-            //启动事件 
-            //, IHostApplicationLifetime lifetime
-            //lifetime.ApplicationStarted.Register(() =>
-            //{
-            //    Console.WriteLine($"{_appConfig.Urls}\r\n");
-            //});
-
             #region app配置
             //IP限流
             if (_appConfig.RateLimit)

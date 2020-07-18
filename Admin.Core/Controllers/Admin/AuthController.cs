@@ -16,6 +16,7 @@ using Admin.Core.Service.Admin.LoginLog;
 using Admin.Core.Service.Admin.LoginLog.Input;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Service.Admin.User;
+using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -146,8 +147,6 @@ namespace Admin.Core.Controllers.Admin
             return GetToken(output);
         }
 
-
-
         /// <summary>
         /// 刷新Token
         /// 以旧换新
@@ -164,14 +163,13 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.NotOk();
             }
 
-            var refreshExpiresValue = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
-            if (refreshExpiresValue.IsNull())
+            var refreshExpires = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
+            if (refreshExpires.IsNull())
             {
                 return ResponseOutput.NotOk();
             }
 
-            var refreshExpires = refreshExpiresValue.ToDate();
-            if(refreshExpires <= DateTime.Now)
+            if(refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
             {
                 return ResponseOutput.NotOk("登录信息已过期");
             }

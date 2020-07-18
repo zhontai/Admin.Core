@@ -4,14 +4,6 @@
   //监听Curd操作
   "curd": false,
 
-  //生成数据
-  "generateData": false,
-
-  //同步结构
-  "syncStructure": true,
-  //同步数据
-  "syncData": true,
-
   //建库
   "createDb": true,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
@@ -25,6 +17,16 @@
   //SqlServer "CREATE DATABASE [admindb]"
   //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
   "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+
+  //同步结构
+  "syncStructure": true,
+  //同步数据
+  "syncData": true,
+
+  //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
+  //开启生成数据前先关闭syncStructure syncData createDb
+  //生成数据
+  "generateData": false,
 
   //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
   //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11
