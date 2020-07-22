@@ -161,7 +161,7 @@ namespace Admin.Core.Db
                         e.Value = 2;
                         break;
                     case "CreatedUserName":
-                        e.Value = "xiaoxue";
+                        e.Value = "admin";
                         break;
                 }
             }
@@ -173,7 +173,7 @@ namespace Admin.Core.Db
                         e.Value = 2;
                         break;
                     case "ModifiedUserName":
-                        e.Value = "xiaoxue";
+                        e.Value = "admin";
                         break;
                 }
             }
