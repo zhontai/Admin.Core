@@ -47,7 +47,7 @@ namespace Admin.Core.Tests.Controller
                 var verifyCode = await _cache.GetAsync(verifyCodeKey);
                 input = new AuthLoginInput() 
                 { 
-                    UserName = "xiaoxue",
+                    UserName = "admin",
                     Password = "111111",
                     VerifyCodeKey = res.Data.Key,
                     VerifyCode = verifyCode

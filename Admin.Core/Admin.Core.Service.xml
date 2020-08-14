@@ -1325,6 +1325,11 @@
             创建时间
             </summary>
         </member>
+        <member name="T:Admin.Core.Service.Admin.User.UserService">
+            <summary>
+            用户服务
+            </summary>	
+        </member>
         <member name="T:Admin.Core.Service.Admin.User.MapConfig">
             <summary>
             映射配置
@@ -1452,11 +1457,6 @@
             <summary>
             说明
             </summary>
-        </member>
-        <member name="T:Admin.Core.FrameWork.Service.User.UserService">
-            <summary>
-            用户服务
-            </summary>	
         </member>
     </members>
 </doc>

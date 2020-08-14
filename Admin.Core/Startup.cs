@@ -61,10 +61,12 @@ namespace Admin.Core
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             if (_appConfig.IdentityServer.Enable)
             {
+                //is4
                 services.TryAddSingleton<IUser, UserIdentiyServer>();
             }
             else
             {
+                //jwt
                 services.TryAddSingleton<IUser, User>();
             }
 
@@ -110,12 +112,13 @@ namespace Admin.Core
             });
             #endregion
 
-            #region Jwt身份认证授权
+            #region 身份认证授权
             var jwtConfig = _configHelper.Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
             services.TryAddSingleton(jwtConfig);
 
             if (_appConfig.IdentityServer.Enable)
             {
+                //is4
                 services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
@@ -134,6 +137,7 @@ namespace Admin.Core
             }
             else
             {
+                //jwt
                 services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -325,6 +329,7 @@ namespace Admin.Core
                 builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
                 .SingleInstance();
+
                 //有接口注入单例
                 builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)

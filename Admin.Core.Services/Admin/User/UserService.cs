@@ -9,13 +9,12 @@ using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
-using Admin.Core.Service.Admin.User;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Service.Admin.Auth.Output;
 
-namespace Admin.Core.FrameWork.Service.User
+namespace Admin.Core.Service.Admin.User
 {
     /// <summary>
     /// 用户服务
