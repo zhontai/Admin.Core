@@ -16,7 +16,7 @@ namespace Admin.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class PermissionAttribute : AuthorizeAttribute, IAuthorizationFilter, IAsyncAuthorizationFilter
     {
-        public async void OnAuthorization(AuthorizationFilterContext context)
+        private async Task PermissionAuthorization(AuthorizationFilterContext context)
         {
             //排除匿名访问
             if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute)))
@@ -45,10 +45,14 @@ namespace Admin.Core.Attributes
             }
         }
 
-        public Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        public async void OnAuthorization(AuthorizationFilterContext context)
         {
-            OnAuthorization(context);
-            return Task.CompletedTask;
+            await PermissionAuthorization(context);
+        }
+
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        {
+            await PermissionAuthorization(context);
         }
     }
 }
