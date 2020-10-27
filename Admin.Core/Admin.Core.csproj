@@ -26,12 +26,16 @@
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
     <Compile Remove="Hubs\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="AutoMapper\**" />
     <Content Remove="Hubs\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
     <EmbeddedResource Remove="Hubs\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="AutoMapper\**" />
     <None Remove="Hubs\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,7 +79,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
