@@ -11,7 +11,7 @@ jobs:
             - name: Sync to Gitee 💕
               uses: wearerequired/git-mirror-action@master
               env:
-                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_HOME }}
               with:
                   source-repo: "git@github.com:zhontai/Admin.Core.git"
                   destination-repo: "git@gitee.com:zhontai/Admin.Core.git"
