@@ -179,6 +179,11 @@
             日志
             </summary>
         </member>
+        <member name="P:Admin.Core.Model.Admin.LogAbstract.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
         <member name="P:Admin.Core.Model.Admin.LogAbstract.NickName">
             <summary>
             昵称
@@ -419,9 +424,54 @@
             权限
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.TenantEntity">
+            <summary>
+            租户
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.DbType">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.UserEntity">
             <summary>
             用户
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.UserEntity.TenantId">
+            <summary>
+            租户Id
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.UserEntity.UserName">

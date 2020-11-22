@@ -7,8 +7,8 @@ namespace Admin.Core.Model.Admin
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
-    [Index("uk_dictionary_parentid_name", nameof(ParentId)+","+nameof(Name), true)]
-    public class DictionaryEntity: EntityBase
+    [Index("idx_{tablename}_01", nameof(ParentId)+","+nameof(Name), true)]
+    public class DictionaryEntity: EntityFull
     {
         /// <summary>
         /// 字典父级

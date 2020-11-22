@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+锘縰sing System.Threading.Tasks;
 using AutoMapper;
 using Admin.Core.Common.Output;
 using Admin.Core.Common.Input;
@@ -63,7 +63,7 @@ namespace Admin.Core.Service.Admin.Dictionary
             var entity = await _dictionaryRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("数据字典不存在！");
+                return ResponseOutput.NotOk("鏁版嵁瀛楀吀涓嶅瓨鍦紒");
             }
 
             _mapper.Map(input, entity);

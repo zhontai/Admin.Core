@@ -33,13 +33,13 @@ namespace Admin.Core.Db
 
             try
             {
-                Console.WriteLine("\r\ncreate database started");
+                Console.WriteLine("\r\n create database started");
                 await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
-                Console.WriteLine("create database succeed\r\n");
+                Console.WriteLine(" create database succeed");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"create database failed.\n{e.Message}\r\n");
+                Console.WriteLine($" create database failed.\n {e.Message}");
             }
         }
 
@@ -50,20 +50,20 @@ namespace Admin.Core.Db
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
-            //Console.WriteLine("\r\n" + dDL);
+            //Console.WriteLine("\r\n " + dDL);
 
             //打印结构同步脚本
             //db.Aop.SyncStructureAfter += (s, e) =>
             //{
             //    if (e.Sql.NotNull())
             //    {
-            //        Console.WriteLine("sync structure sql:\n" + e.Sql);
+            //        Console.WriteLine(" sync structure sql:\n" + e.Sql);
             //    }
             //};
 
             // 同步结构
             var dbType = dbConfig.Type.ToString();
-            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+            Console.WriteLine($"\r\n {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
             if(dbConfig.Type == DataType.Oracle)
             {
                 db.CodeFirst.IsSyncStructureToUpper = true;
@@ -81,9 +81,10 @@ namespace Admin.Core.Db
                 typeof(OprationLogEntity),
                 typeof(LoginLogEntity),
                 typeof(DocumentEntity),
-                typeof(DocumentImageEntity)
+                typeof(DocumentImageEntity),
+                typeof(TenantEntity)
             });
-            Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed\r\n");
+            Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
         }
 
         /// <summary>
@@ -128,21 +129,21 @@ namespace Admin.Core.Db
                             await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
                         }
                         
-                        Console.WriteLine($"table: {tableName} sync data succeed");
+                        Console.WriteLine($" table: {tableName} sync data succeed");
                     }
                     else
                     {
-                        Console.WriteLine($"table: {tableName} import data []");
+                        Console.WriteLine($" table: {tableName} import data []");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"table: {tableName} record already exists");
+                    Console.WriteLine($" table: {tableName} record already exists");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
+                Console.WriteLine($" table: {tableName} sync data failed.\n{ex.Message}");
             }
         }
 
@@ -192,7 +193,7 @@ namespace Admin.Core.Db
                 //    Console.WriteLine($"{e.Sql}\r\n");
                 //};
 
-                Console.WriteLine("sync data started");
+                Console.WriteLine("\r\n sync data started");
 
                 db.Aop.AuditValue += SyncDataAuditValue;
                
@@ -211,17 +212,18 @@ namespace Admin.Core.Db
                     await InitDtData(db, data.Roles, tran, dbConfig);
                     await InitDtData(db, data.UserRoles, tran, dbConfig);
                     await InitDtData(db, data.RolePermissions, tran, dbConfig);
+                    await InitDtData(db, data.Tenants, tran, dbConfig);
 
                     uow.Commit();
                 }
 
                 db.Aop.AuditValue -= SyncDataAuditValue;
 
-                Console.WriteLine("sync data succeed\r\n");
+                Console.WriteLine(" sync data succeed");
             }
             catch (Exception ex)
             {
-                throw new Exception($"sync data failed.\n{ex.Message}\r\n");
+                throw new Exception($" sync data failed.\n{ex.Message}");
             }
         }
 
@@ -234,7 +236,7 @@ namespace Admin.Core.Db
         {
             try
             {
-                Console.WriteLine("\r\ngenerate data started");
+                Console.WriteLine("\r\n generate data started");
 
                 #region 数据表
 
@@ -340,9 +342,22 @@ namespace Admin.Core.Db
                 });
                 #endregion
 
+                #region 租户
+                var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
+                {
+                    a.Id,
+                    a.Name,
+                    a.Code,
+                    a.DbType,
+                    a.ConnectionString,
+                    a.IdleTime,
+                    a.Description
+                });
                 #endregion
 
-                if(!(users?.Count > 0))
+                #endregion
+
+                if (!(users?.Count > 0))
                 {
                     return;
                 }
@@ -361,7 +376,8 @@ namespace Admin.Core.Db
                     users,
                     roles,
                     userRoles,
-                    rolePermissions
+                    rolePermissions,
+                    tenants
                 },
                 //Formatting.Indented, 
                 settings
@@ -370,11 +386,11 @@ namespace Admin.Core.Db
                 FileHelper.WriteFile(filePath, jsonData);
                 #endregion
 
-                Console.WriteLine("generate data succeed\r\n");
+                Console.WriteLine(" generate data succeed\r\n");
             }
             catch (Exception ex)
             {
-                throw new Exception($"generate data failed。\n{ex.Message}\r\n");
+                throw new Exception($" generate data failed。\n{ex.Message}\r\n");
             }
         }
     }

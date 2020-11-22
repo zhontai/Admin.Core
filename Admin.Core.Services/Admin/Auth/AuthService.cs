@@ -70,7 +70,11 @@ namespace Admin.Core.Service.Admin.Auth
             }
             #endregion
 
-            var user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
+            UserEntity user = null;
+
+            user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a=> a.UserName == input.UserName).ToOneAsync();
+            //user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
+
             if (!(user?.Id > 0))
             {
                 return ResponseOutput.NotOk("账号输入有误!", 3);

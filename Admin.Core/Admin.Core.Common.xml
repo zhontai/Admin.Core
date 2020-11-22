@@ -54,6 +54,11 @@
             刷新有效期
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.IUser">
             <summary>
             用户信息接口
@@ -72,6 +77,11 @@
         <member name="P:Admin.Core.Common.Auth.IUser.NickName">
             <summary>
             昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.TenantId">
+            <summary>
+            租户Id
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Auth.User">
@@ -94,6 +104,11 @@
             昵称
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Auth.User.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.UserIdentiyServer">
             <summary>
             用户信息
@@ -104,14 +119,19 @@
             用户Id
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.BaseModel.IEntity`1.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.BaseModel.Entity`1.Id">
             <summary>
-            编号
+            主键Id
             </summary>
         </member>
         <member name="T:Admin.Core.Common.BaseModel.EntityAdd`1">
             <summary>
-            实体创建审计
+            实体创建
             </summary>
         </member>
         <member name="P:Admin.Core.Common.BaseModel.EntityAdd`1.CreatedUserId">
@@ -129,49 +149,59 @@
             创建时间
             </summary>
         </member>
-        <member name="T:Admin.Core.Common.BaseModel.EntityBase`1">
+        <member name="T:Admin.Core.Common.BaseModel.EntityFull`1">
             <summary>
-            实体审计
+            实体完整类
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.Version">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.Version">
             <summary>
             版本
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.IsDeleted">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.IsDeleted">
             <summary>
             是否删除
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedUserId">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.CreatedUserId">
             <summary>
             创建者Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedUserName">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.CreatedUserName">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.CreatedTime">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.CreatedTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedUserId">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.ModifiedUserId">
             <summary>
             修改者Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedUserName">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.ModifiedUserName">
             <summary>
             修改者
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityBase`1.ModifiedTime">
+        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.ModifiedTime">
             <summary>
             修改时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.EntityFull">
+            <summary>
+            实体完整类
             </summary>
         </member>
         <member name="T:Admin.Core.Common.BaseModel.EntitySoftDelete`1">
@@ -186,7 +216,7 @@
         </member>
         <member name="T:Admin.Core.Common.BaseModel.EntityUpdate`1">
             <summary>
-            实体修改审计
+            实体修改
             </summary>
         </member>
         <member name="P:Admin.Core.Common.BaseModel.EntityUpdate`1.ModifiedUserId">
@@ -222,6 +252,11 @@
         <member name="P:Admin.Core.Common.BaseModel.IEntityVersion.Version">
             <summary>
             版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.BaseModel.ITenant.TenantId">
+            <summary>
+            租户Id
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Cache.CacheKey">
@@ -370,6 +405,26 @@
             Redis缓存
             </summary>
         </member>
+        <member name="T:Admin.Core.Common.Configs.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Configs.TenantType.None">
+            <summary>
+            无租户
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Configs.TenantType.Share">
+            <summary>
+            共享数据库
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Configs.TenantType.Own">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Configs.AppConfig">
             <summary>
             应用配置
@@ -383,6 +438,11 @@
         <member name="P:Admin.Core.Common.Configs.AppConfig.CorUrls">
             <summary>
             跨域地址，默认 http://*:9000
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.AppConfig.TenantType">
+            <summary>
+            租户类型
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Configs.AppConfig.Swagger">
@@ -500,6 +560,26 @@
             限流连接字符串
             </summary>
         </member>
+        <member name="T:Admin.Core.Common.Configs.MultiDb">
+            <summary>
+            多数据库
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.MultiDb.Name">
+            <summary>
+            数据库命名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.MultiDb.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.MultiDb.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Configs.DbConfig">
             <summary>
             数据库配置
@@ -553,6 +633,11 @@
         <member name="P:Admin.Core.Common.Configs.DbConfig.Curd">
             <summary>
             监听Curd操作
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.Dbs">
+            <summary>
+            多数据库
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Configs.JwtConfig">
@@ -638,6 +723,11 @@
         <member name="P:Admin.Core.Common.Configs.FileUploadConfig.ContentType">
             <summary>
             文件格式
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.Dbs.MySqlDb">
+            <summary>
+            多数据库命名
             </summary>
         </member>
         <member name="F:Admin.Core.Common.Extensions.DateTimeExtensions.TimestampStart">
@@ -1261,16 +1351,6 @@
         <member name="P:Admin.Core.Common.Output.OptionOutput.Value">
             <summary>
             值
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Common.Output.OptionOutput.Disabled">
-            <summary>
-            禁用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Common.Output.OptionOutput.Data">
-            <summary>
-            额外数据
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Output.PageOutput`1">

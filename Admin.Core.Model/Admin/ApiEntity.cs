@@ -8,8 +8,8 @@ namespace Admin.Core.Model.Admin
     /// 接口管理
     /// </summary>
 	[Table(Name = "ad_api")]
-    [Index("uk_api_path", nameof(Path), true)]
-    public class ApiEntity : EntityBase
+    [Index("idx_{tablename}_01", nameof(Path), true)]
+    public class ApiEntity : EntityFull
     {
         /// <summary>
         /// 所属模块

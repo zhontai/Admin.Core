@@ -9,6 +9,7 @@ using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.OprationLog.Input;
 using Admin.Core.Service.Admin.OprationLog.Output;
 using Admin.Core.Common.Helpers;
+using Admin.Core.Common.Dbs;
 
 namespace Admin.Core.Service.Admin.OprationLog
 {	

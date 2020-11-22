@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.4.1</Version>
+    <Version>1.5.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>xiaoxue</Authors>
     <Company>xiaoxue</Company>
@@ -16,6 +16,7 @@
     <PackageTags>ZhonTai Admin;WebApi</PackageTags>
     <PackageId>Admin.Core</PackageId>
     <Product>Admin.Core</Product>
+    <UserSecretsId>729fff27-b925-4753-a8c8-f3e9c0e50a40</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -44,14 +45,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCoreRateLimit" Version="3.0.5" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.0.2" />
+    <PackageReference Include="AspNetCoreRateLimit" Version="3.2.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
     <PackageReference Include="Caching.CSRedis" Version="3.6.5" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="9.2.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />

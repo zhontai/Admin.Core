@@ -1,8 +1,8 @@
 {
   //缓存类型 Memory = 0,Redis = 1
-  "type": 0,
+  "type": "Memory",
   //限流缓存类型 Memory = 0,Redis = 1
-  "typeRateLimit": 0,
+  "typeRateLimit": "Memory",
   //Redis配置
   "redis": {
     //连接字符串

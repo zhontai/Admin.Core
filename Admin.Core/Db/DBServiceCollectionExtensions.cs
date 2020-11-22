@@ -6,11 +6,11 @@ using FreeSql;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
-using Admin.Core.Common.BaseModel;
+using Admin.Core.Common.Dbs;
 
 namespace Admin.Core.Db
 {
-    public static class ServiceCollectionExtensions
+    public static class DBServiceCollectionExtensions
     {
         /// <summary>
         /// 添加数据库
@@ -46,10 +46,6 @@ namespace Admin.Core.Db
             #endregion
 
             var fsql = freeSqlBuilder.Build();
-            //fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
-            services.AddFreeRepository(filter => filter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false));
-            services.AddScoped<UnitOfWorkManager>();
-            services.AddSingleton(fsql);
 
             #region 初始化数据库
             //同步结构
@@ -103,6 +99,9 @@ namespace Admin.Core.Db
                         case "CreatedUserName":
                             e.Value = user.Name;
                             break;
+                        case "TenantId":
+                            e.Value = user.TenantId;
+                            break;
                             //case "CreatedTime":
                             //    e.Value = DateTime.Now.Subtract(timeOffset);
                             //    break;
@@ -126,6 +125,33 @@ namespace Admin.Core.Db
             };
             #endregion
             #endregion
+
+            //导入多数据库
+            if(null != dbConfig.Dbs)
+            {
+                foreach (var multiDb in dbConfig.Dbs)
+                {
+
+                    switch (multiDb.Name)
+                    {
+                        case nameof(MySqlDb):
+                            var mdb = CreateMultiDbBuilder(multiDb).Build<MySqlDb>();
+                            services.AddSingleton(mdb);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        private static FreeSqlBuilder CreateMultiDbBuilder(MultiDb multiDb)
+        {
+            return new FreeSqlBuilder()
+            .UseConnectionString(multiDb.Type, multiDb.ConnectionString)
+            .UseAutoSyncStructure(false)
+            .UseLazyLoading(false)
+            .UseNoneCommandParameter(true);
         }
     }
 }

@@ -19,5 +19,10 @@
         /// 昵称
         /// </summary>
         string NickName { get; }
+
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        long? TenantId { get; }
     }
 }

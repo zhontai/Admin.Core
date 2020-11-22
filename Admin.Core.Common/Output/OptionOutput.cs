@@ -14,15 +14,5 @@
         /// 值
         /// </summary>
         public object Value { get; set; }
-
-        /// <summary>
-        /// 禁用
-        /// </summary>
-        public bool Disabled { get; set; }
-
-        /// <summary>
-        /// 额外数据
-        /// </summary>
-        public object Data { get; set; }
     }
 }

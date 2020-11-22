@@ -66,5 +66,21 @@ namespace Admin.Core.Common.Auth
                 return "";
             }
         }
+
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public virtual long? TenantId
+        {
+            get
+            {
+                var tenantId = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantId);
+                if (tenantId != null && tenantId.Value.NotNull())
+                {
+                    return tenantId.Value.ToLong();
+                }
+                return 0;
+            }
+        }
     }
 }

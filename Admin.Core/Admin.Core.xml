@@ -534,6 +534,53 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Core.Controllers.Admin.TenantController">
+            <summary>
+            租户管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.Get(System.Int64)">
+            <summary>
+            查询单条租户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.TenantEntity})">
+            <summary>
+            查询分页租户
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.Add(Admin.Core.Service.Admin.Tenant.Input.TenantAddInput)">
+            <summary>
+            新增租户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.Update(Admin.Core.Service.Admin.Tenant.Input.TenantUpdateInput)">
+            <summary>
+            修改租户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.SoftDelete(System.Int64)">
+            <summary>
+            删除租户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除租户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Admin.UserController">
             <summary>
             用户管理
@@ -724,9 +771,59 @@
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.ServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
+        <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             添加数据库
+            </summary>
+            <param name="services"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.CreateDatabase(Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            创建数据库
+            </summary>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            同步结构
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.InitDtData``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            初始化数据表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="db"></param>
+            <param name="data"></param>
+            <param name="tran"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
+            <summary>
+            同步数据审计方法
+            </summary>
+            <param name="s"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.SyncData(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
+            <summary>
+            同步数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDbHelper.GenerateSimpleJsonData(IFreeSql)">
+            <summary>
+            生成极简数据
+            </summary>
+            <param name="db"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.TenantDBServiceCollectionExtensions.AddTenantDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
+            <summary>
+            添加租户数据库
             </summary>
             <param name="services"></param>
             <param name="env"></param>

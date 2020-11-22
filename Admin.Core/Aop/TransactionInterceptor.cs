@@ -5,16 +5,16 @@ using FreeSql;
 using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Output;
 using Admin.Core.Common.Attributes;
-
+using Admin.Core.Repository;
 
 namespace Admin.Core.Aop
 {
     public class TransactionInterceptor : IInterceptor
     {
         IUnitOfWork _unitOfWork;
-        private readonly UnitOfWorkManager _unitOfWorkManager;
+        private readonly MyUnitOfWorkManager _unitOfWorkManager;
         
-        public TransactionInterceptor(UnitOfWorkManager unitOfWorkManager)
+        public TransactionInterceptor(MyUnitOfWorkManager unitOfWorkManager)
         {
             _unitOfWorkManager = unitOfWorkManager;
         }

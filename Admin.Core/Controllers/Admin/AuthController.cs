@@ -60,7 +60,8 @@ namespace Admin.Core.Controllers.Admin
             {
                 new Claim(ClaimAttributes.UserId, user.Id.ToString()),
                 new Claim(ClaimAttributes.UserName, user.UserName),
-                new Claim(ClaimAttributes.UserNickName, user.NickName)
+                new Claim(ClaimAttributes.UserNickName, user.NickName),
+                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString())
             });
 
             return ResponseOutput.Ok(new { token });

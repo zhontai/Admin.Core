@@ -1,4 +1,5 @@
 ﻿using Admin.Core.Model.Admin;
+
 namespace Admin.Core.Db
 {
     /// <summary>
@@ -14,5 +15,6 @@ namespace Admin.Core.Db
         public RoleEntity[] Roles { get; set; }
         public UserRoleEntity[] UserRoles { get; set; }
         public RolePermissionEntity[] RolePermissions { get; set; }
+        public TenantEntity[] Tenants { get; set; }
     }
 }

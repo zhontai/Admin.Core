@@ -8,15 +8,14 @@ using Admin.Core.Common.Auth;
 
 namespace Admin.Core.Repository
 {
-    public abstract class RepositoryBase<TEntity,TKey> : BaseRepository<TEntity, TKey> where TEntity : class,new()
+    public abstract class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class,new()
     {
         private readonly IUser _user;
-        protected RepositoryBase(UnitOfWorkManager uowm, IUser user) : base(uowm.Orm, null, null)
+        protected RepositoryBase(IFreeSql freeSql, IUser user) : base(freeSql, null, null)
         {
-            uowm.Binding(this);
             _user = user;
         }
-        
+
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
             return Select.WhereDynamic(id).ToOneAsync<TDto>();
@@ -61,8 +60,9 @@ namespace Admin.Core.Repository
 
     public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, long> where TEntity : class, new()
     {
-        protected RepositoryBase(UnitOfWorkManager uowm, IUser user) : base(uowm, user)
+        protected RepositoryBase(MyUnitOfWorkManager muowm, IUser user) : base(muowm.Orm, user)
         {
+            muowm.Binding(this);
         }
     }
 }

@@ -6,7 +6,7 @@ using FreeSql.DataAnnotations;
 namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
-    /// 实体修改审计
+    /// 实体修改
     /// </summary>
     public class EntityUpdate<TKey> : Entity<TKey>, IEntityUpdate<TKey> where TKey : struct
     {
@@ -15,7 +15,7 @@ namespace Admin.Core.Common.BaseModel
         /// </summary>
         [Description("修改者Id")]
         [Column(Position = -3, CanInsert = false)]
-        public TKey? ModifiedUserId { get; set; }
+        public long? ModifiedUserId { get; set; }
 
         /// <summary>
         /// 修改者

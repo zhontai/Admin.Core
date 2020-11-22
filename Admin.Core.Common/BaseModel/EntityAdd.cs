@@ -6,7 +6,7 @@ using FreeSql.DataAnnotations;
 namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
-    /// 实体创建审计
+    /// 实体创建
     /// </summary>
     public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd<TKey> where TKey : struct
     {
@@ -15,7 +15,7 @@ namespace Admin.Core.Common.BaseModel
         /// </summary>
         [Description("创建者Id")]
         [Column(Position = -3, CanUpdate = false)]
-        public TKey? CreatedUserId { get; set; }
+        public long? CreatedUserId { get; set; }
 
         /// <summary>
         /// 创建者

@@ -7,7 +7,7 @@ namespace Admin.Core.Model.Admin
     /// 用户角色
     /// </summary>
 	[Table(Name = "ad_user_role")]
-    [Index("uk_user_role_userid_roleid", nameof(UserId) + "," + nameof(RoleId), true)]
+    [Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(RoleId), true)]
     public class UserRoleEntity: EntityAdd
     {
         /// <summary>

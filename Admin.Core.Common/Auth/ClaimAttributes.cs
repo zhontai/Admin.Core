@@ -29,5 +29,10 @@
         /// 刷新有效期
         /// </summary>
         public const string RefreshExpires = "re";
+
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public const string TenantId = "tenantid";
     }
 }

@@ -22,9 +22,9 @@ namespace Admin.Core
             var logger = LogManager.GetCurrentClassLogger();
             try
             {
-                Console.WriteLine("launching...");
+                Console.WriteLine(" launching...");
                 var host = CreateHostBuilder(args).Build();
-                Console.WriteLine($"{string.Join("\r\n", appConfig.Urls)}\r\n");
+                Console.WriteLine($"\r\n {string.Join("\r\n ", appConfig.Urls)}\r\n");
                 await host.RunAsync();
                 return 0;
             }

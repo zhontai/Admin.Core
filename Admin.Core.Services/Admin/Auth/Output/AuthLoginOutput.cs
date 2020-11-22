@@ -18,5 +18,10 @@ namespace Admin.Core.Service.Admin.Auth.Output
         /// 姓名
         /// </summary>
         public string NickName { get; set; }
+
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public long TenantId { get; set; }
     }
 }

@@ -9,9 +9,15 @@ namespace Admin.Core.Model.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("uk_user_username", nameof(UserName), true)]
-    public class UserEntity: EntityBase
+    [Index("idx_{tablename}_01", nameof(UserName), true)]
+    public class UserEntity: EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = true)]
+        public override long? TenantId { get; set; }
+
         /// <summary>
         /// 账号
         /// </summary>

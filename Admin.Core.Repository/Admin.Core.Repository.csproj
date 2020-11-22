@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.4.1</Version>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>1.5.0</Version>
     <Authors>xiaoxue</Authors>
     <Company>xiaoxue</Company>
     <Description>中台Admin后端仓储库</Description>
@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ZhonTai Admin;WebApi</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -37,6 +37,6 @@ namespace Admin.Core.Service.Admin.User
 
         Task<IResponseOutput> GetBasicAsync();
 
-        Task<IList<string>> GetPermissionsAsync();
+        Task<IList<UserPermissionsOutput>> GetPermissionsAsync();
     }
 }

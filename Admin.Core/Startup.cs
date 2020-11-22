@@ -36,6 +36,8 @@ using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using AspNetCoreRateLimit;
 using IdentityServer4.AccessTokenValidation;
+using Admin.Core.Repository.Admin;
+using Admin.Core.Repository;
 
 namespace Admin.Core
 {
@@ -57,6 +59,8 @@ namespace Admin.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPermissionHandler, PermissionHandler>();
+
             //用户信息
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             if (_appConfig.IdentityServer.Enable)
@@ -72,6 +76,8 @@ namespace Admin.Core
 
             //数据库
             services.AddDb(_env).Wait();
+            //租户分库
+            services.AddTenantDb(_env);
 
             //应用配置
             services.AddSingleton(_appConfig);
@@ -260,7 +266,8 @@ namespace Admin.Core
             #region 操作日志
             if (_appConfig.Log.Operation)
             {
-                services.AddSingleton<ILogHandler, LogHandler>();
+                //services.AddSingleton<ILogHandler, LogHandler>();
+                services.AddScoped<ILogHandler, LogHandler>();
             }
             #endregion
 

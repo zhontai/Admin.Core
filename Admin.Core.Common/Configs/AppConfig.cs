@@ -1,6 +1,25 @@
 ﻿namespace Admin.Core.Common.Configs
 {
     /// <summary>
+    /// 租户类型
+    /// </summary>
+    public enum TenantType
+    {
+        /// <summary>
+        /// 无租户
+        /// </summary>
+        None,
+        /// <summary>
+        /// 共享数据库
+        /// </summary>
+        Share,
+        /// <summary>
+        /// 独立数据库
+        /// </summary>
+        Own
+    }
+
+    /// <summary>
     /// 应用配置
     /// </summary>
     public class AppConfig
@@ -14,6 +33,11 @@
         /// 跨域地址，默认 http://*:9000
         /// </summary>
         public string[] CorUrls { get; set; }// = new[]{ "http://*:9000" };
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public TenantType TenantType { get; set; } = TenantType.None;
 
         /// <summary>
         /// Swagger文档

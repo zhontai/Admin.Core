@@ -257,6 +257,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Auth.MapConfig">
             <summary>
             映射配置
@@ -1146,6 +1151,116 @@
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.Role.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.DbType">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Tenant.Input.TenantUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantUpdateInput.Id">
+            <summary>
+            接口Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.DbType">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.DbTypeName">
+            <summary>
+            数据库名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.Tenant.MapConfig">
             <summary>
             映射配置
             </summary>

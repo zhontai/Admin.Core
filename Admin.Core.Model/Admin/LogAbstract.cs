@@ -6,8 +6,14 @@ namespace Admin.Core.Model.Admin
     /// <summary>
     /// 日志
     /// </summary>
-    public abstract class LogAbstract : EntityAdd
+    public abstract class LogAbstract : EntityAdd, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 昵称
         /// </summary>
