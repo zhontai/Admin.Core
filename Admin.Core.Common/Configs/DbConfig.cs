@@ -40,6 +40,11 @@ namespace Admin.Core.Common.Configs
         public string ConnectionString { get; set; } = "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1";
 
         /// <summary>
+        /// 空闲时间(分)
+        /// </summary>
+        public int IdleTime { get; set; } = 10;
+
+        /// <summary>
         /// 生成数据
         /// </summary>
         public bool GenerateData { get; set; } = false;

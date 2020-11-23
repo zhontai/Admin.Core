@@ -595,6 +595,11 @@
             数据库字符串
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Configs.DbConfig.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
         <member name="P:Admin.Core.Common.Configs.DbConfig.GenerateData">
             <summary>
             生成数据

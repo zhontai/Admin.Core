@@ -29,8 +29,10 @@ namespace Admin.Core.Db
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
             var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
             var user = services.BuildServiceProvider().GetService<IUser>();
-            
-            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(1));
+
+            int idleTime = dbConfig.IdleTime > 0 ? dbConfig.IdleTime : 10;
+
+            IdleBus <IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
 
             ib.TryRegister("tenant_" + user.TenantId.ToString(), () =>
             {

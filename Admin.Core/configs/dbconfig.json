@@ -38,6 +38,9 @@
   //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
   "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
 
+  //空闲时间(分)
+  "idleTime": 10,
+
   //多数据库
   //1、Common.Dbs中定义MySqlDb类
   //2、IFreeSql<MySqlDb> _mySqlDb;
