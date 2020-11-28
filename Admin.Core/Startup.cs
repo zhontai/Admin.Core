@@ -36,8 +36,7 @@ using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using AspNetCoreRateLimit;
 using IdentityServer4.AccessTokenValidation;
-using Admin.Core.Repository.Admin;
-using Admin.Core.Repository;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Admin.Core
 {
@@ -60,6 +59,9 @@ namespace Admin.Core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IPermissionHandler, PermissionHandler>();
+
+            // ClaimType不被更改
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             //用户信息
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -131,14 +133,12 @@ namespace Admin.Core
                     options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
                     options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
                 })
-                .AddIdentityServerAuthentication(options =>
-                 {
-                     options.Authority = _appConfig.IdentityServer.Url;
-                     options.RequireHttpsMetadata = false;
-                     options.SupportedTokens = SupportedTokens.Jwt;
-                     options.ApiName = "admin.server.api";
-                     options.ApiSecret = "secret";
-                 })
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = _appConfig.IdentityServer.Url;
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "admin.server.api";
+                })
                 .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
             }
             else
