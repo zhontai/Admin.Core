@@ -728,7 +728,7 @@
             数据
             </summary>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.CreateDatabase(Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.CreateDatabaseAsync(Admin.Core.Common.Configs.DbConfig)">
             <summary>
             创建数据库
             </summary>
@@ -740,7 +740,7 @@
             同步结构
             </summary>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.InitDtData``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.InitDtDataAsync``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
             <summary>
             初始化数据表数据
             </summary>
@@ -758,25 +758,32 @@
             <param name="s"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncData(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
             <summary>
             同步数据
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.GenerateSimpleJsonData(IFreeSql)">
+        <member name="M:Admin.Core.Db.DbHelper.GenerateSimpleJsonDataAsync(IFreeSql)">
             <summary>
             生成极简数据
             </summary>
             <param name="db"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
+        <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             添加数据库
             </summary>
             <param name="services"></param>
             <param name="env"></param>
+        </member>
+        <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.CreateMultiDbBuilder(Admin.Core.Common.Configs.MultiDb)">
+            <summary>
+            创建多数据库构建器
+            </summary>
+            <param name="multiDb"></param>
+            <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.TenantDbHelper.CreateDatabase(Admin.Core.Common.Configs.DbConfig)">
             <summary>

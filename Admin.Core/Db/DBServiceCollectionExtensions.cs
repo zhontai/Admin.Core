@@ -17,14 +17,14 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        public async static Task AddDb(this IServiceCollection services, IHostEnvironment env)
+        public async static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env)
         {
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
             //创建数据库
             if (dbConfig.CreateDb)
             {
-                await DbHelper.CreateDatabase(dbConfig);
+                await DbHelper.CreateDatabaseAsync(dbConfig);
             }
 
             #region FreeSql
@@ -57,14 +57,14 @@ namespace Admin.Core.Db
             //同步数据
             if (dbConfig.SyncData)
             {
-                await DbHelper.SyncData(fsql, dbConfig);
+                await DbHelper.SyncDataAsync(fsql, dbConfig);
             }
             #endregion
 
             //生成数据包
             if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
             {
-                await DbHelper.GenerateSimpleJsonData(fsql);
+                await DbHelper.GenerateSimpleJsonDataAsync(fsql);
             }
 
             #region 监听Curd操作
@@ -145,6 +145,11 @@ namespace Admin.Core.Db
             }
         }
 
+        /// <summary>
+        /// 创建多数据库构建器
+        /// </summary>
+        /// <param name="multiDb"></param>
+        /// <returns></returns>
         private static FreeSqlBuilder CreateMultiDbBuilder(MultiDb multiDb)
         {
             return new FreeSqlBuilder()

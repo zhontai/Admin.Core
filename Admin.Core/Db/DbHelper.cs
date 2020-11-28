@@ -20,7 +20,7 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="dbConfig"></param>
         /// <returns></returns>
-        public async static Task CreateDatabase(DbConfig dbConfig)
+        public async static Task CreateDatabaseAsync(DbConfig dbConfig)
         {
             if (!dbConfig.CreateDb || dbConfig.Type == DataType.Sqlite)
             {
@@ -96,7 +96,7 @@ namespace Admin.Core.Db
         /// <param name="tran"></param>
         /// <param name="dbConfig"></param>
         /// <returns></returns>
-        private static async Task InitDtData<T>(
+        private static async Task InitDtDataAsync<T>(
             IFreeSql db, 
             T[] data, 
             System.Data.Common.DbTransaction tran, 
@@ -184,7 +184,7 @@ namespace Admin.Core.Db
         /// 同步数据
         /// </summary>
         /// <returns></returns>
-        public static async Task SyncData(IFreeSql db, DbConfig dbConfig = null)
+        public static async Task SyncDataAsync(IFreeSql db, DbConfig dbConfig = null)
         {
             try
             {
@@ -204,15 +204,15 @@ namespace Admin.Core.Db
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
-                    await InitDtData(db, data.Dictionaries, tran, dbConfig);
-                    await InitDtData(db, data.Apis, tran, dbConfig);
-                    await InitDtData(db, data.Views, tran, dbConfig);
-                    await InitDtData(db, data.Permissions, tran, dbConfig);
-                    await InitDtData(db, data.Users, tran, dbConfig);
-                    await InitDtData(db, data.Roles, tran, dbConfig);
-                    await InitDtData(db, data.UserRoles, tran, dbConfig);
-                    await InitDtData(db, data.RolePermissions, tran, dbConfig);
-                    await InitDtData(db, data.Tenants, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Dictionaries, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Apis, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Views, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Permissions, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Users, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Roles, tran, dbConfig);
+                    await InitDtDataAsync(db, data.UserRoles, tran, dbConfig);
+                    await InitDtDataAsync(db, data.RolePermissions, tran, dbConfig);
+                    await InitDtDataAsync(db, data.Tenants, tran, dbConfig);
 
                     uow.Commit();
                 }
@@ -232,7 +232,7 @@ namespace Admin.Core.Db
         /// </summary>
         /// <param name="db"></param>
         /// <returns></returns>
-        public static async Task GenerateSimpleJsonData(IFreeSql db)
+        public static async Task GenerateSimpleJsonDataAsync(IFreeSql db)
         {
             try
             {

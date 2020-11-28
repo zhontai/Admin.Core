@@ -75,7 +75,7 @@ namespace Admin.Core
             }
 
             //数据库
-            services.AddDb(_env).Wait();
+            services.AddDbAsync(_env).Wait();
             //租户分库
             services.AddTenantDb(_env);
 
