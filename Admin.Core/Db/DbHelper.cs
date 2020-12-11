@@ -10,6 +10,9 @@ using FreeSql.DataAnnotations;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
+using System.Collections.Generic;
+using System.Reflection;
+using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Db
 {
@@ -44,9 +47,42 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
+        /// 获得指定程序集表实体
+        /// </summary>
+        /// <returns></returns>
+        public static Type[] GetEntityTypes()
+        {
+            List<string> assemblyNames = new List<string>()
+            {
+                "Admin.Core.Model"
+            };
+
+            List<Type> entityTypes = new List<Type>();
+
+            foreach (var assemblyName in assemblyNames)
+            {
+                foreach (Type type in Assembly.Load(assemblyName).GetExportedTypes())
+                {
+                    foreach (Attribute attribute in type.GetCustomAttributes())
+                    {
+                        if (attribute is TableAttribute tableAttribute)
+                        {
+                            if (tableAttribute.DisableSyncStructure == false)
+                            {
+                                entityTypes.Add(type);
+                            }
+                        }
+                    }
+                }
+            }
+           
+            return entityTypes.ToArray();
+        }
+
+        /// <summary>
         /// 同步结构
         /// </summary>
-        public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
+        public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, AppConfig appConfig = null)
         {
             //打印结构比对脚本
             //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -68,22 +104,28 @@ namespace Admin.Core.Db
             {
                 db.CodeFirst.IsSyncStructureToUpper = true;
             }
-            db.CodeFirst.SyncStructure(new Type[]
+
+            //获得指定程序集表实体
+            var entityTypes = GetEntityTypes();
+
+            //非共享数据库实体配置,不生成租户Id
+            if(appConfig.TenantType != TenantType.Share)
             {
-                typeof(DictionaryEntity),
-                typeof(ApiEntity),
-                typeof(ViewEntity),
-                typeof(PermissionEntity),
-                typeof(UserEntity),
-                typeof(RoleEntity),
-                typeof(UserRoleEntity),
-                typeof(RolePermissionEntity),
-                typeof(OprationLogEntity),
-                typeof(LoginLogEntity),
-                typeof(DocumentEntity),
-                typeof(DocumentImageEntity),
-                typeof(TenantEntity)
-            });
+                var iTenant = nameof(ITenant);
+                var tenantId = nameof(ITenant.TenantId);
+                foreach (var entityType in entityTypes)
+                {
+                    if(entityType.GetInterfaces().Any(a=> a.Name == iTenant))
+                    {
+                        db.CodeFirst.Entity(entityType, a =>
+                        {
+                            a.Ignore(tenantId);
+                        });
+                    }
+                }
+            }
+
+            db.CodeFirst.SyncStructure(entityTypes);
             Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
         }
 

@@ -51,7 +51,8 @@ namespace Admin.Core.Db
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                DbHelper.SyncStructure(fsql, dbConfig: dbConfig);
+                var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
+                DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
 
             //同步数据

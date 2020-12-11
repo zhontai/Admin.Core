@@ -9,8 +9,14 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_api")]
     [Index("idx_{tablename}_01", nameof(Path), true)]
-    public class ApiEntity : EntityFull
+    public class ApiEntity : EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 所属模块
         /// </summary>

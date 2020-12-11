@@ -9,8 +9,14 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_view")]
     [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
-    public class ViewEntity : EntityFull
+    public class ViewEntity : EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 所属节点
         /// </summary>

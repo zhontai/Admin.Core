@@ -11,8 +11,14 @@ namespace Admin.Core.Model.Admin
 	[Table(Name = "ad_tenant")]
     [Index("idx_{tablename}_01", nameof(Name), true)]
     [Index("idx_{tablename}_02", nameof(Code), true)]
-    public class TenantEntity : EntityFull
+    public class TenantEntity : EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 编码
         /// </summary>

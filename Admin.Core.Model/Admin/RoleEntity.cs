@@ -10,8 +10,14 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_role")]
     [Index("idx_{tablename}_01", nameof(Name), true)]
-    public class RoleEntity: EntityFull
+    public class RoleEntity: EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>

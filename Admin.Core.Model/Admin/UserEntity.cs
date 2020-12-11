@@ -16,7 +16,7 @@ namespace Admin.Core.Model.Admin
         /// 租户Id
         /// </summary>
         [Column(Position = -10, CanUpdate = true)]
-        public override long? TenantId { get; set; }
+        public long? TenantId { get; set; }
 
         /// <summary>
         /// 账号

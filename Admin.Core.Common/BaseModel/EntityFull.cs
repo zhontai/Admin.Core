@@ -8,15 +8,8 @@ namespace Admin.Core.Common.BaseModel
     /// <summary>
     /// 实体完整类
     /// </summary>
-    public class EntityFull<TKey> : Entity<TKey>, ITenant, IEntityVersion, IEntitySoftDelete, IEntityAdd<TKey>, IEntityUpdate<TKey> where TKey : struct
+    public class EntityFull<TKey> : Entity<TKey>, IEntityVersion, IEntitySoftDelete, IEntityAdd<TKey>, IEntityUpdate<TKey> where TKey : struct
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Description("租户Id")]
-        [Column(Position = -10, CanUpdate = false)]
-        public virtual long? TenantId { get; set; }
-
         /// <summary>
         /// 版本
         /// </summary>

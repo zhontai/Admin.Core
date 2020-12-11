@@ -154,11 +154,6 @@
             实体完整类
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Common.BaseModel.EntityFull`1.Version">
             <summary>
             版本

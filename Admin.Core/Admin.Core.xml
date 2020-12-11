@@ -735,7 +735,13 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.GetEntityTypes">
+            <summary>
+            获得指定程序集表实体
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
             <summary>
             同步结构
             </summary>

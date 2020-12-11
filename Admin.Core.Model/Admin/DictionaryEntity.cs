@@ -8,8 +8,14 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_dictionary")]
     [Index("idx_{tablename}_01", nameof(ParentId)+","+nameof(Name), true)]
-    public class DictionaryEntity: EntityFull
+    public class DictionaryEntity: EntityFull, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 字典父级
         /// </summary>

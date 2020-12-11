@@ -8,8 +8,14 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_user_role")]
     [Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(RoleId), true)]
-    public class UserRoleEntity: EntityAdd
+    public class UserRoleEntity: EntityAdd, ITenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 用户Id
         /// </summary>
