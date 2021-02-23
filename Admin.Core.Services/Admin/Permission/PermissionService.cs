@@ -226,7 +226,7 @@ namespace Admin.Core.Service.Admin.Permission
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });
 
             var apis = permissions
-                .Where(a => a.Type == PermissionType.Api)
+                .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
                 .Select(a => new { a.Id, a.ParentId, a.Label });
 
             var menus = permissions
