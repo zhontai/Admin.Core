@@ -22,20 +22,20 @@
 
   <ItemGroup>
     <PackageReference Include="CSRedisCore" Version="3.6.6" />
-    <PackageReference Include="FreeSql" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Provider.MySql" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Provider.Oracle" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Provider.PostgreSQL" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="2.0.105" />
-    <PackageReference Include="FreeSql.Repository" Version="2.0.105" />
+    <PackageReference Include="FreeSql" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Provider.MySql" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Provider.Oracle" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Provider.PostgreSQL" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Provider.Sqlite" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="2.3.100" />
+    <PackageReference Include="FreeSql.Repository" Version="2.3.100" />
     <PackageReference Include="IdleBus" Version="1.5.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
     <PackageReference Include="UAParser" Version="3.1.46" />
   </ItemGroup>
