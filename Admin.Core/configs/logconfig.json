@@ -47,18 +47,18 @@
       }
     },
     "rules": [
-      {
-        "logger": "*",
-        "minLevel": "Trace",
-        "maxlevel": "Debug",
-        "writeTo": "debug"
-      },
-      {
-        "logger": "*",
-        "minLevel": "Info",
-        "maxlevel": "Warn",
-        "writeTo": "warn"
-      },
+      //{
+      //  "logger": "*",
+      //  "minLevel": "Trace",
+      //  "maxlevel": "Debug",
+      //  "writeTo": "debug"
+      //},
+      //{
+      //  "logger": "*",
+      //  "minLevel": "Info",
+      //  "maxlevel": "Warn",
+      //  "writeTo": "warn"
+      //},
       {
         "logger": "*",
         "minLevel": "Error",
