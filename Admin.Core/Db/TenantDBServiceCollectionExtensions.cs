@@ -7,6 +7,7 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.BaseModel;
 using Admin.Core.Repository;
+using Admin.Core.Common.Consts;
 
 namespace Admin.Core.Db
 {
@@ -34,7 +35,12 @@ namespace Admin.Core.Db
 
             IdleBus <IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
 
-            ib.TryRegister("tenant_" + user.TenantId.ToString(), () =>
+            var tenantName = AdminConsts.TenantName;
+            if(appConfig.TenantType == TenantType.Own)
+            {
+                tenantName = "tenant_" + user.TenantId.ToString();
+            }
+            ib.TryRegister(tenantName, () =>
             {
                 #region FreeSql
                 var freeSqlBuilder = new FreeSqlBuilder()
