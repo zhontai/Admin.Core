@@ -130,6 +130,27 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
+        /// 检查实体属性是否为自增长
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private static bool CheckIdentity<T>() where T : class
+        {
+            var isIdentity = false;
+            var properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                if (property.GetCustomAttributes(typeof(ColumnAttribute), false).FirstOrDefault() is ColumnAttribute columnAttribute && columnAttribute.IsIdentity)
+                {
+                    isIdentity = true;
+                    break;
+                }
+            }
+
+            return isIdentity;
+        }
+
+        /// <summary>
         /// 初始化数据表数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -161,16 +182,25 @@ namespace Admin.Core.Db
                             insert = insert.WithTransaction(tran);
                         }
 
-                        if(dbConfig.Type == DataType.SqlServer)
+                        var isIdentity = CheckIdentity<T>();
+                        if (isIdentity)
                         {
-                            var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
-                            await db.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
+                            if (dbConfig.Type == DataType.SqlServer)
+                            {
+
+                                var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
+                                await db.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
+                            }
+                            else
+                            {
+                                await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
+                            }
                         }
                         else
                         {
-                            await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
+                            await insert.AppendData(data).ExecuteAffrowsAsync();
                         }
-                        
+
                         Console.WriteLine($" table: {tableName} sync data succeed");
                     }
                     else
