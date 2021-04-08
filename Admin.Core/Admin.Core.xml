@@ -741,10 +741,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Db.DbHelper.ConfigEntity(IFreeSql,Admin.Core.Common.Configs.AppConfig)">
+            <summary>
+            配置实体
+            </summary>
+        </member>
         <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
             <summary>
             同步结构
             </summary>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.CheckIdentity``1">
+            <summary>
+            检查实体属性是否为自增长
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.DbHelper.InitDtDataAsync``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
             <summary>

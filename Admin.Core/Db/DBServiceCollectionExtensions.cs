@@ -30,7 +30,7 @@ namespace Admin.Core.Db
             #region FreeSql
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
-                    .UseAutoSyncStructure(dbConfig.SyncStructure)
+                    .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
 
@@ -47,11 +47,14 @@ namespace Admin.Core.Db
 
             var fsql = freeSqlBuilder.Build();
 
+            //配置实体
+            var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
+            DbHelper.ConfigEntity(fsql, appConfig);
+
             #region 初始化数据库
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
 

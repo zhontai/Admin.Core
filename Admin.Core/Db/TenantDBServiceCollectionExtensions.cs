@@ -60,8 +60,12 @@ namespace Admin.Core.Db
 
                 var fsql = freeSqlBuilder.Build();
                 fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
+                
+                //配置实体
+                DbHelper.ConfigEntity(fsql, appConfig);
+
                 //共享数据库
-                if(appConfig.TenantType == TenantType.Share)
+                if (appConfig.TenantType == TenantType.Share)
                 {
                     fsql.GlobalFilter.ApplyIf<ITenant>("Tenant", () => user.TenantId > 0, a => a.TenantId == user.TenantId);
                 }

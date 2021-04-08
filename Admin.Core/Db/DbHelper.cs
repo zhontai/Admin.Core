@@ -80,6 +80,33 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
+        /// 配置实体
+        /// </summary>
+        public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null)
+        {
+            //非共享数据库实体配置,不生成和操作租户Id
+            if (appConfig.TenantType != TenantType.Share)
+            {
+                var iTenant = nameof(ITenant);
+                var tenantId = nameof(ITenant.TenantId);
+
+                //获得指定程序集表实体
+                var entityTypes = GetEntityTypes();
+
+                foreach (var entityType in entityTypes)
+                {
+                    if (entityType.GetInterfaces().Any(a => a.Name == iTenant))
+                    {
+                        db.CodeFirst.Entity(entityType, a =>
+                        {
+                            a.Ignore(tenantId);
+                        });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 同步结构
         /// </summary>
         public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, AppConfig appConfig = null)
@@ -107,23 +134,6 @@ namespace Admin.Core.Db
 
             //获得指定程序集表实体
             var entityTypes = GetEntityTypes();
-
-            //非共享数据库实体配置,不生成租户Id
-            if(appConfig.TenantType != TenantType.Share)
-            {
-                var iTenant = nameof(ITenant);
-                var tenantId = nameof(ITenant.TenantId);
-                foreach (var entityType in entityTypes)
-                {
-                    if(entityType.GetInterfaces().Any(a=> a.Name == iTenant))
-                    {
-                        db.CodeFirst.Entity(entityType, a =>
-                        {
-                            a.Ignore(tenantId);
-                        });
-                    }
-                }
-            }
 
             db.CodeFirst.SyncStructure(entityTypes);
             Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
