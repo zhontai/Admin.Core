@@ -47,6 +47,7 @@ namespace Admin.Core
         private readonly IHostEnvironment _env;
         private readonly ConfigHelper _configHelper;
         private readonly AppConfig _appConfig;
+        private const string DefaultCorsPolicyName = "Allow";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -94,30 +95,33 @@ namespace Admin.Core
             #endregion
 
             #region Cors 跨域
-            services.AddCors(options =>
+            if (_appConfig.CorUrls?.Length > 0)
             {
-                options.AddPolicy("Limit", policy =>
+                services.AddCors(options =>
                 {
-                    policy
-                    .WithOrigins(_appConfig.CorUrls)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                });
+                    options.AddPolicy(DefaultCorsPolicyName, policy =>
+                    {
+                        policy
+                        .WithOrigins(_appConfig.CorUrls)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
 
-                /*
-                //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
-                options.AddPolicy("All", policy =>
-                {
-                    policy
-                    .AllowAnyOrigin()
-                    .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    /*
+                    //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
+                    options.AddPolicy("All", policy =>
+                    {
+                        policy
+                        .AllowAnyOrigin()
+                        .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
+                    */
                 });
-                */
-            });
+            }
             #endregion
 
             #region 身份认证授权
@@ -385,6 +389,12 @@ namespace Admin.Core
                 app.UseIpRateLimiting();
             }
 
+            //跨域
+            if (_appConfig.CorUrls?.Length > 0)
+            {
+                app.UseCors(DefaultCorsPolicyName);
+            }
+
             //异常
             app.UseExceptionHandler("/Error");
 
@@ -393,9 +403,6 @@ namespace Admin.Core
 
             //路由
             app.UseRouting();
-
-            //跨域
-            app.UseCors("Limit");
 
             //认证
             app.UseAuthentication();
