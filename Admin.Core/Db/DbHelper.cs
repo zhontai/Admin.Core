@@ -286,6 +286,11 @@ namespace Admin.Core.Db
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
+                    if (!await db.Queryable<DualEntity>().AnyAsync())
+                    {
+                        await db.Insert<DualEntity>().WithTransaction(tran).AppendData(new DualEntity { }).ExecuteAffrowsAsync();
+                    }
+
                     await InitDtDataAsync(db, data.Dictionaries, tran, dbConfig);
                     await InitDtDataAsync(db, data.Apis, tran, dbConfig);
                     await InitDtDataAsync(db, data.Views, tran, dbConfig);
@@ -301,7 +306,7 @@ namespace Admin.Core.Db
 
                 db.Aop.AuditValue -= SyncDataAuditValue;
 
-                Console.WriteLine(" sync data succeed");
+                Console.WriteLine(" sync data succeed\r\n");
             }
             catch (Exception ex)
             {

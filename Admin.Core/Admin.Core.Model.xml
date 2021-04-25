@@ -194,6 +194,16 @@
             Markdown文档
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.DualEntity">
+            <summary>
+            系统表，用于查询系统函数
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DualEntity.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.LogAbstract">
             <summary>
             日志

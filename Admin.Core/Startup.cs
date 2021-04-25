@@ -77,9 +77,9 @@ namespace Admin.Core
                 services.TryAddSingleton<IUser, User>();
             }
 
-            //数据库
+            //主数据库
             services.AddDbAsync(_env).Wait();
-            //租户分库
+            //租户数据库
             services.AddTenantDb(_env);
 
             //应用配置

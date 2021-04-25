@@ -8,6 +8,9 @@ using Admin.Core.Common.Auth;
 using Admin.Core.Common.BaseModel;
 using Admin.Core.Repository;
 using Admin.Core.Common.Consts;
+using Admin.Core.Model.Admin;
+using Admin.Core.Common.Attributes;
+using System.Reflection;
 
 namespace Admin.Core.Db
 {
@@ -81,6 +84,9 @@ namespace Admin.Core.Db
                 #endregion
 
                 #region 审计数据
+                //计算服务器时间
+                var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
+                var timeOffset = DateTime.UtcNow.Subtract(serverTime);
                 fsql.Aop.AuditValue += (s, e) =>
                 {
                     if (user == null || user.Id <= 0)
@@ -102,6 +108,11 @@ namespace Admin.Core.Db
                                 e.Value = user.TenantId;
                                 break;
                         }
+                        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                        {
+                            e.Value = DateTime.Now.Subtract(timeOffset);
+                        }
                     }
                     else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
                     {
@@ -113,6 +124,11 @@ namespace Admin.Core.Db
                             case "ModifiedUserName":
                                 e.Value = user.Name;
                                 break;
+                        }
+                        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                        {
+                            e.Value = DateTime.Now.Subtract(timeOffset);
                         }
                     }
                 };

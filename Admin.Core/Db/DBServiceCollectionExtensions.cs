@@ -7,6 +7,9 @@ using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Dbs;
+using Admin.Core.Model.Admin;
+using System.Reflection;
+using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Db
 {
@@ -83,8 +86,8 @@ namespace Admin.Core.Db
 
             #region 审计数据
             //计算服务器时间
-            //var serverTime = fsql.Select<T>().Limit(1).First(a => DateTime.local);
-            //var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
             var user = services.BuildServiceProvider().GetService<IUser>();
             fsql.Aop.AuditValue += (s, e) =>
             {
@@ -106,9 +109,12 @@ namespace Admin.Core.Db
                         case "TenantId":
                             e.Value = user.TenantId;
                             break;
-                            //case "CreatedTime":
-                            //    e.Value = DateTime.Now.Subtract(timeOffset);
-                            //    break;
+                    }
+
+                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                    {
+                        e.Value = DateTime.Now.Subtract(timeOffset);
                     }
                 }
                 else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
@@ -121,9 +127,11 @@ namespace Admin.Core.Db
                         case "ModifiedUserName":
                             e.Value = user.Name;
                             break;
-                            //case "ModifiedTime":
-                            //    e.Value = DateTime.Now.Subtract(timeOffset);
-                            //    break;
+                    }
+                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                    {
+                        e.Value = DateTime.Now.Subtract(timeOffset);
                     }
                 }
             };
