@@ -353,6 +353,7 @@ namespace Admin.Core
                 if (_appConfig.Aop.Transaction)
                 {
                     builder.RegisterType<TransactionInterceptor>();
+                    builder.RegisterType<TransactionAsyncInterceptor>();
                     interceptorServiceTypes.Add(typeof(TransactionInterceptor));
                 }
                 #endregion
@@ -361,16 +362,18 @@ namespace Admin.Core
                 var assemblyRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblyRepository)
                 .AsImplementedInterfaces()
-                .InstancePerDependency();
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired();// 属性注入
                 #endregion
 
                 #region Service
                 var assemblyServices = Assembly.Load("Admin.Core.Service");
                 builder.RegisterAssemblyTypes(assemblyServices)
                 .AsImplementedInterfaces()
-                .InstancePerDependency()
-                .EnableInterfaceInterceptors()
-                .InterceptedBy(interceptorServiceTypes.ToArray());
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired()// 属性注入
+                .InterceptedBy(interceptorServiceTypes.ToArray())
+                .EnableInterfaceInterceptors();
                 #endregion
             }
             catch (Exception ex)

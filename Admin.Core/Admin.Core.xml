@@ -4,6 +4,19 @@
         <name>Admin.Core</name>
     </assembly>
     <members>
+        <member name="M:Admin.Core.Aop.TransactionAsyncInterceptor.InterceptSynchronous(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            拦截同步执行的方法
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="M:Admin.Core.Aop.TransactionAsyncInterceptor.InterceptAsynchronous(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            拦截返回结果为Task的方法
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Admin.Core.Aop.TransactionAsyncInterceptor.InterceptAsynchronous``1(Castle.DynamicProxy.IInvocation)" -->
         <member name="T:Admin.Core.Attributes.LoginAttribute">
             <summary>
             启用登录
