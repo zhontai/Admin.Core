@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using FreeSql;
-using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Output;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Repository;
