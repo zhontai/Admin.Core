@@ -10,6 +10,7 @@ using Admin.Core.Common.Dbs;
 using Admin.Core.Model.Admin;
 using System.Reflection;
 using Admin.Core.Common.Attributes;
+using Yitter.IdGenerator;
 
 namespace Admin.Core.Db
 {
@@ -61,6 +62,72 @@ namespace Admin.Core.Db
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
 
+            #region 审计数据
+            //计算服务器时间
+            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            var user = services.BuildServiceProvider().GetService<IUser>();
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+                       && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                       && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                {
+                    e.Value = DateTime.Now.Subtract(timeOffset);
+                }
+
+                if (e.Column.CsType == typeof(long)
+                && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
+                && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+                {
+                    e.Value = YitIdHelper.NextId();
+                }
+
+                if (user == null || user.Id <= 0)
+                {
+                    return;
+                }
+
+                if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
+                {
+                    switch (e.Property.Name)
+                    {
+                        case "CreatedUserId":
+                            if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                            {
+                                e.Value = user.Id;
+                            }
+                            break;
+                        case "CreatedUserName":
+                            if (e.Value == null || ((string)e.Value).IsNull())
+                            {
+                                e.Value = user.Name;
+                            }
+                            break;
+                        case "TenantId":
+                            if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                            {
+                                e.Value = user.TenantId;
+                            }
+                            break;
+                    }
+                }
+                else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
+                {
+                    switch (e.Property.Name)
+                    {
+                        case "ModifiedUserId":
+                            e.Value = user.Id;
+                            break;
+                        case "ModifiedUserName":
+                            e.Value = user.Name;
+                            break;
+                    }
+
+                }
+            };
+            #endregion
+
             //同步数据
             if (dbConfig.SyncData)
             {
@@ -82,59 +149,6 @@ namespace Admin.Core.Db
                     Console.WriteLine($"{e.Sql}\r\n");
                 };
             }
-            #endregion
-
-            #region 审计数据
-            //计算服务器时间
-            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
-            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            var user = services.BuildServiceProvider().GetService<IUser>();
-            fsql.Aop.AuditValue += (s, e) =>
-            {
-                if (user == null || user.Id <= 0)
-                {
-                    return;
-                }
-
-                if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
-                {
-                    switch (e.Property.Name)
-                    {
-                        case "CreatedUserId":
-                            e.Value = user.Id;
-                            break;
-                        case "CreatedUserName":
-                            e.Value = user.Name;
-                            break;
-                        case "TenantId":
-                            e.Value = user.TenantId;
-                            break;
-                    }
-
-                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                    {
-                        e.Value = DateTime.Now.Subtract(timeOffset);
-                    }
-                }
-                else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
-                {
-                    switch (e.Property.Name)
-                    {
-                        case "ModifiedUserId":
-                            e.Value = user.Id;
-                            break;
-                        case "ModifiedUserName":
-                            e.Value = user.Name;
-                            break;
-                    }
-                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                    {
-                        e.Value = DateTime.Now.Subtract(timeOffset);
-                    }
-                }
-            };
             #endregion
             #endregion
 

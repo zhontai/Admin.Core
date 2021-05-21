@@ -15,6 +15,11 @@ namespace Admin.Core.Service.Admin.Role.Output
         public string Name { get; set; }
 
         /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
         /// 说明
         /// </summary>
         public string Description { get; set; }

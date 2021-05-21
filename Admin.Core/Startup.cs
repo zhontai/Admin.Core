@@ -37,6 +37,7 @@ using Admin.Core.Common.Auth;
 using AspNetCoreRateLimit;
 using IdentityServer4.AccessTokenValidation;
 using System.IdentityModel.Tokens.Jwt;
+using Yitter.IdGenerator;
 
 namespace Admin.Core
 {
@@ -59,6 +60,9 @@ namespace Admin.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //雪花漂移算法
+            YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
+
             services.AddScoped<IPermissionHandler, PermissionHandler>();
 
             // ClaimType不被更改

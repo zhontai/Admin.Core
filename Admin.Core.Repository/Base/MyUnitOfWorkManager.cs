@@ -8,7 +8,7 @@ namespace Admin.Core.Repository
 {
     public class MyUnitOfWorkManager : UnitOfWorkManager
     {
-        public MyUnitOfWorkManager(IdleBus<IFreeSql> ib, IUser user,AppConfig appConfig) : base(ib.Get(user.TenantId.Value, appConfig))
+        public MyUnitOfWorkManager(IdleBus<IFreeSql> ib, IUser user, AppConfig appConfig) : base(ib.GetTenant(user.TenantId, appConfig))
         {
         }
     }

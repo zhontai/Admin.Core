@@ -19,18 +19,21 @@ namespace Admin.Core.Service.Admin.Permission
         private readonly IMapper _mapper;
         private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
 
         public PermissionService(
             IMapper mapper,
             ICache cache,
             IPermissionRepository permissionRepository,
+            IRoleRepository roleRepository,
             IRolePermissionRepository rolePermissionRepository
         )
         {
             _mapper = mapper;
             _cache = cache;
             _permissionRepository = permissionRepository;
+            _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
         }
 
@@ -186,6 +189,13 @@ namespace Admin.Core.Service.Admin.Permission
         [Transaction]
         public async Task<IResponseOutput> AssignAsync(PermissionAssignInput input)
         {
+            //分配权限的时候判断角色是否存在
+            var exists = await _roleRepository.Select.WhereDynamic(input.RoleId).AnyAsync();
+            if (!exists)
+            {
+                return ResponseOutput.NotOk("该角色不存在或已被删除，请刷新角色列表");
+            }
+
             //查询角色权限
             var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m=>m.PermissionId);
 

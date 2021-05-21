@@ -11,6 +11,7 @@ using Admin.Core.Common.Consts;
 using Admin.Core.Model.Admin;
 using Admin.Core.Common.Attributes;
 using System.Reflection;
+using Yitter.IdGenerator;
 
 namespace Admin.Core.Db
 {
@@ -41,13 +42,14 @@ namespace Admin.Core.Db
             var tenantName = AdminConsts.TenantName;
             if(appConfig.TenantType == TenantType.Own)
             {
-                tenantName = "tenant_" + user.TenantId.ToString();
+                tenantName = "tenant_" + user.TenantId?.ToString();
             }
             ib.TryRegister(tenantName, () =>
             {
                 #region FreeSql
                 var freeSqlBuilder = new FreeSqlBuilder()
                         .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
+                        .UseAutoSyncStructure(false)
                         .UseLazyLoading(false)
                         .UseNoneCommandParameter(true);
 
@@ -89,29 +91,47 @@ namespace Admin.Core.Db
                 var timeOffset = DateTime.UtcNow.Subtract(serverTime);
                 fsql.Aop.AuditValue += (s, e) =>
                 {
+                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+                        && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+                    {
+                        e.Value = DateTime.Now.Subtract(timeOffset);
+                    }
+
+                    if (e.Column.CsType == typeof(long)
+                    && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
+                    && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+                    {
+                        e.Value = YitIdHelper.NextId();
+                    }
+
                     if (user == null || user.Id <= 0)
                     {
                         return;
                     }
-
+                    
                     if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
                     {
                         switch (e.Property.Name)
                         {
                             case "CreatedUserId":
-                                e.Value = user.Id;
+                                if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                                {
+                                    e.Value = user.Id;
+                                }
                                 break;
                             case "CreatedUserName":
-                                e.Value = user.Name;
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.Name;
+                                }
                                 break;
                             case "TenantId":
-                                e.Value = user.TenantId;
+                                if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                                {
+                                    e.Value = user.TenantId;
+                                }
                                 break;
-                        }
-                        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                        {
-                            e.Value = DateTime.Now.Subtract(timeOffset);
                         }
                     }
                     else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
@@ -125,11 +145,7 @@ namespace Admin.Core.Db
                                 e.Value = user.Name;
                                 break;
                         }
-                        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                        {
-                            e.Value = DateTime.Now.Subtract(timeOffset);
-                        }
+                        
                     }
                 };
                 #endregion

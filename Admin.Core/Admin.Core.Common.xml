@@ -1169,6 +1169,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Common.Helpers.ListHelper.ToTree``1(System.Collections.Generic.List{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,``0,System.Boolean},System.Action{``0,System.Collections.Generic.IEnumerable{``0}},``0)">
+            <summary>
+            将列表转换为树形结构
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="list">数据</param>
+            <param name="rootWhere">根条件</param>
+            <param name="childsWhere">节点条件</param>
+            <param name="addChilds">添加子节点</param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Common.Helpers.MD5Encrypt">
             <summary>
             MD5加密

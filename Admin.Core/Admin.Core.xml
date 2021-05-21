@@ -771,23 +771,16 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.InitDtDataAsync``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.InitDtDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],Admin.Core.Common.Configs.DbConfig)">
             <summary>
             初始化数据表数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="db"></param>
+            <param name="unitOfWork"></param>
             <param name="data"></param>
-            <param name="tran"></param>
             <param name="dbConfig"></param>
             <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
-            <summary>
-            同步数据审计方法
-            </summary>
-            <param name="s"></param>
-            <param name="e"></param>
         </member>
         <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
             <summary>
@@ -814,49 +807,6 @@
             创建多数据库构建器
             </summary>
             <param name="multiDb"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.CreateDatabase(Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            创建数据库
-            </summary>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            同步结构
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.InitDtData``1(IFreeSql,``0[],System.Data.Common.DbTransaction,Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            初始化数据表数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="db"></param>
-            <param name="data"></param>
-            <param name="tran"></param>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
-            <summary>
-            同步数据审计方法
-            </summary>
-            <param name="s"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.SyncData(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            同步数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDbHelper.GenerateSimpleJsonData(IFreeSql)">
-            <summary>
-            生成极简数据
-            </summary>
-            <param name="db"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.TenantDBServiceCollectionExtensions.AddTenantDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">

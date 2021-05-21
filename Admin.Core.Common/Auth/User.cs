@@ -79,7 +79,7 @@ namespace Admin.Core.Common.Auth
                 {
                     return tenantId.Value.ToLong();
                 }
-                return 0;
+                return null;
             }
         }
     }

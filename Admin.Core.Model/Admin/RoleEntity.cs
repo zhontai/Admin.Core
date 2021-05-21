@@ -9,7 +9,8 @@ namespace Admin.Core.Model.Admin
     /// 角色
     /// </summary>
 	[Table(Name = "ad_role")]
-    [Index("idx_{tablename}_01", nameof(Name), true)]
+    [Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
+    [Index("idx_{tablename}_02", nameof(Code) + "," + nameof(TenantId), true)]
     public class RoleEntity: EntityFull, ITenant
     {
         /// <summary>
@@ -23,6 +24,12 @@ namespace Admin.Core.Model.Admin
         /// </summary>
         [Column(StringLength = 50)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        [Column(StringLength = 50)]
+        public string Code { get; set; }
 
         /// <summary>
         /// 说明

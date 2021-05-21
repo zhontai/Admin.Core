@@ -1,59 +1,48 @@
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Admin.Core.Common.BaseModel;
-using FreeSql.DataAnnotations;
 
-namespace Admin.Core.Model.Admin
+namespace Admin.Core.Service.Admin.Api.Output
 {
-    /// <summary>
-    /// 接口管理
-    /// </summary>
-	[Table(Name = "ad_api")]
-    [Index("idx_{tablename}_01", nameof(Path) + "," + nameof(TenantId), true)]
-    public class ApiEntity : EntityFull, ITenant
+    public class ApiDataOutput
     {
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 所属模块
+        /// 接口Id
         /// </summary>
-		public long ParentId { get; set; }
+        public long Id { get; set; }
 
-        [Navigate(nameof(ParentId))]
-        public List<ApiEntity> Childs { get; set; }
+        /// <summary>
+        /// 接口父级
+        /// </summary>
+        public long? ParentId { get; set; }
 
         /// <summary>
         /// 接口命名
         /// </summary>
-        [Column(StringLength = 50)]
         public string Name { get; set; }
 
         /// <summary>
         /// 接口名称
         /// </summary>
-        [Column(StringLength = 500)]
         public string Label { get; set; }
 
         /// <summary>
         /// 接口地址
         /// </summary>
-        [Column(StringLength = 500)]
         public string Path { get; set; }
 
         /// <summary>
         /// 接口提交方法
         /// </summary>
-        [Column(StringLength = 50)]
         public string HttpMethods { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
-        [Column(StringLength = 500)]
         public string Description { get; set; }
 
         /// <summary>
@@ -64,7 +53,8 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 启用
         /// </summary>
-        public bool Enabled { get; set; } = true;
+        public bool Enabled { get; set; }
 
+        public List<ApiDataOutput> Childs { get; set; }
     }
 }

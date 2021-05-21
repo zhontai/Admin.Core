@@ -424,6 +424,11 @@
             名称
             </summary>
         </member>
+        <member name="P:Admin.Core.Model.Admin.RoleEntity.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
         <member name="P:Admin.Core.Model.Admin.RoleEntity.Description">
             <summary>
             说明
@@ -479,14 +484,34 @@
             租户Id
             </summary>
         </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Name">
+            <summary>
+            企业名称
+            </summary>
+        </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.TenantEntity.Name">
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.RealName">
             <summary>
-            名称
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Phone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.Email">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.UserId">
+            <summary>
+            拥有者
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.DbType">

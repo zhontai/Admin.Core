@@ -12,17 +12,12 @@ namespace Admin.Core.Service.Admin.Permission.Output
         /// <summary>
         /// 父级节点
         /// </summary>
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         /// <summary>
         /// 权限名称
         /// </summary>
         public string Label { get; set; }
-
-        /// <summary>
-        /// 权限命名
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// 权限类型

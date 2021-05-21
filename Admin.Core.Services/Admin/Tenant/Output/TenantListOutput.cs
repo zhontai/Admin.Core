@@ -16,9 +16,24 @@ namespace Admin.Core.Service.Admin.Tenant.Output
         public string Code { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 企业名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string RealName { get; set; }
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string Phone { get; set; }
+
+        /// <summary>
+        /// 邮箱地址
+        /// </summary>
+        public string Email { get; set; }
 
         /// <summary>
         /// 数据库

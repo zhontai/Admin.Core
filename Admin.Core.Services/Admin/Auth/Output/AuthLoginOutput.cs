@@ -22,6 +22,6 @@ namespace Admin.Core.Service.Admin.Auth.Output
         /// <summary>
         /// 租户Id
         /// </summary>
-        public long TenantId { get; set; }
+        public long? TenantId { get; set; }
     }
 }

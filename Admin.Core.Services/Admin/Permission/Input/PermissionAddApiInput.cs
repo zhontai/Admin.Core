@@ -12,12 +12,12 @@ namespace Admin.Core.Service.Admin.Permission.Input
         /// <summary>
         /// 父级节点
         /// </summary>
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         /// <summary>
         /// 接口
         /// </summary>
-        public int? ApiId { get; set; }
+        public long? ApiId { get; set; }
 
         /// <summary>
         /// 权限名称

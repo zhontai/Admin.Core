@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using FreeSql;
-using FreeSql.Aop;
 using FreeSql.DataAnnotations;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
@@ -13,6 +12,9 @@ using Admin.Core.Model.Admin;
 using System.Collections.Generic;
 using System.Reflection;
 using Admin.Core.Common.BaseModel;
+using Admin.Core.Service.Admin.Api.Output;
+using Admin.Core.Service.Admin.View.Output;
+using Admin.Core.Service.Admin.Permission.Output;
 
 namespace Admin.Core.Db
 {
@@ -165,14 +167,15 @@ namespace Admin.Core.Db
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="db"></param>
+        /// <param name="unitOfWork"></param>
         /// <param name="data"></param>
-        /// <param name="tran"></param>
         /// <param name="dbConfig"></param>
         /// <returns></returns>
         private static async Task InitDtDataAsync<T>(
-            IFreeSql db, 
+            IFreeSql db,
+            IUnitOfWork unitOfWork,
+            System.Data.Common.DbTransaction tran,
             T[] data, 
-            System.Data.Common.DbTransaction tran, 
             DbConfig dbConfig = null
         ) where T : class
         {
@@ -185,10 +188,11 @@ namespace Admin.Core.Db
                 {
                     if (data?.Length > 0)
                     {
+                        var repo = db.GetRepository<T>();
                         var insert = db.Insert<T>();
-
-                        if(tran != null)
+                        if (unitOfWork != null)
                         {
+                            repo.UnitOfWork = unitOfWork;
                             insert = insert.WithTransaction(tran);
                         }
 
@@ -197,9 +201,8 @@ namespace Admin.Core.Db
                         {
                             if (dbConfig.Type == DataType.SqlServer)
                             {
-
                                 var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
-                                await db.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
+                                await repo.Orm.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
                             }
                             else
                             {
@@ -208,7 +211,8 @@ namespace Admin.Core.Db
                         }
                         else
                         {
-                            await insert.AppendData(data).ExecuteAffrowsAsync();
+                            repo.DbContextOptions.EnableAddOrUpdateNavigateList = true;
+                            await repo.InsertAsync(data);
                         }
 
                         Console.WriteLine($" table: {tableName} sync data succeed");
@@ -230,39 +234,6 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
-        /// 同步数据审计方法
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="e"></param>
-        private static void SyncDataAuditValue(object s, AuditValueEventArgs e)
-        {
-            if (e.AuditValueType == AuditValueType.Insert)
-            {
-                switch (e.Property.Name)
-                {
-                    case "CreatedUserId":
-                        e.Value = 2;
-                        break;
-                    case "CreatedUserName":
-                        e.Value = "admin";
-                        break;
-                }
-            }
-            else if (e.AuditValueType == AuditValueType.Update)
-            {
-                switch (e.Property.Name)
-                {
-                    case "ModifiedUserId":
-                        e.Value = 2;
-                        break;
-                    case "ModifiedUserName":
-                        e.Value = "admin";
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
         /// 同步数据
         /// </summary>
         /// <returns></returns>
@@ -277,8 +248,6 @@ namespace Admin.Core.Db
 
                 Console.WriteLine("\r\n sync data started");
 
-                db.Aop.AuditValue += SyncDataAuditValue;
-               
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Db/Data/data.json").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);
@@ -286,25 +255,25 @@ namespace Admin.Core.Db
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
-                    if (!await db.Queryable<DualEntity>().AnyAsync())
+                    var dualRepo = db.GetRepository<DualEntity>();
+                    dualRepo.UnitOfWork = uow;
+                    if (!await dualRepo.Select.AnyAsync())
                     {
-                        await db.Insert<DualEntity>().WithTransaction(tran).AppendData(new DualEntity { }).ExecuteAffrowsAsync();
+                        await dualRepo.InsertAsync(new DualEntity { });
                     }
 
-                    await InitDtDataAsync(db, data.Dictionaries, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Apis, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Views, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Permissions, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Users, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Roles, tran, dbConfig);
-                    await InitDtDataAsync(db, data.UserRoles, tran, dbConfig);
-                    await InitDtDataAsync(db, data.RolePermissions, tran, dbConfig);
-                    await InitDtDataAsync(db, data.Tenants, tran, dbConfig);
+                    //await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Users, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Roles, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.UserRoles, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.RolePermissions, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Tenants, dbConfig);
 
                     uow.Commit();
                 }
-
-                db.Aop.AuditValue -= SyncDataAuditValue;
 
                 Console.WriteLine(" sync data succeed\r\n");
             }
@@ -328,69 +297,74 @@ namespace Admin.Core.Db
                 #region 数据表
 
                 #region 数据字典
-                var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
-                {
-                    a.Id,
-                    a.ParentId,
-                    a.Name,
-                    a.Code,
-                    a.Value,
-                    a.Description,
-                    a.Sort
-                });
+                //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
+                //{
+                //    a.TenantId,
+                //    a.Id,
+                //    a.ParentId,
+                //    a.Name,
+                //    a.Code,
+                //    a.Value,
+                //    a.Description,
+                //    a.Sort
+                //});
                 #endregion
 
                 #region 接口
-                var apis = await db.Queryable<ApiEntity>().ToListAsync(a => new
+                var apis = await db.Queryable<ApiEntity>().ToListAsync<ApiDataOutput>();
+                var apiTree = apis.ToTree((r, c) =>
                 {
-                    a.Id,
-                    a.ParentId,
-                    a.Name,
-                    a.Label,
-                    a.Path,
-                    a.HttpMethods,
-                    a.Description,
-                    a.Sort
+                    return c.ParentId == 0;
+                },
+                (r, c) =>
+                {
+                    return r.Id == c.ParentId;
+                },
+                (r, datalist) =>
+                {
+                    r.Childs ??= new List<ApiDataOutput>();
+                    r.Childs.AddRange(datalist);
                 });
                 #endregion
 
                 #region 视图
-                var views = await db.Queryable<ViewEntity>().ToListAsync(a => new
+                var views = await db.Queryable<ViewEntity>().ToListAsync<ViewDataOutput>();
+                var viewTree = views.ToTree((r, c) =>
                 {
-                    a.Id,
-                    a.ParentId,
-                    a.Name,
-                    a.Label,
-                    a.Path,
-                    a.Description,
-                    a.Sort
-                });
+                    return c.ParentId == 0;
+                },
+               (r, c) =>
+               {
+                   return r.Id == c.ParentId;
+               },
+               (r, datalist) =>
+               {
+                   r.Childs ??= new List<ViewDataOutput>();
+                   r.Childs.AddRange(datalist);
+               });
                 #endregion
 
                 #region 权限
-                var permissions = await db.Queryable<PermissionEntity>().ToListAsync(a => new
+                var permissions = await db.Queryable<PermissionEntity>().ToListAsync<PermissionDataOutput>();
+                var permissionTree = permissions.ToTree((r, c) =>
                 {
-                    a.Id,
-                    a.ParentId,
-                    a.Label,
-                    a.Code,
-                    a.Type,
-                    a.ViewId,
-                    a.ApiId,
-                    a.Path,
-                    a.Icon,
-                    a.Closable,
-                    a.Opened,
-                    a.NewWindow,
-                    a.External,
-                    a.Sort,
-                    a.Description
-                });
+                    return c.ParentId == 0;
+                },
+               (r, c) =>
+               {
+                   return r.Id == c.ParentId;
+               },
+               (r, datalist) =>
+               {
+                   r.Childs ??= new List<PermissionDataOutput>();
+                   r.Childs.AddRange(datalist);
+               });
                 #endregion
 
                 #region 用户
                 var users = await db.Queryable<UserEntity>().ToListAsync(a => new
                 {
+                    a.TenantId,
                     a.Id,
                     a.UserName,
                     a.Password,
@@ -404,8 +378,10 @@ namespace Admin.Core.Db
                 #region 角色
                 var roles = await db.Queryable<RoleEntity>().ToListAsync(a => new
                 {
+                    a.TenantId,
                     a.Id,
                     a.Name,
+                    a.Code,
                     a.Sort,
                     a.Description
                 });
@@ -414,6 +390,7 @@ namespace Admin.Core.Db
                 #region 用户角色
                 var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
                 {
+                    a.TenantId,
                     a.Id,
                     a.UserId,
                     a.RoleId
@@ -423,6 +400,7 @@ namespace Admin.Core.Db
                 #region 角色权限
                 var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
                 {
+                    a.TenantId,
                     a.Id,
                     a.RoleId,
                     a.PermissionId
@@ -432,9 +410,13 @@ namespace Admin.Core.Db
                 #region 租户
                 var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
                 {
+                    a.TenantId,
                     a.Id,
                     a.Name,
                     a.Code,
+                    a.RealName,
+                    a.Phone,
+                    a.Email,
                     a.DbType,
                     a.ConnectionString,
                     a.IdleTime,
@@ -456,10 +438,11 @@ namespace Admin.Core.Db
                 settings.DefaultValueHandling = DefaultValueHandling.Ignore;
                 var jsonData = JsonConvert.SerializeObject(new
                 {
-                    dictionaries,
+                    //dictionaries,
                     apis,
-                    views,
-                    permissions,
+                    apiTree,
+                    viewTree,
+                    permissionTree,
                     users,
                     roles,
                     userRoles,

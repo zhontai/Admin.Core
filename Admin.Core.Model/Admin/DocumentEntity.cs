@@ -7,7 +7,7 @@ namespace Admin.Core.Model.Admin
     /// 文档
     /// </summary>
 	[Table(Name = "ad_document")]
-    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
+    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
     public class DocumentEntity : EntityFull, ITenant
     {
         /// <summary>

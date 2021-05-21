@@ -7,7 +7,7 @@ namespace Admin.Core.Model.Admin
     /// 文档图片
     /// </summary>
 	[Table(Name = "ad_document_image")]
-    [Index("idx_{tablename}_01", nameof(DocumentId) + "," + nameof(Url), true)]
+    [Index("idx_{tablename}_01", nameof(DocumentId) + "," + nameof(Url) + "," + nameof(TenantId), true)]
     public class DocumentImageEntity: EntityAdd, ITenant
     {
         /// <summary>

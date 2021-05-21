@@ -9,13 +9,13 @@ namespace Admin.Core.Model.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("idx_{tablename}_01", nameof(UserName), true)]
+    [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
     public class UserEntity: EntityFull, ITenant
     {
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10, CanUpdate = true)]
+        [Column(Position = -10)]
         public long? TenantId { get; set; }
 
         /// <summary>

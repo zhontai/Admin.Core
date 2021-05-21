@@ -7,23 +7,28 @@ using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Role.Input;
 using Admin.Core.Service.Admin.Role.Output;
+using System.Linq;
 
 namespace Admin.Core.Service.Admin.Role
-{	
+{
 	public class RoleService : IRoleService
     {
         private readonly IUser _user;
         private readonly IMapper _mapper;
         private readonly IRoleRepository _roleRepository;
+        private readonly IRolePermissionRepository _rolePermissionRepository;
+        
         public RoleService(
             IUser user,
             IMapper mapper,
-            IRoleRepository roleRepository
+            IRoleRepository roleRepository,
+            IRolePermissionRepository rolePermissionRepository
         )
         {
             _user = user;
             _mapper = mapper;
             _roleRepository = roleRepository;
+            _rolePermissionRepository = rolePermissionRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -92,6 +97,7 @@ namespace Admin.Core.Service.Admin.Role
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
             var result = await _roleRepository.SoftDeleteAsync(id);
+            await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
 
             return ResponseOutput.Result(result);
         }
@@ -99,6 +105,7 @@ namespace Admin.Core.Service.Admin.Role
         public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _roleRepository.SoftDeleteAsync(ids);
+            await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
 
             return ResponseOutput.Result(result);
         }

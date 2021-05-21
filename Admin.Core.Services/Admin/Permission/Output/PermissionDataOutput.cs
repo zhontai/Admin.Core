@@ -1,81 +1,65 @@
-using Admin.Core.Common.BaseModel;
-using FreeSql.DataAnnotations;
+﻿using Admin.Core.Model.Admin;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Admin.Core.Model.Admin
+namespace Admin.Core.Service.Admin.Permission.Output
 {
-    /// <summary>
-    /// 权限
-    /// </summary>
-	[Table(Name = "ad_permission")]
-    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
-    public class PermissionEntity : EntityFull, ITenant
+    public class PermissionDataOutput
     {
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
         public long? TenantId { get; set; }
+
+        /// <summary>
+        /// 权限Id
+        /// </summary>
+        public long Id { get; set; }
 
         /// <summary>
         /// 父级节点
         /// </summary>
         public long ParentId { get; set; }
 
-        [Navigate(nameof(ParentId))]
-        public List<PermissionEntity> Childs { get; set; }
-
         /// <summary>
         /// 权限名称
         /// </summary>
-        [Column(StringLength = 50)]
         public string Label { get; set; }
 
         /// <summary>
         /// 权限编码
         /// </summary>
-        [Column(StringLength = 550)]
         public string Code { get; set; }
 
         /// <summary>
         /// 权限类型
         /// </summary>
-        [Column(MapType = typeof(int),CanUpdate = false)]
         public PermissionType Type { get; set; }
 
         /// <summary>
         /// 视图
         /// </summary>
         public long? ViewId { get; set; }
-        public ViewEntity View { get; set; }
 
         /// <summary>
         /// 接口
         /// </summary>
         public long? ApiId { get; set; }
-        public ApiEntity Api { get; set; }
 
         /// <summary>
-        /// 菜单访问地址
+        /// 访问地址
         /// </summary>
-        [Column(StringLength = 500)]
         public string Path { get; set; }
 
         /// <summary>
         /// 图标
         /// </summary>
-        [Column(StringLength = 100)]
         public string Icon { get; set; }
 
         /// <summary>
-        /// 隐藏
+        /// 接口路径
         /// </summary>
-		public bool Hidden { get; set; } = false;
-
-        /// <summary>
-        /// 启用
-        /// </summary>
-		public bool Enabled { get; set; } = true;
+        public string ApiPath { get; set; }
 
         /// <summary>
         /// 可关闭
@@ -83,7 +67,7 @@ namespace Admin.Core.Model.Admin
         public bool? Closable { get; set; }
 
         /// <summary>
-        /// 打开组
+        /// 组打开
         /// </summary>
         public bool? Opened { get; set; }
 
@@ -98,14 +82,25 @@ namespace Admin.Core.Model.Admin
         public bool? External { get; set; }
 
         /// <summary>
+        /// 隐藏
+        /// </summary>
+		public bool Hidden { get; set; }
+
+        /// <summary>
         /// 排序
         /// </summary>
-        public int? Sort { get; set; } = 0;
+        public int? Sort { get; set; }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+		public bool Enabled { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        [Column(StringLength = 100)]
         public string Description { get; set; }
+
+        public List<PermissionDataOutput> Childs { get; set; }
     }
 }

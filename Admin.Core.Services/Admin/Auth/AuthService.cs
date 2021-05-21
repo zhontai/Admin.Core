@@ -131,12 +131,12 @@ namespace Admin.Core.Service.Admin.Auth
             //用户菜单
             var menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
+                //.Where(a =>
+                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                //    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
+                //    .Where(b => b.PermissionId == a.Id)
+                //    .Any()
+                //)
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new
@@ -158,12 +158,12 @@ namespace Admin.Core.Service.Admin.Auth
             //用户权限点
             var permissions = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
+                //.Where(a =>
+                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                //    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
+                //    .Where(b => b.PermissionId == a.Id)
+                //    .Any()
+                //)
                 .ToListAsync(a => a.Code);
 
             return ResponseOutput.Ok(new { user, menus, permissions });

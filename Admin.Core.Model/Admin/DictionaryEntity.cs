@@ -1,5 +1,6 @@
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin 
 {
@@ -7,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
-    [Index("idx_{tablename}_01", nameof(ParentId)+","+nameof(Name), true)]
+    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
     public class DictionaryEntity: EntityFull, ITenant
     {
         /// <summary>
@@ -20,6 +21,9 @@ namespace Admin.Core.Model.Admin
         /// 字典父级
         /// </summary>
 		public long ParentId { get; set; }
+
+        [Navigate(nameof(ParentId))]
+        public List<DictionaryEntity> Childs { get; set; }
 
         /// <summary>
         /// 字典名称

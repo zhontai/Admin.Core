@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
 
@@ -8,7 +9,7 @@ namespace Admin.Core.Model.Admin
     /// 视图管理
     /// </summary>
 	[Table(Name = "ad_view")]
-    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
+    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
     public class ViewEntity : EntityFull, ITenant
     {
         /// <summary>
@@ -21,6 +22,9 @@ namespace Admin.Core.Model.Admin
         /// 所属节点
         /// </summary>
 		public long ParentId { get; set; }
+
+        [Navigate(nameof(ParentId))]
+        public List<ViewEntity> Childs { get; set; }
 
         /// <summary>
         /// 视图命名

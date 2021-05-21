@@ -216,16 +216,20 @@ namespace Admin.Core.Service.Admin.User
             return ResponseOutput.Result(result);
         }
 
+        [Transaction]
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
             var result = await _userRepository.SoftDeleteAsync(id);
+            await _userRoleRepository.DeleteAsync(a => a.UserId == id);
 
             return ResponseOutput.Result(result);
         }
 
+        [Transaction]
         public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _userRepository.SoftDeleteAsync(ids);
+            await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
 
             return ResponseOutput.Result(result);
         }

@@ -4,7 +4,7 @@
   //跨域地址
   "corUrls": [ "http://localhost:9000", "http://127.0.0.1:9000" ],
   //租户类型：None无租户, Share共享数据库, Own独立数据库
-  "tenantType": "None",
+  "tenantType": "Share",
   //Swagger文档
   "swagger": false,
   //统一认证授权服务器

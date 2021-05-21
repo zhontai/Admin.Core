@@ -152,7 +152,7 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.Ok(res.Data.FileRelativePath);
             }
 
-            return ResponseOutput.NotOk("上传失败！");
+            return ResponseOutput.NotOk(res.Msg ?? "上传失败！");
         }
     }
 }
