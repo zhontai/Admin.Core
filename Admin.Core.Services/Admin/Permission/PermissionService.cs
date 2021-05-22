@@ -200,7 +200,7 @@ namespace Admin.Core.Service.Admin.Permission
             var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m=>m.PermissionId);
 
             //批量删除权限
-            var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d.ToInt()));
+            var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
             if (deleteIds.Count() > 0)
             {
                 await _rolePermissionRepository.DeleteAsync(m => m.RoleId == input.RoleId && deleteIds.Contains(m.PermissionId));

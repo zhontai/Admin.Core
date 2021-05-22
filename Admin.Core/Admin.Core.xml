@@ -759,6 +759,14 @@
             配置实体
             </summary>
         </member>
+        <member name="M:Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,Admin.Core.Common.Auth.IUser)">
+            <summary>
+            审计数据
+            </summary>
+            <param name="e"></param>
+            <param name="timeOffset"></param>
+            <param name="user"></param>
+        </member>
         <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
             <summary>
             同步结构
@@ -778,9 +786,17 @@
             <typeparam name="T"></typeparam>
             <param name="db"></param>
             <param name="unitOfWork"></param>
+            <param name="tran"></param>
             <param name="data"></param>
             <param name="dbConfig"></param>
             <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
+            <summary>
+            同步数据审计方法
+            </summary>
+            <param name="s"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
             <summary>

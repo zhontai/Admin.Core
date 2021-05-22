@@ -15,11 +15,20 @@ using Admin.Core.Common.BaseModel;
 using Admin.Core.Service.Admin.Api.Output;
 using Admin.Core.Service.Admin.View.Output;
 using Admin.Core.Service.Admin.Permission.Output;
+using FreeSql.Aop;
+using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Auth;
+using Yitter.IdGenerator;
 
 namespace Admin.Core.Db
 {
     public class DbHelper
     {
+        /// <summary>
+        /// 偏移时间
+        /// </summary>
+        public static TimeSpan TimeOffset;
+
         /// <summary>
         /// 创建数据库
         /// </summary>
@@ -109,6 +118,72 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
+        /// 审计数据
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="timeOffset"></param>
+        /// <param name="user"></param>
+        public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user)
+        {
+            if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+                   && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                   && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+            {
+                e.Value = DateTime.Now.Subtract(timeOffset);
+            }
+
+            if (e.Column.CsType == typeof(long)
+            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
+            && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+            {
+                e.Value = YitIdHelper.NextId();
+            }
+
+            if (user == null || user.Id <= 0)
+            {
+                return;
+            }
+
+            if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
+            {
+                switch (e.Property.Name)
+                {
+                    case "CreatedUserId":
+                        if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                        {
+                            e.Value = user.Id;
+                        }
+                        break;
+                    case "CreatedUserName":
+                        if (e.Value == null || ((string)e.Value).IsNull())
+                        {
+                            e.Value = user.Name;
+                        }
+                        break;
+                    case "TenantId":
+                        if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                        {
+                            e.Value = user.TenantId;
+                        }
+                        break;
+                }
+            }
+            else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
+            {
+                switch (e.Property.Name)
+                {
+                    case "ModifiedUserId":
+                        e.Value = user.Id;
+                        break;
+                    case "ModifiedUserName":
+                        e.Value = user.Name;
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
         /// 同步结构
         /// </summary>
         public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, AppConfig appConfig = null)
@@ -168,6 +243,7 @@ namespace Admin.Core.Db
         /// <typeparam name="T"></typeparam>
         /// <param name="db"></param>
         /// <param name="unitOfWork"></param>
+        /// <param name="tran"></param>
         /// <param name="data"></param>
         /// <param name="dbConfig"></param>
         /// <returns></returns>
@@ -234,6 +310,73 @@ namespace Admin.Core.Db
         }
 
         /// <summary>
+        /// 同步数据审计方法
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        private static void SyncDataAuditValue(object s, AuditValueEventArgs e)
+        {
+            var user = new { Id = 161223411986501, Name = "平台管理员", TenantId = 161223412138053 };
+
+            if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+                   && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+                   && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+            {
+                e.Value = DateTime.Now.Subtract(TimeOffset);
+            }
+
+            if (e.Column.CsType == typeof(long)
+            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
+            && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+            {
+                e.Value = YitIdHelper.NextId();
+            }
+
+            if (user == null || user.Id <= 0)
+            {
+                return;
+            }
+
+            if (e.AuditValueType == AuditValueType.Insert)
+            {
+                switch (e.Property.Name)
+                {
+                    case "CreatedUserId":
+                        if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                        {
+                            e.Value = user.Id;
+                        }
+                        break;
+                    case "CreatedUserName":
+                        if (e.Value == null || ((string)e.Value).IsNull())
+                        {
+                            e.Value = user.Name;
+                        }
+                        break;
+                    case "TenantId":
+                        if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                        {
+                            e.Value = user.TenantId;
+                        }
+                        break;
+                }
+            }
+            else if (e.AuditValueType == AuditValueType.Update)
+            {
+                switch (e.Property.Name)
+                {
+                    case "ModifiedUserId":
+                        e.Value = user.Id;
+                        break;
+                    case "ModifiedUserName":
+                        e.Value = user.Name;
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
         /// 同步数据
         /// </summary>
         /// <returns></returns>
@@ -247,6 +390,8 @@ namespace Admin.Core.Db
                 //};
 
                 Console.WriteLine("\r\n sync data started");
+
+                db.Aop.AuditValue += SyncDataAuditValue;
 
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Db/Data/data.json").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
@@ -274,6 +419,8 @@ namespace Admin.Core.Db
 
                     uow.Commit();
                 }
+
+                db.Aop.AuditValue -= SyncDataAuditValue;
 
                 Console.WriteLine(" sync data succeed\r\n");
             }
