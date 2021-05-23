@@ -78,11 +78,12 @@ namespace Admin.Core.Service.Admin.Tenant
             await _userRepository.InsertAsync(user);
 
             //添加用户角色
-            var userRole = new UserRoleEntity() { TenantId = tenantId, UserId = user.Id, RoleId = role.Id };
+            var userRole = new UserRoleEntity() { UserId = user.Id, RoleId = role.Id };
             await _userRoleRepository.InsertAsync(userRole);
 
             //更新租户用户
             tenant.UserId = user.Id;
+            tenant.RoleId = role.Id;
             await _tenantRepository.UpdateAsync(tenant);
 
             return ResponseOutput.Ok();

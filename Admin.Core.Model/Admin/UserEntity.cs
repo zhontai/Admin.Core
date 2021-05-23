@@ -18,6 +18,8 @@ namespace Admin.Core.Model.Admin
         [Column(Position = -10)]
         public long? TenantId { get; set; }
 
+        public TenantEntity  Tenant { get; set; }
+
         /// <summary>
         /// 账号
         /// </summary>

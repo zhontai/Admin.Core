@@ -312,6 +312,11 @@
             租户Id
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Auth.MapConfig">
             <summary>
             映射配置
@@ -608,6 +613,11 @@
         <member name="T:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput">
             <summary>
             添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.TenantId">
+            <summary>
+            租户Id
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.LoginLog.Input.LoginLogAddInput.NickName">
@@ -1380,9 +1390,19 @@
             主键
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.UserId">
+            <summary>
+            授权用户
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.RoleId">
+            <summary>
+            授权角色
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Code">
             <summary>
-            编码
+            企业编码
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Name">
@@ -1480,11 +1500,6 @@
             角色
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.User.Input.UserAddInput.TenantId">
-            <summary>
-            租户
-            </summary>
-        </member>
         <member name="T:Admin.Core.Service.Admin.User.Input.UserChangePasswordInput">
             <summary>
             修改密码
@@ -1578,11 +1593,6 @@
         <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.Version">
             <summary>
             版本
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.User.Input.UserUpdateInput.TenantId">
-            <summary>
-            租户
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.User.IUserService">

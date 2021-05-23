@@ -11,36 +11,34 @@ using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
+using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.Auth
 {
-    public class AuthService : IAuthService
+    public class AuthService : BaseService, IAuthService
     {
-        private readonly IUser _user;
         private readonly ICache _cache;
-        private readonly IMapper _mapper;
         private readonly AppConfig _appConfig;
         private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly IUserRepository _userRepository;
         private readonly IPermissionRepository _permissionRepository;
+        private readonly ITenantRepository _tenantRepository;
 
         public AuthService(
-            IUser user,
             ICache cache,
-            IMapper mapper,
             AppConfig appConfig,
             VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
-            IPermissionRepository permissionRepository
+            IPermissionRepository permissionRepository,
+            ITenantRepository tenantRepository
         )
         {
-            _user = user;
             _cache = cache;
-            _mapper = mapper;
             _appConfig = appConfig;
             _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
+            _tenantRepository = tenantRepository;
         }
 
         public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
@@ -108,20 +106,25 @@ namespace Admin.Core.Service.Admin.Auth
                 return ResponseOutput.NotOk("密码输入有误！", 4);
             }
 
-            var authLoginOutput = _mapper.Map<AuthLoginOutput>(user);
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+
+            if(_appConfig.TenantDbType == TenantDbType.Share)
+            {
+                authLoginOutput.TenantType = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
+            }
 
             return ResponseOutput.Ok(authLoginOutput);
         }
 
         public async Task<IResponseOutput> GetUserInfoAsync()
         {
-            if (!(_user?.Id > 0))
+            if (!(User?.Id > 0))
             {
                 return ResponseOutput.NotOk("未登录！");
             }
 
             //用户信息
-            var user = await _userRepository.Select.WhereDynamic(_user.Id)
+            var user = await _userRepository.Select.WhereDynamic(User.Id)
                 .ToOneAsync(m => new {
                     m.NickName,
                     m.UserName,
@@ -131,12 +134,12 @@ namespace Admin.Core.Service.Admin.Auth
             //用户菜单
             var menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                //.Where(a =>
-                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                //    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
-                //    .Where(b => b.PermissionId == a.Id)
-                //    .Any()
-                //)
+                .WhereIf(User.TenantType == TenantType.Tenant, a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>().DisableGlobalFilter("Tenant")
+                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new
@@ -158,12 +161,12 @@ namespace Admin.Core.Service.Admin.Auth
             //用户权限点
             var permissions = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
-                //.Where(a =>
-                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                //    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == _user.Id)
-                //    .Where(b => b.PermissionId == a.Id)
-                //    .Any()
-                //)
+                .Where(a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
                 .ToListAsync(a => a.Code);
 
             return ResponseOutput.Ok(new { user, menus, permissions });

@@ -8,15 +8,9 @@ namespace Admin.Core.Model.Admin
     /// 权限
     /// </summary>
 	[Table(Name = "ad_permission")]
-    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
-    public class PermissionEntity : EntityFull, ITenant
+    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
+    public class PermissionEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 父级节点
         /// </summary>

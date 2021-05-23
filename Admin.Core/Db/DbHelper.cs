@@ -19,6 +19,7 @@ using FreeSql.Aop;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using Yitter.IdGenerator;
+using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Db
 {
@@ -96,7 +97,7 @@ namespace Admin.Core.Db
         public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null)
         {
             //非共享数据库实体配置,不生成和操作租户Id
-            if (appConfig.TenantType != TenantType.Share)
+            if (appConfig.TenantDbType != TenantDbType.Share)
             {
                 var iTenant = nameof(ITenant);
                 var tenantId = nameof(ITenant.TenantId);
@@ -316,7 +317,7 @@ namespace Admin.Core.Db
         /// <param name="e"></param>
         private static void SyncDataAuditValue(object s, AuditValueEventArgs e)
         {
-            var user = new { Id = 161223411986501, Name = "平台管理员", TenantId = 161223412138053 };
+            var user = new { Id = 161223411986501, Name = "admin", TenantId = 161223412138053 };
 
             if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
                    && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
@@ -537,7 +538,6 @@ namespace Admin.Core.Db
                 #region 用户角色
                 var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
                 {
-                    a.TenantId,
                     a.Id,
                     a.UserId,
                     a.RoleId
@@ -547,7 +547,6 @@ namespace Admin.Core.Db
                 #region 角色权限
                 var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
                 {
-                    a.TenantId,
                     a.Id,
                     a.RoleId,
                     a.PermissionId
@@ -559,6 +558,8 @@ namespace Admin.Core.Db
                 {
                     a.TenantId,
                     a.Id,
+                    a.UserId,
+                    a.RoleId,
                     a.Name,
                     a.Code,
                     a.RealName,

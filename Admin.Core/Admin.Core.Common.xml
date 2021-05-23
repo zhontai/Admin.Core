@@ -59,6 +59,11 @@
             租户Id
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.IUser">
             <summary>
             用户信息接口
@@ -84,6 +89,11 @@
             租户Id
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.User">
             <summary>
             用户信息
@@ -107,6 +117,11 @@
         <member name="P:Admin.Core.Common.Auth.User.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.User.TenantType">
+            <summary>
+            租户类型
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Auth.UserIdentiyServer">
@@ -252,6 +267,21 @@
         <member name="P:Admin.Core.Common.BaseModel.ITenant.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.TenantType.Platform">
+            <summary>
+            平台
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.TenantType.Tenant">
+            <summary>
+            租户
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Cache.CacheKey">
@@ -400,22 +430,22 @@
             Redis缓存
             </summary>
         </member>
-        <member name="T:Admin.Core.Common.Configs.TenantType">
+        <member name="T:Admin.Core.Common.Configs.TenantDbType">
             <summary>
-            租户类型
+            租户数据库类型
             </summary>
         </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.None">
+        <member name="F:Admin.Core.Common.Configs.TenantDbType.None">
             <summary>
             无租户
             </summary>
         </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.Share">
+        <member name="F:Admin.Core.Common.Configs.TenantDbType.Share">
             <summary>
             共享数据库
             </summary>
         </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.Own">
+        <member name="F:Admin.Core.Common.Configs.TenantDbType.Own">
             <summary>
             独立数据库
             </summary>
@@ -435,7 +465,7 @@
             跨域地址，默认 http://*:9000
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.AppConfig.TenantType">
+        <member name="P:Admin.Core.Common.Configs.AppConfig.TenantDbType">
             <summary>
             租户类型
             </summary>
@@ -762,6 +792,18 @@
             判断Guid是否不为空
             </summary>
             <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Common.Extensions.ListExtensions.ToTree``1(System.Collections.Generic.List{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,``0,System.Boolean},System.Action{``0,System.Collections.Generic.IEnumerable{``0}},``0)">
+            <summary>
+            将列表转换为树形结构
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="list">数据</param>
+            <param name="rootWhere">根条件</param>
+            <param name="childsWhere">节点条件</param>
+            <param name="addChilds">添加子节点</param>
+            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Common.Files.FileInfo">
@@ -1167,18 +1209,6 @@
             <summary>
             获得MAC地址
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Common.Helpers.ListHelper.ToTree``1(System.Collections.Generic.List{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,``0,System.Boolean},System.Action{``0,System.Collections.Generic.IEnumerable{``0}},``0)">
-            <summary>
-            将列表转换为树形结构
-            </summary>
-            <typeparam name="T">类型</typeparam>
-            <param name="list">数据</param>
-            <param name="rootWhere">根条件</param>
-            <param name="childsWhere">节点条件</param>
-            <param name="addChilds">添加子节点</param>
-            <param name="entity"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Common.Helpers.MD5Encrypt">

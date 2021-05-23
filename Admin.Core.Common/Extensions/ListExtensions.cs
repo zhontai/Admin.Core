@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Admin.Core.Common.Helpers
+namespace Admin.Core.Common.Extensions
 {
-    public static class ListHelper
+    public static class ListExtensions
     {
         /// <summary>
         /// 将列表转换为树形结构

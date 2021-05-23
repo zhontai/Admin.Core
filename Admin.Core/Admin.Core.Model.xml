@@ -9,11 +9,6 @@
             接口管理
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.ApiEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Model.Admin.ApiEntity.ParentId">
             <summary>
             所属模块
@@ -164,14 +159,9 @@
             文档图片
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.DocumentImageEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Model.Admin.DocumentImageEntity.DocumentId">
             <summary>
-            用户Id
+            文档Id
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.DocumentImageEntity.Url">
@@ -297,11 +287,6 @@
         <member name="T:Admin.Core.Model.Admin.PermissionEntity">
             <summary>
             权限
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.PermissionEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.PermissionEntity.ParentId">
@@ -449,11 +434,6 @@
             角色权限
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Model.Admin.RolePermissionEntity.RoleId">
             <summary>
             角色Id
@@ -511,7 +491,17 @@
         </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.UserId">
             <summary>
-            拥有者
+            授权用户
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.RoleId">
+            <summary>
+            授权角色
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.TenantType">
+            <summary>
+            租户类型
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.DbType">
@@ -584,11 +574,6 @@
             用户角色
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.UserRoleEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Model.Admin.UserRoleEntity.UserId">
             <summary>
             用户Id
@@ -602,11 +587,6 @@
         <member name="T:Admin.Core.Model.Admin.ViewEntity">
             <summary>
             视图管理
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.ViewEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.ViewEntity.ParentId">

@@ -9,15 +9,9 @@ namespace Admin.Core.Model.Admin
     /// 接口管理
     /// </summary>
 	[Table(Name = "ad_api")]
-    [Index("idx_{tablename}_01", nameof(Path) + "," + nameof(TenantId), true)]
-    public class ApiEntity : EntityFull, ITenant
+    [Index("idx_{tablename}_01", nameof(Path), true)]
+    public class ApiEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 所属模块
         /// </summary>

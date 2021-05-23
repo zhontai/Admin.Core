@@ -106,7 +106,15 @@ namespace Admin.Core.Aop
                 try
                 {
                     invocation.Proceed();
-                    _unitOfWork.Commit();
+                    var result = invocation.ReturnValue;
+                    if (result is IResponseOutput res && !res.Success)
+                    {
+                        _unitOfWork.Rollback();
+                    }
+                    else
+                    {
+                        _unitOfWork.Commit();
+                    }
                 }
                 catch
                 {

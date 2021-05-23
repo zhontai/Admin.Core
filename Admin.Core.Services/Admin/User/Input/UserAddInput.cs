@@ -39,10 +39,5 @@ namespace Admin.Core.Service.Admin.User.Input
         /// 角色
         /// </summary>
         public long[] RoleIds { get; set; }
-
-        /// <summary>
-        /// 租户
-        /// </summary>
-        public long? TenantId { get; set; }
     }
 }

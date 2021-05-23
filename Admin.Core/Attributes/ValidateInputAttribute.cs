@@ -4,6 +4,7 @@ using Admin.Core.Common.Output;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Admin.Core.Attributes
 {
@@ -19,7 +20,10 @@ namespace Admin.Core.Attributes
             {
                 try
                 {
-                    context.Result = new JsonResult(ResponseOutput.NotOk(context.ModelState.Values.First().Errors[0].ErrorMessage));
+                    var logger = (ILogger<ValidateInputAttribute>)context.HttpContext.RequestServices.GetService(typeof(ILogger<ValidateInputAttribute>));
+                    var errorMessages = context.ModelState.Values.First().Errors.Select(a => a.ErrorMessage);
+                    logger.LogError(string.Join(",", errorMessages));
+                    context.Result = new JsonResult(ResponseOutput.NotOk(errorMessages.First()));
                 }
                 catch
                 {

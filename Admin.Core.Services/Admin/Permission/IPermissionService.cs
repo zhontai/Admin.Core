@@ -45,5 +45,6 @@ namespace Admin.Core.Service.Admin.Permission
         Task<IResponseOutput> SoftDeleteAsync(long id);
 
         Task<IResponseOutput> AssignAsync(PermissionAssignInput input);
+
     }
 }

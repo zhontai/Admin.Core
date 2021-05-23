@@ -14,20 +14,21 @@ using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Service.Admin.Permission
 {	
-	public class PermissionService : IPermissionService
+	public class PermissionService : BaseService,IPermissionService
     {
         private readonly IMapper _mapper;
         private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
-
+        private readonly IUserRoleRepository _userRoleRepository;
         public PermissionService(
             IMapper mapper,
             ICache cache,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IRolePermissionRepository rolePermissionRepository,
+            IUserRoleRepository userRoleRepository
         )
         {
             _mapper = mapper;
@@ -35,6 +36,7 @@ namespace Admin.Core.Service.Admin.Permission
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -190,10 +192,10 @@ namespace Admin.Core.Service.Admin.Permission
         public async Task<IResponseOutput> AssignAsync(PermissionAssignInput input)
         {
             //分配权限的时候判断角色是否存在
-            var exists = await _roleRepository.Select.WhereDynamic(input.RoleId).AnyAsync();
+            var exists = await _roleRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(input.RoleId).AnyAsync();
             if (!exists)
             {
-                return ResponseOutput.NotOk("该角色不存在或已被删除，请刷新角色列表");
+                return ResponseOutput.NotOk("该角色不存在或已被删除！");
             }
 
             //查询角色权限
@@ -231,6 +233,12 @@ namespace Admin.Core.Service.Admin.Permission
         public async Task<IResponseOutput> GetPermissionList()
         {
             var permissions = await _permissionRepository.Select
+                .Where(a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });

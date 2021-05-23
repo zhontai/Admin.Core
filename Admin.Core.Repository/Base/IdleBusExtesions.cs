@@ -8,7 +8,7 @@ namespace Admin.Core.Repository
         public static IFreeSql GetTenant(this IdleBus<IFreeSql> ib, long? tenantId, AppConfig appConfig)
         {
             var tenantName = AdminConsts.TenantName;
-            if (appConfig.TenantType == TenantType.Own)
+            if (appConfig.TenantDbType == TenantDbType.Own)
             {
                 tenantName = "tenant_" + tenantId?.ToString();
             }

@@ -6,6 +6,11 @@
     public class LoginLogAddInput
     {
         /// <summary>
+        /// 租户Id
+        /// </summary>
+        public long? TenantId { get; set; }
+
+        /// <summary>
         /// 昵称
         /// </summary>
         public string NickName { get; set; }

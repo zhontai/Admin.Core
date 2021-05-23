@@ -61,7 +61,8 @@ namespace Admin.Core.Controllers.Admin
                 new Claim(ClaimAttributes.UserId, user.Id.ToString()),
                 new Claim(ClaimAttributes.UserName, user.UserName),
                 new Claim(ClaimAttributes.UserNickName, user.NickName),
-                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString())
+                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
+                new Claim(ClaimAttributes.TenantType, user.TenantType.ToString())
             });
 
             return ResponseOutput.Ok(new { token });
@@ -135,6 +136,7 @@ namespace Admin.Core.Controllers.Admin
                 var user = output.Data;
                 loginLogAddInput.CreatedUserId = user.Id;
                 loginLogAddInput.NickName = user.NickName;
+                loginLogAddInput.TenantId = user.TenantId;
             }
 
             await _loginLogService.AddAsync(loginLogAddInput);

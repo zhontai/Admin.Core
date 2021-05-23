@@ -34,5 +34,10 @@
         /// 租户Id
         /// </summary>
         public const string TenantId = "tenantid";
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public const string TenantType = "tenanttype";
     }
 }

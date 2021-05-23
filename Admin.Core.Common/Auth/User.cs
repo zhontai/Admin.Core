@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Admin.Core.Common.Helpers;
+using Admin.Core.Common.BaseModel;
+using System;
 
 namespace Admin.Core.Common.Auth
 {
@@ -78,6 +80,22 @@ namespace Admin.Core.Common.Auth
                 if (tenantId != null && tenantId.Value.NotNull())
                 {
                     return tenantId.Value.ToLong();
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public virtual TenantType? TenantType
+        {
+            get
+            {
+                var tenantType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantType);
+                if (tenantType != null && tenantType.Value.NotNull())
+                {
+                    return (TenantType)Enum.Parse(typeof(TenantType), tenantType.Value, true);
                 }
                 return null;
             }

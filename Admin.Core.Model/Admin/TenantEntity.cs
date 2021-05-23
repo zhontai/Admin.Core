@@ -50,12 +50,23 @@ namespace Admin.Core.Model.Admin
         public string Email { get; set; }
 
         /// <summary>
-        /// 拥有者
+        /// 授权用户
         /// </summary>
-        [Column(CanUpdate = false)]
         public long? UserId { get; set; }
 
         public UserEntity User { get; set; }
+
+        /// <summary>
+        /// 授权角色
+        /// </summary>
+        public long? RoleId { get; set; }
+
+        public RoleEntity Role { get; set; }
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public TenantType? TenantType { get; set; } = Common.BaseModel.TenantType.Tenant;
 
         /// <summary>
         /// 数据库

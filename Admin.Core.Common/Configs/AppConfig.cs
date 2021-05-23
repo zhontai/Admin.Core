@@ -1,9 +1,9 @@
 ﻿namespace Admin.Core.Common.Configs
 {
     /// <summary>
-    /// 租户类型
+    /// 租户数据库类型
     /// </summary>
-    public enum TenantType
+    public enum TenantDbType
     {
         /// <summary>
         /// 无租户
@@ -37,7 +37,7 @@
         /// <summary>
         /// 租户类型
         /// </summary>
-        public TenantType TenantType { get; set; } = TenantType.None;
+        public TenantDbType TenantDbType { get; set; } = TenantDbType.None;
 
         /// <summary>
         /// Swagger文档

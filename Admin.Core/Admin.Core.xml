@@ -741,6 +741,11 @@
             数据
             </summary>
         </member>
+        <member name="F:Admin.Core.Db.DbHelper.TimeOffset">
+            <summary>
+            偏移时间
+            </summary>
+        </member>
         <member name="M:Admin.Core.Db.DbHelper.CreateDatabaseAsync(Admin.Core.Common.Configs.DbConfig)">
             <summary>
             创建数据库

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Admin.Core.Common.BaseModel;
+using Admin.Core.Model.Admin;
+using System;
 
 namespace Admin.Core.Service.Admin.Auth.Output
 {
@@ -23,5 +25,10 @@ namespace Admin.Core.Service.Admin.Auth.Output
         /// 租户Id
         /// </summary>
         public long? TenantId { get; set; }
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public TenantType? TenantType { get; set; } = Common.BaseModel.TenantType.Tenant;
     }
 }

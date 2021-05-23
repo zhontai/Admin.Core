@@ -40,7 +40,7 @@ namespace Admin.Core.Db
             IdleBus <IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
 
             var tenantName = AdminConsts.TenantName;
-            if(appConfig.TenantType == TenantType.Own)
+            if(appConfig.TenantDbType == TenantDbType.Own)
             {
                 tenantName = "tenant_" + user.TenantId?.ToString();
             }
@@ -70,7 +70,7 @@ namespace Admin.Core.Db
                 DbHelper.ConfigEntity(fsql, appConfig);
 
                 //共享数据库
-                if (appConfig.TenantType == TenantType.Share)
+                if (appConfig.TenantDbType == TenantDbType.Share)
                 {
                     fsql.GlobalFilter.ApplyIf<ITenant>("Tenant", () => user.TenantId > 0, a => a.TenantId == user.TenantId);
                 }

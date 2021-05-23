@@ -11,7 +11,17 @@ namespace Admin.Core.Service.Admin.Tenant.Output
         public long Id { get; set; }
 
         /// <summary>
-        /// 编码
+        /// 授权用户
+        /// </summary>
+        public long? UserId { get; set; }
+
+        /// <summary>
+        /// 授权角色
+        /// </summary>
+        public long? RoleId { get; set; }
+
+        /// <summary>
+        /// 企业编码
         /// </summary>
         public string Code { get; set; }
 

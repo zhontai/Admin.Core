@@ -43,10 +43,5 @@ namespace Admin.Core.Service.Admin.User.Input
         /// 版本
         /// </summary>
         public long Version { get; set; }
-
-        /// <summary>
-        /// 租户
-        /// </summary>
-        public long? TenantId { get; set; }
     }
 }
