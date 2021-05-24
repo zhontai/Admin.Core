@@ -134,9 +134,9 @@ namespace Admin.Core.Service.Admin.Auth
             //用户菜单
             var menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .WhereIf(User.TenantType == TenantType.Tenant, a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>().DisableGlobalFilter("Tenant")
-                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
+                .Where(a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
                     .Where(b => b.PermissionId == a.Id)
                     .Any()
                 )

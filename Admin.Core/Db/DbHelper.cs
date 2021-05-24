@@ -565,6 +565,7 @@ namespace Admin.Core.Db
                     a.RealName,
                     a.Phone,
                     a.Email,
+                    a.TenantType,
                     a.DbType,
                     a.ConnectionString,
                     a.IdleTime,

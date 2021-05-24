@@ -11,6 +11,7 @@ using Admin.Core.Service.Admin.Permission.Output;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Helpers;
+using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.Permission
 {	
@@ -233,9 +234,10 @@ namespace Admin.Core.Service.Admin.Permission
         public async Task<IResponseOutput> GetPermissionList()
         {
             var permissions = await _permissionRepository.Select
-                .Where(a =>
+                .WhereIf(User.TenantType == TenantType.Tenant, a =>
                     _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
+                    .DisableGlobalFilter("Tenant")
                     .Where(b => b.PermissionId == a.Id)
                     .Any()
                 )
