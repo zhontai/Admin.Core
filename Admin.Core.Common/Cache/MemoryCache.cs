@@ -112,6 +112,34 @@ namespace Admin.Core.Common.Cache
             return Task.FromResult(true);
         }
 
+        public async Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null)
+        {
+            if (await ExistsAsync(key))
+            {
+                try
+                {
+                    return await GetAsync<T>(key);
+                }
+                catch
+                {
+                    await DelAsync(key);
+                }
+            }
+
+            var result = await func.Invoke();
+
+            if (expire.HasValue)
+            {
+                await SetAsync(key, result, expire.Value);
+            }
+            else
+            {
+                await SetAsync(key, result);
+            }
+
+            return result;
+        }
+
         private List<string> GetAllKeys()
         {
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;

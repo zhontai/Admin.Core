@@ -71,27 +71,16 @@ namespace Admin.Core.Service.Admin.User
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
         {
             var key = string.Format(CacheKey.UserPermissions, User.Id);
-            if (await _cache.ExistsAsync(key))
+            var result = await _cache.GetOrSetAsync<IList<UserPermissionsOutput>>(key, async () =>
             {
-                try
-                {
-                    return await _cache.GetAsync<IList<UserPermissionsOutput>>(key);
-                }
-                catch
-                {
-                    await _cache.DelByPatternAsync("admin:user:{0}:permissions");
-                }
-            }
-
-            var userPermissoins = await _rolePermissionRepository.Select
+                var userPermissoins = await _rolePermissionRepository.Select
                 .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)
                 .Include(a => a.Permission.Api)
                 .Distinct()
                 .ToListAsync(a => new UserPermissionsOutput { HttpMethods = a.Permission.Api.HttpMethods, Path = a.Permission.Api.Path });
-
-            await _cache.SetAsync(key, userPermissoins);
-
-            return userPermissoins;
+                return userPermissoins;
+            });
+            return result;
         }
 
         public async Task<IResponseOutput> PageAsync(PageInput<UserEntity> input)

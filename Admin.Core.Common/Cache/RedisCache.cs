@@ -85,5 +85,33 @@ namespace Admin.Core.Common.Cache
         {
             return RedisHelper.SetAsync(key, value, expire);
         }
+
+        public async Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null)
+        {
+            if (await RedisHelper.ExistsAsync(key))
+            {
+                try
+                {
+                    return await RedisHelper.GetAsync<T>(key);
+                }
+                catch
+                {
+                    await RedisHelper.DelAsync(key);
+                }
+            }
+
+            var result = await func.Invoke();
+
+            if(expire.HasValue)
+            {
+                await RedisHelper.SetAsync(key, result, expire.Value);
+            }
+            else
+            {
+                await RedisHelper.SetAsync(key, result);
+            }
+
+            return result;
+        }
     }
 }
