@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using Admin.Core.Common.Output;
 using Admin.Core.Common.Input;
 using Admin.Core.Model.Admin;
@@ -12,14 +11,12 @@ using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Service.Admin.View
 {
-    public class ViewService : IViewService
+    public class ViewService : BaseService, IViewService
     {
-        private readonly IMapper _mapper;
         private readonly IViewRepository _viewRepository;
-        public ViewService(IMapper mapper, IViewRepository moduleRepository)
+        public ViewService(IViewRepository moduleRepository)
         {
             _viewRepository = moduleRepository;
-            _mapper = mapper;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -62,7 +59,7 @@ namespace Admin.Core.Service.Admin.View
 
         public async Task<IResponseOutput> AddAsync(ViewAddInput input)
         {
-            var entity = _mapper.Map<ViewEntity>(input);
+            var entity = Mapper.Map<ViewEntity>(input);
             var id = (await _viewRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Result(id > 0);
@@ -81,7 +78,7 @@ namespace Admin.Core.Service.Admin.View
                 return ResponseOutput.NotOk("ÊÓÍ¼²»´æÔÚ£¡");
             }
 
-            _mapper.Map(input, entity);
+            Mapper.Map(input, entity);
             await _viewRepository.UpdateAsync(entity);
             return ResponseOutput.Ok();
         }
@@ -132,7 +129,7 @@ namespace Admin.Core.Service.Admin.View
             var pViews = (from a in parentViews where !paths.Contains(a.Path) select a).ToList();
             if (pViews.Count > 0)
             {
-                var insertPViews = _mapper.Map<List<ViewEntity>>(pViews);
+                var insertPViews = Mapper.Map<List<ViewEntity>>(pViews);
                 insertPViews = await _viewRepository.InsertAsync(insertPViews);
                 views.AddRange(insertPViews);
             }
@@ -142,7 +139,7 @@ namespace Admin.Core.Service.Admin.View
             var cViews = (from a in childViews where !paths.Contains(a.Path) select a).ToList();
             if (cViews.Count > 0)
             {
-                var insertCViews = _mapper.Map<List<ViewEntity>>(cViews);
+                var insertCViews = Mapper.Map<List<ViewEntity>>(cViews);
                 insertCViews = await _viewRepository.InsertAsync(insertCViews);
                 views.AddRange(insertCViews);
             }

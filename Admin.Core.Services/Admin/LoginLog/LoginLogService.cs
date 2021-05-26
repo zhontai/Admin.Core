@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using AutoMapper;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -11,18 +10,15 @@ using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Service.Admin.LoginLog
 {	
-	public class LoginLogService : ILoginLogService
+	public class LoginLogService : BaseService, ILoginLogService
     {
-        private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _context;
         private readonly ILoginLogRepository _loginLogRepository;
         public LoginLogService(
-            IMapper mapper,
             IHttpContextAccessor context,
             ILoginLogRepository loginLogRepository
         )
         {
-            _mapper = mapper;
             _context = context;
             _loginLogRepository = loginLogRepository;
         }
@@ -64,7 +60,7 @@ namespace Admin.Core.Service.Admin.LoginLog
                 input.Device = device;
                 input.BrowserInfo = ua;
             }
-            var entity = _mapper.Map<LoginLogEntity>(input);
+            var entity = Mapper.Map<LoginLogEntity>(input);
             var id = (await _loginLogRepository.InsertAsync(entity)).Id;
 
             return id > 0 ? res.Ok(id) : res;

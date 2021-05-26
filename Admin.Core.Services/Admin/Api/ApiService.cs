@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using AutoMapper;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -12,13 +11,11 @@ using Admin.Core.Common.Attributes;
 
 namespace Admin.Core.Service.Admin.Api
 {
-    public class ApiService : IApiService
+    public class ApiService : BaseService, IApiService
     {
-        private readonly IMapper _mapper;
         private readonly IApiRepository _apiRepository;
-        public ApiService(IMapper mapper, IApiRepository moduleRepository)
+        public ApiService(IApiRepository moduleRepository)
         {
-            _mapper = mapper;
             _apiRepository = moduleRepository;
         }
 
@@ -59,7 +56,7 @@ namespace Admin.Core.Service.Admin.Api
 
         public async Task<IResponseOutput> AddAsync(ApiAddInput input)
         {
-            var entity = _mapper.Map<ApiEntity>(input);
+            var entity = Mapper.Map<ApiEntity>(input);
             var id = (await _apiRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Result(id > 0);
@@ -78,7 +75,7 @@ namespace Admin.Core.Service.Admin.Api
                 return ResponseOutput.NotOk("接口不存在！");
             }
 
-            _mapper.Map(input, entity);
+            Mapper.Map(input, entity);
             await _apiRepository.UpdateAsync(entity);
             return ResponseOutput.Ok();
         }
@@ -127,7 +124,7 @@ namespace Admin.Core.Service.Admin.Api
             var pApis = (from a in parentApis where !paths.Contains(a.Path) select a).ToList();
             if (pApis.Count > 0)
             {
-                var insertPApis = _mapper.Map<List<ApiEntity>>(pApis);
+                var insertPApis = Mapper.Map<List<ApiEntity>>(pApis);
                 insertPApis = await _apiRepository.InsertAsync(insertPApis);
                 apis.AddRange(insertPApis);
             }
@@ -137,7 +134,7 @@ namespace Admin.Core.Service.Admin.Api
             var cApis = (from a in childApis where !paths.Contains(a.Path) select a).ToList();
             if (cApis.Count > 0)
             {
-                var insertCApis = _mapper.Map<List<ApiEntity>>(cApis);
+                var insertCApis = Mapper.Map<List<ApiEntity>>(cApis);
                 insertCApis = await _apiRepository.InsertAsync(insertCApis);
                 apis.AddRange(insertCApis);
             }

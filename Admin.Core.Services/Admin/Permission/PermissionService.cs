@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using AutoMapper;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Model.Admin;
 using Admin.Core.Common.Output;
@@ -10,21 +9,18 @@ using Admin.Core.Service.Admin.Permission.Input;
 using Admin.Core.Service.Admin.Permission.Output;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Attributes;
-using Admin.Core.Common.Helpers;
 using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.Permission
 {	
 	public class PermissionService : BaseService,IPermissionService
     {
-        private readonly IMapper _mapper;
         private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         public PermissionService(
-            IMapper mapper,
             ICache cache,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
@@ -32,7 +28,6 @@ namespace Admin.Core.Service.Admin.Permission
             IUserRoleRepository userRoleRepository
         )
         {
-            _mapper = mapper;
             _cache = cache;
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
@@ -90,7 +85,7 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> AddGroupAsync(PermissionAddGroupInput input)
         {
-            var entity = _mapper.Map<PermissionEntity>(input);
+            var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Ok(id > 0);
@@ -98,7 +93,7 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> AddMenuAsync(PermissionAddMenuInput input)
         {
-            var entity = _mapper.Map<PermissionEntity>(input);
+            var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Ok(id > 0);
@@ -106,7 +101,7 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> AddApiAsync(PermissionAddApiInput input)
         {
-            var entity = _mapper.Map<PermissionEntity>(input);
+            var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Ok(id > 0);
@@ -114,7 +109,7 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> AddDotAsync(PermissionAddDotInput input)
         {
-            var entity = _mapper.Map<PermissionEntity>(input);
+            var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Ok(id > 0);
@@ -126,7 +121,7 @@ namespace Admin.Core.Service.Admin.Permission
             if (input != null && input.Id > 0)
             {
                 var entity = await _permissionRepository.GetAsync(input.Id);
-                entity = _mapper.Map(input, entity);
+                entity = Mapper.Map(input, entity);
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
@@ -139,7 +134,7 @@ namespace Admin.Core.Service.Admin.Permission
             if (input != null && input.Id > 0)
             {
                 var entity = await _permissionRepository.GetAsync(input.Id);
-                entity = _mapper.Map(input, entity);
+                entity = Mapper.Map(input, entity);
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
@@ -152,7 +147,7 @@ namespace Admin.Core.Service.Admin.Permission
             if (input != null && input.Id > 0)
             {
                 var entity = await _permissionRepository.GetAsync(input.Id);
-                entity = _mapper.Map(input, entity);
+                entity = Mapper.Map(input, entity);
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
@@ -165,7 +160,7 @@ namespace Admin.Core.Service.Admin.Permission
             if (input != null && input.Id > 0)
             {
                 var entity = await _permissionRepository.GetAsync(input.Id);
-                entity = _mapper.Map(input, entity);
+                entity = Mapper.Map(input, entity);
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 

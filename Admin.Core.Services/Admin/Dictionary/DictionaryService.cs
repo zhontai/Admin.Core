@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using Admin.Core.Common.Output;
 using Admin.Core.Common.Input;
 using Admin.Core.Model.Admin;
@@ -9,14 +8,12 @@ using Admin.Core.Service.Admin.Dictionary.Output;
 
 namespace Admin.Core.Service.Admin.Dictionary
 {
-    public class DictionaryService : IDictionaryService
+    public class DictionaryService : BaseService, IDictionaryService
     {
-        private readonly IMapper _mapper;
         private readonly IDictionaryRepository _dictionaryRepository;
 
-        public DictionaryService(IMapper mapper, IDictionaryRepository dictionaryRepository)
+        public DictionaryService(IDictionaryRepository dictionaryRepository)
         {
-            _mapper = mapper;
             _dictionaryRepository = dictionaryRepository;
         }
 
@@ -48,7 +45,7 @@ namespace Admin.Core.Service.Admin.Dictionary
 
         public async Task<IResponseOutput> AddAsync(DictionaryAddInput input)
         {
-            var dictionary = _mapper.Map<DictionaryEntity>(input);
+            var dictionary = Mapper.Map<DictionaryEntity>(input);
             var id = (await _dictionaryRepository.InsertAsync(dictionary)).Id;
             return ResponseOutput.Result(id > 0);
         }
@@ -66,7 +63,7 @@ namespace Admin.Core.Service.Admin.Dictionary
                 return ResponseOutput.NotOk("数据字典不存在！");
             }
 
-            _mapper.Map(input, entity);
+            Mapper.Map(input, entity);
             await _dictionaryRepository.UpdateAsync(entity);
             return ResponseOutput.Ok();
         }

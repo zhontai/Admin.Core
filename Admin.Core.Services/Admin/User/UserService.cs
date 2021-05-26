@@ -1,9 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using AutoMapper;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
@@ -19,27 +17,21 @@ namespace Admin.Core.Service.Admin.User
     /// <summary>
     /// 用户服务
     /// </summary>	
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
-        private readonly IUser _user;
         private readonly ICache _cache;
-        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
 
         public UserService(
-            IUser user,
             ICache cache,
-            IMapper mapper,
             IUserRepository userRepository,
             IUserRoleRepository userRoleRepository,
             IRolePermissionRepository rolePermissionRepository
         )
         {
-            _user = user;
             _cache = cache;
-            _mapper = mapper;
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _rolePermissionRepository = rolePermissionRepository;
@@ -61,24 +53,24 @@ namespace Admin.Core.Service.Admin.User
             .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id }))
             .ToOneAsync();
 
-            var entityDto = _mapper.Map<UserGetOutput>(entity);
+            var entityDto = Mapper.Map<UserGetOutput>(entity);
             return res.Ok(entityDto);
         }
 
         public async Task<IResponseOutput> GetBasicAsync()
         {
-            if (!(_user?.Id > 0))
+            if (!(User?.Id > 0))
             {
                 return ResponseOutput.NotOk("未登录！");
             }
 
-            var data = await _userRepository.GetAsync<UserUpdateBasicInput>(_user.Id);
+            var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
             return ResponseOutput.Ok(data);
         }
 
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
         {
-            var key = string.Format(CacheKey.UserPermissions, _user.Id);
+            var key = string.Format(CacheKey.UserPermissions, User.Id);
             if (await _cache.ExistsAsync(key))
             {
                 try
@@ -92,7 +84,7 @@ namespace Admin.Core.Service.Admin.User
             }
 
             var userPermissoins = await _rolePermissionRepository.Select
-                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == _user.Id && a.Permission.Type == PermissionType.Api)
+                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)
                 .Include(a => a.Permission.Api)
                 .Distinct()
                 .ToListAsync(a => new UserPermissionsOutput { HttpMethods = a.Permission.Api.HttpMethods, Path = a.Permission.Api.Path });
@@ -114,7 +106,7 @@ namespace Admin.Core.Service.Admin.User
 
             var data = new PageOutput<UserListOutput>()
             {
-                List = _mapper.Map<List<UserListOutput>>(list),
+                List = Mapper.Map<List<UserListOutput>>(list),
                 Total = total
             };
 
@@ -131,7 +123,7 @@ namespace Admin.Core.Service.Admin.User
 
             input.Password = MD5Encrypt.Encrypt32(input.Password);
 
-            var entity = _mapper.Map<UserEntity>(input);
+            var entity = Mapper.Map<UserEntity>(input);
             var user = await _userRepository.InsertAsync(entity);
 
             if (!(user?.Id > 0))
@@ -162,7 +154,7 @@ namespace Admin.Core.Service.Admin.User
                 return ResponseOutput.NotOk("用户不存在！");
             }
 
-            _mapper.Map(input, user);
+            Mapper.Map(input, user);
             await _userRepository.UpdateAsync(user);
             await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
             if (input.RoleIds != null && input.RoleIds.Any())
@@ -177,7 +169,7 @@ namespace Admin.Core.Service.Admin.User
         public async Task<IResponseOutput> UpdateBasicAsync(UserUpdateBasicInput input)
         {
             var entity = await _userRepository.GetAsync(input.Id);
-            entity = _mapper.Map(input, entity);
+            entity = Mapper.Map(input, entity);
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
             return ResponseOutput.Result(result);
@@ -199,7 +191,7 @@ namespace Admin.Core.Service.Admin.User
 
             input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
 
-            entity = _mapper.Map(input, entity);
+            entity = Mapper.Map(input, entity);
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
             return ResponseOutput.Result(result);

@@ -1,17 +1,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Admin.Core.Model.Admin;
 using Admin.Core.Common.Output;
 using Admin.Core.Repository.Admin;
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
-using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.Auth
 {

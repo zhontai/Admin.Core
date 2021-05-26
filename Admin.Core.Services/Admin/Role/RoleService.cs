@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -11,22 +9,16 @@ using System.Linq;
 
 namespace Admin.Core.Service.Admin.Role
 {
-	public class RoleService : IRoleService
+	public class RoleService : BaseService, IRoleService
     {
-        private readonly IUser _user;
-        private readonly IMapper _mapper;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
         
         public RoleService(
-            IUser user,
-            IMapper mapper,
             IRoleRepository roleRepository,
             IRolePermissionRepository rolePermissionRepository
         )
         {
-            _user = user;
-            _mapper = mapper;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
         }
@@ -59,7 +51,7 @@ namespace Admin.Core.Service.Admin.Role
 
         public async Task<IResponseOutput> AddAsync(RoleAddInput input)
         {
-            var entity = _mapper.Map<RoleEntity>(input);
+            var entity = Mapper.Map<RoleEntity>(input);
             var id = (await _roleRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Result(id > 0);
@@ -78,7 +70,7 @@ namespace Admin.Core.Service.Admin.Role
                 return ResponseOutput.NotOk("½ÇÉ«²»´æÔÚ£¡");
             }
 
-            _mapper.Map(input, entity);
+            Mapper.Map(input, entity);
             await _roleRepository.UpdateAsync(entity);
             return ResponseOutput.Ok();
         }

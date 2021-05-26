@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using AutoMapper;
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -9,25 +7,18 @@ using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.OprationLog.Input;
 using Admin.Core.Service.Admin.OprationLog.Output;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Common.Dbs;
 
 namespace Admin.Core.Service.Admin.OprationLog
 {	
-	public class OprationLogService : IOprationLogService
+	public class OprationLogService : BaseService, IOprationLogService
     {
-        private readonly IUser _user;
-        private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _context;
         private readonly IOprationLogRepository _oprationLogRepository;
         public OprationLogService(
-            IUser user,
-            IMapper mapper,
             IHttpContextAccessor context,
             IOprationLogRepository oprationLogRepository
         )
         {
-            _user = user;
-            _mapper = mapper;
             _context = context;
             _oprationLogRepository = oprationLogRepository;
         }
@@ -63,10 +54,10 @@ namespace Admin.Core.Service.Admin.OprationLog
             input.Device = device;
             input.BrowserInfo = ua;
 
-            input.NickName = _user.NickName;
+            input.NickName = User.NickName;
             input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
-            var entity = _mapper.Map<OprationLogEntity>(input);
+            var entity = Mapper.Map<OprationLogEntity>(input);
             var id = (await _oprationLogRepository.InsertAsync(entity)).Id;
 
             return ResponseOutput.Result(id > 0);

@@ -1,6 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -12,7 +10,7 @@ using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Service.Admin.Tenant
 {
-    public class TenantService : BaseService,ITenantService
+    public class TenantService : BaseService, ITenantService
     {
         private readonly ITenantRepository _tenantRepository;
         private readonly IRoleRepository _roleRepository;
@@ -81,7 +79,7 @@ namespace Admin.Core.Service.Admin.Tenant
             var userRole = new UserRoleEntity() { UserId = user.Id, RoleId = role.Id };
             await _userRoleRepository.InsertAsync(userRole);
 
-            //更新租户用户
+            //更新租户用户和角色
             tenant.UserId = user.Id;
             tenant.RoleId = role.Id;
             await _tenantRepository.UpdateAsync(tenant);

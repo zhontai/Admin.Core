@@ -1,4 +1,3 @@
-using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Output;
 using Microsoft.Extensions.Logging;
@@ -10,15 +9,13 @@ using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Cache
 {
-    public class CacheService : ICacheService
+    public class CacheService : BaseService, ICacheService
     {
         private readonly ICache _cache;
-        private readonly IUser _user;
         private readonly ILogger<CacheService> _logger;
-        public CacheService(ICache cache, IUser user, ILogger<CacheService> logger)
+        public CacheService(ICache cache, ILogger<CacheService> logger)
         {
             _cache = cache;
-            _user = user;
             _logger = logger;
         }
 
@@ -44,7 +41,7 @@ namespace Admin.Core.Service.Admin.Cache
 
         public async Task<IResponseOutput> ClearAsync(string cacheKey)
         {
-            _logger.LogWarning($"{_user.Id}.{_user.Name}清除缓存[{cacheKey}]");
+            _logger.LogWarning($"{User.Id}.{User.Name}清除缓存[{cacheKey}]");
             await _cache.DelByPatternAsync(cacheKey);
             return ResponseOutput.Ok();
         }
