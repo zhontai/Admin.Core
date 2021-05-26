@@ -71,7 +71,7 @@ namespace Admin.Core.Service.Admin.User
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
         {
             var key = string.Format(CacheKey.UserPermissions, User.Id);
-            var result = await _cache.GetOrSetAsync<IList<UserPermissionsOutput>>(key, async () =>
+            var result = await _cache.GetOrSetAsync(key, async () =>
             {
                 var userPermissoins = await _rolePermissionRepository.Select
                 .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)

@@ -304,6 +304,11 @@
             用户权限 admin:user:用户主键:permissions
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.UserInfo">
+            <summary>
+            用户信息 admin:user:用户主键:info
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Cache.CacheType">
             <summary>
             缓存类型

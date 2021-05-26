@@ -25,5 +25,11 @@ namespace Admin.Core.Common.Cache
         /// </summary>
         [Description("用户权限")]
         public const string UserPermissions = "admin:user:{0}:permissions";
+
+        /// <summary>
+        /// 用户信息 admin:user:用户主键:info
+        /// </summary>
+        [Description("用户信息")]
+        public const string UserInfo = "admin:user:{0}:info";
     }
 }

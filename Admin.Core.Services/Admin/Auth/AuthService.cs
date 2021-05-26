@@ -120,53 +120,43 @@ namespace Admin.Core.Service.Admin.Auth
                 return ResponseOutput.NotOk("未登录！");
             }
 
-            //用户信息
-            var user = await _userRepository.Select.WhereDynamic(User.Id)
-                .ToOneAsync(m => new {
-                    m.NickName,
-                    m.UserName,
-                    m.Avatar
-                });
+            var key = string.Format(CacheKey.UserInfo, User.Id);
+            var output = await _cache.GetOrSetAsync(key, async () => 
+            {
+                var authUserInfoOutput = new AuthUserInfoOutput { };
+                //用户信息
+                authUserInfoOutput.User = await _userRepository.Select.WhereDynamic(User.Id)
+                    .ToOneAsync<AuthUserProfileDto>();
 
-            //用户菜单
-            var menus = await _permissionRepository.Select
-                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
-                .OrderBy(a => a.ParentId)
-                .OrderBy(a => a.Sort)
-                .ToListAsync(a => new
-                {
-                    a.Id,
-                    a.ParentId,
-                    a.Path,
-                    ViewPath = a.View.Path,
-                    a.Label,
+                //用户菜单
+                authUserInfoOutput.Menus = await _permissionRepository.Select
+                    .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                    .Where(a =>
+                        _permissionRepository.Orm.Select<RolePermissionEntity>()
+                        .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                        .Where(b => b.PermissionId == a.Id)
+                        .Any()
+                    )
+                    .OrderBy(a => a.ParentId)
+                    .OrderBy(a => a.Sort)
+                    .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
 
-                    a.Icon,
-                    a.Opened,
-                    a.Closable,
-                    a.Hidden,
-                    a.NewWindow,
-                    a.External
-                });
+                //用户权限点
+                authUserInfoOutput.Permissions = await _permissionRepository.Select
+                    .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
+                    .Where(a =>
+                        _permissionRepository.Orm.Select<RolePermissionEntity>()
+                        .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                        .Where(b => b.PermissionId == a.Id)
+                        .Any()
+                    )
+                    .ToListAsync(a => a.Code);
 
-            //用户权限点
-            var permissions = await _permissionRepository.Select
-                .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
-                .ToListAsync(a => a.Code);
+                return authUserInfoOutput;
+            });
+            
 
-            return ResponseOutput.Ok(new { user, menus, permissions });
+            return ResponseOutput.Ok(output);
         }
 
         public async Task<IResponseOutput> GetVerifyCodeAsync(string lastKey)
