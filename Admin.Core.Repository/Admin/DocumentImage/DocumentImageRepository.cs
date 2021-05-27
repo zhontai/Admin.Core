@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class DocumentImageRepository : RepositoryBase<DocumentImageEntity>, IDocumentImageRepository
     {
-        public DocumentImageRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public DocumentImageRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }

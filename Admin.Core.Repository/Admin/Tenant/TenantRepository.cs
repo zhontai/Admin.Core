@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {	
 	public  class TenantRepository : RepositoryBase<TenantEntity>, ITenantRepository
     {
-        public TenantRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public TenantRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }

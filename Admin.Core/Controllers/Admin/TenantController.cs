@@ -65,6 +65,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 彻底删除租户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResponseOutput> Delete(long id)
+        {
+            return await _roleServices.DeleteAsync(id);
+        }
+
+        /// <summary>
         /// 删除租户
         /// </summary>
         /// <param name="id"></param>

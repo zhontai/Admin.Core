@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class LoginLogRepository : RepositoryBase<LoginLogEntity>, ILoginLogRepository
     {
-        public LoginLogRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public LoginLogRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }

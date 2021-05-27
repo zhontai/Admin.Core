@@ -580,6 +580,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.TenantController.Delete(System.Int64)">
+            <summary>
+            彻底删除租户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.TenantController.SoftDelete(System.Int64)">
             <summary>
             删除租户

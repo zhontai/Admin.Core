@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class PermissionRepository : RepositoryBase<PermissionEntity>, IPermissionRepository
     {
-        public PermissionRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public PermissionRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }

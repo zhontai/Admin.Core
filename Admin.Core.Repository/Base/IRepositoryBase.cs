@@ -38,6 +38,13 @@ namespace Admin.Core.Repository
         Task<bool> SoftDeleteAsync(TKey id);
 
         /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] name);
+
+        /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="id"></param>

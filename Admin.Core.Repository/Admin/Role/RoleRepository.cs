@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {	
 	public  class RoleRepository : RepositoryBase<RoleEntity>, IRoleRepository
     {
-        public RoleRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public RoleRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }

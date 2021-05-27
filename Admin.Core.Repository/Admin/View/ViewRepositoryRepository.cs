@@ -5,7 +5,7 @@ namespace Admin.Core.Repository.Admin
 {
     public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
     {
-        public ViewRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public ViewRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
 
         }

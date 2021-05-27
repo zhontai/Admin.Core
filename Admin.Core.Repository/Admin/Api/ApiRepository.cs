@@ -6,7 +6,7 @@ namespace Admin.Core.Repository.Admin
 
     public class ApiRepository : RepositoryBase<ApiEntity>, IApiRepository
     {
-        public ApiRepository(MyUnitOfWorkManager muowm, IUser user) : base(muowm, user)
+        public ApiRepository(MyUnitOfWorkManager muowm) : base(muowm)
         {
         }
     }
