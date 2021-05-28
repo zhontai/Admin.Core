@@ -7,7 +7,7 @@ namespace Admin.Core.Service.Admin.Document.Input
         /// <summary>
         /// 父级节点
         /// </summary>
-        public int ParentId { get; set; }
+        public long ParentId { get; set; }
 
         /// <summary>
         /// 类型

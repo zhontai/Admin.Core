@@ -8,7 +8,7 @@
         /// <summary>
         /// 所属模块
         /// </summary>
-		public int? ParentId { get; set; }
+		public long? ParentId { get; set; }
 
         /// <summary>
         /// 接口名称
