@@ -161,6 +161,9 @@ namespace Admin.Core.Service.Admin.User
             entity = Mapper.Map(input, entity);
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
+            //清除用户缓存
+            await _cache.DelAsync(string.Format(CacheKey.UserInfo, input.Id));
+
             return ResponseOutput.Result(result);
         }
 

@@ -22,14 +22,14 @@ namespace Admin.Core.Repository
             return Select.WhereDynamic(id).ToOneAsync<TDto>();
         }
 
-        public virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp)
-        {
-            return Select.Where(exp).ToOneAsync();
-        }
-
         public virtual Task<TDto> GetAsync<TDto>(Expression<Func<TEntity, bool>> exp)
         {
             return Select.Where(exp).ToOneAsync<TDto>();
+        }
+
+        public virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp)
+        {
+            return Select.Where(exp).ToOneAsync();
         }
 
         public async Task<bool> SoftDeleteAsync(TKey id)
