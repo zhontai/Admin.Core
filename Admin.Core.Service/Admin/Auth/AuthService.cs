@@ -125,8 +125,7 @@ namespace Admin.Core.Service.Admin.Auth
             {
                 var authUserInfoOutput = new AuthUserInfoOutput { };
                 //用户信息
-                authUserInfoOutput.User = await _userRepository.Select.WhereDynamic(User.Id)
-                    .ToOneAsync<AuthUserProfileDto>();
+                authUserInfoOutput.User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id);
 
                 //用户菜单
                 authUserInfoOutput.Menus = await _permissionRepository.Select
