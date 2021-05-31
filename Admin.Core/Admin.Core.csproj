@@ -61,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Admin.Core.Services\Admin.Core.Service.csproj" />
+    <ProjectReference Include="..\Admin.Core.Service\Admin.Core.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
