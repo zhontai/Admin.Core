@@ -381,7 +381,7 @@ namespace Admin.Core.Db
         /// 同步数据
         /// </summary>
         /// <returns></returns>
-        public static async Task SyncDataAsync(IFreeSql db, DbConfig dbConfig = null)
+        public static async Task SyncDataAsync(IFreeSql db, DbConfig dbConfig = null, AppConfig appConfig = null)
         {
             try
             {
@@ -394,7 +394,8 @@ namespace Admin.Core.Db
 
                 db.Aop.AuditValue += SyncDataAuditValue;
 
-                var filePath = Path.Combine(AppContext.BaseDirectory, "Db/Data/data.json").ToPath();
+                var fileName = appConfig.TenantDbType == TenantDbType.Share ? "data-share.json" : "data.json";
+                var filePath = Path.Combine(AppContext.BaseDirectory, $"Db/Data/{fileName}").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);
 

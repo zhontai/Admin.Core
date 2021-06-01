@@ -72,7 +72,7 @@ namespace Admin.Core.Db
                 //共享数据库
                 if (appConfig.TenantDbType == TenantDbType.Share)
                 {
-                    fsql.GlobalFilter.ApplyIf<ITenant>("Tenant", () => user.TenantId > 0, a => a.TenantId == user.TenantId);
+                    fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
                 }
 
                 #region 监听Curd操作

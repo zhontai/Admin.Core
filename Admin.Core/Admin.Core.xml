@@ -810,7 +810,7 @@
             <param name="s"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig)">
+        <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
             <summary>
             同步数据
             </summary>

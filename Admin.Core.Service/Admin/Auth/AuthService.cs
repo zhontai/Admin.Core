@@ -107,7 +107,7 @@ namespace Admin.Core.Service.Admin.Auth
 
             if(_appConfig.TenantDbType == TenantDbType.Share)
             {
-                authLoginOutput.TenantType = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
+                authLoginOutput.TenantType = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
             }
 
             return ResponseOutput.Ok(authLoginOutput);

@@ -77,7 +77,7 @@ namespace Admin.Core.Db
             //同步数据
             if (dbConfig.SyncData)
             {
-                await DbHelper.SyncDataAsync(fsql, dbConfig);
+                await DbHelper.SyncDataAsync(fsql, dbConfig, appConfig);
             }
             #endregion
 
