@@ -8,10 +8,11 @@ namespace Admin.Core.Repository
         public static IFreeSql GetTenant(this IdleBus<IFreeSql> ib, long? tenantId, AppConfig appConfig)
         {
             var tenantName = AdminConsts.TenantName;
-            if (appConfig.TenantDbType == TenantDbType.Own)
-            {
-                tenantName = "tenant_" + tenantId?.ToString();
-            }
+            //需要查询租户数据库类型
+            //if (appConfig.TenantDbType == TenantDbType.Own)
+            //{
+            //    tenantName = "tenant_" + tenantId?.ToString();
+            //}
             var freeSql = ib.Get(tenantName);
             return freeSql;
         }

@@ -40,10 +40,11 @@ namespace Admin.Core.Db
             IdleBus <IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
 
             var tenantName = AdminConsts.TenantName;
-            if(appConfig.TenantDbType == TenantDbType.Own)
-            {
-                tenantName = "tenant_" + user.TenantId?.ToString();
-            }
+            //需要查询租户数据库类型
+            //if (appConfig.TenantDbType == TenantDbType.Own)
+            //{
+            //    tenantName = "tenant_" + user.TenantId?.ToString();
+            //}
             ib.TryRegister(tenantName, () =>
             {
                 #region FreeSql
@@ -69,11 +70,12 @@ namespace Admin.Core.Db
                 //配置实体
                 DbHelper.ConfigEntity(fsql, appConfig);
 
+                ////需要查询租户数据库类型
                 //共享数据库
-                if (appConfig.TenantDbType == TenantDbType.Share)
-                {
-                    fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
-                }
+                //if (appConfig.TenantDbType == TenantDbType.Share)
+                //{
+                //    fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
+                //}
 
                 #region 监听Curd操作
                 if (dbConfig.Curd)

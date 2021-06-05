@@ -454,6 +454,31 @@
             权限
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.TenantDbType">
+            <summary>
+            租户数据库类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.TenantDbType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.TenantDbType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.TenantDbType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.TenantDbType.Share">
+            <summary>
+            共享数据库
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.TenantEntity">
             <summary>
             租户
@@ -502,6 +527,11 @@
         <member name="P:Admin.Core.Model.Admin.TenantEntity.TenantType">
             <summary>
             租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.TenantDbType">
+            <summary>
+            租户数据库类型
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.DbType">

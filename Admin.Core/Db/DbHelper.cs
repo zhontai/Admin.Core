@@ -96,8 +96,8 @@ namespace Admin.Core.Db
         /// </summary>
         public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null)
         {
-            //非共享数据库实体配置,不生成和操作租户Id
-            if (appConfig.TenantDbType != TenantDbType.Share)
+            //租户生成和操作租户Id
+            if (appConfig.Tenant)
             {
                 var iTenant = nameof(ITenant);
                 var tenantId = nameof(ITenant.TenantId);
@@ -394,7 +394,7 @@ namespace Admin.Core.Db
 
                 db.Aop.AuditValue += SyncDataAuditValue;
 
-                var fileName = appConfig.TenantDbType == TenantDbType.Share ? "data-share.json" : "data.json";
+                var fileName = appConfig.Tenant ? "data-share.json" : "data.json";
                 var filePath = Path.Combine(AppContext.BaseDirectory, $"Db/Data/{fileName}").ToPath();
                 var jsonData = FileHelper.ReadFile(filePath);
                 var data = JsonConvert.DeserializeObject<Data>(jsonData);

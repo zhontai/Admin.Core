@@ -1,4 +1,6 @@
 ﻿
+using Admin.Core.Model.Admin;
+
 namespace Admin.Core.Service.Admin.Tenant.Input
 {
     /// <summary>
@@ -30,6 +32,11 @@ namespace Admin.Core.Service.Admin.Tenant.Input
         /// 邮箱地址
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// 租户数据库类型
+        /// </summary>
+        public TenantDbType TenantDbType { get; set; }
 
         /// <summary>
         /// 数据库

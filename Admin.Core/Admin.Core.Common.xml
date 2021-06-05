@@ -445,26 +445,6 @@
             Redis缓存
             </summary>
         </member>
-        <member name="T:Admin.Core.Common.Configs.TenantDbType">
-            <summary>
-            租户数据库类型
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantDbType.None">
-            <summary>
-            无租户
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantDbType.Share">
-            <summary>
-            共享数据库
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantDbType.Own">
-            <summary>
-            独立数据库
-            </summary>
-        </member>
         <member name="T:Admin.Core.Common.Configs.AppConfig">
             <summary>
             应用配置
@@ -480,7 +460,7 @@
             跨域地址，默认 http://*:9000
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.AppConfig.TenantDbType">
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Tenant">
             <summary>
             租户类型
             </summary>

@@ -1,5 +1,6 @@
 using System;
 using Admin.Core.Common.BaseModel;
+using Admin.Core.Common.Configs;
 using FreeSql;
 using FreeSql.DataAnnotations;
 
@@ -67,6 +68,11 @@ namespace Admin.Core.Model.Admin
         /// 租户类型
         /// </summary>
         public TenantType? TenantType { get; set; } = Common.BaseModel.TenantType.Tenant;
+
+        /// <summary>
+        /// 租户数据库类型
+        /// </summary>
+        public TenantDbType TenantDbType { get; set; } = TenantDbType.OwnDb;
 
         /// <summary>
         /// 数据库

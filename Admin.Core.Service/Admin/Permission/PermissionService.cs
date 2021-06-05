@@ -229,14 +229,15 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> GetPermissionList()
         {
+            ////需要查询租户数据库类型
             var permissions = await _permissionRepository.Select
-                .WhereIf(_appConfig.TenantDbType == TenantDbType.Share, a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
-                    .DisableGlobalFilter("Tenant")
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
+                //.WhereIf(_appConfig.TenantDbType == TenantDbType.Share, a =>
+                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                //    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
+                //    .DisableGlobalFilter("Tenant")
+                //    .Where(b => b.PermissionId == a.Id)
+                //    .Any()
+                //)
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });

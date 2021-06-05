@@ -1,25 +1,6 @@
 ﻿namespace Admin.Core.Common.Configs
 {
     /// <summary>
-    /// 租户数据库类型
-    /// </summary>
-    public enum TenantDbType
-    {
-        /// <summary>
-        /// 无租户
-        /// </summary>
-        None,
-        /// <summary>
-        /// 共享数据库
-        /// </summary>
-        Share,
-        /// <summary>
-        /// 独立数据库
-        /// </summary>
-        Own
-    }
-
-    /// <summary>
     /// 应用配置
     /// </summary>
     public class AppConfig
@@ -37,7 +18,7 @@
         /// <summary>
         /// 租户类型
         /// </summary>
-        public TenantDbType TenantDbType { get; set; } = TenantDbType.None;
+        public bool Tenant { get; set; } = false;
 
         /// <summary>
         /// Swagger文档
