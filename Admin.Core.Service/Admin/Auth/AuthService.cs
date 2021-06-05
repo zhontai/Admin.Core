@@ -105,10 +105,13 @@ namespace Admin.Core.Service.Admin.Auth
 
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
 
-            if(_appConfig.TenantDbType == TenantDbType.Share)
+            if(_appConfig.TenantDbType != TenantDbType.None)
             {
                 authLoginOutput.TenantType = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
             }
+
+            //登录清空用户缓存
+            await _cache.DelAsync(string.Format(CacheKey.UserInfo, user.Id));
 
             return ResponseOutput.Ok(authLoginOutput);
         }

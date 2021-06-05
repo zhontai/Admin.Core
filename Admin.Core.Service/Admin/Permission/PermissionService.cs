@@ -10,29 +10,30 @@ using Admin.Core.Service.Admin.Permission.Output;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.BaseModel;
+using Admin.Core.Common.Configs;
 
 namespace Admin.Core.Service.Admin.Permission
 {	
 	public class PermissionService : BaseService,IPermissionService
     {
+        private readonly AppConfig _appConfig;
         private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
         public PermissionService(
+            AppConfig appConfig,
             ICache cache,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
-            IRolePermissionRepository rolePermissionRepository,
-            IUserRoleRepository userRoleRepository
+            IRolePermissionRepository rolePermissionRepository
         )
         {
+            _appConfig = appConfig;
             _cache = cache;
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
-            _userRoleRepository = userRoleRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -229,7 +230,7 @@ namespace Admin.Core.Service.Admin.Permission
         public async Task<IResponseOutput> GetPermissionList()
         {
             var permissions = await _permissionRepository.Select
-                .WhereIf(User.TenantType == TenantType.Tenant, a =>
+                .WhereIf(_appConfig.TenantDbType == TenantDbType.Share, a =>
                     _permissionRepository.Orm.Select<RolePermissionEntity>()
                     .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
                     .DisableGlobalFilter("Tenant")
