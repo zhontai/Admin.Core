@@ -1430,6 +1430,11 @@
             邮箱地址
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Tenant.Input.TenantAddInput.DbType">
             <summary>
             数据库
@@ -1508,6 +1513,16 @@
         <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.Email">
             <summary>
             邮箱地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.DataIsolationTypeName">
+            <summary>
+            数据隔离类型名称
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Tenant.Output.TenantListOutput.DbType">

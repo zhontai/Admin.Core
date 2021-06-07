@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Admin.Core.Model.Admin;
+using Newtonsoft.Json;
 using System;
 
 namespace Admin.Core.Service.Admin.Tenant.Output
@@ -44,6 +45,16 @@ namespace Admin.Core.Service.Admin.Tenant.Output
         /// 邮箱地址
         /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// 数据隔离类型
+        /// </summary>
+        public DataIsolationType DataIsolationType { get; set; }
+
+        /// <summary>
+        /// 数据隔离类型名称
+        /// </summary>
+        public string DataIsolationTypeName => DataIsolationType.ToDescriptionOrString();
 
         /// <summary>
         /// 数据库

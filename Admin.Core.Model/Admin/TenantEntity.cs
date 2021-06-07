@@ -70,9 +70,9 @@ namespace Admin.Core.Model.Admin
         public TenantType? TenantType { get; set; } = Common.BaseModel.TenantType.Tenant;
 
         /// <summary>
-        /// 租户数据库类型
+        /// 数据隔离类型
         /// </summary>
-        public TenantDbType TenantDbType { get; set; } = TenantDbType.OwnDb;
+        public DataIsolationType DataIsolationType { get; set; } = DataIsolationType.OwnDb;
 
         /// <summary>
         /// 数据库

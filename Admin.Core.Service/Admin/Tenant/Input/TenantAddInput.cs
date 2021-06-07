@@ -34,9 +34,9 @@ namespace Admin.Core.Service.Admin.Tenant.Input
         public string Email { get; set; }
 
         /// <summary>
-        /// 租户数据库类型
+        /// 数据隔离类型
         /// </summary>
-        public TenantDbType TenantDbType { get; set; }
+        public DataIsolationType DataIsolationType { get; set; }
 
         /// <summary>
         /// 数据库

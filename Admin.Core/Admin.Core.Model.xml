@@ -49,6 +49,31 @@
             启用
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DataIsolationType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DataIsolationType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DataIsolationType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Model.Admin.DataIsolationType.Share">
+            <summary>
+            共享数据库
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.DictionaryEntity">
             <summary>
             数据字典
@@ -454,31 +479,6 @@
             权限
             </summary>
         </member>
-        <member name="T:Admin.Core.Model.Admin.TenantDbType">
-            <summary>
-            租户数据库类型
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Admin.TenantDbType.OwnDb">
-            <summary>
-            独立数据库
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Admin.TenantDbType.OwnDt">
-            <summary>
-            独立数据表
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Admin.TenantDbType.Schema">
-            <summary>
-            共享数据库，独立架构
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Admin.TenantDbType.Share">
-            <summary>
-            共享数据库
-            </summary>
-        </member>
         <member name="T:Admin.Core.Model.Admin.TenantEntity">
             <summary>
             租户
@@ -529,9 +529,9 @@
             租户类型
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.TenantEntity.TenantDbType">
+        <member name="P:Admin.Core.Model.Admin.TenantEntity.DataIsolationType">
             <summary>
-            租户数据库类型
+            数据隔离类型
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.DbType">
