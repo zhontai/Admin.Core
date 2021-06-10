@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Admin.Core.Service.Admin.Permission.Output
+namespace Admin.Core.Repository.Admin.Permission.Output
 {
     public class PermissionDataOutput
     {

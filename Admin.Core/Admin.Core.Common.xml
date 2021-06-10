@@ -64,6 +64,11 @@
             租户类型
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.IUser">
             <summary>
             用户信息接口
@@ -92,6 +97,11 @@
         <member name="P:Admin.Core.Common.Auth.IUser.TenantType">
             <summary>
             租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.DataIsolationType">
+            <summary>
+            数据隔离
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Auth.User">
@@ -124,6 +134,11 @@
             租户类型
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Auth.User.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.UserIdentiyServer">
             <summary>
             用户信息
@@ -132,6 +147,31 @@
         <member name="P:Admin.Core.Common.Auth.UserIdentiyServer.Id">
             <summary>
             用户Id
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.Share">
+            <summary>
+            共享数据库
             </summary>
         </member>
         <member name="P:Admin.Core.Common.BaseModel.IEntity`1.Id">
@@ -307,6 +347,11 @@
         <member name="F:Admin.Core.Common.Cache.CacheKey.UserInfo">
             <summary>
             用户信息 admin:user:用户主键:info
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.TenantInfo">
+            <summary>
+            租户信息 admin:tenant:租户主键:info
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Cache.CacheType">

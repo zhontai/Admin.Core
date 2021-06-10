@@ -152,56 +152,6 @@
             版本
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Id">
-            <summary>
-            接口Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.ParentId">
-            <summary>
-            接口父级
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Name">
-            <summary>
-            接口命名
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Label">
-            <summary>
-            接口名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Path">
-            <summary>
-            接口地址
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.HttpMethods">
-            <summary>
-            接口提交方法
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Api.Output.ApiDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Api.Output.ApiListOutput.Id">
             <summary>
             接口Id
@@ -315,6 +265,11 @@
         <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.TenantType">
             <summary>
             租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthLoginOutput.DataIsolationType">
+            <summary>
+            数据隔离
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthUserInfoOutput.User">
@@ -1170,101 +1125,6 @@
             版本
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Id">
-            <summary>
-            权限Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.ParentId">
-            <summary>
-            父级节点
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Label">
-            <summary>
-            权限名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Code">
-            <summary>
-            权限编码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Type">
-            <summary>
-            权限类型
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.ViewId">
-            <summary>
-            视图
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.ApiId">
-            <summary>
-            接口
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Path">
-            <summary>
-            访问地址
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Icon">
-            <summary>
-            图标
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.ApiPath">
-            <summary>
-            接口路径
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Closable">
-            <summary>
-            可关闭
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Opened">
-            <summary>
-            组打开
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.NewWindow">
-            <summary>
-            打开新窗口
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.External">
-            <summary>
-            链接外显
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Hidden">
-            <summary>
-            隐藏
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionDataOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.Id">
             <summary>
             权限Id
@@ -1837,46 +1697,6 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Id">
-            <summary>
-            视图Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.ParentId">
-            <summary>
-            视图父级
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Name">
-            <summary>
-            视图命名
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Label">
-            <summary>
-            视图名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Path">
-            <summary>
-            视图路径
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Output.ViewDataOutput.Description">
-            <summary>
-            说明
-            </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.View.Output.ViewListOutput.Id">
             <summary>

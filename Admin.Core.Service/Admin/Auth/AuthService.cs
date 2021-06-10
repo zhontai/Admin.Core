@@ -1,24 +1,24 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Admin.Core.Model.Admin;
-using Admin.Core.Common.Output;
-using Admin.Core.Repository.Admin;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
+using Admin.Core.Common.Output;
+using Admin.Core.Model.Admin;
+using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Auth
 {
     public class AuthService : BaseService, IAuthService
     {
-        private readonly ICache _cache;
         private readonly AppConfig _appConfig;
-        private readonly VerifyCodeHelper _verifyCodeHelper;
-        private readonly IUserRepository _userRepository;
+        private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly ITenantRepository _tenantRepository;
 
         public AuthService(
@@ -38,83 +38,16 @@ namespace Admin.Core.Service.Admin.Auth
             _tenantRepository = tenantRepository;
         }
 
-        public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
+        public async Task<IResponseOutput> GetPassWordEncryptKeyAsync()
         {
-            #region 验证码校验
-            if (_appConfig.VarifyCode.Enable)
-            {
-                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
-                var exists = await _cache.ExistsAsync(verifyCodeKey);
-                if (exists)
-                {
-                    var verifyCode = await _cache.GetAsync(verifyCodeKey);
-                    if (string.IsNullOrEmpty(verifyCode))
-                    {
-                        return ResponseOutput.NotOk("验证码已过期！", 1);
-                    }
-                    if (verifyCode.ToLower() != input.VerifyCode.ToLower())
-                    {
-                        return ResponseOutput.NotOk("验证码输入有误！", 2);
-                    }
-                    await _cache.DelAsync(verifyCodeKey);
-                }
-                else
-                {
-                    return ResponseOutput.NotOk("验证码已过期！", 1);
-                }
-            }
-            #endregion
+            //写入Redis
+            var guid = Guid.NewGuid().ToString("N");
+            var key = string.Format(CacheKey.PassWordEncryptKey, guid);
+            var encyptKey = StringHelper.GenerateRandom(8);
+            await _cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
+            var data = new { key = guid, encyptKey };
 
-            UserEntity user = null;
-
-            user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a=> a.UserName == input.UserName).ToOneAsync();
-            //user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
-
-            if (!(user?.Id > 0))
-            {
-                return ResponseOutput.NotOk("账号输入有误!", 3);
-            }
-
-            #region 解密
-            if (input.PasswordKey.NotNull())
-            {
-                var passwordEncryptKey = string.Format(CacheKey.PassWordEncryptKey, input.PasswordKey);
-                var existsPasswordKey = await _cache.ExistsAsync(passwordEncryptKey);
-                if (existsPasswordKey)
-                {
-                    var secretKey = await _cache.GetAsync(passwordEncryptKey);
-                    if (secretKey.IsNull())
-                    {
-                        return ResponseOutput.NotOk("解密失败！", 1);
-                    }
-                    input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                    await _cache.DelAsync(passwordEncryptKey);
-                }
-                else
-                {
-                    return ResponseOutput.NotOk("解密失败！", 1);
-                }
-            }
-            #endregion
-
-            var password = MD5Encrypt.Encrypt32(input.Password);
-            if (user.Password != password)
-            {
-                return ResponseOutput.NotOk("密码输入有误！", 4);
-            }
-
-            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-
-            ////需要查询租户数据库类型
-            //if(_appConfig.TenantDbType != TenantDbType.None)
-            //{
-            //    authLoginOutput.TenantType = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
-            //}
-
-            //登录清空用户缓存
-            await _cache.DelAsync(string.Format(CacheKey.UserInfo, user.Id));
-
-            return ResponseOutput.Ok(authLoginOutput);
+            return ResponseOutput.Ok(data);
         }
 
         public async Task<IResponseOutput> GetUserInfoAsync()
@@ -125,7 +58,7 @@ namespace Admin.Core.Service.Admin.Auth
             }
 
             var key = string.Format(CacheKey.UserInfo, User.Id);
-            var output = await _cache.GetOrSetAsync(key, async () => 
+            var output = await _cache.GetOrSetAsync(key, async () =>
             {
                 var authUserInfoOutput = new AuthUserInfoOutput { };
                 //用户信息
@@ -157,7 +90,6 @@ namespace Admin.Core.Service.Admin.Auth
 
                 return authUserInfoOutput;
             });
-            
 
             return ResponseOutput.Ok(output);
         }
@@ -181,16 +113,88 @@ namespace Admin.Core.Service.Admin.Auth
             return ResponseOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> GetPassWordEncryptKeyAsync()
+        public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
         {
-            //写入Redis
-            var guid = Guid.NewGuid().ToString("N");
-            var key = string.Format(CacheKey.PassWordEncryptKey, guid);
-            var encyptKey = StringHelper.GenerateRandom(8);
-            await _cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
-            var data = new { key = guid, encyptKey };
+            #region 验证码校验
 
-            return ResponseOutput.Ok(data);
+            if (_appConfig.VarifyCode.Enable)
+            {
+                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
+                var exists = await _cache.ExistsAsync(verifyCodeKey);
+                if (exists)
+                {
+                    var verifyCode = await _cache.GetAsync(verifyCodeKey);
+                    if (string.IsNullOrEmpty(verifyCode))
+                    {
+                        return ResponseOutput.NotOk("验证码已过期！", 1);
+                    }
+                    if (verifyCode.ToLower() != input.VerifyCode.ToLower())
+                    {
+                        return ResponseOutput.NotOk("验证码输入有误！", 2);
+                    }
+                    await _cache.DelAsync(verifyCodeKey);
+                }
+                else
+                {
+                    return ResponseOutput.NotOk("验证码已过期！", 1);
+                }
+            }
+
+            #endregion 验证码校验
+
+            UserEntity user = null;
+
+            user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a => a.UserName == input.UserName).ToOneAsync();
+            //user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
+
+            if (!(user?.Id > 0))
+            {
+                return ResponseOutput.NotOk("账号输入有误!", 3);
+            }
+
+            #region 解密
+
+            if (input.PasswordKey.NotNull())
+            {
+                var passwordEncryptKey = string.Format(CacheKey.PassWordEncryptKey, input.PasswordKey);
+                var existsPasswordKey = await _cache.ExistsAsync(passwordEncryptKey);
+                if (existsPasswordKey)
+                {
+                    var secretKey = await _cache.GetAsync(passwordEncryptKey);
+                    if (secretKey.IsNull())
+                    {
+                        return ResponseOutput.NotOk("解密失败！", 1);
+                    }
+                    input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
+                    await _cache.DelAsync(passwordEncryptKey);
+                }
+                else
+                {
+                    return ResponseOutput.NotOk("解密失败！", 1);
+                }
+            }
+
+            #endregion 解密
+
+            var password = MD5Encrypt.Encrypt32(input.Password);
+            if (user.Password != password)
+            {
+                return ResponseOutput.NotOk("密码输入有误！", 4);
+            }
+
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+
+            if (_appConfig.Tenant)
+            {
+                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                authLoginOutput.TenantType = tenant.TenantType;
+                authLoginOutput.DataIsolationType = tenant.DataIsolationType;
+            }
+
+            //登录清空用户缓存
+            await _cache.DelAsync(string.Format(CacheKey.UserInfo, user.Id));
+
+            return ResponseOutput.Ok(authLoginOutput);
         }
     }
 }

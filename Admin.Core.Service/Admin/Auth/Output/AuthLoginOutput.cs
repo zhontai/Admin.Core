@@ -29,6 +29,11 @@ namespace Admin.Core.Service.Admin.Auth.Output
         /// <summary>
         /// 租户类型
         /// </summary>
-        public TenantType? TenantType { get; set; } = Common.BaseModel.TenantType.Tenant;
+        public TenantType? TenantType { get; set; }
+
+        /// <summary>
+        /// 数据隔离
+        /// </summary>
+        public DataIsolationType? DataIsolationType { get; set; }
     }
 }

@@ -32,5 +32,10 @@ namespace Admin.Core.Common.Auth
         /// 租户类型
         /// </summary>
         TenantType? TenantType { get; }
+
+        /// <summary>
+        /// 数据隔离
+        /// </summary>
+       DataIsolationType? DataIsolationType { get; }
     }
 }

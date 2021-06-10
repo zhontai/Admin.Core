@@ -4,7 +4,7 @@
   //跨域地址
   "corUrls": [ "http://localhost:9000", "http://127.0.0.1:9000" ],
   //租户
-  "Tenant": false,
+  "Tenant": true,
   //Swagger文档
   "swagger": false,
   //统一认证授权服务器

@@ -743,86 +743,6 @@
             基础控制器
             </summary>
         </member>
-        <member name="T:Admin.Core.Db.Data">
-            <summary>
-            数据
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Db.DbHelper.TimeOffset">
-            <summary>
-            偏移时间
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.CreateDatabaseAsync(Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            创建数据库
-            </summary>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.GetEntityTypes">
-            <summary>
-            获得指定程序集表实体
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.ConfigEntity(IFreeSql,Admin.Core.Common.Configs.AppConfig)">
-            <summary>
-            配置实体
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,Admin.Core.Common.Auth.IUser)">
-            <summary>
-            审计数据
-            </summary>
-            <param name="e"></param>
-            <param name="timeOffset"></param>
-            <param name="user"></param>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
-            <summary>
-            同步结构
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.CheckIdentity``1">
-            <summary>
-            检查实体属性是否为自增长
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.InitDtDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],Admin.Core.Common.Configs.DbConfig)">
-            <summary>
-            初始化数据表数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="db"></param>
-            <param name="unitOfWork"></param>
-            <param name="tran"></param>
-            <param name="data"></param>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
-            <summary>
-            同步数据审计方法
-            </summary>
-            <param name="s"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,Admin.Core.Common.Configs.DbConfig,Admin.Core.Common.Configs.AppConfig)">
-            <summary>
-            同步数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.DbHelper.GenerateSimpleJsonDataAsync(IFreeSql)">
-            <summary>
-            生成极简数据
-            </summary>
-            <param name="db"></param>
-            <returns></returns>
-        </member>
         <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             添加数据库
@@ -836,13 +756,6 @@
             </summary>
             <param name="multiDb"></param>
             <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Db.TenantDBServiceCollectionExtensions.AddTenantDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
-            <summary>
-            添加租户数据库
-            </summary>
-            <param name="services"></param>
-            <param name="env"></param>
         </member>
         <member name="T:Admin.Core.Enums.ApiVersion">
             <summary>

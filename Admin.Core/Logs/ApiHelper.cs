@@ -4,9 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Db;
 using Admin.Core.Common.Attributes;
-
+using Admin.Core.Repository;
 
 namespace Admin.Core.Logs
 {

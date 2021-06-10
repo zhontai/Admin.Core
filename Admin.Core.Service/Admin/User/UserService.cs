@@ -11,6 +11,7 @@ using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Service.Admin.Auth.Output;
+using Admin.Core.Common.Configs;
 
 namespace Admin.Core.Service.Admin.User
 {
@@ -20,27 +21,39 @@ namespace Admin.Core.Service.Admin.User
     public class UserService : BaseService, IUserService
     {
         private readonly ICache _cache;
+        private readonly AppConfig _appConfig;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly ITenantRepository _tenantRepository;
 
         public UserService(
             ICache cache,
+            AppConfig appConfig,
             IUserRepository userRepository,
             IUserRoleRepository userRoleRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IRolePermissionRepository rolePermissionRepository,
+            ITenantRepository tenantRepository
         )
         {
             _cache = cache;
+            _appConfig = appConfig;
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _rolePermissionRepository = rolePermissionRepository;
+            _tenantRepository = tenantRepository;
         }
 
         public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
         {
             var output = new ResponseOutput<AuthLoginOutput>();
             var entityDto = await _userRepository.GetAsync<AuthLoginOutput>(id);
+            if (_appConfig.Tenant)
+            {
+                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(User.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                output.Data.TenantType = tenant.TenantType;
+                output.Data.DataIsolationType = tenant.DataIsolationType;
+            }
             return output.Ok(entityDto);
         }
 

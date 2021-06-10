@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Admin.Core.Service.Admin.View.Output
+namespace Admin.Core.Repository.Admin.Output
 {
-    public class ViewDataOutput
+    public class ApiDataOutput
     {
         /// <summary>
         /// 租户Id
@@ -11,40 +11,50 @@ namespace Admin.Core.Service.Admin.View.Output
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 视图Id
+        /// 接口Id
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// 视图父级
+        /// 接口父级
         /// </summary>
         public long? ParentId { get; set; }
 
         /// <summary>
-        /// 视图命名
+        /// 接口命名
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 视图名称
+        /// 接口名称
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// 视图路径
+        /// 接口地址
         /// </summary>
         public string Path { get; set; }
 
         /// <summary>
-        /// 启用
+        /// 接口提交方法
         /// </summary>
-        public bool Enabled { get; set; }
+        public string HttpMethods { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
         public string Description { get; set; }
 
-        public List<ViewDataOutput> Childs { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Sort { get; set; }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        public List<ApiDataOutput> Childs { get; set; }
     }
 }

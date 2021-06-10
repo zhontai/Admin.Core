@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel;
 
-namespace Admin.Core.Model.Admin
+namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
     /// 数据隔离类型

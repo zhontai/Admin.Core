@@ -62,7 +62,8 @@ namespace Admin.Core.Controllers.Admin
                 new Claim(ClaimAttributes.UserName, user.UserName),
                 new Claim(ClaimAttributes.UserNickName, user.NickName),
                 new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
-                new Claim(ClaimAttributes.TenantType, user.TenantType.ToString())
+                new Claim(ClaimAttributes.TenantType, user.TenantType.ToString()),
+                new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToString())
             });
 
             return ResponseOutput.Ok(new { token });

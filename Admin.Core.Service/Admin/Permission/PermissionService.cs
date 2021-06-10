@@ -21,12 +21,15 @@ namespace Admin.Core.Service.Admin.Permission
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly ITenantRepository _tenantRepository;
+
         public PermissionService(
             AppConfig appConfig,
             ICache cache,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IRolePermissionRepository rolePermissionRepository,
+            ITenantRepository tenantRepository
         )
         {
             _appConfig = appConfig;
@@ -34,6 +37,7 @@ namespace Admin.Core.Service.Admin.Permission
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
+            _tenantRepository = tenantRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -229,15 +233,14 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> GetPermissionList()
         {
-            ////需要查询租户数据库类型
             var permissions = await _permissionRepository.Select
-                //.WhereIf(_appConfig.TenantDbType == TenantDbType.Share, a =>
-                //    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                //    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
-                //    .DisableGlobalFilter("Tenant")
-                //    .Where(b => b.PermissionId == a.Id)
-                //    .Any()
-                //)
+                .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant && User.DataIsolationType == DataIsolationType.Share, a =>
+                    _permissionRepository.Orm.Select<RolePermissionEntity>()
+                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
+                    .DisableGlobalFilter("Tenant")
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                )
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });

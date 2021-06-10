@@ -12,16 +12,16 @@ using Admin.Core.Model.Admin;
 using System.Collections.Generic;
 using System.Reflection;
 using Admin.Core.Common.BaseModel;
-using Admin.Core.Service.Admin.Api.Output;
-using Admin.Core.Service.Admin.View.Output;
-using Admin.Core.Service.Admin.Permission.Output;
 using FreeSql.Aop;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using Yitter.IdGenerator;
 using Admin.Core.Common.Extensions;
+using Admin.Core.Repository.Admin.Output;
+using Admin.Core.Repository.Admin.View.Output;
+using Admin.Core.Repository.Admin.Permission.Output;
 
-namespace Admin.Core.Db
+namespace Admin.Core.Repository
 {
     public class DbHelper
     {
@@ -97,7 +97,7 @@ namespace Admin.Core.Db
         public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null)
         {
             //租户生成和操作租户Id
-            if (appConfig.Tenant)
+            if (!appConfig.Tenant)
             {
                 var iTenant = nameof(ITenant);
                 var tenantId = nameof(ITenant.TenantId);
@@ -261,48 +261,46 @@ namespace Admin.Core.Db
 
             try
             {
-                if (!await db.Queryable<T>().AnyAsync())
+                if (await db.Queryable<T>().AnyAsync())
                 {
-                    if (data?.Length > 0)
+                    Console.WriteLine($" table: {tableName} record already exists");
+                    return;
+                }
+
+                if (!(data?.Length > 0))
+                {
+                    Console.WriteLine($" table: {tableName} import data []");
+                    return;
+                }
+
+                var repo = db.GetRepository<T>();
+                var insert = db.Insert<T>();
+                if (unitOfWork != null)
+                {
+                    repo.UnitOfWork = unitOfWork;
+                    insert = insert.WithTransaction(tran);
+                }
+
+                var isIdentity = CheckIdentity<T>();
+                if (isIdentity)
+                {
+                    if (dbConfig.Type == DataType.SqlServer)
                     {
-                        var repo = db.GetRepository<T>();
-                        var insert = db.Insert<T>();
-                        if (unitOfWork != null)
-                        {
-                            repo.UnitOfWork = unitOfWork;
-                            insert = insert.WithTransaction(tran);
-                        }
-
-                        var isIdentity = CheckIdentity<T>();
-                        if (isIdentity)
-                        {
-                            if (dbConfig.Type == DataType.SqlServer)
-                            {
-                                var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
-                                await repo.Orm.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
-                            }
-                            else
-                            {
-                                await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
-                            }
-                        }
-                        else
-                        {
-                            repo.DbContextOptions.EnableAddOrUpdateNavigateList = true;
-                            await repo.InsertAsync(data);
-                        }
-
-                        Console.WriteLine($" table: {tableName} sync data succeed");
+                        var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
+                        await repo.Orm.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
                     }
                     else
                     {
-                        Console.WriteLine($" table: {tableName} import data []");
+                        await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
                     }
                 }
                 else
                 {
-                    Console.WriteLine($" table: {tableName} record already exists");
+                    repo.DbContextOptions.EnableAddOrUpdateNavigateList = true;
+                    await repo.InsertAsync(data);
                 }
+
+                Console.WriteLine($" table: {tableName} sync data succeed");
             }
             catch (Exception ex)
             {
@@ -436,8 +434,9 @@ namespace Admin.Core.Db
         /// 生成极简数据
         /// </summary>
         /// <param name="db"></param>
+        /// <param name="appConfig"></param>
         /// <returns></returns>
-        public static async Task GenerateSimpleJsonDataAsync(IFreeSql db)
+        public static async Task GenerateSimpleJsonDataAsync(IFreeSql db, AppConfig appConfig = null)
         {
             try
             {
@@ -567,6 +566,7 @@ namespace Admin.Core.Db
                     a.Phone,
                     a.Email,
                     a.TenantType,
+                    a.DataIsolationType,
                     a.DbType,
                     a.ConnectionString,
                     a.IdleTime,
@@ -602,7 +602,9 @@ namespace Admin.Core.Db
                 //Formatting.Indented, 
                 settings
                 );
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Db/Data/data.json").ToPath();
+
+                var fileName = appConfig.Tenant ? "data-share.json" : "data.json";
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
                 #endregion
 

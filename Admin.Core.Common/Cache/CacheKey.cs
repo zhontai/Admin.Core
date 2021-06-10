@@ -31,5 +31,11 @@ namespace Admin.Core.Common.Cache
         /// </summary>
         [Description("用户信息")]
         public const string UserInfo = "admin:user:{0}:info";
+
+        /// <summary>
+        /// 租户信息 admin:tenant:租户主键:info
+        /// </summary>
+        [Description("租户信息")]
+        public const string TenantInfo = "admin:tenant:{0}:info";
     }
 }

@@ -38,6 +38,8 @@ using AspNetCoreRateLimit;
 using IdentityServer4.AccessTokenValidation;
 using System.IdentityModel.Tokens.Jwt;
 using Yitter.IdGenerator;
+using Autofac.Extensions.DependencyInjection;
+using Admin.Core.Repository;
 
 namespace Admin.Core
 {
@@ -81,10 +83,16 @@ namespace Admin.Core
                 services.TryAddSingleton<IUser, User>();
             }
 
-            //主数据库
+            //添加数据库
             services.AddDbAsync(_env).Wait();
-            //租户数据库
-            services.AddTenantDb(_env);
+
+            //添加IdleBus单例
+            var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", _env.EnvironmentName);
+            int idleTime = dbConfig.IdleTime > 0 ? dbConfig.IdleTime : 10;
+            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
+            services.AddSingleton(ib);
+            //数据库配置
+            services.AddSingleton(dbConfig);
 
             //应用配置
             services.AddSingleton(_appConfig);
