@@ -83,9 +83,9 @@ namespace Admin.Core.Repository
             var user = serviceProvider.GetRequiredService<IUser>();
             var appConfig = serviceProvider.GetRequiredService<AppConfig>();
 
-            if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb)
+            if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb && user.TenantId.HasValue)
             {
-                var tenantName = "tenant_" + user.TenantId?.ToString();
+                var tenantName = "tenant_" + user.TenantId.ToString();
                 var exists = ib.Exists(tenantName);
                 if (!exists)
                 {
