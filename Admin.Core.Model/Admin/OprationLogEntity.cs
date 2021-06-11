@@ -6,7 +6,7 @@ namespace Admin.Core.Model.Admin
     /// 操作日志
     /// </summary>
 	[Table(Name = "ad_opration_log")]
-    public class OprationLogEntity: LogAbstract
+    public class OprationLogEntity : LogAbstract
     {
         /// <summary>
         /// 接口名称

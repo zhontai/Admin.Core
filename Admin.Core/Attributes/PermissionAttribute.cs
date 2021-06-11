@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using Admin.Core.Auth;
+using Admin.Core.Common.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using Admin.Core.Auth;
-using Admin.Core.Common.Auth;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Admin.Core.Attributes

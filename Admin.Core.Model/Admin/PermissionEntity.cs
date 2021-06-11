@@ -1,5 +1,6 @@
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -8,18 +9,15 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_permission")]
     [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
-    public class PermissionEntity : EntityFull, ITenant
+    public class PermissionEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 父级节点
         /// </summary>
         public long ParentId { get; set; }
+
+        [Navigate(nameof(ParentId))]
+        public List<PermissionEntity> Childs { get; set; }
 
         /// <summary>
         /// 权限名称
@@ -36,19 +34,21 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 权限类型
         /// </summary>
-        [Column(MapType = typeof(int),CanUpdate = false)]
+        [Column(MapType = typeof(int), CanUpdate = false)]
         public PermissionType Type { get; set; }
 
         /// <summary>
         /// 视图
         /// </summary>
         public long? ViewId { get; set; }
+
         public ViewEntity View { get; set; }
 
         /// <summary>
         /// 接口
         /// </summary>
         public long? ApiId { get; set; }
+
         public ApiEntity Api { get; set; }
 
         /// <summary>

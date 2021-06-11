@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Admin.Core.Common.Configs;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Document;
 using Admin.Core.Service.Admin.Document.Input;
-using Admin.Core.Common.Configs;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Admin.Core.Common.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -20,7 +20,7 @@ namespace Admin.Core.Controllers.Admin
         private readonly UploadHelper _uploadHelper;
 
         public DocumentController(
-            IDocumentService documentServices, 
+            IDocumentService documentServices,
             IOptionsMonitor<UploadConfig> uploadConfig,
             UploadHelper uploadHelper
         )
@@ -40,7 +40,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _documentServices.GetListAsync(key,start,end);
+            return await _documentServices.GetListAsync(key, start, end);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Admin.Core.Controllers.Admin
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> UploadImage([FromForm]DocumentUploadImageInput input)
+        public async Task<IResponseOutput> UploadImage([FromForm] DocumentUploadImageInput input)
         {
             var config = _uploadConfig.Document;
             var res = await _uploadHelper.UploadAsync(input.File, config, new { input.Id });

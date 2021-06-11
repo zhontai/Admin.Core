@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using Admin.Core.Model.Admin;
 using Admin.Core.Repository;
-using Admin.Core.Model.Admin;
+using Xunit;
 
 namespace Admin.Core.Tests.Service.Repository.Admin
 {

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Admin.Core.Common.Auth;
+using Admin.Core.Common.BaseModel;
+using Admin.Core.Common.Configs;
+using Admin.Core.Common.Dbs;
+using Admin.Core.Common.Helpers;
+using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
+using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FreeSql;
-using Admin.Core.Common.Configs;
-using Admin.Core.Common.Helpers;
-using Admin.Core.Common.Auth;
-using Admin.Core.Common.Dbs;
-using Admin.Core.Model.Admin;
-using System.Reflection;
-using Admin.Core.Common.Attributes;
+using System;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Db
 {
@@ -22,6 +22,8 @@ namespace Admin.Core.Db
         /// <param name="env"></param>
         public async static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env)
         {
+            services.AddScoped<MyUnitOfWorkManager>();
+
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
 
             //创建数据库
@@ -31,6 +33,7 @@ namespace Admin.Core.Db
             }
 
             #region FreeSql
+
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
                     .UseAutoSyncStructure(false)
@@ -38,6 +41,7 @@ namespace Admin.Core.Db
                     .UseNoneCommandParameter(true);
 
             #region 监听所有命令
+
             if (dbConfig.MonitorCommand)
             {
                 freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
@@ -46,7 +50,8 @@ namespace Admin.Core.Db
                     Console.WriteLine($"{cmd.CommandText}\r\n");
                 });
             }
-            #endregion
+
+            #endregion 监听所有命令
 
             var fsql = freeSqlBuilder.Build();
 
@@ -55,26 +60,43 @@ namespace Admin.Core.Db
             DbHelper.ConfigEntity(fsql, appConfig);
 
             #region 初始化数据库
+
             //同步结构
             if (dbConfig.SyncStructure)
             {
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
 
+            #region 审计数据
+
+            //计算服务器时间
+            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            var user = services.BuildServiceProvider().GetService<IUser>();
+            DbHelper.TimeOffset = timeOffset;
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                DbHelper.AuditValue(e, timeOffset, user);
+            };
+
+            #endregion 审计数据
+
             //同步数据
             if (dbConfig.SyncData)
             {
-                await DbHelper.SyncDataAsync(fsql, dbConfig);
+                await DbHelper.SyncDataAsync(fsql, dbConfig, appConfig);
             }
-            #endregion
+
+            #endregion 初始化数据库
 
             //生成数据包
             if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
             {
-                await DbHelper.GenerateSimpleJsonDataAsync(fsql);
+                await DbHelper.GenerateSimpleJsonDataAsync(fsql, appConfig);
             }
 
             #region 监听Curd操作
+
             if (dbConfig.Curd)
             {
                 fsql.Aop.CurdBefore += (s, e) =>
@@ -82,74 +104,30 @@ namespace Admin.Core.Db
                     Console.WriteLine($"{e.Sql}\r\n");
                 };
             }
-            #endregion
 
-            #region 审计数据
-            //计算服务器时间
-            var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
-            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            var user = services.BuildServiceProvider().GetService<IUser>();
-            fsql.Aop.AuditValue += (s, e) =>
+            #endregion 监听Curd操作
+
+            if (appConfig.Tenant)
             {
-                if (user == null || user.Id <= 0)
-                {
-                    return;
-                }
+                fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
+            }
 
-                if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
-                {
-                    switch (e.Property.Name)
-                    {
-                        case "CreatedUserId":
-                            e.Value = user.Id;
-                            break;
-                        case "CreatedUserName":
-                            e.Value = user.Name;
-                            break;
-                        case "TenantId":
-                            e.Value = user.TenantId;
-                            break;
-                    }
+            #endregion FreeSql
 
-                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                    {
-                        e.Value = DateTime.Now.Subtract(timeOffset);
-                    }
-                }
-                else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
-                {
-                    switch (e.Property.Name)
-                    {
-                        case "ModifiedUserId":
-                            e.Value = user.Id;
-                            break;
-                        case "ModifiedUserName":
-                            e.Value = user.Name;
-                            break;
-                    }
-                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-                    && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
-                    {
-                        e.Value = DateTime.Now.Subtract(timeOffset);
-                    }
-                }
-            };
-            #endregion
-            #endregion
+            services.AddSingleton(fsql);
 
             //导入多数据库
-            if(null != dbConfig.Dbs)
+            if (null != dbConfig.Dbs)
             {
                 foreach (var multiDb in dbConfig.Dbs)
                 {
-
                     switch (multiDb.Name)
                     {
                         case nameof(MySqlDb):
                             var mdb = CreateMultiDbBuilder(multiDb).Build<MySqlDb>();
                             services.AddSingleton(mdb);
                             break;
+
                         default:
                             break;
                     }

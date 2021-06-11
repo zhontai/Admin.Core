@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Admin.Core.Common.Cache
@@ -53,7 +52,7 @@ namespace Admin.Core.Common.Cache
         /// <summary>
         /// 获取指定 key 的值
         /// </summary>
-        /// <typeparam name="T">byte[] 或其他类型</typeparam>
+        /// <typeparam name="T">数据类型</typeparam>
         /// <param name="key">键</param>
         /// <returns></returns>
         T Get<T>(string key);
@@ -68,7 +67,7 @@ namespace Admin.Core.Common.Cache
         /// <summary>
         /// 获取指定 key 的值
         /// </summary>
-        /// <typeparam name="T">byte[] 或其他类型</typeparam>
+        /// <typeparam name="T">数据类型</typeparam>
         /// <param name="key">键</param>
         /// <returns></returns>
         Task<T> GetAsync<T>(string key);
@@ -104,5 +103,15 @@ namespace Admin.Core.Common.Cache
         /// <param name="expire">有效期</param>
         /// <returns></returns>
         Task<bool> SetAsync(string key, object value, TimeSpan expire);
+
+        /// <summary>
+        /// 获取或设置缓存
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="key">键</param>
+        /// <param name="func">获取数据的方法</param>
+        /// <param name="expire">有效期</param>
+        /// <returns></returns>
+        Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null);
     }
 }

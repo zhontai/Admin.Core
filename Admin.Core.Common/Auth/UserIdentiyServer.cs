@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Admin.Core.Common.Helpers;
+﻿using Admin.Core.Common.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Admin.Core.Common.Auth
 {

@@ -1,0 +1,5744 @@
+{
+  "apis": [
+    {
+      "id": 161227167658053,
+      "parentId": 0,
+      "label": "接口管理",
+      "path": "api",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168079941,
+          "parentId": 161227167658053,
+          "label": "查询单条接口",
+          "path": "/api/admin/api/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168116805,
+          "parentId": 161227167658053,
+          "label": "查询全部接口",
+          "path": "/api/admin/api/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168116806,
+          "parentId": 161227167658053,
+          "label": "查询分页接口",
+          "path": "/api/admin/api/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120901,
+          "parentId": 161227167658053,
+          "label": "新增接口",
+          "path": "/api/admin/api/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120902,
+          "parentId": 161227167658053,
+          "label": "修改接口",
+          "path": "/api/admin/api/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120903,
+          "parentId": 161227167658053,
+          "label": "删除接口",
+          "path": "/api/admin/api/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168124997,
+          "parentId": 161227167658053,
+          "label": "批量删除接口",
+          "path": "/api/admin/api/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168124998,
+          "parentId": 161227167658053,
+          "label": "同步接口",
+          "path": "/api/admin/api/sync",
+          "httpMethods": "post",
+          "description": "支持新增和修改接口\r\n根据接口是否存在自动禁用和启用api",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719493,
+      "parentId": 0,
+      "label": "授权管理",
+      "path": "auth",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168129093,
+          "parentId": 161227167719493,
+          "label": "获取验证码",
+          "path": "/api/admin/auth/getverifycode",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168129094,
+          "parentId": 161227167719493,
+          "label": "获取密钥",
+          "path": "/api/admin/auth/getpasswordencryptkey",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168129095,
+          "parentId": 161227167719493,
+          "label": "查询用户信息",
+          "path": "/api/admin/auth/getuserinfo",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168133189,
+          "parentId": 161227167719493,
+          "label": "用户登录",
+          "path": "/api/admin/auth/login",
+          "httpMethods": "post",
+          "description": "根据登录信息生成Token",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168133190,
+          "parentId": 161227167719493,
+          "label": "刷新Token",
+          "path": "/api/admin/auth/refresh",
+          "httpMethods": "get",
+          "description": "以旧换新",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719494,
+      "parentId": 0,
+      "label": "数据字典",
+      "path": "dictionary",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168137285,
+          "parentId": 161227167719494,
+          "label": "查询单条数据字典",
+          "path": "/api/admin/dictionary/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168137286,
+          "parentId": 161227167719494,
+          "label": "查询分页数据字典",
+          "path": "/api/admin/dictionary/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168137287,
+          "parentId": 161227167719494,
+          "label": "新增数据字典",
+          "path": "/api/admin/dictionary/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168141381,
+          "parentId": 161227167719494,
+          "label": "修改数据字典",
+          "path": "/api/admin/dictionary/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168141382,
+          "parentId": 161227167719494,
+          "label": "删除数据字典",
+          "path": "/api/admin/dictionary/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719495,
+      "parentId": 0,
+      "label": "权限管理",
+      "path": "permission",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168141383,
+          "parentId": 161227167719495,
+          "label": "查询权限列表",
+          "path": "/api/admin/permission/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168145477,
+          "parentId": 161227167719495,
+          "label": "查询单条分组",
+          "path": "/api/admin/permission/getgroup",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168145478,
+          "parentId": 161227167719495,
+          "label": "查询单条菜单",
+          "path": "/api/admin/permission/getmenu",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149573,
+          "parentId": 161227167719495,
+          "label": "查询单条接口",
+          "path": "/api/admin/permission/getapi",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149574,
+          "parentId": 161227167719495,
+          "label": "查询角色权限-权限列表",
+          "path": "/api/admin/permission/getpermissionlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149575,
+          "parentId": 161227167719495,
+          "label": "查询角色权限",
+          "path": "/api/admin/permission/getrolepermissionlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153669,
+          "parentId": 161227167719495,
+          "label": "新增分组",
+          "path": "/api/admin/permission/addgroup",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153670,
+          "parentId": 161227167719495,
+          "label": "新增菜单",
+          "path": "/api/admin/permission/addmenu",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153671,
+          "parentId": 161227167719495,
+          "label": "新增接口",
+          "path": "/api/admin/permission/addapi",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168157765,
+          "parentId": 161227167719495,
+          "label": "修改分组",
+          "path": "/api/admin/permission/updategroup",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168157766,
+          "parentId": 161227167719495,
+          "label": "修改菜单",
+          "path": "/api/admin/permission/updatemenu",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168161861,
+          "parentId": 161227167719495,
+          "label": "修改接口",
+          "path": "/api/admin/permission/updateapi",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168161862,
+          "parentId": 161227167719495,
+          "label": "删除权限",
+          "path": "/api/admin/permission/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165957,
+          "parentId": 161227167719495,
+          "label": "保存角色权限",
+          "path": "/api/admin/permission/assign",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165958,
+          "parentId": 161227167719495,
+          "label": "查询单条权限点",
+          "path": "/api/admin/permission/getdot",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165959,
+          "parentId": 161227167719495,
+          "label": "新增权限点",
+          "path": "/api/admin/permission/adddot",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168170053,
+          "parentId": 161227167719495,
+          "label": "修改权限点",
+          "path": "/api/admin/permission/updatedot",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719496,
+      "parentId": 0,
+      "label": "角色管理",
+      "path": "role",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168170054,
+          "parentId": 161227167719496,
+          "label": "查询单条角色",
+          "path": "/api/admin/role/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168170055,
+          "parentId": 161227167719496,
+          "label": "查询分页角色",
+          "path": "/api/admin/role/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168174149,
+          "parentId": 161227167719496,
+          "label": "新增角色",
+          "path": "/api/admin/role/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168178245,
+          "parentId": 161227167719496,
+          "label": "修改角色",
+          "path": "/api/admin/role/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168178246,
+          "parentId": 161227167719496,
+          "label": "删除角色",
+          "path": "/api/admin/role/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168182341,
+          "parentId": 161227167719496,
+          "label": "批量删除角色",
+          "path": "/api/admin/role/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719497,
+      "parentId": 0,
+      "label": "用户管理",
+      "path": "user",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168182342,
+          "parentId": 161227167719497,
+          "label": "查询用户基本信息",
+          "path": "/api/admin/user/getbasic",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168182343,
+          "parentId": 161227167719497,
+          "label": "查询单条用户",
+          "path": "/api/admin/user/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168186437,
+          "parentId": 161227167719497,
+          "label": "查询分页用户",
+          "path": "/api/admin/user/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168186438,
+          "parentId": 161227167719497,
+          "label": "新增用户",
+          "path": "/api/admin/user/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190533,
+          "parentId": 161227167719497,
+          "label": "修改用户",
+          "path": "/api/admin/user/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190534,
+          "parentId": 161227167719497,
+          "label": "删除用户",
+          "path": "/api/admin/user/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190535,
+          "parentId": 161227167719497,
+          "label": "批量删除用户",
+          "path": "/api/admin/user/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194629,
+          "parentId": 161227167719497,
+          "label": "更新用户密码",
+          "path": "/api/admin/user/changepassword",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194630,
+          "parentId": 161227167719497,
+          "label": "更新用户基本信息",
+          "path": "/api/admin/user/updatebasic",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194631,
+          "parentId": 161227167719497,
+          "label": "上传头像",
+          "path": "/api/admin/user/avatarupload",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719498,
+      "parentId": 0,
+      "label": "视图管理",
+      "path": "view",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168198725,
+          "parentId": 161227167719498,
+          "label": "查询单条视图",
+          "path": "/api/admin/view/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168198726,
+          "parentId": 161227167719498,
+          "label": "查询全部视图",
+          "path": "/api/admin/view/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202821,
+          "parentId": 161227167719498,
+          "label": "查询分页视图",
+          "path": "/api/admin/view/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202822,
+          "parentId": 161227167719498,
+          "label": "新增视图",
+          "path": "/api/admin/view/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202823,
+          "parentId": 161227167719498,
+          "label": "修改视图",
+          "path": "/api/admin/view/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206917,
+          "parentId": 161227167719498,
+          "label": "删除视图",
+          "path": "/api/admin/view/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206918,
+          "parentId": 161227167719498,
+          "label": "批量删除视图",
+          "path": "/api/admin/view/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206919,
+          "parentId": 161227167719498,
+          "label": "同步视图",
+          "path": "/api/admin/view/sync",
+          "httpMethods": "post",
+          "description": "支持新增和修改视图\r\n根据视图是否存在自动禁用和启用视图",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723589,
+      "parentId": 0,
+      "label": "缓存管理",
+      "path": "cache",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168211013,
+          "parentId": 161227167723589,
+          "label": "获取缓存列表",
+          "path": "/api/admin/cache/list",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168211014,
+          "parentId": 161227167723589,
+          "label": "清除缓存",
+          "path": "/api/admin/cache/clear",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723590,
+      "parentId": 0,
+      "label": "登录日志管理",
+      "path": "loginlog",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215109,
+          "parentId": 161227167723590,
+          "label": "查询分页登录日志",
+          "path": "/api/admin/loginlog/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723591,
+      "parentId": 0,
+      "label": "操作日志管理",
+      "path": "oprationlog",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215110,
+          "parentId": 161227167723591,
+          "label": "查询分页操作日志",
+          "path": "/api/admin/oprationlog/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723592,
+      "parentId": 0,
+      "label": "文档管理",
+      "path": "document",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215111,
+          "parentId": 161227167723592,
+          "label": "查询文档列表",
+          "path": "/api/admin/document/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168219205,
+          "parentId": 161227167723592,
+          "label": "查询单条分组",
+          "path": "/api/admin/document/getgroup",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168219206,
+          "parentId": 161227167723592,
+          "label": "查询单条菜单",
+          "path": "/api/admin/document/getmenu",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168223301,
+          "parentId": 161227167723592,
+          "label": "查询精简文档列表",
+          "path": "/api/admin/document/getplainlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168223302,
+          "parentId": 161227167723592,
+          "label": "新增分组",
+          "path": "/api/admin/document/addgroup",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168227397,
+          "parentId": 161227167723592,
+          "label": "新增菜单",
+          "path": "/api/admin/document/addmenu",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168227398,
+          "parentId": 161227167723592,
+          "label": "修改分组",
+          "path": "/api/admin/document/updategroup",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168231493,
+          "parentId": 161227167723592,
+          "label": "修改菜单",
+          "path": "/api/admin/document/updatemenu",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168231494,
+          "parentId": 161227167723592,
+          "label": "删除文档",
+          "path": "/api/admin/document/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235589,
+          "parentId": 161227167723592,
+          "label": "查询单条文档内容",
+          "path": "/api/admin/document/getcontent",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235590,
+          "parentId": 161227167723592,
+          "label": "修改文档内容",
+          "path": "/api/admin/document/updatecontent",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235591,
+          "parentId": 161227167723592,
+          "label": "上传文档图片",
+          "path": "/api/admin/document/uploadimage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168239685,
+          "parentId": 161227167723592,
+          "label": "查询文档图片列表",
+          "path": "/api/admin/document/getimagelist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168239686,
+          "parentId": 161227167723592,
+          "label": "删除图片",
+          "path": "/api/admin/document/deleteimage",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723593,
+      "parentId": 0,
+      "label": "租户管理",
+      "path": "tenant",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168243781,
+          "parentId": 161227167723593,
+          "label": "查询单条租户",
+          "path": "/api/admin/tenant/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168243782,
+          "parentId": 161227167723593,
+          "label": "查询分页租户",
+          "path": "/api/admin/tenant/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168243783,
+          "parentId": 161227167723593,
+          "label": "新增租户",
+          "path": "/api/admin/tenant/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168247877,
+          "parentId": 161227167723593,
+          "label": "修改租户",
+          "path": "/api/admin/tenant/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168247878,
+          "parentId": 161227167723593,
+          "label": "删除租户",
+          "path": "/api/admin/tenant/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168251973,
+          "parentId": 161227167723593,
+          "label": "批量删除租户",
+          "path": "/api/admin/tenant/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 163579785756741,
+          "parentId": 161227167723593,
+          "label": "彻底删除租户",
+          "path": "/api/admin/tenant/delete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227168079941,
+      "parentId": 161227167658053,
+      "label": "查询单条接口",
+      "path": "/api/admin/api/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168116805,
+      "parentId": 161227167658053,
+      "label": "查询全部接口",
+      "path": "/api/admin/api/getlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168116806,
+      "parentId": 161227167658053,
+      "label": "查询分页接口",
+      "path": "/api/admin/api/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168120901,
+      "parentId": 161227167658053,
+      "label": "新增接口",
+      "path": "/api/admin/api/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168120902,
+      "parentId": 161227167658053,
+      "label": "修改接口",
+      "path": "/api/admin/api/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168120903,
+      "parentId": 161227167658053,
+      "label": "删除接口",
+      "path": "/api/admin/api/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168124997,
+      "parentId": 161227167658053,
+      "label": "批量删除接口",
+      "path": "/api/admin/api/batchsoftdelete",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168124998,
+      "parentId": 161227167658053,
+      "label": "同步接口",
+      "path": "/api/admin/api/sync",
+      "httpMethods": "post",
+      "description": "支持新增和修改接口\r\n根据接口是否存在自动禁用和启用api",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168129093,
+      "parentId": 161227167719493,
+      "label": "获取验证码",
+      "path": "/api/admin/auth/getverifycode",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168129094,
+      "parentId": 161227167719493,
+      "label": "获取密钥",
+      "path": "/api/admin/auth/getpasswordencryptkey",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168129095,
+      "parentId": 161227167719493,
+      "label": "查询用户信息",
+      "path": "/api/admin/auth/getuserinfo",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168133189,
+      "parentId": 161227167719493,
+      "label": "用户登录",
+      "path": "/api/admin/auth/login",
+      "httpMethods": "post",
+      "description": "根据登录信息生成Token",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168133190,
+      "parentId": 161227167719493,
+      "label": "刷新Token",
+      "path": "/api/admin/auth/refresh",
+      "httpMethods": "get",
+      "description": "以旧换新",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168137285,
+      "parentId": 161227167719494,
+      "label": "查询单条数据字典",
+      "path": "/api/admin/dictionary/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168137286,
+      "parentId": 161227167719494,
+      "label": "查询分页数据字典",
+      "path": "/api/admin/dictionary/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168137287,
+      "parentId": 161227167719494,
+      "label": "新增数据字典",
+      "path": "/api/admin/dictionary/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168141381,
+      "parentId": 161227167719494,
+      "label": "修改数据字典",
+      "path": "/api/admin/dictionary/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168141382,
+      "parentId": 161227167719494,
+      "label": "删除数据字典",
+      "path": "/api/admin/dictionary/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168141383,
+      "parentId": 161227167719495,
+      "label": "查询权限列表",
+      "path": "/api/admin/permission/getlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168145477,
+      "parentId": 161227167719495,
+      "label": "查询单条分组",
+      "path": "/api/admin/permission/getgroup",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168145478,
+      "parentId": 161227167719495,
+      "label": "查询单条菜单",
+      "path": "/api/admin/permission/getmenu",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168149573,
+      "parentId": 161227167719495,
+      "label": "查询单条接口",
+      "path": "/api/admin/permission/getapi",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168149574,
+      "parentId": 161227167719495,
+      "label": "查询角色权限-权限列表",
+      "path": "/api/admin/permission/getpermissionlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168149575,
+      "parentId": 161227167719495,
+      "label": "查询角色权限",
+      "path": "/api/admin/permission/getrolepermissionlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168153669,
+      "parentId": 161227167719495,
+      "label": "新增分组",
+      "path": "/api/admin/permission/addgroup",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168153670,
+      "parentId": 161227167719495,
+      "label": "新增菜单",
+      "path": "/api/admin/permission/addmenu",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168153671,
+      "parentId": 161227167719495,
+      "label": "新增接口",
+      "path": "/api/admin/permission/addapi",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168157765,
+      "parentId": 161227167719495,
+      "label": "修改分组",
+      "path": "/api/admin/permission/updategroup",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168157766,
+      "parentId": 161227167719495,
+      "label": "修改菜单",
+      "path": "/api/admin/permission/updatemenu",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168161861,
+      "parentId": 161227167719495,
+      "label": "修改接口",
+      "path": "/api/admin/permission/updateapi",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168161862,
+      "parentId": 161227167719495,
+      "label": "删除权限",
+      "path": "/api/admin/permission/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168165957,
+      "parentId": 161227167719495,
+      "label": "保存角色权限",
+      "path": "/api/admin/permission/assign",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168165958,
+      "parentId": 161227167719495,
+      "label": "查询单条权限点",
+      "path": "/api/admin/permission/getdot",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168165959,
+      "parentId": 161227167719495,
+      "label": "新增权限点",
+      "path": "/api/admin/permission/adddot",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168170053,
+      "parentId": 161227167719495,
+      "label": "修改权限点",
+      "path": "/api/admin/permission/updatedot",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168170054,
+      "parentId": 161227167719496,
+      "label": "查询单条角色",
+      "path": "/api/admin/role/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168170055,
+      "parentId": 161227167719496,
+      "label": "查询分页角色",
+      "path": "/api/admin/role/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168174149,
+      "parentId": 161227167719496,
+      "label": "新增角色",
+      "path": "/api/admin/role/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168178245,
+      "parentId": 161227167719496,
+      "label": "修改角色",
+      "path": "/api/admin/role/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168178246,
+      "parentId": 161227167719496,
+      "label": "删除角色",
+      "path": "/api/admin/role/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168182341,
+      "parentId": 161227167719496,
+      "label": "批量删除角色",
+      "path": "/api/admin/role/batchsoftdelete",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168182342,
+      "parentId": 161227167719497,
+      "label": "查询用户基本信息",
+      "path": "/api/admin/user/getbasic",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168182343,
+      "parentId": 161227167719497,
+      "label": "查询单条用户",
+      "path": "/api/admin/user/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168186437,
+      "parentId": 161227167719497,
+      "label": "查询分页用户",
+      "path": "/api/admin/user/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168186438,
+      "parentId": 161227167719497,
+      "label": "新增用户",
+      "path": "/api/admin/user/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168190533,
+      "parentId": 161227167719497,
+      "label": "修改用户",
+      "path": "/api/admin/user/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168190534,
+      "parentId": 161227167719497,
+      "label": "删除用户",
+      "path": "/api/admin/user/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168190535,
+      "parentId": 161227167719497,
+      "label": "批量删除用户",
+      "path": "/api/admin/user/batchsoftdelete",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168194629,
+      "parentId": 161227167719497,
+      "label": "更新用户密码",
+      "path": "/api/admin/user/changepassword",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168194630,
+      "parentId": 161227167719497,
+      "label": "更新用户基本信息",
+      "path": "/api/admin/user/updatebasic",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168194631,
+      "parentId": 161227167719497,
+      "label": "上传头像",
+      "path": "/api/admin/user/avatarupload",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168198725,
+      "parentId": 161227167719498,
+      "label": "查询单条视图",
+      "path": "/api/admin/view/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168198726,
+      "parentId": 161227167719498,
+      "label": "查询全部视图",
+      "path": "/api/admin/view/getlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168202821,
+      "parentId": 161227167719498,
+      "label": "查询分页视图",
+      "path": "/api/admin/view/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168202822,
+      "parentId": 161227167719498,
+      "label": "新增视图",
+      "path": "/api/admin/view/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168202823,
+      "parentId": 161227167719498,
+      "label": "修改视图",
+      "path": "/api/admin/view/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168206917,
+      "parentId": 161227167719498,
+      "label": "删除视图",
+      "path": "/api/admin/view/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168206918,
+      "parentId": 161227167719498,
+      "label": "批量删除视图",
+      "path": "/api/admin/view/batchsoftdelete",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168206919,
+      "parentId": 161227167719498,
+      "label": "同步视图",
+      "path": "/api/admin/view/sync",
+      "httpMethods": "post",
+      "description": "支持新增和修改视图\r\n根据视图是否存在自动禁用和启用视图",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168211013,
+      "parentId": 161227167723589,
+      "label": "获取缓存列表",
+      "path": "/api/admin/cache/list",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168211014,
+      "parentId": 161227167723589,
+      "label": "清除缓存",
+      "path": "/api/admin/cache/clear",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168215109,
+      "parentId": 161227167723590,
+      "label": "查询分页登录日志",
+      "path": "/api/admin/loginlog/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168215110,
+      "parentId": 161227167723591,
+      "label": "查询分页操作日志",
+      "path": "/api/admin/oprationlog/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168215111,
+      "parentId": 161227167723592,
+      "label": "查询文档列表",
+      "path": "/api/admin/document/getlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168219205,
+      "parentId": 161227167723592,
+      "label": "查询单条分组",
+      "path": "/api/admin/document/getgroup",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168219206,
+      "parentId": 161227167723592,
+      "label": "查询单条菜单",
+      "path": "/api/admin/document/getmenu",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168223301,
+      "parentId": 161227167723592,
+      "label": "查询精简文档列表",
+      "path": "/api/admin/document/getplainlist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168223302,
+      "parentId": 161227167723592,
+      "label": "新增分组",
+      "path": "/api/admin/document/addgroup",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168227397,
+      "parentId": 161227167723592,
+      "label": "新增菜单",
+      "path": "/api/admin/document/addmenu",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168227398,
+      "parentId": 161227167723592,
+      "label": "修改分组",
+      "path": "/api/admin/document/updategroup",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168231493,
+      "parentId": 161227167723592,
+      "label": "修改菜单",
+      "path": "/api/admin/document/updatemenu",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168231494,
+      "parentId": 161227167723592,
+      "label": "删除文档",
+      "path": "/api/admin/document/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168235589,
+      "parentId": 161227167723592,
+      "label": "查询单条文档内容",
+      "path": "/api/admin/document/getcontent",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168235590,
+      "parentId": 161227167723592,
+      "label": "修改文档内容",
+      "path": "/api/admin/document/updatecontent",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168235591,
+      "parentId": 161227167723592,
+      "label": "上传文档图片",
+      "path": "/api/admin/document/uploadimage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168239685,
+      "parentId": 161227167723592,
+      "label": "查询文档图片列表",
+      "path": "/api/admin/document/getimagelist",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168239686,
+      "parentId": 161227167723592,
+      "label": "删除图片",
+      "path": "/api/admin/document/deleteimage",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168243781,
+      "parentId": 161227167723593,
+      "label": "查询单条租户",
+      "path": "/api/admin/tenant/get",
+      "httpMethods": "get",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168243782,
+      "parentId": 161227167723593,
+      "label": "查询分页租户",
+      "path": "/api/admin/tenant/getpage",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168243783,
+      "parentId": 161227167723593,
+      "label": "新增租户",
+      "path": "/api/admin/tenant/add",
+      "httpMethods": "post",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168247877,
+      "parentId": 161227167723593,
+      "label": "修改租户",
+      "path": "/api/admin/tenant/update",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168247878,
+      "parentId": 161227167723593,
+      "label": "删除租户",
+      "path": "/api/admin/tenant/softdelete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 161227168251973,
+      "parentId": 161227167723593,
+      "label": "批量删除租户",
+      "path": "/api/admin/tenant/batchsoftdelete",
+      "httpMethods": "put",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    },
+    {
+      "id": 163579785756741,
+      "parentId": 161227167723593,
+      "label": "彻底删除租户",
+      "path": "/api/admin/tenant/delete",
+      "httpMethods": "delete",
+      "description": "",
+      "enabled": true,
+      "childs": [
+      ]
+    }
+  ],
+  "apiTree": [
+    {
+      "id": 161227167658053,
+      "parentId": 0,
+      "label": "接口管理",
+      "path": "api",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168079941,
+          "parentId": 161227167658053,
+          "label": "查询单条接口",
+          "path": "/api/admin/api/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168116805,
+          "parentId": 161227167658053,
+          "label": "查询全部接口",
+          "path": "/api/admin/api/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168116806,
+          "parentId": 161227167658053,
+          "label": "查询分页接口",
+          "path": "/api/admin/api/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120901,
+          "parentId": 161227167658053,
+          "label": "新增接口",
+          "path": "/api/admin/api/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120902,
+          "parentId": 161227167658053,
+          "label": "修改接口",
+          "path": "/api/admin/api/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168120903,
+          "parentId": 161227167658053,
+          "label": "删除接口",
+          "path": "/api/admin/api/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168124997,
+          "parentId": 161227167658053,
+          "label": "批量删除接口",
+          "path": "/api/admin/api/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168124998,
+          "parentId": 161227167658053,
+          "label": "同步接口",
+          "path": "/api/admin/api/sync",
+          "httpMethods": "post",
+          "description": "支持新增和修改接口\r\n根据接口是否存在自动禁用和启用api",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719493,
+      "parentId": 0,
+      "label": "授权管理",
+      "path": "auth",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168129093,
+          "parentId": 161227167719493,
+          "label": "获取验证码",
+          "path": "/api/admin/auth/getverifycode",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168129094,
+          "parentId": 161227167719493,
+          "label": "获取密钥",
+          "path": "/api/admin/auth/getpasswordencryptkey",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168129095,
+          "parentId": 161227167719493,
+          "label": "查询用户信息",
+          "path": "/api/admin/auth/getuserinfo",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168133189,
+          "parentId": 161227167719493,
+          "label": "用户登录",
+          "path": "/api/admin/auth/login",
+          "httpMethods": "post",
+          "description": "根据登录信息生成Token",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168133190,
+          "parentId": 161227167719493,
+          "label": "刷新Token",
+          "path": "/api/admin/auth/refresh",
+          "httpMethods": "get",
+          "description": "以旧换新",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719494,
+      "parentId": 0,
+      "label": "数据字典",
+      "path": "dictionary",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168137285,
+          "parentId": 161227167719494,
+          "label": "查询单条数据字典",
+          "path": "/api/admin/dictionary/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168137286,
+          "parentId": 161227167719494,
+          "label": "查询分页数据字典",
+          "path": "/api/admin/dictionary/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168137287,
+          "parentId": 161227167719494,
+          "label": "新增数据字典",
+          "path": "/api/admin/dictionary/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168141381,
+          "parentId": 161227167719494,
+          "label": "修改数据字典",
+          "path": "/api/admin/dictionary/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168141382,
+          "parentId": 161227167719494,
+          "label": "删除数据字典",
+          "path": "/api/admin/dictionary/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719495,
+      "parentId": 0,
+      "label": "权限管理",
+      "path": "permission",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168141383,
+          "parentId": 161227167719495,
+          "label": "查询权限列表",
+          "path": "/api/admin/permission/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168145477,
+          "parentId": 161227167719495,
+          "label": "查询单条分组",
+          "path": "/api/admin/permission/getgroup",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168145478,
+          "parentId": 161227167719495,
+          "label": "查询单条菜单",
+          "path": "/api/admin/permission/getmenu",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149573,
+          "parentId": 161227167719495,
+          "label": "查询单条接口",
+          "path": "/api/admin/permission/getapi",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149574,
+          "parentId": 161227167719495,
+          "label": "查询角色权限-权限列表",
+          "path": "/api/admin/permission/getpermissionlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168149575,
+          "parentId": 161227167719495,
+          "label": "查询角色权限",
+          "path": "/api/admin/permission/getrolepermissionlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153669,
+          "parentId": 161227167719495,
+          "label": "新增分组",
+          "path": "/api/admin/permission/addgroup",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153670,
+          "parentId": 161227167719495,
+          "label": "新增菜单",
+          "path": "/api/admin/permission/addmenu",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168153671,
+          "parentId": 161227167719495,
+          "label": "新增接口",
+          "path": "/api/admin/permission/addapi",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168157765,
+          "parentId": 161227167719495,
+          "label": "修改分组",
+          "path": "/api/admin/permission/updategroup",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168157766,
+          "parentId": 161227167719495,
+          "label": "修改菜单",
+          "path": "/api/admin/permission/updatemenu",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168161861,
+          "parentId": 161227167719495,
+          "label": "修改接口",
+          "path": "/api/admin/permission/updateapi",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168161862,
+          "parentId": 161227167719495,
+          "label": "删除权限",
+          "path": "/api/admin/permission/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165957,
+          "parentId": 161227167719495,
+          "label": "保存角色权限",
+          "path": "/api/admin/permission/assign",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165958,
+          "parentId": 161227167719495,
+          "label": "查询单条权限点",
+          "path": "/api/admin/permission/getdot",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168165959,
+          "parentId": 161227167719495,
+          "label": "新增权限点",
+          "path": "/api/admin/permission/adddot",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168170053,
+          "parentId": 161227167719495,
+          "label": "修改权限点",
+          "path": "/api/admin/permission/updatedot",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719496,
+      "parentId": 0,
+      "label": "角色管理",
+      "path": "role",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168170054,
+          "parentId": 161227167719496,
+          "label": "查询单条角色",
+          "path": "/api/admin/role/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168170055,
+          "parentId": 161227167719496,
+          "label": "查询分页角色",
+          "path": "/api/admin/role/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168174149,
+          "parentId": 161227167719496,
+          "label": "新增角色",
+          "path": "/api/admin/role/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168178245,
+          "parentId": 161227167719496,
+          "label": "修改角色",
+          "path": "/api/admin/role/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168178246,
+          "parentId": 161227167719496,
+          "label": "删除角色",
+          "path": "/api/admin/role/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168182341,
+          "parentId": 161227167719496,
+          "label": "批量删除角色",
+          "path": "/api/admin/role/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719497,
+      "parentId": 0,
+      "label": "用户管理",
+      "path": "user",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168182342,
+          "parentId": 161227167719497,
+          "label": "查询用户基本信息",
+          "path": "/api/admin/user/getbasic",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168182343,
+          "parentId": 161227167719497,
+          "label": "查询单条用户",
+          "path": "/api/admin/user/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168186437,
+          "parentId": 161227167719497,
+          "label": "查询分页用户",
+          "path": "/api/admin/user/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168186438,
+          "parentId": 161227167719497,
+          "label": "新增用户",
+          "path": "/api/admin/user/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190533,
+          "parentId": 161227167719497,
+          "label": "修改用户",
+          "path": "/api/admin/user/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190534,
+          "parentId": 161227167719497,
+          "label": "删除用户",
+          "path": "/api/admin/user/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168190535,
+          "parentId": 161227167719497,
+          "label": "批量删除用户",
+          "path": "/api/admin/user/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194629,
+          "parentId": 161227167719497,
+          "label": "更新用户密码",
+          "path": "/api/admin/user/changepassword",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194630,
+          "parentId": 161227167719497,
+          "label": "更新用户基本信息",
+          "path": "/api/admin/user/updatebasic",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168194631,
+          "parentId": 161227167719497,
+          "label": "上传头像",
+          "path": "/api/admin/user/avatarupload",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167719498,
+      "parentId": 0,
+      "label": "视图管理",
+      "path": "view",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168198725,
+          "parentId": 161227167719498,
+          "label": "查询单条视图",
+          "path": "/api/admin/view/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168198726,
+          "parentId": 161227167719498,
+          "label": "查询全部视图",
+          "path": "/api/admin/view/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202821,
+          "parentId": 161227167719498,
+          "label": "查询分页视图",
+          "path": "/api/admin/view/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202822,
+          "parentId": 161227167719498,
+          "label": "新增视图",
+          "path": "/api/admin/view/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168202823,
+          "parentId": 161227167719498,
+          "label": "修改视图",
+          "path": "/api/admin/view/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206917,
+          "parentId": 161227167719498,
+          "label": "删除视图",
+          "path": "/api/admin/view/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206918,
+          "parentId": 161227167719498,
+          "label": "批量删除视图",
+          "path": "/api/admin/view/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168206919,
+          "parentId": 161227167719498,
+          "label": "同步视图",
+          "path": "/api/admin/view/sync",
+          "httpMethods": "post",
+          "description": "支持新增和修改视图\r\n根据视图是否存在自动禁用和启用视图",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723589,
+      "parentId": 0,
+      "label": "缓存管理",
+      "path": "cache",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168211013,
+          "parentId": 161227167723589,
+          "label": "获取缓存列表",
+          "path": "/api/admin/cache/list",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168211014,
+          "parentId": 161227167723589,
+          "label": "清除缓存",
+          "path": "/api/admin/cache/clear",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723590,
+      "parentId": 0,
+      "label": "登录日志管理",
+      "path": "loginlog",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215109,
+          "parentId": 161227167723590,
+          "label": "查询分页登录日志",
+          "path": "/api/admin/loginlog/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723591,
+      "parentId": 0,
+      "label": "操作日志管理",
+      "path": "oprationlog",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215110,
+          "parentId": 161227167723591,
+          "label": "查询分页操作日志",
+          "path": "/api/admin/oprationlog/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723592,
+      "parentId": 0,
+      "label": "文档管理",
+      "path": "document",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168215111,
+          "parentId": 161227167723592,
+          "label": "查询文档列表",
+          "path": "/api/admin/document/getlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168219205,
+          "parentId": 161227167723592,
+          "label": "查询单条分组",
+          "path": "/api/admin/document/getgroup",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168219206,
+          "parentId": 161227167723592,
+          "label": "查询单条菜单",
+          "path": "/api/admin/document/getmenu",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168223301,
+          "parentId": 161227167723592,
+          "label": "查询精简文档列表",
+          "path": "/api/admin/document/getplainlist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168223302,
+          "parentId": 161227167723592,
+          "label": "新增分组",
+          "path": "/api/admin/document/addgroup",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168227397,
+          "parentId": 161227167723592,
+          "label": "新增菜单",
+          "path": "/api/admin/document/addmenu",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168227398,
+          "parentId": 161227167723592,
+          "label": "修改分组",
+          "path": "/api/admin/document/updategroup",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168231493,
+          "parentId": 161227167723592,
+          "label": "修改菜单",
+          "path": "/api/admin/document/updatemenu",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168231494,
+          "parentId": 161227167723592,
+          "label": "删除文档",
+          "path": "/api/admin/document/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235589,
+          "parentId": 161227167723592,
+          "label": "查询单条文档内容",
+          "path": "/api/admin/document/getcontent",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235590,
+          "parentId": 161227167723592,
+          "label": "修改文档内容",
+          "path": "/api/admin/document/updatecontent",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168235591,
+          "parentId": 161227167723592,
+          "label": "上传文档图片",
+          "path": "/api/admin/document/uploadimage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168239685,
+          "parentId": 161227167723592,
+          "label": "查询文档图片列表",
+          "path": "/api/admin/document/getimagelist",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168239686,
+          "parentId": 161227167723592,
+          "label": "删除图片",
+          "path": "/api/admin/document/deleteimage",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227167723593,
+      "parentId": 0,
+      "label": "租户管理",
+      "path": "tenant",
+      "description": "",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168243781,
+          "parentId": 161227167723593,
+          "label": "查询单条租户",
+          "path": "/api/admin/tenant/get",
+          "httpMethods": "get",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168243782,
+          "parentId": 161227167723593,
+          "label": "查询分页租户",
+          "path": "/api/admin/tenant/getpage",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168243783,
+          "parentId": 161227167723593,
+          "label": "新增租户",
+          "path": "/api/admin/tenant/add",
+          "httpMethods": "post",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168247877,
+          "parentId": 161227167723593,
+          "label": "修改租户",
+          "path": "/api/admin/tenant/update",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168247878,
+          "parentId": 161227167723593,
+          "label": "删除租户",
+          "path": "/api/admin/tenant/softdelete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168251973,
+          "parentId": 161227167723593,
+          "label": "批量删除租户",
+          "path": "/api/admin/tenant/batchsoftdelete",
+          "httpMethods": "put",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 163579785756741,
+          "parentId": 161227167723593,
+          "label": "彻底删除租户",
+          "path": "/api/admin/tenant/delete",
+          "httpMethods": "delete",
+          "description": "",
+          "enabled": true,
+          "childs": [
+          ]
+        }
+      ]
+    }
+  ],
+  "viewTree": [
+    {
+      "id": 161227168313413,
+      "parentId": 0,
+      "label": "平台管理",
+      "path": "admin",
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168428101,
+          "parentId": 161227168313413,
+          "label": "首页",
+          "path": "/admin/home",
+          "enabled": true,
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168432197,
+          "parentId": 161227168313413,
+          "label": "系统配置",
+          "path": "config",
+          "enabled": true,
+          "childs": [
+            {
+              "id": 161227168432198,
+              "parentId": 161227168432197,
+              "name": "dictonary",
+              "label": "数据字典",
+              "path": "/admin/dictionary",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "id": 161227168432199,
+          "parentId": 161227168313413,
+          "label": "个人管理",
+          "path": "account",
+          "enabled": true,
+          "childs": [
+            {
+              "id": 161227168436293,
+              "parentId": 161227168432199,
+              "name": "settings",
+              "label": "个人设置",
+              "path": "/account/settings",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "id": 161227168436294,
+          "parentId": 161227168313413,
+          "label": "权限管理",
+          "path": "auth",
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168436295,
+              "parentId": 161227168436294,
+              "name": "user",
+              "label": "用户管理",
+              "path": "/admin/user",
+              "enabled": true
+            },
+            {
+              "id": 161227168440389,
+              "parentId": 161227168436294,
+              "name": "role",
+              "label": "角色管理",
+              "path": "/admin/role",
+              "enabled": true
+            },
+            {
+              "id": 161227168440390,
+              "parentId": 161227168436294,
+              "name": "api",
+              "label": "接口管理",
+              "path": "/admin/api",
+              "enabled": true
+            },
+            {
+              "id": 161227168444485,
+              "parentId": 161227168436294,
+              "name": "v",
+              "label": "视图管理",
+              "path": "/admin/view",
+              "enabled": true
+            },
+            {
+              "id": 161227168444486,
+              "parentId": 161227168436294,
+              "name": "permission",
+              "label": "权限管理",
+              "path": "/admin/permission",
+              "enabled": true
+            },
+            {
+              "id": 161227168448581,
+              "parentId": 161227168436294,
+              "name": "assign",
+              "label": "角色权限",
+              "path": "/admin/role-permission",
+              "enabled": true
+            },
+            {
+              "id": 161227168448582,
+              "parentId": 161227168436294,
+              "label": "缓存管理",
+              "path": "/admin/cache",
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168448583,
+              "parentId": 161227168436294,
+              "label": "租户管理",
+              "path": "/admin/tenant",
+              "enabled": true,
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": 161227168452677,
+          "parentId": 161227168313413,
+          "label": "日志管理",
+          "path": "logs",
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168452678,
+              "parentId": 161227168452677,
+              "name": "log",
+              "label": "操作日志",
+              "path": "/admin/opration-log",
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168456773,
+              "parentId": 161227168452677,
+              "label": "登录日志",
+              "path": "/admin/login-log",
+              "enabled": true,
+              "description": ""
+            }
+          ]
+        },
+        {
+          "id": 161227168456774,
+          "parentId": 161227168313413,
+          "label": "文档管理",
+          "path": "/admin/document",
+          "enabled": true,
+          "description": "",
+          "childs": [
+          ]
+        }
+      ]
+    }
+  ],
+  "permissionTree": [
+    {
+      "id": 161227168464965,
+      "label": "个人管理",
+      "type": 1,
+      "path": "",
+      "icon": "el-icon-s-custom",
+      "closable": false,
+      "opened": true,
+      "sort": 2,
+      "enabled": true,
+      "description": "",
+      "childs": [
+        {
+          "id": 161227168624709,
+          "parentId": 161227168464965,
+          "label": "个人设置",
+          "type": 2,
+          "viewId": 161227168436293,
+          "path": "/account/settings",
+          "icon": "el-icon-setting",
+          "closable": true,
+          "opened": false,
+          "newWindow": false,
+          "external": false,
+          "sort": 1,
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168628805,
+              "parentId": 161227168624709,
+              "label": "查询基本信息",
+              "code": "api:admin:user:getbasic",
+              "type": 3,
+              "apiId": 161227168182342,
+              "path": "",
+              "icon": "",
+              "closable": false,
+              "opened": false,
+              "sort": 1,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168628806,
+              "parentId": 161227168624709,
+              "label": "更新基本信息",
+              "code": "api:admin:user:updatebasic",
+              "type": 3,
+              "apiId": 161227168194630,
+              "sort": 2,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168632901,
+              "parentId": 161227168624709,
+              "label": "更新密码",
+              "code": "api:admin:user:changepassword",
+              "type": 3,
+              "apiId": 161227168194629,
+              "path": " ",
+              "icon": "",
+              "closable": false,
+              "opened": false,
+              "sort": 3,
+              "enabled": true,
+              "description": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227168497733,
+      "label": "平台管理",
+      "type": 1,
+      "icon": "el-icon-s-platform",
+      "opened": true,
+      "sort": 1,
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168632902,
+          "parentId": 161227168497733,
+          "label": "更新日志",
+          "type": 2,
+          "viewId": 161227168428101,
+          "path": "/",
+          "icon": "el-icon-notebook-2",
+          "closable": false,
+          "opened": false,
+          "newWindow": false,
+          "external": false,
+          "sort": 1,
+          "enabled": true,
+          "description": "",
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168636997,
+          "parentId": 161227168497733,
+          "label": "权限管理",
+          "type": 1,
+          "path": "",
+          "icon": "fa fa-sitemap",
+          "closable": false,
+          "opened": true,
+          "sort": 2,
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168636998,
+              "parentId": 161227168636997,
+              "label": "用户管理",
+              "type": 2,
+              "viewId": 161227168436295,
+              "path": "/admin/user",
+              "closable": true,
+              "opened": false,
+              "newWindow": false,
+              "external": true,
+              "sort": 1,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168641093,
+                  "parentId": 161227168636998,
+                  "label": "查询",
+                  "code": "api:admin:user:getpage",
+                  "type": 3,
+                  "apiId": 161227168186437,
+                  "path": "",
+                  "closable": true,
+                  "opened": false,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168641094,
+                  "parentId": 161227168636998,
+                  "label": "新增",
+                  "code": "api:admin:user:add",
+                  "type": 3,
+                  "apiId": 161227168186438,
+                  "path": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168645189,
+                  "parentId": 161227168636998,
+                  "label": "修改",
+                  "code": "api:admin:user:update",
+                  "type": 3,
+                  "apiId": 161227168190533,
+                  "path": "",
+                  "closable": true,
+                  "opened": false,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168645190,
+                  "parentId": 161227168636998,
+                  "label": "删除",
+                  "code": "api:admin:user:softdelete",
+                  "type": 3,
+                  "apiId": 161227168190534,
+                  "path": "",
+                  "closable": true,
+                  "opened": false,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168649285,
+                  "parentId": 161227168636998,
+                  "label": "批量删除",
+                  "code": "api:admin:user:batchsoftdelete",
+                  "type": 3,
+                  "apiId": 161227168190535,
+                  "path": "",
+                  "icon": "",
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168649286,
+                  "parentId": 161227168636998,
+                  "label": "查询单条用户",
+                  "code": "api:admin:user:get",
+                  "type": 3,
+                  "apiId": 161227168182343,
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168653381,
+              "parentId": 161227168636997,
+              "label": "角色管理",
+              "type": 2,
+              "viewId": 161227168440389,
+              "path": "/admin/role",
+              "icon": "",
+              "closable": true,
+              "opened": false,
+              "sort": 2,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168653382,
+                  "parentId": 161227168653381,
+                  "label": "查询",
+                  "code": "api:admin:role:getpage",
+                  "type": 3,
+                  "apiId": 161227168170055,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168657477,
+                  "parentId": 161227168653381,
+                  "label": "新增",
+                  "code": "api:admin:role:add",
+                  "type": 3,
+                  "apiId": 161227168174149,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168657478,
+                  "parentId": 161227168653381,
+                  "label": "修改",
+                  "code": "api:admin:role:update",
+                  "type": 3,
+                  "apiId": 161227168178245,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168661573,
+                  "parentId": 161227168653381,
+                  "label": "删除",
+                  "code": "api:admin:role:softdelete",
+                  "type": 3,
+                  "apiId": 161227168178246,
+                  "path": " ",
+                  "closable": true,
+                  "opened": false,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168665669,
+                  "parentId": 161227168653381,
+                  "label": "批量删除",
+                  "code": "api:admin:role:batchsoftdelete",
+                  "type": 3,
+                  "apiId": 161227168182341,
+                  "path": " ",
+                  "icon": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168665670,
+                  "parentId": 161227168653381,
+                  "label": "查询单条角色",
+                  "code": "api:admin:role:get",
+                  "type": 3,
+                  "apiId": 161227168170054,
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168669765,
+              "parentId": 161227168636997,
+              "label": "接口管理",
+              "type": 2,
+              "viewId": 161227168440390,
+              "path": "/admin/api",
+              "closable": true,
+              "opened": false,
+              "sort": 3,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168669766,
+                  "parentId": 161227168669765,
+                  "label": "查询",
+                  "code": "api:admin:api:getlist",
+                  "type": 3,
+                  "apiId": 161227168116805,
+                  "path": "",
+                  "icon": "",
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168673861,
+                  "parentId": 161227168669765,
+                  "label": "新增",
+                  "code": "api:admin:api:add",
+                  "type": 3,
+                  "apiId": 161227168120901,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168673862,
+                  "parentId": 161227168669765,
+                  "label": "修改",
+                  "code": "api:admin:api:update",
+                  "type": 3,
+                  "apiId": 161227168120902,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168677957,
+                  "parentId": 161227168669765,
+                  "label": "删除",
+                  "code": "api:admin:api:softdelete",
+                  "type": 3,
+                  "apiId": 161227168120903,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168677958,
+                  "parentId": 161227168669765,
+                  "label": "批量删除",
+                  "code": "api:admin:api:batchsoftdelete",
+                  "type": 3,
+                  "apiId": 161227168124997,
+                  "path": "",
+                  "icon": "",
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168682053,
+                  "parentId": 161227168669765,
+                  "label": "同步",
+                  "code": "api:admin:api:sync",
+                  "type": 3,
+                  "apiId": 161227168124998,
+                  "path": "",
+                  "icon": "",
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168682054,
+                  "parentId": 161227168669765,
+                  "label": "查询单条接口",
+                  "code": "api:admin:api:get",
+                  "type": 3,
+                  "apiId": 161227168079941,
+                  "sort": 7,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168686149,
+              "parentId": 161227168636997,
+              "label": "视图管理",
+              "type": 2,
+              "viewId": 161227168444485,
+              "path": "/admin/view",
+              "icon": "",
+              "closable": true,
+              "sort": 4,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168686150,
+                  "parentId": 161227168686149,
+                  "label": "查询",
+                  "code": "api:admin:view:getlist",
+                  "type": 3,
+                  "apiId": 161227168198726,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168690245,
+                  "parentId": 161227168686149,
+                  "label": "新增",
+                  "code": "api:admin:view:add",
+                  "type": 3,
+                  "apiId": 161227168202822,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168690246,
+                  "parentId": 161227168686149,
+                  "label": "修改",
+                  "code": "api:admin:view:update",
+                  "type": 3,
+                  "apiId": 161227168202823,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168694341,
+                  "parentId": 161227168686149,
+                  "label": "删除",
+                  "code": "api:admin:view:softdelete",
+                  "type": 3,
+                  "apiId": 161227168206917,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168694342,
+                  "parentId": 161227168686149,
+                  "label": "批量删除",
+                  "code": "api:admin:view:batchsoftdelete",
+                  "type": 3,
+                  "apiId": 161227168206918,
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168698437,
+                  "parentId": 161227168686149,
+                  "label": "同步",
+                  "code": "api:admin:view:sync",
+                  "type": 3,
+                  "apiId": 161227168206919,
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168698438,
+                  "parentId": 161227168686149,
+                  "label": "查询单条视图",
+                  "code": "api:admin:view:get",
+                  "type": 3,
+                  "apiId": 161227168198725,
+                  "sort": 7,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168702533,
+              "parentId": 161227168636997,
+              "label": "权限管理",
+              "type": 2,
+              "viewId": 161227168444486,
+              "path": "/admin/permission",
+              "closable": true,
+              "opened": false,
+              "sort": 5,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168702534,
+                  "parentId": 161227168702533,
+                  "label": "查询",
+                  "code": "api:admin:permission:getlist",
+                  "type": 3,
+                  "apiId": 161227168141383,
+                  "path": "",
+                  "icon": "",
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168706629,
+                  "parentId": 161227168702533,
+                  "label": "新增分组",
+                  "code": "api:admin:permission:addgroup",
+                  "type": 3,
+                  "apiId": 161227168153669,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168706630,
+                  "parentId": 161227168702533,
+                  "label": "新增菜单",
+                  "code": "api:admin:permission:addmenu",
+                  "type": 3,
+                  "apiId": 161227168153670,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168710725,
+                  "parentId": 161227168702533,
+                  "label": "新增接口",
+                  "code": "api:admin:permission:addapi",
+                  "type": 3,
+                  "apiId": 161227168153671,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168710726,
+                  "parentId": 161227168702533,
+                  "label": "修改分组",
+                  "code": "api:admin:permission:updategroup",
+                  "type": 3,
+                  "apiId": 161227168157765,
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168714821,
+                  "parentId": 161227168702533,
+                  "label": "修改菜单",
+                  "code": "api:admin:permission:updatemenu",
+                  "type": 3,
+                  "apiId": 161227168157766,
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168714822,
+                  "parentId": 161227168702533,
+                  "label": "修改接口",
+                  "code": "api:admin:permission:updateapi",
+                  "type": 3,
+                  "apiId": 161227168161861,
+                  "sort": 7,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168718917,
+                  "parentId": 161227168702533,
+                  "label": "删除",
+                  "code": "api:admin:permission:softdelete",
+                  "type": 3,
+                  "apiId": 161227168161862,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 8,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168718918,
+                  "parentId": 161227168702533,
+                  "label": "查询单条分组",
+                  "code": "api:admin:permission:getgroup",
+                  "type": 3,
+                  "apiId": 161227168145477,
+                  "sort": 9,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168723013,
+                  "parentId": 161227168702533,
+                  "label": "查询单条菜单",
+                  "code": "api:admin:permission:getmenu",
+                  "type": 3,
+                  "apiId": 161227168145478,
+                  "sort": 10,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168723014,
+                  "parentId": 161227168702533,
+                  "label": "查询单条接口",
+                  "code": "api:admin:permission:getapi",
+                  "type": 3,
+                  "apiId": 161227168149573,
+                  "sort": 11,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168727109,
+                  "parentId": 161227168702533,
+                  "label": "查询单条权限点",
+                  "code": "api:admin:permission:getdot",
+                  "type": 3,
+                  "apiId": 161227168165958,
+                  "sort": 0,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168727110,
+                  "parentId": 161227168702533,
+                  "label": "新增权限点",
+                  "code": "api:admin:permission:adddot",
+                  "type": 3,
+                  "apiId": 161227168165959,
+                  "sort": 0,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168731205,
+                  "parentId": 161227168702533,
+                  "label": "修改权限点",
+                  "code": "api:admin:permission:updatedot",
+                  "type": 3,
+                  "apiId": 161227168170053,
+                  "sort": 0,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168731206,
+              "parentId": 161227168636997,
+              "label": "角色权限",
+              "type": 2,
+              "viewId": 161227168448581,
+              "path": "/admin/role-permisson",
+              "closable": true,
+              "opened": false,
+              "newWindow": false,
+              "external": false,
+              "sort": 6,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168735301,
+                  "parentId": 161227168731206,
+                  "label": "查询角色",
+                  "code": "api:admin:role:getpage",
+                  "type": 3,
+                  "apiId": 161227168170055,
+                  "path": "",
+                  "icon": "",
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168735302,
+                  "parentId": 161227168731206,
+                  "label": "查询权限",
+                  "code": "api:admin:permission:getpermissionlist",
+                  "type": 3,
+                  "apiId": 161227168149574,
+                  "path": "",
+                  "icon": "",
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168739397,
+                  "parentId": 161227168731206,
+                  "label": "查询角色权限",
+                  "code": "api:admin:permission:getrolepermissionlist",
+                  "type": 3,
+                  "apiId": 161227168149575,
+                  "path": "",
+                  "icon": "",
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168739398,
+                  "parentId": 161227168731206,
+                  "label": "保存角色权限",
+                  "code": "api:admin:permission:assign",
+                  "type": 3,
+                  "apiId": 161227168165957,
+                  "path": " ",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168743493,
+              "parentId": 161227168636997,
+              "label": "缓存管理",
+              "type": 2,
+              "viewId": 161227168448582,
+              "path": "/admin/cache",
+              "icon": "",
+              "closable": true,
+              "newWindow": false,
+              "external": false,
+              "sort": 7,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168747589,
+                  "parentId": 161227168743493,
+                  "label": "获取缓存列表",
+                  "code": "api:admin:cache:list",
+                  "type": 3,
+                  "apiId": 161227168211013,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168747590,
+                  "parentId": 161227168743493,
+                  "label": "清除缓存",
+                  "code": "api:admin:cache:clear",
+                  "type": 3,
+                  "apiId": 161227168211014,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168751685,
+              "parentId": 161227168636997,
+              "label": "租户管理",
+              "type": 2,
+              "viewId": 161227168448583,
+              "path": "/admin/tenant",
+              "icon": "",
+              "closable": true,
+              "newWindow": false,
+              "external": false,
+              "sort": 8,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168751686,
+                  "parentId": 161227168751685,
+                  "label": "查询",
+                  "code": "api:admin:tenant:getpage",
+                  "type": 3,
+                  "apiId": 161227168243782,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168755781,
+                  "parentId": 161227168751685,
+                  "label": "新增",
+                  "code": "api:admin:tenant:add",
+                  "type": 3,
+                  "apiId": 161227168243783,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168755782,
+                  "parentId": 161227168751685,
+                  "label": "修改",
+                  "code": "api:admin:tenant:update",
+                  "type": 3,
+                  "apiId": 161227168247877,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168759877,
+                  "parentId": 161227168751685,
+                  "label": "删除",
+                  "code": "api:admin:tenant:softdelete",
+                  "type": 3,
+                  "apiId": 161227168247878,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168759878,
+                  "parentId": 161227168751685,
+                  "label": "批量删除",
+                  "code": "api:admin:tenant:batchsoftdelete",
+                  "type": 3,
+                  "apiId": 161227168251973,
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168763973,
+                  "parentId": 161227168751685,
+                  "label": "查询单条租户",
+                  "code": "api:admin:tenant:get",
+                  "type": 3,
+                  "apiId": 161227168243781,
+                  "sort": 6,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161807358345285,
+                  "parentId": 161227168751685,
+                  "label": "设置权限",
+                  "code": "api:admin:permission:assign",
+                  "type": 3,
+                  "apiId": 161227168165957,
+                  "sort": 7,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 163579955331141,
+                  "parentId": 161227168751685,
+                  "label": "彻底删除",
+                  "code": "api:admin:tenant:delete",
+                  "type": 3,
+                  "apiId": 163579785756741,
+                  "sort": 8,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 161227168763974,
+          "parentId": 161227168497733,
+          "label": "系统配置",
+          "type": 1,
+          "path": "",
+          "icon": "el-icon-s-platform",
+          "closable": false,
+          "opened": true,
+          "sort": 3,
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168768069,
+              "parentId": 161227168763974,
+              "label": "基础数据",
+              "type": 1,
+              "icon": "fa fa-database",
+              "opened": false,
+              "sort": 1,
+              "enabled": true
+            },
+            {
+              "id": 161227168768070,
+              "parentId": 161227168763974,
+              "label": "树形字典",
+              "type": 2,
+              "viewId": 161227168432198,
+              "path": "/admin/dictionary",
+              "icon": "fa fa-database",
+              "closable": true,
+              "opened": false,
+              "newWindow": false,
+              "external": false,
+              "sort": 1,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168772165,
+                  "parentId": 161227168768070,
+                  "label": "查询",
+                  "code": "api:admin:dictionary:getpage",
+                  "type": 3,
+                  "apiId": 161227168137286,
+                  "path": " ",
+                  "icon": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168772166,
+                  "parentId": 161227168768070,
+                  "label": "新增",
+                  "code": "api:admin:dictionary:add",
+                  "type": 3,
+                  "apiId": 161227168137287,
+                  "path": " ",
+                  "icon": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 2,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168776261,
+                  "parentId": 161227168768070,
+                  "label": "修改",
+                  "code": "api:admin:dictionary:update",
+                  "type": 3,
+                  "apiId": 161227168141381,
+                  "path": " ",
+                  "icon": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 3,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168776262,
+                  "parentId": 161227168768070,
+                  "label": "删除",
+                  "code": "api:admin:dictionary:softdelete",
+                  "type": 3,
+                  "apiId": 161227168141382,
+                  "path": " ",
+                  "icon": "",
+                  "closable": false,
+                  "opened": false,
+                  "sort": 4,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                },
+                {
+                  "id": 161227168780357,
+                  "parentId": 161227168768070,
+                  "label": "查询单条数据字典",
+                  "code": "api:admin:dictionary:get",
+                  "type": 3,
+                  "apiId": 161227168137285,
+                  "sort": 5,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 161227168780358,
+          "parentId": 161227168497733,
+          "label": "日志管理",
+          "type": 1,
+          "icon": "el-icon-notebook-2",
+          "opened": true,
+          "sort": 4,
+          "enabled": true,
+          "childs": [
+            {
+              "id": 161227168784453,
+              "parentId": 161227168780358,
+              "label": "登录日志",
+              "type": 2,
+              "viewId": 161227168456773,
+              "path": "/admin/login-log",
+              "icon": "",
+              "closable": true,
+              "newWindow": false,
+              "external": false,
+              "sort": 1,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168784454,
+                  "parentId": 161227168784453,
+                  "label": "查询",
+                  "code": "api:admin:loginlog:getpage",
+                  "type": 3,
+                  "apiId": 161227168215109,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 161227168788549,
+              "parentId": 161227168780358,
+              "label": "操作日志",
+              "type": 2,
+              "viewId": 161227168452678,
+              "path": "/admin/opration-log",
+              "icon": "",
+              "closable": true,
+              "newWindow": false,
+              "external": false,
+              "sort": 2,
+              "enabled": true,
+              "description": "",
+              "childs": [
+                {
+                  "id": 161227168788550,
+                  "parentId": 161227168788549,
+                  "label": "查询",
+                  "code": "api:admin:oprationlog:getpage",
+                  "type": 3,
+                  "apiId": 161227168215110,
+                  "sort": 1,
+                  "enabled": true,
+                  "description": "",
+                  "childs": [
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 161227168497734,
+      "label": "帮助文档",
+      "type": 1,
+      "icon": "el-icon-question",
+      "opened": true,
+      "sort": 3,
+      "enabled": true,
+      "childs": [
+        {
+          "id": 161227168792645,
+          "parentId": 161227168497734,
+          "label": "Admin",
+          "type": 2,
+          "path": "https://zhontai.net",
+          "icon": "el-icon-s-promotion",
+          "closable": false,
+          "newWindow": false,
+          "external": false,
+          "sort": 5,
+          "enabled": true,
+          "description": "",
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168792646,
+          "parentId": 161227168497734,
+          "label": "FreeSql",
+          "type": 2,
+          "path": "https://github.com/dotnetcore/FreeSql/wiki",
+          "icon": "el-icon-s-promotion",
+          "closable": false,
+          "newWindow": false,
+          "external": false,
+          "sort": 6,
+          "enabled": true,
+          "description": "",
+          "childs": [
+          ]
+        },
+        {
+          "id": 161227168796741,
+          "parentId": 161227168497734,
+          "label": "文档管理",
+          "type": 2,
+          "viewId": 161227168456774,
+          "path": "/admin/document",
+          "icon": "el-icon-notebook-2",
+          "closable": true,
+          "newWindow": false,
+          "external": true,
+          "sort": 0,
+          "enabled": true,
+          "description": "",
+          "childs": [
+            {
+              "id": 161227168800837,
+              "parentId": 161227168796741,
+              "label": "查询精简文档列表",
+              "code": "api:admin:document:getplainlist",
+              "type": 3,
+              "apiId": 161227168223301,
+              "sort": 2,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168800838,
+              "parentId": 161227168796741,
+              "label": "新增分组",
+              "code": "api:admin:document:addgroup",
+              "type": 3,
+              "apiId": 161227168223302,
+              "sort": 5,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168804933,
+              "parentId": 161227168796741,
+              "label": "新增菜单",
+              "code": "api:admin:document:addmenu",
+              "type": 3,
+              "apiId": 161227168227397,
+              "sort": 6,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168809029,
+              "parentId": 161227168796741,
+              "label": "修改分组",
+              "code": "api:admin:document:updategroup",
+              "type": 3,
+              "apiId": 161227168227398,
+              "sort": 7,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168813125,
+              "parentId": 161227168796741,
+              "label": "修改菜单",
+              "code": "api:admin:document:updatemenu",
+              "type": 3,
+              "apiId": 161227168231493,
+              "sort": 8,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168813126,
+              "parentId": 161227168796741,
+              "label": "删除文档",
+              "code": "api:admin:document:softdelete",
+              "type": 3,
+              "apiId": 161227168231494,
+              "sort": 9,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168817221,
+              "parentId": 161227168796741,
+              "label": "查询单条分组",
+              "code": "api:admin:document:getgroup",
+              "type": 3,
+              "apiId": 161227168219205,
+              "sort": 3,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168821317,
+              "parentId": 161227168796741,
+              "label": "查询单条菜单",
+              "code": "api:admin:document:getmenu",
+              "type": 3,
+              "apiId": 161227168219206,
+              "sort": 4,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168821318,
+              "parentId": 161227168796741,
+              "label": "查询文档列表",
+              "code": "api:admin:document:getlist",
+              "type": 3,
+              "apiId": 161227168215111,
+              "sort": 1,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168825413,
+              "parentId": 161227168796741,
+              "label": "查询单条文档内容",
+              "code": "api:admin:document:getcontent",
+              "type": 3,
+              "apiId": 161227168235589,
+              "sort": 10,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168825414,
+              "parentId": 161227168796741,
+              "label": "修改文档内容",
+              "code": "api:admin:document:updatecontent",
+              "type": 3,
+              "apiId": 161227168235590,
+              "sort": 11,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168829509,
+              "parentId": 161227168796741,
+              "label": "上传文档图片",
+              "code": "api:admin:document:uploadimage",
+              "type": 3,
+              "apiId": 161227168235591,
+              "sort": 14,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168833605,
+              "parentId": 161227168796741,
+              "label": "查询文档图片列表",
+              "code": "api:admin:document:getimagelist",
+              "type": 3,
+              "apiId": 161227168239685,
+              "sort": 12,
+              "enabled": true,
+              "description": ""
+            },
+            {
+              "id": 161227168833606,
+              "parentId": 161227168796741,
+              "label": "删除图片",
+              "code": "api:admin:document:deleteimage",
+              "type": 3,
+              "apiId": 161227168239686,
+              "sort": 13,
+              "enabled": true,
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "tenantId": 161223412138053,
+      "id": 161223411986501,
+      "userName": "admin",
+      "password": "96E79218965EB72C92A549DD5A33112",
+      "nickName": "平台管理员",
+      "avatar": "",
+      "remark": ""
+    },
+    {
+      "tenantId": 162083448455237,
+      "id": 162083448746053,
+      "userName": "18988889999",
+      "password": "96E79218965EB72C92A549DD5A33112",
+      "nickName": "租户"
+    },
+    {
+      "tenantId": 161223412138053,
+      "id": 162605614280773,
+      "userName": "user",
+      "password": "96E79218965EB72C92A549DD5A33112",
+      "nickName": "平台用户"
+    }
+  ],
+  "roles": [
+    {
+      "tenantId": 161223412138053,
+      "id": 161223412080709,
+      "name": "平台管理员",
+      "code": "plat_admin",
+      "description": ""
+    },
+    {
+      "tenantId": 162083448455237,
+      "id": 162083448594501,
+      "name": "平台管理员",
+      "code": "plat_admin"
+    },
+    {
+      "tenantId": 161223412138053,
+      "id": 162605510979653,
+      "name": "平台用户",
+      "code": "plat_user",
+      "description": ""
+    }
+  ],
+  "userRoles": [
+    {
+      "id": 161566031835205,
+      "userId": 161223411986501,
+      "roleId": 161223412080709
+    },
+    {
+      "id": 162083448827973,
+      "userId": 162083448746053,
+      "roleId": 162083448594501
+    },
+    {
+      "id": 162605614342213,
+      "userId": 162605614280773,
+      "roleId": 162605510979653
+    }
+  ],
+  "rolePermissions": [
+    {
+      "id": 161565593014341,
+      "roleId": 161223412080709,
+      "permissionId": 161227168464965
+    },
+    {
+      "id": 161565592956997,
+      "roleId": 161223412080709,
+      "permissionId": 161227168497733
+    },
+    {
+      "id": 161565593014342,
+      "roleId": 161223412080709,
+      "permissionId": 161227168497734
+    },
+    {
+      "id": 161565593018442,
+      "roleId": 161223412080709,
+      "permissionId": 161227168624709
+    },
+    {
+      "id": 161565593030730,
+      "roleId": 161223412080709,
+      "permissionId": 161227168628805
+    },
+    {
+      "id": 161565593030731,
+      "roleId": 161223412080709,
+      "permissionId": 161227168628806
+    },
+    {
+      "id": 161565593030732,
+      "roleId": 161223412080709,
+      "permissionId": 161227168632901
+    },
+    {
+      "id": 161565593014343,
+      "roleId": 161223412080709,
+      "permissionId": 161227168632902
+    },
+    {
+      "id": 161565593014344,
+      "roleId": 161223412080709,
+      "permissionId": 161227168636997
+    },
+    {
+      "id": 161565593014345,
+      "roleId": 161223412080709,
+      "permissionId": 161227168636998
+    },
+    {
+      "id": 161565593018446,
+      "roleId": 161223412080709,
+      "permissionId": 161227168641093
+    },
+    {
+      "id": 161565593018447,
+      "roleId": 161223412080709,
+      "permissionId": 161227168641094
+    },
+    {
+      "id": 161565593018448,
+      "roleId": 161223412080709,
+      "permissionId": 161227168645189
+    },
+    {
+      "id": 161565593018449,
+      "roleId": 161223412080709,
+      "permissionId": 161227168645190
+    },
+    {
+      "id": 161565593018450,
+      "roleId": 161223412080709,
+      "permissionId": 161227168649285
+    },
+    {
+      "id": 161565593018451,
+      "roleId": 161223412080709,
+      "permissionId": 161227168649286
+    },
+    {
+      "id": 161565593014346,
+      "roleId": 161223412080709,
+      "permissionId": 161227168653381
+    },
+    {
+      "id": 161565593018452,
+      "roleId": 161223412080709,
+      "permissionId": 161227168653382
+    },
+    {
+      "id": 161565593018453,
+      "roleId": 161223412080709,
+      "permissionId": 161227168657477
+    },
+    {
+      "id": 161565593018454,
+      "roleId": 161223412080709,
+      "permissionId": 161227168657478
+    },
+    {
+      "id": 161565593018455,
+      "roleId": 161223412080709,
+      "permissionId": 161227168661573
+    },
+    {
+      "id": 161565593018456,
+      "roleId": 161223412080709,
+      "permissionId": 161227168665669
+    },
+    {
+      "id": 161565593022533,
+      "roleId": 161223412080709,
+      "permissionId": 161227168665670
+    },
+    {
+      "id": 161565593014347,
+      "roleId": 161223412080709,
+      "permissionId": 161227168669765
+    },
+    {
+      "id": 161565593022534,
+      "roleId": 161223412080709,
+      "permissionId": 161227168669766
+    },
+    {
+      "id": 161565593022535,
+      "roleId": 161223412080709,
+      "permissionId": 161227168673861
+    },
+    {
+      "id": 161565593022536,
+      "roleId": 161223412080709,
+      "permissionId": 161227168673862
+    },
+    {
+      "id": 161565593022537,
+      "roleId": 161223412080709,
+      "permissionId": 161227168677957
+    },
+    {
+      "id": 161565593022538,
+      "roleId": 161223412080709,
+      "permissionId": 161227168677958
+    },
+    {
+      "id": 161565593022539,
+      "roleId": 161223412080709,
+      "permissionId": 161227168682053
+    },
+    {
+      "id": 161565593022540,
+      "roleId": 161223412080709,
+      "permissionId": 161227168682054
+    },
+    {
+      "id": 161565593014348,
+      "roleId": 161223412080709,
+      "permissionId": 161227168686149
+    },
+    {
+      "id": 161565593022541,
+      "roleId": 161223412080709,
+      "permissionId": 161227168686150
+    },
+    {
+      "id": 161565593022542,
+      "roleId": 161223412080709,
+      "permissionId": 161227168690245
+    },
+    {
+      "id": 161565593022543,
+      "roleId": 161223412080709,
+      "permissionId": 161227168690246
+    },
+    {
+      "id": 161565593022544,
+      "roleId": 161223412080709,
+      "permissionId": 161227168694341
+    },
+    {
+      "id": 161565593022545,
+      "roleId": 161223412080709,
+      "permissionId": 161227168694342
+    },
+    {
+      "id": 161565593022546,
+      "roleId": 161223412080709,
+      "permissionId": 161227168698437
+    },
+    {
+      "id": 161565593022547,
+      "roleId": 161223412080709,
+      "permissionId": 161227168698438
+    },
+    {
+      "id": 161565593014349,
+      "roleId": 161223412080709,
+      "permissionId": 161227168702533
+    },
+    {
+      "id": 161565593022551,
+      "roleId": 161223412080709,
+      "permissionId": 161227168702534
+    },
+    {
+      "id": 161565593026629,
+      "roleId": 161223412080709,
+      "permissionId": 161227168706629
+    },
+    {
+      "id": 161565593026630,
+      "roleId": 161223412080709,
+      "permissionId": 161227168706630
+    },
+    {
+      "id": 161565593026631,
+      "roleId": 161223412080709,
+      "permissionId": 161227168710725
+    },
+    {
+      "id": 161565593026632,
+      "roleId": 161223412080709,
+      "permissionId": 161227168710726
+    },
+    {
+      "id": 161565593026633,
+      "roleId": 161223412080709,
+      "permissionId": 161227168714821
+    },
+    {
+      "id": 161565593026634,
+      "roleId": 161223412080709,
+      "permissionId": 161227168714822
+    },
+    {
+      "id": 161565593026635,
+      "roleId": 161223412080709,
+      "permissionId": 161227168718917
+    },
+    {
+      "id": 161565593026636,
+      "roleId": 161223412080709,
+      "permissionId": 161227168718918
+    },
+    {
+      "id": 161565593026637,
+      "roleId": 161223412080709,
+      "permissionId": 161227168723013
+    },
+    {
+      "id": 161565593026638,
+      "roleId": 161223412080709,
+      "permissionId": 161227168723014
+    },
+    {
+      "id": 161565593022550,
+      "roleId": 161223412080709,
+      "permissionId": 161227168727109
+    },
+    {
+      "id": 161565593022549,
+      "roleId": 161223412080709,
+      "permissionId": 161227168727110
+    },
+    {
+      "id": 161565593022548,
+      "roleId": 161223412080709,
+      "permissionId": 161227168731205
+    },
+    {
+      "id": 161565593014350,
+      "roleId": 161223412080709,
+      "permissionId": 161227168731206
+    },
+    {
+      "id": 161565593026639,
+      "roleId": 161223412080709,
+      "permissionId": 161227168735301
+    },
+    {
+      "id": 161565593026640,
+      "roleId": 161223412080709,
+      "permissionId": 161227168735302
+    },
+    {
+      "id": 161565593026641,
+      "roleId": 161223412080709,
+      "permissionId": 161227168739397
+    },
+    {
+      "id": 161565593026642,
+      "roleId": 161223412080709,
+      "permissionId": 161227168739398
+    },
+    {
+      "id": 161565593014351,
+      "roleId": 161223412080709,
+      "permissionId": 161227168743493
+    },
+    {
+      "id": 161565593026643,
+      "roleId": 161223412080709,
+      "permissionId": 161227168747589
+    },
+    {
+      "id": 161565593026644,
+      "roleId": 161223412080709,
+      "permissionId": 161227168747590
+    },
+    {
+      "id": 161565593014352,
+      "roleId": 161223412080709,
+      "permissionId": 161227168751685
+    },
+    {
+      "id": 161565593026645,
+      "roleId": 161223412080709,
+      "permissionId": 161227168751686
+    },
+    {
+      "id": 161565593026646,
+      "roleId": 161223412080709,
+      "permissionId": 161227168755781
+    },
+    {
+      "id": 161565593026647,
+      "roleId": 161223412080709,
+      "permissionId": 161227168755782
+    },
+    {
+      "id": 161565593026648,
+      "roleId": 161223412080709,
+      "permissionId": 161227168759877
+    },
+    {
+      "id": 161565593026649,
+      "roleId": 161223412080709,
+      "permissionId": 161227168759878
+    },
+    {
+      "id": 161565593026650,
+      "roleId": 161223412080709,
+      "permissionId": 161227168763973
+    },
+    {
+      "id": 161565593014353,
+      "roleId": 161223412080709,
+      "permissionId": 161227168763974
+    },
+    {
+      "id": 161565593018437,
+      "roleId": 161223412080709,
+      "permissionId": 161227168768069
+    },
+    {
+      "id": 161565593018438,
+      "roleId": 161223412080709,
+      "permissionId": 161227168768070
+    },
+    {
+      "id": 161565593026651,
+      "roleId": 161223412080709,
+      "permissionId": 161227168772165
+    },
+    {
+      "id": 161565593026652,
+      "roleId": 161223412080709,
+      "permissionId": 161227168772166
+    },
+    {
+      "id": 161565593030725,
+      "roleId": 161223412080709,
+      "permissionId": 161227168776261
+    },
+    {
+      "id": 161565593030726,
+      "roleId": 161223412080709,
+      "permissionId": 161227168776262
+    },
+    {
+      "id": 161565593030727,
+      "roleId": 161223412080709,
+      "permissionId": 161227168780357
+    },
+    {
+      "id": 161565593018439,
+      "roleId": 161223412080709,
+      "permissionId": 161227168780358
+    },
+    {
+      "id": 161565593018440,
+      "roleId": 161223412080709,
+      "permissionId": 161227168784453
+    },
+    {
+      "id": 161565593030728,
+      "roleId": 161223412080709,
+      "permissionId": 161227168784454
+    },
+    {
+      "id": 161565593018441,
+      "roleId": 161223412080709,
+      "permissionId": 161227168788549
+    },
+    {
+      "id": 161565593030729,
+      "roleId": 161223412080709,
+      "permissionId": 161227168788550
+    },
+    {
+      "id": 161565593018444,
+      "roleId": 161223412080709,
+      "permissionId": 161227168792645
+    },
+    {
+      "id": 161565593018445,
+      "roleId": 161223412080709,
+      "permissionId": 161227168792646
+    },
+    {
+      "id": 161565593018443,
+      "roleId": 161223412080709,
+      "permissionId": 161227168796741
+    },
+    {
+      "id": 161565593030737,
+      "roleId": 161223412080709,
+      "permissionId": 161227168800837
+    },
+    {
+      "id": 161565593030740,
+      "roleId": 161223412080709,
+      "permissionId": 161227168800838
+    },
+    {
+      "id": 161565593030741,
+      "roleId": 161223412080709,
+      "permissionId": 161227168804933
+    },
+    {
+      "id": 161565593030742,
+      "roleId": 161223412080709,
+      "permissionId": 161227168809029
+    },
+    {
+      "id": 161565593030743,
+      "roleId": 161223412080709,
+      "permissionId": 161227168813125
+    },
+    {
+      "id": 161565593030744,
+      "roleId": 161223412080709,
+      "permissionId": 161227168813126
+    },
+    {
+      "id": 161565593030738,
+      "roleId": 161223412080709,
+      "permissionId": 161227168817221
+    },
+    {
+      "id": 161565593030739,
+      "roleId": 161223412080709,
+      "permissionId": 161227168821317
+    },
+    {
+      "id": 161565593030736,
+      "roleId": 161223412080709,
+      "permissionId": 161227168821318
+    },
+    {
+      "id": 161565593030745,
+      "roleId": 161223412080709,
+      "permissionId": 161227168825413
+    },
+    {
+      "id": 161565593030746,
+      "roleId": 161223412080709,
+      "permissionId": 161227168825414
+    },
+    {
+      "id": 161565593030733,
+      "roleId": 161223412080709,
+      "permissionId": 161227168829509
+    },
+    {
+      "id": 161565593030735,
+      "roleId": 161223412080709,
+      "permissionId": 161227168833605
+    },
+    {
+      "id": 161565593030734,
+      "roleId": 161223412080709,
+      "permissionId": 161227168833606
+    },
+    {
+      "id": 161807399874629,
+      "roleId": 161223412080709,
+      "permissionId": 161807358345285
+    },
+    {
+      "id": 163580436009029,
+      "roleId": 161223412080709,
+      "permissionId": 163579955331141
+    },
+    {
+      "id": 162105754484810,
+      "roleId": 162083448594501,
+      "permissionId": 161227168464965
+    },
+    {
+      "id": 162105754480709,
+      "roleId": 162083448594501,
+      "permissionId": 161227168497733
+    },
+    {
+      "id": 162105754484812,
+      "roleId": 162083448594501,
+      "permissionId": 161227168497734
+    },
+    {
+      "id": 162105754484809,
+      "roleId": 162083448594501,
+      "permissionId": 161227168624709
+    },
+    {
+      "id": 162105754484834,
+      "roleId": 162083448594501,
+      "permissionId": 161227168628805
+    },
+    {
+      "id": 162105754484835,
+      "roleId": 162083448594501,
+      "permissionId": 161227168628806
+    },
+    {
+      "id": 162105754484836,
+      "roleId": 162083448594501,
+      "permissionId": 161227168632901
+    },
+    {
+      "id": 162105754480710,
+      "roleId": 162083448594501,
+      "permissionId": 161227168636997
+    },
+    {
+      "id": 162105754382405,
+      "roleId": 162083448594501,
+      "permissionId": 161227168636998
+    },
+    {
+      "id": 162105754484813,
+      "roleId": 162083448594501,
+      "permissionId": 161227168641093
+    },
+    {
+      "id": 162105754484814,
+      "roleId": 162083448594501,
+      "permissionId": 161227168641094
+    },
+    {
+      "id": 162105754484815,
+      "roleId": 162083448594501,
+      "permissionId": 161227168645189
+    },
+    {
+      "id": 162105754484816,
+      "roleId": 162083448594501,
+      "permissionId": 161227168645190
+    },
+    {
+      "id": 162105754484817,
+      "roleId": 162083448594501,
+      "permissionId": 161227168649285
+    },
+    {
+      "id": 162105754484818,
+      "roleId": 162083448594501,
+      "permissionId": 161227168649286
+    },
+    {
+      "id": 162105754484805,
+      "roleId": 162083448594501,
+      "permissionId": 161227168653381
+    },
+    {
+      "id": 162105754484819,
+      "roleId": 162083448594501,
+      "permissionId": 161227168653382
+    },
+    {
+      "id": 162105754484820,
+      "roleId": 162083448594501,
+      "permissionId": 161227168657477
+    },
+    {
+      "id": 162105754484821,
+      "roleId": 162083448594501,
+      "permissionId": 161227168657478
+    },
+    {
+      "id": 162105754484822,
+      "roleId": 162083448594501,
+      "permissionId": 161227168661573
+    },
+    {
+      "id": 162105754484823,
+      "roleId": 162083448594501,
+      "permissionId": 161227168665669
+    },
+    {
+      "id": 162105754484824,
+      "roleId": 162083448594501,
+      "permissionId": 161227168665670
+    },
+    {
+      "id": 162105754484806,
+      "roleId": 162083448594501,
+      "permissionId": 161227168731206
+    },
+    {
+      "id": 162105754484825,
+      "roleId": 162083448594501,
+      "permissionId": 161227168735301
+    },
+    {
+      "id": 162105754484826,
+      "roleId": 162083448594501,
+      "permissionId": 161227168735302
+    },
+    {
+      "id": 162105754484827,
+      "roleId": 162083448594501,
+      "permissionId": 161227168739397
+    },
+    {
+      "id": 162105754484828,
+      "roleId": 162083448594501,
+      "permissionId": 161227168739398
+    },
+    {
+      "id": 162105754484808,
+      "roleId": 162083448594501,
+      "permissionId": 161227168763974
+    },
+    {
+      "id": 162105754484807,
+      "roleId": 162083448594501,
+      "permissionId": 161227168768070
+    },
+    {
+      "id": 162105754484829,
+      "roleId": 162083448594501,
+      "permissionId": 161227168772165
+    },
+    {
+      "id": 162105754484830,
+      "roleId": 162083448594501,
+      "permissionId": 161227168772166
+    },
+    {
+      "id": 162105754484831,
+      "roleId": 162083448594501,
+      "permissionId": 161227168776261
+    },
+    {
+      "id": 162105754484832,
+      "roleId": 162083448594501,
+      "permissionId": 161227168776262
+    },
+    {
+      "id": 162105754484833,
+      "roleId": 162083448594501,
+      "permissionId": 161227168780357
+    },
+    {
+      "id": 162131333746757,
+      "roleId": 162083448594501,
+      "permissionId": 161227168780358
+    },
+    {
+      "id": 162131333775429,
+      "roleId": 162083448594501,
+      "permissionId": 161227168784453
+    },
+    {
+      "id": 162131333775431,
+      "roleId": 162083448594501,
+      "permissionId": 161227168784454
+    },
+    {
+      "id": 162131333775430,
+      "roleId": 162083448594501,
+      "permissionId": 161227168788549
+    },
+    {
+      "id": 162131333775432,
+      "roleId": 162083448594501,
+      "permissionId": 161227168788550
+    },
+    {
+      "id": 162105754484811,
+      "roleId": 162083448594501,
+      "permissionId": 161227168796741
+    },
+    {
+      "id": 162105754484838,
+      "roleId": 162083448594501,
+      "permissionId": 161227168800837
+    },
+    {
+      "id": 162105754484841,
+      "roleId": 162083448594501,
+      "permissionId": 161227168800838
+    },
+    {
+      "id": 162105754484842,
+      "roleId": 162083448594501,
+      "permissionId": 161227168804933
+    },
+    {
+      "id": 162105754484843,
+      "roleId": 162083448594501,
+      "permissionId": 161227168809029
+    },
+    {
+      "id": 162105754484844,
+      "roleId": 162083448594501,
+      "permissionId": 161227168813125
+    },
+    {
+      "id": 162105754488901,
+      "roleId": 162083448594501,
+      "permissionId": 161227168813126
+    },
+    {
+      "id": 162105754484839,
+      "roleId": 162083448594501,
+      "permissionId": 161227168817221
+    },
+    {
+      "id": 162105754484840,
+      "roleId": 162083448594501,
+      "permissionId": 161227168821317
+    },
+    {
+      "id": 162105754484837,
+      "roleId": 162083448594501,
+      "permissionId": 161227168821318
+    },
+    {
+      "id": 162105754488902,
+      "roleId": 162083448594501,
+      "permissionId": 161227168825413
+    },
+    {
+      "id": 162105754488903,
+      "roleId": 162083448594501,
+      "permissionId": 161227168825414
+    },
+    {
+      "id": 162105754488906,
+      "roleId": 162083448594501,
+      "permissionId": 161227168829509
+    },
+    {
+      "id": 162105754488904,
+      "roleId": 162083448594501,
+      "permissionId": 161227168833605
+    },
+    {
+      "id": 162105754488905,
+      "roleId": 162083448594501,
+      "permissionId": 161227168833606
+    },
+    {
+      "id": 162606254506053,
+      "roleId": 162605510979653,
+      "permissionId": 161227168464965
+    },
+    {
+      "id": 162606254497861,
+      "roleId": 162605510979653,
+      "permissionId": 161227168497733
+    },
+    {
+      "id": 162606254506054,
+      "roleId": 162605510979653,
+      "permissionId": 161227168497734
+    },
+    {
+      "id": 162606254510149,
+      "roleId": 162605510979653,
+      "permissionId": 161227168624709
+    },
+    {
+      "id": 162606254510176,
+      "roleId": 162605510979653,
+      "permissionId": 161227168628805
+    },
+    {
+      "id": 162606254506055,
+      "roleId": 162605510979653,
+      "permissionId": 161227168632902
+    },
+    {
+      "id": 162606254506056,
+      "roleId": 162605510979653,
+      "permissionId": 161227168636997
+    },
+    {
+      "id": 162606254506057,
+      "roleId": 162605510979653,
+      "permissionId": 161227168636998
+    },
+    {
+      "id": 162606254510153,
+      "roleId": 162605510979653,
+      "permissionId": 161227168641093
+    },
+    {
+      "id": 162606254510154,
+      "roleId": 162605510979653,
+      "permissionId": 161227168649286
+    },
+    {
+      "id": 162606254506058,
+      "roleId": 162605510979653,
+      "permissionId": 161227168653381
+    },
+    {
+      "id": 162606254510155,
+      "roleId": 162605510979653,
+      "permissionId": 161227168653382
+    },
+    {
+      "id": 162606254510156,
+      "roleId": 162605510979653,
+      "permissionId": 161227168665670
+    },
+    {
+      "id": 162606254506059,
+      "roleId": 162605510979653,
+      "permissionId": 161227168669765
+    },
+    {
+      "id": 162606254510157,
+      "roleId": 162605510979653,
+      "permissionId": 161227168669766
+    },
+    {
+      "id": 162606254510158,
+      "roleId": 162605510979653,
+      "permissionId": 161227168682054
+    },
+    {
+      "id": 162606254506060,
+      "roleId": 162605510979653,
+      "permissionId": 161227168686149
+    },
+    {
+      "id": 162606254510159,
+      "roleId": 162605510979653,
+      "permissionId": 161227168686150
+    },
+    {
+      "id": 162606254510160,
+      "roleId": 162605510979653,
+      "permissionId": 161227168698438
+    },
+    {
+      "id": 162606254506061,
+      "roleId": 162605510979653,
+      "permissionId": 161227168702533
+    },
+    {
+      "id": 162606254510162,
+      "roleId": 162605510979653,
+      "permissionId": 161227168702534
+    },
+    {
+      "id": 162606254510163,
+      "roleId": 162605510979653,
+      "permissionId": 161227168718918
+    },
+    {
+      "id": 162606254510164,
+      "roleId": 162605510979653,
+      "permissionId": 161227168723013
+    },
+    {
+      "id": 162606254510165,
+      "roleId": 162605510979653,
+      "permissionId": 161227168723014
+    },
+    {
+      "id": 162606254510161,
+      "roleId": 162605510979653,
+      "permissionId": 161227168727109
+    },
+    {
+      "id": 162606254506062,
+      "roleId": 162605510979653,
+      "permissionId": 161227168731206
+    },
+    {
+      "id": 162606254510166,
+      "roleId": 162605510979653,
+      "permissionId": 161227168735301
+    },
+    {
+      "id": 162606254510167,
+      "roleId": 162605510979653,
+      "permissionId": 161227168735302
+    },
+    {
+      "id": 162606254510168,
+      "roleId": 162605510979653,
+      "permissionId": 161227168739397
+    },
+    {
+      "id": 162606254506063,
+      "roleId": 162605510979653,
+      "permissionId": 161227168743493
+    },
+    {
+      "id": 162606254510169,
+      "roleId": 162605510979653,
+      "permissionId": 161227168747589
+    },
+    {
+      "id": 162606254506064,
+      "roleId": 162605510979653,
+      "permissionId": 161227168751685
+    },
+    {
+      "id": 162606254510170,
+      "roleId": 162605510979653,
+      "permissionId": 161227168751686
+    },
+    {
+      "id": 162606254510171,
+      "roleId": 162605510979653,
+      "permissionId": 161227168763973
+    },
+    {
+      "id": 162606254506065,
+      "roleId": 162605510979653,
+      "permissionId": 161227168763974
+    },
+    {
+      "id": 162606254506066,
+      "roleId": 162605510979653,
+      "permissionId": 161227168768069
+    },
+    {
+      "id": 162606254506067,
+      "roleId": 162605510979653,
+      "permissionId": 161227168768070
+    },
+    {
+      "id": 162606254510172,
+      "roleId": 162605510979653,
+      "permissionId": 161227168772165
+    },
+    {
+      "id": 162606254510173,
+      "roleId": 162605510979653,
+      "permissionId": 161227168780357
+    },
+    {
+      "id": 162606254506068,
+      "roleId": 162605510979653,
+      "permissionId": 161227168780358
+    },
+    {
+      "id": 162606254506069,
+      "roleId": 162605510979653,
+      "permissionId": 161227168784453
+    },
+    {
+      "id": 162606254510174,
+      "roleId": 162605510979653,
+      "permissionId": 161227168784454
+    },
+    {
+      "id": 162606254506070,
+      "roleId": 162605510979653,
+      "permissionId": 161227168788549
+    },
+    {
+      "id": 162606254510175,
+      "roleId": 162605510979653,
+      "permissionId": 161227168788550
+    },
+    {
+      "id": 162606254510151,
+      "roleId": 162605510979653,
+      "permissionId": 161227168792645
+    },
+    {
+      "id": 162606254510152,
+      "roleId": 162605510979653,
+      "permissionId": 161227168792646
+    },
+    {
+      "id": 162606254510150,
+      "roleId": 162605510979653,
+      "permissionId": 161227168796741
+    },
+    {
+      "id": 162606254510178,
+      "roleId": 162605510979653,
+      "permissionId": 161227168800837
+    },
+    {
+      "id": 162606254510179,
+      "roleId": 162605510979653,
+      "permissionId": 161227168817221
+    },
+    {
+      "id": 162606254510180,
+      "roleId": 162605510979653,
+      "permissionId": 161227168821317
+    },
+    {
+      "id": 162606254510177,
+      "roleId": 162605510979653,
+      "permissionId": 161227168821318
+    },
+    {
+      "id": 162606254510181,
+      "roleId": 162605510979653,
+      "permissionId": 161227168825413
+    },
+    {
+      "id": 162606254510182,
+      "roleId": 162605510979653,
+      "permissionId": 161227168833605
+    }
+  ],
+  "tenants": [
+    {
+      "tenantId": 161223412138053,
+      "id": 161223412138053,
+      "userId": 161223411986501,
+      "roleId": 161223412080709,
+      "name": "中台",
+      "code": "zhontai",
+      "realName": "小雪",
+      "phone": "18988889999",
+      "email": "xiaoxue@zhontai.com",
+      "tenantType": 1,
+      "dataIsolationType": 1,
+      "dbType": 4,
+      "connectionString": "Data Source=|DataDirectory|\\\\admindb.db; Pooling=true;Min Pool Size=1",
+      "idleTime": 10,
+      "description": ""
+    },
+    {
+      "tenantId": 161223412138053,
+      "id": 162083448455237,
+      "userId": 162083448746053,
+      "roleId": 162083448594501,
+      "name": "企业",
+      "code": "qiye",
+      "realName": "租户",
+      "phone": "18988889999",
+      "email": "tenant@qiye.com",
+      "tenantType": 2,
+      "dataIsolationType": 4,
+      "dbType": 4,
+      "connectionString": "Data Source=|DataDirectory|\\\\admindb.db; Pooling=true;Min Pool Size=1",
+      "idleTime": 10,
+      "description": ""
+    }
+  ]
+}

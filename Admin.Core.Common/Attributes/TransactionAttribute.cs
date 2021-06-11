@@ -1,6 +1,6 @@
-﻿using System;
+﻿using FreeSql;
+using System;
 using System.Data;
-using FreeSql;
 
 namespace Admin.Core.Common.Attributes
 {

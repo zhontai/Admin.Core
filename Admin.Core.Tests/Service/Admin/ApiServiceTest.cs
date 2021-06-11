@@ -1,5 +1,5 @@
-﻿using Xunit;
-using Admin.Core.Service.Admin.Api;
+﻿using Admin.Core.Service.Admin.Api;
+using Xunit;
 
 namespace Admin.Core.Tests.Service.Admin
 {
@@ -15,7 +15,7 @@ namespace Admin.Core.Tests.Service.Admin
         [Fact]
         public async void GetAsync()
         {
-            var res = await _apiService.GetAsync(1);
+            var res = await _apiService.GetAsync(161227168079941);
             Assert.True(res.Success);
         }
     }

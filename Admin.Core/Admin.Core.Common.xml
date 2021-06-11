@@ -59,6 +59,16 @@
             租户Id
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Auth.ClaimAttributes.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.IUser">
             <summary>
             用户信息接口
@@ -82,6 +92,16 @@
         <member name="P:Admin.Core.Common.Auth.IUser.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.IUser.DataIsolationType">
+            <summary>
+            数据隔离
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Auth.User">
@@ -109,6 +129,16 @@
             租户Id
             </summary>
         </member>
+        <member name="P:Admin.Core.Common.Auth.User.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Common.Auth.User.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Auth.UserIdentiyServer">
             <summary>
             用户信息
@@ -117,6 +147,31 @@
         <member name="P:Admin.Core.Common.Auth.UserIdentiyServer.Id">
             <summary>
             用户Id
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Common.BaseModel.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.DataIsolationType.Share">
+            <summary>
+            共享数据库
             </summary>
         </member>
         <member name="P:Admin.Core.Common.BaseModel.IEntity`1.Id">
@@ -254,6 +309,21 @@
             租户Id
             </summary>
         </member>
+        <member name="T:Admin.Core.Common.BaseModel.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.TenantType.Platform">
+            <summary>
+            平台
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.BaseModel.TenantType.Tenant">
+            <summary>
+            租户
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Cache.CacheKey">
             <summary>
             缓存键
@@ -272,6 +342,16 @@
         <member name="F:Admin.Core.Common.Cache.CacheKey.UserPermissions">
             <summary>
             用户权限 admin:user:用户主键:permissions
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.UserInfo">
+            <summary>
+            用户信息 admin:user:用户主键:info
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Cache.CacheKey.TenantInfo">
+            <summary>
+            租户信息 admin:tenant:租户主键:info
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Cache.CacheType">
@@ -339,7 +419,7 @@
             <summary>
             获取指定 key 的值
             </summary>
-            <typeparam name="T">byte[] 或其他类型</typeparam>
+            <typeparam name="T">数据类型</typeparam>
             <param name="key">键</param>
             <returns></returns>
         </member>
@@ -354,7 +434,7 @@
             <summary>
             获取指定 key 的值
             </summary>
-            <typeparam name="T">byte[] 或其他类型</typeparam>
+            <typeparam name="T">数据类型</typeparam>
             <param name="key">键</param>
             <returns></returns>
         </member>
@@ -390,6 +470,16 @@
             <param name="expire">有效期</param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Common.Cache.ICache.GetOrSetAsync``1(System.String,System.Func{System.Threading.Tasks.Task{``0}},System.Nullable{System.TimeSpan})">
+            <summary>
+            获取或设置缓存
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+            <param name="key">键</param>
+            <param name="func">获取数据的方法</param>
+            <param name="expire">有效期</param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Common.Cache.MemoryCache">
             <summary>
             内存缓存
@@ -398,26 +488,6 @@
         <member name="T:Admin.Core.Common.Cache.RedisCache">
             <summary>
             Redis缓存
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Common.Configs.TenantType">
-            <summary>
-            租户类型
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.None">
-            <summary>
-            无租户
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.Share">
-            <summary>
-            共享数据库
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Common.Configs.TenantType.Own">
-            <summary>
-            独立数据库
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Configs.AppConfig">
@@ -435,7 +505,7 @@
             跨域地址，默认 http://*:9000
             </summary>
         </member>
-        <member name="P:Admin.Core.Common.Configs.AppConfig.TenantType">
+        <member name="P:Admin.Core.Common.Configs.AppConfig.Tenant">
             <summary>
             租户类型
             </summary>
@@ -764,6 +834,18 @@
             <param name="s"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Common.Extensions.ListExtensions.ToTree``1(System.Collections.Generic.List{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,``0,System.Boolean},System.Action{``0,System.Collections.Generic.IEnumerable{``0}},``0)">
+            <summary>
+            将列表转换为树形结构
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="list">数据</param>
+            <param name="rootWhere">根条件</param>
+            <param name="childsWhere">节点条件</param>
+            <param name="addChilds">添加子节点</param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Common.Files.FileInfo">
             <summary>
             文件信息
@@ -1056,14 +1138,14 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Helpers.HtmlHelper.CookieContainer">
-            <summary> 
+            <summary>
             Cookie
-            </summary> 
+            </summary>
         </member>
         <member name="P:Admin.Core.Common.Helpers.HtmlHelper.Encoding">
-            <summary> 
+            <summary>
             语言
-            </summary> 
+            </summary>
         </member>
         <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHtml(System.String,System.String,System.Boolean,System.Net.CookieContainer)">
             <summary>
@@ -1099,7 +1181,7 @@
             <summary>
             删除文本中带的HTML标记
             </summary>
-            <param name="InString">输入要删除带HTML的字符串</param>    
+            <param name="InString">输入要删除带HTML的字符串</param>
             <returns>返回处理过的字符串</returns>
         </member>
         <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHref(System.String)">

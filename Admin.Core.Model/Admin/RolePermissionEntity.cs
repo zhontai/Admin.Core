@@ -8,14 +8,8 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_role_permission")]
     [Index("idx_{tablename}_01", nameof(RoleId) + "," + nameof(PermissionId), true)]
-    public class RolePermissionEntity: EntityAdd, ITenant
+    public class RolePermissionEntity : EntityAdd
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 角色Id
         /// </summary>
@@ -36,5 +30,4 @@ namespace Admin.Core.Model.Admin
         /// </summary>
         public PermissionEntity Permission { get; set; }
     }
-
 }

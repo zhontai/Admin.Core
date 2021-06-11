@@ -25,10 +25,11 @@ namespace Admin.Core.Common.Configs
     public class FileUploadConfig
     {
         private string _uploadPath;
+
         /// <summary>
         /// 上传路径
         /// </summary>
-        public string UploadPath 
+        public string UploadPath
         {
             get
             {

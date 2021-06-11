@@ -4,7 +4,7 @@ namespace Admin.Core.Common.Helpers
 {
     public static class ConsoleHelper
     {
-        static void WriteColorLine(string str, ConsoleColor color)
+        private static void WriteColorLine(string str, ConsoleColor color)
         {
             ConsoleColor currentForeColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
@@ -31,6 +31,7 @@ namespace Admin.Core.Common.Helpers
         {
             WriteColorLine(str, color);
         }
+
         /// <summary>
         /// 打印正常信息
         /// </summary>
@@ -40,6 +41,7 @@ namespace Admin.Core.Common.Helpers
         {
             WriteColorLine(str, color);
         }
+
         /// <summary>
         /// 打印成功的信息
         /// </summary>
@@ -49,6 +51,5 @@ namespace Admin.Core.Common.Helpers
         {
             WriteColorLine(str, color);
         }
-
     }
 }

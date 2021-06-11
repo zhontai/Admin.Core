@@ -14,8 +14,8 @@
   private readonly ILogger _logger;
   constructor()
   {
-    _logger = LogManager.GetLogger("loggerName"); 
-    或 
+    _logger = LogManager.GetLogger("loggerName");
+    或
     _logger = LogManager.GetCurrentClassLogger();
   }
    _logger.Error("错误");

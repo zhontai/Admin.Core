@@ -1,5 +1,4 @@
-﻿
-namespace Admin.Core.Model.Admin
+﻿namespace Admin.Core.Model.Admin
 {
     /// <summary>
     /// 文档类型
@@ -10,6 +9,7 @@ namespace Admin.Core.Model.Admin
         /// 分组
         /// </summary>
         Group = 1,
+
         /// <summary>
         /// Markdown文档
         /// </summary>

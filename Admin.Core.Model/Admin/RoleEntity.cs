@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -9,8 +9,9 @@ namespace Admin.Core.Model.Admin
     /// 角色
     /// </summary>
 	[Table(Name = "ad_role")]
-    [Index("idx_{tablename}_01", nameof(Name), true)]
-    public class RoleEntity: EntityFull, ITenant
+    [Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
+    [Index("idx_{tablename}_02", nameof(Code) + "," + nameof(TenantId), true)]
+    public class RoleEntity : EntityFull, ITenant
     {
         /// <summary>
         /// 租户Id
@@ -25,10 +26,16 @@ namespace Admin.Core.Model.Admin
         public string Name { get; set; }
 
         /// <summary>
+        /// 编码
+        /// </summary>
+        [Column(StringLength = 50)]
+        public string Code { get; set; }
+
+        /// <summary>
         /// 说明
         /// </summary>
         [Column(StringLength = 200)]
-		public string Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// 启用
@@ -46,5 +53,4 @@ namespace Admin.Core.Model.Admin
         [Navigate(ManyToMany = typeof(RolePermissionEntity))]
         public ICollection<PermissionEntity> Permissions { get; set; }
     }
-
 }

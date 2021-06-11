@@ -21,7 +21,7 @@ namespace Admin.Core.Common.Extensions
             return Convert.ToInt64(item);
         }
 
-        public static List<OptionOutput> ToList(this Enum value, bool ignoreUnKnown = false)
+        public static List<OptionOutput> ToList(this Enum value, bool ignoreNull = false)
         {
             var enumType = value.GetType();
 
@@ -29,14 +29,14 @@ namespace Admin.Core.Common.Extensions
                 return null;
 
             return Enum.GetValues(enumType).Cast<Enum>()
-                .Where(m => !ignoreUnKnown || !m.ToString().Equals("UnKnown")).Select(x => new OptionOutput
+                .Where(m => !ignoreNull || !m.ToString().Equals("Null")).Select(x => new OptionOutput
                 {
                     Label = x.ToDescription(),
                     Value = x
                 }).ToList();
         }
 
-        public static List<OptionOutput> ToList<T>(bool ignoreUnKnown = false)
+        public static List<OptionOutput> ToList<T>(bool ignoreNull = false)
         {
             var enumType = typeof(T);
 
@@ -44,7 +44,7 @@ namespace Admin.Core.Common.Extensions
                 return null;
 
             return Enum.GetValues(enumType).Cast<Enum>()
-                 .Where(m => !ignoreUnKnown || !m.ToString().Equals("UnKnown")).Select(x => new OptionOutput
+                 .Where(m => !ignoreNull || !m.ToString().Equals("Null")).Select(x => new OptionOutput
                  {
                      Label = x.ToDescription(),
                      Value = x

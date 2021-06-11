@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Admin.Core.Service.Admin.User;
+using System.Linq;
 using System.Threading.Tasks;
-using Admin.Core.Service.Admin.User;
 
 namespace Admin.Core.Auth
 {
@@ -26,7 +26,7 @@ namespace Admin.Core.Auth
         {
             var permissions = await _userService.GetPermissionsAsync();
 
-            var valid = permissions.Any(m => 
+            var valid = permissions.Any(m =>
                 m.Path.NotNull() && m.Path.EqualsIgnoreCase($"/{api}")
                 && m.HttpMethods.NotNull() && m.HttpMethods.Split(',').Any(n => n.NotNull() && n.EqualsIgnoreCase(httpMethod))
             );

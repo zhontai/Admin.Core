@@ -5,7 +5,9 @@
     /// </summary>
     public class FileInfo
     {
-        public FileInfo() { }
+        public FileInfo()
+        {
+        }
 
         /// <summary>
         /// 初始化文件信息

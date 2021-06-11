@@ -1,4 +1,5 @@
-﻿
+﻿using Admin.Core.Common.Helpers;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Admin.Core.Common.Helpers;
 
 namespace Admin.Core.Common.Cache
 {
@@ -17,6 +16,7 @@ namespace Admin.Core.Common.Cache
     public class MemoryCache : ICache
     {
         private readonly IMemoryCache _memoryCache;
+
         public MemoryCache(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
@@ -24,7 +24,7 @@ namespace Admin.Core.Common.Cache
 
         public long Del(params string[] key)
         {
-            foreach(var k in key)
+            foreach (var k in key)
             {
                 _memoryCache.Remove(k);
             }
@@ -49,8 +49,8 @@ namespace Admin.Core.Common.Cache
             pattern = Regex.Replace(pattern, @"\{.*\}", "(.*)");
 
             var keys = GetAllKeys().Where(k => Regex.IsMatch(k, pattern));
-            
-            if(keys != null && keys.Count() > 0)
+
+            if (keys != null && keys.Count() > 0)
             {
                 return await DelAsync(keys.ToArray());
             }
@@ -110,6 +110,34 @@ namespace Admin.Core.Common.Cache
         {
             Set(key, value, expire);
             return Task.FromResult(true);
+        }
+
+        public async Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null)
+        {
+            if (await ExistsAsync(key))
+            {
+                try
+                {
+                    return await GetAsync<T>(key);
+                }
+                catch
+                {
+                    await DelAsync(key);
+                }
+            }
+
+            var result = await func.Invoke();
+
+            if (expire.HasValue)
+            {
+                await SetAsync(key, result, expire.Value);
+            }
+            else
+            {
+                await SetAsync(key, result);
+            }
+
+            return result;
         }
 
         private List<string> GetAllKeys()

@@ -1,8 +1,8 @@
 using Admin.Core.Model.Admin;
 
 namespace Admin.Core.Repository.Admin
-{	
-	public interface IRoleRepository : IRepositoryBase<RoleEntity>
+{
+    public interface IRoleRepository : IRepositoryBase<RoleEntity>
     {
     }
 }

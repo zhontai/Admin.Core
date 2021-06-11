@@ -1,16 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
+﻿using Admin.Core.Common.Configs;
+using Admin.Core.Common.Helpers;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Autofac.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NLog.Web;
-using Admin.Core.Common.Configs;
-using Admin.Core.Common.Helpers;
+using System;
+using System.IO;
+using System.Net.Http;
 using EnvironmentName = Microsoft.AspNetCore.Hosting.EnvironmentName;
 
 namespace Admin.Core.Tests
@@ -39,7 +39,6 @@ namespace Admin.Core.Tests
         private IHostBuilder CreateHostBuilder()
         {
             var configsPath = Path.Combine(AppContext.BaseDirectory, "configs").ToPath();
-            
 
             return Host.CreateDefaultBuilder()
                   .UseServiceProviderFactory(new AutofacServiceProviderFactory())

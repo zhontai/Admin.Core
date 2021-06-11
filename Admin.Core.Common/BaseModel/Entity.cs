@@ -1,4 +1,5 @@
-﻿using FreeSql.DataAnnotations;
+﻿using Admin.Core.Common.Attributes;
+using FreeSql.DataAnnotations;
 using System.ComponentModel;
 
 namespace Admin.Core.Common.BaseModel
@@ -15,19 +16,18 @@ namespace Admin.Core.Common.BaseModel
     {
     }
 
-
     public class Entity<TKey> : IEntity<TKey>
     {
         /// <summary>
         /// 主键Id
         /// </summary>
         [Description("主键Id")]
-        [Column(Position = 1, IsIdentity = true)]
+        [Snowflake]
+        [Column(Position = 1, IsIdentity = false, IsPrimary = true)]
         public virtual TKey Id { get; set; }
     }
 
     public class Entity : Entity<long>
     {
-
     }
 }

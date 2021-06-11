@@ -1,15 +1,14 @@
-﻿
-using System;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Admin.Core.Common.Extensions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using StatusCodes = Admin.Core.Enums.StatusCodes;
-using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Auth
 {
@@ -19,9 +18,9 @@ namespace Admin.Core.Auth
     public class ResponseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public ResponseAuthenticationHandler(
-            IOptionsMonitor<AuthenticationSchemeOptions> options, 
-            ILoggerFactory logger, 
-            UrlEncoder encoder, 
+            IOptionsMonitor<AuthenticationSchemeOptions> options,
+            ILoggerFactory logger,
+            UrlEncoder encoder,
             ISystemClock clock
         ) : base(options, logger, encoder, clock)
         {

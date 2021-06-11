@@ -1,5 +1,4 @@
-﻿
-namespace Admin.Core.Common.BaseModel
+﻿namespace Admin.Core.Common.BaseModel
 {
     public interface ITenant
     {

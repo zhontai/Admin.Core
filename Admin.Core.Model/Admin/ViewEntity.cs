@@ -1,6 +1,7 @@
-using System;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -9,18 +10,15 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_view")]
     [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
-    public class ViewEntity : EntityFull, ITenant
+    public class ViewEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 所属节点
         /// </summary>
 		public long ParentId { get; set; }
+
+        [Navigate(nameof(ParentId))]
+        public List<ViewEntity> Childs { get; set; }
 
         /// <summary>
         /// 视图命名

@@ -1,16 +1,16 @@
-﻿using System.Threading.Tasks;
-using Admin.Core.Service.Admin.User;
-using Admin.Core.Common.Output;
-using Admin.Core.Common.Input;
-using Admin.Core.Model.Admin;
-using Admin.Core.Service.Admin.User.Input;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Attributes;
-using Microsoft.AspNetCore.Http;
+﻿using Admin.Core.Attributes;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Helpers;
+using Admin.Core.Common.Input;
+using Admin.Core.Common.Output;
+using Admin.Core.Model.Admin;
+using Admin.Core.Service.Admin.User;
+using Admin.Core.Service.Admin.User.Input;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -27,7 +27,7 @@ namespace Admin.Core.Controllers.Admin
         public UserController(
             IUser user,
             IOptionsMonitor<UploadConfig> uploadConfig,
-            UploadHelper uploadHelper, 
+            UploadHelper uploadHelper,
             IUserService userServices
         )
         {
@@ -143,7 +143,7 @@ namespace Admin.Core.Controllers.Admin
         /// <returns></returns>
         [HttpPost]
         [Login]
-        public async Task<IResponseOutput> AvatarUpload([FromForm]IFormFile file)
+        public async Task<IResponseOutput> AvatarUpload([FromForm] IFormFile file)
         {
             var config = _uploadConfig.Avatar;
             var res = await _uploadHelper.UploadAsync(file, config, new { _user.Id });
@@ -152,7 +152,7 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.Ok(res.Data.FileRelativePath);
             }
 
-            return ResponseOutput.NotOk("上传失败！");
+            return ResponseOutput.NotOk(res.Msg ?? "上传失败！");
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Admin.Core.Common.Helpers;
+using System;
 using System.Linq;
 using System.Text;
-using Admin.Core.Common.Helpers;
+using System.Text.RegularExpressions;
 
 namespace Admin.Core
 {
@@ -97,6 +98,34 @@ namespace Admin.Core
                 return string.Empty;
 
             return s.Replace(@"\", "/");
+        }
+
+        public static string Format(this string str, object obj)
+        {
+            if (str.IsNull())
+            {
+                return str;
+            }
+            string s = str;
+            if (obj.GetType().Name == "JObject")
+            {
+                foreach (var item in (Newtonsoft.Json.Linq.JObject)obj)
+                {
+                    var k = item.Key.ToString();
+                    var v = item.Value.ToString();
+                    s = Regex.Replace(s, "\\{" + k + "\\}", v, RegexOptions.IgnoreCase);
+                }
+            }
+            else
+            {
+                foreach (System.Reflection.PropertyInfo p in obj.GetType().GetProperties())
+                {
+                    var xx = p.Name;
+                    var yy = p.GetValue(obj).ToString();
+                    s = Regex.Replace(s, "\\{" + xx + "\\}", yy, RegexOptions.IgnoreCase);
+                }
+            }
+            return s;
         }
     }
 }

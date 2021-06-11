@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Common.Output;
+﻿using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Permission;
 using Admin.Core.Service.Admin.Permission.Input;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -29,7 +29,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _permissionServices.ListAsync(key,start,end);
+            return await _permissionServices.ListAsync(key, start, end);
         }
 
         /// <summary>
@@ -207,5 +207,4 @@ namespace Admin.Core.Controllers.Admin
             return await _permissionServices.AssignAsync(input);
         }
     }
-
 }

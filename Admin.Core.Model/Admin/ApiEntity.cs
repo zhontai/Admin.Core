@@ -1,6 +1,7 @@
-using System;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -9,18 +10,15 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_api")]
     [Index("idx_{tablename}_01", nameof(Path), true)]
-    public class ApiEntity : EntityFull, ITenant
+    public class ApiEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 所属模块
         /// </summary>
 		public long ParentId { get; set; }
+
+        [Navigate(nameof(ParentId))]
+        public List<ApiEntity> Childs { get; set; }
 
         /// <summary>
         /// 接口命名
@@ -61,6 +59,5 @@ namespace Admin.Core.Model.Admin
         /// 启用
         /// </summary>
         public bool Enabled { get; set; } = true;
-
     }
 }

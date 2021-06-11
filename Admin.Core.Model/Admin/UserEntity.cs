@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -9,14 +9,16 @@ namespace Admin.Core.Model.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("idx_{tablename}_01", nameof(UserName), true)]
-    public class UserEntity: EntityFull, ITenant
+    [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
+    public class UserEntity : EntityFull, ITenant
     {
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10, CanUpdate = true)]
+        [Column(Position = -10)]
         public long? TenantId { get; set; }
+
+        public TenantEntity Tenant { get; set; }
 
         /// <summary>
         /// 账号
@@ -39,7 +41,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 头像
         /// </summary>
-       [Column(StringLength = 100)]
+        [Column(StringLength = 100)]
         public string Avatar { get; set; }
 
         /// <summary>

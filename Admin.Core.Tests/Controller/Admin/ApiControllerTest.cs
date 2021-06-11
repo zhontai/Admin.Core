@@ -1,7 +1,7 @@
-﻿using Xunit;
-using System.Net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
+using Xunit;
 
 namespace Admin.Core.Tests.Controller.Admin
 {

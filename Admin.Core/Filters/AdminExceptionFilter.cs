@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Admin.Core.Common.Extensions;
+using Admin.Core.Common.Output;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Admin.Core.Common.Output;
 using System.Threading.Tasks;
-using Admin.Core.Common.Extensions;
 
 namespace Admin.Core.Filters
 {
@@ -35,7 +35,7 @@ namespace Admin.Core.Filters
                 message = context.Exception.Message;
             }
 
-            _logger.LogError(context.Exception,"");
+            _logger.LogError(context.Exception, "");
             var data = ResponseOutput.NotOk(message);
             context.Result = new InternalServerErrorResult(data);
         }
@@ -46,6 +46,7 @@ namespace Admin.Core.Filters
             return Task.CompletedTask;
         }
     }
+
     public class InternalServerErrorResult : ObjectResult
     {
         public InternalServerErrorResult(object value) : base(value)
@@ -53,5 +54,4 @@ namespace Admin.Core.Filters
             StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
         }
     }
-
 }

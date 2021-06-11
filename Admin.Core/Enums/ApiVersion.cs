@@ -1,5 +1,4 @@
-﻿
-namespace Admin.Core.Enums
+﻿namespace Admin.Core.Enums
 {
     /// <summary>
     /// 接口版本
@@ -10,6 +9,7 @@ namespace Admin.Core.Enums
         /// V1 版本
         /// </summary>
         V1 = 1,
+
         /// <summary>
         /// V2 版本
         /// </summary>

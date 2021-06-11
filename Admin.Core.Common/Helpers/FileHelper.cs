@@ -11,6 +11,7 @@ namespace Admin.Core.Common.Helpers
         public FileHelper()
         {
         }
+
         ~FileHelper()
         {
             Dispose();
@@ -21,6 +22,7 @@ namespace Admin.Core.Common.Helpers
             if (_alreadyDispose) return;
             _alreadyDispose = true;
         }
+
         public void Dispose()
         {
             Dispose(true);
@@ -28,6 +30,7 @@ namespace Admin.Core.Common.Helpers
         }
 
         #region 写文件
+
         /// <summary>
         /// 写文件
         /// </summary>
@@ -62,9 +65,11 @@ namespace Admin.Core.Common.Helpers
             streamWriter.Close();
             streamWriter.Dispose();
         }
-        #endregion
+
+        #endregion 写文件
 
         #region 读文件
+
         /// <summary>
         /// 读文件
         /// </summary>
@@ -107,6 +112,7 @@ namespace Admin.Core.Common.Helpers
 
             return s;
         }
-        #endregion
+
+        #endregion 读文件
     }
 }

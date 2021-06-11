@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Common.Input;
+﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Tenant;
 using Admin.Core.Service.Admin.Tenant.Input;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -62,6 +62,17 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> Update(TenantUpdateInput input)
         {
             return await _roleServices.UpdateAsync(input);
+        }
+
+        /// <summary>
+        /// 彻底删除租户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResponseOutput> Delete(long id)
+        {
+            return await _roleServices.DeleteAsync(id);
         }
 
         /// <summary>

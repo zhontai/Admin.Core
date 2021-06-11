@@ -89,7 +89,7 @@ namespace Admin.Core.Common.Output
         /// <param name="msg">消息</param>
         /// <param name="data">数据</param>
         /// <returns></returns>
-        public static IResponseOutput NotOk<T>(string msg = null,T data = default(T))
+        public static IResponseOutput NotOk<T>(string msg = null, T data = default(T))
         {
             return new ResponseOutput<T>().NotOk(msg, data);
         }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 
 namespace Admin.Core.Common.Helpers
 {

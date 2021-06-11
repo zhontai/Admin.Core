@@ -1,4 +1,6 @@
-﻿namespace Admin.Core.Common.Auth
+﻿using Admin.Core.Common.BaseModel;
+
+namespace Admin.Core.Common.Auth
 {
     /// <summary>
     /// 用户信息接口
@@ -24,5 +26,15 @@
         /// 租户Id
         /// </summary>
         long? TenantId { get; }
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        TenantType? TenantType { get; }
+
+        /// <summary>
+        /// 数据隔离
+        /// </summary>
+        DataIsolationType? DataIsolationType { get; }
     }
 }
