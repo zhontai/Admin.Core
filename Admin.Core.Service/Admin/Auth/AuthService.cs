@@ -15,14 +15,12 @@ namespace Admin.Core.Service.Admin.Auth
     public class AuthService : BaseService, IAuthService
     {
         private readonly AppConfig _appConfig;
-        private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IUserRepository _userRepository;
         private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly ITenantRepository _tenantRepository;
 
         public AuthService(
-            ICache cache,
             AppConfig appConfig,
             VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
@@ -30,7 +28,6 @@ namespace Admin.Core.Service.Admin.Auth
             ITenantRepository tenantRepository
         )
         {
-            _cache = cache;
             _appConfig = appConfig;
             _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
@@ -44,7 +41,7 @@ namespace Admin.Core.Service.Admin.Auth
             var guid = Guid.NewGuid().ToString("N");
             var key = string.Format(CacheKey.PassWordEncryptKey, guid);
             var encyptKey = StringHelper.GenerateRandom(8);
-            await _cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
+            await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
             var data = new { key = guid, encyptKey };
 
             return ResponseOutput.Ok(data);
@@ -58,7 +55,7 @@ namespace Admin.Core.Service.Admin.Auth
             }
 
             var key = string.Format(CacheKey.UserInfo, User.Id);
-            var output = await _cache.GetOrSetAsync(key, async () =>
+            var output = await Cache.GetOrSetAsync(key, async () =>
             {
                 var authUserInfoOutput = new AuthUserInfoOutput { };
                 //用户信息
@@ -101,13 +98,13 @@ namespace Admin.Core.Service.Admin.Auth
             //删除上次缓存的验证码
             if (lastKey.NotNull())
             {
-                await _cache.DelAsync(lastKey);
+                await Cache.DelAsync(lastKey);
             }
 
             //写入Redis
             var guid = Guid.NewGuid().ToString("N");
             var key = string.Format(CacheKey.VerifyCodeKey, guid);
-            await _cache.SetAsync(key, code, TimeSpan.FromMinutes(5));
+            await Cache.SetAsync(key, code, TimeSpan.FromMinutes(5));
 
             var data = new AuthGetVerifyCodeOutput { Key = guid, Img = img };
             return ResponseOutput.Ok(data);
@@ -120,10 +117,10 @@ namespace Admin.Core.Service.Admin.Auth
             if (_appConfig.VarifyCode.Enable)
             {
                 var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
-                var exists = await _cache.ExistsAsync(verifyCodeKey);
+                var exists = await Cache.ExistsAsync(verifyCodeKey);
                 if (exists)
                 {
-                    var verifyCode = await _cache.GetAsync(verifyCodeKey);
+                    var verifyCode = await Cache.GetAsync(verifyCodeKey);
                     if (string.IsNullOrEmpty(verifyCode))
                     {
                         return ResponseOutput.NotOk("验证码已过期！", 1);
@@ -132,7 +129,7 @@ namespace Admin.Core.Service.Admin.Auth
                     {
                         return ResponseOutput.NotOk("验证码输入有误！", 2);
                     }
-                    await _cache.DelAsync(verifyCodeKey);
+                    await Cache.DelAsync(verifyCodeKey);
                 }
                 else
                 {
@@ -157,16 +154,16 @@ namespace Admin.Core.Service.Admin.Auth
             if (input.PasswordKey.NotNull())
             {
                 var passwordEncryptKey = string.Format(CacheKey.PassWordEncryptKey, input.PasswordKey);
-                var existsPasswordKey = await _cache.ExistsAsync(passwordEncryptKey);
+                var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
                 if (existsPasswordKey)
                 {
-                    var secretKey = await _cache.GetAsync(passwordEncryptKey);
+                    var secretKey = await Cache.GetAsync(passwordEncryptKey);
                     if (secretKey.IsNull())
                     {
                         return ResponseOutput.NotOk("解密失败！", 1);
                     }
                     input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                    await _cache.DelAsync(passwordEncryptKey);
+                    await Cache.DelAsync(passwordEncryptKey);
                 }
                 else
                 {
@@ -192,7 +189,7 @@ namespace Admin.Core.Service.Admin.Auth
             }
 
             //登录清空用户缓存
-            await _cache.DelAsync(string.Format(CacheKey.UserInfo, user.Id));
+            await Cache.DelAsync(string.Format(CacheKey.UserInfo, user.Id));
 
             return ResponseOutput.Ok(authLoginOutput);
         }

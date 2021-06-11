@@ -20,7 +20,6 @@ namespace Admin.Core.Service.Admin.User
     /// </summary>
     public class UserService : BaseService, IUserService
     {
-        private readonly ICache _cache;
         private readonly AppConfig _appConfig;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
@@ -28,7 +27,6 @@ namespace Admin.Core.Service.Admin.User
         private readonly ITenantRepository _tenantRepository;
 
         public UserService(
-            ICache cache,
             AppConfig appConfig,
             IUserRepository userRepository,
             IUserRoleRepository userRoleRepository,
@@ -36,7 +34,6 @@ namespace Admin.Core.Service.Admin.User
             ITenantRepository tenantRepository
         )
         {
-            _cache = cache;
             _appConfig = appConfig;
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
@@ -47,10 +44,10 @@ namespace Admin.Core.Service.Admin.User
         public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
         {
             var output = new ResponseOutput<AuthLoginOutput>();
-            var entityDto = await _userRepository.GetAsync<AuthLoginOutput>(id);
+            var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
             if (_appConfig.Tenant)
             {
-                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(User.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
                 output.Data.TenantType = tenant.TenantType;
                 output.Data.DataIsolationType = tenant.DataIsolationType;
             }
@@ -84,7 +81,7 @@ namespace Admin.Core.Service.Admin.User
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
         {
             var key = string.Format(CacheKey.UserPermissions, User.Id);
-            var result = await _cache.GetOrSetAsync(key, async () =>
+            var result = await Cache.GetOrSetAsync(key, async () =>
             {
                 var userPermissoins = await _rolePermissionRepository.Select
                 .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)
@@ -175,7 +172,7 @@ namespace Admin.Core.Service.Admin.User
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
             //清除用户缓存
-            await _cache.DelAsync(string.Format(CacheKey.UserInfo, input.Id));
+            await Cache.DelAsync(string.Format(CacheKey.UserInfo, input.Id));
 
             return ResponseOutput.Result(result);
         }

@@ -17,7 +17,6 @@ namespace Admin.Core.Service.Admin.Permission
     public class PermissionService : BaseService, IPermissionService
     {
         private readonly AppConfig _appConfig;
-        private readonly ICache _cache;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
@@ -25,7 +24,6 @@ namespace Admin.Core.Service.Admin.Permission
 
         public PermissionService(
             AppConfig appConfig,
-            ICache cache,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
             IRolePermissionRepository rolePermissionRepository,
@@ -33,7 +31,6 @@ namespace Admin.Core.Service.Admin.Permission
         )
         {
             _appConfig = appConfig;
-            _cache = cache;
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
@@ -226,7 +223,7 @@ namespace Admin.Core.Service.Admin.Permission
             }
 
             //Çå³ýÈ¨ÏÞ
-            await _cache.DelByPatternAsync(CacheKey.UserPermissions);
+            await Cache.DelByPatternAsync(CacheKey.UserPermissions);
 
             return ResponseOutput.Ok();
         }

@@ -11,13 +11,8 @@ namespace Admin.Core.Service.Admin.Cache
 {
     public class CacheService : BaseService, ICacheService
     {
-        private readonly ICache _cache;
-        private readonly ILogger<CacheService> _logger;
-
-        public CacheService(ICache cache, ILogger<CacheService> logger)
+        public CacheService()
         {
-            _cache = cache;
-            _logger = logger;
         }
 
         public IResponseOutput List()
@@ -42,8 +37,8 @@ namespace Admin.Core.Service.Admin.Cache
 
         public async Task<IResponseOutput> ClearAsync(string cacheKey)
         {
-            _logger.LogWarning($"{User.Id}.{User.Name}清除缓存[{cacheKey}]");
-            await _cache.DelByPatternAsync(cacheKey);
+            Logger.LogWarning($"{User.Id}.{User.Name}清除缓存[{cacheKey}]");
+            await Cache.DelByPatternAsync(cacheKey);
             return ResponseOutput.Ok();
         }
     }

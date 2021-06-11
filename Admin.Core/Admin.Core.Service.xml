@@ -1733,5 +1733,30 @@
             说明
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.BaseService.Cache">
+            <summary>
+            缓存
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.BaseService.LoggerFactory">
+            <summary>
+            日志工厂
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.BaseService.Mapper">
+            <summary>
+            映射
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.BaseService.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.BaseService.Logger">
+            <summary>
+            日志
+            </summary>
+        </member>
     </members>
 </doc>
