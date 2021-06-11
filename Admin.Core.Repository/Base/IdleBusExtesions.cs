@@ -45,16 +45,11 @@ namespace Admin.Core.Repository
         private static IFreeSql CreateFreeSql(IUser user, AppConfig appConfig, IServiceProvider serviceProvider)
         {
             var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-            var cache = serviceProvider.GetRequiredService<ICache>();
-
+            
             //查询租户数据库信息
-            var key = string.Format(CacheKey.TenantInfo, user.TenantId);
-            var tenant = cache.GetOrSetAsync(key, async () =>
-            {
-                var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
-                var tenantRepository = freeSql.GetRepository<TenantEntity>();
-                return await tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.DbType, a.ConnectionString });
-            }).Result;
+            var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
+            var tenantRepository = freeSql.GetRepository<TenantEntity>();
+            var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOne(a => new { a.DbType, a.ConnectionString });
 
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(tenant.DbType.Value, tenant.ConnectionString)
