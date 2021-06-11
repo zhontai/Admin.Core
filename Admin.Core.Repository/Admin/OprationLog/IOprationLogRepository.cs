@@ -6,6 +6,3 @@ namespace Admin.Core.Repository.Admin
     {
     }
 }
-
-
-	

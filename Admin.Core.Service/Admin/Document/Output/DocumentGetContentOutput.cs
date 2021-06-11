@@ -1,7 +1,3 @@
-
-using Admin.Core.Service.Admin.Document.Input;
-using Newtonsoft.Json;
-
 namespace Admin.Core.Service.Admin.Document.Output
 {
     public class DocumentGetContentOutput

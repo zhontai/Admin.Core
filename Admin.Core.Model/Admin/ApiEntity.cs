@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Model.Admin
 {
@@ -59,6 +59,5 @@ namespace Admin.Core.Model.Admin
         /// 启用
         /// </summary>
         public bool Enabled { get; set; } = true;
-
     }
 }

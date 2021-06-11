@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Helpers;
+using Admin.Core.Repository;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Admin.Core.Common.Helpers;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Repository;
 
 namespace Admin.Core.Logs
 {
@@ -21,7 +21,7 @@ namespace Admin.Core.Logs
         public List<ApiHelperDto> GetApis()
         {
             if (_apis != null && _apis.Any())
-                    return _apis;
+                return _apis;
 
             lock (_lockObject)
             {
@@ -54,6 +54,7 @@ namespace Admin.Core.Logs
         /// 接口名称
         /// </summary>
         public string Label { get; set; }
+
         /// <summary>
         /// 接口地址
         /// </summary>

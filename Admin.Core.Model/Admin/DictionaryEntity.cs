@@ -2,14 +2,14 @@ using Admin.Core.Common.BaseModel;
 using FreeSql.DataAnnotations;
 using System.Collections.Generic;
 
-namespace Admin.Core.Model.Admin 
+namespace Admin.Core.Model.Admin
 {
     /// <summary>
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
     [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-    public class DictionaryEntity: EntityFull, ITenant
+    public class DictionaryEntity : EntityFull, ITenant
     {
         /// <summary>
         /// 租户Id

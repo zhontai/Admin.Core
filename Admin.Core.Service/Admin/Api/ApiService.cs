@@ -1,19 +1,20 @@
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Api.Input;
 using Admin.Core.Service.Admin.Api.Output;
-using Admin.Core.Common.Attributes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Api
 {
     public class ApiService : BaseService, IApiService
     {
         private readonly IApiRepository _apiRepository;
+
         public ApiService(IApiRepository moduleRepository)
         {
             _apiRepository = moduleRepository;
@@ -45,8 +46,8 @@ namespace Admin.Core.Service.Admin.Api
             .Page(input.CurrentPage, input.PageSize)
             .ToListAsync();
 
-            var data = new PageOutput<ApiEntity>() 
-            { 
+            var data = new PageOutput<ApiEntity>()
+            {
                 List = list,
                 Total = total
             };
@@ -119,6 +120,7 @@ namespace Admin.Core.Service.Admin.Api
             }
 
             #region 执行插入
+
             //执行父级api插入
             var parentApis = input.Apis.FindAll(a => a.ParentPath.IsNull());
             var pApis = (from a in parentApis where !paths.Contains(a.Path) select a).ToList();
@@ -138,9 +140,11 @@ namespace Admin.Core.Service.Admin.Api
                 insertCApis = await _apiRepository.InsertAsync(insertCApis);
                 apis.AddRange(insertCApis);
             }
-            #endregion
+
+            #endregion 执行插入
 
             #region 修改和禁用
+
             {
                 //api修改
                 ApiEntity a;
@@ -201,11 +205,12 @@ namespace Admin.Core.Service.Admin.Api
                     }
                 }
             }
-            #endregion
+
+            #endregion 修改和禁用
 
             //批量更新
             await _apiRepository.UpdateDiy.SetSource(apis)
-            .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods,a.Description,a.Enabled })
+            .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled })
             .ExecuteAffrowsAsync();
 
             return ResponseOutput.Ok();

@@ -1,7 +1,7 @@
-﻿using System;
-using Admin.Core.Enums;
+﻿using Admin.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System;
 
 namespace Admin.Core.Attributes
 {

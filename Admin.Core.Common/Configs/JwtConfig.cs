@@ -1,7 +1,4 @@
-﻿
-using DataType = FreeSql.DataType;
-
-namespace Admin.Core.Common.Configs
+﻿namespace Admin.Core.Common.Configs
 {
     /// <summary>
     /// Jwt配置

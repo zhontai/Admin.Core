@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
 
 namespace Admin.Core.Common.Helpers
 {
@@ -28,7 +28,7 @@ namespace Admin.Core.Common.Helpers
             {
                 return "";
             }
-            
+
             string ip = request.Headers["X-Real-IP"].FirstOrDefault();
             if (ip.IsNull())
             {

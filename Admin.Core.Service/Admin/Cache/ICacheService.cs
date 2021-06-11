@@ -1,5 +1,3 @@
-
-
 using Admin.Core.Common.Output;
 using System.Threading.Tasks;
 
@@ -7,7 +5,7 @@ namespace Admin.Core.Service.Admin.Cache
 {
     /// <summary>
     /// »º´æ·þÎñ
-    /// </summary>	
+    /// </summary>
     public interface ICacheService
     {
         /// <summary>

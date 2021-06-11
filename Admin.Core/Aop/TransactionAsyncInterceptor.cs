@@ -1,16 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Output;
+using Admin.Core.Repository;
 using Castle.DynamicProxy;
 using FreeSql;
-using Admin.Core.Common.Output;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Repository;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Aop
 {
     public class TransactionAsyncInterceptor : IAsyncInterceptor
     {
-        IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private readonly MyUnitOfWorkManager _unitOfWorkManager;
 
         public TransactionAsyncInterceptor(MyUnitOfWorkManager unitOfWorkManager)

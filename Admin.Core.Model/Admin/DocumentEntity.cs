@@ -30,7 +30,7 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 类型
         /// </summary>
-        [Column(MapType = typeof(int),CanUpdate = false)]
+        [Column(MapType = typeof(int), CanUpdate = false)]
         public DocumentType Type { get; set; }
 
         /// <summary>

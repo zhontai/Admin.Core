@@ -1,5 +1,4 @@
-﻿
-using DataType = FreeSql.DataType;
+﻿using DataType = FreeSql.DataType;
 
 namespace Admin.Core.Common.Configs
 {

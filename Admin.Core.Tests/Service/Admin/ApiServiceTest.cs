@@ -1,5 +1,5 @@
-﻿using Xunit;
-using Admin.Core.Service.Admin.Api;
+﻿using Admin.Core.Service.Admin.Api;
+using Xunit;
 
 namespace Admin.Core.Tests.Service.Admin
 {

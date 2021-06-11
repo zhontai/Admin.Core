@@ -1,5 +1,4 @@
 ﻿using Admin.Core.Common.BaseModel;
-using Admin.Core.Common.Configs;
 
 namespace Admin.Core.Common.Auth
 {
@@ -36,6 +35,6 @@ namespace Admin.Core.Common.Auth
         /// <summary>
         /// 数据隔离
         /// </summary>
-       DataIsolationType? DataIsolationType { get; }
+        DataIsolationType? DataIsolationType { get; }
     }
 }

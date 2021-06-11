@@ -1,9 +1,9 @@
-﻿using AspNetCoreRateLimit;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Admin.Core.Common.Configs;
+using AspNetCoreRateLimit;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
-using Admin.Core.Common.Configs;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Admin.Core.Extensions
 {
@@ -18,9 +18,10 @@ namespace Admin.Core.Extensions
         public static void AddIpRateLimit(this IServiceCollection services, IConfiguration configuration, CacheConfig cacheConfig)
         {
             #region IP限流
+
             services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
             services.Configure<IpRateLimitPolicies>(configuration.GetSection("IpRateLimitPolicies"));
-            
+
             if (cacheConfig.TypeRateLimit == Common.Cache.CacheType.Redis)
             {
                 //redis
@@ -37,7 +38,8 @@ namespace Admin.Core.Extensions
                 services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
             }
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-            #endregion
+
+            #endregion IP限流
         }
     }
 }

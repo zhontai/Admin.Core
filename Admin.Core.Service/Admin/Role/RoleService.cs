@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
@@ -6,14 +5,15 @@ using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Role.Input;
 using Admin.Core.Service.Admin.Role.Output;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Role
 {
-	public class RoleService : BaseService, IRoleService
+    public class RoleService : BaseService, IRoleService
     {
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
-        
+
         public RoleService(
             IRoleRepository roleRepository,
             IRolePermissionRepository rolePermissionRepository
@@ -45,7 +45,7 @@ namespace Admin.Core.Service.Admin.Role
                 List = list,
                 Total = total
             };
-            
+
             return ResponseOutput.Ok(data);
         }
 

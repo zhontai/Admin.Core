@@ -1,8 +1,7 @@
-using System;
 using Admin.Core.Common.BaseModel;
-using Admin.Core.Common.Configs;
 using FreeSql;
 using FreeSql.DataAnnotations;
+using System;
 
 namespace Admin.Core.Model.Admin
 {
@@ -42,7 +41,7 @@ namespace Admin.Core.Model.Admin
         /// 手机号码
         /// </summary>
         [Column(StringLength = 20)]
-        public string  Phone { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// 邮箱地址
@@ -102,5 +101,4 @@ namespace Admin.Core.Model.Admin
         [Column(StringLength = 500)]
         public string Description { get; set; }
     }
-
 }

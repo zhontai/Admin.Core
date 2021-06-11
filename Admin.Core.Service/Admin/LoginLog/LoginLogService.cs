@@ -1,19 +1,20 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.LoginLog.Input;
 using Admin.Core.Service.Admin.LoginLog.Output;
-using Admin.Core.Common.Helpers;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.LoginLog
-{	
-	public class LoginLogService : BaseService, ILoginLogService
+{
+    public class LoginLogService : BaseService, ILoginLogService
     {
         private readonly IHttpContextAccessor _context;
         private readonly ILoginLogRepository _loginLogRepository;
+
         public LoginLogService(
             IHttpContextAccessor context,
             ILoginLogRepository loginLogRepository
@@ -39,7 +40,7 @@ namespace Admin.Core.Service.Admin.LoginLog
                 List = list,
                 Total = total
             };
-            
+
             return ResponseOutput.Ok(data);
         }
 

@@ -1,45 +1,43 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Linq;
-using System.Reflection;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using Autofac;
-using Autofac.Extras.DynamicProxy;
-using AutoMapper;
+﻿using Admin.Core.Aop;
+using Admin.Core.Auth;
+using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Auth;
+using Admin.Core.Common.Cache;
+using Admin.Core.Common.Configs;
+
 //using FluentValidation;
 //using FluentValidation.AspNetCore;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Common.Configs;
-using Admin.Core.Auth;
-using Admin.Core.Enums;
-using Admin.Core.Filters;
 using Admin.Core.Db;
-using Admin.Core.Common.Cache;
-using Admin.Core.Aop;
-using Admin.Core.Logs;
+using Admin.Core.Enums;
 using Admin.Core.Extensions;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Common.Auth;
+using Admin.Core.Filters;
+using Admin.Core.Logs;
 using AspNetCoreRateLimit;
+using Autofac;
+using Autofac.Extras.DynamicProxy;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using Yitter.IdGenerator;
-using Autofac.Extensions.DependencyInjection;
-using Admin.Core.Repository;
 
 namespace Admin.Core
 {
@@ -102,11 +100,14 @@ namespace Admin.Core
             services.Configure<UploadConfig>(uploadConfig);
 
             #region AutoMapper 自动映射
+
             var serviceAssembly = Assembly.Load("Admin.Core.Service");
             services.AddAutoMapper(serviceAssembly);
-            #endregion
+
+            #endregion AutoMapper 自动映射
 
             #region Cors 跨域
+
             if (_appConfig.CorUrls?.Length > 0)
             {
                 services.AddCors(options =>
@@ -134,9 +135,11 @@ namespace Admin.Core
                     */
                 });
             }
-            #endregion
+
+            #endregion Cors 跨域
 
             #region 身份认证授权
+
             var jwtConfig = _configHelper.Get<JwtConfig>("jwtconfig", _env.EnvironmentName);
             services.TryAddSingleton(jwtConfig);
 
@@ -182,9 +185,11 @@ namespace Admin.Core
                 })
                 .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
             }
-            #endregion
+
+            #endregion 身份认证授权
 
             #region Swagger Api文档
+
             if (_env.IsDevelopment() || _appConfig.Swagger)
             {
                 services.AddSwaggerGen(options =>
@@ -212,6 +217,7 @@ namespace Admin.Core
                     options.IncludeXmlComments(xmlServicesPath);
 
                     #region 添加设置Token的按钮
+
                     if (_appConfig.IdentityServer.Enable)
                     {
                         //添加Jwt验证设置
@@ -273,21 +279,26 @@ namespace Admin.Core
                             In = ParameterLocation.Header,
                             Type = SecuritySchemeType.ApiKey
                         });
-                    } 
-                    #endregion
+                    }
+
+                    #endregion 添加设置Token的按钮
                 });
             }
-            #endregion
+
+            #endregion Swagger Api文档
 
             #region 操作日志
+
             if (_appConfig.Log.Operation)
             {
                 //services.AddSingleton<ILogHandler, LogHandler>();
                 services.AddScoped<ILogHandler, LogHandler>();
             }
-            #endregion
+
+            #endregion 操作日志
 
             #region 控制器
+
             services.AddControllers(options =>
             {
                 options.Filters.Add<AdminExceptionFilter>();
@@ -312,9 +323,11 @@ namespace Admin.Core
                 //设置时间格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-            #endregion
+
+            #endregion 控制器
 
             #region 缓存
+
             var cacheConfig = _configHelper.Get<CacheConfig>("cacheconfig", _env.EnvironmentName);
             if (cacheConfig.Type == CacheType.Redis)
             {
@@ -327,14 +340,17 @@ namespace Admin.Core
                 services.AddMemoryCache();
                 services.AddSingleton<ICache, MemoryCache>();
             }
-            #endregion
+
+            #endregion 缓存
 
             #region IP限流
+
             if (_appConfig.RateLimit)
             {
                 services.AddIpRateLimit(_configuration, cacheConfig);
-            } 
-            #endregion
+            }
+
+            #endregion IP限流
 
             //阻止NLog接收状态消息
             services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
@@ -343,9 +359,11 @@ namespace Admin.Core
         public void ConfigureContainer(ContainerBuilder builder)
         {
             #region AutoFac IOC容器
+
             try
             {
                 #region SingleInstance
+
                 //无接口注入单例
                 var assemblyCore = Assembly.Load("Admin.Core");
                 var assemblyCommon = Assembly.Load("Admin.Core.Common");
@@ -358,9 +376,11 @@ namespace Admin.Core
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
                 .AsImplementedInterfaces()
                 .SingleInstance();
-                #endregion
+
+                #endregion SingleInstance
 
                 #region Aop
+
                 var interceptorServiceTypes = new List<Type>();
                 if (_appConfig.Aop.Transaction)
                 {
@@ -368,17 +388,21 @@ namespace Admin.Core
                     builder.RegisterType<TransactionAsyncInterceptor>();
                     interceptorServiceTypes.Add(typeof(TransactionInterceptor));
                 }
-                #endregion
+
+                #endregion Aop
 
                 #region Repository
+
                 var assemblyRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblyRepository)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired();// 属性注入
-                #endregion
+
+                #endregion Repository
 
                 #region Service
+
                 var assemblyServices = Assembly.Load("Admin.Core.Service");
                 builder.RegisterAssemblyTypes(assemblyServices)
                 .AsImplementedInterfaces()
@@ -386,18 +410,21 @@ namespace Admin.Core
                 .PropertiesAutowired()// 属性注入
                 .InterceptedBy(interceptorServiceTypes.ToArray())
                 .EnableInterfaceInterceptors();
-                #endregion
+
+                #endregion Service
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message + "\n" + ex.InnerException);
             }
-            #endregion
+
+            #endregion AutoFac IOC容器
         }
 
         public void Configure(IApplicationBuilder app)
         {
             #region app配置
+
             //IP限流
             if (_appConfig.RateLimit)
             {
@@ -430,9 +457,11 @@ namespace Admin.Core
             {
                 endpoints.MapControllers();
             });
-            #endregion
+
+            #endregion app配置
 
             #region Swagger Api文档
+
             if (_env.IsDevelopment() || _appConfig.Swagger)
             {
                 app.UseSwagger();
@@ -447,7 +476,8 @@ namespace Admin.Core
                     //c.DefaultModelsExpandDepth(-1);//不显示Models
                 });
             }
-            #endregion
+
+            #endregion Swagger Api文档
         }
     }
 }

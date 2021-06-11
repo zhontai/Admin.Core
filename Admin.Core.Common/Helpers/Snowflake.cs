@@ -6,31 +6,40 @@ namespace Admin.Core.Common.Helpers
     {
         //基准时间
         private static long StartStmp = 1288834974657L;
+
         //private const long START_STMP = 1480166465631L;
         /*每一部分占用的位数*/
+
         //机器标识位数
-        const int MachineIdBits = 5;
+        private const int MachineIdBits = 5;
+
         //数据标志位数
-        const int DatacenterIdBits = 5;
+        private const int DatacenterIdBits = 5;
+
         //序列号识位数
-        const int SequenceBits = 12;
+        private const int SequenceBits = 12;
 
         /* 每一部分的最大值*/
+
         //机器ID最大值
-        const long MaxMachineNum = -1L ^ (-1L << MachineIdBits);
+        private const long MaxMachineNum = -1L ^ (-1L << MachineIdBits);
+
         //数据标志ID最大值
-        const long MaxDatacenterNum = -1L ^ (-1L << DatacenterIdBits);
+        private const long MaxDatacenterNum = -1L ^ (-1L << DatacenterIdBits);
+
         //序列号ID最大值
         private const long MaxSequenceNum = -1L ^ (-1L << SequenceBits);
 
         /*每一部分向左的位移*/
+
         //机器ID偏左移12位
         private const int MachineShift = SequenceBits;
+
         //数据ID偏左移17位
         private const int DatacenterIdShift = SequenceBits + MachineIdBits;
+
         //时间毫秒左移22位
         public const int TimestampLeftShift = SequenceBits + MachineIdBits + DatacenterIdBits;
-
 
         private long _sequence = 0L;//序列号
         private long _lastTimestamp = -1L;//上一次时间戳
@@ -44,6 +53,7 @@ namespace Admin.Core.Common.Helpers
 
         private readonly DateTime Jan1st1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         private readonly object _lock = new Object();
+
         public Snowflake(long machineId, long datacenterId)
         {
             // 如果超出范围就抛出异常
@@ -65,7 +75,6 @@ namespace Admin.Core.Common.Helpers
 
         //public static Init(long machineId, long datacenterId)
         //{
-
         //}
         public long NextId()
         {
@@ -122,10 +131,10 @@ namespace Admin.Core.Common.Helpers
 
     public class IdWorkerHelper
     {
-        private static Snowflake _idWorker= null;
+        private static Snowflake _idWorker = null;
+
         private IdWorkerHelper()
         {
-
         }
 
         static IdWorkerHelper()
@@ -136,8 +145,6 @@ namespace Admin.Core.Common.Helpers
         public static long GenId64()
         {
             return _idWorker.NextId();
-
         }
     }
-
 }

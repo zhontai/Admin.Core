@@ -1,11 +1,11 @@
-using System.Threading.Tasks;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Tenant.Input;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Tenant
-{	
+{
     public interface ITenantService
     {
         Task<IResponseOutput> GetAsync(long id);

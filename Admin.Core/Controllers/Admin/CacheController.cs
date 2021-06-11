@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Common.Output;
+﻿using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Cache;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -10,9 +10,8 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class CacheController : AreaController
     {
-        
         private readonly ICacheService _cacheServices;
-        
+
         public CacheController(ICacheService cacheServices)
         {
             _cacheServices = cacheServices;

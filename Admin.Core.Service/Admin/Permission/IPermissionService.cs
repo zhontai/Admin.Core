@@ -1,8 +1,7 @@
-﻿
+﻿using Admin.Core.Common.Output;
+using Admin.Core.Service.Admin.Permission.Input;
 using System;
 using System.Threading.Tasks;
-using Admin.Core.Common.Output;
-using Admin.Core.Service.Admin.Permission.Input;
 
 namespace Admin.Core.Service.Admin.Permission
 {
@@ -45,6 +44,5 @@ namespace Admin.Core.Service.Admin.Permission
         Task<IResponseOutput> SoftDeleteAsync(long id);
 
         Task<IResponseOutput> AssignAsync(PermissionAssignInput input);
-
     }
 }

@@ -1,10 +1,10 @@
-using System;
-using System.Text; 
-using System.Net; 
-using System.IO; 
-using System.Threading;
-using System.Text.RegularExpressions;
 using Admin.Core.Common.Attributes;
+using System;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Admin.Core.Common.Helpers
 {
@@ -15,22 +15,25 @@ namespace Admin.Core.Common.Helpers
     public class HtmlHelper
     {
         #region 私有字段
+
         private readonly string _ContentType = "application/json";
         private readonly string _Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/x-silverlight, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, application/x-silverlight-2-b1, */*";
         private readonly string _UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)";
         private int _Delay = 1000;
         private int _CurrentTry = 0;
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
-        /// <summary> 
+
+        /// <summary>
         /// Cookie
-        /// </summary> 
+        /// </summary>
         public CookieContainer CookieContainer { get; } = new CookieContainer();
 
-        /// <summary> 
+        /// <summary>
         /// 语言
-        /// </summary> 
+        /// </summary>
         public Encoding Encoding { get; set; } = Encoding.GetEncoding("utf-8");
 
         public int NetworkDelay
@@ -47,9 +50,11 @@ namespace Admin.Core.Common.Helpers
         }
 
         public int MaxTry { get; set; } = 300;
-        #endregion
+
+        #endregion 公有属性
 
         #region 获取HTML
+
         /// <summary>
         /// 获取HTML
         /// </summary>
@@ -141,12 +146,14 @@ namespace Admin.Core.Common.Helpers
                 return string.Empty;
             }
         }
-        #endregion
+
+        #endregion 获取HTML
 
         #region 获取字符流
+
         //---------------------------------------------------------------------------------------------------------------
         // 示例:
-        // System.Net.CookieContainer cookie = new System.Net.CookieContainer(); 
+        // System.Net.CookieContainer cookie = new System.Net.CookieContainer();
         // Stream s = HttpHelper.GetStream("http://ptlogin2.qq.com/getimage?aid=15000102&0.43878429697395826", cookie);
         // picVerify.Image = Image.FromStream(s);
         //---------------------------------------------------------------------------------------------------------------
@@ -190,16 +197,19 @@ namespace Admin.Core.Common.Helpers
                 if (httpWebRequest != null)
                 {
                     httpWebRequest.Abort();
-                } if (httpWebResponse != null)
+                }
+                if (httpWebResponse != null)
                 {
                     httpWebResponse.Close();
                 }
                 return null;
             }
         }
-        #endregion
+
+        #endregion 获取字符流
 
         #region 清除HTML标记
+
         /// <summary>
         /// 清除HTML标记
         /// </summary>
@@ -207,10 +217,10 @@ namespace Admin.Core.Common.Helpers
         /// <returns>已经去除后的文字</returns>
         public string NoHTML(string Htmlstring)
         {
-            //删除脚本   
+            //删除脚本
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
 
-            //删除HTML   
+            //删除HTML
             Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
             Htmlstring = regex.Replace(Htmlstring, "");
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
@@ -235,13 +245,15 @@ namespace Admin.Core.Common.Helpers
 
             return Htmlstring;
         }
-        #endregion
+
+        #endregion 清除HTML标记
 
         #region 删除文本中带的HTML标记
+
         /// <summary>
         /// 删除文本中带的HTML标记
         /// </summary>
-        /// <param name="InString">输入要删除带HTML的字符串</param>    
+        /// <param name="InString">输入要删除带HTML的字符串</param>
         /// <returns>返回处理过的字符串</returns>
         public string DelHtmlCode(string InString)
         {
@@ -262,9 +274,11 @@ namespace Admin.Core.Common.Helpers
             strTemp = strTemp.Trim();
             return strTemp;
         }
-        #endregion
+
+        #endregion 删除文本中带的HTML标记
 
         #region 匹配页面的链接
+
         /// <summary>
         /// 获取页面的链接正则
         /// </summary>
@@ -278,9 +292,11 @@ namespace Admin.Core.Common.Helpers
             }
             return MatchVale;
         }
-        #endregion
+
+        #endregion 匹配页面的链接
 
         #region 匹配页面的图片地址
+
         /// <summary>
         /// 匹配页面的图片地址
         /// </summary>
@@ -318,9 +334,11 @@ namespace Admin.Core.Common.Helpers
             else
                 return (imgHttp + MatchVale);
         }
-        #endregion
+
+        #endregion 匹配页面的图片地址
 
         #region 抓取远程页面内容
+
         /// <summary>
         /// 以GET方式抓取远程页面内容
         /// </summary>
@@ -380,9 +398,11 @@ namespace Admin.Core.Common.Helpers
             }
             return strResult;
         }
-        #endregion
+
+        #endregion 抓取远程页面内容
 
         #region 压缩HTML输出
+
         /// <summary>
         /// 压缩HTML输出
         /// </summary>
@@ -393,9 +413,11 @@ namespace Admin.Core.Common.Helpers
             Html = Regex.Replace(Html, @"<body([\s|\S]*?)>([\s|\S]*?)</body>", @"<body$1>$2</body>", RegexOptions.IgnoreCase);
             return Html;
         }
-        #endregion
+
+        #endregion 压缩HTML输出
 
         #region 过滤指定HTML标签
+
         /// <summary>
         /// 过滤指定HTML标签
         /// </summary>
@@ -411,6 +433,7 @@ namespace Admin.Core.Common.Helpers
             }
             return rStr;
         }
-        #endregion
+
+        #endregion 过滤指定HTML标签
     }
 }

@@ -1,8 +1,7 @@
-﻿
+﻿using Castle.DynamicProxy;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using Castle.DynamicProxy;
 
 namespace Admin.Core.Aop
 {

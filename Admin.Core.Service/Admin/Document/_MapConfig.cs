@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Document.Input;
+using AutoMapper;
 
 namespace Admin.Core.Service.Admin.Document
 {

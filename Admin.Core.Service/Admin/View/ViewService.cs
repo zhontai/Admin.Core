@@ -1,19 +1,20 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Admin.Core.Common.Output;
+using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Input;
+using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.View.Input;
 using Admin.Core.Service.Admin.View.Output;
-using Admin.Core.Common.Attributes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.View
 {
     public class ViewService : BaseService, IViewService
     {
         private readonly IViewRepository _viewRepository;
+
         public ViewService(IViewRepository moduleRepository)
         {
             _viewRepository = moduleRepository;
@@ -48,8 +49,8 @@ namespace Admin.Core.Service.Admin.View
             .Page(input.CurrentPage, input.PageSize)
             .ToListAsync();
 
-            var data = new PageOutput<ViewEntity>() 
-            { 
+            var data = new PageOutput<ViewEntity>()
+            {
                 List = list,
                 Total = total
             };
@@ -122,8 +123,8 @@ namespace Admin.Core.Service.Admin.View
                 view.ParentPath = view.ParentPath?.Trim().ToLower();
             }
 
-
             #region 执行插入
+
             //执行父级view插入
             var parentViews = input.Views.FindAll(a => a.ParentPath.IsNull());
             var pViews = (from a in parentViews where !paths.Contains(a.Path) select a).ToList();
@@ -143,9 +144,11 @@ namespace Admin.Core.Service.Admin.View
                 insertCViews = await _viewRepository.InsertAsync(insertCViews);
                 views.AddRange(insertCViews);
             }
-            #endregion
+
+            #endregion 执行插入
 
             #region 修改和禁用
+
             //view修改
             {
                 ViewEntity a;
@@ -201,12 +204,13 @@ namespace Admin.Core.Service.Admin.View
                 {
                     view.Enabled = false;
                 }
-            } 
-            #endregion
+            }
+
+            #endregion 修改和禁用
 
             //批量更新
             await _viewRepository.UpdateDiy.SetSource(views)
-            .UpdateColumns(a => new { a.ParentId, a.Label,a.Description,a.Enabled })
+            .UpdateColumns(a => new { a.ParentId, a.Label, a.Description, a.Enabled })
             .ExecuteAffrowsAsync();
 
             return ResponseOutput.Ok();

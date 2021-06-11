@@ -34,19 +34,21 @@ namespace Admin.Core.Model.Admin
         /// <summary>
         /// 权限类型
         /// </summary>
-        [Column(MapType = typeof(int),CanUpdate = false)]
+        [Column(MapType = typeof(int), CanUpdate = false)]
         public PermissionType Type { get; set; }
 
         /// <summary>
         /// 视图
         /// </summary>
         public long? ViewId { get; set; }
+
         public ViewEntity View { get; set; }
 
         /// <summary>
         /// 接口
         /// </summary>
         public long? ApiId { get; set; }
+
         public ApiEntity Api { get; set; }
 
         /// <summary>

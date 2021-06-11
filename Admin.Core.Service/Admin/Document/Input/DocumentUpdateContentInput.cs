@@ -1,4 +1,3 @@
-
 namespace Admin.Core.Service.Admin.Document.Input
 {
     public class DocumentUpdateContentInput

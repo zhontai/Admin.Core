@@ -1,8 +1,7 @@
-﻿
+﻿using FreeSql;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using FreeSql;
 
 namespace Admin.Core.Repository
 {
@@ -52,8 +51,7 @@ namespace Admin.Core.Repository
         Task<bool> SoftDeleteAsync(TKey[] id);
     }
 
-    public interface IRepositoryBase<TEntity> : IRepositoryBase<TEntity,long> where TEntity : class
+    public interface IRepositoryBase<TEntity> : IRepositoryBase<TEntity, long> where TEntity : class
     {
     }
-
 }

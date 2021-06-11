@@ -1,6 +1,4 @@
-﻿
-
-using Admin.Core.Common.Cache;
+﻿using Admin.Core.Common.Cache;
 
 namespace Admin.Core.Common.Configs
 {

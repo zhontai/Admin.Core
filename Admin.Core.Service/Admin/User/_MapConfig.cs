@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using AutoMapper;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
+using AutoMapper;
+using System.Linq;
 
 namespace Admin.Core.Service.Admin.User
 {

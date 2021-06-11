@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Common.Input;
+﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Tenant;
 using Admin.Core.Service.Admin.Tenant.Input;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {

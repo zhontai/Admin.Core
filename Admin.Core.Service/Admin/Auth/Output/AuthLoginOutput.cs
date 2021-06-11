@@ -1,6 +1,4 @@
 ﻿using Admin.Core.Common.BaseModel;
-using Admin.Core.Model.Admin;
-using System;
 
 namespace Admin.Core.Service.Admin.Auth.Output
 {

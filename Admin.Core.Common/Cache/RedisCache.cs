@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -28,7 +27,7 @@ namespace Admin.Core.Common.Cache
             pattern = Regex.Replace(pattern, @"\{.*\}", "*");
 
             var keys = (await RedisHelper.KeysAsync(pattern));
-            if(keys != null && keys.Length > 0)
+            if (keys != null && keys.Length > 0)
             {
                 return await RedisHelper.DelAsync(keys);
             }
@@ -102,7 +101,7 @@ namespace Admin.Core.Common.Cache
 
             var result = await func.Invoke();
 
-            if(expire.HasValue)
+            if (expire.HasValue)
             {
                 await RedisHelper.SetAsync(key, result, expire.Value);
             }

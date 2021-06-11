@@ -1,5 +1,5 @@
-﻿using System.Text;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace Admin.Core.Common.Helpers
 {
@@ -56,7 +56,7 @@ namespace Admin.Core.Common.Helpers
             if (password.IsNull())
                 return null;
 
-            using(var md5 = MD5.Create())
+            using (var md5 = MD5.Create())
             {
                 byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return s.ToBase64();

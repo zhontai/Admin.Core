@@ -1,20 +1,20 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Admin.Core.Repository.Admin;
-using Admin.Core.Model.Admin;
-using Admin.Core.Common.Output;
-using Admin.Core.Service.Admin.Permission.Input;
-using Admin.Core.Service.Admin.Permission.Output;
-using Admin.Core.Common.Cache;
 using Admin.Core.Common.Attributes;
 using Admin.Core.Common.BaseModel;
+using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
+using Admin.Core.Common.Output;
+using Admin.Core.Model.Admin;
+using Admin.Core.Repository.Admin;
+using Admin.Core.Service.Admin.Permission.Input;
+using Admin.Core.Service.Admin.Permission.Output;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Permission
-{	
-	public class PermissionService : BaseService,IPermissionService
+{
+    public class PermissionService : BaseService, IPermissionService
     {
         private readonly AppConfig _appConfig;
         private readonly ICache _cache;
@@ -200,7 +200,7 @@ namespace Admin.Core.Service.Admin.Permission
             }
 
             //查询角色权限
-            var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m=>m.PermissionId);
+            var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m => m.PermissionId);
 
             //批量删除权限
             var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
@@ -266,7 +266,7 @@ namespace Admin.Core.Service.Admin.Permission
         {
             var permissionIds = await _rolePermissionRepository
                 .Select.Where(d => d.RoleId == roleId)
-                .ToListAsync(a=>a.PermissionId);
+                .ToListAsync(a => a.PermissionId);
 
             return ResponseOutput.Ok(permissionIds);
         }

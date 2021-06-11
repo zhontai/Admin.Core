@@ -1,25 +1,25 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using FreeSql;
-using FreeSql.DataAnnotations;
+﻿using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Auth;
+using Admin.Core.Common.BaseModel;
 using Admin.Core.Common.Configs;
+using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
-using System.Collections.Generic;
-using System.Reflection;
-using Admin.Core.Common.BaseModel;
-using FreeSql.Aop;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Common.Auth;
-using Yitter.IdGenerator;
-using Admin.Core.Common.Extensions;
 using Admin.Core.Repository.Admin.Output;
-using Admin.Core.Repository.Admin.View.Output;
 using Admin.Core.Repository.Admin.Permission.Output;
+using Admin.Core.Repository.Admin.View.Output;
+using FreeSql;
+using FreeSql.Aop;
+using FreeSql.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Yitter.IdGenerator;
 
 namespace Admin.Core.Repository
 {
@@ -87,7 +87,7 @@ namespace Admin.Core.Repository
                     }
                 }
             }
-           
+
             return entityTypes.ToArray();
         }
 
@@ -155,12 +155,14 @@ namespace Admin.Core.Repository
                             e.Value = user.Id;
                         }
                         break;
+
                     case "CreatedUserName":
                         if (e.Value == null || ((string)e.Value).IsNull())
                         {
                             e.Value = user.Name;
                         }
                         break;
+
                     case "TenantId":
                         if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                         {
@@ -176,11 +178,11 @@ namespace Admin.Core.Repository
                     case "ModifiedUserId":
                         e.Value = user.Id;
                         break;
+
                     case "ModifiedUserName":
                         e.Value = user.Name;
                         break;
                 }
-
             }
         }
 
@@ -205,7 +207,7 @@ namespace Admin.Core.Repository
             // 同步结构
             var dbType = dbConfig.Type.ToString();
             Console.WriteLine($"\r\n {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
-            if(dbConfig.Type == DataType.Oracle)
+            if (dbConfig.Type == DataType.Oracle)
             {
                 db.CodeFirst.IsSyncStructureToUpper = true;
             }
@@ -252,11 +254,11 @@ namespace Admin.Core.Repository
             IFreeSql db,
             IUnitOfWork unitOfWork,
             System.Data.Common.DbTransaction tran,
-            T[] data, 
+            T[] data,
             DbConfig dbConfig = null
         ) where T : class
         {
-            var table = typeof(T).GetCustomAttributes(typeof(TableAttribute),false).FirstOrDefault() as TableAttribute;
+            var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;
             var tableName = table.Name;
 
             try
@@ -346,12 +348,14 @@ namespace Admin.Core.Repository
                             e.Value = user.Id;
                         }
                         break;
+
                     case "CreatedUserName":
                         if (e.Value == null || ((string)e.Value).IsNull())
                         {
                             e.Value = user.Name;
                         }
                         break;
+
                     case "TenantId":
                         if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                         {
@@ -367,11 +371,11 @@ namespace Admin.Core.Repository
                     case "ModifiedUserId":
                         e.Value = user.Id;
                         break;
+
                     case "ModifiedUserName":
                         e.Value = user.Name;
                         break;
                 }
-
             }
         }
 
@@ -445,6 +449,7 @@ namespace Admin.Core.Repository
                 #region 数据表
 
                 #region 数据字典
+
                 //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
                 //{
                 //    a.TenantId,
@@ -456,9 +461,11 @@ namespace Admin.Core.Repository
                 //    a.Description,
                 //    a.Sort
                 //});
-                #endregion
+
+                #endregion 数据字典
 
                 #region 接口
+
                 var apis = await db.Queryable<ApiEntity>().ToListAsync<ApiDataOutput>();
                 var apiTree = apis.ToTree((r, c) =>
                 {
@@ -473,9 +480,11 @@ namespace Admin.Core.Repository
                     r.Childs ??= new List<ApiDataOutput>();
                     r.Childs.AddRange(datalist);
                 });
-                #endregion
+
+                #endregion 接口
 
                 #region 视图
+
                 var views = await db.Queryable<ViewEntity>().ToListAsync<ViewDataOutput>();
                 var viewTree = views.ToTree((r, c) =>
                 {
@@ -490,9 +499,11 @@ namespace Admin.Core.Repository
                    r.Childs ??= new List<ViewDataOutput>();
                    r.Childs.AddRange(datalist);
                });
-                #endregion
+
+                #endregion 视图
 
                 #region 权限
+
                 var permissions = await db.Queryable<PermissionEntity>().ToListAsync<PermissionDataOutput>();
                 var permissionTree = permissions.ToTree((r, c) =>
                 {
@@ -507,9 +518,11 @@ namespace Admin.Core.Repository
                    r.Childs ??= new List<PermissionDataOutput>();
                    r.Childs.AddRange(datalist);
                });
-                #endregion
+
+                #endregion 权限
 
                 #region 用户
+
                 var users = await db.Queryable<UserEntity>().ToListAsync(a => new
                 {
                     a.TenantId,
@@ -521,9 +534,11 @@ namespace Admin.Core.Repository
                     a.Status,
                     a.Remark
                 });
-                #endregion
+
+                #endregion 用户
 
                 #region 角色
+
                 var roles = await db.Queryable<RoleEntity>().ToListAsync(a => new
                 {
                     a.TenantId,
@@ -533,27 +548,33 @@ namespace Admin.Core.Repository
                     a.Sort,
                     a.Description
                 });
-                #endregion
+
+                #endregion 角色
 
                 #region 用户角色
+
                 var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
                 {
                     a.Id,
                     a.UserId,
                     a.RoleId
                 });
-                #endregion
+
+                #endregion 用户角色
 
                 #region 角色权限
+
                 var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
                 {
                     a.Id,
                     a.RoleId,
                     a.PermissionId
                 });
-                #endregion
+
+                #endregion 角色权限
 
                 #region 租户
+
                 var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
                 {
                     a.TenantId,
@@ -572,9 +593,10 @@ namespace Admin.Core.Repository
                     a.IdleTime,
                     a.Description
                 });
-                #endregion
 
-                #endregion
+                #endregion 租户
+
+                #endregion 数据表
 
                 if (!(users?.Count > 0))
                 {
@@ -582,6 +604,7 @@ namespace Admin.Core.Repository
                 }
 
                 #region 生成数据
+
                 var settings = new JsonSerializerSettings();
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.NullValueHandling = NullValueHandling.Ignore;
@@ -599,14 +622,15 @@ namespace Admin.Core.Repository
                     rolePermissions,
                     tenants
                 },
-                //Formatting.Indented, 
+                //Formatting.Indented,
                 settings
                 );
 
                 var fileName = appConfig.Tenant ? "data-share.json" : "data.json";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
-                #endregion
+
+                #endregion 生成数据
 
                 Console.WriteLine(" generate data succeed\r\n");
             }

@@ -1,10 +1,5 @@
-﻿
-
-using FreeSql;
-using Admin.Core.Common.Auth;
-using Admin.Core.Common.Configs;
+﻿using FreeSql;
 using System;
-using Admin.Core.Repository.Admin;
 
 namespace Admin.Core.Repository
 {

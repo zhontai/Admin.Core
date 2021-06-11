@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
-using Admin.Core.Common.Input;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Dictionary.Input;
 using Admin.Core.Service.Admin.Dictionary.Output;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Dictionary
 {

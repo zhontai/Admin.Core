@@ -1,13 +1,12 @@
-﻿
-using System;
-using System.Text;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
+﻿using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Configs;
-using Admin.Core.Common.Attributes;
-using System.Linq;
 using Admin.Core.Common.Extensions;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace Admin.Core.Common.Auth
 {
@@ -26,7 +25,7 @@ namespace Admin.Core.Common.Auth
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.SecurityKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var timestamp = DateTime.Now.AddMinutes(_jwtConfig.Expires + _jwtConfig.RefreshExpires).ToTimestamp().ToString();
-             claims = claims.Append(new Claim(ClaimAttributes.RefreshExpires, timestamp)).ToArray();
+            claims = claims.Append(new Claim(ClaimAttributes.RefreshExpires, timestamp)).ToArray();
 
             var token = new JwtSecurityToken(
                 issuer: _jwtConfig.Issuer,

@@ -1,5 +1,3 @@
-using Admin.Core.Model.Admin;
-
 namespace Admin.Core.Service.Admin.Auth.Output
 {
     public class AuthUserMenuDto

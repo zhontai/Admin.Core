@@ -8,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// </summary>
 	[Table(Name = "ad_role_permission")]
     [Index("idx_{tablename}_01", nameof(RoleId) + "," + nameof(PermissionId), true)]
-    public class RolePermissionEntity: EntityAdd
+    public class RolePermissionEntity : EntityAdd
     {
         /// <summary>
         /// 角色Id
@@ -30,5 +30,4 @@ namespace Admin.Core.Model.Admin
         /// </summary>
         public PermissionEntity Permission { get; set; }
     }
-
 }

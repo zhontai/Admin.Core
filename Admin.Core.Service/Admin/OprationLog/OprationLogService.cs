@@ -1,19 +1,20 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.OprationLog.Input;
 using Admin.Core.Service.Admin.OprationLog.Output;
-using Admin.Core.Common.Helpers;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.OprationLog
-{	
-	public class OprationLogService : BaseService, IOprationLogService
+{
+    public class OprationLogService : BaseService, IOprationLogService
     {
         private readonly IHttpContextAccessor _context;
         private readonly IOprationLogRepository _oprationLogRepository;
+
         public OprationLogService(
             IHttpContextAccessor context,
             IOprationLogRepository oprationLogRepository
@@ -39,7 +40,7 @@ namespace Admin.Core.Service.Admin.OprationLog
                 List = list,
                 Total = total
             };
-            
+
             return ResponseOutput.Ok(data);
         }
 

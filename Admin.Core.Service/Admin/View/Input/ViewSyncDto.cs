@@ -16,7 +16,7 @@
         /// 地址
         /// </summary>
         public string Path { get; set; }
-        
+
         /// <summary>
         /// 父级路径
         /// </summary>

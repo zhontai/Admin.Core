@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Admin.Core.Attributes;
+﻿using Admin.Core.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Admin.Core.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿namespace Admin.Core.Service.Admin.Auth.Output
-{ 
+{
     public class AuthUserProfileDto
     {
         /// <summary>

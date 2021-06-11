@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Admin.Core.Service.Admin.Auth.Output
+﻿namespace Admin.Core.Service.Admin.Auth.Output
 {
     public class AuthGetVerifyCodeOutput
     {

@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Admin.Core.Common.BaseModel;
+﻿using Admin.Core.Common.BaseModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Admin.Core.Service.Admin.User.Input
 {
     /// <summary>
     /// 修改密码
     /// </summary>
-    public class UserChangePasswordInput: Entity
+    public class UserChangePasswordInput : Entity
     {
         /// <summary>
         /// 旧密码

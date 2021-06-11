@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Admin.Core.Common.Auth;
+﻿using Admin.Core.Common.Auth;
+using AutoMapper;
 
 namespace Admin.Core.Service
 {

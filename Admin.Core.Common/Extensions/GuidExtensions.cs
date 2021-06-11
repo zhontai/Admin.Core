@@ -23,6 +23,5 @@ namespace Admin.Core.Common.Extensions
         {
             return s != Guid.Empty;
         }
-
     }
 }

@@ -4,6 +4,5 @@ namespace Admin.Core.Service.Admin.Permission.Output
 {
     public class PermissionGetApiOutput : PermissionUpdateApiInput
     {
-
     }
 }

@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Admin;
+using AutoMapper;
 
 namespace Admin.Core.Service.Admin.View.Input
 {

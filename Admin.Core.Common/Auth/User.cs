@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Admin.Core.Common.BaseModel;
 using Admin.Core.Common.Helpers;
-using Admin.Core.Common.BaseModel;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace Admin.Core.Common.Auth

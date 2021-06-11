@@ -1,16 +1,15 @@
+using Admin.Core.Common.Output;
+using Admin.Core.Model.Admin;
+using Admin.Core.Repository.Admin;
+using Admin.Core.Service.Admin.Document.Input;
+using Admin.Core.Service.Admin.Document.Output;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Admin.Core.Repository.Admin;
-using Admin.Core.Model.Admin;
-using Admin.Core.Common.Output;
-using Admin.Core.Service.Admin.Document.Input;
-using Admin.Core.Service.Admin.Document.Output;
-
 
 namespace Admin.Core.Service.Admin.Document
-{	
-	public class DocumentService : BaseService, IDocumentService
+{
+    public class DocumentService : BaseService, IDocumentService
     {
         private readonly IDocumentRepository _documentRepository;
         private readonly IDocumentImageRepository _documentImageRepository;
@@ -70,7 +69,7 @@ namespace Admin.Core.Service.Admin.Document
         {
             var result = await _documentImageRepository.Select
                 .Where(a => a.DocumentId == id)
-                .OrderByDescending(a=>a.Id)
+                .OrderByDescending(a => a.Id)
                 .ToListAsync(a => a.Url);
 
             return ResponseOutput.Ok(result);

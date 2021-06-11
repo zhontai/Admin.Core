@@ -60,6 +60,7 @@
         /// 启用
         /// </summary>
         public bool Enable { get; set; } = false;
+
         /// <summary>
         /// 地址
         /// </summary>

@@ -4,6 +4,5 @@ namespace Admin.Core.Service.Admin.User.Output
 {
     public class UserGetOutput : UserUpdateInput
     {
-
     }
 }

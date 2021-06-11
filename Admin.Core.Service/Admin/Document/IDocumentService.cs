@@ -1,8 +1,7 @@
-﻿
+﻿using Admin.Core.Common.Output;
+using Admin.Core.Service.Admin.Document.Input;
 using System;
 using System.Threading.Tasks;
-using Admin.Core.Common.Output;
-using Admin.Core.Service.Admin.Document.Input;
 
 namespace Admin.Core.Service.Admin.Document
 {
@@ -39,6 +38,5 @@ namespace Admin.Core.Service.Admin.Document
         Task<IResponseOutput> DeleteImageAsync(long documentId, string url);
 
         Task<IResponseOutput> SoftDeleteAsync(long id);
-
     }
 }

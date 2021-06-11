@@ -13,6 +13,7 @@ namespace Admin.Core.Service.Admin.Cache
     {
         private readonly ICache _cache;
         private readonly ILogger<CacheService> _logger;
+
         public CacheService(ICache cache, ILogger<CacheService> logger)
         {
             _cache = cache;
@@ -26,9 +27,9 @@ namespace Admin.Core.Service.Admin.Cache
             var fields = cacheKey.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             foreach (var field in fields)
             {
-                var descriptionAttribute = field.GetCustomAttributes(typeof(DescriptionAttribute),false).FirstOrDefault() as DescriptionAttribute;
+                var descriptionAttribute = field.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() as DescriptionAttribute;
 
-                list.Add(new 
+                list.Add(new
                 {
                     field.Name,
                     Value = field.GetRawConstantValue().ToString(),

@@ -1,6 +1,4 @@
-﻿
-using Admin.Core.Common.BaseModel;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Common.BaseModel;
 
 namespace Admin.Core.Service.Admin.Tenant.Input
 {

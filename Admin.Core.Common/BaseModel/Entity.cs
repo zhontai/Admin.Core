@@ -16,7 +16,6 @@ namespace Admin.Core.Common.BaseModel
     {
     }
 
-
     public class Entity<TKey> : IEntity<TKey>
     {
         /// <summary>
@@ -30,6 +29,5 @@ namespace Admin.Core.Common.BaseModel
 
     public class Entity : Entity<long>
     {
-
     }
 }

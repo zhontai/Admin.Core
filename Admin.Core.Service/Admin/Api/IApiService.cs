@@ -1,15 +1,14 @@
-
 using Admin.Core.Common.Input;
-using Admin.Core.Service.Admin.Api.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Service.Admin.Api.Input;
 using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Api
 {
     /// <summary>
     /// 接口服务
-    /// </summary>	
+    /// </summary>
     public interface IApiService
     {
         /// <summary>

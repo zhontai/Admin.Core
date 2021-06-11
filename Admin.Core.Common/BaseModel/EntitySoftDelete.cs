@@ -6,7 +6,7 @@ namespace Admin.Core.Common.BaseModel
     /// <summary>
     /// 实体软删除
     /// </summary>
-    public class EntitySoftDelete<TKey> : Entity<TKey>,IEntitySoftDelete
+    public class EntitySoftDelete<TKey> : Entity<TKey>, IEntitySoftDelete
     {
         /// <summary>
         /// 是否删除

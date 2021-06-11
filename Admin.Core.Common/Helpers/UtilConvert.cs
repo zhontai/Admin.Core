@@ -18,7 +18,7 @@ namespace Admin.Core.Common.Helpers
             }
             return reval;
         }
-        
+
         public static int ToInt(this object thisValue, int errorValue)
         {
             int reval;
@@ -37,7 +37,7 @@ namespace Admin.Core.Common.Helpers
             long.TryParse(s.ToString(), out long result);
             return result;
         }
-        
+
         public static double ToMoney(this object thisValue)
         {
             double reval;
@@ -47,7 +47,7 @@ namespace Admin.Core.Common.Helpers
             }
             return 0;
         }
-        
+
         public static double ToMoney(this object thisValue, double errorValue)
         {
             double reval;
@@ -57,13 +57,13 @@ namespace Admin.Core.Common.Helpers
             }
             return errorValue;
         }
-        
+
         public static string ToString(this object thisValue)
         {
             if (thisValue != null) return thisValue.ToString().Trim();
             return "";
         }
-        
+
         public static string ToString(this object thisValue, string errorValue)
         {
             if (thisValue != null) return thisValue.ToString().Trim();
@@ -98,7 +98,7 @@ namespace Admin.Core.Common.Helpers
             }
             return 0;
         }
-        
+
         public static decimal ToDecimal(this object thisValue, decimal errorValue)
         {
             decimal reval;
@@ -108,7 +108,7 @@ namespace Admin.Core.Common.Helpers
             }
             return errorValue;
         }
-        
+
         public static DateTime ToDateTime(this object thisValue)
         {
             DateTime reval = DateTime.MinValue;
@@ -118,7 +118,7 @@ namespace Admin.Core.Common.Helpers
             }
             return reval;
         }
-        
+
         public static DateTime ToDateTime(this object thisValue, DateTime errorValue)
         {
             DateTime reval;
@@ -154,6 +154,7 @@ namespace Admin.Core.Common.Helpers
         }
 
         #region ==字节转换==
+
         /// <summary>
         /// 转换为16进制
         /// </summary>
@@ -208,6 +209,6 @@ namespace Admin.Core.Common.Helpers
             return Convert.ToBase64String(bytes);
         }
 
-        #endregion
+        #endregion ==字节转换==
     }
 }

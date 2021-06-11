@@ -1138,14 +1138,14 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Common.Helpers.HtmlHelper.CookieContainer">
-            <summary> 
+            <summary>
             Cookie
-            </summary> 
+            </summary>
         </member>
         <member name="P:Admin.Core.Common.Helpers.HtmlHelper.Encoding">
-            <summary> 
+            <summary>
             语言
-            </summary> 
+            </summary>
         </member>
         <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHtml(System.String,System.String,System.Boolean,System.Net.CookieContainer)">
             <summary>
@@ -1181,7 +1181,7 @@
             <summary>
             删除文本中带的HTML标记
             </summary>
-            <param name="InString">输入要删除带HTML的字符串</param>    
+            <param name="InString">输入要删除带HTML的字符串</param>
             <returns>返回处理过的字符串</returns>
         </member>
         <member name="M:Admin.Core.Common.Helpers.HtmlHelper.GetHref(System.String)">

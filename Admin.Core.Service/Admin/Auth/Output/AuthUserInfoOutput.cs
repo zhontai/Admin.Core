@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Admin.Core.Service.Admin.Auth.Output
-{ 
+{
     public class AuthUserInfoOutput
     {
         /// <summary>

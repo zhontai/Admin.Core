@@ -9,6 +9,7 @@ namespace Admin.Core.Repository
     {
         //public DictionaryEntity[] Dictionaries { get; set; }
         public ApiEntity[] Apis { get; set; }
+
         public ApiEntity[] ApiTree { get; set; }
         public ViewEntity[] ViewTree { get; set; }
         public PermissionEntity[] PermissionTree { get; set; }

@@ -1,9 +1,9 @@
-﻿using System.IO;
+﻿using Admin.Core.Common.Configs;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
-using Admin.Core.Common.Configs;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace Admin.Core.Extensions
 {
@@ -16,7 +16,7 @@ namespace Admin.Core.Extensions
                 Directory.CreateDirectory(config.UploadPath);
             }
 
-            app.UseStaticFiles(new StaticFileOptions() 
+            app.UseStaticFiles(new StaticFileOptions()
             {
                 RequestPath = config.RequestPath,
                 FileProvider = new PhysicalFileProvider(config.UploadPath)
@@ -32,5 +32,4 @@ namespace Admin.Core.Extensions
             return app;
         }
     }
-
 }

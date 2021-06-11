@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Auth.Output;
+using AutoMapper;
 
 namespace Admin.Core.Service.Admin.Auth
 {

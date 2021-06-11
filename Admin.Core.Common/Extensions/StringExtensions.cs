@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Admin.Core.Common.Helpers;
+using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Admin.Core.Common.Helpers;
 
 namespace Admin.Core
 {

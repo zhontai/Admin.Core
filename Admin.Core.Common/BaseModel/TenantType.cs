@@ -1,5 +1,4 @@
-﻿
-namespace Admin.Core.Common.BaseModel
+﻿namespace Admin.Core.Common.BaseModel
 {
     /// <summary>
     /// 租户类型
@@ -10,6 +9,7 @@ namespace Admin.Core.Common.BaseModel
         /// 平台
         /// </summary>
         Platform = 1,
+
         /// <summary>
         /// 租户
         /// </summary>

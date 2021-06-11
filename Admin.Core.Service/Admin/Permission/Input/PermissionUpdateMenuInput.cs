@@ -1,5 +1,4 @@
-﻿
-namespace Admin.Core.Service.Admin.Permission.Input
+﻿namespace Admin.Core.Service.Admin.Permission.Input
 {
     public class PermissionUpdateMenuInput : PermissionAddMenuInput
     {

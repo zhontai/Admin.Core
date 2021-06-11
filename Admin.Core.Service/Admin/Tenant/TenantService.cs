@@ -1,14 +1,13 @@
-using System.Threading.Tasks;
+using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Tenant.Input;
 using Admin.Core.Service.Admin.Tenant.Output;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Common.Helpers;
 using System.Linq;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.Tenant
 {
@@ -57,7 +56,7 @@ namespace Admin.Core.Service.Admin.Tenant
                 List = list,
                 Total = total
             };
-            
+
             return ResponseOutput.Ok(data);
         }
 

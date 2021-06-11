@@ -1,23 +1,23 @@
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Admin.Core.Common.Helpers;
+using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Cache;
+using Admin.Core.Common.Configs;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
+using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.User.Input;
 using Admin.Core.Service.Admin.User.Output;
-using Admin.Core.Common.Attributes;
-using Admin.Core.Service.Admin.Auth.Output;
-using Admin.Core.Common.Configs;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.User
 {
     /// <summary>
     /// 用户服务
-    /// </summary>	
+    /// </summary>
     public class UserService : BaseService, IUserService
     {
         private readonly ICache _cache;
@@ -102,7 +102,7 @@ namespace Admin.Core.Service.Admin.User
             .WhereDynamicFilter(input.DynamicFilter)
             .Count(out var total)
             .OrderByDescending(true, a => a.Id)
-            .IncludeMany(a => a.Roles.Select(b => new RoleEntity{ Name = b.Name }))
+            .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
             .Page(input.CurrentPage, input.PageSize)
             .ToListAsync();
 

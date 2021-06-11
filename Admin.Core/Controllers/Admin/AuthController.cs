@@ -1,22 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Admin.Core.Attributes;
+﻿using Admin.Core.Attributes;
 using Admin.Core.Common.Auth;
+using Admin.Core.Common.Extensions;
+using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Auth;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.LoginLog;
 using Admin.Core.Service.Admin.LoginLog.Input;
-using Admin.Core.Common.Helpers;
 using Admin.Core.Service.Admin.User;
-using Admin.Core.Common.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Admin.Core.Controllers.Admin
 {
@@ -122,6 +122,7 @@ namespace Admin.Core.Controllers.Admin
             sw.Stop();
 
             #region 添加登录日志
+
             var loginLogAddInput = new LoginLogAddInput()
             {
                 CreatedUserName = input.UserName,
@@ -141,7 +142,8 @@ namespace Admin.Core.Controllers.Admin
             }
 
             await _loginLogService.AddAsync(loginLogAddInput);
-            #endregion
+
+            #endregion 添加登录日志
 
             if (!res.Success)
             {
@@ -162,7 +164,7 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> Refresh([BindRequired] string token)
         {
             var userClaims = _userToken.Decode(token);
-            if(userClaims == null || userClaims.Length == 0)
+            if (userClaims == null || userClaims.Length == 0)
             {
                 return ResponseOutput.NotOk();
             }
@@ -173,7 +175,7 @@ namespace Admin.Core.Controllers.Admin
                 return ResponseOutput.NotOk();
             }
 
-            if(refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
+            if (refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
             {
                 return ResponseOutput.NotOk("登录信息已过期");
             }

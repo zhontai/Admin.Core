@@ -1,6 +1,5 @@
 ﻿using Admin.Core.Common.Auth;
 using Admin.Core.Common.BaseModel;
-using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
 using Admin.Core.Model.Admin;
 using FreeSql;
@@ -45,7 +44,7 @@ namespace Admin.Core.Repository
         private static IFreeSql CreateFreeSql(IUser user, AppConfig appConfig, IServiceProvider serviceProvider)
         {
             var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-            
+
             //查询租户数据库信息
             var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
             var tenantRepository = freeSql.GetRepository<TenantEntity>();
