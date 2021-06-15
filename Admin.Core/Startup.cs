@@ -86,8 +86,8 @@ namespace Admin.Core
 
             //添加IdleBus单例
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", _env.EnvironmentName);
-            int idleTime = dbConfig.IdleTime > 0 ? dbConfig.IdleTime : 10;
-            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
+            var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
+            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
             services.AddSingleton(ib);
             //数据库配置
             services.AddSingleton(dbConfig);
