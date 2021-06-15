@@ -98,6 +98,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 查询租户权限
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResponseOutput> GetTenantPermissionList(long tenantId = 0)
+        {
+            return await _permissionServices.GetTenantPermissionList(tenantId);
+        }
+
+        /// <summary>
         /// 新增分组
         /// </summary>
         /// <param name="input"></param>
@@ -205,6 +216,17 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> Assign(PermissionAssignInput input)
         {
             return await _permissionServices.AssignAsync(input);
+        }
+
+        /// <summary>
+        /// 保存租户权限
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResponseOutput> SaveTenantPermissions(PermissionSaveTenantPermissionsInput input)
+        {
+            return await _permissionServices.SaveTenantPermissionsAsync(input);
         }
     }
 }

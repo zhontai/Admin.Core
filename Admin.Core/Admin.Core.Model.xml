@@ -534,6 +534,31 @@
             说明
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.TenantPermissionEntity">
+            <summary>
+            租户权限
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantPermissionEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantPermissionEntity.PermissionId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantPermissionEntity.Tenant">
+            <summary>
+            租户
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.TenantPermissionEntity.Permission">
+            <summary>
+            权限
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.UserEntity">
             <summary>
             用户

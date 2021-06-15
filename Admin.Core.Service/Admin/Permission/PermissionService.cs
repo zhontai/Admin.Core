@@ -4,6 +4,7 @@ using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Permission.Input;
 using Admin.Core.Service.Admin.Permission.Output;
@@ -20,21 +21,24 @@ namespace Admin.Core.Service.Admin.Permission
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
-        private readonly ITenantRepository _tenantRepository;
+        private readonly IRepositoryBase<TenantPermissionEntity> _tenantPermissionRepository;
+        private readonly IUserRepository _userRepository;
 
         public PermissionService(
             AppConfig appConfig,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
             IRolePermissionRepository rolePermissionRepository,
-            ITenantRepository tenantRepository
+            IRepositoryBase<TenantPermissionEntity> tenantPermissionRepository,
+            IUserRepository userRepository
         )
         {
             _appConfig = appConfig;
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
-            _tenantRepository = tenantRepository;
+            _tenantPermissionRepository = tenantPermissionRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -228,14 +232,54 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok();
         }
 
+        [Transaction]
+        public async Task<IResponseOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
+        {
+            //查询租户权限
+            var permissionIds = await _tenantPermissionRepository.Select.Where(d => d.TenantId == input.TenantId).ToListAsync(m => m.PermissionId);
+
+            //批量删除租户权限
+            var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
+            if (deleteIds.Count() > 0)
+            {
+                await _tenantPermissionRepository.DeleteAsync(m => m.TenantId == input.TenantId && deleteIds.Contains(m.PermissionId));
+            }
+
+            //批量插入租户权限
+            var tenatPermissions = new List<TenantPermissionEntity>();
+            var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
+            if (insertPermissionIds.Count() > 0)
+            {
+                foreach (var permissionId in insertPermissionIds)
+                {
+                    tenatPermissions.Add(new TenantPermissionEntity()
+                    {
+                        TenantId = input.TenantId,
+                        PermissionId = permissionId,
+                    });
+                }
+                await _tenantPermissionRepository.InsertAsync(tenatPermissions);
+            }
+
+            //清除租户下所有用户权限
+            if (_appConfig.Tenant)
+            {
+                var userIds = await _userRepository.Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
+                foreach(var userId in userIds)
+                {
+                    await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+                }
+            }
+
+            return ResponseOutput.Ok();
+        }
+
         public async Task<IResponseOutput> GetPermissionList()
         {
             var permissions = await _permissionRepository.Select
-                .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant && User.DataIsolationType == DataIsolationType.Share, a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<TenantEntity>((b, c) => b.RoleId == c.RoleId && c.Id == User.TenantId)
-                    .DisableGlobalFilter("Tenant")
-                    .Where(b => b.PermissionId == a.Id)
+                .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant, a =>
+                    _permissionRepository.Orm.Select<TenantPermissionEntity>()
+                    .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                     .Any()
                 )
                 .OrderBy(a => a.ParentId)
@@ -263,6 +307,15 @@ namespace Admin.Core.Service.Admin.Permission
         {
             var permissionIds = await _rolePermissionRepository
                 .Select.Where(d => d.RoleId == roleId)
+                .ToListAsync(a => a.PermissionId);
+
+            return ResponseOutput.Ok(permissionIds);
+        }
+
+        public async Task<IResponseOutput> GetTenantPermissionList(long tenantId)
+        {
+            var permissionIds = await _tenantPermissionRepository
+                .Select.Where(d => d.TenantId == tenantId)
                 .ToListAsync(a => a.PermissionId);
 
             return ResponseOutput.Ok(permissionIds);

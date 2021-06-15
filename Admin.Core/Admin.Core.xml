@@ -430,6 +430,13 @@
             <param name="roleId"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetTenantPermissionList(System.Int64)">
+            <summary>
+            查询租户权限
+            </summary>
+            <param name="tenantId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddGroup(Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput)">
             <summary>
             新增分组
@@ -496,6 +503,13 @@
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.Assign(Admin.Core.Service.Admin.Permission.Input.PermissionAssignInput)">
             <summary>
             保存角色权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.SaveTenantPermissions(Admin.Core.Service.Admin.Permission.Input.PermissionSaveTenantPermissionsInput)">
+            <summary>
+            保存租户权限
             </summary>
             <param name="input"></param>
             <returns></returns>
