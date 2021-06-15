@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Admin.Core.Repository
 {
-    public abstract class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
+    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
     {
         public IUser User { get; set; }
 
-        protected RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
+        public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
         {
         }
 
@@ -73,9 +73,9 @@ namespace Admin.Core.Repository
         }
     }
 
-    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, long> where TEntity : class, new()
+    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class, new()
     {
-        protected RepositoryBase(MyUnitOfWorkManager muowm) : base(muowm.Orm)
+        public RepositoryBase(MyUnitOfWorkManager muowm) : base(muowm.Orm)
         {
             muowm.Binding(this);
         }

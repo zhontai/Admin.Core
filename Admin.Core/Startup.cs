@@ -13,6 +13,7 @@ using Admin.Core.Enums;
 using Admin.Core.Extensions;
 using Admin.Core.Filters;
 using Admin.Core.Logs;
+using Admin.Core.Repository;
 using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
@@ -392,13 +393,16 @@ namespace Admin.Core
                 #endregion Aop
 
                 #region Repository
-
                 var assemblyRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblyRepository)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired();// 属性注入
 
+
+                //泛型注入
+                builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope();
+                builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope();
                 #endregion Repository
 
                 #region Service
