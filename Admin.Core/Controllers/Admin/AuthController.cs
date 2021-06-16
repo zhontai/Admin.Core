@@ -183,7 +183,7 @@ namespace Admin.Core.Controllers.Admin
             var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
             if (userId.IsNull())
             {
-                return ResponseOutput.NotOk();
+                return ResponseOutput.NotOk("登录信息已失效");
             }
             var output = await _userServices.GetLoginUserAsync(userId.ToLong());
 

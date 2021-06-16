@@ -341,17 +341,17 @@
         </member>
         <member name="F:Admin.Core.Common.Cache.CacheKey.UserPermissions">
             <summary>
-            用户权限 admin:user:用户主键:permissions
+            用户权限 admin:user:permissions:用户主键
             </summary>
         </member>
         <member name="F:Admin.Core.Common.Cache.CacheKey.UserInfo">
             <summary>
-            用户信息 admin:user:用户主键:info
+            用户信息 admin:user:info:用户主键
             </summary>
         </member>
         <member name="F:Admin.Core.Common.Cache.CacheKey.TenantInfo">
             <summary>
-            租户信息 admin:tenant:租户主键:info
+            租户信息 admin:tenant:info:租户主键
             </summary>
         </member>
         <member name="T:Admin.Core.Common.Cache.CacheType">
