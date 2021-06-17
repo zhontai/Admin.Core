@@ -33,5 +33,10 @@ namespace Admin.Core.Service.Admin.Permission.Input
         /// Í¼±ê
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// ½Ó¿Ú
+        /// </summary>
+        public long[] ApiIds { get; set; }
     }
 }

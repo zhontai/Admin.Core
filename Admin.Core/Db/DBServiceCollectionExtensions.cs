@@ -54,6 +54,7 @@ namespace Admin.Core.Db
             #endregion 监听所有命令
 
             var fsql = freeSqlBuilder.Build();
+            fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
             //配置实体
             var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);

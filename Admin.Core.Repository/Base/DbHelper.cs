@@ -145,7 +145,7 @@ namespace Admin.Core.Repository
                 return;
             }
 
-            if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
+            if (e.AuditValueType == AuditValueType.Insert)
             {
                 switch (e.Property.Name)
                 {
@@ -420,6 +420,8 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.UserRoles, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.RolePermissions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Tenants, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.TenantPermissions, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.PermissionApis, dbConfig);
 
                     uow.Commit();
                 }
@@ -462,7 +464,7 @@ namespace Admin.Core.Repository
                 //    a.Sort
                 //});
 
-                #endregion 数据字典
+                #endregion
 
                 #region 接口
 
@@ -481,7 +483,7 @@ namespace Admin.Core.Repository
                     r.Childs.AddRange(datalist);
                 });
 
-                #endregion 接口
+                #endregion
 
                 #region 视图
 
@@ -500,7 +502,7 @@ namespace Admin.Core.Repository
                    r.Childs.AddRange(datalist);
                });
 
-                #endregion 视图
+                #endregion
 
                 #region 权限
 
@@ -519,7 +521,7 @@ namespace Admin.Core.Repository
                    r.Childs.AddRange(datalist);
                });
 
-                #endregion 权限
+                #endregion
 
                 #region 用户
 
@@ -535,7 +537,7 @@ namespace Admin.Core.Repository
                     a.Remark
                 });
 
-                #endregion 用户
+                #endregion
 
                 #region 角色
 
@@ -549,7 +551,7 @@ namespace Admin.Core.Repository
                     a.Description
                 });
 
-                #endregion 角色
+                #endregion
 
                 #region 用户角色
 
@@ -560,7 +562,7 @@ namespace Admin.Core.Repository
                     a.RoleId
                 });
 
-                #endregion 用户角色
+                #endregion
 
                 #region 角色权限
 
@@ -571,7 +573,7 @@ namespace Admin.Core.Repository
                     a.PermissionId
                 });
 
-                #endregion 角色权限
+                #endregion
 
                 #region 租户
 
@@ -594,9 +596,31 @@ namespace Admin.Core.Repository
                     a.Description
                 });
 
-                #endregion 租户
+                #endregion
 
-                #endregion 数据表
+                #region 租户权限
+
+                var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync(a => new
+                {
+                    a.Id,
+                    a.TenantId,
+                    a.PermissionId
+                });
+
+                #endregion
+
+                #region 权限接口
+
+                var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync(a => new
+                {
+                    a.Id,
+                    a.PermissionId,
+                    a.ApiId
+                });
+
+                #endregion
+
+                #endregion
 
                 if (!(users?.Count > 0))
                 {
@@ -620,7 +644,9 @@ namespace Admin.Core.Repository
                     roles,
                     userRoles,
                     rolePermissions,
-                    tenants
+                    tenants,
+                    tenantPermissions,
+                    permissionApis
                 },
                 //Formatting.Indented,
                 settings
@@ -630,7 +656,7 @@ namespace Admin.Core.Repository
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
 
-                #endregion 生成数据
+                #endregion
 
                 Console.WriteLine(" generate data succeed\r\n");
             }

@@ -103,5 +103,8 @@ namespace Admin.Core.Model.Admin
         /// </summary>
         [Column(StringLength = 100)]
         public string Description { get; set; }
+
+        [Navigate(ManyToMany = typeof(PermissionApiEntity))]
+        public ICollection<ApiEntity> Apis { get; set; }
     }
 }

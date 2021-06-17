@@ -1000,6 +1000,11 @@
             图标
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.ApiIds">
+            <summary>
+            接口
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput.Type">
             <summary>
             权限类型

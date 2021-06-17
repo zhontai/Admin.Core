@@ -25,13 +25,15 @@ namespace Admin.Core.Service.Admin.User
         private readonly IUserRoleRepository _userRoleRepository;
         private readonly IRolePermissionRepository _rolePermissionRepository;
         private readonly ITenantRepository _tenantRepository;
+        private readonly IApiRepository _apiRepository;
 
         public UserService(
             AppConfig appConfig,
             IUserRepository userRepository,
             IUserRoleRepository userRoleRepository,
             IRolePermissionRepository rolePermissionRepository,
-            ITenantRepository tenantRepository
+            ITenantRepository tenantRepository,
+            IApiRepository apiRepository
         )
         {
             _appConfig = appConfig;
@@ -39,6 +41,7 @@ namespace Admin.Core.Service.Admin.User
             _userRoleRepository = userRoleRepository;
             _rolePermissionRepository = rolePermissionRepository;
             _tenantRepository = tenantRepository;
+            _apiRepository = apiRepository;
         }
 
         public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
@@ -83,12 +86,12 @@ namespace Admin.Core.Service.Admin.User
             var key = string.Format(CacheKey.UserPermissions, User.Id);
             var result = await Cache.GetOrSetAsync(key, async () =>
             {
-                var userPermissoins = await _rolePermissionRepository.Select
-                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)
-                .Include(a => a.Permission.Api)
-                .Distinct()
-                .ToListAsync(a => new UserPermissionsOutput { HttpMethods = a.Permission.Api.HttpMethods, Path = a.Permission.Api.Path });
-                return userPermissoins;
+                return await _apiRepository
+                .Where(a => _userRoleRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
+                .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
+                .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
+                .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .ToListAsync<UserPermissionsOutput>();
             });
             return result;
         }
@@ -155,7 +158,9 @@ namespace Admin.Core.Service.Admin.User
 
             Mapper.Map(input, user);
             await _userRepository.UpdateAsync(user);
+
             await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
+
             if (input.RoleIds != null && input.RoleIds.Any())
             {
                 var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });

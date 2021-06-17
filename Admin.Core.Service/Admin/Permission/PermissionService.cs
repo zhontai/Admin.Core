@@ -25,6 +25,7 @@ namespace Admin.Core.Service.Admin.Permission
         private readonly IUserRepository _userRepository;
         private readonly IRepositoryBase<TenantPermissionEntity> _tenantPermissionRepository;
         private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
+        private readonly IRepositoryBase<PermissionApiEntity> _permissionApiRepository;
 
         public PermissionService(
             AppConfig appConfig,
@@ -33,7 +34,8 @@ namespace Admin.Core.Service.Admin.Permission
             IRolePermissionRepository rolePermissionRepository,
             IUserRepository userRepository,
             IRepositoryBase<TenantPermissionEntity> tenantPermissionRepository,
-            IRepositoryBase<UserRoleEntity> userRoleRepository
+            IRepositoryBase<UserRoleEntity> userRoleRepository,
+            IRepositoryBase<PermissionApiEntity> permissionApiRepository
         )
         {
             _appConfig = appConfig;
@@ -43,6 +45,7 @@ namespace Admin.Core.Service.Admin.Permission
             _userRepository = userRepository;
             _tenantPermissionRepository = tenantPermissionRepository;
             _userRoleRepository = userRoleRepository;
+            _permissionApiRepository = permissionApiRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -72,8 +75,14 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> GetDotAsync(long id)
         {
-            var result = await _permissionRepository.GetAsync<PermissionGetDotOutput>(id);
-            return ResponseOutput.Ok(result);
+            var entity = await _permissionRepository.Select
+            .WhereDynamic(id)
+            .IncludeMany(a => a.Apis.Select(b => new ApiEntity { Id = b.Id }))
+            .ToOneAsync();
+
+            var output = Mapper.Map<PermissionGetDotOutput>(entity);
+
+            return ResponseOutput.Ok(output);
         }
 
         public async Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end)
@@ -117,10 +126,17 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(id > 0);
         }
 
+        [Transaction]
         public async Task<IResponseOutput> AddDotAsync(PermissionAddDotInput input)
         {
             var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
+
+            if (input.ApiIds != null && input.ApiIds.Any())
+            {
+                var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = id, ApiId = a });
+                await _permissionApiRepository.InsertAsync(permissionApis);
+            }
 
             return ResponseOutput.Ok(id > 0);
         }
@@ -166,15 +182,29 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input)
         {
-            var result = false;
-            if (input != null && input.Id > 0)
+            if (!(input?.Id > 0))
             {
-                var entity = await _permissionRepository.GetAsync(input.Id);
-                entity = Mapper.Map(input, entity);
-                result = (await _permissionRepository.UpdateAsync(entity)) > 0;
+                return ResponseOutput.NotOk();
             }
 
-            return ResponseOutput.Result(result);
+            var entity = await _permissionRepository.GetAsync(input.Id);
+            if (!(entity?.Id > 0))
+            {
+                return ResponseOutput.NotOk("权限点不存在！");
+            }
+
+            Mapper.Map(input, entity);
+            await _permissionRepository.UpdateAsync(entity);
+
+            await _permissionApiRepository.DeleteAsync(a => a.PermissionId == entity.Id);
+
+            if (input.ApiIds != null && input.ApiIds.Any())
+            {
+                var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a });
+                await _permissionApiRepository.InsertAsync(permissionApis);
+            }
+
+            return ResponseOutput.Ok();
         }
 
         public async Task<IResponseOutput> DeleteAsync(long id)
@@ -310,7 +340,7 @@ namespace Admin.Core.Service.Admin.Permission
                 .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });
 
             var apis = permissions
-                .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
+                .Where(a => a.Type == PermissionType.Dot)
                 .Select(a => new { a.Id, a.ParentId, a.Label });
 
             var menus = permissions

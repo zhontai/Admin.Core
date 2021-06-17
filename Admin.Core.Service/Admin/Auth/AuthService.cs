@@ -76,7 +76,7 @@ namespace Admin.Core.Service.Admin.Auth
 
                 //用户权限点
                 authUserInfoOutput.Permissions = await _permissionRepository.Select
-                    .Where(a => new[] { PermissionType.Api, PermissionType.Dot }.Contains(a.Type))
+                    .Where(a => a.Type == PermissionType.Dot)
                     .Where(a =>
                         _permissionRepository.Orm.Select<RolePermissionEntity>()
                         .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)

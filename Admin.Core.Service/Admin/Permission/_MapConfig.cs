@@ -1,6 +1,8 @@
 ﻿using Admin.Core.Model.Admin;
 using Admin.Core.Service.Admin.Permission.Input;
+using Admin.Core.Service.Admin.Permission.Output;
 using AutoMapper;
+using System.Linq;
 
 namespace Admin.Core.Service.Admin.Permission
 {
@@ -20,6 +22,11 @@ namespace Admin.Core.Service.Admin.Permission
             CreateMap<PermissionUpdateMenuInput, PermissionEntity>();
             CreateMap<PermissionUpdateApiInput, PermissionEntity>();
             CreateMap<PermissionUpdateDotInput, PermissionEntity>();
+
+            CreateMap<PermissionEntity, PermissionGetDotOutput>().ForMember(
+                d => d.ApiIds,
+                m => m.MapFrom(s => s.Apis.Select(a => a.Id))
+            );
         }
     }
 }

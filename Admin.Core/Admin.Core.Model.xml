@@ -284,6 +284,31 @@
             操作参数
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.PermissionApiEntity">
+            <summary>
+            权限接口
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.PermissionApiEntity.PermissionId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.PermissionApiEntity.Permission">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.PermissionApiEntity.ApiId">
+            <summary>
+            接口Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.PermissionApiEntity.Api">
+            <summary>
+            接口
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.PermissionEntity">
             <summary>
             权限
@@ -382,11 +407,6 @@
         <member name="F:Admin.Core.Model.Admin.PermissionType.Menu">
             <summary>
             菜单
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Admin.PermissionType.Api">
-            <summary>
-            接口
             </summary>
         </member>
         <member name="F:Admin.Core.Model.Admin.PermissionType.Dot">

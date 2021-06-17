@@ -18,5 +18,7 @@ namespace Admin.Core.Repository
         public UserRoleEntity[] UserRoles { get; set; }
         public RolePermissionEntity[] RolePermissions { get; set; }
         public TenantEntity[] Tenants { get; set; }
+        public TenantPermissionEntity[] TenantPermissions { get; set; }
+        public PermissionApiEntity[] PermissionApis { get; set; }
     }
 }
