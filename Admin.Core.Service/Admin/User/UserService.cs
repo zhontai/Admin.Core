@@ -5,6 +5,7 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.User.Input;
@@ -22,16 +23,14 @@ namespace Admin.Core.Service.Admin.User
     {
         private readonly AppConfig _appConfig;
         private readonly IUserRepository _userRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
         private readonly ITenantRepository _tenantRepository;
         private readonly IApiRepository _apiRepository;
 
         public UserService(
             AppConfig appConfig,
             IUserRepository userRepository,
-            IUserRoleRepository userRoleRepository,
-            IRolePermissionRepository rolePermissionRepository,
+            IRepositoryBase<UserRoleEntity> userRoleRepository,
             ITenantRepository tenantRepository,
             IApiRepository apiRepository
         )
@@ -39,7 +38,6 @@ namespace Admin.Core.Service.Admin.User
             _appConfig = appConfig;
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
-            _rolePermissionRepository = rolePermissionRepository;
             _tenantRepository = tenantRepository;
             _apiRepository = apiRepository;
         }
@@ -51,8 +49,11 @@ namespace Admin.Core.Service.Admin.User
             if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
             {
                 var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
-                output.Data.TenantType = tenant.TenantType;
-                output.Data.DataIsolationType = tenant.DataIsolationType;
+                if(null != tenant)
+                {
+                    output.Data.TenantType = tenant.TenantType;
+                    output.Data.DataIsolationType = tenant.DataIsolationType;
+                }
             }
             return output.Ok(entityDto);
         }

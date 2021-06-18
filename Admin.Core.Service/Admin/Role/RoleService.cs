@@ -1,6 +1,7 @@
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Role.Input;
 using Admin.Core.Service.Admin.Role.Output;
@@ -12,11 +13,11 @@ namespace Admin.Core.Service.Admin.Role
     public class RoleService : BaseService, IRoleService
     {
         private readonly IRoleRepository _roleRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
 
         public RoleService(
             IRoleRepository roleRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IRepositoryBase<RolePermissionEntity> rolePermissionRepository
         )
         {
             _roleRepository = roleRepository;

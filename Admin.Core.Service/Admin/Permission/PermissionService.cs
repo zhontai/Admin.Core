@@ -21,8 +21,7 @@ namespace Admin.Core.Service.Admin.Permission
         private readonly AppConfig _appConfig;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IRoleRepository _roleRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
         private readonly IRepositoryBase<TenantPermissionEntity> _tenantPermissionRepository;
         private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
         private readonly IRepositoryBase<PermissionApiEntity> _permissionApiRepository;
@@ -31,8 +30,7 @@ namespace Admin.Core.Service.Admin.Permission
             AppConfig appConfig,
             IPermissionRepository permissionRepository,
             IRoleRepository roleRepository,
-            IRolePermissionRepository rolePermissionRepository,
-            IUserRepository userRepository,
+            IRepositoryBase<RolePermissionEntity> rolePermissionRepository,
             IRepositoryBase<TenantPermissionEntity> tenantPermissionRepository,
             IRepositoryBase<UserRoleEntity> userRoleRepository,
             IRepositoryBase<PermissionApiEntity> permissionApiRepository
@@ -42,7 +40,6 @@ namespace Admin.Core.Service.Admin.Permission
             _permissionRepository = permissionRepository;
             _roleRepository = roleRepository;
             _rolePermissionRepository = rolePermissionRepository;
-            _userRepository = userRepository;
             _tenantPermissionRepository = tenantPermissionRepository;
             _userRoleRepository = userRoleRepository;
             _permissionApiRepository = permissionApiRepository;
