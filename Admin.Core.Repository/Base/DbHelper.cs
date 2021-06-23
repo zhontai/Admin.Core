@@ -5,9 +5,11 @@ using Admin.Core.Common.Configs;
 using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
+using Admin.Core.Model.Personnel;
 using Admin.Core.Repository.Admin.Output;
 using Admin.Core.Repository.Admin.Permission.Output;
 using Admin.Core.Repository.Admin.View.Output;
+using Admin.Core.Repository.Personnel.Output;
 using FreeSql;
 using FreeSql.Aop;
 using FreeSql.DataAnnotations;
@@ -524,25 +526,6 @@ namespace Admin.Core.Repository
 
                 #endregion
 
-                #region 组织机构
-
-                var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
-                var organizationTree = organizations.ToTree((r, c) =>
-                {
-                    return c.ParentId == 0;
-                },
-                (r, c) =>
-                {
-                    return r.Id == c.ParentId;
-                },
-                (r, datalist) =>
-                {
-                    r.Childs ??= new List<OrganizationDataOutput>();
-                    r.Childs.AddRange(datalist);
-                });
-
-                #endregion
-
                 #region 用户
 
                 var users = await db.Queryable<UserEntity>().ToListAsync(a => new
@@ -583,8 +566,6 @@ namespace Admin.Core.Repository
                 });
 
                 #endregion
-
-               
 
                 #region 角色权限
 
@@ -638,6 +619,26 @@ namespace Admin.Core.Repository
                     a.Id,
                     a.PermissionId,
                     a.ApiId
+                });
+
+                #endregion
+
+
+                #region 组织机构
+
+                var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
+                var organizationTree = organizations.ToTree((r, c) =>
+                {
+                    return c.ParentId == 0;
+                },
+                (r, c) =>
+                {
+                    return r.Id == c.ParentId;
+                },
+                (r, datalist) =>
+                {
+                    r.Childs ??= new List<OrganizationDataOutput>();
+                    r.Childs.AddRange(datalist);
                 });
 
                 #endregion

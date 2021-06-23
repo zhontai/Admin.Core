@@ -930,101 +930,6 @@
             映射配置
             </summary>
         </member>
-        <member name="T:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput">
-            <summary>
-            添加
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.ParentId">
-            <summary>
-            父级
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Service.Admin.Organization.Input.OrganizationUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationUpdateInput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Input.OrganizationUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.ParentId">
-            <summary>
-            父级
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Organization.Output.OrganizationListOutput.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Service.Admin.Organization.MapConfig">
-            <summary>
-            映射配置
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddApiInput.Type">
             <summary>
             权限类型
@@ -1856,6 +1761,101 @@
         <member name="P:Admin.Core.Service.BaseService.Logger">
             <summary>
             日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.MapConfig">
+            <summary>
+            映射配置
             </summary>
         </member>
     </members>

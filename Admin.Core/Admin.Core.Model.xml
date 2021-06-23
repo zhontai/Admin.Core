@@ -194,26 +194,6 @@
             主键Id
             </summary>
         </member>
-        <member name="T:Admin.Core.Model.Admin.EmployeeEntity">
-            <summary>
-            员工
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.EmpNo">
-            <summary>
-            工号
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.OrganizationId">
-            <summary>
-            部门Id
-            </summary>
-        </member>
         <member name="T:Admin.Core.Model.Admin.LogAbstract">
             <summary>
             日志
@@ -302,51 +282,6 @@
         <member name="P:Admin.Core.Model.Admin.OprationLogEntity.Params">
             <summary>
             操作参数
-            </summary>
-        </member>
-        <member name="T:Admin.Core.Model.Admin.OrganizationEntity">
-            <summary>
-            组织机构
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.ParentId">
-            <summary>
-            父级
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.OrganizationEntity.Sort">
-            <summary>
-            排序
             </summary>
         </member>
         <member name="T:Admin.Core.Model.Admin.PermissionApiEntity">
@@ -730,6 +665,71 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.ViewEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Personnel.EmployeeEntity">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.EmpNo">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.OrganizationId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Personnel.OrganizationEntity">
+            <summary>
+            组织架构
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.Sort">
             <summary>
             排序
             </summary>

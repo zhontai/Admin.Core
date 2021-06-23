@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Admin.Core.Service.Admin.Organization.Output
+namespace Admin.Core.Service.Personnel.Organization.Output
 {
     public class OrganizationListOutput
     {

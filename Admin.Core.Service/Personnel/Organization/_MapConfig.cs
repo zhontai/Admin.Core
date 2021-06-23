@@ -1,8 +1,8 @@
-﻿using Admin.Core.Model.Admin;
-using Admin.Core.Service.Admin.Organization.Input;
+﻿using Admin.Core.Model.Personnel;
+using Admin.Core.Service.Personnel.Organization.Input;
 using AutoMapper;
 
-namespace Admin.Core.Service.Admin.Organization
+namespace Admin.Core.Service.Personnel.Organization
 {
     /// <summary>
     /// 映射配置

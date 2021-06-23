@@ -1,12 +1,12 @@
 ﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
-using Admin.Core.Model.Admin;
-using Admin.Core.Service.Admin.Organization;
-using Admin.Core.Service.Admin.Organization.Input;
+using Admin.Core.Model.Personnel;
+using Admin.Core.Service.Personnel.Organization;
+using Admin.Core.Service.Personnel.Organization.Input;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Controllers.Admin
+namespace Admin.Core.Controllers.Personnel
 {
     /// <summary>
     /// 组织机构

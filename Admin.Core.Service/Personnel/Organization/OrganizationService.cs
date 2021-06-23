@@ -1,12 +1,12 @@
 ﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
-using Admin.Core.Model.Admin;
-using Admin.Core.Repository.Admin;
-using Admin.Core.Service.Admin.Organization.Input;
-using Admin.Core.Service.Admin.Organization.Output;
+using Admin.Core.Model.Personnel;
+using Admin.Core.Repository.Personnel;
+using Admin.Core.Service.Personnel.Organization.Input;
+using Admin.Core.Service.Personnel.Organization.Output;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Service.Admin.Organization
+namespace Admin.Core.Service.Personnel.Organization
 {
     public class OrganizationService : BaseService, IOrganizationService
     {

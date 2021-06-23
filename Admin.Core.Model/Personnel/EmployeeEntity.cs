@@ -1,14 +1,14 @@
 using Admin.Core.Common.BaseModel;
+using Admin.Core.Model.Admin;
 using FreeSql.DataAnnotations;
 using System;
-using System.Collections.Generic;
 
-namespace Admin.Core.Model.Admin
+namespace Admin.Core.Model.Personnel
 {
     /// <summary>
     /// 员工
     /// </summary>
-	[Table(Name = "ad_employee")]
+	[Table(Name = "pe_employee")]
     [Index("idx_{tablename}_01", nameof(EmpNo) + "," + nameof(TenantId), true)]
     public class EmployeeEntity : EntityFull, ITenant
     {

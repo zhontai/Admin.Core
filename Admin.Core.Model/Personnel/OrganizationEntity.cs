@@ -1,45 +1,52 @@
-﻿using System.Collections.Generic;
+using Admin.Core.Common.BaseModel;
+using FreeSql.DataAnnotations;
+using System.Collections.Generic;
 
-namespace Admin.Core.Repository.Admin.Output
+namespace Admin.Core.Model.Personnel
 {
     /// <summary>
-    /// 组织机构数据导出
+    /// 组织架构
     /// </summary>
-    public class OrganizationDataOutput
+	[Table(Name = "pe_organization")]
+    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
+    public class OrganizationEntity : EntityFull, ITenant
     {
         /// <summary>
         /// 租户Id
         /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 组织机构Id
+        /// 父级
         /// </summary>
-        public long Id { get; set; }
+		public long ParentId { get; set; }
 
-        /// <summary>
-        /// 接口父级
-        /// </summary>
-        public long? ParentId { get; set; }
+        [Navigate(nameof(ParentId))]
+        public List<OrganizationEntity> Childs { get; set; }
 
         /// <summary>
         /// 名称
         /// </summary>
+        [Column(StringLength = 50)]
         public string Name { get; set; }
 
         /// <summary>
         /// 编码
         /// </summary>
+        [Column(StringLength = 50)]
         public string Code { get; set; }
 
         /// <summary>
         /// 值
         /// </summary>
+        [Column(StringLength = 50)]
         public string Value { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
+        [Column(StringLength = 500)]
         public string Description { get; set; }
 
         /// <summary>
@@ -51,7 +58,5 @@ namespace Admin.Core.Repository.Admin.Output
         /// 排序
         /// </summary>
 		public int Sort { get; set; }
-
-        public List<OrganizationDataOutput> Childs { get; set; }
     }
 }

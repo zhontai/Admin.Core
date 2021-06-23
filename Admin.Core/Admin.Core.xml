@@ -375,46 +375,6 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="T:Admin.Core.Controllers.Admin.OrganizationController">
-            <summary>
-            组织机构
-            </summary>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.OrganizationController.Get(System.Int64)">
-            <summary>
-            查询单条组织机构
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.OrganizationEntity})">
-            <summary>
-            查询分页组织机构
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.OrganizationController.Add(Admin.Core.Service.Admin.Organization.Input.OrganizationAddInput)">
-            <summary>
-            新增组织机构
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.OrganizationController.Update(Admin.Core.Service.Admin.Organization.Input.OrganizationUpdateInput)">
-            <summary>
-            修改组织机构
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Admin.Core.Controllers.Admin.OrganizationController.SoftDelete(System.Int64)">
-            <summary>
-            删除组织机构
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:Admin.Core.Controllers.Admin.PermissionController">
             <summary>
             权限管理
@@ -796,6 +756,51 @@
             <summary>
             基础控制器
             </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.AreaController">
+            <summary>
+            域控制器
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.OrganizationController">
+            <summary>
+            组织机构
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Get(System.Int64)">
+            <summary>
+            查询单条组织机构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.OrganizationEntity})">
+            <summary>
+            查询分页组织机构
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">
+            <summary>
+            新增组织机构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Update(Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput)">
+            <summary>
+            修改组织机构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.SoftDelete(System.Int64)">
+            <summary>
+            删除组织机构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>

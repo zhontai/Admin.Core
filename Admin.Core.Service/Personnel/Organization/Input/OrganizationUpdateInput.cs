@@ -1,4 +1,4 @@
-﻿namespace Admin.Core.Service.Admin.Organization.Input
+﻿namespace Admin.Core.Service.Personnel.Organization.Input
 {
     /// <summary>
     /// 修改

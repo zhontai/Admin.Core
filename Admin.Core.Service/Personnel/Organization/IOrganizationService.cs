@@ -1,10 +1,10 @@
 ﻿using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
-using Admin.Core.Model.Admin;
-using Admin.Core.Service.Admin.Organization.Input;
+using Admin.Core.Model.Personnel;
+using Admin.Core.Service.Personnel.Organization.Input;
 using System.Threading.Tasks;
 
-namespace Admin.Core.Service.Admin.Organization
+namespace Admin.Core.Service.Personnel.Organization
 {
     public partial interface IOrganizationService
     {

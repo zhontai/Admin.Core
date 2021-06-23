@@ -1,6 +1,6 @@
-﻿using Admin.Core.Model.Admin;
+﻿using Admin.Core.Model.Personnel;
 
-namespace Admin.Core.Repository.Admin
+namespace Admin.Core.Repository.Personnel
 {
     public class OrganizationRepository : RepositoryBase<OrganizationEntity>, IOrganizationRepository
     {
