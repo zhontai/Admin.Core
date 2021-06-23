@@ -41,11 +41,6 @@ namespace Admin.Core.Repository.Admin.Permission.Output
         public long? ViewId { get; set; }
 
         /// <summary>
-        /// 接口
-        /// </summary>
-        public long? ApiId { get; set; }
-
-        /// <summary>
         /// 访问地址
         /// </summary>
         public string Path { get; set; }

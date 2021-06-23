@@ -415,6 +415,7 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Users, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Roles, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.UserRoles, dbConfig);
@@ -523,6 +524,25 @@ namespace Admin.Core.Repository
 
                 #endregion
 
+                #region 组织机构
+
+                var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
+                var organizationTree = organizations.ToTree((r, c) =>
+                {
+                    return c.ParentId == 0;
+                },
+                (r, c) =>
+                {
+                    return r.Id == c.ParentId;
+                },
+                (r, datalist) =>
+                {
+                    r.Childs ??= new List<OrganizationDataOutput>();
+                    r.Childs.AddRange(datalist);
+                });
+
+                #endregion
+
                 #region 用户
 
                 var users = await db.Queryable<UserEntity>().ToListAsync(a => new
@@ -563,6 +583,8 @@ namespace Admin.Core.Repository
                 });
 
                 #endregion
+
+               
 
                 #region 角色权限
 

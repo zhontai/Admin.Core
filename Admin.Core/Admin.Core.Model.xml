@@ -194,6 +194,26 @@
             主键Id
             </summary>
         </member>
+        <member name="T:Admin.Core.Model.Admin.EmployeeEntity">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.EmpNo">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.EmployeeEntity.OrganizationId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
         <member name="T:Admin.Core.Model.Admin.LogAbstract">
             <summary>
             日志
@@ -382,11 +402,6 @@
         <member name="P:Admin.Core.Model.Admin.PermissionEntity.ViewId">
             <summary>
             视图
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Model.Admin.PermissionEntity.ApiId">
-            <summary>
-            接口
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.PermissionEntity.Path">

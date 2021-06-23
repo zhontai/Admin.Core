@@ -32,7 +32,7 @@ namespace Admin.Core.Service.Admin.Permission.Output
         /// <summary>
         /// 接口路径
         /// </summary>
-        public string ApiPath { get; set; }
+        public string ApiPaths { get; set; }
 
         /// <summary>
         /// 描述

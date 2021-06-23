@@ -2,7 +2,10 @@
 
 namespace Admin.Core.Repository.Admin.Output
 {
-    public class ApiDataOutput
+    /// <summary>
+    /// 组织机构数据导出
+    /// </summary>
+    public class OrganizationDataOutput
     {
         /// <summary>
         /// 租户Id
@@ -10,50 +13,45 @@ namespace Admin.Core.Repository.Admin.Output
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 接口Id
+        /// 组织机构Id
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// 父级Id
+        /// 接口父级
         /// </summary>
         public long? ParentId { get; set; }
 
         /// <summary>
-        /// 接口命名
+        /// 名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 接口名称
+        /// 编码
         /// </summary>
-        public string Label { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
-        /// 接口地址
+        /// 值
         /// </summary>
-        public string Path { get; set; }
+        public string Value { get; set; }
 
         /// <summary>
-        /// 接口提交方法
-        /// </summary>
-        public string HttpMethods { get; set; }
-
-        /// <summary>
-        /// 说明
+        /// 描述
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// 排序
-        /// </summary>
-        public int Sort { get; set; }
-
-        /// <summary>
         /// 启用
         /// </summary>
-        public bool Enabled { get; set; }
+		public bool Enabled { get; set; } = true;
 
-        public List<ApiDataOutput> Childs { get; set; }
+        /// <summary>
+        /// 排序
+        /// </summary>
+		public int Sort { get; set; }
+
+        public List<OrganizationDataOutput> Childs { get; set; }
     }
 }

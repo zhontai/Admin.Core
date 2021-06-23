@@ -94,7 +94,7 @@ namespace Admin.Core.Service.Admin.Permission
                 .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
-                .ToListAsync(a => new PermissionListOutput { ApiPath = a.Api.Path });
+                .ToListAsync(a=> new PermissionListOutput { ApiPaths = string.Join(";", _permissionApiRepository.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) });
 
             return ResponseOutput.Ok(data);
         }
