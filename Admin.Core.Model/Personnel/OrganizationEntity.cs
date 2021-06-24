@@ -46,7 +46,7 @@ namespace Admin.Core.Model.Personnel
         /// <summary>
         /// 主管
         /// </summary>
-        public long PrimaryUserId { get; set; }
+        public long? PrimaryUserId { get; set; }
 
         /// <summary>
         /// 员工人数
