@@ -413,11 +413,11 @@ namespace Admin.Core.Repository
                         await dualRepo.InsertAsync(new DualEntity { });
                     }
 
+                    //admin
                     //await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
-                    await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Users, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Roles, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.UserRoles, dbConfig);
@@ -425,6 +425,9 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.Tenants, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.TenantPermissions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionApis, dbConfig);
+
+                    //人事
+                    await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
 
                     uow.Commit();
                 }
@@ -452,7 +455,7 @@ namespace Admin.Core.Repository
                 Console.WriteLine("\r\n generate data started");
 
                 #region 数据表
-
+                //admin
                 #region 数据字典
 
                 //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
@@ -623,7 +626,7 @@ namespace Admin.Core.Repository
 
                 #endregion
 
-
+                //人事
                 #region 组织机构
 
                 var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
@@ -669,7 +672,9 @@ namespace Admin.Core.Repository
                     rolePermissions,
                     tenants,
                     tenantPermissions,
-                    permissionApis
+                    permissionApis,
+
+                    organizationTree
                 },
                 //Formatting.Indented,
                 settings

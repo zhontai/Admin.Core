@@ -44,6 +44,16 @@ namespace Admin.Core.Model.Personnel
         public string Value { get; set; }
 
         /// <summary>
+        /// 主管
+        /// </summary>
+        public long PrimaryUserId { get; set; }
+
+        /// <summary>
+        /// 员工人数
+        /// </summary>
+        public int EmployeeCount { get; set; }
+
+        /// <summary>
         /// 描述
         /// </summary>
         [Column(StringLength = 500)]
