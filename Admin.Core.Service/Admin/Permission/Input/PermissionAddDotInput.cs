@@ -15,6 +15,11 @@ namespace Admin.Core.Service.Admin.Permission.Input
         public long ParentId { get; set; }
 
         /// <summary>
+        /// 关联接口
+        /// </summary>
+        public long[] ApiIds { get; set; }
+
+        /// <summary>
         /// 权限名称
         /// </summary>
         public string Label { get; set; }
@@ -33,10 +38,5 @@ namespace Admin.Core.Service.Admin.Permission.Input
         /// 图标
         /// </summary>
         public string Icon { get; set; }
-
-        /// <summary>
-        /// 接口
-        /// </summary>
-        public long[] ApiIds { get; set; }
     }
 }

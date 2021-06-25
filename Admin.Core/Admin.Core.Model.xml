@@ -674,6 +674,11 @@
             性别
             </summary>
         </member>
+        <member name="F:Admin.Core.Model.Enums.Sex.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
         <member name="F:Admin.Core.Model.Enums.Sex.Male">
             <summary>
             男
@@ -682,11 +687,6 @@
         <member name="F:Admin.Core.Model.Enums.Sex.Female">
             <summary>
             女
-            </summary>
-        </member>
-        <member name="F:Admin.Core.Model.Enums.Sex.Unknown">
-            <summary>
-            未知
             </summary>
         </member>
         <member name="T:Admin.Core.Model.Personnel.EmployeeEntity">
@@ -699,14 +699,19 @@
             租户Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Code">
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.UserId">
             <summary>
-            员工编号
+            用户Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.OrganizationId">
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Name">
             <summary>
-            部门Id
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.NickName">
+            <summary>
+            昵称
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Sex">
@@ -714,14 +719,34 @@
             性别
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Phone">
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Code">
             <summary>
-            手机号
+            工号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.OrganizationId">
+            <summary>
+            主属部门Id
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.PositionId">
             <summary>
             职位Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.HireDate">
+            <summary>
+            入职时间
             </summary>
         </member>
         <member name="T:Admin.Core.Model.Personnel.EmployeeOrganizationEntity">
@@ -779,7 +804,12 @@
             值
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.PrimaryUserId">
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.PrimaryEmployeeId">
+            <summary>
+            主管Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.OrganizationEntity.PrimaryEmployee">
             <summary>
             主管
             </summary>

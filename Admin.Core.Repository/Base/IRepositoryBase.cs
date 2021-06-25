@@ -30,6 +30,22 @@ namespace Admin.Core.Repository
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> exp);
 
         /// <summary>
+        /// 递归删除
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+        /// <returns></returns>
+        Task<bool> RecursiveDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
+
+        /// <summary>
+        /// 递归软删除
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+        /// <returns></returns>
+        Task<bool> RecursiveSoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
+
+        /// <summary>
         /// 软删除
         /// </summary>
         /// <param name="id"></param>
@@ -37,18 +53,18 @@ namespace Admin.Core.Repository
         Task<bool> SoftDeleteAsync(TKey id);
 
         /// <summary>
-        /// 软删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] name);
-
-        /// <summary>
         /// 批量删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<bool> SoftDeleteAsync(TKey[] id);
+
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+        /// <returns></returns>
+        Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
     }
 
     public interface IRepositoryBase<TEntity> : IRepositoryBase<TEntity, long> where TEntity : class

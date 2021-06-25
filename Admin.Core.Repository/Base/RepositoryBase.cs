@@ -29,7 +29,37 @@ namespace Admin.Core.Repository
             return Select.Where(exp).ToOneAsync();
         }
 
-        public async Task<bool> SoftDeleteAsync(TKey id)
+        public virtual async Task<bool> RecursiveDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToDelete()
+            .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> RecursiveSoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToUpdate()
+            .SetDto(new
+            {
+                IsDeleted = true,
+                ModifiedUserId = User.Id,
+                ModifiedUserName = User.Name
+            })
+            .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> SoftDeleteAsync(TKey id)
         {
             await UpdateDiy
                 .SetDto(new
@@ -40,25 +70,11 @@ namespace Admin.Core.Repository
                 })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
+
             return true;
         }
 
-        public async Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] name)
-        {
-            await UpdateDiy
-                .SetDto(new
-                {
-                    IsDeleted = true,
-                    ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
-                })
-                .Where(exp)
-                .DisableGlobalFilter(name)
-                .ExecuteAffrowsAsync();
-            return true;
-        }
-
-        public async Task<bool> SoftDeleteAsync(TKey[] ids)
+        public virtual async Task<bool> SoftDeleteAsync(TKey[] ids)
         {
             await UpdateDiy
                 .SetDto(new
@@ -69,6 +85,23 @@ namespace Admin.Core.Repository
                 })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await UpdateDiy
+                .SetDto(new
+                {
+                    IsDeleted = true,
+                    ModifiedUserId = User.Id,
+                    ModifiedUserName = User.Name
+                })
+                .Where(exp)
+                .DisableGlobalFilter(disableGlobalFilterNames)
+                .ExecuteAffrowsAsync();
+
             return true;
         }
     }

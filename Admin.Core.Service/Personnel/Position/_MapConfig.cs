@@ -1,8 +1,8 @@
 ﻿using Admin.Core.Model.Personnel;
-using Admin.Core.Service.Personnel.Organization.Input;
+using Admin.Core.Service.Personnel.Position.Input;
 using AutoMapper;
 
-namespace Admin.Core.Service.Personnel.Organization
+namespace Admin.Core.Service.Personnel.Position
 {
     /// <summary>
     /// 映射配置
@@ -12,9 +12,9 @@ namespace Admin.Core.Service.Personnel.Organization
         public MapConfig()
         {
             //新增
-            CreateMap<OrganizationAddInput, OrganizationEntity>();
+            CreateMap<PositionAddInput, PositionEntity>();
             //修改
-            CreateMap<OrganizationUpdateInput, OrganizationEntity>();
+            CreateMap<PositionUpdateInput, PositionEntity>();
         }
     }
 }

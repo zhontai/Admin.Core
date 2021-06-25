@@ -44,9 +44,14 @@ namespace Admin.Core.Model.Personnel
         public string Value { get; set; }
 
         /// <summary>
+        /// 主管Id
+        /// </summary>
+        public long? PrimaryEmployeeId { get; set; }
+
+        /// <summary>
         /// 主管
         /// </summary>
-        public long? PrimaryUserId { get; set; }
+        public EmployeeEntity PrimaryEmployee { get; set; }
 
         /// <summary>
         /// 员工人数
@@ -68,5 +73,8 @@ namespace Admin.Core.Model.Personnel
         /// 排序
         /// </summary>
 		public int Sort { get; set; }
+
+        [Navigate(ManyToMany = typeof(EmployeeOrganizationEntity))]
+        public ICollection<EmployeeEntity> Employees { get; set; }
     }
 }

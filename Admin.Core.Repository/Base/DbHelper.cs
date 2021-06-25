@@ -136,8 +136,8 @@ namespace Admin.Core.Repository
             }
 
             if (e.Column.CsType == typeof(long)
-            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
-            && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) is SnowflakeAttribute snowflakeAttribute
+            && snowflakeAttribute.Enable && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
             {
                 e.Value = YitIdHelper.NextId();
             }
@@ -173,7 +173,7 @@ namespace Admin.Core.Repository
                         break;
                 }
             }
-            else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
+            else if (e.AuditValueType == AuditValueType.Update)
             {
                 switch (e.Property.Name)
                 {

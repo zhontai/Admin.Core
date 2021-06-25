@@ -762,6 +762,53 @@
             域控制器
             </summary>
         </member>
+        <member name="T:Admin.Core.Controllers.Personnel.EmployeeController">
+            <summary>
+            员工管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Get(System.Int64)">
+            <summary>
+            查询单条用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.EmployeeEntity})">
+            <summary>
+            查询分页用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Add(Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput)">
+            <summary>
+            新增用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Update(Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.SoftDelete(System.Int64)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Personnel.OrganizationController">
             <summary>
             组织机构
@@ -800,6 +847,53 @@
             删除组织机构
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.PositionController">
+            <summary>
+            职位管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Get(System.Int64)">
+            <summary>
+            查询单条职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.PositionEntity})">
+            <summary>
+            查询分页职位
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Add(Admin.Core.Service.Personnel.Position.Input.PositionAddInput)">
+            <summary>
+            新增职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Update(Admin.Core.Service.Personnel.Position.Input.PositionUpdateInput)">
+            <summary>
+            修改职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.SoftDelete(System.Int64)">
+            <summary>
+            删除职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除职位
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
