@@ -29,36 +29,6 @@ namespace Admin.Core.Repository
             return Select.Where(exp).ToOneAsync();
         }
 
-        public virtual async Task<bool> RecursiveDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
-        {
-            await Select
-            .Where(exp)
-            .DisableGlobalFilter(disableGlobalFilterNames)
-            .AsTreeCte()
-            .ToDelete()
-            .ExecuteAffrowsAsync();
-
-            return true;
-        }
-
-        public virtual async Task<bool> RecursiveSoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
-        {
-            await Select
-            .Where(exp)
-            .DisableGlobalFilter(disableGlobalFilterNames)
-            .AsTreeCte()
-            .ToUpdate()
-            .SetDto(new
-            {
-                IsDeleted = true,
-                ModifiedUserId = User.Id,
-                ModifiedUserName = User.Name
-            })
-            .ExecuteAffrowsAsync();
-
-            return true;
-        }
-
         public virtual async Task<bool> SoftDeleteAsync(TKey id)
         {
             await UpdateDiy
@@ -101,6 +71,36 @@ namespace Admin.Core.Repository
                 .Where(exp)
                 .DisableGlobalFilter(disableGlobalFilterNames)
                 .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> DeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToDelete()
+            .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> SoftDeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToUpdate()
+            .SetDto(new
+            {
+                IsDeleted = true,
+                ModifiedUserId = User.Id,
+                ModifiedUserName = User.Name
+            })
+            .ExecuteAffrowsAsync();
 
             return true;
         }

@@ -13,11 +13,11 @@ namespace Admin.Core.Controllers.Personnel
     /// </summary>
     public class OrganizationController : AreaController
     {
-        private readonly IOrganizationService _organizationServices;
+        private readonly IOrganizationService _organizationService;
 
-        public OrganizationController(IOrganizationService organizationServices)
+        public OrganizationController(IOrganizationService organizationService)
         {
-            _organizationServices = organizationServices;
+            _organizationService = organizationService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _organizationServices.GetAsync(id);
+            return await _organizationService.GetAsync(id);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPost]
         public async Task<IResponseOutput> GetPage(PageInput<OrganizationEntity> model)
         {
-            return await _organizationServices.PageAsync(model);
+            return await _organizationService.PageAsync(model);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPost]
         public async Task<IResponseOutput> Add(OrganizationAddInput input)
         {
-            return await _organizationServices.AddAsync(input);
+            return await _organizationService.AddAsync(input);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPut]
         public async Task<IResponseOutput> Update(OrganizationUpdateInput input)
         {
-            return await _organizationServices.UpdateAsync(input);
+            return await _organizationService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _organizationServices.SoftDeleteAsync(id);
+            return await _organizationService.SoftDeleteAsync(id);
         }
     }
 }

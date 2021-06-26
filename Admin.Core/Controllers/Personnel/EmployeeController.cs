@@ -13,13 +13,11 @@ namespace Admin.Core.Controllers.Personnel
     /// </summary>
     public class EmployeeController : AreaController
     {
-        private readonly IEmployeeService _employeeServices;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(
-            IEmployeeService employeeServices
-        )
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeServices = employeeServices;
+            _employeeService = employeeService;
         }
 
         /// <summary>
@@ -30,7 +28,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _employeeServices.GetAsync(id);
+            return await _employeeService.GetAsync(id);
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace Admin.Core.Controllers.Personnel
         //[ResponseCache(Duration = 60)]
         public async Task<IResponseOutput> GetPage(PageInput<EmployeeEntity> input)
         {
-            return await _employeeServices.PageAsync(input);
+            return await _employeeService.PageAsync(input);
         }
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPost]
         public async Task<IResponseOutput> Add(EmployeeAddInput input)
         {
-            return await _employeeServices.AddAsync(input);
+            return await _employeeService.AddAsync(input);
         }
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPut]
         public async Task<IResponseOutput> Update(EmployeeUpdateInput input)
         {
-            return await _employeeServices.UpdateAsync(input);
+            return await _employeeService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -75,7 +73,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _employeeServices.SoftDeleteAsync(id);
+            return await _employeeService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -86,7 +84,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPut]
         public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
         {
-            return await _employeeServices.BatchSoftDeleteAsync(ids);
+            return await _employeeService.BatchSoftDeleteAsync(ids);
         }
     }
 }

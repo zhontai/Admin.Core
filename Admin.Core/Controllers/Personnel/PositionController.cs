@@ -13,11 +13,11 @@ namespace Admin.Core.Controllers.Personnel
     /// </summary>
     public class PositionController : AreaController
     {
-        private readonly IPositionService _roleServices;
+        private readonly IPositionService _positionService;
 
-        public PositionController(IPositionService roleServices)
+        public PositionController(IPositionService positionService)
         {
-            _roleServices = roleServices;
+            _positionService = positionService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _roleServices.GetAsync(id);
+            return await _positionService.GetAsync(id);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPost]
         public async Task<IResponseOutput> GetPage(PageInput<PositionEntity> model)
         {
-            return await _roleServices.PageAsync(model);
+            return await _positionService.PageAsync(model);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPost]
         public async Task<IResponseOutput> Add(PositionAddInput input)
         {
-            return await _roleServices.AddAsync(input);
+            return await _positionService.AddAsync(input);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPut]
         public async Task<IResponseOutput> Update(PositionUpdateInput input)
         {
-            return await _roleServices.UpdateAsync(input);
+            return await _positionService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _roleServices.SoftDeleteAsync(id);
+            return await _positionService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Admin.Core.Controllers.Personnel
         [HttpPut]
         public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
         {
-            return await _roleServices.BatchSoftDeleteAsync(ids);
+            return await _positionService.BatchSoftDeleteAsync(ids);
         }
     }
 }

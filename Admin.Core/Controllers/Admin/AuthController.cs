@@ -27,19 +27,19 @@ namespace Admin.Core.Controllers.Admin
     {
         private readonly IUserToken _userToken;
         private readonly IAuthService _authService;
-        private readonly IUserService _userServices;
+        private readonly IUserService _userService;
         private readonly ILoginLogService _loginLogService;
 
         public AuthController(
             IUserToken userToken,
-            IAuthService authServices,
-            IUserService userServices,
+            IAuthService authService,
+            IUserService userService,
             ILoginLogService loginLogService
         )
         {
             _userToken = userToken;
-            _authService = authServices;
-            _userServices = userServices;
+            _authService = authService;
+            _userService = userService;
             _loginLogService = loginLogService;
         }
 
@@ -56,6 +56,12 @@ namespace Admin.Core.Controllers.Admin
             }
 
             var user = output.Data;
+
+            if (user == null)
+            {
+                return ResponseOutput.NotOk();
+            }
+
             var token = _userToken.Create(new[]
             {
                 new Claim(ClaimAttributes.UserId, user.Id.ToString()),
@@ -185,7 +191,7 @@ namespace Admin.Core.Controllers.Admin
             {
                 return ResponseOutput.NotOk("登录信息已失效");
             }
-            var output = await _userServices.GetLoginUserAsync(userId.ToLong());
+            var output = await _userService.GetLoginUserAsync(userId.ToLong());
 
             return GetToken(output);
         }

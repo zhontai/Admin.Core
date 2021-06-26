@@ -673,8 +673,7 @@ namespace Admin.Core.Repository
                     tenants,
                     tenantPermissions,
                     permissionApis,
-
-                    organizationTree
+                    //organizationTree
                 },
                 //Formatting.Indented,
                 settings

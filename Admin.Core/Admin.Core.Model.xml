@@ -59,9 +59,14 @@
             租户Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.DictionaryEntity.ParentId">
+        <member name="P:Admin.Core.Model.Admin.DictionaryEntity.DictionaryTypeId">
             <summary>
-            字典父级
+            字典类型Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryEntity.DictionaryType">
+            <summary>
+            字典类型
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.DictionaryEntity.Name">
@@ -90,6 +95,41 @@
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Admin.DictionaryEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Model.Admin.DictionaryTypeEntity">
+            <summary>
+            数据字典类型
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Admin.DictionaryTypeEntity.Sort">
             <summary>
             排序
             </summary>
@@ -727,6 +767,16 @@
         <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.OrganizationId">
             <summary>
             主属部门Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.PrimaryEmployeeId">
+            <summary>
+            主管Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.PrimaryEmployee">
+            <summary>
+            主管
             </summary>
         </member>
         <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.PositionId">

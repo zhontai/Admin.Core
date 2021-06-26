@@ -27,14 +27,14 @@
             禁用操作日志
             </summary>
         </member>
-        <member name="T:Admin.Core.Attributes.PermissionAttribute">
-            <summary>
-            启用权限
-            </summary>
-        </member>
         <member name="T:Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.ValidatePermissionAttribute">
+            <summary>
+            启用权限验证
             </summary>
         </member>
         <member name="T:Admin.Core.Attributes.VersionRouteAttribute">
@@ -242,6 +242,46 @@
         <member name="M:Admin.Core.Controllers.Admin.DictionaryController.SoftDelete(System.Int64)">
             <summary>
             删除数据字典
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Admin.DictionaryTypeController">
+            <summary>
+            数据字典类型
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Get(System.Int64)">
+            <summary>
+            查询单条数据字典类型
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.DictionaryTypeEntity})">
+            <summary>
+            查询分页数据字典类型
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Add(Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput)">
+            <summary>
+            新增数据字典类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Update(Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeUpdateInput)">
+            <summary>
+            修改数据字典类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.SoftDelete(System.Int64)">
+            <summary>
+            删除数据字典类型
             </summary>
             <param name="id"></param>
             <returns></returns>

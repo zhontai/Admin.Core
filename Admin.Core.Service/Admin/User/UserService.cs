@@ -51,8 +51,8 @@ namespace Admin.Core.Service.Admin.User
                 var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
                 if(null != tenant)
                 {
-                    output.Data.TenantType = tenant.TenantType;
-                    output.Data.DataIsolationType = tenant.DataIsolationType;
+                    entityDto.TenantType = tenant.TenantType;
+                    entityDto.DataIsolationType = tenant.DataIsolationType;
                 }
             }
             return output.Ok(entityDto);

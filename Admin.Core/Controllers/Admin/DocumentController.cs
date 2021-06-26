@@ -15,19 +15,19 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class DocumentController : AreaController
     {
-        private readonly IDocumentService _documentServices;
+        private readonly IDocumentService _documentService;
         private readonly UploadConfig _uploadConfig;
         private readonly UploadHelper _uploadHelper;
 
         public DocumentController(
-            IDocumentService documentServices,
+            UploadHelper uploadHelper,
             IOptionsMonitor<UploadConfig> uploadConfig,
-            UploadHelper uploadHelper
+            IDocumentService documentService
         )
         {
-            _documentServices = documentServices;
-            _uploadConfig = uploadConfig.CurrentValue;
             _uploadHelper = uploadHelper;
+            _uploadConfig = uploadConfig.CurrentValue;
+            _documentService = documentService;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _documentServices.GetListAsync(key, start, end);
+            return await _documentService.GetListAsync(key, start, end);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetImageList(long id)
         {
-            return await _documentServices.GetImageListAsync(id);
+            return await _documentService.GetImageListAsync(id);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetGroup(long id)
         {
-            return await _documentServices.GetGroupAsync(id);
+            return await _documentService.GetGroupAsync(id);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetMenu(long id)
         {
-            return await _documentServices.GetMenuAsync(id);
+            return await _documentService.GetMenuAsync(id);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetContent(long id)
         {
-            return await _documentServices.GetContentAsync(id);
+            return await _documentService.GetContentAsync(id);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetPlainList()
         {
-            return await _documentServices.GetPlainListAsync();
+            return await _documentService.GetPlainListAsync();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddGroup(DocumentAddGroupInput input)
         {
-            return await _documentServices.AddGroupAsync(input);
+            return await _documentService.AddGroupAsync(input);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddMenu(DocumentAddMenuInput input)
         {
-            return await _documentServices.AddMenuAsync(input);
+            return await _documentService.AddMenuAsync(input);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateGroup(DocumentUpdateGroupInput input)
         {
-            return await _documentServices.UpdateGroupAsync(input);
+            return await _documentService.UpdateGroupAsync(input);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateMenu(DocumentUpdateMenuInput input)
         {
-            return await _documentServices.UpdateMenuAsync(input);
+            return await _documentService.UpdateMenuAsync(input);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateContent(DocumentUpdateContentInput input)
         {
-            return await _documentServices.UpdateContentAsync(input);
+            return await _documentService.UpdateContentAsync(input);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _documentServices.SoftDeleteAsync(id);
+            return await _documentService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> DeleteImage(long documentId, string url)
         {
-            return await _documentServices.DeleteImageAsync(documentId, url);
+            return await _documentService.DeleteImageAsync(documentId, url);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace Admin.Core.Controllers.Admin
             if (res.Success)
             {
                 //保存文档图片
-                var r = await _documentServices.AddImageAsync(
+                var r = await _documentService.AddImageAsync(
                 new DocumentAddImageInput
                 {
                     DocumentId = input.Id,

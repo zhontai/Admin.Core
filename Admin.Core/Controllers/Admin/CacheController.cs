@@ -10,11 +10,11 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class CacheController : AreaController
     {
-        private readonly ICacheService _cacheServices;
+        private readonly ICacheService _cacheService;
 
-        public CacheController(ICacheService cacheServices)
+        public CacheController(ICacheService cacheService)
         {
-            _cacheServices = cacheServices;
+            _cacheService = cacheService;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public IResponseOutput List()
         {
-            return _cacheServices.List();
+            return _cacheService.List();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> Clear(string cacheKey)
         {
-            return await _cacheServices.ClearAsync(cacheKey);
+            return await _cacheService.ClearAsync(cacheKey);
         }
     }
 }
