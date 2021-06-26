@@ -12,6 +12,7 @@ namespace Admin.Core.Service.Admin.View.Input
         {
             CreateMap<ViewAddInput, ViewEntity>();
             CreateMap<ViewUpdateInput, ViewEntity>();
+            CreateMap<ViewSyncDto, ViewEntity>();
         }
     }
 }

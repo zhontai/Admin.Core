@@ -1731,19 +1731,9 @@
             视图命名
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Label">
-            <summary>
-            名称
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Path">
             <summary>
             地址
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.ParentPath">
-            <summary>
-            父级路径
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.View.Input.ViewUpdateInput">
