@@ -585,7 +585,6 @@ namespace Admin.Core.Repository
 
                 var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
                 {
-                    a.TenantId,
                     a.Id,
                     a.UserId,
                     a.RoleId,

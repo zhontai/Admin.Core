@@ -9,16 +9,10 @@ namespace Admin.Core.Model.Admin
     /// 租户
     /// </summary>
 	[Table(Name = "ad_tenant")]
-    [Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
-    [Index("idx_{tablename}_02", nameof(Code) + "," + nameof(TenantId), true)]
-    public class TenantEntity : EntityFull, ITenant
+    [Index("idx_{tablename}_01", nameof(Name), true)]
+    [Index("idx_{tablename}_02", nameof(Code), true)]
+    public class TenantEntity : EntityFull
     {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
-        public long? TenantId { get; set; }
-
         /// <summary>
         /// 企业名称
         /// </summary>

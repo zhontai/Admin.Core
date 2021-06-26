@@ -514,11 +514,6 @@
             租户
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Admin.TenantEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:Admin.Core.Model.Admin.TenantEntity.Name">
             <summary>
             企业名称
