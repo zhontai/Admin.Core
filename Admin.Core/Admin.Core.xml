@@ -851,7 +851,7 @@
         </member>
         <member name="T:Admin.Core.Controllers.Personnel.OrganizationController">
             <summary>
-            组织机构
+            组织架构
             </summary>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Get(System.Int64)">

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Admin.Core.Controllers.Personnel
 {
     /// <summary>
-    /// 组织机构
+    /// 组织架构
     /// </summary>
     public class OrganizationController : AreaController
     {
