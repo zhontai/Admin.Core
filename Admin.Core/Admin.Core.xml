@@ -856,35 +856,35 @@
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Get(System.Int64)">
             <summary>
-            查询单条组织机构
+            查询单条组织架构
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.OrganizationEntity})">
             <summary>
-            查询分页组织机构
+            查询分页组织架构
             </summary>
             <param name="model"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">
             <summary>
-            新增组织机构
+            新增组织架构
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Update(Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput)">
             <summary>
-            修改组织机构
+            修改组织架构
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.SoftDelete(System.Int64)">
             <summary>
-            删除组织机构
+            删除组织架构
             </summary>
             <param name="id"></param>
             <returns></returns>

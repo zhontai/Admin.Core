@@ -21,7 +21,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询单条组织机构
+        /// 查询单条组织架构
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -32,7 +32,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询分页组织机构
+        /// 查询分页组织架构
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -43,7 +43,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 新增组织机构
+        /// 新增组织架构
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -54,7 +54,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 修改组织机构
+        /// 修改组织架构
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 删除组织机构
+        /// 删除组织架构
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
