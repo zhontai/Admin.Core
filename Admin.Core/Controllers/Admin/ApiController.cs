@@ -13,11 +13,11 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class ApiController : AreaController
     {
-        private readonly IApiService _apiServices;
+        private readonly IApiService _apiService;
 
-        public ApiController(IApiService apiServices)
+        public ApiController(IApiService apiService)
         {
-            _apiServices = apiServices;
+            _apiService = apiService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _apiServices.GetAsync(id);
+            return await _apiService.GetAsync(id);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key)
         {
-            return await _apiServices.ListAsync(key);
+            return await _apiService.ListAsync(key);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> GetPage(PageInput<ApiEntity> model)
         {
-            return await _apiServices.PageAsync(model);
+            return await _apiService.PageAsync(model);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Add(ApiAddInput input)
         {
-            return await _apiServices.AddAsync(input);
+            return await _apiService.AddAsync(input);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> Update(ApiUpdateInput input)
         {
-            return await _apiServices.UpdateAsync(input);
+            return await _apiService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _apiServices.SoftDeleteAsync(id);
+            return await _apiService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
         {
-            return await _apiServices.BatchSoftDeleteAsync(ids);
+            return await _apiService.BatchSoftDeleteAsync(ids);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Sync(ApiSyncInput input)
         {
-            return await _apiServices.SyncAsync(input);
+            return await _apiService.SyncAsync(input);
         }
     }
 }

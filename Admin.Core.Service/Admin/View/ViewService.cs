@@ -112,106 +112,70 @@ namespace Admin.Core.Service.Admin.View
         [Transaction]
         public async Task<IResponseOutput> SyncAsync(ViewSyncInput input)
         {
-            //查询所有view
+            //查询所有视图
             var views = await _viewRepository.Select.ToListAsync();
+            var names = views.Select(a => a.Name).ToList();
             var paths = views.Select(a => a.Path).ToList();
 
             //path处理
             foreach (var view in input.Views)
             {
                 view.Path = view.Path?.Trim().ToLower();
-                view.ParentPath = view.ParentPath?.Trim().ToLower();
             }
 
-            #region 执行插入
-
-            //执行父级view插入
-            var parentViews = input.Views.FindAll(a => a.ParentPath.IsNull());
-            var pViews = (from a in parentViews where !paths.Contains(a.Path) select a).ToList();
-            if (pViews.Count > 0)
+            //批量插入
             {
-                var insertPViews = Mapper.Map<List<ViewEntity>>(pViews);
-                insertPViews = await _viewRepository.InsertAsync(insertPViews);
-                views.AddRange(insertPViews);
-            }
-
-            //执行子级view插入
-            var childViews = input.Views.FindAll(a => a.ParentPath.NotNull());
-            var cViews = (from a in childViews where !paths.Contains(a.Path) select a).ToList();
-            if (cViews.Count > 0)
-            {
-                var insertCViews = Mapper.Map<List<ViewEntity>>(cViews);
-                insertCViews = await _viewRepository.InsertAsync(insertCViews);
-                views.AddRange(insertCViews);
-            }
-
-            #endregion 执行插入
-
-            #region 修改和禁用
-
-            //view修改
-            {
-                ViewEntity a;
-                List<string> labels;
-                string label;
-                string desc;
-                foreach (var view in parentViews)
+                var inputViews = (from a in input.Views where !paths.Contains(a.Path) || !names.Contains(a.Name) select a).ToList();
+                if (inputViews.Count > 0)
                 {
-                    a = views.Find(a => a.Path == view.Path);
-                    if (a?.Id > 0)
+                    var insertViews = Mapper.Map<List<ViewEntity>>(inputViews);
+                    foreach (var insertView in insertViews)
                     {
-                        labels = view.Label?.Split("\r\n")?.ToList();
-                        label = labels != null && labels.Count > 0 ? labels[0] : string.Empty;
-                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count() - 1)) : string.Empty;
-                        a.ParentId = 0;
-                        a.Label = label;
-                        a.Description = desc;
-                        a.Enabled = true;
+                        insertView.Label = insertView.Name;
                     }
+                    insertViews = await _viewRepository.InsertAsync(insertViews);
+                    views.AddRange(insertViews);
                 }
             }
-
-            {
-                ViewEntity a;
-                ViewEntity pa;
-                List<string> labels;
-                string label;
-                string desc;
-                foreach (var view in childViews)
-                {
-                    a = views.Find(a => a.Path == view.Path);
-                    pa = views.Find(a => a.Path == view.ParentPath);
-                    if (a?.Id > 0)
-                    {
-                        labels = view.Label?.Split("\r\n")?.ToList();
-                        label = labels != null && labels.Count > 0 ? labels[0] : string.Empty;
-                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count() - 1)) : string.Empty;
-
-                        a.ParentId = pa.Id;
-                        a.Label = label;
-                        a.Description = desc;
-                        a.Enabled = true;
-                    }
-                }
-            }
-
-            //view禁用
-            var inputPaths = input.Views.Select(a => a.Path).ToList();
-            var disabledViews = (from a in views where !inputPaths.Contains(a.Path) select a).ToList();
-            if (disabledViews.Count > 0)
-            {
-                foreach (var view in disabledViews)
-                {
-                    view.Enabled = false;
-                }
-            }
-
-            #endregion 修改和禁用
 
             //批量更新
-            await _viewRepository.UpdateDiy.SetSource(views)
-            .UpdateColumns(a => new { a.ParentId, a.Label, a.Description, a.Enabled })
-            .ExecuteAffrowsAsync();
+            {
+                var inputPaths = input.Views.Select(a => a.Path).ToList();
+                var inputNames = input.Views.Select(a => a.Name).ToList();
+
+                //修改
+                var updateViews = (from a in views where inputPaths.Contains(a.Path) || inputNames.Contains(a.Name) select a).ToList();
+                if (updateViews.Count > 0)
+                {
+                    foreach (var view in updateViews)
+                    {
+                        var inputView = input.Views.Where(a => a.Name == view.Name || a.Path == view.Path).FirstOrDefault();
+                        if (view.Label.IsNull())
+                        {
+                            view.Label = inputView.Name;
+                        }
+                        view.Name = inputView.Name;
+                        view.Path = inputView.Path;
+                        view.Enabled = true;
+                    }
+                }
+
+                //禁用
+                var disabledViews = (from a in views where (a.Path.NotNull() || a.Name.NotNull()) && (!inputPaths.Contains(a.Path) || !inputNames.Contains(a.Name)) select a).ToList();
+                if (disabledViews.Count > 0)
+                {
+                    foreach (var view in disabledViews)
+                    {
+                        view.Enabled = false;
+                    }
+                }
+
+                updateViews.AddRange(disabledViews);
+                await _viewRepository.UpdateDiy.SetSource(updateViews)
+                .UpdateColumns(a => new { a.Label, a.Name, a.Path, a.Enabled })
+                .ExecuteAffrowsAsync();
+            }
+            
 
             return ResponseOutput.Ok();
         }

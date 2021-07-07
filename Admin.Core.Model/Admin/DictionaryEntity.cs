@@ -8,7 +8,7 @@ namespace Admin.Core.Model.Admin
     /// 数据字典
     /// </summary>
 	[Table(Name = "ad_dictionary")]
-    [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
+    [Index("idx_{tablename}_01", nameof(DictionaryTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
     public class DictionaryEntity : EntityFull, ITenant
     {
         /// <summary>
@@ -18,12 +18,14 @@ namespace Admin.Core.Model.Admin
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 字典父级
+        /// 字典类型Id
         /// </summary>
-		public long ParentId { get; set; }
+        public long DictionaryTypeId { get; set; }
 
-        [Navigate(nameof(ParentId))]
-        public List<DictionaryEntity> Childs { get; set; }
+        /// <summary>
+        /// 字典类型
+        /// </summary>
+        public DictionaryTypeEntity DictionaryType { get; set; }
 
         /// <summary>
         /// 字典名称

@@ -12,11 +12,11 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class PermissionController : AreaController
     {
-        private readonly IPermissionService _permissionServices;
+        private readonly IPermissionService _permissionService;
 
-        public PermissionController(IPermissionService permissionServices)
+        public PermissionController(IPermissionService permissionService)
         {
-            _permissionServices = permissionServices;
+            _permissionService = permissionService;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _permissionServices.ListAsync(key, start, end);
+            return await _permissionService.ListAsync(key, start, end);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetGroup(long id)
         {
-            return await _permissionServices.GetGroupAsync(id);
+            return await _permissionService.GetGroupAsync(id);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetMenu(long id)
         {
-            return await _permissionServices.GetMenuAsync(id);
+            return await _permissionService.GetMenuAsync(id);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetApi(long id)
         {
-            return await _permissionServices.GetApiAsync(id);
+            return await _permissionService.GetApiAsync(id);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetDot(long id)
         {
-            return await _permissionServices.GetDotAsync(id);
+            return await _permissionService.GetDotAsync(id);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetPermissionList()
         {
-            return await _permissionServices.GetPermissionList();
+            return await _permissionService.GetPermissionList();
         }
 
         /// <summary>
@@ -94,7 +94,18 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetRolePermissionList(long roleId = 0)
         {
-            return await _permissionServices.GetRolePermissionList(roleId);
+            return await _permissionService.GetRolePermissionList(roleId);
+        }
+
+        /// <summary>
+        /// 查询租户权限
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResponseOutput> GetTenantPermissionList(long tenantId = 0)
+        {
+            return await _permissionService.GetTenantPermissionList(tenantId);
         }
 
         /// <summary>
@@ -105,7 +116,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddGroup(PermissionAddGroupInput input)
         {
-            return await _permissionServices.AddGroupAsync(input);
+            return await _permissionService.AddGroupAsync(input);
         }
 
         /// <summary>
@@ -116,7 +127,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddMenu(PermissionAddMenuInput input)
         {
-            return await _permissionServices.AddMenuAsync(input);
+            return await _permissionService.AddMenuAsync(input);
         }
 
         /// <summary>
@@ -127,7 +138,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddApi(PermissionAddApiInput input)
         {
-            return await _permissionServices.AddApiAsync(input);
+            return await _permissionService.AddApiAsync(input);
         }
 
         /// <summary>
@@ -138,7 +149,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> AddDot(PermissionAddDotInput input)
         {
-            return await _permissionServices.AddDotAsync(input);
+            return await _permissionService.AddDotAsync(input);
         }
 
         /// <summary>
@@ -149,7 +160,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateGroup(PermissionUpdateGroupInput input)
         {
-            return await _permissionServices.UpdateGroupAsync(input);
+            return await _permissionService.UpdateGroupAsync(input);
         }
 
         /// <summary>
@@ -160,7 +171,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateMenu(PermissionUpdateMenuInput input)
         {
-            return await _permissionServices.UpdateMenuAsync(input);
+            return await _permissionService.UpdateMenuAsync(input);
         }
 
         /// <summary>
@@ -171,7 +182,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateApi(PermissionUpdateApiInput input)
         {
-            return await _permissionServices.UpdateApiAsync(input);
+            return await _permissionService.UpdateApiAsync(input);
         }
 
         /// <summary>
@@ -182,7 +193,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateDot(PermissionUpdateDotInput input)
         {
-            return await _permissionServices.UpdateDotAsync(input);
+            return await _permissionService.UpdateDotAsync(input);
         }
 
         /// <summary>
@@ -193,7 +204,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _permissionServices.SoftDeleteAsync(id);
+            return await _permissionService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -204,7 +215,18 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Assign(PermissionAssignInput input)
         {
-            return await _permissionServices.AssignAsync(input);
+            return await _permissionService.AssignAsync(input);
+        }
+
+        /// <summary>
+        /// 保存租户权限
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IResponseOutput> SaveTenantPermissions(PermissionSaveTenantPermissionsInput input)
+        {
+            return await _permissionService.SaveTenantPermissionsAsync(input);
         }
     }
 }

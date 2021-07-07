@@ -54,6 +54,7 @@ namespace Admin.Core.Db
             #endregion 监听所有命令
 
             var fsql = freeSqlBuilder.Build();
+            fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
             //配置实体
             var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
@@ -67,12 +68,13 @@ namespace Admin.Core.Db
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
 
+            var user = services.BuildServiceProvider().GetService<IUser>();
+
             #region 审计数据
 
             //计算服务器时间
             var serverTime = fsql.Select<DualEntity>().Limit(1).First(a => DateTime.UtcNow);
             var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            var user = services.BuildServiceProvider().GetService<IUser>();
             DbHelper.TimeOffset = timeOffset;
             fsql.Aop.AuditValue += (s, e) =>
             {

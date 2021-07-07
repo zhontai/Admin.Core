@@ -5,6 +5,7 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.User.Input;
@@ -22,34 +23,37 @@ namespace Admin.Core.Service.Admin.User
     {
         private readonly AppConfig _appConfig;
         private readonly IUserRepository _userRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
         private readonly ITenantRepository _tenantRepository;
+        private readonly IApiRepository _apiRepository;
 
         public UserService(
             AppConfig appConfig,
             IUserRepository userRepository,
-            IUserRoleRepository userRoleRepository,
-            IRolePermissionRepository rolePermissionRepository,
-            ITenantRepository tenantRepository
+            IRepositoryBase<UserRoleEntity> userRoleRepository,
+            ITenantRepository tenantRepository,
+            IApiRepository apiRepository
         )
         {
             _appConfig = appConfig;
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
-            _rolePermissionRepository = rolePermissionRepository;
             _tenantRepository = tenantRepository;
+            _apiRepository = apiRepository;
         }
 
         public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
         {
             var output = new ResponseOutput<AuthLoginOutput>();
             var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
-            if (_appConfig.Tenant)
+            if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
             {
                 var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
-                output.Data.TenantType = tenant.TenantType;
-                output.Data.DataIsolationType = tenant.DataIsolationType;
+                if(null != tenant)
+                {
+                    entityDto.TenantType = tenant.TenantType;
+                    entityDto.DataIsolationType = tenant.DataIsolationType;
+                }
             }
             return output.Ok(entityDto);
         }
@@ -83,12 +87,12 @@ namespace Admin.Core.Service.Admin.User
             var key = string.Format(CacheKey.UserPermissions, User.Id);
             var result = await Cache.GetOrSetAsync(key, async () =>
             {
-                var userPermissoins = await _rolePermissionRepository.Select
-                .InnerJoin<UserRoleEntity>((a, b) => a.RoleId == b.RoleId && b.UserId == User.Id && a.Permission.Type == PermissionType.Api)
-                .Include(a => a.Permission.Api)
-                .Distinct()
-                .ToListAsync(a => new UserPermissionsOutput { HttpMethods = a.Permission.Api.HttpMethods, Path = a.Permission.Api.Path });
-                return userPermissoins;
+                return await _apiRepository
+                .Where(a => _userRoleRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
+                .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
+                .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
+                .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .ToListAsync<UserPermissionsOutput>();
             });
             return result;
         }
@@ -155,7 +159,9 @@ namespace Admin.Core.Service.Admin.User
 
             Mapper.Map(input, user);
             await _userRepository.UpdateAsync(user);
+
             await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
+
             if (input.RoleIds != null && input.RoleIds.Any())
             {
                 var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });

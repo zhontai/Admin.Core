@@ -59,5 +59,8 @@ namespace Admin.Core.Model.Admin
         /// 启用
         /// </summary>
         public bool Enabled { get; set; } = true;
+
+        [Navigate(ManyToMany = typeof(PermissionApiEntity))]
+        public ICollection<PermissionEntity> Permissions { get; set; }
     }
 }

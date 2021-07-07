@@ -19,7 +19,10 @@ namespace Admin.Core.Service.Admin.Permission
 
         Task<IResponseOutput> GetPermissionList();
 
-        Task<IResponseOutput> GetRolePermissionList(long roleId = 0);
+        Task<IResponseOutput> GetRolePermissionList(long roleId);
+
+
+        Task<IResponseOutput> GetTenantPermissionList(long tenantId);
 
         Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end);
 
@@ -44,5 +47,7 @@ namespace Admin.Core.Service.Admin.Permission
         Task<IResponseOutput> SoftDeleteAsync(long id);
 
         Task<IResponseOutput> AssignAsync(PermissionAssignInput input);
+
+        Task<IResponseOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input);
     }
 }

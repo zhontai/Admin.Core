@@ -83,17 +83,18 @@ namespace Admin.Core.Repository
             var user = serviceProvider.GetRequiredService<IUser>();
             var appConfig = serviceProvider.GetRequiredService<AppConfig>();
 
-            if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb && user.TenantId.HasValue)
+            var tenantId = user.TenantId;
+            if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb && tenantId.HasValue)
             {
-                var tenantName = "tenant_" + user.TenantId.ToString();
+                var tenantName = "tenant_" + tenantId.ToString();
                 var exists = ib.Exists(tenantName);
                 if (!exists)
                 {
                     var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
                     //查询租户数据库信息
-                    var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
-                    var tenantRepository = freeSql.GetRepository<TenantEntity>();
-                    var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOne<CreateFreeSqlTenantDto>();
+                    var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
+                    var tenantRepository = masterDb.GetRepository<TenantEntity>();
+                    var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
 
                     var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
                     ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
@@ -106,6 +107,39 @@ namespace Admin.Core.Repository
                 var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
                 return freeSql;
             }
+        }
+
+        /// <summary>
+        /// 获得租户FreeSql实例
+        /// </summary>
+        /// <param name="ib"></param>
+        /// <param name="serviceProvider"></param>
+        /// <param name="tenantId"></param>
+        /// <returns></returns>
+        public static IFreeSql GetTenantFreeSql(this IdleBus<IFreeSql> ib, IServiceProvider serviceProvider, long? tenantId = null)
+        {
+            if (tenantId.HasValue)
+            {
+                var user = serviceProvider.GetRequiredService<IUser>();
+                var appConfig = serviceProvider.GetRequiredService<AppConfig>();
+                var tenantName = "tenant_" + tenantId.ToString();
+                var exists = ib.Exists(tenantName);
+                if (!exists)
+                {
+                    var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
+                    //查询租户数据库信息
+                    var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
+                    var tenantRepository = masterDb.GetRepository<TenantEntity>();
+                    var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+
+                    var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
+                    ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
+                }
+
+                return ib.Get(tenantName);
+            }
+
+            return null;
         }
     }
 }

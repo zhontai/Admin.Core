@@ -22,19 +22,19 @@ namespace Admin.Core.Controllers.Admin
         private readonly IUser _user;
         private readonly UploadConfig _uploadConfig;
         private readonly UploadHelper _uploadHelper;
-        private readonly IUserService _userServices;
+        private readonly IUserService _userService;
 
         public UserController(
             IUser user,
             IOptionsMonitor<UploadConfig> uploadConfig,
             UploadHelper uploadHelper,
-            IUserService userServices
+            IUserService userService
         )
         {
             _user = user;
             _uploadConfig = uploadConfig.CurrentValue;
             _uploadHelper = uploadHelper;
-            _userServices = userServices;
+            _userService = userService;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetBasic()
         {
-            return await _userServices.GetBasicAsync();
+            return await _userService.GetBasicAsync();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _userServices.GetAsync(id);
+            return await _userService.GetAsync(id);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Admin.Core.Controllers.Admin
         //[ResponseCache(Duration = 60)]
         public async Task<IResponseOutput> GetPage(PageInput<UserEntity> input)
         {
-            return await _userServices.PageAsync(input);
+            return await _userService.PageAsync(input);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Add(UserAddInput input)
         {
-            return await _userServices.AddAsync(input);
+            return await _userService.AddAsync(input);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> Update(UserUpdateInput input)
         {
-            return await _userServices.UpdateAsync(input);
+            return await _userService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _userServices.SoftDeleteAsync(id);
+            return await _userService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
         {
-            return await _userServices.BatchSoftDeleteAsync(ids);
+            return await _userService.BatchSoftDeleteAsync(ids);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> ChangePassword(UserChangePasswordInput input)
         {
-            return await _userServices.ChangePasswordAsync(input);
+            return await _userService.ChangePasswordAsync(input);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> UpdateBasic(UserUpdateBasicInput input)
         {
-            return await _userServices.UpdateBasicAsync(input);
+            return await _userService.UpdateBasicAsync(input);
         }
 
         /// <summary>

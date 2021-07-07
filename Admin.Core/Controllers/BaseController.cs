@@ -8,7 +8,7 @@ namespace Admin.Core.Controllers
     /// </summary>
     [Route("api/[area]/[controller]/[action]")]
     [ApiController]
-    [Permission]
+    [ValidatePermission]
     [ValidateInput]
     public abstract class BaseController : ControllerBase
     {

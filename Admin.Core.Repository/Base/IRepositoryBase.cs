@@ -11,7 +11,7 @@ namespace Admin.Core.Repository
         /// 获得Dto
         /// </summary>
         /// <typeparam name="TDto"></typeparam>
-        /// <param name="id"></param>
+        /// <param name="id">主键</param>
         /// <returns></returns>
         Task<TDto> GetAsync<TDto>(TKey id);
 
@@ -32,23 +32,39 @@ namespace Admin.Core.Repository
         /// <summary>
         /// 软删除
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">主键</param>
         /// <returns></returns>
         Task<bool> SoftDeleteAsync(TKey id);
 
         /// <summary>
-        /// 软删除
+        /// 批量软删除
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids">主键数组</param>
         /// <returns></returns>
-        Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] name);
+        Task<bool> SoftDeleteAsync(TKey[] ids);
 
         /// <summary>
-        /// 批量删除
+        /// 软删除
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
         /// <returns></returns>
-        Task<bool> SoftDeleteAsync(TKey[] id);
+        Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
+
+        /// <summary>
+        /// 递归删除
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+        /// <returns></returns>
+        Task<bool> DeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
+
+        /// <summary>
+        /// 递归软删除
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+        /// <returns></returns>
+        Task<bool> SoftDeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);
     }
 
     public interface IRepositoryBase<TEntity> : IRepositoryBase<TEntity, long> where TEntity : class

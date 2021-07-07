@@ -45,13 +45,6 @@ namespace Admin.Core.Model.Admin
         public ViewEntity View { get; set; }
 
         /// <summary>
-        /// 接口
-        /// </summary>
-        public long? ApiId { get; set; }
-
-        public ApiEntity Api { get; set; }
-
-        /// <summary>
         /// 菜单访问地址
         /// </summary>
         [Column(StringLength = 500)]
@@ -103,5 +96,8 @@ namespace Admin.Core.Model.Admin
         /// </summary>
         [Column(StringLength = 100)]
         public string Description { get; set; }
+
+        [Navigate(ManyToMany = typeof(PermissionApiEntity))]
+        public ICollection<ApiEntity> Apis { get; set; }
     }
 }

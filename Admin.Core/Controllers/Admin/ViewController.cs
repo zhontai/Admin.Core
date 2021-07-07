@@ -13,11 +13,11 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class ViewController : AreaController
     {
-        private readonly IViewService _viewServices;
+        private readonly IViewService _viewService;
 
-        public ViewController(IViewService viewServices)
+        public ViewController(IViewService viewService)
         {
-            _viewServices = viewServices;
+            _viewService = viewService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _viewServices.GetAsync(id);
+            return await _viewService.GetAsync(id);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key)
         {
-            return await _viewServices.ListAsync(key);
+            return await _viewService.ListAsync(key);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> GetPage(PageInput<ViewEntity> model)
         {
-            return await _viewServices.PageAsync(model);
+            return await _viewService.PageAsync(model);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Add(ViewAddInput input)
         {
-            return await _viewServices.AddAsync(input);
+            return await _viewService.AddAsync(input);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> Update(ViewUpdateInput input)
         {
-            return await _viewServices.UpdateAsync(input);
+            return await _viewService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _viewServices.SoftDeleteAsync(id);
+            return await _viewService.SoftDeleteAsync(id);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
         {
-            return await _viewServices.BatchSoftDeleteAsync(ids);
+            return await _viewService.BatchSoftDeleteAsync(ids);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Sync(ViewSyncInput input)
         {
-            return await _viewServices.SyncAsync(input);
+            return await _viewService.SyncAsync(input);
         }
     }
 }

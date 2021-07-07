@@ -13,11 +13,11 @@ namespace Admin.Core.Controllers.Admin
     /// </summary>
     public class DictionaryController : AreaController
     {
-        private readonly IDictionaryService _dictionaryServices;
+        private readonly IDictionaryService _dictionaryService;
 
-        public DictionaryController(IDictionaryService dictionaryServices)
+        public DictionaryController(IDictionaryService dictionaryService)
         {
-            _dictionaryServices = dictionaryServices;
+            _dictionaryService = dictionaryService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> Get(long id)
         {
-            return await _dictionaryServices.GetAsync(id);
+            return await _dictionaryService.GetAsync(id);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> GetPage(PageInput<DictionaryEntity> model)
         {
-            return await _dictionaryServices.PageAsync(model);
+            return await _dictionaryService.PageAsync(model);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPost]
         public async Task<IResponseOutput> Add(DictionaryAddInput input)
         {
-            return await _dictionaryServices.AddAsync(input);
+            return await _dictionaryService.AddAsync(input);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpPut]
         public async Task<IResponseOutput> Update(DictionaryUpdateInput input)
         {
-            return await _dictionaryServices.UpdateAsync(input);
+            return await _dictionaryService.UpdateAsync(input);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpDelete]
         public async Task<IResponseOutput> SoftDelete(long id)
         {
-            return await _dictionaryServices.SoftDeleteAsync(id);
+            return await _dictionaryService.SoftDeleteAsync(id);
         }
     }
 }

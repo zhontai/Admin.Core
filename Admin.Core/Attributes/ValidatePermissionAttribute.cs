@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace Admin.Core.Attributes
 {
     /// <summary>
-    /// 启用权限
+    /// 启用权限验证
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-    public class PermissionAttribute : AuthorizeAttribute, IAuthorizationFilter, IAsyncAuthorizationFilter
+    public class ValidatePermissionAttribute : AuthorizeAttribute, IAuthorizationFilter, IAsyncAuthorizationFilter
     {
         private async Task PermissionAuthorization(AuthorizationFilterContext context)
         {

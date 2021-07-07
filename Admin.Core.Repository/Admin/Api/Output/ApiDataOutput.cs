@@ -15,7 +15,7 @@ namespace Admin.Core.Repository.Admin.Output
         public long Id { get; set; }
 
         /// <summary>
-        /// 接口父级
+        /// 父级Id
         /// </summary>
         public long? ParentId { get; set; }
 

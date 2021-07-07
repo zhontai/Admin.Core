@@ -1,4 +1,5 @@
 ﻿using Admin.Core.Model.Admin;
+using Admin.Core.Model.Personnel;
 
 namespace Admin.Core.Repository
 {
@@ -9,7 +10,6 @@ namespace Admin.Core.Repository
     {
         //public DictionaryEntity[] Dictionaries { get; set; }
         public ApiEntity[] Apis { get; set; }
-
         public ApiEntity[] ApiTree { get; set; }
         public ViewEntity[] ViewTree { get; set; }
         public PermissionEntity[] PermissionTree { get; set; }
@@ -18,5 +18,9 @@ namespace Admin.Core.Repository
         public UserRoleEntity[] UserRoles { get; set; }
         public RolePermissionEntity[] RolePermissions { get; set; }
         public TenantEntity[] Tenants { get; set; }
+        public TenantPermissionEntity[] TenantPermissions { get; set; }
+        public PermissionApiEntity[] PermissionApis { get; set; }
+
+        public OrganizationEntity[] OrganizationTree { get; set; }
     }
 }

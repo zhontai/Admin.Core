@@ -13,6 +13,7 @@ using Admin.Core.Enums;
 using Admin.Core.Extensions;
 using Admin.Core.Filters;
 using Admin.Core.Logs;
+using Admin.Core.Repository;
 using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Extras.DynamicProxy;
@@ -86,8 +87,8 @@ namespace Admin.Core
 
             //添加IdleBus单例
             var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", _env.EnvironmentName);
-            int idleTime = dbConfig.IdleTime > 0 ? dbConfig.IdleTime : 10;
-            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(TimeSpan.FromMinutes(idleTime));
+            var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
+            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
             services.AddSingleton(ib);
             //数据库配置
             services.AddSingleton(dbConfig);
@@ -107,34 +108,37 @@ namespace Admin.Core
             #endregion AutoMapper 自动映射
 
             #region Cors 跨域
-
-            if (_appConfig.CorUrls?.Length > 0)
+            services.AddCors(options =>
             {
-                services.AddCors(options =>
+                options.AddPolicy(DefaultCorsPolicyName, policy =>
                 {
-                    options.AddPolicy(DefaultCorsPolicyName, policy =>
+                    if (_appConfig.CorUrls?.Length > 0)
                     {
-                        policy
-                        .WithOrigins(_appConfig.CorUrls)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                    });
-
-                    /*
-                    //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
-                    options.AddPolicy("All", policy =>
+                        policy.WithOrigins(_appConfig.CorUrls);
+                    }
+                    else
                     {
-                        policy
-                        .AllowAnyOrigin()
-                        .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                    });
-                    */
+                        policy.AllowAnyOrigin();
+                    }
+                    policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
-            }
+
+                /*
+                //浏览器会发起2次请求,使用OPTIONS发起预检请求，第二次才是api异步请求
+                options.AddPolicy("All", policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                    .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+                */
+            });
 
             #endregion Cors 跨域
 
@@ -392,13 +396,16 @@ namespace Admin.Core
                 #endregion Aop
 
                 #region Repository
-
                 var assemblyRepository = Assembly.Load("Admin.Core.Repository");
                 builder.RegisterAssemblyTypes(assemblyRepository)
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired();// 属性注入
 
+
+                //泛型注入
+                builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope();
+                builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope();
                 #endregion Repository
 
                 #region Service
@@ -432,10 +439,7 @@ namespace Admin.Core
             }
 
             //跨域
-            if (_appConfig.CorUrls?.Length > 0)
-            {
-                app.UseCors(DefaultCorsPolicyName);
-            }
+            app.UseCors(DefaultCorsPolicyName);
 
             //异常
             app.UseExceptionHandler("/Error");

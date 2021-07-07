@@ -5,9 +5,11 @@ using Admin.Core.Common.Configs;
 using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Model.Admin;
+using Admin.Core.Model.Personnel;
 using Admin.Core.Repository.Admin.Output;
 using Admin.Core.Repository.Admin.Permission.Output;
 using Admin.Core.Repository.Admin.View.Output;
+using Admin.Core.Repository.Personnel.Output;
 using FreeSql;
 using FreeSql.Aop;
 using FreeSql.DataAnnotations;
@@ -134,8 +136,8 @@ namespace Admin.Core.Repository
             }
 
             if (e.Column.CsType == typeof(long)
-            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null
-            && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
+            && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) is SnowflakeAttribute snowflakeAttribute
+            && snowflakeAttribute.Enable && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
             {
                 e.Value = YitIdHelper.NextId();
             }
@@ -145,7 +147,7 @@ namespace Admin.Core.Repository
                 return;
             }
 
-            if (e.AuditValueType == FreeSql.Aop.AuditValueType.Insert)
+            if (e.AuditValueType == AuditValueType.Insert)
             {
                 switch (e.Property.Name)
                 {
@@ -171,7 +173,7 @@ namespace Admin.Core.Repository
                         break;
                 }
             }
-            else if (e.AuditValueType == FreeSql.Aop.AuditValueType.Update)
+            else if (e.AuditValueType == AuditValueType.Update)
             {
                 switch (e.Property.Name)
                 {
@@ -411,6 +413,7 @@ namespace Admin.Core.Repository
                         await dualRepo.InsertAsync(new DualEntity { });
                     }
 
+                    //admin
                     //await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
@@ -420,6 +423,11 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.UserRoles, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.RolePermissions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.Tenants, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.TenantPermissions, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.PermissionApis, dbConfig);
+
+                    //人事
+                    await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
 
                     uow.Commit();
                 }
@@ -447,7 +455,7 @@ namespace Admin.Core.Repository
                 Console.WriteLine("\r\n generate data started");
 
                 #region 数据表
-
+                //admin
                 #region 数据字典
 
                 //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
@@ -462,7 +470,7 @@ namespace Admin.Core.Repository
                 //    a.Sort
                 //});
 
-                #endregion 数据字典
+                #endregion
 
                 #region 接口
 
@@ -481,7 +489,7 @@ namespace Admin.Core.Repository
                     r.Childs.AddRange(datalist);
                 });
 
-                #endregion 接口
+                #endregion
 
                 #region 视图
 
@@ -500,7 +508,7 @@ namespace Admin.Core.Repository
                    r.Childs.AddRange(datalist);
                });
 
-                #endregion 视图
+                #endregion
 
                 #region 权限
 
@@ -519,7 +527,7 @@ namespace Admin.Core.Repository
                    r.Childs.AddRange(datalist);
                });
 
-                #endregion 权限
+                #endregion
 
                 #region 用户
 
@@ -535,7 +543,7 @@ namespace Admin.Core.Repository
                     a.Remark
                 });
 
-                #endregion 用户
+                #endregion
 
                 #region 角色
 
@@ -549,7 +557,7 @@ namespace Admin.Core.Repository
                     a.Description
                 });
 
-                #endregion 角色
+                #endregion
 
                 #region 用户角色
 
@@ -560,7 +568,7 @@ namespace Admin.Core.Repository
                     a.RoleId
                 });
 
-                #endregion 用户角色
+                #endregion
 
                 #region 角色权限
 
@@ -571,13 +579,12 @@ namespace Admin.Core.Repository
                     a.PermissionId
                 });
 
-                #endregion 角色权限
+                #endregion
 
                 #region 租户
 
                 var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
                 {
-                    a.TenantId,
                     a.Id,
                     a.UserId,
                     a.RoleId,
@@ -594,9 +601,51 @@ namespace Admin.Core.Repository
                     a.Description
                 });
 
-                #endregion 租户
+                #endregion
 
-                #endregion 数据表
+                #region 租户权限
+
+                var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync(a => new
+                {
+                    a.Id,
+                    a.TenantId,
+                    a.PermissionId
+                });
+
+                #endregion
+
+                #region 权限接口
+
+                var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync(a => new
+                {
+                    a.Id,
+                    a.PermissionId,
+                    a.ApiId
+                });
+
+                #endregion
+
+                //人事
+                #region 组织机构
+
+                var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
+                var organizationTree = organizations.ToTree((r, c) =>
+                {
+                    return c.ParentId == 0;
+                },
+                (r, c) =>
+                {
+                    return r.Id == c.ParentId;
+                },
+                (r, datalist) =>
+                {
+                    r.Childs ??= new List<OrganizationDataOutput>();
+                    r.Childs.AddRange(datalist);
+                });
+
+                #endregion
+
+                #endregion
 
                 if (!(users?.Count > 0))
                 {
@@ -620,7 +669,10 @@ namespace Admin.Core.Repository
                     roles,
                     userRoles,
                     rolePermissions,
-                    tenants
+                    tenants,
+                    tenantPermissions,
+                    permissionApis,
+                    //organizationTree
                 },
                 //Formatting.Indented,
                 settings
@@ -630,7 +682,7 @@ namespace Admin.Core.Repository
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
 
-                #endregion 生成数据
+                #endregion
 
                 Console.WriteLine(" generate data succeed\r\n");
             }

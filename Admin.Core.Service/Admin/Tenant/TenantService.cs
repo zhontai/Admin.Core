@@ -3,6 +3,7 @@ using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
+using Admin.Core.Repository;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Tenant.Input;
 using Admin.Core.Service.Admin.Tenant.Output;
@@ -16,15 +17,15 @@ namespace Admin.Core.Service.Admin.Tenant
         private readonly ITenantRepository _tenantRepository;
         private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
-        private readonly IRolePermissionRepository _rolePermissionRepository;
+        private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
+        private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
 
         public TenantService(
             ITenantRepository tenantRepository,
             IRoleRepository roleRepository,
             IUserRepository userRepository,
-            IUserRoleRepository userRoleRepository,
-            IRolePermissionRepository rolePermissionRepository
+            IRepositoryBase<UserRoleEntity> userRoleRepository,
+            IRepositoryBase<RolePermissionEntity> rolePermissionRepository
         )
         {
             _tenantRepository = tenantRepository;

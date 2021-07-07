@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Admin.Core.Repository
 {
-    public abstract class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
+    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
     {
         public IUser User { get; set; }
 
-        protected RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
+        public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Admin.Core.Repository
             return Select.Where(exp).ToOneAsync();
         }
 
-        public async Task<bool> SoftDeleteAsync(TKey id)
+        public virtual async Task<bool> SoftDeleteAsync(TKey id)
         {
             await UpdateDiy
                 .SetDto(new
@@ -40,25 +40,11 @@ namespace Admin.Core.Repository
                 })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
+
             return true;
         }
 
-        public async Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] name)
-        {
-            await UpdateDiy
-                .SetDto(new
-                {
-                    IsDeleted = true,
-                    ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
-                })
-                .Where(exp)
-                .DisableGlobalFilter(name)
-                .ExecuteAffrowsAsync();
-            return true;
-        }
-
-        public async Task<bool> SoftDeleteAsync(TKey[] ids)
+        public virtual async Task<bool> SoftDeleteAsync(TKey[] ids)
         {
             await UpdateDiy
                 .SetDto(new
@@ -69,13 +55,60 @@ namespace Admin.Core.Repository
                 })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await UpdateDiy
+                .SetDto(new
+                {
+                    IsDeleted = true,
+                    ModifiedUserId = User.Id,
+                    ModifiedUserName = User.Name
+                })
+                .Where(exp)
+                .DisableGlobalFilter(disableGlobalFilterNames)
+                .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> DeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToDelete()
+            .ExecuteAffrowsAsync();
+
+            return true;
+        }
+
+        public virtual async Task<bool> SoftDeleteRecursiveAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames)
+        {
+            await Select
+            .Where(exp)
+            .DisableGlobalFilter(disableGlobalFilterNames)
+            .AsTreeCte()
+            .ToUpdate()
+            .SetDto(new
+            {
+                IsDeleted = true,
+                ModifiedUserId = User.Id,
+                ModifiedUserName = User.Name
+            })
+            .ExecuteAffrowsAsync();
+
             return true;
         }
     }
 
-    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, long> where TEntity : class, new()
+    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class, new()
     {
-        protected RepositoryBase(MyUnitOfWorkManager muowm) : base(muowm.Orm)
+        public RepositoryBase(MyUnitOfWorkManager muowm) : base(muowm.Orm)
         {
             muowm.Binding(this);
         }

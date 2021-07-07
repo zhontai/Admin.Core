@@ -27,14 +27,14 @@
             禁用操作日志
             </summary>
         </member>
-        <member name="T:Admin.Core.Attributes.PermissionAttribute">
-            <summary>
-            启用权限
-            </summary>
-        </member>
         <member name="T:Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Attributes.ValidatePermissionAttribute">
+            <summary>
+            启用权限验证
             </summary>
         </member>
         <member name="T:Admin.Core.Attributes.VersionRouteAttribute">
@@ -246,6 +246,46 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Core.Controllers.Admin.DictionaryTypeController">
+            <summary>
+            数据字典类型
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Get(System.Int64)">
+            <summary>
+            查询单条数据字典类型
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.DictionaryTypeEntity})">
+            <summary>
+            查询分页数据字典类型
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Add(Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput)">
+            <summary>
+            新增数据字典类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.Update(Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeUpdateInput)">
+            <summary>
+            修改数据字典类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.SoftDelete(System.Int64)">
+            <summary>
+            删除数据字典类型
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Admin.DocumentController">
             <summary>
             文档管理
@@ -430,6 +470,13 @@
             <param name="roleId"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.GetTenantPermissionList(System.Int64)">
+            <summary>
+            查询租户权限
+            </summary>
+            <param name="tenantId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.AddGroup(Admin.Core.Service.Admin.Permission.Input.PermissionAddGroupInput)">
             <summary>
             新增分组
@@ -496,6 +543,13 @@
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.Assign(Admin.Core.Service.Admin.Permission.Input.PermissionAssignInput)">
             <summary>
             保存角色权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.SaveTenantPermissions(Admin.Core.Service.Admin.Permission.Input.PermissionSaveTenantPermissionsInput)">
+            <summary>
+            保存租户权限
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -742,6 +796,145 @@
             <summary>
             基础控制器
             </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.AreaController">
+            <summary>
+            域控制器
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.EmployeeController">
+            <summary>
+            员工管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Get(System.Int64)">
+            <summary>
+            查询单条用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.EmployeeEntity})">
+            <summary>
+            查询分页用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Add(Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput)">
+            <summary>
+            新增用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Update(Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.SoftDelete(System.Int64)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.OrganizationController">
+            <summary>
+            组织架构
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Get(System.Int64)">
+            <summary>
+            查询单条组织架构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.OrganizationEntity})">
+            <summary>
+            查询分页组织架构
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">
+            <summary>
+            新增组织架构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Update(Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput)">
+            <summary>
+            修改组织架构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.SoftDelete(System.Int64)">
+            <summary>
+            删除组织架构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.Core.Controllers.Personnel.PositionController">
+            <summary>
+            职位管理
+            </summary>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Get(System.Int64)">
+            <summary>
+            查询单条职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.PositionEntity})">
+            <summary>
+            查询分页职位
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Add(Admin.Core.Service.Personnel.Position.Input.PositionAddInput)">
+            <summary>
+            新增职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.Update(Admin.Core.Service.Personnel.Position.Input.PositionUpdateInput)">
+            <summary>
+            修改职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.SoftDelete(System.Int64)">
+            <summary>
+            删除职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Personnel.PositionController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除职位
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
         </member>
         <member name="M:Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>

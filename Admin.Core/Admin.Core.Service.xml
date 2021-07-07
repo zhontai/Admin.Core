@@ -380,6 +380,81 @@
             <param name="cacheKey"></param>
             <returns></returns>
         </member>
+        <member name="T:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput.Name">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput.Code">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Input.DictionaryTypeUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Name">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Code">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Admin.DictionaryType.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput">
             <summary>
             添加
@@ -980,6 +1055,11 @@
             父级节点
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.ApiIds">
+            <summary>
+            关联接口
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Permission.Input.PermissionAddDotInput.Label">
             <summary>
             权限名称
@@ -1150,7 +1230,7 @@
             访问地址
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.ApiPath">
+        <member name="P:Admin.Core.Service.Admin.Permission.Output.PermissionListOutput.ApiPaths">
             <summary>
             接口路径
             </summary>
@@ -1651,19 +1731,9 @@
             视图命名
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Label">
-            <summary>
-            名称
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Path">
             <summary>
             地址
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.ParentPath">
-            <summary>
-            父级路径
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.View.Input.ViewUpdateInput">
@@ -1756,6 +1826,312 @@
         <member name="P:Admin.Core.Service.BaseService.Logger">
             <summary>
             日志
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Employee.EmployeeService">
+            <summary>
+            员工服务
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Employee.IEmployeeService">
+            <summary>
+            员工服务
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.Code">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.OrganizationId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.OrganizationIds">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.PositionId">
+            <summary>
+            职位Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.HireDate">
+            <summary>
+            入职时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.OrganizationName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.OrganizationNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.PositionName">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Employee.MapConfig">
+            <summary>
+            映射配置
+            双向映射 .ReverseMap()
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.PrimaryUserId">
+            <summary>
+            主管
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.EmployeeCount">
+            <summary>
+            员工人数
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Input.OrganizationUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Organization.Output.OrganizationListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Organization.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Position.Input.PositionAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Position.Input.PositionUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Input.PositionUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Position.Output.PositionListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.Core.Service.Personnel.Position.MapConfig">
+            <summary>
+            映射配置
             </summary>
         </member>
     </members>
