@@ -1,16 +1,19 @@
 ﻿using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
+using Admin.Core.Common.Extensions;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
+using System.Collections.Generic;
 
 namespace Admin.Core.Service
 {
     public abstract class BaseService: IBaseService
     {
         protected readonly object ServiceProviderLock = new object();
+        protected IDictionary<Type, object> CachedServices { get; set; }
         private ICache _cache;
         private ILoggerFactory _loggerFactory;
         private IMapper _mapper;
@@ -59,6 +62,16 @@ namespace Admin.Core.Service
             }
 
             return reference;
+        }
+
+        public virtual TService LazyGetRequiredService<TService>()
+        {
+            return (TService)LazyGetRequiredService(typeof(TService));
+        }
+
+        public virtual object LazyGetRequiredService(Type serviceType)
+        {
+            return CachedServices.GetOrAdd(serviceType, () => ServiceProvider.GetRequiredService(serviceType));
         }
     }
 }
