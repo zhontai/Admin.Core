@@ -208,6 +208,9 @@ namespace Admin.Core
                         //c.OrderActionsBy(o => o.RelativePath);
                     });
 
+                    options.ResolveConflictingActions(apiDescription => apiDescription.First());
+                    options.CustomSchemaIds(x => x.FullName);
+
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
                     options.IncludeXmlComments(xmlPath, true);
 

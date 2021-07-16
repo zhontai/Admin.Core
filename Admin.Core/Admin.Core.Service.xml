@@ -1828,6 +1828,20 @@
             日志
             </summary>
         </member>
+        <member name="M:Admin.Core.Service.BaseService.LazyGetRequiredService``1">
+            <summary>
+            获得懒加载服务
+            </summary>
+            <typeparam name="TService">服务接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.BaseService.LazyGetRequiredService(System.Type)">
+            <summary>
+            根据服务类型获得懒加载服务
+            </summary>
+            <param name="serviceType">服务类型</param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Service.Personnel.Employee.EmployeeService">
             <summary>
             员工服务

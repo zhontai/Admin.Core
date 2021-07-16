@@ -64,11 +64,21 @@ namespace Admin.Core.Service
             return reference;
         }
 
+        /// <summary>
+        /// 获得懒加载服务
+        /// </summary>
+        /// <typeparam name="TService">服务接口</typeparam>
+        /// <returns></returns>
         public virtual TService LazyGetRequiredService<TService>()
         {
             return (TService)LazyGetRequiredService(typeof(TService));
         }
 
+        /// <summary>
+        /// 根据服务类型获得懒加载服务
+        /// </summary>
+        /// <param name="serviceType">服务类型</param>
+        /// <returns></returns>
         public virtual object LazyGetRequiredService(Type serviceType)
         {
             return CachedServices.GetOrAdd(serviceType, () => ServiceProvider.GetRequiredService(serviceType));
