@@ -27,15 +27,13 @@ namespace Admin.Core.Extensions
                 //redis
                 var redisRateLimit = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionStringRateLimit);
                 services.AddSingleton<IDistributedCache>(new CSRedisCache(redisRateLimit));
-                services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>();
-                services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>();
+                services.AddDistributedRateLimiting();
             }
             else
             {
                 //内存
                 services.AddMemoryCache();
-                services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
-                services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+                services.AddInMemoryRateLimiting();
             }
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
