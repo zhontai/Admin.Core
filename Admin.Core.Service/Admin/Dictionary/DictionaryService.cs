@@ -85,5 +85,12 @@ namespace Admin.Core.Service.Admin.Dictionary
 
             return ResponseOutput.Result(result);
         }
+
+        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        {
+            var result = await _dictionaryRepository.SoftDeleteAsync(ids);
+
+            return ResponseOutput.Result(result);
+        }
     }
 }

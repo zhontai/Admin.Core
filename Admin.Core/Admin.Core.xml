@@ -246,6 +246,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除数据字典
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Admin.DictionaryTypeController">
             <summary>
             数据字典类型
@@ -284,6 +291,13 @@
             删除数据字典类型
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除数据字典类型
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.DocumentController">

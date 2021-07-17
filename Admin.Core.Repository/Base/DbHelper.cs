@@ -531,31 +531,13 @@ namespace Admin.Core.Repository
 
                 #region 用户
 
-                var users = await db.Queryable<UserEntity>().ToListAsync(a => new
-                {
-                    a.TenantId,
-                    a.Id,
-                    a.UserName,
-                    a.Password,
-                    a.NickName,
-                    a.Avatar,
-                    a.Status,
-                    a.Remark
-                });
+                var users = await db.Queryable<UserEntity>().ToListAsync<UserDataOutput>();
 
                 #endregion
 
                 #region 角色
 
-                var roles = await db.Queryable<RoleEntity>().ToListAsync(a => new
-                {
-                    a.TenantId,
-                    a.Id,
-                    a.Name,
-                    a.Code,
-                    a.Sort,
-                    a.Description
-                });
+                var roles = await db.Queryable<RoleEntity>().ToListAsync<RoleDataOutput>();
 
                 #endregion
 
