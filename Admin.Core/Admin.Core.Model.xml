@@ -699,6 +699,11 @@
             启用
             </summary>
         </member>
+        <member name="P:Admin.Core.Model.Admin.ViewEntity.Cache">
+            <summary>
+            缓存
+            </summary>
+        </member>
         <member name="P:Admin.Core.Model.Admin.ViewEntity.Sort">
             <summary>
             排序

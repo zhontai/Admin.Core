@@ -435,19 +435,9 @@
             字典编码
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Enabled">
             <summary>
             启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.CreatedTime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.DictionaryType.MapConfig">
@@ -460,9 +450,9 @@
             添加
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.ParentId">
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.DictionaryTypeId">
             <summary>
-            字典父级
+            字典类型Id
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Name">
@@ -510,11 +500,6 @@
             主键Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.ParentId">
-            <summary>
-            字典父级
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Name">
             <summary>
             字典名称
@@ -530,19 +515,9 @@
             字典值
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Enabled">
             <summary>
             启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.CreatedTime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.Dictionary.MapConfig">
@@ -1734,6 +1709,21 @@
         <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Path">
             <summary>
             地址
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Label">
+            <summary>
+            视图名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Cache">
+            <summary>
+            缓存
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.View.Input.ViewUpdateInput">

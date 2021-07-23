@@ -50,6 +50,11 @@ namespace Admin.Core.Model.Admin
         public bool Enabled { get; set; } = true;
 
         /// <summary>
+        /// 缓存
+        /// </summary>
+        public bool Cache { get; set; } = true;
+
+        /// <summary>
         /// 排序
         /// </summary>
         public int Sort { get; set; }
