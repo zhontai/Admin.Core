@@ -3,7 +3,7 @@
 namespace Admin.Core.Repository.Personnel.Output
 {
     /// <summary>
-    /// 组织机构数据导出
+    /// 组织机构导出
     /// </summary>
     public class OrganizationDataOutput
     {

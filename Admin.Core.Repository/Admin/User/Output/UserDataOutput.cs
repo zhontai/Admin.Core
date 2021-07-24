@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace Admin.Core.Repository.Personnel.Output
+﻿namespace Admin.Core.Repository.Admin.Output
 {
     /// <summary>
-    /// 用户数据导出
+    /// 用户导出
     /// </summary>
-    public class UserDataOutput
+    public partial class UserDataOutput
     {
         /// <summary>
         /// 租户Id

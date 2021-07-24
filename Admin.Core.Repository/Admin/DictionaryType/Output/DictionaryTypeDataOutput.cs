@@ -1,9 +1,11 @@
-﻿namespace Admin.Core.Repository.Admin.Output
+﻿using System.Collections.Generic;
+
+namespace Admin.Core.Repository.Admin.Output
 {
     /// <summary>
-    /// 角色导出
+    /// 数据字典类型导出
     /// </summary>
-    public partial class RoleDataOutput
+    public partial class DictionaryTypeDataOutput
     {
         /// <summary>
         /// 租户Id
@@ -11,29 +13,24 @@
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 用户Id
-        /// </summary>
-        public long Id { get; set; }
-
-        /// <summary>
-        /// 名称
+        /// 字典名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 编码
+        /// 字典编码
         /// </summary>
         public string Code { get; set; }
 
         /// <summary>
-        /// 说明
+        /// 描述
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
         /// 启用
         /// </summary>
-		public bool Enabled { get; set; }
+		public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// 排序

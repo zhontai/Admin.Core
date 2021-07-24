@@ -414,7 +414,8 @@ namespace Admin.Core.Repository
                     }
 
                     //admin
-                    //await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.DictionaryTypes, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
@@ -455,20 +456,13 @@ namespace Admin.Core.Repository
                 Console.WriteLine("\r\n generate data started");
 
                 #region 数据表
+
+
                 //admin
                 #region 数据字典
+                var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
 
-                //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
-                //{
-                //    a.TenantId,
-                //    a.Id,
-                //    a.ParentId,
-                //    a.Name,
-                //    a.Code,
-                //    a.Value,
-                //    a.Description,
-                //    a.Sort
-                //});
+                var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
 
                 #endregion
 
@@ -635,14 +629,14 @@ namespace Admin.Core.Repository
                 }
 
                 #region 生成数据
-
                 var settings = new JsonSerializerSettings();
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.NullValueHandling = NullValueHandling.Ignore;
                 settings.DefaultValueHandling = DefaultValueHandling.Ignore;
                 var jsonData = JsonConvert.SerializeObject(new
                 {
-                    //dictionaries,
+                    dictionaries,
+                    dictionaryTypes,
                     apis,
                     apiTree,
                     viewTree,
@@ -654,16 +648,56 @@ namespace Admin.Core.Repository
                     tenants,
                     tenantPermissions,
                     permissionApis,
-                    //organizationTree
+                    organizationTree
                 },
                 //Formatting.Indented,
                 settings
                 );
-
-                var fileName = appConfig.Tenant ? "data-share.json" : "data.json";
+                
+                var isTenant = appConfig.Tenant;
+                var fileName = isTenant ? "data-share.json" : "data.json";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
 
+                if (isTenant)
+                {
+                    var tenantId = tenants.Where(a => a.Code.ToLower() == "zhontai").FirstOrDefault().Id;
+                    organizationTree = organizations.Where(a => a.TenantId == tenantId).ToList().ToTree((r, c) =>
+                    {
+                        return c.ParentId == 0;
+                    },
+                    (r, c) =>
+                    {
+                        return r.Id == c.ParentId;
+                    },
+                    (r, datalist) =>
+                    {
+                        r.Childs ??= new List<OrganizationDataOutput>();
+                        r.Childs.AddRange(datalist);
+                    });
+
+                    jsonData = JsonConvert.SerializeObject(new
+                    {
+                        dictionaries = dictionaries.Where(a=>a.TenantId == tenantId),
+                        dictionaryTypes = dictionaryTypes.Where(a => a.TenantId == tenantId),
+                        apis,
+                        apiTree,
+                        viewTree,
+                        permissionTree,
+                        users = users.Where(a => a.TenantId == tenantId),
+                        roles = roles.Where(a => a.TenantId == tenantId),
+                        userRoles,
+                        rolePermissions,
+                        tenants,
+                        tenantPermissions,
+                        permissionApis,
+                        organizationTree
+                    },
+                    settings
+                    );
+                    filePath = Path.Combine(Directory.GetCurrentDirectory(), "Db/Data/data.json").ToPath();
+                    FileHelper.WriteFile(filePath, jsonData);
+                }
                 #endregion
 
                 Console.WriteLine(" generate data succeed\r\n");
