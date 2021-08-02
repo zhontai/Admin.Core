@@ -208,6 +208,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 彻底删除权限
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResponseOutput> Delete(long id)
+        {
+            return await _permissionService.DeleteAsync(id);
+        }
+
+        /// <summary>
         /// 保存角色权限
         /// </summary>
         /// <param name="input"></param>

@@ -206,19 +206,28 @@ namespace Admin.Core.Service.Admin.Permission
 
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
-            var result = false;
-            if (id > 0)
-            {
-                result = (await _permissionRepository.DeleteAsync(m => m.Id == id)) > 0;
-            }
+            //递归查询所有权限点
+            var ids = _permissionRepository.Select
+            .Where(a => a.Id == id)
+            .AsTreeCte()
+            .ToList(a => a.Id);
 
-            return ResponseOutput.Result(result);
+            //删除权限关联接口
+            await _permissionApiRepository.DeleteAsync(a => ids.Contains(a.PermissionId));
+
+            //删除相关权限
+            await _permissionRepository.DeleteAsync(a => ids.Contains(a.Id));
+
+            return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _permissionRepository.SoftDeleteAsync(id);
-            return ResponseOutput.Result(result);
+            //删除权限
+            await _permissionRepository.SoftDeleteRecursiveAsync(a=>a.Id == id);
+
+            return ResponseOutput.Ok();
         }
 
         [Transaction]

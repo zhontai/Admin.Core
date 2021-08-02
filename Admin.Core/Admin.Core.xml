@@ -554,6 +554,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.Delete(System.Int64)">
+            <summary>
+            彻底删除权限
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.Assign(Admin.Core.Service.Admin.Permission.Input.PermissionAssignInput)">
             <summary>
             保存角色权限
