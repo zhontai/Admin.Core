@@ -204,6 +204,7 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
             //递归查询所有权限点
@@ -221,7 +222,6 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok();
         }
 
-        [Transaction]
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
             //删除权限
