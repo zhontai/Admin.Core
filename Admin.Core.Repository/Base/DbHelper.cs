@@ -414,8 +414,8 @@ namespace Admin.Core.Repository
                     }
 
                     //admin
-                    await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.DictionaryTypes, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
@@ -460,9 +460,9 @@ namespace Admin.Core.Repository
 
                 //admin
                 #region 数据字典
-                var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
-
+                
                 var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
+                var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
 
                 #endregion
 

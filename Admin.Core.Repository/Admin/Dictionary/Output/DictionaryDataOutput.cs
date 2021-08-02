@@ -13,6 +13,11 @@ namespace Admin.Core.Repository.Admin.Output
         public long? TenantId { get; set; }
 
         /// <summary>
+        /// 字典Id
+        /// </summary>
+        public long Id { get; set; }
+
+        /// <summary>
         /// 字典类型Id
         /// </summary>
         public long DictionaryTypeId { get; set; }
