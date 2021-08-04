@@ -29,7 +29,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _permissionService.ListAsync(key, start, end);
+            return await _permissionService.GetListAsync(key, start, end);
         }
 
         /// <summary>

@@ -23,22 +23,13 @@ namespace Admin.Core.Service.Personnel.Organization
             return ResponseOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<OrganizationEntity> input)
+        public async Task<IResponseOutput> GetListAsync(string key)
         {
-            var key = input.Filter?.Name;
-
-            var list = await _organizationRepository.Select
-            .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
-            .Count(out var total)
-            .OrderByDescending(true, c => c.Id)
-            .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync<OrganizationListOutput>();
-
-            var data = new PageOutput<OrganizationListOutput>()
-            {
-                List = list,
-                Total = total
-            };
+            var data = await _organizationRepository
+                .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
+                .OrderBy(a => a.ParentId)
+                .OrderBy(a => a.Sort)
+                .ToListAsync<OrganizationListOutput>();
 
             return ResponseOutput.Ok(data);
         }

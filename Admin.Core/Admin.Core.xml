@@ -882,11 +882,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.OrganizationEntity})">
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetList(System.String)">
             <summary>
-            查询分页组织架构
+            查询组织架构列表
             </summary>
-            <param name="model"></param>
+            <param name="key"></param>
+            <param name="start"></param>
+            <param name="end"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">

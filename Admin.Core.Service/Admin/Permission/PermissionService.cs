@@ -82,7 +82,7 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(output);
         }
 
-        public async Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end)
+        public async Task<IResponseOutput> GetListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
             {

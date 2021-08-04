@@ -32,14 +32,14 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询分页组织架构
+        /// 查询组织架构列表
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<OrganizationEntity> model)
+        public async Task<IResponseOutput> GetList(string key)
         {
-            return await _organizationService.PageAsync(model);
+            return await _organizationService.GetListAsync(key);
         }
 
         /// <summary>
