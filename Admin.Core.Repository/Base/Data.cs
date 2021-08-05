@@ -22,6 +22,7 @@ namespace Admin.Core.Repository
         public TenantPermissionEntity[] TenantPermissions { get; set; }
         public PermissionApiEntity[] PermissionApis { get; set; }
 
+        public PositionEntity[] Positions { get; set; }
         public OrganizationEntity[] OrganizationTree { get; set; }
     }
 }

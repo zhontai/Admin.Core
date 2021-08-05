@@ -428,6 +428,7 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.PermissionApis, dbConfig);
 
                     //人事
+                    await InitDtDataAsync(db, uow, tran, data.Positions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
 
                     uow.Commit();
@@ -602,7 +603,7 @@ namespace Admin.Core.Repository
                 #endregion
 
                 //人事
-                #region 组织机构
+                #region 部门
 
                 var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
                 var organizationTree = organizations.ToTree((r, c) =>

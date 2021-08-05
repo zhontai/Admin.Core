@@ -61,18 +61,14 @@ namespace Admin.Core.Service.Personnel.Organization
 
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
-            var result = false;
-            if (id > 0)
-            {
-                result = (await _organizationRepository.DeleteAsync(m => m.Id == id)) > 0;
-            }
+            var result = await _organizationRepository.DeleteRecursiveAsync(a => a.Id == id);
 
             return ResponseOutput.Result(result);
         }
 
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _organizationRepository.SoftDeleteAsync(id);
+            var result = await _organizationRepository.SoftDeleteRecursiveAsync(a => a.Id == id);
 
             return ResponseOutput.Result(result);
         }
