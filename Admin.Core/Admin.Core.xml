@@ -830,42 +830,42 @@
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Get(System.Int64)">
             <summary>
-            查询单条用户
+            查询单条员工
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.EmployeeEntity})">
             <summary>
-            查询分页用户
+            查询分页员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Add(Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput)">
             <summary>
-            新增用户
+            新增员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Update(Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput)">
             <summary>
-            修改用户
+            修改员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.SoftDelete(System.Int64)">
             <summary>
-            删除用户
+            删除员工
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.BatchSoftDelete(System.Int64[])">
             <summary>
-            批量删除用户
+            批量删除员工
             </summary>
             <param name="ids"></param>
             <returns></returns>
@@ -887,8 +887,6 @@
             查询组织架构列表
             </summary>
             <param name="key"></param>
-            <param name="start"></param>
-            <param name="end"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">

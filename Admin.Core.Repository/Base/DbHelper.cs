@@ -621,6 +621,12 @@ namespace Admin.Core.Repository
 
                 #endregion
 
+                #region 岗位
+
+                var positions = await db.Queryable<PositionEntity>().ToListAsync<PositionDataOutput>();
+
+                #endregion
+
                 #endregion
 
                 if (!(users?.Count > 0))
@@ -648,7 +654,8 @@ namespace Admin.Core.Repository
                     tenants,
                     tenantPermissions,
                     permissionApis,
-                    organizationTree
+                    organizationTree,
+                    positions
                 },
                 //Formatting.Indented,
                 settings

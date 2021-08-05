@@ -113,31 +113,30 @@ namespace Admin.Core.Service.Personnel.Employee
             return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
-            var result = false;
-            if (id > 0)
-            {
-                result = (await _employeeRepository.DeleteAsync(m => m.Id == id)) > 0;
-            }
+            //删除员工附属部门
+            await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == id);
 
-            return ResponseOutput.Result(result);
+            //删除员工
+            await _employeeRepository.DeleteAsync(m => m.Id == id);
+
+            return ResponseOutput.Ok();
         }
 
-        [Transaction]
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _employeeRepository.SoftDeleteAsync(id);
+            await _employeeRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Result(result);
+            return ResponseOutput.Ok();
         }
 
-        [Transaction]
         public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
         {
-            var result = await _employeeRepository.SoftDeleteAsync(ids);
+            await _employeeRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Result(result);
+            return ResponseOutput.Ok();
         }
     }
 }

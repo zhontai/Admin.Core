@@ -1,9 +1,11 @@
-﻿using Admin.Core.Common.Input;
+﻿using Admin.Core.Common.Attributes;
+using Admin.Core.Common.Input;
 using Admin.Core.Common.Output;
 using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.DictionaryType.Input;
 using Admin.Core.Service.Admin.DictionaryType.Output;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Admin.Core.Service.Admin.DictionaryType
@@ -11,10 +13,11 @@ namespace Admin.Core.Service.Admin.DictionaryType
     public class DictionaryTypeService : BaseService, IDictionaryTypeService
     {
         private readonly IDictionaryTypeRepository _DictionaryTypeRepository;
-
-        public DictionaryTypeService(IDictionaryTypeRepository DictionaryTypeRepository)
+        private readonly IDictionaryRepository _dictionaryRepository;
+        public DictionaryTypeService(IDictionaryTypeRepository DictionaryTypeRepository, IDictionaryRepository dictionaryRepository)
         {
             _DictionaryTypeRepository = DictionaryTypeRepository;
+            _dictionaryRepository = dictionaryRepository;
         }
 
         public async Task<IResponseOutput> GetAsync(long id)
@@ -68,29 +71,34 @@ namespace Admin.Core.Service.Admin.DictionaryType
             return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
-            var result = false;
-            if (id > 0)
-            {
-                result = (await _DictionaryTypeRepository.DeleteAsync(m => m.Id == id)) > 0;
-            }
+            //删除字典数据
+            await _dictionaryRepository.DeleteAsync(a => a.DictionaryTypeId == id);
 
-            return ResponseOutput.Result(result);
+            //删除字典类型
+            await _DictionaryTypeRepository.DeleteAsync(a => a.Id == id);
+
+            return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _DictionaryTypeRepository.SoftDeleteAsync(id);
+            await _dictionaryRepository.SoftDeleteAsync(a => a.DictionaryTypeId == id);
+            await _DictionaryTypeRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Result(result);
+            return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
         {
-            var result = await _DictionaryTypeRepository.SoftDeleteAsync(ids);
+            await _dictionaryRepository.SoftDeleteAsync(a => ids.Contains(a.DictionaryTypeId));
+            await _DictionaryTypeRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Result(result);
+            return ResponseOutput.Ok();
         }
     }
 }
