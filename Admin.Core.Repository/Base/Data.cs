@@ -24,5 +24,6 @@ namespace Admin.Core.Repository
 
         public PositionEntity[] Positions { get; set; }
         public OrganizationEntity[] OrganizationTree { get; set; }
+        public EmployeeEntity[] Employees { get; set; }
     }
 }

@@ -430,6 +430,7 @@ namespace Admin.Core.Repository
                     //人事
                     await InitDtDataAsync(db, uow, tran, data.Positions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Employees, dbConfig);
 
                     uow.Commit();
                 }
@@ -628,6 +629,11 @@ namespace Admin.Core.Repository
 
                 #endregion
 
+                #region 员工
+
+                var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
+
+                #endregion
                 #endregion
 
                 if (!(users?.Count > 0))
@@ -656,7 +662,8 @@ namespace Admin.Core.Repository
                     tenantPermissions,
                     permissionApis,
                     organizationTree,
-                    positions
+                    positions,
+                    employees
                 },
                 //Formatting.Indented,
                 settings
