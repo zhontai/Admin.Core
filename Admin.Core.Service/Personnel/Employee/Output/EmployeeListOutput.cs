@@ -15,6 +15,11 @@ namespace Admin.Core.Service.Personnel.Employee.Output
         public string Name { get; set; }
 
         /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
         /// 账号
         /// </summary>
         public string UserName { get; set; }

@@ -1927,6 +1927,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.UserName">
             <summary>
             账号
