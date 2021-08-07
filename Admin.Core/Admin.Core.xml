@@ -694,6 +694,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.GetSelect">
+            <summary>
+            查询下拉数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.UserController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Admin.UserEntity})">
             <summary>
             查询分页用户

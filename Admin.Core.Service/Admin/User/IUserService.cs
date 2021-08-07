@@ -16,7 +16,9 @@ namespace Admin.Core.Service.Admin.User
     {
         Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id);
 
-        Task<ResponseOutput<UserGetOutput>> GetAsync(long id);
+        Task<IResponseOutput> GetAsync(long id);
+
+        Task<IResponseOutput> GetSelectAsync();
 
         Task<IResponseOutput> PageAsync(PageInput<UserEntity> input);
 

@@ -13,7 +13,7 @@ namespace Admin.Core.Service
     public abstract class BaseService: IBaseService
     {
         protected readonly object ServiceProviderLock = new object();
-        protected IDictionary<Type, object> CachedServices { get; set; }
+        protected IDictionary<Type, object> CachedServices = new Dictionary<Type, object>();
         private ICache _cache;
         private ILoggerFactory _loggerFactory;
         private IMapper _mapper;
