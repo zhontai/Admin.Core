@@ -1,6 +1,4 @@
-﻿using Admin.Core.Common.Input;
-using Admin.Core.Common.Output;
-using Admin.Core.Model.Personnel;
+﻿using Admin.Core.Common.Output;
 using Admin.Core.Service.Personnel.Organization;
 using Admin.Core.Service.Personnel.Organization.Input;
 using Microsoft.AspNetCore.Mvc;
