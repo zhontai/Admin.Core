@@ -27,7 +27,7 @@ namespace Admin.Core.Service.Personnel.Employee.Output
         /// <summary>
         /// 主属部门
         /// </summary>
-        public long OrganizationName { get; set; }
+        public string OrganizationName { get; set; }
 
         /// <summary>
         /// 附属部门

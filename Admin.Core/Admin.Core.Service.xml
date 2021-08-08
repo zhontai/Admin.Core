@@ -1897,7 +1897,7 @@
             邮箱
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.HireDate">
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.EntryTime">
             <summary>
             入职时间
             </summary>
@@ -1915,6 +1915,21 @@
         <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput.Version">
             <summary>
             版本
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.OrganizationName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.OrganizationNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.PositionName">
+            <summary>
+            职位
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Id">

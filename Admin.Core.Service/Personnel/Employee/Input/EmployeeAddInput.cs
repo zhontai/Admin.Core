@@ -62,6 +62,6 @@ namespace Admin.Core.Service.Personnel.Employee.Input
         /// <summary>
         /// 入职时间
         /// </summary>
-        public DateTime HireDate { get; set; }
+        public DateTime? EntryTime { get; set; }
     }
 }

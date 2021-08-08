@@ -35,13 +35,16 @@ namespace Admin.Core.Service.Personnel.Employee
         {
             var res = new ResponseOutput<EmployeeGetOutput>();
 
-            var entity = await _employeeRepository.Select
+            var dto = await _employeeRepository.Select
             .WhereDynamic(id)
             .IncludeMany(a => a.Organizations.Select(b => new OrganizationEntity { Id = b.Id }))
-            .ToOneAsync();
+            .ToOneAsync(a => new EmployeeGetOutput
+            {
+                OrganizationName = a.Organization.Name,
+                PositionName = a.Position.Name
+            });
 
-            var entityDto = Mapper.Map<EmployeeGetOutput>(entity);
-            return res.Ok(entityDto);
+            return res.Ok(dto);
         }
 
         public async Task<IResponseOutput> PageAsync(PageInput<EmployeeEntity> input)
@@ -52,11 +55,15 @@ namespace Admin.Core.Service.Personnel.Employee
             .OrderByDescending(true, a => a.Id)
             .IncludeMany(a => a.Organizations.Select(b => new OrganizationEntity { Name = b.Name }))
             .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync();
+            .ToListAsync(a => new EmployeeListOutput 
+            { 
+                OrganizationName = a.Organization.Name, 
+                PositionName = a.Position.Name
+            });
 
             var data = new PageOutput<EmployeeListOutput>()
             {
-                List = Mapper.Map<List<EmployeeListOutput>>(list),
+                List = list,
                 Total = total
             };
 

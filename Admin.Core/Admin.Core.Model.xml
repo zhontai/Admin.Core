@@ -794,7 +794,7 @@
             邮箱
             </summary>
         </member>
-        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.HireDate">
+        <member name="P:Admin.Core.Model.Personnel.EmployeeEntity.EntryTime">
             <summary>
             入职时间
             </summary>
