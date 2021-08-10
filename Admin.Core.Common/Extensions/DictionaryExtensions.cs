@@ -10,13 +10,13 @@ namespace Admin.Core.Common.Extensions
            TKey key,
            Func<TKey, TValue> factory)
         {
-            TValue value;
-            if (!dictionary.TryGetValue(key, out value))
+            TValue obj;
+            if (dictionary.TryGetValue(key, out obj))
             {
-                value = factory(key);
-                dictionary.Add(key, value);
+                return obj;
             }
-            return value;
+
+            return dictionary[key] = factory(key);
         }
 
         public static TValue GetOrAdd<TKey, TValue>(
@@ -24,13 +24,7 @@ namespace Admin.Core.Common.Extensions
            TKey key,
            Func<TValue> factory)
         {
-            TValue value;
-            if (!dictionary.TryGetValue(key, out value))
-            {
-                value = factory();
-                dictionary.Add(key, value);
-            }
-            return value;
+            return dictionary.GetOrAdd(key, k => factory());
         }
 
         public static TValue AddOrUpdate<TKey, TValue>(
@@ -39,17 +33,17 @@ namespace Admin.Core.Common.Extensions
            Func<TKey, TValue> addFactory,
            Func<TKey, TValue, TValue> updateFactory)
         {
-            TValue value;
-            if (dictionary.TryGetValue(key, out value))
+            TValue obj;
+            if (dictionary.TryGetValue(key, out obj))
             {
-                value = updateFactory(key, value);
+                obj = updateFactory(key, obj);
             }
             else
             {
-                value = addFactory(key);
+                obj = addFactory(key);
             }
-            dictionary[key] = value;
-            return value;
+            dictionary[key] = obj;
+            return obj;
         }
 
         public static TValue AddOrUpdate<TKey, TValue>(
@@ -58,17 +52,7 @@ namespace Admin.Core.Common.Extensions
            Func<TValue> addFactory,
            Func<TValue, TValue> updateFactory)
         {
-            TValue value;
-            if (dictionary.TryGetValue(key, out value))
-            {
-                value = updateFactory(value);
-            }
-            else
-            {
-                value = addFactory();
-            }
-            dictionary[key] = value;
-            return value;
+            return dictionary.AddOrUpdate(key, k => addFactory(), (k, v) => updateFactory(v));
         }
     }
 }
