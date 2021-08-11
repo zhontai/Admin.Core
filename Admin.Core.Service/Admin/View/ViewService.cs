@@ -120,7 +120,7 @@ namespace Admin.Core.Service.Admin.View
             //path处理
             foreach (var view in input.Views)
             {
-                view.Path = view.Path?.Trim().ToLower();
+                view.Path = view.Path?.Trim();
             }
 
             //批量插入
