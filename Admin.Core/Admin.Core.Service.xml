@@ -1235,6 +1235,13 @@
             启用
             </summary>
         </member>
+        <member name="M:Admin.Core.Service.Admin.Permission.PermissionService.ClearUserPermissionsAsync(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            清除权限下关联的用户权限缓存
+            </summary>
+            <param name="permissionIds"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Permission.MapConfig">
             <summary>
             映射配置

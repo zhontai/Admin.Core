@@ -45,6 +45,24 @@ namespace Admin.Core.Service.Admin.Permission
             _permissionApiRepository = permissionApiRepository;
         }
 
+        /// <summary>
+        /// 清除权限下关联的用户权限缓存
+        /// </summary>
+        /// <param name="permissionIds"></param>
+        /// <returns></returns>
+        private async Task ClearUserPermissionsAsync(List<long> permissionIds)
+        {
+            var userIds = await _userRoleRepository.Select.Where(a =>
+                _rolePermissionRepository
+                .Where(b => b.RoleId == a.RoleId && permissionIds.Contains(b.PermissionId))
+                .Any()
+            ).ToListAsync(a => a.UserId);
+            foreach (var userId in userIds)
+            {
+                await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+            }
+        }
+
         public async Task<IResponseOutput> GetAsync(long id)
         {
             var result = await _permissionRepository.GetAsync(id);
@@ -177,6 +195,7 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Result(result);
         }
 
+        [Transaction]
         public async Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input)
         {
             if (!(input?.Id > 0))
@@ -201,6 +220,9 @@ namespace Admin.Core.Service.Admin.Permission
                 await _permissionApiRepository.InsertAsync(permissionApis);
             }
 
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(new List<long> { entity.Id });
+
             return ResponseOutput.Ok();
         }
 
@@ -219,13 +241,25 @@ namespace Admin.Core.Service.Admin.Permission
             //删除相关权限
             await _permissionRepository.DeleteAsync(a => ids.Contains(a.Id));
 
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(ids);
+
             return ResponseOutput.Ok();
         }
 
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
+            //递归查询所有权限点
+            var ids = _permissionRepository.Select
+            .Where(a => a.Id == id)
+            .AsTreeCte()
+            .ToList(a => a.Id);
+
             //删除权限
-            await _permissionRepository.SoftDeleteRecursiveAsync(a=>a.Id == id);
+            await _permissionRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
+
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(ids);
 
             return ResponseOutput.Ok();
         }
