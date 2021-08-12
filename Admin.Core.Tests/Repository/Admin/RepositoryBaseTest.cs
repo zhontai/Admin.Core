@@ -6,11 +6,11 @@ namespace Admin.Core.Tests.Service.Repository.Admin
 {
     public class RepositoryBaseTest : BaseTest
     {
-        private readonly IRepositoryBase<UserEntity, long> _repositoryBase;
+        private readonly IRepositoryBase<UserEntity> _repositoryBase;
 
         public RepositoryBaseTest()
         {
-            _repositoryBase = GetService<IRepositoryBase<UserEntity, long>>();
+            _repositoryBase = GetService<IRepositoryBase<UserEntity>>();
         }
 
         [Fact]

@@ -21,7 +21,6 @@ namespace Admin.Core.Tests.Controller
         private readonly ICache _cache;
         private readonly IAuthService _authService;
         private readonly AppConfig _appConfig;
-        private static JToken _token = null;
 
         protected BaseControllerTest()
         {
@@ -40,31 +39,28 @@ namespace Admin.Core.Tests.Controller
 
         public async Task Login(AuthLoginInput input = null)
         {
-            if(_token == null)
+            if (input == null && _appConfig.VarifyCode.Enable)
             {
-                if (input == null && _appConfig.VarifyCode.Enable)
+                var res = await _authService.GetVerifyCodeAsync("") as IResponseOutput<AuthGetVerifyCodeOutput>;
+                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Data.Key);
+                var verifyCode = await _cache.GetAsync(verifyCodeKey);
+                input = new AuthLoginInput()
                 {
-                    var res = await _authService.GetVerifyCodeAsync("") as IResponseOutput<AuthGetVerifyCodeOutput>;
-                    var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Data.Key);
-                    var verifyCode = await _cache.GetAsync(verifyCodeKey);
-                    input = new AuthLoginInput()
-                    {
-                        UserName = "admin",
-                        Password = "111111",
-                        VerifyCodeKey = res.Data.Key,
-                        VerifyCode = verifyCode
-                    };
-                }
-
-                //Client.DefaultRequestHeaders.Connection.Add("keep-alive");
-                Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
-
-                var result = await Client.PostAsync($"/api/admin/auth/login", GetHttpContent(input));
-                var content = await result.Content.ReadAsStringAsync();
-                var jObject = JsonConvert.DeserializeObject<JObject>(content);
-                _token = jObject["data"]["token"];
+                    UserName = "admin",
+                    Password = "111111",
+                    VerifyCodeKey = res.Data.Key,
+                    VerifyCode = verifyCode
+                };
             }
-            Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_token}");
+
+            //Client.DefaultRequestHeaders.Connection.Add("keep-alive");
+            Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+
+            var result = await Client.PostAsync($"/api/admin/auth/login", GetHttpContent(input));
+            var content = await result.Content.ReadAsStringAsync();
+            var jObject = JsonConvert.DeserializeObject<JObject>(content);
+            var token = jObject["data"]["token"];
+            Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
         public string ToParams(object source)
