@@ -93,7 +93,7 @@ namespace Admin.Core.Repository
                     var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
                     //查询租户数据库信息
                     var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
-                    var tenantRepository = masterDb.GetRepository<TenantEntity>();
+                    var tenantRepository = masterDb.GetRepositoryBase<TenantEntity>();
                     var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
 
                     var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
@@ -129,7 +129,7 @@ namespace Admin.Core.Repository
                     var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
                     //查询租户数据库信息
                     var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
-                    var tenantRepository = masterDb.GetRepository<TenantEntity>();
+                    var tenantRepository = masterDb.GetRepositoryBase<TenantEntity>();
                     var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
 
                     var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;

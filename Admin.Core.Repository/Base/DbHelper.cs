@@ -258,7 +258,7 @@ namespace Admin.Core.Repository
             System.Data.Common.DbTransaction tran,
             T[] data,
             DbConfig dbConfig = null
-        ) where T : class
+        ) where T : class, new()
         {
             var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;
             var tableName = table.Name;
@@ -277,7 +277,7 @@ namespace Admin.Core.Repository
                     return;
                 }
 
-                var repo = db.GetRepository<T>();
+                var repo = db.GetRepositoryBase<T>();
                 var insert = db.Insert<T>();
                 if (unitOfWork != null)
                 {
@@ -406,7 +406,7 @@ namespace Admin.Core.Repository
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
-                    var dualRepo = db.GetRepository<DualEntity>();
+                    var dualRepo = db.GetRepositoryBase<DualEntity>();
                     dualRepo.UnitOfWork = uow;
                     if (!await dualRepo.Select.AnyAsync())
                     {
