@@ -53,8 +53,10 @@ namespace Admin.Core.Tests.Controller.Admin
                 }
             };
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
-            var jObject = await GetResult($"/api/admin/api/getpage", httpContent);
-            Assert.Equal(1, jObject["code"]);
+
+            await Login();
+            var res = await Client.PostAsync($"/api/admin/api/getpage", httpContent);
+            Assert.Equal(HttpStatusCode.Forbidden, res.StatusCode);
         }
     }
 }
