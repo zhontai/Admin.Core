@@ -1,9 +1,9 @@
 ﻿using Admin.Core.Common.Input;
 using Admin.Core.Model.Admin;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Admin.Core.Service.Admin.Api.Input;
+using Admin.Core.Service.Admin.Api.Output;
+using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,29 +15,18 @@ namespace Admin.Core.Tests.Controller.Admin
         {
         }
 
-        private async Task<JObject> GetResult(string apiPath, HttpContent httpContent = null)
-        {
-            await Login();
-
-            var res = httpContent != null ? await Client.PostAsync(apiPath, httpContent) : await Client.GetAsync(apiPath);
-            Assert.Equal(HttpStatusCode.OK, res.StatusCode);
-
-            var content = await res.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<JObject>(content);
-        }
-
         [Fact]
         public async Task Get()
         {
-            var jObject = await GetResult("/api/admin/api/get?id=161227167658053");
-            Assert.Equal(1, jObject["code"]);
+            var res = await GetResult<ResultDto<ApiGetOutput>>("/api/admin/api/get?id=161227167658053");
+            Assert.True(res.Success);
         }
 
         [Fact]
         public async Task GetList()
         {
-            var jObject = await GetResult("/api/admin/api/getlist?key=接口管理");
-            Assert.Equal(1, jObject["code"]);
+            var res = await GetResult<ResultDto<List<ApiListOutput>>>("/api/admin/api/getlist?key=接口管理");
+            Assert.True(res.Success);
         }
 
         [Fact]
@@ -46,17 +35,45 @@ namespace Admin.Core.Tests.Controller.Admin
             var input = new PageInput<ApiEntity> 
             { 
                 CurrentPage = 1, 
-                PageSize = 20, 
+                PageSize = 20,
                 Filter = new ApiEntity 
                 { 
                     Label = "接口管理" 
                 }
             };
-            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
-
+            
             await Login();
-            var res = await Client.PostAsync($"/api/admin/api/getpage", httpContent);
+            var res = await Client.PostAsync($"/api/admin/api/getpage", GetHttpContent(input));
             Assert.Equal(HttpStatusCode.Forbidden, res.StatusCode);
+        }
+
+        [Fact]
+        public async Task Add()
+        {
+            var input = new ApiAddInput
+            {
+               Label = "新接口",
+               Path = "/api/admin/api/newapi",
+               HttpMethods = "post"
+            };
+
+            var res = await PostResult($"/api/admin/api/add", input);
+            Assert.True(res.Success);
+        }
+
+        [Fact]
+        public async Task Update()
+        {
+            var output = await GetResult<ResultDto<ApiGetOutput>>("/api/admin/api/get?id=161227167658053");
+            var res = await PutResult($"/api/admin/api/update", output.Data);
+            Assert.True(res.Success);
+        }
+
+        [Fact]
+        public async Task Delete()
+        {
+            var res = await DeleteResult($"/api/admin/api/softdelete?{ToParams(new { id = 191182807191621 })}");
+            Assert.True(res.Success);
         }
     }
 }

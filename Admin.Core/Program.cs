@@ -59,10 +59,7 @@ namespace Admin.Core
                     if (appConfig.RateLimit)
                     {
                         config.AddJsonFile("./configs/ratelimitconfig.json", optional: false, reloadOnChange: true)
-#if DEBUG
-                        .AddJsonFile("./configs/ratelimitconfig.Development.json", true)
-#endif
-                    ;
+                        .AddJsonFile($"./configs/ratelimitconfig.{host.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
                     }
                 })
                 .UseUrls(appConfig.Urls);

@@ -51,11 +51,8 @@ namespace Admin.Core.Tests
                       {
                           if (AppConfig.RateLimit)
                           {
-                              config.AddJsonFile($"{configsPath}/ratelimitconfig.json", optional: true, reloadOnChange: true)
-#if DEBUG
-                        .AddJsonFile($"{configsPath}/ratelimitconfig.Development.json", false)
-#endif
-                    ;
+                            config.AddJsonFile($"{configsPath}/ratelimitconfig.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile($"{configsPath}/ratelimitconfig.{host.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
                           }
                       });
                       webBuilder.UseTestServer();
