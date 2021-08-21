@@ -374,12 +374,13 @@ namespace Admin.Core
                 //无接口注入单例
                 var assemblyCore = Assembly.Load("Admin.Core");
                 var assemblyCommon = Assembly.Load("Admin.Core.Common");
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
+                var assemblyTools = Assembly.Load("Admin.Tools");
+                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon, assemblyTools)
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
                 .SingleInstance();
 
                 //有接口注入单例
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
+                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon, assemblyTools)
                 .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
                 .AsImplementedInterfaces()
                 .SingleInstance();

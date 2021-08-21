@@ -27,16 +27,12 @@
   <ItemGroup>
     <Compile Remove="AutoMapper\**" />
     <Compile Remove="Hubs\**" />
-    <Compile Remove="wwwroot\**" />
     <Content Remove="AutoMapper\**" />
     <Content Remove="Hubs\**" />
-    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="AutoMapper\**" />
     <EmbeddedResource Remove="Hubs\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="AutoMapper\**" />
     <None Remove="Hubs\**" />
-    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +56,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Admin.Core.Service\Admin.Core.Service.csproj" />
+    <ProjectReference Include="..\Admin.Tools\Admin.Tools.csproj" />
   </ItemGroup>
 
   <ItemGroup>

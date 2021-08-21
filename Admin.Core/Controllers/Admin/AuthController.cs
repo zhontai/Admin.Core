@@ -9,6 +9,7 @@ using Admin.Core.Service.Admin.Auth.Output;
 using Admin.Core.Service.Admin.LoginLog;
 using Admin.Core.Service.Admin.LoginLog.Input;
 using Admin.Core.Service.Admin.User;
+using Admin.Tools.Captcha;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -29,18 +30,21 @@ namespace Admin.Core.Controllers.Admin
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
         private readonly ILoginLogService _loginLogService;
+        private readonly ICaptcha _captcha;
 
         public AuthController(
             IUserToken userToken,
             IAuthService authService,
             IUserService userService,
-            ILoginLogService loginLogService
+            ILoginLogService loginLogService,
+            ICaptcha captcha
         )
         {
             _userToken = userToken;
             _authService = authService;
             _userService = userService;
             _loginLogService = loginLogService;
+            _captcha = captcha;
         }
 
         /// <summary>
@@ -86,6 +90,32 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> GetVerifyCode(string lastKey)
         {
             return await _authService.GetVerifyCodeAsync(lastKey);
+        }
+
+        /// <summary>
+        /// 获取验证数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        [NoOprationLog]
+        public async Task<IResponseOutput> GetCaptcha()
+        {
+            var data = await _captcha.GetAsync();
+            return ResponseOutput.Ok(data);
+        }
+
+        /// <summary>
+        /// 检查验证数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        [NoOprationLog]
+        public async Task<IResponseOutput> CheckCaptcha([FromQuery] SlideJigsawCaptchaInput input)
+        {
+            var result = await _captcha.CheckAsync(input);
+            return ResponseOutput.Result(result);
         }
 
         /// <summary>

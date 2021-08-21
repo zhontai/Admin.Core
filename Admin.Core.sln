@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.Core.Common", "Admin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.Core.Tests", "Admin.Core.Tests\Admin.Core.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin.Tools", "Admin.Tools\Admin.Tools.csproj", "{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

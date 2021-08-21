@@ -160,6 +160,18 @@
             <param name="lastKey">上次验证码键</param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetCaptcha">
+            <summary>
+            获取验证数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.CheckCaptcha(Admin.Tools.Captcha.SlideJigsawCaptchaInput)">
+            <summary>
+            检查验证数据
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.AuthController.GetPassWordEncryptKey">
             <summary>
             获取密钥
