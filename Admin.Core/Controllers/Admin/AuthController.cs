@@ -112,7 +112,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         [AllowAnonymous]
         [NoOprationLog]
-        public async Task<IResponseOutput> CheckCaptcha([FromQuery] SlideJigsawCaptchaInput input)
+        public async Task<IResponseOutput> CheckCaptcha([FromQuery] CaptchaInput input)
         {
             var result = await _captcha.CheckAsync(input);
             return ResponseOutput.Result(result);

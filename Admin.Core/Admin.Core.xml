@@ -166,7 +166,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Controllers.Admin.AuthController.CheckCaptcha(Admin.Tools.Captcha.SlideJigsawCaptchaInput)">
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.CheckCaptcha(Admin.Tools.Captcha.CaptchaInput)">
             <summary>
             检查验证数据
             </summary>

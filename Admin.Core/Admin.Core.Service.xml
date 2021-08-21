@@ -232,6 +232,11 @@
             验证码键
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.Captcha">
+            <summary>
+            验证数据
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthGetVerifyCodeOutput.Key">
             <summary>
             缓存键

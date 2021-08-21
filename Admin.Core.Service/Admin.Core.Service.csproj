@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Admin.Core.Model\Admin.Core.Model.csproj" />
     <ProjectReference Include="..\Admin.Core.Repository\Admin.Core.Repository.csproj" />
+    <ProjectReference Include="..\Admin.Tools\Admin.Tools.csproj" />
   </ItemGroup>
 
 </Project>

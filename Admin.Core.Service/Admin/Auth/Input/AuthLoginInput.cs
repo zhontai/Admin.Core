@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Admin.Tools.Captcha;
+using System.ComponentModel.DataAnnotations;
 
 namespace Admin.Core.Service.Admin.Auth.Input
 {
@@ -34,5 +35,10 @@ namespace Admin.Core.Service.Admin.Auth.Input
         /// 验证码键
         /// </summary>
         public string VerifyCodeKey { get; set; }
+
+        /// <summary>
+        /// 验证数据
+        /// </summary>
+        public CaptchaInput Captcha { get; set; }
     }
 }

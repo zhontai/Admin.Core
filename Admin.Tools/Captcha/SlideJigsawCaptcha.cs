@@ -322,21 +322,29 @@ namespace Admin.Tools.Captcha
         /// <summary>
         /// 检查验证数据
         /// </summary>
-        public async Task<bool> CheckAsync(SlideJigsawCaptchaInput input)
+        /// <param name="input"></param>
+        /// <param name="needDelete"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckAsync(CaptchaInput input, bool deleteCache = false)
         {
             var key = string.Format(CacheKey.VerifyCodeKey, input.Token);
             if (await _cache.ExistsAsync(key))
             {
                 try
                 {
-                    var point = JsonConvert.DeserializeObject<PointModel>(input.Point);
+                    var point = JsonConvert.DeserializeObject<PointModel>(input.Data);
                     var x = await _cache.GetAsync<int>(key);
                     if (Math.Abs(x - point.X) < 5)
                     {
+                        if (deleteCache)
+                        {
+                            await _cache.DelAsync(key);
+                        }
                         return true;
                     }
                     else
                     {
+                        await _cache.DelAsync(key);
                         return false;
                     }
                 }
