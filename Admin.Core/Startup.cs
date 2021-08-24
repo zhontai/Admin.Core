@@ -112,7 +112,8 @@ namespace Admin.Core
             {
                 options.AddPolicy(DefaultCorsPolicyName, policy =>
                 {
-                    if (_appConfig.CorUrls?.Length > 0)
+                    var hasOrigins = _appConfig.CorUrls?.Length > 0;
+                    if (hasOrigins)
                     {
                         policy.WithOrigins(_appConfig.CorUrls);
                     }
@@ -122,8 +123,12 @@ namespace Admin.Core
                     }
                     policy
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
+
+                    if (hasOrigins)
+                    {
+                        policy.AllowCredentials();
+                    }
                 });
 
                 /*
@@ -134,8 +139,7 @@ namespace Admin.Core
                     .AllowAnyOrigin()
                     .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
                 });
                 */
             });

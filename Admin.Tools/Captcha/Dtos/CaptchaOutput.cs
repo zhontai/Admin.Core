@@ -10,6 +10,9 @@
         /// </summary>
         public string Token { get; set; }
 
+        /// <summary>
+        /// 数据
+        /// </summary>
         public object Data { get; set; }
     }
 }
