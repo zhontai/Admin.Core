@@ -1,5 +1,6 @@
 ﻿using Admin.Core.Attributes;
 using Admin.Core.Common.Auth;
+using Admin.Core.Common.Consts;
 using Admin.Core.Common.Extensions;
 using Admin.Core.Common.Helpers;
 using Admin.Core.Common.Output;
@@ -11,6 +12,7 @@ using Admin.Core.Service.Admin.LoginLog.Input;
 using Admin.Core.Service.Admin.User;
 using Admin.Tools.Captcha;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
@@ -99,6 +101,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         [AllowAnonymous]
         [NoOprationLog]
+        [EnableCors(AdminConsts.AllowAnyPolicyName)]
         public async Task<IResponseOutput> GetCaptcha()
         {
             var data = await _captcha.GetAsync();
@@ -112,6 +115,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         [AllowAnonymous]
         [NoOprationLog]
+        [EnableCors(AdminConsts.AllowAnyPolicyName)]
         public async Task<IResponseOutput> CheckCaptcha([FromQuery] CaptchaInput input)
         {
             var result = await _captcha.CheckAsync(input);

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Admin.Tools.Captcha
@@ -265,15 +266,12 @@ namespace Admin.Tools.Captcha
             //var client = new HttpClient();
             //var stream = await client.GetStreamAsync("https://picsum.photos/310/155");
             //client.Dispose();
-
-            //更改图片尺寸
-            //Bitmap oriImage = new Bitmap(stream);
-            //Bitmap baseImage = ResizeImage(oriImage, 310, 155);
-            //oriImage.Dispose();
-
             //Bitmap baseImage = new Bitmap(stream);
+            //stream.Dispose();
 
             var oriImage = Image.FromFile(Directory.GetCurrentDirectory() + $@"\wwwroot\captcha\jigsaw\{new Random().Next(1, 4)}.jpg");
+            //更改图片尺寸
+            //Bitmap baseImage = ResizeImage(oriImage, 310, 155);
             Bitmap baseImage = new Bitmap(oriImage);
             oriImage.Dispose();
 

@@ -4,6 +4,7 @@ using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
+using Admin.Core.Common.Consts;
 
 //using FluentValidation;
 //using FluentValidation.AspNetCore;
@@ -49,7 +50,7 @@ namespace Admin.Core
         private readonly IHostEnvironment _env;
         private readonly ConfigHelper _configHelper;
         private readonly AppConfig _appConfig;
-        private const string DefaultCorsPolicyName = "Allow";
+        private const string DefaultCorsPolicyName = "AllowPolicy";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -129,6 +130,15 @@ namespace Admin.Core
                     {
                         policy.AllowCredentials();
                     }
+                });
+
+                //允许任何源访问Api策略，使用时在控制器或者接口上增加特性[EnableCors(AdminConsts.AllowAnyPolicyName)]
+                options.AddPolicy(AdminConsts.AllowAnyPolicyName, policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 });
 
                 /*
@@ -446,9 +456,6 @@ namespace Admin.Core
                 app.UseIpRateLimiting();
             }
 
-            //跨域
-            app.UseCors(DefaultCorsPolicyName);
-
             //异常
             app.UseExceptionHandler("/Error");
 
@@ -457,6 +464,9 @@ namespace Admin.Core
 
             //路由
             app.UseRouting();
+
+            //跨域
+            app.UseCors(DefaultCorsPolicyName);
 
             //认证
             app.UseAuthentication();
