@@ -4,6 +4,7 @@ using Admin.Core.Common.Output;
 using Admin.Core.Service.Admin.Auth;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
+using Admin.Tools.Captcha;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -23,13 +24,13 @@ namespace Admin.Core.Tests.Controller
     public class BaseControllerTest : BaseTest
     {
         private readonly ICache _cache;
-        private readonly IAuthService _authService;
+        private readonly ICaptcha _captcha;
         private readonly AppConfig _appConfig;
 
         protected BaseControllerTest()
         {
             _cache = GetService<ICache>();
-            _authService = GetService<IAuthService>();
+            _captcha = GetService<ICaptcha>();
             _appConfig = GetService<AppConfig>();
         }
 
@@ -120,15 +121,14 @@ namespace Admin.Core.Tests.Controller
 
             if (input == null && _appConfig.VarifyCode.Enable)
             {
-                var res = await _authService.GetVerifyCodeAsync("") as IResponseOutput<AuthGetVerifyCodeOutput>;
-                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Data.Key);
+                var res = await _captcha.GetAsync();
+                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Token);
                 var verifyCode = await _cache.GetAsync(verifyCodeKey);
                 input = new AuthLoginInput()
                 {
                     UserName = "admin",
                     Password = "111111",
-                    VerifyCodeKey = res.Data.Key,
-                    VerifyCode = verifyCode
+                    Captcha = new CaptchaInput { Token = res.Token, Data = JsonConvert.SerializeObject(new { X = verifyCode }) }
                 };
             }
 
