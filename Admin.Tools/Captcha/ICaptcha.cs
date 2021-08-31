@@ -19,6 +19,6 @@ namespace Admin.Tools.Captcha
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<bool> CheckAsync(CaptchaInput input, bool deleteCache = false);
+        Task<bool> CheckAsync(CaptchaInput input);
     }
 }

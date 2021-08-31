@@ -135,7 +135,8 @@ namespace Admin.Core.Service.Admin.Auth
                     return ResponseOutput.NotOk("验证码已过期！", 1);
                 }
                 */
-                var isOk = await _captcha.CheckAsync(input.Captcha, true);
+                input.Captcha.DeleteCache = true;
+                var isOk = await _captcha.CheckAsync(input.Captcha);
                 if (!isOk)
                 {
                     return ResponseOutput.NotOk("安全验证不通过，请重新登录！");

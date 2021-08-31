@@ -321,9 +321,8 @@ namespace Admin.Tools.Captcha
         /// 检查验证数据
         /// </summary>
         /// <param name="input"></param>
-        /// <param name="needDelete"></param>
         /// <returns></returns>
-        public async Task<bool> CheckAsync(CaptchaInput input, bool deleteCache = false)
+        public async Task<bool> CheckAsync(CaptchaInput input)
         {
             var key = string.Format(CacheKey.VerifyCodeKey, input.Token);
             if (await _cache.ExistsAsync(key))
@@ -334,7 +333,7 @@ namespace Admin.Tools.Captcha
                     var x = await _cache.GetAsync<int>(key);
                     if (Math.Abs(x - point.X) < 5)
                     {
-                        if (deleteCache)
+                        if (input.DeleteCache)
                         {
                             await _cache.DelAsync(key);
                         }
