@@ -1,4 +1,5 @@
-﻿using Admin.Core.Common.Attributes;
+﻿using Admin.Core;
+using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Cache;
 using Newtonsoft.Json;
 using System;
@@ -324,6 +325,10 @@ namespace Admin.Tools.Captcha
         /// <returns></returns>
         public async Task<bool> CheckAsync(CaptchaInput input)
         {
+            if (input == null || input.Data.IsNull())
+            {
+                return false;
+            }
             var key = string.Format(CacheKey.VerifyCodeKey, input.Token);
             if (await _cache.ExistsAsync(key))
             {
