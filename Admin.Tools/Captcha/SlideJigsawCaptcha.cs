@@ -7,9 +7,14 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net.Http;
 using System.Threading.Tasks;
 
+/*
+Linux下Ubuntu如果报Gdip错误，需要按照以下步骤操作
+1. apt-get install libgdiplus
+2. cd /usr/lib
+3. ln -s libgdiplus.so gdiplus.dll
+*/
 namespace Admin.Tools.Captcha
 {
     /// <summary>
@@ -270,13 +275,13 @@ namespace Admin.Tools.Captcha
             //Bitmap baseImage = new Bitmap(stream);
             //stream.Dispose();
 
-            var oriImage = Image.FromFile(Directory.GetCurrentDirectory() + $@"\wwwroot\captcha\jigsaw\{new Random().Next(1, 4)}.jpg");
+            var oriImage = Image.FromFile($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\{new Random().Next(1, 4)}.jpg".ToPath());
             //更改图片尺寸
             //Bitmap baseImage = ResizeImage(oriImage, 310, 155);
             Bitmap baseImage = new Bitmap(oriImage);
             oriImage.Dispose();
 
-            var oriTemplate = Image.FromFile(Directory.GetCurrentDirectory() + $@"\wwwroot\captcha\jigsaw\templates\{new Random().Next(1, 7)}.png");
+            var oriTemplate = Image.FromFile($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{new Random().Next(1, 7)}.png".ToPath());
             Bitmap templateImage = new Bitmap(oriTemplate);
             oriTemplate.Dispose();
 
