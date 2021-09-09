@@ -63,8 +63,14 @@ namespace Admin.Tools.Captcha
         /// <returns></returns>
         private Bitmap CutByTemplate(Bitmap baseImage, Bitmap templateImage, int x, int y)
         {
-            Bitmap newImage = new Bitmap(templateImage.Width, baseImage.Height, PixelFormat.Format32bppRgb);
-            newImage.MakeTransparent();
+            Bitmap newImage = new Bitmap(templateImage.Width, baseImage.Height);
+            for (int i = 0, newImageWidth = templateImage.Width; i < newImageWidth; i++)
+            {
+                for (int j = 0, newImageHeight = baseImage.Height; j < newImageHeight; j++)
+                {
+                    newImage.SetPixel(i, j, Color.FromArgb(0,0,0,0));
+                }
+            }
 
             int xLength = templateImage.Width;
             int yLength = templateImage.Height;
