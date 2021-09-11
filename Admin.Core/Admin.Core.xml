@@ -1086,5 +1086,26 @@
             操作日志处理
             </summary>
         </member>
+        <member name="M:Admin.Core.RegisterModules.RepositoryModule.#ctor(System.String,System.String)">
+            <summary>
+            仓储注入
+            </summary>
+            <param name="assemblyName">程序集名称</param>
+            <param name="suffixName">后缀名</param>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.ServiceModule.#ctor(Admin.Core.Common.Configs.AppConfig,System.String,System.String)">
+            <summary>
+            服务注入
+            </summary>
+            <param name="appConfig">AppConfig</param>
+            <param name="assemblyName">程序集名称</param>
+            <param name="suffixName">后缀名</param>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.SingleInstanceModule.#ctor(System.String)">
+            <summary>
+            单例注入
+            </summary>
+            <param name="prefixName">前缀名</param>
+        </member>
     </members>
 </doc>

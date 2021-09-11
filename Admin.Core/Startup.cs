@@ -1,6 +1,5 @@
 ﻿using Admin.Core.Aop;
 using Admin.Core.Auth;
-using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
@@ -14,6 +13,7 @@ using Admin.Core.Enums;
 using Admin.Core.Extensions;
 using Admin.Core.Filters;
 using Admin.Core.Logs;
+using Admin.Core.RegisterModules;
 using Admin.Core.Repository;
 using AspNetCoreRateLimit;
 using Autofac;
@@ -65,6 +65,7 @@ namespace Admin.Core
             //雪花漂移算法
             YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
 
+            //权限处理
             services.AddScoped<IPermissionHandler, PermissionHandler>();
 
             // ClaimType不被更改
@@ -383,60 +384,14 @@ namespace Admin.Core
 
             try
             {
-                #region SingleInstance
+                // 单例注入
+                builder.RegisterModule(new SingleInstanceModule());
 
-                //无接口注入单例
-                var assemblyCore = Assembly.Load("Admin.Core");
-                var assemblyCommon = Assembly.Load("Admin.Core.Common");
-                var assemblyTools = Assembly.Load("Admin.Tools");
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon, assemblyTools)
-                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .SingleInstance();
+                // 仓储注入
+                builder.RegisterModule(new RepositoryModule());
 
-                //有接口注入单例
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon, assemblyTools)
-                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-                #endregion SingleInstance
-
-                #region Aop
-
-                var interceptorServiceTypes = new List<Type>();
-                if (_appConfig.Aop.Transaction)
-                {
-                    builder.RegisterType<TransactionInterceptor>();
-                    builder.RegisterType<TransactionAsyncInterceptor>();
-                    interceptorServiceTypes.Add(typeof(TransactionInterceptor));
-                }
-
-                #endregion Aop
-
-                #region Repository
-                var assemblyRepository = Assembly.Load("Admin.Core.Repository");
-                builder.RegisterAssemblyTypes(assemblyRepository)
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .PropertiesAutowired();// 属性注入
-
-
-                //泛型注入
-                builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope();
-                builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope();
-                #endregion Repository
-
-                #region Service
-
-                var assemblyServices = Assembly.Load("Admin.Core.Service");
-                builder.RegisterAssemblyTypes(assemblyServices)
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .PropertiesAutowired()// 属性注入
-                .InterceptedBy(interceptorServiceTypes.ToArray())
-                .EnableInterfaceInterceptors();
-
-                #endregion Service
+                // 服务注入
+                builder.RegisterModule(new ServiceModule(_appConfig));
             }
             catch (Exception ex)
             {

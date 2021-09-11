@@ -63,6 +63,7 @@ namespace Admin.Tools.Captcha
         /// <returns></returns>
         private Bitmap CutByTemplate(Bitmap baseImage, Bitmap templateImage, int x, int y)
         {
+            //生成透明背景图
             Bitmap newImage = new Bitmap(templateImage.Width, baseImage.Height);
             for (int i = 0, newImageWidth = templateImage.Width; i < newImageWidth; i++)
             {
