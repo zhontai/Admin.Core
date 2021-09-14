@@ -23,17 +23,23 @@ namespace Admin.Core.RegisterModules
 
         protected override void Load(ContainerBuilder builder)
         {
+            // 获得要注入的程序集
+            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+                .Where(a => a.Name.StartsWith(_prefixName))
+                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+
             //无接口注入单例
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries.Where(a => a.Name.StartsWith(_prefixName)).Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
             builder.RegisterAssemblyTypes(assemblies)
             .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-            .SingleInstance();
+            .SingleInstance()
+            .PropertiesAutowired();
 
             //有接口注入单例
             builder.RegisterAssemblyTypes(assemblies)
             .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
             .AsImplementedInterfaces()
-            .SingleInstance();
+            .SingleInstance()
+            .PropertiesAutowired();
         }
     }
 }

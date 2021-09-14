@@ -344,7 +344,8 @@ namespace Admin.Core
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 //设置时间格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            });
+            })
+            .AddControllersAsServices();
 
             #endregion 控制器
 
@@ -384,6 +385,9 @@ namespace Admin.Core
 
             try
             {
+                // 控制器注入
+                builder.RegisterModule(new ControllerModule());
+
                 // 单例注入
                 builder.RegisterModule(new SingleInstanceModule());
 

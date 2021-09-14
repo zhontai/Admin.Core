@@ -1086,6 +1086,11 @@
             操作日志处理
             </summary>
         </member>
+        <member name="M:Admin.Core.RegisterModules.ControllerModule.#ctor">
+            <summary>
+            控制器注入
+            </summary>
+        </member>
         <member name="M:Admin.Core.RegisterModules.RepositoryModule.#ctor(System.String,System.String)">
             <summary>
             仓储注入
