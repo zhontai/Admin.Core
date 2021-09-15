@@ -53,6 +53,76 @@ namespace Admin.Tools.Captcha
             }
         }
 
+        private void ReadPixel(Bitmap img, int x, int y, int[] pixels)
+        {
+            int xStart = x - 1;
+            int yStart = y - 1;
+            int current = 0;
+            for (int i = xStart; i < 3 + xStart; i++)
+            {
+                for (int j = yStart; j < 3 + yStart; j++)
+                {
+                    int tx = i;
+                    if (tx < 0)
+                    {
+                        tx = -tx;
+
+                    }
+                    else if (tx >= img.Width)
+                    {
+                        tx = x;
+                    }
+                    int ty = j;
+                    if (ty < 0)
+                    {
+                        ty = -ty;
+                    }
+                    else if (ty >= img.Height)
+                    {
+                        ty = y;
+                    }
+                    pixels[current++] = img.GetPixel(tx, ty).ToArgb();
+
+                }
+            }
+        }
+
+        private void FillMatrix(int[][] matrix, int[] values)
+        {
+            int filled = 0;
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                int[] x = matrix[i];
+                for (int j = 0; j < x.Length; j++)
+                {
+                    x[j] = values[filled++];
+                }
+            }
+        }
+
+        private Color AvgMatrix(int[][] matrix)
+        {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                int[] x = matrix[i];
+                for (int j = 0; j < x.Length; j++)
+                {
+                    if (j == 1)
+                    {
+                        continue;
+                    }
+                    Color c = Color.FromArgb(x[j]);
+                    r += c.R;
+                    g += c.G;
+                    b += c.B;
+                }
+            }
+            return Color.FromArgb(r / 8, g / 8, b / 8);
+        }
+
         /// <summary>
         /// 根据模板生成拼图
         /// </summary>
@@ -73,6 +143,10 @@ namespace Admin.Tools.Captcha
                 }
             }
 
+            // 临时数组遍历用于高斯模糊存周边像素值
+            int[][] martrix = { new int[3], new int[3], new int[3] };
+            int[] values = new int[9];
+
             int xLength = templateImage.Width;
             int yLength = templateImage.Height;
             // 模板图像宽度
@@ -90,7 +164,12 @@ namespace Admin.Tools.Captcha
                         newImage.SetPixel(i, y + j, oriImageColor);
 
                         //抠图区域半透明
-                        baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
+                        //baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
+
+                        //抠图区域高斯模糊
+                        ReadPixel(baseImage, x + i, y + j, values);
+                        FillMatrix(martrix, values);
+                        baseImage.SetPixel(x + i, y + j, AvgMatrix(martrix));
                     }
 
                     //防止数组越界判断
@@ -121,6 +200,10 @@ namespace Admin.Tools.Captcha
         /// <param name="y"></param>
         private void InterferenceByTemplate(Bitmap baseImage, Bitmap templateImage, int x, int y)
         {
+            // 临时数组遍历用于高斯模糊存周边像素值
+            int[][] martrix = { new int[3], new int[3], new int[3] };
+            int[] values = new int[9];
+
             int xLength = templateImage.Width;
             int yLength = templateImage.Height;
             // 模板图像宽度
@@ -136,7 +219,12 @@ namespace Admin.Tools.Captcha
                         Color oriImageColor = baseImage.GetPixel(x + i, y + j);
 
                         //抠图区域半透明
-                        baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
+                        //baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
+
+                        //抠图区域高斯模糊
+                        ReadPixel(baseImage, x + i, y + j, values);
+                        FillMatrix(martrix, values);
+                        baseImage.SetPixel(x + i, y + j, AvgMatrix(martrix));
                     }
 
                     //防止数组越界判断
@@ -156,7 +244,6 @@ namespace Admin.Tools.Captcha
             }
         }
         
-
         /// <summary>
         /// 更改图片尺寸
         /// </summary>
