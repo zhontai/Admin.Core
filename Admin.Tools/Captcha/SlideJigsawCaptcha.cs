@@ -53,6 +53,13 @@ namespace Admin.Tools.Captcha
             }
         }
 
+        /// <summary>
+        /// 读取像素
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="pixels"></param>
         private void ReadPixel(Bitmap img, int x, int y, int[] pixels)
         {
             int xStart = x - 1;
@@ -144,8 +151,8 @@ namespace Admin.Tools.Captcha
             }
 
             // 临时数组遍历用于高斯模糊存周边像素值
-            int[][] martrix = { new int[3], new int[3], new int[3] };
             int[] values = new int[9];
+            int[][] martrix = { new int[3], new int[3], new int[3] };
 
             int xLength = templateImage.Width;
             int yLength = templateImage.Height;
