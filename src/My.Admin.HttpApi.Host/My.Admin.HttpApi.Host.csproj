@@ -1,0 +1,116 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.8.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>xiaoxue</Authors>
+    <Company>xiaoxue</Company>
+    <RepositoryType>git</RepositoryType>
+    <Description>中台Admin后端WebApi</Description>
+    <PackageProjectUrl>https://github.com/zhontai/My.Admin.HttpApi.Host</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/My.Admin.HttpApi.Host</RepositoryUrl>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
+    <PackageId>My.Admin.HttpApi.Host</PackageId>
+    <Product>My.Admin.HttpApi.Host</Product>
+    <UserSecretsId>729fff27-b925-4753-a8c8-f3e9c0e50a40</UserSecretsId>
+    <AssemblyName>My.Admin.HttpApi.Host</AssemblyName>
+    <RootNamespace>My.Admin.HttpApi.Host</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\My.Admin.HttpApi.Host\My.Admin.HttpApi.Host.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AutoMapper\**" />
+    <Compile Remove="Hubs\**" />
+    <Content Remove="AutoMapper\**" />
+    <Content Remove="Hubs\**" />
+    <EmbeddedResource Remove="AutoMapper\**" />
+    <EmbeddedResource Remove="Hubs\**" />
+    <None Remove="AutoMapper\**" />
+    <None Remove="Hubs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="My.Admin.HttpApi.Host.Repository.dll" />
+    <None Remove="admin.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+    <PackageReference Include="Caching.CSRedis" Version="3.6.60" />
+    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />   
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\My.Admin.Service\My.Admin.Service.csproj" />
+    <ProjectReference Include="..\My.Admin.Tools\My.Admin.Tools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="My.Admin.Common.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="My.Admin.Domain.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="My.Admin.Service.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="My.Admin.HttpApi.Host.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\captcha\jigsaw\1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\captcha\jigsaw\templates\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

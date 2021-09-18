@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "My.Admin.HttpApi.Host": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      //"launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:8000"
+    }
+  }
+}

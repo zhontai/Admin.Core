@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>1.8.0</Version>
+    <Authors>xiaoxue</Authors>
+    <Company>xiaoxue</Company>
+    <Description>中台Admin后端服务库</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zhontai/My.Admin</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/My.Admin</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>..\My.Admin\My.Admin.Service.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\My.Admin.Domain\My.Admin.Domain.csproj" />
+    <ProjectReference Include="..\My.Admin.Repository\My.Admin.Repository.csproj" />
+    <ProjectReference Include="..\My.Admin.Tools\My.Admin.Tools.csproj" />
+  </ItemGroup>
+
+</Project>
