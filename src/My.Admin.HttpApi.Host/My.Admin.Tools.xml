@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>My.Admin.Tools</name>
+    </assembly>
+    <members>
+        <member name="P:My.Admin.Tools.Captcha.CaptchaInput.Token">
+            <summary>
+            校验唯一标识
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.CaptchaInput.DeleteCache">
+            <summary>
+            删除缓存
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.CaptchaInput.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:My.Admin.Tools.Captcha.CaptchaOutput">
+            <summary>
+            验证数据
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.CaptchaOutput.Token">
+            <summary>
+            校验唯一标识
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.CaptchaOutput.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:My.Admin.Tools.Captcha.ICaptcha">
+            <summary>
+            验证接口
+            </summary>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.ICaptcha.GetAsync">
+            <summary>
+            获得验证数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.ICaptcha.CheckAsync(My.Admin.Tools.Captcha.CaptchaInput)">
+            <summary>
+            检查验证数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.PointModel.X">
+            <summary>
+            x坐标
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.PointModel.Y">
+            <summary>
+            y坐标
+            </summary>
+        </member>
+        <member name="T:My.Admin.Tools.Captcha.SlideJigsawCaptchaModel">
+            <summary>
+            滑动验证
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.SlideJigsawCaptchaModel.BlockImage">
+            <summary>
+            滑块图
+            </summary>
+        </member>
+        <member name="P:My.Admin.Tools.Captcha.SlideJigsawCaptchaModel.BaseImage">
+            <summary>
+            底图
+            </summary>
+        </member>
+        <member name="T:My.Admin.Tools.Captcha.SlideJigsawCaptcha">
+            <summary>
+            滑块拼图验证
+            </summary>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.ImgToBase64String(System.Drawing.Bitmap)">
+            <summary>
+            Bitmap转为base64编码的文本
+            </summary>
+            <param name="bmp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.ReadPixel(System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            读取像素
+            </summary>
+            <param name="img"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="pixels"></param>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.CutByTemplate(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32)">
+            <summary>
+            根据模板生成拼图
+            </summary>
+            <param name="baseImage"></param>
+            <param name="templateImage"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.InterferenceByTemplate(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32)">
+            <summary>
+            根据模板生成干扰图
+            </summary>
+            <param name="baseImage"></param>
+            <param name="templateImage"></param>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.ResizeImage(System.Drawing.Bitmap,System.Int32,System.Int32)">
+            <summary>
+            更改图片尺寸
+            </summary>
+            <param name="bmp"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.GetRandomInt(System.Int32,System.Int32)">
+            <summary>
+            随机范围内数字
+            </summary>
+            <param name="startNum"></param>
+            <param name="endNum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.GeneratePoint(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            随机生成拼图坐标
+            </summary>
+            <param name="originalWidth"></param>
+            <param name="originalHeight"></param>
+            <param name="templateWidth"></param>
+            <param name="templateHeight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.GenerateInterferencePoint(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            随机生成干扰图坐标
+            </summary>
+            <param name="originalWidth"></param>
+            <param name="originalHeight"></param>
+            <param name="templateWidth"></param>
+            <param name="templateHeight"></param>
+            <param name="blockX"></param>
+            <param name="blockY"></param>
+            <returns></returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.GetAsync">
+            <summary>
+            获得验证数据
+            </summary>
+            <returns>JObject</returns>
+        </member>
+        <member name="M:My.Admin.Tools.Captcha.SlideJigsawCaptcha.CheckAsync(My.Admin.Tools.Captcha.CaptchaInput)">
+            <summary>
+            检查验证数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

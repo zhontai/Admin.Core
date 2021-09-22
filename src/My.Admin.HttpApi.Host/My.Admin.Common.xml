@@ -1548,21 +1548,21 @@
             <param name="success"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.IsNull(System.String)">
+        <member name="M:My.Admin.StringExtensions.IsNull(System.String)">
             <summary>
             判断字符串是否为Null、空
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.NotNull(System.String)">
+        <member name="M:My.Admin.StringExtensions.NotNull(System.String)">
             <summary>
             判断字符串是否不为Null、空
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.EqualsIgnoreCase(System.String,System.String)">
+        <member name="M:My.Admin.StringExtensions.EqualsIgnoreCase(System.String,System.String)">
             <summary>
             与字符串进行比较，忽略大小写
             </summary>
@@ -1570,28 +1570,28 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.FirstCharToLower(System.String)">
+        <member name="M:My.Admin.StringExtensions.FirstCharToLower(System.String)">
             <summary>
             首字母转小写
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.FirstCharToUpper(System.String)">
+        <member name="M:My.Admin.StringExtensions.FirstCharToUpper(System.String)">
             <summary>
             首字母转大写
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.ToBase64(System.String)">
+        <member name="M:My.Admin.StringExtensions.ToBase64(System.String)">
             <summary>
             转为Base64，UTF-8格式
             </summary>
             <param name="s"></param>
             <returns></returns>
         </member>
-        <member name="M:My.Admin.HttpApi.Host.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
+        <member name="M:My.Admin.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
             <summary>
             转为Base64
             </summary>

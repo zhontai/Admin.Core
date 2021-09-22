@@ -16,7 +16,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath></OutputPath>
-    <DocumentationFile>..\My.Admin\My.Admin.Service.xml</DocumentationFile>
+    <DocumentationFile>..\My.Admin.HttpApi.Host\My.Admin.Service.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
