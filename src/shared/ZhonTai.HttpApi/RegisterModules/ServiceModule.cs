@@ -1,0 +1,55 @@
+﻿
+using ZhonTai.HttpApi.Aop;
+using ZhonTai.Common.Configs;
+using Autofac;
+using Autofac.Extras.DynamicProxy;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Module = Autofac.Module;
+
+namespace ZhonTai.HttpApi.RegisterModules
+{
+    public class ServiceModule : Module
+    {
+        private readonly AppConfig _appConfig;
+        private readonly string _assemblyName;
+        private readonly string _assemblySuffixName;
+
+        /// <summary>
+        /// 服务注入
+        /// </summary>
+        /// <param name="appConfig">AppConfig</param>
+        /// <param name="assemblyName">程序集名称</param>
+        /// <param name="assemblySuffixName">程序集后缀名</param>
+        public ServiceModule(AppConfig appConfig, string assemblyName = "ZhonTai.Plate.Admin.Service", string assemblySuffixName = "Service")
+        {
+            _appConfig = appConfig;
+            _assemblyName = assemblyName;
+            _assemblySuffixName = assemblySuffixName;
+        }
+
+        protected override void Load(ContainerBuilder builder)
+        {
+            //事务拦截
+            var interceptorServiceTypes = new List<Type>();
+            if (_appConfig.Aop.Transaction)
+            {
+                builder.RegisterType<TransactionInterceptor>();
+                builder.RegisterType<TransactionAsyncInterceptor>();
+                interceptorServiceTypes.Add(typeof(TransactionInterceptor));
+            }
+
+            //服务
+            var assemblyServices = Assembly.Load(_assemblyName);
+            builder.RegisterAssemblyTypes(assemblyServices)
+            .Where(a => a.Name.EndsWith(_assemblySuffixName))
+            .AsImplementedInterfaces()
+            .InstancePerLifetimeScope()
+            .PropertiesAutowired()// 属性注入
+            .InterceptedBy(interceptorServiceTypes.ToArray())
+            .EnableInterfaceInterceptors();
+        }
+    }
+}
