@@ -1,12 +1,14 @@
 using ZhonTai.Common.Domain.Entities;
 using FreeSql.DataAnnotations;
+using ZhonTai.Plate.Personnel.Domain.Employee;
+using ZhonTai.Plate.Personnel.Domain.Organization;
 
 namespace ZhonTai.Plate.Personnel.Domain
 {
     /// <summary>
     /// 员工附属部门
     /// </summary>
-	[Table(Name = "ad_employee_organization")]
+	[Table(Name = "pe_employee_organization")]
     [Index("idx_{tablename}_01", nameof(EmployeeId) + "," + nameof(OrganizationId), true)]
     public class EmployeeOrganizationEntity : EntityAdd
     {

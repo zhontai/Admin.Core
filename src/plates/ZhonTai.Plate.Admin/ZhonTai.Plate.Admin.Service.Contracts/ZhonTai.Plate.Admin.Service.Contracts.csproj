@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>ZhonTai.Plate.Admin.Service</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Mapster" Version="7.2.0" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\ZhonTai.Tools\ZhonTai.Tools.csproj" />
+    <ProjectReference Include="..\ZhonTai.Plate.Admin.Domain\ZhonTai.Plate.Admin.Domain.csproj" />
+    <ProjectReference Include="..\ZhonTai.Plate.Admin.Repository\ZhonTai.Plate.Admin.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,11 +4,12 @@ using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Input;
 using ZhonTai.Common.Output;
 using ZhonTai.Plate.Personnel.Domain;
-using ZhonTai.Plate.Personnel.Repository;
 using ZhonTai.Plate.Personnel.Service.Employee.Input;
 using ZhonTai.Plate.Personnel.Service.Employee.Output;
 using ZhonTai.Plate.Admin.Service;
 using ZhonTai.Common.Domain.Repositories;
+using ZhonTai.Plate.Personnel.Domain.Employee;
+using ZhonTai.Plate.Personnel.Domain.Organization;
 
 namespace ZhonTai.Plate.Personnel.Service.Employee
 {

@@ -1,11 +1,11 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using ZhonTai.Common.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Output;
 using ZhonTai.Tools.Captcha;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Domain.Permission;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.Tenant;

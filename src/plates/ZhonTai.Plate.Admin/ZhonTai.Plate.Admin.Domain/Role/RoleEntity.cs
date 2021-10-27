@@ -20,7 +20,7 @@ namespace ZhonTai.Plate.Admin.Domain.Role
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10, CanUpdate = false)]
+        [Column(Position = 2, CanUpdate = false)]
         public long? TenantId { get; set; }
 
         /// <summary>

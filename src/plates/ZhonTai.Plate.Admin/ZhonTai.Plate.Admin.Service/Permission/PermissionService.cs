@@ -8,7 +8,6 @@ using ZhonTai.Common.Domain.Entities;
 using ZhonTai.Common.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Output;
-using ZhonTai.Plate.Admin.Repository;
 using ZhonTai.Plate.Admin.Service.Permission.Input;
 using ZhonTai.Plate.Admin.Service.Permission.Output;
 using ZhonTai.Plate.Admin.Domain.Permission;
@@ -20,6 +19,7 @@ using ZhonTai.Plate.Admin.Domain.PermissionApi;
 using ZhonTai.Plate.Admin.Domain.Role;
 using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Domain.User;
+using ZhonTai.Plate.Admin.Domain;
 
 namespace ZhonTai.Plate.Admin.Service.Permission
 {

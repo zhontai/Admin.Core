@@ -21,16 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Mapster" Version="7.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\ZhonTai.Tools\ZhonTai.Tools.csproj" />
-    <ProjectReference Include="..\..\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service\ZhonTai.Plate.Admin.Service.csproj" />
-    <ProjectReference Include="..\ZhonTai.Plate.Personnel.Domain\ZhonTai.Plate.Personnel.Domain.csproj" />
-    <ProjectReference Include="..\ZhonTai.Plate.Personnel.Repository\ZhonTai.Plate.Personnel.Repository.csproj" />
+    <ProjectReference Include="..\..\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj" />
+    <ProjectReference Include="..\ZhonTai.Plate.Personnel.Service.Contracts\ZhonTai.Plate.Personnel.Service.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

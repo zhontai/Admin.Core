@@ -1,5 +1,5 @@
-using ZhonTai.Plate.Admin.Repository;
-using ZhonTai.Plate.Personnel.Domain;
+using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Plate.Personnel.Domain.Employee;
 
 namespace ZhonTai.Plate.Personnel.Repository
 {

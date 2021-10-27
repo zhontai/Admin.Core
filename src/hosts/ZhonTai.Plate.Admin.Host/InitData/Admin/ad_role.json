@@ -1,0 +1,16 @@
+[
+  {
+    "id": 161223412080709,
+    "name": "平台管理员",
+    "code": "plat_admin",
+    "description": "",
+    "enabled": true
+  },
+  {
+    "id": 162605510979653,
+    "name": "平台用户",
+    "code": "plat_user",
+    "description": "",
+    "enabled": true
+  }
+]

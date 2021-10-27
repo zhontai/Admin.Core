@@ -1,10 +1,9 @@
 ﻿using ZhonTai.Common.Output;
-using ZhonTai.Plate.Personnel.Domain;
-using ZhonTai.Plate.Personnel.Repository;
 using ZhonTai.Plate.Personnel.Service.Organization.Input;
 using ZhonTai.Plate.Personnel.Service.Organization.Output;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service;
+using ZhonTai.Plate.Personnel.Domain.Organization;
 
 namespace ZhonTai.Plate.Personnel.Service.Organization
 {

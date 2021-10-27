@@ -1,0 +1,20 @@
+[
+  {
+    "id": 187395320303685,
+    "dictionaryTypeId": 187395320434757,
+    "name": "男",
+    "code": "male",
+    "value": "1",
+    "description": "",
+    "enabled": true
+  },
+  {
+    "id": 187395320369221,
+    "dictionaryTypeId": 187395320434757,
+    "name": "女",
+    "code": "female",
+    "value": "2",
+    "description": "",
+    "enabled": true
+  }
+]

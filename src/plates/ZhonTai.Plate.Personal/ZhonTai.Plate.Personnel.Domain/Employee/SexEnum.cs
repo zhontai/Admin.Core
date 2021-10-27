@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Plate.Admin.Domain.Enums
+﻿namespace ZhonTai.Plate.Personnel.Domain.Employee
 {
     /// <summary>
     /// 性别

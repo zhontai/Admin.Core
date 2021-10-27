@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ZhonTai.HttpApi.Attributes;
+using ZhonTai.Plate.Admin.HttpApi.Shared.Attributes;
 using ZhonTai.Common.Auth;
 using ZhonTai.Common.Consts;
 using ZhonTai.Common.Extensions;

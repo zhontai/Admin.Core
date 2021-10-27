@@ -1,11 +1,10 @@
 using ZhonTai.Common.Input;
 using ZhonTai.Common.Output;
-using ZhonTai.Plate.Personnel.Domain;
-using ZhonTai.Plate.Personnel.Repository;
 using ZhonTai.Plate.Personnel.Service.Position.Input;
 using ZhonTai.Plate.Personnel.Service.Position.Output;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service;
+using ZhonTai.Plate.Personnel.Domain.Position;
 
 namespace ZhonTai.Plate.Personnel.Service.Position
 {

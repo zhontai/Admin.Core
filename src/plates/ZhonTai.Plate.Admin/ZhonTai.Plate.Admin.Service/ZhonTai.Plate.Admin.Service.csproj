@@ -21,15 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Mapster" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\ZhonTai.Tools\ZhonTai.Tools.csproj" />
-    <ProjectReference Include="..\ZhonTai.Plate.Admin.Domain\ZhonTai.Plate.Admin.Domain.csproj" />
-    <ProjectReference Include="..\ZhonTai.Plate.Admin.Repository\ZhonTai.Plate.Admin.Repository.csproj" />
+    <ProjectReference Include="..\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

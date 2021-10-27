@@ -1,4 +1,5 @@
-﻿using ZhonTai.Plate.Admin.Domain.DocumentImage;
+﻿using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Plate.Admin.Domain.DocumentImage;
 
 namespace ZhonTai.Plate.Admin.Repository
 {

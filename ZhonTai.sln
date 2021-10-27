@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Tools", "src\shared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.HttpApi", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi\ZhonTai.Plate.Admin.HttpApi.csproj", "{4D034C30-CE3E-426D-84AE-68DF9EA50CC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.HttpApi", "src\shared\ZhonTai.HttpApi\ZhonTai.HttpApi.csproj", "{F5ABCD82-9E7D-4AA6-9477-8779B76CDD02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.HttpApi.Shared", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi.Shared\ZhonTai.Plate.Admin.HttpApi.Shared.csproj", "{F5ABCD82-9E7D-4AA6-9477-8779B76CDD02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{03F02E23-28CB-4F93-B09E-60AC9908C26C}"
 EndProject
@@ -40,6 +40,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Service", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service\ZhonTai.Plate.Personnel.Service.csproj", "{F10045F0-C9CD-4634-994F-D6B140B0A61E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Tests", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Tests\ZhonTai.Plate.Personnel.Tests.csproj", "{D312B1B5-1E0A-4C6A-8BDA-521688246822}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Service.Contracts", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service.Contracts\ZhonTai.Plate.Personnel.Service.Contracts.csproj", "{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Plate.Admin.Service.Contracts", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj", "{93F13D77-3A26-4168-A0AA-9DDE96166359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,14 @@ Global
 		{D312B1B5-1E0A-4C6A-8BDA-521688246822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D312B1B5-1E0A-4C6A-8BDA-521688246822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D312B1B5-1E0A-4C6A-8BDA-521688246822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93F13D77-3A26-4168-A0AA-9DDE96166359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F13D77-3A26-4168-A0AA-9DDE96166359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F13D77-3A26-4168-A0AA-9DDE96166359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F13D77-3A26-4168-A0AA-9DDE96166359}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,7 +128,7 @@ Global
 		{69A9CD28-39CE-415E-8150-A4A876E708FD} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2} = {03F02E23-28CB-4F93-B09E-60AC9908C26C}
 		{4D034C30-CE3E-426D-84AE-68DF9EA50CC5} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
-		{F5ABCD82-9E7D-4AA6-9477-8779B76CDD02} = {03F02E23-28CB-4F93-B09E-60AC9908C26C}
+		{F5ABCD82-9E7D-4AA6-9477-8779B76CDD02} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 		{8B9E8DFB-078E-465B-B56E-6921F79057F2} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
 		{45D8B6F4-1B35-414B-BA2A-7365F81C4B7C} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
 		{9F54976A-1F75-4B8B-AEEC-FEF980FC7F09} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
@@ -124,6 +136,8 @@ Global
 		{F40EC290-8860-4D78-AB59-7DEEED8D7483} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
 		{F10045F0-C9CD-4634-994F-D6B140B0A61E} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
 		{D312B1B5-1E0A-4C6A-8BDA-521688246822} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
+		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
+		{93F13D77-3A26-4168-A0AA-9DDE96166359} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

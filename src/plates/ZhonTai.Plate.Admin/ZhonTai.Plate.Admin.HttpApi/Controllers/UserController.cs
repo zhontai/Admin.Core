@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using ZhonTai.HttpApi.Attributes;
+using ZhonTai.Plate.Admin.HttpApi.Shared.Attributes;
 using ZhonTai.Common.Auth;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;

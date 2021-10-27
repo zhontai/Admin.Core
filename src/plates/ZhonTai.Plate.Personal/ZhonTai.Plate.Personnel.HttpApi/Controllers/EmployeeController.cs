@@ -3,8 +3,8 @@ using ZhonTai.Common.Output;
 using ZhonTai.Plate.Personnel.Service.Employee;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Personnel.Domain;
 using ZhonTai.Plate.Personnel.Service.Employee.Input;
+using ZhonTai.Plate.Personnel.Domain.Employee;
 
 namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
 {

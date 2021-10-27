@@ -1,3 +1,4 @@
+using ZhonTai.Plate.Admin.Domain;
 using ZhonTai.Plate.Admin.Domain.LoginLog;
 
 namespace ZhonTai.Plate.Admin.Repository

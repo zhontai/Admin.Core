@@ -1,8 +1,9 @@
 using ZhonTai.Common.Domain.Entities;
 using FreeSql.DataAnnotations;
 using System.Collections.Generic;
+using ZhonTai.Plate.Personnel.Domain.Employee;
 
-namespace ZhonTai.Plate.Personnel.Domain
+namespace ZhonTai.Plate.Personnel.Domain.Organization
 {
     /// <summary>
     /// 组织架构

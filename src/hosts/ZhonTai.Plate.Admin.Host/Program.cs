@@ -1,4 +1,4 @@
-﻿using ZhonTai.HttpApi;
+﻿using ZhonTai.Plate.Admin.HttpApi.Shared;
 
 namespace ZhonTai.Plate.Admin.Host
 {

@@ -2,7 +2,7 @@ using ZhonTai.Common.Domain.Entities;
 using FreeSql.DataAnnotations;
 using System;
 
-namespace ZhonTai.Plate.Personnel.Domain
+namespace ZhonTai.Plate.Personnel.Domain.Position
 {
     /// <summary>
     /// 职位

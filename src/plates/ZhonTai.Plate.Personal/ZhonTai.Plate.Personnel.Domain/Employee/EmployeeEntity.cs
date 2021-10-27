@@ -1,13 +1,13 @@
 using ZhonTai.Common.Domain.Entities;
-using ZhonTai.Plate.Admin.Domain;
-using ZhonTai.Plate.Admin.Domain.Enums;
 using FreeSql.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.User;
+using ZhonTai.Plate.Personnel.Domain.Organization;
+using ZhonTai.Plate.Personnel.Domain.Position;
 
-namespace ZhonTai.Plate.Personnel.Domain
+namespace ZhonTai.Plate.Personnel.Domain.Employee
 {
     /// <summary>
     /// 员工

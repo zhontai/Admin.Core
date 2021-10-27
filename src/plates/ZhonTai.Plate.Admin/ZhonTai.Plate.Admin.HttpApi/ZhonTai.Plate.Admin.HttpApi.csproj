@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\ZhonTai.HttpApi\ZhonTai.HttpApi.csproj" />
+    <ProjectReference Include="..\ZhonTai.Plate.Admin.HttpApi.Shared\ZhonTai.Plate.Admin.HttpApi.Shared.csproj" />
   </ItemGroup>
 
 </Project>

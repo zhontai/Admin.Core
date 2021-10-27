@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>ZhonTai.Plate.Personnel.Service</RootNamespace>
+  </PropertyGroup>
+
+    <ItemGroup>
+	    <PackageReference Include="Mapster" Version="7.2.0" />
+    </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\ZhonTai.Plate.Personnel.Domain\ZhonTai.Plate.Personnel.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+		<PackageReference Include="Caching.CSRedis" Version="3.6.60" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+		<PackageReference Include="Mapster" Version="7.2.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\shared\ZhonTai.Common\ZhonTai.Common.csproj" />
+	  <ProjectReference Include="..\ZhonTai.Plate.Admin.Domain\ZhonTai.Plate.Admin.Domain.csproj" />
+	  <ProjectReference Include="..\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj" />
+	</ItemGroup>
+</Project>

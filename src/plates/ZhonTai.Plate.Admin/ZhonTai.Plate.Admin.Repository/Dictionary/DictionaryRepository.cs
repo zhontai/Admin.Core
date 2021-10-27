@@ -1,4 +1,5 @@
-﻿using ZhonTai.Plate.Admin.Domain.Dictionary;
+﻿using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Plate.Admin.Domain.Dictionary;
 
 namespace ZhonTai.Plate.Admin.Repository
 {

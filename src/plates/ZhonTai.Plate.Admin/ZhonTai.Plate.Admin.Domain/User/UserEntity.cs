@@ -18,7 +18,7 @@ namespace ZhonTai.Plate.Admin.Domain.User
         /// <summary>
         /// 租户Id
         /// </summary>
-        [Column(Position = -10)]
+        [Column(Position = 2)]
         public long? TenantId { get; set; }
 
         public TenantEntity Tenant { get; set; }

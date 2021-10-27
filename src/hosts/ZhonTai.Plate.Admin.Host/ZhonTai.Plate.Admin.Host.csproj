@@ -73,13 +73,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InitData\" />
+    <Folder Include="InitData\Admin\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi\ZhonTai.Plate.Admin.HttpApi.csproj" />
+    <ProjectReference Include="..\..\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Repository\ZhonTai.Plate.Admin.Repository.csproj" />
+    <ProjectReference Include="..\..\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service\ZhonTai.Plate.Admin.Service.csproj" />
     <ProjectReference Include="..\..\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.HttpApi\ZhonTai.Plate.Personnel.HttpApi.csproj" />
+    <ProjectReference Include="..\..\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Repository\ZhonTai.Plate.Personnel.Repository.csproj" />
+    <ProjectReference Include="..\..\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service\ZhonTai.Plate.Personnel.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

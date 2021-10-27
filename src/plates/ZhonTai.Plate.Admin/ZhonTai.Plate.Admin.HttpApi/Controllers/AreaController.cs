@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ZhonTai.HttpApi;
+using ZhonTai.Plate.Admin.HttpApi.Shared;
 
 namespace ZhonTai.Plate.Admin.HttpApi
 {
