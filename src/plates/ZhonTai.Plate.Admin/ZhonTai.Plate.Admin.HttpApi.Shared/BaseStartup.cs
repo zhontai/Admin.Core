@@ -27,7 +27,7 @@ using Yitter.IdGenerator;
 //using FluentValidation.AspNetCore;
 using ZhonTai.Plate.Admin.HttpApi.Shared.Auth;
 using ZhonTai.Common.Auth;
-using ZhonTai.Common.Cache;
+using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Consts;
 using ZhonTai.Common.Helpers;
@@ -323,10 +323,10 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
 
             services.AddControllers(options =>
             {
-                options.Filters.Add<AdminExceptionFilter>();
+                options.Filters.Add<ControllerExceptionFilter>();
                 if (_appConfig.Log.Operation)
                 {
-                    options.Filters.Add<LogActionFilter>();
+                    options.Filters.Add<ControllerLogFilter>();
                 }
                 //禁止去除ActionAsync后缀
                 options.SuppressAsyncSuffixInActionNames = false;

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using MapsterMapper;
 using ZhonTai.Common.Auth;
-using ZhonTai.Common.Cache;
+using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Plate.Admin.Service

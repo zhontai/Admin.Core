@@ -2,7 +2,6 @@
 using ZhonTai.Common.Domain.Db;
 using ZhonTai.Common.Configs;
 using ZhonTai.Plate.Admin.Domain.Dual;
-using ZhonTai.Plate.Admin.Domain;
 using ZhonTai.Plate.Personnel.Domain.Organization;
 using ZhonTai.Plate.Personnel.Domain.Position;
 using ZhonTai.Plate.Personnel.Domain.Employee;

@@ -5,7 +5,6 @@ using ZhonTai.Common.Domain.Repositories;
 
 public static class FreeSqlDbContextExtensions
 {
-
     /// <summary>
     /// 返回默认仓库类
     /// </summary>

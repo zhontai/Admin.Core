@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ZhonTai.Common.Helpers;
-using ZhonTai.Common.Input;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.OprationLog.Input;
 using ZhonTai.Plate.Admin.Service.OprationLog.Output;
 using ZhonTai.Plate.Admin.Domain.OprationLog;

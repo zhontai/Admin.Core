@@ -3,7 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ZhonTai.Common.Configs;
+using ZhonTai.Tools.Cache;
 
 namespace ZhonTai.Plate.Admin.HttpApi.Shared.Extensions
 {
@@ -22,7 +22,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Extensions
             services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
             services.Configure<IpRateLimitPolicies>(configuration.GetSection("IpRateLimitPolicies"));
 
-            if (cacheConfig.TypeRateLimit == Common.Cache.CacheType.Redis)
+            if (cacheConfig.TypeRateLimit == CacheType.Redis)
             {
                 //redis
                 var redisRateLimit = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionStringRateLimit);

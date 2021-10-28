@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using ZhonTai.Common.Output;
+using System.Text;
+using ZhonTai.Common.Domain.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi.Shared.Attributes
 {
@@ -21,9 +23,18 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Attributes
                 try
                 {
                     var logger = (ILogger<ValidateInputAttribute>)context.HttpContext.RequestServices.GetService(typeof(ILogger<ValidateInputAttribute>));
-                    var errorMessages = context.ModelState.Values.First().Errors.Select(a => a.ErrorMessage);
-                    logger.LogError(string.Join(",", errorMessages));
-                    context.Result = new JsonResult(ResponseOutput.NotOk(errorMessages.First()));
+                    var errors = context.ModelState
+                   .Where(m => m.Value.ValidationState == ModelValidationState.Invalid)
+                   .Select(m =>
+                   {
+                       var sb = new StringBuilder();
+                       sb.AppendFormat("{0}：", m.Key);
+                       sb.Append(m.Value.Errors.Select(n => n.ErrorMessage).Aggregate((x, y) => x + ";" + y));
+                       return sb.ToString();
+                   })
+                   .Aggregate((x, y) => x + "|" + y);
+                    logger.LogError(errors);
+                    context.Result = new JsonResult(ResponseOutput.NotOk(errors));
                 }
                 catch
                 {

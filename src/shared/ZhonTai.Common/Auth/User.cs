@@ -1,7 +1,7 @@
-﻿using ZhonTai.Common.Domain.Entities;
-using ZhonTai.Common.Helpers;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
+using ZhonTai.Common.Extensions;
+using ZhonTai.Common.Domain.Entities;
 
 namespace ZhonTai.Common.Auth
 {

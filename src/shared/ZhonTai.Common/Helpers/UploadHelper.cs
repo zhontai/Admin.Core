@@ -1,6 +1,6 @@
 ﻿using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Configs;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FileInfo = ZhonTai.Common.Files.FileInfo;
+using Yitter.IdGenerator;
 
 namespace ZhonTai.Common.Helpers
 {
@@ -61,7 +62,7 @@ namespace ZhonTai.Common.Helpers
                 Directory.CreateDirectory(fileInfo.FileDirectory);
             }
 
-            fileInfo.SaveName = $"{IdWorkerHelper.GenId64()}.{fileInfo.Extension}";
+            fileInfo.SaveName = $"{YitIdHelper.NextId()}.{fileInfo.Extension}";
 
             await SaveAsync(file, fileInfo.FilePath, cancellationToken);
 

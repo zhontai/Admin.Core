@@ -1,4 +1,4 @@
-﻿using ZhonTai.Common.Output;
+﻿using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Personnel.Service.Organization;
 using ZhonTai.Plate.Personnel.Service.Organization.Input;
 using Microsoft.AspNetCore.Mvc;

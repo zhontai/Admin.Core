@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Document;
 using ZhonTai.Plate.Admin.Domain.DocumentImage;
 using ZhonTai.Plate.Admin.Service.Document.Output;

@@ -1,5 +1,4 @@
-﻿using ZhonTai.Common.Input;
-using ZhonTai.Common.Output;
+﻿using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Personnel.Service.Position;
 using ZhonTai.Plate.Personnel.Service.Position.Input;
 using Microsoft.AspNetCore.Mvc;

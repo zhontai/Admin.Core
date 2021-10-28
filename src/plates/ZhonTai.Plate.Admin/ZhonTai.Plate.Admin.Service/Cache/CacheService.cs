@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ZhonTai.Common.Cache;
-using ZhonTai.Common.Output;
+using ZhonTai.Tools.Cache;
+using ZhonTai.Common.Domain.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Cache
 {

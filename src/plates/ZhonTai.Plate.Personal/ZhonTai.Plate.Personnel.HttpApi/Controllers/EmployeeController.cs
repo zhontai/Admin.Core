@@ -1,10 +1,10 @@
-﻿using ZhonTai.Common.Input;
-using ZhonTai.Common.Output;
+﻿using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Personnel.Service.Employee;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Personnel.Service.Employee.Input;
 using ZhonTai.Plate.Personnel.Domain.Employee;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
 {
@@ -26,7 +26,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResponseOutput> Get([BindRequired] long id)
         {
             return await _employeeService.GetAsync(id);
         }

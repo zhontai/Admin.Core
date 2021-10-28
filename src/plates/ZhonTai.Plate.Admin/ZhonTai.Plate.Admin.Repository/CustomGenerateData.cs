@@ -23,7 +23,6 @@ using ZhonTai.Plate.Admin.Domain.PermissionApi;
 using ZhonTai.Plate.Admin.Domain.View;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Plate.Admin.Domain;
 
 namespace ZhonTai.Plate.Admin.Repository
 {

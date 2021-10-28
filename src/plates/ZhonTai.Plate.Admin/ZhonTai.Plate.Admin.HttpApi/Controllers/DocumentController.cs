@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Document;
 using ZhonTai.Plate.Admin.Service.Document.Input;
 

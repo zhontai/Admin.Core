@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZhonTai.Common.Input;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.DictionaryType;
 using ZhonTai.Plate.Admin.Service.DictionaryType.Input;
 using ZhonTai.Plate.Admin.Domain.DictionaryType;

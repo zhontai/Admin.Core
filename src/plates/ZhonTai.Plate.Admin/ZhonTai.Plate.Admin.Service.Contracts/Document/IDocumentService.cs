@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Document.Input;
 
 namespace ZhonTai.Plate.Admin.Service.Document

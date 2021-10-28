@@ -12,7 +12,7 @@ using ZhonTai.Common.Auth;
 using ZhonTai.Common.Consts;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Auth;
 using ZhonTai.Plate.Admin.Service.Auth.Input;
 using ZhonTai.Plate.Admin.Service.Auth.Output;

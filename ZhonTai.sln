@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Common", "src\shared\ZhonTai.Common\ZhonTai.Common.csproj", "{97D32A49-994C-44C5-A167-51E71D173B6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Tests", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Tests\ZhonTai.Plate.Admin.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Tests", "src\tests\ZhonTai.Plate.Admin.Tests\ZhonTai.Plate.Admin.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Tools", "src\shared\ZhonTai.Tools\ZhonTai.Tools.csproj", "{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}"
 EndProject
@@ -39,11 +39,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Rep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Service", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service\ZhonTai.Plate.Personnel.Service.csproj", "{F10045F0-C9CD-4634-994F-D6B140B0A61E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Tests", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Tests\ZhonTai.Plate.Personnel.Tests.csproj", "{D312B1B5-1E0A-4C6A-8BDA-521688246822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Tests", "src\tests\ZhonTai.Plate.Personnel.Tests\ZhonTai.Plate.Personnel.Tests.csproj", "{D312B1B5-1E0A-4C6A-8BDA-521688246822}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Personnel.Service.Contracts", "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service.Contracts\ZhonTai.Plate.Personnel.Service.Contracts.csproj", "{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Plate.Admin.Service.Contracts", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj", "{93F13D77-3A26-4168-A0AA-9DDE96166359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Service.Contracts", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj", "{93F13D77-3A26-4168-A0AA-9DDE96166359}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A1F23C8-24A6-4571-B3DE-D27D024A051D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,7 +127,7 @@ Global
 		{8D651E7F-49D3-4D27-8486-ADCF000BB24D} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 		{A2EFEFFC-39AD-48D2-8337-E6840B26023B} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 		{97D32A49-994C-44C5-A167-51E71D173B6F} = {03F02E23-28CB-4F93-B09E-60AC9908C26C}
-		{69A9CD28-39CE-415E-8150-A4A876E708FD} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
+		{69A9CD28-39CE-415E-8150-A4A876E708FD} = {4A1F23C8-24A6-4571-B3DE-D27D024A051D}
 		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2} = {03F02E23-28CB-4F93-B09E-60AC9908C26C}
 		{4D034C30-CE3E-426D-84AE-68DF9EA50CC5} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 		{F5ABCD82-9E7D-4AA6-9477-8779B76CDD02} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
@@ -135,7 +137,7 @@ Global
 		{B909562D-6924-41A3-A2C8-798FFA54956B} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
 		{F40EC290-8860-4D78-AB59-7DEEED8D7483} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
 		{F10045F0-C9CD-4634-994F-D6B140B0A61E} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
-		{D312B1B5-1E0A-4C6A-8BDA-521688246822} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
+		{D312B1B5-1E0A-4C6A-8BDA-521688246822} = {4A1F23C8-24A6-4571-B3DE-D27D024A051D}
 		{0D1F06D6-EAF6-4792-AEFC-0FFB6D5B1A4F} = {45D8B6F4-1B35-414B-BA2A-7365F81C4B7C}
 		{93F13D77-3A26-4168-A0AA-9DDE96166359} = {8B9E8DFB-078E-465B-B56E-6921F79057F2}
 	EndGlobalSection

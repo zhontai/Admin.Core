@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Cache
 {

@@ -45,53 +45,5 @@ namespace ZhonTai.Common.Helpers
 
             return ip;
         }
-
-        /// <summary>
-        /// 获得MAC地址
-        /// </summary>
-        /// <returns></returns>
-        public static string GetMACIp()
-        {
-            //本地计算机网络连接信息
-            //IPGlobalProperties computerProperties = IPGlobalProperties.GetIPGlobalProperties();
-            //获取本机电脑名
-            //var HostName = computerProperties.HostName;
-            //获取域名
-            //var DomainName = computerProperties.DomainName;
-
-            //获取本机所有网络连接
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-
-            if (nics == null || nics.Length < 1)
-            {
-                return "";
-            }
-
-            var MACIp = "";
-            foreach (NetworkInterface adapter in nics)
-            {
-                var adapterName = adapter.Name;
-
-                var adapterDescription = adapter.Description;
-                var NetworkInterfaceType = adapter.NetworkInterfaceType;
-                if (adapterName == "本地连接" || adapterName == "WLAN")
-                {
-                    PhysicalAddress address = adapter.GetPhysicalAddress();
-                    byte[] bytes = address.GetAddressBytes();
-
-                    for (int i = 0; i < bytes.Length; i++)
-                    {
-                        MACIp += bytes[i].ToString("X2");
-
-                        if (i != bytes.Length - 1)
-                        {
-                            MACIp += "-";
-                        }
-                    }
-                }
-            }
-
-            return MACIp;
-        }
     }
 }

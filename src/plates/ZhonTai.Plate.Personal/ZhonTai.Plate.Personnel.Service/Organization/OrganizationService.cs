@@ -1,4 +1,4 @@
-﻿using ZhonTai.Common.Output;
+﻿using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Personnel.Service.Organization.Input;
 using ZhonTai.Plate.Personnel.Service.Organization.Output;
 using System.Threading.Tasks;

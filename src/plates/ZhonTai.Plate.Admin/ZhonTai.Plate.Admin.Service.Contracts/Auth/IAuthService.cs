@@ -1,4 +1,4 @@
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service.Auth.Input;
 

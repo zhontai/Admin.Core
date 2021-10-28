@@ -11,7 +11,6 @@ using ZhonTai.Plate.Personnel.Domain.Position.Output;
 using ZhonTai.Plate.Personnel.Domain.Employee;
 using ZhonTai.Plate.Personnel.Domain.Employee.Output;
 using ZhonTai.Plate.Admin.Domain.Tenant;
-using ZhonTai.Plate.Admin.Domain;
 
 namespace ZhonTai.Plate.Personnel.Repository
 {

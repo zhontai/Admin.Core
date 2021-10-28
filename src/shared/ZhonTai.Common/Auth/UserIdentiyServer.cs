@@ -1,5 +1,5 @@
-﻿using ZhonTai.Common.Helpers;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Common.Auth
 {

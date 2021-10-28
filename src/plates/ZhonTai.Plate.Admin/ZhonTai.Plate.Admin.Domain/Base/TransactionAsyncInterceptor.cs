@@ -1,5 +1,5 @@
 ﻿using ZhonTai.Common.Attributes;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using Castle.DynamicProxy;
 using FreeSql;
 using System.Linq;

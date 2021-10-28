@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using ZhonTai.Common.Input;
-using ZhonTai.Common.Output;
+using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Service.Tenant.Input;
 
