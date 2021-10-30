@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ZhonTai.Tools.Cache
+namespace ZhonTai.Plate.Admin.Service.Contracts
 {
     /// <summary>
     /// 缓存键
@@ -8,10 +8,10 @@ namespace ZhonTai.Tools.Cache
     public static partial class CacheKey
     {
         /// <summary>
-        /// 验证码 admin:verify:code:guid
+        /// 验证码 admin:captcha:guid
         /// </summary>
         [Description("验证码")]
-        public const string VerifyCodeKey = "admin:verify:code:{0}";
+        public const string CaptchaKey = "admin:captcha:{0}";
 
         /// <summary>
         /// 密码加密 admin:password:encrypt:guid

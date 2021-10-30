@@ -67,7 +67,7 @@ namespace ZhonTai.Plate.Admin.Domain
                 {
                     invocation.Proceed();
                     result = await (Task<TResult>)invocation.ReturnValue;
-                    if (result is IResponseOutput res && !res.Success)
+                    if (result is IResultOutput res && !res.Success)
                     {
                         _unitOfWork.Rollback();
                     }
@@ -106,7 +106,7 @@ namespace ZhonTai.Plate.Admin.Domain
                 {
                     invocation.Proceed();
                     var result = invocation.ReturnValue;
-                    if (result is IResponseOutput res && !res.Success)
+                    if (result is IResultOutput res && !res.Success)
                     {
                         _unitOfWork.Rollback();
                     }

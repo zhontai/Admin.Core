@@ -22,9 +22,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IResponseOutput List()
+        public IResultOutput List()
         {
-            return _cacheService.List();
+            return _cacheService.GetList();
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="cacheKey"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> Clear(string cacheKey)
+        public async Task<IResultOutput> Clear(string cacheKey)
         {
             return await _cacheService.ClearAsync(cacheKey);
         }

@@ -7,7 +7,7 @@ namespace ZhonTai.Tools.Cache
     /// <summary>
     /// Redis缓存
     /// </summary>
-    public class RedisCache : ICache
+    public class RedisCacheTool : ICacheTool
     {
         public long Del(params string[] key)
         {

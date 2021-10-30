@@ -15,13 +15,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>F:\zhontai\Admin\src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Domain\ZhonTai.Plate.Admin.Domain.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 	
     <ItemGroup>
 	    <PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.0.0" />
 	    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
+		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
     </ItemGroup>
 	
   <ItemGroup>

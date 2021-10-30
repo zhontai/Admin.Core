@@ -14,7 +14,7 @@ namespace ZhonTai.Plate.Admin.Service
     {
         protected readonly object ServiceProviderLock = new object();
         protected IDictionary<Type, object> CachedServices = new Dictionary<Type, object>();
-        private ICache _cache;
+        private ICacheTool _cache;
         private ILoggerFactory _loggerFactory;
         private IMapper _mapper;
         private IUser _user;
@@ -22,7 +22,7 @@ namespace ZhonTai.Plate.Admin.Service
         /// <summary>
         /// 缓存
         /// </summary>
-        public ICache Cache => LazyGetRequiredService(ref _cache);
+        public ICacheTool Cache => LazyGetRequiredService(ref _cache);
 
         /// <summary>
         /// 日志工厂

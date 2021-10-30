@@ -26,17 +26,6 @@ namespace ZhonTai.Plate.Admin.Service.Auth.Input
         public string PasswordKey { get; set; }
 
         /// <summary>
-        /// 验证码
-        /// </summary>
-        //[Required(ErrorMessage = "验证码不能为空！")]
-        public string VerifyCode { get; set; }
-
-        /// <summary>
-        /// 验证码键
-        /// </summary>
-        public string VerifyCodeKey { get; set; }
-
-        /// <summary>
         /// 验证数据
         /// </summary>
         public CaptchaInput Captcha { get; set; }

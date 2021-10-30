@@ -16,13 +16,13 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             _organizationRepository = organizationRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _organizationRepository.GetAsync<OrganizationGetOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetListAsync(string key)
+        public async Task<IResultOutput> GetListAsync(string key)
         {
             var data = await _organizationRepository
                 .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
@@ -30,46 +30,46 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
                 .OrderBy(a => a.Sort)
                 .ToListAsync<OrganizationListOutput>();
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddAsync(OrganizationAddInput input)
+        public async Task<IResultOutput> AddAsync(OrganizationAddInput input)
         {
             var dictionary = Mapper.Map<OrganizationEntity>(input);
             var id = (await _organizationRepository.InsertAsync(dictionary)).Id;
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateAsync(OrganizationUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(OrganizationUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _organizationRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("数据字典不存在！");
+                return ResultOutput.NotOk("数据字典不存在！");
             }
 
             Mapper.Map(input, entity);
             await _organizationRepository.UpdateAsync(entity);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = await _organizationRepository.DeleteRecursiveAsync(a => a.Id == id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _organizationRepository.SoftDeleteRecursiveAsync(a => a.Id == id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
     }
 }

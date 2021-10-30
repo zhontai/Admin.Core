@@ -15,13 +15,13 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
             _dictionaryRepository = dictionaryRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _dictionaryRepository.GetAsync<DictionaryGetOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<DictionaryEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryEntity> input)
         {
             var key = input.Filter?.Name;
             var dictionaryTypeId = input.Filter?.DictionaryTypeId;
@@ -39,35 +39,35 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddAsync(DictionaryAddInput input)
+        public async Task<IResultOutput> AddAsync(DictionaryAddInput input)
         {
             var dictionary = Mapper.Map<DictionaryEntity>(input);
             var id = (await _dictionaryRepository.InsertAsync(dictionary)).Id;
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateAsync(DictionaryUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(DictionaryUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _dictionaryRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("数据字典不存在！");
+                return ResultOutput.NotOk("数据字典不存在！");
             }
 
             Mapper.Map(input, entity);
             await _dictionaryRepository.UpdateAsync(entity);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
             if (id > 0)
@@ -75,21 +75,21 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
                 result = (await _dictionaryRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _dictionaryRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _dictionaryRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
     }
 }

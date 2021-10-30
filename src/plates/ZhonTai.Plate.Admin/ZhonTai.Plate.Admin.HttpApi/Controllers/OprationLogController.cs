@@ -24,9 +24,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<OprationLogEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<OprationLogEntity> model)
         {
-            return await _oprationLogService.PageAsync(model);
+            return await _oprationLogService.GetPageAsync(model);
         }
     }
 }

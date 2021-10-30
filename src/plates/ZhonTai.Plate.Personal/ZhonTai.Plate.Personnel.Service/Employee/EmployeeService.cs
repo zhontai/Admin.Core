@@ -29,9 +29,9 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             _employeeOrganizationRepository = employeeOrganizationRepository;
         }
 
-        public async Task<ResponseOutput<EmployeeGetOutput>> GetAsync(long id)
+        public async Task<ResultOutput<EmployeeGetOutput>> GetAsync(long id)
         {
-            var res = new ResponseOutput<EmployeeGetOutput>();
+            var res = new ResultOutput<EmployeeGetOutput>();
 
             var dto = await _employeeRepository.Select
             .WhereDynamic(id)
@@ -45,7 +45,7 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return res.Ok(dto);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<EmployeeEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<EmployeeEntity> input)
         {
             var list = await _employeeRepository.Select
             .WhereDynamicFilter(input.DynamicFilter)
@@ -65,18 +65,18 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> AddAsync(EmployeeAddInput input)
+        public async Task<IResultOutput> AddAsync(EmployeeAddInput input)
         {
             var entity = Mapper.Map<EmployeeEntity>(input);
             var employeeId = (await _employeeRepository.InsertAsync(entity))?.Id;
 
             if (!(employeeId > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             //附属部门
@@ -86,21 +86,21 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
                 await _employeeOrganizationRepository.InsertAsync(organizations);
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> UpdateAsync(EmployeeUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(EmployeeUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var employee = await _employeeRepository.GetAsync(input.Id);
             if (!(employee?.Id > 0))
             {
-                return ResponseOutput.NotOk("用户不存在！");
+                return ResultOutput.NotOk("用户不存在！");
             }
 
             Mapper.Map(input, employee);
@@ -115,11 +115,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
                 await _employeeOrganizationRepository.InsertAsync(organizations);
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             //删除员工附属部门
             await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == id);
@@ -127,21 +127,21 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             //删除员工
             await _employeeRepository.DeleteAsync(m => m.Id == id);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             await _employeeRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             await _employeeRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
     }
 }

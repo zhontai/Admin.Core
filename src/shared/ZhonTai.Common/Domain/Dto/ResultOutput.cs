@@ -3,9 +3,9 @@
 namespace ZhonTai.Common.Domain.Dto
 {
     /// <summary>
-    /// 响应数据输出
+    /// 结果输出
     /// </summary>
-    public class ResponseOutput<T> : IResponseOutput<T>
+    public class ResultOutput<T> : IResultOutput<T>
     {
         /// <summary>
         /// 是否成功标记
@@ -33,7 +33,7 @@ namespace ZhonTai.Common.Domain.Dto
         /// </summary>
         /// <param name="data">数据</param>
         /// <param name="msg">消息</param>
-        public ResponseOutput<T> Ok(T data, string msg = null)
+        public ResultOutput<T> Ok(T data, string msg = null)
         {
             Success = true;
             Data = data;
@@ -48,7 +48,7 @@ namespace ZhonTai.Common.Domain.Dto
         /// <param name="msg">消息</param>
         /// <param name="data">数据</param>
         /// <returns></returns>
-        public ResponseOutput<T> NotOk(string msg = null, T data = default(T))
+        public ResultOutput<T> NotOk(string msg = null, T data = default(T))
         {
             Success = false;
             Msg = msg;
@@ -59,9 +59,9 @@ namespace ZhonTai.Common.Domain.Dto
     }
 
     /// <summary>
-    /// 响应数据静态输出
+    /// 静态结果输出
     /// </summary>
-    public static partial class ResponseOutput
+    public static partial class ResultOutput
     {
         /// <summary>
         /// 成功
@@ -69,16 +69,16 @@ namespace ZhonTai.Common.Domain.Dto
         /// <param name="data">数据</param>
         /// <param name="msg">消息</param>
         /// <returns></returns>
-        public static IResponseOutput Ok<T>(T data = default(T), string msg = null)
+        public static IResultOutput Ok<T>(T data = default(T), string msg = null)
         {
-            return new ResponseOutput<T>().Ok(data, msg);
+            return new ResultOutput<T>().Ok(data, msg);
         }
 
         /// <summary>
         /// 成功
         /// </summary>
         /// <returns></returns>
-        public static IResponseOutput Ok()
+        public static IResultOutput Ok()
         {
             return Ok<string>();
         }
@@ -89,9 +89,9 @@ namespace ZhonTai.Common.Domain.Dto
         /// <param name="msg">消息</param>
         /// <param name="data">数据</param>
         /// <returns></returns>
-        public static IResponseOutput NotOk<T>(string msg = null, T data = default(T))
+        public static IResultOutput NotOk<T>(string msg = null, T data = default(T))
         {
-            return new ResponseOutput<T>().NotOk(msg, data);
+            return new ResultOutput<T>().NotOk(msg, data);
         }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace ZhonTai.Common.Domain.Dto
         /// </summary>
         /// <param name="msg">消息</param>
         /// <returns></returns>
-        public static IResponseOutput NotOk(string msg = null)
+        public static IResultOutput NotOk(string msg = null)
         {
-            return new ResponseOutput<string>().NotOk(msg);
+            return new ResultOutput<string>().NotOk(msg);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace ZhonTai.Common.Domain.Dto
         /// </summary>
         /// <param name="success"></param>
         /// <returns></returns>
-        public static IResponseOutput Result<T>(bool success)
+        public static IResultOutput Result<T>(bool success)
         {
             return success ? Ok<T>() : NotOk<T>();
         }
@@ -119,7 +119,7 @@ namespace ZhonTai.Common.Domain.Dto
         /// </summary>
         /// <param name="success"></param>
         /// <returns></returns>
-        public static IResponseOutput Result(bool success)
+        public static IResultOutput Result(bool success)
         {
             return success ? Ok() : NotOk();
         }

@@ -1,9 +1,9 @@
 ﻿namespace ZhonTai.Common.Domain.Dto
 {
     /// <summary>
-    /// 下拉选项输出
+    /// 下拉选项
     /// </summary>
-    public class OptionOutput
+    public class OptionDto
     {
         /// <summary>
         /// 名称

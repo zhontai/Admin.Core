@@ -23,13 +23,13 @@ namespace ZhonTai.Plate.Admin.Service.Role
             _rolePermissionRepository = rolePermissionRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _roleRepository.GetAsync<RoleGetOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<RoleEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<RoleEntity> input)
         {
             var key = input.Filter?.Name;
 
@@ -46,36 +46,36 @@ namespace ZhonTai.Plate.Admin.Service.Role
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddAsync(RoleAddInput input)
+        public async Task<IResultOutput> AddAsync(RoleAddInput input)
         {
             var entity = Mapper.Map<RoleEntity>(input);
             var id = (await _roleRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateAsync(RoleUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(RoleUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _roleRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("角色不存在！");
+                return ResultOutput.NotOk("角色不存在！");
             }
 
             Mapper.Map(input, entity);
             await _roleRepository.UpdateAsync(entity);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
             if (id > 0)
@@ -83,23 +83,23 @@ namespace ZhonTai.Plate.Admin.Service.Role
                 result = (await _roleRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _roleRepository.SoftDeleteAsync(id);
             await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _roleRepository.SoftDeleteAsync(ids);
             await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
     }
 }

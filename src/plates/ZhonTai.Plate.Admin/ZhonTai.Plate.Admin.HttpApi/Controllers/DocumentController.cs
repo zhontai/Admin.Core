@@ -38,7 +38,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="end"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
+        public async Task<IResultOutput> GetList(string key, DateTime? start, DateTime? end)
         {
             return await _documentService.GetListAsync(key, start, end);
         }
@@ -49,7 +49,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetImageList(long id)
+        public async Task<IResultOutput> GetImageList(long id)
         {
             return await _documentService.GetImageListAsync(id);
         }
@@ -60,7 +60,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetGroup(long id)
+        public async Task<IResultOutput> GetGroup(long id)
         {
             return await _documentService.GetGroupAsync(id);
         }
@@ -71,7 +71,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetMenu(long id)
+        public async Task<IResultOutput> GetMenu(long id)
         {
             return await _documentService.GetMenuAsync(id);
         }
@@ -82,7 +82,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetContent(long id)
+        public async Task<IResultOutput> GetContent(long id)
         {
             return await _documentService.GetContentAsync(id);
         }
@@ -92,7 +92,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetPlainList()
+        public async Task<IResultOutput> GetPlainList()
         {
             return await _documentService.GetPlainListAsync();
         }
@@ -103,7 +103,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddGroup(DocumentAddGroupInput input)
+        public async Task<IResultOutput> AddGroup(DocumentAddGroupInput input)
         {
             return await _documentService.AddGroupAsync(input);
         }
@@ -114,7 +114,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddMenu(DocumentAddMenuInput input)
+        public async Task<IResultOutput> AddMenu(DocumentAddMenuInput input)
         {
             return await _documentService.AddMenuAsync(input);
         }
@@ -125,7 +125,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateGroup(DocumentUpdateGroupInput input)
+        public async Task<IResultOutput> UpdateGroup(DocumentUpdateGroupInput input)
         {
             return await _documentService.UpdateGroupAsync(input);
         }
@@ -136,7 +136,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateMenu(DocumentUpdateMenuInput input)
+        public async Task<IResultOutput> UpdateMenu(DocumentUpdateMenuInput input)
         {
             return await _documentService.UpdateMenuAsync(input);
         }
@@ -147,7 +147,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateContent(DocumentUpdateContentInput input)
+        public async Task<IResultOutput> UpdateContent(DocumentUpdateContentInput input)
         {
             return await _documentService.UpdateContentAsync(input);
         }
@@ -158,7 +158,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _documentService.SoftDeleteAsync(id);
         }
@@ -170,7 +170,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="url"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> DeleteImage(long documentId, string url)
+        public async Task<IResultOutput> DeleteImage(long documentId, string url)
         {
             return await _documentService.DeleteImageAsync(documentId, url);
         }
@@ -181,7 +181,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> UploadImage([FromForm] DocumentUploadImageInput input)
+        public async Task<IResultOutput> UploadImage([FromForm] DocumentUploadImageInput input)
         {
             var config = _uploadConfig.Document;
             var res = await _uploadHelper.UploadAsync(input.File, config, new { input.Id });
@@ -196,11 +196,11 @@ namespace ZhonTai.Plate.Admin.HttpApi
                 });
                 if (r.Success)
                 {
-                    return ResponseOutput.Ok(res.Data.FileRequestPath);
+                    return ResultOutput.Ok(res.Data.FileRequestPath);
                 }
             }
 
-            return ResponseOutput.NotOk("上传失败！");
+            return ResultOutput.NotOk("上传失败！");
         }
     }
 }

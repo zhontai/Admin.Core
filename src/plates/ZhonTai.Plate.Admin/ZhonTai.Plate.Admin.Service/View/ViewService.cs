@@ -18,13 +18,13 @@ namespace ZhonTai.Plate.Admin.Service.View
             _viewRepository = moduleRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _viewRepository.GetAsync<ViewGetOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> ListAsync(string key)
+        public async Task<IResultOutput> GetListAsync(string key)
         {
             var data = await _viewRepository
                 .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
@@ -32,10 +32,10 @@ namespace ZhonTai.Plate.Admin.Service.View
                 .OrderBy(a => a.Sort)
                 .ToListAsync<ViewListOutput>();
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<ViewEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<ViewEntity> input)
         {
             var key = input.Filter?.Label;
 
@@ -53,36 +53,36 @@ namespace ZhonTai.Plate.Admin.Service.View
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddAsync(ViewAddInput input)
+        public async Task<IResultOutput> AddAsync(ViewAddInput input)
         {
             var entity = Mapper.Map<ViewEntity>(input);
             var id = (await _viewRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateAsync(ViewUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(ViewUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _viewRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("视图不存在！");
+                return ResultOutput.NotOk("视图不存在！");
             }
 
             Mapper.Map(input, entity);
             await _viewRepository.UpdateAsync(entity);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
             if (id > 0)
@@ -90,25 +90,25 @@ namespace ZhonTai.Plate.Admin.Service.View
                 result = (await _viewRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _viewRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _viewRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> SyncAsync(ViewSyncInput input)
+        public async Task<IResultOutput> SyncAsync(ViewSyncInput input)
         {
             //查询所有视图
             var views = await _viewRepository.Select.ToListAsync();
@@ -182,7 +182,7 @@ namespace ZhonTai.Plate.Admin.Service.View
             }
             
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
     }
 }

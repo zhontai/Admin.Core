@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Entities;
-using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Domain.Dto;
+using ZhonTai.Common.Domain.Repositories;
 using ZhonTai.Plate.Admin.Service.Permission.Input;
 using ZhonTai.Plate.Admin.Service.Permission.Output;
 using ZhonTai.Plate.Admin.Domain.Permission;
-using ZhonTai.Common.Domain.Repositories;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.TenantPermission;
 using ZhonTai.Plate.Admin.Domain.UserRole;
@@ -20,6 +19,7 @@ using ZhonTai.Plate.Admin.Domain.Role;
 using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Plate.Admin.Service.Contracts;
 
 namespace ZhonTai.Plate.Admin.Service.Permission
 {
@@ -70,32 +70,32 @@ namespace ZhonTai.Plate.Admin.Service.Permission
             }
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _permissionRepository.GetAsync(id);
 
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetGroupAsync(long id)
+        public async Task<IResultOutput> GetGroupAsync(long id)
         {
             var result = await _permissionRepository.GetAsync<PermissionGetGroupOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetMenuAsync(long id)
+        public async Task<IResultOutput> GetMenuAsync(long id)
         {
             var result = await _permissionRepository.GetAsync<PermissionGetMenuOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetApiAsync(long id)
+        public async Task<IResultOutput> GetApiAsync(long id)
         {
             var result = await _permissionRepository.GetAsync<PermissionGetApiOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetDotAsync(long id)
+        public async Task<IResultOutput> GetDotAsync(long id)
         {
             var entity = await _permissionRepository.Select
             .WhereDynamic(id)
@@ -104,10 +104,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
 
             var output = Mapper.Map<PermissionGetDotOutput>(entity);
 
-            return ResponseOutput.Ok(output);
+            return ResultOutput.Ok(output);
         }
 
-        public async Task<IResponseOutput> GetListAsync(string key, DateTime? start, DateTime? end)
+        public async Task<IResultOutput> GetListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
             {
@@ -121,35 +121,35 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 .OrderBy(a => a.Sort)
                 .ToListAsync(a=> new PermissionListOutput { ApiPaths = string.Join(";", _permissionApiRepository.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) });
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddGroupAsync(PermissionAddGroupInput input)
+        public async Task<IResultOutput> AddGroupAsync(PermissionAddGroupInput input)
         {
             var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Ok(id > 0);
+            return ResultOutput.Ok(id > 0);
         }
 
-        public async Task<IResponseOutput> AddMenuAsync(PermissionAddMenuInput input)
+        public async Task<IResultOutput> AddMenuAsync(PermissionAddMenuInput input)
         {
             var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Ok(id > 0);
+            return ResultOutput.Ok(id > 0);
         }
 
-        public async Task<IResponseOutput> AddApiAsync(PermissionAddApiInput input)
+        public async Task<IResultOutput> AddApiAsync(PermissionAddApiInput input)
         {
             var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Ok(id > 0);
+            return ResultOutput.Ok(id > 0);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> AddDotAsync(PermissionAddDotInput input)
+        public async Task<IResultOutput> AddDotAsync(PermissionAddDotInput input)
         {
             var entity = Mapper.Map<PermissionEntity>(input);
             var id = (await _permissionRepository.InsertAsync(entity)).Id;
@@ -160,10 +160,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 await _permissionApiRepository.InsertAsync(permissionApis);
             }
 
-            return ResponseOutput.Ok(id > 0);
+            return ResultOutput.Ok(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateGroupAsync(PermissionUpdateGroupInput input)
+        public async Task<IResultOutput> UpdateGroupAsync(PermissionUpdateGroupInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -173,10 +173,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> UpdateMenuAsync(PermissionUpdateMenuInput input)
+        public async Task<IResultOutput> UpdateMenuAsync(PermissionUpdateMenuInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -186,10 +186,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> UpdateApiAsync(PermissionUpdateApiInput input)
+        public async Task<IResultOutput> UpdateApiAsync(PermissionUpdateApiInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -199,21 +199,21 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 result = (await _permissionRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input)
+        public async Task<IResultOutput> UpdateDotAsync(PermissionUpdateDotInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _permissionRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("权限点不存在！");
+                return ResultOutput.NotOk("权限点不存在！");
             }
 
             Mapper.Map(input, entity);
@@ -230,11 +230,11 @@ namespace ZhonTai.Plate.Admin.Service.Permission
             //清除用户权限缓存
             await ClearUserPermissionsAsync(new List<long> { entity.Id });
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             //递归查询所有权限点
             var ids = _permissionRepository.Select
@@ -251,10 +251,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
             //清除用户权限缓存
             await ClearUserPermissionsAsync(ids);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             //递归查询所有权限点
             var ids = _permissionRepository.Select
@@ -268,17 +268,17 @@ namespace ZhonTai.Plate.Admin.Service.Permission
             //清除用户权限缓存
             await ClearUserPermissionsAsync(ids);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> AssignAsync(PermissionAssignInput input)
+        public async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
         {
             //分配权限的时候判断角色是否存在
             var exists = await _roleRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(input.RoleId).AnyAsync();
             if (!exists)
             {
-                return ResponseOutput.NotOk("该角色不存在或已被删除！");
+                return ResultOutput.NotOk("该角色不存在或已被删除！");
             }
 
             //查询角色权限
@@ -323,11 +323,11 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
+        public async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
         {
             //获得租户db
             var ib = ServiceProvider.GetRequiredService<IdleBus<IFreeSql>>();
@@ -371,10 +371,10 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                 }
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> GetPermissionList()
+        public async Task<IResultOutput> GetPermissionList()
         {
             var permissions = await _permissionRepository.Select
                 .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant, a =>
@@ -400,25 +400,25 @@ namespace ZhonTai.Plate.Admin.Service.Permission
                     Apis = apis.Where(b => b.ParentId == a.Id).Select(b => new { b.Id, b.Label })
                 });
 
-            return ResponseOutput.Ok(menus);
+            return ResultOutput.Ok(menus);
         }
 
-        public async Task<IResponseOutput> GetRolePermissionList(long roleId = 0)
+        public async Task<IResultOutput> GetRolePermissionList(long roleId = 0)
         {
             var permissionIds = await _rolePermissionRepository
                 .Select.Where(d => d.RoleId == roleId)
                 .ToListAsync(a => a.PermissionId);
 
-            return ResponseOutput.Ok(permissionIds);
+            return ResultOutput.Ok(permissionIds);
         }
 
-        public async Task<IResponseOutput> GetTenantPermissionList(long tenantId)
+        public async Task<IResultOutput> GetTenantPermissionList(long tenantId)
         {
             var permissionIds = await _tenantPermissionRepository
                 .Select.Where(d => d.TenantId == tenantId)
                 .ToListAsync(a => a.PermissionId);
 
-            return ResponseOutput.Ok(permissionIds);
+            return ResultOutput.Ok(permissionIds);
         }
     }
 }

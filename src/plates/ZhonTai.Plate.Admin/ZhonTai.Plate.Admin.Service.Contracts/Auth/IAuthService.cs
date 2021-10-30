@@ -9,12 +9,10 @@ namespace ZhonTai.Plate.Admin.Service.Auth
     /// </summary>
     public interface IAuthService
     {
-        Task<IResponseOutput> LoginAsync(AuthLoginInput input);
+        Task<IResultOutput> LoginAsync(AuthLoginInput input);
 
-        Task<IResponseOutput> GetUserInfoAsync();
+        Task<IResultOutput> GetUserInfoAsync();
 
-        Task<IResponseOutput> GetVerifyCodeAsync(string lastKey);
-
-        Task<IResponseOutput> GetPassWordEncryptKeyAsync();
+        Task<IResultOutput> GetPassWordEncryptKeyAsync();
     }
 }

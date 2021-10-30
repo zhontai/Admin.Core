@@ -10,21 +10,22 @@ using Newtonsoft.Json.Linq;
 using Xunit;
 using ZhonTai.Common.Configs;
 using ZhonTai.Tools.Captcha;
-using ZhonTai.Plate.Admin.Service.Auth.Input;
 using ZhonTai.Tools.Cache;
+using ZhonTai.Plate.Admin.Service.Auth.Input;
+using ZhonTai.Plate.Admin.Service.Contracts;
 
 namespace ZhonTai.Plate.Admin.Tests
 {
     public class BaseControllerTest : BaseTest
     {
-        private readonly ICache _cache;
-        private readonly ICaptcha _captcha;
+        private readonly ICacheTool _cache;
+        private readonly ICaptchaTool _captcha;
         private readonly AppConfig _appConfig;
 
         protected BaseControllerTest()
         {
-            _cache = GetService<ICache>();
-            _captcha = GetService<ICaptcha>();
+            _cache = GetService<ICacheTool>();
+            _captcha = GetService<ICaptchaTool>();
             _appConfig = GetService<AppConfig>();
         }
 
@@ -115,14 +116,14 @@ namespace ZhonTai.Plate.Admin.Tests
 
             if (input == null && _appConfig.VarifyCode.Enable)
             {
-                var res = await _captcha.GetAsync();
-                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, res.Token);
-                var verifyCode = await _cache.GetAsync(verifyCodeKey);
+                var res = await _captcha.GetAsync(CacheKey.CaptchaKey);
+                var captchaKey = string.Format(CacheKey.CaptchaKey, res.Token);
+                var captchaData = await _cache.GetAsync(captchaKey);
                 input = new AuthLoginInput()
                 {
                     UserName = "admin",
                     Password = "111111",
-                    Captcha = new CaptchaInput { Token = res.Token, Data = JsonConvert.SerializeObject(new { X = verifyCode }) }
+                    Captcha = new CaptchaInput { CaptchaKey = CacheKey.CaptchaKey, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) }
                 };
             }
 

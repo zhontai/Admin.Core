@@ -7,18 +7,18 @@ namespace ZhonTai.Plate.Personnel.Service.Position
 {
     public interface IPositionService
     {
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> PageAsync(PageInput<PositionEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<PositionEntity> input);
 
-        Task<IResponseOutput> AddAsync(PositionAddInput input);
+        Task<IResultOutput> AddAsync(PositionAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(PositionUpdateInput input);
+        Task<IResultOutput> UpdateAsync(PositionUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
     }
 }

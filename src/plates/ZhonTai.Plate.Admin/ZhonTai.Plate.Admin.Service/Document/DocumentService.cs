@@ -23,32 +23,32 @@ namespace ZhonTai.Plate.Admin.Service.Document
             _documentImageRepository = documentImageRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _documentRepository.GetAsync(id);
 
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetGroupAsync(long id)
+        public async Task<IResultOutput> GetGroupAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetGroupOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetMenuAsync(long id)
+        public async Task<IResultOutput> GetMenuAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetMenuOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetContentAsync(long id)
+        public async Task<IResultOutput> GetContentAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetContentOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> GetListAsync(string key, DateTime? start, DateTime? end)
+        public async Task<IResultOutput> GetListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
             {
@@ -62,44 +62,44 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 .OrderBy(a => a.Sort)
                 .ToListAsync<DocumentListOutput>();
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> GetImageListAsync(long id)
+        public async Task<IResultOutput> GetImageListAsync(long id)
         {
             var result = await _documentImageRepository.Select
                 .Where(a => a.DocumentId == id)
                 .OrderByDescending(a => a.Id)
                 .ToListAsync(a => a.Url);
 
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> AddGroupAsync(DocumentAddGroupInput input)
+        public async Task<IResultOutput> AddGroupAsync(DocumentAddGroupInput input)
         {
             var entity = Mapper.Map<DocumentEntity>(input);
             var id = (await _documentRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> AddMenuAsync(DocumentAddMenuInput input)
+        public async Task<IResultOutput> AddMenuAsync(DocumentAddMenuInput input)
         {
             var entity = Mapper.Map<DocumentEntity>(input);
             var id = (await _documentRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> AddImageAsync(DocumentAddImageInput input)
+        public async Task<IResultOutput> AddImageAsync(DocumentAddImageInput input)
         {
             var entity = Mapper.Map<DocumentImageEntity>(input);
             var id = (await _documentImageRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
 
-        public async Task<IResponseOutput> UpdateGroupAsync(DocumentUpdateGroupInput input)
+        public async Task<IResultOutput> UpdateGroupAsync(DocumentUpdateGroupInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -109,10 +109,10 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> UpdateMenuAsync(DocumentUpdateMenuInput input)
+        public async Task<IResultOutput> UpdateMenuAsync(DocumentUpdateMenuInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -122,10 +122,10 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> UpdateContentAsync(DocumentUpdateContentInput input)
+        public async Task<IResultOutput> UpdateContentAsync(DocumentUpdateContentInput input)
         {
             var result = false;
             if (input != null && input.Id > 0)
@@ -135,10 +135,10 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 result = (await _documentRepository.UpdateAsync(entity)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
             if (id > 0)
@@ -146,10 +146,10 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 result = (await _documentRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> DeleteImageAsync(long documentId, string url)
+        public async Task<IResultOutput> DeleteImageAsync(long documentId, string url)
         {
             var result = false;
             if (documentId > 0 && url.NotNull())
@@ -157,16 +157,16 @@ namespace ZhonTai.Plate.Admin.Service.Document
                 result = (await _documentImageRepository.DeleteAsync(m => m.DocumentId == documentId && m.Url == url)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _documentRepository.SoftDeleteAsync(id);
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> GetPlainListAsync()
+        public async Task<IResultOutput> GetPlainListAsync()
         {
             var documents = await _documentRepository.Select
                 .OrderBy(a => a.ParentId)
@@ -184,7 +184,7 @@ namespace ZhonTai.Plate.Admin.Service.Document
                     a.Opened
                 });
 
-            return ResponseOutput.Ok(menus);
+            return ResultOutput.Ok(menus);
         }
     }
 }

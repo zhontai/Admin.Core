@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Common.Attributes;
-using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Domain.Repositories;
 using ZhonTai.Common.Helpers;
@@ -14,6 +13,7 @@ using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.UserRole;
+using ZhonTai.Plate.Admin.Service.Contracts;
 using ZhonTai.Plate.Admin.Service.Auth.Output;
 using ZhonTai.Plate.Admin.Service.User.Input;
 using ZhonTai.Plate.Admin.Service.User.Output;
@@ -48,9 +48,9 @@ namespace ZhonTai.Plate.Admin.Service.User
             _apiRepository = apiRepository;
         }
 
-        public async Task<ResponseOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
+        public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
         {
-            var output = new ResponseOutput<AuthLoginOutput>();
+            var output = new ResultOutput<AuthLoginOutput>();
             var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
             if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
             {
@@ -64,7 +64,7 @@ namespace ZhonTai.Plate.Admin.Service.User
             return output.Ok(entityDto);
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var entity = await _userRepository.Select
             .WhereDynamic(id)
@@ -75,25 +75,25 @@ namespace ZhonTai.Plate.Admin.Service.User
 
             var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
 
-            return ResponseOutput.Ok(new { Form = entityDto, Select = new { roles } });
+            return ResultOutput.Ok(new { Form = entityDto, Select = new { roles } });
         }
 
-        public async Task<IResponseOutput> GetSelectAsync()
+        public async Task<IResultOutput> GetSelectAsync()
         {
             var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
 
-            return ResponseOutput.Ok(new { Select = new { roles } });
+            return ResultOutput.Ok(new { Select = new { roles } });
         }
 
-        public async Task<IResponseOutput> GetBasicAsync()
+        public async Task<IResultOutput> GetBasicAsync()
         {
             if (!(User?.Id > 0))
             {
-                return ResponseOutput.NotOk("未登录！");
+                return ResultOutput.NotOk("未登录！");
             }
 
             var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
@@ -111,7 +111,7 @@ namespace ZhonTai.Plate.Admin.Service.User
             return result;
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<UserEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<UserEntity> input)
         {
             var list = await _userRepository.Select
             .WhereDynamicFilter(input.DynamicFilter)
@@ -127,11 +127,11 @@ namespace ZhonTai.Plate.Admin.Service.User
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> AddAsync(UserAddInput input)
+        public async Task<IResultOutput> AddAsync(UserAddInput input)
         {
             if (input.Password.IsNull())
             {
@@ -145,7 +145,7 @@ namespace ZhonTai.Plate.Admin.Service.User
 
             if (!(user?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             if (input.RoleIds != null && input.RoleIds.Any())
@@ -154,21 +154,21 @@ namespace ZhonTai.Plate.Admin.Service.User
                 await _userRoleRepository.InsertAsync(roles);
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> UpdateAsync(UserUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var user = await _userRepository.GetAsync(input.Id);
             if (!(user?.Id > 0))
             {
-                return ResponseOutput.NotOk("用户不存在！");
+                return ResultOutput.NotOk("用户不存在！");
             }
 
             Mapper.Map(input, user);
@@ -182,10 +182,10 @@ namespace ZhonTai.Plate.Admin.Service.User
                 await _userRoleRepository.InsertAsync(roles);
             }
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> UpdateBasicAsync(UserUpdateBasicInput input)
+        public async Task<IResultOutput> UpdateBasicAsync(UserUpdateBasicInput input)
         {
             var entity = await _userRepository.GetAsync(input.Id);
             entity = Mapper.Map(input, entity);
@@ -194,21 +194,21 @@ namespace ZhonTai.Plate.Admin.Service.User
             //清除用户缓存
             await Cache.DelAsync(string.Format(CacheKey.UserInfo, input.Id));
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> ChangePasswordAsync(UserChangePasswordInput input)
+        public async Task<IResultOutput> ChangePasswordAsync(UserChangePasswordInput input)
         {
             if (input.ConfirmPassword != input.NewPassword)
             {
-                return ResponseOutput.NotOk("新密码和确认密码不一致！");
+                return ResultOutput.NotOk("新密码和确认密码不一致！");
             }
 
             var entity = await _userRepository.GetAsync(input.Id);
             var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
             if (oldPassword != entity.Password)
             {
-                return ResponseOutput.NotOk("旧密码不正确！");
+                return ResultOutput.NotOk("旧密码不正确！");
             }
 
             input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
@@ -216,10 +216,10 @@ namespace ZhonTai.Plate.Admin.Service.User
             entity = Mapper.Map(input, entity);
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
             if (id > 0)
@@ -227,25 +227,25 @@ namespace ZhonTai.Plate.Admin.Service.User
                 result = (await _userRepository.DeleteAsync(m => m.Id == id)) > 0;
             }
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _userRepository.SoftDeleteAsync(id);
             await _userRoleRepository.DeleteAsync(a => a.UserId == id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _userRepository.SoftDeleteAsync(ids);
             await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
     }
 }

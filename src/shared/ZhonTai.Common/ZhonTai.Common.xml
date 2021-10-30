@@ -1,0 +1,1492 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZhonTai.Common</name>
+    </assembly>
+    <members>
+        <member name="T:ZhonTai.Common.Attributes.SingleInstanceAttribute">
+            <summary>
+            单例注入
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Attributes.TransactionAttribute">
+            <summary>
+            启用事物
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Attributes.TransactionAttribute.Propagation">
+            <summary>
+            事务传播方式
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Attributes.TransactionAttribute.IsolationLevel">
+            <summary>
+            事务隔离级别
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Auth.ClaimAttributes">
+            <summary>
+            Claim属性
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.IdentityServerUserId">
+            <summary>
+            认证授权用户Id
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.UserNickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.RefreshExpires">
+            <summary>
+            刷新有效期
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Auth.ClaimAttributes.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Auth.IUser">
+            <summary>
+            用户信息接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.IUser.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Auth.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.Name">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.User.DataIsolationType">
+            <summary>
+            数据隔离
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Auth.UserIdentiyServer">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Auth.UserIdentiyServer.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.AppConfig">
+            <summary>
+            应用配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.Urls">
+            <summary>
+            Api地址，默认 http://*:8000
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.CorUrls">
+            <summary>
+            跨域地址，默认 http://*:9000
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.Tenant">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.Swagger">
+            <summary>
+            Swagger文档
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.MiniProfiler">
+            <summary>
+            MiniProfiler性能分析器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.IdentityServer">
+            <summary>
+            统一认证授权服务器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.Aop">
+            <summary>
+            Aop配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.Log">
+            <summary>
+            日志配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.RateLimit">
+            <summary>
+            限流
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AppConfig.VarifyCode">
+            <summary>
+            验证码配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.IdentityServer">
+            <summary>
+            统一认证授权服务器配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.IdentityServer.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.IdentityServer.Url">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.AopConfig">
+            <summary>
+            Aop配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.AopConfig.Transaction">
+            <summary>
+            事物
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.LogConfig">
+            <summary>
+            日志配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.LogConfig.Operation">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.VarifyCodeConfig">
+            <summary>
+            验证码配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.VarifyCodeConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.VarifyCodeConfig.Fonts">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.MultiDb">
+            <summary>
+            多数据库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.MultiDb.Name">
+            <summary>
+            数据库命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.MultiDb.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.MultiDb.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.DbConfig">
+            <summary>
+            数据库配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.GenerateData">
+            <summary>
+            生成数据
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.SyncStructure">
+            <summary>
+            同步结构
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.SyncData">
+            <summary>
+            同步数据
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.CreateDb">
+            <summary>
+            建库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.CreateDbConnectionString">
+            <summary>
+            建库连接字符串
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.CreateDbSql">
+            <summary>
+            建库脚本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.MonitorCommand">
+            <summary>
+            监听所有操作
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.Curd">
+            <summary>
+            监听Curd操作
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.DbConfig.Dbs">
+            <summary>
+            多数据库
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.JwtConfig">
+            <summary>
+            Jwt配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.JwtConfig.Issuer">
+            <summary>
+            发行者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.JwtConfig.Audience">
+            <summary>
+            订阅者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.JwtConfig.SecurityKey">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.JwtConfig.Expires">
+            <summary>
+            有效期(分钟)
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.JwtConfig.RefreshExpires">
+            <summary>
+            刷新有效期(分钟)
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.UploadConfig">
+            <summary>
+            上传配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.UploadConfig.Avatar">
+            <summary>
+            头像上传配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.UploadConfig.Document">
+            <summary>
+            文档图片上传配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Configs.FileUploadConfig">
+            <summary>
+            文件上传配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.UploadPath">
+            <summary>
+            上传路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.Format">
+            <summary>
+            路径格式
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.DateTimeFormat">
+            <summary>
+            路径日期格式
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.MaxSize">
+            <summary>
+            文件大小 10M = 10 * 1024 * 1024
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.Limit">
+            <summary>
+            最大允许上传个数 -1不限制
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Configs.FileUploadConfig.ContentType">
+            <summary>
+            文件格式
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Consts.AdminConsts.TenantName">
+            <summary>
+            默认租户
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Consts.AdminConsts.AllowAnyPolicyName">
+            <summary>
+            允许所有源访问策略
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Dbs.MySqlDb">
+            <summary>
+            多数据库命名
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Db.IGenerateData">
+            <summary>
+            生成数据接口
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Db.ISyncData">
+            <summary>
+            同步数据接口
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Db.SyncData.CheckIdentity``1">
+            <summary>
+            检查实体属性是否为自增长
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Db.SyncData.InitDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],ZhonTai.Common.Configs.DbConfig)">
+            <summary>
+            初始化数据表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="tran"></param>
+            <param name="data"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.IResultOutput">
+            <summary>
+            结果输出接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.IResultOutput.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.IResultOutput.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.IResultOutput`1">
+            <summary>
+            泛型结果输出接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.IResultOutput`1.Data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.OptionDto">
+            <summary>
+            下拉选项
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.OptionDto.Label">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.OptionDto.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.PageInput`1">
+            <summary>
+            分页信息输入
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.CurrentPage">
+            <summary>
+            当前页标
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.PageSize">
+            <summary>
+            每页大小
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.Filter">
+            <summary>
+            查询条件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.DynamicFilter">
+            <summary>
+            高级查询条件
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.PageOutput`1">
+            <summary>
+            分页信息输出
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageOutput`1.Total">
+            <summary>
+            数据总数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageOutput`1.List">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.ResultOutput`1">
+            <summary>
+            结果输出
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.ResultOutput`1.Success">
+            <summary>
+            是否成功标记
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.ResultOutput`1.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.ResultOutput`1.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.ResultOutput`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput`1.Ok(`0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput`1.NotOk(System.String,`0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.ResultOutput">
+            <summary>
+            静态结果输出
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.Ok``1(``0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.Ok">
+            <summary>
+            成功
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.NotOk``1(System.String,``0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.NotOk(System.String)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.Result``1(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Dto.ResultOutput.Result(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.DataIsolationType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.DataIsolationType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.DataIsolationType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.DataIsolationType.Share">
+            <summary>
+            共享数据库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.IEntity`1.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.Entity`1.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntityAdd`1">
+            <summary>
+            实体创建
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityAdd`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityAdd`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityAdd`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntityFull`1">
+            <summary>
+            实体完整类
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityFull`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntityFull">
+            <summary>
+            实体完整类
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntitySoftDelete`1">
+            <summary>
+            实体软删除
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntitySoftDelete`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntityUpdate`1">
+            <summary>
+            实体修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityUpdate`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityUpdate`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityUpdate`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.EntityVersion`1">
+            <summary>
+            实体版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.EntityVersion`1.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.IEntitySoftDelete.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.IEntityVersion.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Domain.Entities.ITenant.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Entities.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.TenantType.Platform">
+            <summary>
+            平台
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Domain.Entities.TenantType.Tenant">
+            <summary>
+            租户
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.GetAsync``1(`1)">
+            <summary>
+            获得Dto
+            </summary>
+            <typeparam name="TDto"></typeparam>
+            <param name="id">主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.GetAsync``1(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            根据条件获取Dto
+            </summary>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.GetAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            根据条件获取实体
+            </summary>
+            <param name="exp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.SoftDeleteAsync(`1)">
+            <summary>
+            软删除
+            </summary>
+            <param name="id">主键</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.SoftDeleteAsync(`1[])">
+            <summary>
+            批量软删除
+            </summary>
+            <param name="ids">主键数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.SoftDeleteAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String[])">
+            <summary>
+            软删除
+            </summary>
+            <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.DeleteRecursiveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String[])">
+            <summary>
+            递归删除
+            </summary>
+            <param name="exp"></param>
+            <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Domain.Repositories.IRepositoryBase`2.SoftDeleteRecursiveAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String[])">
+            <summary>
+            递归软删除
+            </summary>
+            <param name="exp"></param>
+            <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
+            <returns></returns>
+        </member>
+        <member name="F:ZhonTai.Common.Extensions.DateTimeExtension.TimestampStart">
+            <summary>
+            时间戳起始日期
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.DateTimeExtension.ToTimestamp(System.DateTime,System.Boolean)">
+            <summary>
+            转换为时间戳
+            </summary>
+            <param name="dateTime"></param>
+            <param name="milliseconds">是否使用毫秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.DateTimeExtension.GetWeekName(System.DateTime)">
+            <summary>
+            获取周几
+            </summary>
+            <param name="datetime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.GuidExtension.IsNull(System.Guid)">
+            <summary>
+            判断Guid是否为空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.GuidExtension.NotNull(System.Guid)">
+            <summary>
+            判断Guid是否不为空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.ListExtension.ToTree``1(System.Collections.Generic.List{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,``0,System.Boolean},System.Action{``0,System.Collections.Generic.IEnumerable{``0}},``0)">
+            <summary>
+            将列表转换为树形结构
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="list">数据</param>
+            <param name="rootWhere">根条件</param>
+            <param name="childsWhere">节点条件</param>
+            <param name="addChilds">添加子节点</param>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Extensions.UtilConvertExtension">
+            <summary>
+            数据类型转换
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.ToDouble(System.Object,System.Nullable{System.Int32})">
+            <summary>
+            转换成Double/Single
+            </summary>
+            <param name="s"></param>
+            <param name="digits">小数位数</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.ToHex(System.Byte[],System.Boolean)">
+            <summary>
+            转换为16进制
+            </summary>
+            <param name="bytes"></param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.HexToBytes(System.String)">
+            <summary>
+            16进制转字节数组
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.ToBase64(System.Byte[])">
+            <summary>
+            转换为Base64
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Files.FileInfo">
+            <summary>
+            文件信息
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileInfo.#ctor(System.String,System.Int64)">
+            <summary>
+            初始化文件信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="size">大小</param>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.UploadPath">
+            <summary>
+            上传路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.RequestPath">
+            <summary>
+            请求路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.RelativePath">
+            <summary>
+            相对路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.SaveName">
+            <summary>
+            保存名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.Size">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.Extension">
+            <summary>
+            扩展名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.FileDirectory">
+            <summary>
+            文件目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.FileRequestPath">
+            <summary>
+            文件请求路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.FileRelativePath">
+            <summary>
+            文件相对路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileInfo.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Files.FileSize">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.#ctor(System.Int64,ZhonTai.Common.Files.FileSizeUnit)">
+            <summary>
+            初始化文件大小
+            </summary>
+            <param name="size">文件大小</param>
+            <param name="unit">文件大小单位</param>
+        </member>
+        <member name="P:ZhonTai.Common.Files.FileSize.Size">
+            <summary>
+            文件字节长度
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.GetSize">
+            <summary>
+            获取文件大小，单位：字节
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.GetSizeByK">
+            <summary>
+            获取文件大小，单位：K
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.GetSizeByM">
+            <summary>
+            获取文件大小，单位：M
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.GetSizeByG">
+            <summary>
+            获取文件大小，单位：G
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Files.FileSize.ToString">
+            <summary>
+            输出描述
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Files.FileSizeUnit">
+            <summary>
+            文件大小单位
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Files.FileSizeUnit.Byte">
+            <summary>
+            字节
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Files.FileSizeUnit.K">
+            <summary>
+            K字节
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Files.FileSizeUnit.M">
+            <summary>
+            M字节
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Common.Files.FileSizeUnit.G">
+            <summary>
+            G字节
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.ConfigHelper">
+            <summary>
+            配置帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConfigHelper.Load(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            加载配置文件
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="environmentName">环境名称</param>
+            <param name="optional">可选</param>
+            <param name="reloadOnChange">自动更新</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConfigHelper.Get``1(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            获得配置信息
+            </summary>
+            <typeparam name="T">配置信息</typeparam>
+            <param name="fileName">文件名称</param>
+            <param name="environmentName">环境名称</param>
+            <param name="optional">可选</param>
+            <param name="reloadOnChange">自动更新</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConfigHelper.Bind(System.String,System.Object,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            绑定实例配置信息
+            </summary>
+            <param name="fileName">文件名称</param>
+            <param name="instance">实例配置</param>
+            <param name="environmentName">环境名称</param>
+            <param name="optional">可选</param>
+            <param name="reloadOnChange">自动更新</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConsoleHelper.WriteErrorLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印错误信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConsoleHelper.WriteWarningLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印警告信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConsoleHelper.WriteInfoLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印正常信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.ConsoleHelper.WriteSuccessLine(System.String,System.ConsoleColor)">
+            <summary>
+            打印成功的信息
+            </summary>
+            <param name="str">待打印的字符串</param>
+            <param name="color">想要打印的颜色</param>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.DesEncrypt">
+            <summary>
+            Des加解密
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Encrypt(System.String,System.String)">
+            <summary>
+            DES+Base64加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Decrypt(System.String,System.String)">
+            <summary>
+            DES+Base64解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Encrypt4Hex(System.String,System.String,System.Boolean)">
+            <summary>
+            DES+16进制加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Decrypt4Hex(System.String,System.String)">
+            <summary>
+            DES+16进制解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Encrypt(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            DES加密
+            </summary>
+            <param name="encryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <param name="lowerCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.DesEncrypt.Decrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            DES解密
+            </summary>
+            <param name="decryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.FileHelper.WriteFile(System.String,System.String)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.FileHelper.WriteFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+            <param name="encode">编码格式</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.FileHelper.ReadFile(System.String)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.FileHelper.ReadFile(System.String,System.Text.Encoding)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="encode">编码格式</param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.HtmlHelper">
+            <summary>
+            Html操作相关类
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Helpers.HtmlHelper.CookieContainer">
+            <summary>
+            Cookie
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Common.Helpers.HtmlHelper.Encoding">
+            <summary>
+            语言
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetHtml(System.String,System.String,System.Boolean,System.Net.CookieContainer)">
+            <summary>
+            获取HTML
+            </summary>
+            <param name="url">地址</param>
+            <param name="postData">post 提交的字符串</param>
+            <param name="isPost">是否是post</param>
+            <param name="cookieContainer">CookieContainer</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetHtml(System.String,System.Net.CookieContainer)">
+            <summary>
+            获取HTML
+            </summary>
+            <param name="url">地址</param>
+            <param name="cookieContainer">CookieContainer</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetStream(System.String,System.Net.CookieContainer)">
+            <summary>
+            获取字符流
+            </summary>
+            <param name="url">地址</param>
+            <param name="cookieContainer">cookieContainer</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.NoHTML(System.String)">
+            <summary>
+            清除HTML标记
+            </summary>
+            <param name="Htmlstring"></param>
+            <returns>已经去除后的文字</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.DelHtmlCode(System.String)">
+            <summary>
+            删除文本中带的HTML标记
+            </summary>
+            <param name="InString">输入要删除带HTML的字符串</param>
+            <returns>返回处理过的字符串</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetHref(System.String)">
+            <summary>
+            获取页面的链接正则
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetImgSrc(System.String,System.String)">
+            <summary>
+            匹配页面的图片地址
+            </summary>
+            <param name="HtmlCode"></param>
+            <param name="imgHttp">要补充的http://路径信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.GetImg(System.String,System.String)">
+            <summary>
+            匹配<img src="" />中的图片路径实际链接
+            </summary>
+            <param name="ImgString"><img src="" />字符串</param>
+            <param name="imgHttp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.Get_Http(System.String)">
+            <summary>
+            以GET方式抓取远程页面内容
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.Post_Http(System.String,System.String,System.String)">
+            <summary>
+            以POST方式抓取远程页面内容
+            </summary>
+            <param name="url"></param>
+            <param name="postData">参数列表</param>
+            <param name="encodeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.ZipHtml(System.String)">
+            <summary>
+            压缩HTML输出
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.HtmlHelper.DelHtml(System.String,System.String)">
+            <summary>
+            过滤指定HTML标签
+            </summary>
+            <param name="s_TextStr">要过滤的字符</param>
+            <param name="html_Str">a img p div</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.IPHelper.IsIP(System.String)">
+            <summary>
+            是否为ip
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.IPHelper.GetIP(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            获得IP地址
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.MD5Encrypt">
+            <summary>
+            MD5加密
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt16(System.String)">
+            <summary>
+            16位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt32(System.String)">
+            <summary>
+            32位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt64(System.String)">
+            <summary>
+            64位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.StringHelper">
+            <summary>
+            字符串帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.StringHelper.GenerateRandom(System.Int32)">
+            <summary>
+            生成随机字符串，默认32位
+            </summary>
+            <param name="length">随机数长度</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.StringHelper.GenerateRandomNumber(System.Int32)">
+            <summary>
+            生成随机字符串，只包含数字
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.UnicodeHelper.StringToUnicode(System.String)">
+            <summary>
+            字符串转Unicode码
+            </summary>
+            <returns>The to unicode.</returns>
+            <param name="value">Value.</param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.UnicodeHelper.UnicodeToString(System.String)">
+            <summary>
+            Unicode转字符串
+            </summary>
+            <returns>The to string.</returns>
+            <param name="unicode">Unicode.</param>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.UploadHelper">
+            <summary>
+            文件上传帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.UploadHelper.UploadAsync(Microsoft.AspNetCore.Http.IFormFile,ZhonTai.Common.Configs.FileUploadConfig,System.Object,System.Threading.CancellationToken)">
+            <summary>
+            上传单文件
+            </summary>
+            <param name="file"></param>
+            <param name="config"></param>
+            <param name="args"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.UploadHelper.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="file"></param>
+            <param name="filePath"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.IsNull(System.String)">
+            <summary>
+            判断字符串是否为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.NotNull(System.String)">
+            <summary>
+            判断字符串是否不为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.EqualsIgnoreCase(System.String,System.String)">
+            <summary>
+            与字符串进行比较，忽略大小写
+            </summary>
+            <param name="s"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.FirstCharToLower(System.String)">
+            <summary>
+            首字母转小写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.FirstCharToUpper(System.String)">
+            <summary>
+            首字母转大写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.ToBase64(System.String)">
+            <summary>
+            转为Base64，UTF-8格式
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.StringExtension.ToBase64(System.String,System.Text.Encoding)">
+            <summary>
+            转为Base64
+            </summary>
+            <param name="s"></param>
+            <param name="encoding">编码</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

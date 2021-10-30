@@ -7,18 +7,18 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
 {
     public interface ITenantService
     {
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> PageAsync(PageInput<TenantEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<TenantEntity> input);
 
-        Task<IResponseOutput> AddAsync(TenantAddInput input);
+        Task<IResultOutput> AddAsync(TenantAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(TenantUpdateInput input);
+        Task<IResultOutput> UpdateAsync(TenantUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
     }
 }

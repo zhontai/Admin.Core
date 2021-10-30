@@ -16,22 +16,22 @@ namespace ZhonTai.Plate.Admin.Service.View
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> ListAsync(string key);
+        Task<IResultOutput> GetListAsync(string key);
 
-        Task<IResponseOutput> PageAsync(PageInput<ViewEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<ViewEntity> model);
 
-        Task<IResponseOutput> AddAsync(ViewAddInput input);
+        Task<IResultOutput> AddAsync(ViewAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(ViewUpdateInput input);
+        Task<IResultOutput> UpdateAsync(ViewUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
 
-        Task<IResponseOutput> SyncAsync(ViewSyncInput input);
+        Task<IResultOutput> SyncAsync(ViewSyncInput input);
     }
 }

@@ -25,7 +25,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResultOutput> Get(long id)
         {
             return await _positionService.GetAsync(id);
         }
@@ -36,9 +36,9 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<PositionEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<PositionEntity> model)
         {
-            return await _positionService.PageAsync(model);
+            return await _positionService.GetPageAsync(model);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Add(PositionAddInput input)
+        public async Task<IResultOutput> Add(PositionAddInput input)
         {
             return await _positionService.AddAsync(input);
         }
@@ -58,7 +58,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> Update(PositionUpdateInput input)
+        public async Task<IResultOutput> Update(PositionUpdateInput input)
         {
             return await _positionService.UpdateAsync(input);
         }
@@ -69,7 +69,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _positionService.SoftDeleteAsync(id);
         }
@@ -80,7 +80,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
+        public async Task<IResultOutput> BatchSoftDelete(long[] ids)
         {
             return await _positionService.BatchSoftDeleteAsync(ids);
         }

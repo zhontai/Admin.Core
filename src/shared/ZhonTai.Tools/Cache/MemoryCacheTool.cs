@@ -13,11 +13,11 @@ namespace ZhonTai.Tools.Cache
     /// <summary>
     /// 内存缓存
     /// </summary>
-    public class MemoryCache : ICache
+    public class MemoryCacheTool : ICacheTool
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MemoryCache(IMemoryCache memoryCache)
+        public MemoryCacheTool(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
         }

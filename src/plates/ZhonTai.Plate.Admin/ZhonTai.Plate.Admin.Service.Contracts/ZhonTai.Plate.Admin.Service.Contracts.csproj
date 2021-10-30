@@ -5,6 +5,10 @@
     <RootNamespace>ZhonTai.Plate.Admin.Service</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>F:\zhontai\Admin\src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Mapster" Version="7.2.0" />
 	</ItemGroup>

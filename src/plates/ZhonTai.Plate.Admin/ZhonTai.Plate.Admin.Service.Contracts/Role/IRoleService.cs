@@ -7,18 +7,18 @@ namespace ZhonTai.Plate.Admin.Service.Role
 {
     public interface IRoleService
     {
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> PageAsync(PageInput<RoleEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<RoleEntity> input);
 
-        Task<IResponseOutput> AddAsync(RoleAddInput input);
+        Task<IResultOutput> AddAsync(RoleAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(RoleUpdateInput input);
+        Task<IResultOutput> UpdateAsync(RoleUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
     }
 }

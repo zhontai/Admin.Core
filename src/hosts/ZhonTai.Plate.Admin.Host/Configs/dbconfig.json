@@ -2,7 +2,7 @@
   //监听所有操作
   "monitorCommand": false,
   //监听Curd操作
-  "curd": false,
+  "curd": true,
 
   //建库
   "createDb": false,

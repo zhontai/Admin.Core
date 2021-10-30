@@ -22,7 +22,7 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
             _loginLogRepository = loginLogRepository;
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<LoginLogEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<LoginLogEntity> input)
         {
             var userName = input.Filter?.CreatedUserName;
 
@@ -39,12 +39,12 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput<long>> AddAsync(LoginLogAddInput input)
+        public async Task<IResultOutput<long>> AddAsync(LoginLogAddInput input)
         {
-            var res = new ResponseOutput<long>();
+            var res = new ResultOutput<long>();
 
             input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 

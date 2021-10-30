@@ -7,6 +7,8 @@
   "Tenant": true,
   //Swagger文档
   "swagger": false,
+  //MiniProfiler性能分析器
+  "MiniProfiler": true,
   //统一认证授权服务器
   "IdentityServer": {
     //启用

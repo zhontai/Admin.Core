@@ -25,7 +25,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResultOutput> Get(long id)
         {
             return await _tenantServices.GetAsync(id);
         }
@@ -36,9 +36,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<TenantEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<TenantEntity> model)
         {
-            return await _tenantServices.PageAsync(model);
+            return await _tenantServices.GetPageAsync(model);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Add(TenantAddInput input)
+        public async Task<IResultOutput> Add(TenantAddInput input)
         {
             return await _tenantServices.AddAsync(input);
         }
@@ -58,7 +58,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> Update(TenantUpdateInput input)
+        public async Task<IResultOutput> Update(TenantUpdateInput input)
         {
             return await _tenantServices.UpdateAsync(input);
         }
@@ -69,7 +69,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> Delete(long id)
+        public async Task<IResultOutput> Delete(long id)
         {
             return await _tenantServices.DeleteAsync(id);
         }
@@ -80,7 +80,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _tenantServices.SoftDeleteAsync(id);
         }
@@ -91,7 +91,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
+        public async Task<IResultOutput> BatchSoftDelete(long[] ids)
         {
             return await _tenantServices.BatchSoftDeleteAsync(ids);
         }

@@ -7,6 +7,7 @@ using System;
 using ZhonTai.Plate.Admin.Domain.Tenant.Dtos;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.Dual;
+using StackExchange.Profiling;
 
 namespace ZhonTai.Plate.Admin.Domain
 {
@@ -52,6 +53,18 @@ namespace ZhonTai.Plate.Admin.Domain
             {
                 fsql.Aop.CurdBefore += (s, e) =>
                 {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
+                    }
+                    Console.WriteLine($"{e.Sql}\r\n");
+                };
+                fsql.Aop.CurdAfter += (s, e) =>
+                {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
+                    }
                     Console.WriteLine($"{e.Sql}\r\n");
                 };
             }

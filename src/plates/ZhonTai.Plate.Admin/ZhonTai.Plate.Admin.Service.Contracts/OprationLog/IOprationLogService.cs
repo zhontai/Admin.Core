@@ -7,8 +7,8 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
 {
     public interface IOprationLogService
     {
-        Task<IResponseOutput> PageAsync(PageInput<OprationLogEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<OprationLogEntity> input);
 
-        Task<IResponseOutput> AddAsync(OprationLogAddInput input);
+        Task<IResultOutput> AddAsync(OprationLogAddInput input);
     }
 }

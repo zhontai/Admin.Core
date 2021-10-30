@@ -15,62 +15,62 @@ namespace ZhonTai.Plate.Admin.Service.Api
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
         /// <summary>
         /// 获得列表
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        Task<IResponseOutput> ListAsync(string key);
+        Task<IResultOutput> GetListAsync(string key);
 
         /// <summary>
         /// 获得分页
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<IResponseOutput> PageAsync(PageInput<ApiEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<ApiEntity> model);
 
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<IResponseOutput> AddAsync(ApiAddInput input);
+        Task<IResultOutput> AddAsync(ApiAddInput input);
 
         /// <summary>
         /// 修改
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<IResponseOutput> UpdateAsync(ApiUpdateInput input);
+        Task<IResultOutput> UpdateAsync(ApiUpdateInput input);
 
         /// <summary>
         /// 删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
         /// <summary>
         /// 软删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
         /// <summary>
         /// 批量软删除
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
 
         /// <summary>
         /// 同步
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<IResponseOutput> SyncAsync(ApiSyncInput input);
+        Task<IResultOutput> SyncAsync(ApiSyncInput input);
     }
 }

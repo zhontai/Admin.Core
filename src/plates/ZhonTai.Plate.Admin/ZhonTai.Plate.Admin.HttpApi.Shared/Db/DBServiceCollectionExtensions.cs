@@ -10,6 +10,7 @@ using ZhonTai.Common.Dbs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Plate.Admin.Domain;
 using ZhonTai.Plate.Admin.Domain.Dual;
+using StackExchange.Profiling;
 
 namespace ZhonTai.Plate.Admin.HttpApi.Shared.Db
 {
@@ -103,6 +104,18 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Db
             {
                 fsql.Aop.CurdBefore += (s, e) =>
                 {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
+                    }
+                    Console.WriteLine($"{e.Sql}\r\n");
+                };
+                fsql.Aop.CurdAfter += (s, e) =>
+                {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
+                    }
                     Console.WriteLine($"{e.Sql}\r\n");
                 };
             }

@@ -8,6 +8,11 @@
         public string Token { get; set; }
 
         /// <summary>
+        /// 缓存键
+        /// </summary>
+        public string CaptchaKey { get; set; }
+
+        /// <summary>
         /// 删除缓存
         /// </summary>
         public bool DeleteCache { get; set; } = false;

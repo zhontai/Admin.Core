@@ -25,7 +25,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResultOutput> Get(long id)
         {
             return await _dictionaryService.GetAsync(id);
         }
@@ -36,9 +36,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<DictionaryEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<DictionaryEntity> model)
         {
-            return await _dictionaryService.PageAsync(model);
+            return await _dictionaryService.GetPageAsync(model);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Add(DictionaryAddInput input)
+        public async Task<IResultOutput> Add(DictionaryAddInput input)
         {
             return await _dictionaryService.AddAsync(input);
         }
@@ -58,7 +58,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> Update(DictionaryUpdateInput input)
+        public async Task<IResultOutput> Update(DictionaryUpdateInput input)
         {
             return await _dictionaryService.UpdateAsync(input);
         }
@@ -69,7 +69,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _dictionaryService.SoftDeleteAsync(id);
         }
@@ -80,7 +80,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
+        public async Task<IResultOutput> BatchSoftDelete(long[] ids)
         {
             return await _dictionaryService.BatchSoftDeleteAsync(ids);
         }

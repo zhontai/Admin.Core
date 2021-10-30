@@ -54,7 +54,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Logs
                     ElapsedMilliseconds = sw.ElapsedMilliseconds
                 };
 
-                if (actionExecutedContext.Result is ObjectResult result && result.Value is IResponseOutput res)
+                if (actionExecutedContext.Result is ObjectResult result && result.Value is IResultOutput res)
                 {
                     input.Status = res.Success;
                     input.Msg = res.Msg;

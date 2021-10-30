@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>F:\zhontai\Admin\src\shared\ZhonTai.Common\ZhonTai.Common.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
     <OutputPath></OutputPath>
   </PropertyGroup>

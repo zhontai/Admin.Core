@@ -3,9 +3,9 @@
 namespace ZhonTai.Common.Domain.Dto
 {
     /// <summary>
-    /// 响应数据输出接口
+    /// 结果输出接口
     /// </summary>
-    public interface IResponseOutput
+    public interface IResultOutput
     {
         /// <summary>
         /// 是否成功
@@ -20,10 +20,10 @@ namespace ZhonTai.Common.Domain.Dto
     }
 
     /// <summary>
-    /// 响应数据输出泛型接口
+    /// 泛型结果输出接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IResponseOutput<T> : IResponseOutput
+    public interface IResultOutput<T> : IResultOutput
     {
         /// <summary>
         /// 返回数据

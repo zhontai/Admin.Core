@@ -38,6 +38,8 @@ using ZhonTai.Plate.Admin.HttpApi.Shared.Filters;
 using ZhonTai.Plate.Admin.HttpApi.Shared.Logs;
 using ZhonTai.Plate.Admin.HttpApi.Shared.RegisterModules;
 using MapsterMapper;
+using StackExchange.Profiling;
+using System.IO;
 
 namespace ZhonTai.Plate.Admin.HttpApi.Shared
 {
@@ -227,17 +229,13 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
                     options.ResolveConflictingActions(apiDescription => apiDescription.First());
                     options.CustomSchemaIds(x => x.FullName);
 
-                    //var xmlPath = Path.Combine(basePath, "ZhonTai.Plate.Admin.Host.xml");
-                    //options.IncludeXmlComments(xmlPath, true);
-
-                    //var xmlCommonPath = Path.Combine(basePath, "ZhonTai.Common.xml");
-                    //options.IncludeXmlComments(xmlCommonPath, true);
-
-                    //var xmlModelPath = Path.Combine(basePath, "ZhonTai.Plate.Admin.Domain.xml");
-                    //options.IncludeXmlComments(xmlModelPath);
-
-                    //var xmlServicesPath = Path.Combine(basePath, "ZhonTai.Plate.Admin.Service.xml");
-                    //options.IncludeXmlComments(xmlServicesPath);
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Common.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.Domain.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.Service.Contracts.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.HttpApi.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.Domain.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.Service.Contracts.xml"));
+                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.HttpApi.xml"));
 
                     #region 添加设置Token的按钮
 
@@ -356,12 +354,12 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
             {
                 var csredis = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionString);
                 RedisHelper.Initialization(csredis);
-                services.AddSingleton<ICache, RedisCache>();
+                services.AddSingleton<ICacheTool, RedisCacheTool>();
             }
             else
             {
                 services.AddMemoryCache();
-                services.AddSingleton<ICache, MemoryCache>();
+                services.AddSingleton<ICacheTool, MemoryCacheTool>();
             }
 
             #endregion 缓存
@@ -377,6 +375,12 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
 
             //阻止NLog接收状态消息
             services.Configure<ConsoleLifetimeOptions>(opts => opts.SuppressStatusMessages = true);
+
+            //性能分析
+            if (_appConfig.MiniProfiler)
+            {
+                services.AddMiniProfiler();
+            }
         }
 
         public virtual void ConfigureContainer(ContainerBuilder builder)
@@ -415,10 +419,18 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
                 app.UseIpRateLimiting();
             }
 
+            //性能分析
+            if (_appConfig.MiniProfiler)
+            {
+                app.UseMiniProfiler();
+            }
+
             //异常
             app.UseExceptionHandler("/Error");
 
             //静态文件
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseUploadConfig();
 
             //路由
@@ -442,7 +454,6 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
             #endregion app配置
 
             #region Swagger Api文档
-
             if (_env.IsDevelopment() || _appConfig.Swagger)
             {
                 app.UseSwagger();
@@ -455,6 +466,10 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
                     c.RoutePrefix = "";//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
                     c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
                     //c.DefaultModelsExpandDepth(-1);//不显示Models
+                    if (_appConfig.MiniProfiler)
+                    {
+                        c.InjectJavascript("/swagger/mini-profiler.js?v=4.2.22");
+                    }
                 });
             }
 
@@ -465,6 +480,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
             //var ei = new LogEventInfo(LogLevel.Error, "", "错误信息");
             //ei.Properties["id"] = YitIdHelper.NextId();
             //log.Log(ei);
+
         }
     }
 }

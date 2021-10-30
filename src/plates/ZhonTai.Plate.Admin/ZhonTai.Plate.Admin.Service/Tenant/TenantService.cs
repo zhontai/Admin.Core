@@ -37,13 +37,13 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             _rolePermissionRepository = rolePermissionRepository;
         }
 
-        public async Task<IResponseOutput> GetAsync(long id)
+        public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _tenantRepository.GetAsync<TenantGetOutput>(id);
-            return ResponseOutput.Ok(result);
+            return ResultOutput.Ok(result);
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<TenantEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<TenantEntity> input)
         {
             var key = input.Filter?.Name;
 
@@ -60,11 +60,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> AddAsync(TenantAddInput input)
+        public async Task<IResultOutput> AddAsync(TenantAddInput input)
         {
             var entity = Mapper.Map<TenantEntity>(input);
             var tenant = await _tenantRepository.InsertAsync(entity);
@@ -89,29 +89,29 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             tenant.RoleId = role.Id;
             await _tenantRepository.UpdateAsync(tenant);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
-        public async Task<IResponseOutput> UpdateAsync(TenantUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(TenantUpdateInput input)
         {
             if (!(input?.Id > 0))
             {
-                return ResponseOutput.NotOk();
+                return ResultOutput.NotOk();
             }
 
             var entity = await _tenantRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResponseOutput.NotOk("租户不存在！");
+                return ResultOutput.NotOk("租户不存在！");
             }
 
             Mapper.Map(input, entity);
             await _tenantRepository.UpdateAsync(entity);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> DeleteAsync(long id)
+        public async Task<IResultOutput> DeleteAsync(long id)
         {
             //删除角色权限
             await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
@@ -128,11 +128,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             //删除租户
             await _tenantRepository.DeleteAsync(id);
 
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
 
         [Transaction]
-        public async Task<IResponseOutput> SoftDeleteAsync(long id)
+        public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             //删除用户
             await _userRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
@@ -143,11 +143,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             //删除租户
             var result = await _tenantRepository.SoftDeleteAsync(id);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
 
         [Transaction]
-        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             //删除用户
             await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");
@@ -158,7 +158,7 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             //删除租户
             var result = await _tenantRepository.SoftDeleteAsync(ids);
 
-            return ResponseOutput.Result(result);
+            return ResultOutput.Result(result);
         }
     }
 }

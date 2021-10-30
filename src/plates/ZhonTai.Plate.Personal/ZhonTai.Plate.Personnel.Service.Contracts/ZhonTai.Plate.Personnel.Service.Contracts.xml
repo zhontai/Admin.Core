@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZhonTai.Plate.Personnel.Service.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Employee.IEmployeeService">
+            <summary>
+            员工服务
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.Code">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.OrganizationId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.OrganizationIds">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.PositionId">
+            <summary>
+            职位Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput.EntryTime">
+            <summary>
+            入职时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeGetOutput.OrganizationName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeGetOutput.OrganizationNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeGetOutput.PositionName">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.OrganizationName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.OrganizationNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.PositionName">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Employee.Output.EmployeeListOutput.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Employee.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.PrimaryUserId">
+            <summary>
+            主管
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.EmployeeCount">
+            <summary>
+            员工人数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.ParentId">
+            <summary>
+            父级
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Organization.Output.OrganizationListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.Service.Position.Input.PositionUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Input.PositionUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Personnel.Service.Position.Output.PositionListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+    </members>
+</doc>

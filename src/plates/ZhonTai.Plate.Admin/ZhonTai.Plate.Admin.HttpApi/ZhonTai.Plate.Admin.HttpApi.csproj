@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>F:\zhontai\Admin\src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi\ZhonTai.Plate.Admin.HttpApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ZhonTai.Plate.Admin.HttpApi.Shared\ZhonTai.Plate.Admin.HttpApi.Shared.csproj" />
   </ItemGroup>

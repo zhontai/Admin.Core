@@ -6,7 +6,7 @@ namespace ZhonTai.Tools.Cache
     /// <summary>
     /// 缓存接口
     /// </summary>
-    public interface ICache
+    public interface ICacheTool
     {
         /// <summary>
         /// 用于在 key 存在时删除 key

@@ -20,11 +20,11 @@ namespace ZhonTai.Tools.Captcha
     /// 滑块拼图验证
     /// </summary>
     [SingleInstance]
-    public class SlideJigsawCaptcha : ICaptcha
+    public class SlideJigsawCaptchaTool : ICaptchaTool
     {
-        private readonly ICache _cache;
+        private readonly ICacheTool _cache;
 
-        public SlideJigsawCaptcha(ICache cache)
+        public SlideJigsawCaptchaTool(ICacheTool cache)
         {
             _cache = cache;
         }
@@ -366,7 +366,7 @@ namespace ZhonTai.Tools.Captcha
         /// 获得验证数据
         /// </summary>
         /// <returns>JObject</returns>
-        public async Task<CaptchaOutput> GetAsync()
+        public async Task<CaptchaOutput> GetAsync(string captchaKey)
         {
             //获取网络图片
             //var client = new HttpClient();
@@ -417,7 +417,7 @@ namespace ZhonTai.Tools.Captcha
                 }
             };
 
-            var key = string.Format(CacheKey.VerifyCodeKey, token);
+            var key = string.Format(captchaKey, token);
             await _cache.SetAsync(key, point.X);
 
             return captchaData;
@@ -434,7 +434,7 @@ namespace ZhonTai.Tools.Captcha
             {
                 return false;
             }
-            var key = string.Format(CacheKey.VerifyCodeKey, input.Token);
+            var key = string.Format(input.CaptchaKey, input.Token);
             if (await _cache.ExistsAsync(key))
             {
                 try

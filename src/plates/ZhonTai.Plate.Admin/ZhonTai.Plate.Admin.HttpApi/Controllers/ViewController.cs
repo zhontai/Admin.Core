@@ -25,7 +25,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResultOutput> Get(long id)
         {
             return await _viewService.GetAsync(id);
         }
@@ -36,9 +36,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetList(string key)
+        public async Task<IResultOutput> GetList(string key)
         {
-            return await _viewService.ListAsync(key);
+            return await _viewService.GetListAsync(key);
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="model">分页模型</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<ViewEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<ViewEntity> model)
         {
-            return await _viewService.PageAsync(model);
+            return await _viewService.GetPageAsync(model);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Add(ViewAddInput input)
+        public async Task<IResultOutput> Add(ViewAddInput input)
         {
             return await _viewService.AddAsync(input);
         }
@@ -69,7 +69,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> Update(ViewUpdateInput input)
+        public async Task<IResultOutput> Update(ViewUpdateInput input)
         {
             return await _viewService.UpdateAsync(input);
         }
@@ -80,7 +80,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _viewService.SoftDeleteAsync(id);
         }
@@ -91,7 +91,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
+        public async Task<IResultOutput> BatchSoftDelete(long[] ids)
         {
             return await _viewService.BatchSoftDeleteAsync(ids);
         }
@@ -104,7 +104,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Sync(ViewSyncInput input)
+        public async Task<IResultOutput> Sync(ViewSyncInput input)
         {
             return await _viewService.SyncAsync(input);
         }

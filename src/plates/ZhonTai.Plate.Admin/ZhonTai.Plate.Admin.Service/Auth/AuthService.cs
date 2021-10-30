@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
@@ -12,6 +11,7 @@ using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Service.Auth.Output;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.UserRole;
+using ZhonTai.Plate.Admin.Service.Contracts;
 using ZhonTai.Plate.Admin.Service.Auth.Input;
 
 namespace ZhonTai.Plate.Admin.Service.Auth
@@ -21,28 +21,25 @@ namespace ZhonTai.Plate.Admin.Service.Auth
         private readonly AppConfig _appConfig;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IUserRepository _userRepository;
-        private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly ITenantRepository _tenantRepository;
-        private readonly ICaptcha _captcha;
+        private readonly ICaptchaTool _captchaTool;
 
         public AuthService(
             AppConfig appConfig,
-            VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
             IPermissionRepository permissionRepository,
             ITenantRepository tenantRepository,
-            ICaptcha captcha
+            ICaptchaTool captchaTool
         )
         {
             _appConfig = appConfig;
-            _verifyCodeHelper = verifyCodeHelper;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
             _tenantRepository = tenantRepository;
-            _captcha = captcha;
+            _captchaTool = captchaTool;
         }
 
-        public async Task<IResponseOutput> GetPassWordEncryptKeyAsync()
+        public async Task<IResultOutput> GetPassWordEncryptKeyAsync()
         {
             //写入Redis
             var guid = Guid.NewGuid().ToString("N");
@@ -51,14 +48,14 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
             var data = new { key = guid, encyptKey };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> GetUserInfoAsync()
+        public async Task<IResultOutput> GetUserInfoAsync()
         {
             if (!(User?.Id > 0))
             {
-                return ResponseOutput.NotOk("未登录！");
+                return ResultOutput.NotOk("未登录！");
             }
 
             var authUserInfoOutput = new AuthUserInfoOutput { };
@@ -89,60 +86,20 @@ namespace ZhonTai.Plate.Admin.Service.Auth
                 )
                 .ToListAsync(a => a.Code);
 
-            return ResponseOutput.Ok(authUserInfoOutput);
+            return ResultOutput.Ok(authUserInfoOutput);
         }
 
-        public async Task<IResponseOutput> GetVerifyCodeAsync(string lastKey)
-        {
-            var img = _verifyCodeHelper.GetBase64String(out string code);
-
-            //删除上次缓存的验证码
-            if (lastKey.NotNull())
-            {
-                await Cache.DelAsync(lastKey);
-            }
-
-            //写入Redis
-            var guid = Guid.NewGuid().ToString("N");
-            var key = string.Format(CacheKey.VerifyCodeKey, guid);
-            await Cache.SetAsync(key, code, TimeSpan.FromMinutes(5));
-
-            var data = new AuthGetVerifyCodeOutput { Key = guid, Img = img };
-            return ResponseOutput.Ok(data);
-        }
-
-        public async Task<IResponseOutput> LoginAsync(AuthLoginInput input)
+        public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
         {
             #region 验证码校验
 
             if (_appConfig.VarifyCode.Enable)
             {
-                /*
-                var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
-                var exists = await Cache.ExistsAsync(verifyCodeKey);
-                if (exists)
-                {
-                    var verifyCode = await Cache.GetAsync(verifyCodeKey);
-                    if (string.IsNullOrEmpty(verifyCode))
-                    {
-                        return ResponseOutput.NotOk("验证码已过期！", 1);
-                    }
-                    if (verifyCode.ToLower() != input.VerifyCode.ToLower())
-                    {
-                        return ResponseOutput.NotOk("验证码输入有误！", 2);
-                    }
-                    await Cache.DelAsync(verifyCodeKey);
-                }
-                else
-                {
-                    return ResponseOutput.NotOk("验证码已过期！", 1);
-                }
-                */
                 input.Captcha.DeleteCache = true;
-                var isOk = await _captcha.CheckAsync(input.Captcha);
+                var isOk = await _captchaTool.CheckAsync(input.Captcha);
                 if (!isOk)
                 {
-                    return ResponseOutput.NotOk("安全验证不通过，请重新登录！");
+                    return ResultOutput.NotOk("安全验证不通过，请重新登录！");
                 }
             }
 
@@ -151,11 +108,10 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             UserEntity user = null;
 
             user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a => a.UserName == input.UserName).ToOneAsync();
-            //user = (await _userRepository.GetAsync(a => a.UserName == input.UserName));
 
             if (!(user?.Id > 0))
             {
-                return ResponseOutput.NotOk("账号输入有误!", 3);
+                return ResultOutput.NotOk("账号输入有误!", 3);
             }
 
             #region 解密
@@ -169,14 +125,14 @@ namespace ZhonTai.Plate.Admin.Service.Auth
                     var secretKey = await Cache.GetAsync(passwordEncryptKey);
                     if (secretKey.IsNull())
                     {
-                        return ResponseOutput.NotOk("解密失败！", 1);
+                        return ResultOutput.NotOk("解密失败！", 1);
                     }
                     input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
                     await Cache.DelAsync(passwordEncryptKey);
                 }
                 else
                 {
-                    return ResponseOutput.NotOk("解密失败！", 1);
+                    return ResultOutput.NotOk("解密失败！", 1);
                 }
             }
 
@@ -185,7 +141,7 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             var password = MD5Encrypt.Encrypt32(input.Password);
             if (user.Password != password)
             {
-                return ResponseOutput.NotOk("密码输入有误！", 4);
+                return ResultOutput.NotOk("密码输入有误！", 4);
             }
 
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
@@ -197,7 +153,7 @@ namespace ZhonTai.Plate.Admin.Service.Auth
                 authLoginOutput.DataIsolationType = tenant.DataIsolationType;
             }
 
-            return ResponseOutput.Ok(authLoginOutput);
+            return ResultOutput.Ok(authLoginOutput);
         }
     }
 }

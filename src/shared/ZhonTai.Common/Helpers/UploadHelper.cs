@@ -26,9 +26,9 @@ namespace ZhonTai.Common.Helpers
         /// <param name="args"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<IResponseOutput<FileInfo>> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
+        public async Task<IResultOutput<FileInfo>> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
         {
-            var res = new ResponseOutput<FileInfo>();
+            var res = new ResultOutput<FileInfo>();
 
             if (file == null || file.Length < 1)
             {

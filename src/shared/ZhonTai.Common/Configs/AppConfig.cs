@@ -26,6 +26,11 @@
         public bool Swagger { get; set; } = false;
 
         /// <summary>
+        /// MiniProfiler性能分析器
+        /// </summary>
+        public bool MiniProfiler { get; set; } = false;
+
+        /// <summary>
         /// 统一认证授权服务器
         /// </summary>
         public IdentityServer IdentityServer { get; set; } = new IdentityServer();

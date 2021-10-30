@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ZhonTai.Plate.Personnel.HttpApi</name>
+    </assembly>
+    <members>
+        <member name="T:ZhonTai.Plate.Personnel.HttpApi.Controllers.AreaController">
+            <summary>
+            域控制器
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController">
+            <summary>
+            员工管理
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.Get(System.Int64)">
+            <summary>
+            查询单条员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.GetPage(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Personnel.Domain.Employee.EmployeeEntity})">
+            <summary>
+            查询分页员工
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.Add(ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeAddInput)">
+            <summary>
+            新增员工
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.Update(ZhonTai.Plate.Personnel.Service.Employee.Input.EmployeeUpdateInput)">
+            <summary>
+            修改员工
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.SoftDelete(System.Int64)">
+            <summary>
+            删除员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除员工
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController">
+            <summary>
+            组织架构
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController.Get(System.Int64)">
+            <summary>
+            查询单条组织架构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController.GetList(System.String)">
+            <summary>
+            查询组织架构列表
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController.Add(ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationAddInput)">
+            <summary>
+            新增组织架构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController.Update(ZhonTai.Plate.Personnel.Service.Organization.Input.OrganizationUpdateInput)">
+            <summary>
+            修改组织架构
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.OrganizationController.SoftDelete(System.Int64)">
+            <summary>
+            删除组织架构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController">
+            <summary>
+            职位管理
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.Get(System.Int64)">
+            <summary>
+            查询单条职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.GetPage(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Personnel.Domain.Position.PositionEntity})">
+            <summary>
+            查询分页职位
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.Add(ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput)">
+            <summary>
+            新增职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.Update(ZhonTai.Plate.Personnel.Service.Position.Input.PositionUpdateInput)">
+            <summary>
+            修改职位
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.SoftDelete(System.Int64)">
+            <summary>
+            删除职位
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除职位
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

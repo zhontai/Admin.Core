@@ -38,7 +38,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Filters
                 }
 
                 _logger.LogError(context.Exception, "");
-                var data = ResponseOutput.NotOk(message);
+                var data = ResultOutput.NotOk(message);
                 context.Result = new InternalServerErrorResult(data);
             }
 

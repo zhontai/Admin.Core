@@ -24,7 +24,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> Get(long id)
+        public async Task<IResultOutput> Get(long id)
         {
             return await _organizationService.GetAsync(id);
         }
@@ -35,7 +35,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="key"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetList(string key)
+        public async Task<IResultOutput> GetList(string key)
         {
             return await _organizationService.GetListAsync(key);
         }
@@ -46,7 +46,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Add(OrganizationAddInput input)
+        public async Task<IResultOutput> Add(OrganizationAddInput input)
         {
             return await _organizationService.AddAsync(input);
         }
@@ -57,7 +57,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> Update(OrganizationUpdateInput input)
+        public async Task<IResultOutput> Update(OrganizationUpdateInput input)
         {
             return await _organizationService.UpdateAsync(input);
         }
@@ -68,7 +68,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _organizationService.SoftDeleteAsync(id);
         }

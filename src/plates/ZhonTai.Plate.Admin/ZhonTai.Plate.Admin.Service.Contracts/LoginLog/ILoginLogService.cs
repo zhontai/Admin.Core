@@ -7,8 +7,8 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
 {
     public interface ILoginLogService
     {
-        Task<IResponseOutput> PageAsync(PageInput<LoginLogEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<LoginLogEntity> input);
 
-        Task<IResponseOutput<long>> AddAsync(LoginLogAddInput input);
+        Task<IResultOutput<long>> AddAsync(LoginLogAddInput input);
     }
 }

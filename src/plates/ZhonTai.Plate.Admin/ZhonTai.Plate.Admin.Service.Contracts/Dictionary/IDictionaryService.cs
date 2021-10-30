@@ -7,18 +7,18 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
 {
     public partial interface IDictionaryService
     {
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> PageAsync(PageInput<DictionaryEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<DictionaryEntity> model);
 
-        Task<IResponseOutput> AddAsync(DictionaryAddInput input);
+        Task<IResultOutput> AddAsync(DictionaryAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(DictionaryUpdateInput input);
+        Task<IResultOutput> UpdateAsync(DictionaryUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids);
+        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
     }
 }

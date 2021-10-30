@@ -12,13 +12,13 @@ namespace ZhonTai.Plate.Admin.Service.Cache
         /// »º´æÁÐ±í
         /// </summary>
         /// <returns></returns>
-        IResponseOutput List();
+        IResultOutput GetList();
 
         /// <summary>
         /// Çå³ý»º´æ
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <returns></returns>
-        Task<IResponseOutput> ClearAsync(string cacheKey);
+        Task<IResultOutput> ClearAsync(string cacheKey);
     }
 }

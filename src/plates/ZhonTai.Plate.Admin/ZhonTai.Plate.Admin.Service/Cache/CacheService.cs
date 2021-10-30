@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Domain.Dto;
+using ZhonTai.Plate.Admin.Service.Contracts;
 
 namespace ZhonTai.Plate.Admin.Service.Cache
 {
@@ -15,7 +15,7 @@ namespace ZhonTai.Plate.Admin.Service.Cache
         {
         }
 
-        public IResponseOutput List()
+        public IResultOutput GetList()
         {
             var list = new List<object>();
             var cacheKey = typeof(CacheKey);
@@ -32,14 +32,14 @@ namespace ZhonTai.Plate.Admin.Service.Cache
                 });
             }
 
-            return ResponseOutput.Ok(list);
+            return ResultOutput.Ok(list);
         }
 
-        public async Task<IResponseOutput> ClearAsync(string cacheKey)
+        public async Task<IResultOutput> ClearAsync(string cacheKey)
         {
             Logger.LogWarning($"{User.Id}.{User.Name}清除缓存[{cacheKey}]");
             await Cache.DelByPatternAsync(cacheKey);
-            return ResponseOutput.Ok();
+            return ResultOutput.Ok();
         }
     }
 }

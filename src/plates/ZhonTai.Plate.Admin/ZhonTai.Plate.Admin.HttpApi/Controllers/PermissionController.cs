@@ -27,7 +27,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="end"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
+        public async Task<IResultOutput> GetList(string key, DateTime? start, DateTime? end)
         {
             return await _permissionService.GetListAsync(key, start, end);
         }
@@ -38,7 +38,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetGroup(long id)
+        public async Task<IResultOutput> GetGroup(long id)
         {
             return await _permissionService.GetGroupAsync(id);
         }
@@ -49,7 +49,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetMenu(long id)
+        public async Task<IResultOutput> GetMenu(long id)
         {
             return await _permissionService.GetMenuAsync(id);
         }
@@ -60,7 +60,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetApi(long id)
+        public async Task<IResultOutput> GetApi(long id)
         {
             return await _permissionService.GetApiAsync(id);
         }
@@ -71,7 +71,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetDot(long id)
+        public async Task<IResultOutput> GetDot(long id)
         {
             return await _permissionService.GetDotAsync(id);
         }
@@ -81,7 +81,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetPermissionList()
+        public async Task<IResultOutput> GetPermissionList()
         {
             return await _permissionService.GetPermissionList();
         }
@@ -92,7 +92,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetRolePermissionList(long roleId = 0)
+        public async Task<IResultOutput> GetRolePermissionList(long roleId = 0)
         {
             return await _permissionService.GetRolePermissionList(roleId);
         }
@@ -103,7 +103,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="tenantId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IResponseOutput> GetTenantPermissionList(long tenantId = 0)
+        public async Task<IResultOutput> GetTenantPermissionList(long tenantId = 0)
         {
             return await _permissionService.GetTenantPermissionList(tenantId);
         }
@@ -114,7 +114,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddGroup(PermissionAddGroupInput input)
+        public async Task<IResultOutput> AddGroup(PermissionAddGroupInput input)
         {
             return await _permissionService.AddGroupAsync(input);
         }
@@ -125,7 +125,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddMenu(PermissionAddMenuInput input)
+        public async Task<IResultOutput> AddMenu(PermissionAddMenuInput input)
         {
             return await _permissionService.AddMenuAsync(input);
         }
@@ -136,7 +136,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddApi(PermissionAddApiInput input)
+        public async Task<IResultOutput> AddApi(PermissionAddApiInput input)
         {
             return await _permissionService.AddApiAsync(input);
         }
@@ -147,7 +147,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> AddDot(PermissionAddDotInput input)
+        public async Task<IResultOutput> AddDot(PermissionAddDotInput input)
         {
             return await _permissionService.AddDotAsync(input);
         }
@@ -158,7 +158,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateGroup(PermissionUpdateGroupInput input)
+        public async Task<IResultOutput> UpdateGroup(PermissionUpdateGroupInput input)
         {
             return await _permissionService.UpdateGroupAsync(input);
         }
@@ -169,7 +169,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateMenu(PermissionUpdateMenuInput input)
+        public async Task<IResultOutput> UpdateMenu(PermissionUpdateMenuInput input)
         {
             return await _permissionService.UpdateMenuAsync(input);
         }
@@ -180,7 +180,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateApi(PermissionUpdateApiInput input)
+        public async Task<IResultOutput> UpdateApi(PermissionUpdateApiInput input)
         {
             return await _permissionService.UpdateApiAsync(input);
         }
@@ -191,7 +191,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IResponseOutput> UpdateDot(PermissionUpdateDotInput input)
+        public async Task<IResultOutput> UpdateDot(PermissionUpdateDotInput input)
         {
             return await _permissionService.UpdateDotAsync(input);
         }
@@ -202,7 +202,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> SoftDelete(long id)
+        public async Task<IResultOutput> SoftDelete(long id)
         {
             return await _permissionService.SoftDeleteAsync(id);
         }
@@ -213,7 +213,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IResponseOutput> Delete(long id)
+        public async Task<IResultOutput> Delete(long id)
         {
             return await _permissionService.DeleteAsync(id);
         }
@@ -224,7 +224,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> Assign(PermissionAssignInput input)
+        public async Task<IResultOutput> Assign(PermissionAssignInput input)
         {
             return await _permissionService.AssignAsync(input);
         }
@@ -235,7 +235,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> SaveTenantPermissions(PermissionSaveTenantPermissionsInput input)
+        public async Task<IResultOutput> SaveTenantPermissions(PermissionSaveTenantPermissionsInput input)
         {
             return await _permissionService.SaveTenantPermissionsAsync(input);
         }

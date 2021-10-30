@@ -22,7 +22,7 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
             _oprationLogRepository = oprationLogRepository;
         }
 
-        public async Task<IResponseOutput> PageAsync(PageInput<OprationLogEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<OprationLogEntity> input)
         {
             var userName = input.Filter?.CreatedUserName;
 
@@ -39,10 +39,10 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
                 Total = total
             };
 
-            return ResponseOutput.Ok(data);
+            return ResultOutput.Ok(data);
         }
 
-        public async Task<IResponseOutput> AddAsync(OprationLogAddInput input)
+        public async Task<IResultOutput> AddAsync(OprationLogAddInput input)
         {
             string ua = _context.HttpContext.Request.Headers["User-Agent"];
             var client = UAParser.Parser.GetDefault().Parse(ua);
@@ -59,7 +59,7 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
             var entity = Mapper.Map<OprationLogEntity>(input);
             var id = (await _oprationLogRepository.InsertAsync(entity)).Id;
 
-            return ResponseOutput.Result(id > 0);
+            return ResultOutput.Result(id > 0);
         }
     }
 }

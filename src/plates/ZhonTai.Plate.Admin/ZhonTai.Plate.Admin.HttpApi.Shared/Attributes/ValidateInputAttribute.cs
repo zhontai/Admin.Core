@@ -34,7 +34,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared.Attributes
                    })
                    .Aggregate((x, y) => x + "|" + y);
                     logger.LogError(errors);
-                    context.Result = new JsonResult(ResponseOutput.NotOk(errors));
+                    context.Result = new JsonResult(ResultOutput.NotOk(errors));
                 }
                 catch
                 {

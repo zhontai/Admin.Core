@@ -6,16 +6,16 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
 {
     public partial interface IOrganizationService
     {
-        Task<IResponseOutput> GetAsync(long id);
+        Task<IResultOutput> GetAsync(long id);
 
-        Task<IResponseOutput> GetListAsync(string key);
+        Task<IResultOutput> GetListAsync(string key);
 
-        Task<IResponseOutput> AddAsync(OrganizationAddInput input);
+        Task<IResultOutput> AddAsync(OrganizationAddInput input);
 
-        Task<IResponseOutput> UpdateAsync(OrganizationUpdateInput input);
+        Task<IResultOutput> UpdateAsync(OrganizationUpdateInput input);
 
-        Task<IResponseOutput> DeleteAsync(long id);
+        Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResponseOutput> SoftDeleteAsync(long id);
+        Task<IResultOutput> SoftDeleteAsync(long id);
     }
 }
