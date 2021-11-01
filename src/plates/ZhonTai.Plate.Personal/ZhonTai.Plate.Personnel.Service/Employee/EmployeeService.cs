@@ -82,7 +82,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             //附属部门
             if (input.OrganizationIds != null && input.OrganizationIds.Any())
             {
-                var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity { EmployeeId = employeeId.Value, OrganizationId = organizationId });
+                var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity 
+                { 
+                    EmployeeId = employeeId.Value, 
+                    OrganizationId = organizationId 
+                });
                 await _employeeOrganizationRepository.InsertAsync(organizations);
             }
 
@@ -111,7 +115,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             //附属部门
             if (input.OrganizationIds != null && input.OrganizationIds.Any())
             {
-                var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity { EmployeeId = employee.Id, OrganizationId = organizationId });
+                var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity 
+                { 
+                    EmployeeId = employee.Id, 
+                    OrganizationId = organizationId 
+                });
                 await _employeeOrganizationRepository.InsertAsync(organizations);
             }
 
