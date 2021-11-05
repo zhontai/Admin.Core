@@ -1,5 +1,5 @@
 ﻿
-namespace ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos
+namespace ZhonTai.Plate.Admin.Domain.DictionaryType.Dto
 {
     /// <summary>
     /// 数据字典类型导出

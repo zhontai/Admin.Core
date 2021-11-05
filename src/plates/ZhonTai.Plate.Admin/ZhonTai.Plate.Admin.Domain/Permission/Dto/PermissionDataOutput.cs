@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZhonTai.Plate.Admin.Domain.Permission.Dtos
+namespace ZhonTai.Plate.Admin.Domain.Permission.Dto
 {
     public class PermissionDataOutput
     {

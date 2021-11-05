@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZhonTai.Plate.Admin.Domain.Api.Dtos
+namespace ZhonTai.Plate.Admin.Domain.Api.Dto
 {
     public class ApiDataOutput
     {

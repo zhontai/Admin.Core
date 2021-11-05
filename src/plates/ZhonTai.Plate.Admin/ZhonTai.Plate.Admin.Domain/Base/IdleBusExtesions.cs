@@ -4,7 +4,7 @@ using ZhonTai.Common.Configs;
 using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using ZhonTai.Plate.Admin.Domain.Tenant.Dtos;
+using ZhonTai.Plate.Admin.Domain.Tenant.Dto;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.Dual;
 using StackExchange.Profiling;

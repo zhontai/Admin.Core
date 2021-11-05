@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Plate.Admin.Domain.User.Dtos
+﻿namespace ZhonTai.Plate.Admin.Domain.User.Dto
 {
     /// <summary>
     /// 用户导出

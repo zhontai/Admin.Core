@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZhonTai.Plate.Admin.Domain.View.Dtos
+namespace ZhonTai.Plate.Admin.Domain.View.Dto
 {
     public class ViewDataOutput
     {

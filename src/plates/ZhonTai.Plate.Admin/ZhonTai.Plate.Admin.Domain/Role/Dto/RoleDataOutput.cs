@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Plate.Admin.Domain.Role.Dtos
+﻿namespace ZhonTai.Plate.Admin.Domain.Role.Dto
 {
     /// <summary>
     /// 角色导出
