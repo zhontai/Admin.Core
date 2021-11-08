@@ -13,7 +13,7 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
     {
         Task<ResultOutput<EmployeeGetOutput>> GetAsync(long id);
 
-        Task<IResultOutput> GetPageAsync(PageInput<EmployeeEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput input);
 
         Task<IResultOutput> AddAsync(EmployeeAddInput input);
 

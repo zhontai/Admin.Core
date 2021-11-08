@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.View;
+using ZhonTai.Plate.Admin.Domain.View.Dto;
 using ZhonTai.Plate.Admin.Service.View.Input;
 
 
@@ -20,7 +20,7 @@ namespace ZhonTai.Plate.Admin.Service.View
 
         Task<IResultOutput> GetListAsync(string key);
 
-        Task<IResultOutput> GetPageAsync(PageInput<ViewEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<ViewGetPageDto> model);
 
         Task<IResultOutput> AddAsync(ViewAddInput input);
 

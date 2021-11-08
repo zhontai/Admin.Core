@@ -299,6 +299,11 @@
             排序
             </summary>
         </member>
+        <member name="P:ZhonTai.Plate.Personnel.Domain.Position.Dto.PositionGetPageDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
         <member name="T:ZhonTai.Plate.Personnel.Domain.Position.Output.PositionDataOutput">
             <summary>
             岗位导出

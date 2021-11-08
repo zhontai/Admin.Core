@@ -3,7 +3,7 @@
     /// <summary>
     /// 分页信息输入
     /// </summary>
-    public class PageInput<T>
+    public class PageInput
     {
         /// <summary>
         /// 当前页标
@@ -16,13 +16,20 @@
         public int PageSize { set; get; } = 50;
 
         /// <summary>
-        /// 查询条件
-        /// </summary>
-        public T Filter { get; set; }
-
-        /// <summary>
         /// 高级查询条件
         /// </summary>
         public FreeSql.Internal.Model.DynamicFilterInfo DynamicFilter { get; set; } = null;
+    }
+
+    /// <summary>
+    /// 分页信息输入
+    /// </summary>
+    /// <typeparam name="T">过滤数据</typeparam>
+    public class PageInput<T>: PageInput
+    {
+        /// <summary>
+        /// 查询条件
+        /// </summary>
+        public T Filter { get; set; }
     }
 }

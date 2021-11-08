@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.DictionaryType;
 using ZhonTai.Plate.Admin.Service.DictionaryType.Input;
-using ZhonTai.Plate.Admin.Domain.DictionaryType;
+using ZhonTai.Plate.Admin.Domain.DictionaryType.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi
 {
@@ -33,12 +33,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页数据字典类型
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<DictionaryTypeEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<DictionaryTypeGetPageDto> input)
         {
-            return await _DictionaryTypeService.GetPageAsync(model);
+            return await _DictionaryTypeService.GetPageAsync(input);
         }
 
         /// <summary>

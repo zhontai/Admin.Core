@@ -71,11 +71,10 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页用户
         /// </summary>
-        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
         //[ResponseCache(Duration = 60)]
-        public async Task<IResultOutput> GetPage(PageInput<UserEntity> input)
+        public async Task<IResultOutput> GetPage(PageInput input)
         {
             return await _userService.GetPageAsync(input);
         }

@@ -109,7 +109,7 @@ namespace ZhonTai.Plate.Admin.Service.User
             return result;
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<UserEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput input)
         {
             var list = await _userRepository.Select
             .WhereDynamicFilter(input.DynamicFilter)

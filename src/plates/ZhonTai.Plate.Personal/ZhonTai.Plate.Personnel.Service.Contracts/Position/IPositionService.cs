@@ -1,7 +1,7 @@
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Personnel.Service.Position.Input;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Personnel.Domain.Position;
+using ZhonTai.Plate.Personnel.Domain.Position.Dto;
 
 namespace ZhonTai.Plate.Personnel.Service.Position
 {
@@ -9,7 +9,7 @@ namespace ZhonTai.Plate.Personnel.Service.Position
     {
         Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetPageAsync(PageInput<PositionEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<PositionGetPageDto> input);
 
         Task<IResultOutput> AddAsync(PositionAddInput input);
 

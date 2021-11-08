@@ -11,6 +11,7 @@ using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Tenant.Input;
 using ZhonTai.Plate.Admin.Service.Tenant.Output;
+using ZhonTai.Plate.Admin.Domain.Tenant.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Tenant
 {
@@ -43,7 +44,7 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Ok(result);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<TenantEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input)
         {
             var key = input.Filter?.Name;
 

@@ -509,29 +509,35 @@
             值
             </summary>
         </member>
-        <member name="T:ZhonTai.Common.Domain.Dto.PageInput`1">
+        <member name="T:ZhonTai.Common.Domain.Dto.PageInput">
             <summary>
             分页信息输入
             </summary>
         </member>
-        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.CurrentPage">
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput.CurrentPage">
             <summary>
             当前页标
             </summary>
         </member>
-        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.PageSize">
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput.PageSize">
             <summary>
             每页大小
             </summary>
         </member>
+        <member name="P:ZhonTai.Common.Domain.Dto.PageInput.DynamicFilter">
+            <summary>
+            高级查询条件
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Common.Domain.Dto.PageInput`1">
+            <summary>
+            分页信息输入
+            </summary>
+            <typeparam name="T">过滤数据</typeparam>
+        </member>
         <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.Filter">
             <summary>
             查询条件
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Common.Domain.Dto.PageInput`1.DynamicFilter">
-            <summary>
-            高级查询条件
             </summary>
         </member>
         <member name="T:ZhonTai.Common.Domain.Dto.PageOutput`1">

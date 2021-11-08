@@ -1,7 +1,7 @@
 using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Api
 {
@@ -27,9 +27,9 @@ namespace ZhonTai.Plate.Admin.Service.Api
         /// <summary>
         /// 获得分页
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        Task<IResultOutput> GetPageAsync(PageInput<ApiEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input);
 
         /// <summary>
         /// 添加

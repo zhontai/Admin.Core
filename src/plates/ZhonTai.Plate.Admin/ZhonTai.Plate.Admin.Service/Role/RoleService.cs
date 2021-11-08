@@ -6,6 +6,7 @@ using ZhonTai.Plate.Admin.Domain.Role;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Service.Role.Input;
 using ZhonTai.Plate.Admin.Service.Role.Output;
+using ZhonTai.Plate.Admin.Domain.Role.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Role
 {
@@ -29,7 +30,7 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Ok(result);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<RoleEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input)
         {
             var key = input.Filter?.Name;
 

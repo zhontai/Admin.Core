@@ -5,6 +5,7 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.LoginLog;
 using ZhonTai.Plate.Admin.Service.LoginLog.Output;
 using ZhonTai.Plate.Admin.Service.LoginLog.Input;
+using ZhonTai.Plate.Admin.Domain;
 
 namespace ZhonTai.Plate.Admin.Service.LoginLog
 {
@@ -22,7 +23,7 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
             _loginLogRepository = loginLogRepository;
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<LoginLogEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input)
         {
             var userName = input.Filter?.CreatedUserName;
 

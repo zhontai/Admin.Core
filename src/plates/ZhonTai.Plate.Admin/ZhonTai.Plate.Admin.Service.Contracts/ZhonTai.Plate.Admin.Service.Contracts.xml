@@ -23,11 +23,11 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.GetPageAsync(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Admin.Domain.Api.ApiEntity})">
+        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.GetPageAsync(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Admin.Domain.Api.Dto.ApiGetPageDto})">
             <summary>
             获得分页
             </summary>
-            <param name="model"></param>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.AddAsync(ZhonTai.Plate.Admin.Service.Api.Input.ApiAddInput)">

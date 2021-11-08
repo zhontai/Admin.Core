@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.LoginLog;
+using ZhonTai.Plate.Admin.Domain;
 using ZhonTai.Plate.Admin.Service.LoginLog;
 
 namespace ZhonTai.Plate.Admin.HttpApi
@@ -21,12 +21,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页登录日志
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<LoginLogEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<LogGetPageDto> input)
         {
-            return await _loginLogService.GetPageAsync(model);
+            return await _loginLogService.GetPageAsync(input);
         }
     }
 }

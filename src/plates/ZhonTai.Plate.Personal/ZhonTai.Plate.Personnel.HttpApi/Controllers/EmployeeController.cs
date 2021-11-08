@@ -3,7 +3,6 @@ using ZhonTai.Plate.Personnel.Service.Employee;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Personnel.Service.Employee.Input;
-using ZhonTai.Plate.Personnel.Domain.Employee;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
@@ -38,7 +37,7 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <returns></returns>
         [HttpPost]
         //[ResponseCache(Duration = 60)]
-        public async Task<IResultOutput> GetPage(PageInput<EmployeeEntity> input)
+        public async Task<IResultOutput> GetPage(PageInput input)
         {
             return await _employeeService.GetPageAsync(input);
         }

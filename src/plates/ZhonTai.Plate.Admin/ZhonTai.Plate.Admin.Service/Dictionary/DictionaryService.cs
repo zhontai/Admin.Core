@@ -3,6 +3,7 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Dictionary;
 using ZhonTai.Plate.Admin.Service.Dictionary.Output;
 using ZhonTai.Plate.Admin.Service.Dictionary.Input;
+using ZhonTai.Plate.Admin.Domain.Dictionary.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Dictionary
 {
@@ -21,7 +22,7 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
             return ResultOutput.Ok(result);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryGetPageDto> input)
         {
             var key = input.Filter?.Name;
             var dictionaryTypeId = input.Filter?.DictionaryTypeId;

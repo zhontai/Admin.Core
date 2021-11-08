@@ -1,7 +1,7 @@
 ﻿using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Admin.Domain.Dictionary;
 using ZhonTai.Plate.Admin.Service.Dictionary.Input;
+using ZhonTai.Plate.Admin.Domain.Dictionary.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Dictionary
 {
@@ -9,7 +9,7 @@ namespace ZhonTai.Plate.Admin.Service.Dictionary
     {
         Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetPageAsync(PageInput<DictionaryEntity> model);
+        Task<IResultOutput> GetPageAsync(PageInput<DictionaryGetPageDto> input);
 
         Task<IResultOutput> AddAsync(DictionaryAddInput input);
 

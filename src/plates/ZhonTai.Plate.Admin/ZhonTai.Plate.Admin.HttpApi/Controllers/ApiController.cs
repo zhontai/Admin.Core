@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Api;
-using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi
 {
@@ -44,12 +44,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页接口
         /// </summary>
-        /// <param name="model">分页模型</param>
+        /// <param name="input">分页模型</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<ApiEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<ApiGetPageDto> input)
         {
-            return await _apiService.GetPageAsync(model);
+            return await _apiService.GetPageAsync(input);
         }
 
         /// <summary>

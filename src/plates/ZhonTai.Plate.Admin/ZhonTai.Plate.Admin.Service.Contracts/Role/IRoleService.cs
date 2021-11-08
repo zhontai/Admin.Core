@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.Role;
+using ZhonTai.Plate.Admin.Domain.Role.Dto;
 using ZhonTai.Plate.Admin.Service.Role.Input;
 
 namespace ZhonTai.Plate.Admin.Service.Role
@@ -9,7 +9,7 @@ namespace ZhonTai.Plate.Admin.Service.Role
     {
         Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetPageAsync(PageInput<RoleEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input);
 
         Task<IResultOutput> AddAsync(RoleAddInput input);
 

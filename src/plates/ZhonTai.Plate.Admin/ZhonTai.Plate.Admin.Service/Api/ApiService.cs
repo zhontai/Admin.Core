@@ -6,6 +6,7 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Service.Api.Output;
 using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Api
 {
@@ -33,7 +34,7 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Ok(data);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<ApiEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input)
         {
             var key = input.Filter?.Label;
 

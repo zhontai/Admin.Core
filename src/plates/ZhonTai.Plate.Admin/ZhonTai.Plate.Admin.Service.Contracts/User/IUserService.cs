@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Service.Auth.Output;
 using ZhonTai.Plate.Admin.Service.User.Input;
 using ZhonTai.Plate.Admin.Service.User.Output;
@@ -19,7 +18,7 @@ namespace ZhonTai.Plate.Admin.Service.User
 
         Task<IResultOutput> GetSelectAsync();
 
-        Task<IResultOutput> GetPageAsync(PageInput<UserEntity> input);
+        Task<IResultOutput> GetPageAsync(PageInput input);
 
         Task<IResultOutput> AddAsync(UserAddInput input);
 

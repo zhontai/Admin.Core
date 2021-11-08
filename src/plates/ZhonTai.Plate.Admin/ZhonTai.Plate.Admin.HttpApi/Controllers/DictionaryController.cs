@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.Dictionary;
+using ZhonTai.Plate.Admin.Domain.Dictionary.Dto;
 using ZhonTai.Plate.Admin.Service.Dictionary;
 using ZhonTai.Plate.Admin.Service.Dictionary.Input;
 
@@ -33,12 +33,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页数据字典
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<DictionaryEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<DictionaryGetPageDto> input)
         {
-            return await _dictionaryService.GetPageAsync(model);
+            return await _dictionaryService.GetPageAsync(input);
         }
 
         /// <summary>

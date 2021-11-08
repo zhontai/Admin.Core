@@ -4,6 +4,7 @@ using ZhonTai.Plate.Personnel.Service.Position.Output;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service;
 using ZhonTai.Plate.Personnel.Domain.Position;
+using ZhonTai.Plate.Personnel.Domain.Position.Dto;
 
 namespace ZhonTai.Plate.Personnel.Service.Position
 {
@@ -24,7 +25,7 @@ namespace ZhonTai.Plate.Personnel.Service.Position
             return ResultOutput.Ok(result);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<PositionEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<PositionGetPageDto> input)
         {
             var key = input.Filter?.Name;
 

@@ -3,7 +3,7 @@ using ZhonTai.Plate.Personnel.Service.Position;
 using ZhonTai.Plate.Personnel.Service.Position.Input;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Personnel.Domain.Position;
+using ZhonTai.Plate.Personnel.Domain.Position.Dto;
 
 namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
 {
@@ -33,12 +33,12 @@ namespace ZhonTai.Plate.Personnel.HttpApi.Controllers
         /// <summary>
         /// 查询分页职位
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<PositionEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<PositionGetPageDto> input)
         {
-            return await _positionService.GetPageAsync(model);
+            return await _positionService.GetPageAsync(input);
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return res.Ok(dto);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<EmployeeEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput input)
         {
             var list = await _employeeRepository.Select
             .WhereDynamicFilter(input.DynamicFilter)

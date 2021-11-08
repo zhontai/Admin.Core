@@ -4,66 +4,6 @@
         <name>ZhonTai.Plate.Admin.Domain</name>
     </assembly>
     <members>
-        <member name="T:ZhonTai.Plate.Admin.Domain.LogAbstract">
-            <summary>
-            日志
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.IP">
-            <summary>
-            IP
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Browser">
-            <summary>
-            浏览器
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Os">
-            <summary>
-            操作系统
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Device">
-            <summary>
-            设备
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.BrowserInfo">
-            <summary>
-            浏览器信息
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.ElapsedMilliseconds">
-            <summary>
-            耗时（毫秒）
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Status">
-            <summary>
-            操作状态
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Msg">
-            <summary>
-            操作消息
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Result">
-            <summary>
-            操作结果
-            </summary>
-        </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.Api.ApiEntity">
             <summary>
             接口管理
@@ -109,54 +49,59 @@
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Id">
             <summary>
             接口Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.ParentId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.ParentId">
             <summary>
             父级Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Name">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Name">
             <summary>
             接口命名
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Label">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Label">
             <summary>
             接口名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Path">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Path">
             <summary>
             接口地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.HttpMethods">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.HttpMethods">
             <summary>
             接口提交方法
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Description">
             <summary>
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Sort">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dtos.ApiDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiDataOutput.Enabled">
             <summary>
             启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.Api.Dto.ApiGetPageDto.Label">
+            <summary>
+            接口名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.AppLog.AppLogEntity">
@@ -226,7 +171,7 @@
             <param name="appConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.Domain.IdleBusExtesions.CreateFreeSql(ZhonTai.Common.Auth.IUser,ZhonTai.Common.Configs.AppConfig,ZhonTai.Common.Configs.DbConfig,ZhonTai.Plate.Admin.Domain.Tenant.Dtos.CreateFreeSqlTenantDto)">
+        <member name="M:ZhonTai.Plate.Admin.Domain.IdleBusExtesions.CreateFreeSql(ZhonTai.Common.Auth.IUser,ZhonTai.Common.Configs.AppConfig,ZhonTai.Common.Configs.DbConfig,ZhonTai.Plate.Admin.Domain.Tenant.Dto.CreateFreeSqlTenantDto)">
             <summary>
             创建FreeSql实例
             </summary>
@@ -301,44 +246,49 @@
             排序
             </summary>
         </member>
-        <member name="T:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput">
+        <member name="T:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput">
             <summary>
             数据字典类型导出
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Id">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Name">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Code">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dtos.DictionaryTypeDataOutput.Sort">
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.DictionaryType.Dto.DictionaryTypeGetPageDto.Name">
+            <summary>
+            字典名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.Dictionary.DictionaryEntity">
@@ -391,54 +341,64 @@
             排序
             </summary>
         </member>
-        <member name="T:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput">
+        <member name="T:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput">
             <summary>
             数据字典导出
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Id">
             <summary>
             字典Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.DictionaryTypeId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.DictionaryTypeId">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Name">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Code">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Value">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Value">
             <summary>
             字典值
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dtos.DictionaryDataOutput.Sort">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto.DictionaryTypeId">
+            <summary>
+            字典类型Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto.Name">
+            <summary>
+            字典名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.DocumentImage.DocumentImageEntity">
@@ -541,6 +501,71 @@
             主键Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogGetPageDto.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plate.Admin.Domain.LogAbstract">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.LogAbstract.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.LoginLog.LoginLogEntity">
             <summary>
             操作日志
@@ -596,92 +621,92 @@
             接口
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Id">
             <summary>
             权限Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.ParentId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.ParentId">
             <summary>
             父级节点
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Label">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Label">
             <summary>
             权限名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Code">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Code">
             <summary>
             权限编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Type">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Type">
             <summary>
             权限类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.ViewId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.ViewId">
             <summary>
             视图
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Path">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Path">
             <summary>
             访问地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Icon">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Icon">
             <summary>
             图标
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.ApiPath">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.ApiPath">
             <summary>
             接口路径
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Closable">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Closable">
             <summary>
             可关闭
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Opened">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Opened">
             <summary>
             组打开
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.NewWindow">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.NewWindow">
             <summary>
             打开新窗口
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.External">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.External">
             <summary>
             链接外显
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Hidden">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Hidden">
             <summary>
             隐藏
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Sort">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dtos.PermissionDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Permission.Dto.PermissionDataOutput.Description">
             <summary>
             描述
             </summary>
@@ -811,44 +836,49 @@
             权限
             </summary>
         </member>
-        <member name="T:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput">
+        <member name="T:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput">
             <summary>
             角色导出
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Id">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Name">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Code">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Description">
             <summary>
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dtos.RoleDataOutput.Sort">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleDataOutput.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.Role.Dto.RoleGetPageDto.Name">
+            <summary>
+            名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.Role.RoleEntity">
@@ -911,19 +941,24 @@
             权限
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dtos.CreateFreeSqlTenantDto.DbType">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dto.CreateFreeSqlTenantDto.DbType">
             <summary>
             数据库
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dtos.CreateFreeSqlTenantDto.ConnectionString">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dto.CreateFreeSqlTenantDto.ConnectionString">
             <summary>
             连接字符串
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dtos.CreateFreeSqlTenantDto.IdleTime">
+        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dto.CreateFreeSqlTenantDto.IdleTime">
             <summary>
             空闲时间(分)
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.Tenant.Dto.TenantGetPageDto.Name">
+            <summary>
+            企业名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.Tenant.TenantEntity">
@@ -1016,47 +1051,47 @@
             角色Id
             </summary>
         </member>
-        <member name="T:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput">
+        <member name="T:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput">
             <summary>
             用户导出
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.Id">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.UserName">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.UserName">
             <summary>
             账号
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.Password">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.NickName">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.NickName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.Avatar">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.Avatar">
             <summary>
             头像
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.Status">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.Status">
             <summary>
             状态
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dtos.UserDataOutput.Remark">
+        <member name="P:ZhonTai.Plate.Admin.Domain.User.Dto.UserDataOutput.Remark">
             <summary>
             备注
             </summary>
@@ -1101,44 +1136,49 @@
             备注
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.TenantId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Id">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Id">
             <summary>
             视图Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.ParentId">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.ParentId">
             <summary>
             视图父级
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Name">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Name">
             <summary>
             视图命名
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Label">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Label">
             <summary>
             视图名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Path">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Path">
             <summary>
             视图路径
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Enabled">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dtos.ViewDataOutput.Description">
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewDataOutput.Description">
             <summary>
             说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Plate.Admin.Domain.View.Dto.ViewGetPageDto.Label">
+            <summary>
+            视图名称
             </summary>
         </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.View.ViewEntity">

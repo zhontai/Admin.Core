@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.Role;
+using ZhonTai.Plate.Admin.Domain.Role.Dto;
 using ZhonTai.Plate.Admin.Service.Role;
 using ZhonTai.Plate.Admin.Service.Role.Input;
 
@@ -33,12 +33,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页角色
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<RoleEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<RoleGetPageDto> input)
         {
-            return await _roleService.GetPageAsync(model);
+            return await _roleService.GetPageAsync(input);
         }
 
         /// <summary>

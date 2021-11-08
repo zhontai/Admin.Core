@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Domain.View;
+using ZhonTai.Plate.Admin.Domain.View.Dto;
 using ZhonTai.Plate.Admin.Service.View;
 using ZhonTai.Plate.Admin.Service.View.Input;
 
@@ -44,12 +44,12 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询分页视图
         /// </summary>
-        /// <param name="model">分页模型</param>
+        /// <param name="input">分页模型</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPage(PageInput<ViewEntity> model)
+        public async Task<IResultOutput> GetPage(PageInput<ViewGetPageDto> input)
         {
-            return await _viewService.GetPageAsync(model);
+            return await _viewService.GetPageAsync(input);
         }
 
         /// <summary>

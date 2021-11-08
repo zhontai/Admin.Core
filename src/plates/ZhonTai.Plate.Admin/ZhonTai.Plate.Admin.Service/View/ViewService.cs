@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.View;
+using ZhonTai.Plate.Admin.Domain.View.Dto;
 using ZhonTai.Plate.Admin.Service.View.Input;
 using ZhonTai.Plate.Admin.Service.View.Output;
 
@@ -35,7 +36,7 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Ok(data);
         }
 
-        public async Task<IResultOutput> GetPageAsync(PageInput<ViewEntity> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<ViewGetPageDto> input)
         {
             var key = input.Filter?.Label;
 

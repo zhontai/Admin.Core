@@ -21,7 +21,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.GetPage(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Personnel.Domain.Employee.EmployeeEntity})">
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.EmployeeController.GetPage(ZhonTai.Common.Domain.Dto.PageInput)">
             <summary>
             查询分页员工
             </summary>
@@ -108,11 +108,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.GetPage(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Personnel.Domain.Position.PositionEntity})">
+        <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.GetPage(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Personnel.Domain.Position.Dto.PositionGetPageDto})">
             <summary>
             查询分页职位
             </summary>
-            <param name="model"></param>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Plate.Personnel.HttpApi.Controllers.PositionController.Add(ZhonTai.Plate.Personnel.Service.Position.Input.PositionAddInput)">
