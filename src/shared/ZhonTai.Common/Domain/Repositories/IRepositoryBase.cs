@@ -46,6 +46,7 @@ namespace ZhonTai.Common.Domain.Repositories
         /// <summary>
         /// 软删除
         /// </summary>
+        /// <param name="exp"></param>
         /// <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
         /// <returns></returns>
         Task<bool> SoftDeleteAsync(Expression<Func<TEntity, bool>> exp, params string[] disableGlobalFilterNames);

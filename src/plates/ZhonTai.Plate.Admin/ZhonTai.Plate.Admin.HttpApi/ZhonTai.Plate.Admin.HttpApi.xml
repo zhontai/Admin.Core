@@ -634,7 +634,6 @@
             <summary>
             查询下拉数据
             </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.GetPage(ZhonTai.Common.Domain.Dto.PageInput)">

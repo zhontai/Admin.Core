@@ -66,14 +66,14 @@ namespace ZhonTai.Plate.Admin.Service.User
 
         public async Task<IResultOutput> GetAsync(long id)
         {
-            var entityDto = await _userRepository.Select
+            var entity = await _userRepository.Select
             .WhereDynamic(id)
             .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id }))
-            .ToOneAsync(a => new UserGetOutput { RoleIds = a.Roles.Select(b => b.Id).ToArray() });
+            .ToOneAsync();
 
             var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
 
-            return ResultOutput.Ok(new { Form = entityDto, Select = new { roles } });
+            return ResultOutput.Ok(new { Form = Mapper.Map<UserGetOutput>(entity), Select = new { roles } });
         }
 
         public async Task<IResultOutput> GetSelectAsync()
@@ -117,11 +117,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             .OrderByDescending(true, a => a.Id)
             .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
             .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync(a => new UserListOutput { RoleNames = a.Roles.Select(b=>b.Name).ToArray() });
+            .ToListAsync();
 
             var data = new PageOutput<UserListOutput>()
             {
-                List = list,
+                List = Mapper.Map<List<UserListOutput>>(list),
                 Total = total
             };
 

@@ -132,7 +132,7 @@ namespace ZhonTai.Plate.Admin.Domain
         }
 
         /// <summary>
-        /// 拦截返回结果为Task的方法
+        /// 拦截返回结果
         /// </summary>
         /// <param name="invocation"></param>
         public void InterceptAsynchronous(IInvocation invocation)
@@ -148,7 +148,7 @@ namespace ZhonTai.Plate.Admin.Domain
         }
 
         /// <summary>
-        /// 拦截返回结果为Task<TResult>的方法
+        /// 拦截返回结果
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="invocation"></param>

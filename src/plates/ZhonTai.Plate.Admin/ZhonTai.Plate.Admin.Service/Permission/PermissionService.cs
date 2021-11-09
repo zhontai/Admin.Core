@@ -100,9 +100,9 @@ namespace ZhonTai.Plate.Admin.Service.Permission
             var output = await _permissionRepository.Select
             .WhereDynamic(id)
             .IncludeMany(a => a.Apis.Select(b => new ApiEntity { Id = b.Id }))
-            .ToOneAsync(a => new PermissionGetDotOutput { ApiIds = a.Apis.Select(b => b.Id).ToArray() });
+            .ToOneAsync();
 
-            return ResultOutput.Ok(output);
+            return ResultOutput.Ok(Mapper.Map<PermissionGetDotOutput>(output));
         }
 
         public async Task<IResultOutput> GetListAsync(string key, DateTime? start, DateTime? end)

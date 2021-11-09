@@ -60,7 +60,6 @@ namespace ZhonTai.Plate.Admin.HttpApi
         /// <summary>
         /// 查询下拉数据
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IResultOutput> GetSelect()

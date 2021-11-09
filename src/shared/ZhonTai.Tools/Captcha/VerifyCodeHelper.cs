@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 
-namespace ZhonTai.Common.Helpers
+namespace ZhonTai.Tools.Captcha
 {
     [SingleInstance]
     public class VerifyCodeHelper

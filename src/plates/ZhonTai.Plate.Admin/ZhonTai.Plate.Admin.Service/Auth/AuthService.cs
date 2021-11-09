@@ -96,6 +96,7 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             if (_appConfig.VarifyCode.Enable)
             {
                 input.Captcha.DeleteCache = true;
+                input.Captcha.CaptchaKey = CacheKey.CaptchaKey;
                 var isOk = await _captchaTool.CheckAsync(input.Captcha);
                 if (!isOk)
                 {

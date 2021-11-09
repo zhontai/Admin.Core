@@ -1,6 +1,6 @@
 namespace ZhonTai.Plate.Admin.Domain
 {
-    public abstract class LogGetPageDto
+    public class LogGetPageDto
     {
         /// <summary>
         /// 创建者

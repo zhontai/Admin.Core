@@ -206,11 +206,17 @@
         </member>
         <member name="M:ZhonTai.Plate.Admin.Domain.TransactionAsyncInterceptor.InterceptAsynchronous(Castle.DynamicProxy.IInvocation)">
             <summary>
-            拦截返回结果为Task的方法
+            拦截返回结果
             </summary>
             <param name="invocation"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:ZhonTai.Plate.Admin.Domain.TransactionAsyncInterceptor.InterceptAsynchronous``1(Castle.DynamicProxy.IInvocation)" -->
+        <member name="M:ZhonTai.Plate.Admin.Domain.TransactionAsyncInterceptor.InterceptAsynchronous``1(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            拦截返回结果
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="invocation"></param>
+        </member>
         <member name="T:ZhonTai.Plate.Admin.Domain.DictionaryType.DictionaryTypeEntity">
             <summary>
             数据字典类型
