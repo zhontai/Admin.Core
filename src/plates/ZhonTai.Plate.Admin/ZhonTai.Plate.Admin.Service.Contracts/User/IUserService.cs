@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Service.Auth.Output;
-using ZhonTai.Plate.Admin.Service.User.Input;
-using ZhonTai.Plate.Admin.Service.User.Output;
+using ZhonTai.Plate.Admin.Service.Auth.Dto;
+using ZhonTai.Plate.Admin.Service.User.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.User
 {

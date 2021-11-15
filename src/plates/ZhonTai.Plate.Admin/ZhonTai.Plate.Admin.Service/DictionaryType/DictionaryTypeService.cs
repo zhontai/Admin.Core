@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Service.DictionaryType.Input;
-using ZhonTai.Plate.Admin.Service.DictionaryType.Output;
+using ZhonTai.Plate.Admin.Service.DictionaryType.Dto;
 using ZhonTai.Plate.Admin.Domain.DictionaryType;
 using ZhonTai.Plate.Admin.Domain.Dictionary;
 using ZhonTai.Plate.Admin.Domain.DictionaryType.Dto;
@@ -31,6 +30,7 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             var key = input.Filter?.Name;
 
             var list = await _DictionaryTypeRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

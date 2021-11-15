@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Role.Dto;
 using ZhonTai.Plate.Admin.Service.Role;
-using ZhonTai.Plate.Admin.Service.Role.Input;
+using ZhonTai.Plate.Admin.Service.Role.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi
 {

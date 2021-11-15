@@ -14,9 +14,8 @@ using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Contracts;
-using ZhonTai.Plate.Admin.Service.Auth.Output;
-using ZhonTai.Plate.Admin.Service.User.Input;
-using ZhonTai.Plate.Admin.Service.User.Output;
+using ZhonTai.Plate.Admin.Service.Auth.Dto;
+using ZhonTai.Plate.Admin.Service.User.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.User
 {

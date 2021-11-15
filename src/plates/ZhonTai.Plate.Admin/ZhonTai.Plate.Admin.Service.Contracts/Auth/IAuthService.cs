@@ -1,6 +1,6 @@
 using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Admin.Service.Auth.Input;
+using ZhonTai.Plate.Admin.Service.Auth.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Auth
 {

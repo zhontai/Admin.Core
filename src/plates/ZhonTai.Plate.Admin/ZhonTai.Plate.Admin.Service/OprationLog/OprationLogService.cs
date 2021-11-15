@@ -2,8 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Service.OprationLog.Input;
-using ZhonTai.Plate.Admin.Service.OprationLog.Output;
+using ZhonTai.Plate.Admin.Service.OprationLog.Dto;
 using ZhonTai.Plate.Admin.Domain.OprationLog;
 using ZhonTai.Plate.Admin.Domain;
 
@@ -28,6 +27,7 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
             var userName = input.Filter?.CreatedUserName;
 
             var list = await _oprationLogRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(userName.NotNull(), a => a.CreatedUserName.Contains(userName))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

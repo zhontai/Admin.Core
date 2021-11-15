@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Api;
-using ZhonTai.Plate.Admin.Service.Api.Output;
-using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Api
@@ -39,6 +38,7 @@ namespace ZhonTai.Plate.Admin.Service.Api
             var key = input.Filter?.Label;
 
             var list = await _apiRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

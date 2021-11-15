@@ -1,6 +1,6 @@
 using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Api

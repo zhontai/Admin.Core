@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit;
-using ZhonTai.Plate.Admin.Service.Api.Output;
+using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Plate.Admin.Domain.Api;
-using ZhonTai.Plate.Admin.Service.Api.Input;
+using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Common.Domain.Dto;
 
 namespace ZhonTai.Plate.Admin.Tests.Controller

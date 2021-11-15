@@ -8,11 +8,10 @@ using ZhonTai.Tools.Captcha;
 using ZhonTai.Plate.Admin.Domain.Permission;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.Tenant;
-using ZhonTai.Plate.Admin.Service.Auth.Output;
+using ZhonTai.Plate.Admin.Service.Auth.Dto;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Contracts;
-using ZhonTai.Plate.Admin.Service.Auth.Input;
 
 namespace ZhonTai.Plate.Admin.Service.Auth
 {

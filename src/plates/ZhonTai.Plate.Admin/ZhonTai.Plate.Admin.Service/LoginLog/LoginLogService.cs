@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.LoginLog;
-using ZhonTai.Plate.Admin.Service.LoginLog.Output;
-using ZhonTai.Plate.Admin.Service.LoginLog.Input;
+using ZhonTai.Plate.Admin.Service.LoginLog.Dto;
 using ZhonTai.Plate.Admin.Domain;
 
 namespace ZhonTai.Plate.Admin.Service.LoginLog
@@ -28,6 +27,7 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
             var userName = input.Filter?.CreatedUserName;
 
             var list = await _loginLogRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(userName.NotNull(), a => a.CreatedUserName.Contains(userName))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

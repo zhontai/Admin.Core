@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.OprationLog;
-using ZhonTai.Plate.Admin.Service.OprationLog.Input;
+using ZhonTai.Plate.Admin.Service.OprationLog.Dto;
 
 //using Newtonsoft.Json;
 

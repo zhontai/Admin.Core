@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Tenant.Dto;
-using ZhonTai.Plate.Admin.Service.Tenant.Input;
+using ZhonTai.Plate.Admin.Service.Tenant.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Tenant
 {

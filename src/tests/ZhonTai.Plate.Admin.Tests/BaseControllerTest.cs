@@ -11,7 +11,7 @@ using Xunit;
 using ZhonTai.Common.Configs;
 using ZhonTai.Tools.Captcha;
 using ZhonTai.Tools.Cache;
-using ZhonTai.Plate.Admin.Service.Auth.Input;
+using ZhonTai.Plate.Admin.Service.Auth.Dto;
 using ZhonTai.Plate.Admin.Service.Contracts;
 
 namespace ZhonTai.Plate.Admin.Tests

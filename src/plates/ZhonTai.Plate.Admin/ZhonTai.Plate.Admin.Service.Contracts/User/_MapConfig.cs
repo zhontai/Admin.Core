@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using System.Linq;
 using ZhonTai.Plate.Admin.Domain.User;
-using ZhonTai.Plate.Admin.Service.User.Output;
+using ZhonTai.Plate.Admin.Service.User.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.User
 {

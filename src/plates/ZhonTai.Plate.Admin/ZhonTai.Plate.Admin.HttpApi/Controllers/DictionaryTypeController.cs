@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.DictionaryType;
-using ZhonTai.Plate.Admin.Service.DictionaryType.Input;
+using ZhonTai.Plate.Admin.Service.DictionaryType.Dto;
 using ZhonTai.Plate.Admin.Domain.DictionaryType.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi

@@ -4,8 +4,7 @@ using ZhonTai.Common.Domain.Repositories;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Role;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
-using ZhonTai.Plate.Admin.Service.Role.Input;
-using ZhonTai.Plate.Admin.Service.Role.Output;
+using ZhonTai.Plate.Admin.Service.Role.Dto;
 using ZhonTai.Plate.Admin.Domain.Role.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Role
@@ -35,6 +34,7 @@ namespace ZhonTai.Plate.Admin.Service.Role
             var key = input.Filter?.Name;
 
             var list = await _roleRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

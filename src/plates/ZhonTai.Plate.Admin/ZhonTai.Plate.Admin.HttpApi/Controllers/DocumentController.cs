@@ -6,7 +6,7 @@ using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Document;
-using ZhonTai.Plate.Admin.Service.Document.Input;
+using ZhonTai.Plate.Admin.Service.Document.Dto;
 
 namespace ZhonTai.Plate.Admin.HttpApi
 {

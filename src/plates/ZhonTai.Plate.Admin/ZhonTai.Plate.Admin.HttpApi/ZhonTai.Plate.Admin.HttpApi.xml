@@ -30,14 +30,14 @@
             <param name="input">分页模型</param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Add(ZhonTai.Plate.Admin.Service.Api.Input.ApiAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Add(ZhonTai.Plate.Admin.Service.Api.Dto.ApiAddInput)">
             <summary>
             新增接口
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Update(ZhonTai.Plate.Admin.Service.Api.Input.ApiUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Update(ZhonTai.Plate.Admin.Service.Api.Dto.ApiUpdateInput)">
             <summary>
             修改接口
             </summary>
@@ -58,7 +58,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Sync(ZhonTai.Plate.Admin.Service.Api.Input.ApiSyncInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ApiController.Sync(ZhonTai.Plate.Admin.Service.Api.Dto.ApiSyncInput)">
             <summary>
             同步接口
             支持新增和修改接口
@@ -77,7 +77,7 @@
             授权管理
             </summary>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.AuthController.GetToken(ZhonTai.Common.Domain.Dto.ResultOutput{ZhonTai.Plate.Admin.Service.Auth.Output.AuthLoginOutput})">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.AuthController.GetToken(ZhonTai.Common.Domain.Dto.ResultOutput{ZhonTai.Plate.Admin.Service.Auth.Dto.AuthLoginOutput})">
             <summary>
             获得token
             </summary>
@@ -108,7 +108,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.AuthController.Login(ZhonTai.Plate.Admin.Service.Auth.Input.AuthLoginInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.AuthController.Login(ZhonTai.Plate.Admin.Service.Auth.Dto.AuthLoginInput)">
             <summary>
             用户登录
             根据登录信息生成Token
@@ -161,14 +161,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryController.Add(ZhonTai.Plate.Admin.Service.Dictionary.Input.DictionaryAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryController.Add(ZhonTai.Plate.Admin.Service.Dictionary.Dto.DictionaryAddInput)">
             <summary>
             新增数据字典
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryController.Update(ZhonTai.Plate.Admin.Service.Dictionary.Input.DictionaryUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryController.Update(ZhonTai.Plate.Admin.Service.Dictionary.Dto.DictionaryUpdateInput)">
             <summary>
             修改数据字典
             </summary>
@@ -208,14 +208,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryTypeController.Add(ZhonTai.Plate.Admin.Service.DictionaryType.Input.DictionaryTypeAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryTypeController.Add(ZhonTai.Plate.Admin.Service.DictionaryType.Dto.DictionaryTypeAddInput)">
             <summary>
             新增数据字典类型
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryTypeController.Update(ZhonTai.Plate.Admin.Service.DictionaryType.Input.DictionaryTypeUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DictionaryTypeController.Update(ZhonTai.Plate.Admin.Service.DictionaryType.Dto.DictionaryTypeUpdateInput)">
             <summary>
             修改数据字典类型
             </summary>
@@ -284,35 +284,35 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.AddGroup(ZhonTai.Plate.Admin.Service.Document.Input.DocumentAddGroupInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.AddGroup(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentAddGroupInput)">
             <summary>
             新增分组
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.AddMenu(ZhonTai.Plate.Admin.Service.Document.Input.DocumentAddMenuInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.AddMenu(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentAddMenuInput)">
             <summary>
             新增菜单
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateGroup(ZhonTai.Plate.Admin.Service.Document.Input.DocumentUpdateGroupInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateGroup(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentUpdateGroupInput)">
             <summary>
             修改分组
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateMenu(ZhonTai.Plate.Admin.Service.Document.Input.DocumentUpdateMenuInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateMenu(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentUpdateMenuInput)">
             <summary>
             修改菜单
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateContent(ZhonTai.Plate.Admin.Service.Document.Input.DocumentUpdateContentInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UpdateContent(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentUpdateContentInput)">
             <summary>
             修改文档内容
             </summary>
@@ -334,7 +334,7 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UploadImage(ZhonTai.Plate.Admin.Service.Document.Input.DocumentUploadImageInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.DocumentController.UploadImage(ZhonTai.Plate.Admin.Service.Document.Dto.DocumentUploadImageInput)">
             <summary>
             上传文档图片
             </summary>
@@ -427,56 +427,56 @@
             <param name="tenantId"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddGroup(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionAddGroupInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddGroup(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionAddGroupInput)">
             <summary>
             新增分组
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddMenu(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionAddMenuInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddMenu(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionAddMenuInput)">
             <summary>
             新增菜单
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddApi(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionAddApiInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddApi(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionAddApiInput)">
             <summary>
             新增接口
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddDot(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionAddDotInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.AddDot(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionAddDotInput)">
             <summary>
             新增权限点
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateGroup(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionUpdateGroupInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateGroup(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionUpdateGroupInput)">
             <summary>
             修改分组
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateMenu(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionUpdateMenuInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateMenu(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionUpdateMenuInput)">
             <summary>
             修改菜单
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateApi(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionUpdateApiInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateApi(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionUpdateApiInput)">
             <summary>
             修改接口
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateDot(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionUpdateDotInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.UpdateDot(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionUpdateDotInput)">
             <summary>
             修改权限点
             </summary>
@@ -497,14 +497,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.Assign(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionAssignInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.Assign(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionAssignInput)">
             <summary>
             保存角色权限
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.SaveTenantPermissions(ZhonTai.Plate.Admin.Service.Permission.Input.PermissionSaveTenantPermissionsInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.PermissionController.SaveTenantPermissions(ZhonTai.Plate.Admin.Service.Permission.Dto.PermissionSaveTenantPermissionsInput)">
             <summary>
             保存租户权限
             </summary>
@@ -530,14 +530,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.RoleController.Add(ZhonTai.Plate.Admin.Service.Role.Input.RoleAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.RoleController.Add(ZhonTai.Plate.Admin.Service.Role.Dto.RoleAddInput)">
             <summary>
             新增角色
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.RoleController.Update(ZhonTai.Plate.Admin.Service.Role.Input.RoleUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.RoleController.Update(ZhonTai.Plate.Admin.Service.Role.Dto.RoleUpdateInput)">
             <summary>
             修改角色
             </summary>
@@ -577,14 +577,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.TenantController.Add(ZhonTai.Plate.Admin.Service.Tenant.Input.TenantAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.TenantController.Add(ZhonTai.Plate.Admin.Service.Tenant.Dto.TenantAddInput)">
             <summary>
             新增租户
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.TenantController.Update(ZhonTai.Plate.Admin.Service.Tenant.Input.TenantUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.TenantController.Update(ZhonTai.Plate.Admin.Service.Tenant.Dto.TenantUpdateInput)">
             <summary>
             修改租户
             </summary>
@@ -642,14 +642,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.Add(ZhonTai.Plate.Admin.Service.User.Input.UserAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.Add(ZhonTai.Plate.Admin.Service.User.Dto.UserAddInput)">
             <summary>
             新增用户
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.Update(ZhonTai.Plate.Admin.Service.User.Input.UserUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.Update(ZhonTai.Plate.Admin.Service.User.Dto.UserUpdateInput)">
             <summary>
             修改用户
             </summary>
@@ -670,14 +670,14 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.ChangePassword(ZhonTai.Plate.Admin.Service.User.Input.UserChangePasswordInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.ChangePassword(ZhonTai.Plate.Admin.Service.User.Dto.UserChangePasswordInput)">
             <summary>
             更新用户密码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.UpdateBasic(ZhonTai.Plate.Admin.Service.User.Input.UserUpdateBasicInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.UserController.UpdateBasic(ZhonTai.Plate.Admin.Service.User.Dto.UserUpdateBasicInput)">
             <summary>
             更新用户基本信息
             </summary>
@@ -717,14 +717,14 @@
             <param name="input">分页模型</param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Add(ZhonTai.Plate.Admin.Service.View.Input.ViewAddInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Add(ZhonTai.Plate.Admin.Service.View.Dto.ViewAddInput)">
             <summary>
             新增视图
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Update(ZhonTai.Plate.Admin.Service.View.Input.ViewUpdateInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Update(ZhonTai.Plate.Admin.Service.View.Dto.ViewUpdateInput)">
             <summary>
             修改视图
             </summary>
@@ -745,7 +745,7 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Sync(ZhonTai.Plate.Admin.Service.View.Input.ViewSyncInput)">
+        <member name="M:ZhonTai.Plate.Admin.HttpApi.ViewController.Sync(ZhonTai.Plate.Admin.Service.View.Dto.ViewSyncInput)">
             <summary>
             同步视图
             支持新增和修改视图

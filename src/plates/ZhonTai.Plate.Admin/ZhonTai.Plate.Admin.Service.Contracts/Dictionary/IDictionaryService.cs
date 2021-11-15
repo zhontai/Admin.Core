@@ -1,6 +1,6 @@
 ﻿using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
-using ZhonTai.Plate.Admin.Service.Dictionary.Input;
+using ZhonTai.Plate.Admin.Service.Dictionary.Dto;
 using ZhonTai.Plate.Admin.Domain.Dictionary.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Dictionary

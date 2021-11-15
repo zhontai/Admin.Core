@@ -9,8 +9,7 @@ using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.Tenant;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.UserRole;
-using ZhonTai.Plate.Admin.Service.Tenant.Input;
-using ZhonTai.Plate.Admin.Service.Tenant.Output;
+using ZhonTai.Plate.Admin.Service.Tenant.Dto;
 using ZhonTai.Plate.Admin.Domain.Tenant.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Tenant
@@ -49,6 +48,7 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             var key = input.Filter?.Name;
 
             var list = await _tenantRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)

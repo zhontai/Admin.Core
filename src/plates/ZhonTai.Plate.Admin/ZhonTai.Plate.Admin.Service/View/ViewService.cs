@@ -5,8 +5,7 @@ using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.View;
 using ZhonTai.Plate.Admin.Domain.View.Dto;
-using ZhonTai.Plate.Admin.Service.View.Input;
-using ZhonTai.Plate.Admin.Service.View.Output;
+using ZhonTai.Plate.Admin.Service.View.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.View
 {
@@ -42,6 +41,7 @@ namespace ZhonTai.Plate.Admin.Service.View
 
             long total;
             var list = await _viewRepository.Select
+            .WhereDynamicFilter(input.DynamicFilter)
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .Count(out total)
             .OrderByDescending(true, c => c.Id)

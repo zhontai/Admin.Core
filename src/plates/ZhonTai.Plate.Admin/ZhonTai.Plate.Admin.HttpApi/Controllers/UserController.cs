@@ -8,7 +8,7 @@ using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.User;
-using ZhonTai.Plate.Admin.Service.User.Input;
+using ZhonTai.Plate.Admin.Service.User.Dto;
 using ZhonTai.Plate.Admin.Domain.User;
 
 namespace ZhonTai.Plate.Admin.HttpApi

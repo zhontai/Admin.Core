@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Plate.Admin.Service.Permission.Input;
+using ZhonTai.Plate.Admin.Service.Permission.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Permission
 {

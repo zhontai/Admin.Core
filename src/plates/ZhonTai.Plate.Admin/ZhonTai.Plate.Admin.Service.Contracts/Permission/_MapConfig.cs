@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using System.Linq;
 using ZhonTai.Plate.Admin.Domain.Permission;
-using ZhonTai.Plate.Admin.Service.Permission.Output;
+using ZhonTai.Plate.Admin.Service.Permission.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Admin.Permission
 {
