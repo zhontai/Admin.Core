@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29409.12
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Host", "src\hosts\ZhonTai.Plate.Admin.Host\ZhonTai.Plate.Admin.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
 EndProject
@@ -46,6 +46,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Plate.Admin.Service.Contracts", "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts\ZhonTai.Plate.Admin.Service.Contracts.csproj", "{93F13D77-3A26-4168-A0AA-9DDE96166359}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A1F23C8-24A6-4571-B3DE-D27D024A051D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A6C50476-5236-4FD3-8C29-6449494846C0}"
+	ProjectSection(SolutionItems) = preProject
+		build\common.props = build\common.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <Version>1.8.0</Version>
+	<TargetFramework>net6.0</TargetFramework>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<Authors>xiaoxue</Authors>
+	<Company>xiaoxue</Company>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/zhontai/ZhonTai</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/zhontai/ZhonTai</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>ZhonTai Admin;WebApi</PackageTags>
+  </PropertyGroup>
+</Project>

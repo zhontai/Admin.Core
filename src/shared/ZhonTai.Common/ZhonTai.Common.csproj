@@ -1,18 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.8.0</Version>
-    <Authors>xiaoxue</Authors>
-    <Company>xiaoxue</Company>
-    <Description>中台Admin后端通用库</Description>
-    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/zhontai/ZhonTai</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/zhontai/ZhonTai</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+    <Import Project="$(SolutionDir)\build\common.props"></Import>
+    <PropertyGroup>
+	    <Description>中台Admin后端通用库</Description>
+    </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>F:\zhontai\Admin\src\shared\ZhonTai.Common\ZhonTai.Common.xml</DocumentationFile>
