@@ -29,7 +29,7 @@ namespace Admin.Core.Controllers.Admin
         [HttpGet]
         public async Task<IResponseOutput> GetList(string key, DateTime? start, DateTime? end)
         {
-            return await _permissionService.ListAsync(key, start, end);
+            return await _permissionService.GetListAsync(key, start, end);
         }
 
         /// <summary>
@@ -205,6 +205,17 @@ namespace Admin.Core.Controllers.Admin
         public async Task<IResponseOutput> SoftDelete(long id)
         {
             return await _permissionService.SoftDeleteAsync(id);
+        }
+
+        /// <summary>
+        /// 彻底删除权限
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IResponseOutput> Delete(long id)
+        {
+            return await _permissionService.DeleteAsync(id);
         }
 
         /// <summary>

@@ -45,6 +45,24 @@ namespace Admin.Core.Service.Admin.Permission
             _permissionApiRepository = permissionApiRepository;
         }
 
+        /// <summary>
+        /// 清除权限下关联的用户权限缓存
+        /// </summary>
+        /// <param name="permissionIds"></param>
+        /// <returns></returns>
+        private async Task ClearUserPermissionsAsync(List<long> permissionIds)
+        {
+            var userIds = await _userRoleRepository.Select.Where(a =>
+                _rolePermissionRepository
+                .Where(b => b.RoleId == a.RoleId && permissionIds.Contains(b.PermissionId))
+                .Any()
+            ).ToListAsync(a => a.UserId);
+            foreach (var userId in userIds)
+            {
+                await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+            }
+        }
+
         public async Task<IResponseOutput> GetAsync(long id)
         {
             var result = await _permissionRepository.GetAsync(id);
@@ -82,7 +100,7 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Ok(output);
         }
 
-        public async Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end)
+        public async Task<IResponseOutput> GetListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
             {
@@ -177,6 +195,7 @@ namespace Admin.Core.Service.Admin.Permission
             return ResponseOutput.Result(result);
         }
 
+        [Transaction]
         public async Task<IResponseOutput> UpdateDotAsync(PermissionUpdateDotInput input)
         {
             if (!(input?.Id > 0))
@@ -201,24 +220,48 @@ namespace Admin.Core.Service.Admin.Permission
                 await _permissionApiRepository.InsertAsync(permissionApis);
             }
 
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(new List<long> { entity.Id });
+
             return ResponseOutput.Ok();
         }
 
+        [Transaction]
         public async Task<IResponseOutput> DeleteAsync(long id)
         {
-            var result = false;
-            if (id > 0)
-            {
-                result = (await _permissionRepository.DeleteAsync(m => m.Id == id)) > 0;
-            }
+            //递归查询所有权限点
+            var ids = _permissionRepository.Select
+            .Where(a => a.Id == id)
+            .AsTreeCte()
+            .ToList(a => a.Id);
 
-            return ResponseOutput.Result(result);
+            //删除权限关联接口
+            await _permissionApiRepository.DeleteAsync(a => ids.Contains(a.PermissionId));
+
+            //删除相关权限
+            await _permissionRepository.DeleteAsync(a => ids.Contains(a.Id));
+
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(ids);
+
+            return ResponseOutput.Ok();
         }
 
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
-            var result = await _permissionRepository.SoftDeleteAsync(id);
-            return ResponseOutput.Result(result);
+            //递归查询所有权限点
+            var ids = _permissionRepository.Select
+            .Where(a => a.Id == id)
+            .AsTreeCte()
+            .ToList(a => a.Id);
+
+            //删除权限
+            await _permissionRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
+
+            //清除用户权限缓存
+            await ClearUserPermissionsAsync(ids);
+
+            return ResponseOutput.Ok();
         }
 
         [Transaction]
@@ -249,7 +292,7 @@ namespace Admin.Core.Service.Admin.Permission
             if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
             {
                 var masterDb = ServiceProvider.GetRequiredService<IFreeSql>();
-                var tenantPermissionIds = await masterDb.GetRepository<TenantPermissionEntity>().Select.Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
+                var tenantPermissionIds = await masterDb.GetRepositoryBase<TenantPermissionEntity>().Select.Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
                 insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
             }
 
@@ -292,7 +335,7 @@ namespace Admin.Core.Service.Admin.Permission
             {
                 await _tenantPermissionRepository.DeleteAsync(m => m.TenantId == input.TenantId && deleteIds.Contains(m.PermissionId));
                 //删除租户下关联的角色权限
-                await tenantDb.GetRepository<RolePermissionEntity>().DeleteAsync(a => deleteIds.Contains(a.PermissionId));
+                await tenantDb.GetRepositoryBase<RolePermissionEntity>().DeleteAsync(a => deleteIds.Contains(a.PermissionId));
             }
 
             //批量插入租户权限
@@ -312,7 +355,7 @@ namespace Admin.Core.Service.Admin.Permission
             }
 
             //清除租户下所有用户权限缓存
-            var userIds = await tenantDb.GetRepository<UserEntity>().Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
+            var userIds = await tenantDb.GetRepositoryBase<UserEntity>().Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
             if(userIds.Any())
             {
                 foreach (var userId in userIds)

@@ -44,7 +44,7 @@ namespace Admin.Core.Model.Personnel
         /// <summary>
         /// 性别
         /// </summary>
-        public Sex Sex { get; set; }
+        public Sex? Sex { get; set; }
 
         /// <summary>
         /// 工号
@@ -91,7 +91,7 @@ namespace Admin.Core.Model.Personnel
         /// <summary>
         /// 入职时间
         /// </summary>
-        public DateTime HireDate { get; set; }
+        public DateTime? EntryTime { get; set; }
 
         [Navigate(ManyToMany = typeof(EmployeeOrganizationEntity))]
         public ICollection<OrganizationEntity> Organizations { get; set; }

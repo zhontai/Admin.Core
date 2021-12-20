@@ -20,18 +20,8 @@ namespace Admin.Core.Service.Admin.DictionaryType.Output
         public string Code { get; set; }
 
         /// <summary>
-        /// 描述
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
         /// 启用
         /// </summary>
 		public bool Enabled { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime? CreatedTime { get; set; }
     }
 }

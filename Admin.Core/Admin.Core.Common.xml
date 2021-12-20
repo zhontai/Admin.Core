@@ -795,6 +795,16 @@
             文件格式
             </summary>
         </member>
+        <member name="F:Admin.Core.Common.Consts.AdminConsts.TenantName">
+            <summary>
+            默认租户
+            </summary>
+        </member>
+        <member name="F:Admin.Core.Common.Consts.AdminConsts.AllowAnyPolicyName">
+            <summary>
+            允许所有源访问策略
+            </summary>
+        </member>
         <member name="T:Admin.Core.Common.Dbs.MySqlDb">
             <summary>
             多数据库命名

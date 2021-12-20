@@ -160,6 +160,18 @@
             <param name="lastKey">上次验证码键</param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.GetCaptcha">
+            <summary>
+            获取验证数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.AuthController.CheckCaptcha(Admin.Tools.Captcha.CaptchaInput)">
+            <summary>
+            检查验证数据
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.AuthController.GetPassWordEncryptKey">
             <summary>
             获取密钥
@@ -246,6 +258,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除数据字典
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Controllers.Admin.DictionaryTypeController">
             <summary>
             数据字典类型
@@ -284,6 +303,13 @@
             删除数据字典类型
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.DictionaryTypeController.BatchSoftDelete(System.Int64[])">
+            <summary>
+            批量删除数据字典类型
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:Admin.Core.Controllers.Admin.DocumentController">
@@ -540,6 +566,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Admin.Core.Controllers.Admin.PermissionController.Delete(System.Int64)">
+            <summary>
+            彻底删除权限
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Admin.Core.Controllers.Admin.PermissionController.Assign(Admin.Core.Service.Admin.Permission.Input.PermissionAssignInput)">
             <summary>
             保存角色权限
@@ -669,6 +702,13 @@
         <member name="M:Admin.Core.Controllers.Admin.UserController.Get(System.Int64)">
             <summary>
             查询单条用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Controllers.Admin.UserController.GetSelect">
+            <summary>
+            查询下拉数据
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -809,42 +849,42 @@
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Get(System.Int64)">
             <summary>
-            查询单条用户
+            查询单条员工
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.EmployeeEntity})">
             <summary>
-            查询分页用户
+            查询分页员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Add(Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput)">
             <summary>
-            新增用户
+            新增员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.Update(Admin.Core.Service.Personnel.Employee.Input.EmployeeUpdateInput)">
             <summary>
-            修改用户
+            修改员工
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.SoftDelete(System.Int64)">
             <summary>
-            删除用户
+            删除员工
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.EmployeeController.BatchSoftDelete(System.Int64[])">
             <summary>
-            批量删除用户
+            批量删除员工
             </summary>
             <param name="ids"></param>
             <returns></returns>
@@ -861,11 +901,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetPage(Admin.Core.Common.Input.PageInput{Admin.Core.Model.Personnel.OrganizationEntity})">
+        <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.GetList(System.String)">
             <summary>
-            查询分页组织架构
+            查询组织架构列表
             </summary>
-            <param name="model"></param>
+            <param name="key"></param>
             <returns></returns>
         </member>
         <member name="M:Admin.Core.Controllers.Personnel.OrganizationController.Add(Admin.Core.Service.Personnel.Organization.Input.OrganizationAddInput)">
@@ -1045,6 +1085,32 @@
             <summary>
             操作日志处理
             </summary>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.ControllerModule.#ctor">
+            <summary>
+            控制器注入
+            </summary>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.RepositoryModule.#ctor(System.String,System.String)">
+            <summary>
+            仓储注入
+            </summary>
+            <param name="assemblyName">程序集名称</param>
+            <param name="suffixName">后缀名</param>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.ServiceModule.#ctor(Admin.Core.Common.Configs.AppConfig,System.String,System.String)">
+            <summary>
+            服务注入
+            </summary>
+            <param name="appConfig">AppConfig</param>
+            <param name="assemblyName">程序集名称</param>
+            <param name="suffixName">后缀名</param>
+        </member>
+        <member name="M:Admin.Core.RegisterModules.SingleInstanceModule.#ctor(System.String)">
+            <summary>
+            单例注入
+            </summary>
+            <param name="prefixName">前缀名</param>
         </member>
     </members>
 </doc>

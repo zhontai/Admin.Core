@@ -27,6 +27,8 @@ namespace Admin.Core.Service.Admin.User
         private readonly ITenantRepository _tenantRepository;
         private readonly IApiRepository _apiRepository;
 
+        private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
+
         public UserService(
             AppConfig appConfig,
             IUserRepository userRepository,
@@ -58,17 +60,25 @@ namespace Admin.Core.Service.Admin.User
             return output.Ok(entityDto);
         }
 
-        public async Task<ResponseOutput<UserGetOutput>> GetAsync(long id)
+        public async Task<IResponseOutput> GetAsync(long id)
         {
-            var res = new ResponseOutput<UserGetOutput>();
-
             var entity = await _userRepository.Select
             .WhereDynamic(id)
             .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id }))
             .ToOneAsync();
 
             var entityDto = Mapper.Map<UserGetOutput>(entity);
-            return res.Ok(entityDto);
+
+            var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
+
+            return ResponseOutput.Ok(new { Form = entityDto, Select = new { roles } });
+        }
+
+        public async Task<IResponseOutput> GetSelectAsync()
+        {
+            var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
+
+            return ResponseOutput.Ok(new { Select = new { roles } });
         }
 
         public async Task<IResponseOutput> GetBasicAsync()

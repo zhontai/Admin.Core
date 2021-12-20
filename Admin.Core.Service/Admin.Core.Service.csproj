@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.5.0</Version>
+    <Version>1.7.0</Version>
     <Authors>xiaoxue</Authors>
     <Company>xiaoxue</Company>
     <Description>中台Admin后端服务库</Description>
@@ -34,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Admin.Core.Model\Admin.Core.Model.csproj" />
     <ProjectReference Include="..\Admin.Core.Repository\Admin.Core.Repository.csproj" />
+    <ProjectReference Include="..\Admin.Tools\Admin.Tools.csproj" />
   </ItemGroup>
 
 </Project>

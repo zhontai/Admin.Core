@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Version>1.7.0</Version>
+    <Authors>xiaoxue</Authors>
+    <Description>中台Admin工具库</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/zhontai/Admin.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Admin.Core.Common\Admin.Core.Common.csproj" />
+  </ItemGroup>
+
+</Project>

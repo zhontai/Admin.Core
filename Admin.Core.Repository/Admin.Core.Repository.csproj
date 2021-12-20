@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>1.5.0</Version>
+    <Version>1.7.0</Version>
     <Authors>xiaoxue</Authors>
     <Company>xiaoxue</Company>
     <Description>中台Admin后端仓储库</Description>

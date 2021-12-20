@@ -24,7 +24,7 @@ namespace Admin.Core.Service.Admin.Permission
 
         Task<IResponseOutput> GetTenantPermissionList(long tenantId);
 
-        Task<IResponseOutput> ListAsync(string key, DateTime? start, DateTime? end);
+        Task<IResponseOutput> GetListAsync(string key, DateTime? start, DateTime? end);
 
         Task<IResponseOutput> AddGroupAsync(PermissionAddGroupInput input);
 

@@ -120,18 +120,21 @@ namespace Admin.Core.Service.Admin.View
             //path处理
             foreach (var view in input.Views)
             {
-                view.Path = view.Path?.Trim().ToLower();
+                view.Path = view.Path?.Trim();
             }
 
             //批量插入
             {
-                var inputViews = (from a in input.Views where !paths.Contains(a.Path) || !names.Contains(a.Name) select a).ToList();
+                var inputViews = (from a in input.Views where !(paths.Contains(a.Path) || names.Contains(a.Name)) select a).ToList();
                 if (inputViews.Count > 0)
                 {
                     var insertViews = Mapper.Map<List<ViewEntity>>(inputViews);
                     foreach (var insertView in insertViews)
                     {
-                        insertView.Label = insertView.Name;
+                        if (insertView.Label.IsNull())
+                        {
+                            insertView.Label = insertView.Name;
+                        }
                     }
                     insertViews = await _viewRepository.InsertAsync(insertViews);
                     views.AddRange(insertViews);
@@ -152,7 +155,11 @@ namespace Admin.Core.Service.Admin.View
                         var inputView = input.Views.Where(a => a.Name == view.Name || a.Path == view.Path).FirstOrDefault();
                         if (view.Label.IsNull())
                         {
-                            view.Label = inputView.Name;
+                            view.Label = inputView.Label ?? inputView.Name;
+                        }
+                        if (view.Description.IsNull())
+                        {
+                            view.Description = inputView.Description;
                         }
                         view.Name = inputView.Name;
                         view.Path = inputView.Path;
@@ -172,7 +179,7 @@ namespace Admin.Core.Service.Admin.View
 
                 updateViews.AddRange(disabledViews);
                 await _viewRepository.UpdateDiy.SetSource(updateViews)
-                .UpdateColumns(a => new { a.Label, a.Name, a.Path, a.Enabled })
+                .UpdateColumns(a => new { a.Label, a.Name, a.Path, a.Enabled, a.Description })
                 .ExecuteAffrowsAsync();
             }
             

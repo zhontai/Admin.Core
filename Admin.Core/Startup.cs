@@ -1,9 +1,9 @@
 ﻿using Admin.Core.Aop;
 using Admin.Core.Auth;
-using Admin.Core.Common.Attributes;
 using Admin.Core.Common.Auth;
 using Admin.Core.Common.Cache;
 using Admin.Core.Common.Configs;
+using Admin.Core.Common.Consts;
 
 //using FluentValidation;
 //using FluentValidation.AspNetCore;
@@ -13,6 +13,7 @@ using Admin.Core.Enums;
 using Admin.Core.Extensions;
 using Admin.Core.Filters;
 using Admin.Core.Logs;
+using Admin.Core.RegisterModules;
 using Admin.Core.Repository;
 using AspNetCoreRateLimit;
 using Autofac;
@@ -49,7 +50,7 @@ namespace Admin.Core
         private readonly IHostEnvironment _env;
         private readonly ConfigHelper _configHelper;
         private readonly AppConfig _appConfig;
-        private const string DefaultCorsPolicyName = "Allow";
+        private const string DefaultCorsPolicyName = "AllowPolicy";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
@@ -64,6 +65,7 @@ namespace Admin.Core
             //雪花漂移算法
             YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
 
+            //权限处理
             services.AddScoped<IPermissionHandler, PermissionHandler>();
 
             // ClaimType不被更改
@@ -112,7 +114,8 @@ namespace Admin.Core
             {
                 options.AddPolicy(DefaultCorsPolicyName, policy =>
                 {
-                    if (_appConfig.CorUrls?.Length > 0)
+                    var hasOrigins = _appConfig.CorUrls?.Length > 0;
+                    if (hasOrigins)
                     {
                         policy.WithOrigins(_appConfig.CorUrls);
                     }
@@ -122,8 +125,21 @@ namespace Admin.Core
                     }
                     policy
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
+
+                    if (hasOrigins)
+                    {
+                        policy.AllowCredentials();
+                    }
+                });
+
+                //允许任何源访问Api策略，使用时在控制器或者接口上增加特性[EnableCors(AdminConsts.AllowAnyPolicyName)]
+                options.AddPolicy(AdminConsts.AllowAnyPolicyName, policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 });
 
                 /*
@@ -134,8 +150,7 @@ namespace Admin.Core
                     .AllowAnyOrigin()
                     .SetPreflightMaxAge(new TimeSpan(0, 10, 0))
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
                 });
                 */
             });
@@ -207,6 +222,9 @@ namespace Admin.Core
                         });
                         //c.OrderActionsBy(o => o.RelativePath);
                     });
+
+                    options.ResolveConflictingActions(apiDescription => apiDescription.First());
+                    options.CustomSchemaIds(x => x.FullName);
 
                     var xmlPath = Path.Combine(basePath, "Admin.Core.xml");
                     options.IncludeXmlComments(xmlPath, true);
@@ -326,7 +344,8 @@ namespace Admin.Core
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 //设置时间格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            });
+            })
+            .AddControllersAsServices();
 
             #endregion 控制器
 
@@ -366,59 +385,17 @@ namespace Admin.Core
 
             try
             {
-                #region SingleInstance
+                // 控制器注入
+                builder.RegisterModule(new ControllerModule());
 
-                //无接口注入单例
-                var assemblyCore = Assembly.Load("Admin.Core");
-                var assemblyCommon = Assembly.Load("Admin.Core.Common");
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
-                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .SingleInstance();
+                // 单例注入
+                builder.RegisterModule(new SingleInstanceModule());
 
-                //有接口注入单例
-                builder.RegisterAssemblyTypes(assemblyCore, assemblyCommon)
-                .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
-                .AsImplementedInterfaces()
-                .SingleInstance();
+                // 仓储注入
+                builder.RegisterModule(new RepositoryModule());
 
-                #endregion SingleInstance
-
-                #region Aop
-
-                var interceptorServiceTypes = new List<Type>();
-                if (_appConfig.Aop.Transaction)
-                {
-                    builder.RegisterType<TransactionInterceptor>();
-                    builder.RegisterType<TransactionAsyncInterceptor>();
-                    interceptorServiceTypes.Add(typeof(TransactionInterceptor));
-                }
-
-                #endregion Aop
-
-                #region Repository
-                var assemblyRepository = Assembly.Load("Admin.Core.Repository");
-                builder.RegisterAssemblyTypes(assemblyRepository)
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .PropertiesAutowired();// 属性注入
-
-
-                //泛型注入
-                builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope();
-                builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope();
-                #endregion Repository
-
-                #region Service
-
-                var assemblyServices = Assembly.Load("Admin.Core.Service");
-                builder.RegisterAssemblyTypes(assemblyServices)
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope()
-                .PropertiesAutowired()// 属性注入
-                .InterceptedBy(interceptorServiceTypes.ToArray())
-                .EnableInterfaceInterceptors();
-
-                #endregion Service
+                // 服务注入
+                builder.RegisterModule(new ServiceModule(_appConfig));
             }
             catch (Exception ex)
             {
@@ -438,9 +415,6 @@ namespace Admin.Core
                 app.UseIpRateLimiting();
             }
 
-            //跨域
-            app.UseCors(DefaultCorsPolicyName);
-
             //异常
             app.UseExceptionHandler("/Error");
 
@@ -449,6 +423,9 @@ namespace Admin.Core
 
             //路由
             app.UseRouting();
+
+            //跨域
+            app.UseCors(DefaultCorsPolicyName);
 
             //认证
             app.UseAuthentication();

@@ -10,7 +10,7 @@ namespace Admin.Core.Service.Personnel.Organization
     {
         Task<IResponseOutput> GetAsync(long id);
 
-        Task<IResponseOutput> PageAsync(PageInput<OrganizationEntity> model);
+        Task<IResponseOutput> GetListAsync(string key);
 
         Task<IResponseOutput> AddAsync(OrganizationAddInput input);
 

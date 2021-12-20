@@ -6,9 +6,9 @@
     public class DictionaryAddInput
     {
         /// <summary>
-        /// 字典父级
+        /// 字典类型Id
         /// </summary>
-		public long ParentId { get; set; }
+        public long DictionaryTypeId { get; set; }
 
         /// <summary>
         /// 字典名称

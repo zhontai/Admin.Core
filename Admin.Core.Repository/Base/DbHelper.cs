@@ -258,7 +258,7 @@ namespace Admin.Core.Repository
             System.Data.Common.DbTransaction tran,
             T[] data,
             DbConfig dbConfig = null
-        ) where T : class
+        ) where T : class, new()
         {
             var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;
             var tableName = table.Name;
@@ -277,7 +277,7 @@ namespace Admin.Core.Repository
                     return;
                 }
 
-                var repo = db.GetRepository<T>();
+                var repo = db.GetRepositoryBase<T>();
                 var insert = db.Insert<T>();
                 if (unitOfWork != null)
                 {
@@ -406,7 +406,7 @@ namespace Admin.Core.Repository
                 using (var uow = db.CreateUnitOfWork())
                 using (var tran = uow.GetOrBeginTransaction())
                 {
-                    var dualRepo = db.GetRepository<DualEntity>();
+                    var dualRepo = db.GetRepositoryBase<DualEntity>();
                     dualRepo.UnitOfWork = uow;
                     if (!await dualRepo.Select.AnyAsync())
                     {
@@ -414,7 +414,8 @@ namespace Admin.Core.Repository
                     }
 
                     //admin
-                    //await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.DictionaryTypes, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Dictionaries, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ApiTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.ViewTree, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.PermissionTree, dbConfig);
@@ -427,7 +428,9 @@ namespace Admin.Core.Repository
                     await InitDtDataAsync(db, uow, tran, data.PermissionApis, dbConfig);
 
                     //人事
+                    await InitDtDataAsync(db, uow, tran, data.Positions, dbConfig);
                     await InitDtDataAsync(db, uow, tran, data.OrganizationTree, dbConfig);
+                    await InitDtDataAsync(db, uow, tran, data.Employees, dbConfig);
 
                     uow.Commit();
                 }
@@ -455,20 +458,13 @@ namespace Admin.Core.Repository
                 Console.WriteLine("\r\n generate data started");
 
                 #region 数据表
+
+
                 //admin
                 #region 数据字典
-
-                //var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync(a => new
-                //{
-                //    a.TenantId,
-                //    a.Id,
-                //    a.ParentId,
-                //    a.Name,
-                //    a.Code,
-                //    a.Value,
-                //    a.Description,
-                //    a.Sort
-                //});
+                
+                var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
+                var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
 
                 #endregion
 
@@ -531,31 +527,13 @@ namespace Admin.Core.Repository
 
                 #region 用户
 
-                var users = await db.Queryable<UserEntity>().ToListAsync(a => new
-                {
-                    a.TenantId,
-                    a.Id,
-                    a.UserName,
-                    a.Password,
-                    a.NickName,
-                    a.Avatar,
-                    a.Status,
-                    a.Remark
-                });
+                var users = await db.Queryable<UserEntity>().ToListAsync<UserDataOutput>();
 
                 #endregion
 
                 #region 角色
 
-                var roles = await db.Queryable<RoleEntity>().ToListAsync(a => new
-                {
-                    a.TenantId,
-                    a.Id,
-                    a.Name,
-                    a.Code,
-                    a.Sort,
-                    a.Description
-                });
+                var roles = await db.Queryable<RoleEntity>().ToListAsync<RoleDataOutput>();
 
                 #endregion
 
@@ -626,7 +604,7 @@ namespace Admin.Core.Repository
                 #endregion
 
                 //人事
-                #region 组织机构
+                #region 部门
 
                 var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
                 var organizationTree = organizations.ToTree((r, c) =>
@@ -645,6 +623,17 @@ namespace Admin.Core.Repository
 
                 #endregion
 
+                #region 岗位
+
+                var positions = await db.Queryable<PositionEntity>().ToListAsync<PositionDataOutput>();
+
+                #endregion
+
+                #region 员工
+
+                var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
+
+                #endregion
                 #endregion
 
                 if (!(users?.Count > 0))
@@ -653,14 +642,14 @@ namespace Admin.Core.Repository
                 }
 
                 #region 生成数据
-
                 var settings = new JsonSerializerSettings();
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.NullValueHandling = NullValueHandling.Ignore;
                 settings.DefaultValueHandling = DefaultValueHandling.Ignore;
                 var jsonData = JsonConvert.SerializeObject(new
                 {
-                    //dictionaries,
+                    dictionaries,
+                    dictionaryTypes,
                     apis,
                     apiTree,
                     viewTree,
@@ -672,16 +661,58 @@ namespace Admin.Core.Repository
                     tenants,
                     tenantPermissions,
                     permissionApis,
-                    //organizationTree
+                    organizationTree,
+                    positions,
+                    employees
                 },
                 //Formatting.Indented,
                 settings
                 );
-
-                var fileName = appConfig.Tenant ? "data-share.json" : "data.json";
+                
+                var isTenant = appConfig.Tenant;
+                var fileName = isTenant ? "data-share.json" : "data.json";
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"Db/Data/{fileName}").ToPath();
                 FileHelper.WriteFile(filePath, jsonData);
 
+                if (isTenant)
+                {
+                    var tenantId = tenants.Where(a => a.Code.ToLower() == "zhontai").FirstOrDefault().Id;
+                    organizationTree = organizations.Where(a => a.TenantId == tenantId).ToList().ToTree((r, c) =>
+                    {
+                        return c.ParentId == 0;
+                    },
+                    (r, c) =>
+                    {
+                        return r.Id == c.ParentId;
+                    },
+                    (r, datalist) =>
+                    {
+                        r.Childs ??= new List<OrganizationDataOutput>();
+                        r.Childs.AddRange(datalist);
+                    });
+
+                    jsonData = JsonConvert.SerializeObject(new
+                    {
+                        dictionaries = dictionaries.Where(a=>a.TenantId == tenantId),
+                        dictionaryTypes = dictionaryTypes.Where(a => a.TenantId == tenantId),
+                        apis,
+                        apiTree,
+                        viewTree,
+                        permissionTree,
+                        users = users.Where(a => a.TenantId == tenantId),
+                        roles = roles.Where(a => a.TenantId == tenantId),
+                        userRoles,
+                        rolePermissions,
+                        tenants,
+                        tenantPermissions,
+                        permissionApis,
+                        organizationTree
+                    },
+                    settings
+                    );
+                    filePath = Path.Combine(Directory.GetCurrentDirectory(), "Db/Data/data.json").ToPath();
+                    FileHelper.WriteFile(filePath, jsonData);
+                }
                 #endregion
 
                 Console.WriteLine(" generate data succeed\r\n");

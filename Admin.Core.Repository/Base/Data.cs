@@ -8,7 +8,8 @@ namespace Admin.Core.Repository
     /// </summary>
     public class Data
     {
-        //public DictionaryEntity[] Dictionaries { get; set; }
+        public DictionaryTypeEntity[] DictionaryTypes { get; set; }
+        public DictionaryEntity[] Dictionaries { get; set; }
         public ApiEntity[] Apis { get; set; }
         public ApiEntity[] ApiTree { get; set; }
         public ViewEntity[] ViewTree { get; set; }
@@ -21,6 +22,8 @@ namespace Admin.Core.Repository
         public TenantPermissionEntity[] TenantPermissions { get; set; }
         public PermissionApiEntity[] PermissionApis { get; set; }
 
+        public PositionEntity[] Positions { get; set; }
         public OrganizationEntity[] OrganizationTree { get; set; }
+        public EmployeeEntity[] Employees { get; set; }
     }
 }

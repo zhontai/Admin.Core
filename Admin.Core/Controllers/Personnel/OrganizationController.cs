@@ -1,6 +1,4 @@
-﻿using Admin.Core.Common.Input;
-using Admin.Core.Common.Output;
-using Admin.Core.Model.Personnel;
+﻿using Admin.Core.Common.Output;
 using Admin.Core.Service.Personnel.Organization;
 using Admin.Core.Service.Personnel.Organization.Input;
 using Microsoft.AspNetCore.Mvc;
@@ -32,14 +30,14 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询分页组织架构
+        /// 查询组织架构列表
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResponseOutput> GetPage(PageInput<OrganizationEntity> model)
+        public async Task<IResponseOutput> GetList(string key)
         {
-            return await _organizationService.PageAsync(model);
+            return await _organizationService.GetListAsync(key);
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using Admin.Core.Model.Admin;
 using Admin.Core.Repository.Admin;
 using Admin.Core.Service.Admin.Auth.Input;
 using Admin.Core.Service.Admin.Auth.Output;
+using Admin.Tools.Captcha;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +20,15 @@ namespace Admin.Core.Service.Admin.Auth
         private readonly IUserRepository _userRepository;
         private readonly VerifyCodeHelper _verifyCodeHelper;
         private readonly ITenantRepository _tenantRepository;
+        private readonly ICaptcha _captcha;
 
         public AuthService(
             AppConfig appConfig,
             VerifyCodeHelper verifyCodeHelper,
             IUserRepository userRepository,
             IPermissionRepository permissionRepository,
-            ITenantRepository tenantRepository
+            ITenantRepository tenantRepository,
+            ICaptcha captcha
         )
         {
             _appConfig = appConfig;
@@ -33,6 +36,7 @@ namespace Admin.Core.Service.Admin.Auth
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
             _tenantRepository = tenantRepository;
+            _captcha = captcha;
         }
 
         public async Task<IResponseOutput> GetPassWordEncryptKeyAsync()
@@ -110,6 +114,7 @@ namespace Admin.Core.Service.Admin.Auth
 
             if (_appConfig.VarifyCode.Enable)
             {
+                /*
                 var verifyCodeKey = string.Format(CacheKey.VerifyCodeKey, input.VerifyCodeKey);
                 var exists = await Cache.ExistsAsync(verifyCodeKey);
                 if (exists)
@@ -128,6 +133,13 @@ namespace Admin.Core.Service.Admin.Auth
                 else
                 {
                     return ResponseOutput.NotOk("验证码已过期！", 1);
+                }
+                */
+                input.Captcha.DeleteCache = true;
+                var isOk = await _captcha.CheckAsync(input.Captcha);
+                if (!isOk)
+                {
+                    return ResponseOutput.NotOk("安全验证不通过，请重新登录！");
                 }
             }
 

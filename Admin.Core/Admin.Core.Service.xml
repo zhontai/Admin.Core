@@ -232,6 +232,11 @@
             验证码键
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.Auth.Input.AuthLoginInput.Captcha">
+            <summary>
+            验证数据
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Admin.Auth.Output.AuthGetVerifyCodeOutput.Key">
             <summary>
             缓存键
@@ -435,19 +440,9 @@
             字典编码
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.Enabled">
             <summary>
             启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.DictionaryType.Output.DictionaryTypeListOutput.CreatedTime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.DictionaryType.MapConfig">
@@ -460,9 +455,9 @@
             添加
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.ParentId">
+        <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.DictionaryTypeId">
             <summary>
-            字典父级
+            字典类型Id
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Input.DictionaryAddInput.Name">
@@ -510,11 +505,6 @@
             主键Id
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.ParentId">
-            <summary>
-            字典父级
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Name">
             <summary>
             字典名称
@@ -530,19 +520,9 @@
             字典值
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.Enabled">
             <summary>
             启用
-            </summary>
-        </member>
-        <member name="P:Admin.Core.Service.Admin.Dictionary.Output.DictionaryListOutput.CreatedTime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="T:Admin.Core.Service.Admin.Dictionary.MapConfig">
@@ -1260,6 +1240,13 @@
             启用
             </summary>
         </member>
+        <member name="M:Admin.Core.Service.Admin.Permission.PermissionService.ClearUserPermissionsAsync(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            清除权限下关联的用户权限缓存
+            </summary>
+            <param name="permissionIds"></param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Service.Admin.Permission.MapConfig">
             <summary>
             映射配置
@@ -1736,6 +1723,21 @@
             地址
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Label">
+            <summary>
+            视图名称
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Admin.View.Input.ViewSyncDto.Cache">
+            <summary>
+            缓存
+            </summary>
+        </member>
         <member name="T:Admin.Core.Service.Admin.View.Input.ViewUpdateInput">
             <summary>
             修改
@@ -1828,6 +1830,20 @@
             日志
             </summary>
         </member>
+        <member name="M:Admin.Core.Service.BaseService.LazyGetRequiredService``1">
+            <summary>
+            获得懒加载服务
+            </summary>
+            <typeparam name="TService">服务接口</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.Core.Service.BaseService.LazyGetRequiredService(System.Type)">
+            <summary>
+            根据服务类型获得懒加载服务
+            </summary>
+            <param name="serviceType">服务类型</param>
+            <returns></returns>
+        </member>
         <member name="T:Admin.Core.Service.Personnel.Employee.EmployeeService">
             <summary>
             员工服务
@@ -1893,7 +1909,7 @@
             邮箱
             </summary>
         </member>
-        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.HireDate">
+        <member name="P:Admin.Core.Service.Personnel.Employee.Input.EmployeeAddInput.EntryTime">
             <summary>
             入职时间
             </summary>
@@ -1913,6 +1929,21 @@
             版本
             </summary>
         </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.OrganizationName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.OrganizationNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeGetOutput.PositionName">
+            <summary>
+            职位
+            </summary>
+        </member>
         <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Id">
             <summary>
             主键Id
@@ -1921,6 +1952,11 @@
         <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.Name">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.NickName">
+            <summary>
+            昵称
             </summary>
         </member>
         <member name="P:Admin.Core.Service.Personnel.Employee.Output.EmployeeListOutput.UserName">

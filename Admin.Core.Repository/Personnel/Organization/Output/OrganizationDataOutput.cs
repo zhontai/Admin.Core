@@ -3,7 +3,7 @@
 namespace Admin.Core.Repository.Personnel.Output
 {
     /// <summary>
-    /// 组织机构数据导出
+    /// 组织机构导出
     /// </summary>
     public class OrganizationDataOutput
     {
@@ -18,7 +18,7 @@ namespace Admin.Core.Repository.Personnel.Output
         public long Id { get; set; }
 
         /// <summary>
-        /// 接口父级
+        /// 上级组织机构
         /// </summary>
         public long? ParentId { get; set; }
 

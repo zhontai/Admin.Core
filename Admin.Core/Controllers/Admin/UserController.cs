@@ -59,6 +59,17 @@ namespace Admin.Core.Controllers.Admin
         }
 
         /// <summary>
+        /// 查询下拉数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IResponseOutput> GetSelect()
+        {
+            return await _userService.GetSelectAsync();
+        }
+
+        /// <summary>
         /// 查询分页用户
         /// </summary>
         /// <param name="input"></param>

@@ -26,8 +26,9 @@ namespace Admin.Core.Service.Admin.Dictionary
         public async Task<IResponseOutput> PageAsync(PageInput<DictionaryEntity> input)
         {
             var key = input.Filter?.Name;
-
+            var dictionaryTypeId = input.Filter?.DictionaryTypeId;
             var list = await _dictionaryRepository.Select
+            .WhereIf(dictionaryTypeId.HasValue && dictionaryTypeId.Value > 0, a => a.DictionaryTypeId == dictionaryTypeId)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)
@@ -82,6 +83,13 @@ namespace Admin.Core.Service.Admin.Dictionary
         public async Task<IResponseOutput> SoftDeleteAsync(long id)
         {
             var result = await _dictionaryRepository.SoftDeleteAsync(id);
+
+            return ResponseOutput.Result(result);
+        }
+
+        public async Task<IResponseOutput> BatchSoftDeleteAsync(long[] ids)
+        {
+            var result = await _dictionaryRepository.SoftDeleteAsync(ids);
 
             return ResponseOutput.Result(result);
         }

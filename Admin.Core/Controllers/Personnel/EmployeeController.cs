@@ -21,7 +21,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询单条用户
+        /// 查询单条员工
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -32,7 +32,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 查询分页用户
+        /// 查询分页员工
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -44,7 +44,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 新增用户
+        /// 新增员工
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 修改用户
+        /// 修改员工
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -66,7 +66,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 删除用户
+        /// 删除员工
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -77,7 +77,7 @@ namespace Admin.Core.Controllers.Personnel
         }
 
         /// <summary>
-        /// 批量删除用户
+        /// 批量删除员工
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>

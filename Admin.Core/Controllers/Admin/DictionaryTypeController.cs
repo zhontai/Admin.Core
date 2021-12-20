@@ -74,5 +74,16 @@ namespace Admin.Core.Controllers.Admin
         {
             return await _DictionaryTypeService.SoftDeleteAsync(id);
         }
+
+        /// <summary>
+        /// 批量删除数据字典类型
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IResponseOutput> BatchSoftDelete(long[] ids)
+        {
+            return await _DictionaryTypeService.BatchSoftDeleteAsync(ids);
+        }
     }
 }

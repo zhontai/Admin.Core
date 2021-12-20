@@ -13,6 +13,7 @@ namespace Admin.Core.Repository
         public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
         {
         }
+        public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter, Func<string, string> asTable = null) : base(fsql, filter, asTable) { }
 
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
