@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    </PropertyGroup>
+	<PropertyGroup>
+		<Description>中台Admin后端Admin接口共享库</Description>
+	</PropertyGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />

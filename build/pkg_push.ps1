@@ -39,12 +39,15 @@ Remove-Item "$nuGetOutputFolder/*" -recurse
 $projects = (
     "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Domain",
     "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi",
+	"src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi.Shared",
     "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Repository",
     "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service",
+	"src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Domain",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.HttpApi",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Repository",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service",
+    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service.Contracts",
     "src\shared\ZhonTai.Common",
     "src\shared\ZhonTai.Tools"
 )

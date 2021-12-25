@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+	<Description>中台Admin后端Admin服务契约库</Description>
     <RootNamespace>ZhonTai.Plate.Admin.Service</RootNamespace>
   </PropertyGroup>
 

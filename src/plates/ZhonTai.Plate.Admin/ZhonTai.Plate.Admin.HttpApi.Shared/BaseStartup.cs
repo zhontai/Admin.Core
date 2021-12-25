@@ -229,13 +229,14 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
                     options.ResolveConflictingActions(apiDescription => apiDescription.First());
                     options.CustomSchemaIds(x => x.FullName);
 
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Common.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.Domain.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.Service.Contracts.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Admin.HttpApi.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.Domain.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.Service.Contracts.xml"));
-                    options.IncludeXmlComments(Path.Combine(basePath, "ZhonTai.Plate.Personnel.HttpApi.xml"));
+                    string[] xmlFiles = Directory.GetFiles(basePath, "*.xml");
+                    if (xmlFiles.Length > 0)
+                    {
+                        foreach (var xmlFile in xmlFiles)
+                        {
+                            options.IncludeXmlComments(xmlFile, true);
+                        }
+                    }
 
                     #region 添加设置Token的按钮
 

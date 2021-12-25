@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
 	    <Description>中台Admin后端通用库</Description>
-	    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
