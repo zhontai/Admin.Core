@@ -2,7 +2,11 @@
 
 $buildFolder = (Get-Item -Path "./" -Verbose).FullName
 $rootFolder = Join-Path $buildFolder "../"
-$apiKey = ""
+$apiKey = $args[0]
+if ([System.String]::IsNullOrWhiteSpace($apiKey)) 
+{
+    $apiKey = $env:NUGET_KEY
+}
 $sourceUrl = "http://localhost:5000/v3/index.json"
 
 Write-Host "buildFolder:" $buildFolder
@@ -40,7 +44,9 @@ $projects = (
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Domain",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.HttpApi",
     "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Repository",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service"
+    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service",
+    "src\shared\ZhonTai.Common",
+    "src\shared\ZhonTai.Tools"
 )
 
 Write-Host "dotnet pack -- start"

@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\common.props"></Import>
-	
   <PropertyGroup>
-    <Description>中台Admin后端实体库</Description>
+    <Description>中台Admin后端Admin实体库</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
