@@ -7,6 +7,8 @@ using MapsterMapper;
 using ZhonTai.Common.Auth;
 using ZhonTai.Tools.Cache;
 using ZhonTai.Common.Extensions;
+using ZhonTai.Tools.DynamicApi.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ZhonTai.Plate.Admin.Service
 {
@@ -69,6 +71,8 @@ namespace ZhonTai.Plate.Admin.Service
         /// </summary>
         /// <typeparam name="TService">服务接口</typeparam>
         /// <returns></returns>
+        [NonDynamicApi]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public virtual TService LazyGetRequiredService<TService>()
         {
             return (TService)LazyGetRequiredService(typeof(TService));
@@ -79,6 +83,8 @@ namespace ZhonTai.Plate.Admin.Service
         /// </summary>
         /// <param name="serviceType">服务类型</param>
         /// <returns></returns>
+        [NonDynamicApi]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public virtual object LazyGetRequiredService(Type serviceType)
         {
             return CachedServices.GetOrAdd(serviceType, () => ServiceProvider.GetRequiredService(serviceType));

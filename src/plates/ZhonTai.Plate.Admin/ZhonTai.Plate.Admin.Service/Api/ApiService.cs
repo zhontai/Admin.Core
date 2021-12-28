@@ -9,6 +9,7 @@ using ZhonTai.Plate.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Api
 {
+    
     public class ApiService : BaseService, IApiService
     {
         private readonly IApiRepository _apiRepository;

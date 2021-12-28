@@ -2,13 +2,16 @@ using ZhonTai.Common.Domain.Dto;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Plate.Admin.Domain.Api.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Api
 {
     /// <summary>
     /// 接口服务
     /// </summary>
-    public interface IApiService
+    [DynamicApi(Area = "admin")]
+    public interface IApiService: IDynamicApi
     {
         /// <summary>
         /// 获得一条记录

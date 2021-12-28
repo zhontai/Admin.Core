@@ -40,6 +40,7 @@ using ZhonTai.Plate.Admin.HttpApi.Shared.RegisterModules;
 using MapsterMapper;
 using StackExchange.Profiling;
 using System.IO;
+using ZhonTai.Tools.DynamicApi;
 
 namespace ZhonTai.Plate.Admin.HttpApi.Shared
 {
@@ -228,6 +229,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
 
                     options.ResolveConflictingActions(apiDescription => apiDescription.First());
                     options.CustomSchemaIds(x => x.FullName);
+                    options.DocInclusionPredicate((docName, description) => true);
 
                     string[] xmlFiles = Directory.GetFiles(basePath, "*.xml");
                     if (xmlFiles.Length > 0)
@@ -382,6 +384,14 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
             {
                 services.AddMiniProfiler();
             }
+
+            services.AddDynamicApi(options =>
+            {
+                Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+                .Where(a => a.Name.EndsWith("Service"))
+                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+                options.AddAssemblyOptions(assemblies);
+            });
         }
 
         public virtual void ConfigureContainer(ContainerBuilder builder)
