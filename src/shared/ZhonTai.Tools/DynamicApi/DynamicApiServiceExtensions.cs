@@ -36,6 +36,8 @@ namespace ZhonTai.Tools.DynamicApi
             AppConsts.ControllerPostfixes = options.RemoveControllerPostfixes;
             AppConsts.ActionPostfixes = options.RemoveActionPostfixes;
             AppConsts.FormBodyBindingIgnoredTypes = options.FormBodyBindingIgnoredTypes;
+            AppConsts.NamingConvention = options.NamingConvention;
+            AppConsts.GetRestFulControllerName = options.GetRestFulControllerName;
             AppConsts.GetRestFulActionName = options.GetRestFulActionName;
             AppConsts.AssemblyDynamicApiOptions = options.AssemblyDynamicApiOptions;
 
@@ -96,7 +98,7 @@ namespace ZhonTai.Tools.DynamicApi
             AppConsts.ControllerPostfixes = options.RemoveControllerPostfixes;
             AppConsts.ActionPostfixes = options.RemoveActionPostfixes;
             AppConsts.FormBodyBindingIgnoredTypes = options.FormBodyBindingIgnoredTypes;
-            AppConsts.PascalToKebabCase = options.PascalToKebabCase;
+            AppConsts.NamingConvention = options.NamingConvention;
             AppConsts.GetRestFulControllerName = options.GetRestFulControllerName;
             AppConsts.GetRestFulActionName = options.GetRestFulActionName;
 

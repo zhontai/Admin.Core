@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
+using ZhonTai.Tools.DynamicApi.Enums;
 
 namespace ZhonTai.Tools.DynamicApi
 {
@@ -54,9 +55,9 @@ namespace ZhonTai.Tools.DynamicApi
         public List<Type> FormBodyBindingIgnoredTypes { get; set; }
 
         /// <summary>
-        /// Both the controller name and the action name are  pascal to kebabCase
+        /// Naming convention
         /// </summary>
-        public bool PascalToKebabCase { get; set; } = true;
+        public NamingConventionEnum NamingConvention { get; set; } = NamingConventionEnum.KebabCase;
 
         /// <summary>
         /// The method that processing the name of the action.

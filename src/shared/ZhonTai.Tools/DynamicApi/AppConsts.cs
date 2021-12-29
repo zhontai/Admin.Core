@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using ZhonTai.Tools.DynamicApi.Enums;
 
 namespace ZhonTai.Tools.DynamicApi
 {
@@ -20,7 +21,7 @@ namespace ZhonTai.Tools.DynamicApi
 
         public static Dictionary<string,string> HttpVerbs { get; set; }
 
-        public static bool PascalToKebabCase { get; set; } = true;
+        public static NamingConventionEnum NamingConvention { get; set; } = NamingConventionEnum.KebabCase;
 
         public static Func<string, string> GetRestFulControllerName { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ZhonTai.Tools.DynamicApi.Helpers
@@ -186,6 +187,22 @@ namespace ZhonTai.Tools.DynamicApi.Helpers
             }
         }
 
+        public static string FirstCharToLower(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
 
+            string str = s.First().ToString().ToLower() + s.Substring(1);
+            return str;
+        }
+
+        public static string FirstCharToUpper(this string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+
+            string str = s.First().ToString().ToUpper() + s.Substring(1);
+            return str;
+        }
     }
 }

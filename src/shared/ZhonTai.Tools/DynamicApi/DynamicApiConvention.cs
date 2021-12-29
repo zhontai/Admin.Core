@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Tools.DynamicApi.Attributes;
+using ZhonTai.Tools.DynamicApi.Enums;
 using ZhonTai.Tools.DynamicApi.Helpers;
 
 namespace ZhonTai.Tools.DynamicApi
@@ -25,6 +26,50 @@ namespace ZhonTai.Tools.DynamicApi
             _actionRouteFactory = actionRouteFactory;
         }
 
+        public string GetSeparateWords(string value, NamingConventionEnum namingConvention = NamingConventionEnum.KebabCase)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return value;
+
+            var separator = "-";
+            if (namingConvention == NamingConventionEnum.SnakeCase)
+            {
+                separator = "_";
+            }
+            else if (namingConvention == NamingConventionEnum.ExtensionCase)
+            {
+                separator = ".";
+            }
+
+            return Regex.Replace(
+                value,
+                "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
+                $"{separator}$1",
+                RegexOptions.Compiled)
+                .Trim()
+                .ToLower();
+        }
+
+        public string GetFormatName(string value, NamingConventionEnum namingConvention = NamingConventionEnum.KebabCase)
+        {
+            if (namingConvention == NamingConventionEnum.KebabCase ||
+               namingConvention == NamingConventionEnum.SnakeCase ||
+               namingConvention == NamingConventionEnum.ExtensionCase)
+            {
+                return GetSeparateWords(value, namingConvention);
+            }
+            else if (namingConvention == NamingConventionEnum.PascalCase)
+            {
+                return value.FirstCharToUpper();
+            }
+            else if (namingConvention == NamingConventionEnum.CamelCase)
+            {
+                return value.FirstCharToLower();
+            }
+
+            return value;
+        }
+
         public void Apply(ApplicationModel application)
         {
             foreach (var controller in application.Controllers)
@@ -35,15 +80,15 @@ namespace ZhonTai.Tools.DynamicApi
                 if (!(_selectController is DefaultSelectController) && _selectController.IsController(type))
                 {
                     controller.ControllerName = controller.ControllerName.RemovePostFix(AppConsts.ControllerPostfixes.ToArray());
-                    if (AppConsts.PascalToKebabCase)
-                    {
-                        controller.ControllerName = PascalToKebabCase(controller.ControllerName);
-                    }
-                    else
+                    if (AppConsts.NamingConvention == NamingConventionEnum.Custom)
                     {
                         controller.ControllerName = GetRestFulControllerName(controller.ControllerName);
                     }
-                    
+                    else
+                    {
+                        controller.ControllerName = GetFormatName(controller.ControllerName, AppConsts.NamingConvention);
+                    }
+
                     ConfigureDynamicApi(controller, DynamicApiAttr);
                 }
                 else
@@ -51,13 +96,13 @@ namespace ZhonTai.Tools.DynamicApi
                     if (typeof(IDynamicApi).GetTypeInfo().IsAssignableFrom(type))
                     {
                         controller.ControllerName = controller.ControllerName.RemovePostFix(AppConsts.ControllerPostfixes.ToArray());
-                        if (AppConsts.PascalToKebabCase)
+                        if (AppConsts.NamingConvention == NamingConventionEnum.Custom)
                         {
-                            controller.ControllerName = PascalToKebabCase(controller.ControllerName);
+                            controller.ControllerName = GetRestFulControllerName(controller.ControllerName);
                         }
                         else
                         {
-                            controller.ControllerName = GetRestFulControllerName(controller.ControllerName);
+                            controller.ControllerName = GetFormatName(controller.ControllerName, AppConsts.NamingConvention);
                         }
                         ConfigureArea(controller, DynamicApiAttr);
                         ConfigureDynamicApi(controller, DynamicApiAttr);
@@ -72,20 +117,6 @@ namespace ZhonTai.Tools.DynamicApi
                     }
                 }
             }
-        }
-
-        public string PascalToKebabCase(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return value;
-
-            return Regex.Replace(
-                value,
-                "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
-                "-$1",
-                RegexOptions.Compiled)
-                .Trim()
-                .ToLower();
         }
 
         private void ConfigureArea(ControllerModel controller, DynamicApiAttribute attr)
@@ -270,13 +301,13 @@ namespace ZhonTai.Tools.DynamicApi
         {
 
             var verb = GetHttpVerb(action);
-            if (AppConsts.PascalToKebabCase)
+            if (AppConsts.NamingConvention == NamingConventionEnum.Custom)
             {
-                action.ActionName = PascalToKebabCase(action.ActionName);
+                action.ActionName = GetRestFulActionName(action.ActionName);
             }
             else
             {
-                action.ActionName = GetRestFulActionName(action.ActionName);
+                action.ActionName = GetFormatName(action.ActionName, AppConsts.NamingConvention);
             }
 
             var appServiceSelectorModel = action.Selectors[0];
@@ -367,15 +398,15 @@ namespace ZhonTai.Tools.DynamicApi
 
         private void NormalizeSelectorRoutes(string areaName, string controllerName, ActionModel action)
         {
-            if (AppConsts.PascalToKebabCase)
-            {
-                action.ActionName = PascalToKebabCase(action.ActionName);
-            }
-            else
+            if (AppConsts.NamingConvention == NamingConventionEnum.Custom)
             {
                 action.ActionName = GetRestFulActionName(action.ActionName);
             }
-            
+            else
+            {
+                action.ActionName = GetFormatName(action.ActionName, AppConsts.NamingConvention);
+            }
+
             foreach (var selector in action.Selectors)
             {
                 selector.AttributeRouteModel = selector.AttributeRouteModel == null ?
