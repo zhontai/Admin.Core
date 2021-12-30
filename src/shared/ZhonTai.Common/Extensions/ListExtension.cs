@@ -53,5 +53,51 @@ namespace ZhonTai.Common.Extensions
 
             return treelist;
         }
+
+        /// <summary>
+        /// 添加子级列表到平级列表
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="list">平级列表</param>
+        /// <param name="getChilds">获得子级列表的方法</param>
+        /// <param name="entity">子级对象</param>
+        public static void AddListWithChilds<T>(List<T> list, Func<T, List<T>> getChilds, T entity = default)
+        {
+            var childs = getChilds(entity);
+            if (childs != null && childs.Count > 0)
+            {
+                list.AddRange(childs);
+                foreach (var child in childs)
+                {
+                    AddListWithChilds(list, getChilds, child);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 将树形列表转换为平级列表
+        /// tree.ToPlainList((a) => a.Children);
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="tree">树形列表</param>
+        /// <param name="getChilds">获得子级列表的方法</param>
+        /// <param name="entity">数据对象</param>
+        /// <returns></returns>
+        public static List<T> ToPlainList<T>(this List<T> tree, Func<T, List<T>> getChilds, T entity = default)
+        {
+            var list = new List<T>();
+            if (tree == null || tree.Count == 0)
+            {
+                return list;
+            }
+
+            foreach (var item in tree)
+            {
+                list.Add(item);
+                AddListWithChilds(list, getChilds, item);
+            }
+
+            return list;
+        }
     }
 }
