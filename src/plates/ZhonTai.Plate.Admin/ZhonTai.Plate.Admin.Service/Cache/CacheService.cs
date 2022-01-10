@@ -6,15 +6,25 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.Contracts;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Cache
 {
-    public class CacheService : BaseService, ICacheService
+    /// <summary>
+    /// 缓存服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class CacheService : BaseService, ICacheService, IDynamicApi
     {
         public CacheService()
         {
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <returns></returns>
         public IResultOutput GetList()
         {
             var list = new List<object>();
@@ -35,6 +45,11 @@ namespace ZhonTai.Plate.Admin.Service.Cache
             return ResultOutput.Ok(list);
         }
 
+        /// <summary>
+        /// 清除缓存
+        /// </summary>
+        /// <param name="cacheKey">缓存键</param>
+        /// <returns></returns>
         public async Task<IResultOutput> ClearAsync(string cacheKey)
         {
             Logger.LogWarning($"{User.Id}.{User.Name}清除缓存[{cacheKey}]");

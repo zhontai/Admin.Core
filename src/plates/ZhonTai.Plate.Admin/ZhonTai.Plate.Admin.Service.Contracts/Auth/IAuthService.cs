@@ -4,15 +4,12 @@ using ZhonTai.Plate.Admin.Service.Auth.Dto;
 
 namespace ZhonTai.Plate.Admin.Service.Auth
 {
-    /// <summary>
-    /// 权限服务
-    /// </summary>
     public interface IAuthService
     {
         Task<IResultOutput> LoginAsync(AuthLoginInput input);
 
         Task<IResultOutput> GetUserInfoAsync();
 
-        Task<IResultOutput> GetPassWordEncryptKeyAsync();
+        Task<IResultOutput> GetPasswordEncryptKeyAsync();
     }
 }

@@ -5,10 +5,16 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Service.OprationLog.Dto;
 using ZhonTai.Plate.Admin.Domain.OprationLog;
 using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.OprationLog
 {
-    public class OprationLogService : BaseService, IOprationLogService
+    /// <summary>
+    /// 操作日志服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
     {
         private readonly IHttpContextAccessor _context;
         private readonly IOprationLogRepository _oprationLogRepository;
@@ -22,6 +28,11 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
             _oprationLogRepository = oprationLogRepository;
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input)
         {
             var userName = input.Filter?.CreatedUserName;
@@ -43,6 +54,11 @@ namespace ZhonTai.Plate.Admin.Service.OprationLog
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(OprationLogAddInput input)
         {
             string ua = _context.HttpContext.Request.Headers["User-Agent"];

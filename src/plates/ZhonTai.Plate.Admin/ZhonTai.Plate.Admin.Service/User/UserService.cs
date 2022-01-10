@@ -16,13 +16,16 @@ using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Contracts;
 using ZhonTai.Plate.Admin.Service.Auth.Dto;
 using ZhonTai.Plate.Admin.Service.User.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.User
 {
     /// <summary>
     /// 用户服务
     /// </summary>
-    public class UserService : BaseService, IUserService
+    [DynamicApi(Area = "admin")]
+    public class UserService : BaseService, IUserService, IDynamicApi
     {
         private readonly AppConfig _appConfig;
         private readonly IUserRepository _userRepository;
@@ -47,22 +50,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             _apiRepository = apiRepository;
         }
 
-        public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
-        {
-            var output = new ResultOutput<AuthLoginOutput>();
-            var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
-            if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
-            {
-                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
-                if(null != tenant)
-                {
-                    entityDto.TenantType = tenant.TenantType;
-                    entityDto.DataIsolationType = tenant.DataIsolationType;
-                }
-            }
-            return output.Ok(entityDto);
-        }
-
+        /// <summary>
+        /// 查询用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var entity = await _userRepository.Select
@@ -75,39 +67,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Ok(new { Form = Mapper.Map<UserGetOutput>(entity), Select = new { roles } });
         }
 
-        public async Task<IResultOutput> GetSelectAsync()
-        {
-            var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
-
-            return ResultOutput.Ok(new { Select = new { roles } });
-        }
-
-        public async Task<IResultOutput> GetBasicAsync()
-        {
-            if (!(User?.Id > 0))
-            {
-                return ResultOutput.NotOk("未登录！");
-            }
-
-            var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
-            return ResultOutput.Ok(data);
-        }
-
-        public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
-        {
-            var key = string.Format(CacheKey.UserPermissions, User.Id);
-            var result = await Cache.GetOrSetAsync(key, async () =>
-            {
-                return await _apiRepository
-                .Where(a => _userRoleRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
-                .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
-                .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
-                .Where((b, c, d) => d.ApiId == a.Id).Any())
-                .ToListAsync<UserPermissionsOutput>();
-            });
-            return result;
-        }
-
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput input)
         {
             var list = await _userRepository.Select
@@ -127,6 +91,77 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 查询登录用户信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
+        {
+            var output = new ResultOutput<AuthLoginOutput>();
+            var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+            if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
+            {
+                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                if (null != tenant)
+                {
+                    entityDto.TenantType = tenant.TenantType;
+                    entityDto.DataIsolationType = tenant.DataIsolationType;
+                }
+            }
+            return output.Ok(entityDto);
+        }
+
+        /// <summary>
+        /// 查询表单下拉数据
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IResultOutput> GetSelectAsync()
+        {
+            var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
+
+            return ResultOutput.Ok(new { Select = new { roles } });
+        }
+
+        /// <summary>
+        /// 查询用户基本信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IResultOutput> GetBasicAsync()
+        {
+            if (!(User?.Id > 0))
+            {
+                return ResultOutput.NotOk("未登录！");
+            }
+
+            var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
+            return ResultOutput.Ok(data);
+        }
+
+        /// <summary>
+        /// 查询用户权限信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
+        {
+            var key = string.Format(CacheKey.UserPermissions, User.Id);
+            var result = await Cache.GetOrSetAsync(key, async () =>
+            {
+                return await _apiRepository
+                .Where(a => _userRoleRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
+                .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
+                .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
+                .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .ToListAsync<UserPermissionsOutput>();
+            });
+            return result;
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> AddAsync(UserAddInput input)
         {
@@ -154,6 +189,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
         {
@@ -182,6 +222,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 更新基本信息
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateBasicAsync(UserUpdateBasicInput input)
         {
             var entity = await _userRepository.GetAsync(input.Id);
@@ -194,6 +239,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> ChangePasswordAsync(UserChangePasswordInput input)
         {
             if (input.ConfirmPassword != input.NewPassword)
@@ -216,6 +266,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
@@ -227,6 +282,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
@@ -236,6 +296,11 @@ namespace ZhonTai.Plate.Admin.Service.User
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {

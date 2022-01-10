@@ -122,7 +122,7 @@ namespace ZhonTai.Plate.Admin.HttpApi
         [NoOprationLog]
         public async Task<IResultOutput> GetPassWordEncryptKey()
         {
-            return await _authService.GetPassWordEncryptKeyAsync();
+            return await _authService.GetPasswordEncryptKeyAsync();
         }
 
         /// <summary>

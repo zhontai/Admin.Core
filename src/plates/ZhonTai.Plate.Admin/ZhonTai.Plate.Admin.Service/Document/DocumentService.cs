@@ -5,10 +5,16 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Document;
 using ZhonTai.Plate.Admin.Domain.DocumentImage;
 using ZhonTai.Plate.Admin.Service.Document.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Document
 {
-    public class DocumentService : BaseService, IDocumentService
+    /// <summary>
+    /// 文档服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class DocumentService : BaseService, IDocumentService, IDynamicApi
     {
         private readonly IDocumentRepository _documentRepository;
         private readonly IDocumentImageRepository _documentImageRepository;
@@ -22,6 +28,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             _documentImageRepository = documentImageRepository;
         }
 
+        /// <summary>
+        /// 查询文档
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _documentRepository.GetAsync(id);
@@ -29,24 +40,46 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询分组
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetGroupAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetGroupOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询菜单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetMenuAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetMenuOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询文档内容
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetContentAsync(long id)
         {
             var result = await _documentRepository.GetAsync<DocumentGetContentOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询文档列表
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetListAsync(string key, DateTime? start, DateTime? end)
         {
             if (end.HasValue)
@@ -64,6 +97,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 查询图片列表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetImageListAsync(long id)
         {
             var result = await _documentImageRepository.Select
@@ -74,6 +112,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 新增分组
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddGroupAsync(DocumentAddGroupInput input)
         {
             var entity = Mapper.Map<DocumentEntity>(input);
@@ -82,6 +125,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 新增菜单
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddMenuAsync(DocumentAddMenuInput input)
         {
             var entity = Mapper.Map<DocumentEntity>(input);
@@ -90,6 +138,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 新增图片
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddImageAsync(DocumentAddImageInput input)
         {
             var entity = Mapper.Map<DocumentImageEntity>(input);
@@ -98,6 +151,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改分组
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateGroupAsync(DocumentUpdateGroupInput input)
         {
             var result = false;
@@ -111,6 +169,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 修改菜单
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateMenuAsync(DocumentUpdateMenuInput input)
         {
             var result = false;
@@ -124,6 +187,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 修改文档内容
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateContentAsync(DocumentUpdateContentInput input)
         {
             var result = false;
@@ -137,6 +205,11 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
@@ -148,6 +221,12 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 删除图片
+        /// </summary>
+        /// <param name="documentId"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteImageAsync(long documentId, string url)
         {
             var result = false;
@@ -159,12 +238,21 @@ namespace ZhonTai.Plate.Admin.Service.Document
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _documentRepository.SoftDeleteAsync(id);
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 查询精简文档列表
+        /// </summary>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPlainListAsync()
         {
             var documents = await _documentRepository.Select

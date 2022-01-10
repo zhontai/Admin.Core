@@ -6,10 +6,16 @@ using ZhonTai.Plate.Admin.Domain.Role;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Service.Role.Dto;
 using ZhonTai.Plate.Admin.Domain.Role.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Role
 {
-    public class RoleService : BaseService, IRoleService
+    /// <summary>
+    /// 角色服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         private readonly IRoleRepository _roleRepository;
         private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
@@ -23,12 +29,22 @@ namespace ZhonTai.Plate.Admin.Service.Role
             _rolePermissionRepository = rolePermissionRepository;
         }
 
+        /// <summary>
+        /// 查询角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _roleRepository.GetAsync<RoleGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input)
         {
             var key = input.Filter?.Name;
@@ -50,6 +66,11 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(RoleAddInput input)
         {
             var entity = Mapper.Map<RoleEntity>(input);
@@ -58,6 +79,11 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(RoleUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -76,6 +102,11 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
@@ -87,6 +118,11 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _roleRepository.SoftDeleteAsync(id);
@@ -95,6 +131,11 @@ namespace ZhonTai.Plate.Admin.Service.Role
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _roleRepository.SoftDeleteAsync(ids);

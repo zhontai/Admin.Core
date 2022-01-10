@@ -6,10 +6,16 @@ using ZhonTai.Plate.Admin.Service.DictionaryType.Dto;
 using ZhonTai.Plate.Admin.Domain.DictionaryType;
 using ZhonTai.Plate.Admin.Domain.Dictionary;
 using ZhonTai.Plate.Admin.Domain.DictionaryType.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.DictionaryType
 {
-    public class DictionaryTypeService : BaseService, IDictionaryTypeService
+    /// <summary>
+    /// 字典类型服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynamicApi
     {
         private readonly IDictionaryTypeRepository _DictionaryTypeRepository;
         private readonly IDictionaryRepository _dictionaryRepository;
@@ -19,12 +25,22 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             _dictionaryRepository = dictionaryRepository;
         }
 
+        /// <summary>
+        /// 查询字典类型
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _DictionaryTypeRepository.GetAsync<DictionaryTypeGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryTypeGetPageDto> input)
         {
             var key = input.Filter?.Name;
@@ -46,6 +62,11 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(DictionaryTypeAddInput input)
         {
             var DictionaryType = Mapper.Map<DictionaryTypeEntity>(input);
@@ -53,6 +74,11 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(DictionaryTypeUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -71,6 +97,11 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> DeleteAsync(long id)
         {
@@ -83,6 +114,11 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
@@ -92,6 +128,11 @@ namespace ZhonTai.Plate.Admin.Service.DictionaryType
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {

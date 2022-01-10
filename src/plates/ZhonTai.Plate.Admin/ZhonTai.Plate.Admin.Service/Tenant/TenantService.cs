@@ -11,10 +11,16 @@ using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Tenant.Dto;
 using ZhonTai.Plate.Admin.Domain.Tenant.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Tenant
 {
-    public class TenantService : BaseService, ITenantService
+    /// <summary>
+    /// 租户服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class TenantService : BaseService, ITenantService, IDynamicApi
     {
         private readonly ITenantRepository _tenantRepository;
         private readonly IRoleRepository _roleRepository;
@@ -37,12 +43,22 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             _rolePermissionRepository = rolePermissionRepository;
         }
 
+        /// <summary>
+        /// 查询租户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _tenantRepository.GetAsync<TenantGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input)
         {
             var key = input.Filter?.Name;
@@ -64,6 +80,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> AddAsync(TenantAddInput input)
         {
@@ -93,6 +114,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(TenantUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -111,6 +137,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> DeleteAsync(long id)
         {
@@ -132,6 +163,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
@@ -147,6 +183,11 @@ namespace ZhonTai.Plate.Admin.Service.Tenant
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {

@@ -1,16 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Common.Attributes;
 using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.Api;
 using ZhonTai.Plate.Admin.Service.Api.Dto;
 using ZhonTai.Plate.Admin.Domain.Api.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Api
 {
-    
-    public class ApiService : BaseService, IApiService
+    /// <summary>
+    /// 接口服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class ApiService : BaseService, IApiService, IDynamicApi
     {
         private readonly IApiRepository _apiRepository;
 
@@ -19,12 +25,22 @@ namespace ZhonTai.Plate.Admin.Service.Api
             _apiRepository = moduleRepository;
         }
 
+        /// <summary>
+        /// 查询接口
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _apiRepository.GetAsync<ApiGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetListAsync(string key)
         {
             var data = await _apiRepository
@@ -34,6 +50,11 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input)
         {
             var key = input.Filter?.Label;
@@ -55,6 +76,11 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(ApiAddInput input)
         {
             var entity = Mapper.Map<ApiEntity>(input);
@@ -63,6 +89,11 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(ApiUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -81,6 +112,11 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
@@ -92,12 +128,23 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _apiRepository.SoftDeleteAsync(id);
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             var result = await _apiRepository.SoftDeleteAsync(ids);
@@ -105,6 +152,11 @@ namespace ZhonTai.Plate.Admin.Service.Api
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 同步
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SyncAsync(ApiSyncInput input)
         {

@@ -6,10 +6,16 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.View;
 using ZhonTai.Plate.Admin.Domain.View.Dto;
 using ZhonTai.Plate.Admin.Service.View.Dto;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.View
 {
-    public class ViewService : BaseService, IViewService
+    /// <summary>
+    /// 视图服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class ViewService : BaseService, IViewService, IDynamicApi
     {
         private readonly IViewRepository _viewRepository;
 
@@ -18,12 +24,22 @@ namespace ZhonTai.Plate.Admin.Service.View
             _viewRepository = moduleRepository;
         }
 
+        /// <summary>
+        /// 查询视图
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _viewRepository.GetAsync<ViewGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetListAsync(string key)
         {
             var data = await _viewRepository
@@ -35,6 +51,11 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<ViewGetPageDto> input)
         {
             var key = input.Filter?.Label;
@@ -57,6 +78,11 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(ViewAddInput input)
         {
             var entity = Mapper.Map<ViewEntity>(input);
@@ -65,6 +91,11 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(ViewUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -83,6 +114,11 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = false;
@@ -94,12 +130,23 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _viewRepository.SoftDeleteAsync(id);
 
             return ResultOutput.Result(result);
         }
+
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
 
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
@@ -108,6 +155,11 @@ namespace ZhonTai.Plate.Admin.Service.View
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 同步
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SyncAsync(ViewSyncInput input)
         {

@@ -5,10 +5,16 @@ using ZhonTai.Common.Domain.Dto;
 using ZhonTai.Plate.Admin.Domain.LoginLog;
 using ZhonTai.Plate.Admin.Service.LoginLog.Dto;
 using ZhonTai.Plate.Admin.Domain;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.LoginLog
 {
-    public class LoginLogService : BaseService, ILoginLogService
+    /// <summary>
+    /// 登录日志服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     {
         private readonly IHttpContextAccessor _context;
         private readonly ILoginLogRepository _loginLogRepository;
@@ -22,6 +28,11 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
             _loginLogRepository = loginLogRepository;
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input)
         {
             var userName = input.Filter?.CreatedUserName;
@@ -43,6 +54,11 @@ namespace ZhonTai.Plate.Admin.Service.LoginLog
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput<long>> AddAsync(LoginLogAddInput input)
         {
             var res = new ResultOutput<long>();

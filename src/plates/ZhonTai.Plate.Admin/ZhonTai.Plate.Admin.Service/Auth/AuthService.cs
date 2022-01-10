@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using ZhonTai.Common.Configs;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Common.Domain.Dto;
-using ZhonTai.Tools.Captcha;
 using ZhonTai.Plate.Admin.Domain.Permission;
 using ZhonTai.Plate.Admin.Domain.User;
 using ZhonTai.Plate.Admin.Domain.Tenant;
@@ -12,10 +11,17 @@ using ZhonTai.Plate.Admin.Service.Auth.Dto;
 using ZhonTai.Plate.Admin.Domain.RolePermission;
 using ZhonTai.Plate.Admin.Domain.UserRole;
 using ZhonTai.Plate.Admin.Service.Contracts;
+using ZhonTai.Tools.Captcha;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Admin.Service.Auth
 {
-    public class AuthService : BaseService, IAuthService
+    /// <summary>
+    /// 权限服务
+    /// </summary>
+    [DynamicApi(Area = "admin")]
+    public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         private readonly AppConfig _appConfig;
         private readonly IPermissionRepository _permissionRepository;
@@ -38,7 +44,11 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             _captchaTool = captchaTool;
         }
 
-        public async Task<IResultOutput> GetPassWordEncryptKeyAsync()
+        /// <summary>
+        /// 查询密钥
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IResultOutput> GetPasswordEncryptKeyAsync()
         {
             //写入Redis
             var guid = Guid.NewGuid().ToString("N");
@@ -50,6 +60,10 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 查询用户信息
+        /// </summary>
+        /// <returns></returns>
         public async Task<IResultOutput> GetUserInfoAsync()
         {
             if (!(User?.Id > 0))
@@ -88,6 +102,11 @@ namespace ZhonTai.Plate.Admin.Service.Auth
             return ResultOutput.Ok(authUserInfoOutput);
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
         {
             #region 验证码校验

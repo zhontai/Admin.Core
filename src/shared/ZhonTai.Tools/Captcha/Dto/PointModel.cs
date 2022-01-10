@@ -1,6 +1,6 @@
 ﻿namespace ZhonTai.Tools.Captcha
 {
-    public class PointDto
+    public class PointModel
     {
         /// <summary>
         /// x坐标
@@ -12,7 +12,7 @@
         /// </summary>
         public int Y { get; set; }
 
-        public PointDto(int x, int y)
+        public PointModel(int x, int y)
         {
             X = x;
             Y = y;

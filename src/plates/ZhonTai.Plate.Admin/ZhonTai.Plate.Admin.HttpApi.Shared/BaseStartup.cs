@@ -330,7 +330,7 @@ namespace ZhonTai.Plate.Admin.HttpApi.Shared
                     options.Filters.Add<ControllerLogFilter>();
                 }
                 //禁止去除ActionAsync后缀
-                options.SuppressAsyncSuffixInActionNames = false;
+                //options.SuppressAsyncSuffixInActionNames = false;
             })
             //.AddFluentValidation(config =>
             //{

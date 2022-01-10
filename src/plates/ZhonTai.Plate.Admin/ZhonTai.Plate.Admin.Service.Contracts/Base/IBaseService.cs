@@ -1,6 +1,6 @@
 ﻿namespace ZhonTai.Plate.Admin.Service
 {
-    public abstract class IBaseService
+    public interface IBaseService
     {
         
     }

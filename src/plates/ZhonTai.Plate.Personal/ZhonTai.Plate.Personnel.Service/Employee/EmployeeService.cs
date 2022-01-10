@@ -9,13 +9,16 @@ using ZhonTai.Plate.Admin.Service;
 using ZhonTai.Common.Domain.Repositories;
 using ZhonTai.Plate.Personnel.Domain.Employee;
 using ZhonTai.Plate.Personnel.Domain.Organization;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Personnel.Service.Employee
 {
     /// <summary>
     /// 员工服务
     /// </summary>
-    public class EmployeeService : BaseService, IEmployeeService
+    [DynamicApi(Area = "personnel")]
+    public class EmployeeService : BaseService, IEmployeeService, IDynamicApi
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IRepositoryBase<EmployeeOrganizationEntity> _employeeOrganizationRepository;
@@ -29,6 +32,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             _employeeOrganizationRepository = employeeOrganizationRepository;
         }
 
+        /// <summary>
+        /// 查询员工
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ResultOutput<EmployeeGetOutput>> GetAsync(long id)
         {
             var res = new ResultOutput<EmployeeGetOutput>();
@@ -45,6 +53,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return res.Ok(dto);
         }
 
+        /// <summary>
+        /// 查询分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetPageAsync(PageInput input)
         {
             var list = await _employeeRepository.Select
@@ -68,6 +81,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> AddAsync(EmployeeAddInput input)
         {
@@ -93,6 +111,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> UpdateAsync(EmployeeUpdateInput input)
         {
@@ -126,6 +149,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> DeleteAsync(long id)
         {
@@ -138,6 +166,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             await _employeeRepository.SoftDeleteAsync(id);
@@ -145,6 +178,11 @@ namespace ZhonTai.Plate.Personnel.Service.Employee
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
             await _employeeRepository.SoftDeleteAsync(ids);

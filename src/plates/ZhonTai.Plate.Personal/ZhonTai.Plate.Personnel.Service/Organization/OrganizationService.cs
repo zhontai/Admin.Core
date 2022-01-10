@@ -4,10 +4,16 @@ using ZhonTai.Plate.Personnel.Service.Organization.Output;
 using System.Threading.Tasks;
 using ZhonTai.Plate.Admin.Service;
 using ZhonTai.Plate.Personnel.Domain.Organization;
+using ZhonTai.Tools.DynamicApi;
+using ZhonTai.Tools.DynamicApi.Attributes;
 
 namespace ZhonTai.Plate.Personnel.Service.Organization
 {
-    public class OrganizationService : BaseService, IOrganizationService
+    /// <summary>
+    /// 部门服务
+    /// </summary>
+    [DynamicApi(Area = "personnel")]
+    public class OrganizationService : BaseService, IOrganizationService, IDynamicApi
     {
         private readonly IOrganizationRepository _organizationRepository;
 
@@ -16,12 +22,22 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             _organizationRepository = organizationRepository;
         }
 
+        /// <summary>
+        /// 查询部门
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
             var result = await _organizationRepository.GetAsync<OrganizationGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
+        /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> GetListAsync(string key)
         {
             var data = await _organizationRepository
@@ -33,6 +49,11 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             return ResultOutput.Ok(data);
         }
 
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> AddAsync(OrganizationAddInput input)
         {
             var dictionary = Mapper.Map<OrganizationEntity>(input);
@@ -40,6 +61,11 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             return ResultOutput.Result(id > 0);
         }
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> UpdateAsync(OrganizationUpdateInput input)
         {
             if (!(input?.Id > 0))
@@ -58,6 +84,11 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             return ResultOutput.Ok();
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(long id)
         {
             var result = await _organizationRepository.DeleteRecursiveAsync(a => a.Id == id);
@@ -65,6 +96,11 @@ namespace ZhonTai.Plate.Personnel.Service.Organization
             return ResultOutput.Result(result);
         }
 
+        /// <summary>
+        /// 批量软删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
             var result = await _organizationRepository.SoftDeleteRecursiveAsync(a => a.Id == id);

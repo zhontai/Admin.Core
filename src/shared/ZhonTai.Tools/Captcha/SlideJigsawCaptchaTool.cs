@@ -295,7 +295,7 @@ namespace ZhonTai.Tools.Captcha
         /// <param name="templateWidth"></param>
         /// <param name="templateHeight"></param>
         /// <returns></returns>
-        private PointDto GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
+        private PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
         {
             Random random = new Random();
             int widthDifference = originalWidth - templateWidth;
@@ -320,7 +320,7 @@ namespace ZhonTai.Tools.Captcha
                 y = random.Next(originalHeight - templateHeight - 5) + 5;
             }
 
-            return new PointDto(x, y);
+            return new PointModel(x, y);
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace ZhonTai.Tools.Captcha
         /// <param name="blockX"></param>
         /// <param name="blockY"></param>
         /// <returns></returns>
-        private PointDto GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
+        private PointModel GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
         {
             int x;
             if (originalWidth - blockX - 5 > templateWidth * 2)
@@ -359,7 +359,7 @@ namespace ZhonTai.Tools.Captcha
                 y = GetRandomInt(5, blockY - templateHeight - 5);
             }
 
-            return new PointDto(x, y);
+            return new PointModel(x, y);
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace ZhonTai.Tools.Captcha
             int templateHeight = templateImage.Height;
 
             //随机生成拼图坐标
-            PointDto point = GeneratePoint(baseWidth, baseHeight, templateWidth, templateHeight);
+            PointModel point = GeneratePoint(baseWidth, baseHeight, templateWidth, templateHeight);
             int x = point.X;
             int y = point.Y;
 
@@ -399,7 +399,7 @@ namespace ZhonTai.Tools.Captcha
             string blockImageBase64 = "data:image/png;base64," + ImgToBase64String(CutByTemplate(baseImage, templateImage, x, y));
 
             //生成干扰图
-            PointDto interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, templateWidth, templateHeight, x, y);
+            PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, templateWidth, templateHeight, x, y);
             InterferenceByTemplate(baseImage, templateImage, interferencePoint.X, interferencePoint.Y);
 
             string baseImageBase64 = "data:image/png;base64," + ImgToBase64String(baseImage);
@@ -439,7 +439,7 @@ namespace ZhonTai.Tools.Captcha
             {
                 try
                 {
-                    var point = JsonConvert.DeserializeObject<PointDto>(input.Data);
+                    var point = JsonConvert.DeserializeObject<PointModel>(input.Data);
                     var x = await _cache.GetAsync<int>(key);
                     if (Math.Abs(x - point.X) < 5)
                     {
