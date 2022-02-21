@@ -124,74 +124,6 @@
             版本
             </summary>
         </member>
-        <member name="T:ZhonTai.Plate.Admin.Service.Api.IApiService">
-            <summary>
-            接口服务
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.GetAsync(System.Int64)">
-            <summary>
-            获得一条记录
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.GetListAsync(System.String)">
-            <summary>
-            获得列表
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.GetPageAsync(ZhonTai.Common.Domain.Dto.PageInput{ZhonTai.Plate.Admin.Domain.Api.Dto.ApiGetPageDto})">
-            <summary>
-            获得分页
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.AddAsync(ZhonTai.Plate.Admin.Service.Api.Dto.ApiAddInput)">
-            <summary>
-            添加
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.UpdateAsync(ZhonTai.Plate.Admin.Service.Api.Dto.ApiUpdateInput)">
-            <summary>
-            修改
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.DeleteAsync(System.Int64)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.SoftDeleteAsync(System.Int64)">
-            <summary>
-            软删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量软删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Plate.Admin.Service.Api.IApiService.SyncAsync(ZhonTai.Plate.Admin.Service.Api.Dto.ApiSyncInput)">
-            <summary>
-            同步
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
         <member name="P:ZhonTai.Plate.Admin.Service.Auth.Dto.AuthGetVerifyCodeOutput.Key">
             <summary>
             缓存键
@@ -340,11 +272,6 @@
         <member name="P:ZhonTai.Plate.Admin.Service.Auth.Dto.AuthUserProfileDto.Avatar">
             <summary>
             头像
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Plate.Admin.Service.Auth.IAuthService">
-            <summary>
-            权限服务
             </summary>
         </member>
         <member name="P:ZhonTai.Plate.Admin.Service.BaseService.Cache">

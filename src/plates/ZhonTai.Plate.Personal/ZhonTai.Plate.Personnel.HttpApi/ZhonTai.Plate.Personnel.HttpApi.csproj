@@ -4,7 +4,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>F:\zhontai\Admin\src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.HttpApi\ZhonTai.Plate.Personnel.HttpApi.xml</DocumentationFile>
+    <DocumentationFile>ZhonTai.Plate.Personnel.HttpApi.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
     </PropertyGroup>
 
