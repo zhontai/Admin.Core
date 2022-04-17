@@ -10,7 +10,7 @@
 	<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
-	<PackageTags>ZhonTai Admin Api;WebApi;HttpApi;</PackageTags>
+	<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
 	<NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 </Project>
