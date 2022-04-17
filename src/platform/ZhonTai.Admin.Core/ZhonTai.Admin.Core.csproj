@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>中台Admin接口共享库</Description>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+		<PackageReference Include="Caching.CSRedis" Version="3.6.60" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+		<PackageReference Include="Mapster" Version="7.2.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\ZhonTai.ApiUI\ZhonTai.ApiUI.csproj" />
+	  <ProjectReference Include="..\ZhonTai.Tools\ZhonTai.Tools.csproj" />
+	</ItemGroup>
+</Project>

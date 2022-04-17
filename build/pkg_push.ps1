@@ -37,26 +37,14 @@ Remove-Item "$nuGetOutputFolder/*" -recurse
 
 # 指定项目打包
 $projects = (
-    "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Domain",
-    "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi",
-	"src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.HttpApi.Shared",
-    "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Repository",
-    "src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service",
-	"src\plates\ZhonTai.Plate.Admin\ZhonTai.Plate.Admin.Service.Contracts",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Domain",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.HttpApi",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Repository",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service",
-    "src\plates\ZhonTai.Plate.Personal\ZhonTai.Plate.Personnel.Service.Contracts",
-    "src\shared\ZhonTai.Common",
-    "src\shared\ZhonTai.Tools"
+    "src\platform\ZhonTai.Admin"
 )
 
 Write-Host "dotnet pack -- start"
 foreach($project in $projects) {
 $projectFolder = Join-Path $rootFolder $project
 Write-Host "projectFolder:" $projectFolder
-dotnet pack $projectFolder --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
+dotnet pack $projectFolder -p:TargetFrameworks=net6.0 --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
 }
 Write-Host "dotnet pack -- end"
 # pause
