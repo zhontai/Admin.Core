@@ -29,7 +29,7 @@
   //统一认证授权服务器
   "IdentityServer": {
     //启用
-    "enable": true,
+    "enable": false,
     //地址，开发认证地址前往appconfig.Development.json修改
     "url": "https://login.zhontai.net"
   },

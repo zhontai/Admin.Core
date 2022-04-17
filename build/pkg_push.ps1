@@ -37,7 +37,10 @@ Remove-Item "$nuGetOutputFolder/*" -recurse
 
 # 指定项目打包
 $projects = (
-    "src\platform\ZhonTai.Admin"
+    "src\platform\ZhonTai.Admin",
+    "src\platform\ZhonTai.ApiUI",
+    "src\platform\ZhonTai.Common",
+    "src\platform\ZhonTai.DynamicApi"
 )
 
 Write-Host "dotnet pack -- start"
