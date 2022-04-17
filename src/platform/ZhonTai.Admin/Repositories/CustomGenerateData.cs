@@ -228,12 +228,12 @@ namespace ZhonTai.Admin.Repositories
             SaveDataToJsonFile<EmployeeEntity>(employees, isTenant);
             if (isTenant)
             {
-                var tenantId = tenants.Where(a => a.Code.ToLower() == "zhontai").FirstOrDefault()?.Id;
-                SaveDataToJsonFile<DictionaryEntity>(dictionaries.Where(a => a.TenantId == tenantId));
-                SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => a.TenantId == tenantId));
-                SaveDataToJsonFile<UserEntity>(users.Where(a => a.TenantId == tenantId), false);
-                SaveDataToJsonFile<RoleEntity>(roles.Where(a => a.TenantId == tenantId));
-                organizationTree = organizations.Clone().Where(a => a.TenantId == tenantId).ToList().ToTree((r, c) =>
+                var tenantIds = tenants?.Select(a => a.Id)?.ToList();
+                SaveDataToJsonFile<DictionaryEntity>(dictionaries.Where(a => tenantIds.Contains(a.TenantId.Value)));
+                SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => tenantIds.Contains(a.TenantId.Value)));
+                SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
+                SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
+                organizationTree = organizations.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
                 {
                     return c.ParentId == 0;
                 },
@@ -247,8 +247,8 @@ namespace ZhonTai.Admin.Repositories
                     r.Childs.AddRange(datalist);
                 });
                 SaveDataToJsonFile<OrganizationEntity>(organizationTree);
-                SaveDataToJsonFile<PositionEntity>(positions.Where(a => a.TenantId == tenantId));
-                SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => a.TenantId == tenantId));
+                SaveDataToJsonFile<PositionEntity>(positions.Where(a => tenantIds.Contains(a.TenantId.Value)));
+                SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => tenantIds.Contains(a.TenantId.Value)));
             }
             SaveDataToJsonFile<UserRoleEntity>(userRoles);
             SaveDataToJsonFile<ApiEntity>(apiTree);

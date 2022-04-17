@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.Organization
     /// <summary>
     /// 组织架构
     /// </summary>
-	[Table(Name = "pe_organization")]
+	[Table(Name = "ad_organization")]
     [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
     public partial class OrganizationEntity : EntityFull, ITenant
     {

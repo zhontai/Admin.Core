@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Domain.Employee
     /// <summary>
     /// 员工
     /// </summary>
-	[Table(Name = "pe_employee")]
+	[Table(Name = "ad_employee")]
     [Index("idx_{tablename}_01", nameof(Code) + "," + nameof(TenantId), true)]
     public partial class EmployeeEntity : EntityFull, ITenant
     {

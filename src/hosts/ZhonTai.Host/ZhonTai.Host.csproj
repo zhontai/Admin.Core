@@ -43,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InitData\Admin\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Domain.Position
     /// <summary>
     /// 职位
     /// </summary>
-	[Table(Name = "pe_position")]
+	[Table(Name = "ad_position")]
     [Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
     [Index("idx_{tablename}_02", nameof(Code) + "," + nameof(TenantId), true)]
     public partial class PositionEntity : EntityFull, ITenant
