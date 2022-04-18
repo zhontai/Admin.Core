@@ -22,8 +22,6 @@ namespace ZhonTai.Admin.Core.Db
         /// </summary>
         public static TimeSpan TimeOffset;
 
-        public static string[] AssemblyNames = new []{ "ZhonTai.Admin", "MyApp.Admin" };
-         
         /// <summary>
         /// 创建数据库
         /// </summary>
@@ -55,11 +53,12 @@ namespace ZhonTai.Admin.Core.Db
         /// <summary>
         /// 获得指定程序集表实体
         /// </summary>
+        /// <param name="appConfig"></param>
         /// <returns></returns>
-        public static Type[] GetEntityTypes()
+        public static Type[] GetEntityTypes(AppConfig appConfig)
         {
             Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => AssemblyNames.Contains(a.Name))
+                .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
             List<Type> entityTypes = new List<Type>();
@@ -96,7 +95,7 @@ namespace ZhonTai.Admin.Core.Db
                 var tenantId = nameof(ITenant.TenantId);
 
                 //获得指定程序集表实体
-                var entityTypes = GetEntityTypes();
+                var entityTypes = GetEntityTypes(appConfig);
 
                 foreach (var entityType in entityTypes)
                 {
@@ -206,7 +205,7 @@ namespace ZhonTai.Admin.Core.Db
             }
 
             //获得指定程序集表实体
-            var entityTypes = GetEntityTypes();
+            var entityTypes = GetEntityTypes(appConfig);
 
             db.CodeFirst.SyncStructure(entityTypes);
             Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
@@ -302,7 +301,7 @@ namespace ZhonTai.Admin.Core.Db
                 db.Aop.AuditValue += SyncDataAuditValue;
 
                 Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => AssemblyNames.Contains(a.Name))
+                .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
                 List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
@@ -339,7 +338,7 @@ namespace ZhonTai.Admin.Core.Db
                 Console.WriteLine("\r\n generate data started");
 
                 Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => AssemblyNames.Contains(a.Name))
+                .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
                 List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()

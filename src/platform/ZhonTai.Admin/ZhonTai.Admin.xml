@@ -567,10 +567,11 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GetEntityTypes">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GetEntityTypes(ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             获得指定程序集表实体
             </summary>
+            <param name="appConfig"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.ConfigEntity(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig)">
