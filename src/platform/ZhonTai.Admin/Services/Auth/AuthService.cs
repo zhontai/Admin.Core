@@ -286,6 +286,7 @@ namespace ZhonTai.Admin.Services.Auth
         /// 获取验证数据
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         [AllowAnonymous]
         [NoOprationLog]
         [EnableCors(AdminConsts.AllowAnyPolicyName)]
