@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <Version>2.0.1</Version>
+	<TargetFramework>net6.0</TargetFramework>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Authors>xiaoxue</Authors>
+	<Company>xiaoxue</Company>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
+	<NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+</Project>
