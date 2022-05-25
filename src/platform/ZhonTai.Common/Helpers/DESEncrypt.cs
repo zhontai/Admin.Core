@@ -88,15 +88,13 @@ namespace ZhonTai.Common.Helpers
                 Padding = PaddingMode.PKCS7
             };
 
-            using (var stream = new MemoryStream())
-            {
-                var cStream = new CryptoStream(stream, provider.CreateEncryptor(), CryptoStreamMode.Write);
-                cStream.Write(inputByteArray, 0, inputByteArray.Length);
-                cStream.FlushFinalBlock();
+            using var stream = new MemoryStream();
+            var cStream = new CryptoStream(stream, provider.CreateEncryptor(), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
 
-                var bytes = stream.ToArray();
-                return hex ? bytes.ToHex(lowerCase) : bytes.ToBase64();
-            }
+            var bytes = stream.ToArray();
+            return hex ? bytes.ToHex(lowerCase) : bytes.ToBase64();
         }
 
         /// <summary>
@@ -124,13 +122,11 @@ namespace ZhonTai.Common.Helpers
                 Padding = PaddingMode.PKCS7
             };
 
-            using (var mStream = new MemoryStream())
-            {
-                var cStream = new CryptoStream(mStream, provider.CreateDecryptor(), CryptoStreamMode.Write);
-                cStream.Write(inputByteArray, 0, inputByteArray.Length);
-                cStream.FlushFinalBlock();
-                return Encoding.UTF8.GetString(mStream.ToArray());
-            }
+            using var mStream = new MemoryStream();
+            var cStream = new CryptoStream(mStream, provider.CreateDecryptor(), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+            return Encoding.UTF8.GetString(mStream.ToArray());
         }
     }
 }

@@ -77,7 +77,7 @@ namespace ZhonTai.Admin.Core
             var configuration = builder.Configuration;
 
             var configHelper = new ConfigHelper();
-            var appConfig = configHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
+            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
 
             //应用配置
             services.AddSingleton(appConfig);
@@ -158,15 +158,15 @@ namespace ZhonTai.Admin.Core
 
            
             //数据库配置
-            var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
+            var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
             services.AddSingleton(dbConfig);
             //添加IdleBus单例
             var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
-            IdleBus<IFreeSql> ib = new IdleBus<IFreeSql>(timeSpan);
+            var ib = new IdleBus<IFreeSql>(timeSpan);
             services.AddSingleton(ib);
 
             //上传配置
-            var uploadConfig = configHelper.Load("uploadconfig", env.EnvironmentName, true);
+            var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
             services.Configure<UploadConfig>(uploadConfig);
 
             #region Mapster 映射配置
@@ -217,7 +217,7 @@ namespace ZhonTai.Admin.Core
 
             #region 身份认证授权
 
-            var jwtConfig = configHelper.Get<JwtConfig>("jwtconfig", env.EnvironmentName);
+            var jwtConfig = ConfigHelper.Get<JwtConfig>("jwtconfig", env.EnvironmentName);
             services.TryAddSingleton(jwtConfig);
 
             if (appConfig.IdentityServer.Enable)
@@ -429,7 +429,7 @@ namespace ZhonTai.Admin.Core
 
             #region 缓存
 
-            var cacheConfig = configHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
+            var cacheConfig = ConfigHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
             if (cacheConfig.Type == CacheType.Redis)
             {
                 var csredis = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionString);
@@ -478,7 +478,7 @@ namespace ZhonTai.Admin.Core
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="appConfig"></param>
-        private void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppConfig appConfig)
+        private static void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppConfig appConfig)
         {
             //IP限流
             if (appConfig.RateLimit)

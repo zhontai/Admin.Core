@@ -91,7 +91,7 @@ namespace ZhonTai.Admin.Core.Db
                 }
                 else
                 {
-                    repo.DbContextOptions.EnableAddOrUpdateNavigateList = true;
+                    repo.DbContextOptions.EnableCascadeSave = true;
                     await repo.InsertAsync(data);
                 }
 

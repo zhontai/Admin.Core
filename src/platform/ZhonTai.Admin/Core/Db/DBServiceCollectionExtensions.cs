@@ -24,7 +24,7 @@ namespace ZhonTai.Admin.Core.Db
         {
             services.AddScoped<DbUnitOfWorkManager>();
 
-            var dbConfig = new ConfigHelper().Get<DbConfig>("dbconfig", env.EnvironmentName);
+            var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
 
             //创建数据库
             if (dbConfig.CreateDb)
@@ -57,7 +57,7 @@ namespace ZhonTai.Admin.Core.Db
             fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
             //配置实体
-            var appConfig = new ConfigHelper().Get<AppConfig>("appconfig", env.EnvironmentName);
+            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
             DbHelper.ConfigEntity(fsql, appConfig);
 
             #region 初始化数据库

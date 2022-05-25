@@ -114,12 +114,13 @@ namespace ZhonTai.Admin.Services.Auth
                 return ResultOutput.NotOk("未登录！");
             }
 
-            var authUserInfoOutput = new AuthUserInfoOutput { };
-            //用户信息
-            authUserInfoOutput.User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id);
+            var authUserInfoOutput = new AuthUserInfoOutput
+            {
+                //用户信息
+                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id),
 
-            //用户菜单
-            authUserInfoOutput.Menus = await _permissionRepository.Select
+                //用户菜单
+                Menus = await _permissionRepository.Select
                 .Where(a => new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }.Contains(a.Type))
                 .Where(a =>
                     _permissionRepository.Orm.Select<RolePermissionEntity>()
@@ -129,10 +130,10 @@ namespace ZhonTai.Admin.Services.Auth
                 )
                 .OrderBy(a => a.ParentId)
                 .OrderBy(a => a.Sort)
-                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path }),
 
-            //用户权限点
-            authUserInfoOutput.Permissions = await _permissionRepository.Select
+                //用户权限点
+                Permissions = await _permissionRepository.Select
                 .Where(a => a.Type == PermissionTypeEnum.Dot)
                 .Where(a =>
                     _permissionRepository.Orm.Select<RolePermissionEntity>()
@@ -140,7 +141,8 @@ namespace ZhonTai.Admin.Services.Auth
                     .Where(b => b.PermissionId == a.Id)
                     .Any()
                 )
-                .ToListAsync(a => a.Code);
+                .ToListAsync(a => a.Code)
+            };
 
             return ResultOutput.Ok(authUserInfoOutput);
         }
@@ -227,22 +229,21 @@ namespace ZhonTai.Admin.Services.Auth
 
             #region 添加登录日志
 
-            var loginLogAddInput = new LoginLogAddInput()
+            var loginLogAddInput = new LoginLogAddInput
             {
                 CreatedUserName = input.UserName,
                 ElapsedMilliseconds = sw.ElapsedMilliseconds,
-                Status = true
+                Status = true,
+                CreatedUserId = authLoginOutput.Id,
+                NickName = authLoginOutput.NickName,
+                TenantId = authLoginOutput.TenantId
             };
-
-            loginLogAddInput.CreatedUserId = authLoginOutput.Id;
-            loginLogAddInput.NickName = authLoginOutput.NickName;
-            loginLogAddInput.TenantId = authLoginOutput.TenantId;
 
             await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
 
             #endregion 添加登录日志
 
-            return ResultOutput.Ok(new { token = token });
+            return ResultOutput.Ok(new { token });
         }
 
         /// <summary>

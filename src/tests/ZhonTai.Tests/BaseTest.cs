@@ -17,7 +17,7 @@ namespace ZhonTai.Tests
 
         protected BaseTest()
         {
-            AppConfig = new ConfigHelper().Get<AppConfig>("appconfig") ?? new AppConfig();
+            AppConfig = ConfigHelper.Get<AppConfig>("appconfig") ?? new AppConfig();
             var application = new WebApplicationFactory<Program>();
             Client = application.CreateClient();
             Server = application.Server;

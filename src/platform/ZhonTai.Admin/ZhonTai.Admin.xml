@@ -6241,50 +6241,6 @@
             滑块拼图验证
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.ImgToBase64String(System.Drawing.Bitmap)">
-            <summary>
-            Bitmap转为base64编码的文本
-            </summary>
-            <param name="bmp"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.ReadPixel(System.Drawing.Bitmap,System.Int32,System.Int32,System.Int32[])">
-            <summary>
-            读取像素
-            </summary>
-            <param name="img"></param>
-            <param name="x"></param>
-            <param name="y"></param>
-            <param name="pixels"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.CutByTemplate(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32)">
-            <summary>
-            根据模板生成拼图
-            </summary>
-            <param name="baseImage"></param>
-            <param name="templateImage"></param>
-            <param name="x"></param>
-            <param name="y"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.InterferenceByTemplate(System.Drawing.Bitmap,System.Drawing.Bitmap,System.Int32,System.Int32)">
-            <summary>
-            根据模板生成干扰图
-            </summary>
-            <param name="baseImage"></param>
-            <param name="templateImage"></param>
-            <param name="x"></param>
-            <param name="y"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.ResizeImage(System.Drawing.Bitmap,System.Int32,System.Int32)">
-            <summary>
-            更改图片尺寸
-            </summary>
-            <param name="bmp"></param>
-            <param name="width"></param>
-            <param name="height"></param>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.GetRandomInt(System.Int32,System.Int32)">
             <summary>
             随机范围内数字

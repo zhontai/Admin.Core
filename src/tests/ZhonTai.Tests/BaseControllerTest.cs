@@ -29,7 +29,7 @@ namespace ZhonTai.Tests
             _appConfig = GetService<AppConfig>();
         }
 
-        public ByteArrayContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8")
+        public static ByteArrayContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8")
         {
             // HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
             var content = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(input));
@@ -165,7 +165,7 @@ namespace ZhonTai.Tests
             Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
-        public string ToParams(object source)
+        public static string ToParams(object source)
         {
             var stringBuilder = new StringBuilder(string.Empty);
             if (source == null)
