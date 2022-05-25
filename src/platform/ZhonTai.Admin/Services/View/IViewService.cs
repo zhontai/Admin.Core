@@ -1,12 +1,11 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.View.Dto;
-
 
 namespace ZhonTai.Admin.Services.View
 {
     /// <summary>
-    /// ÊÓÍ¼½Ó¿Ú
+    /// è§†å›¾æ¥å£
     /// </summary>
     public interface IViewService
     {

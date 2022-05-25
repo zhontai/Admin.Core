@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+锘縰sing System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ZhonTai.Admin.Services.OprationLog
 {
     /// <summary>
-    /// 操作日志服务
+    /// 鎿嶄綔鏃ュ織鏈嶅姟
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
@@ -30,7 +30,7 @@ namespace ZhonTai.Admin.Services.OprationLog
         }
 
         /// <summary>
-        /// 查询操作日志列表
+        /// 鏌ヨ鎿嶄綔鏃ュ織鍒楄〃
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace ZhonTai.Admin.Services.OprationLog
         }
 
         /// <summary>
-        /// 新增
+        /// 鏂板
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

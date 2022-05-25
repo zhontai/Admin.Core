@@ -1,4 +1,4 @@
-namespace ZhonTai.Admin.Domain
+﻿namespace ZhonTai.Admin.Domain
 {
     public class LogGetPageDto
     {

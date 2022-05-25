@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Tenant.Dto;
 using ZhonTai.Admin.Services.Tenant.Dto;
@@ -6,7 +6,7 @@ using ZhonTai.Admin.Services.Tenant.Dto;
 namespace ZhonTai.Admin.Services.Tenant
 {
     /// <summary>
-    /// �⻧�ӿ�
+    /// 租户接口
     /// </summary>
     public interface ITenantService
     {

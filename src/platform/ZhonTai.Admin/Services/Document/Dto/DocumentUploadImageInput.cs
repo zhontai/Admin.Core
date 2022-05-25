@@ -1,16 +1,16 @@
-using Microsoft.AspNetCore.Http;
+锘縰sing Microsoft.AspNetCore.Http;
 
 namespace ZhonTai.Admin.Services.Document.Dto
 {
     public class DocumentUploadImageInput
     {
         /// <summary>
-        /// 上传文件
+        /// 涓婁紶鏂囦欢
         /// </summary>
         public IFormFile File { get; set; }
 
         /// <summary>
-        /// 文档编号
+        /// 鏂囨。缂栧彿
         /// </summary>
         public long Id { get; set; }
     }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +13,7 @@ using ZhonTai.DynamicApi.Attributes;
 namespace ZhonTai.Admin.Services.Api
 {
     /// <summary>
-    /// ½Ó¿Ú·şÎñ
+    /// æ¥å£æœåŠ¡
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class ApiService : BaseService, IApiService, IDynamicApi
@@ -26,7 +26,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ²éÑ¯½Ó¿Ú
+        /// æŸ¥è¯¢æ¥å£
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,7 +37,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ²éÑ¯ÁĞ±í
+        /// æŸ¥è¯¢åˆ—è¡¨
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -51,7 +51,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ²éÑ¯·ÖÒ³
+        /// æŸ¥è¯¢åˆ†é¡µ
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -78,7 +78,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// Ìí¼Ó
+        /// æ·»åŠ 
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ĞŞ¸Ä
+        /// ä¿®æ”¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -105,7 +105,7 @@ namespace ZhonTai.Admin.Services.Api
             var entity = await _apiRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("½Ó¿Ú²»´æÔÚ£¡");
+                return ResultOutput.NotOk("æ¥å£ä¸å­˜åœ¨ï¼");
             }
 
             Mapper.Map(input, entity);
@@ -114,7 +114,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ı
+        /// å½»åº•åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -130,7 +130,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// É¾³ı
+        /// åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// ÅúÁ¿É¾³ı
+        /// æ‰¹é‡åˆ é™¤
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -154,27 +154,27 @@ namespace ZhonTai.Admin.Services.Api
         }
 
         /// <summary>
-        /// Í¬²½
+        /// åŒæ­¥
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SyncAsync(ApiSyncInput input)
         {
-            //²éÑ¯ËùÓĞapi
+            //æŸ¥è¯¢æ‰€æœ‰api
             var apis = await _apiRepository.Select.ToListAsync();
             var paths = apis.Select(a => a.Path).ToList();
 
-            //path´¦Àí
+            //pathå¤„ç†
             foreach (var api in input.Apis)
             {
                 api.Path = api.Path?.Trim().ToLower();
                 api.ParentPath = api.ParentPath?.Trim().ToLower();
             }
 
-            #region Ö´ĞĞ²åÈë
+            #region æ‰§è¡Œæ’å…¥
 
-            //Ö´ĞĞ¸¸¼¶api²åÈë
+            //æ‰§è¡Œçˆ¶çº§apiæ’å…¥
             var parentApis = input.Apis.FindAll(a => a.ParentPath.IsNull());
             var pApis = (from a in parentApis where !paths.Contains(a.Path) select a).ToList();
             if (pApis.Count > 0)
@@ -184,7 +184,7 @@ namespace ZhonTai.Admin.Services.Api
                 apis.AddRange(insertPApis);
             }
 
-            //Ö´ĞĞ×Ó¼¶api²åÈë
+            //æ‰§è¡Œå­çº§apiæ’å…¥
             var childApis = input.Apis.FindAll(a => a.ParentPath.NotNull());
             var cApis = (from a in childApis where !paths.Contains(a.Path) select a).ToList();
             if (cApis.Count > 0)
@@ -194,12 +194,12 @@ namespace ZhonTai.Admin.Services.Api
                 apis.AddRange(insertCApis);
             }
 
-            #endregion Ö´ĞĞ²åÈë
+            #endregion æ‰§è¡Œæ’å…¥
 
-            #region ĞŞ¸ÄºÍ½ûÓÃ
+            #region ä¿®æ”¹å’Œç¦ç”¨
 
             {
-                //apiĞŞ¸Ä
+                //apiä¿®æ”¹
                 ApiEntity a;
                 List<string> labels;
                 string label;
@@ -221,7 +221,7 @@ namespace ZhonTai.Admin.Services.Api
             }
 
             {
-                //apiĞŞ¸Ä
+                //apiä¿®æ”¹
                 ApiEntity a;
                 ApiEntity pa;
                 List<string> labels;
@@ -247,7 +247,7 @@ namespace ZhonTai.Admin.Services.Api
             }
 
             {
-                //api½ûÓÃ
+                //apiç¦ç”¨
                 var inputPaths = input.Apis.Select(a => a.Path).ToList();
                 var disabledApis = (from a in apis where !inputPaths.Contains(a.Path) select a).ToList();
                 if (disabledApis.Count > 0)
@@ -259,9 +259,9 @@ namespace ZhonTai.Admin.Services.Api
                 }
             }
 
-            #endregion ĞŞ¸ÄºÍ½ûÓÃ
+            #endregion ä¿®æ”¹å’Œç¦ç”¨
 
-            //ÅúÁ¿¸üĞÂ
+            //æ‰¹é‡æ›´æ–°
             await _apiRepository.UpdateDiy.SetSource(apis)
             .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled })
             .ExecuteAffrowsAsync();

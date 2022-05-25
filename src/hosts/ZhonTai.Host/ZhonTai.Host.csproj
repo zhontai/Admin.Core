@@ -1,91 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Description>中台接口宿主</Description>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <!--<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>-->
-    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Authors>xiaoxue</Authors>
-    <Company>xiaoxue</Company>
-    <RepositoryType>git</RepositoryType>
-    <Description>中台宿主</Description>
-    <PackageProjectUrl>https://github.com/zhontai/ZhonTai.Host</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/zhontai/ZhonTai.Host</RepositoryUrl>
-    <PackageTags>ZhonTai Admin;WebApi</PackageTags>
-    <PackageId>ZhonTai.Host</PackageId>
-    <Product>ZhonTai.Host</Product>
-    <UserSecretsId>729fff27-b925-4753-a8c8-f3e9c0e50a40</UserSecretsId>
-    <AssemblyName>ZhonTai.Host</AssemblyName>
-    <RootNamespace>ZhonTai.Host</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+		<NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-  </PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\platform\ZhonTai.Admin\ZhonTai.Admin.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="AutoMapper\**" />
-    <Compile Remove="Hubs\**" />
-    <Content Remove="AutoMapper\**" />
-    <Content Remove="Hubs\**" />
-    <EmbeddedResource Remove="AutoMapper\**" />
-    <EmbeddedResource Remove="Hubs\**" />
-    <None Remove="AutoMapper\**" />
-    <None Remove="Hubs\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="wwwroot\captcha\jigsaw\1.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\2.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\3.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\1.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\2.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\3.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\4.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\5.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\6.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\swagger\mini-profiler.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="ZhonTai.Host.Repository.dll" />
-    <None Remove="admin.db" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\platform\ZhonTai.Admin\ZhonTai.Admin.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="wwwroot\captcha\jigsaw\1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\2.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\3.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\captcha\jigsaw\templates\6.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\swagger\mini-profiler.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
-
-  <ItemGroup>
-	<InternalsVisibleTo Include="ZhonTai.Tests" />
-  </ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="ZhonTai.Tests" />
+	</ItemGroup>
 </Project>

@@ -1,14 +1,14 @@
-namespace ZhonTai.Admin.Services.Document.Dto
+ï»¿namespace ZhonTai.Admin.Services.Document.Dto
 {
     public class DocumentUpdateGroupInput : DocumentAddGroupInput
     {
         /// <summary>
-        /// ±àºÅ
+        /// ç¼–å·
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// °æ±¾
+        /// ç‰ˆæœ¬
         /// </summary>
         public long Version { get; set; }
     }

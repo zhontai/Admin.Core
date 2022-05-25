@@ -1,4 +1,4 @@
-using ZhonTai.Admin.Core.Entities;
+﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;

@@ -1,4 +1,4 @@
-using System.Linq;
+ï»¿using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ZhonTai.Admin.Services.Tenant
 {
     /// <summary>
-    /// ×â»§·şÎñ
+    /// ç§Ÿæˆ·æœåŠ¡
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class TenantService : BaseService, ITenantService, IDynamicApi
@@ -45,7 +45,7 @@ namespace ZhonTai.Admin.Services.Tenant
         }
 
         /// <summary>
-        /// ²éÑ¯×â»§
+        /// æŸ¥è¯¢ç§Ÿæˆ·
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace ZhonTai.Admin.Services.Tenant
         }
 
         /// <summary>
-        /// ²éÑ¯×â»§ÁĞ±í
+        /// æŸ¥è¯¢ç§Ÿæˆ·åˆ—è¡¨
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -83,7 +83,7 @@ namespace ZhonTai.Admin.Services.Tenant
         }
 
         /// <summary>
-        /// ĞÂÔö
+        /// æ–°å¢
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -95,20 +95,20 @@ namespace ZhonTai.Admin.Services.Tenant
 
             var tenantId = tenant.Id;
 
-            //Ìí¼ÓÓÃ»§
+            //æ·»åŠ ç”¨æˆ·
             var pwd = MD5Encrypt.Encrypt32("111111");
             var user = new UserEntity { TenantId = tenantId, UserName = input.Phone, NickName = input.RealName, Password = pwd, Status = 0 };
             await _userRepository.InsertAsync(user);
 
-            //Ìí¼Ó½ÇÉ«
-            var role = new RoleEntity { TenantId = tenantId, Code = "plat_admin", Name = "Æ½Ì¨¹ÜÀíÔ±", Enabled = true };
+            //æ·»åŠ è§’è‰²
+            var role = new RoleEntity { TenantId = tenantId, Code = "plat_admin", Name = "å¹³å°ç®¡ç†å‘˜", Enabled = true };
             await _roleRepository.InsertAsync(role);
 
-            //Ìí¼ÓÓÃ»§½ÇÉ«
+            //æ·»åŠ ç”¨æˆ·è§’è‰²
             var userRole = new UserRoleEntity() { UserId = user.Id, RoleId = role.Id };
             await _userRoleRepository.InsertAsync(userRole);
 
-            //¸üĞÂ×â»§ÓÃ»§ºÍ½ÇÉ«
+            //æ›´æ–°ç§Ÿæˆ·ç”¨æˆ·å’Œè§’è‰²
             tenant.UserId = user.Id;
             tenant.RoleId = role.Id;
             await _tenantRepository.UpdateAsync(tenant);
@@ -117,7 +117,7 @@ namespace ZhonTai.Admin.Services.Tenant
         }
 
         /// <summary>
-        /// ĞŞ¸Ä
+        /// ä¿®æ”¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -131,7 +131,7 @@ namespace ZhonTai.Admin.Services.Tenant
             var entity = await _tenantRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("×â»§²»´æÔÚ£¡");
+                return ResultOutput.NotOk("ç§Ÿæˆ·ä¸å­˜åœ¨ï¼");
             }
 
             Mapper.Map(input, entity);
@@ -140,66 +140,66 @@ namespace ZhonTai.Admin.Services.Tenant
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ı
+        /// å½»åº•åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> DeleteAsync(long id)
         {
-            //É¾³ı½ÇÉ«È¨ÏŞ
+            //åˆ é™¤è§’è‰²æƒé™
             await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
 
-            //É¾³ıÓÃ»§½ÇÉ«
+            //åˆ é™¤ç”¨æˆ·è§’è‰²
             await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
 
-            //É¾³ıÓÃ»§
+            //åˆ é™¤ç”¨æˆ·
             await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
 
-            //É¾³ı½ÇÉ«
+            //åˆ é™¤è§’è‰²
             await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
 
-            //É¾³ı×â»§
+            //åˆ é™¤ç§Ÿæˆ·
             await _tenantRepository.DeleteAsync(id);
 
             return ResultOutput.Ok();
         }
 
         /// <summary>
-        /// É¾³ı
+        /// åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
-            //É¾³ıÓÃ»§
+            //åˆ é™¤ç”¨æˆ·
             await _userRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
 
-            //É¾³ı½ÇÉ«
+            //åˆ é™¤è§’è‰²
             await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
 
-            //É¾³ı×â»§
+            //åˆ é™¤ç§Ÿæˆ·
             var result = await _tenantRepository.SoftDeleteAsync(id);
 
             return ResultOutput.Result(result);
         }
 
         /// <summary>
-        /// ÅúÁ¿É¾³ı
+        /// æ‰¹é‡åˆ é™¤
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
         {
-            //É¾³ıÓÃ»§
+            //åˆ é™¤ç”¨æˆ·
             await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");
 
-            //É¾³ı½ÇÉ«
+            //åˆ é™¤è§’è‰²
             await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");
 
-            //É¾³ı×â»§
+            //åˆ é™¤ç§Ÿæˆ·
             var result = await _tenantRepository.SoftDeleteAsync(ids);
 
             return ResultOutput.Result(result);

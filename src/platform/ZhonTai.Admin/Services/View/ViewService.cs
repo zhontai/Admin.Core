@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ using ZhonTai.DynamicApi.Attributes;
 namespace ZhonTai.Admin.Services.View
 {
     /// <summary>
-    /// ÊÓÍ¼·şÎñ
+    /// è§†å›¾æœåŠ¡
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class ViewService : BaseService, IViewService, IDynamicApi
@@ -26,7 +26,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ²éÑ¯ÊÓÍ¼
+        /// æŸ¥è¯¢è§†å›¾
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -37,7 +37,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ²éÑ¯ÁĞ±í
+        /// æŸ¥è¯¢åˆ—è¡¨
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -53,7 +53,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ĞÂÔö
+        /// æ–°å¢
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -66,7 +66,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ĞŞ¸Ä
+        /// ä¿®æ”¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -80,7 +80,7 @@ namespace ZhonTai.Admin.Services.View
             var entity = await _viewRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("ÊÓÍ¼²»´æÔÚ£¡");
+                return ResultOutput.NotOk("è§†å›¾ä¸å­˜åœ¨ï¼");
             }
 
             Mapper.Map(input, entity);
@@ -89,7 +89,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ı
+        /// å½»åº•åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -105,7 +105,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// É¾³ı
+        /// åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -117,7 +117,7 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// ÅúÁ¿É¾³ı
+        /// æ‰¹é‡åˆ é™¤
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -130,25 +130,25 @@ namespace ZhonTai.Admin.Services.View
         }
 
         /// <summary>
-        /// Í¬²½
+        /// åŒæ­¥
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SyncAsync(ViewSyncInput input)
         {
-            //²éÑ¯ËùÓĞÊÓÍ¼
+            //æŸ¥è¯¢æ‰€æœ‰è§†å›¾
             var views = await _viewRepository.Select.ToListAsync();
             var names = views.Select(a => a.Name).ToList();
             var paths = views.Select(a => a.Path).ToList();
 
-            //path´¦Àí
+            //pathå¤„ç†
             foreach (var view in input.Views)
             {
                 view.Path = view.Path?.Trim();
             }
 
-            //ÅúÁ¿²åÈë
+            //æ‰¹é‡æ’å…¥
             {
                 var inputViews = (from a in input.Views where !(paths.Contains(a.Path) || names.Contains(a.Name)) select a).ToList();
                 if (inputViews.Count > 0)
@@ -166,12 +166,12 @@ namespace ZhonTai.Admin.Services.View
                 }
             }
 
-            //ÅúÁ¿¸üĞÂ
+            //æ‰¹é‡æ›´æ–°
             {
                 var inputPaths = input.Views.Select(a => a.Path).ToList();
                 var inputNames = input.Views.Select(a => a.Name).ToList();
 
-                //ĞŞ¸Ä
+                //ä¿®æ”¹
                 var updateViews = (from a in views where inputPaths.Contains(a.Path) || inputNames.Contains(a.Name) select a).ToList();
                 if (updateViews.Count > 0)
                 {
@@ -192,7 +192,7 @@ namespace ZhonTai.Admin.Services.View
                     }
                 }
 
-                //½ûÓÃ
+                //ç¦ç”¨
                 var disabledViews = (from a in views where (a.Path.NotNull() || a.Name.NotNull()) && (!inputPaths.Contains(a.Path) || !inputNames.Contains(a.Name)) select a).ToList();
                 if (disabledViews.Count > 0)
                 {

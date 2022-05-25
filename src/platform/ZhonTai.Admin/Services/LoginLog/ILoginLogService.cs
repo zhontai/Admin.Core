@@ -1,4 +1,4 @@
-using ZhonTai.Admin.Core.Dto;
+锘縰sing ZhonTai.Admin.Core.Dto;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Services.LoginLog.Dto;
 using ZhonTai.Admin.Domain;
@@ -6,7 +6,7 @@ using ZhonTai.Admin.Domain;
 namespace ZhonTai.Admin.Services.LoginLog
 {
     /// <summary>
-    /// 登录日志接口
+    /// 鐧诲綍鏃ュ織鎺ュ彛
     /// </summary>
     public interface ILoginLogService
     {

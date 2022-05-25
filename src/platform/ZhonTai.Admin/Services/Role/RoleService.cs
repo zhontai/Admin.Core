@@ -1,4 +1,4 @@
-using System.Linq;
+锘縰sing System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Core.Dto;
@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ZhonTai.Admin.Services.Role
 {
     /// <summary>
-    /// 角色服务
+    /// 瑙掕壊鏈嶅姟
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class RoleService : BaseService, IRoleService, IDynamicApi
@@ -31,7 +31,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 查询角色
+        /// 鏌ヨ瑙掕壊
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 查询角色列表
+        /// 鏌ヨ瑙掕壊鍒楄〃
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 新增
+        /// 鏂板
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 修改
+        /// 淇敼
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -96,7 +96,7 @@ namespace ZhonTai.Admin.Services.Role
             var entity = await _roleRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("角色不存在！");
+                return ResultOutput.NotOk("瑙掕壊涓嶅瓨鍦紒");
             }
 
             Mapper.Map(input, entity);
@@ -105,7 +105,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 彻底删除
+        /// 褰诲簳鍒犻櫎
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -121,7 +121,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 删除
+        /// 鍒犻櫎
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -134,7 +134,7 @@ namespace ZhonTai.Admin.Services.Role
         }
 
         /// <summary>
-        /// 批量删除
+        /// 鎵归噺鍒犻櫎
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>

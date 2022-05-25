@@ -1,21 +1,21 @@
-using System.Threading.Tasks;
+锘縰sing System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 
 namespace ZhonTai.Admin.Services.Cache
 {
     /// <summary>
-    /// 缓存接口
+    /// 缂撳瓨鎺ュ彛
     /// </summary>
     public interface ICacheService
     {
         /// <summary>
-        /// 缓存列表
+        /// 缂撳瓨鍒楄〃
         /// </summary>
         /// <returns></returns>
         IResultOutput GetList();
 
         /// <summary>
-        /// 清除缓存
+        /// 娓呴櫎缂撳瓨
         /// </summary>
         /// <param name="cacheKey"></param>
         /// <returns></returns>

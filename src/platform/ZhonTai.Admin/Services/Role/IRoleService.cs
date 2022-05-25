@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.Admin.Services.Role.Dto;
@@ -6,7 +6,7 @@ using ZhonTai.Admin.Services.Role.Dto;
 namespace ZhonTai.Admin.Services.Role
 {
     /// <summary>
-    /// ½ÇÉ«½Ó¿Ú
+    /// è§’è‰²æ¥å£
     /// </summary>
     public interface IRoleService
     {

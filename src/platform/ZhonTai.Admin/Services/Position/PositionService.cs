@@ -1,4 +1,4 @@
-using ZhonTai.Admin.Core.Dto;
+锘縰sing ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Position.Input;
 using ZhonTai.Admin.Services.Position.Output;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ using ZhonTai.DynamicApi.Attributes;
 namespace ZhonTai.Admin.Services.Position
 {
     /// <summary>
-    /// 职位服务
+    /// 鑱屼綅鏈嶅姟
     /// </summary>
     public class PositionService : BaseService, IPositionService
     {
@@ -25,7 +25,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 查询职位
+        /// 鏌ヨ鑱屼綅
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 查询分页
+        /// 鏌ヨ鍒嗛〉
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -61,7 +61,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 新增
+        /// 鏂板
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -74,7 +74,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 修改
+        /// 淇敼
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -88,7 +88,7 @@ namespace ZhonTai.Admin.Services.Position
             var entity = await _positionRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("职位不存在！");
+                return ResultOutput.NotOk("鑱屼綅涓嶅瓨鍦紒");
             }
 
             Mapper.Map(input, entity);
@@ -97,7 +97,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 彻底删除
+        /// 褰诲簳鍒犻櫎
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -113,7 +113,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 删除
+        /// 鍒犻櫎
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -126,7 +126,7 @@ namespace ZhonTai.Admin.Services.Position
         }
 
         /// <summary>
-        /// 批量删除
+        /// 鎵归噺鍒犻櫎
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>

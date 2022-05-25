@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+锘縰sing System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Employee.Input;
 using ZhonTai.Admin.Services.Employee.Output;
@@ -7,7 +7,7 @@ using ZhonTai.Admin.Domain.Employee;
 namespace ZhonTai.Admin.Services.Employee
 {
     /// <summary>
-    /// 员工服务
+    /// 鍛樺伐鏈嶅姟
     /// </summary>
     public interface IEmployeeService
     {

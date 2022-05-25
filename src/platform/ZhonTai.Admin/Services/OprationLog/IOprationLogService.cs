@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+锘縰sing System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.OprationLog.Dto;
 using ZhonTai.Admin.Domain;
@@ -6,7 +6,7 @@ using ZhonTai.Admin.Domain;
 namespace ZhonTai.Admin.Services.OprationLog
 {
     /// <summary>
-    /// 操作日志接口
+    /// 鎿嶄綔鏃ュ織鎺ュ彛
     /// </summary>
     public interface IOprationLogService
     {
