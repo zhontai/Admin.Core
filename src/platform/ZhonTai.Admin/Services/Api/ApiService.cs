@@ -211,7 +211,7 @@ namespace ZhonTai.Admin.Services.Api
                     {
                         labels = api.Label?.Split("\r\n")?.ToList();
                         label = labels != null && labels.Count > 0 ? labels[0] : string.Empty;
-                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count() - 1)) : string.Empty;
+                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count - 1)) : string.Empty;
                         a.ParentId = 0;
                         a.Label = label;
                         a.Description = desc;
@@ -235,7 +235,7 @@ namespace ZhonTai.Admin.Services.Api
                     {
                         labels = api.Label?.Split("\r\n")?.ToList();
                         label = labels != null && labels.Count > 0 ? labels[0] : string.Empty;
-                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count() - 1)) : string.Empty;
+                        desc = labels != null && labels.Count > 1 ? string.Join("\r\n", labels.GetRange(1, labels.Count - 1)) : string.Empty;
 
                         a.ParentId = pa.Id;
                         a.Label = label;

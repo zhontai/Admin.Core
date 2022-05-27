@@ -39,7 +39,7 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="startNum"></param>
         /// <param name="endNum"></param>
         /// <returns></returns>
-		public int GetRandomInt(int startNum, int endNum)
+		private static int GetRandomInt(int startNum, int endNum)
         {
             return (endNum > startNum ? new Random().Next(endNum - startNum) : 0) + startNum;
         }
@@ -52,9 +52,9 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="templateWidth"></param>
         /// <param name="templateHeight"></param>
         /// <returns></returns>
-        private PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
+        private static PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
         {
-            Random random = new Random();
+            var random = new Random();
             int widthDifference = originalWidth - templateWidth;
             int heightDifference = originalHeight - templateHeight;
             int x;
@@ -90,7 +90,7 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="blockX"></param>
         /// <param name="blockY"></param>
         /// <returns></returns>
-        private PointModel GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
+        private static PointModel GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
         {
             int x;
             if (originalWidth - blockX - 5 > templateWidth * 2)
