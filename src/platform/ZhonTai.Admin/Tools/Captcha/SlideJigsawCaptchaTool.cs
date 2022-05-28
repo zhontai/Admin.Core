@@ -205,12 +205,13 @@ namespace ZhonTai.Admin.Tools.Captcha
             //生成滑块拼图
             sliderBlockImage.Mutate(x => x.DrawImage(blockImage, new Point(0, blockPoint.Y), 1));
 
+            var opacity = (float)(_random.Next(70, 100) * 0.01);
             //底图叠加深色模板图
-            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(blockPoint.X, blockPoint.Y), 0.5f));
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(blockPoint.X, blockPoint.Y), opacity));
             //生成干扰图坐标
             PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, blockWidth, blockHeight, blockPoint.X, blockPoint.Y);
             //底图叠加深色干扰模板图
-            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(interferencePoint.X, interferencePoint.Y), 0.5f));
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(interferencePoint.X, interferencePoint.Y), opacity));
             
             var token = Guid.NewGuid().ToString();
             var captchaData = new CaptchaOutput
