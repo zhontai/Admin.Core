@@ -6275,7 +6275,8 @@
             <summary>
             获得验证数据
             </summary>
-            <returns>JObject</returns>
+            <param name="captchaKey"></param>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Tools.Captcha.SlideJigsawCaptchaTool.CheckAsync(ZhonTai.Admin.Tools.Captcha.CaptchaInput)">
             <summary>

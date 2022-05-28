@@ -12,12 +12,6 @@ using SixLabors.ImageSharp.PixelFormats;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Tools.Cache;
 
-/*
-Linux下Ubuntu如果报Gdip错误，需要按照以下步骤操作
-1. apt-get install libgdiplus
-2. cd /usr/lib
-3. ln -s libgdiplus.so gdiplus.dll
-*/
 namespace ZhonTai.Admin.Tools.Captcha
 {
     /// <summary>
@@ -27,6 +21,8 @@ namespace ZhonTai.Admin.Tools.Captcha
     public class SlideJigsawCaptchaTool : ICaptchaTool
     {
         private readonly ICacheTool _cache;
+
+        private readonly Random _random = new();
 
         public SlideJigsawCaptchaTool(ICacheTool cache)
         {
@@ -39,9 +35,9 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="startNum"></param>
         /// <param name="endNum"></param>
         /// <returns></returns>
-		private static int GetRandomInt(int startNum, int endNum)
+		private int GetRandomInt(int startNum, int endNum)
         {
-            return (endNum > startNum ? new Random().Next(endNum - startNum) : 0) + startNum;
+            return (endNum > startNum ? _random.Next(endNum - startNum) : 0) + startNum;
         }
 
         /// <summary>
@@ -52,9 +48,8 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="templateWidth"></param>
         /// <param name="templateHeight"></param>
         /// <returns></returns>
-        private static PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
+        private PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
         {
-            var random = new Random();
             int widthDifference = originalWidth - templateWidth;
             int heightDifference = originalHeight - templateHeight;
             int x;
@@ -64,7 +59,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             }
             else
             {
-                x = random.Next(originalWidth - templateWidth - 100) + 100;
+                x = _random.Next(originalWidth - templateWidth - 100) + 100;
             }
 
             int y;
@@ -74,7 +69,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             }
             else
             {
-                y = random.Next(originalHeight - templateHeight - 5) + 5;
+                y = _random.Next(originalHeight - templateHeight - 5) + 5;
             }
 
             return new PointModel(x, y);
@@ -90,7 +85,7 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="blockX"></param>
         /// <param name="blockY"></param>
         /// <returns></returns>
-        private static PointModel GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
+        private PointModel GenerateInterferencePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight, int blockX, int blockY)
         {
             int x;
             if (originalWidth - blockX - 5 > templateWidth * 2)
@@ -119,13 +114,13 @@ namespace ZhonTai.Admin.Tools.Captcha
             return new PointModel(x, y);
         }
 
-        private static ComplexPolygon CalcBlockShape(Image<Rgba32> holeTemplateImage)
+        private static ComplexPolygon CalcBlockShape(Image<Rgba32> templateDarkImage)
         {
             int temp = 0;
             var pathList = new List<IPath>();
-            holeTemplateImage.ProcessPixelRows(accessor =>
+            templateDarkImage.ProcessPixelRows(accessor =>
             {
-                for (int y = 0; y < holeTemplateImage.Height; y++)
+                for (int y = 0; y < templateDarkImage.Height; y++)
                 {
                     var rowSpan = accessor.GetRowSpan(y);
                     for (int x = 0; x < rowSpan.Length; x++)
@@ -156,7 +151,8 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <summary>
         /// 获得验证数据
         /// </summary>
-        /// <returns>JObject</returns>
+        /// <param name="captchaKey"></param>
+        /// <returns></returns>
         public async Task<CaptchaOutput> GetAsync(string captchaKey)
         {
             //获取网络图片
@@ -165,45 +161,57 @@ namespace ZhonTai.Admin.Tools.Captcha
             //client.Dispose();
 
             //底图
-            using var baseImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\{new Random().Next(1, 4)}.jpg".ToPath());
-            //模板图
-            using var templateImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{new Random().Next(1, 7)}.png".ToPath());
+            using var baseImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\backgrounds\{_random.Next(1, 6)}.jpg".ToPath());
+            var randomTemplate = _random.Next(1, 7);
+            //深色模板图
+            using var darkTemplateImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{randomTemplate}\dark.png".ToPath());
+            //透明模板图
+            using var transparentTemplateImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{randomTemplate}\transparent.png".ToPath());
 
             int baseWidth = baseImage.Width;
             int baseHeight = baseImage.Height;
-            int templateWidth = templateImage.Width;
-            int templateHeight = templateImage.Height;
+            int blockWidth = 50;
+            int blockHeight = 50;
 
-            //拼图
-            using var blockImage = new Image<Rgba32>(templateWidth, templateHeight);
-            //滑块拼图
-            using var sliderBlockImage = new Image<Rgba32>(templateWidth, baseHeight);
+            //调整模板图大小
+            darkTemplateImage.Mutate(x =>
+            {
+                x.Resize(blockWidth, blockHeight);
+            });
+            transparentTemplateImage.Mutate(x =>
+            {
+                x.Resize(blockWidth, blockHeight);
+            });
+
+            //新建拼图
+            using var blockImage = new Image<Rgba32>(blockWidth, blockHeight);
+            //新建滑块拼图
+            using var sliderBlockImage = new Image<Rgba32>(blockWidth, baseHeight);
 
             //随机生成拼图坐标
-            PointModel blockPoint = GeneratePoint(baseWidth, baseHeight, templateWidth, templateHeight);
+            PointModel blockPoint = GeneratePoint(baseWidth, baseHeight, blockWidth, blockHeight);
 
-            //根据模板图计算轮廓
-            var blockShape = CalcBlockShape(templateImage);
+            //根据深色模板图计算轮廓形状
+            var blockShape = CalcBlockShape(darkTemplateImage);
+
             //生成拼图
             blockImage.Mutate(x =>
             {
                 x.Clip(blockShape, p => p.DrawImage(baseImage, new Point(-blockPoint.X, -blockPoint.Y), 1));
             });
-            //叠加拼图
-            //blockImage.Mutate(x => x.DrawImage(templateImage, new Point(0, 0), 1));
+            //拼图叠加透明模板图层
+            blockImage.Mutate(x => x.DrawImage(transparentTemplateImage, new Point(0, 0), 1));
 
             //生成滑块拼图
             sliderBlockImage.Mutate(x => x.DrawImage(blockImage, new Point(0, blockPoint.Y), 1));
 
-            //生成拼图底图
-            baseImage.Mutate(x => x.DrawImage(templateImage, new Point(blockPoint.X, blockPoint.Y), (float)0.5));
-
+            //底图叠加深色模板图
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(blockPoint.X, blockPoint.Y), 0.5f));
             //生成干扰图坐标
-            PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, templateWidth, templateHeight, blockPoint.X, blockPoint.Y);
-
-            //生成干扰图底图
-            baseImage.Mutate(x => x.DrawImage(templateImage, new Point(interferencePoint.X, interferencePoint.Y), (float)0.5));
-
+            PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, blockWidth, blockHeight, blockPoint.X, blockPoint.Y);
+            //底图叠加深色干扰模板图
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(interferencePoint.X, interferencePoint.Y), 0.5f));
+            
             var token = Guid.NewGuid().ToString();
             var captchaData = new CaptchaOutput
             {

@@ -22,7 +22,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             _appConfig = appConfig;
         }
 
-        private string GenerateRandom(int length)
+        private static string GenerateRandom(int length)
         {
             var chars = new StringBuilder();
             //验证码的字符集，去掉了一些容易混淆的字符
@@ -38,8 +38,8 @@ namespace ZhonTai.Admin.Tools.Captcha
 
         public byte[] Draw(out string code, int length = 4)
         {
-            int codeW = 110;
-            int codeH = 36;
+            int width = 110;
+            int height = 36;
             int fontSize = 22;
 
             //颜色列表，用于验证码、噪线、噪点
@@ -50,7 +50,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             var chars = GenerateRandom(length);
             code = chars;
 
-            using var img = new Image<Rgba32>(codeW, codeH, Color.White);
+            using var img = new Image<Rgba32>(width, height, Color.White);
 
             img.Mutate(ctx =>
             {
@@ -58,12 +58,10 @@ namespace ZhonTai.Admin.Tools.Captcha
                 //画噪线
                 for (int i = 0; i < 1; i++)
                 {
-                    int x1 = rnd.Next(codeW);
-                    int y1 = rnd.Next(codeH);
-                    int x2 = rnd.Next(codeW);
-                    int y2 = rnd.Next(codeH);
-                    int ctrlx1 = rnd.Next(codeW / 4, codeW / 4 * 3), ctrly1 = rnd.Next(5, codeH - 5);
-                    int ctrlx2 = rnd.Next(codeW / 4, codeW / 4 * 3), ctrly2 = rnd.Next(5, codeH - 5);
+                    int x1 = rnd.Next(width), y1 = rnd.Next(height);
+                    int x2 = rnd.Next(width), y2 = rnd.Next(height);
+                    int ctrlx1 = rnd.Next(width / 4, width / 4 * 3), ctrly1 = rnd.Next(5, height - 5);
+                    int ctrlx2 = rnd.Next(width / 4, width / 4 * 3), ctrly2 = rnd.Next(5, height - 5);
                     Color color = colors[rnd.Next(colors.Length)];
                     ctx.DrawBeziers(new DrawingOptions
                     {

@@ -14,32 +14,50 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Update="wwwroot\captcha\jigsaw\1.jpg">
+		<Content Update="wwwroot\captcha\jigsaw\backgrounds\1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\2.jpg">
+		<Content Update="wwwroot\captcha\jigsaw\backgrounds\2.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\3.jpg">
+		<Content Update="wwwroot\captcha\jigsaw\backgrounds\3.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\1.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\1\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\2.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\1\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\3.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\2\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\4.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\2\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\5.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\3\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Update="wwwroot\captcha\jigsaw\templates\6.png">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Content Update="wwwroot\captcha\jigsaw\templates\3\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\4\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\4\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\5\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\5\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\6\dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\templates\6\transparent.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Update="wwwroot\swagger\mini-profiler.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
