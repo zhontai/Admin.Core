@@ -1,14 +1,14 @@
-namespace ZhonTai.Admin.Services.Document.Dto
+锘縩amespace ZhonTai.Admin.Services.Document.Dto
 {
     public class DocumentAddImageInput
     {
         /// <summary>
-        /// 用户Id
+        /// 鐢ㄦ埛Id
         /// </summary>
         public long DocumentId { get; set; }
 
         /// <summary>
-        /// 请求路径
+        /// 璇锋眰璺緞
         /// </summary>
         public string Url { get; set; }
     }

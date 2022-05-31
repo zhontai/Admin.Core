@@ -28,7 +28,7 @@ namespace ZhonTai.Common.Helpers
         /// <param name="optional">可选</param>
         /// <param name="reloadOnChange">自动更新</param>
         /// <returns></returns>
-        public IConfiguration Load(string fileName, string environmentName = "", bool optional = true, bool reloadOnChange = false)
+        public static IConfiguration Load(string fileName, string environmentName = "", bool optional = true, bool reloadOnChange = false)
         {
             var filePath = Path.Combine(AppContext.BaseDirectory, "configs");
             if (!Directory.Exists(filePath))
@@ -55,7 +55,7 @@ namespace ZhonTai.Common.Helpers
         /// <param name="optional">可选</param>
         /// <param name="reloadOnChange">自动更新</param>
         /// <returns></returns>
-        public T Get<T>(string fileName, string environmentName = "", bool optional = true, bool reloadOnChange = false)
+        public static T Get<T>(string fileName, string environmentName = "", bool optional = true, bool reloadOnChange = false)
         {
             var configuration = Load(fileName, environmentName, optional, reloadOnChange);
             if (configuration == null)
@@ -72,7 +72,7 @@ namespace ZhonTai.Common.Helpers
         /// <param name="environmentName">环境名称</param>
         /// <param name="optional">可选</param>
         /// <param name="reloadOnChange">自动更新</param>
-        public void Bind(string fileName, object instance, string environmentName = "", bool optional = true, bool reloadOnChange = false)
+        public static void Bind(string fileName, object instance, string environmentName = "", bool optional = true, bool reloadOnChange = false)
         {
             var configuration = Load(fileName, environmentName, optional, reloadOnChange);
             if (configuration == null || instance == null)

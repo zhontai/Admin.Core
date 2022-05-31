@@ -1,66 +1,66 @@
-using ZhonTai.Admin.Domain.Permission;
+ï»¿using ZhonTai.Admin.Domain.Permission;
 
 namespace ZhonTai.Admin.Services.Permission.Dto
 {
     public class PermissionAddMenuInput
     {
         /// <summary>
-        /// È¨ÏŞÀàĞÍ
+        /// æƒé™ç±»å‹
         /// </summary>
         public PermissionTypeEnum Type { get; set; }
 
         /// <summary>
-        /// ¸¸¼¶½Úµã
+        /// çˆ¶çº§èŠ‚ç‚¹
         /// </summary>
         public long ParentId { get; set; }
 
         /// <summary>
-        /// ÊÓÍ¼
+        /// è§†å›¾
         /// </summary>
         public long? ViewId { get; set; }
 
         /// <summary>
-        /// ·ÃÎÊµØÖ·
+        /// è®¿é—®åœ°å€
         /// </summary>
         public string Path { get; set; }
 
         /// <summary>
-        /// È¨ÏŞÃû³Æ
+        /// æƒé™åç§°
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// ËµÃ÷
+        /// è¯´æ˜
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Òş²Ø
+        /// éšè—
         /// </summary>
 		public bool Hidden { get; set; }
 
         ///// <summary>
-        ///// ÆôÓÃ
+        ///// å¯ç”¨
         ///// </summary>
         //public bool Enabled { get; set; }
 
         /// <summary>
-        /// Í¼±ê
+        /// å›¾æ ‡
         /// </summary>
         public string Icon { get; set; }
 
         /// <summary>
-        /// ¿É¹Ø±Õ
+        /// å¯å…³é—­
         /// </summary>
         public bool? Closable { get; set; }
 
         /// <summary>
-        /// ´ò¿ªĞÂ´°¿Ú
+        /// æ‰“å¼€æ–°çª—å£
         /// </summary>
         public bool? NewWindow { get; set; }
 
         /// <summary>
-        /// Á´½ÓÍâÏÔ
+        /// é“¾æ¥å¤–æ˜¾
         /// </summary>
         public bool? External { get; set; }
     }

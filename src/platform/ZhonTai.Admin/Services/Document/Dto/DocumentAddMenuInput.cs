@@ -1,31 +1,31 @@
-using ZhonTai.Admin.Domain.Document;
+锘縰sing ZhonTai.Admin.Domain.Document;
 
 namespace ZhonTai.Admin.Services.Document.Dto
 {
     public class DocumentAddMenuInput
     {
         /// <summary>
-        /// 父级节点
+        /// 鐖剁骇鑺傜偣
         /// </summary>
         public long ParentId { get; set; }
 
         /// <summary>
-        /// 类型
+        /// 绫诲瀷
         /// </summary>
         public DocumentTypeEnum Type { get; set; }
 
         /// <summary>
-        /// 命名
+        /// 鍛藉悕
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 名称
+        /// 鍚嶇О
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// 说明
+        /// 璇存槑
         /// </summary>
         public string Description { get; set; }
     }

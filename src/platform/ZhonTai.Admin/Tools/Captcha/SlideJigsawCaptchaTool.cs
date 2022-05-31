@@ -1,19 +1,17 @@
-﻿using ZhonTai.Admin.Tools.Cache;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.PixelFormats;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Tools.Cache;
 
-/*
-Linux下Ubuntu如果报Gdip错误，需要按照以下步骤操作
-1. apt-get install libgdiplus
-2. cd /usr/lib
-3. ln -s libgdiplus.so gdiplus.dll
-*/
 namespace ZhonTai.Admin.Tools.Captcha
 {
     /// <summary>
@@ -24,256 +22,11 @@ namespace ZhonTai.Admin.Tools.Captcha
     {
         private readonly ICacheTool _cache;
 
+        private readonly Random _random = new();
+
         public SlideJigsawCaptchaTool(ICacheTool cache)
         {
             _cache = cache;
-        }
-
-        /// <summary>
-        /// Bitmap转为base64编码的文本
-        /// </summary>
-        /// <param name="bmp"></param>
-        /// <returns></returns>
-        private string ImgToBase64String(Bitmap bmp)
-        {
-            try
-            {
-                MemoryStream ms = new MemoryStream();
-                bmp.Save(ms, ImageFormat.Png);
-                byte[] arr = new byte[ms.Length];
-                ms.Position = 0;
-                ms.Read(arr, 0, (int)ms.Length);
-                ms.Close();
-                return Convert.ToBase64String(arr);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 读取像素
-        /// </summary>
-        /// <param name="img"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="pixels"></param>
-        private void ReadPixel(Bitmap img, int x, int y, int[] pixels)
-        {
-            int xStart = x - 1;
-            int yStart = y - 1;
-            int current = 0;
-            for (int i = xStart; i < 3 + xStart; i++)
-            {
-                for (int j = yStart; j < 3 + yStart; j++)
-                {
-                    int tx = i;
-                    if (tx < 0)
-                    {
-                        tx = -tx;
-
-                    }
-                    else if (tx >= img.Width)
-                    {
-                        tx = x;
-                    }
-                    int ty = j;
-                    if (ty < 0)
-                    {
-                        ty = -ty;
-                    }
-                    else if (ty >= img.Height)
-                    {
-                        ty = y;
-                    }
-                    pixels[current++] = img.GetPixel(tx, ty).ToArgb();
-
-                }
-            }
-        }
-
-        private void FillMatrix(int[][] matrix, int[] values)
-        {
-            int filled = 0;
-            for (int i = 0; i < matrix.Length; i++)
-            {
-                int[] x = matrix[i];
-                for (int j = 0; j < x.Length; j++)
-                {
-                    x[j] = values[filled++];
-                }
-            }
-        }
-
-        private Color AvgMatrix(int[][] matrix)
-        {
-            int r = 0;
-            int g = 0;
-            int b = 0;
-            for (int i = 0; i < matrix.Length; i++)
-            {
-                int[] x = matrix[i];
-                for (int j = 0; j < x.Length; j++)
-                {
-                    if (j == 1)
-                    {
-                        continue;
-                    }
-                    Color c = Color.FromArgb(x[j]);
-                    r += c.R;
-                    g += c.G;
-                    b += c.B;
-                }
-            }
-            return Color.FromArgb(r / 8, g / 8, b / 8);
-        }
-
-        /// <summary>
-        /// 根据模板生成拼图
-        /// </summary>
-        /// <param name="baseImage"></param>
-        /// <param name="templateImage"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        private Bitmap CutByTemplate(Bitmap baseImage, Bitmap templateImage, int x, int y)
-        {
-            //生成透明背景图
-            Bitmap newImage = new Bitmap(templateImage.Width, baseImage.Height);
-            for (int i = 0, newImageWidth = templateImage.Width; i < newImageWidth; i++)
-            {
-                for (int j = 0, newImageHeight = baseImage.Height; j < newImageHeight; j++)
-                {
-                    newImage.SetPixel(i, j, Color.FromArgb(0,0,0,0));
-                }
-            }
-
-            // 临时数组遍历用于高斯模糊存周边像素值
-            int[] values = new int[9];
-            int[][] martrix = { new int[3], new int[3], new int[3] };
-
-            int xLength = templateImage.Width;
-            int yLength = templateImage.Height;
-            // 模板图像宽度
-            for (int i = 0; i < xLength; i++)
-            {
-                // 模板图片高度
-                for (int j = 0; j < yLength; j++)
-                {
-                    // 如果模板图像当前像素点不是透明色 copy源文件信息到目标图片中
-                    int rgb = templateImage.GetPixel(i, j).ToArgb();
-                    if (rgb < 0)
-                    {
-                        Color oriImageColor = baseImage.GetPixel(x + i, y + j);
-
-                        newImage.SetPixel(i, y + j, oriImageColor);
-
-                        //抠图区域半透明
-                        //baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
-
-                        //抠图区域高斯模糊
-                        ReadPixel(baseImage, x + i, y + j, values);
-                        FillMatrix(martrix, values);
-                        baseImage.SetPixel(x + i, y + j, AvgMatrix(martrix));
-                    }
-
-                    //防止数组越界判断
-                    if (i == (xLength - 1) || j == (yLength - 1))
-                    {
-                        continue;
-                    }
-
-                    int rightRgb = templateImage.GetPixel(i + 1, j).ToArgb();
-                    int downRgb = templateImage.GetPixel(i, j + 1).ToArgb();
-                    //描边处理，,取带像素和无像素的界点，判断该点是不是临界轮廓点,如果是设置该坐标像素是白色
-                    if ((rgb >= 0 && rightRgb < 0) || (rgb < 0 && rightRgb >= 0) || (rgb >= 0 && downRgb < 0) || (rgb < 0 && downRgb >= 0))
-                    {
-                        newImage.SetPixel(i, y + j, Color.White);
-                        baseImage.SetPixel(x + i, y + j, Color.White);
-                    }
-                }
-            }
-            return newImage;
-        }
-
-        /// <summary>
-        /// 根据模板生成干扰图
-        /// </summary>
-        /// <param name="baseImage"></param>
-        /// <param name="templateImage"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        private void InterferenceByTemplate(Bitmap baseImage, Bitmap templateImage, int x, int y)
-        {
-            // 临时数组遍历用于高斯模糊存周边像素值
-            int[][] martrix = { new int[3], new int[3], new int[3] };
-            int[] values = new int[9];
-
-            int xLength = templateImage.Width;
-            int yLength = templateImage.Height;
-            // 模板图像宽度
-            for (int i = 0; i < xLength; i++)
-            {
-                // 模板图片高度
-                for (int j = 0; j < yLength; j++)
-                {
-                    // 如果模板图像当前像素点不是透明色 copy源文件信息到目标图片中
-                    int rgb = templateImage.GetPixel(i, j).ToArgb();
-                    if (rgb < 0)
-                    {
-                        Color oriImageColor = baseImage.GetPixel(x + i, y + j);
-
-                        //抠图区域半透明
-                        //baseImage.SetPixel(x + i, y + j, Color.FromArgb(120, oriImageColor.R, oriImageColor.G, oriImageColor.B));
-
-                        //抠图区域高斯模糊
-                        ReadPixel(baseImage, x + i, y + j, values);
-                        FillMatrix(martrix, values);
-                        baseImage.SetPixel(x + i, y + j, AvgMatrix(martrix));
-                    }
-
-                    //防止数组越界判断
-                    if (i == (xLength - 1) || j == (yLength - 1))
-                    {
-                        continue;
-                    }
-
-                    int rightRgb = templateImage.GetPixel(i + 1, j).ToArgb();
-                    int downRgb = templateImage.GetPixel(i, j + 1).ToArgb();
-                    //描边处理，,取带像素和无像素的界点，判断该点是不是临界轮廓点,如果是设置该坐标像素是白色
-                    if ((rgb >= 0 && rightRgb < 0) || (rgb < 0 && rightRgb >= 0) || (rgb >= 0 && downRgb < 0) || (rgb < 0 && downRgb >= 0))
-                    {
-                        baseImage.SetPixel(x + i, y + j, Color.White);
-                    }
-                }
-            }
-        }
-        
-        /// <summary>
-        /// 更改图片尺寸
-        /// </summary>
-        /// <param name="bmp"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <returns></returns>
-        private Bitmap ResizeImage(Bitmap bmp, int width, int height)
-        {
-            try
-            {
-                Bitmap b = new Bitmap(width, height);
-                Graphics g = Graphics.FromImage(b);
-                // 图画质量
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.DrawImage(bmp, new Rectangle(0, 0, width, height), new Rectangle(0, 0, bmp.Width, bmp.Height), GraphicsUnit.Pixel);
-                g.Dispose();
-
-                return b;
-            }
-            catch
-            {
-                return null;
-            }
         }
 
         /// <summary>
@@ -282,9 +35,9 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <param name="startNum"></param>
         /// <param name="endNum"></param>
         /// <returns></returns>
-		public int GetRandomInt(int startNum, int endNum)
+		private int GetRandomInt(int startNum, int endNum)
         {
-            return (endNum > startNum ? new Random().Next(endNum - startNum) : 0) + startNum;
+            return (endNum > startNum ? _random.Next(endNum - startNum) : 0) + startNum;
         }
 
         /// <summary>
@@ -297,7 +50,6 @@ namespace ZhonTai.Admin.Tools.Captcha
         /// <returns></returns>
         private PointModel GeneratePoint(int originalWidth, int originalHeight, int templateWidth, int templateHeight)
         {
-            Random random = new Random();
             int widthDifference = originalWidth - templateWidth;
             int heightDifference = originalHeight - templateHeight;
             int x;
@@ -307,7 +59,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             }
             else
             {
-                x = random.Next(originalWidth - templateWidth - 100) + 100;
+                x = _random.Next(originalWidth - templateWidth - 100) + 100;
             }
 
             int y;
@@ -317,7 +69,7 @@ namespace ZhonTai.Admin.Tools.Captcha
             }
             else
             {
-                y = random.Next(originalHeight - templateHeight - 5) + 5;
+                y = _random.Next(originalHeight - templateHeight - 5) + 5;
             }
 
             return new PointModel(x, y);
@@ -362,63 +114,118 @@ namespace ZhonTai.Admin.Tools.Captcha
             return new PointModel(x, y);
         }
 
+        private static ComplexPolygon CalcBlockShape(Image<Rgba32> templateDarkImage)
+        {
+            int temp = 0;
+            var pathList = new List<IPath>();
+            templateDarkImage.ProcessPixelRows(accessor =>
+            {
+                for (int y = 0; y < templateDarkImage.Height; y++)
+                {
+                    var rowSpan = accessor.GetRowSpan(y);
+                    for (int x = 0; x < rowSpan.Length; x++)
+                    {
+                        ref Rgba32 pixel = ref rowSpan[x];
+                        if (pixel.A != 0)
+                        {
+                            if (temp == 0)
+                            {
+                                temp = x;
+                            }
+                        }
+                        else
+                        {
+                            if (temp != 0)
+                            {
+                                pathList.Add(new RectangularPolygon(temp, y, x - temp, 1));
+                                temp = 0;
+                            }
+                        }
+                    }
+                }
+            });
+
+            return new ComplexPolygon(new PathCollection(pathList));
+        }
+
         /// <summary>
         /// 获得验证数据
         /// </summary>
-        /// <returns>JObject</returns>
+        /// <param name="captchaKey"></param>
+        /// <returns></returns>
         public async Task<CaptchaOutput> GetAsync(string captchaKey)
         {
             //获取网络图片
             //var client = new HttpClient();
             //var stream = await client.GetStreamAsync("https://picsum.photos/310/155");
             //client.Dispose();
-            //Bitmap baseImage = new Bitmap(stream);
-            //stream.Dispose();
 
-            var oriImage = Image.FromFile($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\{new Random().Next(1, 4)}.jpg".ToPath());
-            //更改图片尺寸
-            //Bitmap baseImage = ResizeImage(oriImage, 310, 155);
-            Bitmap baseImage = new Bitmap(oriImage);
-            oriImage.Dispose();
-
-            var oriTemplate = Image.FromFile($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{new Random().Next(1, 7)}.png".ToPath());
-            Bitmap templateImage = new Bitmap(oriTemplate);
-            oriTemplate.Dispose();
+            //底图
+            using var baseImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\backgrounds\{_random.Next(1, 6)}.jpg".ToPath());
+            var randomTemplate = _random.Next(1, 7);
+            //深色模板图
+            using var darkTemplateImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{randomTemplate}\dark.png".ToPath());
+            //透明模板图
+            using var transparentTemplateImage = await Image.LoadAsync<Rgba32>($@"{Directory.GetCurrentDirectory()}\wwwroot\captcha\jigsaw\templates\{randomTemplate}\transparent.png".ToPath());
 
             int baseWidth = baseImage.Width;
             int baseHeight = baseImage.Height;
-            int templateWidth = templateImage.Width;
-            int templateHeight = templateImage.Height;
+            int blockWidth = 50;
+            int blockHeight = 50;
+
+            //调整模板图大小
+            darkTemplateImage.Mutate(x =>
+            {
+                x.Resize(blockWidth, blockHeight);
+            });
+            transparentTemplateImage.Mutate(x =>
+            {
+                x.Resize(blockWidth, blockHeight);
+            });
+
+            //新建拼图
+            using var blockImage = new Image<Rgba32>(blockWidth, blockHeight);
+            //新建滑块拼图
+            using var sliderBlockImage = new Image<Rgba32>(blockWidth, baseHeight);
 
             //随机生成拼图坐标
-            PointModel point = GeneratePoint(baseWidth, baseHeight, templateWidth, templateHeight);
-            int x = point.X;
-            int y = point.Y;
+            PointModel blockPoint = GeneratePoint(baseWidth, baseHeight, blockWidth, blockHeight);
+
+            //根据深色模板图计算轮廓形状
+            var blockShape = CalcBlockShape(darkTemplateImage);
 
             //生成拼图
-            string blockImageBase64 = "data:image/png;base64," + ImgToBase64String(CutByTemplate(baseImage, templateImage, x, y));
+            blockImage.Mutate(x =>
+            {
+                x.Clip(blockShape, p => p.DrawImage(baseImage, new Point(-blockPoint.X, -blockPoint.Y), 1));
+            });
+            //拼图叠加透明模板图层
+            blockImage.Mutate(x => x.DrawImage(transparentTemplateImage, new Point(0, 0), 1));
 
-            //生成干扰图
-            PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, templateWidth, templateHeight, x, y);
-            InterferenceByTemplate(baseImage, templateImage, interferencePoint.X, interferencePoint.Y);
+            //生成滑块拼图
+            sliderBlockImage.Mutate(x => x.DrawImage(blockImage, new Point(0, blockPoint.Y), 1));
 
-            string baseImageBase64 = "data:image/png;base64," + ImgToBase64String(baseImage);
-            templateImage.Dispose();
-            baseImage.Dispose();
-
+            var opacity = (float)(_random.Next(70, 100) * 0.01);
+            //底图叠加深色模板图
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(blockPoint.X, blockPoint.Y), opacity));
+            //生成干扰图坐标
+            PointModel interferencePoint = GenerateInterferencePoint(baseWidth, baseHeight, blockWidth, blockHeight, blockPoint.X, blockPoint.Y);
+            //底图叠加深色干扰模板图
+            baseImage.Mutate(x => x.DrawImage(darkTemplateImage, new Point(interferencePoint.X, interferencePoint.Y), opacity));
+            
             var token = Guid.NewGuid().ToString();
-            CaptchaOutput captchaData = new CaptchaOutput
+            var captchaData = new CaptchaOutput
             {
                 Token = token,
                 Data = new SlideJigsawCaptchaDto()
                 {
-                    BlockImage = blockImageBase64,
-                    BaseImage = baseImageBase64
+                    BaseImage = baseImage.ToBase64String(PngFormat.Instance),
+                    BlockImage = sliderBlockImage.ToBase64String(PngFormat.Instance)
                 }
             };
 
             var key = string.Format(captchaKey, token);
-            await _cache.SetAsync(key, point.X);
+            await _cache.SetAsync(key, blockPoint.X);
 
             return captchaData;
         }

@@ -1,8 +1,8 @@
 {
-  //�����ַ
+  //跨域地址
   "corUrls": [ "http://localhost:9000", "http://127.0.0.1:9000", "https://localhost:5000" ],
   "IdentityServer": {
-    //��ַ
+    //地址
     "url": "https://localhost:5000"
   }
 }

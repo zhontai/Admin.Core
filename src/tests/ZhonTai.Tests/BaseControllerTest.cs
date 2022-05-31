@@ -29,61 +29,85 @@ namespace ZhonTai.Tests
             _appConfig = GetService<AppConfig>();
         }
 
-        public ByteArrayContent GetHttpContent(object input)
+        public static ByteArrayContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8")
         {
             // HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
             var content = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(input));
             var httpContent = new ByteArrayContent(content);
-            httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;charset=UTF-8");
+            httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             return httpContent;
         }
 
         public async Task<T> GetResult<T>(string apiPath, object input = null, bool checkStatus = true)
         {
             await Login();
+            if (input != null)
+            {
+                var queryParams = ToParams(input);
+                apiPath = apiPath.IndexOf('?') > -1 ? $"{apiPath}&{queryParams}" : $"{apiPath}?{queryParams}";
+            }
             var res = await Client.GetAsync(apiPath);
             if (checkStatus)
             {
                 Assert.Equal(HttpStatusCode.OK, res.StatusCode);
             }
             var content = await res.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+            return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
         }
 
-        public async Task<T> PostResult<T>(string apiPath, object input = null, bool checkStatus = true)
+        public async Task<T> PostResult<T>(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
         {
             await Login();
-            var res = await Client.PostAsync(apiPath, GetHttpContent(input));
+            var res = await Client.PostAsync(apiPath, GetHttpContent(input, contentType));
             if (checkStatus)
             {
                 Assert.Equal(HttpStatusCode.OK, res.StatusCode);
             }
             var content = await res.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+            return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
         }
 
-        public async Task<T> PutResult<T>(string apiPath, object input = null, bool checkStatus = true)
+        public async Task<string> PostResultAndGetContent(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
         {
+            //application/json;charset=UTF-8
+            //application/x-www-form-urlencoded;charset=UTF-8
             await Login();
-            var res = await Client.PutAsync(apiPath, GetHttpContent(input));
+            var res = await Client.PostAsync(apiPath, GetHttpContent(input, contentType));
             if (checkStatus)
             {
                 Assert.Equal(HttpStatusCode.OK, res.StatusCode);
             }
             var content = await res.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+            return content;
+        }
+
+        public async Task<T> PutResult<T>(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
+        {
+            await Login();
+            var res = await Client.PutAsync(apiPath, GetHttpContent(input, contentType));
+            if (checkStatus)
+            {
+                Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+            }
+            var content = await res.Content.ReadAsStringAsync();
+            return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
         }
 
         public async Task<T> DeleteResult<T>(string apiPath, object input = null, bool checkStatus = true)
         {
             await Login();
+            if (input != null)
+            {
+                var queryParams = ToParams(input);
+                apiPath = apiPath.IndexOf('?') > -1 ? $"{apiPath}&{queryParams}" : $"{apiPath}?{queryParams}";
+            }
             var res = await Client.DeleteAsync(apiPath);
             if (checkStatus)
             {
                 Assert.Equal(HttpStatusCode.OK, res.StatusCode);
             }
             var content = await res.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+            return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
         }
 
         public async Task<ResultOutput<dynamic>> GetResult(string apiPath, object input = null, bool checkStatus = true)
@@ -91,14 +115,14 @@ namespace ZhonTai.Tests
             return await GetResult<ResultOutput<dynamic>>(apiPath, input, checkStatus);
         }
 
-        public async Task<ResultOutput<dynamic>> PostResult(string apiPath, object input = null, bool checkStatus = true)
+        public async Task<ResultOutput<dynamic>> PostResult(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
         {
-            return await PostResult<ResultOutput<dynamic>>(apiPath, input, checkStatus);
+            return await PostResult<ResultOutput<dynamic>>(apiPath, input, checkStatus, contentType);
         }
 
-        public async Task<ResultOutput<dynamic>> PutResult(string apiPath, object input = null, bool checkStatus = true)
+        public async Task<ResultOutput<dynamic>> PutResult(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
         {
-            return await PutResult<ResultOutput<dynamic>>(apiPath, input, checkStatus);
+            return await PutResult<ResultOutput<dynamic>>(apiPath, input, checkStatus, contentType);
         }
 
         public async Task<ResultOutput<dynamic>> DeleteResult(string apiPath, object input = null, bool checkStatus = true)
@@ -141,7 +165,7 @@ namespace ZhonTai.Tests
             Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
-        public string ToParams(object source)
+        public static string ToParams(object source)
         {
             var stringBuilder = new StringBuilder(string.Empty);
             if (source == null)

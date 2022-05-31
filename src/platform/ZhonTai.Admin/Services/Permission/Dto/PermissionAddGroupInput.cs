@@ -1,46 +1,46 @@
-using ZhonTai.Admin.Domain.Permission;
+锘縰sing ZhonTai.Admin.Domain.Permission;
 
 namespace ZhonTai.Admin.Services.Permission.Dto
 {
     public class PermissionAddGroupInput
     {
         /// <summary>
-        /// 权限类型
+        /// 鏉冮檺绫诲瀷
         /// </summary>
         public PermissionTypeEnum Type { get; set; }
 
         /// <summary>
-        /// 父级节点
+        /// 鐖剁骇鑺傜偣
         /// </summary>
         public long ParentId { get; set; }
 
         /// <summary>
-        /// 权限名称
+        /// 鏉冮檺鍚嶇О
         /// </summary>
         public string Label { get; set; }
 
         ///// <summary>
-        ///// 说明
+        ///// 璇存槑
         ///// </summary>
         //public string Description { get; set; }
 
         /// <summary>
-        /// 隐藏
+        /// 闅愯棌
         /// </summary>
 		public bool Hidden { get; set; }
 
         ///// <summary>
-        ///// 启用
+        ///// 鍚敤
         ///// </summary>
         //public bool Enabled { get; set; }
 
         /// <summary>
-        /// 图标
+        /// 鍥炬爣
         /// </summary>
         public string Icon { get; set; }
 
         /// <summary>
-        /// 打开
+        /// 鎵撳紑
         /// </summary>
         public bool? Opened { get; set; }
     }

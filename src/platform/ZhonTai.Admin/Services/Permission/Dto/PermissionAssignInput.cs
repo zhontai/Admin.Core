@@ -1,14 +1,14 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.Permission.Dto
 {
     public class PermissionAssignInput
     {
-        [Required(ErrorMessage = "½ÇÉ«²»ÄÜÎª¿Õ£¡")]
+        [Required(ErrorMessage = "è§’è‰²ä¸èƒ½ä¸ºç©ºï¼")]
         public long RoleId { get; set; }
 
-        [Required(ErrorMessage = "È¨ÏŞ²»ÄÜÎª¿Õ£¡")]
+        [Required(ErrorMessage = "æƒé™ä¸èƒ½ä¸ºç©ºï¼")]
         public List<long> PermissionIds { get; set; }
     }
 }

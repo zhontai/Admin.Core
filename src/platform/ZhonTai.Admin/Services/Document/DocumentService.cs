@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+ï»¿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
@@ -15,7 +15,7 @@ using ZhonTai.Admin.Core.Helpers;
 namespace ZhonTai.Admin.Services.Document
 {
     /// <summary>
-    /// ÎÄµµ·şÎñ
+    /// æ–‡æ¡£æœåŠ¡
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class DocumentService : BaseService, IDocumentService, IDynamicApi
@@ -33,7 +33,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯ÎÄµµ
+        /// æŸ¥è¯¢æ–‡æ¡£
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -45,7 +45,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯·Ö×é
+        /// æŸ¥è¯¢åˆ†ç»„
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -56,7 +56,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯²Ëµ¥
+        /// æŸ¥è¯¢èœå•
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -67,7 +67,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯ÎÄµµÄÚÈİ
+        /// æŸ¥è¯¢æ–‡æ¡£å†…å®¹
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -78,7 +78,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯ÎÄµµÁĞ±í
+        /// æŸ¥è¯¢æ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <param name="key"></param>
         /// <param name="start"></param>
@@ -102,7 +102,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯Í¼Æ¬ÁĞ±í
+        /// æŸ¥è¯¢å›¾ç‰‡åˆ—è¡¨
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -117,7 +117,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞÂÔö·Ö×é
+        /// æ–°å¢åˆ†ç»„
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -130,7 +130,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞÂÔö²Ëµ¥
+        /// æ–°å¢èœå•
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -143,7 +143,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞÂÔöÍ¼Æ¬
+        /// æ–°å¢å›¾ç‰‡
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -156,7 +156,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞŞ¸Ä·Ö×é
+        /// ä¿®æ”¹åˆ†ç»„
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -174,7 +174,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞŞ¸Ä²Ëµ¥
+        /// ä¿®æ”¹èœå•
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -192,7 +192,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ĞŞ¸ÄÎÄµµÄÚÈİ
+        /// ä¿®æ”¹æ–‡æ¡£å†…å®¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -210,7 +210,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ıÎÄµµ
+        /// å½»åº•åˆ é™¤æ–‡æ¡£
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -226,7 +226,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ıÍ¼Æ¬
+        /// å½»åº•åˆ é™¤å›¾ç‰‡
         /// </summary>
         /// <param name="documentId"></param>
         /// <param name="url"></param>
@@ -243,7 +243,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// É¾³ıÎÄµµ
+        /// åˆ é™¤æ–‡æ¡£
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -254,7 +254,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ²éÑ¯¾«¼òÎÄµµÁĞ±í
+        /// æŸ¥è¯¢ç²¾ç®€æ–‡æ¡£åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
         public async Task<IResultOutput> GetPlainListAsync()
@@ -279,7 +279,7 @@ namespace ZhonTai.Admin.Services.Document
         }
 
         /// <summary>
-        /// ÉÏ´«ÎÄµµÍ¼Æ¬
+        /// ä¸Šä¼ æ–‡æ¡£å›¾ç‰‡
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -293,7 +293,7 @@ namespace ZhonTai.Admin.Services.Document
             var res = await uploadHelper.UploadAsync(input.File, config, new { input.Id });
             if (res.Success)
             {
-                //±£´æÎÄµµÍ¼Æ¬
+                //ä¿å­˜æ–‡æ¡£å›¾ç‰‡
                 var r = await AddImageAsync(
                 new DocumentAddImageInput
                 {
@@ -306,7 +306,7 @@ namespace ZhonTai.Admin.Services.Document
                 }
             }
 
-            return ResultOutput.NotOk("ÉÏ´«Ê§°Ü£¡");
+            return ResultOutput.NotOk("ä¸Šä¼ å¤±è´¥ï¼");
         }
     }
 }

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+锘縰sing Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ZhonTai.Admin.Services.LoginLog
 {
     /// <summary>
-    /// 登录日志服务
+    /// 鐧诲綍鏃ュ織鏈嶅姟
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
@@ -30,7 +30,7 @@ namespace ZhonTai.Admin.Services.LoginLog
         }
 
         /// <summary>
-        /// 查询登录日志列表
+        /// 鏌ヨ鐧诲綍鏃ュ織鍒楄〃
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace ZhonTai.Admin.Services.LoginLog
         }
 
         /// <summary>
-        /// 新增
+        /// 鏂板
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

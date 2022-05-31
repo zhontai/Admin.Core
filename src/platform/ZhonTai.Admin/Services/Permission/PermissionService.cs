@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ using ZhonTai.Admin.Core.Db;
 namespace ZhonTai.Admin.Services.Permission
 {
     /// <summary>
-    /// È¨ÏŞ·şÎñ
+    /// æƒé™æœåŠ¡
     /// </summary>
     [DynamicApi(Area = "admin")]
     public class PermissionService : BaseService, IPermissionService, IDynamicApi
@@ -58,7 +58,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// Çå³ıÈ¨ÏŞÏÂ¹ØÁªµÄÓÃ»§È¨ÏŞ»º´æ
+        /// æ¸…é™¤æƒé™ä¸‹å…³è”çš„ç”¨æˆ·æƒé™ç¼“å­˜
         /// </summary>
         /// <param name="permissionIds"></param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯È¨ÏŞ
+        /// æŸ¥è¯¢æƒé™
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -88,7 +88,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯·Ö×é
+        /// æŸ¥è¯¢åˆ†ç»„
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -99,7 +99,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯²Ëµ¥
+        /// æŸ¥è¯¢èœå•
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯½Ó¿Ú
+        /// æŸ¥è¯¢æ¥å£
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -121,7 +121,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯È¨ÏŞµã
+        /// æŸ¥è¯¢æƒé™ç‚¹
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -136,7 +136,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯È¨ÏŞÁĞ±í
+        /// æŸ¥è¯¢æƒé™åˆ—è¡¨
         /// </summary>
         /// <param name="key"></param>
         /// <param name="start"></param>
@@ -160,7 +160,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯½ÇÉ«È¨ÏŞ-È¨ÏŞÁĞ±í
+        /// æŸ¥è¯¢è§’è‰²æƒé™-æƒé™åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
         public async Task<IResultOutput> GetPermissionList()
@@ -193,7 +193,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯½ÇÉ«È¨ÏŞÁĞ±í
+        /// æŸ¥è¯¢è§’è‰²æƒé™åˆ—è¡¨
         /// </summary>
         /// <param name="roleId"></param>
         /// <returns></returns>
@@ -207,7 +207,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ²éÑ¯×â»§È¨ÏŞÁĞ±í
+        /// æŸ¥è¯¢ç§Ÿæˆ·æƒé™åˆ—è¡¨
         /// </summary>
         /// <param name="tenantId"></param>
         /// <returns></returns>
@@ -221,7 +221,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞÂÔö·Ö×é
+        /// æ–°å¢åˆ†ç»„
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -234,7 +234,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞÂÔö²Ëµ¥
+        /// æ–°å¢èœå•
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -247,7 +247,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞÂÔö½Ó¿Ú
+        /// æ–°å¢æ¥å£
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -260,7 +260,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞÂÔöÈ¨ÏŞµã
+        /// æ–°å¢æƒé™ç‚¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -280,7 +280,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞŞ¸Ä·Ö×é
+        /// ä¿®æ”¹åˆ†ç»„
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -298,7 +298,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞŞ¸Ä²Ëµ¥
+        /// ä¿®æ”¹èœå•
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -316,7 +316,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞŞ¸Ä½Ó¿Ú
+        /// ä¿®æ”¹æ¥å£
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -334,7 +334,7 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ĞŞ¸ÄÈ¨ÏŞµã
+        /// ä¿®æ”¹æƒé™ç‚¹
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -349,7 +349,7 @@ namespace ZhonTai.Admin.Services.Permission
             var entity = await _permissionRepository.GetAsync(input.Id);
             if (!(entity?.Id > 0))
             {
-                return ResultOutput.NotOk("È¨ÏŞµã²»´æÔÚ£¡");
+                return ResultOutput.NotOk("æƒé™ç‚¹ä¸å­˜åœ¨ï¼");
             }
 
             Mapper.Map(input, entity);
@@ -363,90 +363,90 @@ namespace ZhonTai.Admin.Services.Permission
                 await _permissionApiRepository.InsertAsync(permissionApis);
             }
 
-            //Çå³ıÓÃ»§È¨ÏŞ»º´æ
+            //æ¸…é™¤ç”¨æˆ·æƒé™ç¼“å­˜
             await ClearUserPermissionsAsync(new List<long> { entity.Id });
 
             return ResultOutput.Ok();
         }
 
         /// <summary>
-        /// ³¹µ×É¾³ı
+        /// å½»åº•åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> DeleteAsync(long id)
         {
-            //µİ¹é²éÑ¯ËùÓĞÈ¨ÏŞµã
+            //é€’å½’æŸ¥è¯¢æ‰€æœ‰æƒé™ç‚¹
             var ids = _permissionRepository.Select
             .Where(a => a.Id == id)
             .AsTreeCte()
             .ToList(a => a.Id);
 
-            //É¾³ıÈ¨ÏŞ¹ØÁª½Ó¿Ú
+            //åˆ é™¤æƒé™å…³è”æ¥å£
             await _permissionApiRepository.DeleteAsync(a => ids.Contains(a.PermissionId));
 
-            //É¾³ıÏà¹ØÈ¨ÏŞ
+            //åˆ é™¤ç›¸å…³æƒé™
             await _permissionRepository.DeleteAsync(a => ids.Contains(a.Id));
 
-            //Çå³ıÓÃ»§È¨ÏŞ»º´æ
+            //æ¸…é™¤ç”¨æˆ·æƒé™ç¼“å­˜
             await ClearUserPermissionsAsync(ids);
 
             return ResultOutput.Ok();
         }
 
         /// <summary>
-        /// É¾³ı
+        /// åˆ é™¤
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<IResultOutput> SoftDeleteAsync(long id)
         {
-            //µİ¹é²éÑ¯ËùÓĞÈ¨ÏŞµã
+            //é€’å½’æŸ¥è¯¢æ‰€æœ‰æƒé™ç‚¹
             var ids = _permissionRepository.Select
             .Where(a => a.Id == id)
             .AsTreeCte()
             .ToList(a => a.Id);
 
-            //É¾³ıÈ¨ÏŞ
+            //åˆ é™¤æƒé™
             await _permissionRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
 
-            //Çå³ıÓÃ»§È¨ÏŞ»º´æ
+            //æ¸…é™¤ç”¨æˆ·æƒé™ç¼“å­˜
             await ClearUserPermissionsAsync(ids);
 
             return ResultOutput.Ok();
         }
 
         /// <summary>
-        /// ±£´æ½ÇÉ«È¨ÏŞ
+        /// ä¿å­˜è§’è‰²æƒé™
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
         {
-            //·ÖÅäÈ¨ÏŞµÄÊ±ºòÅĞ¶Ï½ÇÉ«ÊÇ·ñ´æÔÚ
+            //åˆ†é…æƒé™çš„æ—¶å€™åˆ¤æ–­è§’è‰²æ˜¯å¦å­˜åœ¨
             var exists = await _roleRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(input.RoleId).AnyAsync();
             if (!exists)
             {
-                return ResultOutput.NotOk("¸Ã½ÇÉ«²»´æÔÚ»òÒÑ±»É¾³ı£¡");
+                return ResultOutput.NotOk("è¯¥è§’è‰²ä¸å­˜åœ¨æˆ–å·²è¢«åˆ é™¤ï¼");
             }
 
-            //²éÑ¯½ÇÉ«È¨ÏŞ
+            //æŸ¥è¯¢è§’è‰²æƒé™
             var permissionIds = await _rolePermissionRepository.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m => m.PermissionId);
 
-            //ÅúÁ¿É¾³ıÈ¨ÏŞ
+            //æ‰¹é‡åˆ é™¤æƒé™
             var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
             if (deleteIds.Any())
             {
                 await _rolePermissionRepository.DeleteAsync(m => m.RoleId == input.RoleId && deleteIds.Contains(m.PermissionId));
             }
 
-            //ÅúÁ¿²åÈëÈ¨ÏŞ
+            //æ‰¹é‡æ’å…¥æƒé™
             var insertRolePermissions = new List<RolePermissionEntity>();
             var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
 
-            //·ÀÖ¹×â»§·Ç·¨ÊÚÈ¨
+            //é˜²æ­¢ç§Ÿæˆ·éæ³•æˆæƒ
             if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
             {
                 var masterDb = ServiceProvider.GetRequiredService<IFreeSql>();
@@ -467,7 +467,7 @@ namespace ZhonTai.Admin.Services.Permission
                 await _rolePermissionRepository.InsertAsync(insertRolePermissions);
             }
 
-            //Çå³ı½ÇÉ«ÏÂ¹ØÁªµÄÓÃ»§È¨ÏŞ»º´æ
+            //æ¸…é™¤è§’è‰²ä¸‹å…³è”çš„ç”¨æˆ·æƒé™ç¼“å­˜
             var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == input.RoleId).ToListAsync(a => a.UserId);
             foreach (var userId in userIds)
             {
@@ -478,30 +478,30 @@ namespace ZhonTai.Admin.Services.Permission
         }
 
         /// <summary>
-        /// ±£´æ×â»§È¨ÏŞ
+        /// ä¿å­˜ç§Ÿæˆ·æƒé™
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [Transaction]
         public async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
         {
-            //»ñµÃ×â»§db
+            //è·å¾—ç§Ÿæˆ·db
             var ib = ServiceProvider.GetRequiredService<IdleBus<IFreeSql>>();
             var tenantDb = ib.GetTenantFreeSql(ServiceProvider, input.TenantId);
 
-            //²éÑ¯×â»§È¨ÏŞ
+            //æŸ¥è¯¢ç§Ÿæˆ·æƒé™
             var permissionIds = await _tenantPermissionRepository.Select.Where(d => d.TenantId == input.TenantId).ToListAsync(m => m.PermissionId);
 
-            //ÅúÁ¿É¾³ı×â»§È¨ÏŞ
+            //æ‰¹é‡åˆ é™¤ç§Ÿæˆ·æƒé™
             var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
             if (deleteIds.Any())
             {
                 await _tenantPermissionRepository.DeleteAsync(m => m.TenantId == input.TenantId && deleteIds.Contains(m.PermissionId));
-                //É¾³ı×â»§ÏÂ¹ØÁªµÄ½ÇÉ«È¨ÏŞ
+                //åˆ é™¤ç§Ÿæˆ·ä¸‹å…³è”çš„è§’è‰²æƒé™
                 await tenantDb.GetRepositoryBase<RolePermissionEntity>().DeleteAsync(a => deleteIds.Contains(a.PermissionId));
             }
 
-            //ÅúÁ¿²åÈë×â»§È¨ÏŞ
+            //æ‰¹é‡æ’å…¥ç§Ÿæˆ·æƒé™
             var tenatPermissions = new List<TenantPermissionEntity>();
             var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
             if (insertPermissionIds.Any())
@@ -517,7 +517,7 @@ namespace ZhonTai.Admin.Services.Permission
                 await _tenantPermissionRepository.InsertAsync(tenatPermissions);
             }
 
-            //Çå³ı×â»§ÏÂËùÓĞÓÃ»§È¨ÏŞ»º´æ
+            //æ¸…é™¤ç§Ÿæˆ·ä¸‹æ‰€æœ‰ç”¨æˆ·æƒé™ç¼“å­˜
             var userIds = await tenantDb.GetRepositoryBase<UserEntity>().Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
             if(userIds.Any())
             {

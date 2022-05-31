@@ -1,41 +1,41 @@
-using ZhonTai.Admin.Domain.Permission;
+锘縰sing ZhonTai.Admin.Domain.Permission;
 
 namespace ZhonTai.Admin.Services.Permission.Dto
 {
     public class PermissionAddDotInput
     {
         /// <summary>
-        /// 权限类型
+        /// 鏉冮檺绫诲瀷
         /// </summary>
         public PermissionTypeEnum Type { get; set; } = PermissionTypeEnum.Dot;
 
         /// <summary>
-        /// 父级节点
+        /// 鐖剁骇鑺傜偣
         /// </summary>
         public long ParentId { get; set; }
 
         /// <summary>
-        /// 关联接口
+        /// 鍏宠仈鎺ュ彛
         /// </summary>
         public long[] ApiIds { get; set; }
 
         /// <summary>
-        /// 权限名称
+        /// 鏉冮檺鍚嶇О
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// 权限编码
+        /// 鏉冮檺缂栫爜
         /// </summary>
         public string Code { get; set; }
 
         /// <summary>
-        /// 说明
+        /// 璇存槑
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// 图标
+        /// 鍥炬爣
         /// </summary>
         public string Icon { get; set; }
     }

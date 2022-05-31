@@ -1,4 +1,4 @@
-using ZhonTai.Admin.Core.Dto;
+锘縰sing ZhonTai.Admin.Core.Dto;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Tools.Captcha;
@@ -6,7 +6,7 @@ using ZhonTai.Admin.Tools.Captcha;
 namespace ZhonTai.Admin.Services.Auth
 {
     /// <summary>
-    /// 认证授权接口
+    /// 璁よ瘉鎺堟潈鎺ュ彛
     /// </summary>
     public interface IAuthService
     {

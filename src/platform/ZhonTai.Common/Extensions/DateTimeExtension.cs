@@ -7,7 +7,7 @@ namespace ZhonTai.Common.Extensions
         /// <summary>
         /// 时间戳起始日期
         /// </summary>
-        public static DateTime TimestampStart = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        public static readonly DateTime TimestampStart = new(1970, 1, 1, 0, 0, 0, 0);
 
         /// <summary>
         /// 转换为时间戳

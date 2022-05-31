@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using ZhonTai.Admin.Services.Api;
+using ZhonTai.Admin.Tools.Captcha;
 
 namespace ZhonTai.Tests.Services
 {
@@ -7,9 +8,19 @@ namespace ZhonTai.Tests.Services
     {
         private readonly IApiService _apiService;
 
+        private readonly ICaptchaTool _captchaTool;
+
         public ApiServiceTest()
         {
             _apiService = GetService<IApiService>();
+
+            _captchaTool = GetService<ICaptchaTool>(); ;
+        }
+
+        [Fact]
+        public async void SlideJigsawTest()
+        {
+            var data = await _captchaTool.GetAsync("admin:captcha:{0}");
         }
 
         [Fact]

@@ -42,7 +42,7 @@ namespace ZhonTai.Common.Helpers
             {
                 File.Create(Path).Close();
             }
-            StreamWriter streamWriter = new StreamWriter(Path, false);
+            var streamWriter = new StreamWriter(Path, false);
             streamWriter.Write(Strings);
             streamWriter.Close();
             streamWriter.Dispose();
@@ -60,7 +60,7 @@ namespace ZhonTai.Common.Helpers
             {
                 File.Create(Path).Close();
             }
-            StreamWriter streamWriter = new StreamWriter(Path, false, encode);
+            var streamWriter = new StreamWriter(Path, false, encode);
             streamWriter.Write(Strings);
             streamWriter.Close();
             streamWriter.Dispose();
@@ -82,7 +82,7 @@ namespace ZhonTai.Common.Helpers
                 s = "不存在相应的目录";
             else
             {
-                StreamReader streamReader = new StreamReader(Path);
+                var streamReader = new StreamReader(Path);
                 s = streamReader.ReadToEnd();
                 streamReader.Close();
                 streamReader.Dispose();
@@ -104,7 +104,7 @@ namespace ZhonTai.Common.Helpers
                 s = "不存在相应的目录";
             else
             {
-                StreamReader streamReader = new StreamReader(Path, encode);
+                var streamReader = new StreamReader(Path, encode);
                 s = streamReader.ReadToEnd();
                 streamReader.Close();
                 streamReader.Dispose();

@@ -79,24 +79,21 @@ namespace ZhonTai.Common.Helpers
             if (key.Length < 8)
                 throw new ArgumentException("秘钥长度为8位", nameof(key));
 
-            var keyBytes = Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            var keyBytes = Encoding.UTF8.GetBytes(key[..8]);
             var inputByteArray = Encoding.UTF8.GetBytes(encryptString);
-            var provider = new DESCryptoServiceProvider
-            {
-                Mode = CipherMode.ECB,
-                Key = keyBytes,
-                Padding = PaddingMode.PKCS7
-            };
 
-            using (var stream = new MemoryStream())
-            {
-                var cStream = new CryptoStream(stream, provider.CreateEncryptor(), CryptoStreamMode.Write);
-                cStream.Write(inputByteArray, 0, inputByteArray.Length);
-                cStream.FlushFinalBlock();
+            var des = DES.Create();
+            des.Mode = CipherMode.ECB;
+            des.Key = keyBytes;
+            des.Padding = PaddingMode.PKCS7;
 
-                var bytes = stream.ToArray();
-                return hex ? bytes.ToHex(lowerCase) : bytes.ToBase64();
-            }
+            using var stream = new MemoryStream();
+            var cStream = new CryptoStream(stream, des.CreateEncryptor(), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+
+            var bytes = stream.ToArray();
+            return hex ? bytes.ToHex(lowerCase) : bytes.ToBase64();
         }
 
         /// <summary>
@@ -115,22 +112,19 @@ namespace ZhonTai.Common.Helpers
             if (key.Length < 8)
                 throw new ArgumentException("秘钥长度为8位", nameof(key));
 
-            var keyBytes = Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            var keyBytes = Encoding.UTF8.GetBytes(key[..8]);
             var inputByteArray = hex ? decryptString.HexToBytes() : Convert.FromBase64String(decryptString);
-            var provider = new DESCryptoServiceProvider
-            {
-                Mode = CipherMode.ECB,
-                Key = keyBytes,
-                Padding = PaddingMode.PKCS7
-            };
 
-            using (var mStream = new MemoryStream())
-            {
-                var cStream = new CryptoStream(mStream, provider.CreateDecryptor(), CryptoStreamMode.Write);
-                cStream.Write(inputByteArray, 0, inputByteArray.Length);
-                cStream.FlushFinalBlock();
-                return Encoding.UTF8.GetString(mStream.ToArray());
-            }
+            var des = DES.Create();
+            des.Mode = CipherMode.ECB;
+            des.Key = keyBytes;
+            des.Padding = PaddingMode.PKCS7;
+
+            using var mStream = new MemoryStream();
+            var cStream = new CryptoStream(mStream, des.CreateDecryptor(), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+            return Encoding.UTF8.GetString(mStream.ToArray());
         }
     }
 }

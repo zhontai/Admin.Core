@@ -14,7 +14,7 @@ namespace ZhonTai.Common.Helpers
         public static string StringToUnicode(string value)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(value);
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             for (int i = 0; i < bytes.Length; i += 2)
             {
                 // 取两个字符，每个字符都是右对齐。

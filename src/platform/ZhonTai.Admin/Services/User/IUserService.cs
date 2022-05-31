@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+锘縰sing System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Auth.Dto;
@@ -7,7 +7,7 @@ using ZhonTai.Admin.Services.User.Dto;
 namespace ZhonTai.Admin.Services.User
 {
     /// <summary>
-    /// 用户接口
+    /// 鐢ㄦ埛鎺ュ彛
     /// </summary>
     public interface IUserService
     {

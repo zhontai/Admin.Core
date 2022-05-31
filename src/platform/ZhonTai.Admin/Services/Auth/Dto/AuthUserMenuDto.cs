@@ -1,59 +1,59 @@
-namespace ZhonTai.Admin.Services.Auth.Dto
+ï»¿namespace ZhonTai.Admin.Services.Auth.Dto
 {
     public class AuthUserMenuDto
     {
         /// <summary>
-        /// È¨ÏŞId
+        /// æƒé™Id
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// ¸¸¼¶½Úµã
+        /// çˆ¶çº§èŠ‚ç‚¹
         /// </summary>
         public long ParentId { get; set; }
 
         /// <summary>
-        /// ·ÃÎÊµØÖ·
+        /// è®¿é—®åœ°å€
         /// </summary>
         public string Path { get; set; }
 
         /// <summary>
-        /// ÊÓÍ¼µØÖ·
+        /// è§†å›¾åœ°å€
         /// </summary>
         public string ViewPath { get; set; }
 
         /// <summary>
-        /// È¨ÏŞÃû³Æ
+        /// æƒé™åç§°
         /// </summary>
         public string Label { get; set; }
 
         /// <summary>
-        /// Í¼±ê
+        /// å›¾æ ‡
         /// </summary>
         public string Icon { get; set; }
 
         /// <summary>
-        /// ´ò¿ª
+        /// æ‰“å¼€
         /// </summary>
         public bool? Opened { get; set; }
 
         /// <summary>
-        /// ¿É¹Ø±Õ
+        /// å¯å…³é—­
         /// </summary>
         public bool? Closable { get; set; }
 
         /// <summary>
-        /// Òş²Ø
+        /// éšè—
         /// </summary>
         public bool Hidden { get; set; }
 
         /// <summary>
-        /// ´ò¿ªĞÂ´°¿Ú
+        /// æ‰“å¼€æ–°çª—å£
         /// </summary>
         public bool? NewWindow { get; set; }
 
         /// <summary>
-        /// Á´½ÓÍâÏÔ
+        /// é“¾æ¥å¤–æ˜¾
         /// </summary>
         public bool? External { get; set; }
     }
