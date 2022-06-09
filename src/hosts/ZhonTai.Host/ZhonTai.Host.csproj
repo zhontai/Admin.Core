@@ -23,6 +23,12 @@
 		<Content Update="wwwroot\captcha\jigsaw\backgrounds\3.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\backgrounds\4.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\captcha\jigsaw\backgrounds\5.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Update="wwwroot\captcha\jigsaw\templates\1\dark.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

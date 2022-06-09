@@ -45,6 +45,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.ApiUI;
 using NLog.Web;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ZhonTai.Admin.Core
 {
@@ -172,7 +173,7 @@ namespace ZhonTai.Admin.Core
             #region Mapster 映射配置
 
             Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => a.Name.StartsWith("ZhonTai"))
+                .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
             services.AddScoped<IMapper>(sp => new Mapper());
             TypeAdapterConfig.GlobalSettings.Scan(assemblies);
@@ -394,8 +395,7 @@ namespace ZhonTai.Admin.Core
             #endregion 操作日志
 
             #region 控制器
-
-            services.AddControllers(options =>
+            void controllersAction(MvcOptions options)
             {
                 options.Filters.Add<ControllerExceptionFilter>();
                 options.Filters.Add<ValidateInputFilter>();
@@ -406,13 +406,22 @@ namespace ZhonTai.Admin.Core
                 }
                 //禁止去除ActionAsync后缀
                 //options.SuppressAsyncSuffixInActionNames = false;
-            })
+            }
+            
+            var mvcBuilder = appConfig.AppType switch
+            {
+                AppType.Controllers => services.AddControllers(controllersAction),
+                AppType.ControllersWithViews => services.AddControllersWithViews(controllersAction),
+                AppType.MVC => services.AddMvc(controllersAction),
+                _ => services.AddControllers(controllersAction)
+            };
+            
             //.AddFluentValidation(config =>
             //{
             //    var assembly = Assembly.LoadFrom(Path.Combine(basePath, "ZhonTai.Admin.Host.dll"));
             //    config.RegisterValidatorsFromAssembly(assembly);
             //})
-            .AddNewtonsoftJson(options =>
+            mvcBuilder.AddNewtonsoftJson(options =>
             {
                 //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

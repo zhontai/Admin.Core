@@ -64,13 +64,16 @@ namespace ZhonTai.Admin.Services.OprationLog
         public async Task<IResultOutput> AddAsync(OprationLogAddInput input)
         {
             string ua = _context.HttpContext.Request.Headers["User-Agent"];
-            var client = UAParser.Parser.GetDefault().Parse(ua);
-            var device = client.Device.Family;
-            device = device.ToLower() == "other" ? "" : device;
-            input.Browser = client.UA.Family;
-            input.Os = client.OS.Family;
-            input.Device = device;
-            input.BrowserInfo = ua;
+            if (ua.NotNull())
+            {
+                var client = UAParser.Parser.GetDefault().Parse(ua);
+                var device = client.Device.Family;
+                device = device.ToLower() == "other" ? "" : device;
+                input.Browser = client.UA.Family;
+                input.Os = client.OS.Family;
+                input.Device = device;
+                input.BrowserInfo = ua;
+            }
 
             input.NickName = User.NickName;
             input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);

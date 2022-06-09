@@ -5,6 +5,8 @@
     /// </summary>
     public class AppConfig
     {
+        public AppType AppType { get; set; } = AppType.Controllers;
+
         /// <summary>
         /// Api地址，默认 http://*:8000
         /// </summary>
@@ -163,5 +165,15 @@
         /// 操作日志
         /// </summary>
         public string[] Fonts { get; set; }// = new[] { "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" };
+    }
+
+    /// <summary>
+    /// 应用程序类型
+    /// </summary>
+    public enum AppType
+    {
+        Controllers,
+        ControllersWithViews,
+        MVC
     }
 }

@@ -365,6 +365,11 @@
             操作日志
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.AppType">
+            <summary>
+            应用程序类型
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.MultiDb">
             <summary>
             多数据库

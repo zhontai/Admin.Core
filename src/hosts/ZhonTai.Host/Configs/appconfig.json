@@ -1,4 +1,6 @@
 {
+  //应用程序类型Controllers ControllersWithViews MVC
+  "appType": "Controllers",
   //Api地址
   "urls": [ "http://*:8000" ],
   //跨域地址
