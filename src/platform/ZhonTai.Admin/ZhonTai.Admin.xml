@@ -1293,6 +1293,46 @@
             <param name="disableGlobalFilterNames">禁用全局过滤器名</param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Startup.HostAppContext">
+            <summary>
+            HostApp上下文
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppContext.Services">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppContext.Environment">
+            <summary>
+            环境
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppContext.Configuration">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Startup.HostAppOptions">
+            <summary>
+            HostApp配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreServices">
+            <summary>
+            注入前置服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureServices">
+            <summary>
+            注入服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostServices">
+            <summary>
+            注入后置服务
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">
             <summary>
             接口管理

@@ -46,11 +46,23 @@ using ZhonTai.ApiUI;
 using NLog.Web;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Startup;
 
 namespace ZhonTai.Admin.Core
 {
     public class HostApp
     {
+        HostAppOptions _hostAppOptions;
+
+        public HostApp()
+        {
+        }
+
+        public HostApp(HostAppOptions hostAppOptions)
+        {
+            _hostAppOptions = hostAppOptions;
+        }
+
         public void Run(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -132,6 +144,15 @@ namespace ZhonTai.Admin.Core
         /// <param name="appConfig"></param>
         private void ConfigureServices(IServiceCollection services, IWebHostEnvironment env, IConfiguration configuration, ConfigHelper configHelper, AppConfig appConfig)
         {
+            var hostAppContext = new HostAppContext()
+            {
+                Services = services,
+                Environment = env,
+                Configuration = configuration
+            };
+
+            _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
+
             //雪花漂移算法
             YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
 
@@ -157,10 +178,10 @@ namespace ZhonTai.Admin.Core
             //添加数据库
             services.AddDbAsync(env).Wait();
 
-           
             //数据库配置
             var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
             services.AddSingleton(dbConfig);
+
             //添加IdleBus单例
             var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
             var ib = new IdleBus<IFreeSql>(timeSpan);
@@ -436,6 +457,8 @@ namespace ZhonTai.Admin.Core
 
             services.AddHttpClient();
 
+            _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
+
             #region 缓存
 
             var cacheConfig = ConfigHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
@@ -479,6 +502,8 @@ namespace ZhonTai.Admin.Core
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
                 options.AddAssemblyOptions(assemblies);
             });
+
+            _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
         }
 
         /// <summary>
