@@ -13,6 +13,8 @@ using ZhonTai.Admin.Tools.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.Contracts;
+using ZhonTai.Admin.Core.Enums;
+using System.Collections.Generic;
 
 namespace ZhonTai.Tests
 {
@@ -29,13 +31,32 @@ namespace ZhonTai.Tests
             _appConfig = GetService<AppConfig>();
         }
 
-        public static ByteArrayContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8")
+        public static HttpContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8", ContentTypeEnum contentTypeEnum = ContentTypeEnum.Json)
         {
             // HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
             var content = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(input));
-            var httpContent = new ByteArrayContent(content);
+            HttpContent httpContent;
+            if (contentTypeEnum == ContentTypeEnum.FormData)
+            {
+                httpContent = new FormUrlEncodedContent(JsonConvert.DeserializeObject<Dictionary<string, string>>(JsonConvert.SerializeObject(input)));
+            }
+            else
+            {
+                httpContent = new ByteArrayContent(content);
+            }
             httpContent.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             return httpContent;
+        }
+
+        public static HttpContent GetHttpContent(object input, ContentTypeEnum contentTypeEnum)
+        {
+            var contentType = contentTypeEnum switch
+            {
+                ContentTypeEnum.Json => "application/json;charset=UTF-8",
+                ContentTypeEnum.FormData => "application/x-www-form-urlencoded;charset=UTF-8",
+                _ => string.Empty
+            };
+            return GetHttpContent(input, contentType, contentTypeEnum);
         }
 
         public async Task<T> GetResult<T>(string apiPath, object input = null, bool checkStatus = true)
