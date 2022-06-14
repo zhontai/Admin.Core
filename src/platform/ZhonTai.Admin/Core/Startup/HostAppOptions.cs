@@ -20,5 +20,20 @@ namespace ZhonTai.Admin.Core.Startup
         /// 注入后置服务
         /// </summary>
         public Action<HostAppContext> ConfigurePostServices { get; set; }
+
+        /// <summary>
+        /// 注入前置中间件
+        /// </summary>
+        public Action<HostAppMiddlewareContext> ConfigurePreMiddleware { get; set; }
+
+        /// <summary>
+        /// 注入中间件
+        /// </summary>
+        public Action<HostAppMiddlewareContext> ConfigureMiddleware { get; set; }
+
+        /// <summary>
+        /// 注入后置中间件
+        /// </summary>
+        public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
     }
 }

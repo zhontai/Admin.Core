@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Core.Logs
     public class ApiHelper
     {
         private List<ApiHelperDto> _apis;
-        private static readonly object _lockObject = new object();
+        private static readonly object _lockObject = new();
 
         private readonly IApiRepository _apiRepository;
         public ApiHelper(IApiRepository apiRepository)

@@ -1169,12 +1169,13 @@
             <param name="configHelper"></param>
             <param name="appConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureMiddleware(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             配置中间件
             </summary>
             <param name="app"></param>
             <param name="env"></param>
+            <param name="configuration"></param>
             <param name="appConfig"></param>
         </member>
         <member name="T:ZhonTai.Admin.Core.Logs.ApiHelper">
@@ -1313,6 +1314,26 @@
             配置
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext">
+            <summary>
+            HostApp中间件上下文
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext.App">
+            <summary>
+            服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext.Environment">
+            <summary>
+            环境
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext.Configuration">
+            <summary>
+            配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Startup.HostAppOptions">
             <summary>
             HostApp配置
@@ -1331,6 +1352,21 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostServices">
             <summary>
             注入后置服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreMiddleware">
+            <summary>
+            注入前置中间件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMiddleware">
+            <summary>
+            注入中间件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostMiddleware">
+            <summary>
+            注入后置中间件
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">

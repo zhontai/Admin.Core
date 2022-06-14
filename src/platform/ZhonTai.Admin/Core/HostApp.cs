@@ -52,7 +52,7 @@ namespace ZhonTai.Admin.Core
 {
     public class HostApp
     {
-        HostAppOptions _hostAppOptions;
+        readonly HostAppOptions _hostAppOptions;
 
         public HostApp()
         {
@@ -129,7 +129,7 @@ namespace ZhonTai.Admin.Core
             var app = builder.Build();
 
             //配置中间件
-            Configure(app, env, appConfig);
+            ConfigureMiddleware(app, env, configuration, appConfig);
 
             app.Run();
         }
@@ -511,9 +511,19 @@ namespace ZhonTai.Admin.Core
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+        /// <param name="configuration"></param>
         /// <param name="appConfig"></param>
-        private static void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppConfig appConfig)
+        private void ConfigureMiddleware(WebApplication app, IWebHostEnvironment env, IConfiguration configuration, AppConfig appConfig)
         {
+            var hostAppMiddlewareContext = new HostAppMiddlewareContext()
+            {
+                App = app,
+                Environment = env,
+                Configuration = configuration
+            };
+
+            _hostAppOptions?.ConfigurePreMiddleware?.Invoke(hostAppMiddlewareContext);
+
             //IP限流
             if (appConfig.RateLimit)
             {
@@ -552,6 +562,8 @@ namespace ZhonTai.Admin.Core
                 endpoints.MapControllers();
             });
 
+            _hostAppOptions?.ConfigureMiddleware?.Invoke(hostAppMiddlewareContext);
+
             #region Swagger Api文档
             if (env.IsDevelopment() || appConfig.Swagger.Enable)
             {
@@ -585,7 +597,7 @@ namespace ZhonTai.Admin.Core
                         options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"ZhonTai.Host {version}");
                     });
                 });
-            } 
+            }
             #endregion
 
             //数据库日志
@@ -594,7 +606,7 @@ namespace ZhonTai.Admin.Core
             //ei.Properties["id"] = YitIdHelper.NextId();
             //log.Log(ei);
 
-
+            _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
         }
     }
 }
