@@ -16,13 +16,13 @@
 		<PackageReference Include="CSRedisCore" Version="3.8.2" />
 		<PackageReference Include="Caching.CSRedis" Version="3.8.2" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.0.3" />
-		<PackageReference Include="FreeSql" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.662" />
-		<PackageReference Include="FreeSql.Repository" Version="3.2.662" />
+		<PackageReference Include="FreeSql" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.664" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.664" />
 		<PackageReference Include="IdleBus" Version="1.5.2" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
