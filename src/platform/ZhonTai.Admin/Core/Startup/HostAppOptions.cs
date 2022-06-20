@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FreeSql;
+using System;
 namespace ZhonTai.Admin.Core.Startup
 {
     /// <summary>
@@ -35,5 +36,10 @@ namespace ZhonTai.Admin.Core.Startup
         /// 注入后置中间件
         /// </summary>
         public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
+
+        /// <summary>
+        /// 配置数据库库构建器
+        /// </summary>
+        public Action<FreeSqlBuilder> ConfigureDbBuilder { get; set; }
     }
 }

@@ -176,7 +176,7 @@ namespace ZhonTai.Admin.Core
             }
 
             //添加数据库
-            services.AddDbAsync(env).Wait();
+            services.AddDbAsync(env, _hostAppOptions).Wait();
 
             //数据库配置
             var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);

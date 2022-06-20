@@ -10,6 +10,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Dbs;
 using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Startup;
 
 namespace ZhonTai.Admin.Core.Db
 {
@@ -20,7 +21,9 @@ namespace ZhonTai.Admin.Core.Db
         /// </summary>
         /// <param name="services"></param>
         /// <param name="env"></param>
-        public async static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env)
+        /// <param name="hostAppOptions"></param>
+        /// <returns></returns>
+        public async static Task AddDbAsync(this IServiceCollection services, IHostEnvironment env, HostAppOptions hostAppOptions)
         {
             services.AddScoped<DbUnitOfWorkManager>();
 
@@ -39,6 +42,8 @@ namespace ZhonTai.Admin.Core.Db
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
+
+            hostAppOptions?.ConfigureDbBuilder?.Invoke(freeSqlBuilder);
 
             #region 监听所有命令
 
