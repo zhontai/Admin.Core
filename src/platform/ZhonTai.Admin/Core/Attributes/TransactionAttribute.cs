@@ -18,6 +18,6 @@ namespace ZhonTai.Admin.Core.Attributes
         /// <summary>
         /// 事务隔离级别
         /// </summary>
-        public IsolationLevel? IsolationLevel { get; set; }
+        public IsolationLevel IsolationLevel { get; set; }
     }
 }
