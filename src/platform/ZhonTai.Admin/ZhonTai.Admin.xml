@@ -1371,9 +1371,14 @@
             注入后置中间件
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDbBuilder">
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">
             <summary>
             配置数据库库构建器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureEntity">
+            <summary>
+            配置实体
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">

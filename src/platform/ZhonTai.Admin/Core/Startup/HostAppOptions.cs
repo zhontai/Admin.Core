@@ -40,6 +40,11 @@ namespace ZhonTai.Admin.Core.Startup
         /// <summary>
         /// 配置数据库库构建器
         /// </summary>
-        public Action<FreeSqlBuilder> ConfigureDbBuilder { get; set; }
+        public Action<FreeSqlBuilder> ConfigureFreeSqlBuilder { get; set; }
+
+        /// <summary>
+        /// 配置实体
+        /// </summary>
+        public Action<IFreeSql> ConfigureEntity { get; set; }
     }
 }

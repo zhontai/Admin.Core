@@ -43,7 +43,7 @@ namespace ZhonTai.Admin.Core.Db
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
 
-            hostAppOptions?.ConfigureDbBuilder?.Invoke(freeSqlBuilder);
+            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
 
             #region 监听所有命令
 
@@ -65,6 +65,7 @@ namespace ZhonTai.Admin.Core.Db
             var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
             DbHelper.ConfigEntity(fsql, appConfig);
 
+            hostAppOptions?.ConfigureEntity?.Invoke(fsql);
             #region 初始化数据库
 
             //同步结构
