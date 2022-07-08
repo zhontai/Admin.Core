@@ -16,4 +16,16 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="ZhonTai.Tests" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="wwwroot\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\*\*\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\*\*\*\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>

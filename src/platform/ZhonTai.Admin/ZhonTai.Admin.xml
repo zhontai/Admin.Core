@@ -1373,7 +1373,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">
             <summary>
-            配置数据库库构建器
+            配置FreeSql构建器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureEntity">

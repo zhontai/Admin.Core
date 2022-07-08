@@ -38,7 +38,7 @@ namespace ZhonTai.Admin.Core.Startup
         public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
 
         /// <summary>
-        /// 配置数据库库构建器
+        /// 配置FreeSql构建器
         /// </summary>
         public Action<FreeSqlBuilder> ConfigureFreeSqlBuilder { get; set; }
 
