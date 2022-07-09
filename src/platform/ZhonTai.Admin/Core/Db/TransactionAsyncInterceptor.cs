@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using FreeSql;
@@ -23,7 +24,8 @@ namespace ZhonTai.Admin.Core.Db
             var attribute = method.GetCustomAttributes(typeof(TransactionAttribute), false).FirstOrDefault();
             if (attribute is TransactionAttribute transaction)
             {
-                _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, transaction.IsolationLevel);
+                IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
+                _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, isolationLevel);
                 return true;
             }
 
