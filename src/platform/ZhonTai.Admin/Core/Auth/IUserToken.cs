@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ZhonTai.Admin.Core.Auth
 {
@@ -6,6 +7,6 @@ namespace ZhonTai.Admin.Core.Auth
     {
         string Create(Claim[] claims);
 
-        Claim[] Decode(string jwtToken);
+        JwtSecurityToken Decode(string jwtToken);
     }
 }

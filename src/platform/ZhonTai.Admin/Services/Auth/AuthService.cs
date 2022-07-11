@@ -28,6 +28,9 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Core.Consts;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ZhonTai.Admin.Services.Auth
 {
@@ -38,6 +41,7 @@ namespace ZhonTai.Admin.Services.Auth
     public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         private readonly AppConfig _appConfig;
+        private readonly JwtConfig _jwtConfig;
         private readonly IPermissionRepository _permissionRepository;
         private readonly IUserRepository _userRepository;
         private readonly ITenantRepository _tenantRepository;
@@ -45,6 +49,7 @@ namespace ZhonTai.Admin.Services.Auth
 
         public AuthService(
             AppConfig appConfig,
+            JwtConfig jwtConfig,
             IUserRepository userRepository,
             IPermissionRepository permissionRepository,
             ITenantRepository tenantRepository,
@@ -52,6 +57,7 @@ namespace ZhonTai.Admin.Services.Auth
         )
         {
             _appConfig = appConfig;
+            _jwtConfig = jwtConfig;
             _userRepository = userRepository;
             _permissionRepository = permissionRepository;
             _tenantRepository = tenantRepository;
@@ -256,7 +262,8 @@ namespace ZhonTai.Admin.Services.Auth
         [AllowAnonymous]
         public async Task<IResultOutput> Refresh([BindRequired] string token)
         {
-            var userClaims = LazyGetRequiredService<IUserToken>().Decode(token);
+            var jwtSecurityToken = LazyGetRequiredService<IUserToken>().Decode(token);
+            var userClaims = jwtSecurityToken?.Claims?.ToArray();
             if (userClaims == null || userClaims.Length == 0)
             {
                 return ResultOutput.NotOk();
@@ -278,6 +285,16 @@ namespace ZhonTai.Admin.Services.Auth
             {
                 return ResultOutput.NotOk("登录信息已失效");
             }
+
+            //验签
+            var securityKey = _jwtConfig.SecurityKey;
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey)), SecurityAlgorithms.HmacSha256);
+            var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
+            if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
+            {
+                return ResultOutput.NotOk("验签失败");
+            }
+
             var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
             string newToken = GetToken(output?.Data);
             return ResultOutput.Ok(new { token = newToken });

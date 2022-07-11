@@ -38,11 +38,11 @@ namespace ZhonTai.Admin.Core.Auth
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public Claim[] Decode(string jwtToken)
+        public JwtSecurityToken Decode(string jwtToken)
         {
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
-            return jwtSecurityToken?.Claims?.ToArray();
+            return jwtSecurityToken;
         }
     }
 }
