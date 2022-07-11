@@ -7,6 +7,7 @@ using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.Tenant;
 
 namespace ZhonTai.Admin.Core.Db
 {
@@ -107,7 +108,7 @@ namespace ZhonTai.Admin.Core.Db
                     var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
                     //查询租户数据库信息
                     var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
-                    var tenant = masterDb.Select<object>().WithSql("select * from ad_tenant").DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+                    var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
 
                     var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
                     ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
@@ -142,7 +143,7 @@ namespace ZhonTai.Admin.Core.Db
                     var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
                     //查询租户数据库信息
                     var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
-                    var tenant = masterDb.Select<object>().WithSql("select * from ad_tenant").DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+                    var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
 
                     var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
                     ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
