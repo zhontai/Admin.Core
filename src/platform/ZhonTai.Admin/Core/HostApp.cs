@@ -501,6 +501,8 @@ namespace ZhonTai.Admin.Core
                 .Where(a => a.Name.EndsWith("Service"))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
                 options.AddAssemblyOptions(assemblies);
+
+                _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
             });
 
             _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);

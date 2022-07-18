@@ -1381,6 +1381,11 @@
             配置实体
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
+            <summary>
+            配置动态Api
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">
             <summary>
             接口管理

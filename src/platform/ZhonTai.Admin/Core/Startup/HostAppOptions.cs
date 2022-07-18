@@ -1,5 +1,7 @@
 ﻿using FreeSql;
 using System;
+using ZhonTai.DynamicApi;
+
 namespace ZhonTai.Admin.Core.Startup
 {
     /// <summary>
@@ -46,5 +48,10 @@ namespace ZhonTai.Admin.Core.Startup
         /// 配置实体
         /// </summary>
         public Action<IFreeSql> ConfigureEntity { get; set; }
+
+        /// <summary>
+        /// 配置动态Api
+        /// </summary>
+        public Action<DynamicApiOptions> ConfigureDynamicApi { get; set; }
     }
 }
