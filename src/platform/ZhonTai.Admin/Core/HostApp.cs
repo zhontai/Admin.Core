@@ -154,7 +154,9 @@ namespace ZhonTai.Admin.Core
             _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
 
             //雪花漂移算法
-            YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
+            var idGeneratorOptions = new IdGeneratorOptions(1) { WorkerIdBitLength = 6 };
+            _hostAppOptions?.ConfigureIdGenerator?.Invoke(idGeneratorOptions);
+            YitIdHelper.SetIdGenerator(idGeneratorOptions);
 
             //权限处理
             services.AddScoped<IPermissionHandler, PermissionHandler>();

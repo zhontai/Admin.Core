@@ -1386,6 +1386,11 @@
             配置动态Api
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureIdGenerator">
+            <summary>
+            配置雪花漂移算法
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">
             <summary>
             接口管理

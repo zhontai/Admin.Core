@@ -1,5 +1,6 @@
 ﻿using FreeSql;
 using System;
+using Yitter.IdGenerator;
 using ZhonTai.DynamicApi;
 
 namespace ZhonTai.Admin.Core.Startup
@@ -53,5 +54,11 @@ namespace ZhonTai.Admin.Core.Startup
         /// 配置动态Api
         /// </summary>
         public Action<DynamicApiOptions> ConfigureDynamicApi { get; set; }
+
+        /// <summary>
+        /// 配置雪花漂移算法
+        /// </summary>
+        public Action<IdGeneratorOptions> ConfigureIdGenerator { get; set; }
+        
     }
 }
