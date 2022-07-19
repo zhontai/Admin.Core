@@ -42,7 +42,6 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using MapsterMapper;
 using ZhonTai.DynamicApi;
-using ZhonTai.ApiUI;
 using NLog.Web;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
@@ -589,20 +588,6 @@ namespace ZhonTai.Admin.Core
                 });
             }
             #endregion Swagger Api文档
-
-            #region 新版Api文档
-            if (env.IsDevelopment() || appConfig.ApiUI.Enable)
-            {
-                app.UseApiUI(options =>
-                {
-                    options.RoutePrefix = "swagger";
-                    typeof(ApiVersion).GetEnumNames().OrderByDescending(e => e).ToList().ForEach(version =>
-                    {
-                        options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"ZhonTai.Host {version}");
-                    });
-                });
-            }
-            #endregion
 
             //数据库日志
             //var log = LogManager.GetLogger("db");

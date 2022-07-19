@@ -11,6 +11,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\platform\ZhonTai.Admin\ZhonTai.Admin.csproj" />
+		<ProjectReference Include="..\..\platform\ZhonTai.ApiUI\ZhonTai.ApiUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
