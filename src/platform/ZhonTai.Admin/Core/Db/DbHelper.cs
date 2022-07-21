@@ -61,7 +61,7 @@ namespace ZhonTai.Admin.Core.Db
                 .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
-            List<Type> entityTypes = new List<Type>();
+            var entityTypes = new List<Type>();
 
             foreach (var assembly in assemblies)
             {
@@ -306,8 +306,7 @@ namespace ZhonTai.Admin.Core.Db
 
                 List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
                 .Where(x => typeof(ISyncData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
-                .SelectMany(registerTypes =>
-                    registerTypes.Select(registerType => (ISyncData)Activator.CreateInstance(registerType))).ToList();
+                .SelectMany(registerTypes => registerTypes.Select(registerType => (ISyncData)Activator.CreateInstance(registerType))).ToList();
 
                 foreach (ISyncData syncData in syncDatas)
                 {
@@ -343,8 +342,7 @@ namespace ZhonTai.Admin.Core.Db
 
                 List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()
                 .Where(x => typeof(IGenerateData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
-                .SelectMany(registerTypes =>
-                    registerTypes.Select(registerType => (IGenerateData)Activator.CreateInstance(registerType))).ToList();
+                .SelectMany(registerTypes => registerTypes.Select(registerType => (IGenerateData)Activator.CreateInstance(registerType))).ToList();
 
                 foreach (IGenerateData generateData in generateDatas)
                 {

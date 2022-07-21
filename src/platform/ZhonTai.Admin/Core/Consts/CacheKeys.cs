@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel;
+using ZhonTai.Admin.Core.Attributes;
 
-namespace ZhonTai.Admin.Services.Contracts
+namespace ZhonTai.Admin.Core.Consts
 {
     /// <summary>
     /// 缓存键
     /// </summary>
-    public static partial class CacheKey
+    [ScanCacheKeys]
+    public static partial class CacheKeys
     {
         /// <summary>
         /// 验证码 admin:captcha:guid

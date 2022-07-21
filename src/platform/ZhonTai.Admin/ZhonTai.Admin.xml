@@ -555,6 +555,36 @@
             允许所有源访问策略
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Consts.CacheKeys">
+            <summary>
+            缓存键
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.CaptchaKey">
+            <summary>
+            验证码 admin:captcha:guid
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.PassWordEncryptKey">
+            <summary>
+            密码加密 admin:password:encrypt:guid
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.UserPermissions">
+            <summary>
+            用户权限 admin:user:permissions:用户主键
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.UserInfo">
+            <summary>
+            用户信息 admin:user:info:用户主键
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.TenantInfo">
+            <summary>
+            租户信息 admin:tenant:info:租户主键
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Dbs.MySqlDb">
             <summary>
             多数据库命名
@@ -1376,9 +1406,9 @@
             配置FreeSql构建器
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureEntity">
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">
             <summary>
-            配置实体
+            配置FreeSql
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
@@ -3457,36 +3487,6 @@
             </summary>
             <param name="serviceType">服务类型</param>
             <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Contracts.CacheKey">
-            <summary>
-            缓存键
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Contracts.CacheKey.CaptchaKey">
-            <summary>
-            验证码 admin:captcha:guid
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Contracts.CacheKey.PassWordEncryptKey">
-            <summary>
-            密码加密 admin:password:encrypt:guid
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Contracts.CacheKey.UserPermissions">
-            <summary>
-            用户权限 admin:user:permissions:用户主键
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Contracts.CacheKey.UserInfo">
-            <summary>
-            用户信息 admin:user:info:用户主键
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Contracts.CacheKey.TenantInfo">
-            <summary>
-            租户信息 admin:tenant:info:租户主键
-            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Cache.CacheService">
             <summary>
@@ -6387,6 +6387,39 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
+            <summary>
+            TaskScheduler配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.FreeSql">
+            <summary>
+            数据库实例
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.ConfigureFreeSql">
+            <summary>
+            配置FreeSql
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.TaskHandler">
+            <summary>
+            任务处理器
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.AddTaskScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions})">
+            <summary>
+            添加任务调度
+            </summary>
+            <param name="services"></param>
+            <param name="configureOptions"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.UseTaskScheduler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用任务调度
+            </summary>
+            <param name="app"></param>
         </member>
         <member name="M:FreeSqlDbContextExtensions.GetRepositoryBase``2(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>

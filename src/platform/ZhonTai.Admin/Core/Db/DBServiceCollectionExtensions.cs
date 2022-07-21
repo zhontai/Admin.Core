@@ -65,7 +65,7 @@ namespace ZhonTai.Admin.Core.Db
             var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
             DbHelper.ConfigEntity(fsql, appConfig);
 
-            hostAppOptions?.ConfigureEntity?.Invoke(fsql);
+            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
             #region 初始化数据库
 
             //同步结构
@@ -122,7 +122,6 @@ namespace ZhonTai.Admin.Core.Db
                     {
                         MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
                     }
-                    Console.WriteLine($"{e.Sql}\r\n");
                 };
             }
 

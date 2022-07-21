@@ -12,9 +12,9 @@ using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Tools.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Auth.Dto;
-using ZhonTai.Admin.Services.Contracts;
 using ZhonTai.Admin.Core.Enums;
 using System.Collections.Generic;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Tests
 {
@@ -168,10 +168,10 @@ namespace ZhonTai.Tests
                 };
                 if (_appConfig.VarifyCode.Enable)
                 {
-                    var res = await _captcha.GetAsync(CacheKey.CaptchaKey);
-                    var captchaKey = string.Format(CacheKey.CaptchaKey, res.Token);
+                    var res = await _captcha.GetAsync(CacheKeys.CaptchaKey);
+                    var captchaKey = string.Format(CacheKeys.CaptchaKey, res.Token);
                     var captchaData = await _cache.GetAsync(captchaKey);
-                    input.Captcha = new CaptchaInput { CaptchaKey = CacheKey.CaptchaKey, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
+                    input.Captcha = new CaptchaInput { CaptchaKey = CacheKeys.CaptchaKey, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
                 }
             }
 

@@ -9,7 +9,7 @@ using ZhonTai.ApiUI;
 
 new HostApp(new HostAppOptions
 {
-    ConfigurePostMiddleware = context =>
+	ConfigurePostMiddleware = context =>
     {
 		var app = context.App;
 		var env = app.Environment;

@@ -10,7 +10,6 @@ using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Services.Contracts;
 using ZhonTai.Admin.Tools.Captcha;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
@@ -100,7 +99,7 @@ namespace ZhonTai.Admin.Services.Auth
         {
             //写入Redis
             var guid = Guid.NewGuid().ToString("N");
-            var key = string.Format(CacheKey.PassWordEncryptKey, guid);
+            var key = string.Format(CacheKeys.PassWordEncryptKey, guid);
             var encyptKey = StringHelper.GenerateRandom(8);
             await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
             var data = new { key = guid, encyptKey };
@@ -171,7 +170,7 @@ namespace ZhonTai.Admin.Services.Auth
             if (_appConfig.VarifyCode.Enable)
             {
                 input.Captcha.DeleteCache = true;
-                input.Captcha.CaptchaKey = CacheKey.CaptchaKey;
+                input.Captcha.CaptchaKey = CacheKeys.CaptchaKey;
                 var isOk = await _captchaTool.CheckAsync(input.Captcha);
                 if (!isOk)
                 {
@@ -194,7 +193,7 @@ namespace ZhonTai.Admin.Services.Auth
 
             if (input.PasswordKey.NotNull())
             {
-                var passwordEncryptKey = string.Format(CacheKey.PassWordEncryptKey, input.PasswordKey);
+                var passwordEncryptKey = string.Format(CacheKeys.PassWordEncryptKey, input.PasswordKey);
                 var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
                 if (existsPasswordKey)
                 {
@@ -312,7 +311,7 @@ namespace ZhonTai.Admin.Services.Auth
         {
             using (MiniProfiler.Current.Step("获取滑块验证"))
             {
-                var data = await _captchaTool.GetAsync(CacheKey.CaptchaKey);
+                var data = await _captchaTool.GetAsync(CacheKeys.CaptchaKey);
                 return ResultOutput.Ok(data);
             }
         }
@@ -327,7 +326,7 @@ namespace ZhonTai.Admin.Services.Auth
         [EnableCors(AdminConsts.AllowAnyPolicyName)]
         public async Task<IResultOutput> CheckCaptcha([FromQuery] CaptchaInput input)
         {
-            input.CaptchaKey = CacheKey.CaptchaKey;
+            input.CaptchaKey = CacheKeys.CaptchaKey;
             var result = await _captchaTool.CheckAsync(input);
             return ResultOutput.Result(result);
         }

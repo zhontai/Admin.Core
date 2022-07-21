@@ -17,10 +17,10 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.User;
-using ZhonTai.Admin.Services.Contracts;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Permission
 {
@@ -71,7 +71,7 @@ namespace ZhonTai.Admin.Services.Permission
             ).ToListAsync(a => a.UserId);
             foreach (var userId in userIds)
             {
-                await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+                await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
             }
         }
 
@@ -471,7 +471,7 @@ namespace ZhonTai.Admin.Services.Permission
             var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == input.RoleId).ToListAsync(a => a.UserId);
             foreach (var userId in userIds)
             {
-                await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+                await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
             }
 
             return ResultOutput.Ok();
@@ -523,7 +523,7 @@ namespace ZhonTai.Admin.Services.Permission
             {
                 foreach (var userId in userIds)
                 {
-                    await Cache.DelAsync(string.Format(CacheKey.UserPermissions, userId));
+                    await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
                 }
             }
 

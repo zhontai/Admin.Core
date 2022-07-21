@@ -13,7 +13,6 @@ using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Services.Contracts;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.User.Dto;
 using ZhonTai.DynamicApi;
@@ -22,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.User
 {
@@ -149,7 +149,7 @@ namespace ZhonTai.Admin.Services.User
         /// <returns></returns>
         public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
         {
-            var key = string.Format(CacheKey.UserPermissions, User.Id);
+            var key = string.Format(CacheKeys.UserPermissions, User.Id);
             var result = await Cache.GetOrSetAsync(key, async () =>
             {
                 return await _apiRepository
@@ -239,7 +239,7 @@ namespace ZhonTai.Admin.Services.User
             var result = (await _userRepository.UpdateAsync(entity)) > 0;
 
             //清除用户缓存
-            await Cache.DelAsync(string.Format(CacheKey.UserInfo, input.Id));
+            await Cache.DelAsync(string.Format(CacheKeys.UserInfo, input.Id));
 
             return ResultOutput.Result(result);
         }
