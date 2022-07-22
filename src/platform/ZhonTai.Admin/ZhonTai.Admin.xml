@@ -290,6 +290,11 @@
             地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.Projects">
+            <summary>
+            项目列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.ApiUIConfig">
              <summary>
             新版Api文档配置
@@ -363,6 +368,31 @@
         <member name="P:ZhonTai.Admin.Core.Configs.VarifyCodeConfig.Fonts">
             <summary>
             操作日志
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.ProjectConfig">
+            <summary>
+            项目配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ProjectConfig.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ProjectConfig.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ProjectConfig.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ProjectConfig.Description">
+            <summary>
+            描述
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.AppType">
@@ -583,6 +613,11 @@
         <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.TenantInfo">
             <summary>
             租户信息 admin:tenant:info:租户主键
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
+            <summary>
+            Api分组约定
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Dbs.MySqlDb">

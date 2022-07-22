@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Enums;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.ApiUI;
 
@@ -21,9 +19,9 @@ new HostApp(new HostAppOptions
 			app.UseApiUI(options =>
 			{
 				options.RoutePrefix = "swagger";
-				typeof(ApiVersion).GetEnumNames().OrderByDescending(e => e).ToList().ForEach(version =>
+				appConfig.Swagger.Projects?.ForEach(project =>
 				{
-					options.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"ZhonTai.Host {version}");
+					options.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
 				});
 			});
 		}

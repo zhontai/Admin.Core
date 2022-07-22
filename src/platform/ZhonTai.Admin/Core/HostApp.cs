@@ -29,7 +29,6 @@ using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Enums;
 using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Filters;
 using ZhonTai.Admin.Core.Logs;
@@ -46,6 +45,7 @@ using NLog.Web;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Core.Conventions;
 
 namespace ZhonTai.Admin.Core
 {
@@ -294,12 +294,13 @@ namespace ZhonTai.Admin.Core
             {
                 services.AddSwaggerGen(options =>
                 {
-                    typeof(ApiVersion).GetEnumNames().ToList().ForEach(version =>
+                    appConfig.Swagger.Projects?.ForEach(project =>
                     {
-                        options.SwaggerDoc(version, new OpenApiInfo
+                        options.SwaggerDoc(project.Code.ToLower(), new OpenApiInfo
                         {
-                            Version = version,
-                            Title = "ZhonTai.Admin.Host"
+                            Title = project.Name,
+                            Version = project.Version,
+                            Description = project.Description
                         });
                         //c.OrderActionsBy(o => o.RelativePath);
                     });
@@ -314,7 +315,7 @@ namespace ZhonTai.Admin.Core
 
                     options.ResolveConflictingActions(apiDescription => apiDescription.First());
                     options.CustomSchemaIds(x => x.FullName);
-                    options.DocInclusionPredicate((docName, description) => true);
+                    //options.DocInclusionPredicate((docName, description) => true);
 
                     string[] xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
                     if (xmlFiles.Length > 0)
@@ -428,6 +429,12 @@ namespace ZhonTai.Admin.Core
                 }
                 //禁止去除ActionAsync后缀
                 //options.SuppressAsyncSuffixInActionNames = false;
+
+                if (env.IsDevelopment() || appConfig.Swagger.Enable)
+                {
+                    //API分组约定
+                    options.Conventions.Add(new ApiGroupConvention());
+                }
             }
             
             var mvcBuilder = appConfig.AppType switch
@@ -573,10 +580,11 @@ namespace ZhonTai.Admin.Core
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    typeof(ApiVersion).GetEnumNames().OrderByDescending(e => e).ToList().ForEach(version =>
+                    appConfig.Swagger.Projects?.ForEach(project =>
                     {
-                        c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"ZhonTai.Admin.Host {version}");
+                        c.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                     });
+
                     c.RoutePrefix = "";//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
                     c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
                     //c.DefaultModelsExpandDepth(-1);//不显示Models

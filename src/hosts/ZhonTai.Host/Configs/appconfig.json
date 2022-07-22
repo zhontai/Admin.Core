@@ -14,7 +14,15 @@
     //启用
     "enable": true,
     //地址
-    "url": "http://localhost:8000"
+    "url": "http://localhost:8000",
+    "projects": [
+      {
+        "name": "中台Admin",
+        "code": "admin",
+        "version": "v2.1.0",
+        "description": ""
+      }
+    ]
   },
   //新版Api文档
   "apiUI": {
