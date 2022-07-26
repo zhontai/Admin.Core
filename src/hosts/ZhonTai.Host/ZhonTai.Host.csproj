@@ -10,6 +10,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Configs\createdbsql.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Configs\createdbsql.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\platform\ZhonTai.Admin\ZhonTai.Admin.csproj" />
 		<ProjectReference Include="..\..\platform\ZhonTai.ApiUI\ZhonTai.ApiUI.csproj" />
 	</ItemGroup>

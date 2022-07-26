@@ -12,6 +12,8 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Auth;
+using System.IO;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Db
 {
@@ -41,6 +43,12 @@ namespace ZhonTai.Admin.Core.Db
             try
             {
                 Console.WriteLine("\r\n create database started");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
+                if (File.Exists(filePath))
+                {
+                    dbConfig.CreateDbSql = FileHelper.ReadFile(filePath);
+                }
+
                 await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
                 Console.WriteLine(" create database succeed");
             }
