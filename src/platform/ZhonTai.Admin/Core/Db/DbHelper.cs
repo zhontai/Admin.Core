@@ -46,7 +46,11 @@ namespace ZhonTai.Admin.Core.Db
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
                 if (File.Exists(filePath))
                 {
-                    dbConfig.CreateDbSql = FileHelper.ReadFile(filePath);
+                    var createDbSql = FileHelper.ReadFile(filePath);
+                    if (createDbSql.NotNull())
+                    {
+                        dbConfig.CreateDbSql = createDbSql;
+                    }
                 }
 
                 await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
