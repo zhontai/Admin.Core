@@ -1,4 +1,4 @@
-﻿using IdleScheduler;
+﻿using FreeScheduler;
 using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Tools.TaskScheduler;

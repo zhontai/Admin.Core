@@ -1,4 +1,4 @@
-﻿using IdleScheduler;
+﻿using FreeScheduler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
