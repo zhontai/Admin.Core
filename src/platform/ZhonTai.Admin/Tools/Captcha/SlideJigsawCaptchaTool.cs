@@ -225,7 +225,7 @@ public class SlideJigsawCaptchaTool : ICaptchaTool
         };
 
         var key = string.Format(captchaKey, token);
-        await _cache.SetAsync(key, blockPoint.X);
+        await _cache.SetAsync(key, blockPoint.X, TimeSpan.FromMinutes(5));
 
         return captchaData;
     }
