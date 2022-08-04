@@ -36,9 +36,27 @@ namespace ZhonTai.Admin.Domain.User
         public string Password { get; set; }
 
         /// <summary>
+        /// 姓名
+        /// </summary>
+        [Column(StringLength = 20)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        [Column(StringLength = 20)]
+        public string Mobile { get; set; }
+
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        [Column(StringLength = 100)]
+        public string Email { get; set; }
+
+        /// <summary>
         /// 昵称
         /// </summary>
-        [Column(StringLength = 60)]
+        [Column(StringLength = 20)]
         public string NickName { get; set; }
 
         /// <summary>
@@ -51,12 +69,6 @@ namespace ZhonTai.Admin.Domain.User
         /// 状态
         /// </summary>
         public int Status { get; set; }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        [Column(StringLength = 500)]
-        public string Remark { get; set; }
 
         [Navigate(ManyToMany = typeof(UserRoleEntity))]
         public ICollection<RoleEntity> Roles { get; set; }

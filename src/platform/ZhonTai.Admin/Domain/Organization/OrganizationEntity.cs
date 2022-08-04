@@ -45,16 +45,6 @@ namespace ZhonTai.Admin.Domain.Organization
         public string Value { get; set; }
 
         /// <summary>
-        /// 主管Id
-        /// </summary>
-        public long? PrimaryEmployeeId { get; set; }
-
-        /// <summary>
-        /// 主管
-        /// </summary>
-        public EmployeeEntity PrimaryEmployee { get; set; }
-
-        /// <summary>
         /// 员工人数
         /// </summary>
         public int EmployeeCount { get; set; }
