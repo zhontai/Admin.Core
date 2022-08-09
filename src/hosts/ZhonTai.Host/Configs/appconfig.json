@@ -8,7 +8,7 @@
   //程序集名称
   "assemblyNames": [ "ZhonTai.Admin" ],
   //租户
-  "Tenant": true,
+  "tenant": true,
   //Swagger文档
   "swagger": {
     //启用
@@ -35,9 +35,9 @@
     }
   },
   //MiniProfiler性能分析器
-  "MiniProfiler": false,
+  "miniProfiler": false,
   //统一认证授权服务器
-  "IdentityServer": {
+  "identityServer": {
     //启用
     "enable": false,
     //地址，开发认证地址前往appconfig.Development.json修改
@@ -61,5 +61,7 @@
     "enable": true,
     //字体列表
     "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
-  }
+  },
+  //默认密码
+  "defaultPassword": "111111"
 }

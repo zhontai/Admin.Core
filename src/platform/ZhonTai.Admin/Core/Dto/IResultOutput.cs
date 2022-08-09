@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ZhonTai.Admin.Core.Dto
+﻿namespace ZhonTai.Admin.Core.Dto
 {
     /// <summary>
     /// 结果输出接口
@@ -10,13 +8,17 @@ namespace ZhonTai.Admin.Core.Dto
         /// <summary>
         /// 是否成功
         /// </summary>
-        [JsonIgnore]
         bool Success { get; }
 
         /// <summary>
         /// 消息
         /// </summary>
-        public string Msg { get; }
+        string Msg { get; }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        string Code { get; set; }
     }
 
     /// <summary>

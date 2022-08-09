@@ -2,7 +2,6 @@
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Employee.Input;
 using ZhonTai.Admin.Services.Employee.Output;
-using ZhonTai.Admin.Domain.Employee;
 
 namespace ZhonTai.Admin.Services.Employee
 {

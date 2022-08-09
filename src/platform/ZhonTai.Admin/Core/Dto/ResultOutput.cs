@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace ZhonTai.Admin.Core.Dto
+﻿namespace ZhonTai.Admin.Core.Dto
 {
     /// <summary>
     /// 结果输出
@@ -10,13 +8,12 @@ namespace ZhonTai.Admin.Core.Dto
         /// <summary>
         /// 是否成功标记
         /// </summary>
-        [JsonIgnore]
         public bool Success { get; private set; }
 
         /// <summary>
-        /// 状态码
+        /// 编码
         /// </summary>
-        public int Code => Success ? 1 : 0;
+        public string Code { get; set; }
 
         /// <summary>
         /// 消息
@@ -48,7 +45,7 @@ namespace ZhonTai.Admin.Core.Dto
         /// <param name="msg">消息</param>
         /// <param name="data">数据</param>
         /// <returns></returns>
-        public ResultOutput<T> NotOk(string msg = null, T data = default(T))
+        public ResultOutput<T> NotOk(string msg = null, T data = default)
         {
             Success = false;
             Msg = msg;
@@ -89,7 +86,7 @@ namespace ZhonTai.Admin.Core.Dto
         /// <param name="msg">消息</param>
         /// <param name="data">数据</param>
         /// <returns></returns>
-        public static IResultOutput NotOk<T>(string msg = null, T data = default(T))
+        public static IResultOutput NotOk<T>(string msg = null, T data = default)
         {
             return new ResultOutput<T>().NotOk(msg, data);
         }

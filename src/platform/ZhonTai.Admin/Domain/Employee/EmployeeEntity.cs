@@ -3,7 +3,6 @@ using FreeSql.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Position;
 
 namespace ZhonTai.Admin.Domain.Employee
 {
@@ -11,7 +10,7 @@ namespace ZhonTai.Admin.Domain.Employee
     /// 员工
     /// </summary>
 	[Table(Name = "ad_employee")]
-    [Index("idx_{tablename}_01", nameof(Code) + "," + nameof(TenantId), true)]
+    [Index("idx_{tablename}_01", nameof(JobNumber) + "," + nameof(TenantId), true)]
     public partial class EmployeeEntity : EntityFull, ITenant
     {
         /// <summary>
@@ -26,18 +25,6 @@ namespace ZhonTai.Admin.Domain.Employee
         public long? UserId { get; set; }
 
         /// <summary>
-        /// 姓名
-        /// </summary>
-        [Column(StringLength = 20)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// 昵称
-        /// </summary>
-        [Column(StringLength = 20)]
-        public string NickName { get; set; }
-
-        /// <summary>
         /// 性别
         /// </summary>
         public SexEnum? Sex { get; set; }
@@ -46,33 +33,20 @@ namespace ZhonTai.Admin.Domain.Employee
         /// 工号
         /// </summary>
         [Column(StringLength = 20)]
-        public string Code { get; set; }
+        public string JobNumber { get; set; }
 
         /// <summary>
         /// 主属部门Id
         /// </summary>
-        public long OrganizationId { get; set; }
+        public long MainOrgId { get; set; }
 
-        public OrganizationEntity Organization { get; set; }
-
-        /// <summary>
-        /// 职位Id
-        /// </summary>
-        public long PositionId { get; set; }
-
-        public PositionEntity Position { get; set; }
+        public OrganizationEntity MainOrg { get; set; }
 
         /// <summary>
-        /// 手机号
+        /// 职位
         /// </summary>
-        [Column(StringLength = 20)]
-        public string Phone { get; set; }
-
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        [Column(StringLength = 250)]
-        public string Email { get; set; }
+        [Column(OldName = "PositionId")]
+        public string Position { get; set; }
 
         /// <summary>
         /// 入职时间
@@ -80,6 +54,6 @@ namespace ZhonTai.Admin.Domain.Employee
         public DateTime? EntryTime { get; set; }
 
         [Navigate(ManyToMany = typeof(EmployeeOrganizationEntity))]
-        public ICollection<OrganizationEntity> Organizations { get; set; }
+        public ICollection<OrganizationEntity> Orgs { get; set; }
     }
 }

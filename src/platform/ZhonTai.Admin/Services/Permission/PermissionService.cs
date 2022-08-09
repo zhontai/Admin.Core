@@ -27,7 +27,7 @@ namespace ZhonTai.Admin.Services.Permission
     /// <summary>
     /// 权限服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         private readonly AppConfig _appConfig;

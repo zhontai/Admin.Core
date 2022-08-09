@@ -9,13 +9,14 @@ using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Domain.Api.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Api
 {
     /// <summary>
     /// 接口服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class ApiService : BaseService, IApiService, IDynamicApi
     {
         private readonly IApiRepository _apiRepository;

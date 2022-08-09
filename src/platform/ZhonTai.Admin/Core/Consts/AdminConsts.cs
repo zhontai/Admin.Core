@@ -3,6 +3,11 @@
     public static partial class AdminConsts
     {
         /// <summary>
+        /// 默认域
+        /// </summary>
+        public const string AreaName = "admin";
+
+        /// <summary>
         /// 默认租户
         /// </summary>
         public const string TenantName = "Default";

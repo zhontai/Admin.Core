@@ -9,13 +9,14 @@ using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Role
 {
     /// <summary>
     /// 角色服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         private readonly IRoleRepository _roleRepository;

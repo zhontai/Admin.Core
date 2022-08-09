@@ -30,7 +30,7 @@ namespace ZhonTai.Common.Helpers
         /// <returns></returns>
         public static IConfiguration Load(string fileName, string environmentName = "", bool optional = true, bool reloadOnChange = false)
         {
-            var filePath = Path.Combine(AppContext.BaseDirectory, "configs");
+            var filePath = Path.Combine(AppContext.BaseDirectory, "Configs");
             if (!Directory.Exists(filePath))
                 return null;
 

@@ -72,10 +72,10 @@ namespace ZhonTai.Admin.Core
             //添加配置
             builder.Host.ConfigureAppConfiguration((context, builder) =>
             {
-                builder.AddJsonFile("./configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+                builder.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
                 if (context.HostingEnvironment.EnvironmentName.NotNull())
                 {
-                    builder.AddJsonFile($"./configs/ratelimitconfig.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                    builder.AddJsonFile($"./Configs/ratelimitconfig.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
                 }
                 builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 if (context.HostingEnvironment.EnvironmentName.NotNull())
@@ -165,16 +165,7 @@ namespace ZhonTai.Admin.Core
 
             //用户信息
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            if (appConfig.IdentityServer.Enable)
-            {
-                //is4
-                services.TryAddSingleton<IUser, UserIdentiyServer>();
-            }
-            else
-            {
-                //jwt
-                services.TryAddSingleton<IUser, User>();
-            }
+            services.TryAddSingleton<IUser, User>();
 
             //添加数据库
             services.AddDbAsync(env, _hostAppOptions).Wait();

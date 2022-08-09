@@ -68,6 +68,11 @@ namespace ZhonTai.Admin.Core.Configs
         /// 验证码配置
         /// </summary>
         public VarifyCodeConfig VarifyCode { get; set; } = new VarifyCodeConfig();
+
+        /// <summary>
+        /// 默认密码
+        /// </summary>
+        public string DefaultPassword { get; set; } = "111111";
     }
 
     /// <summary>

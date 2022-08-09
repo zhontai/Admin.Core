@@ -5,7 +5,6 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Services.Employee.Input;
 using ZhonTai.Admin.Services.Employee.Output;
-using ZhonTai.Admin.Services;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;
@@ -40,11 +39,10 @@ namespace ZhonTai.Admin.Services.Employee
 
             var dto = await _employeeRepository.Select
             .WhereDynamic(id)
-            .IncludeMany(a => a.Organizations.Select(b => new OrganizationEntity { Id = b.Id }))
+            .IncludeMany(a => a.Orgs.Select(b => new OrganizationEntity { Id = b.Id }))
             .ToOneAsync(a => new EmployeeGetOutput
             {
-                OrganizationName = a.Organization.Name,
-                PositionName = a.Position.Name
+                OrganizationName = a.MainOrg.Name
             });
 
             return res.Ok(dto);
@@ -61,12 +59,11 @@ namespace ZhonTai.Admin.Services.Employee
             .WhereDynamicFilter(input.DynamicFilter)
             .Count(out var total)
             .OrderByDescending(true, a => a.Id)
-            .IncludeMany(a => a.Organizations.Select(b => new OrganizationEntity { Name = b.Name }))
+            .IncludeMany(a => a.Orgs.Select(b => new OrganizationEntity { Name = b.Name }))
             .Page(input.CurrentPage, input.PageSize)
             .ToListAsync(a => new EmployeeListOutput 
             { 
-                OrganizationName = a.Organization.Name, 
-                PositionName = a.Position.Name
+                OrganizationName = a.MainOrg.Name
             });
 
             var data = new PageOutput<EmployeeListOutput>()

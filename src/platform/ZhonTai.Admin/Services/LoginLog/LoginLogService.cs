@@ -8,13 +8,14 @@ using ZhonTai.Admin.Domain;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.LoginLog
 {
     /// <summary>
     /// 登录日志服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     {
         private readonly IHttpContextAccessor _context;

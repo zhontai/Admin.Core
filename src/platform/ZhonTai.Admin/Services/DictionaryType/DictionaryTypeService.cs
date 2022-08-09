@@ -9,13 +9,14 @@ using ZhonTai.Admin.Domain.DictionaryType.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.DictionaryType
 {
     /// <summary>
     /// 字典类型服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynamicApi
     {
         private readonly IDictionaryTypeRepository _DictionaryTypeRepository;

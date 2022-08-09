@@ -11,13 +11,14 @@ using ZhonTai.Admin.Services.Document.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Document
 {
     /// <summary>
     /// 文档服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class DocumentService : BaseService, IDocumentService, IDynamicApi
     {
         private readonly IDocumentRepository _documentRepository;

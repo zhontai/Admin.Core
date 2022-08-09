@@ -31,304 +31,303 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace ZhonTai.Admin.Services.Auth
+namespace ZhonTai.Admin.Services.Auth;
+
+/// <summary>
+/// 认证授权服务
+/// </summary>
+[DynamicApi(Area = AdminConsts.AreaName)]
+public class AuthService : BaseService, IAuthService, IDynamicApi
 {
-    /// <summary>
-    /// 认证授权服务
-    /// </summary>
-    [DynamicApi(Area = "admin")]
-    public class AuthService : BaseService, IAuthService, IDynamicApi
+    private readonly AppConfig _appConfig;
+    private readonly JwtConfig _jwtConfig;
+    private readonly IPermissionRepository _permissionRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly ITenantRepository _tenantRepository;
+    private readonly ICaptchaTool _captchaTool;
+
+    public AuthService(
+        AppConfig appConfig,
+        JwtConfig jwtConfig,
+        IUserRepository userRepository,
+        IPermissionRepository permissionRepository,
+        ITenantRepository tenantRepository,
+        ICaptchaTool captchaTool
+    )
     {
-        private readonly AppConfig _appConfig;
-        private readonly JwtConfig _jwtConfig;
-        private readonly IPermissionRepository _permissionRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly ITenantRepository _tenantRepository;
-        private readonly ICaptchaTool _captchaTool;
+        _appConfig = appConfig;
+        _jwtConfig = jwtConfig;
+        _userRepository = userRepository;
+        _permissionRepository = permissionRepository;
+        _tenantRepository = tenantRepository;
+        _captchaTool = captchaTool;
+    }
 
-        public AuthService(
-            AppConfig appConfig,
-            JwtConfig jwtConfig,
-            IUserRepository userRepository,
-            IPermissionRepository permissionRepository,
-            ITenantRepository tenantRepository,
-            ICaptchaTool captchaTool
-        )
+    /// <summary>
+    /// 获得token
+    /// </summary>
+    /// <param name="user">用户信息</param>
+    /// <returns></returns>
+    private string GetToken(AuthLoginOutput user)
+    {
+        if (user == null)
         {
-            _appConfig = appConfig;
-            _jwtConfig = jwtConfig;
-            _userRepository = userRepository;
-            _permissionRepository = permissionRepository;
-            _tenantRepository = tenantRepository;
-            _captchaTool = captchaTool;
+            return string.Empty;
         }
 
-        /// <summary>
-        /// 获得token
-        /// </summary>
-        /// <param name="user">用户信息</param>
-        /// <returns></returns>
-        private string GetToken(AuthLoginOutput user)
+        var token = LazyGetRequiredService<IUserToken>().Create(new[]
         {
-            if (user == null)
-            {
-                return string.Empty;
-            }
+            new Claim(ClaimAttributes.UserId, user.Id.ToString()),
+            new Claim(ClaimAttributes.UserName, user.UserName),
+            new Claim(ClaimAttributes.UserNickName, user.NickName),
+            new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
+            new Claim(ClaimAttributes.TenantType, user.TenantType.ToString()),
+            new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToString())
+        });
 
-            var token = LazyGetRequiredService<IUserToken>().Create(new[]
-            {
-                new Claim(ClaimAttributes.UserId, user.Id.ToString()),
-                new Claim(ClaimAttributes.UserName, user.UserName),
-                new Claim(ClaimAttributes.UserNickName, user.NickName),
-                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
-                new Claim(ClaimAttributes.TenantType, user.TenantType.ToString()),
-                new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToString())
-            });
+        return token;
+    }
 
-            return token;
+    /// <summary>
+    /// 查询密钥
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<IResultOutput> GetPasswordEncryptKeyAsync()
+    {
+        //写入Redis
+        var guid = Guid.NewGuid().ToString("N");
+        var key = string.Format(CacheKeys.PassWordEncryptKey, guid);
+        var encyptKey = StringHelper.GenerateRandom(8);
+        await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
+        var data = new { key = guid, encyptKey };
+
+        return ResultOutput.Ok(data);
+    }
+
+    /// <summary>
+    /// 查询用户信息
+    /// </summary>
+    /// <returns></returns>
+    [Login]
+    public async Task<IResultOutput> GetUserInfoAsync()
+    {
+        if (!(User?.Id > 0))
+        {
+            return ResultOutput.NotOk("未登录！");
         }
 
-        /// <summary>
-        /// 查询密钥
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        [NoOprationLog]
-        public async Task<IResultOutput> GetPasswordEncryptKeyAsync()
+        var authUserInfoOutput = new AuthUserInfoOutput
         {
-            //写入Redis
-            var guid = Guid.NewGuid().ToString("N");
-            var key = string.Format(CacheKeys.PassWordEncryptKey, guid);
-            var encyptKey = StringHelper.GenerateRandom(8);
-            await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
-            var data = new { key = guid, encyptKey };
+            //用户信息
+            User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id),
 
-            return ResultOutput.Ok(data);
+            //用户菜单
+            Menus = await _permissionRepository.Select
+            .Where(a => new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }.Contains(a.Type))
+            .Where(a =>
+                _permissionRepository.Orm.Select<RolePermissionEntity>()
+                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                .Where(b => b.PermissionId == a.Id)
+                .Any()
+            )
+            .OrderBy(a => a.ParentId)
+            .OrderBy(a => a.Sort)
+            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path }),
+
+            //用户权限点
+            Permissions = await _permissionRepository.Select
+            .Where(a => a.Type == PermissionTypeEnum.Dot)
+            .Where(a =>
+                _permissionRepository.Orm.Select<RolePermissionEntity>()
+                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                .Where(b => b.PermissionId == a.Id)
+                .Any()
+            )
+            .ToListAsync(a => a.Code)
+        };
+
+        return ResultOutput.Ok(authUserInfoOutput);
+    }
+
+    /// <summary>
+    /// 登录
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
+    {
+        var sw = new Stopwatch();
+        sw.Start();
+
+        #region 验证码校验
+
+        if (_appConfig.VarifyCode.Enable)
+        {
+            input.Captcha.DeleteCache = true;
+            input.Captcha.CaptchaKey = CacheKeys.CaptchaKey;
+            var isOk = await _captchaTool.CheckAsync(input.Captcha);
+            if (!isOk)
+            {
+                return ResultOutput.NotOk("安全验证不通过，请重新登录！");
+            }
         }
 
-        /// <summary>
-        /// 查询用户信息
-        /// </summary>
-        /// <returns></returns>
-        [Login]
-        public async Task<IResultOutput> GetUserInfoAsync()
+        #endregion 验证码校验
+
+        UserEntity user = null;
+
+        user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a => a.UserName == input.UserName).ToOneAsync();
+
+        if (!(user?.Id > 0))
         {
-            if (!(User?.Id > 0))
-            {
-                return ResultOutput.NotOk("未登录！");
-            }
-
-            var authUserInfoOutput = new AuthUserInfoOutput
-            {
-                //用户信息
-                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id),
-
-                //用户菜单
-                Menus = await _permissionRepository.Select
-                .Where(a => new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }.Contains(a.Type))
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
-                .OrderBy(a => a.ParentId)
-                .OrderBy(a => a.Sort)
-                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path }),
-
-                //用户权限点
-                Permissions = await _permissionRepository.Select
-                .Where(a => a.Type == PermissionTypeEnum.Dot)
-                .Where(a =>
-                    _permissionRepository.Orm.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                )
-                .ToListAsync(a => a.Code)
-            };
-
-            return ResultOutput.Ok(authUserInfoOutput);
+            return ResultOutput.NotOk("账号输入有误!", 3);
         }
 
-        /// <summary>
-        /// 登录
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [AllowAnonymous]
-        [NoOprationLog]
-        public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
+        #region 解密
+
+        if (input.PasswordKey.NotNull())
         {
-            var sw = new Stopwatch();
-            sw.Start();
-
-            #region 验证码校验
-
-            if (_appConfig.VarifyCode.Enable)
+            var passwordEncryptKey = string.Format(CacheKeys.PassWordEncryptKey, input.PasswordKey);
+            var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
+            if (existsPasswordKey)
             {
-                input.Captcha.DeleteCache = true;
-                input.Captcha.CaptchaKey = CacheKeys.CaptchaKey;
-                var isOk = await _captchaTool.CheckAsync(input.Captcha);
-                if (!isOk)
-                {
-                    return ResultOutput.NotOk("安全验证不通过，请重新登录！");
-                }
-            }
-
-            #endregion 验证码校验
-
-            UserEntity user = null;
-
-            user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a => a.UserName == input.UserName).ToOneAsync();
-
-            if (!(user?.Id > 0))
-            {
-                return ResultOutput.NotOk("账号输入有误!", 3);
-            }
-
-            #region 解密
-
-            if (input.PasswordKey.NotNull())
-            {
-                var passwordEncryptKey = string.Format(CacheKeys.PassWordEncryptKey, input.PasswordKey);
-                var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
-                if (existsPasswordKey)
-                {
-                    var secretKey = await Cache.GetAsync(passwordEncryptKey);
-                    if (secretKey.IsNull())
-                    {
-                        return ResultOutput.NotOk("解密失败！", 1);
-                    }
-                    input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                    await Cache.DelAsync(passwordEncryptKey);
-                }
-                else
+                var secretKey = await Cache.GetAsync(passwordEncryptKey);
+                if (secretKey.IsNull())
                 {
                     return ResultOutput.NotOk("解密失败！", 1);
                 }
+                input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
+                await Cache.DelAsync(passwordEncryptKey);
             }
-
-            #endregion 解密
-
-            var password = MD5Encrypt.Encrypt32(input.Password);
-            if (user.Password != password)
+            else
             {
-                return ResultOutput.NotOk("密码输入有误！", 4);
+                return ResultOutput.NotOk("解密失败！", 1);
             }
-
-            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-
-            if (_appConfig.Tenant)
-            {
-                var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
-                authLoginOutput.TenantType = tenant.TenantType;
-                authLoginOutput.DataIsolationType = tenant.DataIsolationType;
-            }
-
-            string token = GetToken(authLoginOutput);
-
-            sw.Stop();
-
-            #region 添加登录日志
-
-            var loginLogAddInput = new LoginLogAddInput
-            {
-                CreatedUserName = input.UserName,
-                ElapsedMilliseconds = sw.ElapsedMilliseconds,
-                Status = true,
-                CreatedUserId = authLoginOutput.Id,
-                NickName = authLoginOutput.NickName,
-                TenantId = authLoginOutput.TenantId
-            };
-
-            await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-            #endregion 添加登录日志
-
-            return ResultOutput.Ok(new { token });
         }
 
-        /// <summary>
-        /// 刷新Token
-        /// 以旧换新
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IResultOutput> Refresh([BindRequired] string token)
+        #endregion 解密
+
+        var password = MD5Encrypt.Encrypt32(input.Password);
+        if (user.Password != password)
         {
-            var jwtSecurityToken = LazyGetRequiredService<IUserToken>().Decode(token);
-            var userClaims = jwtSecurityToken?.Claims?.ToArray();
-            if (userClaims == null || userClaims.Length == 0)
-            {
-                return ResultOutput.NotOk();
-            }
-
-            var refreshExpires = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
-            if (refreshExpires.IsNull())
-            {
-                return ResultOutput.NotOk();
-            }
-
-            if (refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
-            {
-                return ResultOutput.NotOk("登录信息已过期");
-            }
-
-            var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
-            if (userId.IsNull())
-            {
-                return ResultOutput.NotOk("登录信息已失效");
-            }
-
-            //验签
-            var securityKey = _jwtConfig.SecurityKey;
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey)), SecurityAlgorithms.HmacSha256);
-            var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
-            if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
-            {
-                return ResultOutput.NotOk("验签失败");
-            }
-
-            var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
-            string newToken = GetToken(output?.Data);
-            return ResultOutput.Ok(new { token = newToken });
+            return ResultOutput.NotOk("密码输入有误！", 4);
         }
 
-        /// <summary>
-        /// 获取验证数据
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        [NoOprationLog]
-        [EnableCors(AdminConsts.AllowAnyPolicyName)]
-        public async Task<IResultOutput> GetCaptcha()
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+
+        if (_appConfig.Tenant)
         {
-            using (MiniProfiler.Current.Step("获取滑块验证"))
-            {
-                var data = await _captchaTool.GetAsync(CacheKeys.CaptchaKey);
-                return ResultOutput.Ok(data);
-            }
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+            authLoginOutput.TenantType = tenant.TenantType;
+            authLoginOutput.DataIsolationType = tenant.DataIsolationType;
         }
 
-        /// <summary>
-        /// 检查验证数据
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        [NoOprationLog]
-        [EnableCors(AdminConsts.AllowAnyPolicyName)]
-        public async Task<IResultOutput> CheckCaptcha([FromQuery] CaptchaInput input)
+        string token = GetToken(authLoginOutput);
+
+        sw.Stop();
+
+        #region 添加登录日志
+
+        var loginLogAddInput = new LoginLogAddInput
         {
-            input.CaptchaKey = CacheKeys.CaptchaKey;
-            var result = await _captchaTool.CheckAsync(input);
-            return ResultOutput.Result(result);
+            CreatedUserName = input.UserName,
+            ElapsedMilliseconds = sw.ElapsedMilliseconds,
+            Status = true,
+            CreatedUserId = authLoginOutput.Id,
+            NickName = authLoginOutput.NickName,
+            TenantId = authLoginOutput.TenantId
+        };
+
+        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+        #endregion 添加登录日志
+
+        return ResultOutput.Ok(new { token });
+    }
+
+    /// <summary>
+    /// 刷新Token
+    /// 以旧换新
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IResultOutput> Refresh([BindRequired] string token)
+    {
+        var jwtSecurityToken = LazyGetRequiredService<IUserToken>().Decode(token);
+        var userClaims = jwtSecurityToken?.Claims?.ToArray();
+        if (userClaims == null || userClaims.Length == 0)
+        {
+            return ResultOutput.NotOk();
         }
+
+        var refreshExpires = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
+        if (refreshExpires.IsNull())
+        {
+            return ResultOutput.NotOk();
+        }
+
+        if (refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
+        {
+            return ResultOutput.NotOk("登录信息已过期");
+        }
+
+        var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
+        if (userId.IsNull())
+        {
+            return ResultOutput.NotOk("登录信息已失效");
+        }
+
+        //验签
+        var securityKey = _jwtConfig.SecurityKey;
+        var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey)), SecurityAlgorithms.HmacSha256);
+        var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
+        if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
+        {
+            return ResultOutput.NotOk("验签失败");
+        }
+
+        var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
+        string newToken = GetToken(output?.Data);
+        return ResultOutput.Ok(new { token = newToken });
+    }
+
+    /// <summary>
+    /// 获取验证数据
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [AllowAnonymous]
+    [NoOprationLog]
+    [EnableCors(AdminConsts.AllowAnyPolicyName)]
+    public async Task<IResultOutput> GetCaptcha()
+    {
+        using (MiniProfiler.Current.Step("获取滑块验证"))
+        {
+            var data = await _captchaTool.GetAsync(CacheKeys.CaptchaKey);
+            return ResultOutput.Ok(data);
+        }
+    }
+
+    /// <summary>
+    /// 检查验证数据
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [AllowAnonymous]
+    [NoOprationLog]
+    [EnableCors(AdminConsts.AllowAnyPolicyName)]
+    public async Task<IResultOutput> CheckCaptcha([FromQuery] CaptchaInput input)
+    {
+        input.CaptchaKey = CacheKeys.CaptchaKey;
+        var result = await _captchaTool.CheckAsync(input);
+        return ResultOutput.Result(result);
     }
 }

@@ -8,12 +8,7 @@
         /// <summary>
         /// 用户Id
         /// </summary>
-        public const string UserId = "id";
-
-        /// <summary>
-        /// 认证授权用户Id
-        /// </summary>
-        public const string IdentityServerUserId = "sub";
+        public const string UserId = "sub";
 
         /// <summary>
         /// 用户名

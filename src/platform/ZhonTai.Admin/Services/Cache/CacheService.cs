@@ -11,13 +11,14 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Cache
 {
     /// <summary>
     /// 缓存服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class CacheService : BaseService, ICacheService, IDynamicApi
     {
         public CacheService()

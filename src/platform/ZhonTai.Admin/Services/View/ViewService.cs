@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.View;
-using ZhonTai.Admin.Domain.View.Dto;
 using ZhonTai.Admin.Services.View.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Services.View
 {
     /// <summary>
     /// 视图服务
     /// </summary>
-    [DynamicApi(Area = "admin")]
+    [DynamicApi(Area = AdminConsts.AreaName)]
     public class ViewService : BaseService, IViewService, IDynamicApi
     {
         private readonly IViewRepository _viewRepository;
