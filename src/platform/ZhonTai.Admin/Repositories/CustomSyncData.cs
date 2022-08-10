@@ -14,7 +14,6 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Position;
 using ZhonTai.Admin.Domain.Employee;
 
 namespace ZhonTai.Admin.Repositories
@@ -66,9 +65,6 @@ namespace ZhonTai.Admin.Repositories
 
                 var organizations = GetData<OrganizationEntity>(isTenant);
                 await InitDataAsync(db, uow, tran, organizations, dbConfig);
-
-                var positions = GetData<PositionEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, positions, dbConfig);
 
                 var employees = GetData<EmployeeEntity>(isTenant);
                 await InitDataAsync(db, uow, tran, employees, dbConfig);

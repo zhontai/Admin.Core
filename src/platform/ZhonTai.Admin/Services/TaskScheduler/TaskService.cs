@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
-using ZhonTai.Admin.Domain.TaskScheduler.Dto;
+using ZhonTai.Admin.Domain.Task.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
@@ -13,49 +13,48 @@ using FreeScheduler;
 namespace ZhonTai.Admin.Services.TaskScheduler
 {
     /// <summary>
-    /// 任务调度服务
+    /// 任务服务
     /// </summary>
     [DynamicApi(Area = AdminConsts.AreaName)]
-    public class TaskSchedulerService : BaseService, ITaskSchedulerService, IDynamicApi
+    public class TaskService : BaseService, ITaskService, IDynamicApi
     {
         private IRepositoryBase<TaskInfo> _taskInfoRepository => LazyGetRequiredService<IRepositoryBase<TaskInfo>>();
-        private IRepositoryBase<TaskLog> _taskLogRepository => LazyGetRequiredService<IRepositoryBase<TaskLog>>();
 
-        public TaskSchedulerService()
+        public TaskService()
         {
 
         }
 
         /// <summary>
-        /// 查询任务调度
+        /// 查询任务
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<IResultOutput> GetAsync(long id)
         {
-            var result = await _taskInfoRepository.GetAsync<TaskSchedulerGetOutput>(id);
+            var result = await _taskInfoRepository.GetAsync<TaskGetOutput>(id);
             return ResultOutput.Ok(result);
         }
 
         /// <summary>
-        /// 查询任务调度列表
+        /// 查询任务列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IResultOutput> GetPageAsync(PageInput<TaskSchedulerGetPageDto> input)
+        public async Task<IResultOutput> GetPageAsync(PageInput<TaskGetPageDto> input)
         {
-            var key = input.Filter?.Name;
+            var topic = input.Filter?.Topic;
 
             var list = await _taskInfoRepository.Select
             .WhereDynamicFilter(input.DynamicFilter)
-            .WhereIf(key.NotNull(), a => a.Topic.Contains(key))
+            .WhereIf(topic.NotNull(), a => a.Topic.Contains(topic))
             .Count(out var total)
             .OrderByDescending(true, c => c.Id)
             .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync<TaskSchedulerListOutput>();
+            .ToListAsync<TaskListOutput>();
 
-            var data = new PageOutput<TaskSchedulerListOutput>()
+            var data = new PageOutput<TaskListOutput>()
             {
                 List = list,
                 Total = total
@@ -69,7 +68,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<IResultOutput> AddAsync(TaskSchedulerAddInput input)
+        public async Task<IResultOutput> AddAsync(TaskAddInput input)
         {
             var entity = Mapper.Map<TaskInfo>(input);
             await _taskInfoRepository.InsertAsync(entity);
@@ -81,17 +80,17 @@ namespace ZhonTai.Admin.Services.TaskScheduler
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<IResultOutput> UpdateAsync(TaskSchedulerUpdateInput input)
+        public async Task<IResultOutput> UpdateAsync(TaskUpdateInput input)
         {
-            if (!(input?.Id > 0))
+            if (input.Id.IsNull())
             {
                 return ResultOutput.NotOk();
             }
 
-            var entity = await _taskInfoRepository.GetAsync(input.Id);
+            var entity = await _taskInfoRepository.GetAsync(a => a.Id == input.Id);
             if (entity != null && entity.Id.NotNull())
             {
-                return ResultOutput.NotOk("任务调度不存在！");
+                return ResultOutput.NotOk("任务不存在！");
             }
 
             Mapper.Map(input, entity);
@@ -106,25 +105,29 @@ namespace ZhonTai.Admin.Services.TaskScheduler
         /// <returns></returns>
         public async Task<IResultOutput> DeleteAsync(string id)
         {
-            if (id.NotNull())
+            if (id.IsNull())
             {
-                await _taskInfoRepository.DeleteAsync(m => m.Id == id);
+                return ResultOutput.NotOk();
             }
 
+            await _taskInfoRepository.DeleteAsync(m => m.Id == id);
+            
             return ResultOutput.Ok();
         }
 
         /// <summary>
-        /// 批量删除
+        /// 批量彻底删除
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public async Task<IResultOutput> BatchSoftDeleteAsync(string[] ids)
+        public async Task<IResultOutput> BatchDeleteAsync(string[] ids)
         {
-            if(ids?.Length > 0)
+            if(!(ids?.Length > 0))
             {
-                await _taskInfoRepository.DeleteAsync(a => ids.Contains(a.Id));
+                return ResultOutput.NotOk();
             }
+
+            await _taskInfoRepository.DeleteAsync(a => ids.Contains(a.Id));
 
             return ResultOutput.Ok();
         }

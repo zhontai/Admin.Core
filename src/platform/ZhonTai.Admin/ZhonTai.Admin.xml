@@ -1946,7 +1946,7 @@
             性别
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Code">
+        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.JobNumber">
             <summary>
             工号
             </summary>
@@ -1961,9 +1961,9 @@
             主管Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.PositionId">
+        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Position">
             <summary>
-            职位Id
+            职位
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Phone">
@@ -2411,86 +2411,6 @@
             权限点
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Dto.PositionGetPageDto.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput">
-            <summary>
-            岗位导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Id">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.Output.PositionDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Position.PositionEntity">
-            <summary>
-            职位
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Position.PositionEntity.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.RolePermission.RolePermissionEntity">
             <summary>
             角色权限
@@ -2916,9 +2836,9 @@
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.TaskScheduler.Dto.TaskSchedulerGetPageDto.Name">
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.Topic">
             <summary>
-            名称
+            任务名称名称
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.HttpApi.AreaController">
@@ -3011,53 +2931,6 @@
             删除组织架构
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Admin.HttpApi.Controllers.PositionController">
-            <summary>
-            职位管理
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.Get(System.Int64)">
-            <summary>
-            查询职位
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Position.Dto.PositionGetPageDto})">
-            <summary>
-            查询职位列表
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.Add(ZhonTai.Admin.Services.Position.Input.PositionAddInput)">
-            <summary>
-            新增职位
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.Update(ZhonTai.Admin.Services.Position.Input.PositionUpdateInput)">
-            <summary>
-            修改职位
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.SoftDelete(System.Int64)">
-            <summary>
-            删除职位
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.PositionController.BatchSoftDelete(System.Int64[])">
-            <summary>
-            批量删除职位
-            </summary>
-            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.ApiService">
@@ -4172,7 +4045,7 @@
             性别
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.Code">
+        <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.JobNumber">
             <summary>
             工号
             </summary>
@@ -4187,9 +4060,9 @@
             附属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.PositionId">
+        <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.Position">
             <summary>
-            职位Id
+            职位
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.Phone">
@@ -4232,7 +4105,7 @@
             附属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeGetOutput.PositionName">
+        <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeGetOutput.Position">
             <summary>
             职位
             </summary>
@@ -4257,6 +4130,11 @@
             账号
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeListOutput.JobNumber">
+            <summary>
+            工号
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeListOutput.OrganizationName">
             <summary>
             主属部门
@@ -4267,7 +4145,7 @@
             附属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeListOutput.PositionName">
+        <member name="P:ZhonTai.Admin.Services.Employee.Output.EmployeeListOutput.Position">
             <summary>
             职位
             </summary>
@@ -5172,130 +5050,6 @@
             映射配置
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Position.Input.PositionAddInput">
-            <summary>
-            添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionAddInput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionAddInput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionAddInput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionAddInput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Position.Input.PositionUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionUpdateInput.Id">
-            <summary>
-            编号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Input.PositionUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.Id">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Position.Output.PositionListOutput.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Position.PositionService">
-            <summary>
-            职位服务
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.GetAsync(System.Int64)">
-            <summary>
-            查询职位
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Position.Dto.PositionGetPageDto})">
-            <summary>
-            查询分页
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.AddAsync(ZhonTai.Admin.Services.Position.Input.PositionAddInput)">
-            <summary>
-            新增
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.UpdateAsync(ZhonTai.Admin.Services.Position.Input.PositionUpdateInput)">
-            <summary>
-            修改
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.DeleteAsync(System.Int64)">
-            <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.SoftDeleteAsync(System.Int64)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Position.PositionService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleAddInput">
             <summary>
             添加
@@ -5425,124 +5179,171 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput">
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput">
             <summary>
             添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput.Name">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Topic">
             <summary>
-            名称
+            任务标题
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput.Code">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Body">
             <summary>
-            编码
+            任务数据
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput.Description">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Round">
             <summary>
-            说明
+            任务执行多少轮，-1为永久循环
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Interval">
             <summary>
-            启用
+            定时类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.IntervalArgument">
+            <summary>
+            定时参数值 60,60,60,120,120,1200,1200
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Status">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
             <summary>
             主键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Topic">
             <summary>
-            名称
+            任务标题
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.Code">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Body">
             <summary>
-            编码
+            任务数据
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.Description">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Round">
             <summary>
-            说明
+            任务执行多少轮
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Interval">
             <summary>
-            启用
+            定时类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerListOutput.CreatedTime">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.IntervalArgument">
+            <summary>
+            定时参数值
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Status">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.CreateTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerUpdateInput">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.LastRunTime">
+            <summary>
+            最后运行时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.CurrentRound">
+            <summary>
+            当前运行到第几轮
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.ErrorTimes">
+            <summary>
+            错次数
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskUpdateInput">
             <summary>
             修改
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerUpdateInput.Id">
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskUpdateInput.Id">
             <summary>
-            接口Id
+            任务Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerUpdateInput.Version">
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.ITaskLogService">
             <summary>
-            版本
+            任务日志接口
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.TaskScheduler.ITaskSchedulerService">
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.ITaskService">
             <summary>
-            任务调度接口
+            任务接口
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService">
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.TaskLogService">
             <summary>
-            任务调度服务
+            任务日志服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
             <summary>
-            查询角色
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.TaskScheduler.Dto.TaskSchedulerGetPageDto})">
-            <summary>
-            查询角色列表
+            查询任务日志列表
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.AddAsync(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerAddInput)">
+        <member name="T:ZhonTai.Admin.Services.TaskScheduler.TaskService">
+            <summary>
+            任务服务
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.Int64)">
+            <summary>
+            查询任务
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+            <summary>
+            查询任务列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.AddAsync(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput)">
             <summary>
             新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.UpdateAsync(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskSchedulerUpdateInput)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.UpdateAsync(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskUpdateInput)">
             <summary>
             修改
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.DeleteAsync(System.String)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.DeleteAsync(System.String)">
             <summary>
             彻底删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskSchedulerService.BatchSoftDeleteAsync(System.String[])">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchDeleteAsync(System.String[])">
             <summary>
-            批量删除
+            批量彻底删除
             </summary>
             <param name="ids"></param>
             <returns></returns>

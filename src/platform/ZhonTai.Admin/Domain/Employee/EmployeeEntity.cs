@@ -45,7 +45,6 @@ namespace ZhonTai.Admin.Domain.Employee
         /// <summary>
         /// 职位
         /// </summary>
-        [Column(OldName = "PositionId")]
         public string Position { get; set; }
 
         /// <summary>

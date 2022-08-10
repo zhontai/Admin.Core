@@ -1,7 +1,7 @@
 ﻿
 namespace ZhonTai.Admin.Services.TaskScheduler.Dto
 {
-    public class TaskSchedulerGetOutput : TaskSchedulerUpdateInput
+    public class TaskGetOutput : TaskUpdateInput
     {
     }
 }

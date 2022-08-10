@@ -25,6 +25,11 @@ namespace ZhonTai.Admin.Services.Employee.Output
         public string UserName { get; set; }
 
         /// <summary>
+        /// 工号
+        /// </summary>
+        public string JobNumber { get; set; }
+
+        /// <summary>
         /// 主属部门
         /// </summary>
         public string OrganizationName { get; set; }
@@ -37,7 +42,7 @@ namespace ZhonTai.Admin.Services.Employee.Output
         /// <summary>
         /// 职位
         /// </summary>
-        public string PositionName { get; set; }
+        public string Position { get; set; }
 
         /// <summary>
         /// 手机号

@@ -24,10 +24,8 @@ using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Domain.Organization.Output;
-using ZhonTai.Admin.Domain.Position;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Position.Output;
 using ZhonTai.Admin.Domain.Employee.Output;
 
 namespace ZhonTai.Admin.Repositories
@@ -199,12 +197,6 @@ namespace ZhonTai.Admin.Repositories
 
             #endregion
 
-            #region 岗位
-
-            var positions = await db.Queryable<PositionEntity>().ToListAsync<PositionDataOutput>();
-
-            #endregion
-
             #region 员工
 
             var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
@@ -224,7 +216,6 @@ namespace ZhonTai.Admin.Repositories
             SaveDataToJsonFile<UserEntity>(users, isTenant);
             SaveDataToJsonFile<RoleEntity>(roles, isTenant);
             SaveDataToJsonFile<OrganizationEntity>(organizationTree, isTenant);
-            SaveDataToJsonFile<PositionEntity>(positions, isTenant);
             SaveDataToJsonFile<EmployeeEntity>(employees, isTenant);
             if (isTenant)
             {
@@ -247,7 +238,6 @@ namespace ZhonTai.Admin.Repositories
                     r.Childs.AddRange(datalist);
                 });
                 SaveDataToJsonFile<OrganizationEntity>(organizationTree);
-                SaveDataToJsonFile<PositionEntity>(positions.Where(a => tenantIds.Contains(a.TenantId.Value)));
                 SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => tenantIds.Contains(a.TenantId.Value)));
             }
             SaveDataToJsonFile<UserRoleEntity>(userRoles);

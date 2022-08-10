@@ -31,7 +31,7 @@ namespace ZhonTai.Admin.Services.Employee.Input
         /// <summary>
         /// 工号
         /// </summary>
-        public string Code { get; set; }
+        public string JobNumber { get; set; }
 
         /// <summary>
         /// 主属部门Id
@@ -44,9 +44,9 @@ namespace ZhonTai.Admin.Services.Employee.Input
         public long[] OrganizationIds { get; set; }
 
         /// <summary>
-        /// 职位Id
+        /// 职位
         /// </summary>
-        public long PositionId { get; set; }
+        public string Position { get; set; }
 
         /// <summary>
         /// 手机号

@@ -17,6 +17,6 @@ namespace ZhonTai.Admin.Services.Employee.Output
         /// <summary>
         /// 职位
         /// </summary>
-        public string PositionName { get; set; }
+        public string Position { get; set; }
     }
 }
