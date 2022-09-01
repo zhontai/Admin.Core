@@ -6,71 +6,71 @@ using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
 
-namespace ZhonTai.Admin.Domain.User
+namespace ZhonTai.Admin.Domain.User;
+
+/// <summary>
+/// 用户
+/// </summary>
+[Table(Name = "ad_user")]
+[Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
+public partial class UserEntity : EntityFull, ITenant
 {
     /// <summary>
-    /// 用户
+    /// 租户Id
     /// </summary>
-	[Table(Name = "ad_user")]
-    [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
-    public partial class UserEntity : EntityFull, ITenant
-    {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        [Column(Position = 2)]
-        public long? TenantId { get; set; }
+    [Column(Position = 2)]
+    public long? TenantId { get; set; }
 
-        public TenantEntity Tenant { get; set; }
+    public TenantEntity Tenant { get; set; }
 
-        /// <summary>
-        /// 账号
-        /// </summary>
-        [Column(StringLength = 60)]
-        public string UserName { get; set; }
+    /// <summary>
+    /// 账号
+    /// </summary>
+    [Column(StringLength = 60)]
+    public string UserName { get; set; }
 
-        /// <summary>
-        /// 密码
-        /// </summary>
-        [Column(StringLength = 60)]
-        public string Password { get; set; }
+    /// <summary>
+    /// 密码
+    /// </summary>
+    [Column(StringLength = 60)]
+    public string Password { get; set; }
 
-        /// <summary>
-        /// 姓名
-        /// </summary>
-        [Column(StringLength = 20)]
-        public string Name { get; set; }
+    /// <summary>
+    /// 姓名
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string Name { get; set; }
 
-        /// <summary>
-        /// 手机号
-        /// </summary>
-        [Column(StringLength = 20)]
-        public string Mobile { get; set; }
+    /// <summary>
+    /// 手机号
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string Mobile { get; set; }
 
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        [Column(StringLength = 100)]
-        public string Email { get; set; }
+    /// <summary>
+    /// 邮箱
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Email { get; set; }
 
-        /// <summary>
-        /// 昵称
-        /// </summary>
-        [Column(StringLength = 20)]
-        public string NickName { get; set; }
+    /// <summary>
+    /// 昵称
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string NickName { get; set; }
 
-        /// <summary>
-        /// 头像
-        /// </summary>
-        [Column(StringLength = 100)]
-        public string Avatar { get; set; }
+    /// <summary>
+    /// 头像
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Avatar { get; set; }
 
-        /// <summary>
-        /// 状态
-        /// </summary>
-        public int Status { get; set; }
+    /// <summary>
+    /// 用户状态
+    /// </summary>
+    [Column(MapType = typeof(int))]
+    public UserStatusEnum Status { get; set; }
 
-        [Navigate(ManyToMany = typeof(UserRoleEntity))]
-        public ICollection<RoleEntity> Roles { get; set; }
-    }
+    [Navigate(ManyToMany = typeof(UserRoleEntity))]
+    public ICollection<RoleEntity> Roles { get; set; }
 }

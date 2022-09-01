@@ -63,6 +63,16 @@
             "enabled": true
           },
           {
+            "id": 174312361087045,
+            "parentId": 161227168436294,
+            "name": "Organization",
+            "label": "部门管理",
+            "path": "admin/organization",
+            "enabled": true,
+            "description": "",
+            "childs": []
+          },
+          {
             "id": 161227168440389,
             "parentId": 161227168436294,
             "name": "Role",
@@ -152,47 +162,6 @@
         "label": "文档管理",
         "path": "admin/document",
         "enabled": true,
-        "childs": []
-      }
-    ]
-  },
-  {
-    "id": 174650149470277,
-    "parentId": 0,
-    "name": "",
-    "label": "人事管理",
-    "path": "",
-    "enabled": true,
-    "description": "",
-    "childs": [
-      {
-        "id": 174312361087045,
-        "parentId": 174650149470277,
-        "name": "Organization",
-        "label": "部门管理",
-        "path": "admin/organization",
-        "enabled": true,
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174312361132101,
-        "parentId": 174650149470277,
-        "name": "Position",
-        "label": "岗位管理",
-        "path": "admin/position",
-        "enabled": true,
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 188792508244037,
-        "parentId": 174650149470277,
-        "name": "Employee",
-        "label": "员工管理",
-        "path": "admin/employee",
-        "enabled": true,
-        "description": "",
         "childs": []
       }
     ]

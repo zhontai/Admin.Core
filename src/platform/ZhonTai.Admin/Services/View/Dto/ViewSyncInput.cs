@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace ZhonTai.Admin.Services.View.Dto
+namespace ZhonTai.Admin.Services.View.Dto;
+
+public class ViewSyncInput
 {
-    public class ViewSyncInput
-    {
-        public List<ViewSyncDto> Views { get; set; }
-    }
+    public List<ViewSyncDto> Views { get; set; }
 }

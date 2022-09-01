@@ -1,10 +1,9 @@
-﻿namespace ZhonTai.Admin.Core.Entities
+﻿namespace ZhonTai.Admin.Core.Entities;
+
+public interface IEntitySoftDelete
 {
-    public interface IEntitySoftDelete
-    {
-        /// <summary>
-        /// 是否删除
-        /// </summary>
-        bool IsDeleted { get; set; }
-    }
+    /// <summary>
+    /// 是否删除
+    /// </summary>
+    bool IsDeleted { get; set; }
 }

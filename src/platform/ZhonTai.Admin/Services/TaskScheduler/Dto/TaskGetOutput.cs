@@ -1,7 +1,6 @@
 ﻿
-namespace ZhonTai.Admin.Services.TaskScheduler.Dto
+namespace ZhonTai.Admin.Services.TaskScheduler.Dto;
+
+public class TaskGetOutput : TaskUpdateInput
 {
-    public class TaskGetOutput : TaskUpdateInput
-    {
-    }
 }

@@ -1,6 +1,5 @@
-﻿namespace ZhonTai.Admin.Services.Document.Dto
+﻿namespace ZhonTai.Admin.Services.Document.Dto;
+
+public class DocumentGetGroupOutput : DocumentUpdateGroupInput
 {
-    public class DocumentGetGroupOutput : DocumentUpdateGroupInput
-    {
-    }
 }

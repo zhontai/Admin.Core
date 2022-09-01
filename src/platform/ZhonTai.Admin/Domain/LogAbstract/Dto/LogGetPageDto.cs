@@ -1,10 +1,9 @@
-﻿namespace ZhonTai.Admin.Domain
+﻿namespace ZhonTai.Admin.Domain;
+
+public class LogGetPageDto
 {
-    public class LogGetPageDto
-    {
-        /// <summary>
-        /// 创建者
-        /// </summary>
-        public string CreatedUserName { get; set; }
-    }
+    /// <summary>
+    /// 创建者
+    /// </summary>
+    public string CreatedUserName { get; set; }
 }

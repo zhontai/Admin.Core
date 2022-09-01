@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.View
+namespace ZhonTai.Admin.Domain.View;
+
+public interface IViewRepository : IRepositoryBase<ViewEntity>
 {
-    public interface IViewRepository : IRepositoryBase<ViewEntity>
-    {
-    }
 }

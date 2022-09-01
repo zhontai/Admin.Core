@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.Api
+namespace ZhonTai.Admin.Domain.Api;
+
+public interface IApiRepository : IRepositoryBase<ApiEntity>
 {
-    public interface IApiRepository : IRepositoryBase<ApiEntity>
-    {
-    }
 }

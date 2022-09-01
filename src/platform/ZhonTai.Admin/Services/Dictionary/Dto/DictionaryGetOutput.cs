@@ -1,6 +1,5 @@
-﻿namespace ZhonTai.Admin.Services.Dictionary.Dto
+﻿namespace ZhonTai.Admin.Services.Dictionary.Dto;
+
+public class DictionaryGetOutput : DictionaryUpdateInput
 {
-    public class DictionaryGetOutput : DictionaryUpdateInput
-    {
-    }
 }

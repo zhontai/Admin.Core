@@ -3,118 +3,117 @@ using System;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
 
-namespace ZhonTai.Admin.Core.Auth
+namespace ZhonTai.Admin.Core.Auth;
+
+/// <summary>
+/// 用户信息
+/// </summary>
+public class User : IUser
 {
-    /// <summary>
-    /// 用户信息
-    /// </summary>
-    public class User : IUser
+    private readonly IHttpContextAccessor _accessor;
+
+    public User(IHttpContextAccessor accessor)
     {
-        private readonly IHttpContextAccessor _accessor;
+        _accessor = accessor;
+    }
 
-        public User(IHttpContextAccessor accessor)
+    /// <summary>
+    /// 用户Id
+    /// </summary>
+    public virtual long Id
+    {
+        get
         {
-            _accessor = accessor;
-        }
-
-        /// <summary>
-        /// 用户Id
-        /// </summary>
-        public virtual long Id
-        {
-            get
+            var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserId);
+            if (id != null && id.Value.NotNull())
             {
-                var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserId);
-                if (id != null && id.Value.NotNull())
-                {
-                    return id.Value.ToLong();
-                }
-                return 0;
+                return id.Value.ToLong();
             }
+            return 0;
         }
+    }
 
-        /// <summary>
-        /// 用户名
-        /// </summary>
-        public string Name
+    /// <summary>
+    /// 用户名
+    /// </summary>
+    public string Name
+    {
+        get
         {
-            get
+            var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserName);
+
+            if (name != null && name.Value.NotNull())
             {
-                var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserName);
-
-                if (name != null && name.Value.NotNull())
-                {
-                    return name.Value;
-                }
-
-                return "";
+                return name.Value;
             }
+
+            return "";
         }
+    }
 
-        /// <summary>
-        /// 昵称
-        /// </summary>
-        public string NickName
+    /// <summary>
+    /// 昵称
+    /// </summary>
+    public string NickName
+    {
+        get
         {
-            get
+            var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserNickName);
+
+            if (name != null && name.Value.NotNull())
             {
-                var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserNickName);
-
-                if (name != null && name.Value.NotNull())
-                {
-                    return name.Value;
-                }
-
-                return "";
+                return name.Value;
             }
+
+            return "";
         }
+    }
 
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        public virtual long? TenantId
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    public virtual long? TenantId
+    {
+        get
         {
-            get
+            var tenantId = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantId);
+            if (tenantId != null && tenantId.Value.NotNull())
             {
-                var tenantId = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantId);
-                if (tenantId != null && tenantId.Value.NotNull())
-                {
-                    return tenantId.Value.ToLong();
-                }
-                return null;
+                return tenantId.Value.ToLong();
             }
+            return null;
         }
+    }
 
-        /// <summary>
-        /// 租户类型
-        /// </summary>
-        public virtual TenantType? TenantType
+    /// <summary>
+    /// 租户类型
+    /// </summary>
+    public virtual TenantType? TenantType
+    {
+        get
         {
-            get
+            var tenantType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantType);
+            if (tenantType != null && tenantType.Value.NotNull())
             {
-                var tenantType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.TenantType);
-                if (tenantType != null && tenantType.Value.NotNull())
-                {
-                    return (TenantType)Enum.Parse(typeof(TenantType), tenantType.Value, true);
-                }
-                return null;
+                return (TenantType)Enum.Parse(typeof(TenantType), tenantType.Value, true);
             }
+            return null;
         }
+    }
 
-        /// <summary>
-        /// 数据隔离
-        /// </summary>
-        public virtual DataIsolationType? DataIsolationType
+    /// <summary>
+    /// 数据隔离
+    /// </summary>
+    public virtual DataIsolationType? DataIsolationType
+    {
+        get
         {
-            get
+            var dataIsolationType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.DataIsolationType);
+            if (dataIsolationType != null && dataIsolationType.Value.NotNull())
             {
-                var dataIsolationType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.DataIsolationType);
-                if (dataIsolationType != null && dataIsolationType.Value.NotNull())
-                {
-                    return (DataIsolationType)Enum.Parse(typeof(DataIsolationType), dataIsolationType.Value, true);
-                }
-                return null;
+                return (DataIsolationType)Enum.Parse(typeof(DataIsolationType), dataIsolationType.Value, true);
             }
+            return null;
         }
     }
 }

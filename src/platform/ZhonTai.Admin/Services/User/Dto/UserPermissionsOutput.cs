@@ -1,9 +1,8 @@
-﻿namespace ZhonTai.Admin.Services.User.Dto
-{
-    public class UserPermissionsOutput
-    {
-        public string HttpMethods { get; set; }
+﻿namespace ZhonTai.Admin.Services.User.Dto;
 
-        public string Path { get; set; }
-    }
+public class UserPermissionsOutput
+{
+    public string HttpMethods { get; set; }
+
+    public string Path { get; set; }
 }

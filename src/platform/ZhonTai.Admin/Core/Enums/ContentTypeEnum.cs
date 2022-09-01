@@ -1,8 +1,7 @@
-﻿namespace ZhonTai.Admin.Core.Enums
+﻿namespace ZhonTai.Admin.Core.Enums;
+
+public enum ContentTypeEnum
 {
-    public enum ContentTypeEnum
-    {
-        FormData,
-        Json
-    }
+    FormData,
+    Json
 }

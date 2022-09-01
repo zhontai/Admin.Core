@@ -4,7 +4,7 @@
     "id": 161223411986501,
     "userName": "admin",
     "password": "96E79218965EB72C92A549DD5A33112",
-    "nickName": "平台管理员",
+    "nickName": "管理员",
     "avatar": "",
     "remark": ""
   },
@@ -20,6 +20,6 @@
     "id": 162605614280773,
     "userName": "user",
     "password": "96E79218965EB72C92A549DD5A33112",
-    "nickName": "平台用户"
+    "nickName": "员工"
   }
 ]

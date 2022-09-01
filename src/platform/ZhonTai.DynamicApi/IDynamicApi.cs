@@ -1,7 +1,6 @@
-﻿namespace ZhonTai.DynamicApi
+﻿namespace ZhonTai.DynamicApi;
+
+public interface IDynamicApi
 {
-    public interface IDynamicApi
-    {
-        
-    }
+    
 }

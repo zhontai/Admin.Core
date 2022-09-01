@@ -1,18 +1,17 @@
-﻿namespace ZhonTai.Admin.Domain.Document
+﻿namespace ZhonTai.Admin.Domain.Document;
+
+/// <summary>
+/// 文档类型
+/// </summary>
+public enum DocumentTypeEnum
 {
     /// <summary>
-    /// 文档类型
+    /// 分组
     /// </summary>
-    public enum DocumentTypeEnum
-    {
-        /// <summary>
-        /// 分组
-        /// </summary>
-        Group = 1,
+    Group = 1,
 
-        /// <summary>
-        /// Markdown文档
-        /// </summary>
-        Markdown = 2
-    }
+    /// <summary>
+    /// Markdown文档
+    /// </summary>
+    Markdown = 2
 }

@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.Employee
+namespace ZhonTai.Admin.Domain.Employee;
+
+public interface IEmployeeRepository : IRepositoryBase<EmployeeEntity>
 {
-    public interface IEmployeeRepository : IRepositoryBase<EmployeeEntity>
-    {
-    }
 }

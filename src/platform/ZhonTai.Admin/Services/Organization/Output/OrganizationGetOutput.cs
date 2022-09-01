@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Services.Organization.Input;
 
-namespace ZhonTai.Admin.Services.Organization.Output
+namespace ZhonTai.Admin.Services.Organization.Output;
+
+public class OrganizationGetOutput : OrganizationUpdateInput
 {
-    public class OrganizationGetOutput : OrganizationUpdateInput
-    {
-    }
 }

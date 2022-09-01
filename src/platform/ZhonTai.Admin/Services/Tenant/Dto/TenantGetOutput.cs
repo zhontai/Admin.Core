@@ -1,7 +1,6 @@
 ﻿
-namespace ZhonTai.Admin.Services.Tenant.Dto
+namespace ZhonTai.Admin.Services.Tenant.Dto;
+
+public class TenantGetOutput : TenantUpdateInput
 {
-    public class TenantGetOutput : TenantUpdateInput
-    {
-    }
 }

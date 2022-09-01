@@ -15,22 +15,22 @@
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="CSRedisCore" Version="3.8.3" />
 		<PackageReference Include="Caching.CSRedis" Version="3.8.3" />
-		<PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
 		<PackageReference Include="FreeSql" Version="3.2.665" />
 		<PackageReference Include="FreeSql.Repository" Version="3.2.665" />
 		<PackageReference Include="IdleBus" Version="1.5.2" />
-		<PackageReference Include="FreeScheduler" Version="1.0.1" />
+		<PackageReference Include="FreeScheduler" Version="1.0.3" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
-		<PackageReference Include="NLog" Version="5.0.1" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="5.1.0" />
+		<PackageReference Include="NLog" Version="5.0.2" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.1.1" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta14" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />

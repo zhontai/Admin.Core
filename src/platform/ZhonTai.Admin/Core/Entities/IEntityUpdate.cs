@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace ZhonTai.Admin.Core.Entities
+namespace ZhonTai.Admin.Core.Entities;
+
+public interface IEntityUpdate<TKey> where TKey : struct
 {
-    public interface IEntityUpdate<TKey> where TKey : struct
-    {
-        long? ModifiedUserId { get; set; }
-        string ModifiedUserName { get; set; }
-        DateTime? ModifiedTime { get; set; }
-    }
+    long? ModifiedUserId { get; set; }
+    string ModifiedUserName { get; set; }
+    DateTime? ModifiedTime { get; set; }
 }

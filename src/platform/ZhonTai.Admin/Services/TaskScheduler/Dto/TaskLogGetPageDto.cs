@@ -1,7 +1,6 @@
-﻿namespace ZhonTai.Admin.Domain.Task.Dto
+﻿namespace ZhonTai.Admin.Domain.Task.Dto;
+
+public partial class TaskLogGetPageDto
 {
-    public partial class TaskLogGetPageDto
-    {
-        public string TaskId { get; set; }
-    }
+    public string TaskId { get; set; }
 }

@@ -1,15 +1,15 @@
 [
   {
     "id": 161223412080709,
-    "name": "平台管理员",
-    "code": "plat_admin",
+    "name": "管理员",
+    "code": "admin",
     "description": "",
     "enabled": true
   },
   {
     "id": 162605510979653,
-    "name": "平台用户",
-    "code": "plat_user",
+    "name": "普通员工",
+    "code": "emp",
     "description": "",
     "enabled": true
   }

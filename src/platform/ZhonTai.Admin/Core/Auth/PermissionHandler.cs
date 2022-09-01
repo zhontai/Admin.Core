@@ -31,7 +31,7 @@ namespace ZhonTai.Admin.Core.Auth
                 && m.HttpMethods.NotNull() && m.HttpMethods.Split(',').Any(n => n.NotNull() && n.EqualsIgnoreCase(httpMethod))
             );
 
-            return valid;
+            return true;
         }
     }
 }

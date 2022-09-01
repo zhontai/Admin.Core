@@ -1,18 +1,17 @@
-﻿namespace ZhonTai.Admin.Core.Entities
+﻿namespace ZhonTai.Admin.Core.Entities;
+
+/// <summary>
+/// 租户类型
+/// </summary>
+public enum TenantType
 {
     /// <summary>
-    /// 租户类型
+    /// 平台
     /// </summary>
-    public enum TenantType
-    {
-        /// <summary>
-        /// 平台
-        /// </summary>
-        Platform = 1,
+    Platform = 1,
 
-        /// <summary>
-        /// 租户
-        /// </summary>
-        Tenant = 2
-    }
+    /// <summary>
+    /// 租户
+    /// </summary>
+    Tenant = 2
 }

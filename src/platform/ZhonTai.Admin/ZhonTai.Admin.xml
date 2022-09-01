@@ -1881,11 +1881,6 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.UserId">
-            <summary>
-            用户Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Sex">
             <summary>
             性别
@@ -1899,6 +1894,11 @@
         <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.MainOrgId">
             <summary>
             主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.ManagerUserId">
+            <summary>
+            直属主管Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Position">
@@ -2126,9 +2126,9 @@
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.EmployeeCount">
+        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.MemberCount">
             <summary>
-            员工人数
+            成员数
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Description">
@@ -2411,6 +2411,56 @@
             权限点
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput">
+            <summary>
+            角色分组导出
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Id">
+            <summary>
+            数据Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupGetPageDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity">
+            <summary>
+            角色分组
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.RolePermission.RolePermissionEntity">
             <summary>
             角色权限
@@ -2491,6 +2541,16 @@
             租户Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.RoleGroupId">
+            <summary>
+            分组Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.RoleGroup">
+            <summary>
+            分组
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Name">
             <summary>
             名称
@@ -2506,9 +2566,9 @@
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Enabled">
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Hidden">
             <summary>
-            启用
+            隐藏
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Sort">
@@ -2743,7 +2803,37 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Status">
             <summary>
-            状态
+            用户状态
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.User.UserStatusEnum">
+            <summary>
+            用户状态
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Enabled">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Disabled">
+            <summary>
+            禁用
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Locked">
+            <summary>
+            锁定
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.WaitChangePasssword">
+            <summary>
+            待修改密码
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.WaitActive">
+            <summary>
+            待激活
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.TenantId">
@@ -5049,6 +5139,67 @@
             <summary>
             映射配置
             </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.RoleGroup.IRoleGroupService">
+            <summary>
+            角色分组接口
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.RoleGroup.RoleGroupService">
+            <summary>
+            角色分组服务
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.AddAsync(ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.UpdateAsync(ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput)">
+            <summary>
+            修改
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.DeleteAsync(System.Int64)">
+            <summary>
+            彻底删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleAddInput">
             <summary>

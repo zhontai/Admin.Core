@@ -1,7 +1,6 @@
 ﻿
-namespace ZhonTai.Admin.Services.View.Dto
+namespace ZhonTai.Admin.Services.View.Dto;
+
+public class ViewGetOutput : ViewUpdateInput
 {
-    public class ViewGetOutput : ViewUpdateInput
-    {
-    }
 }

@@ -28,160 +28,203 @@ using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;
 using ZhonTai.Admin.Domain.Employee.Output;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class CustomGenerateData : GenerateData, IGenerateData
 {
-    public class CustomGenerateData : GenerateData, IGenerateData
+    public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
     {
-        public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
+        #region 读取数据
+
+        //admin
+        #region 数据字典
+
+        var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
+        var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
+
+        #endregion
+
+        #region 接口
+
+        var apis = await db.Queryable<ApiEntity>().ToListAsync<ApiDataOutput>();
+        var apiTree = apis.Clone().ToTree((r, c) =>
         {
-            #region 读取数据
+            return c.ParentId == 0;
+        },
+        (r, c) =>
+        {
+            return r.Id == c.ParentId;
+        },
+        (r, datalist) =>
+        {
+            r.Childs ??= new List<ApiDataOutput>();
+            r.Childs.AddRange(datalist);
+        });
 
-            //admin
-            #region 数据字典
+        #endregion
 
-            var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
-            var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
+        #region 视图
 
-            #endregion
+        var views = await db.Queryable<ViewEntity>().ToListAsync<ViewDataOutput>();
+        var viewTree = views.Clone().ToTree((r, c) =>
+        {
+            return c.ParentId == 0;
+        },
+       (r, c) =>
+       {
+           return r.Id == c.ParentId;
+       },
+       (r, datalist) =>
+       {
+           r.Childs ??= new List<ViewDataOutput>();
+           r.Childs.AddRange(datalist);
+       });
 
-            #region 接口
+        #endregion
 
-            var apis = await db.Queryable<ApiEntity>().ToListAsync<ApiDataOutput>();
-            var apiTree = apis.Clone().ToTree((r, c) =>
-            {
-                return c.ParentId == 0;
-            },
-            (r, c) =>
-            {
-                return r.Id == c.ParentId;
-            },
-            (r, datalist) =>
-            {
-                r.Childs ??= new List<ApiDataOutput>();
-                r.Childs.AddRange(datalist);
-            });
+        #region 权限
 
-            #endregion
+        var permissions = await db.Queryable<PermissionEntity>().ToListAsync<PermissionDataOutput>();
+        var permissionTree = permissions.Clone().ToTree((r, c) =>
+        {
+            return c.ParentId == 0;
+        },
+       (r, c) =>
+       {
+           return r.Id == c.ParentId;
+       },
+       (r, datalist) =>
+       {
+           r.Childs ??= new List<PermissionDataOutput>();
+           r.Childs.AddRange(datalist);
+       });
 
-            #region 视图
+        #endregion
 
-            var views = await db.Queryable<ViewEntity>().ToListAsync<ViewDataOutput>();
-            var viewTree = views.Clone().ToTree((r, c) =>
-            {
-                return c.ParentId == 0;
-            },
-           (r, c) =>
-           {
-               return r.Id == c.ParentId;
-           },
-           (r, datalist) =>
-           {
-               r.Childs ??= new List<ViewDataOutput>();
-               r.Childs.AddRange(datalist);
-           });
+        #region 用户
 
-            #endregion
+        var users = await db.Queryable<UserEntity>().ToListAsync<UserDataOutput>();
 
-            #region 权限
+        #endregion
 
-            var permissions = await db.Queryable<PermissionEntity>().ToListAsync<PermissionDataOutput>();
-            var permissionTree = permissions.Clone().ToTree((r, c) =>
-            {
-                return c.ParentId == 0;
-            },
-           (r, c) =>
-           {
-               return r.Id == c.ParentId;
-           },
-           (r, datalist) =>
-           {
-               r.Childs ??= new List<PermissionDataOutput>();
-               r.Childs.AddRange(datalist);
-           });
+        #region 角色
 
-            #endregion
+        var roles = await db.Queryable<RoleEntity>().ToListAsync<RoleDataOutput>();
 
-            #region 用户
+        #endregion
 
-            var users = await db.Queryable<UserEntity>().ToListAsync<UserDataOutput>();
+        #region 用户角色
 
-            #endregion
+        var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
+        {
+            a.Id,
+            a.UserId,
+            a.RoleId
+        });
 
-            #region 角色
+        #endregion
 
-            var roles = await db.Queryable<RoleEntity>().ToListAsync<RoleDataOutput>();
+        #region 角色权限
 
-            #endregion
+        var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
+        {
+            a.Id,
+            a.RoleId,
+            a.PermissionId
+        });
 
-            #region 用户角色
+        #endregion
 
-            var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
-            {
-                a.Id,
-                a.UserId,
-                a.RoleId
-            });
+        #region 租户
 
-            #endregion
+        var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
+        {
+            a.Id,
+            a.UserId,
+            a.RoleId,
+            a.Name,
+            a.Code,
+            a.RealName,
+            a.Phone,
+            a.Email,
+            a.TenantType,
+            a.DataIsolationType,
+            a.DbType,
+            a.ConnectionString,
+            a.IdleTime,
+            a.Description
+        });
 
-            #region 角色权限
+        #endregion
 
-            var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
-            {
-                a.Id,
-                a.RoleId,
-                a.PermissionId
-            });
+        #region 租户权限
 
-            #endregion
+        var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync(a => new
+        {
+            a.Id,
+            a.TenantId,
+            a.PermissionId
+        });
 
-            #region 租户
+        #endregion
 
-            var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
-            {
-                a.Id,
-                a.UserId,
-                a.RoleId,
-                a.Name,
-                a.Code,
-                a.RealName,
-                a.Phone,
-                a.Email,
-                a.TenantType,
-                a.DataIsolationType,
-                a.DbType,
-                a.ConnectionString,
-                a.IdleTime,
-                a.Description
-            });
+        #region 权限接口
 
-            #endregion
+        var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync(a => new
+        {
+            a.Id,
+            a.PermissionId,
+            a.ApiId
+        });
 
-            #region 租户权限
+        //人事
+        #region 部门
 
-            var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync(a => new
-            {
-                a.Id,
-                a.TenantId,
-                a.PermissionId
-            });
+        var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
+        var organizationTree = organizations.Clone().ToTree((r, c) =>
+        {
+            return c.ParentId == 0;
+        },
+        (r, c) =>
+        {
+            return r.Id == c.ParentId;
+        },
+        (r, datalist) =>
+        {
+            r.Childs ??= new List<OrganizationDataOutput>();
+            r.Childs.AddRange(datalist);
+        });
 
-            #endregion
+        #endregion
 
-            #region 权限接口
+        #region 员工
 
-            var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync(a => new
-            {
-                a.Id,
-                a.PermissionId,
-                a.ApiId
-            });
+        var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
 
-            //人事
-            #region 部门
+        #endregion
 
-            var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
-            var organizationTree = organizations.Clone().ToTree((r, c) =>
+        #endregion
+
+        #endregion
+
+        #region 生成数据
+
+        var isTenant = appConfig.Tenant;
+
+        SaveDataToJsonFile<DictionaryEntity>(dictionaries, isTenant);
+        SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes, isTenant);
+        SaveDataToJsonFile<UserEntity>(users, isTenant);
+        SaveDataToJsonFile<RoleEntity>(roles, isTenant);
+        SaveDataToJsonFile<OrganizationEntity>(organizationTree, isTenant);
+        SaveDataToJsonFile<EmployeeEntity>(employees, isTenant);
+        if (isTenant)
+        {
+            var tenantIds = tenants?.Select(a => a.Id)?.ToList();
+            SaveDataToJsonFile<DictionaryEntity>(dictionaries.Where(a => tenantIds.Contains(a.TenantId.Value)));
+            SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => tenantIds.Contains(a.TenantId.Value)));
+            SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
+            SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
+            organizationTree = organizations.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
             {
                 return c.ParentId == 0;
             },
@@ -194,62 +237,18 @@ namespace ZhonTai.Admin.Repositories
                 r.Childs ??= new List<OrganizationDataOutput>();
                 r.Childs.AddRange(datalist);
             });
-
-            #endregion
-
-            #region 员工
-
-            var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
-
-            #endregion
-
-            #endregion
-
-            #endregion
-
-            #region 生成数据
-
-            var isTenant = appConfig.Tenant;
-
-            SaveDataToJsonFile<DictionaryEntity>(dictionaries, isTenant);
-            SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes, isTenant);
-            SaveDataToJsonFile<UserEntity>(users, isTenant);
-            SaveDataToJsonFile<RoleEntity>(roles, isTenant);
-            SaveDataToJsonFile<OrganizationEntity>(organizationTree, isTenant);
-            SaveDataToJsonFile<EmployeeEntity>(employees, isTenant);
-            if (isTenant)
-            {
-                var tenantIds = tenants?.Select(a => a.Id)?.ToList();
-                SaveDataToJsonFile<DictionaryEntity>(dictionaries.Where(a => tenantIds.Contains(a.TenantId.Value)));
-                SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => tenantIds.Contains(a.TenantId.Value)));
-                SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
-                SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
-                organizationTree = organizations.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
-                {
-                    return c.ParentId == 0;
-                },
-                (r, c) =>
-                {
-                    return r.Id == c.ParentId;
-                },
-                (r, datalist) =>
-                {
-                    r.Childs ??= new List<OrganizationDataOutput>();
-                    r.Childs.AddRange(datalist);
-                });
-                SaveDataToJsonFile<OrganizationEntity>(organizationTree);
-                SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => tenantIds.Contains(a.TenantId.Value)));
-            }
-            SaveDataToJsonFile<UserRoleEntity>(userRoles);
-            SaveDataToJsonFile<ApiEntity>(apiTree);
-            SaveDataToJsonFile<ViewEntity>(viewTree);
-            SaveDataToJsonFile<PermissionEntity>(permissionTree);
-            SaveDataToJsonFile<PermissionApiEntity>(permissionApis);
-            SaveDataToJsonFile<RolePermissionEntity>(rolePermissions);
-            SaveDataToJsonFile<TenantEntity>(tenants);
-            SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions, propsContractResolver: new PropsContractResolver());
-
-            #endregion
+            SaveDataToJsonFile<OrganizationEntity>(organizationTree);
+            SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
+        SaveDataToJsonFile<UserRoleEntity>(userRoles);
+        SaveDataToJsonFile<ApiEntity>(apiTree);
+        SaveDataToJsonFile<ViewEntity>(viewTree);
+        SaveDataToJsonFile<PermissionEntity>(permissionTree);
+        SaveDataToJsonFile<PermissionApiEntity>(permissionApis);
+        SaveDataToJsonFile<RolePermissionEntity>(rolePermissions);
+        SaveDataToJsonFile<TenantEntity>(tenants);
+        SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions, propsContractResolver: new PropsContractResolver());
+
+        #endregion
     }
 }

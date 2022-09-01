@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
 
-namespace ZhonTai.Admin.Core.Db
+namespace ZhonTai.Admin.Core.Db;
+
+/// <summary>
+/// 生成数据接口
+/// </summary>
+public interface IGenerateData
 {
-    /// <summary>
-    /// 生成数据接口
-    /// </summary>
-    public interface IGenerateData
-    {
-        Task GenerateDataAsync(IFreeSql db, AppConfig appConfig);
-    }
+    Task GenerateDataAsync(IFreeSql db, AppConfig appConfig);
 }

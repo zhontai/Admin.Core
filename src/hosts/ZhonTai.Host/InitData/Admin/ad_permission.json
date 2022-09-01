@@ -195,6 +195,63 @@
             ]
           },
           {
+            "id": 188053882503237,
+            "parentId": 161227168636997,
+            "label": "部门管理",
+            "type": 2,
+            "viewId": 174312361087045,
+            "path": "/admin/organization",
+            "icon": "",
+            "closable": true,
+            "newWindow": false,
+            "external": false,
+            "sort": 0,
+            "enabled": true,
+            "description": "",
+            "childs": [
+              {
+                "id": 188054258278469,
+                "parentId": 188053882503237,
+                "label": "查询",
+                "code": "api:admin:organization:getlist",
+                "type": 3,
+                "sort": 0,
+                "enabled": true,
+                "description": ""
+              },
+              {
+                "id": 188054341582917,
+                "parentId": 188053882503237,
+                "label": "新增",
+                "code": "api:admin:organization:add",
+                "type": 3,
+                "sort": 0,
+                "enabled": true,
+                "description": ""
+              },
+              {
+                "id": 188054416891973,
+                "parentId": 188053882503237,
+                "label": "修改",
+                "code": "api:admin:organization:update",
+                "type": 3,
+                "sort": 0,
+                "enabled": true,
+                "description": ""
+              },
+              {
+                "id": 188054509027397,
+                "parentId": 188053882503237,
+                "label": "删除",
+                "code": "api:admin:organization:softdelete",
+                "type": 3,
+                "sort": 0,
+                "enabled": true,
+                "description": ""
+              }
+            ]
+          },
+          {
             "id": 161227168653381,
             "parentId": 161227168636997,
             "label": "角色管理",
@@ -1086,208 +1143,6 @@
             "code": "api:admin:document:deleteimage",
             "type": 3,
             "sort": 13,
-            "enabled": true,
-            "description": ""
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": 188049591447621,
-    "label": "人事管理",
-    "type": 1,
-    "icon": "el-icon-user-solid",
-    "opened": true,
-    "sort": 1,
-    "enabled": true,
-    "childs": [
-      {
-        "id": 188050115035205,
-        "parentId": 188049591447621,
-        "label": "岗位管理",
-        "type": 2,
-        "viewId": 174312361132101,
-        "path": "/admin/position",
-        "icon": "",
-        "closable": true,
-        "newWindow": false,
-        "external": false,
-        "sort": 0,
-        "enabled": true,
-        "description": "",
-        "childs": [
-          {
-            "id": 188054656589893,
-            "parentId": 188050115035205,
-            "label": "查询",
-            "code": "api:admin:position:getpage",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054719266885,
-            "parentId": 188050115035205,
-            "label": "新增",
-            "code": "api:admin:position:add",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054776545349,
-            "parentId": 188050115035205,
-            "label": "修改",
-            "code": "api:admin:position:update",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054834004037,
-            "parentId": 188050115035205,
-            "label": "删除",
-            "code": "api:admin:position:softdelete",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 189345990168645,
-            "parentId": 188050115035205,
-            "label": "批量删除",
-            "code": "api:admin:position:batchsoftdelete",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          }
-        ]
-      },
-      {
-        "id": 188053882503237,
-        "parentId": 188049591447621,
-        "label": "部门管理",
-        "type": 2,
-        "viewId": 174312361087045,
-        "path": "/admin/organization",
-        "icon": "",
-        "closable": true,
-        "newWindow": false,
-        "external": false,
-        "sort": 0,
-        "enabled": true,
-        "description": "",
-        "childs": [
-          {
-            "id": 188054258278469,
-            "parentId": 188053882503237,
-            "label": "查询",
-            "code": "api:admin:organization:getlist",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054341582917,
-            "parentId": 188053882503237,
-            "label": "新增",
-            "code": "api:admin:organization:add",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054416891973,
-            "parentId": 188053882503237,
-            "label": "修改",
-            "code": "api:admin:organization:update",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188054509027397,
-            "parentId": 188053882503237,
-            "label": "删除",
-            "code": "api:admin:organization:softdelete",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          }
-        ]
-      },
-      {
-        "id": 188799375847493,
-        "parentId": 188049591447621,
-        "label": "员工管理",
-        "type": 2,
-        "viewId": 188792508244037,
-        "path": "/admin/employee",
-        "icon": "",
-        "closable": true,
-        "newWindow": false,
-        "external": false,
-        "sort": 0,
-        "enabled": true,
-        "description": "",
-        "childs": [
-          {
-            "id": 188799732494405,
-            "parentId": 188799375847493,
-            "label": "查询",
-            "code": "api:admin:employee:getpage",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188799795101765,
-            "parentId": 188799375847493,
-            "label": "新增",
-            "code": "api:admin:employee:add",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188799878676549,
-            "parentId": 188799375847493,
-            "label": "修改",
-            "code": "api:admin:employee:update",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188799949844549,
-            "parentId": 188799375847493,
-            "label": "删除",
-            "code": "api:admin:employee:softdelete",
-            "type": 3,
-            "sort": 0,
-            "enabled": true,
-            "description": ""
-          },
-          {
-            "id": 188799997452357,
-            "parentId": 188799375847493,
-            "label": "批量删除",
-            "code": "api:admin:employee:batchsoftdelete",
-            "type": 3,
-            "sort": 0,
             "enabled": true,
             "description": ""
           }

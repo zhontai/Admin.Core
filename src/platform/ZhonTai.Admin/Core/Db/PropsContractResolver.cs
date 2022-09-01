@@ -3,27 +3,26 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ZhonTai.Admin.Core.Db
+namespace ZhonTai.Admin.Core.Db;
+
+public class PropsContractResolver : CamelCasePropertyNamesContractResolver
 {
-    public class PropsContractResolver : CamelCasePropertyNamesContractResolver
+    private bool _ignore;
+    private List<string> _propNames = null;
+
+    public PropsContractResolver(List<string> propNames = null, bool ignore = true)
     {
-        private bool _ignore;
-        private List<string> _propNames = null;
+        _propNames = propNames;
+        _ignore = ignore;
+    }
 
-        public PropsContractResolver(List<string> propNames = null, bool ignore = true)
+    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+    {
+        if (_propNames != null && _propNames.Contains(member.Name))
         {
-            _propNames = propNames;
-            _ignore = ignore;
+            return _ignore ? null : base.CreateProperty(member, memberSerialization);
         }
 
-        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-        {
-            if (_propNames != null && _propNames.Contains(member.Name))
-            {
-                return _ignore ? null : base.CreateProperty(member, memberSerialization);
-            }
-
-            return base.CreateProperty(member, memberSerialization);
-        }
+        return base.CreateProperty(member, memberSerialization);
     }
 }

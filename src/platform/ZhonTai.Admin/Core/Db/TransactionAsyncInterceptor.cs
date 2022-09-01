@@ -6,48 +6,77 @@ using FreeSql;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 
-namespace ZhonTai.Admin.Core.Db
+namespace ZhonTai.Admin.Core.Db;
+
+public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
-    public class TransactionAsyncInterceptor : IAsyncInterceptor
+    private IUnitOfWork _unitOfWork;
+    private readonly DbUnitOfWorkManager _unitOfWorkManager;
+
+    public TransactionAsyncInterceptor(DbUnitOfWorkManager unitOfWorkManager)
     {
-        private IUnitOfWork _unitOfWork;
-        private readonly DbUnitOfWorkManager _unitOfWorkManager;
+        _unitOfWorkManager = unitOfWorkManager;
+    }
 
-        public TransactionAsyncInterceptor(DbUnitOfWorkManager unitOfWorkManager)
+    private bool TryBegin(IInvocation invocation)
+    {
+        var method = invocation.MethodInvocationTarget ?? invocation.Method;
+        var attribute = method.GetCustomAttributes(typeof(TransactionAttribute), false).FirstOrDefault();
+        if (attribute is TransactionAttribute transaction)
         {
-            _unitOfWorkManager = unitOfWorkManager;
+            IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
+            _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, isolationLevel);
+            return true;
         }
 
-        private bool TryBegin(IInvocation invocation)
+        return false;
+    }
+
+    private async Task InternalInterceptAsynchronous(IInvocation invocation)
+    {
+        //string methodName =
+        //    $"{invocation.MethodInvocationTarget.DeclaringType?.FullName}.{invocation.Method.Name}()";
+        //int? hashCode = _unitOfWork.GetHashCode();
+
+        invocation.Proceed();
+
+        try
         {
-            var method = invocation.MethodInvocationTarget ?? invocation.Method;
-            var attribute = method.GetCustomAttributes(typeof(TransactionAttribute), false).FirstOrDefault();
-            if (attribute is TransactionAttribute transaction)
+            //处理Task返回一个null值的情况会导致空指针
+            if (invocation.ReturnValue != null)
             {
-                IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
-                _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, isolationLevel);
-                return true;
+                await (Task)invocation.ReturnValue;
             }
-
-            return false;
+            _unitOfWork.Commit();
         }
-
-        private async Task InternalInterceptAsynchronous(IInvocation invocation)
+        catch (System.Exception)
         {
-            //string methodName =
-            //    $"{invocation.MethodInvocationTarget.DeclaringType?.FullName}.{invocation.Method.Name}()";
-            //int? hashCode = _unitOfWork.GetHashCode();
+            _unitOfWork.Rollback();
+            throw;
+        }
+        finally
+        {
+            _unitOfWork.Dispose();
+        }
+    }
 
-            invocation.Proceed();
-
+    private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation)
+    {
+        TResult result;
+        if (TryBegin(invocation))
+        {
             try
             {
-                //处理Task返回一个null值的情况会导致空指针
-                if (invocation.ReturnValue != null)
+                invocation.Proceed();
+                result = await (Task<TResult>)invocation.ReturnValue;
+                if (result is IResultOutput res && !res.Success)
                 {
-                    await (Task)invocation.ReturnValue;
+                    _unitOfWork.Rollback();
                 }
-                _unitOfWork.Commit();
+                else
+                {
+                    _unitOfWork.Commit();
+                }
             }
             catch (System.Exception)
             {
@@ -59,104 +88,74 @@ namespace ZhonTai.Admin.Core.Db
                 _unitOfWork.Dispose();
             }
         }
-
-        private async Task<TResult> InternalInterceptAsynchronous<TResult>(IInvocation invocation)
+        else
         {
-            TResult result;
-            if (TryBegin(invocation))
+            invocation.Proceed();
+            result = await (Task<TResult>)invocation.ReturnValue;
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// 拦截同步执行的方法
+    /// </summary>
+    /// <param name="invocation"></param>
+    public void InterceptSynchronous(IInvocation invocation)
+    {
+        if (TryBegin(invocation))
+        {
+            try
             {
-                try
-                {
-                    invocation.Proceed();
-                    result = await (Task<TResult>)invocation.ReturnValue;
-                    if (result is IResultOutput res && !res.Success)
-                    {
-                        _unitOfWork.Rollback();
-                    }
-                    else
-                    {
-                        _unitOfWork.Commit();
-                    }
-                }
-                catch (System.Exception)
+                invocation.Proceed();
+                var result = invocation.ReturnValue;
+                if (result is IResultOutput res && !res.Success)
                 {
                     _unitOfWork.Rollback();
-                    throw;
                 }
-                finally
+                else
                 {
-                    _unitOfWork.Dispose();
+                    _unitOfWork.Commit();
                 }
             }
-            else
+            catch
             {
-                invocation.Proceed();
-                result = await (Task<TResult>)invocation.ReturnValue;
+                _unitOfWork.Rollback();
+                throw;
             }
-            return result;
+            finally
+            {
+                _unitOfWork.Dispose();
+            }
         }
-
-        /// <summary>
-        /// 拦截同步执行的方法
-        /// </summary>
-        /// <param name="invocation"></param>
-        public void InterceptSynchronous(IInvocation invocation)
+        else
         {
-            if (TryBegin(invocation))
-            {
-                try
-                {
-                    invocation.Proceed();
-                    var result = invocation.ReturnValue;
-                    if (result is IResultOutput res && !res.Success)
-                    {
-                        _unitOfWork.Rollback();
-                    }
-                    else
-                    {
-                        _unitOfWork.Commit();
-                    }
-                }
-                catch
-                {
-                    _unitOfWork.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    _unitOfWork.Dispose();
-                }
-            }
-            else
-            {
-                invocation.Proceed();
-            }
+            invocation.Proceed();
         }
+    }
 
-        /// <summary>
-        /// 拦截返回结果
-        /// </summary>
-        /// <param name="invocation"></param>
-        public void InterceptAsynchronous(IInvocation invocation)
+    /// <summary>
+    /// 拦截返回结果
+    /// </summary>
+    /// <param name="invocation"></param>
+    public void InterceptAsynchronous(IInvocation invocation)
+    {
+        if (TryBegin(invocation))
         {
-            if (TryBegin(invocation))
-            {
-                invocation.ReturnValue = InternalInterceptAsynchronous(invocation);
-            }
-            else
-            {
-                invocation.Proceed();
-            }
+            invocation.ReturnValue = InternalInterceptAsynchronous(invocation);
         }
+        else
+        {
+            invocation.Proceed();
+        }
+    }
 
-        /// <summary>
-        /// 拦截返回结果
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="invocation"></param>
-        public void InterceptAsynchronous<TResult>(IInvocation invocation)
-        {
-            invocation.ReturnValue = InternalInterceptAsynchronous<TResult>(invocation);
-        }
+    /// <summary>
+    /// 拦截返回结果
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
+    /// <param name="invocation"></param>
+    public void InterceptAsynchronous<TResult>(IInvocation invocation)
+    {
+        invocation.ReturnValue = InternalInterceptAsynchronous<TResult>(invocation);
     }
 }

@@ -2,20 +2,19 @@
 using ZhonTai.Admin.Services.Organization.Input;
 using System.Threading.Tasks;
 
-namespace ZhonTai.Admin.Services.Organization
+namespace ZhonTai.Admin.Services.Organization;
+
+public partial interface IOrganizationService
 {
-    public partial interface IOrganizationService
-    {
-        Task<IResultOutput> GetAsync(long id);
+    Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetListAsync(string key);
+    Task<IResultOutput> GetListAsync(string key);
 
-        Task<IResultOutput> AddAsync(OrganizationAddInput input);
+    Task<IResultOutput> AddAsync(OrganizationAddInput input);
 
-        Task<IResultOutput> UpdateAsync(OrganizationUpdateInput input);
+    Task<IResultOutput> UpdateAsync(OrganizationUpdateInput input);
 
-        Task<IResultOutput> DeleteAsync(long id);
+    Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResultOutput> SoftDeleteAsync(long id);
-    }
+    Task<IResultOutput> SoftDeleteAsync(long id);
 }

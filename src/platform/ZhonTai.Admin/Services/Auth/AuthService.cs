@@ -127,7 +127,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             //用户菜单
             Menus = await _permissionRepository.Select
             .Where(a => new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }.Contains(a.Type))
-            .Where(a =>
+            .WhereIf(false, a =>
                 _permissionRepository.Orm.Select<RolePermissionEntity>()
                 .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
                 .Where(b => b.PermissionId == a.Id)
@@ -140,7 +140,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             //用户权限点
             Permissions = await _permissionRepository.Select
             .Where(a => a.Type == PermissionTypeEnum.Dot)
-            .Where(a =>
+            .WhereIf(false, a =>
                 _permissionRepository.Orm.Select<RolePermissionEntity>()
                 .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
                 .Where(b => b.PermissionId == a.Id)

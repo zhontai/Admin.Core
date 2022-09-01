@@ -1,19 +1,18 @@
 ﻿using Castle.DynamicProxy;
 
-namespace ZhonTai.Admin.Core.Db
+namespace ZhonTai.Admin.Core.Db;
+
+public class TransactionInterceptor : IInterceptor
 {
-    public class TransactionInterceptor : IInterceptor
+    private readonly TransactionAsyncInterceptor _transactionAsyncInterceptor;
+
+    public TransactionInterceptor(TransactionAsyncInterceptor transactionAsyncInterceptor)
     {
-        private readonly TransactionAsyncInterceptor _transactionAsyncInterceptor;
+        _transactionAsyncInterceptor = transactionAsyncInterceptor;
+    }
 
-        public TransactionInterceptor(TransactionAsyncInterceptor transactionAsyncInterceptor)
-        {
-            _transactionAsyncInterceptor = transactionAsyncInterceptor;
-        }
-
-        public void Intercept(IInvocation invocation)
-        {
-            _transactionAsyncInterceptor.ToInterceptor().Intercept(invocation);
-        }
+    public void Intercept(IInvocation invocation)
+    {
+        _transactionAsyncInterceptor.ToInterceptor().Intercept(invocation);
     }
 }

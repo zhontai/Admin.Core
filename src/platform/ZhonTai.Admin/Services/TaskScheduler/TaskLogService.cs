@@ -9,49 +9,48 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
 
-namespace ZhonTai.Admin.Services.TaskScheduler
+namespace ZhonTai.Admin.Services.TaskScheduler;
+
+/// <summary>
+/// 任务日志服务
+/// </summary>
+[DynamicApi(Area = AdminConsts.AreaName)]
+public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
-    /// <summary>
-    /// 任务日志服务
-    /// </summary>
-    [DynamicApi(Area = AdminConsts.AreaName)]
-    public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
+    private IRepositoryBase<TaskLog> _taskLogRepository => LazyGetRequiredService<IRepositoryBase<TaskLog>>();
+
+    public TaskLogService()
     {
-        private IRepositoryBase<TaskLog> _taskLogRepository => LazyGetRequiredService<IRepositoryBase<TaskLog>>();
 
-        public TaskLogService()
+    }
+
+    /// <summary>
+    /// 查询任务日志列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IResultOutput> GetPageAsync(PageInput<TaskLogGetPageDto> input)
+    {
+        if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
         {
-
+            return ResultOutput.NotOk();
         }
 
-        /// <summary>
-        /// 查询任务日志列表
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<IResultOutput> GetPageAsync(PageInput<TaskLogGetPageDto> input)
+        var list = await _taskLogRepository.Select
+        .WhereDynamicFilter(input.DynamicFilter)
+        .Where(a => a.TaskId == input.Filter.TaskId)
+        .Count(out var total)
+        .OrderByDescending(true, c => c.CreateTime)
+        .Page(input.CurrentPage, input.PageSize)
+        .ToListAsync<TaskListOutput>();
+
+        var data = new PageOutput<TaskListOutput>()
         {
-            if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
-            {
-                return ResultOutput.NotOk();
-            }
+            List = list,
+            Total = total
+        };
 
-            var list = await _taskLogRepository.Select
-            .WhereDynamicFilter(input.DynamicFilter)
-            .Where(a => a.TaskId == input.Filter.TaskId)
-            .Count(out var total)
-            .OrderByDescending(true, c => c.CreateTime)
-            .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync<TaskListOutput>();
-
-            var data = new PageOutput<TaskListOutput>()
-            {
-                List = list,
-                Total = total
-            };
-
-            return ResultOutput.Ok(data);
-        }
+        return ResultOutput.Ok(data);
     }
 }
