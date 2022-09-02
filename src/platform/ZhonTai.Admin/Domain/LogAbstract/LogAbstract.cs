@@ -15,10 +15,10 @@ public abstract class LogAbstract : EntityAdd, ITenant
     public long? TenantId { get; set; }
 
     /// <summary>
-    /// 昵称
+    /// 姓名
     /// </summary>
     [Column(StringLength = 60)]
-    public string NickName { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// IP

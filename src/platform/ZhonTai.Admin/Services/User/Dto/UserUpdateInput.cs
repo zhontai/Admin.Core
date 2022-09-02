@@ -19,9 +19,9 @@ public partial class UserUpdateInput
     public string UserName { get; set; }
 
     /// <summary>
-    /// 昵称
+    /// 姓名
     /// </summary>
-    public string NickName { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// 状态

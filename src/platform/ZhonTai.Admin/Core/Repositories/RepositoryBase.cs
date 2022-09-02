@@ -38,7 +38,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
@@ -53,7 +53,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
@@ -68,7 +68,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .Where(exp)
                 .DisableGlobalFilter(disableGlobalFilterNames)
@@ -100,7 +100,7 @@ namespace ZhonTai.Admin.Core.Repositories
             {
                 IsDeleted = true,
                 ModifiedUserId = User.Id,
-                ModifiedUserName = User.Name
+                ModifiedUserName = User.UserName
             })
             .ExecuteAffrowsAsync();
 

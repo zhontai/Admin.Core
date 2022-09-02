@@ -163,7 +163,7 @@ public class DbHelper
                 case "CreatedUserName":
                     if (e.Value == null || ((string)e.Value).IsNull())
                     {
-                        e.Value = user.Name;
+                        e.Value = user.UserName;
                     }
                     break;
 
@@ -184,7 +184,7 @@ public class DbHelper
                     break;
 
                 case "ModifiedUserName":
-                    e.Value = user.Name;
+                    e.Value = user.UserName;
                     break;
             }
         }

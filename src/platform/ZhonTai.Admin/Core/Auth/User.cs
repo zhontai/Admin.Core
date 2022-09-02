@@ -36,7 +36,7 @@ public class User : IUser
     /// <summary>
     /// 用户名
     /// </summary>
-    public string Name
+    public string UserName
     {
         get
         {
@@ -52,13 +52,13 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 昵称
+    /// 姓名
     /// </summary>
-    public string NickName
+    public string Name
     {
         get
         {
-            var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserNickName);
+            var name = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.Name);
 
             if (name != null && name.Value.NotNull())
             {
@@ -102,7 +102,7 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 数据隔离
+    /// 数据隔离类型
     /// </summary>
     public virtual DataIsolationType? DataIsolationType
     {

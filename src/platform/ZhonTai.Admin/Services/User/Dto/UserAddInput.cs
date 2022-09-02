@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -20,14 +21,15 @@ public class UserAddInput
     public string Password { get; set; }
 
     /// <summary>
-    /// 昵称
+    /// 姓名
     /// </summary>
-    public string NickName { get; set; }
+    [Required(ErrorMessage = "请输入姓名")]
+    public string Name { get; set; }
 
     /// <summary>
     /// 状态
     /// </summary>
-    public int Status { get; set; }
+    public UserStatusEnum Status { get; set; }
 
     /// <summary>
     /// 备注

@@ -76,7 +76,7 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
             input.BrowserInfo = ua;
         }
 
-        input.NickName = User.NickName;
+        input.Name = User.Name;
         input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
         var entity = Mapper.Map<OprationLogEntity>(input);

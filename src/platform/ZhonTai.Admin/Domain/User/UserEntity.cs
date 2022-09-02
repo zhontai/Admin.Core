@@ -1,7 +1,7 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using FreeSql.DataAnnotations;
+﻿using FreeSql.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;

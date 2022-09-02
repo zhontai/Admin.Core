@@ -17,7 +17,7 @@ public class AuthLoginOutput
     /// <summary>
     /// 姓名
     /// </summary>
-    public string NickName { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// 租户Id

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Repositories;
@@ -17,9 +20,6 @@ using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.User.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 

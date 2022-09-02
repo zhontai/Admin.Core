@@ -64,7 +64,7 @@
             用户名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.UserNickName">
+        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.Name">
             <summary>
             姓名
             </summary>
@@ -109,17 +109,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.Id">
             <summary>
-            主键
+            用户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.Name">
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.UserName">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.NickName">
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.TenantId">
@@ -134,7 +134,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.DataIsolationType">
             <summary>
-            数据隔离
+            数据隔离类型
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.PermissionHandler">
@@ -165,14 +165,14 @@
             用户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.Name">
+        <member name="P:ZhonTai.Admin.Core.Auth.User.UserName">
             <summary>
             用户名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.NickName">
+        <member name="P:ZhonTai.Admin.Core.Auth.User.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.TenantId">
@@ -187,7 +187,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.DataIsolationType">
             <summary>
-            数据隔离
+            数据隔离类型
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.BaseController">
@@ -2016,9 +2016,9 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.LogAbstract.NickName">
+        <member name="P:ZhonTai.Admin.Domain.LogAbstract.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.LogAbstract.IP">
@@ -3312,7 +3312,7 @@
             账号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.NickName">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.Name">
             <summary>
             姓名
             </summary>
@@ -4260,9 +4260,9 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.NickName">
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.IP">
@@ -4404,9 +4404,9 @@
             添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.OprationLog.Dto.OprationLogAddInput.NickName">
+        <member name="P:ZhonTai.Admin.Services.OprationLog.Dto.OprationLogAddInput.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.OprationLog.Dto.OprationLogAddInput.ApiLabel">
@@ -5733,9 +5733,9 @@
             密码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.NickName">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
@@ -5863,9 +5863,9 @@
             账号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.NickName">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Name">
             <summary>
-            昵称
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Status">

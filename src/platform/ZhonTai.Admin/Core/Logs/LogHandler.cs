@@ -56,8 +56,8 @@ public class LogHandler : ILogHandler
 
             if (actionExecutedContext.Result is ObjectResult result && result.Value is IResultOutput res)
             {
-                input.Status = res.Success;
-                input.Msg = res.Msg;
+                input.Status = res?.Success;
+                input.Msg = res?.Msg;
             }
 
             input.ApiLabel = _apiHelper.GetApis().FirstOrDefault(a => a.Path == input.ApiPath)?.Label;

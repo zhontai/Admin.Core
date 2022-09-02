@@ -9,19 +9,19 @@ namespace ZhonTai.Admin.Core.Auth;
 public interface IUser
 {
     /// <summary>
-    /// 主键
+    /// 用户Id
     /// </summary>
     long Id { get; }
 
     /// <summary>
     /// 用户名
     /// </summary>
-    string Name { get; }
+    string UserName { get; }
 
     /// <summary>
-    /// 昵称
+    /// 姓名
     /// </summary>
-    string NickName { get; }
+    string Name { get; }
 
     /// <summary>
     /// 租户Id
@@ -34,7 +34,7 @@ public interface IUser
     TenantType? TenantType { get; }
 
     /// <summary>
-    /// 数据隔离
+    /// 数据隔离类型
     /// </summary>
     DataIsolationType? DataIsolationType { get; }
 }

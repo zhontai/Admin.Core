@@ -1,8 +1,20 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using StackExchange.Profiling;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.JsonWebTokens;
+using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
@@ -11,25 +23,13 @@ using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Tools.Captcha;
+using ZhonTai.Admin.Services.LoginLog.Dto;
+using ZhonTai.Admin.Services.LoginLog;
+using ZhonTai.Admin.Services.User;
+using ZhonTai.Common.Extensions;
+using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
-using StackExchange.Profiling;
-using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Services.LoginLog.Dto;
-using System.Diagnostics;
-using ZhonTai.Admin.Services.LoginLog;
-using ZhonTai.Admin.Core.Auth;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Services.User;
-using ZhonTai.Admin.Core.Consts;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -79,7 +79,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             new Claim(ClaimAttributes.UserId, user.Id.ToString()),
             new Claim(ClaimAttributes.UserName, user.UserName),
-            new Claim(ClaimAttributes.UserNickName, user.NickName),
+            new Claim(ClaimAttributes.Name, user.Name),
             new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
             new Claim(ClaimAttributes.TenantType, user.TenantType.ToString()),
             new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToString())
@@ -236,12 +236,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var loginLogAddInput = new LoginLogAddInput
         {
-            CreatedUserName = input.UserName,
+            TenantId = authLoginOutput.TenantId,
+            Name = authLoginOutput.Name,
             ElapsedMilliseconds = sw.ElapsedMilliseconds,
             Status = true,
             CreatedUserId = authLoginOutput.Id,
-            NickName = authLoginOutput.NickName,
-            TenantId = authLoginOutput.TenantId
+            CreatedUserName = input.UserName,
         };
 
         await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);

@@ -13,12 +13,12 @@ public static class ClaimAttributes
     /// <summary>
     /// 用户名
     /// </summary>
-    public const string UserName = "na";
+    public const string UserName = "un";
 
     /// <summary>
     /// 姓名
     /// </summary>
-    public const string UserNickName = "nn";
+    public const string Name = "na";
 
     /// <summary>
     /// 刷新有效期

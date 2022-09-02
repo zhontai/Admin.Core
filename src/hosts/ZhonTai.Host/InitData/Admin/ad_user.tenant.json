@@ -4,22 +4,20 @@
     "id": 161223411986501,
     "userName": "admin",
     "password": "96E79218965EB72C92A549DD5A33112",
-    "nickName": "管理员",
-    "avatar": "",
-    "remark": ""
+    "name": "管理员"
   },
   {
     "tenantId": 162083448455237,
     "id": 162083448746053,
     "userName": "18988889999",
     "password": "96E79218965EB72C92A549DD5A33112",
-    "nickName": "租户"
+    "name": "租户"
   },
   {
     "tenantId": 161223412138053,
     "id": 162605614280773,
     "userName": "user",
     "password": "96E79218965EB72C92A549DD5A33112",
-    "nickName": "员工"
+    "name": "员工"
   }
 ]
