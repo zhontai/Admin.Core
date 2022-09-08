@@ -12,6 +12,8 @@ public interface IRoleService
 {
     Task<IResultOutput> GetAsync(long id);
 
+    Task<IResultOutput> GetListAsync(RoleGetListInput input);
+
     Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input);
 
     Task<IResultOutput> AddAsync(RoleAddInput input);

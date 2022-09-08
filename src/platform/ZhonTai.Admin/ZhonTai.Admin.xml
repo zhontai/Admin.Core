@@ -2526,6 +2526,11 @@
             排序
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetPageDto.Name">
             <summary>
             名称
@@ -2754,6 +2759,11 @@
         <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Remark">
             <summary>
             备注
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserGetListInput.Name">
+            <summary>
+            姓名
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
@@ -5226,32 +5236,42 @@
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Id">
             <summary>
             主键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.Code">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.Description">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Description">
             <summary>
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleListOutput.CreatedTime">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.CreatedTime">
             <summary>
             创建时间
             </summary>
@@ -5286,6 +5306,13 @@
             查询角色
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetListAsync(ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput)">
+            <summary>
+            查询角色列表
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Role.Dto.RoleGetPageDto})">
@@ -5783,42 +5810,52 @@
             版本
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetListOutput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetListOutput.Name">
             <summary>
             姓名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.NickName">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.NickName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.Status">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Status">
             <summary>
             状态
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.RoleNames">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.RoleNames">
             <summary>
             角色
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.Remark">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Remark">
             <summary>
             备注
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserListOutput.CreatedTime">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.CreatedTime">
             <summary>
             创建时间
             </summary>
@@ -5903,6 +5940,13 @@
             查询用户
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetListAsync(ZhonTai.Admin.Domain.User.Dto.UserGetListInput)">
+            <summary>
+            查询列表
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput)">

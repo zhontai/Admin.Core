@@ -17,7 +17,7 @@ public class MapConfig : IRegister
         .Map(dest => dest.RoleIds, src => src.Roles.Select(a => a.Id));
 
         config
-        .NewConfig<UserEntity, UserListOutput>()
+        .NewConfig<UserEntity, UserGetPageOutput>()
         .Map(dest => dest.RoleNames, src => src.Roles.Select(a => a.Name));
     }
 }

@@ -4,7 +4,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Description>中台Api UI库</Description>
+		<Description>中台接口文档库</Description>
 		<PackageTags>Api UI;Swagger UI;</PackageTags>
 	</PropertyGroup>
 

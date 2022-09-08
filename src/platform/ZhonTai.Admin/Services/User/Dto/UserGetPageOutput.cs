@@ -2,7 +2,7 @@
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
-public class UserListOutput
+public class UserGetPageOutput
 {
     /// <summary>
     /// 主键Id

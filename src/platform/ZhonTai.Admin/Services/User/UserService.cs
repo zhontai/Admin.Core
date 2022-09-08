@@ -22,6 +22,8 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Domain.User.Dto;
+using ZhonTai.Admin.Services.Role.Dto;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -72,6 +74,21 @@ public class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
+    /// 查询列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<IResultOutput> GetListAsync([FromQuery] UserGetListInput input)
+    {
+        var list = await _userRepository.Select
+        .WhereIf(input.Name.NotNull(), a => a.Name.Contains(input.Name))
+        .OrderByDescending(true, c => c.Id)
+        .ToListAsync<UserGetListOutput>();
+
+        return ResultOutput.Ok(list);
+    }
+
+    /// <summary>
     /// 查询分页
     /// </summary>
     /// <param name="input"></param>
@@ -87,9 +104,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync();
 
-        var data = new PageOutput<UserListOutput>()
+        var data = new PageOutput<UserGetPageOutput>()
         {
-            List = Mapper.Map<List<UserListOutput>>(list),
+            List = Mapper.Map<List<UserGetPageOutput>>(list),
             Total = total
         };
 

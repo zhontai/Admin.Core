@@ -2,7 +2,7 @@
 
 namespace ZhonTai.Admin.Services.Role.Dto;
 
-public class RoleListOutput
+public class RoleGetPageOutput
 {
     /// <summary>
     /// 主键

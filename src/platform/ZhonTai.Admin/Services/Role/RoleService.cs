@@ -47,6 +47,21 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    public async Task<IResultOutput> GetListAsync([FromQuery]RoleGetListInput input)
+    {
+        var list = await _roleRepository.Select
+        .WhereIf(input.Name.NotNull(), a => a.Name.Contains(input.Name))
+        .OrderByDescending(true, c => c.Id)
+        .ToListAsync<RoleGetListOutput>();
+
+        return ResultOutput.Ok(list);
+    }
+
+    /// <summary>
+    /// 查询角色列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input)
     {
@@ -58,9 +73,9 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         .Count(out var total)
         .OrderByDescending(true, c => c.Id)
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync<RoleListOutput>();
+        .ToListAsync<RoleGetPageOutput>();
 
-        var data = new PageOutput<RoleListOutput>()
+        var data = new PageOutput<RoleGetPageOutput>()
         {
             List = list,
             Total = total

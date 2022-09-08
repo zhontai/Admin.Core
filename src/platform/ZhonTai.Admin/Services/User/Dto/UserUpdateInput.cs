@@ -21,6 +21,7 @@ public partial class UserUpdateInput
     /// <summary>
     /// 姓名
     /// </summary>
+    [Required(ErrorMessage = "请输入姓名")]
     public string Name { get; set; }
 
     /// <summary>
