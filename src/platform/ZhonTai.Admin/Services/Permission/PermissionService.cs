@@ -171,22 +171,16 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
                 .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                 .Any()
             )
-            .OrderBy(a => a.ParentId)
-            .OrderBy(a => a.Sort)
+            .OrderBy(a => new { a.ParentId, a.Sort })
             .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });
 
-        var apis = permissions
-            .Where(a => a.Type == PermissionTypeEnum.Dot)
-            .Select(a => new { a.Id, a.ParentId, a.Label });
-
         var menus = permissions
-            .Where(a => (new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }).Contains(a.Type))
             .Select(a => new
             {
                 a.Id,
                 a.ParentId,
                 a.Label,
-                Apis = apis.Where(b => b.ParentId == a.Id).Select(b => new { b.Id, b.Label })
+                Row = a.Type == PermissionTypeEnum.Menu
             });
 
         return ResultOutput.Ok(menus);
