@@ -28,6 +28,8 @@ public interface IUserService
 
     Task<IResultOutput> DeleteAsync(long id);
 
+    Task<IResultOutput> BatchDeleteAsync(long[] ids);
+
     Task<IResultOutput> SoftDeleteAsync(long id);
 
     Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);

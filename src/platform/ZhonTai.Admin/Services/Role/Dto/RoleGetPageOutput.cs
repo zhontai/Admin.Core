@@ -25,9 +25,9 @@ public class RoleGetPageOutput
     public string Description { get; set; }
 
     /// <summary>
-    /// 启用
+    /// 隐藏
     /// </summary>
-		public bool Enabled { get; set; }
+    public bool Hidden { get; set; }
 
     /// <summary>
     /// 创建时间

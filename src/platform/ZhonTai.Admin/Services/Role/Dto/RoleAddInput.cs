@@ -6,6 +6,11 @@
 public class RoleAddInput
 {
     /// <summary>
+    /// 父级Id
+    /// </summary>
+    public long ParentId { get; set; }
+
+    /// <summary>
     /// 名称
     /// </summary>
     public string Name { get; set; }
@@ -21,7 +26,7 @@ public class RoleAddInput
     public string Description { get; set; }
 
     /// <summary>
-    /// 启用
+    /// 排序
     /// </summary>
-		public bool Enabled { get; set; }
+    public int Sort { get; set; }
 }

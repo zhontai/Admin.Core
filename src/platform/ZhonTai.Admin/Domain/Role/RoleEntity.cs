@@ -6,7 +6,7 @@ using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
-using ZhonTai.Admin.Domain.RoleGroup;
+using ZhonTai.Admin.Domain.Organization;
 
 namespace ZhonTai.Admin.Domain.Role;
 
@@ -14,8 +14,7 @@ namespace ZhonTai.Admin.Domain.Role;
 /// 角色
 /// </summary>
 [Table(Name = "ad_role")]
-[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(Name)}", true)]
-[Index("idx_{tablename}_02", $"{nameof(TenantId)},{nameof(Code)}", true)]
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class RoleEntity : EntityFull, ITenant
 {
     /// <summary>
@@ -25,14 +24,12 @@ public partial class RoleEntity : EntityFull, ITenant
     public long? TenantId { get; set; }
 
     /// <summary>
-    /// 分组Id
+    /// 父级Id
     /// </summary>
-    public long RoleGroupId { get; set; }
+    public long ParentId { get; set; }
 
-    /// <summary>
-    /// 分组
-    /// </summary>
-    public RoleGroupEntity RoleGroup { get; set; }
+    [Navigate(nameof(ParentId))]
+    public List<OrganizationEntity> Childs { get; set; }
 
     /// <summary>
     /// 名称
@@ -45,6 +42,12 @@ public partial class RoleEntity : EntityFull, ITenant
     /// </summary>
     [Column(StringLength = 50)]
     public string Code { get; set; }
+
+    /// <summary>
+    /// 角色类型
+    /// </summary>
+    [Column(MapType = typeof(int))]
+    public RoleTypeEnum Type { get; set; }
 
     /// <summary>
     /// 说明

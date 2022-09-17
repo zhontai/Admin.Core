@@ -2411,56 +2411,6 @@
             权限点
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput">
-            <summary>
-            角色分组导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Id">
-            <summary>
-            数据Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.Dto.RoleGroupGetPageDto.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity">
-            <summary>
-            角色分组
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.RoleGroup.RoleGroupEntity.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.RolePermission.RolePermissionEntity">
             <summary>
             角色权限
@@ -2546,14 +2496,9 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.RoleGroupId">
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.ParentId">
             <summary>
-            分组Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.RoleGroup">
-            <summary>
-            分组
+            父级Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Name">
@@ -2564,6 +2509,11 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Code">
             <summary>
             编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Type">
+            <summary>
+            角色类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Description">
@@ -2579,6 +2529,26 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Role.RoleTypeEnum">
+            <summary>
+            角色类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.Custom">
+            <summary>
+            自定义
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.Default">
+            <summary>
+            默认
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.MainAdmin">
+            <summary>
+            主管理员
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
@@ -5150,70 +5120,14 @@
             映射配置
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput">
-            <summary>
-            添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.RoleGroup.IRoleGroupService">
-            <summary>
-            角色分组接口
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.RoleGroup.RoleGroupService">
-            <summary>
-            角色分组服务
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.AddAsync(ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupAddInput)">
-            <summary>
-            新增
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.UpdateAsync(ZhonTai.Admin.Services.RoleGroup.Dto.RoleGroupUpdateInput)">
-            <summary>
-            修改
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.RoleGroup.RoleGroupService.DeleteAsync(System.Int64)">
-            <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleAddInput">
             <summary>
             添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.ParentId">
+            <summary>
+            父级Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Name">
@@ -5231,14 +5145,19 @@
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Sort">
             <summary>
-            启用
+            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Id">
             <summary>
             主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.ParentId">
+            <summary>
+            父级Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Name">
@@ -5266,9 +5185,9 @@
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Hidden">
             <summary>
-            启用
+            隐藏
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.CreatedTime">
@@ -5341,6 +5260,13 @@
             彻底删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.SoftDeleteAsync(System.Int64)">
@@ -6014,6 +5940,13 @@
             彻底删除用户
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除用户
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.SoftDeleteAsync(System.Int64)">

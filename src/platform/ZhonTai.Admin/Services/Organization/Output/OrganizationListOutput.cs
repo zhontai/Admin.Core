@@ -12,7 +12,7 @@ public class OrganizationListOutput
     /// <summary>
     /// 父级
     /// </summary>
-		public long ParentId { get; set; }
+	public long ParentId { get; set; }
 
     /// <summary>
     /// 名称
@@ -37,7 +37,7 @@ public class OrganizationListOutput
     /// <summary>
     /// 启用
     /// </summary>
-		public bool Enabled { get; set; }
+	public bool Enabled { get; set; }
 
     /// <summary>
     /// 创建时间

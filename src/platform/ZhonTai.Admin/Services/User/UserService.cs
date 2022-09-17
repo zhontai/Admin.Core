@@ -24,6 +24,7 @@ using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Services.Role.Dto;
+using Org.BouncyCastle.Crypto;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -293,15 +294,27 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [Transaction]
     public async Task<IResultOutput> DeleteAsync(long id)
     {
-        var result = false;
-        if (id > 0)
-        {
-            result = (await _userRepository.DeleteAsync(m => m.Id == id)) > 0;
-        }
+        await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        await _userRepository.DeleteAsync(m => m.Id == id);
 
-        return ResultOutput.Result(result);
+        return ResultOutput.Ok();
+    }
+
+    /// <summary>
+    /// 批量彻底删除用户
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    [Transaction]
+    public async Task<IResultOutput> BatchDeleteAsync(long[] ids)
+    {
+        await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userRepository.DeleteAsync(a => ids.Contains(a.Id));
+
+        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -312,10 +325,10 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public async Task<IResultOutput> SoftDeleteAsync(long id)
     {
-        var result = await _userRepository.SoftDeleteAsync(id);
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        await _userRepository.SoftDeleteAsync(id);
 
-        return ResultOutput.Result(result);
+        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -326,10 +339,10 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
-        var result = await _userRepository.SoftDeleteAsync(ids);
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userRepository.SoftDeleteAsync(ids);
 
-        return ResultOutput.Result(result);
+        return ResultOutput.Ok();
     }
 
     /// <summary>
