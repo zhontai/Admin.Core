@@ -20,16 +20,16 @@ public partial class EmployeeEntity : EntityFull, ITenant
     public long? TenantId { get; set; }
 
     /// <summary>
-    /// 性别
-    /// </summary>
-    [Column(MapType = typeof(int))]
-    public SexEnum? Sex { get; set; }
-
-    /// <summary>
     /// 工号
     /// </summary>
     [Column(StringLength = 20)]
     public string JobNumber { get; set; }
+
+    /// <summary>
+    /// 性别
+    /// </summary>
+    [Column(MapType = typeof(int))]
+    public SexEnum? Sex { get; set; }
 
     /// <summary>
     /// 主属部门Id

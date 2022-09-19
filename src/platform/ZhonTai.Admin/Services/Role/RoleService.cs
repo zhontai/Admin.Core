@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Domain.UserRole;
-using System.DirectoryServices.Protocols;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -23,6 +23,7 @@ namespace ZhonTai.Admin.Services.Role;
 public class RoleService : BaseService, IRoleService, IDynamicApi
 {
     private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
+    private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
     private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
     private IRepositoryBase<RolePermissionEntity> _rolePermissionRepository => LazyGetRequiredService<IRepositoryBase<RolePermissionEntity>>();
 
@@ -82,6 +83,24 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 
         return ResultOutput.Ok(data);
     }
+
+    /// <summary>
+    /// 查询角色用户列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<IResultOutput> GetRoleUserListAsync([FromQuery] UserGetRoleUserListInput input)
+    {
+        var list = await _userRepository.Select.From<UserRoleEntity>()
+            .InnerJoin(a => a.t2.UserId == a.t1.Id)
+            .Where(a => a.t2.RoleId == input.RoleId)
+            .WhereIf(input.Name.NotNull(), a => a.t1.Name.Contains(input.Name))
+            .OrderByDescending(a => a.t1.Id)
+            .ToListAsync<UserGetRoleUserListOutput>();
+
+        return ResultOutput.Ok(list);
+    }
+
 
     /// <summary>
     /// 新增

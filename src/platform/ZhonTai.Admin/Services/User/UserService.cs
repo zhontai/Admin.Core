@@ -22,9 +22,6 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Domain.User.Dto;
-using ZhonTai.Admin.Services.Role.Dto;
-using Org.BouncyCastle.Crypto;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -72,21 +69,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var roles = await _roleRepository.Select.ToListAsync(a => new { a.Id, a.Name });
 
         return ResultOutput.Ok(new { Form = Mapper.Map<UserGetOutput>(entity), Select = new { roles } });
-    }
-
-    /// <summary>
-    /// 查询列表
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    public async Task<IResultOutput> GetListAsync([FromQuery] UserGetListInput input)
-    {
-        var list = await _userRepository.Select
-        .WhereIf(input.Name.NotNull(), a => a.Name.Contains(input.Name))
-        .OrderByDescending(true, c => c.Id)
-        .ToListAsync<UserGetListOutput>();
-
-        return ResultOutput.Ok(list);
     }
 
     /// <summary>

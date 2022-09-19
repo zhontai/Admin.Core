@@ -18,8 +18,6 @@ public interface IUserService
 
     Task<IResultOutput> GetSelectAsync();
 
-    Task<IResultOutput> GetListAsync(UserGetListInput input);
-
     Task<IResultOutput> GetPageAsync(PageInput input);
 
     Task<IResultOutput> AddAsync(UserAddInput input);

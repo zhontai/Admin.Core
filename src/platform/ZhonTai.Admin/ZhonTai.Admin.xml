@@ -1881,14 +1881,14 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.JobNumber">
             <summary>
             工号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Sex">
+            <summary>
+            性别
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.MainOrgId">
@@ -2486,6 +2486,16 @@
             名称
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Role.RoleEntity">
             <summary>
             角色
@@ -2729,11 +2739,6 @@
         <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Remark">
             <summary>
             备注
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserGetListInput.Name">
-            <summary>
-            姓名
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
@@ -5210,6 +5215,16 @@
             版本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Role.IRoleService">
             <summary>
             角色接口
@@ -5237,6 +5252,13 @@
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Role.Dto.RoleGetPageDto})">
             <summary>
             查询角色列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetRoleUserListAsync(ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput)">
+            <summary>
+            查询角色用户列表
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -5736,16 +5758,6 @@
             版本
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetListOutput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetListOutput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
             <summary>
             主键Id
@@ -5866,13 +5878,6 @@
             查询用户
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetListAsync(ZhonTai.Admin.Domain.User.Dto.UserGetListInput)">
-            <summary>
-            查询列表
-            </summary>
-            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput)">

@@ -1,6 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.User.Dto;
+﻿namespace ZhonTai.Admin.Services.Role.Dto;
 
-public class UserGetListOutput
+public class UserGetRoleUserListOutput
 {
     /// <summary>
     /// 主键Id
