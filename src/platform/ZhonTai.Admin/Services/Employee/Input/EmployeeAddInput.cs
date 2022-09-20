@@ -9,11 +9,6 @@ namespace ZhonTai.Admin.Services.Employee.Input;
 public class EmployeeAddInput
 {
     /// <summary>
-    /// 用户Id
-    /// </summary>
-    public long? UserId { get; set; }
-
-    /// <summary>
     /// 姓名
     /// </summary>
     public string Name { get; set; }

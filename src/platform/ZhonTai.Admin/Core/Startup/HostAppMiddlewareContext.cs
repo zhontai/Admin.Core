@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Core.Startup;
 public class HostAppMiddlewareContext
 {
     /// <summary>
-    /// 服务
+    /// 应用
     /// </summary>
     public WebApplication App { get; set; }
 
