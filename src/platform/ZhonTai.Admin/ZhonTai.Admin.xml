@@ -1388,7 +1388,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext.App">
             <summary>
-            服务
+            应用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppMiddlewareContext.Environment">
@@ -4098,11 +4098,6 @@
         <member name="T:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput">
             <summary>
             添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.UserId">
-            <summary>
-            用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Employee.Input.EmployeeAddInput.Name">

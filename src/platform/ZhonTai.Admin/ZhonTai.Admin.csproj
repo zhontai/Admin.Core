@@ -19,7 +19,7 @@
 		<PackageReference Include="FreeSql" Version="3.2.669" />
 		<PackageReference Include="FreeSql.Repository" Version="3.2.669" />
 		<PackageReference Include="IdleBus" Version="1.5.2" />
-		<PackageReference Include="FreeScheduler" Version="1.0.8" />
+		<PackageReference Include="FreeScheduler" Version="1.0.9" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
