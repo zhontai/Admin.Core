@@ -1,13 +1,14 @@
 ﻿using System;
-using ZhonTai.Admin.Domain.Employee;
 
-namespace ZhonTai.Admin.Services.Employee.Input;
+namespace ZhonTai.Admin.Domain.Employee.Output;
 
-/// <summary>
-/// 添加
-/// </summary>
-public class EmployeeAddInput
+public class EmployeeListOutput
 {
+    /// <summary>
+    /// 主键Id
+    /// </summary>
+    public long Id { get; set; }
+
     /// <summary>
     /// 姓名
     /// </summary>
@@ -19,9 +20,9 @@ public class EmployeeAddInput
     public string NickName { get; set; }
 
     /// <summary>
-    /// 性别
+    /// 账号
     /// </summary>
-    public SexEnum Sex { get; set; }
+    public string UserName { get; set; }
 
     /// <summary>
     /// 工号
@@ -29,14 +30,14 @@ public class EmployeeAddInput
     public string JobNumber { get; set; }
 
     /// <summary>
-    /// 主属部门Id
+    /// 主属部门
     /// </summary>
-    public long OrganizationId { get; set; }
+    public string OrganizationName { get; set; }
 
     /// <summary>
     /// 附属部门
     /// </summary>
-    public long[] OrganizationIds { get; set; }
+    public string[] OrganizationNames { get; set; }
 
     /// <summary>
     /// 职位
@@ -47,14 +48,4 @@ public class EmployeeAddInput
     /// 手机号
     /// </summary>
     public string Phone { get; set; }
-
-    /// <summary>
-    /// 邮箱
-    /// </summary>
-    public string Email { get; set; }
-
-    /// <summary>
-    /// 入职时间
-    /// </summary>
-    public DateTime? EntryTime { get; set; }
 }

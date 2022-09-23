@@ -1,6 +1,7 @@
-﻿using ZhonTai.Admin.Services.Employee.Input;
+﻿
+using ZhonTai.Admin.Domain.Employee.Input;
 
-namespace ZhonTai.Admin.Services.Employee.Output;
+namespace ZhonTai.Admin.Domain.Employee.Output;
 
 public class EmployeeGetOutput : EmployeeUpdateInput
 {

@@ -2,7 +2,7 @@
 using ZhonTai.Admin.Services.Employee;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Services.Employee.Input;
+using ZhonTai.Admin.Domain.Employee.Input;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ZhonTai.Admin.HttpApi.Controllers;

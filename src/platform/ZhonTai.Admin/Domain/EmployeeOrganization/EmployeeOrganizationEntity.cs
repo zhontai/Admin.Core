@@ -6,7 +6,7 @@ using ZhonTai.Admin.Domain.Organization;
 namespace ZhonTai.Admin.Domain;
 
 /// <summary>
-/// 员工附属部门
+/// 员工所属部门
 /// </summary>
 [Table(Name = "ad_employee_organization")]
 [Index("idx_{tablename}_01", nameof(EmployeeId) + "," + nameof(OrganizationId), true)]
@@ -25,7 +25,7 @@ public partial class EmployeeOrganizationEntity : EntityAdd
     /// <summary>
     /// 部门Id
     /// </summary>
-		public long OrganizationId { get; set; }
+	public long OrganizationId { get; set; }
 
     /// <summary>
     /// 部门

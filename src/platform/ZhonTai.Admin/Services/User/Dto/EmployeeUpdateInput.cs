@@ -1,5 +1,5 @@
 ﻿
-namespace ZhonTai.Admin.Services.Employee.Input;
+namespace ZhonTai.Admin.Domain.User;
 
 /// <summary>
 /// 修改

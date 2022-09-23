@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.Employee.Input;
-using ZhonTai.Admin.Services.Employee.Output;
+using ZhonTai.Admin.Domain.Employee.Input;
+using ZhonTai.Admin.Domain.Employee.Output;
 
 namespace ZhonTai.Admin.Services.Employee;
 

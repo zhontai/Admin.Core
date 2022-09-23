@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain;
-using ZhonTai.Admin.Services.Employee.Input;
-using ZhonTai.Admin.Services.Employee.Output;
+using ZhonTai.Admin.Domain.Employee.Input;
+using ZhonTai.Admin.Domain.Employee.Output;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;
@@ -91,10 +91,10 @@ public class EmployeeService : BaseService, IEmployeeService
             return ResultOutput.NotOk();
         }
 
-        //附属部门
-        if (input.OrganizationIds != null && input.OrganizationIds.Any())
+        //所属部门
+        if (input.OrgIds != null && input.OrgIds.Any())
         {
-            var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity
+            var organizations = input.OrgIds.Select(organizationId => new EmployeeOrganizationEntity
             { 
                 EmployeeId = employeeId.Value, 
                 OrganizationId = organizationId 
@@ -130,9 +130,9 @@ public class EmployeeService : BaseService, IEmployeeService
         await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == employee.Id);
 
         //附属部门
-        if (input.OrganizationIds != null && input.OrganizationIds.Any())
+        if (input.OrgIds != null && input.OrgIds.Any())
         {
-            var organizations = input.OrganizationIds.Select(organizationId => new EmployeeOrganizationEntity 
+            var organizations = input.OrgIds.Select(organizationId => new EmployeeOrganizationEntity 
             { 
                 EmployeeId = employee.Id, 
                 OrganizationId = organizationId 
@@ -151,7 +151,7 @@ public class EmployeeService : BaseService, IEmployeeService
     [Transaction]
     public async Task<IResultOutput> DeleteAsync(long id)
     {
-        //删除员工附属部门
+        //删除员工所属部门
         await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == id);
 
         //删除员工

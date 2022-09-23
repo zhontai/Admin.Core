@@ -27,17 +27,27 @@ public class UserAddInput
     public string Name { get; set; }
 
     /// <summary>
-    /// 状态
+    /// 手机号
     /// </summary>
-    public UserStatusEnum Status { get; set; }
+    public string Mobile { get; set; }
 
     /// <summary>
-    /// 备注
+    /// 邮箱
     /// </summary>
-    public string Remark { get; set; }
+    public string Email { get; set; }
 
     /// <summary>
     /// 角色
     /// </summary>
     public long[] RoleIds { get; set; }
+
+    /// <summary>
+    /// 状态
+    /// </summary>
+    public UserStatusEnum Status { get; set; }
+
+    /// <summary>
+    /// 员工
+    /// </summary>
+    public EmployeeAddInput Emp { get; set; }
 }

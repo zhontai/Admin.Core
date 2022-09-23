@@ -41,7 +41,7 @@ public partial class EmployeeEntity : EntityFull, ITenant
     /// <summary>
     /// 直属主管Id
     /// </summary>
-    public long ManagerUserId { get; set; }
+    public long? ManagerUserId { get; set; }
 
     public UserEntity ManagerUser { get; set; }
 

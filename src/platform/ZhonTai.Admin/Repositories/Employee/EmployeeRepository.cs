@@ -8,5 +8,6 @@ public class EmployeeRepository : RepositoryBase<EmployeeEntity>, IEmployeeRepos
 {
     public EmployeeRepository(DbUnitOfWorkManager uowm) : base(uowm)
     {
+
     }
 }

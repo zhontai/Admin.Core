@@ -5,6 +5,7 @@ using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
+using ZhonTai.Admin.Domain.Employee;
 
 namespace ZhonTai.Admin.Domain.User;
 
@@ -71,6 +72,15 @@ public partial class UserEntity : EntityFull, ITenant
     [Column(MapType = typeof(int))]
     public UserStatusEnum Status { get; set; }
 
+    /// <summary>
+    /// 角色列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<RoleEntity> Roles { get; set; }
+
+    /// <summary>
+    /// 员工
+    /// </summary>
+    [Navigate(nameof(Id))]
+    public EmployeeEntity Emp { get; set; }
 }

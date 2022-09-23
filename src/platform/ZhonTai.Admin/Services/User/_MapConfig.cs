@@ -13,10 +13,6 @@ public class MapConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config
-        .NewConfig<UserEntity, UserGetOutput>()
-        .Map(dest => dest.RoleIds, src => src.Roles.Select(a => a.Id));
-
-        config
         .NewConfig<UserEntity, UserGetPageOutput>()
         .Map(dest => dest.RoleNames, src => src.Roles.Select(a => a.Name));
     }

@@ -1,4 +1,4 @@
-﻿using ZhonTai.Admin.Services.Employee.Output;
+﻿using ZhonTai.Admin.Domain.Employee.Output;
 using System.Linq;
 using Mapster;
 using ZhonTai.Admin.Domain.Employee;
@@ -14,7 +14,7 @@ public class MapConfig : IRegister
     {
         config
         .NewConfig<EmployeeEntity, EmployeeGetOutput>()
-        .Map(dest => dest.OrganizationIds, src => src.Orgs.Select(a => a.Id));
+        .Map(dest => dest.OrgIds, src => src.Orgs.Select(a => a.Id));
 
         config
         .NewConfig<EmployeeEntity, EmployeeListOutput>()

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -25,19 +28,34 @@ public partial class UserUpdateInput
     public string Name { get; set; }
 
     /// <summary>
-    /// 状态
+    /// 手机号
     /// </summary>
-    public int Status { get; set; }
+    public string Mobile { get; set; }
 
     /// <summary>
-    /// 备注
+    /// 邮箱
     /// </summary>
-    public string Remark { get; set; }
+    public string Email { get; set; }
 
     /// <summary>
     /// 角色
     /// </summary>
     public long[] RoleIds { get; set; }
+
+    /// <summary>
+    /// 角色
+    /// </summary>
+    public ICollection<RoleEntity> Roles { get; set; }
+
+    /// <summary>
+    /// 状态
+    /// </summary>
+    public UserStatusEnum Status { get; set; }
+
+    /// <summary>
+    /// 员工信息
+    /// </summary>
+    public EmployeeUpdateInput Emp { get; set; }
 
     /// <summary>
     /// 版本
