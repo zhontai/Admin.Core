@@ -16,7 +16,7 @@ public interface IUserService
 
     Task<IResultOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetPageAsync(PageInput input);
+    Task<IResultOutput> GetPageAsync(PageInput<long?> input);
 
     Task<IResultOutput> AddAsync(UserAddInput input);
 

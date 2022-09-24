@@ -5920,7 +5920,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput)">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{System.Nullable{System.Int64}})">
             <summary>
             查询分页
             </summary>

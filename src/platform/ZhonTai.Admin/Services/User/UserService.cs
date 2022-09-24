@@ -61,11 +61,15 @@ public class UserService : BaseService, IUserService, IDynamicApi
         .ToOneAsync(a=>new
         {
             a.Id,
+            a.Version,
             a.UserName,
             a.Name,
+            a.Mobile,
+            a.Email,
             a.Roles,
             Emp = new
             {
+                a.Emp.Version,
                 a.Emp.MainOrgId,
                 a.Emp.Orgs
             }
@@ -80,9 +84,10 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput input)
+    public async Task<IResultOutput> GetPageAsync(PageInput<long?> input)
     {
         var list = await _userRepository.Select
+        .WhereIf(input.Filter.HasValue && input.Filter > 0, a=>a.Emp.MainOrgId == input.Filter)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
@@ -260,7 +265,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var emp = await _employeeRepository.GetAsync(input.Emp.Id);
+        var emp = await _employeeRepository.GetAsync(user.Id);
         if(emp == null)
         {
             emp = new EmployeeEntity();
