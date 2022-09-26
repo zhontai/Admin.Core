@@ -25,6 +25,7 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Organization;
+using System.Data;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -93,7 +94,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync();
+        .ToListAsync(a=>new UserGetPageOutput { Roles = a.Roles });
 
         var data = new PageOutput<UserGetPageOutput>()
         {

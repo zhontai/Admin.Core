@@ -5798,24 +5798,19 @@
             姓名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.NickName">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Mobile">
             <summary>
-            昵称
+            手机号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Status">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Email">
             <summary>
-            状态
+            邮箱
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.RoleNames">
             <summary>
             角色
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Remark">
-            <summary>
-            备注
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.CreatedTime">

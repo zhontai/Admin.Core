@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -20,24 +23,22 @@ public class UserGetPageOutput
     public string Name { get; set; }
 
     /// <summary>
-    /// 昵称
+    /// 手机号
     /// </summary>
-    public string NickName { get; set; }
+    public string Mobile { get; set; }
 
     /// <summary>
-    /// 状态
+    /// 邮箱
     /// </summary>
-    public int Status { get; set; }
+    public string Email { get; set; }
 
     /// <summary>
     /// 角色
     /// </summary>
     public string[] RoleNames { get; set; }
 
-    /// <summary>
-    /// 备注
-    /// </summary>
-    public string Remark { get; set; }
+    [JsonIgnore]
+    public ICollection<RoleEntity> Roles { get; set; }
 
     /// <summary>
     /// 创建时间
