@@ -103,15 +103,29 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 
 
     /// <summary>
-    /// 新增
+    /// 新增角色用户列表
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    public async Task<IResultOutput> AddRoleUserListAsync(RoleAddRoleUserListInput input)
+    {
+        var roleId = input.RoleId;
+        var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == roleId).ToListAsync(a => a.UserId);
+        var insertUserIds = input.UserIds.Except(userIds);
+        if (insertUserIds != null && insertUserIds.Any())
+        {
+            var userRoleList = insertUserIds.Select(userId => new UserRoleEntity { UserId = userId, RoleId = roleId });
+            await _userRoleRepository.InsertAsync(userRoleList);
+        }
+
+        return ResultOutput.Ok();
+    }
+
     public async Task<IResultOutput> AddAsync(RoleAddInput input)
     {
-        if(await _roleRepository.Select.AnyAsync(a=>a.ParentId == input.ParentId && a.Name == input.Name))
+        if (await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            return ResultOutput.NotOk($"此{(input.ParentId == 0 ? "分组":"角色")}已存在");
+            return ResultOutput.NotOk($"此{(input.ParentId == 0 ? "分组" : "角色")}已存在");
         }
 
         if (input.Code.NotNull() && await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
@@ -122,7 +136,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var entity = Mapper.Map<RoleEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _roleRepository.Select.Where(a=>a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _roleRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         var id = (await _roleRepository.InsertAsync(entity)).Id;

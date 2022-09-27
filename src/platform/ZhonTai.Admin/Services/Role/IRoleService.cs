@@ -18,6 +18,8 @@ public interface IRoleService
 
     Task<IResultOutput> AddAsync(RoleAddInput input);
 
+    Task<IResultOutput> AddRoleUserListAsync(RoleAddRoleUserListInput input);
+
     Task<IResultOutput> UpdateAsync(RoleUpdateInput input);
 
     Task<IResultOutput> DeleteAsync(long id);

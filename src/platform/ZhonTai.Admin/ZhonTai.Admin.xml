@@ -5170,6 +5170,21 @@
             排序
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput">
+            <summary>
+            添加角色用户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput.RoleId">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput.UserIds">
+            <summary>
+            用户
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Id">
             <summary>
             主键
@@ -5278,9 +5293,9 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddInput)">
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleUserListAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
             <summary>
-            新增
+            新增角色用户列表
             </summary>
             <param name="input"></param>
             <returns></returns>
