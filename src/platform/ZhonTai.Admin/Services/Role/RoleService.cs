@@ -103,11 +103,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 
 
     /// <summary>
-    /// 新增角色用户列表
+    /// 新增角色用户
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddRoleUserListAsync(RoleAddRoleUserListInput input)
+    public async Task<IResultOutput> AddRoleUserAsync(RoleAddRoleUserListInput input)
     {
         var roleId = input.RoleId;
         var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == roleId).ToListAsync(a => a.UserId);
@@ -116,6 +116,23 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         {
             var userRoleList = insertUserIds.Select(userId => new UserRoleEntity { UserId = userId, RoleId = roleId });
             await _userRoleRepository.InsertAsync(userRoleList);
+        }
+
+        return ResultOutput.Ok();
+    }
+
+    /// <summary>
+    /// 移除角色用户
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IResultOutput> RemoveRoleUserAsync(RoleAddRoleUserListInput input)
+    {
+        var userIds = input.UserIds;
+        if (userIds != null && userIds.Any())
+        {
+            await _userRoleRepository.Where(a => a.RoleId == input.RoleId && input.UserIds.Contains(a.UserId)).ToDelete().ExecuteAffrowsAsync();
         }
 
         return ResultOutput.Ok();

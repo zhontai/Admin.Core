@@ -5293,9 +5293,16 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleUserListAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleUserAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
             <summary>
-            新增角色用户列表
+            新增角色用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.RemoveRoleUserAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
+            <summary>
+            移除角色用户
             </summary>
             <param name="input"></param>
             <returns></returns>
