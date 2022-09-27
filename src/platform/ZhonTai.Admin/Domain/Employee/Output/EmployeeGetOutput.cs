@@ -14,9 +14,4 @@ public class EmployeeGetOutput : EmployeeUpdateInput
     /// 附属部门
     /// </summary>
     public string[] OrganizationNames { get; set; }
-
-    /// <summary>
-    /// 职位
-    /// </summary>
-    public string Position { get; set; }
 }

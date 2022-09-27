@@ -1,14 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Threading.Tasks;
 using StackExchange.Profiling;
 using FreeSql;
 using FreeSql.Internal.CommonProvider;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
-using ZhonTai.Admin.Core.Dbs;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
 

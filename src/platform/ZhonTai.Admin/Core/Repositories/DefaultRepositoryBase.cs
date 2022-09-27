@@ -17,10 +17,10 @@ public class DefaultRepositoryBase<TEntity, TKey> : RepositoryBase<TEntity, TKey
 
 public class RepositoryCloud<T> : DefaultRepositoryBase<T, long> where T : class
 {
-    public RepositoryCloud(UnitOfWorkManagerCloud uomw) : this("master", uomw) { }
-    public RepositoryCloud(string db, UnitOfWorkManagerCloud uomw) : this(uomw.GetUnitOfWorkManager(db)) { }
-    RepositoryCloud(UnitOfWorkManager uomw) : base(uomw.Orm, uomw)
+    public RepositoryCloud(UnitOfWorkManagerCloud uowm) : this("master", uowm) { }
+    public RepositoryCloud(string db, UnitOfWorkManagerCloud uowm) : this(uowm.GetUnitOfWorkManager(db)) { }
+    RepositoryCloud(UnitOfWorkManager uowm) : base(uowm.Orm, uowm)
     {
-        uomw.Binding(this);
+        uowm.Binding(this);
     }
 }

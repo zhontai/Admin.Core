@@ -2050,11 +2050,6 @@
             附属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeGetOutput.Position">
-            <summary>
-            职位
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.Id">
             <summary>
             主键Id
