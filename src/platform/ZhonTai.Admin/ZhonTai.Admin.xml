@@ -34,6 +34,11 @@
             事务隔离级别
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbName">
+            <summary>
+            数据库名称
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
@@ -475,6 +480,16 @@
             多数据库
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.DistributeKey">
+            <summary>
+            分布式事务唯一标识
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SlaveList">
+            <summary>
+            读写分离从库列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
             <summary>
             Jwt配置
@@ -683,20 +698,14 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddDbAsync(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddMasterDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
             <summary>
-            添加数据库
+            添加主数据库
             </summary>
             <param name="services"></param>
+            <param name="freeSqlCloud"></param>
             <param name="env"></param>
             <param name="hostAppOptions"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.CreateMultiDbBuilder(ZhonTai.Admin.Core.Configs.MultiDb)">
-            <summary>
-            创建多数据库构建器
-            </summary>
-            <param name="multiDb"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.IdleBusExtesions.CreateFreeSql(ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto)">

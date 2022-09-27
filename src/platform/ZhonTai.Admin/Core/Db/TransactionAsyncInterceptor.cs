@@ -11,9 +11,9 @@ namespace ZhonTai.Admin.Core.Db;
 public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
     private IUnitOfWork _unitOfWork;
-    private readonly DbUnitOfWorkManager _unitOfWorkManager;
+    private readonly UnitOfWorkManagerCloud _unitOfWorkManager;
 
-    public TransactionAsyncInterceptor(DbUnitOfWorkManager unitOfWorkManager)
+    public TransactionAsyncInterceptor(UnitOfWorkManagerCloud unitOfWorkManager)
     {
         _unitOfWorkManager = unitOfWorkManager;
     }
@@ -25,7 +25,8 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
         if (attribute is TransactionAttribute transaction)
         {
             IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
-            _unitOfWork = _unitOfWorkManager.Begin(transaction.Propagation, isolationLevel);
+
+            _unitOfWork = _unitOfWorkManager.Begin(transaction.DbName, transaction.Propagation, isolationLevel);
             return true;
         }
 

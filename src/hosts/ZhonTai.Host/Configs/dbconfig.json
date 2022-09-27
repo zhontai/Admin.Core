@@ -50,5 +50,11 @@
     //  "type": "MySql",
     //  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
     //}
+  ],
+
+  //分布式事务唯一标识
+  "distributeKey": "admin",
+  //读写分离从库列表
+  "slaveList": [
   ]
 }

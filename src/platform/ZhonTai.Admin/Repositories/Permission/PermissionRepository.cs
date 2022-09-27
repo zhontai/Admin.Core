@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.Permission;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class PermissionRepository : RepositoryBase<PermissionEntity>, IPermissionRepository
+public class PermissionRepository : RepositoryCloud<PermissionEntity>, IPermissionRepository
 {
-    public PermissionRepository(DbUnitOfWorkManager uowm) : base(uowm)
+    public PermissionRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
     }
 }

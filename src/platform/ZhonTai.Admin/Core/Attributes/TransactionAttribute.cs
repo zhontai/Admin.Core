@@ -19,4 +19,10 @@ public class TransactionAttribute : Attribute
     /// 事务隔离级别
     /// </summary>
     public IsolationLevel IsolationLevel { get; set; }
+
+    /// <summary>
+    /// 数据库名称
+    /// </summary>
+    public string DbName { get; set; }
+
 }

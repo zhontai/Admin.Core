@@ -17,8 +17,8 @@
 		<PackageReference Include="Caching.CSRedis" Version="3.8.669" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="FreeSql" Version="3.2.669" />
+		<PackageReference Include="FreeSql.Cloud" Version="1.6.3" />
 		<PackageReference Include="FreeSql.Repository" Version="3.2.669" />
-		<PackageReference Include="IdleBus" Version="1.5.2" />
 		<PackageReference Include="FreeScheduler" Version="1.0.9" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Mapster" Version="7.3.0" />

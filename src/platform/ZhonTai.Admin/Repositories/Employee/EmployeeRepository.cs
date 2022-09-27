@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.Employee;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class EmployeeRepository : RepositoryBase<EmployeeEntity>, IEmployeeRepository
+public class EmployeeRepository : RepositoryCloud<EmployeeEntity>, IEmployeeRepository
 {
-    public EmployeeRepository(DbUnitOfWorkManager uowm) : base(uowm)
+    public EmployeeRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
 
     }

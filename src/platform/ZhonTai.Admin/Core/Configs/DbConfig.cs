@@ -87,4 +87,14 @@ public class DbConfig
     /// 多数据库
     /// </summary>
     public MultiDb[] Dbs { get; set; }
+
+    /// <summary>
+    /// 分布式事务唯一标识
+    /// </summary>
+    public string DistributeKey { get; set; }
+
+    /// <summary>
+    /// 读写分离从库列表
+    /// </summary>
+    public string[] SlaveList { get; set; }
 }

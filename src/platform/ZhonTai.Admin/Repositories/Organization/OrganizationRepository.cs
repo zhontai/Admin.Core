@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.Organization;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class OrganizationRepository : RepositoryBase<OrganizationEntity>, IOrganizationRepository
+public class OrganizationRepository : RepositoryCloud<OrganizationEntity>, IOrganizationRepository
 {
-    public OrganizationRepository(DbUnitOfWorkManager uowm) : base(uowm)
+    public OrganizationRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
     }
 }

@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.View;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
+public class ViewRepository : RepositoryCloud<ViewEntity>, IViewRepository
 {
-    public ViewRepository(DbUnitOfWorkManager muowm) : base(muowm)
+    public ViewRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {
     }
 }

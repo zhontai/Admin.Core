@@ -7,7 +7,7 @@ using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Core.Repositories
 {
-    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
+    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class
     {
         public IUser User { get; set; }
 
@@ -108,7 +108,7 @@ namespace ZhonTai.Admin.Core.Repositories
         }
     }
 
-    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class, new()
+    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class
     {
         public RepositoryBase(DbUnitOfWorkManager uowm) : base(uowm.Orm)
         {

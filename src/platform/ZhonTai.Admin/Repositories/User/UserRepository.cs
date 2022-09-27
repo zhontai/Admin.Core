@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class UserRepository : RepositoryBase<UserEntity>, IUserRepository
+public class UserRepository : RepositoryCloud<UserEntity>, IUserRepository
 {
-    public UserRepository(DbUnitOfWorkManager muowm) : base(muowm)
+    public UserRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {
     }
 }

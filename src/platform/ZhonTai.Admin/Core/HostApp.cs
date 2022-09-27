@@ -46,6 +46,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
+using FreeSql;
 
 namespace ZhonTai.Admin.Core;
 
@@ -167,17 +168,26 @@ public class HostApp
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.TryAddSingleton<IUser, User>();
 
-        //添加数据库
-        services.AddDbAsync(env, _hostAppOptions).Wait();
-
         //数据库配置
         var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
         services.AddSingleton(dbConfig);
 
+        //添加FreeSqlCloud单例
+        var freeSqlCloud = new FreeSqlCloud(dbConfig.DistributeKey);
+        services.AddSingleton<IFreeSql>(freeSqlCloud);
+        services.AddSingleton(freeSqlCloud);
+
+        //添加数据库
+        services.AddScoped<UnitOfWorkManagerCloud>();
+        services.AddScoped<DbUnitOfWorkManager>();
+        services.AddMasterDb(freeSqlCloud, env, _hostAppOptions);
+
         //添加IdleBus单例
-        var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
-        var ib = new IdleBus<IFreeSql>(timeSpan);
-        services.AddSingleton(ib);
+        //var timeSpan = dbConfig.IdleTime > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime) : TimeSpan.MaxValue;
+        //var ib = new IdleBus<IFreeSql>(timeSpan);
+        //services.AddSingleton(ib);
+
+
 
         //上传配置
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
