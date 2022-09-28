@@ -34,9 +34,9 @@
             事务隔离级别
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbName">
+        <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbKey">
             <summary>
-            数据库名称
+            数据库键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
@@ -635,6 +635,16 @@
             主库
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDbKey">
+            <summary>
+            多库
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.TenantDbKey">
+            <summary>
+            租户独立数据库
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
             <summary>
             Api分组约定
@@ -742,7 +752,7 @@
             <param name="hostAppOptions"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.IdleBusExtesions.CreateFreeSql(ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto)">
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.CreateFreeSql(ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto)">
             <summary>
             创建FreeSql实例
             </summary>
@@ -752,19 +762,19 @@
             <param name="tenant"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.IdleBusExtesions.GetFreeSql(IdleBus{IFreeSql},System.IServiceProvider)">
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.GetCurrentDb(FreeSql.FreeSqlCloud,System.IServiceProvider)">
             <summary>
-            获得FreeSql实例
+            获得当前登录用户数据库
             </summary>
-            <param name="ib"></param>
+            <param name="cloud"></param>
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.IdleBusExtesions.GetTenantFreeSql(IdleBus{IFreeSql},System.IServiceProvider,System.Nullable{System.Int64})">
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.GetTenantDb(FreeSql.FreeSqlCloud,System.IServiceProvider,System.Nullable{System.Int64})">
             <summary>
-            获得租户FreeSql实例
+            获得租户数据库
             </summary>
-            <param name="ib"></param>
+            <param name="cloud"></param>
             <param name="serviceProvider"></param>
             <param name="tenantId"></param>
             <returns></returns>

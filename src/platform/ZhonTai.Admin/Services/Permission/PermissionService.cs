@@ -21,6 +21,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Consts;
+using FreeSql;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -440,11 +441,12 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var insertRolePermissions = new List<RolePermissionEntity>();
         var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
 
-        //防止租户非法授权
+        //防止租户非法授权，查询主库租户权限范围
         if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
         {
-            var masterDb = ServiceProvider.GetRequiredService<IFreeSql>();
-            var tenantPermissionIds = await masterDb.GetRepositoryBase<TenantPermissionEntity>().Select.Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
+            var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
+            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDbKey).GetRepositoryBase<TenantPermissionEntity>()
+                .Select.Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
             insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
         }
 
@@ -480,8 +482,8 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
     {
         //获得租户db
-        var ib = ServiceProvider.GetRequiredService<IdleBus<IFreeSql>>();
-        var tenantDb = ib.GetTenantFreeSql(ServiceProvider, input.TenantId);
+        var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
+        var tenantDb = cloud.GetTenantDb(ServiceProvider, input.TenantId);
 
         //查询租户权限
         var permissionIds = await _tenantPermissionRepository.Select.Where(d => d.TenantId == input.TenantId).ToListAsync(m => m.PermissionId);

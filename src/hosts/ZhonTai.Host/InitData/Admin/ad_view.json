@@ -13,8 +13,7 @@
         "path": "admin/home",
         "enabled": true,
         "cache": true,
-        "childs": [],
-        "version": 1
+        "childs": []
       },
       {
         "id": 161227168432197,
@@ -31,8 +30,7 @@
             "path": "admin/dictionary/index",
             "description": "数据字典",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           }
         ]
       },
@@ -50,8 +48,7 @@
             "label": "个人设置",
             "path": "account/settings",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           }
         ]
       },
@@ -71,8 +68,7 @@
             "path": "admin/user/index",
             "description": "",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168440389,
@@ -82,8 +78,7 @@
             "path": "admin/role/index",
             "description": "",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168440390,
@@ -92,8 +87,7 @@
             "label": "接口管理",
             "path": "admin/api",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168444485,
@@ -102,8 +96,7 @@
             "label": "视图管理",
             "path": "admin/view",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168444486,
@@ -112,8 +105,7 @@
             "label": "权限管理",
             "path": "admin/permission",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168448581,
@@ -122,8 +114,7 @@
             "label": "角色权限",
             "path": "admin/role-permission",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168448582,
@@ -132,8 +123,7 @@
             "label": "缓存管理",
             "path": "admin/cache",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168448583,
@@ -142,8 +132,7 @@
             "label": "租户管理",
             "path": "admin/tenant",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 174312361087045,
@@ -153,8 +142,7 @@
             "path": "admin/organization",
             "description": "",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           }
         ]
       },
@@ -173,8 +161,7 @@
             "label": "操作日志",
             "path": "admin/opration-log",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           },
           {
             "id": 161227168456773,
@@ -183,8 +170,7 @@
             "label": "登录日志",
             "path": "admin/login-log",
             "enabled": true,
-            "cache": true,
-            "version": 1
+            "cache": true
           }
         ]
       },
@@ -196,8 +182,7 @@
         "path": "admin/document",
         "enabled": true,
         "cache": true,
-        "childs": [],
-        "version": 1
+        "childs": []
       },
       {
         "id": 336556164280389,
@@ -208,8 +193,7 @@
         "description": "",
         "enabled": true,
         "cache": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336556164300869,
@@ -220,8 +204,7 @@
         "description": "",
         "enabled": true,
         "cache": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
     ]
   }

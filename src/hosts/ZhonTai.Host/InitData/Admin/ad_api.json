@@ -14,8 +14,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168116805,
@@ -25,8 +24,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168116806,
@@ -36,8 +34,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168120901,
@@ -47,8 +44,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168120902,
@@ -58,8 +54,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168120903,
@@ -69,8 +64,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168124997,
@@ -80,8 +74,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168124998,
@@ -91,8 +84,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651914309,
@@ -102,11 +94,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719493,
@@ -123,8 +113,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168133189,
@@ -134,8 +123,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168133190,
@@ -145,8 +133,7 @@
         "httpMethods": "get",
         "description": "以旧换新",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651922501,
@@ -156,8 +143,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651922502,
@@ -167,8 +153,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651922503,
@@ -178,11 +163,9 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719494,
@@ -199,8 +182,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168137286,
@@ -210,8 +192,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168137287,
@@ -221,8 +202,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168141381,
@@ -232,8 +212,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168141382,
@@ -243,8 +222,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 184100551516229,
@@ -254,8 +232,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651922504,
@@ -265,11 +242,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719495,
@@ -286,8 +261,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168145477,
@@ -297,8 +271,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168145478,
@@ -308,8 +281,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168149573,
@@ -319,8 +291,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168149574,
@@ -330,8 +301,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168149575,
@@ -341,8 +311,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168153669,
@@ -352,8 +321,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168153670,
@@ -363,8 +331,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168153671,
@@ -374,8 +341,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168157765,
@@ -385,8 +351,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168157766,
@@ -396,8 +361,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168161861,
@@ -407,8 +371,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168161862,
@@ -418,8 +381,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168165957,
@@ -429,8 +391,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168165958,
@@ -440,8 +401,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168165959,
@@ -451,8 +411,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168170053,
@@ -462,8 +421,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 170317848645701,
@@ -473,8 +431,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 170317848662085,
@@ -484,8 +441,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 187384805367877,
@@ -495,8 +451,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926603,
@@ -506,11 +461,9 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719496,
@@ -527,8 +480,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168170055,
@@ -538,8 +490,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168174149,
@@ -549,8 +500,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168178245,
@@ -560,8 +510,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168178246,
@@ -571,8 +520,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168182341,
@@ -582,8 +530,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926604,
@@ -593,8 +540,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241422917,
@@ -604,8 +550,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241422918,
@@ -615,8 +560,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241422919,
@@ -626,8 +570,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241422920,
@@ -637,8 +580,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241422921,
@@ -648,11 +590,9 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719497,
@@ -669,8 +609,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168182343,
@@ -680,8 +619,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168186437,
@@ -691,8 +629,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168186438,
@@ -702,8 +639,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168190533,
@@ -713,8 +649,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168190534,
@@ -724,8 +659,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168190535,
@@ -735,8 +669,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168194629,
@@ -746,8 +679,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168194630,
@@ -757,8 +689,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168194631,
@@ -768,8 +699,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926605,
@@ -779,8 +709,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926606,
@@ -790,8 +719,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926607,
@@ -801,8 +729,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427019,
@@ -812,11 +739,9 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167719498,
@@ -833,8 +758,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168198726,
@@ -844,8 +768,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168202822,
@@ -855,8 +778,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168202823,
@@ -866,8 +788,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168206917,
@@ -877,8 +798,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168206918,
@@ -888,8 +808,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168206919,
@@ -899,8 +818,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926608,
@@ -910,11 +828,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167723589,
@@ -931,8 +847,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168211014,
@@ -942,11 +857,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167723590,
@@ -963,8 +876,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926601,
@@ -974,11 +886,9 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167723591,
@@ -995,8 +905,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926602,
@@ -1006,11 +915,9 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167723592,
@@ -1027,8 +934,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168219205,
@@ -1038,8 +944,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168219206,
@@ -1049,8 +954,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168223301,
@@ -1060,8 +964,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168223302,
@@ -1071,8 +974,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168227397,
@@ -1082,8 +984,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168227398,
@@ -1093,8 +994,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168231493,
@@ -1104,8 +1004,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168231494,
@@ -1115,8 +1014,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168235589,
@@ -1126,8 +1024,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168235590,
@@ -1137,8 +1034,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168235591,
@@ -1148,8 +1044,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168239685,
@@ -1159,8 +1054,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168239686,
@@ -1170,8 +1064,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926598,
@@ -1181,8 +1074,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926599,
@@ -1192,8 +1084,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926600,
@@ -1203,11 +1094,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 161227167723593,
@@ -1224,8 +1113,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168243782,
@@ -1235,8 +1123,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168243783,
@@ -1246,8 +1133,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168247877,
@@ -1257,8 +1143,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168247878,
@@ -1268,8 +1153,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 161227168251973,
@@ -1279,8 +1163,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 163579785756741,
@@ -1290,11 +1173,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 174219034701893,
@@ -1311,8 +1192,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734667,
@@ -1322,8 +1202,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734668,
@@ -1333,8 +1212,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734669,
@@ -1344,8 +1222,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734670,
@@ -1355,8 +1232,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734671,
@@ -1366,11 +1242,9 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 174219034718277,
@@ -1387,8 +1261,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734674,
@@ -1398,8 +1271,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034738757,
@@ -1409,8 +1281,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034738758,
@@ -1420,8 +1291,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 188049296683077,
@@ -1431,11 +1301,9 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 174219034718279,
@@ -1452,8 +1320,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734662,
@@ -1463,8 +1330,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734663,
@@ -1474,8 +1340,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734664,
@@ -1485,8 +1350,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 174219034734665,
@@ -1496,8 +1360,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 184100551532613,
@@ -1507,8 +1370,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 271618651926597,
@@ -1518,11 +1380,9 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 336555241189445,
@@ -1539,11 +1399,9 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   },
   {
     "id": 336555241193541,
@@ -1560,8 +1418,7 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427013,
@@ -1571,8 +1428,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427014,
@@ -1582,8 +1438,7 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427015,
@@ -1593,8 +1448,7 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427016,
@@ -1604,8 +1458,7 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       },
       {
         "id": 336555241427017,
@@ -1615,10 +1468,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": [],
-        "version": 2
+        "childs": []
       }
-    ],
-    "version": 2
+    ]
   }
 ]

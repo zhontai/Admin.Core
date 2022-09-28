@@ -15,6 +15,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Organization;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Core.Db.Data;
+using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -36,6 +37,12 @@ public class CustomSyncData : SyncData, ISyncData
             var users = GetData<UserEntity>(isTenant);
             await InitDataAsync(db, uow, tran, users, dbConfig);
 
+            var employees = GetData<EmployeeEntity>(isTenant);
+            await InitDataAsync(db, uow, tran, employees, dbConfig);
+
+            var organizations = GetData<OrganizationEntity>(isTenant);
+            await InitDataAsync(db, uow, tran, organizations, dbConfig);
+
             var roles = GetData<RoleEntity>(isTenant);
             await InitDataAsync(db, uow, tran, roles, dbConfig);
 
@@ -51,6 +58,9 @@ public class CustomSyncData : SyncData, ISyncData
             var userRoles = GetData<UserRoleEntity>();
             await InitDataAsync(db, uow, tran, userRoles, dbConfig);
 
+            var userOrgs = GetData<EmployeeOrganizationEntity>();
+            await InitDataAsync(db, uow, tran, userOrgs, dbConfig);
+
             var rolePermissions = GetData<RolePermissionEntity>();
             await InitDataAsync(db, uow, tran, rolePermissions, dbConfig);
 
@@ -62,12 +72,6 @@ public class CustomSyncData : SyncData, ISyncData
 
             var permissionApis = GetData<PermissionApiEntity>();
             await InitDataAsync(db, uow, tran, permissionApis, dbConfig);
-
-            var organizations = GetData<OrganizationEntity>(isTenant);
-            await InitDataAsync(db, uow, tran, organizations, dbConfig);
-
-            var employees = GetData<EmployeeEntity>(isTenant);
-            await InitDataAsync(db, uow, tran, employees, dbConfig);
 
             uow.Commit();
         }

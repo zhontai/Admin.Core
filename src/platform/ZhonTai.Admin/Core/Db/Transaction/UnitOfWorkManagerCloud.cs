@@ -13,10 +13,10 @@ public class UnitOfWorkManagerCloud
         m_cloud = cloud;
     }
 
-    public UnitOfWorkManager GetUnitOfWorkManager(string db)
+    public UnitOfWorkManager GetUnitOfWorkManager(string dbKey)
     {
-        if (m_managers.TryGetValue(db, out var uowm) == false)
-            m_managers.Add(db, uowm = new UnitOfWorkManager(m_cloud.Use(db)));
+        if (m_managers.TryGetValue(dbKey, out var uowm) == false)
+            m_managers.Add(dbKey, uowm = new UnitOfWorkManager(m_cloud.Use(dbKey)));
         return uowm;
     }
 
@@ -26,8 +26,8 @@ public class UnitOfWorkManagerCloud
         m_managers.Clear();
     }
 
-    public IUnitOfWork Begin(string db, Propagation propagation = Propagation.Required, IsolationLevel? isolationLevel = null)
+    public IUnitOfWork Begin(string dbKey, Propagation propagation = Propagation.Required, IsolationLevel? isolationLevel = null)
     {
-        return GetUnitOfWorkManager(db).Begin(propagation, isolationLevel);
+        return GetUnitOfWorkManager(dbKey).Begin(propagation, isolationLevel);
     }
 }

@@ -8,10 +8,11 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Db;
 
-public static class IdleBusExtesions
+public static class FreeSqlCloudExtesions
 {
     /// <summary>
     /// 创建FreeSql实例
@@ -88,12 +89,12 @@ public static class IdleBusExtesions
     }
 
     /// <summary>
-    /// 获得FreeSql实例
+    /// 获得当前登录用户数据库
     /// </summary>
-    /// <param name="ib"></param>
+    /// <param name="cloud"></param>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public static IFreeSql GetFreeSql(this IdleBus<IFreeSql> ib, IServiceProvider serviceProvider)
+    public static IFreeSql GetCurrentDb(this FreeSqlCloud cloud, IServiceProvider serviceProvider)
     {
         var user = serviceProvider.GetRequiredService<IUser>();
         var appConfig = serviceProvider.GetRequiredService<AppConfig>();
@@ -101,57 +102,52 @@ public static class IdleBusExtesions
         var tenantId = user.TenantId;
         if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb && tenantId.HasValue)
         {
-            var tenantName = "tenant_" + tenantId.ToString();
-            var exists = ib.Exists(tenantName);
+            var tenantName = DbKeys.TenantDbKey + tenantId;
+            var exists = cloud.ExistsRegister(tenantName);
             if (!exists)
             {
                 var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                //查询租户数据库信息
-                var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
+                var masterDb = cloud.Use(DbKeys.MasterDbKey);
                 var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
-
-                var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
-                ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
+                cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
             }
 
-            return ib.Get(tenantName);
+            return cloud.Use(tenantName);
         }
         else
         {
-            var freeSql = serviceProvider.GetRequiredService<IFreeSql>();
-            return freeSql;
+            var masterDb = cloud.Use(DbKeys.MasterDbKey);
+            return masterDb;
         }
     }
 
     /// <summary>
-    /// 获得租户FreeSql实例
+    /// 获得租户数据库
     /// </summary>
-    /// <param name="ib"></param>
+    /// <param name="cloud"></param>
     /// <param name="serviceProvider"></param>
     /// <param name="tenantId"></param>
     /// <returns></returns>
-    public static IFreeSql GetTenantFreeSql(this IdleBus<IFreeSql> ib, IServiceProvider serviceProvider, long? tenantId = null)
+    public static IFreeSql GetTenantDb(this FreeSqlCloud cloud, IServiceProvider serviceProvider, long? tenantId = null)
     {
-        if (tenantId.HasValue)
+        if (!tenantId.HasValue)
         {
-            var user = serviceProvider.GetRequiredService<IUser>();
-            var appConfig = serviceProvider.GetRequiredService<AppConfig>();
-            var tenantName = "tenant_" + tenantId.ToString();
-            var exists = ib.Exists(tenantName);
-            if (!exists)
-            {
-                var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                //查询租户数据库信息
-                var masterDb = serviceProvider.GetRequiredService<IFreeSql>();
-                var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
-
-                var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
-                ib.TryRegister(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant), timeSpan);
-            }
-
-            return ib.Get(tenantName);
+            return null;
         }
 
-        return null;
+        var user = serviceProvider.GetRequiredService<IUser>();
+        var appConfig = serviceProvider.GetRequiredService<AppConfig>();
+        var tenantName = DbKeys.TenantDbKey + tenantId;
+        var exists = cloud.ExistsRegister(tenantName);
+        if (!exists)
+        {
+            var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
+            var masterDb = cloud.Use(DbKeys.MasterDbKey);
+            var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+            //var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
+            cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
+        }
+
+        return cloud.Use(tenantName);
     }
 }

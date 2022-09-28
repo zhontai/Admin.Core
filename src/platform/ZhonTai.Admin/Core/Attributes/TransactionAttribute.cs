@@ -21,8 +21,8 @@ public class TransactionAttribute : Attribute
     public IsolationLevel IsolationLevel { get; set; }
 
     /// <summary>
-    /// 数据库名称
+    /// 数据库键
     /// </summary>
-    public string DbName { get; set; }
+    public string DbKey { get; set; }
 
 }
