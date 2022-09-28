@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Common.Helpers;
@@ -13,11 +14,11 @@ using ZhonTai.Admin.Services.Tenant.Dto;
 using ZhonTai.Admin.Domain.Tenant.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Organization;
 using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -34,6 +35,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
     private IOrganizationRepository _organizationRepository => LazyGetRequiredService<IOrganizationRepository>();
     private IEmployeeRepository _employeeRepository => LazyGetRequiredService<IEmployeeRepository>();
+    private IRepositoryBase<EmployeeOrganizationEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<EmployeeOrganizationEntity>>();
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
@@ -118,31 +120,49 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         var pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
         var user = new UserEntity { 
             TenantId = tenantId, 
-            UserName = input.Phone, 
-            Name = input.RealName,
+            UserName = input.Phone,
             Password = pwd,
-            Status = 0 
+            Name = input.RealName,
+            Mobile = input.Phone,
+            Email = input.Email,
+            Status = UserStatusEnum.Enabled
         };
         await _userRepository.InsertAsync(user);
 
         //添加员工
         var emp = new EmployeeEntity
         {
-            TenantId = tenantId,
             Id = user.Id,
+            TenantId = tenantId,
             MainOrgId = org.Id
         };
         await _organizationRepository.InsertAsync(org);
 
+        //添加用户部门
+        var userOrg = new EmployeeOrganizationEntity
+        {
+            EmployeeId = user.Id,
+            OrganizationId = org.Id
+        };
+        await _empOrgRepository.InsertAsync(userOrg);
+
         //添加角色
-        var role = new RoleEntity { TenantId = tenantId, Code = "plat_admin", Name = "平台管理员" };
+        var role = new RoleEntity { 
+            TenantId = tenantId,
+            Name = "主管理员",
+            Code = "admin"
+        };
         await _roleRepository.InsertAsync(role);
 
         //添加用户角色
-        var userRole = new UserRoleEntity() { UserId = user.Id, RoleId = role.Id };
+        var userRole = new UserRoleEntity() 
+        { 
+            UserId = user.Id, 
+            RoleId = role.Id 
+        };
         await _userRoleRepository.InsertAsync(userRole);
 
-        //更新租户用户和角色
+        //更新租户的用户和角色
         tenant.UserId = user.Id;
         tenant.RoleId = role.Id;
         await _tenantRepository.UpdateAsync(tenant);
