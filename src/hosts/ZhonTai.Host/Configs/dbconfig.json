@@ -42,8 +42,7 @@
   "idleTime": 10,
 
   //多数据库
-  //1、Common.Dbs中定义MySqlDb类
-  //2、IFreeSql<MySqlDb> _mySqlDb;
+  //1、Consts.DbKeys中定义数据库唯一键
   "dbs": [
     //{
     //  "name": "MySqlDb",

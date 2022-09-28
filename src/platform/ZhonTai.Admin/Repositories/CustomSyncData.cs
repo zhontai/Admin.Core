@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain.DictionaryType;
 using ZhonTai.Admin.Domain.Dictionary;
 using ZhonTai.Admin.Domain.Api;
@@ -15,6 +14,7 @@ using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Organization;
 using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Core.Db.Data;
 
 namespace ZhonTai.Admin.Repositories;
 

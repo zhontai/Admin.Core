@@ -1,7 +1,8 @@
 ﻿using FreeSql;
 using System;
 using System.Linq.Expressions;
-using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Repositories;
 
@@ -17,7 +18,7 @@ public class DefaultRepositoryBase<TEntity, TKey> : RepositoryBase<TEntity, TKey
 
 public class RepositoryCloud<T> : DefaultRepositoryBase<T, long> where T : class
 {
-    public RepositoryCloud(UnitOfWorkManagerCloud uowm) : this("master", uowm) { }
+    public RepositoryCloud(UnitOfWorkManagerCloud uowm) : this(DbKeys.MasterDbKey, uowm) { }
     public RepositoryCloud(string db, UnitOfWorkManagerCloud uowm) : this(uowm.GetUnitOfWorkManager(db)) { }
     RepositoryCloud(UnitOfWorkManager uowm) : base(uowm.Orm, uowm)
     {

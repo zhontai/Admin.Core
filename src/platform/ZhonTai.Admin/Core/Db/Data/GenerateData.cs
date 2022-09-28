@@ -6,14 +6,14 @@ using Newtonsoft.Json.Serialization;
 using FreeSql.DataAnnotations;
 using ZhonTai.Common.Helpers;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Data;
 
 public abstract class GenerateData
 {
     protected virtual void SaveDataToJsonFile<T>(object data, bool isTenant = false, string path = "InitData/Admin", PropsContractResolver propsContractResolver = null) where T : class, new()
     {
         var settings = new JsonSerializerSettings();
-        settings.ContractResolver = propsContractResolver != null ? propsContractResolver : (isTenant ? new CamelCasePropertyNamesContractResolver() : new PropsContractResolver(new List<string> { "TenantId" }));
+        settings.ContractResolver = propsContractResolver ?? (isTenant ? new CamelCasePropertyNamesContractResolver() : new PropsContractResolver(new List<string> { "TenantId" }));
         settings.NullValueHandling = NullValueHandling.Ignore;
         settings.DefaultValueHandling = DefaultValueHandling.Ignore;
 

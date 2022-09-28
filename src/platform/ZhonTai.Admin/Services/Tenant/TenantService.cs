@@ -98,7 +98,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
         //添加用户
         var pwd = MD5Encrypt.Encrypt32("111111");
-        var user = new UserEntity { TenantId = tenantId, UserName = input.Phone, NickName = input.RealName, Password = pwd, Status = 0 };
+        var user = new UserEntity { 
+            TenantId = tenantId, 
+            UserName = input.Phone, 
+            NickName = input.RealName, 
+            Password = pwd, 
+            Status = 0 
+        };
         await _userRepository.InsertAsync(user);
 
         //添加角色

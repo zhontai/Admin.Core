@@ -8,7 +8,7 @@ using FreeSql.DataAnnotations;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Data;
 
 public abstract class SyncData
 {

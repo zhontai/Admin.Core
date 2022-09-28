@@ -138,6 +138,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         return ResultOutput.Ok();
     }
 
+    /// <summary>
+    /// 添加
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async Task<IResultOutput> AddAsync(RoleAddInput input)
     {
         if (await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))

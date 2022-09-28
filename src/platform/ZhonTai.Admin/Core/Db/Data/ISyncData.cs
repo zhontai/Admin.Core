@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Data;
 
 /// <summary>
 /// 同步数据接口

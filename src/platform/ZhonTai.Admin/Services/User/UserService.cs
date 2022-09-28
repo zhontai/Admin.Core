@@ -40,7 +40,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
     private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
-    private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
     private IEmployeeRepository _employeeRepository => LazyGetRequiredService<IEmployeeRepository>();
     private IRepositoryBase<EmployeeOrganizationEntity> _employeeOrganizationRepository => LazyGetRequiredService<IRepositoryBase<EmployeeOrganizationEntity>>();
 

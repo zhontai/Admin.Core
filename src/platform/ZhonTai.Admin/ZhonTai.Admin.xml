@@ -625,15 +625,49 @@
             租户信息 admin:tenant:info:租户主键
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
+            <summary>
+            数据库键名
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDbKey">
+            <summary>
+            主库
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
             <summary>
             Api分组约定
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Dbs.MySqlDb">
+        <member name="T:ZhonTai.Admin.Core.Db.Data.IGenerateData">
             <summary>
-            多数据库命名
+            生成数据接口
             </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Db.Data.ISyncData">
+            <summary>
+            同步数据接口
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.CheckIdentity``1">
+            <summary>
+            检查实体属性是否为自增长
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.InitDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化数据表数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="tran"></param>
+            <param name="data"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
         </member>
         <member name="F:ZhonTai.Admin.Core.Db.DbHelper.TimeOffset">
             <summary>
@@ -735,48 +769,19 @@
             <param name="tenantId"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Db.IGenerateData">
-            <summary>
-            生成数据接口
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Db.ISyncData">
-            <summary>
-            同步数据接口
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.SyncData.CheckIdentity``1">
-            <summary>
-            检查实体属性是否为自增长
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.SyncData.InitDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],ZhonTai.Admin.Core.Configs.DbConfig)">
-            <summary>
-            初始化数据表数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="db"></param>
-            <param name="unitOfWork"></param>
-            <param name="tran"></param>
-            <param name="data"></param>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.TransactionAsyncInterceptor.InterceptSynchronous(Castle.DynamicProxy.IInvocation)">
+        <member name="M:ZhonTai.Admin.Core.Db.Transaction.TransactionAsyncInterceptor.InterceptSynchronous(Castle.DynamicProxy.IInvocation)">
             <summary>
             拦截同步执行的方法
             </summary>
             <param name="invocation"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.TransactionAsyncInterceptor.InterceptAsynchronous(Castle.DynamicProxy.IInvocation)">
+        <member name="M:ZhonTai.Admin.Core.Db.Transaction.TransactionAsyncInterceptor.InterceptAsynchronous(Castle.DynamicProxy.IInvocation)">
             <summary>
             拦截返回结果
             </summary>
             <param name="invocation"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.TransactionAsyncInterceptor.InterceptAsynchronous``1(Castle.DynamicProxy.IInvocation)">
+        <member name="M:ZhonTai.Admin.Core.Db.Transaction.TransactionAsyncInterceptor.InterceptAsynchronous``1(Castle.DynamicProxy.IInvocation)">
             <summary>
             拦截返回结果
             </summary>
@@ -1510,56 +1515,6 @@
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Id">
-            <summary>
-            接口Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.ParentId">
-            <summary>
-            父级Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Name">
-            <summary>
-            接口命名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Label">
-            <summary>
-            接口名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Path">
-            <summary>
-            接口地址
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.HttpMethods">
-            <summary>
-            接口提交方法
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Api.Dto.ApiGetPageDto.Label">
             <summary>
             接口名称
@@ -1606,46 +1561,6 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput">
-            <summary>
-            数据字典类型导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Id">
-            <summary>
-            字典类型Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Name">
-            <summary>
-            字典名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Code">
-            <summary>
-            字典编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeDataOutput.Sort">
             <summary>
             排序
             </summary>
@@ -1701,56 +1616,6 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput">
-            <summary>
-            数据字典导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Id">
-            <summary>
-            字典Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.DictionaryTypeId">
-            <summary>
-            字典类型Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Name">
-            <summary>
-            字典名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Code">
-            <summary>
-            字典编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Value">
-            <summary>
-            字典值
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryDataOutput.Sort">
             <summary>
             排序
             </summary>
@@ -1968,76 +1833,6 @@
         <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput.Version">
             <summary>
             版本
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput">
-            <summary>
-            员工数据导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Id">
-            <summary>
-            员工Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.UserId">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.JobNumber">
-            <summary>
-            工号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.OrganizationId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.PrimaryEmployeeId">
-            <summary>
-            主管Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Position">
-            <summary>
-            职位
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Phone">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.Email">
-            <summary>
-            邮箱
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeDataOutput.HireDate">
-            <summary>
-            入职时间
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeGetOutput.OrganizationName">
@@ -2260,56 +2055,6 @@
             排序
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput">
-            <summary>
-            组织机构导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Id">
-            <summary>
-            组织机构Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.ParentId">
-            <summary>
-            上级组织机构
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Value">
-            <summary>
-            值
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.Output.OrganizationDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.PermissionApi.PermissionApiEntity">
             <summary>
             权限接口
@@ -2333,96 +2078,6 @@
         <member name="P:ZhonTai.Admin.Domain.PermissionApi.PermissionApiEntity.Api">
             <summary>
             接口
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Id">
-            <summary>
-            权限Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.ParentId">
-            <summary>
-            父级节点
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Label">
-            <summary>
-            权限名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Code">
-            <summary>
-            权限编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Type">
-            <summary>
-            权限类型
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.ViewId">
-            <summary>
-            视图
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Path">
-            <summary>
-            访问地址
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Icon">
-            <summary>
-            图标
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.ApiPath">
-            <summary>
-            接口路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Closable">
-            <summary>
-            可关闭
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Opened">
-            <summary>
-            组打开
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.NewWindow">
-            <summary>
-            打开新窗口
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.External">
-            <summary>
-            链接外显
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Hidden">
-            <summary>
-            隐藏
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.Dto.PermissionDataOutput.Description">
-            <summary>
-            描述
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Permission.PermissionEntity">
@@ -2548,46 +2203,6 @@
         <member name="P:ZhonTai.Admin.Domain.RolePermission.RolePermissionEntity.Permission">
             <summary>
             权限
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput">
-            <summary>
-            角色导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Id">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Description">
-            <summary>
-            说明
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleDataOutput.Sort">
-            <summary>
-            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput.Name">
@@ -2810,51 +2425,6 @@
             角色Id
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.User.Dto.UserDataOutput">
-            <summary>
-            用户导出
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Id">
-            <summary>
-            用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Password">
-            <summary>
-            密码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Avatar">
-            <summary>
-            头像
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Status">
-            <summary>
-            状态
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.UserDataOutput.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
             <summary>
             用户
@@ -2973,46 +2543,6 @@
         <member name="P:ZhonTai.Admin.Domain.User.EmployeeUpdateInput.Version">
             <summary>
             版本
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Id">
-            <summary>
-            视图Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.ParentId">
-            <summary>
-            视图父级
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Name">
-            <summary>
-            视图命名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Label">
-            <summary>
-            视图名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Path">
-            <summary>
-            视图路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewDataOutput.Description">
-            <summary>
-            说明
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewGetPageDto.Label">
@@ -5307,6 +4837,13 @@
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.RemoveRoleUserAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
             <summary>
             移除角色用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddInput)">
+            <summary>
+            添加
             </summary>
             <param name="input"></param>
             <returns></returns>

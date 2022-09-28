@@ -1,6 +1,6 @@
 ﻿using Castle.DynamicProxy;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Transaction;
 
 public class TransactionInterceptor : IInterceptor
 {

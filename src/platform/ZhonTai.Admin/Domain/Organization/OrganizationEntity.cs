@@ -23,9 +23,6 @@ public partial class OrganizationEntity : EntityFull, ITenant
     /// </summary>
 	public long ParentId { get; set; }
 
-    [Navigate(nameof(ParentId))]
-    public List<OrganizationEntity> Childs { get; set; }
-
     /// <summary>
     /// 名称
     /// </summary>
@@ -67,4 +64,7 @@ public partial class OrganizationEntity : EntityFull, ITenant
 
     [Navigate(ManyToMany = typeof(EmployeeOrganizationEntity))]
     public ICollection<EmployeeEntity> Employees { get; set; }
+
+    [Navigate(nameof(ParentId))]
+    public List<OrganizationEntity> Childs { get; set; }
 }

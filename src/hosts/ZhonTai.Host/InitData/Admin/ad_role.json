@@ -1,16 +1,38 @@
 [
   {
     "id": 161223412080709,
-    "name": "管理员",
+    "parentId": 336557474730053,
+    "name": "主管理员",
     "code": "admin",
     "description": "",
-    "enabled": true
+    "version": 2
+  },
+  {
+    "id": 162083448594501,
+    "name": "管理员",
+    "code": "admin"
   },
   {
     "id": 162605510979653,
+    "parentId": 336557578817605,
     "name": "普通员工",
     "code": "emp",
     "description": "",
-    "enabled": true
+    "version": 1
+  },
+  {
+    "id": 336557474730053,
+    "name": "系统默认",
+    "sort": 1
+  },
+  {
+    "id": 336557508276293,
+    "name": "职务",
+    "sort": 2
+  },
+  {
+    "id": 336557578817605,
+    "name": "岗位",
+    "sort": 3
   }
 ]

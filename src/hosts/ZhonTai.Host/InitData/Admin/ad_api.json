@@ -1,7 +1,6 @@
 [
   {
     "id": 161227167658053,
-    "parentId": 0,
     "label": "接口服务",
     "path": "api",
     "description": "",
@@ -15,7 +14,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168116805,
@@ -25,7 +25,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168116806,
@@ -35,7 +36,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168120901,
@@ -45,7 +47,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168120902,
@@ -55,7 +58,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168120903,
@@ -65,7 +69,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168124997,
@@ -75,7 +80,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168124998,
@@ -85,7 +91,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651914309,
@@ -95,27 +102,19 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719493,
-    "parentId": 0,
     "label": "认证授权服务",
     "path": "auth",
     "description": "",
     "enabled": true,
     "childs": [
-      {
-        "id": 161227168129093,
-        "parentId": 161227167719493,
-        "label": "获取验证码",
-        "path": "/api/admin/auth/get-verify-code",
-        "httpMethods": "get",
-        "description": "",
-        "childs": []
-      },
       {
         "id": 161227168129094,
         "parentId": 161227167719493,
@@ -124,16 +123,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
-      },
-      {
-        "id": 161227168129095,
-        "parentId": 161227167719493,
-        "label": "查询用户信息",
-        "path": "/api/admin/auth/get-userinfo",
-        "httpMethods": "get",
-        "description": "",
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168133189,
@@ -143,7 +134,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168133190,
@@ -153,7 +145,8 @@
         "httpMethods": "get",
         "description": "以旧换新",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651922501,
@@ -163,7 +156,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651922502,
@@ -173,7 +167,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651922503,
@@ -183,13 +178,14 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719494,
-    "parentId": 0,
     "label": "数据字典服务",
     "path": "dictionary",
     "description": "",
@@ -203,7 +199,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168137286,
@@ -213,7 +210,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168137287,
@@ -223,7 +221,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168141381,
@@ -233,7 +232,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168141382,
@@ -243,7 +243,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 184100551516229,
@@ -253,7 +254,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651922504,
@@ -263,13 +265,14 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719495,
-    "parentId": 0,
     "label": "权限服务",
     "path": "permission",
     "description": "",
@@ -283,7 +286,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168145477,
@@ -293,7 +297,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168145478,
@@ -303,7 +308,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168149573,
@@ -313,7 +319,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168149574,
@@ -323,7 +330,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168149575,
@@ -333,7 +341,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168153669,
@@ -343,7 +352,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168153670,
@@ -353,7 +363,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168153671,
@@ -363,7 +374,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168157765,
@@ -373,7 +385,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168157766,
@@ -383,7 +396,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168161861,
@@ -393,7 +407,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168161862,
@@ -403,7 +418,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168165957,
@@ -413,7 +429,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168165958,
@@ -423,7 +440,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168165959,
@@ -433,7 +451,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168170053,
@@ -443,7 +462,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 170317848645701,
@@ -453,7 +473,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 170317848662085,
@@ -463,7 +484,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 187384805367877,
@@ -473,7 +495,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926603,
@@ -483,13 +506,14 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719496,
-    "parentId": 0,
     "label": "角色服务",
     "path": "role",
     "description": "",
@@ -503,7 +527,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168170055,
@@ -513,17 +538,19 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168174149,
         "parentId": 161227167719496,
-        "label": "新增",
+        "label": "添加",
         "path": "/api/admin/role/add",
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168178245,
@@ -533,7 +560,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168178246,
@@ -543,7 +571,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168182341,
@@ -553,7 +582,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926604,
@@ -563,13 +593,69 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241422917,
+        "parentId": 161227167719496,
+        "label": "查询角色列表",
+        "path": "/api/admin/role/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241422918,
+        "parentId": 161227167719496,
+        "label": "查询角色用户列表",
+        "path": "/api/admin/role/get-role-user-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241422919,
+        "parentId": 161227167719496,
+        "label": "新增角色用户",
+        "path": "/api/admin/role/add-role-user",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241422920,
+        "parentId": 161227167719496,
+        "label": "移除角色用户",
+        "path": "/api/admin/role/remove-role-user",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241422921,
+        "parentId": 161227167719496,
+        "label": "批量彻底删除",
+        "path": "/api/admin/role/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719497,
-    "parentId": 0,
     "label": "用户服务",
     "path": "user",
     "description": "",
@@ -583,7 +669,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168182343,
@@ -593,7 +680,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168186437,
@@ -603,7 +691,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168186438,
@@ -613,7 +702,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168190533,
@@ -623,7 +713,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168190534,
@@ -633,7 +724,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168190535,
@@ -643,7 +735,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168194629,
@@ -653,7 +746,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168194630,
@@ -663,7 +757,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168194631,
@@ -673,17 +768,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
-      },
-      {
-        "id": 189095453691973,
-        "parentId": 161227167719497,
-        "label": "查询下拉数据",
-        "path": "/api/admin/user/get-select",
-        "httpMethods": "get",
-        "description": "",
-        "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926605,
@@ -693,7 +779,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926606,
@@ -703,7 +790,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926607,
@@ -713,13 +801,25 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427019,
+        "parentId": 161227167719497,
+        "label": "批量彻底删除用户",
+        "path": "/api/admin/user/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167719498,
-    "parentId": 0,
     "label": "视图服务",
     "path": "view",
     "description": "",
@@ -733,7 +833,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168198726,
@@ -743,16 +844,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
-      },
-      {
-        "id": 161227168202821,
-        "parentId": 161227167719498,
-        "label": "查询分页视图",
-        "path": "/api/admin/view/get-page",
-        "httpMethods": "post",
-        "description": "",
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168202822,
@@ -762,7 +855,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168202823,
@@ -772,7 +866,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168206917,
@@ -782,7 +877,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168206918,
@@ -792,7 +888,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168206919,
@@ -802,7 +899,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926608,
@@ -812,13 +910,14 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167723589,
-    "parentId": 0,
     "label": "缓存服务",
     "path": "cache",
     "description": "",
@@ -832,7 +931,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168211014,
@@ -842,13 +942,14 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167723590,
-    "parentId": 0,
     "label": "登录日志服务",
     "path": "login-log",
     "description": "",
@@ -862,7 +963,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926601,
@@ -872,13 +974,14 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167723591,
-    "parentId": 0,
     "label": "操作日志服务",
     "path": "opration-log",
     "description": "",
@@ -892,7 +995,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926602,
@@ -902,13 +1006,14 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167723592,
-    "parentId": 0,
     "label": "文档服务",
     "path": "document",
     "description": "",
@@ -922,7 +1027,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168219205,
@@ -932,7 +1038,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168219206,
@@ -942,7 +1049,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168223301,
@@ -952,7 +1060,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168223302,
@@ -962,7 +1071,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168227397,
@@ -972,7 +1082,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168227398,
@@ -982,7 +1093,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168231493,
@@ -992,7 +1104,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168231494,
@@ -1002,7 +1115,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168235589,
@@ -1012,7 +1126,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168235590,
@@ -1022,7 +1137,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168235591,
@@ -1032,7 +1148,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168239685,
@@ -1042,7 +1159,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168239686,
@@ -1052,7 +1170,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926598,
@@ -1062,7 +1181,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926599,
@@ -1072,7 +1192,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926600,
@@ -1082,13 +1203,14 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 161227167723593,
-    "parentId": 0,
     "label": "租户服务",
     "path": "tenant",
     "description": "",
@@ -1102,7 +1224,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168243782,
@@ -1112,7 +1235,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168243783,
@@ -1122,7 +1246,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168247877,
@@ -1132,7 +1257,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168247878,
@@ -1142,7 +1268,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 161227168251973,
@@ -1152,7 +1279,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 163579785756741,
@@ -1162,13 +1290,14 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 174219034701893,
-    "parentId": 0,
     "label": "员工管理",
     "path": "employee",
     "description": "",
@@ -1182,7 +1311,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734667,
@@ -1192,7 +1322,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734668,
@@ -1202,7 +1333,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734669,
@@ -1212,7 +1344,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734670,
@@ -1222,7 +1355,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734671,
@@ -1232,13 +1366,14 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 174219034718277,
-    "parentId": 0,
     "label": "组织架构",
     "path": "organization",
     "description": "",
@@ -1252,7 +1387,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734674,
@@ -1262,7 +1398,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034738757,
@@ -1272,7 +1409,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034738758,
@@ -1282,7 +1420,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 188049296683077,
@@ -1292,13 +1431,14 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
   },
   {
     "id": 174219034718279,
-    "parentId": 0,
     "label": "字典类型服务",
     "path": "dictionary-type",
     "description": "",
@@ -1312,7 +1452,8 @@
         "httpMethods": "get",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734662,
@@ -1322,7 +1463,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734663,
@@ -1332,7 +1474,8 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734664,
@@ -1342,7 +1485,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 174219034734665,
@@ -1352,7 +1496,8 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 184100551532613,
@@ -1362,7 +1507,8 @@
         "httpMethods": "put",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       },
       {
         "id": 271618651926597,
@@ -1372,8 +1518,107 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "version": 2
       }
-    ]
+    ],
+    "version": 2
+  },
+  {
+    "id": 336555241189445,
+    "label": "任务日志服务",
+    "path": "task-log",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 336555241427018,
+        "parentId": 336555241189445,
+        "label": "查询任务日志列表",
+        "path": "/api/admin/task-log/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      }
+    ],
+    "version": 2
+  },
+  {
+    "id": 336555241193541,
+    "label": "任务服务",
+    "path": "task",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 336555241422922,
+        "parentId": 336555241193541,
+        "label": "查询任务",
+        "path": "/api/admin/task/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427013,
+        "parentId": 336555241193541,
+        "label": "查询任务列表",
+        "path": "/api/admin/task/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427014,
+        "parentId": 336555241193541,
+        "label": "新增",
+        "path": "/api/admin/task/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427015,
+        "parentId": 336555241193541,
+        "label": "修改",
+        "path": "/api/admin/task/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427016,
+        "parentId": 336555241193541,
+        "label": "彻底删除",
+        "path": "/api/admin/task/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336555241427017,
+        "parentId": 336555241193541,
+        "label": "批量彻底删除",
+        "path": "/api/admin/task/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": [],
+        "version": 2
+      }
+    ],
+    "version": 2
   }
 ]

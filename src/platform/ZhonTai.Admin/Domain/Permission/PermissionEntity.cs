@@ -19,9 +19,6 @@ public partial class PermissionEntity : EntityFull
     /// </summary>
     public long ParentId { get; set; }
 
-    [Navigate(nameof(ParentId))]
-    public List<PermissionEntity> Childs { get; set; }
-
     /// <summary>
     /// 权限名称
     /// </summary>
@@ -102,4 +99,7 @@ public partial class PermissionEntity : EntityFull
 
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<ApiEntity> Apis { get; set; }
+
+    [Navigate(nameof(ParentId))]
+    public List<PermissionEntity> Childs { get; set; }
 }

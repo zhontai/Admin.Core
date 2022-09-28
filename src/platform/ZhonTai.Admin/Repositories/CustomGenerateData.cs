@@ -4,17 +4,10 @@ using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain.DictionaryType;
 using ZhonTai.Admin.Domain.Dictionary;
-using ZhonTai.Admin.Domain.DictionaryType.Dto;
-using ZhonTai.Admin.Domain.Dictionary.Dto;
 using ZhonTai.Admin.Domain.Api;
-using ZhonTai.Admin.Domain.Api.Dto;
-using ZhonTai.Admin.Domain.View.Dto;
-using ZhonTai.Admin.Domain.Permission.Dto;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
-using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
@@ -23,10 +16,10 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Domain.Organization.Output;
 using ZhonTai.Admin.Domain.Employee;
 using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Employee.Output;
+using ZhonTai.Admin.Core.Db.Data;
+using FreeSql;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -39,14 +32,38 @@ public class CustomGenerateData : GenerateData, IGenerateData
         //admin
         #region 数据字典
 
-        var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync<DictionaryTypeDataOutput>();
-        var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync<DictionaryDataOutput>();
+        var dictionaryTypes = db.Queryable<DictionaryTypeEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
 
+        var dictionaries = db.Queryable<DictionaryEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
         #endregion
 
         #region 接口
 
-        var apis = await db.Queryable<ApiEntity>().ToListAsync<ApiDataOutput>();
+        var apis = db.Queryable<ApiEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
         var apiTree = apis.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -57,7 +74,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<ApiDataOutput>();
+            r.Childs ??= new List<ApiEntity>();
             r.Childs.AddRange(datalist);
         });
 
@@ -65,7 +82,15 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 视图
 
-        var views = await db.Queryable<ViewEntity>().ToListAsync<ViewDataOutput>();
+        var views = db.Queryable<ViewEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
         var viewTree = views.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -76,7 +101,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
        },
        (r, datalist) =>
        {
-           r.Childs ??= new List<ViewDataOutput>();
+           r.Childs ??= new List<ViewEntity>();
            r.Childs.AddRange(datalist);
        });
 
@@ -84,7 +109,15 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 权限
 
-        var permissions = await db.Queryable<PermissionEntity>().ToListAsync<PermissionDataOutput>();
+        var permissions = db.Queryable<PermissionEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
         var permissionTree = permissions.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -95,7 +128,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
        },
        (r, datalist) =>
        {
-           r.Childs ??= new List<PermissionDataOutput>();
+           r.Childs ??= new List<PermissionEntity>();
            r.Childs.AddRange(datalist);
        });
 
@@ -103,13 +136,29 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 用户
 
-        var users = await db.Queryable<UserEntity>().ToListAsync<UserDataOutput>();
+        var users = db.Queryable<UserEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
 
         #endregion
 
         #region 角色
 
-        var roles = await db.Queryable<RoleEntity>().ToListAsync<RoleDataOutput>();
+        var roles = db.Queryable<RoleEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
 
         #endregion
 
@@ -137,22 +186,14 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 租户
 
-        var tenants = await db.Queryable<TenantEntity>().ToListAsync(a => new
+        var tenants = db.Queryable<TenantEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.UserId,
-            a.RoleId,
-            a.Name,
-            a.Code,
-            a.RealName,
-            a.Phone,
-            a.Email,
-            a.TenantType,
-            a.DataIsolationType,
-            a.DbType,
-            a.ConnectionString,
-            a.IdleTime,
-            a.Description
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
         });
 
         #endregion
@@ -180,7 +221,15 @@ public class CustomGenerateData : GenerateData, IGenerateData
         //人事
         #region 部门
 
-        var organizations = await db.Queryable<OrganizationEntity>().ToListAsync<OrganizationDataOutput>();
+        var organizations = db.Queryable<OrganizationEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
         var organizationTree = organizations.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -191,7 +240,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<OrganizationDataOutput>();
+            r.Childs ??= new List<OrganizationEntity>();
             r.Childs.AddRange(datalist);
         });
 
@@ -199,7 +248,15 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 员工
 
-        var employees = await db.Queryable<EmployeeEntity>().ToListAsync<EmployeeDataOutput>();
+        var employees = db.Queryable<EmployeeEntity>().ToListIgnore(a => new
+        {
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
+        });
 
         #endregion
 
@@ -234,7 +291,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             },
             (r, datalist) =>
             {
-                r.Childs ??= new List<OrganizationDataOutput>();
+                r.Childs ??= new List<OrganizationEntity>();
                 r.Childs.AddRange(datalist);
             });
             SaveDataToJsonFile<OrganizationEntity>(organizationTree);

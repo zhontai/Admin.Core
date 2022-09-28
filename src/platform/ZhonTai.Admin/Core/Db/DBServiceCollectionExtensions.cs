@@ -9,6 +9,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -24,7 +25,7 @@ public static class DBServiceCollectionExtensions
     /// <returns></returns>
     public static void AddMasterDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
     {
-        freeSqlCloud.Register("master", () =>
+        freeSqlCloud.Register(DbKeys.MasterDbKey, () =>
         {
             var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
 

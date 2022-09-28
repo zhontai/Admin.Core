@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using ZhonTai.Admin.Core.Repositories;
-using ZhonTai.Admin.Core.Db;
 
 public static class FreeSqlDbContextExtensions
 {
@@ -28,10 +27,5 @@ public static class FreeSqlDbContextExtensions
     public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class, new()
     {
         return new DefaultRepositoryBase<TEntity, long>(that, filter);
-    }
-
-    public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that, DbUnitOfWorkManager muowManger) where TEntity : class, new()
-    {
-        return new DefaultRepositoryBase<TEntity, long>(that, muowManger);
     }
 }

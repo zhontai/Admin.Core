@@ -1,9 +1,9 @@
 [
   {
     "id": 161227168313413,
-    "parentId": 0,
     "label": "平台管理",
     "enabled": true,
+    "cache": true,
     "childs": [
       {
         "id": 161227168428101,
@@ -12,13 +12,16 @@
         "label": "首页",
         "path": "admin/home",
         "enabled": true,
-        "childs": []
+        "cache": true,
+        "childs": [],
+        "version": 1
       },
       {
         "id": 161227168432197,
         "parentId": 161227168313413,
         "label": "系统配置",
         "enabled": true,
+        "cache": true,
         "childs": [
           {
             "id": 187053736300613,
@@ -26,8 +29,10 @@
             "name": "Dictionary",
             "label": "数据字典",
             "path": "admin/dictionary/index",
+            "description": "数据字典",
             "enabled": true,
-            "description": "数据字典"
+            "cache": true,
+            "version": 1
           }
         ]
       },
@@ -36,6 +41,7 @@
         "parentId": 161227168313413,
         "label": "个人管理",
         "enabled": true,
+        "cache": true,
         "childs": [
           {
             "id": 161227168436293,
@@ -43,7 +49,9 @@
             "name": "Settins",
             "label": "个人设置",
             "path": "account/settings",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           }
         ]
       },
@@ -51,34 +59,31 @@
         "id": 161227168436294,
         "parentId": 161227168313413,
         "label": "权限管理",
-        "enabled": true,
         "description": "",
+        "enabled": true,
+        "cache": true,
         "childs": [
           {
             "id": 161227168436295,
             "parentId": 161227168436294,
             "name": "User",
             "label": "用户管理",
-            "path": "admin/user",
-            "enabled": true
-          },
-          {
-            "id": 174312361087045,
-            "parentId": 161227168436294,
-            "name": "Organization",
-            "label": "部门管理",
-            "path": "admin/organization",
-            "enabled": true,
+            "path": "admin/user/index",
             "description": "",
-            "childs": []
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168440389,
             "parentId": 161227168436294,
             "name": "Role",
             "label": "角色管理",
-            "path": "admin/role",
-            "enabled": true
+            "path": "admin/role/index",
+            "description": "",
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168440390,
@@ -86,7 +91,9 @@
             "name": "Api",
             "label": "接口管理",
             "path": "admin/api",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168444485,
@@ -94,7 +101,9 @@
             "name": "AdminView",
             "label": "视图管理",
             "path": "admin/view",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168444486,
@@ -102,7 +111,9 @@
             "name": "Permission",
             "label": "权限管理",
             "path": "admin/permission",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168448581,
@@ -110,7 +121,9 @@
             "name": "RolePermission",
             "label": "角色权限",
             "path": "admin/role-permission",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168448582,
@@ -118,7 +131,9 @@
             "name": "Cache",
             "label": "缓存管理",
             "path": "admin/cache",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168448583,
@@ -126,7 +141,20 @@
             "name": "Tenant",
             "label": "租户管理",
             "path": "admin/tenant",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
+          },
+          {
+            "id": 174312361087045,
+            "parentId": 161227168436294,
+            "name": "Organization",
+            "label": "部门管理",
+            "path": "admin/organization",
+            "description": "",
+            "enabled": true,
+            "cache": true,
+            "version": 1
           }
         ]
       },
@@ -134,8 +162,9 @@
         "id": 161227168452677,
         "parentId": 161227168313413,
         "label": "日志管理",
-        "enabled": true,
         "description": "",
+        "enabled": true,
+        "cache": true,
         "childs": [
           {
             "id": 161227168452678,
@@ -143,7 +172,9 @@
             "name": "OprationLog",
             "label": "操作日志",
             "path": "admin/opration-log",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           },
           {
             "id": 161227168456773,
@@ -151,7 +182,9 @@
             "name": "LoginLog",
             "label": "登录日志",
             "path": "admin/login-log",
-            "enabled": true
+            "enabled": true,
+            "cache": true,
+            "version": 1
           }
         ]
       },
@@ -162,7 +195,33 @@
         "label": "文档管理",
         "path": "admin/document",
         "enabled": true,
-        "childs": []
+        "cache": true,
+        "childs": [],
+        "version": 1
+      },
+      {
+        "id": 336556164280389,
+        "parentId": 161227168313413,
+        "name": "Employee",
+        "label": "员工管理",
+        "path": "admin/employee",
+        "description": "",
+        "enabled": true,
+        "cache": true,
+        "childs": [],
+        "version": 2
+      },
+      {
+        "id": 336556164300869,
+        "parentId": 161227168313413,
+        "name": "Task",
+        "label": "任务管理",
+        "path": "admin/task",
+        "description": "",
+        "enabled": true,
+        "cache": true,
+        "childs": [],
+        "version": 2
       }
     ]
   }

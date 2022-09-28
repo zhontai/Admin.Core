@@ -19,9 +19,6 @@ public partial class ApiEntity : EntityFull
     /// </summary>
 	public long ParentId { get; set; }
 
-    [Navigate(nameof(ParentId))]
-    public List<ApiEntity> Childs { get; set; }
-
     /// <summary>
     /// 接口命名
     /// </summary>
@@ -61,6 +58,9 @@ public partial class ApiEntity : EntityFull
     /// 启用
     /// </summary>
     public bool Enabled { get; set; } = true;
+
+    [Navigate(nameof(ParentId))]
+    public List<ApiEntity> Childs { get; set; }
 
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<PermissionEntity> Permissions { get; set; }

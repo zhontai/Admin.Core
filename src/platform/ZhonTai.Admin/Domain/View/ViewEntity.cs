@@ -17,9 +17,6 @@ public partial class ViewEntity : EntityFull
     /// </summary>
 	public long ParentId { get; set; }
 
-    [Navigate(nameof(ParentId))]
-    public List<ViewEntity> Childs { get; set; }
-
     /// <summary>
     /// 视图命名
     /// </summary>
@@ -58,4 +55,7 @@ public partial class ViewEntity : EntityFull
     /// 排序
     /// </summary>
     public int Sort { get; set; }
+
+    [Navigate(nameof(ParentId))]
+    public List<ViewEntity> Childs { get; set; }
 }

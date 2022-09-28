@@ -7,7 +7,7 @@ using System.Reflection;
 using Module = Autofac.Module;
 using Microsoft.Extensions.DependencyModel;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
 

@@ -14,6 +14,7 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Auth;
 using System.IO;
 using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core.Db.Data;
 
 namespace ZhonTai.Admin.Core.Db;
 

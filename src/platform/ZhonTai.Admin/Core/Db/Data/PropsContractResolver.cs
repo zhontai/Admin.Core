@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Data;
 
 public class PropsContractResolver : CamelCasePropertyNamesContractResolver
 {

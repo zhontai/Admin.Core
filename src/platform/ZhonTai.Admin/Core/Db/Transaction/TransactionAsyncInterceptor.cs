@@ -6,7 +6,7 @@ using FreeSql;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 
-namespace ZhonTai.Admin.Core.Db;
+namespace ZhonTai.Admin.Core.Db.Transaction;
 
 public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
