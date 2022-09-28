@@ -42,7 +42,12 @@ public static class DBServiceCollectionExtensions
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
-
+            
+            if (dbConfig.SlaveList?.Length > 0)
+            {
+                freeSqlBuilder.UseSlave(dbConfig.SlaveList);
+            }
+            
             hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
 
             #region 监听所有命令

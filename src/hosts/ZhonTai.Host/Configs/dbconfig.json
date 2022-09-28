@@ -53,7 +53,9 @@
 
   //分布式事务唯一标识
   "distributeKey": "admin",
+
   //读写分离从库列表
   "slaveList": [
+    "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
   ]
 }
