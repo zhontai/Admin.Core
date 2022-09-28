@@ -136,7 +136,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             TenantId = tenantId,
             MainOrgId = org.Id
         };
-        await _organizationRepository.InsertAsync(org);
+        await _employeeRepository.InsertAsync(emp);
 
         //添加用户部门
         var userOrg = new EmployeeOrganizationEntity
