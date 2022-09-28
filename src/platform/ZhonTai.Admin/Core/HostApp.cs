@@ -23,8 +23,8 @@ using System.Reflection;
 using System.Text;
 using Mapster;
 using Yitter.IdGenerator;
-//using FluentValidation;
-//using FluentValidation.AspNetCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Common.Helpers;
@@ -48,6 +48,7 @@ using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
 using FreeSql;
 using ZhonTai.Admin.Core.Db.Transaction;
+using Autofac.Core;
 
 namespace ZhonTai.Admin.Core;
 
@@ -185,11 +186,12 @@ public class HostApp
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
         services.Configure<UploadConfig>(uploadConfig);
 
-        #region Mapster 映射配置
-
+        //程序集
         Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+          .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
+          .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+
+        #region Mapster 映射配置
         services.AddScoped<IMapper>(sp => new Mapper());
         TypeAdapterConfig.GlobalSettings.Scan(assemblies);
 
@@ -437,12 +439,13 @@ public class HostApp
             AppType.MVC => services.AddMvc(controllersAction),
             _ => services.AddControllers(controllersAction)
         };
-        
-        //.AddFluentValidation(config =>
-        //{
-        //    var assembly = Assembly.LoadFrom(Path.Combine(basePath, "ZhonTai.Admin.Host.dll"));
-        //    config.RegisterValidatorsFromAssembly(assembly);
-        //})
+
+        foreach(var assembly in assemblies)
+        {
+            services.AddValidatorsFromAssembly(assembly);
+        }
+        services.AddFluentValidationAutoValidation();
+
         mvcBuilder.AddNewtonsoftJson(options =>
         {
             //忽略循环引用
