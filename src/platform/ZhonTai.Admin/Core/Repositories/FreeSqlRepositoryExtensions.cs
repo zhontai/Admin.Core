@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
-using ZhonTai.Admin.Core.Repositories;
+
+namespace ZhonTai.Admin.Core.Repositories;
 
 public static class FreeSqlDbContextExtensions
 {
