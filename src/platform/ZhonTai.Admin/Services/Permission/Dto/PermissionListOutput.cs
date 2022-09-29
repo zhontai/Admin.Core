@@ -52,10 +52,10 @@ public class PermissionListOutput
     /// <summary>
     /// 隐藏
     /// </summary>
-		public bool Hidden { get; set; }
+	public bool Hidden { get; set; }
 
     /// <summary>
     /// 启用
     /// </summary>
-		public bool Enabled { get; set; }
+	public bool Enabled { get; set; }
 }

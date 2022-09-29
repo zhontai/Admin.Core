@@ -55,7 +55,7 @@ public class TenantAddInput
     /// <summary>
     /// 启用
     /// </summary>
-		public bool Enabled { get; set; }
+	public bool Enabled { get; set; }
 
     /// <summary>
     /// 说明

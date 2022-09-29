@@ -1,6 +1,7 @@
 ﻿using FreeSql;
 using System;
 using System.Data;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Attributes;
 
@@ -23,6 +24,6 @@ public class TransactionAttribute : Attribute
     /// <summary>
     /// 数据库键
     /// </summary>
-    public string DbKey { get; set; }
+    public string DbKey { get; set; } = DbKeys.MasterDbKey;
 
 }

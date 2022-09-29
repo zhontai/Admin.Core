@@ -134,7 +134,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SyncAsync(ViewSyncInput input)
+    public virtual async Task<IResultOutput> SyncAsync(ViewSyncInput input)
     {
         //查询所有视图
         var views = await _viewRepository.Select.ToListAsync();

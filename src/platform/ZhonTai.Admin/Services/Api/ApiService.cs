@@ -160,7 +160,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SyncAsync(ApiSyncInput input)
+    public virtual async Task<IResultOutput> SyncAsync(ApiSyncInput input)
     {
         //查询所有api
         var apis = await _apiRepository.Select.ToListAsync();

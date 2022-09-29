@@ -82,5 +82,5 @@ public partial class UserEntity : EntityFull, ITenant
     /// 员工
     /// </summary>
     [Navigate(nameof(Id))]
-    public StaffEntity Emp { get; set; }
+    public StaffEntity Staff { get; set; }
 }

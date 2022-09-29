@@ -10,7 +10,7 @@ public class ApiListOutput
     /// <summary>
     /// 接口父级
     /// </summary>
-		public long? ParentId { get; set; }
+	public long? ParentId { get; set; }
 
     /// <summary>
     /// 接口命名

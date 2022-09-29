@@ -33,5 +33,5 @@ public class DictionaryAddInput
     /// <summary>
     /// 启用
     /// </summary>
-		public bool Enabled { get; set; }
+	public bool Enabled { get; set; }
 }

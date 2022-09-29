@@ -2509,7 +2509,7 @@
             角色列表
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Emp">
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Staff">
             <summary>
             员工
             </summary>
@@ -5319,7 +5319,7 @@
             状态
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Emp">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Staff">
             <summary>
             员工信息
             </summary>

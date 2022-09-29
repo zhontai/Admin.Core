@@ -195,7 +195,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
         await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
@@ -210,7 +210,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> BatchDeleteAsync(long[] ids)
+    public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
@@ -225,7 +225,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         await _userRoleRepository.DeleteAsync(a => a.RoleId == id);
         await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
@@ -240,7 +240,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));

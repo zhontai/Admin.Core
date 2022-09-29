@@ -260,7 +260,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> AddDotAsync(PermissionAddDotInput input)
+    public virtual async Task<IResultOutput> AddDotAsync(PermissionAddDotInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
         var id = (await _permissionRepository.InsertAsync(entity)).Id;
@@ -334,7 +334,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> UpdateDotAsync(PermissionUpdateDotInput input)
+    public virtual async Task<IResultOutput> UpdateDotAsync(PermissionUpdateDotInput input)
     {
         if (!(input?.Id > 0))
         {
@@ -370,7 +370,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //递归查询所有权限点
         var ids = _permissionRepository.Select
@@ -418,7 +418,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
+    public virtual async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
     {
         //分配权限的时候判断角色是否存在
         var exists = await _roleRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(input.RoleId).AnyAsync();
@@ -479,7 +479,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
+    public virtual async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
     {
         //获得租户db
         var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();

@@ -57,7 +57,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var output = await _userRepository.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
-        .IncludeMany(a => a.Emp.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
+        .IncludeMany(a => a.Staff.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
         .ToOneAsync(a=>new
         {
             a.Id,
@@ -67,11 +67,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
             a.Mobile,
             a.Email,
             a.Roles,
-            Emp = new
+            Staff = new
             {
-                a.Emp.Version,
-                a.Emp.MainOrgId,
-                a.Emp.Orgs
+                a.Staff.Version,
+                a.Staff.Orgs,
+                a.Staff.MainOrgId
             }
         });
 
@@ -87,7 +87,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     public async Task<IResultOutput> GetPageAsync(PageInput<long?> input)
     {
         var list = await _userRepository.Select
-        .WhereIf(input.Filter.HasValue && input.Filter > 0, a=>a.Emp.MainOrgId == input.Filter)
+        .WhereIf(input.Filter.HasValue && input.Filter > 0, a=>a.Staff.MainOrgId == input.Filter)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
@@ -165,7 +165,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> AddAsync(UserAddInput input)
+    public virtual async Task<IResultOutput> AddAsync(UserAddInput input)
     {
         if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
         {
@@ -230,7 +230,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
+    public virtual async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
     {
         var user = await _userRepository.GetAsync(input.Id);
         if (!(user?.Id > 0))
@@ -265,23 +265,23 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var emp = await _staffRepository.GetAsync(user.Id);
-        if(emp == null)
+        var staff = await _staffRepository.GetAsync(user.Id);
+        if(staff == null)
         {
-            emp = new StaffEntity();
+            staff = new StaffEntity();
         }
-        Mapper.Map(input.Emp, emp);
-        emp.Id = user.Id;
+        Mapper.Map(input.Staff, staff);
+        staff.Id = user.Id;
 
-        await _staffRepository.InsertOrUpdateAsync(emp);
+        await _staffRepository.InsertOrUpdateAsync(staff);
 
         //所属部门
-        await _staffOrgRepository.DeleteAsync(a => a.StaffId == emp.Id);
-        if (input.Emp.OrgIds != null && input.Emp.OrgIds.Any())
+        await _staffOrgRepository.DeleteAsync(a => a.StaffId == staff.Id);
+        if (input.Staff.OrgIds != null && input.Staff.OrgIds.Any())
         {
-            var orgs = input.Emp.OrgIds.Select(orgId => new StaffOrgEntity
+            var orgs = input.Staff.OrgIds.Select(orgId => new StaffOrgEntity
             {
-                StaffId = emp.Id,
+                StaffId = staff.Id,
                 OrgId = orgId
             });
             await _staffOrgRepository.InsertAsync(orgs);
@@ -340,7 +340,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除员工所属部门
         await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
@@ -360,7 +360,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> BatchDeleteAsync(long[] ids)
+    public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
         //删除员工所属部门
         await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
@@ -380,7 +380,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
         await _staffRepository.SoftDeleteAsync(a => a.Id == id);
@@ -396,7 +396,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
         await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));

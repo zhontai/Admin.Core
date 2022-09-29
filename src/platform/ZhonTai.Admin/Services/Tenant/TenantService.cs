@@ -98,7 +98,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> AddAsync(TenantAddInput input)
+    public virtual async Task<IResultOutput> AddAsync(TenantAddInput input)
     {
         //添加租户
         var entity = Mapper.Map<TenantEntity>(input);
@@ -199,7 +199,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除角色权限
         await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
@@ -225,7 +225,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         //删除用户
         await _userRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
@@ -245,7 +245,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [Transaction]
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         //删除用户
         await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");

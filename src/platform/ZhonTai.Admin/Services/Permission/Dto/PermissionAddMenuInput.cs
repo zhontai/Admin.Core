@@ -37,7 +37,7 @@ public class PermissionAddMenuInput
     /// <summary>
     /// 隐藏
     /// </summary>
-		public bool Hidden { get; set; }
+	public bool Hidden { get; set; }
 
     ///// <summary>
     ///// 启用
