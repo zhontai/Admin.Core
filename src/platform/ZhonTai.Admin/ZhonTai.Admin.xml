@@ -5179,7 +5179,7 @@
             状态
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Emp">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Staff">
             <summary>
             员工
             </summary>

@@ -421,18 +421,20 @@
             MD5加密
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt16(System.String)">
+        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt16(System.String,System.Boolean)">
             <summary>
             16位MD5加密
             </summary>
             <param name="password"></param>
+            <param name="lowerCase"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt32(System.String)">
+        <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt32(System.String,System.Boolean)">
             <summary>
             32位MD5加密
             </summary>
             <param name="password"></param>
+            <param name="lowerCase"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Common.Helpers.MD5Encrypt.Encrypt64(System.String)">

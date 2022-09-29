@@ -49,5 +49,5 @@ public class UserAddInput
     /// <summary>
     /// 员工
     /// </summary>
-    public StaffAddInput Emp { get; set; }
+    public StaffAddInput Staff { get; set; }
 }

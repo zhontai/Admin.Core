@@ -206,16 +206,16 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var emp = Mapper.Map<StaffEntity>(input.Emp);
-        emp.Id = user.Id;
-        await _staffRepository.InsertAsync(emp);
+        var staff = Mapper.Map<StaffEntity>(input.Staff);
+        staff.Id = user.Id;
+        await _staffRepository.InsertAsync(staff);
 
         //所属部门
-        if (input.Emp.OrgIds != null && input.Emp.OrgIds.Any())
+        if (input.Staff.OrgIds != null && input.Staff.OrgIds.Any())
         {
-            var orgs = input.Emp.OrgIds.Select(orgId => new StaffOrgEntity
+            var orgs = input.Staff.OrgIds.Select(orgId => new StaffOrgEntity
             {
-                StaffId = emp.Id,
+                StaffId = staff.Id,
                 OrgId = orgId
             });
             await _staffOrgRepository.InsertAsync(orgs);
