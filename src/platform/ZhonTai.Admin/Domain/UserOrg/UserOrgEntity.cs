@@ -1,26 +1,26 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Domain;
 
 /// <summary>
-/// 员工所属部门
+/// 用户所属部门
 /// </summary>
-[Table(Name = "ad_staff_org")]
-[Index("idx_{tablename}_01", nameof(StaffId) + "," + nameof(OrgId), true)]
-public partial class StaffOrgEntity : EntityAdd
+[Table(Name = "ad_user_org")]
+[Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(OrgId), true)]
+public partial class UserOrgEntity : EntityAdd
 {
     /// <summary>
-    /// 员工Id
+    /// 用户Id
     /// </summary>
-	public long StaffId { get; set; }
+	public long UserId { get; set; }
 
     /// <summary>
-    /// 员工
+    /// 用户
     /// </summary>
-    public StaffEntity Staff { get; set; }
+    public UserEntity User { get; set; }
 
     /// <summary>
     /// 部门Id

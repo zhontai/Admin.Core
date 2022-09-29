@@ -226,10 +226,10 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 用户部门
 
-        var userOrgs = await db.Queryable<StaffOrgEntity>().ToListAsync(a => new
+        var userOrgs = await db.Queryable<UserOrgEntity>().ToListAsync(a => new
         {
             a.Id,
-            a.StaffId,
+            a.UserId,
             a.OrgId
         });
 
@@ -321,7 +321,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<StaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
-        SaveDataToJsonFile<StaffOrgEntity>(userOrgs);
+        SaveDataToJsonFile<UserOrgEntity>(userOrgs);
         SaveDataToJsonFile<ApiEntity>(apiTree);
         SaveDataToJsonFile<ViewEntity>(viewTree);
         SaveDataToJsonFile<PermissionEntity>(permissionTree);

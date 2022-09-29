@@ -6,6 +6,7 @@ using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Domain.User;
 
@@ -55,6 +56,20 @@ public partial class UserEntity : EntityFull, ITenant
     public string Email { get; set; }
 
     /// <summary>
+    /// 主属部门Id
+    /// </summary>
+    public long MainOrgId { get; set; }
+
+    public OrgEntity MainOrg { get; set; }
+
+    /// <summary>
+    /// 直属主管Id
+    /// </summary>
+    public long? ManagerUserId { get; set; }
+
+    public UserEntity ManagerUser { get; set; }
+
+    /// <summary>
     /// 昵称
     /// </summary>
     [Column(StringLength = 20)]
@@ -77,6 +92,9 @@ public partial class UserEntity : EntityFull, ITenant
     /// </summary>
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<RoleEntity> Roles { get; set; }
+
+    [Navigate(ManyToMany = typeof(UserOrgEntity))]
+    public ICollection<OrgEntity> Orgs { get; set; }
 
     /// <summary>
     /// 员工

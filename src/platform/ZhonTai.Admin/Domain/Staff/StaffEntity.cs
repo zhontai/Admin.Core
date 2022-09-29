@@ -3,7 +3,6 @@ using FreeSql.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Domain.Staff;
 
@@ -18,20 +17,6 @@ public partial class StaffEntity : EntityFull, ITenant
     /// </summary>
     [Column(Position = -10)]
     public long? TenantId { get; set; }
-
-    /// <summary>
-    /// 主属部门Id
-    /// </summary>
-    public long MainOrgId { get; set; }
-
-    public OrgEntity MainOrg { get; set; }
-
-    /// <summary>
-    /// 直属主管Id
-    /// </summary>
-    public long? ManagerUserId { get; set; }
-
-    public UserEntity ManagerUser { get; set; }
 
     /// <summary>
     /// 职位
@@ -55,6 +40,10 @@ public partial class StaffEntity : EntityFull, ITenant
     /// </summary>
     public DateTime? EntryTime { get; set; }
 
-    [Navigate(ManyToMany = typeof(StaffOrgEntity))]
-    public ICollection<OrgEntity> Orgs { get; set; }
+
+    /// <summary>
+    /// 个人简介
+    /// </summary>
+    [Column(StringLength = 500)]
+    public string Introduce { get; set; }
 }

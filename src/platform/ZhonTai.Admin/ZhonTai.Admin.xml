@@ -2144,31 +2144,6 @@
             主管理员
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.StaffOrgEntity">
-            <summary>
-            员工所属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.StaffId">
-            <summary>
-            员工Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.Staff">
-            <summary>
-            员工
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.OrgId">
-            <summary>
-            部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.Org">
-            <summary>
-            部门
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput">
             <summary>
             添加
@@ -2304,16 +2279,6 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.MainOrgId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.ManagerUserId">
-            <summary>
-            直属主管Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.Position">
             <summary>
             职位
@@ -2332,6 +2297,11 @@
         <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.EntryTime">
             <summary>
             入职时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.Introduce">
+            <summary>
+            个人简介
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
@@ -2454,6 +2424,31 @@
             说明
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.UserOrgEntity">
+            <summary>
+            用户所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.Org">
+            <summary>
+            部门
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.UserRole.UserRoleEntity">
             <summary>
             用户角色
@@ -2502,6 +2497,16 @@
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Email">
             <summary>
             邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.MainOrgId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.ManagerUserId">
+            <summary>
+            直属主管Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.NickName">
@@ -2559,14 +2564,29 @@
             员工添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.MainOrgId">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.JobNumber">
             <summary>
-            主属部门Id
+            工号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.OrgIds">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.Position">
             <summary>
-            所属部门
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.EntryTime">
+            <summary>
+            入职时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.Introduce">
+            <summary>
+            个人简介
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.User.StaffUpdateInput">
@@ -5194,6 +5214,16 @@
             角色
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.OrgIds">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.MainOrgId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
             <summary>
             状态
@@ -5337,6 +5367,16 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Roles">
             <summary>
             角色
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgIds">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.MainOrgId">
+            <summary>
+            主属部门Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Status">

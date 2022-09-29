@@ -62,7 +62,7 @@ public partial class OrgEntity : EntityFull, ITenant
     /// </summary>
 	public int Sort { get; set; }
 
-    [Navigate(ManyToMany = typeof(StaffOrgEntity))]
+    [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<StaffEntity> Staffs { get; set; }
 
     [Navigate(nameof(ParentId))]

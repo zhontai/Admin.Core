@@ -4,7 +4,8 @@
     "userName": "admin",
     "password": "96E79218965EB72C92A549DD5A330112",
     "name": "管理员",
-    "mobile": "13122223333"
+    "mobile": "13122223333",
+    "mainOrgId": 189097691009093
   },
   {
     "id": 162083448746053,
@@ -17,6 +18,7 @@
     "userName": "user",
     "password": "96E79218965EB72C92A549DD5A330112",
     "name": "员工",
-    "mobile": "13155556666"
+    "mobile": "13155556666",
+    "mainOrgId": 189097750675525
   }
 ]

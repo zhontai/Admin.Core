@@ -41,7 +41,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
     private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
-    private IRepositoryBase<StaffOrgEntity> _staffOrgRepository => LazyGetRequiredService<IRepositoryBase<StaffOrgEntity>>();
+    private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
 
     public UserService()
     {
@@ -57,7 +57,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var output = await _userRepository.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
-        .IncludeMany(a => a.Staff.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
+        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
         .ToOneAsync(a=>new
         {
             a.Id,
@@ -67,11 +67,15 @@ public class UserService : BaseService, IUserService, IDynamicApi
             a.Mobile,
             a.Email,
             a.Roles,
+            a.Orgs,
+            a.MainOrgId,
             Staff = new
             {
-                a.Staff.Version,
-                a.Staff.Orgs,
-                a.Staff.MainOrgId
+                a.Staff.JobNumber,
+                a.Staff.Sex,
+                a.Staff.Position,
+                a.Staff.Introduce,
+                a.Staff.Version
             }
         });
 
@@ -88,7 +92,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     {
         var orgId = input.Filter;
         var list = await _userRepository.Select
-        .WhereIf(orgId.HasValue && orgId > 0, a => _staffOrgRepository.Where(b => b.StaffId == a.Id && b.OrgId == orgId).Any())
+        .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
@@ -205,27 +209,29 @@ public class UserService : BaseService, IUserService, IDynamicApi
             return ResultOutput.NotOk("新增用户失败");
         }
 
+        var userId = user.Id;
+
         //用户角色
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = user.Id, RoleId = roleId }).ToList();
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = userId, RoleId = roleId }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
         // 员工信息
         var staff = Mapper.Map<StaffEntity>(input.Staff);
-        staff.Id = user.Id;
+        staff.Id = userId;
         await _staffRepository.InsertAsync(staff);
 
         //所属部门
-        if (input.Staff.OrgIds != null && input.Staff.OrgIds.Any())
+        if (input.OrgIds != null && input.OrgIds.Any())
         {
-            var orgs = input.Staff.OrgIds.Select(orgId => new StaffOrgEntity
+            var orgs = input.OrgIds.Select(orgId => new UserOrgEntity
             {
-                StaffId = staff.Id,
+                UserId = userId,
                 OrgId = orgId
             }).ToList();
-            await _staffOrgRepository.InsertAsync(orgs);
+            await _userOrgRepository.InsertAsync(orgs);
         }
 
         return ResultOutput.Ok();
@@ -263,34 +269,36 @@ public class UserService : BaseService, IUserService, IDynamicApi
         Mapper.Map(input, user);
         await _userRepository.UpdateAsync(user);
 
+        var userId = user.Id;
+
         // 用户角色
-        await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
+        await _userRoleRepository.DeleteAsync(a => a.UserId == userId);
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = user.Id, RoleId = roleId }).ToList();
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = userId, RoleId = roleId }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
         // 员工信息
-        var staff = await _staffRepository.GetAsync(user.Id);
+        var staff = await _staffRepository.GetAsync(userId);
         if(staff == null)
         {
             staff = new StaffEntity();
         }
         Mapper.Map(input.Staff, staff);
-        staff.Id = user.Id;
+        staff.Id = userId;
         await _staffRepository.InsertOrUpdateAsync(staff);
 
         //所属部门
-        await _staffOrgRepository.DeleteAsync(a => a.StaffId == staff.Id);
-        if (input.Staff.OrgIds != null && input.Staff.OrgIds.Any())
+        await _userOrgRepository.DeleteAsync(a => a.UserId == userId);
+        if (input.OrgIds != null && input.OrgIds.Any())
         {
-            var orgs = input.Staff.OrgIds.Select(orgId => new StaffOrgEntity
+            var orgs = input.OrgIds.Select(orgId => new UserOrgEntity
             {
-                StaffId = staff.Id,
+                UserId = userId,
                 OrgId = orgId
             }).ToList();
-            await _staffOrgRepository.InsertAsync(orgs);
+            await _userOrgRepository.InsertAsync(orgs);
         }
 
         return ResultOutput.Ok();
@@ -348,12 +356,12 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
-        //删除员工所属部门
-        await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
         //删除员工
         await _staffRepository.DeleteAsync(a => a.Id == id);
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        //删除员工所属部门
+        await _userOrgRepository.DeleteAsync(a => a.UserId == id);
         //删除用户
         await _userRepository.DeleteAsync(a => a.Id == id);
 
@@ -368,12 +376,12 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
-        //删除员工所属部门
-        await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
         //删除员工
         await _staffRepository.DeleteAsync(a => ids.Contains(a.Id));
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        //删除员工所属部门
+        await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
         //删除用户
         await _userRepository.DeleteAsync(a => ids.Contains(a.Id));
 
@@ -388,9 +396,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
-        await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
         await _staffRepository.SoftDeleteAsync(a => a.Id == id);
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        await _userOrgRepository.DeleteAsync(a => a.UserId == id);
         await _userRepository.SoftDeleteAsync(id);
 
         return ResultOutput.Ok();
@@ -404,9 +412,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
-        await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
         await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
         await _userRepository.SoftDeleteAsync(ids);
 
         return ResultOutput.Ok();

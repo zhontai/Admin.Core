@@ -35,7 +35,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
     private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
-    private IRepositoryBase<StaffOrgEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<StaffOrgEntity>>();
+    private IRepositoryBase<UserOrgEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
@@ -129,19 +129,20 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         };
         await _userRepository.InsertAsync(user);
 
+        var userId = user.Id;
+
         //添加员工
         var emp = new StaffEntity
         {
-            Id = user.Id,
-            TenantId = tenantId,
-            MainOrgId = org.Id
+            Id = userId,
+            TenantId = tenantId
         };
         await _staffRepository.InsertAsync(emp);
 
         //添加用户部门
-        var userOrg = new StaffOrgEntity
+        var userOrg = new UserOrgEntity
         {
-            StaffId = user.Id,
+            UserId = userId,
             OrgId = org.Id
         };
         await _empOrgRepository.InsertAsync(userOrg);
@@ -157,13 +158,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         //添加用户角色
         var userRole = new UserRoleEntity() 
         { 
-            UserId = user.Id, 
+            UserId = userId, 
             RoleId = role.Id 
         };
         await _userRoleRepository.InsertAsync(userRole);
 
         //更新租户的用户和角色
-        tenant.UserId = user.Id;
+        tenant.UserId = userId;
         tenant.RoleId = role.Id;
         await _tenantRepository.UpdateAsync(tenant);
 

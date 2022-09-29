@@ -58,7 +58,7 @@ public class CustomSyncData : SyncData, ISyncData
             var userRoles = GetData<UserRoleEntity>();
             await InitDataAsync(db, uow, tran, userRoles, dbConfig);
 
-            var userOrgs = GetData<StaffOrgEntity>();
+            var userOrgs = GetData<UserOrgEntity>();
             await InitDataAsync(db, uow, tran, userOrgs, dbConfig);
 
             var rolePermissions = GetData<RolePermissionEntity>();
