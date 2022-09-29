@@ -5,7 +5,7 @@ using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Domain.Staff;
 
 namespace ZhonTai.Admin.Domain.User;
 
@@ -82,5 +82,5 @@ public partial class UserEntity : EntityFull, ITenant
     /// 员工
     /// </summary>
     [Navigate(nameof(Id))]
-    public EmployeeEntity Emp { get; set; }
+    public StaffEntity Emp { get; set; }
 }

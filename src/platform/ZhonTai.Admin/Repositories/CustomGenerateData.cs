@@ -16,8 +16,8 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Domain.Employee;
-using ZhonTai.Admin.Domain.Organization;
+using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
 using ZhonTai.Admin.Domain;
@@ -157,7 +157,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 员工
 
-        var employees = db.Queryable<EmployeeEntity>().ToListIgnore(a => new
+        var staffs = db.Queryable<StaffEntity>().ToListIgnore(a => new
         {
             a.CreatedTime,
             a.CreatedUserId,
@@ -172,7 +172,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 部门
 
-        var organizations = db.Queryable<OrganizationEntity>().ToListIgnore(a => new
+        var orgs = db.Queryable<OrgEntity>().ToListIgnore(a => new
         {
             a.CreatedTime,
             a.CreatedUserId,
@@ -182,7 +182,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.ModifiedUserName,
             a.Version
         });
-        var organizationTree = organizations.Clone().ToTree((r, c) =>
+        var orgTree = orgs.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
         },
@@ -192,7 +192,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<OrganizationEntity>();
+            r.Childs ??= new List<OrgEntity>();
             r.Childs.AddRange(datalist);
         });
 
@@ -226,11 +226,11 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 用户部门
 
-        var userOrgs = await db.Queryable<EmployeeOrganizationEntity>().ToListAsync(a => new
+        var userOrgs = await db.Queryable<StaffOrgEntity>().ToListAsync(a => new
         {
             a.Id,
-            a.EmployeeId,
-            a.OrganizationId
+            a.StaffId,
+            a.OrgId
         });
 
         #endregion
@@ -295,8 +295,8 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes, isTenant);
         SaveDataToJsonFile<UserEntity>(users, isTenant);
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);
-        SaveDataToJsonFile<OrganizationEntity>(organizationTree, isTenant);
-        SaveDataToJsonFile<EmployeeEntity>(employees, isTenant);
+        SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
+        SaveDataToJsonFile<StaffEntity>(staffs, isTenant);
         if (isTenant)
         {
             var tenantIds = tenants?.Select(a => a.Id)?.ToList();
@@ -304,7 +304,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => tenantIds.Contains(a.TenantId.Value)));
             SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
             SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
-            organizationTree = organizations.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
+            orgTree = orgs.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
             {
                 return c.ParentId == 0;
             },
@@ -314,14 +314,14 @@ public class CustomGenerateData : GenerateData, IGenerateData
             },
             (r, datalist) =>
             {
-                r.Childs ??= new List<OrganizationEntity>();
+                r.Childs ??= new List<OrgEntity>();
                 r.Childs.AddRange(datalist);
             });
-            SaveDataToJsonFile<OrganizationEntity>(organizationTree);
-            SaveDataToJsonFile<EmployeeEntity>(employees.Where(a => tenantIds.Contains(a.TenantId.Value)));
+            SaveDataToJsonFile<OrgEntity>(orgTree);
+            SaveDataToJsonFile<StaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
-        SaveDataToJsonFile<EmployeeOrganizationEntity>(userOrgs);
+        SaveDataToJsonFile<StaffOrgEntity>(userOrgs);
         SaveDataToJsonFile<ApiEntity>(apiTree);
         SaveDataToJsonFile<ViewEntity>(viewTree);
         SaveDataToJsonFile<PermissionEntity>(permissionTree);

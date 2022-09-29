@@ -1749,196 +1749,6 @@
             Markdown文档
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.EmployeeOrganizationEntity">
-            <summary>
-            员工所属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.EmployeeOrganizationEntity.EmployeeId">
-            <summary>
-            员工Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.EmployeeOrganizationEntity.Employee">
-            <summary>
-            员工
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.EmployeeOrganizationEntity.OrganizationId">
-            <summary>
-            部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.EmployeeOrganizationEntity.Organization">
-            <summary>
-            部门
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Employee.EmployeeEntity">
-            <summary>
-            员工
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.JobNumber">
-            <summary>
-            工号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.MainOrgId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.ManagerUserId">
-            <summary>
-            直属主管Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.Position">
-            <summary>
-            职位
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.EmployeeEntity.EntryTime">
-            <summary>
-            入职时间
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput">
-            <summary>
-            添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.JobNumber">
-            <summary>
-            工号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.Sex">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.MainOrgId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.OrgIds">
-            <summary>
-            所属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.Position">
-            <summary>
-            职位
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput.EntryTime">
-            <summary>
-            入职时间
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput.Id">
-            <summary>
-            编号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeGetOutput.OrganizationName">
-            <summary>
-            主属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeGetOutput.OrganizationNames">
-            <summary>
-            附属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.JobNumber">
-            <summary>
-            工号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.OrganizationName">
-            <summary>
-            主属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.OrganizationNames">
-            <summary>
-            附属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.Position">
-            <summary>
-            职位
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Employee.Output.EmployeeListOutput.Phone">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Employee.SexEnum">
-            <summary>
-            性别
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Employee.SexEnum.Unknown">
-            <summary>
-            未知
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Employee.SexEnum.Male">
-            <summary>
-            男
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Employee.SexEnum.Female">
-            <summary>
-            女
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.LogGetPageDto.CreatedUserName">
             <summary>
             创建者
@@ -2034,52 +1844,52 @@
             操作参数
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Organization.OrganizationEntity">
+        <member name="T:ZhonTai.Admin.Domain.Org.OrgEntity">
             <summary>
             组织架构
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.TenantId">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.TenantId">
             <summary>
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.ParentId">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.ParentId">
             <summary>
             父级
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Name">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Code">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Value">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.MemberCount">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.MemberCount">
             <summary>
             成员数
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Description">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Enabled">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Organization.OrganizationEntity.Sort">
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Sort">
             <summary>
             排序
             </summary>
@@ -2319,6 +2129,196 @@
             主管理员
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.StaffOrgEntity">
+            <summary>
+            员工所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.StaffId">
+            <summary>
+            员工Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.Staff">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.StaffOrgEntity.Org">
+            <summary>
+            部门
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.JobNumber">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.MainOrgId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.OrgIds">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.Position">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.EntryTime">
+            <summary>
+            入职时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Staff.Input.StaffUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffGetOutput.OrgName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffGetOutput.OrgNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.JobNumber">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.OrgName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.OrgNames">
+            <summary>
+            附属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.Position">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.Output.StaffListOutput.Phone">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Staff.SexEnum">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Male">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Female">
+            <summary>
+            女
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Staff.StaffEntity">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.MainOrgId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.ManagerUserId">
+            <summary>
+            直属主管Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.Position">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.JobNumber">
+            <summary>
+            工号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.Sex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Staff.StaffEntity.EntryTime">
+            <summary>
+            入职时间
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
             <summary>
             租户权限
@@ -2529,11 +2529,6 @@
             禁用
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Locked">
-            <summary>
-            锁定
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.WaitChangePasssword">
             <summary>
             待修改密码
@@ -2544,32 +2539,32 @@
             待激活
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.User.EmployeeAddInput">
+        <member name="T:ZhonTai.Admin.Domain.User.StaffAddInput">
             <summary>
             员工添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.EmployeeAddInput.MainOrgId">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.MainOrgId">
             <summary>
             主属部门Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.EmployeeAddInput.OrgIds">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.OrgIds">
             <summary>
             所属部门
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.User.EmployeeUpdateInput">
+        <member name="T:ZhonTai.Admin.Domain.User.StaffUpdateInput">
             <summary>
             修改
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.EmployeeUpdateInput.Id">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffUpdateInput.Id">
             <summary>
             编号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.EmployeeUpdateInput.Version">
+        <member name="P:ZhonTai.Admin.Domain.User.StaffUpdateInput.Version">
             <summary>
             版本
             </summary>
@@ -2628,98 +2623,6 @@
             <summary>
             任务名称名称
             </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.HttpApi.AreaController">
-            <summary>
-            域控制器
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.HttpApi.Controllers.EmployeeController">
-            <summary>
-            员工管理
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.Get(System.Int64)">
-            <summary>
-            查询员工
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.GetPage(ZhonTai.Admin.Core.Dto.PageInput)">
-            <summary>
-            查询员工列表
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.Add(ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput)">
-            <summary>
-            新增员工
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.Update(ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput)">
-            <summary>
-            修改员工
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.SoftDelete(System.Int64)">
-            <summary>
-            删除员工
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.EmployeeController.BatchSoftDelete(System.Int64[])">
-            <summary>
-            批量删除员工
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Admin.HttpApi.Controllers.OrganizationController">
-            <summary>
-            组织架构
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.OrganizationController.Get(System.Int64)">
-            <summary>
-            查询组织架构
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.OrganizationController.GetList(System.String)">
-            <summary>
-            查询组织架构列表
-            </summary>
-            <param name="key"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.OrganizationController.Add(ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput)">
-            <summary>
-            新增组织架构
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.OrganizationController.Update(ZhonTai.Admin.Services.Organization.Input.OrganizationUpdateInput)">
-            <summary>
-            修改组织架构
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.HttpApi.Controllers.OrganizationController.SoftDelete(System.Int64)">
-            <summary>
-            删除组织架构
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.ApiService">
             <summary>
@@ -3749,70 +3652,6 @@
             文档接口
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Employee.EmployeeService">
-            <summary>
-            员工服务
-            </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.GetAsync(System.Int64)">
-            <summary>
-            查询员工
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput)">
-            <summary>
-            查询分页
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.AddAsync(ZhonTai.Admin.Domain.Employee.Input.EmployeeAddInput)">
-            <summary>
-            新增
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.UpdateAsync(ZhonTai.Admin.Domain.Employee.Input.EmployeeUpdateInput)">
-            <summary>
-            修改
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.DeleteAsync(System.Int64)">
-            <summary>
-            彻底删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.SoftDeleteAsync(System.Int64)">
-            <summary>
-            删除
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Employee.EmployeeService.BatchSoftDeleteAsync(System.Int64[])">
-            <summary>
-            批量删除
-            </summary>
-            <param name="ids"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Employee.IEmployeeService">
-            <summary>
-            员工服务
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Employee.MapConfig">
-            <summary>
-            映射配置
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput">
             <summary>
             添加
@@ -4131,149 +3970,149 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput">
+        <member name="T:ZhonTai.Admin.Services.Org.Input.OrgAddInput">
             <summary>
             添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.ParentId">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.ParentId">
             <summary>
             父级
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.Name">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.Code">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.Value">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.PrimaryUserId">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.PrimaryUserId">
             <summary>
             主管
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.EmployeeCount">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.StaffCount">
             <summary>
             员工人数
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.Description">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Organization.Input.OrganizationUpdateInput">
+        <member name="T:ZhonTai.Admin.Services.Org.Input.OrgUpdateInput">
             <summary>
             修改
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationUpdateInput.Id">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgUpdateInput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Input.OrganizationUpdateInput.Version">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgUpdateInput.Version">
             <summary>
             版本
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Organization.OrganizationService">
+        <member name="T:ZhonTai.Admin.Services.Org.OrgService">
             <summary>
             部门服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.GetAsync(System.Int64)">
             <summary>
             查询部门
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.GetListAsync(System.String)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.GetListAsync(System.String)">
             <summary>
             查询列表
             </summary>
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.AddAsync(ZhonTai.Admin.Services.Organization.Input.OrganizationAddInput)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.AddAsync(ZhonTai.Admin.Services.Org.Input.OrgAddInput)">
             <summary>
             新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.UpdateAsync(ZhonTai.Admin.Services.Organization.Input.OrganizationUpdateInput)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.UpdateAsync(ZhonTai.Admin.Services.Org.Input.OrgUpdateInput)">
             <summary>
             修改
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.DeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.DeleteAsync(System.Int64)">
             <summary>
             彻底删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Organization.OrganizationService.SoftDeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Org.OrgService.SoftDeleteAsync(System.Int64)">
             <summary>
             批量删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.ParentId">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.ParentId">
             <summary>
             父级
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Code">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Value">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Description">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Organization.Output.OrganizationListOutput.CreatedTime">
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.CreatedTime">
             <summary>
             创建时间
             </summary>

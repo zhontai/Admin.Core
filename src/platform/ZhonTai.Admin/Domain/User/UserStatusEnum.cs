@@ -16,11 +16,6 @@ public enum UserStatusEnum
     Disabled = 1,
 
     /// <summary>
-    /// 锁定
-    /// </summary>
-    Locked = 2,
-
-    /// <summary>
     /// 待修改密码
     /// </summary>
     WaitChangePasssword = 3,

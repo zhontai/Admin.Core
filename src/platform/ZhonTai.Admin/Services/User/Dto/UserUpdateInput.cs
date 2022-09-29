@@ -55,7 +55,7 @@ public partial class UserUpdateInput
     /// <summary>
     /// 员工信息
     /// </summary>
-    public EmployeeUpdateInput Emp { get; set; }
+    public StaffUpdateInput Emp { get; set; }
 
     /// <summary>
     /// 版本

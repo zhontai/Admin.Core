@@ -137,9 +137,9 @@
           {
             "id": 174312361087045,
             "parentId": 161227168436294,
-            "name": "Organization",
+            "name": "Org",
             "label": "部门管理",
-            "path": "admin/organization",
+            "path": "admin/org",
             "description": "",
             "enabled": true,
             "cache": true
@@ -187,9 +187,9 @@
       {
         "id": 336556164280389,
         "parentId": 161227168313413,
-        "name": "Employee",
+        "name": "Staff",
         "label": "员工管理",
-        "path": "admin/employee",
+        "path": "admin/staff",
         "description": "",
         "enabled": true,
         "cache": true,

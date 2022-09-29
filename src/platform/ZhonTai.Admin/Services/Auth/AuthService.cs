@@ -174,22 +174,13 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var isOk = await _captchaTool.CheckAsync(input.Captcha);
             if (!isOk)
             {
-                return ResultOutput.NotOk("安全验证不通过，请重新登录！");
+                return ResultOutput.NotOk("安全验证不通过，请重新登录");
             }
         }
 
-        #endregion 验证码校验
+        #endregion
 
-        UserEntity user = null;
-
-        user = await _userRepository.Select.DisableGlobalFilter("Tenant").Where(a => a.UserName == input.UserName).ToOneAsync();
-
-        if (!(user?.Id > 0))
-        {
-            return ResultOutput.NotOk("账号输入有误!", 3);
-        }
-
-        #region 解密
+        #region 密码解密
 
         if (input.PasswordKey.NotNull())
         {
@@ -200,35 +191,49 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 var secretKey = await Cache.GetAsync(passwordEncryptKey);
                 if (secretKey.IsNull())
                 {
-                    return ResultOutput.NotOk("解密失败！", 1);
+                    return ResultOutput.NotOk("解密失败");
                 }
                 input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
                 await Cache.DelAsync(passwordEncryptKey);
             }
             else
             {
-                return ResultOutput.NotOk("解密失败！", 1);
+                return ResultOutput.NotOk("解密失败！");
             }
         }
 
-        #endregion 解密
+        #endregion
 
+        #region 登录
         var password = MD5Encrypt.Encrypt32(input.Password);
-        if (user.Password != password)
+        var user = await _userRepository.Select.DisableGlobalFilter("Tenant")
+            .Where(a => a.UserName == input.UserName && a.Password == password).ToOneAsync();
+
+        if (!(user?.Id > 0))
         {
-            return ResultOutput.NotOk("密码输入有误！", 4);
+            return ResultOutput.NotOk("用户名或密码错误");
         }
 
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if(user.Status== UserStatusEnum.Disabled)
+        {
+            return ResultOutput.NotOk("禁止登录，请联系管理员");
+        }
+        #endregion
 
+        #region 获得token
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new
+            {
+                a.TenantType,
+                a.DataIsolationType
+            });
             authLoginOutput.TenantType = tenant.TenantType;
             authLoginOutput.DataIsolationType = tenant.DataIsolationType;
         }
-
-        string token = GetToken(authLoginOutput);
+        string token = GetToken(authLoginOutput); 
+        #endregion
 
         sw.Stop();
 

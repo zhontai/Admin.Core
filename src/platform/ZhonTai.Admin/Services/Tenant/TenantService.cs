@@ -16,8 +16,8 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Services.Tenant;
@@ -33,9 +33,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly IUserRepository _userRepository;
     private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
-    private IOrganizationRepository _organizationRepository => LazyGetRequiredService<IOrganizationRepository>();
-    private IEmployeeRepository _employeeRepository => LazyGetRequiredService<IEmployeeRepository>();
-    private IRepositoryBase<EmployeeOrganizationEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<EmployeeOrganizationEntity>>();
+    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
+    private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
+    private IRepositoryBase<StaffOrgEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<StaffOrgEntity>>();
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
@@ -106,7 +106,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         var tenantId = tenant.Id;
 
         //添加部门
-        var org = new OrganizationEntity
+        var org = new OrgEntity
         {
             TenantId = tenantId,
             Name = input.Name,
@@ -114,7 +114,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             ParentId = 0,
             MemberCount = 1
         };
-        await _organizationRepository.InsertAsync(org);
+        await _orgRepository.InsertAsync(org);
 
         //添加主管理员
         var pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
@@ -130,19 +130,19 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _userRepository.InsertAsync(user);
 
         //添加员工
-        var emp = new EmployeeEntity
+        var emp = new StaffEntity
         {
             Id = user.Id,
             TenantId = tenantId,
             MainOrgId = org.Id
         };
-        await _employeeRepository.InsertAsync(emp);
+        await _staffRepository.InsertAsync(emp);
 
         //添加用户部门
-        var userOrg = new EmployeeOrganizationEntity
+        var userOrg = new StaffOrgEntity
         {
-            EmployeeId = user.Id,
-            OrganizationId = org.Id
+            StaffId = user.Id,
+            OrgId = org.Id
         };
         await _empOrgRepository.InsertAsync(userOrg);
 

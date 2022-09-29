@@ -6,7 +6,7 @@ using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
-using ZhonTai.Admin.Domain.Organization;
+using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Domain.Role;
 
@@ -29,7 +29,7 @@ public partial class RoleEntity : EntityFull, ITenant
     public long ParentId { get; set; }
 
     [Navigate(nameof(ParentId))]
-    public List<OrganizationEntity> Childs { get; set; }
+    public List<OrgEntity> Childs { get; set; }
 
     /// <summary>
     /// 名称

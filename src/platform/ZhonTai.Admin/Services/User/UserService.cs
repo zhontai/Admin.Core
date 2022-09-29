@@ -22,9 +22,9 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain;
-using ZhonTai.Admin.Domain.Organization;
+using ZhonTai.Admin.Domain.Org;
 using System.Data;
 
 namespace ZhonTai.Admin.Services.User;
@@ -40,8 +40,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
     private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
-    private IEmployeeRepository _employeeRepository => LazyGetRequiredService<IEmployeeRepository>();
-    private IRepositoryBase<EmployeeOrganizationEntity> _employeeOrganizationRepository => LazyGetRequiredService<IRepositoryBase<EmployeeOrganizationEntity>>();
+    private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
+    private IRepositoryBase<StaffOrgEntity> _staffOrgRepository => LazyGetRequiredService<IRepositoryBase<StaffOrgEntity>>();
 
     public UserService()
     {
@@ -57,7 +57,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var output = await _userRepository.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
-        .IncludeMany(a => a.Emp.Orgs.Select(b => new OrganizationEntity { Id = b.Id, Name = b.Name }))
+        .IncludeMany(a => a.Emp.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
         .ToOneAsync(a=>new
         {
             a.Id,
@@ -206,19 +206,19 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var emp = Mapper.Map<EmployeeEntity>(input.Emp);
+        var emp = Mapper.Map<StaffEntity>(input.Emp);
         emp.Id = user.Id;
-        await _employeeRepository.InsertAsync(emp);
+        await _staffRepository.InsertAsync(emp);
 
         //所属部门
         if (input.Emp.OrgIds != null && input.Emp.OrgIds.Any())
         {
-            var organizations = input.Emp.OrgIds.Select(organizationId => new EmployeeOrganizationEntity
+            var orgs = input.Emp.OrgIds.Select(orgId => new StaffOrgEntity
             {
-                EmployeeId = emp.Id,
-                OrganizationId = organizationId
+                StaffId = emp.Id,
+                OrgId = orgId
             });
-            await _employeeOrganizationRepository.InsertAsync(organizations);
+            await _staffOrgRepository.InsertAsync(orgs);
         }
 
         return ResultOutput.Ok();
@@ -265,26 +265,26 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var emp = await _employeeRepository.GetAsync(user.Id);
+        var emp = await _staffRepository.GetAsync(user.Id);
         if(emp == null)
         {
-            emp = new EmployeeEntity();
+            emp = new StaffEntity();
         }
         Mapper.Map(input.Emp, emp);
         emp.Id = user.Id;
 
-        await _employeeRepository.InsertOrUpdateAsync(emp);
+        await _staffRepository.InsertOrUpdateAsync(emp);
 
         //所属部门
-        await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == emp.Id);
+        await _staffOrgRepository.DeleteAsync(a => a.StaffId == emp.Id);
         if (input.Emp.OrgIds != null && input.Emp.OrgIds.Any())
         {
-            var organizations = input.Emp.OrgIds.Select(organizationId => new EmployeeOrganizationEntity
+            var orgs = input.Emp.OrgIds.Select(orgId => new StaffOrgEntity
             {
-                EmployeeId = emp.Id,
-                OrganizationId = organizationId
+                StaffId = emp.Id,
+                OrgId = orgId
             });
-            await _employeeOrganizationRepository.InsertAsync(organizations);
+            await _staffOrgRepository.InsertAsync(orgs);
         }
 
         return ResultOutput.Ok();
@@ -343,9 +343,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     public async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除员工所属部门
-        await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == id);
+        await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
         //删除员工
-        await _employeeRepository.DeleteAsync(a => a.Id == id);
+        await _staffRepository.DeleteAsync(a => a.Id == id);
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
         //删除用户
@@ -363,9 +363,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     public async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
         //删除员工所属部门
-        await _employeeOrganizationRepository.DeleteAsync(a => ids.Contains(a.EmployeeId));
+        await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
         //删除员工
-        await _employeeRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _staffRepository.DeleteAsync(a => ids.Contains(a.Id));
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
         //删除用户
@@ -382,8 +382,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public async Task<IResultOutput> SoftDeleteAsync(long id)
     {
-        await _employeeOrganizationRepository.DeleteAsync(a => a.EmployeeId == id);
-        await _employeeRepository.SoftDeleteAsync(a => a.Id == id);
+        await _staffOrgRepository.DeleteAsync(a => a.StaffId == id);
+        await _staffRepository.SoftDeleteAsync(a => a.Id == id);
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
         await _userRepository.SoftDeleteAsync(id);
 
@@ -398,8 +398,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
-        await _employeeOrganizationRepository.DeleteAsync(a => ids.Contains(a.EmployeeId));
-        await _employeeRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
+        await _staffOrgRepository.DeleteAsync(a => ids.Contains(a.StaffId));
+        await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
         await _userRepository.SoftDeleteAsync(ids);
 
