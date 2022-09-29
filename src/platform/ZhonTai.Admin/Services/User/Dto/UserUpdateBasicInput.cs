@@ -14,15 +14,20 @@ public class UserUpdateBasicInput : Entity
     public string Avatar { get; set; }
 
     /// <summary>
+    /// 姓名
+    /// </summary>
+    [Required(ErrorMessage = "请输入姓名")]
+    public string Name { get; set; }
+
+    /// <summary>
     /// 昵称
     /// </summary>
-    [Required(ErrorMessage = "请输入昵称")]
     public string NickName { get; set; }
 
     /// <summary>
-    /// 备注
+    /// 个人简介
     /// </summary>
-    public string Remark { get; set; }
+    public string Introduce { get; set; }
 
     /// <summary>
     /// 版本

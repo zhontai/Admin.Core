@@ -490,6 +490,21 @@
             读写分离从库列表
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.SlaveDb">
+            <summary>
+            读写分离从库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.ConnectionString">
+            <summary>
+            数据库连接字符串
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.Weight">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
             <summary>
             Jwt配置
@@ -3008,9 +3023,14 @@
             账号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.NickName">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.Name">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.NickName">
+            <summary>
+            昵称
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.Avatar">
@@ -5259,14 +5279,19 @@
             头像
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.NickName">
             <summary>
             昵称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Remark">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Introduce">
             <summary>
-            备注
+            个人简介
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Version">

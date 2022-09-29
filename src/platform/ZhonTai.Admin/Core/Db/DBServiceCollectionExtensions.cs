@@ -10,6 +10,7 @@ using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Consts;
+using System.Linq;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -45,7 +46,9 @@ public static class DBServiceCollectionExtensions
             
             if (dbConfig.SlaveList?.Length > 0)
             {
-                freeSqlBuilder.UseSlave(dbConfig.SlaveList);
+                var slaveList = dbConfig.SlaveList.Select(a => a.ConnectionString).ToArray();
+                var slaveWeightList = dbConfig.SlaveList.Select(a => a.Weight).ToArray();
+                freeSqlBuilder.UseSlave(slaveList).UseSlaveWeight(slaveWeightList);
             }
             
             hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);

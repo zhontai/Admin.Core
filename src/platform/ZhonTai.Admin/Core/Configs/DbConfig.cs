@@ -96,5 +96,21 @@ public class DbConfig
     /// <summary>
     /// 读写分离从库列表
     /// </summary>
-    public string[] SlaveList { get; set; }
+    public SlaveDb[] SlaveList { get; set; }
+}
+
+/// <summary>
+/// 读写分离从库
+/// </summary>
+public class SlaveDb
+{
+    /// <summary>
+    /// 数据库连接字符串
+    /// </summary>
+    public string ConnectionString { get; set; }
+
+    /// <summary>
+    /// 数据库类型
+    /// </summary>
+    public int Weight { get; set; } = 1;
 }

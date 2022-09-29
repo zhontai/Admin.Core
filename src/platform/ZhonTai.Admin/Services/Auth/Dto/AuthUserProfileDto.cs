@@ -10,6 +10,11 @@ public class AuthUserProfileDto
     /// <summary>
     /// 姓名
     /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// 昵称
+    /// </summary>
     public string NickName { get; set; }
 
     /// <summary>

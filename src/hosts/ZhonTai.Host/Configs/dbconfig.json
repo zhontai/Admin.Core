@@ -56,6 +56,11 @@
 
   //读写分离从库列表
   "slaveList": [
-    "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+    {
+      //连接字符串
+      "ConnectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+      //权重
+      "Weight": 1
+    }
   ]
 }

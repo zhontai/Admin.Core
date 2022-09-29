@@ -115,7 +115,13 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
         if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant")
+                .WhereDynamic(entityDto.TenantId)
+                .ToOneAsync(a => new 
+                { 
+                    a.TenantType, 
+                    a.DataIsolationType 
+                });
             if (null != tenant)
             {
                 entityDto.TenantType = tenant.TenantType;
@@ -201,7 +207,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         //用户角色
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = user.Id, RoleId = roleId }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
@@ -217,7 +223,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             {
                 StaffId = staff.Id,
                 OrgId = orgId
-            });
+            }).ToList();
             await _staffOrgRepository.InsertAsync(orgs);
         }
 
@@ -260,7 +266,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _userRoleRepository.DeleteAsync(a => a.UserId == user.Id);
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(a => new UserRoleEntity { UserId = user.Id, RoleId = a });
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = user.Id, RoleId = roleId }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
@@ -272,7 +278,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
         Mapper.Map(input.Staff, staff);
         staff.Id = user.Id;
-
         await _staffRepository.InsertOrUpdateAsync(staff);
 
         //所属部门
@@ -283,7 +288,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             {
                 StaffId = staff.Id,
                 OrgId = orgId
-            });
+            }).ToList();
             await _staffOrgRepository.InsertAsync(orgs);
         }
 
@@ -299,12 +304,12 @@ public class UserService : BaseService, IUserService, IDynamicApi
     {
         var entity = await _userRepository.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);
-        var result = (await _userRepository.UpdateAsync(entity)) > 0;
+        await _userRepository.UpdateAsync(entity);
 
         //清除用户缓存
         await Cache.DelAsync(string.Format(CacheKeys.UserInfo, input.Id));
 
-        return ResultOutput.Result(result);
+        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -316,14 +321,14 @@ public class UserService : BaseService, IUserService, IDynamicApi
     {
         if (input.ConfirmPassword != input.NewPassword)
         {
-            return ResultOutput.NotOk("新密码和确认密码不一致！");
+            return ResultOutput.NotOk("新密码和确认密码不一致");
         }
 
         var entity = await _userRepository.GetAsync(input.Id);
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
         {
-            return ResultOutput.NotOk("旧密码不正确！");
+            return ResultOutput.NotOk("旧密码不正确");
         }
 
         input.Password = MD5Encrypt.Encrypt32(input.NewPassword);

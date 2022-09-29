@@ -37,11 +37,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.680" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.680" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.680" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.680" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.680" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.665" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.665" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.665" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.665" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.665" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -3,7 +3,7 @@
     "id": 161223411986501,
     "tenantId": 161223412138053,
     "userName": "admin",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "管理员",
     "mobile": "13122223333"
   },
@@ -11,14 +11,14 @@
     "id": 162083448746053,
     "tenantId": 162083448455237,
     "userName": "18988889999",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "租户"
   },
   {
     "id": 162605614280773,
     "tenantId": 161223412138053,
     "userName": "user",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "员工",
     "mobile": "13155556666"
   }

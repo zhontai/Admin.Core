@@ -2,20 +2,20 @@
   {
     "id": 161223411986501,
     "userName": "admin",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "管理员",
     "mobile": "13122223333"
   },
   {
     "id": 162083448746053,
     "userName": "18988889999",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "租户"
   },
   {
     "id": 162605614280773,
     "userName": "user",
-    "password": "96E79218965EB72C92A549DD5A33112",
+    "password": "96E79218965EB72C92A549DD5A330112",
     "name": "员工",
     "mobile": "13155556666"
   }
