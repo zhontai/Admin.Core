@@ -86,8 +86,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [HttpPost]
     public async Task<IResultOutput> GetPageAsync(PageInput<long?> input)
     {
+        var orgId = input.Filter;
         var list = await _userRepository.Select
-        .WhereIf(input.Filter.HasValue && input.Filter > 0, a=>a.Staff.MainOrgId == input.Filter)
+        .WhereIf(orgId.HasValue && orgId > 0, a => _staffOrgRepository.Where(b => b.StaffId == a.Id && b.OrgId == orgId).Any())
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
