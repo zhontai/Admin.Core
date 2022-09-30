@@ -209,7 +209,5 @@ public static class DBServiceCollectionExtensions
                 });
             }
         }
-
-        var a = freeSqlCloud.Use(DbKeys.MultiDbKey + "admindb").Select<UserEntity>().ToList();
     }
 }
