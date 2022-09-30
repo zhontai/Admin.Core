@@ -45,8 +45,9 @@
   "idleTime": 10,
 
   //多数据库
-  //使用仓储 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDbKey + "admindb", muowm)
-  //使用FreeSqlCloud  freeSqlCloud.Use(DbKeys.MultiDbKey + "admindb");
+  //定义MultiDbKeys枚举
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDbKey + MultiDbKeys.DbKey, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDbKey +  MultiDbKeys.DbKey);
   "dbs": [
     {
       "key": "admindb",
