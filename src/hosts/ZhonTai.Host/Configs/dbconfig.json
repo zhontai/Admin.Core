@@ -49,12 +49,12 @@
   //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDbKey + MultiDbKeys.DbKey, muowm)
   //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDbKey +  MultiDbKeys.DbKey);
   "dbs": [
-    {
-      "key": "admindb",
-      "type": "Sqlite",
-      "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
-      "providerType": ""
-    }
+    //{
+    //  "key": "admindb",
+    //  "type": "Sqlite",
+    //  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "providerType": ""
+    //}
   ],
 
   //分布式事务唯一标识
