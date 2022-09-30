@@ -108,8 +108,8 @@ public static class FreeSqlCloudExtesions
             if (!exists)
             {
                 var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                var masterDb = cloud.Use(DbKeys.MasterDbKey);
-                var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+                var uowm = serviceProvider.GetRequiredService<UnitOfWorkManagerCloud>();
+                var tenant = uowm.GetUnitOfWorkManager(DbKeys.AdminDbKey).Orm.GetRepositoryBase<TenantEntity>().Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
                 cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
             }
 
@@ -117,7 +117,7 @@ public static class FreeSqlCloudExtesions
         }
         else
         {
-            var masterDb = cloud.Use(DbKeys.MasterDbKey);
+            var masterDb = cloud.Use(DbKeys.AdminDbKey);
             return masterDb;
         }
     }
@@ -144,7 +144,7 @@ public static class FreeSqlCloudExtesions
         {
             var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
             var uowm = serviceProvider.GetRequiredService<UnitOfWorkManagerCloud>();
-            var tenant = uowm.GetUnitOfWorkManager(DbKeys.MasterDbKey).Orm.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+            var tenant = uowm.GetUnitOfWorkManager(DbKeys.AdminDbKey).Orm.GetRepositoryBase<TenantEntity>().Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
             //var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
             cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
         }

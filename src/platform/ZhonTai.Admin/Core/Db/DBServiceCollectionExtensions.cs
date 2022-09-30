@@ -24,9 +24,9 @@ public static class DBServiceCollectionExtensions
     /// <param name="env"></param>
     /// <param name="hostAppOptions"></param>
     /// <returns></returns>
-    public static void AddMasterDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
+    public static void AddAdminDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
     {
-        freeSqlCloud.Register(DbKeys.MasterDbKey, () =>
+        freeSqlCloud.Register(DbKeys.AdminDbKey, () =>
         {
             var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
 
@@ -39,7 +39,7 @@ public static class DBServiceCollectionExtensions
             #region FreeSql
 
             var freeSqlBuilder = new FreeSqlBuilder()
-                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString)
+                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString, dbConfig.ProviderType.NotNull() ? Type.GetType(dbConfig.ProviderType) : null)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);

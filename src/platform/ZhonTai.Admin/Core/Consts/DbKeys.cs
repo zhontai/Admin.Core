@@ -8,10 +8,10 @@ namespace ZhonTai.Admin.Core.Consts;
 public static partial class DbKeys
 {
     /// <summary>
-    /// 主库
+    /// admin库
     /// </summary>
-    [Description("主库")]
-    public const string MasterDbKey = "masterdb";
+    [Description("admin库")]
+    public const string AdminDbKey = "admindb";
 
     /// <summary>
     /// 多库

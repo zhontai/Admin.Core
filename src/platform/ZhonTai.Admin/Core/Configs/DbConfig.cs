@@ -39,6 +39,11 @@ public class DbConfig
     public string ConnectionString { get; set; } = "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1";
 
     /// <summary>
+    /// 指定程序集
+    /// </summary>
+    public string ProviderType { get; set; }
+
+    /// <summary>
     /// 空闲时间(分)
     /// </summary>
     public int IdleTime { get; set; } = 10;

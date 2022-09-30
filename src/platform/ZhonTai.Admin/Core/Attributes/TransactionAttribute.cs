@@ -24,6 +24,6 @@ public class TransactionAttribute : Attribute
     /// <summary>
     /// 数据库键
     /// </summary>
-    public string DbKey { get; set; } = DbKeys.MasterDbKey;
+    public string DbKey { get; set; } = DbKeys.AdminDbKey;
 
 }

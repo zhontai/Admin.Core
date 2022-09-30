@@ -19,10 +19,6 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain;
-using FreeSql;
-using Microsoft.Extensions.DependencyInjection;
-using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -118,9 +114,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
         long tenantId = tenant.Id;
 
-        var freeSqlCloud = LazyGetRequiredService<FreeSqlCloud>();
-        freeSqlCloud.GetTenantDb(ServiceProvider, tenantId);
-        freeSqlCloud.Change(DbKeys.TenantDbKey + tenantId);
+        //var freeSqlCloud = LazyGetRequiredService<FreeSqlCloud>();
+        //freeSqlCloud.GetTenantDb(ServiceProvider, tenantId);
+        //freeSqlCloud.Change(DbKeys.TenantDbKey + tenantId);
 
         //添加部门
         var org = new OrgEntity

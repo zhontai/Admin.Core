@@ -42,6 +42,7 @@
 		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.665" />
 		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.665" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.665" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.680" />
 	</ItemGroup>
 
 	<ItemGroup>

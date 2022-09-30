@@ -430,6 +430,11 @@
             数据库字符串
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.ProviderType">
+            <summary>
+            指定供应商类型
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
             <summary>
             空闲时间(分)
@@ -645,9 +650,9 @@
             数据库键名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDbKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.AdminDbKey">
             <summary>
-            主库
+            admin库
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDbKey">
@@ -757,7 +762,7 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddMasterDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddAdminDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
             <summary>
             添加主数据库
             </summary>
