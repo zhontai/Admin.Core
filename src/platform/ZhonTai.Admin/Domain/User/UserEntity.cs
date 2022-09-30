@@ -88,6 +88,12 @@ public partial class UserEntity : EntityFull, ITenant
     public UserStatusEnum Status { get; set; }
 
     /// <summary>
+    /// 用户类型
+    /// </summary>
+    [Column(MapType = typeof(int))]
+    public UserTypeEnum Type { get; set; } = UserTypeEnum.User;
+
+    /// <summary>
     /// 角色列表
     /// </summary>
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
