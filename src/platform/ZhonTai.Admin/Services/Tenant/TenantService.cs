@@ -35,7 +35,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
     private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
-    private IRepositoryBase<UserOrgEntity> _empOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
+    private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
@@ -100,6 +100,16 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> AddAsync(TenantAddInput input)
     {
+        if (await _tenantRepository.Select.AnyAsync(a => a.Name == input.Name))
+        {
+            return ResultOutput.NotOk($"企业名称已存在");
+        }
+
+        if (await _tenantRepository.Select.AnyAsync(a => a.Code == input.Code))
+        {
+            return ResultOutput.NotOk($"企业编码已存在");
+        }
+
         //添加租户
         var entity = Mapper.Map<TenantEntity>(input);
         var tenant = await _tenantRepository.InsertAsync(entity);
@@ -118,8 +128,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
         //添加主管理员
         var pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
-        var user = new UserEntity { 
-            TenantId = tenantId, 
+        var user = new UserEntity
+        {
+            TenantId = tenantId,
             UserName = input.Phone,
             Password = pwd,
             Name = input.RealName,
@@ -145,10 +156,11 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             OrgId = org.Id
         };
-        await _empOrgRepository.InsertAsync(userOrg);
+        await _userOrgRepository.InsertAsync(userOrg);
 
         //添加角色
-        var role = new RoleEntity { 
+        var role = new RoleEntity
+        {
             TenantId = tenantId,
             Name = "主管理员",
             Code = "admin"
@@ -156,16 +168,15 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _roleRepository.InsertAsync(role);
 
         //添加用户角色
-        var userRole = new UserRoleEntity() 
-        { 
-            UserId = userId, 
-            RoleId = role.Id 
+        var userRole = new UserRoleEntity()
+        {
+            UserId = userId,
+            RoleId = role.Id
         };
         await _userRoleRepository.InsertAsync(userRole);
 
-        //更新租户的用户和角色
+        //更新租户的用户
         tenant.UserId = userId;
-        tenant.RoleId = role.Id;
         await _tenantRepository.UpdateAsync(tenant);
 
         return ResultOutput.Ok();
@@ -207,6 +218,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
         //删除用户角色
         await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+
+        //删除员工
+        await _staffRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+
+        //删除用户部门
+        await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
 
         //删除用户
         await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();

@@ -53,13 +53,6 @@ public partial class TenantEntity : EntityFull
     public UserEntity User { get; set; }
 
     /// <summary>
-    /// 授权角色
-    /// </summary>
-    public long? RoleId { get; set; }
-
-    public RoleEntity Role { get; set; }
-
-    /// <summary>
     /// 租户类型
     /// </summary>
     public TenantType? TenantType { get; set; } = Core.Entities.TenantType.Tenant;
@@ -67,7 +60,7 @@ public partial class TenantEntity : EntityFull
     /// <summary>
     /// 数据隔离类型
     /// </summary>
-    public DataIsolationType DataIsolationType { get; set; } = DataIsolationType.OwnDb;
+    public DataIsolationType DataIsolationType { get; set; } = DataIsolationType.Share;
 
     /// <summary>
     /// 数据库

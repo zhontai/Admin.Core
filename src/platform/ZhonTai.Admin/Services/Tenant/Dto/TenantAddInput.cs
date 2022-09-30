@@ -1,4 +1,5 @@
-﻿using ZhonTai.Admin.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 
@@ -8,23 +9,27 @@ namespace ZhonTai.Admin.Services.Tenant.Dto;
 public class TenantAddInput
 {
     /// <summary>
-    /// 编码
-    /// </summary>
-    public string Code { get; set; }
-
-    /// <summary>
     /// 企业名称
     /// </summary>
+    [Required(ErrorMessage = "请输入企业名称")]
     public string Name { get; set; }
+
+    /// <summary>
+    /// 编码
+    /// </summary>
+    [Required(ErrorMessage = "请输入编码")]
+    public string Code { get; set; }
 
     /// <summary>
     /// 姓名
     /// </summary>
+    [Required(ErrorMessage = "请输入姓名")]
     public string RealName { get; set; }
 
     /// <summary>
     /// 手机号码
     /// </summary>
+    [Required(ErrorMessage = "请输入手机号码")]
     public string Phone { get; set; }
 
     /// <summary>
