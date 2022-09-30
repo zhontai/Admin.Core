@@ -395,26 +395,6 @@
             应用程序类型
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.MultiDb">
-            <summary>
-            多数据库
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Name">
-            <summary>
-            数据库命名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Type">
-            <summary>
-            数据库类型
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.ConnectionString">
-            <summary>
-            数据库字符串
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.DbConfig">
             <summary>
             数据库配置
@@ -432,7 +412,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.ProviderType">
             <summary>
-            指定供应商类型
+            指定程序集
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
@@ -493,6 +473,31 @@
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SlaveList">
             <summary>
             读写分离从库列表
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.MultiDb">
+            <summary>
+            多数据库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Key">
+            <summary>
+            数据库键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.ProviderType">
+            <summary>
+            指定程序集
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SlaveDb">

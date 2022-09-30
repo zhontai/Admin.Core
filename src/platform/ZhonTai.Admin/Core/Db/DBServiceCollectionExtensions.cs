@@ -11,6 +11,9 @@ using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Consts;
 using System.Linq;
+using MySqlX.XDevAPI;
+using static Org.BouncyCastle.Math.EC.ECCurve;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -26,10 +29,11 @@ public static class DBServiceCollectionExtensions
     /// <returns></returns>
     public static void AddAdminDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
     {
+        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
+        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
+
         freeSqlCloud.Register(DbKeys.AdminDbKey, () =>
         {
-            var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
-
             //创建数据库
             if (dbConfig.CreateDb)
             {
@@ -70,7 +74,6 @@ public static class DBServiceCollectionExtensions
             fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
 
             //配置实体
-            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
             DbHelper.ConfigEntity(fsql, appConfig);
 
             hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
@@ -144,5 +147,69 @@ public static class DBServiceCollectionExtensions
 
             return fsql;
         });
+
+        //导入多数据库
+        if (dbConfig.Dbs?.Length > 0)
+        {
+            foreach (var db in dbConfig.Dbs)
+            {
+                freeSqlCloud.Register(DbKeys.MultiDbKey + db.Key, () =>
+                {
+                    #region FreeSql
+
+                    var freeSqlBuilder = new FreeSqlBuilder()
+                            .UseConnectionString(db.Type, db.ConnectionString, db.ProviderType.NotNull() ? Type.GetType(db.ProviderType) : null)
+                            .UseAutoSyncStructure(false)
+                            .UseLazyLoading(false)
+                            .UseNoneCommandParameter(true);
+
+                    hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
+
+                    #region 监听所有命令
+
+                    if (dbConfig.MonitorCommand)
+                    {
+                        freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
+                        {
+                            //Console.WriteLine($"{cmd.CommandText}\n{traceLog}\r\n");
+                            Console.WriteLine($"{cmd.CommandText}\r\n");
+                        });
+                    }
+
+                    #endregion 监听所有命令
+
+                    var fsql = freeSqlBuilder.Build();
+                     
+                    #region 监听Curd操作
+
+                    if (dbConfig.Curd)
+                    {
+                        fsql.Aop.CurdBefore += (s, e) =>
+                        {
+                            if (appConfig.MiniProfiler)
+                            {
+                                MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
+                            }
+                            Console.WriteLine($"{e.Sql}\r\n");
+                        };
+                        fsql.Aop.CurdAfter += (s, e) =>
+                        {
+                            if (appConfig.MiniProfiler)
+                            {
+                                MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
+                            }
+                        };
+                    }
+
+                    #endregion 监听Curd操作
+
+                    #endregion FreeSql
+
+                    return fsql;
+                });
+            }
+        }
+
+        var a = freeSqlCloud.Use(DbKeys.MultiDbKey + "admindb").Select<UserEntity>().ToList();
     }
 }

@@ -114,10 +114,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
         long tenantId = tenant.Id;
 
-        //var freeSqlCloud = LazyGetRequiredService<FreeSqlCloud>();
-        //freeSqlCloud.GetTenantDb(ServiceProvider, tenantId);
-        //freeSqlCloud.Change(DbKeys.TenantDbKey + tenantId);
-
         //添加部门
         var org = new OrgEntity
         {

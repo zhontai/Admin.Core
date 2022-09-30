@@ -8,7 +8,7 @@
   "createDb": false,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
   //建库连接字符串
-  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1"
   //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
   "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
@@ -32,7 +32,7 @@
   //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
   "type": "Sqlite",
   //连接字符串
-  //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+  //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1"
   //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=admindb;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
   //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
@@ -45,13 +45,15 @@
   "idleTime": 10,
 
   //多数据库
-  //1、Consts.DbKeys中定义数据库唯一键
+  //使用仓储 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDbKey + "admindb", muowm)
+  //使用FreeSqlCloud  freeSqlCloud.Use(DbKeys.MultiDbKey + "admindb");
   "dbs": [
-    //{
-    //  "name": "MySqlDb",
-    //  "type": "MySql",
-    //  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //}
+    {
+      "key": "admindb",
+      "type": "Sqlite",
+      "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
+      "providerType": ""
+    }
   ],
 
   //分布式事务唯一标识
