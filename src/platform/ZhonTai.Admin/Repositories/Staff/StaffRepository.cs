@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.Staff;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class StaffRepository : RepositoryCloud<StaffEntity>, IStaffRepository
+public class StaffRepository : RepositoryBase<StaffEntity>, IStaffRepository
 {
     public StaffRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

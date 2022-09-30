@@ -9,6 +9,7 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -142,8 +143,8 @@ public static class FreeSqlCloudExtesions
         if (!exists)
         {
             var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-            var masterDb = cloud.Use(DbKeys.MasterDbKey);
-            var tenant = masterDb.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+            var uowm = serviceProvider.GetRequiredService<UnitOfWorkManagerCloud>();
+            var tenant = uowm.GetUnitOfWorkManager(DbKeys.MasterDbKey).Orm.Select<TenantEntity>().DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
             //var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
             cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
         }

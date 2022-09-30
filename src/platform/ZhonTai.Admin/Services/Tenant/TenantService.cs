@@ -19,6 +19,10 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain;
+using FreeSql;
+using Microsoft.Extensions.DependencyInjection;
+using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -36,7 +40,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
     private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
     private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
-
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
     public TenantService(
@@ -111,9 +114,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         }
 
         //添加租户
-        var entity = Mapper.Map<TenantEntity>(input);
-        var tenant = await _tenantRepository.InsertAsync(entity);
-        var tenantId = tenant.Id;
+        TenantEntity entity = Mapper.Map<TenantEntity>(input);
+        TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
+        long tenantId = tenant.Id;
+
+        var freeSqlCloud = LazyGetRequiredService<FreeSqlCloud>();
+        freeSqlCloud.GetTenantDb(ServiceProvider, tenantId);
+        freeSqlCloud.Change(DbKeys.TenantDbKey + tenantId);
 
         //添加部门
         var org = new OrgEntity
@@ -127,7 +134,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _orgRepository.InsertAsync(org);
 
         //添加主管理员
-        var pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
+        string pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
         var user = new UserEntity
         {
             TenantId = tenantId,
@@ -140,7 +147,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         };
         await _userRepository.InsertAsync(user);
 
-        var userId = user.Id;
+        long userId = user.Id;
 
         //添加员工
         var emp = new StaffEntity

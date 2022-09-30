@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.LoginLog;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class LoginLogRepository : RepositoryCloud<LoginLogEntity>, ILoginLogRepository
+public class LoginLogRepository : RepositoryBase<LoginLogEntity>, ILoginLogRepository
 {
     public LoginLogRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

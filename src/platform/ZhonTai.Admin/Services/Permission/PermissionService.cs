@@ -445,8 +445,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDbKey).GetRepositoryBase<TenantPermissionEntity>()
-                .Select.Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
+            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDbKey).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
             insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
         }
 

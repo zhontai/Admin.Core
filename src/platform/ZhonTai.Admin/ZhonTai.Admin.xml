@@ -794,6 +794,25 @@
             <param name="tenantId"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlDbContextExtensions.GetRepositoryBase``2(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            返回默认仓库类
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="that"></param>
+            <param name="filter">数据过滤 + 验证</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlDbContextExtensions.GetRepositoryBase``1(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            返回默认仓库类，适用联合主键的仓储类
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="that"></param>
+            <param name="filter">数据过滤 + 验证</param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Db.Transaction.TransactionAsyncInterceptor.InterceptSynchronous(Castle.DynamicProxy.IInvocation)">
             <summary>
             拦截同步执行的方法
@@ -1339,25 +1358,6 @@
             单例注入
             </summary>
             <param name="appConfig">AppConfig</param>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Repositories.FreeSqlDbContextExtensions.GetRepositoryBase``2(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
-            <summary>
-            返回默认仓库类
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <typeparam name="TKey"></typeparam>
-            <param name="that"></param>
-            <param name="filter">数据过滤 + 验证</param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Repositories.FreeSqlDbContextExtensions.GetRepositoryBase``1(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
-            <summary>
-            返回默认仓库类，适用联合主键的仓储类
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="that"></param>
-            <param name="filter">数据过滤 + 验证</param>
-            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Repositories.IRepositoryBase`2.GetAsync``1(`1)">
             <summary>
@@ -2382,11 +2382,6 @@
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.UserId">
             <summary>
             授权用户
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.RoleId">
-            <summary>
-            授权角色
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.TenantType">
@@ -4965,14 +4960,14 @@
             添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Name">
             <summary>
             企业名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Code">
+            <summary>
+            编码
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.RealName">

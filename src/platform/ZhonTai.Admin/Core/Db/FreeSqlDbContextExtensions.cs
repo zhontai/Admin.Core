@@ -1,7 +1,8 @@
 ﻿using System;
+using ZhonTai.Admin.Core.Repositories;
 using System.Linq.Expressions;
 
-namespace ZhonTai.Admin.Core.Repositories;
+namespace ZhonTai.Admin.Core.Db;
 
 public static class FreeSqlDbContextExtensions
 {
@@ -13,9 +14,9 @@ public static class FreeSqlDbContextExtensions
     /// <param name="that"></param>
     /// <param name="filter">数据过滤 + 验证</param>
     /// <returns></returns>
-    public static IRepositoryBase<TEntity, TKey> GetRepositoryBase<TEntity, TKey>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class, new()
+    public static IRepositoryBase<TEntity, TKey> GetRepositoryBase<TEntity, TKey>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class
     {
-        return new DefaultRepositoryBase<TEntity, TKey>(that, filter);
+        return new RepositoryBase<TEntity, TKey>(that, filter);
     }
 
     /// <summary>
@@ -25,8 +26,8 @@ public static class FreeSqlDbContextExtensions
     /// <param name="that"></param>
     /// <param name="filter">数据过滤 + 验证</param>
     /// <returns></returns>
-    public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class, new()
+    public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class
     {
-        return new DefaultRepositoryBase<TEntity, long>(that, filter);
+        return new RepositoryBase<TEntity, long>(that, filter);
     }
 }

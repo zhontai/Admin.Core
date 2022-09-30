@@ -2,6 +2,7 @@
 using FreeSql.DataAnnotations;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Domain.Org;
 
@@ -64,6 +65,9 @@ public partial class OrgEntity : EntityFull, ITenant
 
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<StaffEntity> Staffs { get; set; }
+
+    [Navigate(ManyToMany = typeof(UserOrgEntity))]
+    public ICollection<UserEntity> Users { get; set; }
 
     [Navigate(nameof(ParentId))]
     public List<OrgEntity> Childs { get; set; }

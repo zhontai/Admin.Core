@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.Tenant;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class TenantRepository : RepositoryCloud<TenantEntity>, ITenantRepository
+public class TenantRepository : RepositoryBase<TenantEntity>, ITenantRepository
 {
     public TenantRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {

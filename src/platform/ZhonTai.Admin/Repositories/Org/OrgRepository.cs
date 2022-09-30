@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class OrgRepository : RepositoryCloud<OrgEntity>, IOrgRepository
+public class OrgRepository : RepositoryBase<OrgEntity>, IOrgRepository
 {
     public OrgRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
