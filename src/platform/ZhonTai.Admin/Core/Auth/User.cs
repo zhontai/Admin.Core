@@ -2,6 +2,7 @@
 using System;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -82,6 +83,44 @@ public class User : IUser
                 return tenantId.Value.ToLong();
             }
             return null;
+        }
+    }
+
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public virtual UserType Type
+    {
+        get
+        {
+            var userType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserType);
+            if (userType != null && userType.Value.NotNull())
+            {
+                return (UserType)Enum.Parse(typeof(UserType), userType.Value, true);
+            }
+            return UserType.User;
+        }
+    }
+
+    /// <summary>
+    /// 平台管理员
+    /// </summary>
+    public virtual bool PlatformAdmin
+    {
+        get
+        {
+            return Type == UserType.PlatformAdmin;
+        }
+    }
+
+    /// <summary>
+    /// 租户管理员
+    /// </summary>
+    public virtual bool TenantAdmin
+    {
+        get
+        {
+            return Type == UserType.TenantAdmin;
         }
     }
 

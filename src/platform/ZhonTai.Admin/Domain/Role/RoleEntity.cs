@@ -47,7 +47,7 @@ public partial class RoleEntity : EntityFull, ITenant
     /// 角色类型
     /// </summary>
     [Column(MapType = typeof(int))]
-    public RoleTypeEnum Type { get; set; }
+    public RoleType Type { get; set; }
 
     /// <summary>
     /// 说明

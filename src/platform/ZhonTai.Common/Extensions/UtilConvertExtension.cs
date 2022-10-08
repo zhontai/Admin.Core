@@ -8,25 +8,24 @@ namespace ZhonTai.Common.Extensions;
 /// </summary>
 public static class UtilConvertExtension
 {
-    public static int ToInt(this object thisValue)
+    public static int ToInt(this object s, bool round = false)
     {
-        int reval = 0;
-        if (thisValue == null) return 0;
-        if (thisValue != null && thisValue != DBNull.Value && int.TryParse(thisValue.ToString(), out reval))
-        {
-            return reval;
-        }
-        return reval;
-    }
+        if (s == null || s == DBNull.Value)
+            return 0;
 
-    public static int ToInt(this object thisValue, int errorValue)
-    {
-        int reval;
-        if (thisValue != null && thisValue != DBNull.Value && int.TryParse(thisValue.ToString(), out reval))
+        if (s is bool b)
+            return b ? 1 : 0;
+
+        if (int.TryParse(s.ToString(), out int result))
+            return result;
+
+        if (s.GetType().IsEnum)
         {
-            return reval;
+            return (int)s;
         }
-        return errorValue;
+
+        var f = s.ToFloat();
+        return round ? Convert.ToInt32(f) : (int)f;
     }
 
     public static long ToLong(this object s)
@@ -70,12 +69,19 @@ public static class UtilConvertExtension
         return errorValue;
     }
 
-    /// <summary>
-    /// 转换成Double/Single
-    /// </summary>
-    /// <param name="s"></param>
-    /// <param name="digits">小数位数</param>
-    /// <returns></returns>
+    public static float ToFloat(this object s, int? digits = null)
+    {
+        if (s == null || s == DBNull.Value)
+            return 0f;
+
+        float.TryParse(s.ToString(), out float result);
+
+        if (digits == null)
+            return result;
+
+        return (float)Math.Round(result, digits.Value);
+    }
+
     public static double ToDouble(this object s, int? digits = null)
     {
         if (s == null || s == DBNull.Value)

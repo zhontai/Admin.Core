@@ -35,7 +35,7 @@ public partial class PermissionEntity : EntityFull
     /// 权限类型
     /// </summary>
     [Column(MapType = typeof(int), CanUpdate = false)]
-    public PermissionTypeEnum Type { get; set; }
+    public PermissionType Type { get; set; }
 
     /// <summary>
     /// 视图

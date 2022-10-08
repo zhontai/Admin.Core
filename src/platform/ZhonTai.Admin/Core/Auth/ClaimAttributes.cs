@@ -26,6 +26,11 @@ public static class ClaimAttributes
     public const string RefreshExpires = "re";
 
     /// <summary>
+    /// 用户类型
+    /// </summary>
+    public const string UserType = "ut";
+
+    /// <summary>
     /// 租户Id
     /// </summary>
     public const string TenantId = "ti";

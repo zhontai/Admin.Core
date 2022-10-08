@@ -3,7 +3,7 @@
 /// <summary>
 /// 文档类型
 /// </summary>
-public enum DocumentTypeEnum
+public enum DocumentType
 {
     /// <summary>
     /// 分组

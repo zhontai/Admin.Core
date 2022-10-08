@@ -12,7 +12,7 @@ public class DocumentAddMenuInput
     /// <summary>
     /// 类型
     /// </summary>
-    public DocumentTypeEnum Type { get; set; }
+    public DocumentType Type { get; set; }
 
     /// <summary>
     /// 命名

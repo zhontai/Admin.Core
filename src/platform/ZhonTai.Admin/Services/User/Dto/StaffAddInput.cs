@@ -21,7 +21,7 @@ public class StaffAddInput
     /// <summary>
     /// 性别
     /// </summary>
-    public SexEnum? Sex { get; set; }
+    public Sex? Sex { get; set; }
 
     /// <summary>
     /// 入职时间

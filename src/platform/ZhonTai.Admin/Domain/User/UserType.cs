@@ -3,7 +3,7 @@
 /// <summary>
 /// 用户类型
 /// </summary>
-public enum UserTypeEnum
+public enum UserType
 {
     /// <summary>
     /// 用户

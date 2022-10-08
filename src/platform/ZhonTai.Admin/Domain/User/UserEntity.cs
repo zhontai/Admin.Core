@@ -85,13 +85,13 @@ public partial class UserEntity : EntityFull, ITenant
     /// 用户状态
     /// </summary>
     [Column(MapType = typeof(int))]
-    public UserStatusEnum Status { get; set; }
+    public UserStatus Status { get; set; }
 
     /// <summary>
     /// 用户类型
     /// </summary>
     [Column(MapType = typeof(int))]
-    public UserTypeEnum Type { get; set; } = UserTypeEnum.User;
+    public UserType Type { get; set; } = UserType.User;
 
     /// <summary>
     /// 角色列表

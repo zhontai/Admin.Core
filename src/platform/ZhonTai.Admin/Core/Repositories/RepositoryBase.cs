@@ -19,11 +19,6 @@ namespace ZhonTai.Admin.Core.Repositories
             uowManger?.Binding(this);
         }
 
-        //public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
-        //{
-        //}
-        //public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter, Func<string, string> asTable = null) : base(fsql, filter, asTable) { }
-
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
             return Select.WhereDynamic(id).ToOneAsync<TDto>();
@@ -118,7 +113,7 @@ namespace ZhonTai.Admin.Core.Repositories
 
     public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class
     {
-        public RepositoryBase(UnitOfWorkManagerCloud uowm) : this(DbKeys.AdminDbKey, uowm) { }
+        public RepositoryBase(UnitOfWorkManagerCloud uowm) : this("", uowm) { }
         public RepositoryBase(string db, UnitOfWorkManagerCloud uowm) : this(uowm.GetUnitOfWorkManager(db)) { }
         RepositoryBase(UnitOfWorkManager uowm) : base(uowm.Orm)
         {

@@ -7,7 +7,7 @@ public class PermissionAddDotInput
     /// <summary>
     /// 权限类型
     /// </summary>
-    public PermissionTypeEnum Type { get; set; } = PermissionTypeEnum.Dot;
+    public PermissionType Type { get; set; } = PermissionType.Dot;
 
     /// <summary>
     /// 父级节点

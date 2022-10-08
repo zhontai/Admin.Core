@@ -135,7 +135,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = input.RealName,
             Mobile = input.Phone,
             Email = input.Email,
-            Status = UserStatusEnum.Enabled
+            Status = UserStatus.Enabled
         };
         await _userRepository.InsertAsync(user);
 

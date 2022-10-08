@@ -1,4 +1,5 @@
 ﻿using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
@@ -18,6 +19,11 @@ public class AuthLoginOutput
     /// 姓名
     /// </summary>
     public string Name { get; set; }
+
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public UserType Type { get; set; }
 
     /// <summary>
     /// 租户Id

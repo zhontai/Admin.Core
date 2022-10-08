@@ -1,5 +1,6 @@
 ﻿
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -22,6 +23,21 @@ public interface IUser
     /// 姓名
     /// </summary>
     string Name { get; }
+
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    UserType Type { get; }
+
+    /// <summary>
+    /// 平台管理员
+    /// </summary>
+    bool PlatformAdmin { get; }
+
+    /// <summary>
+    /// 租户管理员
+    /// </summary>
+    bool TenantAdmin { get; }
 
     /// <summary>
     /// 租户Id

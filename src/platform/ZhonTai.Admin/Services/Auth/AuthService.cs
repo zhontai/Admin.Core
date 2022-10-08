@@ -77,12 +77,13 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var token = LazyGetRequiredService<IUserToken>().Create(new[]
         {
-            new Claim(ClaimAttributes.UserId, user.Id.ToString()),
+            new Claim(ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
             new Claim(ClaimAttributes.UserName, user.UserName),
             new Claim(ClaimAttributes.Name, user.Name),
-            new Claim(ClaimAttributes.TenantId, user.TenantId.ToString()),
-            new Claim(ClaimAttributes.TenantType, user.TenantType.ToString()),
-            new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToString())
+            new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
+            new Claim(ClaimAttributes.TenantType, user.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToInt().ToString(), ClaimValueTypes.Integer32)
         });
 
         return token;
@@ -116,31 +117,41 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            return ResultOutput.NotOk("未登录！");
+            return ResultOutput.NotOk("未登录");
         }
 
-        var authUserInfoOutput = new AuthUserInfoOutput
+        var permissionSelect = _permissionRepository.Select
+            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+            .WhereIf(!User.PlatformAdmin, a =>
+                _permissionRepository.Orm.Select<RolePermissionEntity>()
+                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                .Where(b => b.PermissionId == a.Id)
+                .Any()
+            );
+
+        if (!User.PlatformAdmin)
+        {
+            permissionSelect = permissionSelect.AsTreeCte(up: true);
+        }
+
+        var menuList = await permissionSelect
+            .OrderBy(a => new { a.ParentId, a.Sort })
+            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+        
+        menuList = menuList.DistinctBy(a => a.Id).ToList();
+
+        var authGetUserInfoOutput = new AuthGetUserInfoOutput
         {
             //用户信息
             User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id),
 
             //用户菜单
-            Menus = await _permissionRepository.Select
-            .Where(a => new[] { PermissionTypeEnum.Group, PermissionTypeEnum.Menu }.Contains(a.Type))
-            .WhereIf(false, a =>
-                _permissionRepository.Orm.Select<RolePermissionEntity>()
-                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                .Where(b => b.PermissionId == a.Id)
-                .Any()
-            )
-            .OrderBy(a => a.ParentId)
-            .OrderBy(a => a.Sort)
-            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path }),
+            Menus = menuList,
 
             //用户权限点
             Permissions = await _permissionRepository.Select
-            .Where(a => a.Type == PermissionTypeEnum.Dot)
-            .WhereIf(false, a =>
+            .Where(a => a.Type == PermissionType.Dot)
+            .WhereIf(!User.PlatformAdmin, a =>
                 _permissionRepository.Orm.Select<RolePermissionEntity>()
                 .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
                 .Where(b => b.PermissionId == a.Id)
@@ -149,7 +160,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             .ToListAsync(a => a.Code)
         };
 
-        return ResultOutput.Ok(authUserInfoOutput);
+        return ResultOutput.Ok(authGetUserInfoOutput);
     }
 
     /// <summary>
@@ -214,7 +225,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             return ResultOutput.NotOk("用户名或密码错误");
         }
 
-        if(user.Status== UserStatusEnum.Disabled)
+        if(user.Status== UserStatus.Disabled)
         {
             return ResultOutput.NotOk("禁止登录，请联系管理员");
         }

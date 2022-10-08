@@ -7,7 +7,7 @@ public class PermissionAddMenuInput
     /// <summary>
     /// 权限类型
     /// </summary>
-    public PermissionTypeEnum Type { get; set; }
+    public PermissionType Type { get; set; }
 
     /// <summary>
     /// 父级节点

@@ -3,7 +3,7 @@
 /// <summary>
 /// 用户状态
 /// </summary>
-public enum UserStatusEnum
+public enum UserStatus
 {
     /// <summary>
     /// 正常

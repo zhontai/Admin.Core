@@ -83,14 +83,6 @@
             数据类型转换
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.ToDouble(System.Object,System.Nullable{System.Int32})">
-            <summary>
-            转换成Double/Single
-            </summary>
-            <param name="s"></param>
-            <param name="digits">小数位数</param>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Common.Extensions.UtilConvertExtension.ToHex(System.Byte[],System.Boolean)">
             <summary>
             转换为16进制

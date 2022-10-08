@@ -181,7 +181,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
                 a.Id,
                 a.ParentId,
                 a.Label,
-                Row = a.Type == PermissionTypeEnum.Menu
+                Row = a.Type == PermissionType.Menu
             });
 
         return ResultOutput.Ok(menus);

@@ -79,6 +79,11 @@
             刷新有效期
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
         <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.TenantId">
             <summary>
             租户Id
@@ -125,6 +130,21 @@
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.Name">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.Type">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.PlatformAdmin">
+            <summary>
+            平台管理员
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.TenantAdmin">
+            <summary>
+            租户管理员
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.TenantId">
@@ -183,6 +203,21 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.Type">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.PlatformAdmin">
+            <summary>
+            平台管理员
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.TenantAdmin">
+            <summary>
+            租户管理员
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.TenantType">
@@ -1759,17 +1794,17 @@
             描述
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Document.DocumentTypeEnum">
+        <member name="T:ZhonTai.Admin.Domain.Document.DocumentType">
             <summary>
             文档类型
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Document.DocumentTypeEnum.Group">
+        <member name="F:ZhonTai.Admin.Domain.Document.DocumentType.Group">
             <summary>
             分组
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Document.DocumentTypeEnum.Markdown">
+        <member name="F:ZhonTai.Admin.Domain.Document.DocumentType.Markdown">
             <summary>
             Markdown文档
             </summary>
@@ -2024,22 +2059,22 @@
             描述
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Permission.PermissionTypeEnum">
+        <member name="T:ZhonTai.Admin.Domain.Permission.PermissionType">
             <summary>
             权限类型
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionTypeEnum.Group">
+        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionType.Group">
             <summary>
             分组
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionTypeEnum.Menu">
+        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionType.Menu">
             <summary>
             菜单
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionTypeEnum.Dot">
+        <member name="F:ZhonTai.Admin.Domain.Permission.PermissionType.Dot">
             <summary>
             权限点
             </summary>
@@ -2134,22 +2169,22 @@
             排序
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Role.RoleTypeEnum">
+        <member name="T:ZhonTai.Admin.Domain.Role.RoleType">
             <summary>
             角色类型
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.Custom">
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Custom">
             <summary>
             自定义
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.Default">
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Default">
             <summary>
             默认
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleTypeEnum.MainAdmin">
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.MainAdmin">
             <summary>
             主管理员
             </summary>
@@ -2259,22 +2294,22 @@
             手机号
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Staff.SexEnum">
+        <member name="T:ZhonTai.Admin.Domain.Staff.Sex">
             <summary>
             性别
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Unknown">
+        <member name="F:ZhonTai.Admin.Domain.Staff.Sex.Unknown">
             <summary>
             未知
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Male">
+        <member name="F:ZhonTai.Admin.Domain.Staff.Sex.Male">
             <summary>
             男
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Staff.SexEnum.Female">
+        <member name="F:ZhonTai.Admin.Domain.Staff.Sex.Female">
             <summary>
             女
             </summary>
@@ -2529,6 +2564,11 @@
             用户状态
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Type">
+            <summary>
+            用户类型
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Roles">
             <summary>
             角色列表
@@ -2539,29 +2579,49 @@
             员工
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.User.UserStatusEnum">
+        <member name="T:ZhonTai.Admin.Domain.User.UserStatus">
             <summary>
             用户状态
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Enabled">
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.Enabled">
             <summary>
             正常
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.Disabled">
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.Disabled">
             <summary>
             禁用
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.WaitChangePasssword">
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.WaitChangePasssword">
             <summary>
             待修改密码
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatusEnum.WaitActive">
+        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.WaitActive">
             <summary>
             待激活
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.User.UserType">
+            <summary>
+            用户类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserType.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserType.TenantAdmin">
+            <summary>
+            租户管理员
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserType.PlatformAdmin">
+            <summary>
+            平台管理员
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.User.StaffAddInput">
@@ -2908,6 +2968,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserInfoOutput.User">
+            <summary>
+            用户个人信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserInfoOutput.Menus">
+            <summary>
+            用户菜单
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserInfoOutput.Permissions">
+            <summary>
+            用户权限点
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetVerifyCodeOutput.Key">
             <summary>
             缓存键
@@ -2958,6 +3033,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.Type">
+            <summary>
+            用户类型
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.TenantId">
             <summary>
             租户Id
@@ -2971,21 +3051,6 @@
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.DataIsolationType">
             <summary>
             数据隔离
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserInfoOutput.User">
-            <summary>
-            用户个人信息
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserInfoOutput.Menus">
-            <summary>
-            用户菜单
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserInfoOutput.Permissions">
-            <summary>
-            用户权限点
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Id">

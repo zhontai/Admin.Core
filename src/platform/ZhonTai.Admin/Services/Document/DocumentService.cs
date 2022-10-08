@@ -266,7 +266,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
             .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Opened });
 
         var menus = documents
-            .Where(a => (new[] { DocumentTypeEnum.Group, DocumentTypeEnum.Markdown }).Contains(a.Type))
+            .Where(a => (new[] { DocumentType.Group, DocumentType.Markdown }).Contains(a.Type))
             .Select(a => new
             {
                 a.Id,

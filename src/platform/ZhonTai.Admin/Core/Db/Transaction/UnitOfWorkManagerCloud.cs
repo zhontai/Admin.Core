@@ -1,29 +1,59 @@
 ﻿using FreeSql;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
 public class UnitOfWorkManagerCloud
 {
-    readonly Dictionary<string, UnitOfWorkManager> m_managers = new Dictionary<string, UnitOfWorkManager>();
-    readonly FreeSqlCloud m_cloud;
-    public UnitOfWorkManagerCloud(FreeSqlCloud cloud)
+    readonly Dictionary<string, UnitOfWorkManager> _managers = new Dictionary<string, UnitOfWorkManager>();
+    readonly FreeSqlCloud _cloud;
+    readonly IUser _user;
+    readonly AppConfig _appConfig;
+    readonly IServiceProvider _serviceProvider;
+    public UnitOfWorkManagerCloud(
+        FreeSqlCloud cloud, 
+        IUser user, 
+        AppConfig appConfig, 
+        IServiceProvider serviceProvider)
     {
-        m_cloud = cloud;
+        _cloud = cloud;
+        _user = user;
+        _appConfig = appConfig;
+        _serviceProvider = serviceProvider;
     }
 
     public UnitOfWorkManager GetUnitOfWorkManager(string dbKey)
     {
-        if (m_managers.TryGetValue(dbKey, out var uowm) == false)
-            m_managers.Add(dbKey, uowm = new UnitOfWorkManager(m_cloud.Use(dbKey)));
+        if (dbKey.IsNull())
+        {
+            if (_appConfig.Tenant && _user.DataIsolationType == DataIsolationType.OwnDb && _user.TenantId.HasValue)
+            {
+                dbKey = DbKeys.TenantDbKey + _user.TenantId;
+                _cloud.GetCurrentDb(_serviceProvider);
+            }
+            else
+            {
+                dbKey = DbKeys.AdminDbKey;
+            }
+        }
+        if (_managers.TryGetValue(dbKey, out var uowm) == false)
+        {
+            _managers.Add(dbKey, uowm = new UnitOfWorkManager(_cloud.Use(dbKey)));
+        }
+            
         return uowm;
     }
 
     public void Dispose()
     {
-        foreach (var uowm in m_managers.Values) uowm.Dispose();
-        m_managers.Clear();
+        foreach (var uowm in _managers.Values) uowm.Dispose();
+        _managers.Clear();
     }
 
     public IUnitOfWork Begin(string dbKey, Propagation propagation = Propagation.Required, IsolationLevel? isolationLevel = null)

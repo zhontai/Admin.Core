@@ -221,10 +221,21 @@ namespace ZhonTai.ApiUI
         }
 
         /// <summary>
+        /// Default userName
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="value"></param>
+        public static void OAuthUsername(this ApiUIOptions options, string value)
+        {
+            options.OAuthConfigObject.Username = value;
+        }
+
+        /// <summary>
         /// Default clientSecret
         /// </summary>
         /// <param name="options"></param>
         /// <param name="value"></param>
+        /// <remarks>Setting this exposes the client secrets in inline javascript in the swagger-ui generated html.</remarks>
         public static void OAuthClientSecret(this ApiUIOptions options, string value)
         {
             options.OAuthConfigObject.ClientSecret = value;

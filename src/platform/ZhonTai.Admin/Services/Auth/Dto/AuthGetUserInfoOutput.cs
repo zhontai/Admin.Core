@@ -2,7 +2,7 @@
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
-public class AuthUserInfoOutput
+public class AuthGetUserInfoOutput
 {
     /// <summary>
     /// 用户个人信息

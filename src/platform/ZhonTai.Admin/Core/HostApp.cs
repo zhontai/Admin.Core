@@ -48,7 +48,6 @@ using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
 using FreeSql;
 using ZhonTai.Admin.Core.Db.Transaction;
-using Autofac.Core;
 
 namespace ZhonTai.Admin.Core;
 

@@ -3,7 +3,7 @@
 /// <summary>
 /// 权限类型
 /// </summary>
-public enum PermissionTypeEnum
+public enum PermissionType
 {
     /// <summary>
     /// 分组

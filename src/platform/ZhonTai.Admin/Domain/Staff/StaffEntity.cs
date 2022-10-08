@@ -1,8 +1,6 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using System;
-using System.Collections.Generic;
-using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Domain.Staff;
 
@@ -33,13 +31,12 @@ public partial class StaffEntity : EntityFull, ITenant
     /// 性别
     /// </summary>
     [Column(MapType = typeof(int))]
-    public SexEnum? Sex { get; set; }
+    public Sex? Sex { get; set; }
 
     /// <summary>
     /// 入职时间
     /// </summary>
     public DateTime? EntryTime { get; set; }
-
 
     /// <summary>
     /// 个人简介

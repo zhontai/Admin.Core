@@ -31,7 +31,7 @@ public partial class DocumentEntity : EntityFull, ITenant
     /// 类型
     /// </summary>
     [Column(MapType = typeof(int), CanUpdate = false)]
-    public DocumentTypeEnum Type { get; set; }
+    public DocumentType Type { get; set; }
 
     /// <summary>
     /// 命名

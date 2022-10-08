@@ -63,7 +63,7 @@ public partial class UserUpdateInput
     /// <summary>
     /// 状态
     /// </summary>
-    public UserStatusEnum Status { get; set; }
+    public UserStatus Status { get; set; }
 
     /// <summary>
     /// 员工信息

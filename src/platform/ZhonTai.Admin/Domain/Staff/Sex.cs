@@ -3,7 +3,7 @@
 /// <summary>
 /// 性别
 /// </summary>
-public enum SexEnum
+public enum Sex
 {
     /// <summary>
     /// 未知
