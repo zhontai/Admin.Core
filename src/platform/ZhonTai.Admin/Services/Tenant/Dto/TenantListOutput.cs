@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 

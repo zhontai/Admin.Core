@@ -10,9 +10,8 @@
     "roleId": 161223412080709,
     "tenantType": 1,
     "dbKey":  "masterdb",
-    "dbType": 4,
-    "connectionString": "Data Source=|DataDirectory|\\\\admindb.db; Pooling=true;Min Pool Size=1",
-    "idleTime": 10,
+    "dbType": "",
+    "connectionString": "",
     "enabled": true,
     "description": ""
   }

@@ -2,7 +2,6 @@
 using FreeSql;
 using FreeSql.DataAnnotations;
 using System;
-using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Domain.Tenant;

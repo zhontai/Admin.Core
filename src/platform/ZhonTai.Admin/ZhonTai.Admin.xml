@@ -902,11 +902,6 @@
             连接字符串
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.IdleTime">
-            <summary>
-            空闲时间(分)
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Dto.IResultOutput">
             <summary>
             结果输出接口
