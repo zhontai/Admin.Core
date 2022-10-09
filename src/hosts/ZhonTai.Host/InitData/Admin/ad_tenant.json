@@ -7,10 +7,8 @@
     "phone": "13122223333",
     "email": "xiaoxue@zhontai.com",
     "userId": 161223411986501,
-    "roleId": 161223412080709,
     "tenantType": 1,
-    "dbKey":  "masterdb",
-    "dbType": "",
+    "dbKey": "masterdb",
     "connectionString": "",
     "enabled": true,
     "description": ""

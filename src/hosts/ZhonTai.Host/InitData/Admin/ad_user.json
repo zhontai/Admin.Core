@@ -3,11 +3,10 @@
     "id": 161223411986501,
     "userName": "admin",
     "password": "96E79218965EB72C92A549DD5A330112",
-    "name":  "管理员",
-    "nickName": "小雪",
+    "name": "管理员",
     "mobile": "13122223333",
-    "email": "xiaoxue@zhontai.com",
     "mainOrgId": 189097691009093,
+    "nickName": "小雪",
     "type": 100
   }
 ]

@@ -5,18 +5,6 @@
     "code": "",
     "value": "",
     "description": "",
-    "enabled": true,
-    "childs": [
-      {
-        "id": 189097750675525,
-        "parentId": 189097691009093,
-        "name": "开发部",
-        "code": "",
-        "value": "",
-        "description": "",
-        "enabled": true,
-        "childs": []
-      }
-    ]
+    "enabled": true
   }
 ]

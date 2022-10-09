@@ -212,7 +212,7 @@
                 "id": 161227168653382,
                 "parentId": 161227168653381,
                 "label": "查询",
-                "code": "api:admin:role:getpage",
+                "code": "api:admin:role:get-list",
                 "type": 3,
                 "path": " ",
                 "enabled": true,
@@ -276,6 +276,17 @@
                 "closable": false,
                 "opened": false,
                 "sort": 5,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 340645133123653,
+                "parentId": 161227168653381,
+                "label": "设置权限",
+                "code": "api:admin:permission:assign",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
                 "description": "",
                 "childs": []
               }
