@@ -5,6 +5,11 @@ namespace ZhonTai.Admin.Core.Dto;
 public class CreateFreeSqlTenantDto
 {
     /// <summary>
+    /// 数据库注册键
+    /// </summary>
+    public string DbKey { get; set; }
+
+    /// <summary>
     /// 数据库
     /// </summary>
     public DataType? DbType { get; set; }

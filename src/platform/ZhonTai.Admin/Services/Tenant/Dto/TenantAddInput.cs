@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 
@@ -38,9 +37,9 @@ public class TenantAddInput
     public string Email { get; set; }
 
     /// <summary>
-    /// 数据隔离类型
+    /// 数据库注册键
     /// </summary>
-    public DataIsolationType DataIsolationType { get; set; }
+    public string DbKey { get; set; }
 
     /// <summary>
     /// 数据库
@@ -51,11 +50,6 @@ public class TenantAddInput
     /// 连接字符串
     /// </summary>
     public string ConnectionString { get; set; }
-
-    /// <summary>
-    /// 空闲时间(分)
-    /// </summary>
-    public int? IdleTime { get; set; }
 
     /// <summary>
     /// 启用

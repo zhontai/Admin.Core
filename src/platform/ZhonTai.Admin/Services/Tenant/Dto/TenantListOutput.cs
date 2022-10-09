@@ -12,16 +12,6 @@ public class TenantListOutput
     public long Id { get; set; }
 
     /// <summary>
-    /// 授权用户
-    /// </summary>
-    public long? UserId { get; set; }
-
-    /// <summary>
-    /// 授权角色
-    /// </summary>
-    public long? RoleId { get; set; }
-
-    /// <summary>
     /// 企业编码
     /// </summary>
     public string Code { get; set; }
@@ -47,16 +37,6 @@ public class TenantListOutput
     public string Email { get; set; }
 
     /// <summary>
-    /// 数据隔离类型
-    /// </summary>
-    public DataIsolationType DataIsolationType { get; set; }
-
-    /// <summary>
-    /// 数据隔离类型名称
-    /// </summary>
-    public string DataIsolationTypeName => DataIsolationType.ToDescriptionOrString();
-
-    /// <summary>
     /// 数据库
     /// </summary>
     [JsonIgnore]
@@ -65,17 +45,7 @@ public class TenantListOutput
     /// <summary>
     /// 数据库名称
     /// </summary>
-    public string DbTypeName => DbType.ToDescriptionOrString();
-
-    /// <summary>
-    /// 连接字符串
-    /// </summary>
-    public string ConnectionString { get; set; }
-
-    /// <summary>
-    /// 空闲时间(分)
-    /// </summary>
-    public int? IdleTime { get; set; }
+    public string DbTypeName => DbType?.ToDescriptionOrString();
 
     /// <summary>
     /// 启用

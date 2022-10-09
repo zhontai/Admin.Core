@@ -87,7 +87,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
             new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
             new Claim(ClaimAttributes.TenantType, user.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
-            new Claim(ClaimAttributes.DataIsolationType, user.DataIsolationType.ToInt().ToString(), ClaimValueTypes.Integer32)
+            new Claim(ClaimAttributes.DbKey, user.DbKey??"")
         });
 
         return token;
@@ -135,7 +135,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         if (User.TenantAdmin)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            db = cloud.Use(DbKeys.AdminDbKey);
+            db = cloud.Use(DbKeys.MasterDbKey);
         }
        
         var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
@@ -265,13 +265,9 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new
-            {
-                a.TenantType,
-                a.DataIsolationType
-            });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
             authLoginOutput.TenantType = tenant.TenantType;
-            authLoginOutput.DataIsolationType = tenant.DataIsolationType;
+            authLoginOutput.DbKey = tenant.DbKey;
         }
         string token = GetToken(authLoginOutput); 
         #endregion

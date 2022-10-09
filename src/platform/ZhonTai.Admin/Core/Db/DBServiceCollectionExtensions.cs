@@ -11,9 +11,6 @@ using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Consts;
 using System.Linq;
-using MySqlX.XDevAPI;
-using static Org.BouncyCastle.Math.EC.ECCurve;
-using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -32,7 +29,8 @@ public static class DBServiceCollectionExtensions
         var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
         var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
 
-        freeSqlCloud.Register(DbKeys.AdminDbKey, () =>
+        //注册主库
+        freeSqlCloud.Register(DbKeys.MasterDbKey, () =>
         {
             //创建数据库
             if (dbConfig.CreateDb)
@@ -42,8 +40,9 @@ public static class DBServiceCollectionExtensions
 
             #region FreeSql
 
+            var providerType = dbConfig.ProviderType.NotNull() ? Type.GetType(dbConfig.ProviderType) : null;
             var freeSqlBuilder = new FreeSqlBuilder()
-                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString, dbConfig.ProviderType.NotNull() ? Type.GetType(dbConfig.ProviderType) : null)
+                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString, providerType)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
@@ -148,7 +147,7 @@ public static class DBServiceCollectionExtensions
             return fsql;
         });
 
-        //导入多数据库
+        //注册多数据库
         if (dbConfig.Dbs?.Length > 0)
         {
             foreach (var db in dbConfig.Dbs)

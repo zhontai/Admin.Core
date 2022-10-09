@@ -173,13 +173,13 @@ public class HostApp
         var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
         services.AddSingleton(dbConfig);
 
-        //添加admin数据库
+        //添加数据库
         var freeSqlCloud = new FreeSqlCloud(dbConfig.DistributeKey);
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
         services.AddAdminDb(freeSqlCloud, env, _hostAppOptions);
-        services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.AdminDbKey));
+        services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.MasterDbKey));
 
 
         //上传配置

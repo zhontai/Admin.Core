@@ -5,7 +5,6 @@ using System.Data;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
@@ -32,14 +31,14 @@ public class UnitOfWorkManagerCloud
     {
         if (dbKey.IsNull())
         {
-            if (_appConfig.Tenant && _user.DataIsolationType == DataIsolationType.OwnDb && _user.TenantId.HasValue)
+            if (_appConfig.Tenant && _user.TenantId.HasValue)
             {
-                dbKey = DbKeys.TenantDbKey + _user.TenantId;
+                dbKey = _user.DbKey.NotNull() ? _user.DbKey : (DbKeys.TenantDbKey + _user.TenantId);
                 _cloud.GetCurrentDb(_serviceProvider);
             }
             else
             {
-                dbKey = DbKeys.AdminDbKey;
+                dbKey = DbKeys.MasterDbKey;
             }
         }
         if (_managers.TryGetValue(dbKey, out var uowm) == false)

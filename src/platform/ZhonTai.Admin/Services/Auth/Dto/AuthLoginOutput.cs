@@ -36,7 +36,7 @@ public class AuthLoginOutput
     public TenantType? TenantType { get; set; }
 
     /// <summary>
-    /// 数据隔离
+    /// 数据库注册键
     /// </summary>
-    public DataIsolationType? DataIsolationType { get; set; }
+    public string DbKey { get; set; }
 }

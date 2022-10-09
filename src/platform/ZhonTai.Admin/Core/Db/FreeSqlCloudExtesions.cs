@@ -106,23 +106,23 @@ public static class FreeSqlCloudExtesions
         var appConfig = serviceProvider.GetRequiredService<AppConfig>();
 
         var tenantId = user.TenantId;
-        if (appConfig.Tenant && user.DataIsolationType == DataIsolationType.OwnDb && tenantId.HasValue)
+        if (appConfig.Tenant && tenantId.HasValue)
         {
-            var tenantName = DbKeys.TenantDbKey + tenantId;
-            var exists = cloud.ExistsRegister(tenantName);
+            var dbKey = user.DbKey.NotNull() ? user.DbKey : (DbKeys.TenantDbKey + tenantId);
+            var exists = cloud.ExistsRegister(dbKey);
             if (!exists)
             {
                 var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                var uowm = serviceProvider.GetRequiredService<UnitOfWorkManagerCloud>();
-                var tenant = uowm.GetUnitOfWorkManager(DbKeys.AdminDbKey).Orm.GetRepositoryBase<TenantEntity>().Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
-                cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
+                var tenantRepository = serviceProvider.GetRequiredService<ITenantRepository>();
+                var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+                cloud.Register(dbKey, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
             }
 
-            return cloud.Use(tenantName);
+            return cloud.Use(dbKey);
         }
         else
         {
-            var masterDb = cloud.Use(DbKeys.AdminDbKey);
+            var masterDb = cloud.Use(DbKeys.MasterDbKey);
             return masterDb;
         }
     }
@@ -141,19 +141,19 @@ public static class FreeSqlCloudExtesions
             return null;
         }
 
-        var user = serviceProvider.GetRequiredService<IUser>();
-        var appConfig = serviceProvider.GetRequiredService<AppConfig>();
-        var tenantName = DbKeys.TenantDbKey + tenantId;
-        var exists = cloud.ExistsRegister(tenantName);
+        var tenantRepository = serviceProvider.GetRequiredService<ITenantRepository>();
+        var tenant = tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+        var dbKey = tenant.DbKey.NotNull() ? tenant.DbKey : (DbKeys.TenantDbKey + tenantId);
+        var exists = cloud.ExistsRegister(dbKey);
+        
         if (!exists)
         {
+            var user = serviceProvider.GetRequiredService<IUser>();
             var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-            var uowm = serviceProvider.GetRequiredService<UnitOfWorkManagerCloud>();
-            var tenant = uowm.GetUnitOfWorkManager(DbKeys.AdminDbKey).Orm.GetRepositoryBase<TenantEntity>().Select.DisableGlobalFilter("Tenant").WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
-            //var timeSpan = tenant.IdleTime.HasValue && tenant.IdleTime.Value > 0 ? TimeSpan.FromMinutes(tenant.IdleTime.Value) : TimeSpan.MaxValue;
-            cloud.Register(tenantName, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
+            var appConfig = serviceProvider.GetRequiredService<AppConfig>();
+            cloud.Register(dbKey, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
         }
 
-        return cloud.Use(tenantName);
+        return cloud.Use(dbKey);
     }
 }

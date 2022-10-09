@@ -55,7 +55,7 @@ public interface IUser
     TenantType? TenantType { get; }
 
     /// <summary>
-    /// 数据隔离类型
+    /// 数据库注册键
     /// </summary>
-    DataIsolationType? DataIsolationType { get; }
+    string DbKey { get; }
 }

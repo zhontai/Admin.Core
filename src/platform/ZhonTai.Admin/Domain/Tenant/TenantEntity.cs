@@ -58,14 +58,15 @@ public partial class TenantEntity : EntityFull
     public TenantType? TenantType { get; set; } = Core.Entities.TenantType.Tenant;
 
     /// <summary>
-    /// 数据隔离类型
+    /// 数据库注册键
     /// </summary>
-    public DataIsolationType DataIsolationType { get; set; } = DataIsolationType.Share;
+    [Column(StringLength = 50)]
+    public string DbKey { get; set; }
 
     /// <summary>
     /// 数据库
     /// </summary>
-    [Column(MapType = typeof(int))]
+    [Column(MapType = typeof(int?))]
     public DataType? DbType { get; set; }
 
     /// <summary>
@@ -73,11 +74,6 @@ public partial class TenantEntity : EntityFull
     /// </summary>
     [Column(StringLength = 500)]
     public string ConnectionString { get; set; }
-
-    /// <summary>
-    /// 空闲时间(分)
-    /// </summary>
-    public int? IdleTime { get; set; } = 10;
 
     /// <summary>
     /// 启用

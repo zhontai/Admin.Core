@@ -41,7 +41,7 @@ public static class ClaimAttributes
     public const string TenantType = "tt";
 
     /// <summary>
-    /// 数据隔离
+    /// 数据库注册键
     /// </summary>
-    public const string DataIsolationType = "dit";
+    public const string DbKey = "dk";
 }

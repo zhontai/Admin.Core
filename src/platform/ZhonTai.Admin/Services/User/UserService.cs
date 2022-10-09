@@ -28,6 +28,7 @@ using ZhonTai.Admin.Domain.Org;
 using System.Data;
 using ZhonTai.Admin.Domain.TenantPermission;
 using FreeSql;
+using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -122,18 +123,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
         if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant")
-                .WhereDynamic(entityDto.TenantId)
-                .ToOneAsync(a => new 
-                { 
-                    a.TenantType, 
-                    a.DataIsolationType 
-                });
-            if (null != tenant)
-            {
-                entityDto.TenantType = tenant.TenantType;
-                entityDto.DataIsolationType = tenant.DataIsolationType;
-            }
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
+            entityDto.TenantType = tenant.TenantType;
+            entityDto.DbKey = tenant.DbKey;
         }
         return output.Ok(entityDto);
     }
@@ -165,7 +157,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             if (User.TenantAdmin)
             {
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
-                var db = cloud.Use(DbKeys.AdminDbKey);
+                var db = cloud.Use(DbKeys.MasterDbKey);
 
                 return await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()

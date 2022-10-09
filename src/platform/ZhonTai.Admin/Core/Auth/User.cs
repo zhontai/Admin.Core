@@ -3,6 +3,7 @@ using System;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
+using System.Xml.Linq;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -153,18 +154,18 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 数据隔离类型
+    /// 数据库注册键
     /// </summary>
-    public virtual DataIsolationType? DataIsolationType
+    public virtual string DbKey
     {
         get
         {
-            var dataIsolationType = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.DataIsolationType);
-            if (dataIsolationType != null && dataIsolationType.Value.NotNull())
+            var dbKey = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.DbKey);
+            if (dbKey != null && dbKey.Value.NotNull())
             {
-                return (DataIsolationType)Enum.Parse(typeof(DataIsolationType), dataIsolationType.Value, true);
+                return dbKey.Value;
             }
-            return null;
+            return "";
         }
     }
 }

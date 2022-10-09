@@ -94,9 +94,9 @@
             租户类型
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.DataIsolationType">
+        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.DbKey">
             <summary>
-            数据隔离
+            数据库注册键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.IPermissionHandler">
@@ -162,9 +162,9 @@
             租户类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.DataIsolationType">
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.DbKey">
             <summary>
-            数据隔离类型
+            数据库注册键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.PermissionHandler">
@@ -235,9 +235,9 @@
             租户类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.DataIsolationType">
+        <member name="P:ZhonTai.Admin.Core.Auth.User.DbKey">
             <summary>
-            数据隔离类型
+            数据库注册键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.BaseController">
@@ -700,9 +700,9 @@
             数据库键名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.AdminDbKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDbKey">
             <summary>
-            admin库
+            主库
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDbKey">
@@ -712,7 +712,7 @@
         </member>
         <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.TenantDbKey">
             <summary>
-            租户独立数据库
+            租户数据库
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -886,6 +886,11 @@
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="invocation"></param>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbKey">
+            <summary>
+            数据库注册键
+            </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbType">
             <summary>
@@ -1066,31 +1071,6 @@
             </summary>
             <param name="success"></param>
             <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.DataIsolationType">
-            <summary>
-            数据隔离类型
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.DataIsolationType.OwnDb">
-            <summary>
-            独立数据库
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.DataIsolationType.OwnDt">
-            <summary>
-            独立数据表
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.DataIsolationType.Schema">
-            <summary>
-            共享数据库，独立架构
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.DataIsolationType.Share">
-            <summary>
-            共享数据库
-            </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.IEntity`1.Id">
             <summary>
@@ -2444,9 +2424,9 @@
             租户类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.DataIsolationType">
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.DbKey">
             <summary>
-            数据隔离类型
+            数据库注册键
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.DbType">
@@ -2457,11 +2437,6 @@
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.ConnectionString">
             <summary>
             连接字符串
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.IdleTime">
-            <summary>
-            空闲时间(分)
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Enabled">
@@ -3058,9 +3033,9 @@
             租户类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.DataIsolationType">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.DbKey">
             <summary>
-            数据隔离
+            数据库注册键
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Id">
@@ -5070,9 +5045,9 @@
             邮箱地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.DataIsolationType">
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.DbKey">
             <summary>
-            数据隔离类型
+            数据库注册键
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.DbType">
@@ -5083,11 +5058,6 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.ConnectionString">
             <summary>
             连接字符串
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.IdleTime">
-            <summary>
-            空闲时间(分)
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Enabled">
@@ -5103,16 +5073,6 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Id">
             <summary>
             主键
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.UserId">
-            <summary>
-            授权用户
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.RoleId">
-            <summary>
-            授权角色
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Code">
@@ -5140,16 +5100,6 @@
             邮箱地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.DataIsolationType">
-            <summary>
-            数据隔离类型
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.DataIsolationTypeName">
-            <summary>
-            数据隔离类型名称
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.DbType">
             <summary>
             数据库
@@ -5158,16 +5108,6 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.DbTypeName">
             <summary>
             数据库名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.ConnectionString">
-            <summary>
-            连接字符串
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.IdleTime">
-            <summary>
-            空闲时间(分)
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Enabled">
