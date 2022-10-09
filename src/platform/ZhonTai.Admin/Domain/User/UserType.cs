@@ -6,9 +6,9 @@
 public enum UserType
 {
     /// <summary>
-    /// 用户
+    /// 默认用户
     /// </summary>
-    User = 1,
+    DefaultUser = 1,
 
     /// <summary>
     /// 租户管理员

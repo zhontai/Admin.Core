@@ -91,7 +91,7 @@ public partial class UserEntity : EntityFull, ITenant
     /// 用户类型
     /// </summary>
     [Column(MapType = typeof(int))]
-    public UserType Type { get; set; } = UserType.User;
+    public UserType Type { get; set; } = UserType.DefaultUser;
 
     /// <summary>
     /// 角色列表

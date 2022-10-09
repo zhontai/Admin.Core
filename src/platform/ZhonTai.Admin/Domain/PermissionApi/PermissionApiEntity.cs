@@ -25,7 +25,7 @@ public class PermissionApiEntity : EntityAdd
     /// <summary>
     /// 接口Id
     /// </summary>
-		public long ApiId { get; set; }
+	public long ApiId { get; set; }
 
     /// <summary>
     /// 接口

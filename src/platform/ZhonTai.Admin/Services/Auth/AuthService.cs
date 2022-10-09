@@ -30,6 +30,10 @@ using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using FreeSql;
+using Microsoft.Extensions.DependencyInjection;
+using ZhonTai.Admin.Domain.TenantPermission;
+using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -120,45 +124,71 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             return ResultOutput.NotOk("未登录");
         }
 
-        var permissionSelect = _permissionRepository.Select
-            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-            .WhereIf(!User.PlatformAdmin, a =>
-                _permissionRepository.Orm.Select<RolePermissionEntity>()
-                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                .Where(b => b.PermissionId == a.Id)
-                .Any()
-            );
-
-        if (!User.PlatformAdmin)
-        {
-            permissionSelect = permissionSelect.AsTreeCte(up: true);
-        }
-
-        var menuList = await permissionSelect
-            .OrderBy(a => new { a.ParentId, a.Sort })
-            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
-        
-        menuList = menuList.DistinctBy(a => a.Id).ToList();
-
         var authGetUserInfoOutput = new AuthGetUserInfoOutput
         {
             //用户信息
-            User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id),
-
-            //用户菜单
-            Menus = menuList,
-
-            //用户权限点
-            Permissions = await _permissionRepository.Select
-            .Where(a => a.Type == PermissionType.Dot)
-            .WhereIf(!User.PlatformAdmin, a =>
-                _permissionRepository.Orm.Select<RolePermissionEntity>()
-                .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                .Where(b => b.PermissionId == a.Id)
-                .Any()
-            )
-            .ToListAsync(a => a.Code)
+            User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
         };
+
+        
+        IFreeSql db = _permissionRepository.Orm;
+        if (User.TenantAdmin)
+        {
+            var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
+            db = cloud.Use(DbKeys.AdminDbKey);
+        }
+       
+        var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
+        var menuSelect = permissionRepository.Select
+            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type));
+
+        var dotSelect = permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+
+        if (!User.PlatformAdmin)
+        {
+            if (User.TenantAdmin)
+            {
+                menuSelect = menuSelect.Where(a =>
+                   db.Select<TenantPermissionEntity>()
+                   .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                   .Any()
+               );
+
+                dotSelect = dotSelect.Where(a =>
+                   db.Select<TenantPermissionEntity>()
+                   .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                   .Any()
+                );
+            }
+            else
+            {
+                menuSelect = menuSelect.Where(a =>
+                   db.Select<RolePermissionEntity>()
+                   .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                   .Where(b => b.PermissionId == a.Id)
+                   .Any()
+               );
+
+                dotSelect = dotSelect.Where(a =>
+                    db.Select<RolePermissionEntity>()
+                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                    .Where(b => b.PermissionId == a.Id)
+                    .Any()
+                );
+            }
+
+            menuSelect = menuSelect.AsTreeCte(up: true);
+        }
+
+        var menuList = await menuSelect
+            .OrderBy(a => new { a.ParentId, a.Sort })
+            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+
+        //用户菜单
+        authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).ToList();
+
+        //用户权限点
+        authGetUserInfoOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);
 
         return ResultOutput.Ok(authGetUserInfoOutput);
     }

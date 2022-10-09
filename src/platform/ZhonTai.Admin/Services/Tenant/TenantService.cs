@@ -135,7 +135,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = input.RealName,
             Mobile = input.Phone,
             Email = input.Email,
-            Status = UserStatus.Enabled
+            Status = UserStatus.Enabled,
+            Type = UserType.TenantAdmin,
+            MainOrgId = org.Id
         };
         await _userRepository.InsertAsync(user);
 
@@ -157,12 +159,22 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         };
         await _userOrgRepository.InsertAsync(userOrg);
 
+        //添加角色分组
+        var roleGroup = new RoleEntity
+        {
+            TenantId = tenantId,
+            Name = "系统默认",
+            ParentId = 0
+        };
+        await _roleRepository.InsertAsync(roleGroup);
+
         //添加角色
         var role = new RoleEntity
         {
             TenantId = tenantId,
             Name = "主管理员",
-            Code = "admin"
+            Code = "main-admin",
+            ParentId = roleGroup.Id
         };
         await _roleRepository.InsertAsync(role);
 

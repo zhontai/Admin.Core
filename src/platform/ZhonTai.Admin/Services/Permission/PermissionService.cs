@@ -355,7 +355,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (input.ApiIds != null && input.ApiIds.Any())
         {
             var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a });
-            await _permissionApiRepository.InsertAsync(permissionApis);
+            await _permissionApiRepository.InsertAsync(permissionApis.ToList());
         }
 
         //清除用户权限缓存

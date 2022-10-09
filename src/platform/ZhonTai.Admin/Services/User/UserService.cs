@@ -26,6 +26,8 @@ using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
 using System.Data;
+using ZhonTai.Admin.Domain.TenantPermission;
+using FreeSql;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -160,8 +162,21 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var key = string.Format(CacheKeys.UserPermissions, User.Id);
         var result = await Cache.GetOrSetAsync(key, async () =>
         {
+            if (User.TenantAdmin)
+            {
+                var cloud = LazyGetRequiredService<FreeSqlCloud>();
+                var db = cloud.Use(DbKeys.AdminDbKey);
+
+                return await db.Select<ApiEntity>()
+                .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()
+                .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
+                .Where((b, c) => c.ApiId == a.Id).Any())
+                .ToListAsync<UserPermissionsOutput>();
+            }
+
+
             return await _apiRepository
-            .Where(a => _userRoleRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
+            .Where(a => _apiRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
             .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
             .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
             .Where((b, c, d) => d.ApiId == a.Id).Any())

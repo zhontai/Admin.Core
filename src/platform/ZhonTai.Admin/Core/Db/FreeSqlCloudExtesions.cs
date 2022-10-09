@@ -86,6 +86,11 @@ public static class FreeSqlCloudExtesions
 
         #endregion 审计数据
 
+        if (appConfig.Tenant)
+        {
+            fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
+        }
+
         return fsql;
     }
 

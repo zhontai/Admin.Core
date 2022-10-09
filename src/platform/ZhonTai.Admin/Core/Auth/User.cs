@@ -98,9 +98,21 @@ public class User : IUser
             {
                 return (UserType)Enum.Parse(typeof(UserType), userType.Value, true);
             }
-            return UserType.User;
+            return UserType.DefaultUser;
         }
     }
+
+    /// <summary>
+    /// 默认用户
+    /// </summary>
+    public virtual bool DefaultUser
+    {
+        get
+        {
+            return Type == UserType.DefaultUser;
+        }
+    }
+
 
     /// <summary>
     /// 平台管理员

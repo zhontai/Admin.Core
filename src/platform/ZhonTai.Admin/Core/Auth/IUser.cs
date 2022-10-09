@@ -30,6 +30,11 @@ public interface IUser
     UserType Type { get; }
 
     /// <summary>
+    /// 默认用户
+    /// </summary>
+    bool DefaultUser { get; }
+
+    /// <summary>
     /// 平台管理员
     /// </summary>
     bool PlatformAdmin { get; }

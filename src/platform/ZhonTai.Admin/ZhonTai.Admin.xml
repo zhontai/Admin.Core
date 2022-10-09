@@ -137,6 +137,11 @@
             用户类型
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.DefaultUser">
+            <summary>
+            默认用户
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.PlatformAdmin">
             <summary>
             平台管理员
@@ -208,6 +213,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.Type">
             <summary>
             用户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.DefaultUser">
+            <summary>
+            默认用户
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.PlatformAdmin">
@@ -2609,9 +2619,9 @@
             用户类型
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserType.User">
+        <member name="F:ZhonTai.Admin.Domain.User.UserType.DefaultUser">
             <summary>
-            用户
+            默认用户
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Domain.User.UserType.TenantAdmin">
