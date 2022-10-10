@@ -50,6 +50,12 @@ public partial class RoleEntity : EntityFull, ITenant
     public RoleType Type { get; set; }
 
     /// <summary>
+    /// 数据范围
+    /// </summary>
+    [Column(MapType = typeof(int))]
+    public DataScope DataScope { get; set; } = DataScope.All;
+
+    /// <summary>
     /// 说明
     /// </summary>
     [Column(StringLength = 200)]
