@@ -11,6 +11,8 @@ using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Consts;
 using System.Linq;
+using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -208,5 +210,20 @@ public static class DBServiceCollectionExtensions
                 });
             }
         }
+    }
+
+    /// <summary>
+    /// 添加TiDb数据库
+    /// </summary>
+    /// <param name="_"></param>
+    /// <param name="context"></param>
+    /// <param name="version">版本</param>
+    public static void AddTiDb(this IServiceCollection _, HostAppContext context, string version = "8.0")
+    {
+        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        var _dicMySqlVersion = typeof(FreeSqlGlobalExtensions).GetField("_dicMySqlVersion", BindingFlags.NonPublic | BindingFlags.Static);
+        var dicMySqlVersion = new ConcurrentDictionary<string, string>();
+        dicMySqlVersion[dbConfig.ConnectionString] = version;
+        _dicMySqlVersion.SetValue(new ConcurrentDictionary<string, string>(), dicMySqlVersion);
     }
 }

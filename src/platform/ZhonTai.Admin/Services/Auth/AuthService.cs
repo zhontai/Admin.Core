@@ -139,8 +139,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
        
         var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
-        var menuSelect = permissionRepository.Select
-            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type));
+        var menuSelect = permissionRepository.Select;
 
         var dotSelect = permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
 
@@ -181,6 +180,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         var menuList = await menuSelect
+            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
             .OrderBy(a => new { a.ParentId, a.Sort })
             .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
 

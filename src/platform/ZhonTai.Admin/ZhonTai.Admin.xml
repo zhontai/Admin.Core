@@ -822,6 +822,14 @@
             <param name="hostAppOptions"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddTiDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,ZhonTai.Admin.Core.Startup.HostAppContext,System.String)">
+            <summary>
+            添加TiDb数据库
+            </summary>
+            <param name="_"></param>
+            <param name="context"></param>
+            <param name="version">版本</param>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.CreateFreeSql(ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto)">
             <summary>
             创建FreeSql实例

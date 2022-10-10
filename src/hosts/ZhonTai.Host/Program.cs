@@ -12,6 +12,8 @@ new HostApp(new HostAppOptions
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
+		//context.Services.AddTiDb(context);
+
 		//添加任务调度
 		context.Services.AddTaskScheduler(options =>
 		{

@@ -289,6 +289,28 @@
                 "sort": 0,
                 "description": "",
                 "childs": []
+              },
+              {
+                "id": 340890474405957,
+                "parentId": 161227168653381,
+                "label": "添加员工",
+                "code": "api:admin:role:add-role-user",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 340890633515077,
+                "parentId": 161227168653381,
+                "label": "移除员工",
+                "code": "api:admin:role:remove-role-user",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
               }
             ]
           },
