@@ -5274,11 +5274,6 @@
             密码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
             <summary>
             主键Id
@@ -5337,11 +5332,6 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Introduce">
             <summary>
             个人简介
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserUpdateInput">

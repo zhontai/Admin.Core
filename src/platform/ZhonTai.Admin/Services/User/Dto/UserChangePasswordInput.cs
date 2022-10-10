@@ -30,9 +30,4 @@ public class UserChangePasswordInput : Entity
     /// 密码
     /// </summary>
     public string Password { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

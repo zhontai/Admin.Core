@@ -28,9 +28,4 @@ public class UserUpdateBasicInput : Entity
     /// 个人简介
     /// </summary>
     public string Introduce { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

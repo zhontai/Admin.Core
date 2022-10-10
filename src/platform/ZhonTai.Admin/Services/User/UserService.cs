@@ -350,9 +350,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
         input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
 
         entity = Mapper.Map(input, entity);
-        var result = (await _userRepository.UpdateAsync(entity)) > 0;
+        await _userRepository.UpdateAsync(entity);
 
-        return ResultOutput.Result(result);
+        return ResultOutput.Ok();
     }
 
     /// <summary>
