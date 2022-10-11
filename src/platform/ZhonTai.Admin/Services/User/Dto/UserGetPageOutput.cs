@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Mapster;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -31,6 +33,11 @@ public class UserGetPageOutput
     /// 邮箱
     /// </summary>
     public string Email { get; set; }
+
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public UserType Type { get; set; }
 
     /// <summary>
     /// 角色

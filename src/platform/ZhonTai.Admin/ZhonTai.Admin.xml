@@ -2097,6 +2097,36 @@
             权限
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.Role.DataScope">
+            <summary>
+            数据范围
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.All">
+            <summary>
+            全部
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Dept">
+            <summary>
+            本部门
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.DeptWithChild">
+            <summary>
+            本部门和下级部门
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Custom">
+            <summary>
+            指定部门
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Self">
+            <summary>
+            本人数据
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput.Name">
             <summary>
             名称
@@ -2145,6 +2175,11 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Type">
             <summary>
             角色类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.DataScope">
+            <summary>
+            数据范围
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Description">
@@ -5305,6 +5340,11 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Email">
             <summary>
             邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Type">
+            <summary>
+            用户类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.RoleNames">

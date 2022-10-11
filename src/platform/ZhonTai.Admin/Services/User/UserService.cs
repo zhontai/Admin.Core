@@ -29,6 +29,7 @@ using System.Data;
 using ZhonTai.Admin.Domain.TenantPermission;
 using FreeSql;
 using ZhonTai.Admin.Core.Auth;
+using Org.BouncyCastle.Crypto;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -363,12 +364,23 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
-        //删除员工
-        await _staffRepository.DeleteAsync(a => a.Id == id);
+        var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
+        if(user == null)
+        {
+            return ResultOutput.NotOk("用户不存在");
+        }
+
+        if(user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
+        {
+            return ResultOutput.NotOk("平台管理员禁止删除");
+        }
+
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
-        //删除员工所属部门
+        //删除用户所属部门
         await _userOrgRepository.DeleteAsync(a => a.UserId == id);
+        //删除员工
+        await _staffRepository.DeleteAsync(a => a.Id == id);
         //删除用户
         await _userRepository.DeleteAsync(a => a.Id == id);
 
@@ -383,12 +395,18 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
-        //删除员工
-        await _staffRepository.DeleteAsync(a => ids.Contains(a.Id));
+        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+        if (admin)
+        {
+            return ResultOutput.NotOk("平台管理员禁止删除");
+        }
+       
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
-        //删除员工所属部门
+        //删除用户所属部门
         await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        //删除员工
+        await _staffRepository.DeleteAsync(a => ids.Contains(a.Id));
         //删除用户
         await _userRepository.DeleteAsync(a => ids.Contains(a.Id));
 
@@ -403,9 +421,20 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
-        await _staffRepository.SoftDeleteAsync(a => a.Id == id);
+        var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
+        if (user == null)
+        {
+            return ResultOutput.NotOk("用户不存在");
+        }
+
+        if (user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
+        {
+            return ResultOutput.NotOk("平台管理员禁止删除");
+        }
+
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
         await _userOrgRepository.DeleteAsync(a => a.UserId == id);
+        await _staffRepository.SoftDeleteAsync(a => a.Id == id);
         await _userRepository.SoftDeleteAsync(id);
 
         return ResultOutput.Ok();
@@ -419,9 +448,15 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
-        await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
+        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+        if (admin)
+        {
+            return ResultOutput.NotOk("平台管理员禁止删除");
+        }
+
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
         await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
         await _userRepository.SoftDeleteAsync(ids);
 
         return ResultOutput.Ok();
