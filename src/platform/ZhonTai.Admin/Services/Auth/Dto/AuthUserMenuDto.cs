@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Auth.Dto;
+﻿using Newtonsoft.Json;
+
+namespace ZhonTai.Admin.Services.Auth.Dto;
 
 public class AuthUserMenuDto
 {
@@ -56,4 +58,10 @@ public class AuthUserMenuDto
     /// 链接外显
     /// </summary>
     public bool? External { get; set; }
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    [JsonIgnore]
+    public int? Sort { get; set; }
 }

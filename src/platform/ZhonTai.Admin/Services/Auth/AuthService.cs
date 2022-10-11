@@ -181,11 +181,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var menuList = await menuSelect
             .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-            .OrderBy(a => new { a.ParentId, a.Sort })
             .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
 
         //用户菜单
-        authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).ToList();
+        authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
 
         //用户权限点
         authGetUserInfoOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);

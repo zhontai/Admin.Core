@@ -3106,6 +3106,11 @@
             链接外显
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.UserName">
             <summary>
             账号

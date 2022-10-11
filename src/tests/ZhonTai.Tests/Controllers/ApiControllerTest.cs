@@ -1,10 +1,8 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xunit;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Tests.Controllers;
