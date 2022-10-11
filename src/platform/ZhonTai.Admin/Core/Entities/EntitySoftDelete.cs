@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体软删除
 /// </summary>
-public class EntitySoftDelete<TKey> : Entity<TKey>, IEntitySoftDelete
+public class EntitySoftDelete<TKey> : Entity<TKey>, ISoftDelete
 {
     /// <summary>
     /// 是否删除

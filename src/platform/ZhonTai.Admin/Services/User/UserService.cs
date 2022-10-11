@@ -119,10 +119,10 @@ public class UserService : BaseService, IUserService, IDynamicApi
     public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
     {
         var output = new ResultOutput<AuthLoginOutput>();
-        var entityDto = await _userRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+        var entityDto = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
         if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
             entityDto.TenantType = tenant.TenantType;
             entityDto.DbKey = tenant.DbKey;
         }
@@ -156,7 +156,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             if (User.TenantAdmin)
             {
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
-                var db = cloud.Use(DbKeys.MasterDbKey);
+                var db = cloud.Use(DbKeys.MasterDb);
 
                 return await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()

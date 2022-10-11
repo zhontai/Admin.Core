@@ -104,7 +104,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         //写入Redis
         var guid = Guid.NewGuid().ToString("N");
-        var key = string.Format(CacheKeys.PassWordEncryptKey, guid);
+        var key = string.Format(CacheKeys.PassWordEncrypt, guid);
         var encyptKey = StringHelper.GenerateRandom(8);
         await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
         var data = new { key = guid, encyptKey };
@@ -135,7 +135,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         if (User.TenantAdmin)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            db = cloud.Use(DbKeys.MasterDbKey);
+            db = cloud.Use(DbKeys.MasterDb);
         }
        
         var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
@@ -210,7 +210,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         if (_appConfig.VarifyCode.Enable)
         {
             input.Captcha.DeleteCache = true;
-            input.Captcha.CaptchaKey = CacheKeys.CaptchaKey;
+            input.Captcha.CaptchaKey = CacheKeys.Captcha;
             var isOk = await _captchaTool.CheckAsync(input.Captcha);
             if (!isOk)
             {
@@ -224,7 +224,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         if (input.PasswordKey.NotNull())
         {
-            var passwordEncryptKey = string.Format(CacheKeys.PassWordEncryptKey, input.PasswordKey);
+            var passwordEncryptKey = string.Format(CacheKeys.PassWordEncrypt, input.PasswordKey);
             var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
             if (existsPasswordKey)
             {
@@ -246,7 +246,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         #region 登录
         var password = MD5Encrypt.Encrypt32(input.Password);
-        var user = await _userRepository.Select.DisableGlobalFilter("Tenant")
+        var user = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
             .Where(a => a.UserName == input.UserName && a.Password == password).ToOneAsync();
 
         if (!(user?.Id > 0))
@@ -264,7 +264,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
             authLoginOutput.TenantType = tenant.TenantType;
             authLoginOutput.DbKey = tenant.DbKey;
         }
@@ -352,7 +352,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         using (MiniProfiler.Current.Step("获取滑块验证"))
         {
-            var data = await _captchaTool.GetAsync(CacheKeys.CaptchaKey);
+            var data = await _captchaTool.GetAsync(CacheKeys.Captcha);
             return ResultOutput.Ok(data);
         }
     }
@@ -367,7 +367,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [EnableCors(AdminConsts.AllowAnyPolicyName)]
     public async Task<IResultOutput> CheckCaptcha([FromQuery] CaptchaInput input)
     {
-        input.CaptchaKey = CacheKeys.CaptchaKey;
+        input.CaptchaKey = CacheKeys.Captcha;
         var result = await _captchaTool.CheckAsync(input);
         return ResultOutput.Result(result);
     }

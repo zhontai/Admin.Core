@@ -421,7 +421,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public virtual async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
     {
         //分配权限的时候判断角色是否存在
-        var exists = await _roleRepository.Select.DisableGlobalFilter("Tenant").WhereDynamic(input.RoleId).AnyAsync();
+        var exists = await _roleRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(input.RoleId).AnyAsync();
         if (!exists)
         {
             return ResultOutput.NotOk("该角色不存在或已被删除！");
@@ -445,7 +445,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDbKey).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
+            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDb).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
             insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
         }
 

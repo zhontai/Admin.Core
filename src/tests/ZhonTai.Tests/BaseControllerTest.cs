@@ -168,10 +168,10 @@ public class BaseControllerTest : BaseTest
             };
             if (_appConfig.VarifyCode.Enable)
             {
-                var res = await _captcha.GetAsync(CacheKeys.CaptchaKey);
-                var captchaKey = string.Format(CacheKeys.CaptchaKey, res.Token);
+                var res = await _captcha.GetAsync(CacheKeys.Captcha);
+                var captchaKey = string.Format(CacheKeys.Captcha, res.Token);
                 var captchaData = await _cache.GetAsync(captchaKey);
-                input.Captcha = new CaptchaInput { CaptchaKey = CacheKeys.CaptchaKey, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
+                input.Captcha = new CaptchaInput { CaptchaKey = CacheKeys.Captcha, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
             }
         }
 

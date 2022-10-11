@@ -13,13 +13,13 @@ public static partial class CacheKeys
     /// 验证码 admin:captcha:guid
     /// </summary>
     [Description("验证码")]
-    public const string CaptchaKey = "admin:captcha:{0}";
+    public const string Captcha = "admin:captcha:{0}";
 
     /// <summary>
     /// 密码加密 admin:password:encrypt:guid
     /// </summary>
     [Description("密码加密")]
-    public const string PassWordEncryptKey = "admin:password:encrypt:{0}";
+    public const string PassWordEncrypt = "admin:password:encrypt:{0}";
 
     /// <summary>
     /// 用户权限 admin:user:permissions:用户主键

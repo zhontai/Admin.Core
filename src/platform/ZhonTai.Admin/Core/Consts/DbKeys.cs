@@ -11,17 +11,17 @@ public static partial class DbKeys
     /// 主库
     /// </summary>
     [Description("主库")]
-    public const string MasterDbKey = "masterdb";
+    public const string MasterDb = "masterdb";
 
     /// <summary>
     /// 多库
     /// </summary>
     [Description("多库")]
-    public const string MultiDbKey = "multidb_";
+    public const string MultiDb = "multidb_";
 
     /// <summary>
     /// 租户数据库
     /// </summary>
     [Description("租户数据库")]
-    public const string TenantDbKey = "tenantdb_";
+    public const string TenantDb = "tenantdb_";
 }

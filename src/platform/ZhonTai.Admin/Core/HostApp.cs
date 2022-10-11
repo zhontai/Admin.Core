@@ -179,7 +179,7 @@ public class HostApp
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
         services.AddAdminDb(freeSqlCloud, env, _hostAppOptions);
-        services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.MasterDbKey));
+        services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.MasterDb));
 
 
         //上传配置

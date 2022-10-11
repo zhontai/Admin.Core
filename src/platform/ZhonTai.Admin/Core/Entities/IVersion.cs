@@ -1,9 +1,9 @@
 ﻿namespace ZhonTai.Admin.Core.Entities;
 
-public interface IEntityVersion
+public interface IVersion
 {
     /// <summary>
-    /// 版本
+    /// 数据版本
     /// </summary>
     long Version { get; set; }
 }

@@ -11,22 +11,22 @@ public enum DataScope
     All = 1,
 
     /// <summary>
-    /// 本部门
-    /// </summary>
-    Dept = 2,
-
-    /// <summary>
     /// 本部门和下级部门
     /// </summary>
-    DeptWithChild = 3,
+    DeptWithChild = 2,
 
     /// <summary>
-    /// 指定部门
+    /// 本部门
     /// </summary>
-    Custom = 4,
+    Dept = 3,
 
     /// <summary>
     /// 本人数据
     /// </summary>
-    Self = 5
+    Self = 4,
+
+    /// <summary>
+    /// 指定部门
+    /// </summary>
+    Custom = 5
 }

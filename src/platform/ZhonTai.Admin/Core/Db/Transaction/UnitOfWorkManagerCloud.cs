@@ -33,12 +33,12 @@ public class UnitOfWorkManagerCloud
         {
             if (_appConfig.Tenant && _user.TenantId.HasValue)
             {
-                dbKey = _user.DbKey.NotNull() ? _user.DbKey : (DbKeys.TenantDbKey + _user.TenantId);
+                dbKey = _user.DbKey.NotNull() ? _user.DbKey : (DbKeys.TenantDb + _user.TenantId);
                 _cloud.GetCurrentDb(_serviceProvider);
             }
             else
             {
-                dbKey = DbKeys.MasterDbKey;
+                dbKey = DbKeys.MasterDb;
             }
         }
         if (_managers.TryGetValue(dbKey, out var uowm) == false)

@@ -1,6 +1,6 @@
 ﻿namespace ZhonTai.Admin.Core.Entities;
 
-public interface IEntitySoftDelete
+public interface ISoftDelete
 {
     /// <summary>
     /// 是否删除

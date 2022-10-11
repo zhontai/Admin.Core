@@ -231,22 +231,22 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除角色权限
-        await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户角色
-        await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除员工
-        await _staffRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _staffRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户部门
-        await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户
-        await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除角色
-        await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter("Tenant").ToDelete().ExecuteAffrowsAsync();
+        await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除租户
         await _tenantRepository.DeleteAsync(id);
@@ -263,10 +263,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
+        await _userRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
 
         //删除角色
-        await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, "Tenant");
+        await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
 
         //删除租户
         var result = await _tenantRepository.SoftDeleteAsync(id);
@@ -283,10 +283,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");
+        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
 
         //删除角色
-        await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), "Tenant");
+        await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
 
         //删除租户
         var result = await _tenantRepository.SoftDeleteAsync(ids);

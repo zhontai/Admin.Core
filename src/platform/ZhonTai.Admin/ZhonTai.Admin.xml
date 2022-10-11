@@ -670,12 +670,12 @@
             缓存键
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.CaptchaKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.Captcha">
             <summary>
             验证码 admin:captcha:guid
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.PassWordEncryptKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.PassWordEncrypt">
             <summary>
             密码加密 admin:password:encrypt:guid
             </summary>
@@ -700,19 +700,34 @@
             数据库键名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDbKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDb">
             <summary>
             主库
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDbKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDb">
             <summary>
             多库
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.TenantDbKey">
+        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.TenantDb">
             <summary>
             租户数据库
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Consts.FilterNames">
+            <summary>
+            全局过滤器名
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.SoftDelete">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Tenant">
+            <summary>
+            租户
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -1195,19 +1210,19 @@
             版本
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.IEntitySoftDelete.IsDeleted">
+        <member name="P:ZhonTai.Admin.Core.Entities.ISoftDelete.IsDeleted">
             <summary>
             是否删除
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.IEntityVersion.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.ITenant.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IVersion.Version">
+            <summary>
+            数据版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.TenantType">
@@ -2107,24 +2122,24 @@
             全部
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Dept">
-            <summary>
-            本部门
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Domain.Role.DataScope.DeptWithChild">
             <summary>
             本部门和下级部门
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Custom">
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Dept">
             <summary>
-            指定部门
+            本部门
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Self">
             <summary>
             本人数据
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.DataScope.Custom">
+            <summary>
+            指定部门
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput.Name">

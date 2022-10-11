@@ -32,7 +32,7 @@ public static class DBServiceCollectionExtensions
         var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
 
         //注册主库
-        freeSqlCloud.Register(DbKeys.MasterDbKey, () =>
+        freeSqlCloud.Register(DbKeys.MasterDb, () =>
         {
             //创建数据库
             if (dbConfig.CreateDb)
@@ -40,22 +40,20 @@ public static class DBServiceCollectionExtensions
                 DbHelper.CreateDatabaseAsync(dbConfig).Wait();
             }
 
-            #region FreeSql
-
             var providerType = dbConfig.ProviderType.NotNull() ? Type.GetType(dbConfig.ProviderType) : null;
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString, providerType)
                     .UseAutoSyncStructure(false)
                     .UseLazyLoading(false)
                     .UseNoneCommandParameter(true);
-            
+
             if (dbConfig.SlaveList?.Length > 0)
             {
                 var slaveList = dbConfig.SlaveList.Select(a => a.ConnectionString).ToArray();
                 var slaveWeightList = dbConfig.SlaveList.Select(a => a.Weight).ToArray();
                 freeSqlBuilder.UseSlave(slaveList).UseSlaveWeight(slaveWeightList);
             }
-            
+
             hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
 
             #region 监听所有命令
@@ -72,12 +70,26 @@ public static class DBServiceCollectionExtensions
             #endregion 监听所有命令
 
             var fsql = freeSqlBuilder.Build();
-            fsql.GlobalFilter.Apply<IEntitySoftDelete>("SoftDelete", a => a.IsDeleted == false);
+            var user = services.BuildServiceProvider().GetService<IUser>();
+
+            #region 全局过滤器
+
+            //软删除过滤器
+            fsql.GlobalFilter.Apply<ISoftDelete>(FilterNames.SoftDelete, a => a.IsDeleted == false);
+
+            //租户过滤器
+            if (appConfig.Tenant)
+            {
+                fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
+            }
+
+            #endregion
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);
 
             hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
+
             #region 初始化数据库
 
             //同步结构
@@ -85,8 +97,6 @@ public static class DBServiceCollectionExtensions
             {
                 DbHelper.SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
             }
-
-            var user = services.BuildServiceProvider().GetService<IUser>();
 
             #region 审计数据
 
@@ -139,13 +149,6 @@ public static class DBServiceCollectionExtensions
 
             #endregion 监听Curd操作
 
-            if (appConfig.Tenant)
-            {
-                fsql.GlobalFilter.Apply<ITenant>("Tenant", a => a.TenantId == user.TenantId);
-            }
-
-            #endregion FreeSql
-
             return fsql;
         });
 
@@ -154,7 +157,7 @@ public static class DBServiceCollectionExtensions
         {
             foreach (var db in dbConfig.Dbs)
             {
-                freeSqlCloud.Register(DbKeys.MultiDbKey + db.Key, () =>
+                freeSqlCloud.Register(DbKeys.MultiDb + db.Key, () =>
                 {
                     #region FreeSql
 

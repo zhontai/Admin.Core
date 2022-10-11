@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体版本
 /// </summary>
-public class EntityVersion<TKey> : Entity<TKey>, IEntityVersion
+public class EntityVersion<TKey> : Entity<TKey>, IVersion
 {
     /// <summary>
     /// 版本
