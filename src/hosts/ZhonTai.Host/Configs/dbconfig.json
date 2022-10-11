@@ -12,7 +12,7 @@
   //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
   "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
-  //建库脚本
+  //建库脚本，复杂建库脚本可放到createdbsql.txt中
   //MySql "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
   //SqlServer "CREATE DATABASE [admindb]"
   //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
@@ -44,8 +44,8 @@
 
   //多数据库
   //定义MultiDbKeys枚举
-  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDbKey + MultiDbKeys.DbKey, muowm)
-  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDbKey +  MultiDbKeys.DbKey);
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDb + MultiDbKeys.DbKey, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDb +  MultiDbKeys.DbKey);
   "dbs": [
     //{
     //  "key": "admindb",

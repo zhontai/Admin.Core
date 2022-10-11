@@ -72,18 +72,8 @@ public static class DBServiceCollectionExtensions
             var fsql = freeSqlBuilder.Build();
             var user = services.BuildServiceProvider().GetService<IUser>();
 
-            #region 全局过滤器
-
             //软删除过滤器
             fsql.GlobalFilter.Apply<ISoftDelete>(FilterNames.SoftDelete, a => a.IsDeleted == false);
-
-            //租户过滤器
-            if (appConfig.Tenant)
-            {
-                fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
-            }
-
-            #endregion
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);
@@ -148,6 +138,12 @@ public static class DBServiceCollectionExtensions
             }
 
             #endregion 监听Curd操作
+
+            //租户过滤器
+            if (appConfig.Tenant)
+            {
+                fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
+            }
 
             return fsql;
         });
