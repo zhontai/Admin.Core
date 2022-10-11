@@ -2087,6 +2087,31 @@
             权限点
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.RoleOrgEntity">
+            <summary>
+            角色部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleOrgEntity.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleOrgEntity.Role">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleOrgEntity.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.RoleOrgEntity.Org">
+            <summary>
+            部门
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.RolePermission.RolePermissionEntity">
             <summary>
             角色权限
