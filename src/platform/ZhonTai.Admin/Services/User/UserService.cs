@@ -28,8 +28,6 @@ using ZhonTai.Admin.Domain.Org;
 using System.Data;
 using ZhonTai.Admin.Domain.TenantPermission;
 using FreeSql;
-using ZhonTai.Admin.Core.Auth;
-using Org.BouncyCastle.Crypto;
 
 namespace ZhonTai.Admin.Services.User;
 

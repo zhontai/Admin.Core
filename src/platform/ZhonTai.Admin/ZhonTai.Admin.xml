@@ -2172,11 +2172,6 @@
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Type">
-            <summary>
-            角色类型
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.DataScope">
             <summary>
             数据范围
@@ -2195,26 +2190,6 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Sort">
             <summary>
             排序
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Domain.Role.RoleType">
-            <summary>
-            角色类型
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Custom">
-            <summary>
-            自定义
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Default">
-            <summary>
-            默认
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.MainAdmin">
-            <summary>
-            主管理员
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput">

@@ -44,12 +44,6 @@ public partial class RoleEntity : EntityFull, ITenant
     public string Code { get; set; }
 
     /// <summary>
-    /// 角色类型
-    /// </summary>
-    [Column(MapType = typeof(int))]
-    public RoleType Type { get; set; }
-
-    /// <summary>
     /// 数据范围
     /// </summary>
     [Column(MapType = typeof(int))]

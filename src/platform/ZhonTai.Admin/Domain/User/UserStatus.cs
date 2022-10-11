@@ -18,10 +18,10 @@ public enum UserStatus
     /// <summary>
     /// 待修改密码
     /// </summary>
-    WaitChangePasssword = 3,
+    WaitChangePasssword = 2,
 
     /// <summary>
     /// 待激活
     /// </summary>
-    WaitActive = 4,
+    WaitActive = 3,
 }

@@ -5,6 +5,7 @@ using Xunit;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api;
+using ZhonTai.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Tests.Controllers;
 
@@ -32,17 +33,18 @@ public class ApiControllerTest : BaseControllerTest
     public async Task GetPage()
     {
         await Login();
-        var input = new PageInput<ApiEntity>
+        var input = new PageInput<ApiGetPageDto>
         {
             CurrentPage = 1,
             PageSize = 20,
-            Filter = new ApiEntity
+            Filter = new ApiGetPageDto
             {
                 Label = "接口管理"
             }
         };
-        var res = await Client.PostAsync($"/api/admin/api/get-page", GetHttpContent(input));
-        Assert.Equal(HttpStatusCode.Forbidden, res.StatusCode);
+
+        var res = await PostResult($"/api/admin/api/get-page", input);
+        Assert.True(res.Success);
     }
 
     [Fact]

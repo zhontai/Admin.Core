@@ -9,12 +9,12 @@ public class ResultOutput<T>
     /// <summary>
     /// 是否成功标记
     /// </summary>
-    public bool Success => Code == 1;
+    public bool Success { get; set; }
 
     /// <summary>
     /// 状态码
     /// </summary>
-    public int Code { get; set; }
+    public string Code { get; set; }
 
     /// <summary>
     /// 消息
