@@ -15,8 +15,14 @@ namespace ZhonTai.Admin.Domain.User;
 /// </summary>
 [Table(Name = "ad_user")]
 [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
-public partial class UserEntity : EntityBase, ITenant
+public partial class UserEntity : EntityBase, ITenant, IOrg
 {
+    /// <summary>
+    /// 创建者Id
+    /// </summary>
+    [Column(Position = -23, CanUpdate = false)]
+    public long? CreatedOrgId { get; set; }
+
     /// <summary>
     /// 租户Id
     /// </summary>
@@ -60,13 +66,19 @@ public partial class UserEntity : EntityBase, ITenant
     /// </summary>
     public long OrgId { get; set; }
 
-    public OrgEntity MainOrg { get; set; }
+    /// <summary>
+    /// 部门
+    /// </summary>
+    public OrgEntity Org { get; set; }
 
     /// <summary>
     /// 直属主管Id
     /// </summary>
     public long? ManagerUserId { get; set; }
 
+    /// <summary>
+    /// 直属主管
+    /// </summary>
     public UserEntity ManagerUser { get; set; }
 
     /// <summary>

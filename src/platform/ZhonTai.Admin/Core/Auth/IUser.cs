@@ -50,11 +50,6 @@ public interface IUser
     long? TenantId { get; }
 
     /// <summary>
-    /// 部门Id
-    /// </summary>
-    long? OrgId { get; }
-
-    /// <summary>
     /// 租户类型
     /// </summary>
     TenantType? TenantType { get; }
@@ -63,4 +58,10 @@ public interface IUser
     /// 数据库注册键
     /// </summary>
     string DbKey { get; }
+
+
+    /// <summary>
+    /// 当前用户
+    /// </summary>
+    UserEntity CurrentUser { get; }
 }

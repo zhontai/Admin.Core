@@ -3,6 +3,8 @@ using System;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
+using Microsoft.Extensions.DependencyInjection;
+using ZhonTai.Admin.Core.Repositories;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -87,13 +89,14 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 部门Id
+    /// 当前用户
     /// </summary>
-    public virtual long? OrgId
+    public virtual UserEntity CurrentUser
     {
         get
         {
-            return null;
+            var userRepsitory = _accessor?.HttpContext?.RequestServices.GetRequiredService<IUserRepository>();
+            return userRepsitory.Get(Id);
         }
     }
 

@@ -170,7 +170,7 @@ public class DbHelper
                 case "CreatedOrgId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
-                        e.Value = user.OrgId;
+                        e.Value = user.CurrentUser?.OrgId;
                     }
                     break;
                 case "TenantId":

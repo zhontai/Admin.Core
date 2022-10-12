@@ -157,11 +157,6 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.OrgId">
-            <summary>
-            部门Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.TenantType">
             <summary>
             租户类型
@@ -170,6 +165,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.DbKey">
             <summary>
             数据库注册键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.CurrentUser">
+            <summary>
+            当前用户
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.PermissionHandler">
@@ -215,9 +215,9 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.OrgId">
+        <member name="P:ZhonTai.Admin.Core.Auth.User.CurrentUser">
             <summary>
-            部门Id
+            当前用户
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.Type">
@@ -2684,6 +2684,11 @@
             用户
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.CreatedOrgId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.TenantId">
             <summary>
             租户Id
@@ -2719,9 +2724,19 @@
             主属部门Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Org">
+            <summary>
+            部门
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.ManagerUserId">
             <summary>
             直属主管Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.ManagerUser">
+            <summary>
+            直属主管
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.NickName">
