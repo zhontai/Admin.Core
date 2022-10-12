@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Permission;
 /// </summary>
 [Table(Name = "ad_permission")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
-public partial class PermissionEntity : EntityFull
+public partial class PermissionEntity : EntityBase
 {
     /// <summary>
     /// 父级节点

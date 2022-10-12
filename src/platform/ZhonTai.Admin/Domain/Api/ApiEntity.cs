@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Api;
 /// </summary>
 [Table(Name = "ad_api")]
 [Index("idx_{tablename}_01", nameof(Path), true)]
-public partial class ApiEntity : EntityFull
+public partial class ApiEntity : EntityBase
 {
     /// <summary>
     /// 所属模块

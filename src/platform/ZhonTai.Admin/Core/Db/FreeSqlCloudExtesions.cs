@@ -44,7 +44,7 @@ public static class FreeSqlCloudExtesions
         #endregion 监听所有命令
 
         var fsql = freeSqlBuilder.Build();
-        fsql.GlobalFilter.Apply<ISoftDelete>(FilterNames.SoftDelete, a => a.IsDeleted == false);
+        fsql.GlobalFilter.Apply<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
         //配置实体
         DbHelper.ConfigEntity(fsql, appConfig);

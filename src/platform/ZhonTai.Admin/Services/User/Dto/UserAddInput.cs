@@ -53,7 +53,7 @@ public class UserAddInput
     /// <summary>
     /// 主属部门Id
     /// </summary>
-    public long MainOrgId { get; set; }
+    public long OrgId { get; set; }
 
     /// <summary>
     /// 状态

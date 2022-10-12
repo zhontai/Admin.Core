@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.Staff;
 /// 员工
 /// </summary>
 [Table(Name = "ad_staff")]
-public partial class StaffEntity : EntityFull, ITenant
+public partial class StaffEntity : EntityBase, ITenant
 {
     /// <summary>
     /// 租户Id

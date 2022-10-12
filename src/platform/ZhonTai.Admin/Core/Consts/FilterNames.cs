@@ -8,14 +8,26 @@ namespace ZhonTai.Admin.Core.Consts;
 public static partial class FilterNames
 {
     /// <summary>
-    /// 软删除
+    /// 删除
     /// </summary>
-    [Description("软删除")]
-    public const string SoftDelete = "SoftDelete";
+    [Description("删除")]
+    public const string Delete = "Delete";
 
     /// <summary>
     /// 租户
     /// </summary>
     [Description("租户")]
     public const string Tenant = "Tenant";
+
+    /// <summary>
+    /// 本人
+    /// </summary>
+    [Description("本人")]
+    public const string Self = "Self";
+
+    /// <summary>
+    /// 部门
+    /// </summary>
+    [Description("部门")]
+    public const string Org = "Org";
 }

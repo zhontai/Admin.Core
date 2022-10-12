@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Core.Entities;
 
+/// <summary>
+/// 版本接口
+/// </summary>
 public interface IVersion
 {
     /// <summary>

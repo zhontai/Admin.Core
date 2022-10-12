@@ -1,6 +1,9 @@
 ﻿namespace ZhonTai.Admin.Core.Entities;
 
-public interface ISoftDelete
+/// <summary>
+/// 删除接口
+/// </summary>
+public interface IDelete
 {
     /// <summary>
     /// 是否删除

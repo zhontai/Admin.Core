@@ -50,6 +50,11 @@ public interface IUser
     long? TenantId { get; }
 
     /// <summary>
+    /// 部门Id
+    /// </summary>
+    long? OrgId { get; }
+
+    /// <summary>
     /// 租户类型
     /// </summary>
     TenantType? TenantType { get; }

@@ -23,7 +23,7 @@ public class StaffAddInput
     /// <summary>
     /// 主属部门Id
     /// </summary>
-    public long MainOrgId { get; set; }
+    public long OrgId { get; set; }
 
     /// <summary>
     /// 所属部门

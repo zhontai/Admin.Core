@@ -12,7 +12,7 @@ public class EntityVersion<TKey> : Entity<TKey>, IVersion
     /// 版本
     /// </summary>
     [Description("版本")]
-    [Column(Position = -1, IsVersion = true)]
+    [Column(Position = -30, IsVersion = true)]
     public long Version { get; set; }
 }
 

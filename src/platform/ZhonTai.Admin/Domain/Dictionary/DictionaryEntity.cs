@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Domain.Dictionary;
 /// </summary>
 [Table(Name = "ad_dictionary")]
 [Index("idx_{tablename}_01", nameof(DictionaryTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class DictionaryEntity : EntityFull, ITenant
+public partial class DictionaryEntity : EntityBase, ITenant
 {
     /// <summary>
     /// 租户Id

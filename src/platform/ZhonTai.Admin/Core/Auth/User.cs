@@ -3,7 +3,6 @@ using System;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
-using System.Xml.Linq;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -83,6 +82,17 @@ public class User : IUser
             {
                 return tenantId.Value.ToLong();
             }
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// 部门Id
+    /// </summary>
+    public virtual long? OrgId
+    {
+        get
+        {
             return null;
         }
     }

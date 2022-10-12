@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Tenant;
 [Table(Name = "ad_tenant")]
 [Index("idx_{tablename}_01", nameof(Name), true)]
 [Index("idx_{tablename}_02", nameof(Code), true)]
-public partial class TenantEntity : EntityFull
+public partial class TenantEntity : EntityBase
 {
     /// <summary>
     /// 企业名称

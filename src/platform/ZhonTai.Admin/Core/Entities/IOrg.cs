@@ -1,12 +1,12 @@
 ﻿namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
-/// 租户接口
+/// 部门接口
 /// </summary>
-public interface ITenant
+public interface IOrg
 {
     /// <summary>
-    /// 租户Id
+    /// 创建者部门Id
     /// </summary>
-    long? TenantId { get; set; }
+    long? CreatedOrgId { get; set; }
 }

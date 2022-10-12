@@ -167,13 +167,19 @@ public class DbHelper
                         e.Value = user.UserName;
                     }
                     break;
-
+                case "CreatedOrgId":
+                    if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                    {
+                        e.Value = user.OrgId;
+                    }
+                    break;
                 case "TenantId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
                         e.Value = user.TenantId;
                     }
                     break;
+
             }
         }
         else if (e.AuditValueType == AuditValueType.Update)

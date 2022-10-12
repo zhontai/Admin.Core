@@ -70,7 +70,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             a.Email,
             a.Roles,
             a.Orgs,
-            a.MainOrgId,
+            a.OrgId,
             Staff = new
             {
                 a.Staff.JobNumber,

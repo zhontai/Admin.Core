@@ -31,6 +31,11 @@ public class AuthLoginOutput
     public long? TenantId { get; set; }
 
     /// <summary>
+    /// 部门Id
+    /// </summary>
+    public long? OrgId { get; set; }
+
+    /// <summary>
     /// 租户类型
     /// </summary>
     public TenantType? TenantType { get; set; }

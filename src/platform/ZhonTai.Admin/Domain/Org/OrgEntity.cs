@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Org;
 /// </summary>
 [Table(Name = "ad_org")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class OrgEntity : EntityFull, ITenant
+public partial class OrgEntity : EntityBase, ITenant
 {
     /// <summary>
     /// 租户Id

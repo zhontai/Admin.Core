@@ -157,6 +157,11 @@
             租户Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.TenantType">
             <summary>
             租户类型
@@ -208,6 +213,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.OrgId">
+            <summary>
+            部门Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.Type">
@@ -720,14 +730,24 @@
             全局过滤器名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.SoftDelete">
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Delete">
             <summary>
-            软删除
+            删除
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Tenant">
             <summary>
             租户
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Self">
+            <summary>
+            本人
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Org">
+            <summary>
+            部门
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -1120,64 +1140,74 @@
             创建时间
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.EntityFull`1">
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityAdd">
             <summary>
-            实体完整类
+            实体创建
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.Version">
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityBase`1">
+            <summary>
+            实体基类
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.Version">
             <summary>
             版本
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.IsDeleted">
-            <summary>
-            是否删除
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.CreatedUserId">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedUserId">
             <summary>
             创建者Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.CreatedUserName">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedUserName">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.CreatedTime">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.ModifiedUserId">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedUserId">
             <summary>
             修改者Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.ModifiedUserName">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedUserName">
             <summary>
             修改者
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityFull`1.ModifiedTime">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedTime">
             <summary>
             修改时间
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.EntityFull">
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityBase">
             <summary>
-            实体完整类
+            实体基类
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.EntitySoftDelete`1">
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityDelete`1">
             <summary>
             实体软删除
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntitySoftDelete`1.IsDeleted">
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityDelete`1.IsDeleted">
             <summary>
             是否删除
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityDelete">
+            <summary>
+            实体软删除
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityUpdate`1">
@@ -1200,6 +1230,11 @@
             修改时间
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityUpdate">
+            <summary>
+            实体修改
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityVersion`1">
             <summary>
             实体版本
@@ -1210,14 +1245,81 @@
             版本
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.ISoftDelete.IsDeleted">
+        <member name="T:ZhonTai.Admin.Core.Entities.IDelete">
+            <summary>
+            删除接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IDelete.IsDeleted">
             <summary>
             是否删除
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IEntityAdd`1">
+            <summary>
+            添加接口
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityAdd`1.CreatedUserId">
+            <summary>
+            创建者用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityAdd`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityAdd`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IEntityUpdate`1">
+            <summary>
+            修改接口
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityUpdate`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityUpdate`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IEntityUpdate`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IOrg">
+            <summary>
+            部门接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IOrg.CreatedOrgId">
+            <summary>
+            创建者部门Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.ITenant">
+            <summary>
+            租户接口
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.ITenant.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IVersion">
+            <summary>
+            版本接口
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.IVersion.Version">
@@ -2282,7 +2384,7 @@
             性别
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.MainOrgId">
+        <member name="P:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput.OrgId">
             <summary>
             主属部门Id
             </summary>
@@ -2612,7 +2714,7 @@
             邮箱
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.MainOrgId">
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.OrgId">
             <summary>
             主属部门Id
             </summary>
@@ -3119,6 +3221,11 @@
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.OrgId">
+            <summary>
+            部门Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.TenantType">
@@ -5357,7 +5464,7 @@
             所属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.MainOrgId">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.OrgId">
             <summary>
             主属部门Id
             </summary>
@@ -5512,7 +5619,7 @@
             部门列表
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.MainOrgId">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgId">
             <summary>
             主属部门Id
             </summary>

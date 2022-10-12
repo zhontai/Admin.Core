@@ -73,7 +73,7 @@ public static class DBServiceCollectionExtensions
             var user = services.BuildServiceProvider().GetService<IUser>();
 
             //软删除过滤器
-            fsql.GlobalFilter.Apply<ISoftDelete>(FilterNames.SoftDelete, a => a.IsDeleted == false);
+            fsql.GlobalFilter.Apply<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);
@@ -144,6 +144,9 @@ public static class DBServiceCollectionExtensions
             {
                 fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
             }
+
+            //部门过滤器
+            //fsql.GlobalFilter.Apply<IOrg>(FilterNames.Org, a => a.CreatedOrgId);
 
             return fsql;
         });
