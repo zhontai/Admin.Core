@@ -99,6 +99,9 @@ public partial class UserEntity : EntityFull, ITenant
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<RoleEntity> Roles { get; set; }
 
+    /// <summary>
+    /// 部门列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<OrgEntity> Orgs { get; set; }
 

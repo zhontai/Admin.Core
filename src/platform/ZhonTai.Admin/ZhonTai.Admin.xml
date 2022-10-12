@@ -1962,6 +1962,26 @@
             排序
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Staffs">
+            <summary>
+            员工列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Users">
+            <summary>
+            用户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Roles">
+            <summary>
+            角色列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Childs">
+            <summary>
+            子级列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.PermissionApi.PermissionApiEntity">
             <summary>
             权限接口
@@ -2230,6 +2250,21 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Users">
+            <summary>
+            用户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Orgs">
+            <summary>
+            部门列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Permissions">
+            <summary>
+            权限列表
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Staff.Input.StaffAddInput">
@@ -2610,6 +2645,11 @@
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Roles">
             <summary>
             角色列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Orgs">
+            <summary>
+            部门列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Staff">
@@ -4715,6 +4755,21 @@
             编码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.DataScope">
+            <summary>
+            数据范围
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.OrgIds">
+            <summary>
+            指定部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Orgs">
+            <summary>
+            部门列表
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Description">
             <summary>
             说明
@@ -4903,6 +4958,11 @@
             </summary>
             <param name="ids"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Role.MapConfig">
+            <summary>
+            映射配置
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput">
             <summary>
@@ -5445,6 +5505,11 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgIds">
             <summary>
             所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Orgs">
+            <summary>
+            部门列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.MainOrgId">

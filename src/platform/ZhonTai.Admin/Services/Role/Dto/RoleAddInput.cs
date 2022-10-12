@@ -1,4 +1,9 @@
-﻿namespace ZhonTai.Admin.Services.Role.Dto;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.Role;
+
+namespace ZhonTai.Admin.Services.Role.Dto;
 
 /// <summary>
 /// 添加
@@ -19,6 +24,22 @@ public class RoleAddInput
     /// 编码
     /// </summary>
     public string Code { get; set; }
+
+    /// <summary>
+    /// 数据范围
+    /// </summary>
+    public DataScope DataScope { get; set; }
+
+    /// <summary>
+    /// 指定部门
+    /// </summary>
+    public long[] OrgIds { get; set; }
+
+    /// <summary>
+    /// 部门列表
+    /// </summary>
+    [JsonIgnore]
+    public ICollection<OrgEntity> Orgs { get; set; }
 
     /// <summary>
     /// 说明

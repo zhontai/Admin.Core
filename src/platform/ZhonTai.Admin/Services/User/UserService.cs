@@ -56,11 +56,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task<IResultOutput> GetAsync(long id)
     {
-        var output = await _userRepository.Select
+        var userEntity = await _userRepository.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
         .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
-        .ToOneAsync(a=>new
+        .ToOneAsync(a => new
         {
             a.Id,
             a.Version,
@@ -80,6 +80,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
                 a.Staff.Version
             }
         });
+
+        var output = Mapper.Map<UserGetOutput>(userEntity);
 
         return ResultOutput.Ok(output);
     }
@@ -119,10 +121,13 @@ public class UserService : BaseService, IUserService, IDynamicApi
     public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
     {
         var output = new ResultOutput<AuthLoginOutput>();
-        var entityDto = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+        var entityDto = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
+            .WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+
         if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
+            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
+                .WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
             entityDto.TenantType = tenant.TenantType;
             entityDto.DbKey = tenant.DbKey;
         }
@@ -220,7 +225,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
         //用户角色
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = userId, RoleId = roleId }).ToList();
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity 
+            { 
+                UserId = userId, 
+                RoleId = roleId 
+            }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
@@ -281,7 +290,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _userRoleRepository.DeleteAsync(a => a.UserId == userId);
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity { UserId = userId, RoleId = roleId }).ToList();
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity 
+            { 
+                UserId = userId, 
+                RoleId = roleId 
+            }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
 
@@ -393,7 +406,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
-        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
+        (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+
         if (admin)
         {
             return ResultOutput.NotOk("平台管理员禁止删除");
@@ -446,7 +461,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
-        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
+        (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
+
         if (admin)
         {
             return ResultOutput.NotOk("平台管理员禁止删除");

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
@@ -46,14 +44,17 @@ public partial class UserUpdateInput
     /// <summary>
     /// 角色
     /// </summary>
-    public ICollection<RoleEntity> Roles { get; set; }
+    public ICollection<UserGetRoleDto> Roles { get; set; }
 
     /// <summary>
     /// 所属部门
     /// </summary>
     public long[] OrgIds { get; set; }
 
-    public ICollection<OrgEntity> Orgs { get; set; }
+    /// <summary>
+    /// 部门列表
+    /// </summary>
+    public ICollection<UserGetOrgDto> Orgs { get; set; }
 
     /// <summary>
     /// 主属部门Id

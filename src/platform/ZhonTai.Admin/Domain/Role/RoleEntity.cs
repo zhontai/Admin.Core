@@ -65,9 +65,21 @@ public partial class RoleEntity : EntityFull, ITenant
     /// </summary>
 	public int Sort { get; set; }
 
+    /// <summary>
+    /// 用户列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<UserEntity> Users { get; set; }
 
+    /// <summary>
+    /// 部门列表
+    /// </summary>
+    [Navigate(ManyToMany = typeof(RoleOrgEntity))]
+    public ICollection<OrgEntity> Orgs { get; set; }
+
+    /// <summary>
+    /// 权限列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(RolePermissionEntity))]
     public ICollection<PermissionEntity> Permissions { get; set; }
 }

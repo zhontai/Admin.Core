@@ -3,6 +3,7 @@ using FreeSql.DataAnnotations;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Staff;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Domain.Org;
 
@@ -63,12 +64,27 @@ public partial class OrgEntity : EntityFull, ITenant
     /// </summary>
 	public int Sort { get; set; }
 
+    /// <summary>
+    /// 员工列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<StaffEntity> Staffs { get; set; }
 
+    /// <summary>
+    /// 用户列表
+    /// </summary>
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<UserEntity> Users { get; set; }
 
+    /// <summary>
+    /// 角色列表
+    /// </summary>
+    [Navigate(ManyToMany = typeof(RoleOrgEntity))]
+    public ICollection<RoleEntity> Roles { get; set; }
+
+    /// <summary>
+    /// 子级列表
+    /// </summary>
     [Navigate(nameof(ParentId))]
     public List<OrgEntity> Childs { get; set; }
 }

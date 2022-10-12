@@ -13,6 +13,9 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Services.User.Dto;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -24,8 +27,10 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 {
     private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
+
     private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
     private IRepositoryBase<RolePermissionEntity> _rolePermissionRepository => LazyGetRequiredService<IRepositoryBase<RolePermissionEntity>>();
+    private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
 
     public RoleService()
     {
@@ -38,8 +43,14 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <returns></returns>
     public async Task<IResultOutput> GetAsync(long id)
     {
-        var result = await _roleRepository.GetAsync<RoleGetOutput>(id);
-        return ResultOutput.Ok(result);
+        var roleEntity = await _roleRepository.Select
+        .WhereDynamic(id)
+        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id }))
+        .ToOneAsync(a => new RoleGetOutput { Orgs = a.Orgs });
+
+        var output = Mapper.Map<RoleGetOutput>(roleEntity);
+
+        return ResultOutput.Ok(output);
     }
 
     /// <summary>
@@ -138,6 +149,15 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         return ResultOutput.Ok();
     }
 
+    private async Task AddRoleOrgAsync(long roleId, long[] orgIds)
+    {
+        if (orgIds != null && orgIds.Any())
+        {
+            var roleOrgs = orgIds.Select(orgId => new RoleOrgEntity { RoleId = roleId, OrgId = orgId }).ToList();
+            await _roleOrgRepository.InsertAsync(roleOrgs);
+        }
+    }
+
     /// <summary>
     /// 添加
     /// </summary>
@@ -161,9 +181,14 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
             var sort = await _roleRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
-        var id = (await _roleRepository.InsertAsync(entity)).Id;
 
-        return ResultOutput.Result(id > 0);
+        await _roleRepository.InsertAsync(entity);
+        if (input.DataScope == DataScope.Custom)
+        {
+            await AddRoleOrgAsync(entity.Id, input.OrgIds);
+        }
+
+        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -186,6 +211,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 
         Mapper.Map(input, entity);
         await _roleRepository.UpdateAsync(entity);
+        await _roleOrgRepository.DeleteAsync(a => a.RoleId == entity.Id);
+        if (input.DataScope == DataScope.Custom)
+        {
+            await AddRoleOrgAsync(entity.Id, input.OrgIds);
+        }
+
         return ResultOutput.Ok();
     }
 
