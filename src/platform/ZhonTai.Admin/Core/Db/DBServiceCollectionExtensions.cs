@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using StackExchange.Profiling;
 using FreeSql;
-using FreeSql.Internal.CommonProvider;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
@@ -13,6 +12,8 @@ using ZhonTai.Admin.Core.Consts;
 using System.Linq;
 using System.Collections.Concurrent;
 using System.Reflection;
+using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -73,7 +74,7 @@ public static class DBServiceCollectionExtensions
             var user = services.BuildServiceProvider().GetService<IUser>();
 
             //软删除过滤器
-            fsql.GlobalFilter.Apply<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
+            fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);
@@ -91,8 +92,7 @@ public static class DBServiceCollectionExtensions
             #region 审计数据
 
             //计算服务器时间
-            var selectProvider = fsql.Select<object>() as Select0Provider;
-            var serverTime = fsql.Select<object>().WithSql($"select {selectProvider._commonUtils.NowUtc} a").First(a => Convert.ToDateTime("a"));
+            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
             var timeOffset = DateTime.UtcNow.Subtract(serverTime);
             DbHelper.TimeOffset = timeOffset;
             fsql.Aop.AuditValue += (s, e) =>
@@ -142,11 +142,13 @@ public static class DBServiceCollectionExtensions
             //租户过滤器
             if (appConfig.Tenant)
             {
-                fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
+                fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
             }
 
-            //部门过滤器
-            //fsql.GlobalFilter.Apply<IOrg>(FilterNames.Org, a => a.CreatedOrgId);
+            //数据权限过滤器
+            //fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
+            //    () => user.Type == UserType.DefaultUser && user.CurrentUser?.DataScope != DataScope.All,
+            //    a => a.OwnerId == user.Id || user.CurrentUser.OrgIds.Contains(a.CreatedOrgId.Value));
 
             return fsql;
         });

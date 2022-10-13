@@ -20,14 +20,8 @@ public static partial class FilterNames
     public const string Tenant = "Tenant";
 
     /// <summary>
-    /// 本人
+    /// 数据权限
     /// </summary>
-    [Description("本人")]
-    public const string Self = "Self";
-
-    /// <summary>
-    /// 部门
-    /// </summary>
-    [Description("部门")]
-    public const string Org = "Org";
+    [Description("数据权限")]
+    public const string Data = "Data";
 }

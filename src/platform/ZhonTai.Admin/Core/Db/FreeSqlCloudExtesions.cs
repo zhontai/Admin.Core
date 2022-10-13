@@ -2,14 +2,12 @@
 using System;
 using StackExchange.Profiling;
 using FreeSql;
-using FreeSql.Internal.CommonProvider;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -44,7 +42,7 @@ public static class FreeSqlCloudExtesions
         #endregion 监听所有命令
 
         var fsql = freeSqlBuilder.Build();
-        fsql.GlobalFilter.Apply<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
+        fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
         //配置实体
         DbHelper.ConfigEntity(fsql, appConfig);
@@ -76,8 +74,7 @@ public static class FreeSqlCloudExtesions
         #region 审计数据
 
         //计算服务器时间
-        var selectProvider = fsql.Select<object>() as Select0Provider;
-        var serverTime = fsql.Select<object>().WithSql($"select {selectProvider._commonUtils.NowUtc} a").First(a=> Convert.ToDateTime("a"));
+        var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
         var timeOffset = DateTime.UtcNow.Subtract(serverTime);
         fsql.Aop.AuditValue += (s, e) =>
         {
@@ -88,7 +85,7 @@ public static class FreeSqlCloudExtesions
 
         if (appConfig.Tenant)
         {
-            fsql.GlobalFilter.Apply<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
+            fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
         }
 
         return fsql;

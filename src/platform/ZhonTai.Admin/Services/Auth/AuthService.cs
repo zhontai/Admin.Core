@@ -104,7 +104,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         //写入Redis
         var guid = Guid.NewGuid().ToString("N");
-        var key = string.Format(CacheKeys.PassWordEncrypt, guid);
+        var key = CacheKeys.PassWordEncrypt + guid;
         var encyptKey = StringHelper.GenerateRandom(8);
         await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
         var data = new { key = guid, encyptKey };
@@ -224,7 +224,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         if (input.PasswordKey.NotNull())
         {
-            var passwordEncryptKey = string.Format(CacheKeys.PassWordEncrypt, input.PasswordKey);
+            var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
             var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
             if (existsPasswordKey)
             {

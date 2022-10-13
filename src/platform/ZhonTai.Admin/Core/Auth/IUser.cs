@@ -1,6 +1,8 @@
 ﻿
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.User.Dto;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -59,9 +61,8 @@ public interface IUser
     /// </summary>
     string DbKey { get; }
 
-
     /// <summary>
     /// 当前用户
     /// </summary>
-    UserEntity CurrentUser { get; }
+    CurrentUserDto CurrentUser { get; }
 }

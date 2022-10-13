@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.User.Dto;
 

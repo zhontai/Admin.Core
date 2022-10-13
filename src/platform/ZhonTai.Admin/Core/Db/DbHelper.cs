@@ -154,6 +154,7 @@ public class DbHelper
         {
             switch (e.Property.Name)
             {
+                case "OwnerId":
                 case "CreatedUserId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {

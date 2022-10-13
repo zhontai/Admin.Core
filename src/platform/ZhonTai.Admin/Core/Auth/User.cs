@@ -4,7 +4,10 @@ using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
 using Microsoft.Extensions.DependencyInjection;
-using ZhonTai.Admin.Core.Repositories;
+using ZhonTai.Admin.Domain.User.Dto;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Tools.Cache;
+using ZhonTai.Admin.Services.User;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -89,18 +92,6 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 当前用户
-    /// </summary>
-    public virtual UserEntity CurrentUser
-    {
-        get
-        {
-            var userRepsitory = _accessor?.HttpContext?.RequestServices.GetRequiredService<IUserRepository>();
-            return userRepsitory.Get(Id);
-        }
-    }
-
-    /// <summary>
     /// 用户类型
     /// </summary>
     public virtual UserType Type
@@ -179,6 +170,32 @@ public class User : IUser
                 return dbKey.Value;
             }
             return "";
+        }
+    }
+
+    /// <summary>
+    /// 当前用户
+    /// </summary>
+    public virtual CurrentUserDto CurrentUser
+    {
+        get
+        {
+            var userRepository = _accessor?.HttpContext?.RequestServices.GetRequiredService<IUserRepository>();
+            if(userRepository == null)
+            {
+                return null;
+            }
+            else
+            {
+                return userRepository.GetCurrentUserAsync().Result;
+            }
+            
+            //var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
+            //var key = CacheKeys.UserInfo + Id;
+            //return cache.GetOrSetAsync(key, async () =>
+            //{
+            //    return await userRepsitory.GetCurrentUserAsync();
+            //}).Result;
         }
     }
 }

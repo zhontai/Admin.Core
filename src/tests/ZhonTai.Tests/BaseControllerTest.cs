@@ -15,6 +15,7 @@ using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Core.Enums;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Consts;
+using RTools_NTS.Util;
 
 namespace ZhonTai.Tests;
 
@@ -169,7 +170,7 @@ public class BaseControllerTest : BaseTest
             if (_appConfig.VarifyCode.Enable)
             {
                 var res = await _captcha.GetAsync(CacheKeys.Captcha);
-                var captchaKey = string.Format(CacheKeys.Captcha, res.Token);
+                var captchaKey = CacheKeys.Captcha + res.Token;
                 var captchaData = await _cache.GetAsync(captchaKey);
                 input.Captcha = new CaptchaInput { CaptchaKey = CacheKeys.Captcha, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
             }

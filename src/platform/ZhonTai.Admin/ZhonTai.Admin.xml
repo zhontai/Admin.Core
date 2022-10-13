@@ -215,11 +215,6 @@
             租户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.CurrentUser">
-            <summary>
-            当前用户
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.Type">
             <summary>
             用户类型
@@ -248,6 +243,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.DbKey">
             <summary>
             数据库注册键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.CurrentUser">
+            <summary>
+            当前用户
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.BaseController">
@@ -700,11 +700,6 @@
             用户信息 admin:user:info:用户主键
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.TenantInfo">
-            <summary>
-            租户信息 admin:tenant:info:租户主键
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
             <summary>
             数据库键名
@@ -740,14 +735,9 @@
             租户
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Self">
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Data">
             <summary>
-            本人
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Org">
-            <summary>
-            部门
+            数据权限
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -1245,6 +1235,21 @@
             版本
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IData">
+            <summary>
+            数据权限接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IData.OwnerId">
+            <summary>
+            拥有者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IData.CreatedOrgId">
+            <summary>
+            创建者部门Id
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Entities.IDelete">
             <summary>
             删除接口
@@ -1295,16 +1300,6 @@
         <member name="P:ZhonTai.Admin.Core.Entities.IEntityUpdate`1.ModifiedTime">
             <summary>
             修改时间
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.IOrg">
-            <summary>
-            部门接口
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.IOrg.CreatedOrgId">
-            <summary>
-            创建者部门Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.ITenant">
@@ -2679,14 +2674,34 @@
             角色Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.OrgIds">
+            <summary>
+            部门列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.DataScope">
+            <summary>
+            数据范围
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
             <summary>
             用户
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.OwnerId">
+            <summary>
+            拥有者Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.CreatedOrgId">
             <summary>
-            创建者Id
+            创建者部门Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.TenantId">
@@ -2918,6 +2933,12 @@
             <summary>
             任务名称名称
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.UserRepository.GetCurrentUserAsync">
+            <summary>
+            获得当前登录用户
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.ApiService">
             <summary>

@@ -72,7 +72,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         ).ToListAsync(a => a.UserId);
         foreach (var userId in userIds)
         {
-            await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
+            await Cache.DelAsync(CacheKeys.UserPermissions + userId);
         }
     }
 
@@ -466,7 +466,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == input.RoleId).ToListAsync(a => a.UserId);
         foreach (var userId in userIds)
         {
-            await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
+            await Cache.DelAsync(CacheKeys.UserPermissions + userId);
         }
 
         return ResultOutput.Ok();
@@ -518,7 +518,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         {
             foreach (var userId in userIds)
             {
-                await Cache.DelAsync(string.Format(CacheKeys.UserPermissions, userId));
+                await Cache.DelAsync(CacheKeys.UserPermissions + userId);
             }
         }
 

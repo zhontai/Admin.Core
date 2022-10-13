@@ -20,7 +20,7 @@ public class ApiServiceTest : BaseTest
     [Fact]
     public async void SlideJigsawTest()
     {
-        var data = await _captchaTool.GetAsync("admin:captcha:{0}");
+        var data = await _captchaTool.GetAsync("admin:captcha");
     }
 
     [Fact]

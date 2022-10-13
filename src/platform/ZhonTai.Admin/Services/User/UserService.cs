@@ -28,6 +28,7 @@ using ZhonTai.Admin.Domain.Org;
 using System.Data;
 using ZhonTai.Admin.Domain.TenantPermission;
 using FreeSql;
+using ZhonTai.Admin.Domain.User.Dto;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -39,10 +40,12 @@ public class UserService : BaseService, IUserService, IDynamicApi
 {
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
-    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
+    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
     private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
+    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
+    private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
     private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
 
     public UserService()
@@ -155,7 +158,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
     {
-        var key = string.Format(CacheKeys.UserPermissions, User.Id);
+        var key = CacheKeys.UserPermissions + User.Id;
         var result = await Cache.GetOrSetAsync(key, async () =>
         {
             if (User.TenantAdmin)
@@ -333,9 +336,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var entity = await _userRepository.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);
         await _userRepository.UpdateAsync(entity);
-
-        //清除用户缓存
-        await Cache.DelAsync(string.Format(CacheKeys.UserInfo, input.Id));
 
         return ResultOutput.Ok();
     }
