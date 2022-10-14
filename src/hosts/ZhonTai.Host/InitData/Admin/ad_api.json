@@ -1182,7 +1182,6 @@
     "label": "员工管理",
     "path": "staff",
     "description": "",
-    "enabled": true,
     "childs": [
       {
         "id": 174219034734666,
@@ -1191,7 +1190,6 @@
         "path": "/api/admin/staff/get",
         "httpMethods": "get",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1201,7 +1199,6 @@
         "path": "/api/admin/staff/get-page",
         "httpMethods": "post",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1211,7 +1208,6 @@
         "path": "/api/admin/staff/add",
         "httpMethods": "post",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1221,7 +1217,6 @@
         "path": "/api/admin/staff/update",
         "httpMethods": "put",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1231,7 +1226,6 @@
         "path": "/api/admin/staff/soft-delete",
         "httpMethods": "delete",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1241,14 +1235,13 @@
         "path": "/api/admin/staff/batch-soft-delete",
         "httpMethods": "put",
         "description": "",
-        "enabled": true,
         "childs": []
       }
     ]
   },
   {
     "id": 174219034718277,
-    "label": "组织架构",
+    "label": "部门服务",
     "path": "org",
     "description": "",
     "enabled": true,
@@ -1256,7 +1249,7 @@
       {
         "id": 174219034734672,
         "parentId": 174219034718277,
-        "label": "查询组织架构",
+        "label": "查询部门",
         "path": "/api/admin/org/get",
         "httpMethods": "get",
         "description": "",
@@ -1266,7 +1259,7 @@
       {
         "id": 174219034734674,
         "parentId": 174219034718277,
-        "label": "新增组织架构",
+        "label": "新增",
         "path": "/api/admin/org/add",
         "httpMethods": "post",
         "description": "",
@@ -1276,7 +1269,7 @@
       {
         "id": 174219034738757,
         "parentId": 174219034718277,
-        "label": "修改组织架构",
+        "label": "修改",
         "path": "/api/admin/org/update",
         "httpMethods": "put",
         "description": "",
@@ -1286,7 +1279,7 @@
       {
         "id": 174219034738758,
         "parentId": 174219034718277,
-        "label": "删除组织架构",
+        "label": "批量删除",
         "path": "/api/admin/org/soft-delete",
         "httpMethods": "delete",
         "description": "",
@@ -1296,9 +1289,19 @@
       {
         "id": 188049296683077,
         "parentId": 174219034718277,
-        "label": "查询组织架构列表",
+        "label": "查询列表",
         "path": "/api/admin/org/get-list",
         "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 342274923528261,
+        "parentId": 174219034718277,
+        "label": "彻底删除",
+        "path": "/api/admin/org/delete",
+        "httpMethods": "delete",
         "description": "",
         "enabled": true,
         "childs": []
