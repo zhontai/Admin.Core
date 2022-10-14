@@ -34,7 +34,7 @@ public static class TaskSchedulerServiceExtensions
             a.Property(b => b.Body).StringLength(-1);
             a.Property(b => b.Interval).MapType(typeof(string));
             a.Property(b => b.IntervalArgument).StringLength(1024);
-            a.Property(b => b.Status).MapType(typeof(string));
+            a.Property(b => b.Status).MapType(typeof(int));
             a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);
             a.Property(b => b.LastRunTime).ServerTime(DateTimeKind.Local);
         })

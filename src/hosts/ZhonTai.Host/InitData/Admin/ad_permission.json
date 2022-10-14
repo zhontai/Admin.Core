@@ -875,7 +875,7 @@
       {
         "id": 161227168763974,
         "parentId": 161227168497733,
-        "label": "系统配置",
+        "label": "系统管理",
         "type": 1,
         "path": "",
         "icon": "el-icon-s-platform",
@@ -956,6 +956,21 @@
                 "childs": []
               }
             ]
+          },
+          {
+            "id": 342340463398981,
+            "parentId": 161227168763974,
+            "label": "任务管理",
+            "type": 2,
+            "viewId": 336556164300869,
+            "path": "/admin/task",
+            "icon": "",
+            "enabled": true,
+            "closable": true,
+            "newWindow": false,
+            "external": false,
+            "sort": 0,
+            "description": ""
           }
         ]
       },

@@ -1182,6 +1182,7 @@
     "label": "员工管理",
     "path": "staff",
     "description": "",
+    "enabled": true,
     "childs": [
       {
         "id": 174219034734666,
@@ -1190,6 +1191,7 @@
         "path": "/api/admin/staff/get",
         "httpMethods": "get",
         "description": "",
+        "enabled": true,
         "childs": []
       },
       {
@@ -1199,6 +1201,7 @@
         "path": "/api/admin/staff/get-page",
         "httpMethods": "post",
         "description": "",
+        "enabled": true,
         "childs": []
       },
       {
@@ -1208,6 +1211,7 @@
         "path": "/api/admin/staff/add",
         "httpMethods": "post",
         "description": "",
+        "enabled": true,
         "childs": []
       },
       {
@@ -1217,6 +1221,7 @@
         "path": "/api/admin/staff/update",
         "httpMethods": "put",
         "description": "",
+        "enabled": true,
         "childs": []
       },
       {
@@ -1226,6 +1231,7 @@
         "path": "/api/admin/staff/soft-delete",
         "httpMethods": "delete",
         "description": "",
+        "enabled": true,
         "childs": []
       },
       {
@@ -1235,6 +1241,7 @@
         "path": "/api/admin/staff/batch-soft-delete",
         "httpMethods": "put",
         "description": "",
+        "enabled": true,
         "childs": []
       }
     ]
