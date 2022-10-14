@@ -14,6 +14,7 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
+using System.Diagnostics;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -75,6 +76,17 @@ public static class DBServiceCollectionExtensions
 
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
+
+            //租户过滤器
+            if (appConfig.Tenant)
+            {
+                fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
+            }
+
+            //数据权限过滤器，CurrentUser动态查询无法禁用过滤器
+            //fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
+            //    () => user?.Id > 0 && user.Type == UserType.DefaultUser && user.CurrentUser?.DataScope != DataScope.All,
+            //    a => a.OwnerId == user.Id || user.CurrentUser.OrgIds.Contains(a.CreatedOrgId.Value));
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);
@@ -139,17 +151,6 @@ public static class DBServiceCollectionExtensions
 
             #endregion 监听Curd操作
 
-            //租户过滤器
-            if (appConfig.Tenant)
-            {
-                fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
-            }
-
-            //数据权限过滤器
-            //fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
-            //    () => user.Type == UserType.DefaultUser && user.CurrentUser?.DataScope != DataScope.All,
-            //    a => a.OwnerId == user.Id || user.CurrentUser.OrgIds.Contains(a.CreatedOrgId.Value));
-
             return fsql;
         });
 
@@ -184,7 +185,7 @@ public static class DBServiceCollectionExtensions
                     #endregion 监听所有命令
 
                     var fsql = freeSqlBuilder.Build();
-                     
+
                     #region 监听Curd操作
 
                     if (dbConfig.Curd)

@@ -224,7 +224,7 @@ public class SlideJigsawCaptchaTool : ICaptchaTool
             }
         };
 
-        var key = string.Format(captchaKey, token);
+        var key = captchaKey + token;
         await _cache.SetAsync(key, blockPoint.X, TimeSpan.FromMinutes(5));
 
         return captchaData;
@@ -241,7 +241,7 @@ public class SlideJigsawCaptchaTool : ICaptchaTool
         {
             return false;
         }
-        var key = string.Format(input.CaptchaKey, input.Token);
+        var key = input.CaptchaKey + input.Token;
         if (await _cache.ExistsAsync(key))
         {
             try

@@ -2694,16 +2694,6 @@
             用户
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.OwnerId">
-            <summary>
-            拥有者Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.CreatedOrgId">
-            <summary>
-            创建者部门Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.TenantId">
             <summary>
             租户Id
