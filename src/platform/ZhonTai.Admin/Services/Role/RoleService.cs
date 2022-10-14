@@ -15,7 +15,6 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Services.User.Dto;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -206,7 +205,17 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var entity = await _roleRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("角色不存在！");
+            return ResultOutput.NotOk("角色不存在");
+        }
+
+        if (await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
+        {
+            return ResultOutput.NotOk($"此{(input.ParentId == 0 ? "分组" : "角色")}已存在");
+        }
+
+        if (input.Code.NotNull() && await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
+        {
+            return ResultOutput.NotOk($"此{(input.ParentId == 0 ? "分组" : "角色")}编码已存在");
         }
 
         Mapper.Map(input, entity);
@@ -228,8 +237,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
+        //删除用户角色
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        //删除角色权限
         await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
+        //删除角色
         await _roleRepository.DeleteAsync(m => m.Id == id);
 
         return ResultOutput.Ok();
@@ -243,8 +255,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
+        //删除用户角色
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.RoleId));
+        //删除角色权限
         await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
+        //删除角色
         await _roleRepository.DeleteAsync(a => ids.Contains(a.Id));
 
         return ResultOutput.Ok();

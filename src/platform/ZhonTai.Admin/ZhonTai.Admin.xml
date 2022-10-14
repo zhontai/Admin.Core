@@ -2009,6 +2009,27 @@
             操作参数
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本部门和下级部门Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.HasUser(System.Int64)">
+            <summary>
+            本部门下是否有员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            本部门下是否有员工
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Org.OrgEntity">
             <summary>
             组织架构
@@ -2933,6 +2954,27 @@
             <summary>
             任务名称名称
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.OrgRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本部门和下级部门Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.OrgRepository.HasUser(System.Int64)">
+            <summary>
+            本部门下是否有员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.OrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            本部门下是否有员工
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.UserRepository.GetCurrentUserAsync">
             <summary>
@@ -4408,7 +4450,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Org.OrgService.SoftDeleteAsync(System.Int64)">
             <summary>
-            批量删除
+            删除
             </summary>
             <param name="id"></param>
             <returns></returns>
