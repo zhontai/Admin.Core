@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Castle.DynamicProxy;
@@ -12,10 +13,14 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
     private IUnitOfWork _unitOfWork;
     private readonly UnitOfWorkManagerCloud _unitOfWorkManagerCloud;
+    private readonly FreeSqlCloud _freeSqlCloud;
+    private readonly IServiceProvider _serviceProvider;
 
-    public TransactionAsyncInterceptor(UnitOfWorkManagerCloud unitOfWorkManagerCloud)
+    public TransactionAsyncInterceptor(UnitOfWorkManagerCloud unitOfWorkManagerCloud, FreeSqlCloud freeSqlCloud, IServiceProvider serviceProvider)
     {
         _unitOfWorkManagerCloud = unitOfWorkManagerCloud;
+        _freeSqlCloud = freeSqlCloud;
+        _serviceProvider = serviceProvider;
     }
 
     private bool TryBegin(IInvocation invocation)
@@ -26,7 +31,7 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
         {
             IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
 
-            _unitOfWork = _unitOfWorkManagerCloud.Begin(transaction.DbKey, transaction.Propagation, isolationLevel);
+            _unitOfWork = _unitOfWorkManagerCloud.Begin(_freeSqlCloud.GetDbKey(_serviceProvider), transaction.Propagation, isolationLevel);
             return true;
         }
 

@@ -23,6 +23,14 @@ public static class FreeSqlCloudExtesions
     /// <returns></returns>
     private static IFreeSql CreateFreeSql(IUser user, AppConfig appConfig, DbConfig dbConfig, CreateFreeSqlTenantDto tenant)
     {
+        if(tenant == null)
+        {
+            tenant = new CreateFreeSqlTenantDto
+            {
+                DbType = dbConfig.Type,
+                ConnectionString = dbConfig.ConnectionString
+            };
+        }
         var freeSqlBuilder = new FreeSqlBuilder()
         .UseConnectionString(tenant.DbType.Value, tenant.ConnectionString)
         .UseAutoSyncStructure(false)
@@ -42,7 +50,15 @@ public static class FreeSqlCloudExtesions
         #endregion 监听所有命令
 
         var fsql = freeSqlBuilder.Build();
+
+        //软删除过滤器
         fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
+
+        //租户过滤器
+        if (appConfig.Tenant)
+        {
+            fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
+        }
 
         //配置实体
         DbHelper.ConfigEntity(fsql, appConfig);
@@ -83,12 +99,22 @@ public static class FreeSqlCloudExtesions
 
         #endregion 审计数据
 
-        if (appConfig.Tenant)
-        {
-            fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
-        }
-
         return fsql;
+    }
+
+    public static string GetDbKey(this FreeSqlCloud _, IServiceProvider serviceProvider)
+    {
+        var user = serviceProvider.GetRequiredService<IUser>();
+        var appConfig = serviceProvider.GetRequiredService<AppConfig>();
+        var tenantId = user.TenantId;
+        if (appConfig.Tenant && tenantId.HasValue)
+        {
+            return user.DbKey.NotNull() ? user.DbKey : (DbKeys.TenantDb + tenantId);
+        }
+        else
+        {
+            return DbKeys.MasterDb;
+        }
     }
 
     /// <summary>
@@ -103,25 +129,18 @@ public static class FreeSqlCloudExtesions
         var appConfig = serviceProvider.GetRequiredService<AppConfig>();
 
         var tenantId = user.TenantId;
-        if (appConfig.Tenant && tenantId.HasValue)
-        {
-            var dbKey = user.DbKey.NotNull() ? user.DbKey : (DbKeys.TenantDb + tenantId);
-            var exists = cloud.ExistsRegister(dbKey);
-            if (!exists)
-            {
-                var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                var tenantRepository = serviceProvider.GetRequiredService<ITenantRepository>();
-                var tenant = tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
-                cloud.Register(dbKey, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
-            }
+        var dbKey = GetDbKey(cloud, serviceProvider);
+        var exists = cloud.ExistsRegister(dbKey);
 
-            return cloud.Use(dbKey);
-        }
-        else
+        if (!exists)
         {
-            var masterDb = cloud.Use(DbKeys.MasterDb);
-            return masterDb;
+            var dbConfig = serviceProvider.GetRequiredService<DbConfig>();
+            var tenantRepository = serviceProvider.GetRequiredService<ITenantRepository>();
+            var tenant = tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(tenantId).ToOne<CreateFreeSqlTenantDto>();
+            cloud.Register(dbKey, () => CreateFreeSql(user, appConfig, dbConfig, tenant));
         }
+
+        return cloud.Use(dbKey);
     }
 
     /// <summary>

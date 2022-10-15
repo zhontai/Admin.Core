@@ -34,11 +34,6 @@
             事务隔离级别
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbKey">
-            <summary>
-            数据库键
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
