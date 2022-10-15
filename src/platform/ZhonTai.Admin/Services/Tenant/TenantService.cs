@@ -17,7 +17,7 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain;
 using FreeSql;
 using ZhonTai.Admin.Core.Db;
@@ -35,7 +35,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly IUserRepository _userRepository;
     private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
-    private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
+    private IUserStaffRepository _staffRepository => LazyGetRequiredService<IUserStaffRepository>();
     private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
@@ -149,12 +149,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         long userId = user.Id;
 
         //添加员工
-        var emp = new StaffEntity
+        var emp = new UserStaffEntity
         {
             Id = userId,
             TenantId = tenantId
         };
-        await tenantDb.GetRepositoryBase<StaffEntity>().InsertAsync(emp);
+        await tenantDb.GetRepositoryBase<UserStaffEntity>().InsertAsync(emp);
 
         //添加用户部门
         var userOrg = new UserOrgEntity

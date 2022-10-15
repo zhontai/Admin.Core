@@ -22,7 +22,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
 using System.Data;
@@ -43,7 +43,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
-    private IStaffRepository _staffRepository => LazyGetRequiredService<IStaffRepository>();
+    private IUserStaffRepository _staffRepository => LazyGetRequiredService<IUserStaffRepository>();
     private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
     private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
     private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
@@ -173,7 +173,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
                 .ToListAsync<UserPermissionsOutput>();
             }
 
-
             return await _apiRepository
             .Where(a => _apiRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
             .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
@@ -237,7 +236,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var staff = Mapper.Map<StaffEntity>(input.Staff);
+        var staff = Mapper.Map<UserStaffEntity>(input.Staff);
         staff.Id = userId;
         await _staffRepository.InsertAsync(staff);
 
@@ -305,7 +304,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var staff = await _staffRepository.GetAsync(userId);
         if(staff == null)
         {
-            staff = new StaffEntity();
+            staff = new UserStaffEntity();
         }
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;

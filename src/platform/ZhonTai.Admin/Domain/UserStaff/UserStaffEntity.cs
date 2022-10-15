@@ -2,13 +2,13 @@
 using FreeSql.DataAnnotations;
 using System;
 
-namespace ZhonTai.Admin.Domain.Staff;
+namespace ZhonTai.Admin.Domain.UserStaff;
 
 /// <summary>
-/// 员工
+/// 用户员工
 /// </summary>
-[Table(Name = "ad_staff")]
-public partial class StaffEntity : EntityBase, ITenant
+[Table(Name = "ad_user_staff")]
+public partial class UserStaffEntity : EntityBase, ITenant
 {
     /// <summary>
     /// 租户Id

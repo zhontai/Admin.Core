@@ -21,7 +21,7 @@ public partial interface IOrgRepository : IRepositoryBase<OrgEntity>
     Task<bool> HasUser(long id);
 
     /// <summary>
-    /// 本部门下是否有员工
+    /// 部门列表下是否有员工
     /// </summary>
     /// <param name="idList"></param>
     /// <returns></returns>

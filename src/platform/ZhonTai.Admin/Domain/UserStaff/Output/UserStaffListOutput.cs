@@ -1,22 +1,23 @@
 ﻿using System;
-using ZhonTai.Admin.Domain.UserStaff;
 
-namespace ZhonTai.Admin.Domain.User;
+namespace ZhonTai.Admin.Domain.UserStaff.Output;
 
-/// <summary>
-/// 员工添加
-/// </summary>
-public class StaffAddInput
+public class UserStaffListOutput
 {
     /// <summary>
-    /// 工号
+    /// 主键Id
     /// </summary>
-    public string JobNumber { get; set; }
+    public long Id { get; set; }
 
     /// <summary>
     /// 职位
     /// </summary>
     public string Position { get; set; }
+
+    /// <summary>
+    /// 工号
+    /// </summary>
+    public string JobNumber { get; set; }
 
     /// <summary>
     /// 性别

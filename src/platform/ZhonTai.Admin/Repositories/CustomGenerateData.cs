@@ -16,7 +16,7 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
@@ -157,7 +157,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 员工
 
-        var staffs = db.Queryable<StaffEntity>().ToListIgnore(a => new
+        var staffs = db.Queryable<UserStaffEntity>().ToListIgnore(a => new
         {
             a.CreatedTime,
             a.CreatedUserId,
@@ -296,7 +296,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<UserEntity>(users, isTenant);
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);
         SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
-        SaveDataToJsonFile<StaffEntity>(staffs, isTenant);
+        SaveDataToJsonFile<UserStaffEntity>(staffs, isTenant);
         if (isTenant)
         {
             var tenantIds = tenants?.Select(a => a.Id)?.ToList();
@@ -318,7 +318,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
                 r.Childs.AddRange(datalist);
             });
             SaveDataToJsonFile<OrgEntity>(orgTree);
-            SaveDataToJsonFile<StaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
+            SaveDataToJsonFile<UserStaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
         SaveDataToJsonFile<UserOrgEntity>(userOrgs);

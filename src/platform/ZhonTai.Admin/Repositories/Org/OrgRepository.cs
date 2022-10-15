@@ -39,7 +39,7 @@ public class OrgRepository : RepositoryBase<OrgEntity>, IOrgRepository
     }
 
     /// <summary>
-    /// 本部门下是否有员工
+    /// 部门列表下是否有员工
     /// </summary>
     /// <param name="idList"></param>
     /// <returns></returns>

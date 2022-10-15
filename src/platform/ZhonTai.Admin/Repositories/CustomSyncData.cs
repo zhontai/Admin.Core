@@ -13,7 +13,7 @@ using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Core.Db.Data;
 using ZhonTai.Admin.Domain;
 
@@ -37,7 +37,7 @@ public class CustomSyncData : SyncData, ISyncData
             var users = GetData<UserEntity>(isTenant);
             await InitDataAsync(db, uow, tran, users, dbConfig);
 
-            var staffs = GetData<StaffEntity>(isTenant);
+            var staffs = GetData<UserStaffEntity>(isTenant);
             await InitDataAsync(db, uow, tran, staffs, dbConfig);
 
             var orgs = GetData<OrgEntity>(isTenant);

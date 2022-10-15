@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Admin.Domain.Staff;
+﻿namespace ZhonTai.Admin.Domain.UserStaff;
 
 /// <summary>
 /// 性别

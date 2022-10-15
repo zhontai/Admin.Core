@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Org;
 
-namespace ZhonTai.Admin.Domain.Staff.Input;
+namespace ZhonTai.Admin.Domain.UserStaff.Input;
 
 /// <summary>
 /// 添加
 /// </summary>
-public class StaffAddInput
+public class UserStaffAddInput
 {
     /// <summary>
     /// 工号

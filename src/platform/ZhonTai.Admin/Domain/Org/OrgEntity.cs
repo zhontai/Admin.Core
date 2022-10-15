@@ -1,7 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using System.Collections.Generic;
-using ZhonTai.Admin.Domain.Staff;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
 
@@ -68,7 +68,7 @@ public partial class OrgEntity : EntityBase, ITenant
     /// 员工列表
     /// </summary>
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
-    public ICollection<StaffEntity> Staffs { get; set; }
+    public ICollection<UserStaffEntity> Staffs { get; set; }
 
     /// <summary>
     /// 用户列表
