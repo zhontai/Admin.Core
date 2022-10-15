@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Repositories;
@@ -22,6 +21,7 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Consts;
 using FreeSql;
+using ZhonTai.Admin.Domain.Tenant;
 
 namespace ZhonTai.Admin.Services.Permission;
 

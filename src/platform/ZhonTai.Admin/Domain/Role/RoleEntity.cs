@@ -28,8 +28,11 @@ public partial class RoleEntity : EntityBase, ITenant
     /// </summary>
     public long ParentId { get; set; }
 
+    /// <summary>
+    /// 子级列表
+    /// </summary>
     [Navigate(nameof(ParentId))]
-    public List<OrgEntity> Childs { get; set; }
+    public List<RoleEntity> Childs { get; set; }
 
     /// <summary>
     /// 名称

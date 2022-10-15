@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Services.User;
+using ZhonTai.Admin.Domain.Tenant;
 
 namespace ZhonTai.Admin.Core.Auth;
 

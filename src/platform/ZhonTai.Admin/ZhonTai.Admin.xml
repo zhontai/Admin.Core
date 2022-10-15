@@ -1317,21 +1317,6 @@
             数据版本
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Entities.TenantType">
-            <summary>
-            租户类型
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.TenantType.Platform">
-            <summary>
-            平台
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Entities.TenantType.Tenant">
-            <summary>
-            租户
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Enums.ApiVersion">
             <summary>
             接口版本
@@ -2648,6 +2633,21 @@
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Description">
             <summary>
             说明
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Tenant.TenantType">
+            <summary>
+            租户类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Tenant.TenantType.Platform">
+            <summary>
+            平台
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Tenant.TenantType.Tenant">
+            <summary>
+            租户
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.UserOrgEntity">

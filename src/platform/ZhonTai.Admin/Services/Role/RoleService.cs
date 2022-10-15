@@ -124,7 +124,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var insertUserIds = input.UserIds.Except(userIds);
         if (insertUserIds != null && insertUserIds.Any())
         {
-            var userRoleList = insertUserIds.Select(userId => new UserRoleEntity { UserId = userId, RoleId = roleId });
+            var userRoleList = insertUserIds.Select(userId => new UserRoleEntity 
+            { 
+                UserId = userId, 
+                RoleId = roleId 
+            }).ToList();
             await _userRoleRepository.InsertAsync(userRoleList);
         }
 
@@ -152,7 +156,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         if (orgIds != null && orgIds.Any())
         {
-            var roleOrgs = orgIds.Select(orgId => new RoleOrgEntity { RoleId = roleId, OrgId = orgId }).ToList();
+            var roleOrgs = orgIds.Select(orgId => new RoleOrgEntity 
+            { 
+                RoleId = roleId, 
+                OrgId = orgId 
+            }).ToList();
             await _roleOrgRepository.InsertAsync(roleOrgs);
         }
     }

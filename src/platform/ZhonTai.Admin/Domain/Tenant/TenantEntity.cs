@@ -54,7 +54,7 @@ public partial class TenantEntity : EntityBase
     /// <summary>
     /// 租户类型
     /// </summary>
-    public TenantType? TenantType { get; set; } = Core.Entities.TenantType.Tenant;
+    public TenantType? TenantType { get; set; } = Tenant.TenantType.Tenant;
 
     /// <summary>
     /// 数据库注册键

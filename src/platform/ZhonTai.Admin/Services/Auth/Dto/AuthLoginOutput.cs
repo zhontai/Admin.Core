@@ -1,4 +1,4 @@
-﻿using ZhonTai.Admin.Core.Entities;
+﻿using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
