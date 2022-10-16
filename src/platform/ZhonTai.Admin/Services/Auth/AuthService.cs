@@ -34,6 +34,7 @@ using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Core.Db;
+using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -112,6 +113,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         return ResultOutput.Ok(data);
     }
 
+   
+
     /// <summary>
     /// 查询用户信息
     /// </summary>
@@ -124,72 +127,75 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             return ResultOutput.NotOk("未登录");
         }
 
-        var authGetUserInfoOutput = new AuthGetUserInfoOutput
+        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
-            //用户信息
-            User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
-        };
+            var authGetUserInfoOutput = new AuthGetUserInfoOutput
+            {
+                //用户信息
+                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
+            };
 
-        
-        IFreeSql db = _permissionRepository.Orm;
-        if (User.TenantAdmin)
-        {
-            var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            db = cloud.Use(DbKeys.MasterDb);
-        }
-       
-        var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
-        var menuSelect = permissionRepository.Select;
 
-        var dotSelect = permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
-
-        if (!User.PlatformAdmin)
-        {
+            IFreeSql db = _permissionRepository.Orm;
             if (User.TenantAdmin)
             {
-                menuSelect = menuSelect.Where(a =>
-                   db.Select<TenantPermissionEntity>()
-                   .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                   .Any()
-               );
-
-                dotSelect = dotSelect.Where(a =>
-                   db.Select<TenantPermissionEntity>()
-                   .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                   .Any()
-                );
+                var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
+                db = cloud.Use(DbKeys.MasterDb);
             }
-            else
+
+            var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
+            var menuSelect = permissionRepository.Select;
+
+            var dotSelect = permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+
+            if (!User.PlatformAdmin)
             {
-                menuSelect = menuSelect.Where(a =>
-                   db.Select<RolePermissionEntity>()
-                   .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                   .Where(b => b.PermissionId == a.Id)
-                   .Any()
-               );
+                if (User.TenantAdmin)
+                {
+                    menuSelect = menuSelect.Where(a =>
+                       db.Select<TenantPermissionEntity>()
+                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+                   );
 
-                dotSelect = dotSelect.Where(a =>
-                    db.Select<RolePermissionEntity>()
-                    .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
-                    .Where(b => b.PermissionId == a.Id)
-                    .Any()
-                );
+                    dotSelect = dotSelect.Where(a =>
+                       db.Select<TenantPermissionEntity>()
+                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+                    );
+                }
+                else
+                {
+                    menuSelect = menuSelect.Where(a =>
+                       db.Select<RolePermissionEntity>()
+                       .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                       .Where(b => b.PermissionId == a.Id)
+                       .Any()
+                   );
+
+                    dotSelect = dotSelect.Where(a =>
+                        db.Select<RolePermissionEntity>()
+                        .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                        .Where(b => b.PermissionId == a.Id)
+                        .Any()
+                    );
+                }
+
+                menuSelect = menuSelect.AsTreeCte(up: true);
             }
 
-            menuSelect = menuSelect.AsTreeCte(up: true);
+            var menuList = await menuSelect
+                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+
+            //用户菜单
+            authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
+
+            //用户权限点
+            authGetUserInfoOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);
+
+            return ResultOutput.Ok(authGetUserInfoOutput);
         }
-
-        var menuList = await menuSelect
-            .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-            .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
-
-        //用户菜单
-        authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
-
-        //用户权限点
-        authGetUserInfoOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);
-
-        return ResultOutput.Ok(authGetUserInfoOutput);
     }
 
     /// <summary>
@@ -202,94 +208,96 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
     {
-        var sw = new Stopwatch();
-        sw.Start();
-
-        #region 验证码校验
-
-        if (_appConfig.VarifyCode.Enable)
+        using (_userRepository.DataFilter.Disable(FilterNames.Tenant, FilterNames.Self, FilterNames.Data))
         {
-            input.Captcha.DeleteCache = true;
-            input.Captcha.CaptchaKey = CacheKeys.Captcha;
-            var isOk = await _captchaTool.CheckAsync(input.Captcha);
-            if (!isOk)
+            var sw = new Stopwatch();
+            sw.Start();
+
+            #region 验证码校验
+
+            if (_appConfig.VarifyCode.Enable)
             {
-                return ResultOutput.NotOk("安全验证不通过，请重新登录");
-            }
-        }
-
-        #endregion
-
-        #region 密码解密
-
-        if (input.PasswordKey.NotNull())
-        {
-            var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
-            var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
-            if (existsPasswordKey)
-            {
-                var secretKey = await Cache.GetAsync(passwordEncryptKey);
-                if (secretKey.IsNull())
+                input.Captcha.DeleteCache = true;
+                input.Captcha.CaptchaKey = CacheKeys.Captcha;
+                var isOk = await _captchaTool.CheckAsync(input.Captcha);
+                if (!isOk)
                 {
-                    return ResultOutput.NotOk("解密失败");
+                    return ResultOutput.NotOk("安全验证不通过，请重新登录");
                 }
-                input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                await Cache.DelAsync(passwordEncryptKey);
             }
-            else
+
+            #endregion
+
+            #region 密码解密
+
+            if (input.PasswordKey.NotNull())
             {
-                return ResultOutput.NotOk("解密失败！");
+                var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
+                var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
+                if (existsPasswordKey)
+                {
+                    var secretKey = await Cache.GetAsync(passwordEncryptKey);
+                    if (secretKey.IsNull())
+                    {
+                        return ResultOutput.NotOk("解密失败");
+                    }
+                    input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
+                    await Cache.DelAsync(passwordEncryptKey);
+                }
+                else
+                {
+                    return ResultOutput.NotOk("解密失败！");
+                }
             }
+
+            #endregion
+
+            #region 登录
+            var password = MD5Encrypt.Encrypt32(input.Password);
+            var user = await _userRepository.Select.Where(a => a.UserName == input.UserName && a.Password == password).ToOneAsync();
+
+            if (!(user?.Id > 0))
+            {
+                return ResultOutput.NotOk("用户名或密码错误");
+            }
+
+            if (user.Status == UserStatus.Disabled)
+            {
+                return ResultOutput.NotOk("禁止登录，请联系管理员");
+            }
+            #endregion
+
+            #region 获得token
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+            if (_appConfig.Tenant)
+            {
+                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
+                authLoginOutput.TenantType = tenant.TenantType;
+                authLoginOutput.DbKey = tenant.DbKey;
+            }
+            string token = GetToken(authLoginOutput);
+            #endregion
+
+            sw.Stop();
+
+            #region 添加登录日志
+
+            var loginLogAddInput = new LoginLogAddInput
+            {
+                TenantId = authLoginOutput.TenantId,
+                Name = authLoginOutput.Name,
+                ElapsedMilliseconds = sw.ElapsedMilliseconds,
+                Status = true,
+                CreatedUserId = authLoginOutput.Id,
+                CreatedUserName = input.UserName,
+            };
+
+            await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+            #endregion 添加登录日志
+
+            return ResultOutput.Ok(new { token });
         }
-
-        #endregion
-
-        #region 登录
-        var password = MD5Encrypt.Encrypt32(input.Password);
-        var user = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-            .Where(a => a.UserName == input.UserName && a.Password == password).ToOneAsync();
-
-        if (!(user?.Id > 0))
-        {
-            return ResultOutput.NotOk("用户名或密码错误");
-        }
-
-        if(user.Status== UserStatus.Disabled)
-        {
-            return ResultOutput.NotOk("禁止登录，请联系管理员");
-        }
-        #endregion
-
-        #region 获得token
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Tenant)
-        {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
-            authLoginOutput.TenantType = tenant.TenantType;
-            authLoginOutput.DbKey = tenant.DbKey;
-        }
-        string token = GetToken(authLoginOutput); 
-        #endregion
-
-        sw.Stop();
-
-        #region 添加登录日志
-
-        var loginLogAddInput = new LoginLogAddInput
-        {
-            TenantId = authLoginOutput.TenantId,
-            Name = authLoginOutput.Name,
-            ElapsedMilliseconds = sw.ElapsedMilliseconds,
-            Status = true,
-            CreatedUserId = authLoginOutput.Id,
-            CreatedUserName = input.UserName,
-        };
-
-        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-        #endregion 添加登录日志
-
-        return ResultOutput.Ok(new { token });
     }
 
     /// <summary>

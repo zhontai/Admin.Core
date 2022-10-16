@@ -9,6 +9,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -73,6 +74,8 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
 
         var dictionary = Mapper.Map<OrgEntity>(input);
         var id = (await _orgRepository.InsertAsync(dictionary)).Id;
+        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+
         return ResultOutput.Result(id > 0);
     }
 
@@ -117,6 +120,9 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
 
         Mapper.Map(input, entity);
         await _orgRepository.UpdateAsync(entity);
+
+        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+
         return ResultOutput.Ok();
     }
 
@@ -147,6 +153,8 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         //删除本部门和下级部门
         await _orgRepository.DeleteAsync(a => orgIdList.Contains(a.Id));
 
+        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+
         return ResultOutput.Ok();
     }
 
@@ -176,6 +184,8 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
 
         //删除本部门和下级部门
         await _orgRepository.SoftDeleteAsync(a => orgIdList.Contains(a.Id));
+
+        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
 
         return ResultOutput.Ok();
     }

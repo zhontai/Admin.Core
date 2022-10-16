@@ -27,7 +27,7 @@ public static class DBServiceCollectionExtensions
     /// <param name="env"></param>
     /// <param name="hostAppOptions"></param>
     /// <returns></returns>
-    public static void AddAdminDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
+    public static void AddMasterDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
     {
         var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
         var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
@@ -82,10 +82,31 @@ public static class DBServiceCollectionExtensions
                 fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
             }
 
-            //数据权限过滤器，CurrentUser动态查询无法禁用过滤器
-            //fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
-            //    () => user?.Id > 0 && user.Type == UserType.DefaultUser && user.CurrentUser?.DataScope != DataScope.All,
-            //    a => a.OwnerId == user.Id || user.CurrentUser.OrgIds.Contains(a.CreatedOrgId.Value));
+            //数据权限过滤器
+            fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
+                () =>
+                {
+                    if (!(user?.Id > 0))
+                        return false;
+                    var dataPermission = user.DataPermission;
+                    if (user.Type == UserType.DefaultUser && dataPermission != null)
+                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count == 0;
+                    return false;
+                },
+                a => a.OwnerId == user.Id
+            );
+            fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
+                () =>
+                {
+                    if (!(user?.Id > 0))
+                        return false;
+                    var dataPermission = user.DataPermission;
+                    if (user.Type == UserType.DefaultUser && dataPermission != null)
+                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count > 0;
+                    return false;
+                },
+                a => a.OwnerId == user.Id || user.DataPermission.OrgIds.Contains(a.OwnerOrgId.Value)
+            );
 
             //配置实体
             DbHelper.ConfigEntity(fsql, appConfig);

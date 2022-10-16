@@ -3,7 +3,7 @@ using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Domain.User.Dto;
 
-public class CurrentUserDto
+public class DataPermissionDto
 {
     /// <summary>
     /// 部门Id

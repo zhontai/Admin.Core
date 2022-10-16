@@ -48,6 +48,7 @@ using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
 using FreeSql;
 using ZhonTai.Admin.Core.Db.Transaction;
+using ZhonTai.Admin.Services.User;
 
 namespace ZhonTai.Admin.Core;
 
@@ -167,7 +168,7 @@ public class HostApp
 
         //用户信息
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        services.TryAddSingleton<IUser, User>();
+        services.TryAddScoped<IUser, User>();
 
         //数据库配置
         var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
@@ -178,9 +179,8 @@ public class HostApp
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
-        services.AddAdminDb(freeSqlCloud, env, _hostAppOptions);
+        services.AddMasterDb(freeSqlCloud, env, _hostAppOptions);
         services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.MasterDb));
-
 
         //上传配置
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
@@ -431,7 +431,7 @@ public class HostApp
                 options.Conventions.Add(new ApiGroupConvention());
             }
         }
-        
+
         var mvcBuilder = appConfig.AppType switch
         {
             AppType.Controllers => services.AddControllers(controllersAction),
@@ -440,7 +440,7 @@ public class HostApp
             _ => services.AddControllers(controllersAction)
         };
 
-        foreach(var assembly in assemblies)
+        foreach (var assembly in assemblies)
         {
             services.AddValidatorsFromAssembly(assembly);
         }
@@ -561,6 +561,19 @@ public class HostApp
 
         //授权
         app.UseAuthorization();
+
+        //初始化会话数据权限
+        app.Use(async (ctx, next) =>
+        {
+            var user = ctx.RequestServices.GetRequiredService<IUser>();
+            if (user?.Id > 0)
+            {
+                var userService = ctx.RequestServices.GetRequiredService<IUserService>();
+                await userService.GetDataPermissionAsync();
+            }
+
+            await next();
+        });
 
         //配置端点
         app.UseEndpoints(endpoints =>

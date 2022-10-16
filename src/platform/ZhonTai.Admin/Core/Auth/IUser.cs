@@ -1,5 +1,4 @@
-﻿using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Domain.Tenant;
+﻿using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.User.Dto;
 
@@ -61,7 +60,7 @@ public interface IUser
     string DbKey { get; }
 
     /// <summary>
-    /// 当前用户
+    /// 数据权限
     /// </summary>
-    CurrentUserDto CurrentUser { get; }
+    DataPermissionDto DataPermission { get; }
 }

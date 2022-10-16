@@ -11,7 +11,7 @@ public interface IData
     long? OwnerId { get; set; }
 
     /// <summary>
-    /// 创建者部门Id
+    /// 拥有者部门Id
     /// </summary>
-    long? CreatedOrgId { get; set; }
+    long? OwnerOrgId { get; set; }
 }

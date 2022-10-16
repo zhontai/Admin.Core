@@ -12,11 +12,13 @@ namespace ZhonTai.Admin.Services.User;
 /// </summary>
 public interface IUserService
 {
-    Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id);
-
     Task<IResultOutput> GetAsync(long id);
 
     Task<IResultOutput> GetPageAsync(PageInput<long?> input);
+
+    Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id);
+
+    Task<DataPermissionDto> GetDataPermissionAsync();
 
     Task<IResultOutput> AddAsync(UserAddInput input);
 

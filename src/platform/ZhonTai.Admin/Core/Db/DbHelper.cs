@@ -168,10 +168,10 @@ public class DbHelper
                         e.Value = user.UserName;
                     }
                     break;
-                case "CreatedOrgId":
+                case "OwnerOrgId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
-                        e.Value = user.CurrentUser?.OrgId;
+                        e.Value = user.DataPermission?.OrgId;
                     }
                     break;
                 case "TenantId":

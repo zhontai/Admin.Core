@@ -121,6 +121,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [NonAction]
     public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
     {
         var output = new ResultOutput<AuthLoginOutput>();
@@ -135,6 +136,90 @@ public class UserService : BaseService, IUserService, IDynamicApi
             entityDto.DbKey = tenant.DbKey;
         }
         return output.Ok(entityDto);
+    }
+
+    /// <summary>
+    /// 获得数据权限
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<DataPermissionDto> GetDataPermissionAsync()
+    {
+        if (!(User?.Id > 0))
+        {
+            return null;
+        }
+
+        var key = CacheKeys.DataPermission + User.Id;
+        return await Cache.GetOrSetAsync(key, async () =>
+        {
+            using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+            {
+                var user = await _userRepository.Select
+                .IncludeMany(a => a.Roles.Select(b => new RoleEntity
+                {
+                    Id = b.Id,
+                    DataScope = b.DataScope
+                }))
+                .WhereDynamic(User.Id)
+                .ToOneAsync(a => new
+                {
+                    a.OrgId,
+                    a.Roles
+                });
+
+                if (user == null)
+                    return null;
+
+                //数据范围
+                DataScope dataScope = DataScope.Self;
+                var customRoleIds = new List<long>();
+                user.Roles?.ToList().ForEach(role =>
+                {
+                    if (role.DataScope == DataScope.Custom)
+                    {
+                        customRoleIds.Add(role.Id);
+                    }
+                    else if (role.DataScope <= dataScope)
+                    {
+                        dataScope = role.DataScope;
+                    }
+                });
+
+                //部门列表
+                var orgIds = new List<long>();
+                if (dataScope != DataScope.All)
+                {
+                    //本部门
+                    if (dataScope == DataScope.Dept)
+                    {
+                        orgIds.Add(user.OrgId);
+                    }
+                    //本部门和下级部门
+                    else if (dataScope == DataScope.DeptWithChild)
+                    {
+                        orgIds = await _orgRepository
+                        .Where(a => a.Id == user.OrgId)
+                        .AsTreeCte()
+                        .ToListAsync(a => a.Id);
+                    }
+
+                    //指定部门
+                    if (customRoleIds.Count > 0)
+                    {
+                        var customRoleOrgIds = await _roleOrgRepository.Select.Where(a => customRoleIds.Contains(a.RoleId)).ToListAsync(a => a.OrgId);
+                        orgIds = orgIds.Concat(customRoleOrgIds).ToList();
+                    }
+                }
+
+                return new DataPermissionDto
+                {
+                    OrgId = user.OrgId,
+                    OrgIds = orgIds.Distinct().ToList(),
+                    DataScope = dataScope
+                };
+            }
+        });
     }
 
     /// <summary>
@@ -322,6 +407,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
             await _userOrgRepository.InsertAsync(orgs);
         }
 
+        await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
+
         return ResultOutput.Ok();
     }
 
@@ -394,6 +481,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
         //删除用户
         await _userRepository.DeleteAsync(a => a.Id == id);
 
+        await Cache.DelAsync(CacheKeys.DataPermission + id);
+
         return ResultOutput.Ok();
     }
 
@@ -422,6 +511,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
         //删除用户
         await _userRepository.DeleteAsync(a => ids.Contains(a.Id));
 
+        foreach (var userId in ids)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
+
         return ResultOutput.Ok();
     }
 
@@ -449,6 +543,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _staffRepository.SoftDeleteAsync(a => a.Id == id);
         await _userRepository.SoftDeleteAsync(id);
 
+        await Cache.DelAsync(CacheKeys.DataPermission + id);
+
         return ResultOutput.Ok();
     }
 
@@ -472,6 +568,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
         await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
         await _userRepository.SoftDeleteAsync(ids);
+
+        foreach (var userId in ids)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
 
         return ResultOutput.Ok();
     }

@@ -69,7 +69,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
     public async Task<IResultOutput> ClearAsync(string cacheKey)
     {
         Logger.LogWarning($"{User.Id}.{User.UserName}清除缓存[{cacheKey}]");
-        await Cache.DelByPatternAsync(cacheKey);
+        await Cache.DelByPatternAsync(cacheKey + "*");
         return ResultOutput.Ok();
     }
 }

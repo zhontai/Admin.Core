@@ -162,9 +162,9 @@
             数据库注册键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.CurrentUser">
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.DataPermission">
             <summary>
-            当前用户
+            数据权限
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.PermissionHandler">
@@ -240,9 +240,15 @@
             数据库注册键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.CurrentUser">
+        <member name="M:ZhonTai.Admin.Core.Auth.User.GetDataPermission">
             <summary>
-            当前用户
+            获得数据权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.DataPermission">
+            <summary>
+            数据权限
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.BaseController">
@@ -690,9 +696,9 @@
             用户权限 admin:user:permissions:用户主键
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.UserInfo">
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.DataPermission">
             <summary>
-            用户信息 admin:user:info:用户主键
+            数据权限 admin:user:data:permission:用户主键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
@@ -728,6 +734,11 @@
         <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Tenant">
             <summary>
             租户
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Self">
+            <summary>
+            本人权限
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Data">
@@ -832,7 +843,7 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddAdminDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddMasterDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
             <summary>
             添加主数据库
             </summary>
@@ -1240,9 +1251,9 @@
             拥有者Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.IData.CreatedOrgId">
+        <member name="P:ZhonTai.Admin.Core.Entities.IData.OwnerOrgId">
             <summary>
-            创建者部门Id
+            拥有者部门Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.IDelete">
@@ -2670,17 +2681,17 @@
             个人简介
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.OrgId">
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.DataPermissionDto.OrgId">
             <summary>
             部门Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.OrgIds">
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.DataPermissionDto.OrgIds">
             <summary>
             部门列表
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.Dto.CurrentUserDto.DataScope">
+        <member name="P:ZhonTai.Admin.Domain.User.Dto.DataPermissionDto.DataScope">
             <summary>
             数据范围
             </summary>
@@ -2695,9 +2706,9 @@
             拥有者Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.CreatedOrgId">
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.OwnerOrgId">
             <summary>
-            创建者部门Id
+            拥有者部门Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.TenantId">
@@ -2949,12 +2960,6 @@
             部门列表下是否有员工
             </summary>
             <param name="idList"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Repositories.UserRepository.GetCurrentUserAsync">
-            <summary>
-            获得当前登录用户
-            </summary>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.ApiService">
@@ -5721,6 +5726,12 @@
             查询登录用户信息
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetDataPermissionAsync">
+            <summary>
+            获得数据权限
+            </summary>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.GetBasicAsync">

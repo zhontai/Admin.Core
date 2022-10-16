@@ -15,6 +15,8 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
+using Org.BouncyCastle.Crypto;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -132,6 +134,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
             await _userRoleRepository.InsertAsync(userRoleList);
         }
 
+        var clearUserIds = userIds.Concat(input.UserIds).Distinct();
+        foreach (var userId in clearUserIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
+
         return ResultOutput.Ok();
     }
 
@@ -147,6 +155,11 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         if (userIds != null && userIds.Any())
         {
             await _userRoleRepository.Where(a => a.RoleId == input.RoleId && input.UserIds.Contains(a.UserId)).ToDelete().ExecuteAffrowsAsync();
+        }
+
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
         }
 
         return ResultOutput.Ok();
@@ -234,6 +247,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
             await AddRoleOrgAsync(entity.Id, input.OrgIds);
         }
 
+        var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == entity.Id).ToListAsync(a => a.UserId);
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
+
         return ResultOutput.Ok();
     }
 
@@ -245,12 +264,19 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
+        var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == id).ToListAsync(a => a.UserId);
+
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
         //删除角色权限
         await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
         //删除角色
         await _roleRepository.DeleteAsync(m => m.Id == id);
+        
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
 
         return ResultOutput.Ok();
     }
@@ -263,12 +289,18 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
+        var userIds = await _userRoleRepository.Select.Where(a => ids.Contains(a.RoleId)).ToListAsync(a => a.UserId);
         //删除用户角色
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         //删除角色权限
         await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         //删除角色
         await _roleRepository.DeleteAsync(a => ids.Contains(a.Id));
+
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
 
         return ResultOutput.Ok();
     }
@@ -281,10 +313,14 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
+        var userIds = await _userRoleRepository.Select.Where(a => a.RoleId == id).ToListAsync(a => a.UserId);
         await _userRoleRepository.DeleteAsync(a => a.RoleId == id);
         await _rolePermissionRepository.DeleteAsync(a => a.RoleId == id);
         await _roleRepository.SoftDeleteAsync(id);
-
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
         return ResultOutput.Ok();
     }
 
@@ -296,10 +332,14 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
+        var userIds = await _userRoleRepository.Select.Where(a => ids.Contains(a.RoleId)).ToListAsync(a => a.UserId);
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         await _rolePermissionRepository.DeleteAsync(a => ids.Contains(a.RoleId));
         await _roleRepository.SoftDeleteAsync(ids);
-
+        foreach (var userId in userIds)
+        {
+            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+        }
         return ResultOutput.Ok();
     }
 }

@@ -174,28 +174,24 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 当前用户
+    /// 获得数据权限
     /// </summary>
-    public virtual CurrentUserDto CurrentUser
+    /// <returns></returns>
+    DataPermissionDto GetDataPermission()
     {
-        get
+        var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
+        if (cache == null)
         {
-            var userRepository = _accessor?.HttpContext?.RequestServices.GetRequiredService<IUserRepository>();
-            if(userRepository == null)
-            {
-                return null;
-            }
-            else
-            {
-                return userRepository.GetCurrentUserAsync().Result;
-            }
-            
-            //var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
-            //var key = CacheKeys.UserInfo + Id;
-            //return cache.GetOrSetAsync(key, async () =>
-            //{
-            //    return await userRepsitory.GetCurrentUserAsync();
-            //}).Result;
+            return null;
+        }
+        else
+        {
+            return cache.Get<DataPermissionDto>(CacheKeys.DataPermission + Id);
         }
     }
+
+    /// <summary>
+    /// 数据权限
+    /// </summary>
+    public virtual DataPermissionDto DataPermission => GetDataPermission();
 }

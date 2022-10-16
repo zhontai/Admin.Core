@@ -20,14 +20,14 @@ public partial class UserEntity : EntityBase, ITenant, IData
     /// <summary>
     /// 拥有者Id
     /// </summary>
-    [Column(Position = -23)]
+    [Column(Position = -24)]
     public long? OwnerId { get; set; }
 
     /// <summary>
-    /// 创建者部门Id
+    /// 拥有者部门Id
     /// </summary>
-    [Column(Position = -23, CanUpdate = false)]
-    public long? CreatedOrgId { get; set; }
+    [Column(Position = -23)]
+    public long? OwnerOrgId { get; set; }
 
     /// <summary>
     /// 租户Id
