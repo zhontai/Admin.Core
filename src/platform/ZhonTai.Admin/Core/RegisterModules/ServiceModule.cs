@@ -35,26 +35,29 @@ public class ServiceModule : Module
             interceptorServiceTypes.Add(typeof(TransactionInterceptor));
         }
 
-        //服务
-        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => _appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        if(_appConfig.AssemblyNames?.Length > 0)
+        {
+            //服务
+            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+                .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
+                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
-        //服务接口实例
-        builder.RegisterAssemblyTypes(assemblies)
-        .Where(a => a.Name.EndsWith("Service"))
-        .AsImplementedInterfaces()
-        .InstancePerLifetimeScope()
-        .PropertiesAutowired()// 属性注入
-        .InterceptedBy(interceptorServiceTypes.ToArray())
-        .EnableInterfaceInterceptors();
+            //服务接口实例
+            builder.RegisterAssemblyTypes(assemblies)
+            .Where(a => a.Name.EndsWith("Service"))
+            .AsImplementedInterfaces()
+            .InstancePerLifetimeScope()
+            .PropertiesAutowired()// 属性注入
+            .InterceptedBy(interceptorServiceTypes.ToArray())
+            .EnableInterfaceInterceptors();
 
-        //服务实例
-        builder.RegisterAssemblyTypes(assemblies)
-        .Where(a => a.Name.EndsWith("Service"))
-        .InstancePerLifetimeScope()
-        .PropertiesAutowired()// 属性注入
-        .InterceptedBy(interceptorServiceTypes.ToArray())
-        .EnableClassInterceptors();
+            //服务实例
+            builder.RegisterAssemblyTypes(assemblies)
+            .Where(a => a.Name.EndsWith("Service"))
+            .InstancePerLifetimeScope()
+            .PropertiesAutowired()// 属性注入
+            .InterceptedBy(interceptorServiceTypes.ToArray())
+            .EnableClassInterceptors();
+        }
     }
 }

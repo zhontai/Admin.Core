@@ -15,6 +15,7 @@ using ZhonTai.Admin.Core.Auth;
 using System.IO;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Db.Data;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -70,8 +71,13 @@ public class DbHelper
     /// <returns></returns>
     public static Type[] GetEntityTypes(AppConfig appConfig)
     {
-        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
+        if(!(appConfig.AssemblyNames?.Length > 0))
+        {
+            return null;
+        }
+
+        Assembly[]  assemblies = DependencyContext.Default.RuntimeLibraries
+            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
             .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
         var entityTypes = new List<Type>();
@@ -219,6 +225,7 @@ public class DbHelper
         // 同步结构
         var dbType = dbConfig.Type.ToString();
         Console.WriteLine($"\r\n {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+
         if (dbConfig.Type == DataType.Oracle)
         {
             db.CodeFirst.IsSyncStructureToUpper = true;
@@ -226,8 +233,8 @@ public class DbHelper
 
         //获得指定程序集表实体
         var entityTypes = GetEntityTypes(appConfig);
-
         db.CodeFirst.SyncStructure(entityTypes);
+
         Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
     }
 
@@ -318,22 +325,25 @@ public class DbHelper
         {
             Console.WriteLine("\r\n sync data started");
 
-            db.Aop.AuditValue += SyncDataAuditValue;
-
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-
-            List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
-            .Where(x => typeof(ISyncData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
-            .SelectMany(registerTypes => registerTypes.Select(registerType => (ISyncData)Activator.CreateInstance(registerType))).ToList();
-
-            foreach (ISyncData syncData in syncDatas)
+            if (appConfig.AssemblyNames?.Length > 0)
             {
-                await syncData.SyncDataAsync(db, dbConfig, appConfig);
-            }
+                db.Aop.AuditValue += SyncDataAuditValue;
 
-            db.Aop.AuditValue -= SyncDataAuditValue;
+                Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+                .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+
+                List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
+                .Where(x => typeof(ISyncData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
+                .SelectMany(registerTypes => registerTypes.Select(registerType => (ISyncData)Activator.CreateInstance(registerType))).ToList();
+
+                foreach (ISyncData syncData in syncDatas)
+                {
+                    await syncData.SyncDataAsync(db, dbConfig, appConfig);
+                }
+
+                db.Aop.AuditValue -= SyncDataAuditValue;
+            }
 
             Console.WriteLine(" sync data succeed\r\n");
         }
@@ -356,17 +366,20 @@ public class DbHelper
         {
             Console.WriteLine("\r\n generate data started");
 
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-
-            List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()
-            .Where(x => typeof(IGenerateData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
-            .SelectMany(registerTypes => registerTypes.Select(registerType => (IGenerateData)Activator.CreateInstance(registerType))).ToList();
-
-            foreach (IGenerateData generateData in generateDatas)
+            if (appConfig.AssemblyNames?.Length > 0)
             {
-                await generateData.GenerateDataAsync(db, appConfig);
+                Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+               .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+               .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+
+                List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()
+                .Where(x => typeof(IGenerateData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
+                .SelectMany(registerTypes => registerTypes.Select(registerType => (IGenerateData)Activator.CreateInstance(registerType))).ToList();
+
+                foreach (IGenerateData generateData in generateDatas)
+                {
+                    await generateData.GenerateDataAsync(db, appConfig);
+                }
             }
 
             Console.WriteLine(" generate data succeed\r\n");

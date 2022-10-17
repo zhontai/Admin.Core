@@ -187,14 +187,20 @@ public class HostApp
         services.Configure<UploadConfig>(uploadConfig);
 
         //程序集
-        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-          .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
-          .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        Assembly[] assemblies = null;
+        if(appConfig.AssemblyNames?.Length > 0)
+        {
+            assemblies = DependencyContext.Default.RuntimeLibraries
+            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        }
 
         #region Mapster 映射配置
         services.AddScoped<IMapper>(sp => new Mapper());
-        TypeAdapterConfig.GlobalSettings.Scan(assemblies);
-
+        if(assemblies?.Length > 0)
+        {
+            TypeAdapterConfig.GlobalSettings.Scan(assemblies);
+        }
         #endregion Mapster 映射配置
 
         #region Cors 跨域
@@ -440,9 +446,12 @@ public class HostApp
             _ => services.AddControllers(controllersAction)
         };
 
-        foreach (var assembly in assemblies)
+        if (assemblies?.Length > 0)
         {
-            services.AddValidatorsFromAssembly(assembly);
+            foreach (var assembly in assemblies)
+            {
+                services.AddValidatorsFromAssembly(assembly);
+            }
         }
         services.AddFluentValidationAutoValidation();
 

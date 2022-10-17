@@ -15,20 +15,8 @@ namespace ZhonTai.Admin.Domain.User;
 /// </summary>
 [Table(Name = "ad_user")]
 [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
-public partial class UserEntity : EntityBase, ITenant, IData
+public partial class UserEntity : EntityBase, ITenant
 {
-    /// <summary>
-    /// 拥有者Id
-    /// </summary>
-    [Column(Position = -24)]
-    public long? OwnerId { get; set; }
-
-    /// <summary>
-    /// 拥有者部门Id
-    /// </summary>
-    [Column(Position = -23)]
-    public long? OwnerOrgId { get; set; }
-
     /// <summary>
     /// 租户Id
     /// </summary>

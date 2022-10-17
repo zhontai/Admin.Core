@@ -35,7 +35,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
 
         var appConfig = LazyGetRequiredService<AppConfig>();
         Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
+            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
             .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
         foreach (Assembly assembly in assemblies)
