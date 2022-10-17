@@ -32,7 +32,7 @@ public static class TaskSchedulerServiceExtensions
             a.Name("ad_task");
             a.Property(b => b.Id).IsPrimary(true);
             a.Property(b => b.Body).StringLength(-1);
-            a.Property(b => b.Interval).MapType(typeof(string));
+            a.Property(b => b.Interval).MapType(typeof(int));
             a.Property(b => b.IntervalArgument).StringLength(1024);
             a.Property(b => b.Status).MapType(typeof(int));
             a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);

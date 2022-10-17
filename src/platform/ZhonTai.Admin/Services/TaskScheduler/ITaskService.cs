@@ -14,11 +14,15 @@ public interface ITaskService
 
     Task<IResultOutput> GetPageAsync(PageInput<TaskGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(TaskAddInput input);
+    IResultOutput Add(TaskAddInput input);
 
     Task<IResultOutput> UpdateAsync(TaskUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(string id);
+    IResultOutput Pause(string id);
 
-    Task<IResultOutput> BatchDeleteAsync(string[] ids);
+    IResultOutput Resume(string id);
+
+    IResultOutput Run(string id);
+
+    IResultOutput Delete(string id);
 }

@@ -31,9 +31,4 @@ public class TaskAddInput
     /// 定时参数值 60,60,60,120,120,1200,1200
     /// </summary>
     public string IntervalArgument { get; set; }
-
-    /// <summary>
-    /// 任务状态
-    /// </summary>
-    public TaskStatus Status { get; set; }
 }

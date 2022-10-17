@@ -5149,11 +5149,6 @@
             定时参数值 60,60,60,120,120,1200,1200
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Status">
-            <summary>
-            任务状态
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
             <summary>
             主键
@@ -5260,7 +5255,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.AddAsync(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.Add(ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput)">
             <summary>
             新增
             </summary>
@@ -5274,18 +5269,32 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.DeleteAsync(System.String)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.Pause(System.String)">
             <summary>
-            彻底删除
+            暂停任务
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchDeleteAsync(System.String[])">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.Resume(System.String)">
             <summary>
-            批量彻底删除
+            启动任务
             </summary>
-            <param name="ids"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.Run(System.String)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.Delete(System.String)">
+            <summary>
+            删除任务
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput">

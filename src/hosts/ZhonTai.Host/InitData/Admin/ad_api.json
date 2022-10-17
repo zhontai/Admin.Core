@@ -708,7 +708,6 @@
         "path": "/api/admin/user/get-login-user",
         "httpMethods": "get",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1182,7 +1181,6 @@
     "label": "员工管理",
     "path": "staff",
     "description": "",
-    "enabled": true,
     "childs": [
       {
         "id": 174219034734666,
@@ -1191,7 +1189,6 @@
         "path": "/api/admin/staff/get",
         "httpMethods": "get",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1201,7 +1198,6 @@
         "path": "/api/admin/staff/get-page",
         "httpMethods": "post",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1211,7 +1207,6 @@
         "path": "/api/admin/staff/add",
         "httpMethods": "post",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1221,7 +1216,6 @@
         "path": "/api/admin/staff/update",
         "httpMethods": "put",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1231,7 +1225,6 @@
         "path": "/api/admin/staff/soft-delete",
         "httpMethods": "delete",
         "description": "",
-        "enabled": true,
         "childs": []
       },
       {
@@ -1241,7 +1234,6 @@
         "path": "/api/admin/staff/batch-soft-delete",
         "httpMethods": "put",
         "description": "",
-        "enabled": true,
         "childs": []
       }
     ]
@@ -1286,7 +1278,7 @@
       {
         "id": 174219034738758,
         "parentId": 174219034718277,
-        "label": "批量删除",
+        "label": "删除",
         "path": "/api/admin/org/soft-delete",
         "httpMethods": "delete",
         "description": "",
@@ -1463,7 +1455,7 @@
       {
         "id": 336555241427016,
         "parentId": 336555241193541,
-        "label": "彻底删除",
+        "label": "删除任务",
         "path": "/api/admin/task/delete",
         "httpMethods": "delete",
         "description": "",
@@ -1471,11 +1463,31 @@
         "childs": []
       },
       {
-        "id": 336555241427017,
+        "id": 343342310699077,
         "parentId": 336555241193541,
-        "label": "批量彻底删除",
-        "path": "/api/admin/task/batch-delete",
-        "httpMethods": "put",
+        "label": "暂停任务",
+        "path": "/api/admin/task/pause",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 343342310703173,
+        "parentId": 336555241193541,
+        "label": "启动任务",
+        "path": "/api/admin/task/resume",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 343342310703174,
+        "parentId": 336555241193541,
+        "label": "执行任务",
+        "path": "/api/admin/task/run",
+        "httpMethods": "post",
         "description": "",
         "enabled": true,
         "childs": []

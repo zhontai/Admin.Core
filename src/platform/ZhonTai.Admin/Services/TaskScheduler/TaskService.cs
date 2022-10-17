@@ -9,6 +9,9 @@ using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using TaskStatus = FreeScheduler.TaskStatus;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -68,10 +71,46 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(TaskAddInput input)
+    public IResultOutput Add(TaskAddInput input)
     {
-        var entity = Mapper.Map<TaskInfo>(input);
-        await _taskInfoRepository.InsertAsync(entity);
+        if (input.IntervalArgument.IsNull())
+        {
+            return ResultOutput.NotOk("请输入定时参数");
+        }
+
+        var scheduler = LazyGetRequiredService<Scheduler>();
+
+        if(input.Interval == TaskInterval.SEC && input.Round == -1)
+        {
+            scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
+        } 
+        else if (input.Interval == TaskInterval.SEC && input.Round > 0)
+        {
+            int[] seconds = System.Array.Empty<int>();
+            var intervalArguments = input.IntervalArgument.Split(",");
+            foreach(var arg in intervalArguments)
+            {
+                seconds.Append(arg.ToInt());
+            }
+            scheduler.AddTask(input.Topic, input.Body, seconds);
+        }
+        else if (input.Interval == TaskInterval.RunOnDay && input.Round > 0)
+        {
+            scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
+        }
+        else if (input.Interval == TaskInterval.RunOnWeek && input.Round > 0)
+        {
+            scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
+        }
+        else if (input.Interval == TaskInterval.RunOnMonth && input.Round > 0)
+        {
+            scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
+        }
+        else if (input.Interval == TaskInterval.Custom && input.Round > 0)
+        {
+            scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
+        }
+
         return ResultOutput.Ok();
     }
 
@@ -95,39 +134,78 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
 
         Mapper.Map(input, entity);
         await _taskInfoRepository.UpdateAsync(entity);
+
         return ResultOutput.Ok();
     }
 
     /// <summary>
-    /// 彻底删除
+    /// 暂停任务
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> DeleteAsync(string id)
+    public IResultOutput Pause([BindRequired]string id)
     {
         if (id.IsNull())
         {
             return ResultOutput.NotOk();
         }
 
-        await _taskInfoRepository.DeleteAsync(m => m.Id == id);
-        
+        var scheduler = LazyGetRequiredService<Scheduler>();
+        scheduler.PauseTask(id);
+
         return ResultOutput.Ok();
     }
 
     /// <summary>
-    /// 批量彻底删除
+    /// 启动任务
     /// </summary>
-    /// <param name="ids"></param>
+    /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> BatchDeleteAsync(string[] ids)
+    public IResultOutput Resume([BindRequired] string id)
     {
-        if(!(ids?.Length > 0))
+        if (id.IsNull())
         {
             return ResultOutput.NotOk();
         }
 
-        await _taskInfoRepository.DeleteAsync(a => ids.Contains(a.Id));
+        var scheduler = LazyGetRequiredService<Scheduler>();
+        scheduler.ResumeTask(id);
+
+        return ResultOutput.Ok();
+    }
+
+    /// <summary>
+    /// 执行任务
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public IResultOutput Run([BindRequired] string id)
+    {
+        if (id.IsNull())
+        {
+            return ResultOutput.NotOk();
+        }
+
+        var scheduler = LazyGetRequiredService<Scheduler>();
+        scheduler.RunNowTask(id);
+
+        return ResultOutput.Ok();
+    }
+
+    /// <summary>
+    /// 删除任务
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public IResultOutput Delete([BindRequired] string id)
+    {
+        if (id.IsNull())
+        {
+            return ResultOutput.NotOk();
+        }
+
+        var scheduler = LazyGetRequiredService<Scheduler>();
+        scheduler.RemoveTask(id);
 
         return ResultOutput.Ok();
     }

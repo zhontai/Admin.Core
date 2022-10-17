@@ -970,7 +970,108 @@
             "newWindow": false,
             "external": false,
             "sort": 0,
-            "description": ""
+            "description": "",
+            "childs": [
+              {
+                "id": 343342945812549,
+                "parentId": 342340463398981,
+                "label": "查询任务",
+                "code": "api:admin:task:get",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343343120306245,
+                "parentId": 342340463398981,
+                "label": "查询任务列表",
+                "code": "api:admin:task:get-page",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343343209164869,
+                "parentId": 342340463398981,
+                "label": "新增",
+                "code": "api:admin:task:add",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343343735894085,
+                "parentId": 342340463398981,
+                "label": "修改",
+                "code": "api:admin:task:update",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343343926595653,
+                "parentId": 342340463398981,
+                "label": "暂停任务",
+                "code": "api:admin:task:pause",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343343989960773,
+                "parentId": 342340463398981,
+                "label": "启动任务",
+                "code": "api:admin:task:resume",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343344066166853,
+                "parentId": 342340463398981,
+                "label": "执行任务",
+                "code": "api:admin:task:run",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343344158351429,
+                "parentId": 342340463398981,
+                "label": "删除任务",
+                "code": "api:admin:task:delete",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 343344363630661,
+                "parentId": 342340463398981,
+                "label": "查询任务日志",
+                "code": "api:admin:task-log:get-page",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              }
+            ]
           }
         ]
       },
