@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.TaskScheduler.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
@@ -41,11 +40,11 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
         .WhereDynamicFilter(input.DynamicFilter)
         .Where(a => a.TaskId == input.Filter.TaskId)
         .Count(out var total)
-        .OrderByDescending(true, c => c.CreateTime)
+        .OrderBy(c => c.Round)
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync<TaskListOutput>();
+        .ToListAsync();
 
-        var data = new PageOutput<TaskListOutput>()
+        var data = new PageOutput<TaskLog>()
         {
             List = list,
             Total = total
