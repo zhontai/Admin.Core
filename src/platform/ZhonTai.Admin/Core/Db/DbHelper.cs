@@ -15,7 +15,6 @@ using ZhonTai.Admin.Core.Auth;
 using System.IO;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Db.Data;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace ZhonTai.Admin.Core.Db;
 

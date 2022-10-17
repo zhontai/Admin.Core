@@ -15,8 +15,6 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
-using Org.BouncyCastle.Crypto;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Role;
 
