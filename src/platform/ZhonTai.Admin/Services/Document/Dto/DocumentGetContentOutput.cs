@@ -16,9 +16,4 @@ public class DocumentGetContentOutput
     /// 内容
     /// </summary>
     public string Content { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

@@ -66,7 +66,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         .ToOneAsync(a => new
         {
             a.Id,
-            a.Version,
             a.UserName,
             a.Name,
             a.Mobile,
@@ -79,8 +78,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
                 a.Staff.JobNumber,
                 a.Staff.Sex,
                 a.Staff.Position,
-                a.Staff.Introduce,
-                a.Staff.Version
+                a.Staff.Introduce
             }
         });
 

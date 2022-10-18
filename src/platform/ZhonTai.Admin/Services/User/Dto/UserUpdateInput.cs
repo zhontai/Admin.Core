@@ -70,9 +70,4 @@ public partial class UserUpdateInput
     /// 员工信息
     /// </summary>
     public StaffUpdateInput Staff { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

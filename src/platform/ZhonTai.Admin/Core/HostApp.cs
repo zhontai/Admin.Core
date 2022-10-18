@@ -159,7 +159,7 @@ public class HostApp
         var idGeneratorOptions = new IdGeneratorOptions(1) { WorkerIdBitLength = 6 };
         _hostAppOptions?.ConfigureIdGenerator?.Invoke(idGeneratorOptions);
         YitIdHelper.SetIdGenerator(idGeneratorOptions);
-
+        
         //权限处理
         services.AddScoped<IPermissionHandler, PermissionHandler>();
 
@@ -180,7 +180,12 @@ public class HostApp
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
         services.AddMasterDb(freeSqlCloud, env, _hostAppOptions);
-        services.AddSingleton(provider => freeSqlCloud.Use(DbKeys.MasterDb));
+        var fsql = freeSqlCloud.Use(DbKeys.MasterDb);
+        if (dbConfig.SyncStructure)
+        {
+            var _ = fsql.CodeFirst;
+        }
+        services.AddSingleton(provider => fsql);
 
         //上传配置
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);

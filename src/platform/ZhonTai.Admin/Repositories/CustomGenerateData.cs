@@ -40,8 +40,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
 
         var dictionaries = db.Queryable<DictionaryEntity>().ToListIgnore(a => new
@@ -51,8 +50,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
         #endregion
 
@@ -65,8 +63,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
         var apiTree = apis.Clone().ToTree((r, c) =>
         {
@@ -93,8 +90,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
         var viewTree = views.Clone().ToTree((r, c) =>
         {
@@ -121,8 +117,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
         var permissionTree = permissions.Clone().ToTree((r, c) =>
         {
@@ -149,8 +144,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
 
         #endregion
@@ -164,8 +158,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
 
         #endregion
@@ -179,8 +172,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
         var orgTree = orgs.Clone().ToTree((r, c) =>
         {
@@ -207,8 +199,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
 
         #endregion
@@ -255,8 +246,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             a.CreatedUserName,
             a.ModifiedTime,
             a.ModifiedUserId,
-            a.ModifiedUserName,
-            a.Version
+            a.ModifiedUserName
         });
 
         #endregion

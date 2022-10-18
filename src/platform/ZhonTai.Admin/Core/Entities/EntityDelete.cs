@@ -6,13 +6,13 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体软删除
 /// </summary>
-public class EntityDelete<TKey> : Entity<TKey>, IDelete
+public class EntityDelete<TKey> : EntityUpdate, IDelete
 {
     /// <summary>
     /// 是否删除
     /// </summary>
     [Description("是否删除")]
-    [Column(Position = -40)]
+    [Column(Position = -9)]
     public bool IsDeleted { get; set; } = false;
 }
 

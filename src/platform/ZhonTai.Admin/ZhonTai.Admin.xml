@@ -1146,46 +1146,6 @@
             实体基类
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.IsDeleted">
-            <summary>
-            是否删除
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedUserId">
-            <summary>
-            创建者Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedUserName">
-            <summary>
-            创建者
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedUserId">
-            <summary>
-            修改者Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedUserName">
-            <summary>
-            修改者
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityBase`1.ModifiedTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityBase">
             <summary>
             实体基类
@@ -2591,11 +2551,6 @@
             编号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserStaff.Input.UserStaffUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.UserStaff.Output.UserStaffListOutput.Id">
             <summary>
             主键Id
@@ -2871,11 +2826,6 @@
             编号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.User.StaffUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.View.Dto.ViewGetPageDto.Label">
             <summary>
             视图名称
@@ -3133,11 +3083,6 @@
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiUpdateInput.Id">
             <summary>
             接口Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiUpdateInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.IApiService">
@@ -3555,11 +3500,6 @@
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.IDictionaryTypeService">
             <summary>
             数据字典类型接口
@@ -3687,11 +3627,6 @@
         <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryUpdateInput.Id">
             <summary>
             主键Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryUpdateInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Dictionary.IDictionaryService">
@@ -3900,11 +3835,6 @@
             内容
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentGetContentOutput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentListOutput.Id">
             <summary>
             编号
@@ -3960,29 +3890,14 @@
             Html
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUpdateContentInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUpdateGroupInput.Id">
             <summary>
             编号
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUpdateGroupInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUpdateMenuInput.Id">
             <summary>
             编号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUpdateMenuInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Document.Dto.DocumentUploadImageInput.File">
@@ -4373,11 +4288,6 @@
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.Org.OrgService">
             <summary>
             部门服务
@@ -4685,19 +4595,9 @@
             权限Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateApiInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateDotInput.Id">
             <summary>
             权限Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateDotInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateGroupInput.Id">
@@ -4705,19 +4605,9 @@
             权限Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateGroupInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateMenuInput.Id">
             <summary>
             权限Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionUpdateMenuInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Permission.IPermissionService">
@@ -5003,11 +4893,6 @@
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleUpdateInput.Id">
             <summary>
             接口Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleUpdateInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Id">
@@ -5417,11 +5302,6 @@
             接口Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.ITenantService">
             <summary>
             租户接口
@@ -5691,11 +5571,6 @@
             员工信息
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.User.IUserService">
             <summary>
             用户接口
@@ -5916,11 +5791,6 @@
         <member name="P:ZhonTai.Admin.Services.View.Dto.ViewUpdateInput.Id">
             <summary>
             视图Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewUpdateInput.Version">
-            <summary>
-            版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.View.IViewService">

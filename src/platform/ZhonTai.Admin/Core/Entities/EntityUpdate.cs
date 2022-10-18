@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体修改
 /// </summary>
-public class EntityUpdate<TKey> : Entity<TKey>, IEntityUpdate<TKey> where TKey : struct
+public class EntityUpdate<TKey> : EntityAdd, IEntityUpdate<TKey> where TKey : struct
 {
     /// <summary>
     /// 修改者Id

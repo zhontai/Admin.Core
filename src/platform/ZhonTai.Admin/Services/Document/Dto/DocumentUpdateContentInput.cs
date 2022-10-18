@@ -21,9 +21,4 @@ public class DocumentUpdateContentInput
     /// Html
     /// </summary>
     public string Html { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

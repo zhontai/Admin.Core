@@ -1,10 +1,8 @@
-﻿using FreeScheduler;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Startup;
-using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 
 new HostApp(new HostAppOptions
@@ -13,28 +11,6 @@ new HostApp(new HostAppOptions
 	ConfigurePostServices = context =>
 	{
 		//context.Services.AddTiDb(context);
-
-		//添加任务调度
-		context.Services.AddTaskScheduler(options =>
-		{
-			options.ConfigureFreeSql = freeSql =>
-			{
-				freeSql.CodeFirst
-				//配置任务表
-				.ConfigEntity<TaskInfo>(a =>
-				{
-					a.Name("app_task");
-				})
-				//配置任务日志表
-				.ConfigEntity<TaskLog>(a =>
-				{
-					a.Name("app_task_log");
-				});
-			};
-
-			//模块任务处理器
-			//options.TaskHandler = new ModuleTaskHandler(options.FreeSql);
-		});
 	},
 	//配置后置中间件
 	ConfigurePostMiddleware = context =>

@@ -42,8 +42,8 @@
   //FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
   "providerType": "",
 
-  //分布式事务唯一标识
-  "distributeKey": "admin",
+  //分布式事务唯一标识 admin
+  "distributeKey": "",
 
   //读写分离从库列表
   "slaveList": [

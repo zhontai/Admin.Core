@@ -9,9 +9,4 @@ public partial class ApiUpdateInput : ApiAddInput
     /// 接口Id
     /// </summary>
     public long Id { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }
