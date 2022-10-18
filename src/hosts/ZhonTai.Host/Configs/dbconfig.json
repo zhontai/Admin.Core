@@ -25,7 +25,7 @@
 
   //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
   //开启生成数据前先关闭syncStructure syncData createDb
-  //生成数据
+  //生成数据，回写InitData/Admin/*.json
   "generateData": false,
 
   //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
@@ -42,19 +42,6 @@
   //FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
   "providerType": "",
 
-  //多数据库
-  //定义MultiDbKeys枚举
-  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDb + MultiDbKeys.DbKey, muowm)
-  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDb +  MultiDbKeys.DbKey);
-  "dbs": [
-    //{
-    //  "key": "admindb",
-    //  "type": "Sqlite",
-    //  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
-    //  "providerType": ""
-    //}
-  ],
-
   //分布式事务唯一标识
   "distributeKey": "admin",
 
@@ -65,6 +52,19 @@
     //  "ConnectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
     //  //权重
     //  "Weight": 1
+    //}
+  ],
+
+  //多数据库
+  //定义MultiDbKeys枚举
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDb + MultiDbKeys.DbKey, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDb +  MultiDbKeys.DbKey);
+  "dbs": [
+    //{
+    //  "key": "admindb",
+    //  "type": "Sqlite",
+    //  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "providerType": ""
     //}
   ]
 }

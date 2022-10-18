@@ -34,7 +34,6 @@ using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Core.Db;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.Auth;
 

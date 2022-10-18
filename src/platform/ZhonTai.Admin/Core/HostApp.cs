@@ -175,7 +175,7 @@ public class HostApp
         services.AddSingleton(dbConfig);
 
         //添加数据库
-        var freeSqlCloud = new FreeSqlCloud(dbConfig.DistributeKey);
+        var freeSqlCloud = dbConfig.DistributeKey.IsNull() ? new FreeSqlCloud() : new FreeSqlCloud(dbConfig.DistributeKey);
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
