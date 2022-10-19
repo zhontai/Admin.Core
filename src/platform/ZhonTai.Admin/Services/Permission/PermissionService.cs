@@ -34,6 +34,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     private readonly AppConfig _appConfig;
     private readonly IPermissionRepository _permissionRepository;
     private readonly IRoleRepository _roleRepository;
+    private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
     private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
     private readonly IRepositoryBase<TenantPermissionEntity> _tenantPermissionRepository;
     private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
@@ -172,10 +173,10 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
                 .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                 .Any()
             )
-            .OrderBy(a => new { a.ParentId, a.Sort })
-            .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type });
+            .AsTreeCte(up: true)
+            .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Sort });
 
-        var menus = permissions
+        var menus = permissions.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort)
             .Select(a => new
             {
                 a.Id,
@@ -480,10 +481,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     [Transaction]
     public virtual async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
     {
-        //获得租户db
-        var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-        var tenantDb = cloud.GetTenantDb(ServiceProvider, input.TenantId);
-
         //查询租户权限
         var permissionIds = await _tenantPermissionRepository.Select.Where(d => d.TenantId == input.TenantId).ToListAsync(m => m.PermissionId);
 
@@ -493,7 +490,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         {
             await _tenantPermissionRepository.DeleteAsync(m => m.TenantId == input.TenantId && deleteIds.Contains(m.PermissionId));
             //删除租户下关联的角色权限
-            await tenantDb.GetRepositoryBase<RolePermissionEntity>().DeleteAsync(a => deleteIds.Contains(a.PermissionId));
+            await _rolePermissionRepository.DeleteAsync(a => deleteIds.Contains(a.PermissionId));
         }
 
         //批量插入租户权限
@@ -513,7 +510,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         }
 
         //清除租户下所有用户权限缓存
-        var userIds = await tenantDb.GetRepositoryBase<UserEntity>().Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
+        var userIds = await _userRepository.Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
         if(userIds.Any())
         {
             foreach (var userId in userIds)

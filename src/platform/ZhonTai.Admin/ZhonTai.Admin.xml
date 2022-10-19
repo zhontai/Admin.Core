@@ -273,12 +273,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.AssemblyNames">
             <summary>
-            程序集名称，默认 ZhonTai.Admin
+            程序集名称
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Tenant">
             <summary>
             租户类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.DistributeKey">
+            <summary>
+            分布式事务唯一标识
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Swagger">
@@ -309,6 +314,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Log">
             <summary>
             日志配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Validate">
+            <summary>
+            验证配置
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.RateLimit">
@@ -406,6 +416,21 @@
             操作日志
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.ValidateConfig">
+            <summary>
+            验证配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.Login">
+            <summary>
+            登录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.Permission">
+            <summary>
+            权限
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.VarifyCodeConfig">
             <summary>
             验证码配置
@@ -456,6 +481,16 @@
             数据库配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Key">
+            <summary>
+            数据库注册键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.AssemblyNames">
+            <summary>
+            程序集名称
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Type">
             <summary>
             数据库类型
@@ -469,11 +504,6 @@
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.ProviderType">
             <summary>
             指定程序集
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
-            <summary>
-            空闲时间(分)
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.GenerateData">
@@ -521,39 +551,9 @@
             多数据库
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.DistributeKey">
-            <summary>
-            分布式事务唯一标识
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SlaveList">
             <summary>
             读写分离从库列表
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.MultiDb">
-            <summary>
-            多数据库
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Key">
-            <summary>
-            数据库键
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.Type">
-            <summary>
-            数据库类型
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.ConnectionString">
-            <summary>
-            数据库字符串
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.MultiDb.ProviderType">
-            <summary>
-            指定程序集
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SlaveDb">
@@ -561,14 +561,14 @@
             读写分离从库
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.ConnectionString">
-            <summary>
-            数据库连接字符串
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.Weight">
             <summary>
             数据库类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.ConnectionString">
+            <summary>
+            数据库连接字符串
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
@@ -706,19 +706,14 @@
             数据库键名
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MasterDb">
+        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.MasterDb">
             <summary>
             主库
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.MultiDb">
+        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.AdminDb">
             <summary>
-            多库
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.DbKeys.TenantDb">
-            <summary>
-            租户数据库
+            admin库
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.FilterNames">
@@ -792,17 +787,20 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GetEntityTypes(ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GetEntityTypes(System.String[])">
             <summary>
             获得指定程序集表实体
             </summary>
-            <param name="appConfig"></param>
+            <param name="assemblyNames"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.ConfigEntity(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.ConfigEntity(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             配置实体
             </summary>
+            <param name="db"></param>
+            <param name="appConfig"></param>
+            <param name="dbConfig"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,ZhonTai.Admin.Core.Auth.IUser)">
             <summary>
@@ -843,12 +841,21 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddMasterDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,FreeSql.FreeSqlCloud,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.RegisterDb(FreeSql.FreeSqlCloud,ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Startup.HostAppOptions)">
             <summary>
-            添加主数据库
+            注册数据库
+            </summary>
+            <param name="freeSqlCloud"></param>
+            <param name="user"></param>
+            <param name="dbConfig"></param>
+            <param name="appConfig"></param>
+            <param name="hostAppOptions"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Hosting.IHostEnvironment,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+            <summary>
+            添加数据库
             </summary>
             <param name="services"></param>
-            <param name="freeSqlCloud"></param>
             <param name="env"></param>
             <param name="hostAppOptions"></param>
             <returns></returns>
@@ -860,33 +867,6 @@
             <param name="_"></param>
             <param name="context"></param>
             <param name="version">版本</param>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.CreateFreeSql(ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto)">
-            <summary>
-            创建FreeSql实例
-            </summary>
-            <param name="user"></param>
-            <param name="appConfig"></param>
-            <param name="dbConfig"></param>
-            <param name="tenant"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.GetCurrentDb(FreeSql.FreeSqlCloud,System.IServiceProvider)">
-            <summary>
-            获得当前登录用户数据库
-            </summary>
-            <param name="cloud"></param>
-            <param name="serviceProvider"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlCloudExtesions.GetTenantDb(FreeSql.FreeSqlCloud,System.IServiceProvider,System.Nullable{System.Int64})">
-            <summary>
-            获得租户数据库
-            </summary>
-            <param name="cloud"></param>
-            <param name="serviceProvider"></param>
-            <param name="tenantId"></param>
-            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.FreeSqlDbContextExtensions.GetRepositoryBase``2(IFreeSql,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
             <summary>

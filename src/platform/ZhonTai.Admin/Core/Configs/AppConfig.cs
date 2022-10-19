@@ -20,7 +20,7 @@ public class AppConfig
     public string[] CorUrls { get; set; }
 
     /// <summary>
-    /// 程序集名称，默认 ZhonTai.Admin
+    /// 程序集名称
     /// </summary>
     public string[] AssemblyNames { get; set; }
 
@@ -28,6 +28,11 @@ public class AppConfig
     /// 租户类型
     /// </summary>
     public bool Tenant { get; set; } = false;
+
+    /// <summary>
+    /// 分布式事务唯一标识
+    /// </summary>
+    public string DistributeKey { get; set; }
 
     /// <summary>
     /// Swagger文档
@@ -58,6 +63,11 @@ public class AppConfig
     /// 日志配置
     /// </summary>
     public LogConfig Log { get; set; } = new LogConfig();
+
+    /// <summary>
+    /// 验证配置
+    /// </summary>
+    public ValidateConfig Validate { get; set; } = new ValidateConfig();
 
     /// <summary>
     /// 限流
@@ -162,6 +172,23 @@ public class LogConfig
     /// </summary>
     public bool Operation { get; set; } = true;
 }
+
+/// <summary>
+/// 验证配置
+/// </summary>
+public class ValidateConfig
+{
+    /// <summary>
+    /// 登录
+    /// </summary>
+    public bool Login { get; set; } = true;
+
+    /// <summary>
+    /// 权限
+    /// </summary>
+    public bool Permission { get; set; } = true;
+}
+
 
 /// <summary>
 /// 验证码配置

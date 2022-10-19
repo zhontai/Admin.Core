@@ -1,4 +1,5 @@
-﻿using DataType = FreeSql.DataType;
+﻿using ZhonTai.Admin.Core.Consts;
+using DataType = FreeSql.DataType;
 
 namespace ZhonTai.Admin.Core.Configs;
 
@@ -7,6 +8,16 @@ namespace ZhonTai.Admin.Core.Configs;
 /// </summary>
 public class DbConfig
 {
+    /// <summary>
+    /// 数据库注册键
+    /// </summary>
+    public string Key { get; set; } = DbKeys.MasterDb;
+
+    /// <summary>
+    /// 程序集名称
+    /// </summary>
+    public string[] AssemblyNames { get; set; }
+
     /// <summary>
     /// 数据库类型
     /// </summary>
@@ -23,11 +34,6 @@ public class DbConfig
     public string ProviderType { get; set; }
 
     /// <summary>
-    /// 空闲时间(分)
-    /// </summary>
-    public int IdleTime { get; set; } = 10;
-
-    /// <summary>
     /// 生成数据
     /// </summary>
     public bool GenerateData { get; set; } = false;
@@ -35,17 +41,17 @@ public class DbConfig
     /// <summary>
     /// 同步结构
     /// </summary>
-    public bool SyncStructure { get; set; } = true;
+    public bool SyncStructure { get; set; } = false;
 
     /// <summary>
     /// 同步数据
     /// </summary>
-    public bool SyncData { get; set; } = true;
+    public bool SyncData { get; set; } = false;
 
     /// <summary>
     /// 建库
     /// </summary>
-    public bool CreateDb { get; set; } = true;
+    public bool CreateDb { get; set; } = false;
 
     /// <summary>
     /// 建库连接字符串
@@ -70,12 +76,7 @@ public class DbConfig
     /// <summary>
     /// 多数据库
     /// </summary>
-    public MultiDb[] Dbs { get; set; }
-
-    /// <summary>
-    /// 分布式事务唯一标识
-    /// </summary>
-    public string DistributeKey { get; set; }
+    public DbConfig[] Dbs { get; set; }
 
     /// <summary>
     /// 读写分离从库列表
@@ -84,43 +85,17 @@ public class DbConfig
 }
 
 /// <summary>
-/// 多数据库
-/// </summary>
-public class MultiDb
-{
-    /// <summary>
-    /// 数据库键
-    /// </summary>
-    public string Key { get; set; }
-
-    /// <summary>
-    /// 数据库类型
-    /// </summary>
-    public DataType Type { get; set; }
-
-    /// <summary>
-    /// 数据库字符串
-    /// </summary>
-    public string ConnectionString { get; set; }
-
-    /// <summary>
-    /// 指定程序集
-    /// </summary>
-    public string ProviderType { get; set; }
-}
-
-/// <summary>
 /// 读写分离从库
 /// </summary>
 public class SlaveDb
 {
     /// <summary>
-    /// 数据库连接字符串
-    /// </summary>
-    public string ConnectionString { get; set; }
-
-    /// <summary>
     /// 数据库类型
     /// </summary>
     public int Weight { get; set; } = 1;
+
+    /// <summary>
+    /// 数据库连接字符串
+    /// </summary>
+    public string ConnectionString { get; set; }
 }

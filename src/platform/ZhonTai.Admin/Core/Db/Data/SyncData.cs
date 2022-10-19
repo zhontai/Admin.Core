@@ -17,7 +17,7 @@ public abstract class SyncData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    private bool CheckIdentity<T>() where T : class
+    private static bool CheckIdentity<T>() where T : class
     {
         var isIdentity = false;
         var properties = typeof(T).GetProperties();

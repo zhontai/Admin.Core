@@ -23,7 +23,7 @@ public static partial class FilterNames
     /// 本人权限
     /// </summary>
     [Description("本人权限")]
-    public const string Self = "Selft";
+    public const string Self = "Self";
 
     /// <summary>
     /// 数据权限

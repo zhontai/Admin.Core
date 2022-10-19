@@ -175,17 +175,7 @@ public class HostApp
         services.AddSingleton(dbConfig);
 
         //添加数据库
-        var freeSqlCloud = dbConfig.DistributeKey.IsNull() ? new FreeSqlCloud() : new FreeSqlCloud(dbConfig.DistributeKey);
-        services.AddSingleton<IFreeSql>(freeSqlCloud);
-        services.AddSingleton(freeSqlCloud);
-        services.AddScoped<UnitOfWorkManagerCloud>();
-        services.AddMasterDb(freeSqlCloud, env, _hostAppOptions);
-        var fsql = freeSqlCloud.Use(DbKeys.MasterDb);
-        if (dbConfig.SyncStructure)
-        {
-            var _ = fsql.CodeFirst;
-        }
-        services.AddSingleton(provider => fsql);
+        services.AddDb(env, _hostAppOptions);
 
         //上传配置
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
@@ -424,11 +414,14 @@ public class HostApp
         #endregion 操作日志
 
         #region 控制器
-        void controllersAction(MvcOptions options)
+        void mvcConfigure(MvcOptions options)
         {
             options.Filters.Add<ControllerExceptionFilter>();
             options.Filters.Add<ValidateInputFilter>();
-            options.Filters.Add<ValidatePermissionAttribute>();
+            if(appConfig.Validate.Login || appConfig.Validate.Permission)
+            {
+                options.Filters.Add<ValidatePermissionAttribute>();
+            }
             if (appConfig.Log.Operation)
             {
                 options.Filters.Add<ControllerLogFilter>();
@@ -445,10 +438,10 @@ public class HostApp
 
         var mvcBuilder = appConfig.AppType switch
         {
-            AppType.Controllers => services.AddControllers(controllersAction),
-            AppType.ControllersWithViews => services.AddControllersWithViews(controllersAction),
-            AppType.MVC => services.AddMvc(controllersAction),
-            _ => services.AddControllers(controllersAction)
+            AppType.Controllers => services.AddControllers(mvcConfigure),
+            AppType.ControllersWithViews => services.AddControllersWithViews(mvcConfigure),
+            AppType.MVC => services.AddMvc(mvcConfigure),
+            _ => services.AddControllers(mvcConfigure)
         };
 
         if (assemblies?.Length > 0)
@@ -576,7 +569,7 @@ public class HostApp
         //授权
         app.UseAuthorization();
 
-        //初始化会话数据权限
+        //初始化登录用户数据权限
         app.Use(async (ctx, next) =>
         {
             var user = ctx.RequestServices.GetRequiredService<IUser>();

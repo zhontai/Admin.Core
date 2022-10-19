@@ -14,25 +14,29 @@ using System.Collections.Concurrent;
 using System.Reflection;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Db;
 
 public static class DBServiceCollectionExtensions
 {
     /// <summary>
-    /// 添加主数据库
+    /// 注册数据库
     /// </summary>
-    /// <param name="services"></param>
     /// <param name="freeSqlCloud"></param>
-    /// <param name="env"></param>
+    /// <param name="user"></param>
+    /// <param name="dbConfig"></param>
+    /// <param name="appConfig"></param>
     /// <param name="hostAppOptions"></param>
-    /// <returns></returns>
-    public static void AddMasterDb(this IServiceCollection services, FreeSqlCloud freeSqlCloud, IHostEnvironment env, HostAppOptions hostAppOptions)
+    private static void RegisterDb(
+        FreeSqlCloud freeSqlCloud,
+        IUser user,
+        DbConfig dbConfig,
+        AppConfig appConfig,
+        HostAppOptions hostAppOptions
+    )
     {
-        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
-
-        //注册主库
+        //注册数据库
         freeSqlCloud.Register(DbKeys.MasterDb, () =>
         {
             //创建数据库
@@ -63,15 +67,14 @@ public static class DBServiceCollectionExtensions
             {
                 freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
                 {
-                    //Console.WriteLine($"{cmd.CommandText}\n{traceLog}\r\n");
-                    Console.WriteLine($"{cmd.CommandText}\r\n");
+                    //Console.WriteLine($"{cmd.CommandText}\n{traceLog}{Environment.NewLine}");
+                    Console.WriteLine($"{cmd.CommandText}{Environment.NewLine}");
                 });
             }
 
             #endregion 监听所有命令
 
             var fsql = freeSqlBuilder.Build();
-            var user = services.BuildServiceProvider().GetService<IUser>();
 
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
@@ -109,7 +112,7 @@ public static class DBServiceCollectionExtensions
             );
 
             //配置实体
-            DbHelper.ConfigEntity(fsql, appConfig);
+            DbHelper.ConfigEntity(fsql, appConfig, dbConfig);
 
             hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
 
@@ -158,7 +161,7 @@ public static class DBServiceCollectionExtensions
                     {
                         MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
                     }
-                    Console.WriteLine($"{e.Sql}\r\n");
+                    Console.WriteLine($"{e.Sql}{Environment.NewLine}");
                 };
                 fsql.Aop.CurdAfter += (s, e) =>
                 {
@@ -174,67 +177,45 @@ public static class DBServiceCollectionExtensions
             return fsql;
         });
 
+        //执行注册数据库
+        var fsql = freeSqlCloud.Use(dbConfig.Key);
+        if (dbConfig.SyncStructure)
+        {
+            var _ = fsql.CodeFirst;
+        }
+    }
+
+    /// <summary>
+    /// 添加数据库
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="env"></param>
+    /// <param name="hostAppOptions"></param>
+    /// <returns></returns>
+    public static void AddDb(this IServiceCollection services, IHostEnvironment env, HostAppOptions hostAppOptions)
+    {
+        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
+        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
+        var user = services.BuildServiceProvider().GetService<IUser>();
+        var freeSqlCloud = appConfig.DistributeKey.IsNull() ? new FreeSqlCloud() : new FreeSqlCloud(appConfig.DistributeKey);
+        if (dbConfig.Key.NotNull())
+        {
+            DbKeys.MasterDb = dbConfig.Key;
+        }
+        RegisterDb(freeSqlCloud, user, dbConfig, appConfig, hostAppOptions);
+
         //注册多数据库
         if (dbConfig.Dbs?.Length > 0)
         {
             foreach (var db in dbConfig.Dbs)
             {
-                freeSqlCloud.Register(DbKeys.MultiDb + db.Key, () =>
-                {
-                    #region FreeSql
-
-                    var freeSqlBuilder = new FreeSqlBuilder()
-                            .UseConnectionString(db.Type, db.ConnectionString, db.ProviderType.NotNull() ? Type.GetType(db.ProviderType) : null)
-                            .UseAutoSyncStructure(false)
-                            .UseLazyLoading(false)
-                            .UseNoneCommandParameter(true);
-
-                    hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
-
-                    #region 监听所有命令
-
-                    if (dbConfig.MonitorCommand)
-                    {
-                        freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
-                        {
-                            //Console.WriteLine($"{cmd.CommandText}\n{traceLog}\r\n");
-                            Console.WriteLine($"{cmd.CommandText}\r\n");
-                        });
-                    }
-
-                    #endregion 监听所有命令
-
-                    var fsql = freeSqlBuilder.Build();
-
-                    #region 监听Curd操作
-
-                    if (dbConfig.Curd)
-                    {
-                        fsql.Aop.CurdBefore += (s, e) =>
-                        {
-                            if (appConfig.MiniProfiler)
-                            {
-                                MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
-                            }
-                            Console.WriteLine($"{e.Sql}\r\n");
-                        };
-                        fsql.Aop.CurdAfter += (s, e) =>
-                        {
-                            if (appConfig.MiniProfiler)
-                            {
-                                MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
-                            }
-                        };
-                    }
-
-                    #endregion 监听Curd操作
-
-                    #endregion FreeSql
-
-                    return fsql;
-                });
+                RegisterDb(freeSqlCloud, user, db, appConfig, null);
             }
         }
+
+        services.AddSingleton<IFreeSql>(freeSqlCloud);
+        services.AddSingleton(freeSqlCloud);
+        services.AddScoped<UnitOfWorkManagerCloud>();
     }
 
     /// <summary>

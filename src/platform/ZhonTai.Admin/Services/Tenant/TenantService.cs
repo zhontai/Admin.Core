@@ -19,8 +19,6 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain;
-using FreeSql;
-using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -30,28 +28,18 @@ namespace ZhonTai.Admin.Services.Tenant;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
-    private readonly ITenantRepository _tenantRepository;
-    private readonly IRoleRepository _roleRepository;
-    private readonly IUserRepository _userRepository;
-    private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
-    private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
-    private IUserStaffRepository _staffRepository => LazyGetRequiredService<IUserStaffRepository>();
+    private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
+    private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
+    private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
+    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
+    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
+    private IRepositoryBase<RolePermissionEntity> _rolePermissionRepository => LazyGetRequiredService<IRepositoryBase<RolePermissionEntity>>();
+    private IUserStaffRepository _userStaffRepository => LazyGetRequiredService<IUserStaffRepository>();
     private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
 
-    public TenantService(
-        ITenantRepository tenantRepository,
-        IRoleRepository roleRepository,
-        IUserRepository userRepository,
-        IRepositoryBase<UserRoleEntity> userRoleRepository,
-        IRepositoryBase<RolePermissionEntity> rolePermissionRepository
-    )
+    public TenantService()
     {
-        _tenantRepository = tenantRepository;
-        _roleRepository = roleRepository;
-        _userRepository = userRepository;
-        _userRoleRepository = userRoleRepository;
-        _rolePermissionRepository = rolePermissionRepository;
     }
 
     /// <summary>
@@ -114,9 +102,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         TenantEntity entity = Mapper.Map<TenantEntity>(input);
         TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
         long tenantId = tenant.Id;
-
-        var cloud = LazyGetRequiredService<FreeSqlCloud>();
-        var tenantDb = cloud.GetTenantDb(ServiceProvider, tenantId);
         
         //添加部门
         var org = new OrgEntity
@@ -127,8 +112,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             ParentId = 0,
             MemberCount = 1
         };
-        
-        await tenantDb.GetRepositoryBase<OrgEntity>().InsertAsync(org);
+        await _orgRepository.InsertAsync(org);
 
         //添加主管理员
         string pwd = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
@@ -144,7 +128,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Type = UserType.TenantAdmin,
             OrgId = org.Id
         };
-        await tenantDb.GetRepositoryBase<UserEntity>().InsertAsync(user);
+        await _userRepository.InsertAsync(user);
 
         long userId = user.Id;
 
@@ -154,7 +138,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Id = userId,
             TenantId = tenantId
         };
-        await tenantDb.GetRepositoryBase<UserStaffEntity>().InsertAsync(emp);
+        await _userStaffRepository.InsertAsync(emp);
 
         //添加用户部门
         var userOrg = new UserOrgEntity
@@ -162,9 +146,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             OrgId = org.Id
         };
-        await tenantDb.GetRepositoryBase<UserOrgEntity>().InsertAsync(userOrg);
+        await _userOrgRepository.InsertAsync(userOrg);
 
-        var roleRepository = tenantDb.GetRepositoryBase<RoleEntity>();
         //添加角色分组
         var roleGroup = new RoleEntity
         {
@@ -172,7 +155,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             TenantId = tenantId,
             Name = "系统默认"
         };
-        await roleRepository.InsertAsync(roleGroup);
+        await _roleRepository.InsertAsync(roleGroup);
 
         //添加角色
         var role = new RoleEntity
@@ -183,7 +166,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             ParentId = roleGroup.Id,
             DataScope = DataScope.All
         };
-        await roleRepository.InsertAsync(role);
+        await _roleRepository.InsertAsync(role);
 
         //添加用户角色
         var userRole = new UserRoleEntity()
@@ -191,7 +174,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             RoleId = role.Id
         };
-        await tenantDb.GetRepositoryBase<UserRoleEntity>().InsertAsync(userRole);
+        await _userRoleRepository.InsertAsync(userRole);
 
         //更新租户的用户
         tenant.UserId = userId;
@@ -238,7 +221,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除员工
-        await _staffRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+        await _userStaffRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户部门
         await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();

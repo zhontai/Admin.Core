@@ -43,7 +43,7 @@ public class DbHelper
 
         try
         {
-            Console.WriteLine("\r\n create database started");
+            Console.WriteLine($"{Environment.NewLine} create database started");
             var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
             if (File.Exists(filePath))
             {
@@ -66,17 +66,17 @@ public class DbHelper
     /// <summary>
     /// 获得指定程序集表实体
     /// </summary>
-    /// <param name="appConfig"></param>
+    /// <param name="assemblyNames"></param>
     /// <returns></returns>
-    public static Type[] GetEntityTypes(AppConfig appConfig)
+    public static Type[] GetEntityTypes(string[] assemblyNames)
     {
-        if(!(appConfig.AssemblyNames?.Length > 0))
+        if(!(assemblyNames?.Length > 0))
         {
             return null;
         }
 
         Assembly[]  assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+            .Where(a => assemblyNames.Contains(a.Name))
             .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
         var entityTypes = new List<Type>();
@@ -104,7 +104,10 @@ public class DbHelper
     /// <summary>
     /// 配置实体
     /// </summary>
-    public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null)
+    /// <param name="db"></param>
+    /// <param name="appConfig"></param>
+    /// <param name="dbConfig"></param>
+    public static void ConfigEntity(IFreeSql db, AppConfig appConfig = null, DbConfig dbConfig = null)
     {
         //租户生成和操作租户Id
         if (!appConfig.Tenant)
@@ -113,7 +116,7 @@ public class DbHelper
             var tenantId = nameof(ITenant.TenantId);
 
             //获得指定程序集表实体
-            var entityTypes = GetEntityTypes(appConfig);
+            var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
 
             foreach (var entityType in entityTypes)
             {
@@ -210,7 +213,7 @@ public class DbHelper
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
-        //Console.WriteLine("\r\n " + dDL);
+        //Console.WriteLine($"{Environment.NewLine} " + dDL);
 
         //打印结构同步脚本
         //db.Aop.SyncStructureAfter += (s, e) =>
@@ -223,7 +226,7 @@ public class DbHelper
 
         // 同步结构
         var dbType = dbConfig.Type.ToString();
-        Console.WriteLine($"\r\n {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+        Console.WriteLine($"{Environment.NewLine} {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
         if (dbConfig.Type == DataType.Oracle)
         {
@@ -231,7 +234,7 @@ public class DbHelper
         }
 
         //获得指定程序集表实体
-        var entityTypes = GetEntityTypes(appConfig);
+        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
         db.CodeFirst.SyncStructure(entityTypes);
 
         Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
@@ -322,7 +325,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine("\r\n sync data started");
+            Console.WriteLine($"{Environment.NewLine} sync data started");
 
             if (appConfig.AssemblyNames?.Length > 0)
             {
@@ -344,7 +347,7 @@ public class DbHelper
                 db.Aop.AuditValue -= SyncDataAuditValue;
             }
 
-            Console.WriteLine(" sync data succeed\r\n");
+            Console.WriteLine($" sync data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
@@ -363,7 +366,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine("\r\n generate data started");
+            Console.WriteLine($"{Environment.NewLine} generate data started");
 
             if (appConfig.AssemblyNames?.Length > 0)
             {
@@ -381,11 +384,11 @@ public class DbHelper
                 }
             }
 
-            Console.WriteLine(" generate data succeed\r\n");
+            Console.WriteLine($" generate data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
-            throw new Exception($" generate data failed。\n{ex.Message}\r\n");
+            throw new Exception($" generate data failed。\n{ex.Message}{Environment.NewLine}");
         }
     }
 }

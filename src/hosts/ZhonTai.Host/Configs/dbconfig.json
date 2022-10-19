@@ -1,8 +1,14 @@
 {
+  //数据库注册键
+  "key": "admindb",
+
   //监听所有操作
   "monitorCommand": false,
   //监听Curd操作
   "curd": true,
+
+  //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql配置
+  "assemblyNames": [ "ZhonTai.Admin" ],
 
   //建库
   "createDb": false,
@@ -42,9 +48,6 @@
   //FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
   "providerType": "",
 
-  //分布式事务唯一标识 admin
-  "distributeKey": "",
-
   //读写分离从库列表
   "slaveList": [
     //{
@@ -57,8 +60,8 @@
 
   //多数据库
   //定义MultiDbKeys枚举
-  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.MultiDb + MultiDbKeys.DbKey, muowm)
-  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.MultiDb +  MultiDbKeys.DbKey);
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AdminDb);
   "dbs": [
     //{
     //  "key": "admindb",

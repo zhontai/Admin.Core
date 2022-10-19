@@ -9,6 +9,15 @@
   "assemblyNames": [ "ZhonTai.Admin" ],
   //租户
   "tenant": true,
+  //分布式事务唯一标识admin，为空则不生成分布式事务表
+  "distributeKey": "",
+  //验证
+  "validate": {
+    //登录
+    "login": true,
+    //权限
+    "permission": true
+  },
   //Swagger文档
   "swagger": {
     //启用
@@ -24,7 +33,7 @@
       }
     ]
   },
-  //新版Api文档
+  //ZhonTai接口文档
   "apiUI": {
     //启用
     "enable": true,
@@ -48,7 +57,7 @@
     //事物
     "transaction": true
   },
-  //日志
+  //数据库日志
   "log": {
     //操作日志
     "operation": true

@@ -31,9 +31,7 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using FreeSql;
-using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Domain.TenantPermission;
-using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -134,21 +132,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
             };
 
-
-            IFreeSql db = _permissionRepository.Orm;
-            if (User.TenantAdmin)
-            {
-                var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-                db = cloud.Use(DbKeys.MasterDb);
-            }
-
-            var permissionRepository = db.GetRepositoryBase<PermissionEntity>();
-            var menuSelect = permissionRepository.Select;
-
-            var dotSelect = permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+            var menuSelect = _permissionRepository.Select;
+            var dotSelect = _permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
 
             if (!User.PlatformAdmin)
             {
+                var db = _permissionRepository.Orm;
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
