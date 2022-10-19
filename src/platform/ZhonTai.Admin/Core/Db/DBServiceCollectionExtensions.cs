@@ -37,7 +37,7 @@ public static class DBServiceCollectionExtensions
     )
     {
         //注册数据库
-        freeSqlCloud.Register(DbKeys.MasterDb, () =>
+        freeSqlCloud.Register(dbConfig.Key, () =>
         {
             //创建数据库
             if (dbConfig.CreateDb)
@@ -148,7 +148,7 @@ public static class DBServiceCollectionExtensions
             //生成数据
             if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
             {
-                DbHelper.GenerateDataAsync(fsql, appConfig).Wait();
+                DbHelper.GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
             }
 
             #region 监听Curd操作

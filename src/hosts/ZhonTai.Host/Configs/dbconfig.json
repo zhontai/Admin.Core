@@ -59,7 +59,7 @@
   ],
 
   //多数据库
-  //定义MultiDbKeys枚举
+  //定义DbKeys枚举
   //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
   //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AdminDb);
   "dbs": [

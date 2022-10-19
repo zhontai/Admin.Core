@@ -327,12 +327,12 @@ public class DbHelper
         {
             Console.WriteLine($"{Environment.NewLine} sync data started");
 
-            if (appConfig.AssemblyNames?.Length > 0)
+            if (dbConfig.AssemblyNames?.Length > 0)
             {
                 db.Aop.AuditValue += SyncDataAuditValue;
 
                 Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+                .Where(a => dbConfig.AssemblyNames.Contains(a.Name))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
                 List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
@@ -360,18 +360,19 @@ public class DbHelper
     /// </summary>
     /// <param name="db"></param>
     /// <param name="appConfig"></param>
+    /// <param name="dbConfig"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public static async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig = null)
+    public static async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig = null, DbConfig dbConfig = null)
     {
         try
         {
             Console.WriteLine($"{Environment.NewLine} generate data started");
 
-            if (appConfig.AssemblyNames?.Length > 0)
+            if (dbConfig.AssemblyNames?.Length > 0)
             {
                 Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-               .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+               .Where(a => dbConfig.AssemblyNames.Contains(a.Name))
                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
                 List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()

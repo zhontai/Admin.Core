@@ -832,12 +832,13 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GenerateDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.GenerateDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             生成数据
             </summary>
             <param name="db"></param>
             <param name="appConfig"></param>
+            <param name="dbConfig"></param>
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
