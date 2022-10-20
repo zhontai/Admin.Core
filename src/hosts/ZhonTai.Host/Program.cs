@@ -33,7 +33,7 @@ new HostApp(new HostAppOptions
             };
 
             //模块任务处理器
-            //options.TaskHandler = new ModuleTaskHandler(options.FreeSql);
+            options.TaskHandler = new TaskHandler(options.FreeSql);
         });
     },
 	//配置后置中间件

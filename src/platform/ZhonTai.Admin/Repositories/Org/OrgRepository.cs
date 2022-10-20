@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Domain.Org;
@@ -11,7 +10,7 @@ namespace ZhonTai.Admin.Repositories;
 public class OrgRepository : RepositoryBase<OrgEntity>, IOrgRepository
 {
     private readonly IRepositoryBase<UserOrgEntity> _userOrgRepository;
-    public OrgRepository(UnitOfWorkManagerCloud uowm, IRepositoryBase<UserOrgEntity> userOrgRepository) : base(DbKeys.AppDb, uowm)
+    public OrgRepository(UnitOfWorkManagerCloud uowm, IRepositoryBase<UserOrgEntity> userOrgRepository) : base(uowm)
     {
         _userOrgRepository = userOrgRepository;
     }
