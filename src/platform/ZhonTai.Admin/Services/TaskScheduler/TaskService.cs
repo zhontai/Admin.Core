@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;

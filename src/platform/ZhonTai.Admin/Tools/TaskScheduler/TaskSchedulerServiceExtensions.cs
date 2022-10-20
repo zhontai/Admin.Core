@@ -1,8 +1,10 @@
 ﻿using FreeScheduler;
+using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Tools.TaskScheduler;
 
@@ -20,7 +22,7 @@ public static class TaskSchedulerServiceExtensions
         ServiceProvider = services.BuildServiceProvider();
         var options = new TaskSchedulerOptions()
         {
-            FreeSql = ServiceProvider.GetService<IFreeSql>()
+            FreeSql = ServiceProvider.GetService<FreeSqlCloud>().Use(DbKeys.AppDb)
         };
         configureOptions?.Invoke(options);
 
