@@ -6,10 +6,8 @@ using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.DynamicApi;
-using ZhonTai.Admin.Core.Repositories;
-using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Domain.RoleOrg;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -19,13 +17,11 @@ namespace ZhonTai.Admin.Services.Org;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class OrgService : BaseService, IOrgService, IDynamicApi
 {
-    private readonly IOrgRepository _orgRepository;
+    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
+    private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
 
-    private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
-
-    public OrgService(IOrgRepository orgRepository)
+    public OrgService()
     {
-        _orgRepository = orgRepository;
     }
 
     /// <summary>

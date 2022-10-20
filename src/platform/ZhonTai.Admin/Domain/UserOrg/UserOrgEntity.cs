@@ -3,7 +3,7 @@ using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.User;
 
-namespace ZhonTai.Admin.Domain;
+namespace ZhonTai.Admin.Domain.UserOrg;
 
 /// <summary>
 /// 用户所属部门

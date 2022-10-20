@@ -34,6 +34,11 @@
             事务隔离级别
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbKey">
+            <summary>
+            数据库注册键
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
@@ -706,14 +711,9 @@
             数据库键名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.MasterDb">
+        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.AppDb">
             <summary>
-            主库
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.AdminDb">
-            <summary>
-            admin库
+            数据库注册键
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.FilterNames">
@@ -842,7 +842,7 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DBServiceCollectionExtensions.RegisterDb(FreeSql.FreeSqlCloud,ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Startup.HostAppOptions)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.RegisterDb(FreeSql.FreeSqlCloud,ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig,ZhonTai.Admin.Core.Startup.HostAppOptions)">
             <summary>
             注册数据库
             </summary>
@@ -1578,12 +1578,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">
             <summary>
-            配置FreeSql构建器
+            配置主库FreeSql构建器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">
             <summary>
-            配置FreeSql
+            配置主库FreeSql
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
@@ -1594,6 +1594,11 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureIdGenerator">
             <summary>
             配置雪花漂移算法
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
+            <summary>
+            自定义数据库初始化
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">
@@ -2447,27 +2452,27 @@
             租户
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.UserOrgEntity">
+        <member name="T:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity">
             <summary>
             用户所属部门
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.UserId">
+        <member name="P:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity.UserId">
             <summary>
             用户Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.User">
+        <member name="P:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity.User">
             <summary>
             用户
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.OrgId">
+        <member name="P:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity.OrgId">
             <summary>
             部门Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserOrgEntity.Org">
+        <member name="P:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity.Org">
             <summary>
             部门
             </summary>

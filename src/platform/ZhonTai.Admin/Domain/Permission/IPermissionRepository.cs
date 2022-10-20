@@ -2,6 +2,6 @@
 
 namespace ZhonTai.Admin.Domain.Permission;
 
-public partial interface IPermissionRepository : IRepositoryBase<PermissionEntity>
+public interface IPermissionRepository : IRepositoryBase<PermissionEntity>
 {
 }

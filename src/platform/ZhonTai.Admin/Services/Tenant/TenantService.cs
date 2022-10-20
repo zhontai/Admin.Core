@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Role;
@@ -18,7 +17,7 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserStaff;
-using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -28,15 +27,15 @@ namespace ZhonTai.Admin.Services.Tenant;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
+    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
-    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
-    private IRepositoryBase<RolePermissionEntity> _rolePermissionRepository => LazyGetRequiredService<IRepositoryBase<RolePermissionEntity>>();
+    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
+    private IRolePermissionRepository _rolePermissionRepository => LazyGetRequiredService<IRolePermissionRepository>();
     private IUserStaffRepository _userStaffRepository => LazyGetRequiredService<IUserStaffRepository>();
-    private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
-    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
+    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
 
     public TenantService()
     {

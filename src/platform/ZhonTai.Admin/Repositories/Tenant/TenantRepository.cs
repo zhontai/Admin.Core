@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class TenantRepository : RepositoryBase<TenantEntity>, ITenantRepository
 {
-    public TenantRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
+    public TenantRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
     {
     }
 }

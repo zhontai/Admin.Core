@@ -2,6 +2,6 @@
 
 namespace ZhonTai.Admin.Domain.DictionaryType;
 
-public partial interface IDictionaryTypeRepository : IRepositoryBase<DictionaryTypeEntity>
+public interface IDictionaryTypeRepository : IRepositoryBase<DictionaryTypeEntity>
 {
 }

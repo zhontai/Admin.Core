@@ -7,6 +7,7 @@ using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Domain.User;
 

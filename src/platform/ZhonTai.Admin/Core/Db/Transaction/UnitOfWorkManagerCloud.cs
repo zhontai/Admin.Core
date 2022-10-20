@@ -1,7 +1,6 @@
 ﻿using FreeSql;
 using System.Collections.Generic;
 using System.Data;
-using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
@@ -16,10 +15,6 @@ public class UnitOfWorkManagerCloud
 
     public UnitOfWorkManager GetUnitOfWorkManager(string dbKey)
     {
-        if (dbKey.IsNull())
-        {
-            dbKey = DbKeys.MasterDb;
-        }
         if (_managers.TryGetValue(dbKey, out var uowm) == false)
         {
             _managers.Add(dbKey, uowm = new UnitOfWorkManager(_cloud.Use(dbKey)));

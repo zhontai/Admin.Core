@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
 {
-    public ViewRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
+    public ViewRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
     {
     }
 }

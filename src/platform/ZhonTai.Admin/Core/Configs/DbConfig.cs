@@ -11,7 +11,7 @@ public class DbConfig
     /// <summary>
     /// 数据库注册键
     /// </summary>
-    public string Key { get; set; } = DbKeys.MasterDb;
+    public string Key { get; set; } = DbKeys.AppDb;
 
     /// <summary>
     /// 程序集名称

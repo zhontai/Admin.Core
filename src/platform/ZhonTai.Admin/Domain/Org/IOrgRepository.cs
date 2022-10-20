@@ -4,7 +4,7 @@ using ZhonTai.Admin.Core.Repositories;
 
 namespace ZhonTai.Admin.Domain.Org;
 
-public partial interface IOrgRepository : IRepositoryBase<OrgEntity>
+public interface IOrgRepository : IRepositoryBase<OrgEntity>
 {
     /// <summary>
     /// 获得本部门和下级部门Id

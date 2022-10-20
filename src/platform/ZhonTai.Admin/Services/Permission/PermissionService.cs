@@ -31,32 +31,17 @@ namespace ZhonTai.Admin.Services.Permission;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class PermissionService : BaseService, IPermissionService, IDynamicApi
 {
-    private readonly AppConfig _appConfig;
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly IRoleRepository _roleRepository;
+    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
+    private IPermissionRepository _permissionRepository => LazyGetRequiredService<IPermissionRepository>();
+    private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
-    private readonly IRepositoryBase<RolePermissionEntity> _rolePermissionRepository;
-    private readonly IRepositoryBase<TenantPermissionEntity> _tenantPermissionRepository;
-    private readonly IRepositoryBase<UserRoleEntity> _userRoleRepository;
-    private readonly IRepositoryBase<PermissionApiEntity> _permissionApiRepository;
+    private IRolePermissionRepository _rolePermissionRepository => LazyGetRequiredService<IRolePermissionRepository>();
+    private ITenantPermissionRepository _tenantPermissionRepository => LazyGetRequiredService<ITenantPermissionRepository>();
+    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
+    private IPermissionApiRepository _permissionApiRepository => LazyGetRequiredService<IPermissionApiRepository>();
 
-    public PermissionService(
-        AppConfig appConfig,
-        IPermissionRepository permissionRepository,
-        IRoleRepository roleRepository,
-        IRepositoryBase<RolePermissionEntity> rolePermissionRepository,
-        IRepositoryBase<TenantPermissionEntity> tenantPermissionRepository,
-        IRepositoryBase<UserRoleEntity> userRoleRepository,
-        IRepositoryBase<PermissionApiEntity> permissionApiRepository
-    )
+    public PermissionService()
     {
-        _appConfig = appConfig;
-        _permissionRepository = permissionRepository;
-        _roleRepository = roleRepository;
-        _rolePermissionRepository = rolePermissionRepository;
-        _tenantPermissionRepository = tenantPermissionRepository;
-        _userRoleRepository = userRoleRepository;
-        _permissionApiRepository = permissionApiRepository;
     }
 
     /// <summary>
@@ -446,7 +431,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            var tenantPermissionIds = await cloud.Use(DbKeys.MasterDb).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
+            var tenantPermissionIds = await cloud.Use(DbKeys.AppDb).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
             insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
         }
 

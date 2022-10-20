@@ -41,12 +41,12 @@ public class HostAppOptions
     public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
 
     /// <summary>
-    /// 配置FreeSql构建器
+    /// 配置主库FreeSql构建器
     /// </summary>
     public Action<FreeSqlBuilder> ConfigureFreeSqlBuilder { get; set; }
 
     /// <summary>
-    /// 配置FreeSql
+    /// 配置主库FreeSql
     /// </summary>
     public Action<IFreeSql> ConfigureFreeSql { get; set; }
 
@@ -59,5 +59,10 @@ public class HostAppOptions
     /// 配置雪花漂移算法
     /// </summary>
     public Action<IdGeneratorOptions> ConfigureIdGenerator { get; set; }
+
+    /// <summary>
+    /// 自定义数据库初始化
+    /// </summary>
+    public bool CustomInitDb { get; set; } = false;
 
 }

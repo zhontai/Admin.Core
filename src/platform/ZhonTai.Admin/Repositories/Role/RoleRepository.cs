@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class RoleRepository : RepositoryBase<RoleEntity>, IRoleRepository
 {
-    public RoleRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public RoleRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class LoginLogRepository : RepositoryBase<LoginLogEntity>, ILoginLogRepository
 {
-    public LoginLogRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public LoginLogRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

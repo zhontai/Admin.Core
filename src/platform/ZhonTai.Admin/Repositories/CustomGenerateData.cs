@@ -20,7 +20,7 @@ using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
-using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Repositories;
 

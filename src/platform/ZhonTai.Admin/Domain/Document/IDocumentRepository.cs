@@ -2,6 +2,6 @@
 
 namespace ZhonTai.Admin.Domain.Document;
 
-public partial interface IDocumentRepository : IRepositoryBase<DocumentEntity>
+public interface IDocumentRepository : IRepositoryBase<DocumentEntity>
 {
 }

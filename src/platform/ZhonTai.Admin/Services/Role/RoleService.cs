@@ -15,6 +15,7 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.RoleOrg;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -26,10 +27,9 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 {
     private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
-
-    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
-    private IRepositoryBase<RolePermissionEntity> _rolePermissionRepository => LazyGetRequiredService<IRepositoryBase<RolePermissionEntity>>();
-    private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
+    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
+    private IRolePermissionRepository _rolePermissionRepository => LazyGetRequiredService<IRolePermissionRepository>();
+    private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
 
     public RoleService()
     {

@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class ApiRepository : RepositoryBase<ApiEntity>, IApiRepository
 {
-    public ApiRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public ApiRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

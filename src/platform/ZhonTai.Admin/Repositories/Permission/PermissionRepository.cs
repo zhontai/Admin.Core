@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class PermissionRepository : RepositoryBase<PermissionEntity>, IPermissionRepository
 {
-    public PermissionRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public PermissionRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

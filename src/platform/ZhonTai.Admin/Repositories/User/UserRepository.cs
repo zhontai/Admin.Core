@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class UserRepository : RepositoryBase<UserEntity>, IUserRepository
 {
-    public UserRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
+    public UserRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
     {
 
     }

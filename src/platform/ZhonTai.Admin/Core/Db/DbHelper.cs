@@ -15,6 +15,11 @@ using ZhonTai.Admin.Core.Auth;
 using System.IO;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Db.Data;
+using StackExchange.Profiling;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -390,6 +395,171 @@ public class DbHelper
         catch (Exception ex)
         {
             throw new Exception($" generate data failed。\n{ex.Message}{Environment.NewLine}");
+        }
+    }
+
+    /// <summary>
+    /// 注册数据库
+    /// </summary>
+    /// <param name="freeSqlCloud"></param>
+    /// <param name="user"></param>
+    /// <param name="dbConfig"></param>
+    /// <param name="appConfig"></param>
+    /// <param name="hostAppOptions"></param>
+    public static void RegisterDb(
+        FreeSqlCloud freeSqlCloud,
+        IUser user,
+        DbConfig dbConfig,
+        AppConfig appConfig,
+        HostAppOptions hostAppOptions
+    )
+    {
+        //注册数据库
+        freeSqlCloud.Register(dbConfig.Key, () =>
+        {
+            //创建数据库
+            if (dbConfig.CreateDb)
+            {
+                CreateDatabaseAsync(dbConfig).Wait();
+            }
+
+            var providerType = dbConfig.ProviderType.NotNull() ? Type.GetType(dbConfig.ProviderType) : null;
+            var freeSqlBuilder = new FreeSqlBuilder()
+                    .UseConnectionString(dbConfig.Type, dbConfig.ConnectionString, providerType)
+                    .UseAutoSyncStructure(false)
+                    .UseLazyLoading(false)
+                    .UseNoneCommandParameter(true);
+
+            if (dbConfig.SlaveList?.Length > 0)
+            {
+                var slaveList = dbConfig.SlaveList.Select(a => a.ConnectionString).ToArray();
+                var slaveWeightList = dbConfig.SlaveList.Select(a => a.Weight).ToArray();
+                freeSqlBuilder.UseSlave(slaveList).UseSlaveWeight(slaveWeightList);
+            }
+
+            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
+
+            #region 监听所有命令
+
+            if (dbConfig.MonitorCommand)
+            {
+                freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
+                {
+                    //Console.WriteLine($"{cmd.CommandText}\n{traceLog}{Environment.NewLine}");
+                    Console.WriteLine($"{cmd.CommandText}{Environment.NewLine}");
+                });
+            }
+
+            #endregion 监听所有命令
+
+            var fsql = freeSqlBuilder.Build();
+
+            //软删除过滤器
+            fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
+
+            //租户过滤器
+            if (appConfig.Tenant)
+            {
+                fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
+            }
+
+            //数据权限过滤器
+            fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
+                () =>
+                {
+                    if (!(user?.Id > 0))
+                        return false;
+                    var dataPermission = user.DataPermission;
+                    if (user.Type == UserType.DefaultUser && dataPermission != null)
+                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count == 0;
+                    return false;
+                },
+                a => a.OwnerId == user.Id
+            );
+            fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
+                () =>
+                {
+                    if (!(user?.Id > 0))
+                        return false;
+                    var dataPermission = user.DataPermission;
+                    if (user.Type == UserType.DefaultUser && dataPermission != null)
+                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count > 0;
+                    return false;
+                },
+                a => a.OwnerId == user.Id || user.DataPermission.OrgIds.Contains(a.OwnerOrgId.Value)
+            );
+
+            //配置实体
+            ConfigEntity(fsql, appConfig, dbConfig);
+
+            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
+
+            #region 初始化数据库
+
+            //同步结构
+            if (dbConfig.SyncStructure)
+            {
+                SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
+            }
+
+            #region 审计数据
+
+            //计算服务器时间
+            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            TimeOffset = timeOffset;
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                AuditValue(e, timeOffset, user);
+            };
+
+            #endregion 审计数据
+
+            //同步数据
+            if (dbConfig.SyncData)
+            {
+                SyncDataAsync(fsql, dbConfig, appConfig).Wait();
+            }
+
+            #endregion 初始化数据库
+
+            //生成数据
+            if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
+            {
+                GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
+            }
+
+            #region 监听Curd操作
+
+            if (dbConfig.Curd)
+            {
+                fsql.Aop.CurdBefore += (s, e) =>
+                {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
+                    }
+                    Console.WriteLine($"{e.Sql}{Environment.NewLine}");
+                };
+                fsql.Aop.CurdAfter += (s, e) =>
+                {
+                    if (appConfig.MiniProfiler)
+                    {
+                        MiniProfiler.Current.CustomTiming("CurdAfter", $"{e.ElapsedMilliseconds}");
+                    }
+                };
+            }
+
+            #endregion 监听Curd操作
+
+            return fsql;
+        });
+
+        //执行注册数据库
+        var fsql = freeSqlCloud.Use(dbConfig.Key);
+        if (dbConfig.SyncStructure)
+        {
+            var _ = fsql.CodeFirst;
         }
     }
 }

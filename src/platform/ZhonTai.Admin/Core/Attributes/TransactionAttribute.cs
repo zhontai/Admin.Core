@@ -1,6 +1,7 @@
 ﻿using FreeSql;
 using System;
 using System.Data;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Attributes;
 
@@ -19,5 +20,10 @@ public class TransactionAttribute : Attribute
     /// 事务隔离级别
     /// </summary>
     public IsolationLevel IsolationLevel { get; set; }
+
+    /// <summary>
+    /// 数据库注册键
+    /// </summary>
+    public string DbKey { get; set; } = DbKeys.AppDb;
 
 }

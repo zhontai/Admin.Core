@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Domain.Org;
 

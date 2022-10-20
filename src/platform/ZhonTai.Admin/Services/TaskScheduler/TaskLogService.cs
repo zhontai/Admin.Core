@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
 using ZhonTai.DynamicApi;
@@ -7,6 +6,7 @@ using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -16,7 +16,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
-    private IRepositoryBase<TaskLog> _taskLogRepository => LazyGetRequiredService<IRepositoryBase<TaskLog>>();
+    private ITaskLogRepository _taskLogRepository => LazyGetRequiredService<ITaskLogRepository>();
 
     public TaskLogService()
     {

@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TaskStatus = FreeScheduler.TaskStatus;
 using ZhonTai.Common.Extensions;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -21,7 +21,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
-    private IRepositoryBase<TaskInfo> _taskInfoRepository => LazyGetRequiredService<IRepositoryBase<TaskInfo>>();
+    private ITaskRepository _taskInfoRepository => LazyGetRequiredService<ITaskRepository>();
 
     public TaskService()
     {

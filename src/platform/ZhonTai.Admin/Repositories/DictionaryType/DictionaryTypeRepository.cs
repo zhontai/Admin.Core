@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class DictionaryTypeRepository : RepositoryBase<DictionaryTypeEntity>, IDictionaryTypeRepository
 {
-    public DictionaryTypeRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public DictionaryTypeRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

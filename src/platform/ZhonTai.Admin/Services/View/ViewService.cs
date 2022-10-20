@@ -17,11 +17,11 @@ namespace ZhonTai.Admin.Services.View;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class ViewService : BaseService, IViewService, IDynamicApi
 {
-    private readonly IViewRepository _viewRepository;
+    private IViewRepository _viewRepository => LazyGetRequiredService<IViewRepository>();
 
-    public ViewService(IViewRepository moduleRepository)
+    public ViewService()
     {
-        _viewRepository = moduleRepository;
+
     }
 
     /// <summary>

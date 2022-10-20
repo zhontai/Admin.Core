@@ -27,7 +27,7 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
         {
             IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
 
-            _unitOfWork = _unitOfWorkManagerCloud.Begin(DbKeys.MasterDb, transaction.Propagation, isolationLevel);
+            _unitOfWork = _unitOfWorkManagerCloud.Begin(transaction.DbKey, transaction.Propagation, isolationLevel);
             return true;
         }
 

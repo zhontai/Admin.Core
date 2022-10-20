@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class OprationLogRepository : RepositoryBase<OprationLogEntity>, IOprationLogRepository
 {
-    public OprationLogRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public OprationLogRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

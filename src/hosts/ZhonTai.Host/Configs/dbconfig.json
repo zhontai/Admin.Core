@@ -60,13 +60,15 @@
 
   //多数据库
   //定义DbKeys枚举
-  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AdminDb, muowm)
-  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AdminDb);
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
   "dbs": [
     //{
     //  "key": "admindb",
     //  "type": "Sqlite",
-    //  "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "syncStructure": true,
+    //  "syncData": true,
+    //  "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
     //  "providerType": ""
     //}
   ]

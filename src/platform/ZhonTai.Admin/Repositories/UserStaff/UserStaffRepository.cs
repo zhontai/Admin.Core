@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class UserStaffRepository : RepositoryBase<UserStaffEntity>, IUserStaffRepository
 {
-    public UserStaffRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public UserStaffRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
 
     }

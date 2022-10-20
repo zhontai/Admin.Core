@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class DocumentRepository : RepositoryBase<DocumentEntity>, IDocumentRepository
 {
-    public DocumentRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm)
+    public DocumentRepository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
     }
 }

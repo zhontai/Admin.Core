@@ -23,12 +23,13 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.UserStaff;
-using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
 using System.Data;
 using ZhonTai.Admin.Domain.TenantPermission;
 using FreeSql;
 using ZhonTai.Admin.Domain.User.Dto;
+using ZhonTai.Admin.Domain.RoleOrg;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -44,9 +45,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
     private IUserStaffRepository _staffRepository => LazyGetRequiredService<IUserStaffRepository>();
-    private IRepositoryBase<UserRoleEntity> _userRoleRepository => LazyGetRequiredService<IRepositoryBase<UserRoleEntity>>();
-    private IRepositoryBase<RoleOrgEntity> _roleOrgRepository => LazyGetRequiredService<IRepositoryBase<RoleOrgEntity>>();
-    private IRepositoryBase<UserOrgEntity> _userOrgRepository => LazyGetRequiredService<IRepositoryBase<UserOrgEntity>>();
+    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
+    private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
+    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
 
     public UserService()
     {
@@ -247,7 +248,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             if (User.TenantAdmin)
             {
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
-                var db = cloud.Use(DbKeys.MasterDb);
+                var db = cloud.Use(DbKeys.AppDb);
 
                 return await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()

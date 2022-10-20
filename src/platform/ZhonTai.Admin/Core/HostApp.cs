@@ -175,7 +175,10 @@ public class HostApp
         services.AddSingleton(dbConfig);
 
         //添加数据库
-        services.AddDb(env, _hostAppOptions);
+        if (!_hostAppOptions.CustomInitDb)
+        {
+            services.AddDb(env, _hostAppOptions);
+        }
 
         //上传配置
         var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
