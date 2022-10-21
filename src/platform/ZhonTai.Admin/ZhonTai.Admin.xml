@@ -4,6 +4,11 @@
         <name>ZhonTai.Admin</name>
     </assembly>
     <members>
+        <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
+            <summary>
+            启用权限库事物
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.LoginAttribute">
             <summary>
             启用登录
@@ -37,11 +42,6 @@
         <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.DbKey">
             <summary>
             数据库注册键
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
-            <summary>
-            启用事物
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
@@ -2901,6 +2901,12 @@
             <summary>
             任务名称名称
             </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.AdminRepositoryBase`1">
+            <summary>
+            权限库基础仓储
+            </summary>
+            <typeparam name="TEntity"></typeparam>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.OrgRepository.GetChildIdListAsync(System.Int64)">
             <summary>
