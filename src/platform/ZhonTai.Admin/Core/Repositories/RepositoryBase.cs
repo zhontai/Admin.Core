@@ -3,7 +3,6 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Auth;
-using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Repositories
@@ -117,14 +116,6 @@ namespace ZhonTai.Admin.Core.Repositories
         RepositoryBase(UnitOfWorkManager uowm) : base(uowm.Orm)
         {
             uowm.Binding(this);
-        }
-    }
-
-    public class AppRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class
-    {
-        public AppRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm) 
-        {
-            
         }
     }
 }
