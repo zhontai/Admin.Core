@@ -35,14 +35,3 @@ public class TransactionAttribute : Attribute
         DbKey = dbKey;
     }
 }
-
-/// <summary>
-/// 启用事物
-/// </summary>
-[AttributeUsage(AttributeTargets.Method, Inherited = true)]
-public class AdminTransactionAttribute : TransactionAttribute
-{
-    public AdminTransactionAttribute():base(DbKeys.AppDb)
-    {
-    }
-}
