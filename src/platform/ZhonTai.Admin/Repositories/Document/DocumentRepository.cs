@@ -3,7 +3,7 @@ using ZhonTai.Admin.Domain.Document;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class DocumentRepository : AppRepositoryBase<DocumentEntity>, IDocumentRepository
+public class DocumentRepository : AdminRepositoryBase<DocumentEntity>, IDocumentRepository
 {
     public DocumentRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

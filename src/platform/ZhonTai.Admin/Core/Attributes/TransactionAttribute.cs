@@ -40,9 +40,9 @@ public class TransactionAttribute : Attribute
 /// 启用事物
 /// </summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = true)]
-public class AppTransactionAttribute : TransactionAttribute
+public class AdminTransactionAttribute : TransactionAttribute
 {
-    public AppTransactionAttribute():base(DbKeys.AppDb)
+    public AdminTransactionAttribute():base(DbKeys.AppDb)
     {
     }
 }

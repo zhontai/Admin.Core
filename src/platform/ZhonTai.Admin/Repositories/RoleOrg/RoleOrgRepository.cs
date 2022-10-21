@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.RoleOrg;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class RoleOrgRepository : AppRepositoryBase<RoleOrgEntity>, IRoleOrgRepository
+public class RoleOrgRepository : AdminRepositoryBase<RoleOrgEntity>, IRoleOrgRepository
 {
     public RoleOrgRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

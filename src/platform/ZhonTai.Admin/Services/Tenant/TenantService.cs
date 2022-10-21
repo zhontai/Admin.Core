@@ -84,7 +84,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> AddAsync(TenantAddInput input)
     {
         if (await _tenantRepository.Select.AnyAsync(a => a.Name == input.Name))
@@ -210,7 +210,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除角色权限
@@ -242,7 +242,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         //删除用户
@@ -262,7 +262,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         //删除用户

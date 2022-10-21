@@ -39,7 +39,7 @@
             数据库注册键
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Attributes.AppTransactionAttribute">
+        <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
             <summary>
             启用事物
             </summary>

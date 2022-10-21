@@ -129,7 +129,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public async Task<IResultOutput> DeleteAsync(long id)
     {
         //本部门下是否有员工
@@ -161,7 +161,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         //本部门下是否有员工

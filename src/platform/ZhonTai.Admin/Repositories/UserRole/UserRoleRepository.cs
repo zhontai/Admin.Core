@@ -3,7 +3,7 @@ using ZhonTai.Admin.Domain.UserRole;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class UserRoleRepository : AppRepositoryBase<UserRoleEntity>, IUserRoleRepository
+public class UserRoleRepository : AdminRepositoryBase<UserRoleEntity>, IUserRoleRepository
 {
     public UserRoleRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

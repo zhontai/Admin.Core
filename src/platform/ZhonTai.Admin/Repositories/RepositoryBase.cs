@@ -4,9 +4,9 @@ using ZhonTai.Admin.Core.Repositories;
 
 namespace ZhonTai.Admin.Repositories
 {
-    public class AppRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class
+    public class AdminRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class
     {
-        public AppRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm) 
+        public AdminRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm) 
         {
             
         }

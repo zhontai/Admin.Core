@@ -272,7 +272,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> AddAsync(UserAddInput input)
     {
         if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
@@ -343,7 +343,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
     {
         var user = await _userRepository.GetAsync(input.Id);
@@ -457,7 +457,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
@@ -490,7 +490,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
     {
         var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
@@ -523,7 +523,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
@@ -552,7 +552,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [AppTransaction]
+    [AdminTransaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
