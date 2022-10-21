@@ -8,14 +8,8 @@ namespace ZhonTai.Admin.Domain.UserStaff;
 /// 用户员工
 /// </summary>
 [Table(Name = "ad_user_staff")]
-public partial class UserStaffEntity : EntityBase, ITenant
+public partial class UserStaffEntity : EntityTenant
 {
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    [Column(Position = -10)]
-    public long? TenantId { get; set; }
-
     /// <summary>
     /// 职位
     /// </summary>

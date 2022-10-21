@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
-/// 实体软删除
+/// 实体删除
 /// </summary>
 public class EntityDelete<TKey> : EntityUpdate, IDelete
 {
@@ -17,7 +17,7 @@ public class EntityDelete<TKey> : EntityUpdate, IDelete
 }
 
 /// <summary>
-/// 实体软删除
+/// 实体删除
 /// </summary>
 public class EntityDelete : EntityDelete<long>
 {

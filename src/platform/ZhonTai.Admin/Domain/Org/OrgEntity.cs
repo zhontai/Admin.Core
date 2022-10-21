@@ -13,14 +13,8 @@ namespace ZhonTai.Admin.Domain.Org;
 /// </summary>
 [Table(Name = "ad_org")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class OrgEntity : EntityBase, ITenant
+public partial class OrgEntity : EntityTenant
 {
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    [Column(Position = -10, CanUpdate = false)]
-    public long? TenantId { get; set; }
-
     /// <summary>
     /// 父级
     /// </summary>

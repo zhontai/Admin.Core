@@ -9,14 +9,8 @@ namespace ZhonTai.Admin.Domain.Dictionary;
 /// </summary>
 [Table(Name = "ad_dictionary")]
 [Index("idx_{tablename}_01", nameof(DictionaryTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class DictionaryEntity : EntityBase, ITenant
+public partial class DictionaryEntity : EntityTenant
 {
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    [Column(Position = 2, CanUpdate = false)]
-    public long? TenantId { get; set; }
-
     /// <summary>
     /// 字典类型Id
     /// </summary>

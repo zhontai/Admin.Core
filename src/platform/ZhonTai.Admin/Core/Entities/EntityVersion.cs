@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体版本
 /// </summary>
-public class EntityVersion<TKey> : EntityDelete, IVersion
+public class EntityVersion<TKey> : EntityBase, IVersion
 {
     /// <summary>
     /// 版本
@@ -16,6 +16,9 @@ public class EntityVersion<TKey> : EntityDelete, IVersion
     public long Version { get; set; }
 }
 
+/// <summary>
+/// 实体版本
+/// </summary>
 public class EntityVersion : EntityVersion<long>
 {
 }

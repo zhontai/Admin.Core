@@ -1132,9 +1132,29 @@
             实体基类
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityData`1">
+            <summary>
+            实体数据权限
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityData`1.OwnerId">
+            <summary>
+            拥有者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityData`1.OwnerOrgId">
+            <summary>
+            拥有者部门Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityData">
+            <summary>
+            实体数据权限
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityDelete`1">
             <summary>
-            实体软删除
+            实体删除
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityDelete`1.IsDeleted">
@@ -1144,7 +1164,47 @@
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityDelete">
             <summary>
-            实体软删除
+            实体删除
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityTenant`1">
+            <summary>
+            实体租户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityTenant`1.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityTenant">
+            <summary>
+            实体租户
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1">
+            <summary>
+            实体租户数据权限
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1.OwnerId">
+            <summary>
+            拥有者Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1.OwnerOrgId">
+            <summary>
+            拥有者部门Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityTenantWithData">
+            <summary>
+            实体租户数据权限
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityUpdate`1">
@@ -1180,6 +1240,11 @@
         <member name="P:ZhonTai.Admin.Core.Entities.EntityVersion`1.Version">
             <summary>
             版本
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityVersion">
+            <summary>
+            实体版本
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.IData">
@@ -1666,11 +1731,6 @@
             数据字典类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Name">
             <summary>
             名称
@@ -1704,11 +1764,6 @@
         <member name="T:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity">
             <summary>
             数据字典
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.DictionaryTypeId">
@@ -1779,11 +1834,6 @@
         <member name="T:ZhonTai.Admin.Domain.Document.DocumentEntity">
             <summary>
             文档
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Document.DocumentEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Document.DocumentEntity.ParentId">
@@ -1970,11 +2020,6 @@
         <member name="T:ZhonTai.Admin.Domain.Org.OrgEntity">
             <summary>
             组织架构
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.ParentId">
@@ -2265,11 +2310,6 @@
         <member name="T:ZhonTai.Admin.Domain.Role.RoleEntity">
             <summary>
             角色
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.ParentId">
@@ -2592,11 +2632,6 @@
             用户员工
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.UserStaff.UserStaffEntity.TenantId">
-            <summary>
-            租户Id
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.UserStaff.UserStaffEntity.Position">
             <summary>
             职位
@@ -2640,11 +2675,6 @@
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
             <summary>
             用户
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.UserName">

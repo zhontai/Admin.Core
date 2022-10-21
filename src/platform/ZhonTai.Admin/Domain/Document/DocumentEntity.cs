@@ -8,14 +8,8 @@ namespace ZhonTai.Admin.Domain.Document;
 /// </summary>
 [Table(Name = "ad_document")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
-public partial class DocumentEntity : EntityBase, ITenant
+public partial class DocumentEntity : EntityTenant
 {
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    [Column(Position = 2, CanUpdate = false)]
-    public long? TenantId { get; set; }
-
     /// <summary>
     /// 父级节点
     /// </summary>
