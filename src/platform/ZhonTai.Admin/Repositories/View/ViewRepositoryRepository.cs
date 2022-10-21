@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.View;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
+public class ViewRepository : AppRepositoryBase<ViewEntity>, IViewRepository
 {
     public ViewRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {

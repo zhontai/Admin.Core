@@ -1,19 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using StackExchange.Profiling;
 using FreeSql;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
-using ZhonTai.Admin.Core.Consts;
-using System.Linq;
 using System.Collections.Concurrent;
 using System.Reflection;
-using ZhonTai.Admin.Domain.User;
-using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Db;
@@ -47,6 +40,9 @@ public static class DBServiceCollectionExtensions
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
+        //定义基础仓储主库
+        var fsql = freeSqlCloud.Use(dbConfig.Key);
+        services.AddSingleton(provider => fsql);
     }
 
     /// <summary>

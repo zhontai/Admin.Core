@@ -245,7 +245,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> AddDotAsync(PermissionAddDotInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
@@ -319,7 +319,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> UpdateDotAsync(PermissionUpdateDotInput input)
     {
         if (!(input?.Id > 0))
@@ -355,7 +355,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //递归查询所有权限点
@@ -403,7 +403,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> AssignAsync(PermissionAssignInput input)
     {
         //分配权限的时候判断角色是否存在
@@ -463,7 +463,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
     {
         //查询租户权限

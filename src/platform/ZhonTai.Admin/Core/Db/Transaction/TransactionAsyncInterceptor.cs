@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using FreeSql;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
@@ -13,10 +13,12 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
     private IUnitOfWork _unitOfWork;
     private readonly UnitOfWorkManagerCloud _unitOfWorkManagerCloud;
+    private readonly DbConfig _dbConfig;
 
-    public TransactionAsyncInterceptor(UnitOfWorkManagerCloud unitOfWorkManagerCloud)
+    public TransactionAsyncInterceptor(UnitOfWorkManagerCloud unitOfWorkManagerCloud, DbConfig dbConfig)
     {
         _unitOfWorkManagerCloud = unitOfWorkManagerCloud;
+        _dbConfig = dbConfig;
     }
 
     private bool TryBegin(IInvocation invocation)
@@ -26,8 +28,12 @@ public class TransactionAsyncInterceptor : IAsyncInterceptor
         if (attribute is TransactionAttribute transaction)
         {
             IsolationLevel? isolationLevel = transaction.IsolationLevel == 0 ? null : transaction.IsolationLevel;
-
-            _unitOfWork = _unitOfWorkManagerCloud.Begin(transaction.DbKey, transaction.Propagation, isolationLevel);
+            var dbKey = transaction.DbKey;
+            if (dbKey.IsNull())
+            {
+                dbKey = _dbConfig.Key;
+            }
+            _unitOfWork = _unitOfWorkManagerCloud.Begin(dbKey, transaction.Propagation, isolationLevel);
             return true;
         }
 

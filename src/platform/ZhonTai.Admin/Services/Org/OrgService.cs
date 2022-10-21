@@ -8,6 +8,7 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.DynamicApi;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Domain.RoleOrg;
+using ZhonTai.Admin.Domain.UserOrg;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -18,6 +19,7 @@ namespace ZhonTai.Admin.Services.Org;
 public class OrgService : BaseService, IOrgService, IDynamicApi
 {
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
+    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
     private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
 
     public OrgService()
@@ -127,18 +129,18 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public async Task<IResultOutput> DeleteAsync(long id)
     {
         //本部门下是否有员工
-        if(await _orgRepository.HasUser(id))
+        if(await _userOrgRepository.HasUser(id))
         {
             return ResultOutput.NotOk($"当前部门有员工无法删除");
         }
 
         var orgIdList = await _orgRepository.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
-        if (await _orgRepository.HasUser(orgIdList))
+        if (await _userOrgRepository.HasUser(orgIdList))
         {
             return ResultOutput.NotOk($"本部门的下级部门有员工无法删除");
         }
@@ -159,18 +161,18 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         //本部门下是否有员工
-        if (await _orgRepository.HasUser(id))
+        if (await _userOrgRepository.HasUser(id))
         {
             return ResultOutput.NotOk($"当前部门有员工无法删除");
         }
 
         var orgIdList = await _orgRepository.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
-        if (await _orgRepository.HasUser(orgIdList))
+        if (await _userOrgRepository.HasUser(orgIdList))
         {
             return ResultOutput.NotOk($"本部门的下级部门有员工无法删除");
         }

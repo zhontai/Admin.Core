@@ -113,11 +113,18 @@ namespace ZhonTai.Admin.Core.Repositories
 
     public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class
     {
-        public RepositoryBase(UnitOfWorkManagerCloud uowm) : this(DbKeys.AppDb, uowm) { }
         public RepositoryBase(string db, UnitOfWorkManagerCloud uowm) : this(uowm.GetUnitOfWorkManager(db)) { }
         RepositoryBase(UnitOfWorkManager uowm) : base(uowm.Orm)
         {
             uowm.Binding(this);
+        }
+    }
+
+    public class AppRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class
+    {
+        public AppRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm) 
+        {
+            
         }
     }
 }

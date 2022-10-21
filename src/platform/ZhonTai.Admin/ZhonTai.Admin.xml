@@ -39,6 +39,11 @@
             数据库注册键
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.AppTransactionAttribute">
+            <summary>
+            启用事物
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
@@ -2003,20 +2008,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.HasUser(System.Int64)">
-            <summary>
-            本部门下是否有员工
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
-            <summary>
-            部门列表下是否有员工
-            </summary>
-            <param name="idList"></param>
-            <returns></returns>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.Org.OrgEntity">
             <summary>
             组织架构
@@ -2492,6 +2483,20 @@
             租户
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Domain.UserOrg.IUserOrgRepository.HasUser(System.Int64)">
+            <summary>
+            本部门下是否有员工
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.UserOrg.IUserOrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            部门列表下是否有员工
+            </summary>
+            <param name="idList"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity">
             <summary>
             用户所属部门
@@ -2904,14 +2909,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Repositories.OrgRepository.HasUser(System.Int64)">
+        <member name="M:ZhonTai.Admin.Repositories.UserOrgRepository.HasUser(System.Int64)">
             <summary>
             本部门下是否有员工
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Repositories.OrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
+        <member name="M:ZhonTai.Admin.Repositories.UserOrgRepository.HasUser(System.Collections.Generic.List{System.Int64})">
             <summary>
             部门列表下是否有员工
             </summary>

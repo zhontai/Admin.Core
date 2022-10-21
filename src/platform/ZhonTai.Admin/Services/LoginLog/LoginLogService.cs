@@ -9,6 +9,8 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ZhonTai.Admin.Services.LoginLog;
 
@@ -47,6 +49,8 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
         .OrderByDescending(true, c => c.Id)
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync<LoginLogListOutput>();
+
+        //list = list.Select(a => a.IP = Regex.Replace(a.IP, "*"));
 
         var data = new PageOutput<LoginLogListOutput>()
         {

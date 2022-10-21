@@ -105,7 +105,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> DeleteAsync(long id)
     {
         //删除字典数据
@@ -122,7 +122,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
     {
         await _dictionaryRepository.SoftDeleteAsync(a => a.DictionaryTypeId == id);
@@ -136,7 +136,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
     {
         await _dictionaryRepository.SoftDeleteAsync(a => ids.Contains(a.DictionaryTypeId));

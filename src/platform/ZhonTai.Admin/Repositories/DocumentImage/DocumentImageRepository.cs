@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.DocumentImage;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class DocumentImageRepository : RepositoryBase<DocumentImageEntity>, IDocumentImageRepository
+public class DocumentImageRepository : AppRepositoryBase<DocumentImageEntity>, IDocumentImageRepository
 {
     public DocumentImageRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

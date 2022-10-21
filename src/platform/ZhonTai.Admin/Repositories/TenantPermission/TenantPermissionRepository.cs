@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.TenantPermission;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class TenantPermissionRepository : RepositoryBase<TenantPermissionEntity>, ITenantPermissionRepository
+public class TenantPermissionRepository : AppRepositoryBase<TenantPermissionEntity>, ITenantPermissionRepository
 {
     public TenantPermissionRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

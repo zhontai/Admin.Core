@@ -24,6 +24,25 @@ public class TransactionAttribute : Attribute
     /// <summary>
     /// 数据库注册键
     /// </summary>
-    public string DbKey { get; set; } = DbKeys.AppDb;
+    public string DbKey { get; set; }
 
+    public TransactionAttribute()
+    {
+    }
+
+    public TransactionAttribute(string dbKey)
+    {
+        DbKey = dbKey;
+    }
+}
+
+/// <summary>
+/// 启用事物
+/// </summary>
+[AttributeUsage(AttributeTargets.Method, Inherited = true)]
+public class AppTransactionAttribute : TransactionAttribute
+{
+    public AppTransactionAttribute():base(DbKeys.AppDb)
+    {
+    }
 }

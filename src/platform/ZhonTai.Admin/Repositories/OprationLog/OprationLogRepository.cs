@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.OprationLog;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class OprationLogRepository : RepositoryBase<OprationLogEntity>, IOprationLogRepository
+public class OprationLogRepository : AppRepositoryBase<OprationLogEntity>, IOprationLogRepository
 {
     public OprationLogRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {

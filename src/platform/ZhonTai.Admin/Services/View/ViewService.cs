@@ -133,7 +133,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Transaction]
+    [AppTransaction]
     public virtual async Task<IResultOutput> SyncAsync(ViewSyncInput input)
     {
         //查询所有视图

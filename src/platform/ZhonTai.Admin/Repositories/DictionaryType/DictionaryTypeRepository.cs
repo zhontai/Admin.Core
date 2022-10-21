@@ -4,7 +4,7 @@ using ZhonTai.Admin.Domain.DictionaryType;
 
 namespace ZhonTai.Admin.Repositories;
 
-public class DictionaryTypeRepository : RepositoryBase<DictionaryTypeEntity>, IDictionaryTypeRepository
+public class DictionaryTypeRepository : AppRepositoryBase<DictionaryTypeEntity>, IDictionaryTypeRepository
 {
     public DictionaryTypeRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
