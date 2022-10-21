@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体租户数据权限
 /// </summary>
-public class EntityTenantWithData<TKey> : ITenant, IData
+public class EntityTenantWithData<TKey> : EntityBase, ITenant, IData
 {
     /// <summary>
     /// 租户Id
