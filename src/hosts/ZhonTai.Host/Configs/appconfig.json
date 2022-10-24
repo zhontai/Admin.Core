@@ -22,6 +22,7 @@
   "swagger": {
     //启用
     "enable": true,
+    "routePrefix": "swagger",
     //地址
     "url": "http://localhost:8000",
     "projects": [
@@ -37,6 +38,7 @@
   "apiUI": {
     //启用
     "enable": true,
+    "routePrefix": "",
     //页脚
     "footer": {
       "enable": true,

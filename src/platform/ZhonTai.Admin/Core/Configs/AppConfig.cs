@@ -96,6 +96,11 @@ public class SwaggerConfig
     public bool Enable { get; set; } = false;
 
     /// <summary>
+    /// 访问地址
+    /// </summary>
+    public string RoutePrefix { get; set; } = "swagger";
+
+    /// <summary>
     /// 地址
     /// </summary>
     public string Url { get; set; }
@@ -115,6 +120,11 @@ public class ApiUIConfig
     /// 启用
     /// </summary>
     public bool Enable { get; set; } = false;
+
+    /// <summary>
+    /// 访问地址
+    /// </summary>
+    public string RoutePrefix { get; set; } = "";
 
     public SwaggerFooterConfig Footer { get; set; } = new SwaggerFooterConfig();
 }

@@ -604,7 +604,7 @@ public class HostApp
                     c.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                 });
 
-                c.RoutePrefix = "swagger";//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
+                c.RoutePrefix = appConfig.Swagger.RoutePrefix; ;//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
                 c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
                 //c.DefaultModelsExpandDepth(-1);//不显示Models
                 if (appConfig.MiniProfiler)

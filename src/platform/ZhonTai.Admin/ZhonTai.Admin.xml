@@ -356,6 +356,11 @@
             启用
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
+            <summary>
+            访问地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.Url">
             <summary>
             地址
@@ -374,6 +379,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.ApiUIConfig.Enable">
             <summary>
             启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ApiUIConfig.RoutePrefix">
+            <summary>
+            访问地址
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerFooterConfig">

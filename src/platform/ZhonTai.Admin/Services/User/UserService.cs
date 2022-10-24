@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api;

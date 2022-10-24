@@ -1,7 +1,6 @@
 ﻿using FreeSql;
 using System;
 using System.Data;
-using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Attributes;
 

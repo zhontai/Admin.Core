@@ -48,7 +48,7 @@ new HostApp(new HostAppOptions
 		{
 			app.UseApiUI(options =>
 			{
-				options.RoutePrefix = "";
+				options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
 				appConfig.Swagger.Projects?.ForEach(project =>
 				{
 					options.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
