@@ -41,7 +41,7 @@
     "routePrefix": "",
     //页脚
     "footer": {
-      "enable": true,
+      "enable": false,
       "content": "Copyright<a-icon type=\"copyright\" /> 2022-<a target=\"_blank\" href=\"https://www.zhontai.net\">中台Admin</a>"
     }
   },

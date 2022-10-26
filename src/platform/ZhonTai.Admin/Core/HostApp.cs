@@ -304,8 +304,6 @@ public class HostApp
                     //c.OrderActionsBy(o => o.RelativePath);
                 });
 
-                options.SchemaFilter<EnumSchemaFilter>();
-
                 options.CustomOperationIds(apiDesc =>
                 {
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
@@ -313,7 +311,7 @@ public class HostApp
                 });
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
-                options.CustomSchemaIds(x => x.FullName);
+                //options.CustomSchemaIds(x => x.FullName);
                 //options.DocInclusionPredicate((docName, description) => true);
 
                 string[] xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
@@ -330,11 +328,16 @@ public class HostApp
                     Url = appConfig.Swagger.Url,
                     Description = ""
                 };
-                server.Extensions.Add("extensions", new OpenApiObject
+                if (appConfig.ApiUI.Footer.Enable)
                 {
-                    ["copyright"] = new OpenApiString(appConfig.ApiUI.Footer.Content)
-                });
+                    server.Extensions.Add("extensions", new OpenApiObject
+                    {
+                        ["copyright"] = new OpenApiString(appConfig.ApiUI.Footer.Content)
+                    });
+                }
                 options.AddServer(server);
+
+                options.SchemaFilter<EnumSchemaFilter>();
 
                 #region 添加设置Token的按钮
 

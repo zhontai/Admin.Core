@@ -137,7 +137,7 @@ public class SwaggerFooterConfig
     /// <summary>
     /// 启用
     /// </summary>
-    public bool Enable { get; set; } = true;
+    public bool Enable { get; set; } = false;
 
     /// <summary>
     /// 内容

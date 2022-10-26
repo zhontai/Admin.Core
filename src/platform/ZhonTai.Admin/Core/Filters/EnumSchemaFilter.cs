@@ -12,7 +12,6 @@ public class EnumSchemaFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
-        //CommonUtils.GetProperyCommentBySummary
         var type = context.Type;
         if (type.IsEnum)
         {
@@ -23,10 +22,12 @@ public class EnumSchemaFilter : ISchemaFilter
             if (items?.Count > 0)
             {
                 string description = string.Join(",", items);
-                schema.Extensions.Add("extensions", new OpenApiObject
-                {
-                    ["description"] = new OpenApiString(description)
-                });
+                //schema.Extensions.Add("extensions", new OpenApiObject
+                //{
+                //    ["description"] = new OpenApiString(description)
+                //});
+                //CommonUtils.GetProperyCommentBySummary
+
                 schema.Description = string.IsNullOrEmpty(schema.Description) ? description : $"{schema.Description}:{description}";
             }
         }
