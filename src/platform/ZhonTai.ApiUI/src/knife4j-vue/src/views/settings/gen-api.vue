@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <a v-for="(api, index) in apis" :key="index" @click="downloadApi(api)">{{api.description||api.name}}</a>
   </a-layout-content>
 </template>
@@ -16,6 +16,16 @@ export default {
   computed:{
     apis(){
       return this.data.instance.tags
+    },
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
     }
   },
   data() {

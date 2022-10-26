@@ -59,7 +59,7 @@
     <div class="api-title" v-html="$t('doc.params')">
       请求参数
     </div>
-    <a-table :defaultExpandAllRows="expanRows" :columns="columns" :dataSource="reqParameters" rowKey="id" size="small" :pagination="page">
+    <a-table :defaultExpandAllRows="expanRows" :defaultExpandedRowKeys="reqParameters && reqParameters.length > 0 ? [reqParameters[0].id]:[]" :columns="columns" :dataSource="reqParameters" rowKey="id" size="small" :pagination="page">
       <template slot="descriptionValueTemplate" slot-scope="text,record">
         <span v-html="text"></span>
         <span v-if="record.example">,示例值({{record.example}})</span>
@@ -192,7 +192,7 @@ export default {
       responseHeaderColumns: [],
       responseStatuscolumns: [],
       responseParametersColumns: [],
-      expanRows: true,
+      expanRows: false,
       //接收一个响应信息对象,遍历得到树形结构的值
       multipCode: false,
       multipCodeDatas: [],
@@ -333,6 +333,7 @@ export default {
       childrens.map(child => {
         if(child.schema){
           var paramSchema = that.swaggerInstance.swaggerData.components.schemas[child.schemaValue]
+          child.description=paramSchema.description
           if(paramSchema && paramSchema.extensions && paramSchema.extensions.description){
             child.description = child.description + paramSchema.extensions.description
           }
@@ -496,6 +497,7 @@ export default {
                         //处理枚举描述
                         if(newObj.schema){
                           var paramSchema = that.swaggerInstance.swaggerData.components.schemas[newObj.schemaValue]
+                          newObj.description=paramSchema.description
                           if(paramSchema && paramSchema.extensions && paramSchema.extensions.description){
                             newObj.description = newObj.description + paramSchema.extensions.description
                           }

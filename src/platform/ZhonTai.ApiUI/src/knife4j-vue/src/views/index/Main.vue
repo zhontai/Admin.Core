@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <a-row  class="markdown-body editormd-preview-container" v-if="this.settings.enableHomeCustom">
       <Markdown :source="settings.homeCustomLocation"/>
     </a-row>
@@ -116,8 +116,17 @@ export default {
     },
     settings(){
       return this.$store.state.globals.settings;
-    }
-
+    },
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
+    },
   },
   data() {
     return {

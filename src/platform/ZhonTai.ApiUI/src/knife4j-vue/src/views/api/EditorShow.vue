@@ -1,13 +1,15 @@
 <template>
   <div>
     <editor
+    ref="editor"
       :value="value"
       @init="editorInit"
       :lang="lang"
       theme="eclipse"
       width="100%"
       :height="editorHeight"
-      @input="change" 
+      :options="{'expand-depth':1}"
+      @input="change"
     ></editor>
   </div>
 </template>
@@ -48,7 +50,7 @@ export default {
           length_editor = 10;
         }
         var rows_editor = length_editor * 16;
-        that.editorHeight = rows_editor;
+        that.editorHeight = rows_editor > 500 ? 500:rows_editor;
       }, 300);
     },
     editorInit(editor) {
@@ -66,6 +68,10 @@ export default {
       this.editor.renderer.on("afterRender", function() {
         that.$emit("showDescription","123")
       });
+
+      // this.editor.session.on('changeFold',function () {
+      //   that.resetEditorHeight();
+      // });
     }
   }
 };

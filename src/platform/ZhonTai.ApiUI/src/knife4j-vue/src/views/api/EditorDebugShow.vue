@@ -50,27 +50,34 @@ export default {
       var that = this;
       //重设高度
       setTimeout(() => {
+        // var length_editor = that.editor.session.getLength();
+        // if (length_editor == 1) {
+        //   length_editor = 15;
+        // }
+        // if (length_editor < 15) {
+        //   if (that.debugResponse) {
+        //     length_editor = 30;
+        //   } else {
+        //     length_editor = 15;
+        //   }
+        // }
+        // if (length_editor > 20) {
+        //   if (!that.debugResponse) {
+        //     length_editor = 20;
+        //   }
+        // }
+        // var rows_editor = length_editor * 16;
+        // if(rows_editor>2000){
+        //   rows_editor=2000;
+        // }
+        // //console.log(rows_editor)
+        // that.editorHeight = rows_editor;
+
         var length_editor = that.editor.session.getLength();
         if (length_editor == 1) {
-          length_editor = 15;
-        }
-        if (length_editor < 15) {
-          if (that.debugResponse) {
-            length_editor = 30;
-          } else {
-            length_editor = 15;
-          }
-        }
-        if (length_editor > 20) {
-          if (!that.debugResponse) {
-            length_editor = 20;
-          }
+          length_editor = 10;
         }
         var rows_editor = length_editor * 16;
-        if(rows_editor>2000){
-          rows_editor=2000;
-        }
-        //console.log(rows_editor)
         that.editorHeight = rows_editor;
       }, 10);
     },

@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <a-row class="globalparameters">
       <a-row class="gptips" v-html="$t('global.note')">
         Knife4j
@@ -94,6 +94,16 @@ export default {
   computed:{
     language(){
        return this.$store.state.globals.language;
+    },
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
     }
   },
   watch:{
