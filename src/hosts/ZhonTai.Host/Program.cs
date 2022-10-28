@@ -1,6 +1,8 @@
 ﻿using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Startup;
@@ -46,14 +48,15 @@ new HostApp(new HostAppOptions
 		#region 新版Api文档
 		if (env.IsDevelopment() || appConfig.ApiUI.Enable)
 		{
-			app.UseApiUI(options =>
-			{
-				options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
-				appConfig.Swagger.Projects?.ForEach(project =>
-				{
-					options.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
-				});
-			});
+            app.UseApiUI(options =>
+            {
+                options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
+                var routePath = options.RoutePrefix.NotNull() ? $"{options.RoutePrefix}/" : "";
+                appConfig.Swagger.Projects?.ForEach(project =>
+                {
+                    options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
+                });
+            });
 		}
 		#endregion
 	}

@@ -73,7 +73,7 @@ namespace ZhonTai.ApiUI
                 return;
             }
 
-            if (httpMethod == "GET" && Regex.IsMatch(path, $"^/swagger-resources$", RegexOptions.IgnoreCase))
+            if (httpMethod == "GET" && Regex.IsMatch(path, $"^/{Regex.Escape(_options.RoutePrefix)}/?swagger-resources$", RegexOptions.IgnoreCase))
             {
                 await RespondWithConfig(httpContext.Response);
                 return;

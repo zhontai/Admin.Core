@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ZhonTai.Admin.Core.Configs;
 
@@ -95,10 +96,11 @@ public class SwaggerConfig
     /// </summary>
     public bool Enable { get; set; } = false;
 
+    private string _RoutePrefix = "swagger";
     /// <summary>
     /// 访问地址
     /// </summary>
-    public string RoutePrefix { get; set; } = "swagger";
+    public string RoutePrefix { get => Regex.Replace(_RoutePrefix, "^\\/+|\\/+$", ""); set => _RoutePrefix = value; }
 
     /// <summary>
     /// 地址
@@ -121,10 +123,12 @@ public class ApiUIConfig
     /// </summary>
     public bool Enable { get; set; } = false;
 
+
+    private string _RoutePrefix="";
     /// <summary>
     /// 访问地址
     /// </summary>
-    public string RoutePrefix { get; set; } = "";
+    public string RoutePrefix { get => Regex.Replace(_RoutePrefix, "^\\/+|\\/+$", ""); set => _RoutePrefix = value; }
 
     public SwaggerFooterConfig Footer { get; set; } = new SwaggerFooterConfig();
 }

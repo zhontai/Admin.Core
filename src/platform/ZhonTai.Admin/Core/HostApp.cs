@@ -47,7 +47,6 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
 using FreeSql;
-using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Services.User;
 
 namespace ZhonTai.Admin.Core;
@@ -599,21 +598,30 @@ public class HostApp
         #region Swagger Api文档
         if (env.IsDevelopment() || appConfig.Swagger.Enable)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            var routePrefix = appConfig.ApiUI.RoutePrefix;
+            if (!appConfig.ApiUI.Enable && routePrefix.IsNull())
             {
+                routePrefix = appConfig.Swagger.RoutePrefix;
+            }
+            var routePath = routePrefix.NotNull() ? $"{routePrefix}/" : "";
+            app.UseSwagger(optoins =>
+            {
+                optoins.RouteTemplate = routePath + optoins.RouteTemplate;
+            });
+            app.UseSwaggerUI(options =>
+            {
+                options.RoutePrefix = appConfig.Swagger.RoutePrefix;
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
-                    c.SwaggerEndpoint($"/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
+                    options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                 });
-
-                c.RoutePrefix = appConfig.Swagger.RoutePrefix; ;//直接根目录访问，如果是IIS发布可以注释该语句，并打开launchSettings.launchUrl
-                c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
-                //c.DefaultModelsExpandDepth(-1);//不显示Models
+                
+                options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
+                //options.DefaultModelsExpandDepth(-1);//不显示Models
                 if (appConfig.MiniProfiler)
                 {
-                    c.InjectJavascript("/swagger/mini-profiler.js?v=4.2.22+2.0");
-                    c.InjectStylesheet("/swagger/mini-profiler.css?v=4.2.22+2.0");
+                    options.InjectJavascript("/swagger/mini-profiler.js?v=4.2.22+2.0");
+                    options.InjectStylesheet("/swagger/mini-profiler.css?v=4.2.22+2.0");
                 }
             });
         }

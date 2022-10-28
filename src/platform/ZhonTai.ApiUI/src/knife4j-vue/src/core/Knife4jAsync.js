@@ -357,8 +357,10 @@ SwaggerBootstrapUi.prototype.analysisGroup = function () {
       };
       this.desktopCode=code;
     }
+    var path = window.location.pathname.replace('index.html','').replace(/^\/+|\/+$/g,'')
+    path = path ? (path+'/') : ''
     that.ajax({
-      url: that.url,
+      url: path + that.url,
       type: 'get',
       timeout: 20000,
       dataType: 'json',
