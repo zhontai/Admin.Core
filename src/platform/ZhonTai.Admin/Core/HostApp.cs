@@ -48,6 +48,8 @@ using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Conventions;
 using FreeSql;
 using ZhonTai.Admin.Services.User;
+using ZhonTai.Admin.Core.Middlewares;
+using ZhonTai.Admin.Core.Dto;
 
 namespace ZhonTai.Admin.Core;
 
@@ -421,9 +423,9 @@ public class HostApp
         #region 控制器
         void mvcConfigure(MvcOptions options)
         {
-            options.Filters.Add<ControllerExceptionFilter>();
+            //options.Filters.Add<ControllerExceptionFilter>();
             options.Filters.Add<ValidateInputFilter>();
-            if(appConfig.Validate.Login || appConfig.Validate.Permission)
+            if (appConfig.Validate.Login || appConfig.Validate.Permission)
             {
                 options.Filters.Add<ValidatePermissionAttribute>();
             }
@@ -431,6 +433,11 @@ public class HostApp
             {
                 options.Filters.Add<ControllerLogFilter>();
             }
+            if (appConfig.DynamicApi.FormatResult)
+            {
+                options.Filters.Add<FormatResultFilter>();
+            }
+
             //禁止去除ActionAsync后缀
             //options.SuppressAsyncSuffixInActionNames = false;
 
@@ -518,6 +525,9 @@ public class HostApp
             .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
             options.AddAssemblyOptions(assemblies);
 
+            options.FormatResult = appConfig.DynamicApi.FormatResult;
+            options.FormatResultType = typeof(ResultOutput<>);
+
             _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
         });
 
@@ -542,6 +552,9 @@ public class HostApp
 
         _hostAppOptions?.ConfigurePreMiddleware?.Invoke(hostAppMiddlewareContext);
 
+        //异常处理
+        app.UseMiddleware<ExceptionMiddleware>();
+
         //IP限流
         if (appConfig.RateLimit)
         {
@@ -553,9 +566,6 @@ public class HostApp
         {
             app.UseMiniProfiler();
         }
-
-        //异常
-        app.UseExceptionHandler("/Error");
 
         //静态文件
         app.UseDefaultFiles();
@@ -574,7 +584,7 @@ public class HostApp
         //授权
         app.UseAuthorization();
 
-        //初始化登录用户数据权限
+        //登录用户初始化数据权限
         app.Use(async (ctx, next) =>
         {
             var user = ctx.RequestServices.GetRequiredService<IUser>();
@@ -626,12 +636,6 @@ public class HostApp
             });
         }
         #endregion Swagger Api文档
-
-        //数据库日志
-        //var log = LogManager.GetLogger("db");
-        //var ei = new LogEventInfo(LogLevel.Error, "", "错误信息");
-        //ei.Properties["id"] = YitIdHelper.NextId();
-        //log.Log(ei);
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }

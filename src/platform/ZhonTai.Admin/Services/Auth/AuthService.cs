@@ -98,30 +98,26 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [HttpGet]
     [AllowAnonymous]
     [NoOprationLog]
-    public async Task<IResultOutput> GetPasswordEncryptKeyAsync()
+    public async Task<AuthGetPasswordEncryptKeyOutput> GetPasswordEncryptKeyAsync()
     {
         //写入Redis
         var guid = Guid.NewGuid().ToString("N");
         var key = CacheKeys.PassWordEncrypt + guid;
         var encyptKey = StringHelper.GenerateRandom(8);
         await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
-        var data = new { key = guid, encyptKey };
-
-        return ResultOutput.Ok(data);
+        return new AuthGetPasswordEncryptKeyOutput { Key = guid, EncyptKey = encyptKey };
     }
-
-   
 
     /// <summary>
     /// 查询用户信息
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<IResultOutput> GetUserInfoAsync()
+    public async Task<AuthGetUserInfoOutput> GetUserInfoAsync()
     {
         if (!(User?.Id > 0))
         {
-            return ResultOutput.NotOk("未登录");
+            throw ResultOutput.Exception("未登录");
         }
 
         using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
@@ -182,7 +178,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             //用户权限点
             authGetUserInfoOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);
 
-            return ResultOutput.Ok(authGetUserInfoOutput);
+            return authGetUserInfoOutput;
         }
     }
 
@@ -194,7 +190,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [HttpPost]
     [AllowAnonymous]
     [NoOprationLog]
-    public async Task<IResultOutput> LoginAsync(AuthLoginInput input)
+    public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
         using (_userRepository.DataFilter.Disable(FilterNames.Tenant, FilterNames.Self, FilterNames.Data))
         {
@@ -210,7 +206,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 var isOk = await _captchaTool.CheckAsync(input.Captcha);
                 if (!isOk)
                 {
-                    return ResultOutput.NotOk("安全验证不通过，请重新登录");
+                    throw ResultOutput.Exception("安全验证不通过，请重新登录");
                 }
             }
 
@@ -227,14 +223,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                     var secretKey = await Cache.GetAsync(passwordEncryptKey);
                     if (secretKey.IsNull())
                     {
-                        return ResultOutput.NotOk("解密失败");
+                        throw ResultOutput.Exception("解密失败");
                     }
                     input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
                     await Cache.DelAsync(passwordEncryptKey);
                 }
                 else
                 {
-                    return ResultOutput.NotOk("解密失败！");
+                    throw ResultOutput.Exception("解密失败！");
                 }
             }
 
@@ -246,12 +242,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             if (!(user?.Id > 0))
             {
-                return ResultOutput.NotOk("用户名或密码错误");
+                throw ResultOutput.Exception("用户名或密码错误");
             }
 
             if (user.Status == UserStatus.Disabled)
             {
-                return ResultOutput.NotOk("禁止登录，请联系管理员");
+                throw ResultOutput.Exception("禁止登录，请联系管理员");
             }
             #endregion
 
@@ -284,7 +280,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             #endregion 添加登录日志
 
-            return ResultOutput.Ok(new { token });
+            return new { token };
         }
     }
 
@@ -296,7 +292,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
-    public async Task<IResultOutput> Refresh([BindRequired] string token)
+    public async Task<dynamic> Refresh([BindRequired] string token)
     {
         var jwtSecurityToken = LazyGetRequiredService<IUserToken>().Decode(token);
         var userClaims = jwtSecurityToken?.Claims?.ToArray();
@@ -333,7 +329,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
         string newToken = GetToken(output?.Data);
-        return ResultOutput.Ok(new { token = newToken });
+        return new { token = newToken };
     }
 
     /// <summary>
@@ -344,13 +340,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [AllowAnonymous]
     [NoOprationLog]
     [EnableCors(AdminConsts.AllowAnyPolicyName)]
-    public async Task<IResultOutput> GetCaptcha()
+    public async Task<CaptchaOutput> GetCaptcha()
     {
-        using (MiniProfiler.Current.Step("获取滑块验证"))
-        {
-            var data = await _captchaTool.GetAsync(CacheKeys.Captcha);
-            return ResultOutput.Ok(data);
-        }
+        var data = await _captchaTool.GetAsync(CacheKeys.Captcha);
+        return data;
     }
 
     /// <summary>
@@ -361,10 +354,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [AllowAnonymous]
     [NoOprationLog]
     [EnableCors(AdminConsts.AllowAnyPolicyName)]
-    public async Task<IResultOutput> CheckCaptcha([FromQuery] CaptchaInput input)
+    public async Task<bool> CheckCaptcha([FromQuery] CaptchaInput input)
     {
         input.CaptchaKey = CacheKeys.Captcha;
         var result = await _captchaTool.CheckAsync(input);
-        return ResultOutput.Result(result);
+        return result;
     }
 }

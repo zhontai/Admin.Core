@@ -101,8 +101,9 @@ public static class DynamicApiServiceExtensions
         AppConsts.NamingConvention = options.NamingConvention;
         AppConsts.GetRestFulControllerName = options.GetRestFulControllerName;
         AppConsts.GetRestFulActionName = options.GetRestFulActionName;
-
         AppConsts.AssemblyDynamicApiOptions = options.AssemblyDynamicApiOptions;
+        AppConsts.FormatResult = options.FormatResult;
+        AppConsts.FormatResultType = options.FormatResultType;
 
         var partManager = services.GetSingletonInstanceOrNull<ApplicationPartManager>();
 

@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Domain.Api.Dto;
+using System.Collections.Generic;
+using ZhonTai.Admin.Domain.Api;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -10,15 +12,15 @@ namespace ZhonTai.Admin.Services.Api;
 /// </summary>
 public interface IApiService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<ApiGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetListAsync(string key);
+    Task<List<ApiListOutput>> GetListAsync(string key);
 
-    Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input);
+    Task<PageOutput<ApiEntity>> GetPageAsync(PageInput<ApiGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(ApiAddInput input);
+    Task<long> AddAsync(ApiAddInput input);
 
-    Task<IResultOutput> UpdateAsync(ApiUpdateInput input);
+    Task UpdateAsync(ApiUpdateInput input);
 
     Task<IResultOutput> DeleteAsync(long id);
 

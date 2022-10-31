@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Exceptions;
+
+namespace ZhonTai.Admin.Core.Dto;
 
 /// <summary>
 /// 结果输出
@@ -99,6 +101,16 @@ public static partial class ResultOutput
     public static IResultOutput NotOk(string msg = null)
     {
         return new ResultOutput<string>().NotOk(msg);
+    }
+
+    /// <summary>
+    /// 系统异常
+    /// </summary>
+    /// <param name="msg">消息</param>
+    /// <returns></returns>
+    public static AppException Exception(string msg = null)
+    {
+        return new AppException(msg);
     }
 
     /// <summary>

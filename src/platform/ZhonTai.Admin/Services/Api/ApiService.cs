@@ -31,10 +31,10 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<ApiGetOutput> GetAsync(long id)
     {
         var result = await _apiRepository.GetAsync<ApiGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
@@ -42,13 +42,13 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetListAsync(string key)
+    public async Task<List<ApiListOutput>> GetListAsync(string key)
     {
         var data = await _apiRepository
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .ToListAsync<ApiListOutput>();
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input)
+    public async Task<PageOutput<ApiEntity>> GetPageAsync(PageInput<ApiGetPageDto> input)
     {
         var key = input.Filter?.Label;
 
@@ -75,7 +75,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -83,12 +83,12 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(ApiAddInput input)
+    public async Task<long> AddAsync(ApiAddInput input)
     {
         var entity = Mapper.Map<ApiEntity>(input);
-        var id = (await _apiRepository.InsertAsync(entity)).Id;
+        await _apiRepository.InsertAsync(entity);
 
-        return ResultOutput.Result(id > 0);
+        return entity.Id;
     }
 
     /// <summary>
@@ -96,22 +96,16 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(ApiUpdateInput input)
+    public async Task UpdateAsync(ApiUpdateInput input)
     {
-        if (!(input?.Id > 0))
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _apiRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("接口不存在！");
+            throw ResultOutput.Exception("接口不存在！");
         }
 
         Mapper.Map(input, entity);
         await _apiRepository.UpdateAsync(entity);
-        return ResultOutput.Ok();
     }
 
     /// <summary>

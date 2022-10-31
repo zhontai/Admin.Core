@@ -14,6 +14,11 @@
             启用登录
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.NonFormatResultAttribute">
+            <summary>
+            不格式化结果数据
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.NoOprationLogAttribute">
             <summary>
             禁用操作日志
@@ -346,6 +351,11 @@
             默认密码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.DynamicApi">
+            <summary>
+            动态Api配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -489,6 +499,16 @@
         <member name="P:ZhonTai.Admin.Core.Configs.ProjectConfig.Description">
             <summary>
             描述
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.DynamicApiConfig">
+            <summary>
+            动态api配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DynamicApiConfig.FormatResult">
+            <summary>
+            结果格式化
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.AppType">
@@ -1088,6 +1108,13 @@
             <param name="msg">消息</param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Exception(System.String)">
+            <summary>
+            系统异常
+            </summary>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Result``1(System.Boolean)">
             <summary>
             根据布尔值返回结果
@@ -1399,6 +1426,11 @@
             系统内部错误（非业务代码里显式抛出的异常，例如由于数据不正确导致空指针异常、数据库异常等等）
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Exceptions.AppException">
+            <summary>
+            系统异常
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Extensions.RateLimitServiceCollectionExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Tools.Cache.CacheConfig)">
             <summary>
             添加Ip限流
@@ -1415,6 +1447,11 @@
         <member name="T:ZhonTai.Admin.Core.Filters.ControllerLogFilter">
             <summary>
             控制器操作日志记录
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Filters.FormatResultFilter">
+            <summary>
+            结果格式化过滤器
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Filters.ValidateInputFilter">
@@ -1496,6 +1533,11 @@
         <member name="T:ZhonTai.Admin.Core.Logs.LogHandler">
             <summary>
             操作日志处理
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Middlewares.ExceptionMiddleware">
+            <summary>
+            异常中间件
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Core.RegisterModules.ControllerModule.#ctor">
@@ -1679,6 +1721,11 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
             <summary>
             自定义数据库初始化
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Validators.ValidateRequiredAttribute">
+            <summary>
+            指定属性、字段、参数必填
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">
@@ -3177,6 +3224,16 @@
             检查验证数据
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.Key">
+            <summary>
+            缓存键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.EncyptKey">
+            <summary>
+            密码加密密钥
+            </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserInfoOutput.User">
             <summary>

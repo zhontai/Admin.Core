@@ -84,6 +84,11 @@ public class AppConfig
     /// 默认密码
     /// </summary>
     public string DefaultPassword { get; set; } = "111111";
+
+    /// <summary>
+    /// 动态Api配置
+    /// </summary>
+    public DynamicApiConfig DynamicApi { get; set; } = new DynamicApiConfig();
 }
 
 /// <summary>
@@ -244,6 +249,17 @@ public class ProjectConfig
     /// 描述
     /// </summary>
     public string Description { get; set; }
+}
+
+/// <summary>
+/// 动态api配置
+/// </summary>
+public class DynamicApiConfig
+{
+    /// <summary>
+    /// 结果格式化
+    /// </summary>
+    public bool FormatResult { get; set; } = true;
 }
 
 /// <summary>
