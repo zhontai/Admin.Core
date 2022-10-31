@@ -5,31 +5,30 @@ using Microsoft.Extensions.Options;
 using System.IO;
 using ZhonTai.Admin.Core.Configs;
 
-namespace ZhonTai.Admin.Core.Extensions
+namespace ZhonTai.Admin.Core.Extensions;
+
+public static class UploadConfigApplicationBuilderExtensions
 {
-    public static class UploadConfigApplicationBuilderExtensions
+    private static void UseFileUploadConfig(IApplicationBuilder app, FileUploadConfig config)
     {
-        private static void UseFileUploadConfig(IApplicationBuilder app, FileUploadConfig config)
+        if (!Directory.Exists(config.UploadPath))
         {
-            if (!Directory.Exists(config.UploadPath))
-            {
-                Directory.CreateDirectory(config.UploadPath);
-            }
-
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                RequestPath = config.RequestPath,
-                FileProvider = new PhysicalFileProvider(config.UploadPath)
-            });
+            Directory.CreateDirectory(config.UploadPath);
         }
 
-        public static IApplicationBuilder UseUploadConfig(this IApplicationBuilder app)
+        app.UseStaticFiles(new StaticFileOptions()
         {
-            var uploadConfig = app.ApplicationServices.GetRequiredService<IOptions<UploadConfig>>();
-            UseFileUploadConfig(app, uploadConfig.Value.Avatar);
-            UseFileUploadConfig(app, uploadConfig.Value.Document);
+            RequestPath = config.RequestPath,
+            FileProvider = new PhysicalFileProvider(config.UploadPath)
+        });
+    }
 
-            return app;
-        }
+    public static IApplicationBuilder UseUploadConfig(this IApplicationBuilder app)
+    {
+        var uploadConfig = app.ApplicationServices.GetRequiredService<IOptions<UploadConfig>>();
+        UseFileUploadConfig(app, uploadConfig.Value.Avatar);
+        UseFileUploadConfig(app, uploadConfig.Value.Document);
+
+        return app;
     }
 }

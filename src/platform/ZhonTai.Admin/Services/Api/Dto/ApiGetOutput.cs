@@ -1,6 +1,5 @@
-﻿namespace ZhonTai.Admin.Services.Api.Dto
+﻿namespace ZhonTai.Admin.Services.Api.Dto;
+
+public class ApiGetOutput : ApiUpdateInput
 {
-    public class ApiGetOutput : ApiUpdateInput
-    {
-    }
 }

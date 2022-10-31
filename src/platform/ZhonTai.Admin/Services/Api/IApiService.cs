@@ -3,29 +3,28 @@ using System.Threading.Tasks;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Domain.Api.Dto;
 
-namespace ZhonTai.Admin.Services.Api
+namespace ZhonTai.Admin.Services.Api;
+
+/// <summary>
+/// api接口
+/// </summary>
+public interface IApiService
 {
-    /// <summary>
-    /// api接口
-    /// </summary>
-    public interface IApiService
-    {
-        Task<IResultOutput> GetAsync(long id);
+    Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetListAsync(string key);
+    Task<IResultOutput> GetListAsync(string key);
 
-        Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input);
+    Task<IResultOutput> GetPageAsync(PageInput<ApiGetPageDto> input);
 
-        Task<IResultOutput> AddAsync(ApiAddInput input);
+    Task<IResultOutput> AddAsync(ApiAddInput input);
 
-        Task<IResultOutput> UpdateAsync(ApiUpdateInput input);
+    Task<IResultOutput> UpdateAsync(ApiUpdateInput input);
 
-        Task<IResultOutput> DeleteAsync(long id);
+    Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResultOutput> SoftDeleteAsync(long id);
+    Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
 
-        Task<IResultOutput> SyncAsync(ApiSyncInput input);
-    }
+    Task<IResultOutput> SyncAsync(ApiSyncInput input);
 }

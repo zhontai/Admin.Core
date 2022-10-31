@@ -1,11 +1,10 @@
 ﻿
-namespace ZhonTai.Admin.Domain.DictionaryType.Dto
+namespace ZhonTai.Admin.Domain.DictionaryType.Dto;
+
+public partial class DictionaryTypeGetPageDto
 {
-    public partial class DictionaryTypeGetPageDto
-    {
-        /// <summary>
-        /// 字典名称
-        /// </summary>
-        public string Name { get; set; }
-    }
+    /// <summary>
+    /// 字典名称
+    /// </summary>
+    public string Name { get; set; }
 }

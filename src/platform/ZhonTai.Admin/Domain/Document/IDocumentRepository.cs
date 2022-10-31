@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.Document
+namespace ZhonTai.Admin.Domain.Document;
+
+public interface IDocumentRepository : IRepositoryBase<DocumentEntity>
 {
-    public partial interface IDocumentRepository : IRepositoryBase<DocumentEntity>
-    {
-    }
 }

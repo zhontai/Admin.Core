@@ -1,11 +1,23 @@
 ﻿using System;
 
-namespace ZhonTai.Admin.Core.Entities
+namespace ZhonTai.Admin.Core.Entities;
+
+/// <summary>
+/// 添加接口
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
+public interface IEntityAdd<TKey> where TKey : struct
 {
-    public interface IEntityAdd<TKey> where TKey : struct
-    {
-        long? CreatedUserId { get; set; }
-        string CreatedUserName { get; set; }
-        DateTime? CreatedTime { get; set; }
-    }
+    /// <summary>
+    /// 创建者用户Id
+    /// </summary>
+    long? CreatedUserId { get; set; }
+    /// <summary>
+    /// 创建者
+    /// </summary>
+    string CreatedUserName { get; set; }
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    DateTime? CreatedTime { get; set; }
 }

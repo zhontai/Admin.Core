@@ -1,13 +1,12 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.User;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class UserRepository : AdminRepositoryBase<UserEntity>, IUserRepository
 {
-    public class UserRepository : RepositoryBase<UserEntity>, IUserRepository
+    public UserRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {
-        public UserRepository(DbUnitOfWorkManager muowm) : base(muowm)
-        {
-        }
+
     }
 }

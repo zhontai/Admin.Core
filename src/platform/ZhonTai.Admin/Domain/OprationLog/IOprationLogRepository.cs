@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.OprationLog
+namespace ZhonTai.Admin.Domain.OprationLog;
+
+public interface IOprationLogRepository : IRepositoryBase<OprationLogEntity>
 {
-    public interface IOprationLogRepository : IRepositoryBase<OprationLogEntity>
-    {
-    }
 }

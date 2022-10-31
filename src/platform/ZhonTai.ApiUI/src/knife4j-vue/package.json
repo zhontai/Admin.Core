@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "install:pkg": "npm install --registry https://registry.npm.taobao.org"
   },
   "dependencies": {
     "ant-design-vue": "^1.6.5",

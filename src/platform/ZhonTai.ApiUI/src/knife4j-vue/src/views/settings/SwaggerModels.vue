@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <div class="swaggermododel">
       <a-collapse @change="modelChange">
         <a-collapse-panel
@@ -42,6 +42,16 @@ export default {
     }, 
     swagger(){
        return this.$store.state.globals.swagger;
+    },
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
     }
   },
   watch:{

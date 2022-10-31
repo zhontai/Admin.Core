@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.DocumentImage;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class DocumentImageRepository : AdminRepositoryBase<DocumentImageEntity>, IDocumentImageRepository
 {
-    public class DocumentImageRepository : RepositoryBase<DocumentImageEntity>, IDocumentImageRepository
+    public DocumentImageRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public DocumentImageRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

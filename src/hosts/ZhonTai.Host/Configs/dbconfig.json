@@ -1,4 +1,10 @@
 {
+  //数据库注册键
+  "key": "admindb",
+
+  //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
+  "assemblyNames": [ "ZhonTai.Admin" ],
+
   //监听所有操作
   "monitorCommand": false,
   //监听Curd操作
@@ -8,11 +14,11 @@
   "createDb": false,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
   //建库连接字符串
-  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-  //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Pooling=true;Min Pool Size=1"
+  //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1"
+  //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
   "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
-  //建库脚本
+  //建库脚本，复杂建库脚本可放到createdbsql.txt中
   //MySql "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
   //SqlServer "CREATE DATABASE [admindb]"
   //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
@@ -25,30 +31,45 @@
 
   //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
   //开启生成数据前先关闭syncStructure syncData createDb
-  //生成数据
+  //生成数据，回写InitData/Admin/*.json
   "generateData": false,
 
   //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
   //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
   "type": "Sqlite",
   //连接字符串
-  //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-  //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1"
+  //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1"
+  //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=admindb;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
   //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
   //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
   "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
 
-  //空闲时间(分)
-  "idleTime": 10,
+  //指定程序集
+  //FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
+  "providerType": "",
+
+  //读写分离从库列表
+  "slaveList": [
+    //{
+    //  //连接字符串
+    //  "ConnectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  //权重
+    //  "Weight": 1
+    //}
+  ],
 
   //多数据库
-  //1、Common.Dbs中定义MySqlDb类
-  //2、IFreeSql<MySqlDb> _mySqlDb;
+  //定义DbKeys枚举
+  //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
+  //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
   "dbs": [
     //{
-    //  "name": "MySqlDb",
-    //  "type": "MySql",
-    //  "connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+    //  "key": "admindb",
+    //  "type": "Sqlite",
+    //  "syncStructure": true,
+    //  "syncData": true,
+    //  "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "providerType": ""
     //}
   ]
 }

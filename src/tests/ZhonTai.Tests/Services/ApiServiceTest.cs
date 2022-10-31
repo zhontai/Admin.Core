@@ -2,32 +2,31 @@
 using ZhonTai.Admin.Services.Api;
 using ZhonTai.Admin.Tools.Captcha;
 
-namespace ZhonTai.Tests.Services
+namespace ZhonTai.Tests.Services;
+
+public class ApiServiceTest : BaseTest
 {
-    public class ApiServiceTest : BaseTest
+    private readonly IApiService _apiService;
+
+    private readonly ICaptchaTool _captchaTool;
+
+    public ApiServiceTest()
     {
-        private readonly IApiService _apiService;
+        _apiService = GetService<IApiService>();
 
-        private readonly ICaptchaTool _captchaTool;
+        _captchaTool = GetService<ICaptchaTool>(); ;
+    }
 
-        public ApiServiceTest()
-        {
-            _apiService = GetService<IApiService>();
+    [Fact]
+    public async void SlideJigsawTest()
+    {
+        var data = await _captchaTool.GetAsync("admin:captcha");
+    }
 
-            _captchaTool = GetService<ICaptchaTool>(); ;
-        }
-
-        [Fact]
-        public async void SlideJigsawTest()
-        {
-            var data = await _captchaTool.GetAsync("admin:captcha:{0}");
-        }
-
-        [Fact]
-        public async void GetAsync()
-        {
-            var res = await _apiService.GetAsync(161227168079941);
-            Assert.True(res.Success);
-        }
+    [Fact]
+    public async void GetAsync()
+    {
+        var res = await _apiService.GetAsync(161227168079941);
+        Assert.True(res.Success);
     }
 }

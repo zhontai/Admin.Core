@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.Api;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class ApiRepository : AdminRepositoryBase<ApiEntity>, IApiRepository
 {
-    public class ApiRepository : RepositoryBase<ApiEntity>, IApiRepository
+    public ApiRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public ApiRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

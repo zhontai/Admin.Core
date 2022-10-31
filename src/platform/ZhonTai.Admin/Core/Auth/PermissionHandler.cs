@@ -10,10 +10,12 @@ namespace ZhonTai.Admin.Core.Auth
     public class PermissionHandler : IPermissionHandler
     {
         private readonly IUserService _userService;
+        private readonly IUser _user;
 
-        public PermissionHandler(IUserService userService)
+        public PermissionHandler(IUserService userService, IUser user)
         {
             _userService = userService;
+            _user = user;
         }
 
         /// <summary>
@@ -24,6 +26,11 @@ namespace ZhonTai.Admin.Core.Auth
         /// <returns></returns>
         public async Task<bool> ValidateAsync(string api, string httpMethod)
         {
+            if (_user.PlatformAdmin)
+            {
+                return true;
+            }
+
             var permissions = await _userService.GetPermissionsAsync();
 
             var valid = permissions.Any(m =>

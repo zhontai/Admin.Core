@@ -1,11 +1,10 @@
 ﻿
-namespace ZhonTai.Admin.Domain.Api.Dto
+namespace ZhonTai.Admin.Domain.Api.Dto;
+
+public class ApiGetPageDto
 {
-    public class ApiGetPageDto
-    {
-        /// <summary>
-        /// 接口名称
-        /// </summary>
-        public string Label { get; set; }
-    }
+    /// <summary>
+    /// 接口名称
+    /// </summary>
+    public string Label { get; set; }
 }

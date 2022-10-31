@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.Permission
+namespace ZhonTai.Admin.Domain.Permission;
+
+public interface IPermissionRepository : IRepositoryBase<PermissionEntity>
 {
-    public partial interface IPermissionRepository : IRepositoryBase<PermissionEntity>
-    {
-    }
 }

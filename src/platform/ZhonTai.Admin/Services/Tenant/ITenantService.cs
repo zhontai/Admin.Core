@@ -3,25 +3,24 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Tenant.Dto;
 using ZhonTai.Admin.Services.Tenant.Dto;
 
-namespace ZhonTai.Admin.Services.Tenant
+namespace ZhonTai.Admin.Services.Tenant;
+
+/// <summary>
+/// 租户接口
+/// </summary>
+public interface ITenantService
 {
-    /// <summary>
-    /// 租户接口
-    /// </summary>
-    public interface ITenantService
-    {
-        Task<IResultOutput> GetAsync(long id);
+    Task<IResultOutput> GetAsync(long id);
 
-        Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input);
+    Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input);
 
-        Task<IResultOutput> AddAsync(TenantAddInput input);
+    Task<IResultOutput> AddAsync(TenantAddInput input);
 
-        Task<IResultOutput> UpdateAsync(TenantUpdateInput input);
+    Task<IResultOutput> UpdateAsync(TenantUpdateInput input);
 
-        Task<IResultOutput> DeleteAsync(long id);
+    Task<IResultOutput> DeleteAsync(long id);
 
-        Task<IResultOutput> SoftDeleteAsync(long id);
+    Task<IResultOutput> SoftDeleteAsync(long id);
 
-        Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
-    }
+    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
 }

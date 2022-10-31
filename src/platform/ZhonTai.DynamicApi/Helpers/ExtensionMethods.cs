@@ -3,206 +3,205 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ZhonTai.DynamicApi.Helpers
+namespace ZhonTai.DynamicApi.Helpers;
+
+internal static class ExtensionMethods
 {
-    internal static class ExtensionMethods
+    public static bool IsNullOrEmpty(this string str)
     {
-        public static bool IsNullOrEmpty(this string str)
+        return string.IsNullOrEmpty(str);
+    }
+
+    public static bool IsNullOrEmpty<T>(this ICollection<T> source)
+    {
+        return source == null || source.Count <= 0;
+    }
+
+    public static bool IsIn(this string str, params string[] data)
+    {
+        foreach (var item in data)
         {
-            return string.IsNullOrEmpty(str);
+            if (str == item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static string RemovePostFix(this string str, params string[] postFixes)
+    {
+        if (str == null)
+        {
+            return null;
         }
 
-        public static bool IsNullOrEmpty<T>(this ICollection<T> source)
+        if (str == string.Empty)
         {
-            return source == null || source.Count <= 0;
+            return string.Empty;
         }
 
-        public static bool IsIn(this string str, params string[] data)
+        if (postFixes.IsNullOrEmpty())
         {
-            foreach (var item in data)
-            {
-                if (str == item)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static string RemovePostFix(this string str, params string[] postFixes)
-        {
-            if (str == null)
-            {
-                return null;
-            }
-
-            if (str == string.Empty)
-            {
-                return string.Empty;
-            }
-
-            if (postFixes.IsNullOrEmpty())
-            {
-                return str;
-            }
-
-            foreach (var postFix in postFixes)
-            {
-                if (str.EndsWith(postFix))
-                {
-                    return str.Left(str.Length - postFix.Length);
-                }
-            }
-
             return str;
         }
 
-        public static string RemovePreFix(this string str, params string[] preFixes)
+        foreach (var postFix in postFixes)
         {
-            if (str == null)
+            if (str.EndsWith(postFix))
             {
-                return null;
+                return str.Left(str.Length - postFix.Length);
             }
+        }
 
-            if (str == string.Empty)
-            {
-                return string.Empty;
-            }
+        return str;
+    }
 
-            if (preFixes.IsNullOrEmpty())
-            {
-                return str;
-            }
+    public static string RemovePreFix(this string str, params string[] preFixes)
+    {
+        if (str == null)
+        {
+            return null;
+        }
 
-            foreach (var preFix in preFixes)
-            {
-                if (str.StartsWith(preFix))
-                {
-                    return str.Right(str.Length - preFix.Length);
-                }
-            }
+        if (str == string.Empty)
+        {
+            return string.Empty;
+        }
 
+        if (preFixes.IsNullOrEmpty())
+        {
             return str;
         }
 
-
-        public static string Left(this string str, int len)
+        foreach (var preFix in preFixes)
         {
-            if (str == null)
+            if (str.StartsWith(preFix))
             {
-                throw new ArgumentNullException("str");
-            }
-
-            if (str.Length < len)
-            {
-                throw new ArgumentException("len argument can not be bigger than given string's length!");
-            }
-
-            return str.Substring(0, len);
-        }
-
-
-        public static string Right(this string str, int len)
-        {
-            if (str == null)
-            {
-                throw new ArgumentNullException("str");
-            }
-
-            if (str.Length < len)
-            {
-                throw new ArgumentException("len argument can not be bigger than given string's length!");
-            }
-
-            return str.Substring(str.Length - len, len);
-        }
-
-        public static string GetCamelCaseFirstWord(this string str)
-        {
-            if (str == null)
-            {
-                throw new ArgumentNullException(nameof(str));
-            }
-
-            if (str.Length == 1)
-            {
-                return str;
-            }
-
-            var res = Regex.Split(str, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})");
-
-            if (res.Length < 1)
-            {
-                return str;
-            }
-            else
-            {
-                return res[0];
+                return str.Right(str.Length - preFix.Length);
             }
         }
 
-        public static string GetPascalCaseFirstWord(this string str)
+        return str;
+    }
+
+
+    public static string Left(this string str, int len)
+    {
+        if (str == null)
         {
-            if (str == null)
-            {
-                throw new ArgumentNullException(nameof(str));
-            }
-
-            if (str.Length == 1)
-            {
-                return str;
-            }
-
-            var res = Regex.Split(str, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})");
-
-            if (res.Length < 2)
-            {
-                return str;
-            }
-            else
-            {
-                return res[1];
-            }
+            throw new ArgumentNullException("str");
         }
 
-        public static string GetPascalOrCamelCaseFirstWord(this string str)
+        if (str.Length < len)
         {
-            if (str == null)
-            {
-                throw new ArgumentNullException(nameof(str));
-            }
-
-            if (str.Length <= 1)
-            {
-                return str;
-            }
-
-            if (str[0] >= 65 && str[0] <= 90)
-            {
-                return GetPascalCaseFirstWord(str);
-            }
-            else
-            {
-                return GetCamelCaseFirstWord(str);
-            }
+            throw new ArgumentException("len argument can not be bigger than given string's length!");
         }
 
-        public static string FirstCharToLower(this string s)
-        {
-            if (string.IsNullOrEmpty(s))
-                return s;
+        return str.Substring(0, len);
+    }
 
-            string str = s.First().ToString().ToLower() + s.Substring(1);
+
+    public static string Right(this string str, int len)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException("str");
+        }
+
+        if (str.Length < len)
+        {
+            throw new ArgumentException("len argument can not be bigger than given string's length!");
+        }
+
+        return str.Substring(str.Length - len, len);
+    }
+
+    public static string GetCamelCaseFirstWord(this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (str.Length == 1)
+        {
             return str;
         }
 
-        public static string FirstCharToUpper(this string s)
-        {
-            if (string.IsNullOrEmpty(s))
-                return s;
+        var res = Regex.Split(str, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})");
 
-            string str = s.First().ToString().ToUpper() + s.Substring(1);
+        if (res.Length < 1)
+        {
             return str;
         }
+        else
+        {
+            return res[0];
+        }
+    }
+
+    public static string GetPascalCaseFirstWord(this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (str.Length == 1)
+        {
+            return str;
+        }
+
+        var res = Regex.Split(str, @"(?=\p{Lu}\p{Ll})|(?<=\p{Ll})(?=\p{Lu})");
+
+        if (res.Length < 2)
+        {
+            return str;
+        }
+        else
+        {
+            return res[1];
+        }
+    }
+
+    public static string GetPascalOrCamelCaseFirstWord(this string str)
+    {
+        if (str == null)
+        {
+            throw new ArgumentNullException(nameof(str));
+        }
+
+        if (str.Length <= 1)
+        {
+            return str;
+        }
+
+        if (str[0] >= 65 && str[0] <= 90)
+        {
+            return GetPascalCaseFirstWord(str);
+        }
+        else
+        {
+            return GetCamelCaseFirstWord(str);
+        }
+    }
+
+    public static string FirstCharToLower(this string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return s;
+
+        string str = s.First().ToString().ToLower() + s.Substring(1);
+        return str;
+    }
+
+    public static string FirstCharToUpper(this string s)
+    {
+        if (string.IsNullOrEmpty(s))
+            return s;
+
+        string str = s.First().ToString().ToUpper() + s.Substring(1);
+        return str;
     }
 }

@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.LoginLog
+namespace ZhonTai.Admin.Domain.LoginLog;
+
+public interface ILoginLogRepository : IRepositoryBase<LoginLogEntity>
 {
-    public interface ILoginLogRepository : IRepositoryBase<LoginLogEntity>
-    {
-    }
 }

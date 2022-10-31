@@ -1,33 +1,34 @@
 ﻿using FreeSql.DataAnnotations;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using ZhonTai.Admin.Core.Attributes;
 
-namespace ZhonTai.Admin.Core.Entities
+namespace ZhonTai.Admin.Core.Entities;
+
+public interface IEntity<TKey>
 {
-    public interface IEntity<TKey>
-    {
-        /// <summary>
-        /// 主键Id
-        /// </summary>
-        TKey Id { get; set; }
-    }
+    /// <summary>
+    /// 主键Id
+    /// </summary>
+    TKey Id { get; set; }
+}
 
-    public interface IEntity : IEntity<long>
-    {
-    }
+public interface IEntity : IEntity<long>
+{
+}
 
-    public class Entity<TKey> : IEntity<TKey>
-    {
-        /// <summary>
-        /// 主键Id
-        /// </summary>
-        [Description("主键Id")]
-        [Snowflake]
-        [Column(Position = 1, IsIdentity = false, IsPrimary = true)]
-        public virtual TKey Id { get; set; }
-    }
+public class Entity<TKey> : IEntity<TKey>
+{
+    /// <summary>
+    /// 主键Id
+    /// </summary>
+    [Description("主键Id")]
+    [Snowflake]
+    [Column(Position = 1, IsIdentity = false, IsPrimary = true)]
+    [JsonProperty(Order = -2)]
+    public virtual TKey Id { get; set; }
+}
 
-    public class Entity : Entity<long>
-    {
-    }
+public class Entity : Entity<long>
+{
 }

@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.Role;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class RoleRepository : AdminRepositoryBase<RoleEntity>, IRoleRepository
 {
-    public class RoleRepository : RepositoryBase<RoleEntity>, IRoleRepository
+    public RoleRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public RoleRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

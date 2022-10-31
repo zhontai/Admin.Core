@@ -1,8 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Repositories;
 
-namespace ZhonTai.Admin.Domain.Dictionary
+namespace ZhonTai.Admin.Domain.Dictionary;
+
+public interface IDictionaryRepository : IRepositoryBase<DictionaryEntity>
 {
-    public partial interface IDictionaryRepository : IRepositoryBase<DictionaryEntity>
-    {
-    }
 }

@@ -1,34 +1,16 @@
 [
   {
     "id": 161223412138053,
-    "userId": 161223411986501,
-    "roleId": 161223412080709,
     "name": "中台",
     "code": "zhontai",
     "realName": "小雪",
-    "phone": "18988889999",
+    "phone": "13122223333",
     "email": "xiaoxue@zhontai.com",
+    "userId": 161223411986501,
     "tenantType": 1,
-    "dataIsolationType": 4,
-    "dbType": 4,
-    "connectionString": "Data Source=|DataDirectory|\\\\admindb.db; Pooling=true;Min Pool Size=1",
-    "idleTime": 10,
-    "description": ""
-  },
-  {
-    "id": 162083448455237,
-    "userId": 162083448746053,
-    "roleId": 162083448594501,
-    "name": "企业",
-    "code": "qiye",
-    "realName": "租户",
-    "phone": "18988889999",
-    "email": "tenant@qiye.com",
-    "tenantType": 2,
-    "dataIsolationType": 4,
-    "dbType": 4,
-    "connectionString": "Data Source=|DataDirectory|\\\\admindb.db; Pooling=true;Min Pool Size=1",
-    "idleTime": 10,
+    "dbKey": "masterdb",
+    "connectionString": "",
+    "enabled": true,
     "description": ""
   }
 ]

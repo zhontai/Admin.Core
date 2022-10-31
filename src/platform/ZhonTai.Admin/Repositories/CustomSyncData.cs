@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain.DictionaryType;
 using ZhonTai.Admin.Domain.Dictionary;
 using ZhonTai.Admin.Domain.Api;
@@ -13,68 +12,66 @@ using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Domain.Organization;
-using ZhonTai.Admin.Domain.Position;
-using ZhonTai.Admin.Domain.Employee;
+using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.UserStaff;
+using ZhonTai.Admin.Core.Db.Data;
+using ZhonTai.Admin.Domain.UserOrg;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class CustomSyncData : SyncData, ISyncData
 {
-    public class CustomSyncData : SyncData, ISyncData
+    public virtual async Task SyncDataAsync(IFreeSql db, DbConfig dbConfig = null, AppConfig appConfig = null)
     {
-        public virtual async Task SyncDataAsync(IFreeSql db, DbConfig dbConfig = null, AppConfig appConfig = null)
-        {
-            using (var uow = db.CreateUnitOfWork())
-            using (var tran = uow.GetOrBeginTransaction())
-            {
-                var isTenant = appConfig.Tenant;
+        using var uow = db.CreateUnitOfWork();
+        using var tran = uow.GetOrBeginTransaction();
+        var isTenant = appConfig.Tenant;
 
-                var dictionaryTypes = GetData<DictionaryTypeEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, dictionaryTypes, dbConfig);
+        var dictionaryTypes = GetData<DictionaryTypeEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, dictionaryTypes, dbConfig);
 
-                var dictionaries = GetData<DictionaryEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, dictionaries, dbConfig);
+        var dictionaries = GetData<DictionaryEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, dictionaries, dbConfig);
 
-                var users = GetData<UserEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, users, dbConfig);
+        var users = GetData<UserEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, users, dbConfig);
 
-                var roles = GetData<RoleEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, roles, dbConfig);
+        var staffs = GetData<UserStaffEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, staffs, dbConfig);
 
-                var apiTree = GetData<ApiEntity>();
-                await InitDataAsync(db, uow, tran, apiTree, dbConfig);
+        var orgs = GetData<OrgEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, orgs, dbConfig);
 
-                var viewTree = GetData<ViewEntity>();
-                await InitDataAsync(db, uow, tran, viewTree, dbConfig);
+        var roles = GetData<RoleEntity>(isTenant);
+        await InitDataAsync(db, uow, tran, roles, dbConfig);
 
-                var permissionTree = GetData<PermissionEntity>();
-                await InitDataAsync(db, uow, tran, permissionTree, dbConfig);
+        var apiTree = GetData<ApiEntity>();
+        await InitDataAsync(db, uow, tran, apiTree, dbConfig);
 
-                var userRoles = GetData<UserRoleEntity>();
-                await InitDataAsync(db, uow, tran, userRoles, dbConfig);
+        var viewTree = GetData<ViewEntity>();
+        await InitDataAsync(db, uow, tran, viewTree, dbConfig);
 
-                var rolePermissions = GetData<RolePermissionEntity>();
-                await InitDataAsync(db, uow, tran, rolePermissions, dbConfig);
+        var permissionTree = GetData<PermissionEntity>();
+        await InitDataAsync(db, uow, tran, permissionTree, dbConfig);
 
-                var tenants = GetData<TenantEntity>();
-                await InitDataAsync(db, uow, tran, tenants, dbConfig);
+        var userRoles = GetData<UserRoleEntity>();
+        await InitDataAsync(db, uow, tran, userRoles, dbConfig);
 
-                var tenantPermissions = GetData<TenantPermissionEntity>();
-                await InitDataAsync(db, uow, tran, tenantPermissions, dbConfig);
+        var userOrgs = GetData<UserOrgEntity>();
+        await InitDataAsync(db, uow, tran, userOrgs, dbConfig);
 
-                var permissionApis = GetData<PermissionApiEntity>();
-                await InitDataAsync(db, uow, tran, permissionApis, dbConfig);
+        var rolePermissions = GetData<RolePermissionEntity>();
+        await InitDataAsync(db, uow, tran, rolePermissions, dbConfig);
 
-                var organizations = GetData<OrganizationEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, organizations, dbConfig);
+        var tenants = GetData<TenantEntity>();
+        await InitDataAsync(db, uow, tran, tenants, dbConfig);
 
-                var positions = GetData<PositionEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, positions, dbConfig);
+        var tenantPermissions = GetData<TenantPermissionEntity>();
+        await InitDataAsync(db, uow, tran, tenantPermissions, dbConfig);
 
-                var employees = GetData<EmployeeEntity>(isTenant);
-                await InitDataAsync(db, uow, tran, employees, dbConfig);
+        var permissionApis = GetData<PermissionApiEntity>();
+        await InitDataAsync(db, uow, tran, permissionApis, dbConfig);
 
-                uow.Commit();
-            }
-        }
+        uow.Commit();
     }
 }

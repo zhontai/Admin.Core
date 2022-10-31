@@ -1,7 +1,6 @@
-﻿namespace ZhonTai.Admin.Services
+﻿namespace ZhonTai.Admin.Services;
+
+public interface IBaseService
 {
-    public interface IBaseService
-    {
-        
-    }
+    
 }

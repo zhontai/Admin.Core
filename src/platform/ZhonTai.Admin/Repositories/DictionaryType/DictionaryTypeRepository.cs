@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.DictionaryType;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class DictionaryTypeRepository : AdminRepositoryBase<DictionaryTypeEntity>, IDictionaryTypeRepository
 {
-    public class DictionaryTypeRepository : RepositoryBase<DictionaryTypeEntity>, IDictionaryTypeRepository
+    public DictionaryTypeRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public DictionaryTypeRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.LoginLog;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class LoginLogRepository : AdminRepositoryBase<LoginLogEntity>, ILoginLogRepository
 {
-    public class LoginLogRepository : RepositoryBase<LoginLogEntity>, ILoginLogRepository
+    public LoginLogRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public LoginLogRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

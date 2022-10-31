@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.Permission;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class PermissionRepository : AdminRepositoryBase<PermissionEntity>, IPermissionRepository
 {
-    public class PermissionRepository : RepositoryBase<PermissionEntity>, IPermissionRepository
+    public PermissionRepository(UnitOfWorkManagerCloud uowm) : base(uowm)
     {
-        public PermissionRepository(DbUnitOfWorkManager uowm) : base(uowm)
-        {
-        }
     }
 }

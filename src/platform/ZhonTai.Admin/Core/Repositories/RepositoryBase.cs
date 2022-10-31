@@ -3,18 +3,20 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Auth;
-using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Repositories
 {
-    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class, new()
+    public class RepositoryBase<TEntity, TKey> : DefaultRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class
     {
         public IUser User { get; set; }
 
-        public RepositoryBase(IFreeSql freeSql) : base(freeSql, null, null)
+        public RepositoryBase(IFreeSql fsql) : base(fsql) { }
+        public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter) : base(fsql, filter) { }
+        public RepositoryBase(IFreeSql fsql, UnitOfWorkManager uowManger) : base(uowManger?.Orm ?? fsql)
         {
+            uowManger?.Binding(this);
         }
-        public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter, Func<string, string> asTable = null) : base(fsql, filter, asTable) { }
 
         public virtual Task<TDto> GetAsync<TDto>(TKey id)
         {
@@ -38,7 +40,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
@@ -53,7 +55,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
@@ -68,7 +70,7 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.Name
+                    ModifiedUserName = User.UserName
                 })
                 .Where(exp)
                 .DisableGlobalFilter(disableGlobalFilterNames)
@@ -100,7 +102,7 @@ namespace ZhonTai.Admin.Core.Repositories
             {
                 IsDeleted = true,
                 ModifiedUserId = User.Id,
-                ModifiedUserName = User.Name
+                ModifiedUserName = User.UserName
             })
             .ExecuteAffrowsAsync();
 
@@ -108,9 +110,10 @@ namespace ZhonTai.Admin.Core.Repositories
         }
     }
 
-    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class, new()
+    public class RepositoryBase<TEntity> : RepositoryBase<TEntity, long>, IRepositoryBase<TEntity> where TEntity : class
     {
-        public RepositoryBase(DbUnitOfWorkManager uowm) : base(uowm.Orm)
+        public RepositoryBase(string db, UnitOfWorkManagerCloud uowm) : this(uowm.GetUnitOfWorkManager(db)) { }
+        RepositoryBase(UnitOfWorkManager uowm) : base(uowm.Orm)
         {
             uowm.Binding(this);
         }

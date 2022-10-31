@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <a-row class="markdown-body editormd-preview-container">
       <Markdown :source="content" />
     </a-row>
@@ -21,6 +21,18 @@ export default {
     return {
       content: ""
     };
+  },
+  computed:{
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
+    }
   },
   created() {
     //获取当前地址的id

@@ -1,18 +1,12 @@
-﻿namespace ZhonTai.Admin.Services.View.Dto
+﻿namespace ZhonTai.Admin.Services.View.Dto;
+
+/// <summary>
+/// 修改
+/// </summary>
+public class ViewUpdateInput : ViewAddInput
 {
     /// <summary>
-    /// 修改
+    /// 视图Id
     /// </summary>
-    public class ViewUpdateInput : ViewAddInput
-    {
-        /// <summary>
-        /// 视图Id
-        /// </summary>
-        public long Id { get; set; }
-
-        /// <summary>
-        /// 版本
-        /// </summary>
-        public long Version { get; set; }
-    }
+    public long Id { get; set; }
 }

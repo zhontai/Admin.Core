@@ -7,37 +7,39 @@ using System.Reflection;
 using Module = Autofac.Module;
 using Microsoft.Extensions.DependencyModel;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Db.Transaction;
 
-namespace ZhonTai.Admin.Core.RegisterModules
+namespace ZhonTai.Admin.Core.RegisterModules;
+
+public class ServiceModule : Module
 {
-    public class ServiceModule : Module
-    {
-        private readonly AppConfig _appConfig;
+    private readonly AppConfig _appConfig;
 
-        /// <summary>
-        /// 服务注入
-        /// </summary>
-        /// <param name="appConfig">AppConfig</param>
-        public ServiceModule(AppConfig appConfig)
+    /// <summary>
+    /// 服务注入
+    /// </summary>
+    /// <param name="appConfig">AppConfig</param>
+    public ServiceModule(AppConfig appConfig)
+    {
+        _appConfig = appConfig;
+    }
+
+    protected override void Load(ContainerBuilder builder)
+    {
+        //事务拦截
+        var interceptorServiceTypes = new List<Type>();
+        if (_appConfig.Aop.Transaction)
         {
-            _appConfig = appConfig;
+            builder.RegisterType<TransactionInterceptor>();
+            builder.RegisterType<TransactionAsyncInterceptor>();
+            interceptorServiceTypes.Add(typeof(TransactionInterceptor));
         }
 
-        protected override void Load(ContainerBuilder builder)
+        if(_appConfig.AssemblyNames?.Length > 0)
         {
-            //事务拦截
-            var interceptorServiceTypes = new List<Type>();
-            if (_appConfig.Aop.Transaction)
-            {
-                builder.RegisterType<TransactionInterceptor>();
-                builder.RegisterType<TransactionAsyncInterceptor>();
-                interceptorServiceTypes.Add(typeof(TransactionInterceptor));
-            }
-
             //服务
             Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => _appConfig.AssemblyNames.Contains(a.Name) || a.Name == "ZhonTai.Admin")
+                .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
             //服务接口实例

@@ -1,13 +1,11 @@
-﻿using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.View;
 
-namespace ZhonTai.Admin.Repositories
+namespace ZhonTai.Admin.Repositories;
+
+public class ViewRepository : AdminRepositoryBase<ViewEntity>, IViewRepository
 {
-    public class ViewRepository : RepositoryBase<ViewEntity>, IViewRepository
+    public ViewRepository(UnitOfWorkManagerCloud muowm) : base(muowm)
     {
-        public ViewRepository(DbUnitOfWorkManager muowm) : base(muowm)
-        {
-        }
     }
 }

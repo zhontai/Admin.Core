@@ -1,5 +1,5 @@
 <template>
-  <a-layout-content class="knife4j-body-content">
+  <a-layout-content :class="['knife4j-body-content', copyright?'':'knife4j-body-content--no-fotter']">
     <a-row class="settingConfig">
       <a-row class="gptips" v-html="$t('message.settingTip')">
         启用个性化配置后,接口Tab标签需关闭后重新打开或者刷新当前页面
@@ -100,6 +100,16 @@ export default {
       return this.$store.state.globals.swaggerCurrentInstance;
     },language(){
        return this.$store.state.globals.language;
+    },
+    copyright() {
+      const servers = this.$store.state.globals.swaggerCurrentInstance
+        ?.swaggerData?.servers
+      if (servers && servers.length > 0) {
+        return this.$store.state.globals.swaggerCurrentInstance.swaggerData
+          .servers[0].extensions?.copyright
+      } else {
+        return ''
+      }
     }
   },
   data() {
