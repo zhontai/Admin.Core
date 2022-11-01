@@ -20,7 +20,6 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
-using MySqlX.XDevAPI.Common;
 
 namespace ZhonTai.Admin.Services.Permission;
 

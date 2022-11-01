@@ -1,6 +1,5 @@
 ﻿using FreeSql.DataAnnotations;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.X509;
 using System.ComponentModel;
 
 namespace ZhonTai.Admin.Core.Entities;
