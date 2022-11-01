@@ -429,13 +429,15 @@ public class HostApp
             {
                 options.Filters.Add<ValidatePermissionAttribute>();
             }
-            if (appConfig.Log.Operation)
-            {
-                options.Filters.Add<ControllerLogFilter>();
-            }
+            //在具有较高的 Order 值的筛选器之前运行 before 代码
+            //在具有较高的 Order 值的筛选器之后运行 after 代码
             if (appConfig.DynamicApi.FormatResult)
             {
-                options.Filters.Add<FormatResultFilter>();
+                options.Filters.Add<FormatResultFilter>(20);
+            }
+            if (appConfig.Log.Operation)
+            {
+                options.Filters.Add<ControllerLogFilter>(10);
             }
 
             //禁止去除ActionAsync后缀

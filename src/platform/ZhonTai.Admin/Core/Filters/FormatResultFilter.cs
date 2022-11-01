@@ -15,9 +15,9 @@ public class FormatResultFilter : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var actionExecutionContext = await next();
+        var actionExecutedContext = await next();
         
-        if (actionExecutionContext.Exception != null)
+        if (actionExecutedContext.Exception != null)
         {
             return;
         }
@@ -27,7 +27,7 @@ public class FormatResultFilter : IAsyncActionFilter
             return;
         }
 
-        IActionResult result = actionExecutionContext.Result;
+        IActionResult result = actionExecutedContext.Result;
         
         var formatResult = result switch
         {
@@ -62,6 +62,6 @@ public class FormatResultFilter : IAsyncActionFilter
             _ => null,
         };
 
-        actionExecutionContext.Result = new JsonResult(new ResultOutput<dynamic>().Ok(data));
+        actionExecutedContext.Result = new JsonResult(new ResultOutput<dynamic>().Ok(data));
     }
 }

@@ -1,4 +1,6 @@
 ﻿using FreeSql.DataAnnotations;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.X509;
 using System.ComponentModel;
 
 namespace ZhonTai.Admin.Core.Entities;
@@ -13,6 +15,7 @@ public class EntityTenantWithData<TKey> : EntityBase, ITenant, IData
     /// </summary>
     [Description("租户Id")]
     [Column(Position = 2, CanUpdate = false)]
+    [JsonProperty(Order = -20)]
     public long? TenantId { get; set; }
 
     /// <summary>

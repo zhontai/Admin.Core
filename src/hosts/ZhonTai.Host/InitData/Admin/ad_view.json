@@ -185,22 +185,11 @@
         "childs": []
       },
       {
-        "id": 336556164280389,
-        "parentId": 161227168313413,
-        "name": "Staff",
-        "label": "员工管理",
-        "path": "admin/staff",
-        "description": "",
-        "enabled": true,
-        "cache": true,
-        "childs": []
-      },
-      {
         "id": 336556164300869,
         "parentId": 161227168313413,
         "name": "Task",
         "label": "任务管理",
-        "path": "admin/task",
+        "path": "admin/task/index",
         "description": "",
         "enabled": true,
         "cache": true,

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using StackExchange.Profiling;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;

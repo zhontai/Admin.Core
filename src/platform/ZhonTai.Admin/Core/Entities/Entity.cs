@@ -25,7 +25,7 @@ public class Entity<TKey> : IEntity<TKey>
     [Description("主键Id")]
     [Snowflake]
     [Column(Position = 1, IsIdentity = false, IsPrimary = true)]
-    [JsonProperty(Order = -2)]
+    [JsonProperty(Order = -30)]
     public virtual TKey Id { get; set; }
 }
 

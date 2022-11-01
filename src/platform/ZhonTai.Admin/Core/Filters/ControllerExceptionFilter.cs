@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Core.Exceptions;
 using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core.Filters;
@@ -28,18 +29,23 @@ public class ControllerExceptionFilter : IExceptionFilter, IAsyncExceptionFilter
         if (context.ExceptionHandled == false)
         {
             string message;
+            var appException = context.Exception is AppException;
             if (_env.IsProduction())
             {
-                message = Enums.StatusCodes.Status500InternalServerError.ToDescription();
+                message = appException ? context.Exception.Message : Enums.StatusCodes.Status500InternalServerError.ToDescription();
             }
             else
             {
                 message = context.Exception.Message;
             }
 
-            _logger.LogError(context.Exception, "");
+            if (!appException)
+            {
+                _logger.LogError(context.Exception, "");
+            }
+            
             var data = ResultOutput.NotOk(message);
-            context.Result = new InternalServerErrorResult(data);
+            context.Result = new InternalServerErrorResult(data, appException);
         }
 
         context.ExceptionHandled = true;
@@ -54,8 +60,8 @@ public class ControllerExceptionFilter : IExceptionFilter, IAsyncExceptionFilter
 
 public class InternalServerErrorResult : ObjectResult
 {
-    public InternalServerErrorResult(object value) : base(value)
+    public InternalServerErrorResult(object value, bool appException) : base(value)
     {
-        StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
+        StatusCode = appException ? Microsoft.AspNetCore.Http.StatusCodes.Status200OK : Microsoft.AspNetCore.Http.StatusCodes.Status500InternalServerError;
     }
 }

@@ -452,16 +452,6 @@
         "description": "",
         "enabled": true,
         "childs": []
-      },
-      {
-        "id": 271618651926603,
-        "parentId": 161227167719495,
-        "label": "查询权限",
-        "path": "/api/admin/permission/get",
-        "httpMethods": "get",
-        "description": "",
-        "enabled": true,
-        "childs": []
       }
     ]
   },
@@ -699,15 +689,6 @@
         "httpMethods": "post",
         "description": "",
         "enabled": true,
-        "childs": []
-      },
-      {
-        "id": 271618651926605,
-        "parentId": 161227167719497,
-        "label": "查询登录用户信息",
-        "path": "/api/admin/user/get-login-user",
-        "httpMethods": "get",
-        "description": "",
         "childs": []
       },
       {
@@ -1066,16 +1047,6 @@
         "childs": []
       },
       {
-        "id": 271618651926598,
-        "parentId": 161227167723592,
-        "label": "查询文档",
-        "path": "/api/admin/document/get",
-        "httpMethods": "get",
-        "description": "",
-        "enabled": true,
-        "childs": []
-      },
-      {
         "id": 271618651926599,
         "parentId": 161227167723592,
         "label": "新增图片",
@@ -1172,68 +1143,6 @@
         "httpMethods": "delete",
         "description": "",
         "enabled": true,
-        "childs": []
-      }
-    ]
-  },
-  {
-    "id": 174219034701893,
-    "label": "员工管理",
-    "path": "staff",
-    "description": "",
-    "childs": [
-      {
-        "id": 174219034734666,
-        "parentId": 174219034701893,
-        "label": "查询员工",
-        "path": "/api/admin/staff/get",
-        "httpMethods": "get",
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174219034734667,
-        "parentId": 174219034701893,
-        "label": "查询员工列表",
-        "path": "/api/admin/staff/get-page",
-        "httpMethods": "post",
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174219034734668,
-        "parentId": 174219034701893,
-        "label": "新增员工",
-        "path": "/api/admin/staff/add",
-        "httpMethods": "post",
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174219034734669,
-        "parentId": 174219034701893,
-        "label": "修改员工",
-        "path": "/api/admin/staff/update",
-        "httpMethods": "put",
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174219034734670,
-        "parentId": 174219034701893,
-        "label": "删除员工",
-        "path": "/api/admin/staff/soft-delete",
-        "httpMethods": "delete",
-        "description": "",
-        "childs": []
-      },
-      {
-        "id": 174219034734671,
-        "parentId": 174219034701893,
-        "label": "批量删除员工",
-        "path": "/api/admin/staff/batch-soft-delete",
-        "httpMethods": "put",
-        "description": "",
         "childs": []
       }
     ]
