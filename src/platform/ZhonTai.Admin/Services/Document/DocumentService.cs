@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Document;
 using ZhonTai.Admin.Domain.DocumentImage;
 using ZhonTai.Admin.Services.Document.Dto;
@@ -13,7 +12,6 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using System.Collections.Generic;
-using MySqlX.XDevAPI.Common;
 
 namespace ZhonTai.Admin.Services.Document;
 
