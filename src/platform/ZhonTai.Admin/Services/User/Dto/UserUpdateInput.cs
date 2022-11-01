@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Core.Validators;
 using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
@@ -12,6 +13,8 @@ public partial class UserUpdateInput
     /// <summary>
     /// 主键Id
     /// </summary>
+    [Required]
+    [ValidateRequired("请选择用户")]
     public long Id { get; set; }
 
     /// <summary>

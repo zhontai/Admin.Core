@@ -27,25 +27,23 @@ public class UploadHelper
     /// <param name="args"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<IResultOutput<FileInfo>> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
-    {
-        var res = new ResultOutput<FileInfo>();
-
+    public async Task<FileInfo> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
+    { 
         if (file == null || file.Length < 1)
         {
-            return res.NotOk("请上传文件！");
+            throw ResultOutput.Exception("请上传文件！");
         }
 
         //格式限制
         if (!config.ContentType.Contains(file.ContentType))
         {
-            return res.NotOk("文件格式错误");
+            throw ResultOutput.Exception("文件格式错误");
         }
 
         //大小限制
         if (!(file.Length <= config.MaxSize))
         {
-            return res.NotOk("文件过大");
+            throw ResultOutput.Exception("文件过大");
         }
 
         var fileInfo = new FileInfo(file.FileName, file.Length)
@@ -67,7 +65,7 @@ public class UploadHelper
 
         await SaveAsync(file, fileInfo.FilePath, cancellationToken);
 
-        return res.Ok(fileInfo);
+        return fileInfo;
     }
 
     /// <summary>

@@ -10,19 +10,19 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 /// </summary>
 public interface ITaskService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<TaskGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetPageAsync(PageInput<TaskGetPageDto> input);
+    Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input);
 
-    IResultOutput Add(TaskAddInput input);
+    string Add(TaskAddInput input);
 
-    Task<IResultOutput> UpdateAsync(TaskUpdateInput input);
+    Task UpdateAsync(TaskUpdateInput input);
 
-    IResultOutput Pause(string id);
+    void Pause(string id);
 
-    IResultOutput Resume(string id);
+    void Resume(string id);
 
-    IResultOutput Run(string id);
+    void Run(string id);
 
-    IResultOutput Delete(string id);
+    void Delete(string id);
 }

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZhonTai.Admin.Services.View.Dto;
 
 namespace ZhonTai.Admin.Services.View;
@@ -9,19 +9,19 @@ namespace ZhonTai.Admin.Services.View;
 /// </summary>
 public interface IViewService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<ViewGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetListAsync(string key);
+    Task<List<ViewListOutput>> GetListAsync(string key);
 
-    Task<IResultOutput> AddAsync(ViewAddInput input);
+    Task<long> AddAsync(ViewAddInput input);
 
-    Task<IResultOutput> UpdateAsync(ViewUpdateInput input);
+    Task UpdateAsync(ViewUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task BatchSoftDeleteAsync(long[] ids);
 
-    Task<IResultOutput> SyncAsync(ViewSyncInput input);
+    Task SyncAsync(ViewSyncInput input);
 }

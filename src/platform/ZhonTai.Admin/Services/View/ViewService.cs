@@ -29,10 +29,10 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<ViewGetOutput> GetAsync(long id)
     {
         var result = await _viewRepository.GetAsync<ViewGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetListAsync(string key)
+    public async Task<List<ViewListOutput>> GetListAsync(string key)
     {
         var data = await _viewRepository
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
@@ -48,7 +48,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             .OrderBy(a => a.Sort)
             .ToListAsync<ViewListOutput>();
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -56,12 +56,12 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(ViewAddInput input)
+    public async Task<long> AddAsync(ViewAddInput input)
     {
         var entity = Mapper.Map<ViewEntity>(input);
-        var id = (await _viewRepository.InsertAsync(entity)).Id;
+        await _viewRepository.InsertAsync(entity);
 
-        return ResultOutput.Result(id > 0);
+        return entity.Id;
     }
 
     /// <summary>
@@ -69,22 +69,16 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(ViewUpdateInput input)
+    public async Task UpdateAsync(ViewUpdateInput input)
     {
-        if (!(input?.Id > 0))
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _viewRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("视图不存在！");
+            throw ResultOutput.Exception("视图不存在！");
         }
 
         Mapper.Map(input, entity);
         await _viewRepository.UpdateAsync(entity);
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -92,15 +86,9 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public async Task DeleteAsync(long id)
     {
-        var result = false;
-        if (id > 0)
-        {
-            result = (await _viewRepository.DeleteAsync(m => m.Id == id)) > 0;
-        }
-
-        return ResultOutput.Result(result);
+        await _viewRepository.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -108,11 +96,9 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public async Task SoftDeleteAsync(long id)
     {
-        var result = await _viewRepository.SoftDeleteAsync(id);
-
-        return ResultOutput.Result(result);
+        await _viewRepository.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -121,11 +107,9 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
 
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        var result = await _viewRepository.SoftDeleteAsync(ids);
-
-        return ResultOutput.Result(result);
+        await _viewRepository.SoftDeleteAsync(ids);
     }
 
     /// <summary>
@@ -134,7 +118,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> SyncAsync(ViewSyncInput input)
+    public virtual async Task SyncAsync(ViewSyncInput input)
     {
         //查询所有视图
         var views = await _viewRepository.Select.ToListAsync();
@@ -206,8 +190,5 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             .UpdateColumns(a => new { a.Label, a.Name, a.Path, a.Enabled, a.Description })
             .ExecuteAffrowsAsync();
         }
-        
-
-        return ResultOutput.Ok();
     }
 }

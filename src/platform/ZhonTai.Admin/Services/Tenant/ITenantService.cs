@@ -10,17 +10,17 @@ namespace ZhonTai.Admin.Services.Tenant;
 /// </summary>
 public interface ITenantService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<TenantGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input);
+    Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(TenantAddInput input);
+    Task<long> AddAsync(TenantAddInput input);
 
-    Task<IResultOutput> UpdateAsync(TenantUpdateInput input);
+    Task UpdateAsync(TenantUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task BatchSoftDeleteAsync(long[] ids);
 }

@@ -3733,13 +3733,6 @@
             文档服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Document.DocumentService.GetAsync(System.Int64)">
-            <summary>
-            查询文档
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Admin.Services.Document.DocumentService.GetGroupAsync(System.Int64)">
             <summary>
             查询分组
@@ -4719,13 +4712,6 @@
             清除权限下关联的用户权限缓存
             </summary>
             <param name="permissionIds"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetAsync(System.Int64)">
-            <summary>
-            查询权限
-            </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetGroupAsync(System.Int64)">

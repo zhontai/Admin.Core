@@ -298,24 +298,19 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var userClaims = jwtSecurityToken?.Claims?.ToArray();
         if (userClaims == null || userClaims.Length == 0)
         {
-            return ResultOutput.NotOk();
+            throw ResultOutput.Exception("无法解析token");
         }
 
         var refreshExpires = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
-        if (refreshExpires.IsNull())
+        if (refreshExpires.IsNull() || refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
         {
-            return ResultOutput.NotOk();
-        }
-
-        if (refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
-        {
-            return ResultOutput.NotOk("登录信息已过期");
+            throw ResultOutput.Exception("登录信息已过期");
         }
 
         var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
         if (userId.IsNull())
         {
-            return ResultOutput.NotOk("登录信息已失效");
+            throw ResultOutput.Exception("登录信息已失效");
         }
 
         //验签
@@ -324,11 +319,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
         if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
         {
-            return ResultOutput.NotOk("验签失败");
+            throw ResultOutput.Exception("验签失败");
         }
 
         var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
-        string newToken = GetToken(output?.Data);
+        string newToken = GetToken(output);
         return new { token = newToken };
     }
 

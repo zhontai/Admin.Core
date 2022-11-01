@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -12,12 +12,12 @@ public interface ICacheService
     /// 缓存列表
     /// </summary>
     /// <returns></returns>
-    IResultOutput GetList();
+    List<dynamic> GetList();
 
     /// <summary>
     /// 清除缓存
     /// </summary>
     /// <param name="cacheKey"></param>
     /// <returns></returns>
-    Task<IResultOutput> ClearAsync(string cacheKey);
+    Task ClearAsync(string cacheKey);
 }

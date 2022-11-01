@@ -22,11 +22,11 @@ public interface IApiService
 
     Task UpdateAsync(ApiUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task BatchSoftDeleteAsync(long[] ids);
 
-    Task<IResultOutput> SyncAsync(ApiSyncInput input);
+    Task SyncAsync(ApiSyncInput input);
 }

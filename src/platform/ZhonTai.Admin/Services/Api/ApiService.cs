@@ -113,15 +113,9 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public async Task DeleteAsync(long id)
     {
-        var result = false;
-        if (id > 0)
-        {
-            result = (await _apiRepository.DeleteAsync(m => m.Id == id)) > 0;
-        }
-
-        return ResultOutput.Result(result);
+        await _apiRepository.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -130,10 +124,9 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public async Task SoftDeleteAsync(long id)
     {
-        var result = await _apiRepository.SoftDeleteAsync(id);
-        return ResultOutput.Result(result);
+        await _apiRepository.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -141,11 +134,9 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        var result = await _apiRepository.SoftDeleteAsync(ids);
-
-        return ResultOutput.Result(result);
+        await _apiRepository.SoftDeleteAsync(ids);
     }
 
     /// <summary>
@@ -154,7 +145,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> SyncAsync(ApiSyncInput input)
+    public virtual async Task SyncAsync(ApiSyncInput input)
     {
         //查询所有api
         var apis = await _apiRepository.Select.ToListAsync();
@@ -260,7 +251,5 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         await _apiRepository.UpdateDiy.SetSource(apis)
         .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled })
         .ExecuteAffrowsAsync();
-
-        return ResultOutput.Ok();
     }
 }

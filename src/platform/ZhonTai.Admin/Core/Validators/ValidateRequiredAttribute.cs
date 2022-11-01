@@ -25,6 +25,7 @@ namespace ZhonTai.Admin.Core.Validators
                 Guid guid => guid != Guid.Empty,
                 long longValue => longValue > 0,
                 int intValue => intValue > 0,
+                string strValue => strValue.NotNull(),
                 _ => true
             };
 

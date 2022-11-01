@@ -28,10 +28,10 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<DictionaryGetOutput> GetAsync(long id)
     {
         var result = await _dictionaryRepository.GetAsync<DictionaryGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryGetPageDto> input)
+    public async Task<PageOutput<DictionaryListOutput>> GetPageAsync(PageInput<DictionaryGetPageDto> input)
     {
         var key = input.Filter?.Name;
         var dictionaryTypeId = input.Filter?.DictionaryTypeId;
@@ -59,7 +59,7 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -67,11 +67,11 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(DictionaryAddInput input)
+    public async Task<long> AddAsync(DictionaryAddInput input)
     {
         var dictionary = Mapper.Map<DictionaryEntity>(input);
-        var id = (await _dictionaryRepository.InsertAsync(dictionary)).Id;
-        return ResultOutput.Result(id > 0);
+        await _dictionaryRepository.InsertAsync(dictionary);
+        return dictionary.Id;
     }
 
     /// <summary>
@@ -79,22 +79,16 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(DictionaryUpdateInput input)
+    public async Task UpdateAsync(DictionaryUpdateInput input)
     {
-        if (!(input?.Id > 0))
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _dictionaryRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("数据字典不存在！");
+            throw ResultOutput.Exception("数据字典不存在");
         }
 
         Mapper.Map(input, entity);
         await _dictionaryRepository.UpdateAsync(entity);
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -102,15 +96,9 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> DeleteAsync(long id)
+    public async Task DeleteAsync(long id)
     {
-        var result = false;
-        if (id > 0)
-        {
-            result = (await _dictionaryRepository.DeleteAsync(m => m.Id == id)) > 0;
-        }
-
-        return ResultOutput.Result(result);
+        await _dictionaryRepository.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -118,11 +106,9 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> SoftDeleteAsync(long id)
+    public async Task SoftDeleteAsync(long id)
     {
-        var result = await _dictionaryRepository.SoftDeleteAsync(id);
-
-        return ResultOutput.Result(result);
+        await _dictionaryRepository.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -130,10 +116,8 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        var result = await _dictionaryRepository.SoftDeleteAsync(ids);
-
-        return ResultOutput.Result(result);
+        await _dictionaryRepository.SoftDeleteAsync(ids);
     }
 }

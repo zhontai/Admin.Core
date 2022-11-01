@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
@@ -29,9 +28,9 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
     /// 查询列表
     /// </summary>
     /// <returns></returns>
-    public IResultOutput GetList()
+    public List<dynamic> GetList()
     {
-        var list = new List<object>();
+        var list = new List<dynamic>();
 
         var appConfig = LazyGetRequiredService<AppConfig>();
         Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
@@ -58,7 +57,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
             }
         }
 
-        return ResultOutput.Ok(list);
+        return list;
     }
 
     /// <summary>
@@ -66,10 +65,9 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
     /// </summary>
     /// <param name="cacheKey">缓存键</param>
     /// <returns></returns>
-    public async Task<IResultOutput> ClearAsync(string cacheKey)
+    public async Task ClearAsync(string cacheKey)
     {
         Logger.LogWarning($"{User.Id}.{User.UserName}清除缓存[{cacheKey}]");
         await Cache.DelByPatternAsync(cacheKey + "*");
-        return ResultOutput.Ok();
     }
 }
