@@ -14,7 +14,7 @@
     "HttpStatusCode": 429,
     "QuotaExceededResponse": {
       "Content": "{{\"code\":429,\"msg\":\"访问过于频繁！\"}}",
-      "ContentType": "application/json",
+      "ContentType": "application/json; charset=utf-8",
       "StatusCode": 429
     },
     "GeneralRules": [
