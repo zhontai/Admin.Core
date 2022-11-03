@@ -22,4 +22,9 @@ public class TaskSchedulerOptions
     /// 任务处理器
     /// </summary>
     public ITaskHandler TaskHandler{ get; set; } = null;
+
+    /// <summary>
+    /// 自定义任务处理器
+    /// </summary>
+    public ITaskIntervalCustomHandler CustomTaskHandler { get; set; } = null; 
 }

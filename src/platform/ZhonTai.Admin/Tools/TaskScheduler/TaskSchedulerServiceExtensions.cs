@@ -57,10 +57,15 @@ public static class TaskSchedulerServiceExtensions
             freeSql.CodeFirst.SyncStructure<TaskLog>();
         }
 
-        if(options.TaskHandler != null)
+        if (options.TaskHandler != null && options.CustomTaskHandler == null)
         {
             //开启任务
             var scheduler = new Scheduler(options.TaskHandler);
+            services.AddSingleton(scheduler);
+        } else if  (options.TaskHandler != null && options.CustomTaskHandler != null)
+        {
+            //开启自定义任务
+            var scheduler = new Scheduler(options.TaskHandler, options.CustomTaskHandler);
             services.AddSingleton(scheduler);
         }
     }
