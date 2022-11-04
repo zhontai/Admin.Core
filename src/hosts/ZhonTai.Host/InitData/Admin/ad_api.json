@@ -720,6 +720,26 @@
         "description": "",
         "enabled": true,
         "childs": []
+      },
+      {
+        "id": 349749396615237,
+        "parentId": 161227167719497,
+        "label": "重置密码",
+        "path": "/api/admin/user/reset-password",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 349749396619333,
+        "parentId": 161227167719497,
+        "label": "设置主管",
+        "path": "/api/admin/user/set-manager",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
       }
     ]
   },

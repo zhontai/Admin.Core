@@ -191,6 +191,28 @@
                 "sort": 5,
                 "description": "",
                 "childs": []
+              },
+              {
+                "id": 349749511946309,
+                "parentId": 161227168636998,
+                "label": "重置密码",
+                "code": "api:admin:user:reset-password",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
+              },
+              {
+                "id": 349749778899013,
+                "parentId": 161227168636998,
+                "label": "设置主管",
+                "code": "api:admin:user:set-manager",
+                "type": 3,
+                "enabled": true,
+                "sort": 0,
+                "description": "",
+                "childs": []
               }
             ]
           },
