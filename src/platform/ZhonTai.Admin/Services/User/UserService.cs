@@ -73,6 +73,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
             a.Roles,
             a.Orgs,
             a.OrgId,
+            a.ManagerUserId,
+            ManagerUserName = a.ManagerUser.Name,
             Staff = new
             {
                 a.Staff.JobNumber,
@@ -103,7 +105,20 @@ public class UserService : BaseService, IUserService, IDynamicApi
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync(a=>new UserGetPageOutput { Roles = a.Roles });
+        .ToListAsync(a => new UserGetPageOutput { Roles = a.Roles });
+
+        if(orgId.HasValue && orgId > 0)
+        {
+            var managerUserIds = await _userOrgRepository.Select.Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
+            if (managerUserIds.Any())
+            {
+                var managerUsers = list.Where(a => managerUserIds.Contains(a.Id));
+                foreach (var managerUser in managerUsers)
+                {
+                    managerUser.IsManager = true;
+                }
+            }
+        }
 
         var data = new PageOutput<UserGetPageOutput>()
         {
@@ -346,6 +361,11 @@ public class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("用户不存在");
         }
 
+        if (input.Id == input.ManagerUserId)
+        {
+            throw ResultOutput.Exception("直属主管不能是自己");
+        }
+
         if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
         {
             throw ResultOutput.Exception($"账号已存在");
@@ -434,10 +454,42 @@ public class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("旧密码不正确");
         }
 
-        input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
-
-        entity = Mapper.Map(input, entity);
+        entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
         await _userRepository.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 重置密码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<string> ResetPasswordAsync(UserResetPasswordInput input)
+    {
+        var entity = await _userRepository.GetAsync(input.Id);
+        var password = input.Password;
+        if (password.IsNull())
+        {
+            password = _appConfig.DefaultPassword;
+        }
+        if (password.IsNull())
+        {
+            password = "111111";
+        }
+        entity.Password = MD5Encrypt.Encrypt32(password);
+        await _userRepository.UpdateAsync(entity);
+        return password;
+    }
+
+    /// <summary>
+    /// 设置主管
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetManagerAsync(UserSetManagerInput input)
+    {
+        var entity = await _userOrgRepository.Where(a => a.UserId == input.UserId && a.OrgId == input.OrgId).FirstAsync();
+        entity.IsManager = input.IsManager;
+        await _userOrgRepository.UpdateAsync(entity);
     }
 
     /// <summary>

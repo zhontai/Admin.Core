@@ -36,6 +36,10 @@ public interface IUserService
 
     Task ChangePasswordAsync(UserChangePasswordInput input);
 
+    Task<string> ResetPasswordAsync(UserResetPasswordInput input);
+
+    Task SetManagerAsync(UserSetManagerInput input);
+
     Task UpdateBasicAsync(UserUpdateBasicInput input);
 
     Task<UserUpdateBasicInput> GetBasicAsync();

@@ -25,9 +25,4 @@ public class UserChangePasswordInput : Entity
     /// </summary>
     [Required(ErrorMessage = "请输入确认新密码")]
     public string ConfirmPassword { get; set; }
-
-    /// <summary>
-    /// 密码
-    /// </summary>
-    public string Password { get; set; }
 }

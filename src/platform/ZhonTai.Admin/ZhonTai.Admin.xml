@@ -2579,6 +2579,11 @@
             部门
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.UserOrg.UserOrgEntity.IsManager">
+            <summary>
+            是否主管
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.UserRole.UserRoleEntity">
             <summary>
             用户角色
@@ -5486,6 +5491,16 @@
             主属部门Id
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.ManagerUserId">
+            <summary>
+            直属主管Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.ManagerUserName">
+            <summary>
+            直属主管姓名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
             <summary>
             状态
@@ -5514,11 +5529,6 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput.ConfirmPassword">
             <summary>
             确认新密码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput.Password">
-            <summary>
-            密码
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
@@ -5556,9 +5566,44 @@
             角色
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.IsManager">
+            <summary>
+            是否主管
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.CreatedTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput">
+            <summary>
+            重置密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserSetManagerInput">
+            <summary>
+            设置主管
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserSetManagerInput.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserSetManagerInput.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserSetManagerInput.IsManager">
+            <summary>
+            是否主管
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput">
@@ -5639,6 +5684,16 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgId">
             <summary>
             主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.ManagerUserId">
+            <summary>
+            直属主管Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.ManagerUserName">
+            <summary>
+            直属主管姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Status">
@@ -5724,6 +5779,20 @@
         <member name="M:ZhonTai.Admin.Services.User.UserService.ChangePasswordAsync(ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput)">
             <summary>
             修改用户密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.ResetPasswordAsync(ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.SetManagerAsync(ZhonTai.Admin.Services.User.Dto.UserSetManagerInput)">
+            <summary>
+            设置主管
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -6255,6 +6324,11 @@
         <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.TaskHandler">
             <summary>
             任务处理器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.CustomTaskHandler">
+            <summary>
+            自定义任务处理器
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.AddTaskScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions})">

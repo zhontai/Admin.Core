@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Domain.UserOrg;
 /// </summary>
 [Table(Name = "ad_user_org")]
 [Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(OrgId), true)]
-public partial class UserOrgEntity : EntityAdd
+public partial class UserOrgEntity : EntityUpdate
 {
     /// <summary>
     /// 用户Id
@@ -31,4 +31,9 @@ public partial class UserOrgEntity : EntityAdd
     /// 部门
     /// </summary>
     public OrgEntity Org { get; set; }
+
+    /// <summary>
+    /// 是否主管
+    /// </summary>
+    public bool IsManager { get; set; } = false;
 }

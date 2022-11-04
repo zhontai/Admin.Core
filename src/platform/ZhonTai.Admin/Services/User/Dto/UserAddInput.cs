@@ -56,6 +56,16 @@ public class UserAddInput
     public long OrgId { get; set; }
 
     /// <summary>
+    /// 直属主管Id
+    /// </summary>
+    public long? ManagerUserId { get; set; }
+
+    /// <summary>
+    /// 直属主管姓名
+    /// </summary>
+    public string ManagerUserName { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     public UserStatus Status { get; set; }

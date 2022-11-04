@@ -44,6 +44,11 @@ public class UserGetPageOutput
     /// </summary>
     public string[] RoleNames { get; set; }
 
+    /// <summary>
+    /// 是否主管
+    /// </summary>
+    public bool IsManager { get; set; } = false;
+
     [JsonIgnore]
     public ICollection<RoleEntity> Roles { get; set; }
 
