@@ -155,8 +155,9 @@ public class DynamicApiConvention : IApplicationModelConvention
         {
             if (!CheckNoMapMethod(action))
             {
-                var returnType =  action.ActionMethod.GetReturnType();
-                if (returnType == typeof(void)) return;
+                var returnType = action.ActionMethod.GetReturnType();
+
+                if (returnType == typeof(void)) continue;
                 action.Filters.Add(new FormatResultAttribute(returnType));
             }
         }
