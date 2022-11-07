@@ -5,7 +5,7 @@ using System.Data;
 namespace ZhonTai.Admin.Core.Attributes;
 
 /// <summary>
-/// 启用事物
+/// 启用事务
 /// </summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = true)]
 public class TransactionAttribute : Attribute

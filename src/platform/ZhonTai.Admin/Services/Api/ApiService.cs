@@ -85,7 +85,22 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(ApiAddInput input)
     {
-        var entity = Mapper.Map<ApiEntity>(input);
+        var path = input.Path;
+
+        var entity = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+            .Where(w => w.Path.Equals(path) && w.IsDeleted).FirstAsync();
+
+        if (entity?.Id > 0)
+        {
+            Mapper.Map(input, entity);
+            entity.IsDeleted = false;
+            entity.Enabled = true;
+            await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(entity).ExecuteAffrowsAsync();
+
+            return entity.Id;
+        }
+        entity = Mapper.Map<ApiEntity>(input);
+
         await _apiRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -147,8 +162,12 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SyncAsync(ApiSyncInput input)
     {
+        if (input == null) return;
+        if (input.Apis == null) return;
+        if (input.Apis.Count == 0) return;
+
         //查询所有api
-        var apis = await _apiRepository.Select.ToListAsync();
+        var apis = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete).ToListAsync();
         var paths = apis.Select(a => a.Path).ToList();
 
         //path处理
@@ -202,6 +221,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
                     a.Label = label;
                     a.Description = desc;
                     a.Enabled = true;
+                    a.IsDeleted = false;
                 }
             }
         }
@@ -228,6 +248,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
                     a.Description = desc;
                     a.HttpMethods = api.HttpMethods;
                     a.Enabled = true;
+                    a.IsDeleted = false;
                 }
             }
         }
@@ -248,8 +269,8 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         #endregion 修改和禁用
 
         //批量更新
-        await _apiRepository.UpdateDiy.SetSource(apis)
-        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled })
+        await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
+        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled, a.IsDeleted })
         .ExecuteAffrowsAsync();
     }
 }

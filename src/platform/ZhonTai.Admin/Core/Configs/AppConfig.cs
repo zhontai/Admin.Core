@@ -176,7 +176,7 @@ public class IdentityServer
 public class AopConfig
 {
     /// <summary>
-    /// 事物
+    /// 事务
     /// </summary>
     public bool Transaction { get; set; } = true;
 }
