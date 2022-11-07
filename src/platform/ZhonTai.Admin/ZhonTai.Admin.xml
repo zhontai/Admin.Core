@@ -6,7 +6,7 @@
     <members>
         <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
             <summary>
-            启用权限库事物
+            启用权限库事务
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.LoginAttribute">
@@ -31,7 +31,7 @@
         </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.TransactionAttribute">
             <summary>
-            启用事物
+            启用事务
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Attributes.TransactionAttribute.Propagation">
@@ -433,7 +433,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AopConfig.Transaction">
             <summary>
-            事物
+            事务
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.LogConfig">
