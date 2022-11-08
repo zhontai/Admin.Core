@@ -50,6 +50,7 @@ using FreeSql;
 using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.DynamicApi.Attributes;
 
 namespace ZhonTai.Admin.Core;
 
@@ -313,7 +314,35 @@ public class HostApp
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
                 //options.CustomSchemaIds(x => x.FullName);
-                //options.DocInclusionPredicate((docName, description) => true);
+
+                //支持多分组
+                options.DocInclusionPredicate((docName, apiDescription) =>
+                {
+                    var nonGroup = false;
+                    var groupNames = new List<string>();
+                    var dynamicApiAttribute = apiDescription.ActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is DynamicApiAttribute);
+                    if (dynamicApiAttribute != null)
+                    {
+                        var dynamicApi = dynamicApiAttribute as DynamicApiAttribute;
+                        if(dynamicApi.GroupNames?.Length > 0)
+                        {
+                            groupNames.AddRange(dynamicApi.GroupNames);
+                        }
+                    }
+
+                    var apiGroupAttribute = apiDescription.ActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is ApiGroupAttribute);
+                    if (apiGroupAttribute != null)
+                    {
+                        var apiGroup = apiGroupAttribute as ApiGroupAttribute;
+                        if (apiGroup.GroupNames?.Length > 0)
+                        {
+                            groupNames.AddRange(apiGroup.GroupNames);
+                        }
+                        nonGroup = apiGroup.NonGroup;
+                    }
+
+                    return docName == apiDescription.GroupName || groupNames.Any(a => a == docName) || nonGroup;
+                });
 
                 string[] xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
                 if (xmlFiles.Length > 0)

@@ -9,6 +9,16 @@
             启用权限库事务
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.ApiGroupAttribute">
+            <summary>
+            接口分组
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.ApiGroupAttribute.GroupNames">
+            <summary>
+            分组名称列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.LoginAttribute">
             <summary>
             启用登录

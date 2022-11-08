@@ -13,6 +13,11 @@ public class DynamicApiAttribute : Attribute
     /// </summary>
     public string Area { get; set; }
 
+    /// <summary>
+    /// 分组名称列表
+    /// </summary>
+    public string[] GroupNames { get; set; }
+
     internal static bool IsExplicitlyEnabledFor(Type type)
     {
         var remoteServiceAttr = type.GetTypeInfo().GetSingleAttributeOrNull<DynamicApiAttribute>();
