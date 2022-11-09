@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <Version>2.3.3</Version>
-	<TargetFramework>net6.0</TargetFramework>
+    <Version>3.0.0</Version>
+	<TargetFramework>net7.0</TargetFramework>
 	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<Authors>xiaoxue</Authors>
