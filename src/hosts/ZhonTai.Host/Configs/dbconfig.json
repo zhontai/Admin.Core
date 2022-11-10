@@ -64,11 +64,11 @@
   //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
   "dbs": [
     //{
-    //  "key": "admindb",
+    //  "key": "appdb",
     //  "type": "Sqlite",
-    //  "syncStructure": true,
-    //  "syncData": true,
-    //  "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "syncStructure": false,
+    //  "syncData": false,
+    //  "connectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1",
     //  "providerType": ""
     //}
   ]

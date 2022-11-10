@@ -74,27 +74,24 @@ public class HostApp
         //使用NLog日志
         builder.Host.UseNLog();
 
-        //添加配置
-        builder.Host.ConfigureAppConfiguration((context, builder) =>
-        {
-            builder.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
-            if (context.HostingEnvironment.EnvironmentName.NotNull())
-            {
-                builder.AddJsonFile($"./Configs/ratelimitconfig.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-            }
-            builder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            if (context.HostingEnvironment.EnvironmentName.NotNull())
-            {
-                builder.AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
-            }
-        });
-
         var services = builder.Services;
         var env = builder.Environment;
         var configuration = builder.Configuration;
 
         var configHelper = new ConfigHelper();
         var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
+
+        //添加配置
+        builder.Configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+        if (env.EnvironmentName.NotNull())
+        {
+            builder.Configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+        }
+        builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+        if (env.EnvironmentName.NotNull())
+        {
+            builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+        }
 
         //应用配置
         services.AddSingleton(appConfig);
@@ -629,10 +626,7 @@ public class HostApp
         });
 
         //配置端点
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+        app.MapControllers();
 
         _hostAppOptions?.ConfigureMiddleware?.Invoke(hostAppMiddlewareContext);
 
