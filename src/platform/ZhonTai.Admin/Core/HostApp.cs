@@ -613,17 +613,20 @@ public class HostApp
         app.UseAuthorization();
 
         //登录用户初始化数据权限
-        app.Use(async (ctx, next) =>
+        if (appConfig.Validate.Permission)
         {
-            var user = ctx.RequestServices.GetRequiredService<IUser>();
-            if (user?.Id > 0)
+            app.Use(async (ctx, next) =>
             {
-                var userService = ctx.RequestServices.GetRequiredService<IUserService>();
-                await userService.GetDataPermissionAsync();
-            }
+                var user = ctx.RequestServices.GetRequiredService<IUser>();
+                if (user?.Id > 0)
+                {
+                    var userService = ctx.RequestServices.GetRequiredService<IUserService>();
+                    await userService.GetDataPermissionAsync();
+                }
 
-            await next();
-        });
+                await next();
+            });
+        }
 
         //配置端点
         app.MapControllers();
