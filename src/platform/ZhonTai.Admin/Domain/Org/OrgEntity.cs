@@ -44,12 +44,6 @@ public partial class OrgEntity : EntityTenant
     public int MemberCount { get; set; }
 
     /// <summary>
-    /// 描述
-    /// </summary>
-    [Column(StringLength = 500)]
-    public string Description { get; set; }
-
-    /// <summary>
     /// 启用
     /// </summary>
 	public bool Enabled { get; set; } = true;
@@ -58,6 +52,12 @@ public partial class OrgEntity : EntityTenant
     /// 排序
     /// </summary>
 	public int Sort { get; set; }
+
+    /// <summary>
+    /// 描述
+    /// </summary>
+    [Column(StringLength = 500)]
+    public string Description { get; set; }
 
     /// <summary>
     /// 员工列表

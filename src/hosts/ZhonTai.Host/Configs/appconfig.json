@@ -4,7 +4,7 @@
   //Api地址
   "urls": [ "http://*:8000" ],
   //跨域地址
-  "corUrls": [ "http://localhost:9000", "http://127.0.0.1:9000" ],
+  "corUrls": [ ],
   //程序集名称
   "assemblyNames": [ "ZhonTai.Admin" ],
   //租户
@@ -30,7 +30,7 @@
       {
         "name": "中台Admin",
         "code": "admin",
-        "version": "v2.3.3",
+        "version": "v3.0.0",
         "description": ""
       }
     ]
@@ -53,8 +53,8 @@
   "identityServer": {
     //启用
     "enable": false,
-    //地址，开发认证地址前往appconfig.Development.json修改
-    "url": "https://login.zhontai.net"
+    //认证地址
+    "url": "https://localhost:5000"
   },
   //面向切面编程
   "aop": {

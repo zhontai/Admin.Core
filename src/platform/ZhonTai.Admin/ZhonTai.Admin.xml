@@ -2105,11 +2105,6 @@
             成员数
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Enabled">
             <summary>
             启用
@@ -2118,6 +2113,11 @@
         <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Description">
+            <summary>
+            描述
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Org.OrgEntity.Staffs">
@@ -4360,24 +4360,19 @@
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.PrimaryUserId">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Enabled">
             <summary>
-            主管
+            启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.StaffCount">
+        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Sort">
             <summary>
-            员工人数
+            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Description">
             <summary>
             描述
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Org.Input.OrgAddInput.Enabled">
-            <summary>
-            启用
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Org.Input.OrgUpdateInput">

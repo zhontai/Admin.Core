@@ -26,22 +26,17 @@ public class OrgAddInput
     public string Value { get; set; }
 
     /// <summary>
-    /// 主管
+    /// 启用
     /// </summary>
-    public long? PrimaryUserId { get; set; }
+    public bool Enabled { get; set; } = true;
 
     /// <summary>
-    /// 员工人数
+    /// 排序
     /// </summary>
-    public int StaffCount { get; set; }
+	public int Sort { get; set; }
 
     /// <summary>
     /// 描述
     /// </summary>
     public string Description { get; set; }
-
-    /// <summary>
-    /// 启用
-    /// </summary>
-	public bool Enabled { get; set; }
 }
