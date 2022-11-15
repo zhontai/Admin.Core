@@ -18,7 +18,7 @@ public interface IAuthService
 
     Task<CaptchaOutput> GetCaptcha();
 
-    Task<bool> CheckCaptcha(CaptchaInput input);
+    Task CheckCaptcha(CaptchaInput input);
 
     Task<dynamic> Refresh([BindRequired] string token);
 
