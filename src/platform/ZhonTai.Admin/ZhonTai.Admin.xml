@@ -4457,14 +4457,19 @@
             值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Enabled">
             <summary>
             启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.Description">
+            <summary>
+            描述
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Org.Output.OrgListOutput.CreatedTime">

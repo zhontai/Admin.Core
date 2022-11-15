@@ -71,11 +71,18 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
             throw ResultOutput.Exception($"此部门编码已存在");
         }
 
-        var dictionary = Mapper.Map<OrgEntity>(input);
-        await _orgRepository.InsertAsync(dictionary);
+        var entity = Mapper.Map<OrgEntity>(input);
+
+        if (entity.Sort == 0)
+        {
+            var sort = await _orgRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
+
+        await _orgRepository.InsertAsync(entity);
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
 
-        return dictionary.Id;
+        return entity.Id;
     }
 
     /// <summary>
