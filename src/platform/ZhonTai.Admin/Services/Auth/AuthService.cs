@@ -348,10 +348,13 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [AllowAnonymous]
     [NoOprationLog]
     [EnableCors(AdminConsts.AllowAnyPolicyName)]
-    public async Task<bool> CheckCaptcha([FromQuery] CaptchaInput input)
+    public async Task CheckCaptcha([FromQuery] CaptchaInput input)
     {
         input.CaptchaKey = CacheKeys.Captcha;
-        var result = await _captchaTool.CheckAsync(input);
-        return result;
+        var check = await _captchaTool.CheckAsync(input);
+        if (!check)
+        {
+            throw ResultOutput.Exception("安全验证不通过");
+        }
     }
 }
