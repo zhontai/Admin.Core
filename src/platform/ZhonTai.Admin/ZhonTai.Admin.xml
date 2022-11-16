@@ -801,6 +801,11 @@
             数据权限
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Member">
+            <summary>
+            会员
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
             <summary>
             Api分组约定
@@ -1247,6 +1252,11 @@
         <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.CreatedTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.ModifiedTime">
+            <summary>
+            修改时间
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.IsDeleted">

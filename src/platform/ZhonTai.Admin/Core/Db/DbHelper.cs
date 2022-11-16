@@ -466,8 +466,11 @@ public class DbHelper
             //租户过滤器
             if (appConfig.Tenant)
             {
-                fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
+                fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
             }
+
+            //会员过滤器
+            fsql.GlobalFilter.ApplyOnly<IMember>(FilterNames.Member, a => a.MemberId == user.MemberId);
 
             //数据权限过滤器
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,

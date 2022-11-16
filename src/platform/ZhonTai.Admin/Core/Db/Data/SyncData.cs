@@ -7,6 +7,7 @@ using FreeSql;
 using FreeSql.DataAnnotations;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
@@ -56,7 +57,7 @@ public abstract class SyncData
 
         try
         {
-            if (await db.Queryable<T>().AnyAsync())
+            if (await db.Queryable<T>().DisableGlobalFilter(FilterNames.Tenant, FilterNames.Member).AnyAsync())
             {
                 Console.WriteLine($" table: {tableName} record already exists");
                 return;
