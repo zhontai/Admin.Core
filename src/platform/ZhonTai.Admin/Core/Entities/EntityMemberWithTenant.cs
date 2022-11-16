@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
-/// 实体租户
+/// 实体会员租户
 /// </summary>
-public class EntityTenant<TKey> : EntityBase, ITenant
+public class EntityMemberWithTenant<TKey> : EntityMember, ITenant
 {
     /// <summary>
     /// 租户Id
@@ -19,8 +19,8 @@ public class EntityTenant<TKey> : EntityBase, ITenant
 }
 
 /// <summary>
-/// 实体租户
+/// 实体会员租户
 /// </summary>
-public class EntityTenant : EntityTenant<long>
+public class EntityMemberWithTenant : EntityMemberWithTenant<long>
 {
 }

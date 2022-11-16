@@ -15,6 +15,11 @@ public interface IUser
     long Id { get; }
 
     /// <summary>
+    /// 会员Id
+    /// </summary>
+    long MemberId { get; }
+
+    /// <summary>
     /// 用户名
     /// </summary>
     string UserName { get; }

@@ -84,6 +84,11 @@
             用户Id
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.MemberId">
+            <summary>
+            会员Id
+            </summary>
+        </member>
         <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.UserName">
             <summary>
             用户名
@@ -140,6 +145,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.Id">
             <summary>
             用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.MemberId">
+            <summary>
+            会员Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.UserName">
@@ -218,6 +228,11 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.Id">
             <summary>
             用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.MemberId">
+            <summary>
+            会员Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.UserName">
@@ -1219,6 +1234,46 @@
             实体删除
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityMember`1">
+            <summary>
+            实体会员
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.MemberId">
+            <summary>
+            会员Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityMember`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityMember">
+            <summary>
+            实体会员
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityMemberWithTenant`1">
+            <summary>
+            实体会员租户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityMemberWithTenant`1.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.EntityMemberWithTenant">
+            <summary>
+            实体会员租户
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Entities.EntityTenant`1">
             <summary>
             实体租户
@@ -1237,11 +1292,6 @@
         <member name="T:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1">
             <summary>
             实体租户数据权限
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1.TenantId">
-            <summary>
-            租户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityTenantWithData`1.OwnerId">
@@ -1364,6 +1414,16 @@
         <member name="P:ZhonTai.Admin.Core.Entities.IEntityUpdate`1.ModifiedTime">
             <summary>
             修改时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Entities.IMember">
+            <summary>
+            会员接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.IMember.MemberId">
+            <summary>
+            顾客Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Entities.ITenant">

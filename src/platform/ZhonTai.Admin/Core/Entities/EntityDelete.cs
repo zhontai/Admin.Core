@@ -13,7 +13,7 @@ public class EntityDelete<TKey> : EntityUpdate, IDelete
     /// </summary>
     [Description("是否删除")]
     [Column(Position = -9)]
-    public bool IsDeleted { get; set; } = false;
+    public virtual bool IsDeleted { get; set; } = false;
 }
 
 /// <summary>

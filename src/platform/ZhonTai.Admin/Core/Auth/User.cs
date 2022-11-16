@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Tools.Cache;
-using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Domain.Tenant;
 
 namespace ZhonTai.Admin.Core.Auth;
@@ -31,6 +30,22 @@ public class User : IUser
         get
         {
             var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.UserId);
+            if (id != null && id.Value.NotNull())
+            {
+                return id.Value.ToLong();
+            }
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// 会员Id
+    /// </summary>
+    public virtual long MemberId
+    {
+        get
+        {
+            var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.MemberId);
             if (id != null && id.Value.NotNull())
             {
                 return id.Value.ToLong();
