@@ -24,6 +24,13 @@ public class EntityMember<TKey> : Entity<TKey>, IMember, IDelete
     public virtual DateTime? CreatedTime { get; set; }
 
     /// <summary>
+    /// 修改时间
+    /// </summary>
+    [Description("修改时间")]
+    [Column(Position = -10, CanInsert = false, ServerTime = DateTimeKind.Local)]
+    public virtual DateTime? ModifiedTime { get; set; }
+
+    /// <summary>
     /// 是否删除
     /// </summary>
     [Description("是否删除")]
