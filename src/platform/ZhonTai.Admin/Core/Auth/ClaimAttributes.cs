@@ -11,11 +11,6 @@ public static class ClaimAttributes
     public const string UserId = "sub";
 
     /// <summary>
-    /// 会员Id
-    /// </summary>
-    public const string MemberId = "mi";
-
-    /// <summary>
     /// 用户名
     /// </summary>
     public const string UserName = "un";

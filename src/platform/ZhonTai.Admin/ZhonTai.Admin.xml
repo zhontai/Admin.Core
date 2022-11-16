@@ -84,11 +84,6 @@
             用户Id
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.MemberId">
-            <summary>
-            会员Id
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Core.Auth.ClaimAttributes.UserName">
             <summary>
             用户名
@@ -145,11 +140,6 @@
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.Id">
             <summary>
             用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.IUser.MemberId">
-            <summary>
-            会员Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.IUser.UserName">
@@ -228,11 +218,6 @@
         <member name="P:ZhonTai.Admin.Core.Auth.User.Id">
             <summary>
             用户Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Auth.User.MemberId">
-            <summary>
-            会员Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Auth.User.UserName">

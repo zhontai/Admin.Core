@@ -39,22 +39,6 @@ public class User : IUser
     }
 
     /// <summary>
-    /// 会员Id
-    /// </summary>
-    public virtual long MemberId
-    {
-        get
-        {
-            var id = _accessor?.HttpContext?.User?.FindFirst(ClaimAttributes.MemberId);
-            if (id != null && id.Value.NotNull())
-            {
-                return id.Value.ToLong();
-            }
-            return 0;
-        }
-    }
-
-    /// <summary>
     /// 用户名
     /// </summary>
     public string UserName

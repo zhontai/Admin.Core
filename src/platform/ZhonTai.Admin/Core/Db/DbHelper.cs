@@ -167,14 +167,9 @@ public class DbHelper
         {
             switch (e.Property.Name)
             {
-                case "MemberId":
-                    if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
-                    {
-                        e.Value = user.MemberId;
-                    }
-                    break;
-                case "OwnerId":
                 case "CreatedUserId":
+                case "OwnerId":
+                case "MemberId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
                         e.Value = user.Id;
@@ -470,7 +465,7 @@ public class DbHelper
             }
 
             //会员过滤器
-            fsql.GlobalFilter.ApplyOnly<IMember>(FilterNames.Member, a => a.MemberId == user.MemberId);
+            fsql.GlobalFilter.ApplyOnly<IMember>(FilterNames.Member, a => a.MemberId == user.Id);
 
             //数据权限过滤器
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
