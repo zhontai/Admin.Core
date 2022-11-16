@@ -4,9 +4,9 @@ using ZhonTai.Admin.Core.Validators;
 namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
-/// 修改
+/// 修改会员
 /// </summary>
-public partial class UserUpdateInput: UserAddInput
+public class UserUpdateMemberInput: UserAddMemberInput
 {
     /// <summary>
     /// 主键Id

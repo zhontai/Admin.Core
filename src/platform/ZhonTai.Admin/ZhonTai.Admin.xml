@@ -2919,9 +2919,14 @@
             用户类型
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Domain.User.UserType.Member">
+            <summary>
+            会员
+            </summary>
+        </member>
         <member name="F:ZhonTai.Admin.Domain.User.UserType.DefaultUser">
             <summary>
-            默认用户
+            普通用户
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Domain.User.UserType.TenantAdmin">
@@ -5566,6 +5571,16 @@
             直属主管姓名
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
             <summary>
             状态
@@ -5574,6 +5589,51 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Staff">
             <summary>
             员工
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput">
+            <summary>
+            添加会员
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Status">
+            <summary>
+            状态
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput">
@@ -5706,69 +5766,14 @@
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.UserName">
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserUpdateMemberInput">
             <summary>
-            账号
+            修改会员
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Name">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateMemberInput.Id">
             <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Mobile">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Email">
-            <summary>
-            邮箱
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.RoleIds">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Roles">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgIds">
-            <summary>
-            所属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Orgs">
-            <summary>
-            部门列表
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.OrgId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.ManagerUserId">
-            <summary>
-            直属主管Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.ManagerUserName">
-            <summary>
-            直属主管姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Status">
-            <summary>
-            状态
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateInput.Staff">
-            <summary>
-            员工信息
+            主键Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.IUserService">
@@ -5823,6 +5828,20 @@
         <member name="M:ZhonTai.Admin.Services.User.UserService.AddAsync(ZhonTai.Admin.Services.User.Dto.UserAddInput)">
             <summary>
             新增用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.AddMemberAsync(ZhonTai.Admin.Services.User.Dto.UserAddMemberInput)">
+            <summary>
+            新增会员
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.UpdateMemberAsync(ZhonTai.Admin.Services.User.Dto.UserUpdateMemberInput)">
+            <summary>
+            修改会员
             </summary>
             <param name="input"></param>
             <returns></returns>

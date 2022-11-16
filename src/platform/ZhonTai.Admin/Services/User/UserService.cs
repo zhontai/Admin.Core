@@ -100,6 +100,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var orgId = input.Filter;
         var list = await _userRepository.Select
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
+        .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
@@ -313,6 +314,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         input.Password = MD5Encrypt.Encrypt32(input.Password);
 
         var entity = Mapper.Map<UserEntity>(input);
+        entity.Type = UserType.DefaultUser;
         var user = await _userRepository.InsertAsync(entity);
 
         var userId = user.Id;
@@ -345,6 +347,79 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         return userId;
+    }
+
+    /// <summary>
+    /// 新增会员
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public virtual async Task<long> AddMemberAsync(UserAddMemberInput input)
+    {
+        using (_userRepository.DataFilter.DisableAll())
+        {
+            if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Mobile == input.Mobile))
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Email == input.Email))
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
+
+            // 用户信息
+            if (input.Password.IsNull())
+            {
+                input.Password = _appConfig.DefaultPassword;
+            }
+
+            input.Password = MD5Encrypt.Encrypt32(input.Password);
+
+            var entity = Mapper.Map<UserEntity>(input);
+            entity.Type = UserType.Member;
+            var user = await _userRepository.InsertAsync(entity);
+
+            return user.Id;
+        }
+    }
+
+    /// <summary>
+    /// 修改会员
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task UpdateMemberAsync(UserUpdateMemberInput input)
+    {
+        var user = await _userRepository.GetAsync(input.Id);
+        if (!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
+        {
+            throw ResultOutput.Exception($"账号已存在");
+        }
+
+        if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Mobile == input.Mobile))
+        {
+            throw ResultOutput.Exception($"手机号已存在");
+        }
+
+        if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Email == input.Email))
+        {
+            throw ResultOutput.Exception($"邮箱已存在");
+        }
+
+        Mapper.Map(input, user);
+        await _userRepository.UpdateAsync(user);
     }
 
     /// <summary>

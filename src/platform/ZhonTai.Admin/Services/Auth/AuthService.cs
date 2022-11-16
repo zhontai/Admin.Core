@@ -191,7 +191,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
-        using (_userRepository.DataFilter.Disable(FilterNames.Tenant, FilterNames.Self, FilterNames.Data))
+        using (_userRepository.DataFilter.DisableAll())
         {
             var sw = new Stopwatch();
             sw.Start();

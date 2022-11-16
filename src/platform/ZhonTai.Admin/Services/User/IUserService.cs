@@ -24,6 +24,8 @@ public interface IUserService
 
     Task<long> AddAsync(UserAddInput input);
 
+    Task<long> AddMemberAsync(UserAddMemberInput input);
+
     Task UpdateAsync(UserUpdateInput input);
 
     Task DeleteAsync(long id);
