@@ -13,8 +13,8 @@
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
-		<PackageReference Include="CSRedisCore" Version="3.8.669" />
-		<PackageReference Include="Caching.CSRedis" Version="3.8.669" />
+		<PackageReference Include="CSRedisCore" Version="3.8.670" />
+		<PackageReference Include="Caching.CSRedis" Version="3.8.670" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="FreeSql" Version="3.2.682" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.6.3" />

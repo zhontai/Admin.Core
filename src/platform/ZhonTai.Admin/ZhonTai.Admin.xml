@@ -1548,6 +1548,17 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Core.HostApp">
+            <summary>
+            宿主应用
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[])">
+            <summary>
+            运行应用
+            </summary>
+            <param name="args"></param>
+        </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             配置服务
@@ -1730,7 +1741,7 @@
         </member>
         <member name="T:ZhonTai.Admin.Core.Startup.HostAppOptions">
             <summary>
-            HostApp配置
+            宿主应用配置
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreServices">

@@ -54,6 +54,9 @@ using ZhonTai.DynamicApi.Attributes;
 
 namespace ZhonTai.Admin.Core;
 
+/// <summary>
+/// 宿主应用
+/// </summary>
 public class HostApp
 {
     readonly HostAppOptions _hostAppOptions;
@@ -67,6 +70,10 @@ public class HostApp
         _hostAppOptions = hostAppOptions;
     }
 
+    /// <summary>
+    /// 运行应用
+    /// </summary>
+    /// <param name="args"></param>
     public void Run(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -133,6 +140,22 @@ public class HostApp
         ConfigureMiddleware(app, env, configuration, appConfig);
 
         app.Run();
+    }
+
+    /// <summary>
+    /// 实体类型重命名
+    /// </summary>
+    /// <param name="modelType"></param>
+    /// <returns></returns>
+    private string DefaultSchemaIdSelector(Type modelType)
+    {
+        if (!modelType.IsConstructedGenericType) return modelType.Name.Replace("[]", "Array");
+
+        var prefix = modelType.GetGenericArguments()
+            .Select(DefaultSchemaIdSelector)
+            .Aggregate((previous, current) => previous + current);
+
+        return modelType.Name.Split('`').First() + prefix;
     }
 
     /// <summary>
@@ -310,7 +333,7 @@ public class HostApp
                 });
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
-                //options.CustomSchemaIds(x => x.FullName);
+                options.CustomSchemaIds(modelType => DefaultSchemaIdSelector(modelType));
 
                 //支持多分组
                 options.DocInclusionPredicate((docName, apiDescription) =>
