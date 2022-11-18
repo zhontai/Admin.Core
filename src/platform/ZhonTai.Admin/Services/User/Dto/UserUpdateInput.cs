@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.User.Dto;
@@ -6,7 +7,7 @@ namespace ZhonTai.Admin.Services.User.Dto;
 /// <summary>
 /// 修改
 /// </summary>
-public partial class UserUpdateInput: UserAddInput
+public partial class UserUpdateInput: UserFormInput
 {
     /// <summary>
     /// 主键Id

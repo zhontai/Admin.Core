@@ -1559,6 +1559,13 @@
             </summary>
             <param name="args"></param>
         </member>
+        <member name="M:ZhonTai.Admin.Core.HostApp.DefaultSchemaIdSelector(System.Type)">
+            <summary>
+            实体类型重命名
+            </summary>
+            <param name="modelType"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             配置服务
@@ -5532,74 +5539,14 @@
             添加
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Password">
             <summary>
             密码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Mobile">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Email">
-            <summary>
-            邮箱
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.RoleIds">
-            <summary>
-            角色
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.OrgIds">
-            <summary>
-            所属部门
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.OrgId">
-            <summary>
-            主属部门Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.ManagerUserId">
-            <summary>
-            直属主管Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.ManagerUserName">
-            <summary>
-            直属主管姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Avatar">
-            <summary>
-            头像
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
             <summary>
             状态
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Staff">
-            <summary>
-            员工
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput">
@@ -5665,6 +5612,81 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserChangePasswordInput.ConfirmPassword">
             <summary>
             确认新密码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserFormInput">
+            <summary>
+            表单
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.RoleIds">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.OrgIds">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.OrgId">
+            <summary>
+            主属部门Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.ManagerUserId">
+            <summary>
+            直属主管Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.ManagerUserName">
+            <summary>
+            直属主管姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Staff">
+            <summary>
+            员工
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Roles">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Orgs">
+            <summary>
+            部门列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
