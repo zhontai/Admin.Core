@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Services.User.Dto;
 /// <summary>
 /// 修改会员
 /// </summary>
-public class UserUpdateMemberInput: UserAddMemberInput
+public class UserUpdateMemberInput: UserMemberFormInput
 {
     /// <summary>
     /// 主键Id

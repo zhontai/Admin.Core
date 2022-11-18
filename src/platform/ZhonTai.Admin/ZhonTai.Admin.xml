@@ -5554,39 +5554,9 @@
             添加会员
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Password">
             <summary>
             密码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Mobile">
-            <summary>
-            手机号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Email">
-            <summary>
-            邮箱
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Avatar">
-            <summary>
-            头像
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput.Status">
@@ -5616,7 +5586,7 @@
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserFormInput">
             <summary>
-            表单
+            用户表单
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.UserName">
@@ -5742,6 +5712,41 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.CreatedTime">
             <summary>
             创建时间
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput">
+            <summary>
+            会员表单
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Avatar">
+            <summary>
+            头像
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput">

@@ -4,9 +4,9 @@ using ZhonTai.Admin.Domain.User;
 namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
-/// 用户表单
+/// 会员表单
 /// </summary>
-public class UserFormInput
+public class UserMemberFormInput
 {
     /// <summary>
     /// 账号
@@ -17,7 +17,6 @@ public class UserFormInput
     /// <summary>
     /// 姓名
     /// </summary>
-    [Required(ErrorMessage = "请输入姓名")]
     public string Name { get; set; }
 
     /// <summary>
@@ -31,31 +30,6 @@ public class UserFormInput
     public string Email { get; set; }
 
     /// <summary>
-    /// 角色Ids
-    /// </summary>
-    public virtual long[] RoleIds { get; set; }
-
-    /// <summary>
-    /// 所属部门Ids
-    /// </summary>
-    public virtual long[] OrgIds { get; set; }
-
-    /// <summary>
-    /// 主属部门Id
-    /// </summary>
-    public long OrgId { get; set; }
-
-    /// <summary>
-    /// 直属主管Id
-    /// </summary>
-    public long? ManagerUserId { get; set; }
-
-    /// <summary>
-    /// 直属主管姓名
-    /// </summary>
-    public string ManagerUserName { get; set; }
-
-    /// <summary>
     /// 昵称
     /// </summary>
     public string NickName { get; set; }
@@ -64,9 +38,4 @@ public class UserFormInput
     /// 头像
     /// </summary>
     public string Avatar { get; set; }
-
-    /// <summary>
-    /// 员工
-    /// </summary>
-    public StaffAddInput Staff { get; set; }
 }
