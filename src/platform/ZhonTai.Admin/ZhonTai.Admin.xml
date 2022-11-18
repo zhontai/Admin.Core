@@ -5641,12 +5641,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.RoleIds">
             <summary>
-            角色
+            角色Ids
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.OrgIds">
             <summary>
-            所属部门
+            所属部门Ids
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.OrgId">
@@ -5681,12 +5681,22 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Roles">
             <summary>
-            角色
+            角色列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Orgs">
             <summary>
             部门列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.OrgIds">
+            <summary>
+            所属部门Ids
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.RoleIds">
+            <summary>
+            角色Ids
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">

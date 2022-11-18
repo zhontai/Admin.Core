@@ -31,14 +31,14 @@ public class UserFormInput
     public string Email { get; set; }
 
     /// <summary>
-    /// 角色
+    /// 角色Ids
     /// </summary>
-    public long[] RoleIds { get; set; }
+    public virtual long[] RoleIds { get; set; }
 
     /// <summary>
-    /// 所属部门
+    /// 所属部门Ids
     /// </summary>
-    public long[] OrgIds { get; set; }
+    public virtual long[] OrgIds { get; set; }
 
     /// <summary>
     /// 主属部门Id
