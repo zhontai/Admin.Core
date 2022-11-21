@@ -220,7 +220,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户
-        await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+        await _userRepository.Where(a => a.TenantId == id && a.Type != UserType.Member).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除角色
         await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
@@ -238,7 +238,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     public virtual async Task SoftDeleteAsync(long id)
     {
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
+        await _userRepository.SoftDeleteAsync(a => a.TenantId == id && a.Type != UserType.Member, FilterNames.Tenant);
 
         //删除角色
         await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
@@ -256,7 +256,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
+        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member, FilterNames.Tenant);
 
         //删除角色
         await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
