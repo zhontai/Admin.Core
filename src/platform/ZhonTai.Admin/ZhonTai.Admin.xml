@@ -5669,6 +5669,16 @@
             角色Ids
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserGetPageDto">
+            <summary>
+            用户分页查询条件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageDto.OrgId">
+            <summary>
+            部门Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Id">
             <summary>
             主键Id
@@ -5841,7 +5851,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{System.Nullable{System.Int64}})">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.User.Dto.UserGetPageDto})">
             <summary>
             查询分页
             </summary>

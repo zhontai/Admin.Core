@@ -95,9 +95,9 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<long?> input)
+    public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
     {
-        var orgId = input.Filter;
+        var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)

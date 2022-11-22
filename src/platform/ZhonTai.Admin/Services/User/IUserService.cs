@@ -16,7 +16,7 @@ public interface IUserService
 {
     Task<UserGetOutput> GetAsync(long id);
 
-    Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<long?> input);
+    Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input);
 
     Task<AuthLoginOutput> GetLoginUserAsync(long id);
 
