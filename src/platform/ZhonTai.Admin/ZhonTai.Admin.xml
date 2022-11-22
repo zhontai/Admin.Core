@@ -5028,6 +5028,21 @@
             名称
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetPageOutput.Id">
             <summary>
             主键
