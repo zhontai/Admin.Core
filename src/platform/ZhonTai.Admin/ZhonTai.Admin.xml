@@ -2438,6 +2438,20 @@
             角色Id
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Domain.Role.IRoleRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本角色和下级角色Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.Role.IRoleRepository.GetChildIdListAsync(System.Int64[])">
+            <summary>
+            获得当前角色和下级角色Id
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Role.RoleEntity">
             <summary>
             角色
@@ -3063,6 +3077,20 @@
             获得本部门和下级部门Id
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.RoleRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本角色和下级角色Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.RoleRepository.GetChildIdListAsync(System.Int64[])">
+            <summary>
+            获得当前角色和下级角色Id
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.UserOrgRepository.HasUser(System.Int64)">
