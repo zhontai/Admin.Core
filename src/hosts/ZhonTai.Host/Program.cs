@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
@@ -16,7 +17,7 @@ new HostApp(new HostAppOptions
         //context.Services.AddTiDb(context);
 
         //添加任务调度
-        context.Services.AddTaskScheduler(options =>
+        context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
         {
             options.ConfigureFreeSql = freeSql =>
             {

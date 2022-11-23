@@ -6496,6 +6496,11 @@
             TaskScheduler配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.DbKey">
+            <summary>
+            数据库键
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.FreeSql">
             <summary>
             数据库实例
@@ -6521,6 +6526,14 @@
             添加任务调度
             </summary>
             <param name="services"></param>
+            <param name="configureOptions"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.AddTaskScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions})">
+            <summary>
+            添加任务调度
+            </summary>
+            <param name="services"></param>
+            <param name="dbKey"></param>
             <param name="configureOptions"></param>
         </member>
         <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.UseTaskScheduler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
