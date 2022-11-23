@@ -16,7 +16,6 @@ using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.RoleOrg;
 using System.Collections.Generic;
-using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.Role;
 
