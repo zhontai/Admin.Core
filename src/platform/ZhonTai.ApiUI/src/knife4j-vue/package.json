@@ -32,9 +32,9 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-eslint": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
