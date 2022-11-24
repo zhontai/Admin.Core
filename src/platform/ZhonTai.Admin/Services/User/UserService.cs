@@ -316,7 +316,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.DefaultUser;
         var user = await _userRepository.InsertAsync(entity);
-
         var userId = user.Id;
 
         //用户角色
@@ -331,7 +330,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var staff = Mapper.Map<UserStaffEntity>(input.Staff);
+        var staff = input.Staff == null ? new UserStaffEntity() : Mapper.Map<UserStaffEntity>(input.Staff);
         staff.Id = userId;
         await _staffRepository.InsertAsync(staff);
 
