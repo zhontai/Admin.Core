@@ -59,6 +59,11 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     public async Task<long> AddAsync(ViewAddInput input)
     {
         var entity = Mapper.Map<ViewEntity>(input);
+        if (entity.Sort == 0)
+        {
+            var sort = await _viewRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
         await _viewRepository.InsertAsync(entity);
 
         return entity.Id;

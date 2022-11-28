@@ -2113,7 +2113,7 @@
         </member>
         <member name="T:ZhonTai.Admin.Domain.LoginLog.LoginLogEntity">
             <summary>
-            操作日志
+            登录日志
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.OprationLog.OprationLogEntity">
@@ -2283,11 +2283,6 @@
             隐藏
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Closable">
             <summary>
             可关闭
@@ -2316,6 +2311,11 @@
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Description">
             <summary>
             描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Permission.PermissionType">
@@ -3046,11 +3046,6 @@
             说明
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.View.ViewEntity.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.View.ViewEntity.Cache">
             <summary>
             缓存
@@ -3059,6 +3054,11 @@
         <member name="P:ZhonTai.Admin.Domain.View.ViewEntity.Sort">
             <summary>
             排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.View.ViewEntity.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.Topic">
@@ -4773,24 +4773,19 @@
             接口路径
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Icon">
             <summary>
             图标
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Opened">
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Sort">
             <summary>
-            组打开
+            排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Hidden">
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Description">
             <summary>
-            隐藏
+            描述
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Enabled">
@@ -6052,6 +6047,16 @@
             说明
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewAddInput.Cache">
+            <summary>
+            缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.View.Dto.ViewAddInput.Enabled">
             <summary>
             启用
@@ -6080,6 +6085,16 @@
         <member name="P:ZhonTai.Admin.Services.View.Dto.ViewListOutput.Path">
             <summary>
             视图路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewListOutput.Cache">
+            <summary>
+            缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewListOutput.Sort">
+            <summary>
+            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.View.Dto.ViewListOutput.Enabled">

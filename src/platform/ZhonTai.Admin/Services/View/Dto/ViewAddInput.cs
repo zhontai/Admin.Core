@@ -31,6 +31,16 @@ public class ViewAddInput
     public string Description { get; set; }
 
     /// <summary>
+    /// 缓存
+    /// </summary>
+    public bool Cache { get; set; } = true;
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
     /// 启用
     /// </summary>
     public bool Enabled { get; set; } = true;

@@ -39,11 +39,6 @@ public class PermissionAddMenuInput
     /// </summary>
 	public bool Hidden { get; set; }
 
-    ///// <summary>
-    ///// 启用
-    ///// </summary>
-    //public bool Enabled { get; set; }
-
     /// <summary>
     /// 图标
     /// </summary>
@@ -63,4 +58,14 @@ public class PermissionAddMenuInput
     /// 链接外显
     /// </summary>
     public bool? External { get; set; }
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 }

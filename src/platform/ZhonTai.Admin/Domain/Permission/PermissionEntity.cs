@@ -62,11 +62,6 @@ public partial class PermissionEntity : EntityBase
 	public bool Hidden { get; set; } = false;
 
     /// <summary>
-    /// 启用
-    /// </summary>
-	public bool Enabled { get; set; } = true;
-
-    /// <summary>
     /// 可关闭
     /// </summary>
     public bool? Closable { get; set; }
@@ -89,13 +84,18 @@ public partial class PermissionEntity : EntityBase
     /// <summary>
     /// 排序
     /// </summary>
-    public int? Sort { get; set; } = 0;
+    public int Sort { get; set; }
 
     /// <summary>
     /// 描述
     /// </summary>
     [Column(StringLength = 100)]
     public string Description { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; } = true;
 
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<ApiEntity> Apis { get; set; }

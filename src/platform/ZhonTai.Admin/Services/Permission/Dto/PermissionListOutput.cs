@@ -35,24 +35,19 @@ public class PermissionListOutput
     public string ApiPaths { get; set; }
 
     /// <summary>
-    /// 描述
-    /// </summary>
-    public string Description { get; set; }
-
-    /// <summary>
     /// 图标
     /// </summary>
     public string Icon { get; set; }
 
     /// <summary>
-    /// 组打开
+    /// 排序
     /// </summary>
-    public bool? Opened { get; set; }
+    public int? Sort { get; set; }
 
     /// <summary>
-    /// 隐藏
+    /// 描述
     /// </summary>
-	public bool Hidden { get; set; }
+    public string Description { get; set; }
 
     /// <summary>
     /// 启用

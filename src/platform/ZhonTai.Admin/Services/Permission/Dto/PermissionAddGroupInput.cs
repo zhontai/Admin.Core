@@ -29,11 +29,6 @@ public class PermissionAddGroupInput
     /// </summary>
 	public bool Hidden { get; set; }
 
-    ///// <summary>
-    ///// 启用
-    ///// </summary>
-    //public bool Enabled { get; set; }
-
     /// <summary>
     /// 图标
     /// </summary>
@@ -43,4 +38,14 @@ public class PermissionAddGroupInput
     /// 打开
     /// </summary>
     public bool? Opened { get; set; }
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 }
