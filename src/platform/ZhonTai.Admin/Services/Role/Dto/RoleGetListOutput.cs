@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Role.Dto;
+﻿using ZhonTai.Admin.Domain.Role;
+
+namespace ZhonTai.Admin.Services.Role.Dto;
 
 public class RoleGetListOutput
 {
@@ -21,6 +23,11 @@ public class RoleGetListOutput
     /// 编码
     /// </summary>
     public string Code { get; set; }
+
+    /// <summary>
+    /// 角色类型
+    /// </summary>
+    public RoleType Type { get; set; }
 
     /// <summary>
     /// 排序

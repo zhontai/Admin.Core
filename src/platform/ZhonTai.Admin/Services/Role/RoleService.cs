@@ -180,12 +180,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         if (await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此{(input.ParentId == 0 ? "分组" : "角色")}已存在");
+            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
         }
 
         if (input.Code.NotNull() && await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此{(input.ParentId == 0 ? "分组" : "角色")}编码已存在");
+            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
         }
 
         var entity = Mapper.Map<RoleEntity>(input);
@@ -219,12 +219,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
 
         if (await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此{(input.ParentId == 0 ? "分组" : "角色")}已存在");
+            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
         }
 
         if (input.Code.NotNull() && await _roleRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此{(input.ParentId == 0 ? "分组" : "角色")}编码已存在");
+            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
         }
 
         Mapper.Map(input, entity);

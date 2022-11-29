@@ -2482,6 +2482,11 @@
             编码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Type">
+            <summary>
+            角色类型
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.DataScope">
             <summary>
             数据范围
@@ -2515,6 +2520,21 @@
         <member name="P:ZhonTai.Admin.Domain.Role.RoleEntity.Permissions">
             <summary>
             权限列表
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Role.RoleType">
+            <summary>
+            角色类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Menu">
+            <summary>
+            角色
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
@@ -5021,6 +5041,11 @@
             编码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.Type">
+            <summary>
+            角色类型
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleAddInput.DataScope">
             <summary>
             数据范围
@@ -5079,6 +5104,11 @@
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Code">
             <summary>
             编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Type">
+            <summary>
+            角色类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetListOutput.Sort">

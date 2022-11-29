@@ -13,14 +13,12 @@ using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Services.Role.Dto;
 
 namespace ZhonTai.Admin.Services.Permission;
 

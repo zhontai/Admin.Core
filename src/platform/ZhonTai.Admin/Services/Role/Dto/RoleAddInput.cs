@@ -26,6 +26,11 @@ public class RoleAddInput
     public string Code { get; set; }
 
     /// <summary>
+    /// 角色类型
+    /// </summary>
+    public RoleType Type { get; set; }
+
+    /// <summary>
     /// 数据范围
     /// </summary>
     public DataScope DataScope { get; set; }
