@@ -38,10 +38,13 @@ public partial class PermissionEntity : EntityBase
     public PermissionType Type { get; set; }
 
     /// <summary>
-    /// 视图
+    /// 视图Id
     /// </summary>
     public long? ViewId { get; set; }
 
+    /// <summary>
+    /// 视图
+    /// </summary>
     public ViewEntity View { get; set; }
 
     /// <summary>
@@ -67,7 +70,7 @@ public partial class PermissionEntity : EntityBase
     public bool? Closable { get; set; }
 
     /// <summary>
-    /// 打开组
+    /// 展开分组
     /// </summary>
     public bool? Opened { get; set; }
 

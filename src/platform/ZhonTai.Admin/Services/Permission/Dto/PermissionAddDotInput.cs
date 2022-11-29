@@ -1,14 +1,7 @@
-﻿using ZhonTai.Admin.Domain.Permission;
-
-namespace ZhonTai.Admin.Services.Permission.Dto;
+﻿namespace ZhonTai.Admin.Services.Permission.Dto;
 
 public class PermissionAddDotInput
 {
-    /// <summary>
-    /// 权限类型
-    /// </summary>
-    public PermissionType Type { get; set; } = PermissionType.Dot;
-
     /// <summary>
     /// 父级节点
     /// </summary>

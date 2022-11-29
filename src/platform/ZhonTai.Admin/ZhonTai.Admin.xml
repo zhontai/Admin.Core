@@ -2265,6 +2265,11 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.ViewId">
             <summary>
+            视图Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.View">
+            <summary>
             视图
             </summary>
         </member>
@@ -2290,7 +2295,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Opened">
             <summary>
-            打开组
+            展开分组
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.NewWindow">
@@ -4583,11 +4588,6 @@
             创建时间
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddApiInput.Type">
-            <summary>
-            权限类型
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddApiInput.ParentId">
             <summary>
             父级节点
@@ -4623,9 +4623,14 @@
             图标
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddDotInput.Type">
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddApiInput.Sort">
             <summary>
-            权限类型
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddApiInput.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddDotInput.ParentId">
@@ -4658,9 +4663,14 @@
             图标
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Type">
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddDotInput.Sort">
             <summary>
-            权限类型
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddDotInput.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.ParentId">
@@ -4688,9 +4698,14 @@
             打开
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Type">
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Sort">
             <summary>
-            权限类型
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.ParentId">
@@ -4741,6 +4756,16 @@
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.External">
             <summary>
             链接外显
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Id">

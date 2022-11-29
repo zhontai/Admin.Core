@@ -196,6 +196,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task<long> AddGroupAsync(PermissionAddGroupInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
+        entity.Type = PermissionType.Group;
         await _permissionRepository.InsertAsync(entity);
         return entity.Id;
     }
@@ -208,6 +209,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task<long> AddMenuAsync(PermissionAddMenuInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
+        entity.Type = PermissionType.Menu;
         await _permissionRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -221,6 +223,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task<long> AddApiAsync(PermissionAddApiInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
+        entity.Type = PermissionType.Dot;
         await _permissionRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -235,6 +238,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public virtual async Task<long> AddDotAsync(PermissionAddDotInput input)
     {
         var entity = Mapper.Map<PermissionEntity>(input);
+        entity.Type = PermissionType.Dot;
         await _permissionRepository.InsertAsync(entity);
 
         if (input.ApiIds != null && input.ApiIds.Any())
