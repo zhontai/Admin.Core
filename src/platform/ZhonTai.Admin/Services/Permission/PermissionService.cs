@@ -20,6 +20,7 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
+using ZhonTai.Admin.Services.Role.Dto;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -102,11 +103,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         var output = await _permissionRepository.Select
         .WhereDynamic(id)
-        .IncludeMany(a => a.Apis.Select(b => new ApiEntity { Id = b.Id }))
-        .ToOneAsync();
-
-        var permissionGetDotOutput= Mapper.Map<PermissionGetDotOutput>(output);
-        return permissionGetDotOutput;
+        .ToOneAsync(a => new PermissionGetDotOutput
+        {
+            ApiIds = _permissionApiRepository.Where(b => b.PermissionId == a.Id).OrderBy(a => a.Id).ToList(b => b.Api.Id)
+        });
+        return output;
     }
 
     /// <summary>

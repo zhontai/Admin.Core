@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Permission.Dto;
+﻿using System.Collections.Generic;
+
+namespace ZhonTai.Admin.Services.Permission.Dto;
 
 public class PermissionAddDotInput
 {
@@ -10,7 +12,7 @@ public class PermissionAddDotInput
     /// <summary>
     /// 关联接口
     /// </summary>
-    public long[] ApiIds { get; set; }
+    public List<long> ApiIds { get; set; }
 
     /// <summary>
     /// 权限名称
