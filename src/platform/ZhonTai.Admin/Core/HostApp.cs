@@ -329,7 +329,8 @@ public class HostApp
                 options.CustomOperationIds(apiDesc =>
                 {
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
-                    return controllerAction.ControllerName + "-" + controllerAction.ActionName;
+                    //return controllerAction.ControllerName + "-" + controllerAction.ActionName;
+                    return controllerAction.ActionName;
                 });
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
