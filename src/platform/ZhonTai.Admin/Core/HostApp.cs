@@ -51,6 +51,8 @@ using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi.Attributes;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using System.Text.RegularExpressions;
 
 namespace ZhonTai.Admin.Core;
 
@@ -329,8 +331,9 @@ public class HostApp
                 options.CustomOperationIds(apiDesc =>
                 {
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
-                    //return controllerAction.ControllerName + "-" + controllerAction.ActionName;
-                    return controllerAction.ActionName;
+                    var api = controllerAction.AttributeRouteInfo.Template;
+                    api = Regex.Replace(api, @"[\{\\\/\}]", "-") + "-" + apiDesc.HttpMethod.ToLower();
+                    return api.Replace("--", "-");
                 });
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
