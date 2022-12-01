@@ -5151,6 +5151,26 @@
             创建时间
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput">
+            <summary>
+            设置数据范围
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput.RoleId">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput.DataScope">
+            <summary>
+            数据范围
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput.OrgIds">
+            <summary>
+            指定部门
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleUpdateInput">
             <summary>
             修改
@@ -5158,7 +5178,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleUpdateInput.Id">
             <summary>
-            接口Id
+            角色Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Id">
@@ -5263,6 +5283,13 @@
             批量删除
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.SetDataScopeAsync(ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput)">
+            <summary>
+            设置数据权限
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Role.MapConfig">

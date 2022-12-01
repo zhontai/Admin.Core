@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Services.Role.Dto;
 public partial class RoleUpdateInput : RoleAddInput
 {
     /// <summary>
-    /// 接口Id
+    /// 角色Id
     /// </summary>
     [Required]
     [ValidateRequired("请选择角色")]
