@@ -4813,6 +4813,11 @@
             访问地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.ViewPath">
+            <summary>
+            视图地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.ApiPaths">
             <summary>
             接口路径

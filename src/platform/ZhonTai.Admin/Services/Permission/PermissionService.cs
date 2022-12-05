@@ -125,9 +125,13 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var data = await _permissionRepository
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
-            .OrderBy(a => a.ParentId)
-            .OrderBy(a => a.Sort)
-            .ToListAsync(a=> new PermissionListOutput { ApiPaths = string.Join(";", _permissionApiRepository.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) });
+            .Include(a => a.View)
+            .OrderBy(a => new { a.ParentId, a.Sort })
+            .ToListAsync(a=> new PermissionListOutput 
+            {
+                ViewPath = a.View.Path,
+                ApiPaths = string.Join(";", _permissionApiRepository.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) 
+            });
 
         return data;
     }
