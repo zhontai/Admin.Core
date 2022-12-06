@@ -25,6 +25,16 @@ public class AuthUserMenuDto
     public string ViewPath { get; set; }
 
     /// <summary>
+    /// 视图命名
+    /// </summary>
+    public string ViewName { get; set; }
+
+    /// <summary>
+    /// 重定向地址
+    /// </summary>
+    public string Redirect { get; set; }
+
+    /// <summary>
     /// 权限名称
     /// </summary>
     public string Label { get; set; }
@@ -40,11 +50,6 @@ public class AuthUserMenuDto
     public bool? Opened { get; set; }
 
     /// <summary>
-    /// 可关闭
-    /// </summary>
-    public bool? Closable { get; set; }
-
-    /// <summary>
     /// 隐藏
     /// </summary>
     public bool Hidden { get; set; }
@@ -58,6 +63,26 @@ public class AuthUserMenuDto
     /// 链接外显
     /// </summary>
     public bool? External { get; set; }
+
+    /// <summary>
+    /// 是否缓存
+    /// </summary>
+    public bool IsKeepAlive { get; set; } = true;
+
+    /// <summary>
+    /// 是否固定
+    /// </summary>
+    public bool IsAffix { get; set; } = false;
+
+    /// <summary>
+    /// 链接地址
+    /// </summary>
+    public string Link { get; set; }
+
+    /// <summary>
+    /// 是否内嵌窗口
+    /// </summary>
+    public bool IsIframe { get; set; } = false;
 
     /// <summary>
     /// 排序

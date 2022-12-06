@@ -25,9 +25,14 @@ public class PermissionListOutput
     public PermissionType Type { get; set; }
 
     /// <summary>
-    /// 访问地址
+    ///路由地址
     /// </summary>
     public string Path { get; set; }
+
+    /// <summary>
+    /// 重定向地址
+    /// </summary>
+    public string Redirect { get; set; }
 
     /// <summary>
     /// 视图地址

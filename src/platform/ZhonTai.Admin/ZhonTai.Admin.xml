@@ -3511,6 +3511,16 @@
             视图地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.ViewName">
+            <summary>
+            视图命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Label">
             <summary>
             权限名称
@@ -3526,11 +3536,6 @@
             打开
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Closable">
-            <summary>
-            可关闭
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Hidden">
             <summary>
             隐藏
@@ -3544,6 +3549,26 @@
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.External">
             <summary>
             链接外显
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.IsAffix">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Link">
+            <summary>
+            链接地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.IsIframe">
+            <summary>
+            是否内嵌窗口
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Sort">
@@ -4728,6 +4753,11 @@
             访问路由地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Label">
             <summary>
             权限名称
@@ -4818,11 +4848,6 @@
             链接地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Redirect">
-            <summary>
-            重定向地址
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.IsIframe">
             <summary>
             是否内嵌窗口
@@ -4859,8 +4884,13 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Path">
+             <summary>
+            路由地址
+             </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Redirect">
             <summary>
-            访问地址
+            重定向地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.ViewPath">
