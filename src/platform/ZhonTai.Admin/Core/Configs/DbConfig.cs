@@ -49,6 +49,11 @@ public class DbConfig
     public bool SyncData { get; set; } = false;
 
     /// <summary>
+    /// 同步数据地址
+    /// </summary>
+    public string SyncDataPath { get; set; } = "InitData/Admin";
+
+    /// <summary>
     /// 建库
     /// </summary>
     public bool CreateDb { get; set; } = false;

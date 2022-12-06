@@ -571,6 +571,11 @@
             同步数据
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncDataPath">
+            <summary>
+            同步数据地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDb">
             <summary>
             建库

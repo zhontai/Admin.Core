@@ -27,49 +27,49 @@ public class CustomSyncData : SyncData, ISyncData
         using var tran = uow.GetOrBeginTransaction();
         var isTenant = appConfig.Tenant;
 
-        var dictionaryTypes = GetData<DictionaryTypeEntity>(isTenant);
+        var dictionaryTypes = GetData<DictionaryTypeEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, dictionaryTypes, dbConfig);
 
-        var dictionaries = GetData<DictionaryEntity>(isTenant);
+        var dictionaries = GetData<DictionaryEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, dictionaries, dbConfig);
 
-        var users = GetData<UserEntity>(isTenant);
+        var users = GetData<UserEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, users, dbConfig);
 
-        var staffs = GetData<UserStaffEntity>(isTenant);
+        var staffs = GetData<UserStaffEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, staffs, dbConfig);
 
-        var orgs = GetData<OrgEntity>(isTenant);
+        var orgs = GetData<OrgEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, orgs, dbConfig);
 
-        var roles = GetData<RoleEntity>(isTenant);
+        var roles = GetData<RoleEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, roles, dbConfig);
 
-        var apiTree = GetData<ApiEntity>();
+        var apiTree = GetData<ApiEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, apiTree, dbConfig);
 
-        var viewTree = GetData<ViewEntity>();
+        var viewTree = GetData<ViewEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, viewTree, dbConfig);
 
-        var permissionTree = GetData<PermissionEntity>();
+        var permissionTree = GetData<PermissionEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, permissionTree, dbConfig);
 
-        var userRoles = GetData<UserRoleEntity>();
+        var userRoles = GetData<UserRoleEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, userRoles, dbConfig);
 
-        var userOrgs = GetData<UserOrgEntity>();
+        var userOrgs = GetData<UserOrgEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, userOrgs, dbConfig);
 
-        var rolePermissions = GetData<RolePermissionEntity>();
+        var rolePermissions = GetData<RolePermissionEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, rolePermissions, dbConfig);
 
-        var tenants = GetData<TenantEntity>();
+        var tenants = GetData<TenantEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, tenants, dbConfig);
 
-        var tenantPermissions = GetData<TenantPermissionEntity>();
+        var tenantPermissions = GetData<TenantPermissionEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, tenantPermissions, dbConfig);
 
-        var permissionApis = GetData<PermissionApiEntity>();
+        var permissionApis = GetData<PermissionApiEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, permissionApis, dbConfig);
 
         uow.Commit();
