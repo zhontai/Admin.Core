@@ -4,7 +4,8 @@
     "name": "中台",
     "code": "",
     "value": "",
-    "description": "",
-    "enabled": true
+    "enabled": true,
+    "sort": 1,
+    "description": ""
   }
 ]

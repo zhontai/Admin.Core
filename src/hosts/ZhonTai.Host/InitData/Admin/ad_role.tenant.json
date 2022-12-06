@@ -5,8 +5,10 @@
     "parentId": 336557474730053,
     "name": "主管理员",
     "code": "main-admin",
+    "type": 2,
     "dataScope": 1,
-    "description": ""
+    "description": "",
+    "sort": 1
   },
   {
     "id": 162605510979653,
@@ -14,13 +16,16 @@
     "parentId": 336557578817605,
     "name": "普通员工",
     "code": "emp",
+    "type": 2,
     "dataScope": 1,
-    "description": ""
+    "description": "",
+    "sort": 3
   },
   {
     "id": 336557474730053,
     "tenantId": 161223412138053,
     "name": "系统默认",
+    "type": 1,
     "dataScope": 1,
     "sort": 1
   },
@@ -28,6 +33,7 @@
     "id": 336557508276293,
     "tenantId": 161223412138053,
     "name": "职务",
+    "type": 1,
     "dataScope": 1,
     "sort": 2
   },
@@ -35,6 +41,7 @@
     "id": 336557578817605,
     "tenantId": 161223412138053,
     "name": "岗位",
+    "type": 1,
     "dataScope": 1,
     "sort": 3
   },
@@ -44,7 +51,9 @@
     "parentId": 336557508276293,
     "name": "IT",
     "code": "it",
+    "type": 2,
     "dataScope": 1,
-    "description": ""
+    "description": "",
+    "sort": 2
   }
 ]

@@ -581,6 +581,16 @@
         "description": "",
         "enabled": true,
         "childs": []
+      },
+      {
+        "id": 361090412425285,
+        "parentId": 161227167719496,
+        "label": "设置数据权限",
+        "path": "/api/admin/role/set-data-scope",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
       }
     ]
   },
@@ -737,6 +747,26 @@
         "label": "设置主管",
         "path": "/api/admin/user/set-manager",
         "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 361090412441669,
+        "parentId": 161227167719497,
+        "label": "新增会员",
+        "path": "/api/admin/user/add-member",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 361090412441670,
+        "parentId": 161227167719497,
+        "label": "修改会员",
+        "path": "/api/admin/user/update-member",
+        "httpMethods": "put",
         "description": "",
         "enabled": true,
         "childs": []

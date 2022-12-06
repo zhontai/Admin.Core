@@ -455,6 +455,12 @@ public class DbHelper
 
             var fsql = freeSqlBuilder.Build();
 
+            //生成数据
+            if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
+            {
+                GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
+            }
+
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
@@ -526,12 +532,6 @@ public class DbHelper
             }
 
             #endregion 初始化数据库
-
-            //生成数据
-            if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
-            {
-                GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
-            }
 
             #region 监听Curd操作
 
