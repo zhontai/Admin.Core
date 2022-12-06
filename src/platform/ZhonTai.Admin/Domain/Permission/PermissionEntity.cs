@@ -48,7 +48,13 @@ public partial class PermissionEntity : EntityBase
     public ViewEntity View { get; set; }
 
     /// <summary>
-    /// 菜单路由地址
+    /// 路由命名
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// 路由地址
     /// </summary>
     [Column(StringLength = 500)]
     public string Path { get; set; }

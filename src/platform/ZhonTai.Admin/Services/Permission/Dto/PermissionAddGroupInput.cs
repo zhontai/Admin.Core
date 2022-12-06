@@ -13,6 +13,11 @@ public class PermissionAddGroupInput
     public long? ViewId { get; set; }
 
     /// <summary>
+    /// 路由命名
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
     /// 访问路由地址
     /// </summary>
     public string Path { get; set; }

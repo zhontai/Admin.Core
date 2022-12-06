@@ -40,6 +40,11 @@ public class PermissionListOutput
     public string ViewPath { get; set; }
 
     /// <summary>
+    /// 链接地址
+    /// </summary>
+    public string Link { get; set; }
+
+    /// <summary>
     /// 接口路径
     /// </summary>
     public string ApiPaths { get; set; }

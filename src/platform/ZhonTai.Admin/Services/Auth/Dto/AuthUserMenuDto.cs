@@ -15,19 +15,19 @@ public class AuthUserMenuDto
     public long ParentId { get; set; }
 
     /// <summary>
-    /// 访问地址
+    /// 路由地址
     /// </summary>
     public string Path { get; set; }
+
+    /// <summary>
+    /// 路由命名
+    /// </summary>
+    public string Name { get; set; }
 
     /// <summary>
     /// 视图地址
     /// </summary>
     public string ViewPath { get; set; }
-
-    /// <summary>
-    /// 视图命名
-    /// </summary>
-    public string ViewName { get; set; }
 
     /// <summary>
     /// 重定向地址

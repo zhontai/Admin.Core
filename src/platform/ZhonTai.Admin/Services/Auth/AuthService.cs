@@ -169,7 +169,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             var menuList = await menuSelect
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path, ViewName = a.View.Name });
+                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
 
             //用户菜单
             authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();

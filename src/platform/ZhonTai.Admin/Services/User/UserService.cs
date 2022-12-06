@@ -240,6 +240,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// 查询用户基本信息
     /// </summary>
     /// <returns></returns>
+    [Login]
     public async Task<UserUpdateBasicInput> GetBasicAsync()
     {
         if (!(User?.Id > 0))
@@ -502,6 +503,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Login]
     public async Task UpdateBasicAsync(UserUpdateBasicInput input)
     {
         var entity = await _userRepository.GetAsync(input.Id);
@@ -514,6 +516,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Login]
     public async Task ChangePasswordAsync(UserChangePasswordInput input)
     {
         if (input.ConfirmPassword != input.NewPassword)

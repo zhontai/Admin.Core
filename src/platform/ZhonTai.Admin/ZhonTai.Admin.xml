@@ -2273,9 +2273,14 @@
             视图
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Name">
+            <summary>
+            路由命名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Path">
             <summary>
-            菜单路由地址
+            路由地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Redirect">
@@ -3503,17 +3508,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Path">
             <summary>
-            访问地址
+            路由地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Name">
+            <summary>
+            路由命名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.ViewPath">
             <summary>
             视图地址
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.ViewName">
-            <summary>
-            视图命名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Redirect">
@@ -4748,6 +4753,11 @@
             视图
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Name">
+            <summary>
+            路由命名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Path">
             <summary>
             访问路由地址
@@ -4796,6 +4806,11 @@
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.ViewId">
             <summary>
             视图
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Name">
+            <summary>
+            路由命名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Path">
@@ -4896,6 +4911,11 @@
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.ViewPath">
             <summary>
             视图地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Link">
+            <summary>
+            链接地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.ApiPaths">
