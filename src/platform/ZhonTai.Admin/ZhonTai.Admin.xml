@@ -2275,7 +2275,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Path">
             <summary>
-            菜单访问地址
+            菜单路由地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Redirect">
+            <summary>
+            重定向地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Icon">
@@ -2286,11 +2291,6 @@
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Hidden">
             <summary>
             隐藏
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Closable">
-            <summary>
-            可关闭
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Opened">
@@ -2306,6 +2306,26 @@
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.External">
             <summary>
             链接外显
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.IsAffix">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Link">
+            <summary>
+            链接地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.IsIframe">
+            <summary>
+            是否内嵌窗口
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Permission.PermissionEntity.Sort">
@@ -4698,6 +4718,16 @@
             父级节点
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.ViewId">
+            <summary>
+            视图
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Path">
+            <summary>
+            访问路由地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Label">
             <summary>
             权限名称
@@ -4715,7 +4745,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Opened">
             <summary>
-            打开
+            展开
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddGroupInput.Sort">
@@ -4740,7 +4770,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Path">
             <summary>
-            访问地址
+            路由地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Label">
@@ -4763,11 +4793,6 @@
             图标
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Closable">
-            <summary>
-            可关闭
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.NewWindow">
             <summary>
             打开新窗口
@@ -4776,6 +4801,31 @@
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.External">
             <summary>
             链接外显
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.IsAffix">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Link">
+            <summary>
+            链接地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.IsIframe">
+            <summary>
+            是否内嵌窗口
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionAddMenuInput.Sort">

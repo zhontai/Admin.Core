@@ -15,7 +15,7 @@ public class PermissionAddMenuInput
     public long? ViewId { get; set; }
 
     /// <summary>
-    /// 访问地址
+    /// 路由地址
     /// </summary>
     public string Path { get; set; }
 
@@ -32,7 +32,7 @@ public class PermissionAddMenuInput
     /// <summary>
     /// 隐藏
     /// </summary>
-	public bool Hidden { get; set; }
+	public bool Hidden { get; set; } = false;
 
     /// <summary>
     /// 图标
@@ -40,19 +40,39 @@ public class PermissionAddMenuInput
     public string Icon { get; set; }
 
     /// <summary>
-    /// 可关闭
-    /// </summary>
-    public bool? Closable { get; set; }
-
-    /// <summary>
     /// 打开新窗口
     /// </summary>
-    public bool? NewWindow { get; set; }
+    public bool NewWindow { get; set; } = false;
 
     /// <summary>
     /// 链接外显
     /// </summary>
-    public bool? External { get; set; }
+    public bool External { get; set; } = false;
+
+    /// <summary>
+    /// 是否缓存
+    /// </summary>
+    public bool IsKeepAlive { get; set; } = true;
+
+    /// <summary>
+    /// 是否固定
+    /// </summary>
+    public bool IsAffix { get; set; } = false;
+
+    /// <summary>
+    /// 链接地址
+    /// </summary>
+    public string Link { get; set; }
+
+    /// <summary>
+    /// 重定向地址
+    /// </summary>
+    public string Redirect { get; set; }
+
+    /// <summary>
+    /// 是否内嵌窗口
+    /// </summary>
+    public bool IsIframe { get; set; } = false;
 
     /// <summary>
     /// 排序
