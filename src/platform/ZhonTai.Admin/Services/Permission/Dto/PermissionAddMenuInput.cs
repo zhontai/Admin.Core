@@ -65,11 +65,6 @@ public class PermissionAddMenuInput
     public string Link { get; set; }
 
     /// <summary>
-    /// 重定向地址
-    /// </summary>
-    public string Redirect { get; set; }
-
-    /// <summary>
     /// 是否内嵌窗口
     /// </summary>
     public bool IsIframe { get; set; } = false;

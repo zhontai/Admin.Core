@@ -18,6 +18,11 @@ public class PermissionAddGroupInput
     public string Path { get; set; }
 
     /// <summary>
+    /// 重定向地址
+    /// </summary>
+    public string Redirect { get; set; }
+
+    /// <summary>
     /// 权限名称
     /// </summary>
     public string Label { get; set; }
