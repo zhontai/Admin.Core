@@ -200,6 +200,13 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Group;
+
+        if (entity.Sort == 0)
+        {
+            var sort = await _permissionRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
+
         await _permissionRepository.InsertAsync(entity);
         return entity.Id;
     }
@@ -213,6 +220,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Menu;
+        if (entity.Sort == 0)
+        {
+            var sort = await _permissionRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
         await _permissionRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -227,6 +239,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Dot;
+        if (entity.Sort == 0)
+        {
+            var sort = await _permissionRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
         await _permissionRepository.InsertAsync(entity);
 
         return entity.Id;
