@@ -2,6 +2,7 @@
   {
     "id": 161227168313413,
     "label": "平台管理",
+    "cache": true,
     "sort": 1,
     "enabled": true,
     "childs": [
