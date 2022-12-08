@@ -207,6 +207,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+        if(tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除角色权限
         await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
@@ -237,6 +243,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+        if (tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除用户
         await _userRepository.SoftDeleteAsync(a => a.TenantId == id && a.Type != UserType.Member, FilterNames.Tenant);
 
@@ -255,6 +267,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(ids).ToOneAsync(a => a.TenantType);
+        if (tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除用户
         await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member, FilterNames.Tenant);
 
