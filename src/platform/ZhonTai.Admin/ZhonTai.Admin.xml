@@ -5879,6 +5879,31 @@
             员工
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Roles">
             <summary>
             角色列表
@@ -6037,11 +6062,6 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.NickName">
             <summary>
             昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Introduce">
-            <summary>
-            个人简介
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserUpdateInput">

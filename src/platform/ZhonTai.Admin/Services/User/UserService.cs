@@ -241,14 +241,14 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<UserUpdateBasicInput> GetBasicAsync()
+    public async Task<UserGetBasicOutput> GetBasicAsync()
     {
         if (!(User?.Id > 0))
         {
             throw ResultOutput.Exception("未登录！");
         }
 
-        var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
+        var data = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
         return data;
     }
 

@@ -44,7 +44,7 @@ public interface IUserService
 
     Task UpdateBasicAsync(UserUpdateBasicInput input);
 
-    Task<UserUpdateBasicInput> GetBasicAsync();
+    Task<UserGetBasicOutput> GetBasicAsync();
 
     Task<IList<UserPermissionsOutput>> GetPermissionsAsync();
 

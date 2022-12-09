@@ -1,12 +1,6 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿namespace ZhonTai.Admin.Services.User.Dto;
 
-namespace ZhonTai.Admin.Services.User.Dto;
-
-/// <summary>
-/// 更新基本信息
-/// </summary>
-public class UserUpdateBasicInput : Entity
+public class UserGetBasicOutput
 {
     /// <summary>
     /// 头像
@@ -16,11 +10,20 @@ public class UserUpdateBasicInput : Entity
     /// <summary>
     /// 姓名
     /// </summary>
-    [Required(ErrorMessage = "请输入姓名")]
     public string Name { get; set; }
 
     /// <summary>
     /// 昵称
     /// </summary>
     public string NickName { get; set; }
+
+    /// <summary>
+    /// 手机号
+    /// </summary>
+    public string Mobile { get; set; }
+
+    /// <summary>
+    /// 邮箱
+    /// </summary>
+    public string Email { get; set; }
 }
