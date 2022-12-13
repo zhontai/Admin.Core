@@ -8,6 +8,9 @@ namespace ZhonTai.Admin.Core.Exceptions;
 /// </summary>
 public class AppException : Exception
 {
+    public string AppMessage { get; set; }
+    public string AppCode { get; set; }
+
     public AppException()
     {
     }
@@ -20,12 +23,28 @@ public class AppException : Exception
     public AppException(string message)
         : base(message)
     {
+        AppMessage= message;
+    }
+
+    public AppException(string message, string code)
+     : base(message)
+    {
+        AppMessage= message;
+        AppCode= code;
     }
 
 
     public AppException(string message, Exception innerException)
         : base(message, innerException)
     {
+        AppMessage= message;
+    }
+
+    public AppException(string message, string code, Exception innerException)
+        : base(message, innerException)
+    {
+        AppMessage = message;
+        AppCode = code;
     }
 }
     

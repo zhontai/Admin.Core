@@ -107,10 +107,11 @@ public static partial class ResultOutput
     /// 系统异常
     /// </summary>
     /// <param name="msg">消息</param>
+    /// <param name="code">编码</param>
     /// <returns></returns>
-    public static AppException Exception(string msg = null)
+    public static AppException Exception(string msg = null, string code = null)
     {
-        return new AppException(msg);
+        return new AppException(msg, code);
     }
 
     /// <summary>

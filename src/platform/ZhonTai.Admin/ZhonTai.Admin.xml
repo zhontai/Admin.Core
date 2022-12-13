@@ -1128,11 +1128,12 @@
             <param name="msg">消息</param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Exception(System.String)">
+        <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Exception(System.String,System.String)">
             <summary>
             系统异常
             </summary>
             <param name="msg">消息</param>
+            <param name="code">编码</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Result``1(System.Boolean)">

@@ -39,14 +39,17 @@ public class ExceptionMiddleware
         }
     }
 
-    private static Task HandleAppExceptionAsync(HttpContext context, Exception exception)
+    private static Task HandleAppExceptionAsync(HttpContext context, AppException appException)
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.OK;
 
         //_logger.LogError(exception, "");
 
-        return context.Response.WriteAsync(JsonHelper.Serialize(new ResultOutput<string>().NotOk(exception.Message)));
+        return context.Response.WriteAsync(JsonHelper.Serialize(new ResultOutput<string>()
+        {
+            Code = appException.AppCode
+        }.NotOk(appException.AppMessage)));
     }
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
