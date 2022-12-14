@@ -248,7 +248,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
         var uploadHelper = LazyGetRequiredService<UploadHelper>();
 
         var config = uploadConfig.Document;
-        var fileInfo = await UploadHelper.UploadAsync(input.File, config, new { input.Id });
+        var fileInfo = await uploadHelper.UploadAsync(input.File, config, new { input.Id });
         //保存文档图片
         await AddImageAsync(new DocumentAddImageInput
         {
