@@ -27,7 +27,7 @@ public class UploadHelper
     /// <param name="args"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<FileInfo> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
+    public static async Task<FileInfo> UploadAsync(IFormFile file, FileUploadConfig config, object args, CancellationToken cancellationToken = default)
     { 
         if (file == null || file.Length < 1)
         {
@@ -75,11 +75,9 @@ public class UploadHelper
     /// <param name="filePath"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task SaveAsync(IFormFile file, string filePath, CancellationToken cancellationToken = default)
+    public static async Task SaveAsync(IFormFile file, string filePath, CancellationToken cancellationToken = default)
     {
-        using (var stream = File.Create(filePath))
-        {
-            await file.CopyToAsync(stream, cancellationToken);
-        }
+        using var stream = File.Create(filePath);
+        await file.CopyToAsync(stream, cancellationToken);
     }
 }

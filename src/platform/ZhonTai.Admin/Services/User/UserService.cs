@@ -697,7 +697,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
         var uploadHelper = LazyGetRequiredService<UploadHelper>();
         var config = uploadConfig.Avatar;
-        var fileInfo = await uploadHelper.UploadAsync(file, config, new { User.Id });
+        var fileInfo = await UploadHelper.UploadAsync(file, config, new { User.Id });
         return fileInfo.FileRelativePath;
     }
 }
