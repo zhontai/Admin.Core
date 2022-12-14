@@ -6050,11 +6050,6 @@
             更新基本信息
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Avatar">
-            <summary>
-            头像
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserUpdateBasicInput.Name">
             <summary>
             姓名

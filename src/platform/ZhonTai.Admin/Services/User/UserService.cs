@@ -36,7 +36,7 @@ namespace ZhonTai.Admin.Services.User;
 /// 用户服务
 /// </summary>
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class UserService : BaseService, IUserService, IDynamicApi
+public partial class UserService : BaseService, IUserService, IDynamicApi
 {
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
@@ -249,6 +249,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         var data = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
+        data.Mobile = DataMaskHelper.PhoneMask(data.Mobile);
+        data.Email = DataMaskHelper.EmailMask(data.Email);
         return data;
     }
 
@@ -475,10 +477,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
 
         // 员工信息
         var staff = await _staffRepository.GetAsync(userId);
-        if(staff == null)
-        {
-            staff = new UserStaffEntity();
-        }
+        staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
         await _staffRepository.InsertOrUpdateAsync(staff);

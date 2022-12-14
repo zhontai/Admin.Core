@@ -9,11 +9,6 @@ namespace ZhonTai.Admin.Services.User.Dto;
 public class UserUpdateBasicInput : Entity
 {
     /// <summary>
-    /// 头像
-    /// </summary>
-    public string Avatar { get; set; }
-
-    /// <summary>
     /// 姓名
     /// </summary>
     [Required(ErrorMessage = "请输入姓名")]
