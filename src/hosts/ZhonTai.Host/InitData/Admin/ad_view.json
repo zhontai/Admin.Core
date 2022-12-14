@@ -43,7 +43,7 @@
         "parentId": 161227168313413,
         "name": "Personal",
         "label": "个人中心",
-        "path": "personal/index",
+        "path": "admin/personal/index",
         "cache": true,
         "sort": 5,
         "enabled": true,
