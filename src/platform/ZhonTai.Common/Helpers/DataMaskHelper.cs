@@ -18,28 +18,30 @@ public partial class DataMaskHelper
     /// 手机号脱敏
     /// </summary>
     /// <param name="input"></param>
+    /// <param name="mask"></param>
     /// <returns></returns>
-    public static string PhoneMask(string input)
+    public static string PhoneMask(string input, string mask = "****")
     {
         if (input.IsNull()) { 
             return input; 
         }
 
-        return PhoneMaskRegex().Replace(input, "$1****$2");
+        return PhoneMaskRegex().Replace(input, $"$1{mask}$2");
     }
 
     /// <summary>
     /// 邮箱脱敏
     /// </summary>
     /// <param name="input"></param>
+    /// <param name="mask"></param>
     /// <returns></returns>
-    public static string EmailMask(string input)
+    public static string EmailMask(string input, string mask = "****")
     {
         if (input.IsNull())
         {
             return input;
         }
 
-        return EmailMaskRegex().Replace(input, "*****");
+        return EmailMaskRegex().Replace(input, mask);
     }
 }
