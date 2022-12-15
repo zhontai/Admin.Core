@@ -688,15 +688,22 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// 上传头像
     /// </summary>
     /// <param name="file"></param>
+    /// <param name="autoUpdate"></param>
     /// <returns></returns>
     [HttpPost]
     [Login]
-    public async Task<string> AvatarUpload([FromForm] IFormFile file)
+    public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
     {
         var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
         var uploadHelper = LazyGetRequiredService<UploadHelper>();
         var config = uploadConfig.Avatar;
         var fileInfo = await uploadHelper.UploadAsync(file, config, new { User.Id });
+        if (autoUpdate)
+        {
+            var entity = await _userRepository.GetAsync(User.Id);
+            entity.Avatar = fileInfo.FileRelativePath;
+            await _userRepository.UpdateAsync(entity);
+        }
         return fileInfo.FileRelativePath;
     }
 }

@@ -6213,11 +6213,12 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.AvatarUpload(Microsoft.AspNetCore.Http.IFormFile,System.Boolean)">
             <summary>
             上传头像
             </summary>
             <param name="file"></param>
+            <param name="autoUpdate"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.MapConfig">
