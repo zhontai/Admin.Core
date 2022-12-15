@@ -505,7 +505,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [Login]
     public async Task UpdateBasicAsync(UserUpdateBasicInput input)
     {
-        var entity = await _userRepository.GetAsync(input.Id);
+        var entity = await _userRepository.GetAsync(User.Id);
         entity = Mapper.Map(input, entity);
         await _userRepository.UpdateAsync(entity);
     }
@@ -523,7 +523,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("新密码和确认密码不一致");
         }
 
-        var entity = await _userRepository.GetAsync(input.Id);
+        var entity = await _userRepository.GetAsync(User.Id);
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
         {

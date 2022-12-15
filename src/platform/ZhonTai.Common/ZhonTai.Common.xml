@@ -333,18 +333,20 @@
             </code>
             </remarks>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.PhoneMask(System.String)">
+        <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.PhoneMask(System.String,System.String)">
             <summary>
             手机号脱敏
             </summary>
             <param name="input"></param>
+            <param name="mask"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.EmailMask(System.String)">
+        <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.EmailMask(System.String,System.String)">
             <summary>
             邮箱脱敏
             </summary>
             <param name="input"></param>
+            <param name="mask"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Common.Helpers.DesEncrypt">

@@ -1,12 +1,11 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
 /// 修改密码
 /// </summary>
-public class UserChangePasswordInput : Entity
+public class UserChangePasswordInput
 {
     /// <summary>
     /// 旧密码

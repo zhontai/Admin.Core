@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Services.User.Dto;
 /// <summary>
 /// 更新基本信息
 /// </summary>
-public class UserUpdateBasicInput : Entity
+public class UserUpdateBasicInput
 {
     /// <summary>
     /// 姓名
