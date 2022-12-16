@@ -56,16 +56,6 @@ public class UserFormInput
     public string ManagerUserName { get; set; }
 
     /// <summary>
-    /// 昵称
-    /// </summary>
-    public string NickName { get; set; }
-
-    /// <summary>
-    /// 头像
-    /// </summary>
-    public string Avatar { get; set; }
-
-    /// <summary>
     /// 员工
     /// </summary>
     public StaffAddInput Staff { get; set; }
