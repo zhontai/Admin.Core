@@ -17,6 +17,7 @@
         "label": "工作台",
         "type": 2,
         "viewId": 161227168428101,
+        "name": "admin/workbench",
         "path": "/platform/workbench",
         "icon": "iconfont icon-shuju1",
         "opened": true,
