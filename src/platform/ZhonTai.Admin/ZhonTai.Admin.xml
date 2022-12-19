@@ -5865,16 +5865,6 @@
             直属主管姓名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Avatar">
-            <summary>
-            头像
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Staff">
             <summary>
             员工
@@ -6003,16 +5993,6 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Email">
             <summary>
             邮箱
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.NickName">
-            <summary>
-            昵称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Avatar">
-            <summary>
-            头像
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput">
