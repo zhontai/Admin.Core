@@ -152,6 +152,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         {
             ParentId = 0,
             TenantId = tenantId,
+            Type = RoleType.Group,
             Name = "系统默认"
         };
         await _roleRepository.InsertAsync(roleGroup);
@@ -160,6 +161,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         var role = new RoleEntity
         {
             TenantId = tenantId,
+            Type = RoleType.Menu,
             Name = "主管理员",
             Code = "main-admin",
             ParentId = roleGroup.Id,
