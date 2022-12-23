@@ -13,5 +13,5 @@ public enum RoleType
     /// <summary>
     /// 角色
     /// </summary>
-    Menu = 2
+    Role = 2
 }

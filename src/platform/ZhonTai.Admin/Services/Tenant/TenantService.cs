@@ -161,7 +161,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         var role = new RoleEntity
         {
             TenantId = tenantId,
-            Type = RoleType.Menu,
+            Type = RoleType.Role,
             Name = "主管理员",
             Code = "main-admin",
             ParentId = roleGroup.Id,
