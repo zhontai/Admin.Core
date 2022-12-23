@@ -2563,7 +2563,7 @@
             分组
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Menu">
+        <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Role">
             <summary>
             角色
             </summary>
