@@ -59,6 +59,11 @@
             数据库注册键
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.ValidateAesParameterAttribute">
+            <summary>
+            AES加密输入模型验证
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ValidateInputAttribute">
             <summary>
             输入模型验证
@@ -1054,6 +1059,21 @@
             数据
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Dto.QueryInput">
+            <summary>
+            加密传输时使用参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Dto.QueryInput.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Dto.QueryInput.Message">
+            <summary>
+            传输的加密后信息
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Dto.ResultOutput`1">
             <summary>
             结果输出
@@ -1509,6 +1529,11 @@
             <param name="services"></param>
             <param name="configuration"></param>
             <param name="cacheConfig"></param>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Filters.AesHandlerFilter">
+            <summary>
+            输入加密过滤器
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Filters.ControllerExceptionFilter">
             <summary>

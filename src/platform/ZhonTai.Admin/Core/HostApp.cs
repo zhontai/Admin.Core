@@ -650,7 +650,8 @@ public class HostApp
                     var userService = ctx.RequestServices.GetRequiredService<IUserService>();
                     await userService.GetDataPermissionAsync();
                 }
-
+                //使用参数加密,获取body值
+                ctx.Request.EnableBuffering();
                 await next();
             });
         }
