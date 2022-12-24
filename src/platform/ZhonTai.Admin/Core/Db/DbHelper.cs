@@ -144,18 +144,28 @@ public class DbHelper
     /// <param name="user"></param>
     public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user)
     {
-        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
-               && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-               && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+        //数据库时间
+        if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+        && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
         {
             e.Value = DateTime.Now.Subtract(timeOffset);
         }
 
+        //雪花Id
         if (e.Column.CsType == typeof(long)
         && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) is SnowflakeAttribute snowflakeAttribute
         && snowflakeAttribute.Enable && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
         {
             e.Value = YitIdHelper.NextId();
+        }
+
+        //有序Guid
+        if (e.Column.CsType == typeof(Guid)
+        && e.Property.GetCustomAttribute<OrderGuidAttribute>(false) is OrderGuidAttribute orderGuidAttribute
+        && orderGuidAttribute.Enable && (e.Value == null || (Guid)e.Value == default || (Guid?)e.Value == default))
+        {
+            e.Value = FreeUtil.NewMongodbId();
         }
 
         if (user == null || user.Id <= 0)
