@@ -2052,6 +2052,56 @@
             Markdown文档
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.File.FileEntity">
+            <summary>
+            文件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Provider">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.BucketName">
+            <summary>
+            存储桶名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileDirectory">
+            <summary>
+            文件目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileGuid">
+            <summary>
+            文件Guid
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Extension">
+            <summary>
+            文件扩展名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Size">
+            <summary>
+            文件字节长度
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.SizeFormat">
+            <summary>
+            文件大小格式化
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.LinkUrl">
+            <summary>
+            链接地址
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.LogGetPageDto.CreatedUserName">
             <summary>
             创建者
