@@ -13,7 +13,7 @@ namespace ZhonTai.Admin.Domain.File;
 public partial class FileEntity : EntityBase
 {
     /// <summary>
-    /// 数据库
+    /// OSS供应商
     /// </summary>
     [Column(MapType = typeof(string), StringLength = 50)]
     public OSSProvider? Provider { get; set; }
@@ -64,4 +64,11 @@ public partial class FileEntity : EntityBase
     /// </summary>
     [Column(StringLength = 500)]
     public string LinkUrl { get; }
+
+
+    /// <summary>
+    /// md5码，防止上传重复文件
+    /// </summary>
+    [Column(StringLength = 50)]
+    public string Md5 { get; set; } = string.Empty;
 }

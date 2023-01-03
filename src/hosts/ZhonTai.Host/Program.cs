@@ -5,6 +5,7 @@ using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
@@ -37,6 +38,8 @@ new HostApp(new HostAppOptions
             //模块任务处理器
             options.TaskHandler = new TaskHandler(options.FreeSql);
         });
+
+        context.Services.AddOSS();
     },
 	//配置后置中间件
 	ConfigurePostMiddleware = context =>
@@ -58,7 +61,7 @@ new HostApp(new HostAppOptions
                 });
             });
 		}
-		#endregion
+        #endregion
 	}
 }).Run(args);
 
