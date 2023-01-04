@@ -28,7 +28,7 @@ public partial class FileEntity : EntityBase
     /// 文件目录
     /// </summary>
     [Column(StringLength = 500)]
-    public string FileDirectory { get; }
+    public string FileDirectory { get; set; }
 
     /// <summary>
     /// 文件Guid
@@ -51,20 +51,19 @@ public partial class FileEntity : EntityBase
     /// <summary>
     /// 文件字节长度
     /// </summary>
-    public long Size { get; }
+    public long Size { get; set; }
 
     /// <summary>
     /// 文件大小格式化
     /// </summary>
     [Column(StringLength = 50)]
-    public string SizeFormat { get; }
+    public string SizeFormat { get; set; }
 
     /// <summary>
     /// 链接地址
     /// </summary>
     [Column(StringLength = 500)]
-    public string LinkUrl { get; }
-
+    public string LinkUrl { get; set; }
 
     /// <summary>
     /// md5码，防止上传重复文件
