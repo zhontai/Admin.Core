@@ -4309,6 +4309,26 @@
             链接地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.File.Dto.FileUpdateInput">
             <summary>
             修改
