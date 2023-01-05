@@ -1,6 +1,6 @@
 ﻿
 namespace ZhonTai.Admin.Services.File.Dto;
 
-public class FileGetOutput : FileUpdateInput
+public class FileGetOutput
 {
 }

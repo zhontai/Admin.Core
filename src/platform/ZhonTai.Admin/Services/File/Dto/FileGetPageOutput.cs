@@ -1,5 +1,4 @@
-﻿using OnceMi.AspNetCore.OSS;
-using System;
+﻿using System;
 
 namespace ZhonTai.Admin.Services.File.Dto;
 
@@ -8,7 +7,7 @@ public class FileGetPageOutput
     /// <summary>
     /// OSS供应商
     /// </summary>
-    public OSSProvider? Provider { get; set; }
+    public string ProviderName { get; set; }
 
     /// <summary>
     /// 存储桶名称

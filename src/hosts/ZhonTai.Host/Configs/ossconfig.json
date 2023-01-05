@@ -13,7 +13,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "", //文件外链
-      "Enable": false
+      "Enable": true,
+      "Md5":  false
     },
     //阿里云
     {
@@ -26,7 +27,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false
+      "Enable": false,
+      "Md5": false
     },
     //腾讯云
     {
@@ -39,7 +41,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false
+      "Enable": false,
+      "Md5": false
     },
     //七牛
     {
@@ -52,7 +55,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false
+      "Enable": false,
+      "Md5": false
     },
     //华为云
     {
@@ -65,7 +69,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false
+      "Enable": false,
+      "Md5": false
     }
   ]
 }

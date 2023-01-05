@@ -4269,12 +4269,7 @@
             文档接口
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.File.Dto.FileAddInput">
-            <summary>
-            添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.Provider">
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ProviderName">
             <summary>
             OSS供应商
             </summary>
@@ -4329,16 +4324,6 @@
             修改时间
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.File.Dto.FileUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileUpdateInput.Id">
-            <summary>
-            文件Id
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Services.File.FileService">
             <summary>
             文件服务
@@ -4349,6 +4334,22 @@
             查询文件列表
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+            <summary>
+            上传文件
+            </summary>
+            <param name="file"></param>
+            <param name="fileDirectory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String)">
+            <summary>
+            上传多文件
+            </summary>
+            <param name="files"></param>
+            <param name="fileDirectory"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.File.IFileService">

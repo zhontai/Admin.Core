@@ -16,6 +16,7 @@ public class OSSOptions
     public string BucketName { get; set; } = "admin";
     public string Url { get; set; }
     public bool Enable { get; set; } = false;
+    public bool Md5 { get; set; } = false;
 }
 
 /// <summary>
