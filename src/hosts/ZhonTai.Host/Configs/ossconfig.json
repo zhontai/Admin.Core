@@ -1,6 +1,15 @@
 {
+  //本地上传配置
+  "LocalUploadConfig": {
+    //上传目录
+    "Directory": "upload",
+    //日期目录
+    "DateTimeDirectory": "yyyy/MM/dd",
+    "Md5": false
+  },
   //文件存储供应商
   "Provider": "Minio",
+  //OSS配置列表
   "OSSConfigs": [
     //Minio
     {
@@ -13,8 +22,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "", //文件外链
-      "Enable": false,
-      "Md5":  false
+      "Md5": false,
+      "Enable": false
     },
     //阿里云
     {
@@ -27,8 +36,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false,
-      "Md5": false
+      "Md5": false,
+      "Enable": false
     },
     //腾讯云
     {
@@ -41,8 +50,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false,
-      "Md5": false
+      "Md5": false,
+      "Enable": false
     },
     //七牛
     {
@@ -55,8 +64,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false,
-      "Md5": false
+      "Md5": false,
+      "Enable": false
     },
     //华为云
     {
@@ -69,8 +78,8 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "",
-      "Enable": false,
-      "Md5": false
+      "Md5": false,
+      "Enable": false
     }
   ]
 }

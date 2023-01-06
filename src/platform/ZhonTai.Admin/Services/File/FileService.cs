@@ -18,6 +18,8 @@ using ZhonTai.Common.Files;
 using ZhonTai.Common.Helpers;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using ZhonTai.Admin.Core.Helpers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ZhonTai.Admin.Services.File;
 
@@ -31,6 +33,8 @@ public class FileService : BaseService, IFileService, IDynamicApi
     private IOSSServiceFactory _oSSServiceFactory => LazyGetRequiredService<IOSSServiceFactory>();
 
     private OSSConfig _oSSConfig => LazyGetRequiredService<IOptions<OSSConfig>>().Value;
+
+    private IHttpContextAccessor _httpContextAccessor => LazyGetRequiredService<IHttpContextAccessor>();
 
     public FileService()
     {
@@ -81,12 +85,25 @@ public class FileService : BaseService, IFileService, IDynamicApi
         var shareFile = await _fileRepository.Where(a=>a.Id != input.Id && a.FileGuid == file.FileGuid).AnyAsync();
         if (!shareFile)
         {
-            var oSSService = _oSSServiceFactory.Create(file.Provider.ToString());
-            var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == file.Provider).FirstOrDefault();
-            if (oSSOptions.Enable)
+            if(file.Provider.HasValue)
             {
-                var filePath = Path.Combine(file.FileDirectory, file.FileGuid + file.Extension).ToPath();
-                await oSSService.RemoveObjectAsync(file.BucketName, filePath);
+                var oSSService = _oSSServiceFactory.Create(file.Provider.ToString());
+                var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == file.Provider).FirstOrDefault();
+                var enableOss = oSSOptions != null && oSSOptions.Enable;
+                if (enableOss)
+                {
+                    var filePath = Path.Combine(file.FileDirectory, file.FileGuid + file.Extension).ToPath();
+                    await oSSService.RemoveObjectAsync(file.BucketName, filePath);
+                }
+            }
+            else
+            {
+                var env = LazyGetRequiredService<IWebHostEnvironment>();
+                var filePath = Path.Combine(env.WebRootPath, file.FileDirectory, file.FileGuid + file.Extension).ToPath();
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
             }
         }
 
@@ -101,14 +118,15 @@ public class FileService : BaseService, IFileService, IDynamicApi
     /// <returns></returns>
     public async Task<FileEntity> UploadFileAsync([Required] IFormFile file, string fileDirectory = "")
     {
-        var oSSService = _oSSServiceFactory.Create(_oSSConfig.Provider.ToString());
+        var localUploadConfig = _oSSConfig.LocalUploadConfig;
         var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == _oSSConfig.Provider).FirstOrDefault();
-
+        var enableOss = oSSOptions != null && oSSOptions.Enable;
+        var enableMd5 = enableOss ? oSSOptions.Md5 : localUploadConfig.Md5;
         var md5 = string.Empty;
-        if (oSSOptions.Md5)
+        if (enableMd5)
         {
             md5 = MD5Encrypt.GetHash(file.OpenReadStream());
-            var md5FileEntity = await _fileRepository.Where(a => a.Md5 == md5 && a.Provider == oSSOptions.Provider).FirstAsync();
+            var md5FileEntity = await _fileRepository.WhereIf(enableOss, a => a.Provider == oSSOptions.Provider).Where(a => a.Md5 == md5).FirstAsync();
             if (md5FileEntity != null)
             {
                 var sameFileEntity = new FileEntity
@@ -131,14 +149,18 @@ public class FileService : BaseService, IFileService, IDynamicApi
 
         if (fileDirectory.IsNull())
         {
-            fileDirectory = DateTime.Now.ToString("yyyy/MM/dd");
+            fileDirectory = localUploadConfig.Directory;
+            if (localUploadConfig.DateTimeDirectory.NotNull())
+            {
+                fileDirectory = Path.Combine(fileDirectory, DateTime.Now.ToString(localUploadConfig.DateTimeDirectory)).ToPath();
+            }
         }
 
         var fileSize = new FileSize(file.Length);
         var fileEntity = new FileEntity
         {
-            Provider = oSSOptions.Provider,
-            BucketName = oSSOptions.BucketName,
+            Provider = oSSOptions?.Provider,
+            BucketName = oSSOptions?.BucketName,
             FileGuid = FreeUtil.NewMongodbId(),
             FileName = Path.GetFileNameWithoutExtension(file.FileName),
             Extension = Path.GetExtension(file.FileName).ToLower(),
@@ -149,27 +171,53 @@ public class FileService : BaseService, IFileService, IDynamicApi
         };
 
         var filePath = Path.Combine(fileDirectory, fileEntity.FileGuid + fileEntity.Extension).ToPath();
-        var url = oSSOptions.Url;
-        if (url.IsNull())
+        var url = string.Empty;
+        if (enableOss)
         {
-            url = oSSOptions.Provider switch
+            url = oSSOptions.Url;
+            if (url.IsNull())
             {
-                OSSProvider.Minio => $"{oSSOptions.Endpoint}/{oSSOptions.BucketName}",
-                OSSProvider.Aliyun => $"{oSSOptions.BucketName}.{oSSOptions.Endpoint}",
-                OSSProvider.QCloud => $"{oSSOptions.BucketName}-{oSSOptions.Endpoint}.cos.{oSSOptions.Region}.myqcloud.com",
-                OSSProvider.Qiniu => $"{oSSOptions.BucketName}.{oSSOptions.Region}.qiniucs.com",
-                OSSProvider.HuaweiCloud => $"{oSSOptions.BucketName}.{oSSOptions.Endpoint}",
-                _ => ""
-            };
+                url = oSSOptions.Provider switch
+                {
+                    OSSProvider.Minio => $"{oSSOptions.Endpoint}/{oSSOptions.BucketName}",
+                    OSSProvider.Aliyun => $"{oSSOptions.BucketName}.{oSSOptions.Endpoint}",
+                    OSSProvider.QCloud => $"{oSSOptions.BucketName}-{oSSOptions.Endpoint}.cos.{oSSOptions.Region}.myqcloud.com",
+                    OSSProvider.Qiniu => $"{oSSOptions.BucketName}.{oSSOptions.Region}.qiniucs.com",
+                    OSSProvider.HuaweiCloud => $"{oSSOptions.BucketName}.{oSSOptions.Endpoint}",
+                    _ => ""
+                };
+            }
+            if (url.IsNull())
+            {
+                throw ResultOutput.Exception($"请配置{oSSOptions.Provider}的Url参数");
+            }
+
+            var urlProtocol = oSSOptions.IsEnableHttps ? "https" : "http";
+            fileEntity.LinkUrl = $"{urlProtocol}://{url}/{filePath}";
         }
-        if (url.IsNull())
+        else
         {
-            throw ResultOutput.Exception($"请配置{oSSOptions.Provider}的Url参数");
+            fileEntity.LinkUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host.Value}/{filePath}";
         }
 
-        var urlProtocol = (oSSOptions.IsEnableHttps ? "https" : "http");
-        fileEntity.LinkUrl = $"{urlProtocol}://{url}/{filePath}";
-        await oSSService.PutObjectAsync(oSSOptions.BucketName, filePath, file.OpenReadStream());
+        if (enableOss)
+        {
+            var oSSService = _oSSServiceFactory.Create(_oSSConfig.Provider.ToString());
+            await oSSService.PutObjectAsync(oSSOptions.BucketName, filePath, file.OpenReadStream());
+        }
+        else
+        {
+            var uploadHelper = LazyGetRequiredService<UploadHelper>();
+            var env = LazyGetRequiredService<IWebHostEnvironment>();
+            fileDirectory = Path.Combine(env.WebRootPath, fileDirectory).ToPath();
+            if (!Directory.Exists(fileDirectory))
+            {
+                Directory.CreateDirectory(fileDirectory);
+            }
+            filePath = Path.Combine(env.WebRootPath, filePath).ToPath();
+            await uploadHelper.SaveAsync(file, filePath);
+        }
+       
         fileEntity = await _fileRepository.InsertAsync(fileEntity);
 
         return fileEntity;

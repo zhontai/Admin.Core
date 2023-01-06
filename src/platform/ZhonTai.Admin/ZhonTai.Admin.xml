@@ -656,9 +656,109 @@
             刷新有效期(分钟)
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.OSSOptions">
+            <summary>
+            OSS配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Provider">
+            <summary>
+            文件存储供应商
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Endpoint">
+            <summary>
+            域名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.AccessKey">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.SecretKey">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Region">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.SessionToken">
+            <summary>
+            会话Token
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.IsEnableHttps">
+            <summary>
+            启用Https
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.IsEnableCache">
+            <summary>
+            启用缓存
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.BucketName">
+            <summary>
+            存储桶
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Url">
+            <summary>
+            文件地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Md5">
+            <summary>
+            文件Md5码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSOptions.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.LocalUploadConfig">
+            <summary>
+            本地上传配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.Directory">
+            <summary>
+            上传目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.DateTimeDirectory">
+            <summary>
+            日期目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.Md5">
+            <summary>
+            文件Md5码
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.OSSConfig">
             <summary>
             OSS配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSConfig.LocalUploadConfig">
+            <summary>
+            本地上传配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSConfig.Provider">
+            <summary>
+            文件存储供应商
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.OSSConfig.OSSConfigs">
+            <summary>
+            OSS配置列表
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.UploadConfig">
