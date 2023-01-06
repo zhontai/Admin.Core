@@ -5,6 +5,11 @@ namespace ZhonTai.Admin.Services.File.Dto;
 public class FileGetPageOutput
 {
     /// <summary>
+    /// 文件Id
+    /// </summary>
+    public long Id { get; set; }
+
+    /// <summary>
     /// OSS供应商
     /// </summary>
     public string ProviderName { get; set; }
@@ -13,6 +18,11 @@ public class FileGetPageOutput
     /// 存储桶名称
     /// </summary>
     public string BucketName { get; set; }
+
+    /// <summary>
+    /// 文件目录
+    /// </summary>
+    public string FileDirectory { get; set; }
 
     /// <summary>
     /// 文件Guid

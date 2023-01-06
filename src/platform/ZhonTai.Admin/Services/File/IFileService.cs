@@ -16,6 +16,8 @@ public interface IFileService
 {
     Task<PageOutput<FileGetPageOutput>> GetPageAsync(PageInput<FileGetPageDto> input);
 
+    Task DeleteAsync(FileDeleteInput input);
+
     Task<FileEntity> UploadFileAsync(IFormFile file, string fileDirectory = "");
 
     Task<List<FileEntity>> UploadFilesAsync([Required] IFormFileCollection files, string fileDirectory = "");

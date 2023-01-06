@@ -13,7 +13,7 @@
       "IsEnableCache": true,
       "BucketName": "admin",
       "Url": "", //文件外链
-      "Enable": true,
+      "Enable": false,
       "Md5":  false
     },
     //阿里云

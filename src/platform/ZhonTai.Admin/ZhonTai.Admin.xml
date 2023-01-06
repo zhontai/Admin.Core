@@ -4269,6 +4269,16 @@
             文档接口
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileDeleteInput.Id">
+            <summary>
+            文件Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.Id">
+            <summary>
+            文件Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ProviderName">
             <summary>
             OSS供应商
@@ -4277,6 +4287,11 @@
         <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.BucketName">
             <summary>
             存储桶名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.FileDirectory">
+            <summary>
+            文件目录
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.FileGuid">
@@ -4332,6 +4347,13 @@
         <member name="M:ZhonTai.Admin.Services.File.FileService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.File.Dto.FileGetPageDto})">
             <summary>
             查询文件列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.File.FileService.DeleteAsync(ZhonTai.Admin.Services.File.Dto.FileDeleteInput)">
+            <summary>
+            删除文件
             </summary>
             <param name="input"></param>
             <returns></returns>

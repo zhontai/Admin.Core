@@ -65,6 +65,35 @@ public class FileService : BaseService, IFileService, IDynamicApi
     }
 
     /// <summary>
+    /// 删除文件
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task DeleteAsync(FileDeleteInput input)
+    {
+        var file = await _fileRepository.GetAsync(input.Id);
+        if (file == null)
+        {
+            return;
+        }
+
+        var shareFile = await _fileRepository.Where(a=>a.Id != input.Id && a.FileGuid == file.FileGuid).AnyAsync();
+        if (!shareFile)
+        {
+            var oSSService = _oSSServiceFactory.Create(file.Provider.ToString());
+            var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == file.Provider).FirstOrDefault();
+            if (oSSOptions.Enable)
+            {
+                var filePath = Path.Combine(file.FileDirectory, file.FileGuid + file.Extension).ToPath();
+                await oSSService.RemoveObjectAsync(file.BucketName, filePath);
+            }
+        }
+
+        await _fileRepository.DeleteAsync(file.Id);
+    }
+
+    /// <summary>
     /// 上传文件
     /// </summary>
     /// <param name="file"></param>
@@ -84,16 +113,16 @@ public class FileService : BaseService, IFileService, IDynamicApi
             {
                 var sameFileEntity = new FileEntity
                 {
-                    Provider = oSSOptions.Provider,
-                    BucketName = oSSOptions.BucketName,
-                    FileGuid = FreeUtil.NewMongodbId(),
+                    Provider = md5FileEntity.Provider,
+                    BucketName = md5FileEntity.BucketName,
+                    FileGuid = md5FileEntity.FileGuid,
                     FileName = Path.GetFileNameWithoutExtension(file.FileName),
                     Extension = Path.GetExtension(file.FileName).ToLower(),
                     FileDirectory = md5FileEntity.FileDirectory,
                     Size = md5FileEntity.Size,
                     SizeFormat = md5FileEntity.SizeFormat,
+                    LinkUrl = md5FileEntity.LinkUrl,
                     Md5 = md5,
-                    LinkUrl = md5FileEntity.LinkUrl
                 };
                 sameFileEntity = await _fileRepository.InsertAsync(sameFileEntity);
                 return sameFileEntity;
