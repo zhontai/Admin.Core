@@ -20,11 +20,51 @@
       {
         "id": 161227168432197,
         "parentId": 161227168313413,
-        "label": "系统配置",
+        "label": "系统管理",
         "cache": true,
         "sort": 3,
         "enabled": true,
         "childs": [
+          {
+            "id": 161227168440390,
+            "parentId": 161227168432197,
+            "name": "admin/api",
+            "label": "接口管理",
+            "path": "admin/api/index",
+            "cache": true,
+            "sort": 4,
+            "enabled": true
+          },
+          {
+            "id": 161227168444485,
+            "parentId": 161227168432197,
+            "name": "admin/view",
+            "label": "视图管理",
+            "path": "admin/view/index",
+            "cache": true,
+            "sort": 5,
+            "enabled": true
+          },
+          {
+            "id": 161227168448582,
+            "parentId": 161227168432197,
+            "name": "admin/cache",
+            "label": "缓存管理",
+            "path": "admin/cache/index",
+            "cache": true,
+            "sort": 3,
+            "enabled": true
+          },
+          {
+            "id": 161227168456774,
+            "parentId": 161227168432197,
+            "name": "admin/document",
+            "label": "文档管理",
+            "path": "admin/document/index",
+            "cache": true,
+            "sort": 7,
+            "enabled": true
+          },
           {
             "id": 187053736300613,
             "parentId": 161227168432197,
@@ -34,6 +74,27 @@
             "description": "数据字典",
             "cache": true,
             "sort": 1,
+            "enabled": true
+          },
+          {
+            "id": 336556164300869,
+            "parentId": 161227168432197,
+            "name": "admin/task",
+            "label": "任务调度",
+            "path": "admin/task/index",
+            "description": "",
+            "cache": true,
+            "sort": 2,
+            "enabled": true
+          },
+          {
+            "id": 371247502852165,
+            "parentId": 161227168432197,
+            "name": "admin/file",
+            "label": "文件管理",
+            "path": "admin/file/index",
+            "cache": true,
+            "sort": 6,
             "enabled": true
           }
         ]
@@ -81,43 +142,13 @@
             "enabled": true
           },
           {
-            "id": 161227168440390,
-            "parentId": 161227168436294,
-            "name": "admin/api",
-            "label": "接口管理",
-            "path": "admin/api/index",
-            "cache": true,
-            "sort": 5,
-            "enabled": true
-          },
-          {
-            "id": 161227168444485,
-            "parentId": 161227168436294,
-            "name": "admin/view",
-            "label": "视图管理",
-            "path": "admin/view/index",
-            "cache": true,
-            "sort": 4,
-            "enabled": true
-          },
-          {
             "id": 161227168444486,
             "parentId": 161227168436294,
             "name": "admin/permission",
             "label": "权限管理",
             "path": "admin/permission/index",
             "cache": true,
-            "sort": 6,
-            "enabled": true
-          },
-          {
-            "id": 161227168448582,
-            "parentId": 161227168436294,
-            "name": "admin/cache",
-            "label": "缓存管理",
-            "path": "admin/cache/index",
-            "cache": true,
-            "sort": 8,
+            "sort": 4,
             "enabled": true
           },
           {
@@ -127,17 +158,7 @@
             "label": "租户管理",
             "path": "admin/tenant/index",
             "cache": true,
-            "sort": 7,
-            "enabled": true
-          },
-          {
-            "id": 161227168456774,
-            "parentId": 161227168436294,
-            "name": "admin/document",
-            "label": "文档管理",
-            "path": "admin/document/index",
-            "cache": true,
-            "sort": 10,
+            "sort": 5,
             "enabled": true
           },
           {
@@ -149,17 +170,6 @@
             "description": "",
             "cache": true,
             "sort": 3,
-            "enabled": true
-          },
-          {
-            "id": 336556164300869,
-            "parentId": 161227168436294,
-            "name": "admin/task",
-            "label": "任务管理",
-            "path": "admin/task/index",
-            "description": "",
-            "cache": true,
-            "sort": 9,
             "enabled": true
           }
         ]
@@ -202,7 +212,7 @@
     "name": "",
     "label": "布局管理",
     "cache": true,
-    "sort": 1,
+    "sort": 2,
     "enabled": true,
     "childs": [
       {

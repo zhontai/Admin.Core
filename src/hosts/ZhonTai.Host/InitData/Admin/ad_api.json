@@ -1452,5 +1452,54 @@
         "childs": []
       }
     ]
+  },
+  {
+    "id": 371292589752389,
+    "label": "文件服务",
+    "path": "file",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 371292589764677,
+        "parentId": 371292589752389,
+        "label": "查询文件列表",
+        "path": "/api/admin/file/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 371678435708997,
+        "parentId": 371292589752389,
+        "label": "上传文件",
+        "path": "/api/admin/file/upload-file",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 371678435725381,
+        "parentId": 371292589752389,
+        "label": "上传多文件",
+        "path": "/api/admin/file/upload-files",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 372031353708613,
+        "parentId": 371292589752389,
+        "label": "删除文件",
+        "path": "/api/admin/file/delete",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
   }
 ]

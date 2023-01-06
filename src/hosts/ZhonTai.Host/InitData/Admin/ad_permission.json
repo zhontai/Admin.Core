@@ -865,13 +865,13 @@
             "name": "admin/doc",
             "path": "/platform/system/document",
             "icon": "iconfont icon-gongju",
+            "hidden": true,
             "opened": true,
             "external": true,
             "isKeepAlive": true,
             "sort": 6,
             "description": "",
             "enabled": true,
-            "hidden": true,
             "childs": [
               {
                 "id": 161227168800838,
@@ -1216,6 +1216,70 @@
                 "isKeepAlive": true,
                 "sort": 3,
                 "description": "",
+                "enabled": true,
+                "childs": []
+              }
+            ]
+          },
+          {
+            "id": 371247914160197,
+            "parentId": 161227168763974,
+            "label": "文件管理",
+            "type": 2,
+            "viewId": 371247502852165,
+            "name": "admin/file",
+            "path": "/platform/system/file",
+            "icon": "ele-Memo",
+            "opened": true,
+            "isKeepAlive": true,
+            "sort": 7,
+            "enabled": true,
+            "childs": [
+              {
+                "id": 372004430860357,
+                "parentId": 371247914160197,
+                "label": "查询",
+                "code": "api:admin:file:get-page",
+                "type": 3,
+                "opened": true,
+                "isKeepAlive": true,
+                "sort": 1,
+                "enabled": true,
+                "childs": []
+              },
+              {
+                "id": 372004589551685,
+                "parentId": 371247914160197,
+                "label": "上传文件",
+                "code": "api:admin:file:upload-file",
+                "type": 3,
+                "opened": true,
+                "isKeepAlive": true,
+                "sort": 2,
+                "enabled": true,
+                "childs": []
+              },
+              {
+                "id": 372005085261893,
+                "parentId": 371247914160197,
+                "label": "上传多文件",
+                "code": "api:admin:file:upload-files",
+                "type": 3,
+                "opened": true,
+                "isKeepAlive": true,
+                "sort": 3,
+                "enabled": true,
+                "childs": []
+              },
+              {
+                "id": 372031447494725,
+                "parentId": 371247914160197,
+                "label": "彻底删除",
+                "code": "api:admin:file:delete",
+                "type": 3,
+                "opened": true,
+                "isKeepAlive": true,
+                "sort": 4,
                 "enabled": true,
                 "childs": []
               }
