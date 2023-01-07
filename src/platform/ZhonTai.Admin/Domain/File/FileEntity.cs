@@ -37,6 +37,12 @@ public partial class FileEntity : EntityBase
     public Guid FileGuid { get; set; }
 
     /// <summary>
+    /// 保存文件名
+    /// </summary>
+    [Column(StringLength = 200)]
+    public string SaveFileName { get; set; }
+
+    /// <summary>
     /// 文件名
     /// </summary>
     [Column(StringLength = 200)]

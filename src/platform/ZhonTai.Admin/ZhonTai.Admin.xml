@@ -2182,6 +2182,11 @@
             文件Guid
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.SaveFileName">
+            <summary>
+            保存文件名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileName">
             <summary>
             文件名
@@ -4458,20 +4463,22 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.String)">
+        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Boolean)">
             <summary>
             上传文件
             </summary>
             <param name="file"></param>
             <param name="fileDirectory"></param>
+            <param name="fileReName"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String)">
+        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.Boolean)">
             <summary>
             上传多文件
             </summary>
             <param name="files"></param>
             <param name="fileDirectory"></param>
+            <param name="fileReName"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.File.IFileService">

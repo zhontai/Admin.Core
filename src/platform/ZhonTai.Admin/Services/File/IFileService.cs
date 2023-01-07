@@ -18,7 +18,7 @@ public interface IFileService
 
     Task DeleteAsync(FileDeleteInput input);
 
-    Task<FileEntity> UploadFileAsync(IFormFile file, string fileDirectory = "");
+    Task<FileEntity> UploadFileAsync(IFormFile file, string fileDirectory = "", bool fileReName = true);
 
-    Task<List<FileEntity>> UploadFilesAsync([Required] IFormFileCollection files, string fileDirectory = "");
+    Task<List<FileEntity>> UploadFilesAsync([Required] IFormFileCollection files, string fileDirectory = "", bool fileReName = true);
 }

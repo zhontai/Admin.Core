@@ -82,7 +82,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
             return;
         }
 
-        var shareFile = await _fileRepository.Where(a=>a.Id != input.Id && a.FileGuid == file.FileGuid).AnyAsync();
+        var shareFile = await _fileRepository.Where(a=>a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
         if (!shareFile)
         {
             if(file.Provider.HasValue)
@@ -92,14 +92,14 @@ public class FileService : BaseService, IFileService, IDynamicApi
                 var enableOss = oSSOptions != null && oSSOptions.Enable;
                 if (enableOss)
                 {
-                    var filePath = Path.Combine(file.FileDirectory, file.FileGuid + file.Extension).ToPath();
+                    var filePath = Path.Combine(file.FileDirectory, file.SaveFileName + file.Extension).ToPath();
                     await oSSService.RemoveObjectAsync(file.BucketName, filePath);
                 }
             }
             else
             {
                 var env = LazyGetRequiredService<IWebHostEnvironment>();
-                var filePath = Path.Combine(env.WebRootPath, file.FileDirectory, file.FileGuid + file.Extension).ToPath();
+                var filePath = Path.Combine(env.WebRootPath, file.FileDirectory, file.SaveFileName + file.Extension).ToPath();
                 if (System.IO.File.Exists(filePath))
                 {
                     System.IO.File.Delete(filePath);
@@ -113,10 +113,11 @@ public class FileService : BaseService, IFileService, IDynamicApi
     /// <summary>
     /// 上传文件
     /// </summary>
-    /// <param name="file"></param>
-    /// <param name="fileDirectory"></param>
+    /// <param name="file">文件</param>
+    /// <param name="fileDirectory">文件目录</param>
+    /// <param name="fileReName">文件重命名</param>
     /// <returns></returns>
-    public async Task<FileEntity> UploadFileAsync([Required] IFormFile file, string fileDirectory = "")
+    public async Task<FileEntity> UploadFileAsync([Required] IFormFile file, string fileDirectory = "", bool fileReName = true)
     {
         var localUploadConfig = _oSSConfig.LocalUploadConfig;
         var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == _oSSConfig.Provider).FirstOrDefault();
@@ -133,7 +134,8 @@ public class FileService : BaseService, IFileService, IDynamicApi
                 {
                     Provider = md5FileEntity.Provider,
                     BucketName = md5FileEntity.BucketName,
-                    FileGuid = md5FileEntity.FileGuid,
+                    FileGuid = FreeUtil.NewMongodbId(),
+                    SaveFileName = md5FileEntity.SaveFileName,
                     FileName = Path.GetFileNameWithoutExtension(file.FileName),
                     Extension = Path.GetExtension(file.FileName).ToLower(),
                     FileDirectory = md5FileEntity.FileDirectory,
@@ -169,8 +171,9 @@ public class FileService : BaseService, IFileService, IDynamicApi
             SizeFormat = fileSize.ToString(),
             Md5 = md5
         };
+        fileEntity.SaveFileName = fileReName ? fileEntity.FileGuid.ToString() : fileEntity.FileName;
 
-        var filePath = Path.Combine(fileDirectory, fileEntity.FileGuid + fileEntity.Extension).ToPath();
+        var filePath = Path.Combine(fileDirectory, fileEntity.SaveFileName + fileEntity.Extension).ToPath();
         var url = string.Empty;
         if (enableOss)
         {
@@ -226,15 +229,16 @@ public class FileService : BaseService, IFileService, IDynamicApi
     /// <summary>
     /// 上传多文件
     /// </summary>
-    /// <param name="files"></param>
-    /// <param name="fileDirectory"></param>
+    /// <param name="files">文件列表</param>
+    /// <param name="fileDirectory">文件目录</param>
+    /// <param name="fileReName">文件重命名</param>
     /// <returns></returns>
-    public async Task<List<FileEntity>> UploadFilesAsync([Required] IFormFileCollection files, string fileDirectory = "")
+    public async Task<List<FileEntity>> UploadFilesAsync([Required] IFormFileCollection files, string fileDirectory = "", bool fileReName = true)
     {
         var fileList = new List<FileEntity>();
         foreach (var file in files)
         {
-            fileList.Add(await UploadFileAsync(file, fileDirectory));
+            fileList.Add(await UploadFileAsync(file, fileDirectory, fileReName));
         }
         return fileList;
     }
