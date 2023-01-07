@@ -55,6 +55,11 @@ public class PermissionListOutput
     public string Icon { get; set; }
 
     /// <summary>
+    /// 展开
+    /// </summary>
+    public bool Opened { get; set; }
+
+    /// <summary>
     /// 排序
     /// </summary>
     public int? Sort { get; set; }

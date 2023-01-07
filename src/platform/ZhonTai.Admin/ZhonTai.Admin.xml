@@ -4467,18 +4467,18 @@
             <summary>
             上传文件
             </summary>
-            <param name="file"></param>
-            <param name="fileDirectory"></param>
-            <param name="fileReName"></param>
+            <param name="file">文件</param>
+            <param name="fileDirectory">文件目录</param>
+            <param name="fileReName">文件重命名</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.Boolean)">
             <summary>
             上传多文件
             </summary>
-            <param name="files"></param>
-            <param name="fileDirectory"></param>
-            <param name="fileReName"></param>
+            <param name="files">文件列表</param>
+            <param name="fileDirectory">文件目录</param>
+            <param name="fileReName">文件重命名</param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.File.IFileService">
@@ -5214,6 +5214,11 @@
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Icon">
             <summary>
             图标
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Opened">
+            <summary>
+            展开
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Permission.Dto.PermissionListOutput.Sort">

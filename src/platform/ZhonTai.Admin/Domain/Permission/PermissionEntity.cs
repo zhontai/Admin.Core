@@ -79,7 +79,7 @@ public partial class PermissionEntity : EntityBase
     /// <summary>
     /// 展开分组
     /// </summary>
-    public bool Opened { get; set; } = true;
+    public bool Opened { get; set; }
 
     /// <summary>
     /// 打开新窗口
