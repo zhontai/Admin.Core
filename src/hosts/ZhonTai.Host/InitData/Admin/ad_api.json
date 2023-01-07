@@ -9,7 +9,7 @@
       {
         "id": 161227168079941,
         "parentId": 161227167658053,
-        "label": "查询接口",
+        "label": "查询",
         "path": "/api/admin/api/get",
         "httpMethods": "get",
         "description": "",
@@ -95,6 +95,16 @@
         "description": "",
         "enabled": true,
         "childs": []
+      },
+      {
+        "id": 372400615755845,
+        "parentId": 161227167658053,
+        "label": "批量彻底删除",
+        "path": "/api/admin/api/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
       }
     ]
   },
@@ -177,7 +187,7 @@
       {
         "id": 161227168137285,
         "parentId": 161227167719494,
-        "label": "查询数据字典",
+        "label": "查询",
         "path": "/api/admin/dictionary/get",
         "httpMethods": "get",
         "description": "",
@@ -187,7 +197,7 @@
       {
         "id": 161227168137286,
         "parentId": 161227167719494,
-        "label": "查询数据字典列表",
+        "label": "查询分页",
         "path": "/api/admin/dictionary/get-page",
         "httpMethods": "post",
         "description": "",
@@ -240,6 +250,16 @@
         "label": "彻底删除",
         "path": "/api/admin/dictionary/delete",
         "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 372390893649989,
+        "parentId": 161227167719494,
+        "label": "批量彻底删除",
+        "path": "/api/admin/dictionary/batch-delete",
+        "httpMethods": "put",
         "description": "",
         "enabled": true,
         "childs": []
@@ -465,7 +485,7 @@
       {
         "id": 161227168170054,
         "parentId": 161227167719496,
-        "label": "查询角色",
+        "label": "查询",
         "path": "/api/admin/role/get",
         "httpMethods": "get",
         "description": "",
@@ -475,7 +495,7 @@
       {
         "id": 161227168170055,
         "parentId": 161227167719496,
-        "label": "查询角色列表",
+        "label": "查询分页",
         "path": "/api/admin/role/get-page",
         "httpMethods": "post",
         "description": "",
@@ -535,7 +555,7 @@
       {
         "id": 336555241422917,
         "parentId": 161227167719496,
-        "label": "查询角色列表",
+        "label": "查询列表",
         "path": "/api/admin/role/get-list",
         "httpMethods": "get",
         "description": "",
@@ -783,7 +803,7 @@
       {
         "id": 161227168198725,
         "parentId": 161227167719498,
-        "label": "查询视图",
+        "label": "查询",
         "path": "/api/admin/view/get",
         "httpMethods": "get",
         "description": "",
@@ -859,6 +879,16 @@
         "description": "",
         "enabled": true,
         "childs": []
+      },
+      {
+        "id": 372401403850821,
+        "parentId": 161227167719498,
+        "label": "批量彻底删除",
+        "path": "/api/admin/view/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
       }
     ]
   },
@@ -901,7 +931,7 @@
       {
         "id": 161227168215109,
         "parentId": 161227167723590,
-        "label": "查询登录日志列表",
+        "label": "查询分页",
         "path": "/api/admin/login-log/get-page",
         "httpMethods": "post",
         "description": "",
@@ -930,7 +960,7 @@
       {
         "id": 161227168215110,
         "parentId": 161227167723591,
-        "label": "查询操作日志列表",
+        "label": "查询分页",
         "path": "/api/admin/opration-log/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1128,7 +1158,7 @@
       {
         "id": 161227168243781,
         "parentId": 161227167723593,
-        "label": "查询租户",
+        "label": "查询",
         "path": "/api/admin/tenant/get",
         "httpMethods": "get",
         "description": "",
@@ -1138,7 +1168,7 @@
       {
         "id": 161227168243782,
         "parentId": 161227167723593,
-        "label": "查询租户列表",
+        "label": "查询分页",
         "path": "/api/admin/tenant/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1207,7 +1237,7 @@
       {
         "id": 174219034734672,
         "parentId": 174219034718277,
-        "label": "查询部门",
+        "label": "查询",
         "path": "/api/admin/org/get",
         "httpMethods": "get",
         "description": "",
@@ -1268,7 +1298,7 @@
   },
   {
     "id": 174219034718279,
-    "label": "字典类型服务",
+    "label": "数据字典类型服务",
     "path": "dictionary-type",
     "description": "",
     "enabled": true,
@@ -1276,7 +1306,7 @@
       {
         "id": 174219034734661,
         "parentId": 174219034718279,
-        "label": "查询字典类型",
+        "label": "查询",
         "path": "/api/admin/dictionary-type/get",
         "httpMethods": "get",
         "description": "",
@@ -1286,7 +1316,7 @@
       {
         "id": 174219034734662,
         "parentId": 174219034718279,
-        "label": "查询字典类型列表",
+        "label": "查询分页",
         "path": "/api/admin/dictionary-type/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1342,6 +1372,16 @@
         "description": "",
         "enabled": true,
         "childs": []
+      },
+      {
+        "id": 372390893666373,
+        "parentId": 174219034718279,
+        "label": "批量彻底删除",
+        "path": "/api/admin/dictionary-type/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
       }
     ]
   },
@@ -1355,7 +1395,7 @@
       {
         "id": 336555241427018,
         "parentId": 336555241189445,
-        "label": "查询任务日志列表",
+        "label": "查询分页",
         "path": "/api/admin/task-log/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1374,7 +1414,7 @@
       {
         "id": 336555241422922,
         "parentId": 336555241193541,
-        "label": "查询任务",
+        "label": "查询",
         "path": "/api/admin/task/get",
         "httpMethods": "get",
         "description": "",
@@ -1384,7 +1424,7 @@
       {
         "id": 336555241427013,
         "parentId": 336555241193541,
-        "label": "查询任务列表",
+        "label": "查询分页",
         "path": "/api/admin/task/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1463,7 +1503,7 @@
       {
         "id": 371292589764677,
         "parentId": 371292589752389,
-        "label": "查询文件列表",
+        "label": "查询分页",
         "path": "/api/admin/file/get-page",
         "httpMethods": "post",
         "description": "",
@@ -1493,7 +1533,7 @@
       {
         "id": 372031353708613,
         "parentId": 371292589752389,
-        "label": "删除文件",
+        "label": "删除",
         "path": "/api/admin/file/delete",
         "httpMethods": "post",
         "description": "",

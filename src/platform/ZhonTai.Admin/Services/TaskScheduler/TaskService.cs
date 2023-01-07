@@ -29,7 +29,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询任务
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -40,7 +40,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询任务列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

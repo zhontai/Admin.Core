@@ -28,7 +28,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询部门
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

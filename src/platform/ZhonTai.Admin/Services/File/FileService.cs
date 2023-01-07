@@ -42,7 +42,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询文件列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -69,7 +69,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
     }
 
     /// <summary>
-    /// 删除文件
+    /// 删除
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

@@ -24,7 +24,7 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询任务日志列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

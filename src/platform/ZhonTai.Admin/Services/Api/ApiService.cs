@@ -27,7 +27,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询接口
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -130,7 +130,17 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _apiRepository.DeleteAsync(m => m.Id == id);
+        await _apiRepository.DeleteAsync(a => a.Id == id);
+    }
+
+    /// <summary>
+    /// 批量彻底删除
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public async Task BatchDeleteAsync(long[] ids)
+    {
+        await _apiRepository.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>

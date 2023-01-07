@@ -24,6 +24,8 @@ public interface IApiService
 
     Task DeleteAsync(long id);
 
+    Task BatchDeleteAsync(long[] ids);
+
     Task SoftDeleteAsync(long id);
 
     Task BatchSoftDeleteAsync(long[] ids);

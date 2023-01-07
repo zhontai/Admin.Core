@@ -31,7 +31,7 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询登录日志列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

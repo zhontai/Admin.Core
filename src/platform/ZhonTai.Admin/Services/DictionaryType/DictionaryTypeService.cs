@@ -14,7 +14,7 @@ using ZhonTai.Admin.Core.Consts;
 namespace ZhonTai.Admin.Services.DictionaryType;
 
 /// <summary>
-/// 字典类型服务
+/// 数据字典类型服务
 /// </summary>
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynamicApi
@@ -28,7 +28,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     }
 
     /// <summary>
-    /// 查询字典类型
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -39,7 +39,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     }
 
     /// <summary>
-    /// 查询字典类型列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -105,8 +105,23 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
         //删除字典数据
         await _dictionaryRepository.DeleteAsync(a => a.DictionaryTypeId == id);
 
-        //删除字典类型
+        //删除数据字典类型
         await _DictionaryTypeRepository.DeleteAsync(a => a.Id == id);
+    }
+
+    /// <summary>
+    /// 批量彻底删除
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task BatchDeleteAsync(long[] ids)
+    {
+        //删除字典数据
+        await _dictionaryRepository.DeleteAsync(a => ids.Contains(a.DictionaryTypeId));
+
+        //删除数据字典类型
+        await _DictionaryTypeRepository.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>

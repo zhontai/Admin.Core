@@ -931,7 +931,7 @@
             <param name="db"></param>
             <param name="unitOfWork"></param>
             <param name="tran"></param>
-            <param name="data"></param>
+            <param name="dataList"></param>
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
@@ -3340,7 +3340,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetAsync(System.Int64)">
             <summary>
-            查询接口
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -3378,6 +3378,13 @@
             彻底删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Api.ApiService.SoftDeleteAsync(System.Int64)">
@@ -3859,19 +3866,19 @@
         </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService">
             <summary>
-            字典类型服务
+            数据字典类型服务
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.GetAsync(System.Int64)">
             <summary>
-            查询字典类型
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeGetPageDto})">
             <summary>
-            查询字典类型列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -3895,6 +3902,13 @@
             彻底删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.SoftDeleteAsync(System.Int64)">
@@ -3978,14 +3992,14 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.GetAsync(System.Int64)">
             <summary>
-            查询数据字典
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto})">
             <summary>
-            查询数据字典列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4009,6 +4023,13 @@
             彻底删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.SoftDeleteAsync(System.Int64)">
@@ -4451,14 +4472,14 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.File.FileService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.File.Dto.FileGetPageDto})">
             <summary>
-            查询文件列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.File.FileService.DeleteAsync(ZhonTai.Admin.Services.File.Dto.FileDeleteInput)">
             <summary>
-            删除文件
+            删除
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4623,7 +4644,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.LoginLog.LoginLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.LogGetPageDto})">
             <summary>
-            查询登录日志列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4792,7 +4813,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.OprationLog.OprationLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.LogGetPageDto})">
             <summary>
-            查询操作日志列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4861,7 +4882,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Org.OrgService.GetAsync(System.Int64)">
             <summary>
-            查询部门
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -5601,21 +5622,21 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetAsync(System.Int64)">
             <summary>
-            查询角色
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetListAsync(ZhonTai.Admin.Domain.Role.Dto.RoleGetListInput)">
             <summary>
-            查询角色列表
+            查询列表
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Role.Dto.RoleGetPageDto})">
             <summary>
-            查询角色列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -5807,7 +5828,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
             <summary>
-            查询任务日志列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -5819,14 +5840,14 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.Int64)">
             <summary>
-            查询任务
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
             <summary>
-            查询任务列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -6005,14 +6026,14 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Tenant.TenantService.GetAsync(System.Int64)">
             <summary>
-            查询租户
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Tenant.TenantService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Tenant.Dto.TenantGetPageDto})">
             <summary>
-            查询租户列表
+            查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -6630,7 +6651,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.View.ViewService.GetAsync(System.Int64)">
             <summary>
-            查询视图
+            查询
             </summary>
             <param name="id"></param>
             <returns></returns>
@@ -6661,6 +6682,13 @@
             彻底删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.View.ViewService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.View.ViewService.SoftDeleteAsync(System.Int64)">

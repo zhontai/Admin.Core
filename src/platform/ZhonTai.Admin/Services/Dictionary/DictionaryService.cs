@@ -7,6 +7,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
+using System.Linq;
 
 namespace ZhonTai.Admin.Services.Dictionary;
 
@@ -24,7 +25,7 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询数据字典
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -35,7 +36,7 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询数据字典列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -99,6 +100,16 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     public async Task DeleteAsync(long id)
     {
         await _dictionaryRepository.DeleteAsync(m => m.Id == id);
+    }
+
+    /// <summary>
+    /// 批量彻底删除
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public async Task BatchDeleteAsync(long[] ids)
+    {
+        await _dictionaryRepository.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>

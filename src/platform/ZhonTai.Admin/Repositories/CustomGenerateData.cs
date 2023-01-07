@@ -206,33 +206,36 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 用户角色
 
-        var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync(a => new
+        var userRoles = db.Queryable<UserRoleEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.UserId,
-            a.RoleId
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName
         });
 
         #endregion
 
         #region 用户部门
 
-        var userOrgs = await db.Queryable<UserOrgEntity>().ToListAsync(a => new
+        var userOrgs = db.Queryable<UserOrgEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.UserId,
-            a.OrgId
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName,
+            a.ModifiedTime,
+            a.ModifiedUserId,
+            a.ModifiedUserName
         });
 
         #endregion
 
         #region 角色权限
 
-        var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync(a => new
+        var rolePermissions = db.Queryable<RolePermissionEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.RoleId,
-            a.PermissionId
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName
         });
 
         #endregion
@@ -253,25 +256,23 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 租户权限
 
-        var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync(a => new
+        var tenantPermissions = db.Queryable<TenantPermissionEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.TenantId,
-            a.PermissionId
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName
         });
 
         #endregion
 
         #region 权限接口
 
-        var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync(a => new
+        var permissionApis = db.Queryable<PermissionApiEntity>().ToListIgnore(a => new
         {
-            a.Id,
-            a.PermissionId,
-            a.ApiId
+            a.CreatedTime,
+            a.CreatedUserId,
+            a.CreatedUserName
         });
-
-       
 
         #endregion
 

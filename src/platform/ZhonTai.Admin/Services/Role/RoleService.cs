@@ -36,7 +36,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询角色
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -53,7 +53,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询角色列表
+    /// 查询列表
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -68,7 +68,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询角色列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

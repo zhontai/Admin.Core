@@ -25,7 +25,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询视图
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -94,6 +94,16 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     public async Task DeleteAsync(long id)
     {
         await _viewRepository.DeleteAsync(m => m.Id == id);
+    }
+
+    /// <summary>
+    /// 批量彻底删除
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public async Task BatchDeleteAsync(long[] ids)
+    {
+        await _viewRepository.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>

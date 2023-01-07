@@ -42,7 +42,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询租户
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -53,7 +53,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询租户列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
