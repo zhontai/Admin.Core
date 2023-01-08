@@ -26,8 +26,10 @@
 
   //同步结构
   "syncStructure": true,
-  //同步数据
+  //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
+  //同步更新数据
+  "sysUpdateData": false,
   //同步数据地址
   //"SyncDataPath": "InitData/Admin/Vue2",
 

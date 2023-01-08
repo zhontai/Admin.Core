@@ -41,14 +41,14 @@ public abstract class SyncData
     /// <param name="db"></param>
     /// <param name="unitOfWork"></param>
     /// <param name="tran"></param>
-    /// <param name="data"></param>
+    /// <param name="dataList"></param>
     /// <param name="dbConfig"></param>
     /// <returns></returns>
     protected virtual async Task InitDataAsync<T>(
         IFreeSql db,
         IUnitOfWork unitOfWork,
         System.Data.Common.DbTransaction tran,
-        T[] data,
+        T[] dataList,
         DbConfig dbConfig = null
     ) where T : class, new()
     {
@@ -57,44 +57,28 @@ public abstract class SyncData
 
         try
         {
-            if (await db.Queryable<T>().DisableGlobalFilter(FilterNames.Tenant, FilterNames.Member).AnyAsync())
-            {
-                Console.WriteLine($" table: {tableName} record already exists");
-                return;
-            }
+            //if (await db.Queryable<T>().DisableGlobalFilter(FilterNames.Tenant, FilterNames.Member).AnyAsync())
+            //{
+            //    Console.WriteLine($" table: {tableName} record already exists");
+            //    return;
+            //}
 
-            if (!(data?.Length > 0))
+            if (!(dataList?.Length > 0))
             {
                 Console.WriteLine($" table: {tableName} import data []");
                 return;
             }
 
-            var repo = db.GetRepository<T>();
-            var insert = db.Insert<T>();
+            var insertOrUpdate = db.InsertOrUpdate<T>();
             if (unitOfWork != null)
             {
-                repo.UnitOfWork = unitOfWork;
-                insert = insert.WithTransaction(tran);
+                insertOrUpdate = insertOrUpdate.WithTransaction(tran);
             }
-
-            var isIdentity = CheckIdentity<T>();
-            if (isIdentity)
+            if (!dbConfig.SysUpdateData)
             {
-                if (dbConfig.Type == DataType.SqlServer)
-                {
-                    var insrtSql = insert.AppendData(data).InsertIdentity().ToSql();
-                    await repo.Orm.Ado.ExecuteNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON\n {insrtSql} \nSET IDENTITY_INSERT {tableName} OFF");
-                }
-                else
-                {
-                    await insert.AppendData(data).InsertIdentity().ExecuteAffrowsAsync();
-                }
+                insertOrUpdate.IfExistsDoNothing();
             }
-            else
-            {
-                repo.DbContextOptions.EnableCascadeSave = true;
-                await repo.InsertAsync(data);
-            }
+            await insertOrUpdate.SetSource(dataList).ExecuteAffrowsAsync();
 
             Console.WriteLine($" table: {tableName} sync data succeed");
         }

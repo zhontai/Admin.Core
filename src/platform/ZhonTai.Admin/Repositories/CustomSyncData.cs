@@ -16,6 +16,8 @@ using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Core.Db.Data;
 using ZhonTai.Admin.Domain.UserOrg;
+using System.Linq;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -39,20 +41,20 @@ public class CustomSyncData : SyncData, ISyncData
         var staffs = GetData<UserStaffEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, staffs, dbConfig);
 
-        var orgs = GetData<OrgEntity>(isTenant, dbConfig.SyncDataPath);
-        await InitDataAsync(db, uow, tran, orgs, dbConfig);
+        var orgTree = GetData<OrgEntity>(isTenant, dbConfig.SyncDataPath);
+        await InitDataAsync(db, uow, tran, orgTree.ToList().ToPlainList((a) => a.Childs).ToArray(), dbConfig);
 
         var roles = GetData<RoleEntity>(isTenant, dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, roles, dbConfig);
 
         var apiTree = GetData<ApiEntity>(path: dbConfig.SyncDataPath);
-        await InitDataAsync(db, uow, tran, apiTree, dbConfig);
+        await InitDataAsync(db, uow, tran, apiTree.ToList().ToPlainList((a) => a.Childs).ToArray(), dbConfig);
 
         var viewTree = GetData<ViewEntity>(path: dbConfig.SyncDataPath);
-        await InitDataAsync(db, uow, tran, viewTree, dbConfig);
+        await InitDataAsync(db, uow, tran, viewTree.ToList().ToPlainList((a) => a.Childs).ToArray(), dbConfig);
 
         var permissionTree = GetData<PermissionEntity>(path: dbConfig.SyncDataPath);
-        await InitDataAsync(db, uow, tran, permissionTree, dbConfig);
+        await InitDataAsync(db, uow, tran, permissionTree.ToList().ToPlainList((a) => a.Childs).ToArray(), dbConfig);
 
         var userRoles = GetData<UserRoleEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, userRoles, dbConfig);
