@@ -31,9 +31,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
 {
     private IFileRepository _fileRepository => LazyGetRequiredService<IFileRepository>();
     private IOSSServiceFactory _oSSServiceFactory => LazyGetRequiredService<IOSSServiceFactory>();
-
     private OSSConfig _oSSConfig => LazyGetRequiredService<IOptions<OSSConfig>>().Value;
-
     private IHttpContextAccessor _httpContextAccessor => LazyGetRequiredService<IHttpContextAccessor>();
 
     public FileService()

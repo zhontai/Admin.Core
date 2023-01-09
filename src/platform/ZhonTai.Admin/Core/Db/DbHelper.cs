@@ -173,7 +173,7 @@ public class DbHelper
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert)
+        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -207,7 +207,7 @@ public class DbHelper
 
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update)
+        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -284,7 +284,7 @@ public class DbHelper
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert)
+        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -310,7 +310,7 @@ public class DbHelper
                     break;
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update)
+        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {

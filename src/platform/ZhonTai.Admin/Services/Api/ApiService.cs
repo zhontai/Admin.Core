@@ -172,9 +172,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SyncAsync(ApiSyncInput input)
     {
-        if (input == null) return;
-        if (input.Apis == null) return;
-        if (input.Apis.Count == 0) return;
+        if (!(input?.Apis?.Count > 0)) return;
 
         //查询所有api
         var apis = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete).ToListAsync();
@@ -280,7 +278,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         //批量更新
         await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
-        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled, a.IsDeleted })
+        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled, a.IsDeleted, a.ModifiedTime })
         .ExecuteAffrowsAsync();
     }
 }
