@@ -10,6 +10,7 @@ using ZhonTai.Admin.Domain.Api.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
+using SixLabors.ImageSharp.Drawing;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -174,8 +175,18 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     {
         if (!(input?.Apis?.Count > 0)) return;
 
-        //查询所有api
-        var apis = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete).ToListAsync();
+        //查询分组下所有模块的api
+        var groupPaths = input.Apis.FindAll(a => a.ParentPath.IsNull()).Select(a => a.Path);
+        var groups = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+            .Where(a => a.ParentId == 0 && groupPaths.Contains(a.Path)).ToListAsync();
+        var groupIds = groups.Select(a => a.Id);
+        var modules = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+            .Where(a => groupIds.Contains(a.ParentId)).ToListAsync();
+        var moduleIds = modules.Select(a => a.Id);
+        var apis = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+            .Where(a=> moduleIds.Contains(a.ParentId)).ToListAsync();
+
+        apis = groups.Concat(modules).Concat(apis).ToList();
         var paths = apis.Select(a => a.Path).ToList();
 
         //path处理
