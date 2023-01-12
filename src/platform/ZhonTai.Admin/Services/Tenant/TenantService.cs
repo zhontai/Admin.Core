@@ -109,7 +109,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = input.Name,
             Code = input.Code,
             ParentId = 0,
-            MemberCount = 1
+            MemberCount = 1,
+            Sort = 1
         };
         await _orgRepository.InsertAsync(org);
 
@@ -153,7 +154,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             ParentId = 0,
             TenantId = tenantId,
             Type = RoleType.Group,
-            Name = "系统默认"
+            Name = "系统默认",
+            Sort = 1
         };
         await _roleRepository.InsertAsync(roleGroup);
 
@@ -165,7 +167,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = "主管理员",
             Code = "main-admin",
             ParentId = roleGroup.Id,
-            DataScope = DataScope.All
+            DataScope = DataScope.All,
+            Sort = 1
         };
         await _roleRepository.InsertAsync(role);
 
