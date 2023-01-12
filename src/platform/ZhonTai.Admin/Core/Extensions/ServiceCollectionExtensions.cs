@@ -63,6 +63,7 @@ public static class ServiceCollectionExtensions
                         option.SecretKey = oSSOptions.SecretKey;
                         option.IsEnableHttps = oSSOptions.IsEnableHttps;
                         option.IsEnableCache = oSSOptions.IsEnableCache;
+                        option.Region = oSSOptions.Region;
                     });
 
                     var oSSServiceFactory = services.BuildServiceProvider().GetRequiredService<IOSSServiceFactory>();
