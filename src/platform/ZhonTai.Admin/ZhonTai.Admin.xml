@@ -29,6 +29,11 @@
             不格式化结果数据
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.NonRegisterIOCAttribute">
+            <summary>
+            不注册到第三方IOC容器
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.NoOprationLogAttribute">
             <summary>
             禁用操作日志
@@ -1744,15 +1749,14 @@
             控制器注入
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.RegisterModules.RepositoryModule.#ctor(ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="T:ZhonTai.Admin.Core.RegisterModules.IRegisterIOC">
             <summary>
-            仓储注入
+            注册到第三方IOC容器
             </summary>
-            <param name="appConfig">AppConfig</param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.RegisterModules.ServiceModule.#ctor(ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.RegisterModules.RegisterModule.#ctor(ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
-            服务注入
+            模块注入
             </summary>
             <param name="appConfig">AppConfig</param>
         </member>

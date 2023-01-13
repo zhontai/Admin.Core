@@ -116,11 +116,8 @@ public class HostApp
             // 单例注入
             builder.RegisterModule(new SingleInstanceModule(appConfig));
 
-            // 仓储注入
-            builder.RegisterModule(new RepositoryModule(appConfig));
-
-            // 服务注入
-            builder.RegisterModule(new ServiceModule(appConfig));
+            // 模块注入
+            builder.RegisterModule(new RegisterModule(appConfig));
         });
 
         //配置Kestrel服务器

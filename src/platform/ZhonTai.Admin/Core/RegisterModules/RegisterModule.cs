@@ -8,18 +8,20 @@ using Module = Autofac.Module;
 using Microsoft.Extensions.DependencyModel;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Db.Transaction;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Repositories;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
 
-public class ServiceModule : Module
+public class RegisterModule : Module
 {
     private readonly AppConfig _appConfig;
 
     /// <summary>
-    /// 服务注入
+    /// 模块注入
     /// </summary>
     /// <param name="appConfig">AppConfig</param>
-    public ServiceModule(AppConfig appConfig)
+    public RegisterModule(AppConfig appConfig)
     {
         _appConfig = appConfig;
     }
@@ -42,9 +44,16 @@ public class ServiceModule : Module
                 .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
+            var nonRegisterIOCAttribute = typeof(NonRegisterIOCAttribute);
+            var iRegisterIOCType = typeof(IRegisterIOC);
+
+            bool Predicate(Type a) => !a.IsDefined(nonRegisterIOCAttribute, true) 
+                && (a.Name.EndsWith("Service") || a.Name.EndsWith("Repository") || iRegisterIOCType.IsAssignableFrom(a)) 
+                && !a.IsAbstract && !a.IsInterface && a.IsPublic;
+
             //服务接口实例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(a => a.Name.EndsWith("Service"))
+            .Where(Predicate)
             .AsImplementedInterfaces()
             .InstancePerLifetimeScope()
             .PropertiesAutowired()// 属性注入
@@ -53,11 +62,15 @@ public class ServiceModule : Module
 
             //服务实例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(a => a.Name.EndsWith("Service"))
+            .Where(Predicate)
             .InstancePerLifetimeScope()
             .PropertiesAutowired()// 属性注入
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableClassInterceptors();
+
+            //泛型注入
+            builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+            builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope().PropertiesAutowired();
         }
     }
 }
