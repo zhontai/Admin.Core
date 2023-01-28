@@ -13,6 +13,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 /// <summary>
 /// 任务日志服务
 /// </summary>
+[Order(71)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {

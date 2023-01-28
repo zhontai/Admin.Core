@@ -14,6 +14,7 @@ namespace ZhonTai.Admin.Services.Dictionary;
 /// <summary>
 /// 数据字典服务
 /// </summary>
+[Order(60)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
 {

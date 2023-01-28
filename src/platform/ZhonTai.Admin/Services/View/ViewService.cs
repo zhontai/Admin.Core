@@ -14,6 +14,7 @@ namespace ZhonTai.Admin.Services.View;
 /// <summary>
 /// 视图服务
 /// </summary>
+[Order(100)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class ViewService : BaseService, IViewService, IDynamicApi
 {

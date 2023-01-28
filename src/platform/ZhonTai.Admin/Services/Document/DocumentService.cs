@@ -18,6 +18,7 @@ namespace ZhonTai.Admin.Services.Document;
 /// <summary>
 /// 文档服务
 /// </summary>
+[Order(180)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DocumentService : BaseService, IDocumentService, IDynamicApi
 {

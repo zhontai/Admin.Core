@@ -24,6 +24,7 @@ namespace ZhonTai.Admin.Services.Tenant;
 /// <summary>
 /// 租户服务
 /// </summary>
+[Order(50)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {

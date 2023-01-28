@@ -6,6 +6,9 @@ using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core.Filters;
 
+/// <summary>
+/// 枚举架构过滤器
+/// </summary>
 public class EnumSchemaFilter : ISchemaFilter
 {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)

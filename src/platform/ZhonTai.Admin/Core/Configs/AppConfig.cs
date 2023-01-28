@@ -101,6 +101,16 @@ public class SwaggerConfig
     /// </summary>
     public bool Enable { get; set; } = false;
 
+    /// <summary>
+    /// 启用枚举架构过滤器
+    /// </summary>
+    public bool EnableEnumSchemaFilter { get; set; } = true;
+
+    /// <summary>
+    /// 启用接口排序文档过滤器
+    /// </summary>
+    public bool EnableOrderTagsDocumentFilter { get; set; } = true;
+
     private string _RoutePrefix = "swagger";
     /// <summary>
     /// 访问地址

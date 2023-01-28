@@ -35,6 +35,7 @@ namespace ZhonTai.Admin.Services.User;
 /// <summary>
 /// 用户服务
 /// </summary>
+[Order(10)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {

@@ -16,6 +16,7 @@ namespace ZhonTai.Admin.Services.Org;
 /// <summary>
 /// 部门服务
 /// </summary>
+[Order(30)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class OrgService : BaseService, IOrgService, IDynamicApi
 {

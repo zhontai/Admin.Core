@@ -15,6 +15,7 @@ namespace ZhonTai.Admin.Services.LoginLog;
 /// <summary>
 /// 登录日志服务
 /// </summary>
+[Order(190)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
 {

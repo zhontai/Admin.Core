@@ -381,6 +381,16 @@
             启用
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableEnumSchemaFilter">
+            <summary>
+            启用枚举架构过滤器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableOrderTagsDocumentFilter">
+            <summary>
+            启用接口排序文档过滤器
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
             <summary>
             访问地址
@@ -1635,9 +1645,19 @@
             控制器操作日志记录
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Filters.EnumSchemaFilter">
+            <summary>
+            枚举架构过滤器
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Filters.FormatResultFilter">
             <summary>
             结果格式化过滤器
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Filters.OrderTagsDocumentFilter">
+            <summary>
+            接口排序文档过滤器
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Filters.ValidateInputFilter">

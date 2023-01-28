@@ -51,7 +51,6 @@ using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi.Attributes;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Text.RegularExpressions;
 
 namespace ZhonTai.Admin.Core;
@@ -322,7 +321,6 @@ public class HostApp
                         Version = project.Version,
                         Description = project.Description
                     });
-                    //c.OrderActionsBy(o => o.RelativePath);
                 });
 
                 options.CustomOperationIds(apiDesc =>
@@ -388,7 +386,25 @@ public class HostApp
                 }
                 options.AddServer(server);
 
-                options.SchemaFilter<EnumSchemaFilter>();
+                if(appConfig.Swagger.EnableEnumSchemaFilter)
+                {
+                    options.SchemaFilter<EnumSchemaFilter>();
+                }
+                if(appConfig.Swagger.EnableOrderTagsDocumentFilter)
+                {
+                    options.DocumentFilter<OrderTagsDocumentFilter>();
+                }
+                options.OrderActionsBy(apiDesc =>
+                {
+                    var order = 0;
+                    var objOrderAttribute = apiDesc.ActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is OrderAttribute);
+                    if (objOrderAttribute != null)
+                    {
+                        var orderAttribute = objOrderAttribute as OrderAttribute;
+                        order = orderAttribute.Value;
+                    }
+                    return (int.MaxValue - order).ToString().PadLeft(int.MaxValue.ToString().Length, '0');
+                });
 
                 #region 添加设置Token的按钮
 

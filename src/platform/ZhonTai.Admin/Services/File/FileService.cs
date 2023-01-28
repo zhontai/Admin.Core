@@ -26,6 +26,7 @@ namespace ZhonTai.Admin.Services.File;
 /// <summary>
 /// 文件服务
 /// </summary>
+[Order(110)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class FileService : BaseService, IFileService, IDynamicApi
 {

@@ -22,6 +22,7 @@ namespace ZhonTai.Admin.Services.Role;
 /// <summary>
 /// 角色服务
 /// </summary>
+[Order(20)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class RoleService : BaseService, IRoleService, IDynamicApi
 {

@@ -17,6 +17,7 @@ namespace ZhonTai.Admin.Services.Cache;
 /// <summary>
 /// 缓存服务
 /// </summary>
+[Order(80)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class CacheService : BaseService, ICacheService, IDynamicApi
 {

@@ -59,11 +59,11 @@ public static class ServiceCollectionExtensions
                     {
                         option.Provider = oSSOptions.Provider;
                         option.Endpoint = oSSOptions.Endpoint;
+                        option.Region = oSSOptions.Region;
                         option.AccessKey = oSSOptions.AccessKey;
                         option.SecretKey = oSSOptions.SecretKey;
                         option.IsEnableHttps = oSSOptions.IsEnableHttps;
                         option.IsEnableCache = oSSOptions.IsEnableCache;
-                        option.Region = oSSOptions.Region;
                     });
 
                     var oSSServiceFactory = services.BuildServiceProvider().GetRequiredService<IOSSServiceFactory>();

@@ -22,6 +22,10 @@
   "swagger": {
     //启用
     "enable": true,
+    //启用枚举架构过滤器
+    "enableEnumSchemaFilter": true,
+    //启用接口排序文档过滤器
+    "enableOrderTagsDocumentFilter": true,
     //路由前缀，如配置微服务文档地址：doc/module/swagger
     "routePrefix": "swagger",
     //地址

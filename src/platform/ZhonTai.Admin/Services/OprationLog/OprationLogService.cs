@@ -15,6 +15,7 @@ namespace ZhonTai.Admin.Services.OprationLog;
 /// <summary>
 /// 操作日志服务
 /// </summary>
+[Order(200)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
 {

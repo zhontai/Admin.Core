@@ -25,6 +25,7 @@ namespace ZhonTai.Admin.Services.Permission;
 /// <summary>
 /// 权限服务
 /// </summary>
+[Order(40)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class PermissionService : BaseService, IPermissionService, IDynamicApi
 {

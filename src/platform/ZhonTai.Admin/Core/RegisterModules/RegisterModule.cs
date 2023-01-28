@@ -39,7 +39,7 @@ public class RegisterModule : Module
 
         if(_appConfig.AssemblyNames?.Length > 0)
         {
-            //服务
+            //程序集
             Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
                 .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
@@ -51,7 +51,7 @@ public class RegisterModule : Module
                 && (a.Name.EndsWith("Service") || a.Name.EndsWith("Repository") || iRegisterIOCType.IsAssignableFrom(a)) 
                 && !a.IsAbstract && !a.IsInterface && a.IsPublic;
 
-            //服务接口实例
+            //有接口实例
             builder.RegisterAssemblyTypes(assemblies)
             .Where(Predicate)
             .AsImplementedInterfaces()
@@ -60,7 +60,7 @@ public class RegisterModule : Module
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableInterfaceInterceptors();
 
-            //服务实例
+            //无接口实例
             builder.RegisterAssemblyTypes(assemblies)
             .Where(Predicate)
             .InstancePerLifetimeScope()
@@ -68,7 +68,7 @@ public class RegisterModule : Module
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableClassInterceptors();
 
-            //泛型注入
+            //仓储泛型注入
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
             builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope().PropertiesAutowired();
         }

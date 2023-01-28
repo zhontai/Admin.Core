@@ -10,13 +10,13 @@ using ZhonTai.Admin.Domain.Api.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
-using SixLabors.ImageSharp.Drawing;
 
 namespace ZhonTai.Admin.Services.Api;
 
 /// <summary>
 /// 接口服务
 /// </summary>
+[Order(90)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class ApiService : BaseService, IApiService, IDynamicApi
 {
