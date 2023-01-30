@@ -52,6 +52,7 @@ using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi.Attributes;
 using System.Text.RegularExpressions;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ZhonTai.Admin.Core;
 
@@ -397,7 +398,7 @@ public class HostApp
                 options.OrderActionsBy(apiDesc =>
                 {
                     var order = 0;
-                    var objOrderAttribute = apiDesc.ActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is OrderAttribute);
+                    var objOrderAttribute = apiDesc.CustomAttributes().FirstOrDefault(x => x is OrderAttribute);
                     if (objOrderAttribute != null)
                     {
                         var orderAttribute = objOrderAttribute as OrderAttribute;
