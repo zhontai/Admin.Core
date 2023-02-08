@@ -3,6 +3,6 @@
   "corUrls": [ ],
   "IdentityServer": {
     //地址
-    "url": ""
+    "url": "https://localhost:5000"
   }
 }

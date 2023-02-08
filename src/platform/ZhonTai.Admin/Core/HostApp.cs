@@ -263,33 +263,22 @@ public class HostApp
         var jwtConfig = ConfigHelper.Get<JwtConfig>("jwtconfig", env.EnvironmentName);
         services.TryAddSingleton(jwtConfig);
 
-        if (appConfig.IdentityServer.Enable)
+        services.AddAuthentication(options =>
         {
-            //is4
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
-                options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
-            })
-            .AddJwtBearer(options =>
+            options.DefaultScheme = appConfig.IdentityServer.Enable ? IdentityServerAuthenticationDefaults.AuthenticationScheme : JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
+            options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
+        })
+        .AddJwtBearer(options =>
+        {
+            //ids4
+            if (appConfig.IdentityServer.Enable)
             {
                 options.Authority = appConfig.IdentityServer.Url;
-                options.RequireHttpsMetadata = false;
-                options.Audience = "admin.server.api";
-            })
-            .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
-        }
-        else
-        {
-            //jwt
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
-                options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
-            })
-            .AddJwtBearer(options =>
+                options.RequireHttpsMetadata = appConfig.IdentityServer.RequireHttpsMetadata;
+                options.Audience = appConfig.IdentityServer.Audience;
+            }
+            else
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -302,9 +291,9 @@ public class HostApp
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecurityKey)),
                     ClockSkew = TimeSpan.Zero
                 };
-            })
-            .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
-        }
+            }
+        })
+        .AddScheme<AuthenticationSchemeOptions, ResponseAuthenticationHandler>(nameof(ResponseAuthenticationHandler), o => { });
 
         #endregion 身份认证授权
 
@@ -436,7 +425,8 @@ public class HostApp
                         {
                             Implicit = new OpenApiOAuthFlow
                             {
-                                AuthorizationUrl = new Uri($"{appConfig.IdentityServer.Url}/connect/authorize"),
+                                AuthorizationUrl = new Uri($"{appConfig.IdentityServer.Url}/connect/authorize", UriKind.Absolute),
+                                TokenUrl = new Uri($"{appConfig.IdentityServer.Url}/connect/token", UriKind.Absolute),
                                 Scopes = new Dictionary<string, string>
                                 {
                                     { "admin.server.api", "admin后端api" }

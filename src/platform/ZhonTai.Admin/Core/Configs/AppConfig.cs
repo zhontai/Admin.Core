@@ -178,6 +178,16 @@ public class IdentityServer
     /// 地址
     /// </summary>
     public string Url { get; set; } = "https://localhost:5000";
+
+    /// <summary>
+    /// 启用Https
+    /// </summary>
+    public bool RequireHttpsMetadata { get; set; } = false;
+
+    /// <summary>
+    /// 受众
+    /// </summary>
+    public string Audience { get; set; } = "admin.server.api";
 }
 
 /// <summary>

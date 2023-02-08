@@ -451,6 +451,16 @@
             地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.IdentityServer.RequireHttpsMetadata">
+            <summary>
+            启用Https
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.IdentityServer.Audience">
+            <summary>
+            受众
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.AopConfig">
             <summary>
             Aop配置
