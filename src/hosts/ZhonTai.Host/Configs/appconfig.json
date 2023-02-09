@@ -56,7 +56,7 @@
   //统一认证授权服务器
   "identityServer": {
     //启用
-    "enable": true,
+    "enable": false,
     //认证地址
     "url": "https://localhost:5000",
     //启用Https
