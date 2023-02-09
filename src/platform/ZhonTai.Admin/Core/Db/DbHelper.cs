@@ -481,7 +481,15 @@ public class DbHelper
             }
 
             //会员过滤器
-            fsql.GlobalFilter.ApplyOnly<IMember>(FilterNames.Member, a => a.MemberId == user.Id);
+            fsql.GlobalFilter.ApplyOnlyIf<IMember>(FilterNames.Member,
+                () =>
+                {
+                    if (user?.Id > 0 && user.Type != UserType.Member)
+                        return false;
+                    return true;
+                },
+                a => a.MemberId == user.Id
+            );
 
             //数据权限过滤器
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
