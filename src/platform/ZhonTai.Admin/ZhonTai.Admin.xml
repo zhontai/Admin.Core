@@ -3477,6 +3477,11 @@
             说明
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiAddInput.Enabled">
             <summary>
             启用
@@ -3515,6 +3520,11 @@
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiListOutput.Description">
             <summary>
             说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiListOutput.Sort">
+            <summary>
+            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiListOutput.Enabled">

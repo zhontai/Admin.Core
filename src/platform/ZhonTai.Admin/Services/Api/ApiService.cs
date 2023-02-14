@@ -47,6 +47,8 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     {
         var data = await _apiRepository
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
+            .OrderBy(a => a.ParentId)
+            .OrderBy(a => a.Sort)
             .ToListAsync<ApiListOutput>();
 
         return data;
@@ -66,7 +68,8 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
         .Count(out var total)
-        .OrderByDescending(true, c => c.Id)
+        .OrderBy(a => a.ParentId)
+        .OrderBy(a => a.Sort)
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync();
 
@@ -101,6 +104,12 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             return entity.Id;
         }
         entity = Mapper.Map<ApiEntity>(input);
+
+        if (entity.Sort == 0)
+        {
+            var sort = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete).Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
 
         await _apiRepository.InsertAsync(entity);
 
@@ -223,13 +232,14 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         #region 修改和禁用
 
         {
-            //api修改
+            //父级api修改
             ApiEntity a;
             List<string> labels;
             string label;
             string desc;
-            foreach (var api in parentApis)
+            for (int i = 0, len = parentApis.Count; i < len; i++)
             {
+                ApiSyncDto api = parentApis[i];
                 a = apis.Find(a => a.Path == api.Path);
                 if (a?.Id > 0)
                 {
@@ -239,6 +249,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
                     a.ParentId = 0;
                     a.Label = label;
                     a.Description = desc;
+                    a.Sort = i + 1;
                     a.Enabled = true;
                     a.IsDeleted = false;
                 }
@@ -246,14 +257,15 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         }
 
         {
-            //api修改
+            //子级api修改
             ApiEntity a;
             ApiEntity pa;
             List<string> labels;
             string label;
             string desc;
-            foreach (var api in childApis)
+            for (int i = 0, len = childApis.Count; i < len; i++)
             {
+                ApiSyncDto api = childApis[i];
                 a = apis.Find(a => a.Path == api.Path);
                 pa = apis.Find(a => a.Path == api.ParentPath);
                 if (a?.Id > 0)
@@ -266,6 +278,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
                     a.Label = label;
                     a.Description = desc;
                     a.HttpMethods = api.HttpMethods;
+                    a.Sort = i + 1;
                     a.Enabled = true;
                     a.IsDeleted = false;
                 }
@@ -273,7 +286,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         }
 
         {
-            //api禁用
+            //模块和api禁用
             var inputPaths = input.Apis.Select(a => a.Path).ToList();
             var disabledApis = (from a in apis where !inputPaths.Contains(a.Path) select a).ToList();
             if (disabledApis.Count > 0)
@@ -289,7 +302,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         //批量更新
         await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
-        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Enabled, a.IsDeleted, a.ModifiedTime })
+        .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Sort, a.Enabled, a.IsDeleted, a.ModifiedTime })
         .ExecuteAffrowsAsync();
     }
 }
