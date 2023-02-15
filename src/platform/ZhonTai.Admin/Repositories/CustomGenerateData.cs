@@ -26,7 +26,7 @@ namespace ZhonTai.Admin.Repositories;
 
 public class CustomGenerateData : GenerateData, IGenerateData
 {
-    public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
+    public virtual Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
     {
         #region 读取数据
 
@@ -320,7 +320,8 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<RolePermissionEntity>(rolePermissions);
         SaveDataToJsonFile<TenantEntity>(tenants);
         SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions, propsContractResolver: new PropsContractResolver());
-
         #endregion
+
+        return Task.CompletedTask;
     }
 }
