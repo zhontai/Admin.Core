@@ -10,17 +10,19 @@ namespace ZhonTai.Admin.Services.Dictionary;
 /// </summary>
 public partial interface IDictionaryService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<DictionaryGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetPageAsync(PageInput<DictionaryGetPageDto> input);
+    Task<PageOutput<DictionaryListOutput>> GetPageAsync(PageInput<DictionaryGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(DictionaryAddInput input);
+    Task<long> AddAsync(DictionaryAddInput input);
 
-    Task<IResultOutput> UpdateAsync(DictionaryUpdateInput input);
+    Task UpdateAsync(DictionaryUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task BatchDeleteAsync(long[] ids);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task SoftDeleteAsync(long id);
+
+    Task BatchSoftDeleteAsync(long[] ids);
 }

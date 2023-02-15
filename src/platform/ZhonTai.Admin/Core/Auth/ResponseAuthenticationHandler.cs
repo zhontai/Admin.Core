@@ -39,7 +39,8 @@ public class ResponseAuthenticationHandler : AuthenticationHandler<Authenticatio
             new ResponseStatusData
             {
                 Code = StatusCodes.Status401Unauthorized,
-                Msg = StatusCodes.Status401Unauthorized.ToDescription()
+                Msg = StatusCodes.Status401Unauthorized.ToDescription(),
+                Success = false
             },
             new JsonSerializerSettings()
             {
@@ -56,7 +57,8 @@ public class ResponseAuthenticationHandler : AuthenticationHandler<Authenticatio
             new ResponseStatusData
             {
                 Code = StatusCodes.Status403Forbidden,
-                Msg = StatusCodes.Status403Forbidden.ToDescription()
+                Msg = StatusCodes.Status403Forbidden.ToDescription(),
+                Success = false
             },
             new JsonSerializerSettings()
             {
@@ -70,4 +72,6 @@ public class ResponseStatusData
 {
     public StatusCodes Code { get; set; } = StatusCodes.Status1Ok;
     public string Msg { get; set; }
+    public bool Success { get; set; }
+
 }

@@ -28,6 +28,10 @@ public static class AppConsts
 
     public static Dictionary<Assembly, AssemblyDynamicApiOptions> AssemblyDynamicApiOptions { get; set; }
 
+    public static bool FormatResult { get; set; } = true;
+
+    public static Type FormatResultType { get; set; } = FormatResultContext.FormatResultType;
+
     static AppConsts()
     {
         HttpVerbs=new Dictionary<string, string>()

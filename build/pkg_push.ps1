@@ -47,7 +47,7 @@ Write-Host "dotnet pack -- start"
 foreach($project in $projects) {
 $projectFolder = Join-Path $rootFolder $project
 Write-Host "projectFolder:" $projectFolder
-dotnet pack $projectFolder -p:TargetFrameworks=net6.0 --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
+dotnet pack $projectFolder -p:TargetFrameworks=net7.0 --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
 }
 Write-Host "dotnet pack -- end"
 # pause

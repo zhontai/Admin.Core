@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Services.LoginLog;
 /// </summary>
 public interface ILoginLogService
 {
-    Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input);
+    Task<PageOutput<LoginLogListOutput>> GetPageAsync(PageInput<LogGetPageDto> input);
 
-    Task<IResultOutput<long>> AddAsync(LoginLogAddInput input);
+    Task<long> AddAsync(LoginLogAddInput input);
 }

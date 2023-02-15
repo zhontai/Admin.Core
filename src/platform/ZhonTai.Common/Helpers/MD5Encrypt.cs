@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using ZhonTai.Common.Extensions;
 
@@ -59,5 +60,18 @@ public class MD5Encrypt
         using var md5 = MD5.Create();
         byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
         return s.ToBase64();
+    }
+
+    public static string GetHash(Stream stream)
+    {
+        StringBuilder sb = new();
+        using var md5 = MD5.Create();
+        byte[] hashBytes = md5.ComputeHash(stream);
+        foreach (byte bt in hashBytes)
+        {
+            sb.Append(bt.ToString("x2"));
+        }
+
+        return sb.ToString();
     }
 }

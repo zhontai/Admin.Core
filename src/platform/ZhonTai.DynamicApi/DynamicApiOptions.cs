@@ -77,6 +77,10 @@ public class DynamicApiOptions
     public ISelectController SelectController { get; set; } = new DefaultSelectController();
     public IActionRouteFactory ActionRouteFactory { get; set; } = new DefaultActionRouteFactory();
 
+    public bool FormatResult { get; set; } = true;
+
+    public Type FormatResultType { get; set; } = FormatResultContext.FormatResultType;
+
     /// <summary>
     /// Verify that all configurations are valid
     /// </summary>

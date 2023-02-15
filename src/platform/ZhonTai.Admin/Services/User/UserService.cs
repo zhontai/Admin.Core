@@ -35,8 +35,9 @@ namespace ZhonTai.Admin.Services.User;
 /// <summary>
 /// 用户服务
 /// </summary>
+[Order(10)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class UserService : BaseService, IUserService, IDynamicApi
+public partial class UserService : BaseService, IUserService, IDynamicApi
 {
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
@@ -57,7 +58,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<UserGetOutput> GetAsync(long id)
     {
         var userEntity = await _userRepository.Select
         .WhereDynamic(id)
@@ -73,6 +74,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
             a.Roles,
             a.Orgs,
             a.OrgId,
+            a.ManagerUserId,
+            ManagerUserName = a.ManagerUser.Name,
             Staff = new
             {
                 a.Staff.JobNumber,
@@ -84,7 +87,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
 
         var output = Mapper.Map<UserGetOutput>(userEntity);
 
-        return ResultOutput.Ok(output);
+        return output;
     }
 
     /// <summary>
@@ -93,17 +96,31 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<long?> input)
+    public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
     {
-        var orgId = input.Filter;
+        var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
+        .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync(a=>new UserGetPageOutput { Roles = a.Roles });
+        .ToListAsync(a => new UserGetPageOutput { Roles = a.Roles });
+
+        if(orgId.HasValue && orgId > 0)
+        {
+            var managerUserIds = await _userOrgRepository.Select.Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
+            if (managerUserIds.Any())
+            {
+                var managerUsers = list.Where(a => managerUserIds.Contains(a.Id));
+                foreach (var managerUser in managerUsers)
+                {
+                    managerUser.IsManager = true;
+                }
+            }
+        }
 
         var data = new PageOutput<UserGetPageOutput>()
         {
@@ -111,7 +128,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -120,7 +137,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id)
+    public async Task<AuthLoginOutput> GetLoginUserAsync(long id)
     {
         var output = new ResultOutput<AuthLoginOutput>();
         var entityDto = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
@@ -133,7 +150,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
             entityDto.TenantType = tenant.TenantType;
             entityDto.DbKey = tenant.DbKey;
         }
-        return output.Ok(entityDto);
+        return entityDto;
     }
 
     /// <summary>
@@ -224,15 +241,18 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// 查询用户基本信息
     /// </summary>
     /// <returns></returns>
-    public async Task<IResultOutput> GetBasicAsync()
+    [Login]
+    public async Task<UserGetBasicOutput> GetBasicAsync()
     {
         if (!(User?.Id > 0))
         {
-            return ResultOutput.NotOk("未登录！");
+            throw ResultOutput.Exception("未登录！");
         }
 
-        var data = await _userRepository.GetAsync<UserUpdateBasicInput>(User.Id);
-        return ResultOutput.Ok(data);
+        var data = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
+        data.Mobile = DataMaskHelper.PhoneMask(data.Mobile);
+        data.Email = DataMaskHelper.EmailMask(data.Email);
+        return data;
     }
 
     /// <summary>
@@ -272,21 +292,21 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> AddAsync(UserAddInput input)
+    public virtual async Task<long> AddAsync(UserAddInput input)
     {
         if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
         {
-            return ResultOutput.NotOk($"账号已存在");
+            throw ResultOutput.Exception($"账号已存在");
         }
 
         if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Mobile == input.Mobile))
         {
-            return ResultOutput.NotOk($"手机号已存在");
+            throw ResultOutput.Exception($"手机号已存在");
         }
 
         if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Email == input.Email))
         {
-            return ResultOutput.NotOk($"邮箱已存在");
+            throw ResultOutput.Exception($"邮箱已存在");
         }
 
         // 用户信息
@@ -298,13 +318,8 @@ public class UserService : BaseService, IUserService, IDynamicApi
         input.Password = MD5Encrypt.Encrypt32(input.Password);
 
         var entity = Mapper.Map<UserEntity>(input);
+        entity.Type = UserType.DefaultUser;
         var user = await _userRepository.InsertAsync(entity);
-
-        if (!(user?.Id > 0))
-        {
-            return ResultOutput.NotOk("新增用户失败");
-        }
-
         var userId = user.Id;
 
         //用户角色
@@ -319,7 +334,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 员工信息
-        var staff = Mapper.Map<UserStaffEntity>(input.Staff);
+        var staff = input.Staff == null ? new UserStaffEntity() : Mapper.Map<UserStaffEntity>(input.Staff);
         staff.Id = userId;
         await _staffRepository.InsertAsync(staff);
 
@@ -334,7 +349,80 @@ public class UserService : BaseService, IUserService, IDynamicApi
             await _userOrgRepository.InsertAsync(orgs);
         }
 
-        return ResultOutput.Ok();
+        return userId;
+    }
+
+    /// <summary>
+    /// 新增会员
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public virtual async Task<long> AddMemberAsync(UserAddMemberInput input)
+    {
+        using (_userRepository.DataFilter.DisableAll())
+        {
+            if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Mobile == input.Mobile))
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Email == input.Email))
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
+
+            // 用户信息
+            if (input.Password.IsNull())
+            {
+                input.Password = _appConfig.DefaultPassword;
+            }
+
+            input.Password = MD5Encrypt.Encrypt32(input.Password);
+
+            var entity = Mapper.Map<UserEntity>(input);
+            entity.Type = UserType.Member;
+            var user = await _userRepository.InsertAsync(entity);
+
+            return user.Id;
+        }
+    }
+
+    /// <summary>
+    /// 修改会员
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task UpdateMemberAsync(UserUpdateMemberInput input)
+    {
+        var user = await _userRepository.GetAsync(input.Id);
+        if (!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
+        {
+            throw ResultOutput.Exception($"账号已存在");
+        }
+
+        if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Mobile == input.Mobile))
+        {
+            throw ResultOutput.Exception($"手机号已存在");
+        }
+
+        if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Email == input.Email))
+        {
+            throw ResultOutput.Exception($"邮箱已存在");
+        }
+
+        Mapper.Map(input, user);
+        await _userRepository.UpdateAsync(user);
     }
 
     /// <summary>
@@ -343,27 +431,32 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> UpdateAsync(UserUpdateInput input)
+    public virtual async Task UpdateAsync(UserUpdateInput input)
     {
         var user = await _userRepository.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
-            return ResultOutput.NotOk("用户不存在");
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        if (input.Id == input.ManagerUserId)
+        {
+            throw ResultOutput.Exception("直属主管不能是自己");
         }
 
         if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
         {
-            return ResultOutput.NotOk($"账号已存在");
+            throw ResultOutput.Exception($"账号已存在");
         }
 
         if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Mobile == input.Mobile))
         {
-            return ResultOutput.NotOk($"手机号已存在");
+            throw ResultOutput.Exception($"手机号已存在");
         }
 
         if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Email == input.Email))
         {
-            return ResultOutput.NotOk($"邮箱已存在");
+            throw ResultOutput.Exception($"邮箱已存在");
         }
 
         Mapper.Map(input, user);
@@ -385,10 +478,7 @@ public class UserService : BaseService, IUserService, IDynamicApi
 
         // 员工信息
         var staff = await _staffRepository.GetAsync(userId);
-        if(staff == null)
-        {
-            staff = new UserStaffEntity();
-        }
+        staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
         await _staffRepository.InsertOrUpdateAsync(staff);
@@ -406,8 +496,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         }
 
         await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -415,13 +503,12 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateBasicAsync(UserUpdateBasicInput input)
+    [Login]
+    public async Task UpdateBasicAsync(UserUpdateBasicInput input)
     {
-        var entity = await _userRepository.GetAsync(input.Id);
+        var entity = await _userRepository.GetAsync(User.Id);
         entity = Mapper.Map(input, entity);
         await _userRepository.UpdateAsync(entity);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -429,26 +516,57 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> ChangePasswordAsync(UserChangePasswordInput input)
+    [Login]
+    public async Task ChangePasswordAsync(UserChangePasswordInput input)
     {
         if (input.ConfirmPassword != input.NewPassword)
         {
-            return ResultOutput.NotOk("新密码和确认密码不一致");
+            throw ResultOutput.Exception("新密码和确认密码不一致");
         }
 
-        var entity = await _userRepository.GetAsync(input.Id);
+        var entity = await _userRepository.GetAsync(User.Id);
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
         {
-            return ResultOutput.NotOk("旧密码不正确");
+            throw ResultOutput.Exception("旧密码不正确");
         }
 
-        input.Password = MD5Encrypt.Encrypt32(input.NewPassword);
-
-        entity = Mapper.Map(input, entity);
+        entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
         await _userRepository.UpdateAsync(entity);
+    }
 
-        return ResultOutput.Ok();
+    /// <summary>
+    /// 重置密码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<string> ResetPasswordAsync(UserResetPasswordInput input)
+    {
+        var entity = await _userRepository.GetAsync(input.Id);
+        var password = input.Password;
+        if (password.IsNull())
+        {
+            password = _appConfig.DefaultPassword;
+        }
+        if (password.IsNull())
+        {
+            password = "111111";
+        }
+        entity.Password = MD5Encrypt.Encrypt32(password);
+        await _userRepository.UpdateAsync(entity);
+        return password;
+    }
+
+    /// <summary>
+    /// 设置主管
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetManagerAsync(UserSetManagerInput input)
+    {
+        var entity = await _userOrgRepository.Where(a => a.UserId == input.UserId && a.OrgId == input.OrgId).FirstAsync();
+        entity.IsManager = input.IsManager;
+        await _userOrgRepository.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -457,17 +575,17 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task DeleteAsync(long id)
     {
         var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
         if(user == null)
         {
-            return ResultOutput.NotOk("用户不存在");
+            throw ResultOutput.Exception("用户不存在");
         }
 
         if(user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
         {
-            return ResultOutput.NotOk("平台管理员禁止删除");
+            throw ResultOutput.Exception("平台管理员禁止删除");
         }
 
         //删除用户角色
@@ -480,8 +598,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _userRepository.DeleteAsync(a => a.Id == id);
 
         await Cache.DelAsync(CacheKeys.DataPermission + id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -490,14 +606,14 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> BatchDeleteAsync(long[] ids)
+    public virtual async Task BatchDeleteAsync(long[] ids)
     {
         var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
         {
-            return ResultOutput.NotOk("平台管理员禁止删除");
+            throw ResultOutput.Exception("平台管理员禁止删除");
         }
        
         //删除用户角色
@@ -513,8 +629,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         {
             await Cache.DelAsync(CacheKeys.DataPermission + userId);
         }
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -523,17 +637,17 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task SoftDeleteAsync(long id)
     {
         var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
         if (user == null)
         {
-            return ResultOutput.NotOk("用户不存在");
+            throw ResultOutput.Exception("用户不存在");
         }
 
         if (user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
         {
-            return ResultOutput.NotOk("平台管理员禁止删除");
+            throw ResultOutput.Exception("平台管理员禁止删除");
         }
 
         await _userRoleRepository.DeleteAsync(a => a.UserId == id);
@@ -542,8 +656,6 @@ public class UserService : BaseService, IUserService, IDynamicApi
         await _userRepository.SoftDeleteAsync(id);
 
         await Cache.DelAsync(CacheKeys.DataPermission + id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -552,14 +664,14 @@ public class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
         var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
         {
-            return ResultOutput.NotOk("平台管理员禁止删除");
+            throw ResultOutput.Exception("平台管理员禁止删除");
         }
 
         await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
@@ -571,28 +683,28 @@ public class UserService : BaseService, IUserService, IDynamicApi
         {
             await Cache.DelAsync(CacheKeys.DataPermission + userId);
         }
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
     /// 上传头像
     /// </summary>
     /// <param name="file"></param>
+    /// <param name="autoUpdate"></param>
     /// <returns></returns>
     [HttpPost]
     [Login]
-    public async Task<IResultOutput> AvatarUpload([FromForm] IFormFile file)
+    public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
     {
         var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
         var uploadHelper = LazyGetRequiredService<UploadHelper>();
         var config = uploadConfig.Avatar;
-        var res = await uploadHelper.UploadAsync(file, config, new { User.Id });
-        if (res.Success)
+        var fileInfo = await uploadHelper.UploadAsync(file, config, new { User.Id });
+        if (autoUpdate)
         {
-            return ResultOutput.Ok(res.Data.FileRelativePath);
+            var entity = await _userRepository.GetAsync(User.Id);
+            entity.Avatar = fileInfo.FileRelativePath;
+            await _userRepository.UpdateAsync(entity);
         }
-
-        return ResultOutput.NotOk(res.Msg ?? "上传失败！");
+        return fileInfo.FileRelativePath;
     }
 }

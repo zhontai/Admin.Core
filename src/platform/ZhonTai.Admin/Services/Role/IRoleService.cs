@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.Admin.Services.Role.Dto;
@@ -10,25 +11,27 @@ namespace ZhonTai.Admin.Services.Role;
 /// </summary>
 public interface IRoleService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<RoleGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetListAsync(RoleGetListInput input);
+    Task<List<RoleGetListOutput>> GetListAsync(RoleGetListInput input);
 
-    Task<IResultOutput> GetPageAsync(PageInput<RoleGetPageDto> input);
+    Task<PageOutput<RoleGetPageOutput>> GetPageAsync(PageInput<RoleGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(RoleAddInput input);
+    Task<long> AddAsync(RoleAddInput input);
 
-    Task<IResultOutput> AddRoleUserAsync(RoleAddRoleUserListInput input);
+    Task AddRoleUserAsync(RoleAddRoleUserListInput input);
 
-    Task<IResultOutput> RemoveRoleUserAsync(RoleAddRoleUserListInput input);
+    Task RemoveRoleUserAsync(RoleAddRoleUserListInput input);
 
-    Task<IResultOutput> UpdateAsync(RoleUpdateInput input);
+    Task UpdateAsync(RoleUpdateInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> BatchDeleteAsync(long[] ids);
+    Task BatchDeleteAsync(long[] ids);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task BatchSoftDeleteAsync(long[] ids);
+
+    Task SetDataScopeAsync(RoleSetDataScopeInput input);
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Document.Dto;
@@ -10,35 +12,35 @@ namespace ZhonTai.Admin.Services.Document;
 /// </summary>
 public partial interface IDocumentService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<List<string>> GetImageListAsync(long id);
 
-    Task<IResultOutput> GetImageListAsync(long id);
+    Task<DocumentGetGroupOutput> GetGroupAsync(long id);
 
-    Task<IResultOutput> GetGroupAsync(long id);
+    Task<DocumentGetMenuOutput> GetMenuAsync(long id);
 
-    Task<IResultOutput> GetMenuAsync(long id);
+    Task<DocumentGetContentOutput> GetContentAsync(long id);
 
-    Task<IResultOutput> GetContentAsync(long id);
+    Task<IEnumerable<dynamic>> GetPlainListAsync();
 
-    Task<IResultOutput> GetPlainListAsync();
+    Task<List<DocumentListOutput>> GetListAsync(string key, DateTime? start, DateTime? end);
 
-    Task<IResultOutput> GetListAsync(string key, DateTime? start, DateTime? end);
+    Task<long> AddGroupAsync(DocumentAddGroupInput input);
 
-    Task<IResultOutput> AddGroupAsync(DocumentAddGroupInput input);
+    Task<long> AddMenuAsync(DocumentAddMenuInput input);
 
-    Task<IResultOutput> AddMenuAsync(DocumentAddMenuInput input);
+    Task<long> AddImageAsync(DocumentAddImageInput input);
 
-    Task<IResultOutput> AddImageAsync(DocumentAddImageInput input);
+    Task UpdateGroupAsync(DocumentUpdateGroupInput input);
 
-    Task<IResultOutput> UpdateGroupAsync(DocumentUpdateGroupInput input);
+    Task UpdateMenuAsync(DocumentUpdateMenuInput input);
 
-    Task<IResultOutput> UpdateMenuAsync(DocumentUpdateMenuInput input);
+    Task UpdateContentAsync(DocumentUpdateContentInput input);
 
-    Task<IResultOutput> UpdateContentAsync(DocumentUpdateContentInput input);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task DeleteImageAsync(long documentId, string url);
 
-    Task<IResultOutput> DeleteImageAsync(long documentId, string url);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task<string> UploadImage([FromForm] DocumentUploadImageInput input);
 }

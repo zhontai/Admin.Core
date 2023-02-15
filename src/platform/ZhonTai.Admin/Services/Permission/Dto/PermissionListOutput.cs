@@ -25,9 +25,24 @@ public class PermissionListOutput
     public PermissionType Type { get; set; }
 
     /// <summary>
-    /// 访问地址
+    ///路由地址
     /// </summary>
     public string Path { get; set; }
+
+    /// <summary>
+    /// 重定向地址
+    /// </summary>
+    public string Redirect { get; set; }
+
+    /// <summary>
+    /// 视图地址
+    /// </summary>
+    public string ViewPath { get; set; }
+
+    /// <summary>
+    /// 链接地址
+    /// </summary>
+    public string Link { get; set; }
 
     /// <summary>
     /// 接口路径
@@ -35,24 +50,24 @@ public class PermissionListOutput
     public string ApiPaths { get; set; }
 
     /// <summary>
-    /// 描述
-    /// </summary>
-    public string Description { get; set; }
-
-    /// <summary>
     /// 图标
     /// </summary>
     public string Icon { get; set; }
 
     /// <summary>
-    /// 组打开
+    /// 展开
     /// </summary>
-    public bool? Opened { get; set; }
+    public bool Opened { get; set; }
 
     /// <summary>
-    /// 隐藏
+    /// 排序
     /// </summary>
-	public bool Hidden { get; set; }
+    public int? Sort { get; set; }
+
+    /// <summary>
+    /// 描述
+    /// </summary>
+    public string Description { get; set; }
 
     /// <summary>
     /// 启用

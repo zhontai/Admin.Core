@@ -30,4 +30,10 @@ public static partial class FilterNames
     /// </summary>
     [Description("数据权限")]
     public const string Data = "Data";
+
+    /// <summary>
+    /// 会员
+    /// </summary>
+    [Description("会员")]
+    public const string Member = "Member";
 }

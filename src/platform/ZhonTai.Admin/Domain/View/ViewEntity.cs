@@ -42,11 +42,6 @@ public partial class ViewEntity : EntityBase
     public string Description { get; set; }
 
     /// <summary>
-    /// 启用
-    /// </summary>
-    public bool Enabled { get; set; } = true;
-
-    /// <summary>
     /// 缓存
     /// </summary>
     public bool Cache { get; set; } = true;
@@ -55,6 +50,11 @@ public partial class ViewEntity : EntityBase
     /// 排序
     /// </summary>
     public int Sort { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; } = true;
 
     [Navigate(nameof(ParentId))]
     public List<ViewEntity> Childs { get; set; }

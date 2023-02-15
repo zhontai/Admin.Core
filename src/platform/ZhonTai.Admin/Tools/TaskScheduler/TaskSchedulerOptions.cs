@@ -1,5 +1,6 @@
 ﻿using FreeScheduler;
 using System;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Tools.TaskScheduler;
 
@@ -8,6 +9,11 @@ namespace ZhonTai.Admin.Tools.TaskScheduler;
 /// </summary>
 public class TaskSchedulerOptions
 {
+    /// <summary>
+    /// 数据库键
+    /// </summary>
+    public string DbKey { get; set; } = DbKeys.AppDb;
+
     /// <summary>
     /// 数据库实例
     /// </summary>
@@ -22,4 +28,9 @@ public class TaskSchedulerOptions
     /// 任务处理器
     /// </summary>
     public ITaskHandler TaskHandler{ get; set; } = null;
+
+    /// <summary>
+    /// 自定义任务处理器
+    /// </summary>
+    public ITaskIntervalCustomHandler CustomTaskHandler { get; set; } = null; 
 }

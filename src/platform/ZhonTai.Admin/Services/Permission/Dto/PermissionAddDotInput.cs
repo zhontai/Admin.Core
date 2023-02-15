@@ -1,14 +1,9 @@
-﻿using ZhonTai.Admin.Domain.Permission;
+﻿using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.Permission.Dto;
 
 public class PermissionAddDotInput
 {
-    /// <summary>
-    /// 权限类型
-    /// </summary>
-    public PermissionType Type { get; set; } = PermissionType.Dot;
-
     /// <summary>
     /// 父级节点
     /// </summary>
@@ -17,7 +12,7 @@ public class PermissionAddDotInput
     /// <summary>
     /// 关联接口
     /// </summary>
-    public long[] ApiIds { get; set; }
+    public List<long> ApiIds { get; set; }
 
     /// <summary>
     /// 权限名称
@@ -38,4 +33,14 @@ public class PermissionAddDotInput
     /// 图标
     /// </summary>
     public string Icon { get; set; }
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 }

@@ -14,8 +14,9 @@ using ZhonTai.Admin.Core.Consts;
 namespace ZhonTai.Admin.Services.DictionaryType;
 
 /// <summary>
-/// 字典类型服务
+/// 数据字典类型服务
 /// </summary>
+[Order(61)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynamicApi
 {
@@ -28,23 +29,23 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     }
 
     /// <summary>
-    /// 查询字典类型
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<DictionaryTypeGetOutput> GetAsync(long id)
     {
         var result = await _DictionaryTypeRepository.GetAsync<DictionaryTypeGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
-    /// 查询字典类型列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<DictionaryTypeGetPageDto> input)
+    public async Task<PageOutput<DictionaryTypeListOutput>> GetPageAsync(PageInput<DictionaryTypeGetPageDto> input)
     {
         var key = input.Filter?.Name;
 
@@ -62,7 +63,7 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -70,11 +71,11 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(DictionaryTypeAddInput input)
+    public async Task<long> AddAsync(DictionaryTypeAddInput input)
     {
         var DictionaryType = Mapper.Map<DictionaryTypeEntity>(input);
-        var id = (await _DictionaryTypeRepository.InsertAsync(DictionaryType)).Id;
-        return ResultOutput.Result(id > 0);
+        await _DictionaryTypeRepository.InsertAsync(DictionaryType);
+        return DictionaryType.Id;
     }
 
     /// <summary>
@@ -82,22 +83,16 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(DictionaryTypeUpdateInput input)
+    public async Task UpdateAsync(DictionaryTypeUpdateInput input)
     {
-        if (!(input?.Id > 0))
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _DictionaryTypeRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("数据字典不存在！");
+            throw ResultOutput.Exception("数据字典不存在！");
         }
 
         Mapper.Map(input, entity);
         await _DictionaryTypeRepository.UpdateAsync(entity);
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -106,15 +101,28 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task DeleteAsync(long id)
     {
         //删除字典数据
         await _dictionaryRepository.DeleteAsync(a => a.DictionaryTypeId == id);
 
-        //删除字典类型
+        //删除数据字典类型
         await _DictionaryTypeRepository.DeleteAsync(a => a.Id == id);
+    }
 
-        return ResultOutput.Ok();
+    /// <summary>
+    /// 批量彻底删除
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task BatchDeleteAsync(long[] ids)
+    {
+        //删除字典数据
+        await _dictionaryRepository.DeleteAsync(a => ids.Contains(a.DictionaryTypeId));
+
+        //删除数据字典类型
+        await _DictionaryTypeRepository.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>
@@ -123,12 +131,10 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task SoftDeleteAsync(long id)
     {
         await _dictionaryRepository.SoftDeleteAsync(a => a.DictionaryTypeId == id);
         await _DictionaryTypeRepository.SoftDeleteAsync(id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -137,11 +143,9 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// <param name="ids"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
         await _dictionaryRepository.SoftDeleteAsync(a => ids.Contains(a.DictionaryTypeId));
         await _DictionaryTypeRepository.SoftDeleteAsync(ids);
-
-        return ResultOutput.Ok();
     }
 }

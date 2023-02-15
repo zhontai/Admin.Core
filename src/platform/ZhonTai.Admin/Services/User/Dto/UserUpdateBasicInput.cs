@@ -6,13 +6,8 @@ namespace ZhonTai.Admin.Services.User.Dto;
 /// <summary>
 /// 更新基本信息
 /// </summary>
-public class UserUpdateBasicInput : Entity
+public class UserUpdateBasicInput
 {
-    /// <summary>
-    /// 头像
-    /// </summary>
-    public string Avatar { get; set; }
-
     /// <summary>
     /// 姓名
     /// </summary>
@@ -23,9 +18,4 @@ public class UserUpdateBasicInput : Entity
     /// 昵称
     /// </summary>
     public string NickName { get; set; }
-
-    /// <summary>
-    /// 个人简介
-    /// </summary>
-    public string Introduce { get; set; }
 }

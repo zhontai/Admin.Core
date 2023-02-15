@@ -13,7 +13,7 @@ public class EntityVersion<TKey> : EntityBase, IVersion
     /// </summary>
     [Description("版本")]
     [Column(Position = -30, IsVersion = true)]
-    public long Version { get; set; }
+    public virtual long Version { get; set; }
 }
 
 /// <summary>

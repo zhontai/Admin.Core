@@ -5,11 +5,6 @@ namespace ZhonTai.Admin.Services.Permission.Dto;
 public class PermissionAddMenuInput
 {
     /// <summary>
-    /// 权限类型
-    /// </summary>
-    public PermissionType Type { get; set; }
-
-    /// <summary>
     /// 父级节点
     /// </summary>
     public long ParentId { get; set; }
@@ -20,7 +15,12 @@ public class PermissionAddMenuInput
     public long? ViewId { get; set; }
 
     /// <summary>
-    /// 访问地址
+    /// 路由命名
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// 路由地址
     /// </summary>
     public string Path { get; set; }
 
@@ -37,12 +37,7 @@ public class PermissionAddMenuInput
     /// <summary>
     /// 隐藏
     /// </summary>
-	public bool Hidden { get; set; }
-
-    ///// <summary>
-    ///// 启用
-    ///// </summary>
-    //public bool Enabled { get; set; }
+	public bool Hidden { get; set; } = false;
 
     /// <summary>
     /// 图标
@@ -50,17 +45,42 @@ public class PermissionAddMenuInput
     public string Icon { get; set; }
 
     /// <summary>
-    /// 可关闭
-    /// </summary>
-    public bool? Closable { get; set; }
-
-    /// <summary>
     /// 打开新窗口
     /// </summary>
-    public bool? NewWindow { get; set; }
+    public bool NewWindow { get; set; } = false;
 
     /// <summary>
     /// 链接外显
     /// </summary>
-    public bool? External { get; set; }
+    public bool External { get; set; } = false;
+
+    /// <summary>
+    /// 是否缓存
+    /// </summary>
+    public bool IsKeepAlive { get; set; } = true;
+
+    /// <summary>
+    /// 是否固定
+    /// </summary>
+    public bool IsAffix { get; set; } = false;
+
+    /// <summary>
+    /// 链接地址
+    /// </summary>
+    public string Link { get; set; }
+
+    /// <summary>
+    /// 是否内嵌窗口
+    /// </summary>
+    public bool IsIframe { get; set; } = false;
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Exceptions;
+
+namespace ZhonTai.Admin.Core.Dto;
 
 /// <summary>
 /// 结果输出
@@ -66,7 +68,7 @@ public static partial class ResultOutput
     /// <param name="data">数据</param>
     /// <param name="msg">消息</param>
     /// <returns></returns>
-    public static IResultOutput Ok<T>(T data = default(T), string msg = null)
+    public static IResultOutput<T> Ok<T>(T data = default(T), string msg = null)
     {
         return new ResultOutput<T>().Ok(data, msg);
     }
@@ -75,7 +77,7 @@ public static partial class ResultOutput
     /// 成功
     /// </summary>
     /// <returns></returns>
-    public static IResultOutput Ok()
+    public static IResultOutput<string> Ok()
     {
         return Ok<string>();
     }
@@ -86,7 +88,7 @@ public static partial class ResultOutput
     /// <param name="msg">消息</param>
     /// <param name="data">数据</param>
     /// <returns></returns>
-    public static IResultOutput NotOk<T>(string msg = null, T data = default)
+    public static IResultOutput<T> NotOk<T>(string msg = null, T data = default)
     {
         return new ResultOutput<T>().NotOk(msg, data);
     }
@@ -96,9 +98,20 @@ public static partial class ResultOutput
     /// </summary>
     /// <param name="msg">消息</param>
     /// <returns></returns>
-    public static IResultOutput NotOk(string msg = null)
+    public static IResultOutput<string> NotOk(string msg = null)
     {
         return new ResultOutput<string>().NotOk(msg);
+    }
+
+    /// <summary>
+    /// 系统异常
+    /// </summary>
+    /// <param name="msg">消息</param>
+    /// <param name="code">编码</param>
+    /// <returns></returns>
+    public static AppException Exception(string msg = null, string code = null)
+    {
+        return new AppException(msg, code);
     }
 
     /// <summary>
@@ -106,7 +119,7 @@ public static partial class ResultOutput
     /// </summary>
     /// <param name="success"></param>
     /// <returns></returns>
-    public static IResultOutput Result<T>(bool success)
+    public static IResultOutput<T> Result<T>(bool success)
     {
         return success ? Ok<T>() : NotOk<T>();
     }
@@ -116,7 +129,7 @@ public static partial class ResultOutput
     /// </summary>
     /// <param name="success"></param>
     /// <returns></returns>
-    public static IResultOutput Result(bool success)
+    public static IResultOutput<string> Result(bool success)
     {
         return success ? Ok() : NotOk();
     }

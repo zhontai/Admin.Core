@@ -1,0 +1,85 @@
+{
+  //本地上传配置
+  "LocalUploadConfig": {
+    //上传目录
+    "Directory": "upload",
+    //日期目录
+    "DateTimeDirectory": "yyyy/MM/dd",
+    "Md5": false
+  },
+  //文件存储供应商
+  "Provider": "Minio",
+  //OSS配置列表
+  "OSSConfigs": [
+    //Minio
+    {
+      "Provider": "Minio",
+      "Endpoint": "127.0.0.1:9006",
+      "Region": "",
+      "AccessKey": "minio",
+      "SecretKey": "minio",
+      "IsEnableHttps": false,
+      "IsEnableCache": true,
+      "BucketName": "admin",
+      "Url": "", //文件外链
+      "Md5": false,
+      "Enable": false
+    },
+    //阿里云
+    {
+      "Provider": "Aliyun",
+      "Endpoint": "oss-cn-shenzhen.aliyuncs.com",
+      "Region": "",
+      "AccessKey": "",
+      "SecretKey": "",
+      "IsEnableHttps": true,
+      "IsEnableCache": true,
+      "BucketName": "admin",
+      "Url": "",
+      "Md5": false,
+      "Enable": false
+    },
+    //腾讯云
+    {
+      "Provider": "QCloud",
+      "Endpoint": "", //AppId
+      "Region": "",
+      "AccessKey": "",
+      "SecretKey": "",
+      "IsEnableHttps": true,
+      "IsEnableCache": true,
+      "BucketName": "admin",
+      "Url": "",
+      "Md5": false,
+      "Enable": false
+    },
+    //七牛
+    {
+      "Provider": "Qiniu",
+      "Endpoint": "",
+      "Region": "",
+      "AccessKey": "",
+      "SecretKey": "",
+      "IsEnableHttps": true,
+      "IsEnableCache": true,
+      "BucketName": "admin",
+      "Url": "",
+      "Md5": false,
+      "Enable": false
+    },
+    //华为云
+    {
+      "Provider": "HuaweiCloud",
+      "Endpoint": "",
+      "Region": "",
+      "AccessKey": "",
+      "SecretKey": "",
+      "IsEnableHttps": true,
+      "IsEnableCache": true,
+      "BucketName": "admin",
+      "Url": "",
+      "Md5": false,
+      "Enable": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 161223412138053,
+    "name": "中台",
+    "code": "zhontai",
+    "realName": "小雪",
+    "phone": "13122223333",
+    "email": "xiaoxue@zhontai.com",
+    "userId": 161223411986501,
+    "tenantType": 1,
+    "dbKey": "masterdb",
+    "connectionString": "",
+    "enabled": true,
+    "description": ""
+  }
+]

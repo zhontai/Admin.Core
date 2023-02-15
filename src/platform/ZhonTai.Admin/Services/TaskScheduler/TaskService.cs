@@ -11,12 +11,14 @@ using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Repositories;
+using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
 /// <summary>
 /// 任务服务
 /// </summary>
+[Order(70)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
@@ -28,23 +30,23 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询任务
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<TaskGetOutput> GetAsync(long id)
     {
         var result = await _taskInfoRepository.GetAsync<TaskGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
-    /// 查询任务列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<TaskGetPageDto> input)
+    public async Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input)
     {
         var topic = input.Filter?.Topic;
 
@@ -62,7 +64,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -70,47 +72,47 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public IResultOutput Add(TaskAddInput input)
+    public string Add(TaskAddInput input)
     {
         if (input.IntervalArgument.IsNull())
         {
-            return ResultOutput.NotOk("请输入定时参数");
+            throw ResultOutput.Exception("请输入定时参数");
         }
 
         var scheduler = LazyGetRequiredService<Scheduler>();
 
-        if(input.Interval == TaskInterval.SEC && input.Round == -1)
+        string id = null;
+        switch (input.Interval)
         {
-            scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
-        } 
-        else if (input.Interval == TaskInterval.SEC && input.Round > 0)
-        {
-            int[] seconds = System.Array.Empty<int>();
-            var intervalArguments = input.IntervalArgument.Split(",");
-            foreach(var arg in intervalArguments)
-            {
-                seconds.Append(arg.ToInt());
-            }
-            scheduler.AddTask(input.Topic, input.Body, seconds);
-        }
-        else if (input.Interval == TaskInterval.RunOnDay && input.Round > 0)
-        {
-            scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
-        }
-        else if (input.Interval == TaskInterval.RunOnWeek && input.Round > 0)
-        {
-            scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
-        }
-        else if (input.Interval == TaskInterval.RunOnMonth && input.Round > 0)
-        {
-            scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
-        }
-        else if (input.Interval == TaskInterval.Custom && input.Round > 0)
-        {
-            scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
+            case TaskInterval.SEC when input.Round == -1:
+                id = scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
+                break;
+            case TaskInterval.SEC when input.Round > 0:
+                {
+                    int[] seconds = System.Array.Empty<int>();
+                    var intervalArguments = input.IntervalArgument.Split(",");
+                    foreach (var arg in intervalArguments)
+                    {
+                        seconds.Append(arg.ToInt());
+                    }
+                    id = scheduler.AddTask(input.Topic, input.Body, seconds);
+                    break;
+                }
+            case TaskInterval.RunOnDay when input.Round > 0:
+                id = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.RunOnWeek when input.Round > 0:
+                id = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.RunOnMonth when input.Round > 0:
+                id = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.Custom when input.Round > 0:
+                id = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
+                break;
         }
 
-        return ResultOutput.Ok();
+        return id;
     }
 
     /// <summary>
@@ -118,23 +120,16 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(TaskUpdateInput input)
+    public async Task UpdateAsync(TaskUpdateInput input)
     {
-        if (input.Id.IsNull())
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _taskInfoRepository.GetAsync(a => a.Id == input.Id);
         if (entity != null && entity.Id.NotNull())
         {
-            return ResultOutput.NotOk("任务不存在！");
+            throw ResultOutput.Exception("任务不存在！");
         }
 
         Mapper.Map(input, entity);
         await _taskInfoRepository.UpdateAsync(entity);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -142,17 +137,10 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public IResultOutput Pause([BindRequired]string id)
+    public void Pause([BindRequired][ValidateRequired("请选择任务")]string id)
     {
-        if (id.IsNull())
-        {
-            return ResultOutput.NotOk();
-        }
-
         var scheduler = LazyGetRequiredService<Scheduler>();
         scheduler.PauseTask(id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -160,17 +148,10 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public IResultOutput Resume([BindRequired] string id)
+    public void Resume([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        if (id.IsNull())
-        {
-            return ResultOutput.NotOk();
-        }
-
         var scheduler = LazyGetRequiredService<Scheduler>();
         scheduler.ResumeTask(id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -178,17 +159,10 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public IResultOutput Run([BindRequired] string id)
+    public void Run([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        if (id.IsNull())
-        {
-            return ResultOutput.NotOk();
-        }
-
         var scheduler = LazyGetRequiredService<Scheduler>();
         scheduler.RunNowTask(id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -196,16 +170,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public IResultOutput Delete([BindRequired] string id)
+    public void Delete([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        if (id.IsNull())
-        {
-            return ResultOutput.NotOk();
-        }
-
         var scheduler = LazyGetRequiredService<Scheduler>();
         scheduler.RemoveTask(id);
-
-        return ResultOutput.Ok();
     }
 }

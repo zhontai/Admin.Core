@@ -84,6 +84,11 @@ public class AppConfig
     /// 默认密码
     /// </summary>
     public string DefaultPassword { get; set; } = "111111";
+
+    /// <summary>
+    /// 动态Api配置
+    /// </summary>
+    public DynamicApiConfig DynamicApi { get; set; } = new DynamicApiConfig();
 }
 
 /// <summary>
@@ -95,6 +100,16 @@ public class SwaggerConfig
     /// 启用
     /// </summary>
     public bool Enable { get; set; } = false;
+
+    /// <summary>
+    /// 启用枚举架构过滤器
+    /// </summary>
+    public bool EnableEnumSchemaFilter { get; set; } = true;
+
+    /// <summary>
+    /// 启用接口排序文档过滤器
+    /// </summary>
+    public bool EnableOrderTagsDocumentFilter { get; set; } = true;
 
     private string _RoutePrefix = "swagger";
     /// <summary>
@@ -163,6 +178,16 @@ public class IdentityServer
     /// 地址
     /// </summary>
     public string Url { get; set; } = "https://localhost:5000";
+
+    /// <summary>
+    /// 启用Https
+    /// </summary>
+    public bool RequireHttpsMetadata { get; set; } = false;
+
+    /// <summary>
+    /// 受众
+    /// </summary>
+    public string Audience { get; set; } = "admin.server.api";
 }
 
 /// <summary>
@@ -171,7 +196,7 @@ public class IdentityServer
 public class AopConfig
 {
     /// <summary>
-    /// 事物
+    /// 事务
     /// </summary>
     public bool Transaction { get; set; } = true;
 }
@@ -244,6 +269,17 @@ public class ProjectConfig
     /// 描述
     /// </summary>
     public string Description { get; set; }
+}
+
+/// <summary>
+/// 动态api配置
+/// </summary>
+public class DynamicApiConfig
+{
+    /// <summary>
+    /// 结果格式化
+    /// </summary>
+    public bool FormatResult { get; set; } = true;
 }
 
 /// <summary>

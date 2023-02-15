@@ -10,7 +10,7 @@
   //监听Curd操作
   "curd": true,
 
-  //建库
+  //建库，Sqlite数据库不用配置建库，连接语句自动建库
   "createDb": false,
   //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
   //建库连接字符串
@@ -26,8 +26,12 @@
 
   //同步结构
   "syncStructure": true,
-  //同步数据
+  //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
+  //同步更新数据
+  "sysUpdateData": false,
+  //同步数据地址
+  //"SyncDataPath": "InitData/Admin/Vue2",
 
   //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
   //开启生成数据前先关闭syncStructure syncData createDb
@@ -64,11 +68,11 @@
   //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
   "dbs": [
     //{
-    //  "key": "admindb",
+    //  "key": "appdb",
     //  "type": "Sqlite",
-    //  "syncStructure": true,
-    //  "syncData": true,
-    //  "connectionString": "Data Source=|DataDirectory|\\db\\admindb.db; Pooling=true;Min Pool Size=1",
+    //  "syncStructure": false,
+    //  "syncData": false,
+    //  "connectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1",
     //  "providerType": ""
     //}
   ]

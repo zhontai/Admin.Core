@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.User.Dto;
@@ -12,31 +14,39 @@ namespace ZhonTai.Admin.Services.User;
 /// </summary>
 public interface IUserService
 {
-    Task<IResultOutput> GetAsync(long id);
+    Task<UserGetOutput> GetAsync(long id);
 
-    Task<IResultOutput> GetPageAsync(PageInput<long?> input);
+    Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input);
 
-    Task<ResultOutput<AuthLoginOutput>> GetLoginUserAsync(long id);
+    Task<AuthLoginOutput> GetLoginUserAsync(long id);
 
     Task<DataPermissionDto> GetDataPermissionAsync();
 
-    Task<IResultOutput> AddAsync(UserAddInput input);
+    Task<long> AddAsync(UserAddInput input);
 
-    Task<IResultOutput> UpdateAsync(UserUpdateInput input);
+    Task<long> AddMemberAsync(UserAddMemberInput input);
 
-    Task<IResultOutput> DeleteAsync(long id);
+    Task UpdateAsync(UserUpdateInput input);
 
-    Task<IResultOutput> BatchDeleteAsync(long[] ids);
+    Task DeleteAsync(long id);
 
-    Task<IResultOutput> SoftDeleteAsync(long id);
+    Task BatchDeleteAsync(long[] ids);
 
-    Task<IResultOutput> BatchSoftDeleteAsync(long[] ids);
+    Task SoftDeleteAsync(long id);
 
-    Task<IResultOutput> ChangePasswordAsync(UserChangePasswordInput input);
+    Task BatchSoftDeleteAsync(long[] ids);
 
-    Task<IResultOutput> UpdateBasicAsync(UserUpdateBasicInput input);
+    Task ChangePasswordAsync(UserChangePasswordInput input);
 
-    Task<IResultOutput> GetBasicAsync();
+    Task<string> ResetPasswordAsync(UserResetPasswordInput input);
+
+    Task SetManagerAsync(UserSetManagerInput input);
+
+    Task UpdateBasicAsync(UserUpdateBasicInput input);
+
+    Task<UserGetBasicOutput> GetBasicAsync();
 
     Task<IList<UserPermissionsOutput>> GetPermissionsAsync();
+
+    Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false);
 }

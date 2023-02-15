@@ -6,7 +6,7 @@ using ZhonTai.DynamicApi;
 namespace ZhonTai.Admin.Core.Startup;
 
 /// <summary>
-/// HostApp配置
+/// 宿主应用配置
 /// </summary>
 public class HostAppOptions
 {

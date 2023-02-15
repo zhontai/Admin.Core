@@ -24,6 +24,7 @@ namespace ZhonTai.Admin.Services.Tenant;
 /// <summary>
 /// 租户服务
 /// </summary>
+[Order(50)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
@@ -42,23 +43,23 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询租户
+    /// 查询
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> GetAsync(long id)
+    public async Task<TenantGetOutput> GetAsync(long id)
     {
         var result = await _tenantRepository.GetAsync<TenantGetOutput>(id);
-        return ResultOutput.Ok(result);
+        return result;
     }
 
     /// <summary>
-    /// 查询租户列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<TenantGetPageDto> input)
+    public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input)
     {
         var key = input.Filter?.Name;
 
@@ -76,7 +77,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -85,16 +86,16 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> AddAsync(TenantAddInput input)
+    public virtual async Task<long> AddAsync(TenantAddInput input)
     {
         if (await _tenantRepository.Select.AnyAsync(a => a.Name == input.Name))
         {
-            return ResultOutput.NotOk($"企业名称已存在");
+            throw ResultOutput.Exception($"企业名称已存在");
         }
 
         if (await _tenantRepository.Select.AnyAsync(a => a.Code == input.Code))
         {
-            return ResultOutput.NotOk($"企业编码已存在");
+            throw ResultOutput.Exception($"企业编码已存在");
         }
 
         //添加租户
@@ -109,7 +110,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = input.Name,
             Code = input.Code,
             ParentId = 0,
-            MemberCount = 1
+            MemberCount = 1,
+            Sort = 1
         };
         await _orgRepository.InsertAsync(org);
 
@@ -152,7 +154,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         {
             ParentId = 0,
             TenantId = tenantId,
-            Name = "系统默认"
+            Type = RoleType.Group,
+            Name = "系统默认",
+            Sort = 1
         };
         await _roleRepository.InsertAsync(roleGroup);
 
@@ -160,10 +164,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         var role = new RoleEntity
         {
             TenantId = tenantId,
+            Type = RoleType.Role,
             Name = "主管理员",
             Code = "main-admin",
             ParentId = roleGroup.Id,
-            DataScope = DataScope.All
+            DataScope = DataScope.All,
+            Sort = 1
         };
         await _roleRepository.InsertAsync(role);
 
@@ -179,7 +185,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         tenant.UserId = userId;
         await _tenantRepository.UpdateAsync(tenant);
 
-        return ResultOutput.Ok();
+        return tenant.Id;
     }
 
     /// <summary>
@@ -187,22 +193,16 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> UpdateAsync(TenantUpdateInput input)
+    public async Task UpdateAsync(TenantUpdateInput input)
     {
-        if (!(input?.Id > 0))
-        {
-            return ResultOutput.NotOk();
-        }
-
         var entity = await _tenantRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            return ResultOutput.NotOk("租户不存在！");
+            throw ResultOutput.Exception("租户不存在！");
         }
 
         Mapper.Map(input, entity);
         await _tenantRepository.UpdateAsync(entity);
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -211,8 +211,14 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> DeleteAsync(long id)
+    public virtual async Task DeleteAsync(long id)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+        if(tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除角色权限
         await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
@@ -226,15 +232,13 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除用户
-        await _userRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+        await _userRepository.Where(a => a.TenantId == id && a.Type != UserType.Member).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除角色
         await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
         //删除租户
         await _tenantRepository.DeleteAsync(id);
-
-        return ResultOutput.Ok();
     }
 
     /// <summary>
@@ -243,18 +247,22 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> SoftDeleteAsync(long id)
+    public virtual async Task SoftDeleteAsync(long id)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+        if (tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
+        await _userRepository.SoftDeleteAsync(a => a.TenantId == id && a.Type != UserType.Member, FilterNames.Tenant);
 
         //删除角色
         await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
 
         //删除租户
         var result = await _tenantRepository.SoftDeleteAsync(id);
-
-        return ResultOutput.Result(result);
     }
 
     /// <summary>
@@ -263,17 +271,21 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="ids"></param>
     /// <returns></returns>
     [AdminTransaction]
-    public virtual async Task<IResultOutput> BatchSoftDeleteAsync(long[] ids)
+    public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
+        var tenantType = await _tenantRepository.Select.WhereDynamic(ids).ToOneAsync(a => a.TenantType);
+        if (tenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止删除");
+        }
+
         //删除用户
-        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
+        await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member, FilterNames.Tenant);
 
         //删除角色
         await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
 
         //删除租户
         var result = await _tenantRepository.SoftDeleteAsync(ids);
-
-        return ResultOutput.Result(result);
     }
 }

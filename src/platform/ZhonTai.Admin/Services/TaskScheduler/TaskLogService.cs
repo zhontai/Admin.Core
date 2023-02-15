@@ -13,6 +13,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 /// <summary>
 /// 任务日志服务
 /// </summary>
+[Order(71)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
@@ -24,16 +25,16 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询任务日志列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<TaskLogGetPageDto> input)
+    public async Task<PageOutput<TaskLog>> GetPageAsync(PageInput<TaskLogGetPageDto> input)
     {
         if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
         {
-            return ResultOutput.NotOk();
+            throw ResultOutput.Exception("请选择任务");
         }
 
         var list = await _taskLogRepository.Select
@@ -50,6 +51,6 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 }

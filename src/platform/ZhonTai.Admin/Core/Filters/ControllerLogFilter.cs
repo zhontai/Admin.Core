@@ -18,13 +18,14 @@ public class ControllerLogFilter : IAsyncActionFilter
         _logHandler = logHandler;
     }
 
-    public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(NoOprationLogAttribute)))
         {
-            return next();
+            await next();
+            return;
         }
 
-        return _logHandler.LogAsync(context, next);
+        await _logHandler.LogAsync(context, next);
     }
 }

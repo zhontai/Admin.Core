@@ -6,7 +6,12 @@
 public enum UserType
 {
     /// <summary>
-    /// 默认用户
+    /// 会员
+    /// </summary>
+    Member = 0,
+
+    /// <summary>
+    /// 普通用户
     /// </summary>
     DefaultUser = 1,
 

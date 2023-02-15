@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Services.OprationLog;
 /// </summary>
 public interface IOprationLogService
 {
-    Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input);
+    Task<PageOutput<OprationLogListOutput>> GetPageAsync(PageInput<LogGetPageDto> input);
 
-    Task<IResultOutput> AddAsync(OprationLogAddInput input);
+    Task<long> AddAsync(OprationLogAddInput input);
 }

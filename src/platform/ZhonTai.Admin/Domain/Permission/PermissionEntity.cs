@@ -28,7 +28,7 @@ public partial class PermissionEntity : EntityBase
     /// <summary>
     /// 权限编码
     /// </summary>
-    [Column(StringLength = 550)]
+    [Column(StringLength = 500)]
     public string Code { get; set; }
 
     /// <summary>
@@ -38,17 +38,32 @@ public partial class PermissionEntity : EntityBase
     public PermissionType Type { get; set; }
 
     /// <summary>
-    /// 视图
+    /// 视图Id
     /// </summary>
     public long? ViewId { get; set; }
 
+    /// <summary>
+    /// 视图
+    /// </summary>
     public ViewEntity View { get; set; }
 
     /// <summary>
-    /// 菜单访问地址
+    /// 路由命名
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// 路由地址
     /// </summary>
     [Column(StringLength = 500)]
     public string Path { get; set; }
+
+    /// <summary>
+    /// 重定向地址
+    /// </summary>
+    [Column(StringLength = 500)]
+    public string Redirect { get; set; }
 
     /// <summary>
     /// 图标
@@ -62,40 +77,56 @@ public partial class PermissionEntity : EntityBase
 	public bool Hidden { get; set; } = false;
 
     /// <summary>
-    /// 启用
+    /// 展开分组
     /// </summary>
-	public bool Enabled { get; set; } = true;
-
-    /// <summary>
-    /// 可关闭
-    /// </summary>
-    public bool? Closable { get; set; }
-
-    /// <summary>
-    /// 打开组
-    /// </summary>
-    public bool? Opened { get; set; }
+    public bool Opened { get; set; }
 
     /// <summary>
     /// 打开新窗口
     /// </summary>
-    public bool? NewWindow { get; set; }
+    public bool NewWindow { get; set; } = false;
 
     /// <summary>
     /// 链接外显
     /// </summary>
-    public bool? External { get; set; }
+    public bool External { get; set; } = false;
+
+    /// <summary>
+    /// 是否缓存
+    /// </summary>
+    public bool IsKeepAlive { get; set; } = true;
+
+    /// <summary>
+    /// 是否固定
+    /// </summary>
+    public bool IsAffix { get; set; } = false;
+
+    /// <summary>
+    /// 链接地址
+    /// </summary>
+    [Column(StringLength = 500)]
+    public string Link { get; set; }
+
+    /// <summary>
+    /// 是否内嵌窗口
+    /// </summary>
+    public bool IsIframe { get; set; } = false;
 
     /// <summary>
     /// 排序
     /// </summary>
-    public int? Sort { get; set; } = 0;
+    public int Sort { get; set; }
 
     /// <summary>
     /// 描述
     /// </summary>
-    [Column(StringLength = 100)]
+    [Column(StringLength = 200)]
     public string Description { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; } = true;
 
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<ApiEntity> Apis { get; set; }

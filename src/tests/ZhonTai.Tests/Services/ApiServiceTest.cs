@@ -27,6 +27,6 @@ public class ApiServiceTest : BaseTest
     public async void GetAsync()
     {
         var res = await _apiService.GetAsync(161227168079941);
-        Assert.True(res.Success);
+        Assert.True(res?.Id > 0);
     }
 }

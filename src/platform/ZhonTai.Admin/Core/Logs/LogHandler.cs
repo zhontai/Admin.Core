@@ -2,14 +2,10 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.OprationLog;
 using ZhonTai.Admin.Services.OprationLog.Dto;
-
-//using Newtonsoft.Json;
 
 namespace ZhonTai.Admin.Core.Logs;
 
@@ -49,15 +45,16 @@ public class LogHandler : ILogHandler
         {
             var input = new OprationLogAddInput
             {
+                Status = true,
                 ApiMethod = context.HttpContext.Request.Method.ToLower(),
                 ApiPath = context.ActionDescriptor.AttributeRouteInfo.Template.ToLower(),
                 ElapsedMilliseconds = sw.ElapsedMilliseconds
             };
 
-            if (actionExecutedContext.Result is ObjectResult result && result.Value is IResultOutput res)
+            if (actionExecutedContext.Exception != null)
             {
-                input.Status = res?.Success;
-                input.Msg = res?.Msg;
+                input.Status = false;
+                input.Msg = actionExecutedContext.Exception.Message;
             }
 
             input.ApiLabel = _apiHelper.GetApis().FirstOrDefault(a => a.Path == input.ApiPath)?.Label;

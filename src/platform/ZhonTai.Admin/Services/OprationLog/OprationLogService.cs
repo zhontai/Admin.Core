@@ -15,6 +15,7 @@ namespace ZhonTai.Admin.Services.OprationLog;
 /// <summary>
 /// 操作日志服务
 /// </summary>
+[Order(200)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
 {
@@ -31,12 +32,12 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询操作日志列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input)
+    public async Task<PageOutput<OprationLogListOutput>> GetPageAsync(PageInput<LogGetPageDto> input)
     {
         var userName = input.Filter?.CreatedUserName;
 
@@ -54,7 +55,7 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -62,7 +63,7 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput> AddAsync(OprationLogAddInput input)
+    public async Task<long> AddAsync(OprationLogAddInput input)
     {
         string ua = _context.HttpContext.Request.Headers["User-Agent"];
         if (ua.NotNull())
@@ -80,8 +81,8 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
         input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
         var entity = Mapper.Map<OprationLogEntity>(input);
-        var id = (await _oprationLogRepository.InsertAsync(entity)).Id;
+        await _oprationLogRepository.InsertAsync(entity);
 
-        return ResultOutput.Result(id > 0);
+        return entity.Id;
     }
 }

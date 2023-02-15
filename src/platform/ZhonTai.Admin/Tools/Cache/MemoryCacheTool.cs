@@ -16,7 +16,6 @@ namespace ZhonTai.Admin.Tools.Cache;
 public class MemoryCacheTool : ICacheTool
 {
     private readonly IMemoryCache _memoryCache;
-
     public MemoryCacheTool(IMemoryCache memoryCache)
     {
         _memoryCache = memoryCache;
@@ -143,7 +142,8 @@ public class MemoryCacheTool : ICacheTool
     private List<string> GetAllKeys()
     {
         const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
-        var entries = _memoryCache.GetType().GetField("_entries", flags).GetValue(_memoryCache);
+        var coherentState = _memoryCache.GetType().GetField("_coherentState", flags).GetValue(_memoryCache);
+        var entries = coherentState.GetType().GetField("_entries", flags).GetValue(coherentState);
         var cacheItems = entries as IDictionary;
         var keys = new List<string>();
         if (cacheItems == null) return keys;

@@ -1,5 +1,4 @@
-﻿using Mapster;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Role;
@@ -43,6 +42,11 @@ public class UserGetPageOutput
     /// 角色
     /// </summary>
     public string[] RoleNames { get; set; }
+
+    /// <summary>
+    /// 是否主管
+    /// </summary>
+    public bool IsManager { get; set; } = false;
 
     [JsonIgnore]
     public ICollection<RoleEntity> Roles { get; set; }

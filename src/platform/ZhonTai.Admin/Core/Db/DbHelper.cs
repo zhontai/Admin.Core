@@ -144,13 +144,15 @@ public class DbHelper
     /// <param name="user"></param>
     public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user)
     {
-        if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
-               && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-               && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+        //数据库时间
+        if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
+        && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
         {
             e.Value = DateTime.Now.Subtract(timeOffset);
         }
 
+        //雪花Id
         if (e.Column.CsType == typeof(long)
         && e.Property.GetCustomAttribute<SnowflakeAttribute>(false) is SnowflakeAttribute snowflakeAttribute
         && snowflakeAttribute.Enable && (e.Value == null || (long)e.Value == default || (long?)e.Value == default))
@@ -158,17 +160,26 @@ public class DbHelper
             e.Value = YitIdHelper.NextId();
         }
 
+        //有序Guid
+        if (e.Column.CsType == typeof(Guid)
+        && e.Property.GetCustomAttribute<OrderGuidAttribute>(false) is OrderGuidAttribute orderGuidAttribute
+        && orderGuidAttribute.Enable && (e.Value == null || (Guid)e.Value == default || (Guid?)e.Value == default))
+        {
+            e.Value = FreeUtil.NewMongodbId();
+        }
+
         if (user == null || user.Id <= 0)
         {
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert)
+        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
-                case "OwnerId":
                 case "CreatedUserId":
+                case "OwnerId":
+                case "MemberId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
                         e.Value = user.Id;
@@ -196,7 +207,7 @@ public class DbHelper
 
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update)
+        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -273,7 +284,7 @@ public class DbHelper
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert)
+        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -299,7 +310,7 @@ public class DbHelper
                     break;
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update)
+        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -454,14 +465,31 @@ public class DbHelper
 
             var fsql = freeSqlBuilder.Build();
 
+            //生成数据
+            if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
+            {
+                GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
+            }
+
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
             //租户过滤器
             if (appConfig.Tenant)
             {
-                fsql.GlobalFilter.ApplyOnlyIf<ITenant>(FilterNames.Tenant, () => user?.Id > 0, a => a.TenantId == user.TenantId);
+                fsql.GlobalFilter.ApplyOnly<ITenant>(FilterNames.Tenant, a => a.TenantId == user.TenantId);
             }
+
+            //会员过滤器
+            fsql.GlobalFilter.ApplyOnlyIf<IMember>(FilterNames.Member,
+                () =>
+                {
+                    if (user?.Id > 0 && user.Type != UserType.Member)
+                        return false;
+                    return true;
+                },
+                a => a.MemberId == user.Id
+            );
 
             //数据权限过滤器
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
@@ -522,12 +550,6 @@ public class DbHelper
             }
 
             #endregion 初始化数据库
-
-            //生成数据
-            if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
-            {
-                GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
-            }
 
             #region 监听Curd操作
 

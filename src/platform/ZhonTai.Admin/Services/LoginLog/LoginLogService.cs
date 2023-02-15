@@ -9,14 +9,13 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ZhonTai.Admin.Services.LoginLog;
 
 /// <summary>
 /// 登录日志服务
 /// </summary>
+[Order(190)]
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
 {
@@ -33,12 +32,12 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询登录日志列表
+    /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResultOutput> GetPageAsync(PageInput<LogGetPageDto> input)
+    public async Task<PageOutput<LoginLogListOutput>> GetPageAsync(PageInput<LogGetPageDto> input)
     {
         var userName = input.Filter?.CreatedUserName;
 
@@ -50,15 +49,13 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync<LoginLogListOutput>();
 
-        //list = list.Select(a => a.IP = Regex.Replace(a.IP, "*"));
-
         var data = new PageOutput<LoginLogListOutput>()
         {
             List = list,
             Total = total
         };
 
-        return ResultOutput.Ok(data);
+        return data;
     }
 
     /// <summary>
@@ -66,10 +63,8 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<IResultOutput<long>> AddAsync(LoginLogAddInput input)
+    public async Task<long> AddAsync(LoginLogAddInput input)
     {
-        var res = new ResultOutput<long>();
-
         input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
         string ua = _context.HttpContext.Request.Headers["User-Agent"];
@@ -84,8 +79,8 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
             input.BrowserInfo = ua;
         }
         var entity = Mapper.Map<LoginLogEntity>(input);
-        var id = (await _loginLogRepository.InsertAsync(entity)).Id;
+        await _loginLogRepository.InsertAsync(entity);
 
-        return id > 0 ? res.Ok(id) : res;
+        return entity.Id;
     }
 }

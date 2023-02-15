@@ -4,7 +4,7 @@
   //Api地址
   "urls": [ "http://*:8000" ],
   //跨域地址
-  "corUrls": [ "http://localhost:9000", "http://127.0.0.1:9000" ],
+  "corUrls": [ ],
   //程序集名称
   "assemblyNames": [ "ZhonTai.Admin" ],
   //租户
@@ -22,6 +22,10 @@
   "swagger": {
     //启用
     "enable": true,
+    //启用枚举架构过滤器
+    "enableEnumSchemaFilter": true,
+    //启用接口排序文档过滤器
+    "enableOrderTagsDocumentFilter": true,
     //路由前缀，如配置微服务文档地址：doc/module/swagger
     "routePrefix": "swagger",
     //地址
@@ -30,7 +34,7 @@
       {
         "name": "中台Admin",
         "code": "admin",
-        "version": "v2.2.1",
+        "version": "v3.3.3",
         "description": ""
       }
     ]
@@ -53,12 +57,16 @@
   "identityServer": {
     //启用
     "enable": false,
-    //地址，开发认证地址前往appconfig.Development.json修改
-    "url": "https://login.zhontai.net"
+    //认证地址
+    "url": "https://localhost:5000",
+    //启用Https
+    "requireHttpsMetadata": true,
+    //受众
+    "audience": "admin.server.api"
   },
   //面向切面编程
   "aop": {
-    //事物
+    //事务
     "transaction": true
   },
   //数据库日志
@@ -71,10 +79,15 @@
   //验证码
   "varifyCode": {
     //启用
-    "enable": true,
+    "enable": false,
     //字体列表
     "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   },
   //默认密码
-  "defaultPassword": "111111"
+  "defaultPassword": "111111",
+  //动态api
+  "dynamicApi": {
+    //结果格式化
+    "formatResult": true
+  }
 }

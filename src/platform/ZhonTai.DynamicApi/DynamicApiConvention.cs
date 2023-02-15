@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -142,8 +143,25 @@ public class DynamicApiConvention : IApplicationModelConvention
         ConfigureApiExplorer(controller);
         ConfigureSelector(controller, controllerAttr);
         ConfigureParameters(controller);
+        if (AppConsts.FormatResult)
+        {
+            ConfigureFormatResult(controller);
+        }
     }
 
+    private void ConfigureFormatResult(ControllerModel controller)
+    {
+        foreach (var action in controller.Actions)
+        {
+            if (!CheckNoMapMethod(action))
+            {
+                var returnType = action.ActionMethod.GetReturnType();
+
+                if (returnType == typeof(void)) continue;
+                action.Filters.Add(new FormatResultAttribute(returnType));
+            }
+        }
+    }
 
     private void ConfigureParameters(ControllerModel controller)
     {
