@@ -188,14 +188,19 @@ public class FileService : BaseService, IFileService, IDynamicApi
                     OSSProvider.HuaweiCloud => $"{oSSOptions.BucketName}.{oSSOptions.Endpoint}",
                     _ => ""
                 };
-            }
-            if (url.IsNull())
-            {
-                throw ResultOutput.Exception($"请配置{oSSOptions.Provider}的Url参数");
-            }
 
-            var urlProtocol = oSSOptions.IsEnableHttps ? "https" : "http";
-            fileEntity.LinkUrl = $"{urlProtocol}://{url}/{filePath}";
+                if (url.IsNull())
+                {
+                    throw ResultOutput.Exception($"请配置{oSSOptions.Provider}的Url参数");
+                }
+
+                var urlProtocol = oSSOptions.IsEnableHttps ? "https" : "http";
+                fileEntity.LinkUrl = $"{urlProtocol}://{url}/{filePath}";
+            }
+            else
+            {
+                fileEntity.LinkUrl = $"{url}/{filePath}";
+            }
         }
         else
         {
