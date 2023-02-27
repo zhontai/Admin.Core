@@ -53,6 +53,8 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi.Attributes;
 using System.Text.RegularExpressions;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 
 namespace ZhonTai.Admin.Core;
 
@@ -535,6 +537,10 @@ public class HostApp
         })
         .AddControllersAsServices();
 
+        if (appConfig.Swagger.EnableJsonStringEnumConverter)
+            mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+        _hostAppOptions?.ConfigureMvcBuilder?.Invoke(mvcBuilder, hostAppContext);
         #endregion 控制器
 
         services.AddHttpClient();

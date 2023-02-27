@@ -41,6 +41,12 @@ new HostApp(new HostAppOptions
 
         context.Services.AddOSS();
     },
+
+    //配置mvc
+    ConfigureMvcBuilder = (mvcBuilder, options) =>
+    {
+    },
+
 	//配置后置中间件
 	ConfigurePostMiddleware = context =>
     {

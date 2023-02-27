@@ -371,6 +371,11 @@
             动态Api配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.PasswordHasher">
+            <summary>
+            实现标准标识密码哈希
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -389,6 +394,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableOrderTagsDocumentFilter">
             <summary>
             启用接口排序文档过滤器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableJsonStringEnumConverter">
+            <summary>
+            启用枚举属性名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
@@ -1912,6 +1922,11 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostServices">
+            <summary>
+            注入后置服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMvcBuilder">
             <summary>
             注入后置服务
             </summary>

@@ -29,6 +29,7 @@ using FreeSql;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
+using Microsoft.AspNetCore.Identity;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -48,6 +49,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
     private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
     private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
+
+    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
 
     public UserService()
     {
@@ -315,10 +318,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             input.Password = _appConfig.DefaultPassword;
         }
 
-        input.Password = MD5Encrypt.Encrypt32(input.Password);
-
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.DefaultUser;
+        if (_appConfig.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(input.Password);
+        }
         var user = await _userRepository.InsertAsync(entity);
         var userId = user.Id;
 
@@ -552,7 +561,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             password = "111111";
         }
-        entity.Password = MD5Encrypt.Encrypt32(password);
+        if (_appConfig.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(input.Password);
+        }
         await _userRepository.UpdateAsync(entity);
         return password;
     }

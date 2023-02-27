@@ -15,6 +15,13 @@ public static class EnumExtension
         return desc?.Description ?? name;
     }
 
+    public static string ToNameWithDescription(this Enum item)
+    {
+        string name = item.ToString();
+        var desc = item.GetType().GetField(name)?.GetCustomAttribute<DescriptionAttribute>();
+        return $"name{(desc != null && desc.Description.IsNull() ? "" : $"({desc?.Description})")}";
+    }
+
     public static long ToInt64(this Enum item)
     {
         return Convert.ToInt64(item);

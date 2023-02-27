@@ -4,7 +4,7 @@
   //Api地址
   "urls": [ "http://*:8000" ],
   //跨域地址
-  "corUrls": [ ],
+  "corUrls": [],
   //程序集名称
   "assemblyNames": [ "ZhonTai.Admin" ],
   //租户
@@ -26,6 +26,8 @@
     "enableEnumSchemaFilter": true,
     //启用接口排序文档过滤器
     "enableOrderTagsDocumentFilter": true,
+    //启用枚举属性名
+    "enableJsonStringEnumConverter": true,
     //路由前缀，如配置微服务文档地址：doc/module/swagger
     "routePrefix": "swagger",
     //地址
@@ -89,5 +91,7 @@
   "dynamicApi": {
     //结果格式化
     "formatResult": true
-  }
+  },
+  //实现标准标识密码哈希
+  "passwordHasher": true
 }
