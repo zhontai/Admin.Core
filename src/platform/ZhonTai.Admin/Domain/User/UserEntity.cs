@@ -29,8 +29,14 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 密码
     /// </summary>
-    [Column(StringLength = 60)]
+    [Column(StringLength = 200)]
     public string Password { get; set; }
+
+    /// <summary>
+    /// 密码加密类型
+    /// </summary>
+    [Column(MapType = typeof(int?))]
+    public PasswordEncryptType? PasswordEncryptType { get; set; }
 
     /// <summary>
     /// 姓名

@@ -242,7 +242,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var valid = user?.Id > 0;
             if(valid)
             {
-                if (_appConfig.PasswordHasher)
+                if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
                 {
                     var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, input.Password);
                     valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;

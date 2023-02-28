@@ -323,10 +323,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         if (_appConfig.PasswordHasher)
         {
             entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
         {
             entity.Password = MD5Encrypt.Encrypt32(input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
         var user = await _userRepository.InsertAsync(entity);
         var userId = user.Id;
@@ -391,10 +393,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 input.Password = _appConfig.DefaultPassword;
             }
 
-            input.Password = MD5Encrypt.Encrypt32(input.Password);
-
             var entity = Mapper.Map<UserEntity>(input);
             entity.Type = UserType.Member;
+            if (_appConfig.PasswordHasher)
+            {
+                entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+                entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+            }
+            else
+            {
+                entity.Password = MD5Encrypt.Encrypt32(input.Password);
+                entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+            }
             var user = await _userRepository.InsertAsync(entity);
 
             return user.Id;
@@ -563,11 +573,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
         if (_appConfig.PasswordHasher)
         {
-            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.Password = _passwordHasher.HashPassword(entity, password);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
         {
-            entity.Password = MD5Encrypt.Encrypt32(input.Password);
+            entity.Password = MD5Encrypt.Encrypt32(password);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
         await _userRepository.UpdateAsync(entity);
         return password;
