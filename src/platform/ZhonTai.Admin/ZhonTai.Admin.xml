@@ -5714,6 +5714,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Role.IRoleService">
             <summary>
             角色接口
