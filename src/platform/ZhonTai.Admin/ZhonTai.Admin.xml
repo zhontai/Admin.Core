@@ -376,6 +376,11 @@
             实现标准标识密码哈希
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.MaxRequestBodySize">
+            <summary>
+            最大请求大小
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -779,6 +784,21 @@
         <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.Md5">
             <summary>
             文件Md5码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.MaxSize">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.IncludeExtension">
+            <summary>
+            包含文件拓展名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.ExcludeExtension">
+            <summary>
+            排除文件拓展名
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.OSSConfig">

@@ -5,7 +5,13 @@
     "Directory": "upload",
     //日期目录
     "DateTimeDirectory": "yyyy/MM/dd",
-    "Md5": false
+    "Md5": false,
+    //文件最大大小
+    "MaxSize": 104857600,
+    //包含文件拓展名
+    "IncludeExtension": [],
+    //排除文件拓展名
+    "ExcludeExtension": [ ".exe", ".dll", ".jar" ]
   },
   //文件存储供应商
   "Provider": "Minio",

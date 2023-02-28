@@ -94,6 +94,11 @@ public class AppConfig
     /// 实现标准标识密码哈希
     /// </summary>
     public bool PasswordHasher { get; set; } = false;
+
+    /// <summary>
+    /// 最大请求大小
+    /// </summary>
+    public long MaxRequestBodySize { get; set; } = 104857600;
 }
 
 /// <summary>

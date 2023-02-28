@@ -93,5 +93,7 @@
     "formatResult": true
   },
   //实现标准标识密码哈希
-  "passwordHasher": false
+  "passwordHasher": false,
+  //最大请求大小
+  "maxRequestBodySize": 104857600
 }

@@ -53,7 +53,6 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.DynamicApi.Attributes;
 using System.Text.RegularExpressions;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Newtonsoft.Json.Converters;
 using System.Text.Json.Serialization;
 
 namespace ZhonTai.Admin.Core;
@@ -104,6 +103,9 @@ public class HostApp
             builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
         }
 
+        var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
+        services.Configure<OSSConfig>(oSSConfigRoot);
+
         //应用配置
         services.AddSingleton(appConfig);
 
@@ -126,7 +128,7 @@ public class HostApp
         builder.WebHost.ConfigureKestrel((context, options) =>
         {
             //设置应用服务器Kestrel请求体最大为100MB
-            options.Limits.MaxRequestBodySize = 1024 * 1024 * 100;
+            options.Limits.MaxRequestBodySize = appConfig.MaxRequestBodySize;
         });
 
         //访问地址
