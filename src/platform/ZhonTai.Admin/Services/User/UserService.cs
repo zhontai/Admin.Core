@@ -30,6 +30,7 @@ using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using Microsoft.AspNetCore.Identity;
+using ZhonTai.Admin.Services.File;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -49,8 +50,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
     private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
     private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
-
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
+    private IFileService _fileService => LazyGetRequiredService<IFileService>();
 
     public UserService()
     {
@@ -723,16 +724,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [Login]
     public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
     {
-        var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
-        var uploadHelper = LazyGetRequiredService<UploadHelper>();
-        var config = uploadConfig.Avatar;
-        var fileInfo = await uploadHelper.UploadAsync(file, config, new { User.Id });
+        var fileInfo = await _fileService.UploadFileAsync(file);
         if (autoUpdate)
         {
             var entity = await _userRepository.GetAsync(User.Id);
-            entity.Avatar = fileInfo.FileRelativePath;
+            entity.Avatar = fileInfo.LinkUrl;
             await _userRepository.UpdateAsync(entity);
         }
-        return fileInfo.FileRelativePath;
+        return fileInfo.LinkUrl;
     }
 }
