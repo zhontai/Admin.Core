@@ -10,6 +10,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
 
@@ -67,6 +68,9 @@ public class RegisterModule : Module
             .PropertiesAutowired()// 属性注入
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableClassInterceptors();
+
+            if(_appConfig.PasswordHasher)
+                builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance().PropertiesAutowired();
 
             //仓储泛型注入
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();

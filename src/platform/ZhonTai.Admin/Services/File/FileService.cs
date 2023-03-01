@@ -119,6 +119,25 @@ public class FileService : BaseService, IFileService, IDynamicApi
     public async Task<FileEntity> UploadFileAsync([Required] IFormFile file, string fileDirectory = "", bool fileReName = true)
     {
         var localUploadConfig = _oSSConfig.LocalUploadConfig;
+
+        var extention = Path.GetExtension(file.FileName).ToLower();
+        var hasIncludeExtension = localUploadConfig.IncludeExtension?.Length > 0;
+        if(hasIncludeExtension && !localUploadConfig.IncludeExtension.Contains(extention))
+        {
+            throw new Exception($"不允许上传{extention}文件格式");
+        }
+        var hasExcludeExtension = localUploadConfig.ExcludeExtension?.Length > 0;
+        if (hasExcludeExtension && localUploadConfig.ExcludeExtension.Contains(extention))
+        {
+            throw new Exception($"不允许上传{extention}文件格式");
+        }
+
+        var fileLenth = file.Length;
+        if(fileLenth > localUploadConfig.MaxSize) 
+        {
+            throw new Exception($"文件大小不能超过{new FileSize(localUploadConfig.MaxSize)}");
+        }
+       
         var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == _oSSConfig.Provider).FirstOrDefault();
         var enableOss = oSSOptions != null && oSSOptions.Enable;
         var enableMd5 = enableOss ? oSSOptions.Md5 : localUploadConfig.Md5;
@@ -136,7 +155,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
                     FileGuid = FreeUtil.NewMongodbId(),
                     SaveFileName = md5FileEntity.SaveFileName,
                     FileName = Path.GetFileNameWithoutExtension(file.FileName),
-                    Extension = Path.GetExtension(file.FileName).ToLower(),
+                    Extension = extention,
                     FileDirectory = md5FileEntity.FileDirectory,
                     Size = md5FileEntity.Size,
                     SizeFormat = md5FileEntity.SizeFormat,
@@ -157,14 +176,14 @@ public class FileService : BaseService, IFileService, IDynamicApi
             }
         }
 
-        var fileSize = new FileSize(file.Length);
+        var fileSize = new FileSize(fileLenth);
         var fileEntity = new FileEntity
         {
             Provider = oSSOptions?.Provider,
             BucketName = oSSOptions?.BucketName,
             FileGuid = FreeUtil.NewMongodbId(),
             FileName = Path.GetFileNameWithoutExtension(file.FileName),
-            Extension = Path.GetExtension(file.FileName).ToLower(),
+            Extension = extention,
             FileDirectory = fileDirectory,
             Size = fileSize.Size,
             SizeFormat = fileSize.ToString(),

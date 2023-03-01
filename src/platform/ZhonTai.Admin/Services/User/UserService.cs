@@ -29,6 +29,8 @@ using FreeSql;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
+using Microsoft.AspNetCore.Identity;
+using ZhonTai.Admin.Services.File;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -48,6 +50,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
     private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
     private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
+    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
+    private IFileService _fileService => LazyGetRequiredService<IFileService>();
 
     public UserService()
     {
@@ -315,10 +319,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             input.Password = _appConfig.DefaultPassword;
         }
 
-        input.Password = MD5Encrypt.Encrypt32(input.Password);
-
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.DefaultUser;
+        if (_appConfig.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+        }
         var user = await _userRepository.InsertAsync(entity);
         var userId = user.Id;
 
@@ -382,10 +394,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 input.Password = _appConfig.DefaultPassword;
             }
 
-            input.Password = MD5Encrypt.Encrypt32(input.Password);
-
             var entity = Mapper.Map<UserEntity>(input);
             entity.Type = UserType.Member;
+            if (_appConfig.PasswordHasher)
+            {
+                entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+                entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+            }
+            else
+            {
+                entity.Password = MD5Encrypt.Encrypt32(input.Password);
+                entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+            }
             var user = await _userRepository.InsertAsync(entity);
 
             return user.Id;
@@ -552,7 +572,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             password = "111111";
         }
-        entity.Password = MD5Encrypt.Encrypt32(password);
+        if (_appConfig.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.HashPassword(entity, password);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(password);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+        }
         await _userRepository.UpdateAsync(entity);
         return password;
     }
@@ -695,16 +724,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [Login]
     public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
     {
-        var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
-        var uploadHelper = LazyGetRequiredService<UploadHelper>();
-        var config = uploadConfig.Avatar;
-        var fileInfo = await uploadHelper.UploadAsync(file, config, new { User.Id });
+        var fileInfo = await _fileService.UploadFileAsync(file);
         if (autoUpdate)
         {
             var entity = await _userRepository.GetAsync(User.Id);
-            entity.Avatar = fileInfo.FileRelativePath;
+            entity.Avatar = fileInfo.LinkUrl;
             await _userRepository.UpdateAsync(entity);
         }
-        return fileInfo.FileRelativePath;
+        return fileInfo.LinkUrl;
     }
 }

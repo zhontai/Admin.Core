@@ -371,6 +371,16 @@
             动态Api配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.PasswordHasher">
+            <summary>
+            实现标准标识密码哈希
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.MaxRequestBodySize">
+            <summary>
+            最大请求大小
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -389,6 +399,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableOrderTagsDocumentFilter">
             <summary>
             启用接口排序文档过滤器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableJsonStringEnumConverter">
+            <summary>
+            启用枚举属性名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
@@ -769,6 +784,21 @@
         <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.Md5">
             <summary>
             文件Md5码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.MaxSize">
+            <summary>
+            文件大小
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.IncludeExtension">
+            <summary>
+            包含文件拓展名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.ExcludeExtension">
+            <summary>
+            排除文件拓展名
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.OSSConfig">
@@ -1912,6 +1942,11 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostServices">
+            <summary>
+            注入后置服务
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMvcBuilder">
             <summary>
             注入后置服务
             </summary>
@@ -3101,6 +3136,21 @@
             数据范围
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.User.PasswordEncryptType">
+            <summary>
+            密码加密类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.PasswordEncryptType.MD5Encrypt32">
+            <summary>
+            32位MD5加密
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.PasswordEncryptType.PasswordHasher">
+            <summary>
+            标准标识密码哈希
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.User.UserEntity">
             <summary>
             用户
@@ -3114,6 +3164,11 @@
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Password">
             <summary>
             密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.PasswordEncryptType">
+            <summary>
+            密码加密类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Name">
@@ -5657,6 +5712,11 @@
         <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Name">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Mobile">
+            <summary>
+            手机号
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Role.IRoleService">

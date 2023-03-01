@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Minio;
 using OnceMi.AspNetCore.OSS;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Common.Helpers;
 using OSSOptions = ZhonTai.Admin.Core.Configs.OSSOptions;
 
 namespace ZhonTai.Admin.Core.Extensions;
@@ -44,11 +42,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddOSS(this IServiceCollection services)
     {
-        var env = services.BuildServiceProvider().GetRequiredService<IWebHostEnvironment>();
-        var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
-        services.Configure<OSSConfig>(oSSConfigRoot);
-
-        var oSSConfig = oSSConfigRoot.Get<OSSConfig>();
+        var oSSConfig = services.BuildServiceProvider().GetRequiredService<IOptions<OSSConfig>>().Value;
         if (oSSConfig.OSSConfigs?.Count > 0)
         {
             foreach (var oSSOptions in oSSConfig.OSSConfigs)

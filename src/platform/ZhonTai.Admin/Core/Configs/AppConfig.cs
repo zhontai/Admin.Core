@@ -89,6 +89,16 @@ public class AppConfig
     /// 动态Api配置
     /// </summary>
     public DynamicApiConfig DynamicApi { get; set; } = new DynamicApiConfig();
+
+    /// <summary>
+    /// 实现标准标识密码哈希
+    /// </summary>
+    public bool PasswordHasher { get; set; } = false;
+
+    /// <summary>
+    /// 最大请求大小
+    /// </summary>
+    public long MaxRequestBodySize { get; set; } = 104857600;
 }
 
 /// <summary>
@@ -110,6 +120,11 @@ public class SwaggerConfig
     /// 启用接口排序文档过滤器
     /// </summary>
     public bool EnableOrderTagsDocumentFilter { get; set; } = true;
+
+    /// <summary>
+    /// 启用枚举属性名
+    /// </summary>
+    public bool EnableJsonStringEnumConverter { get; set; } = false;
 
     private string _RoutePrefix = "swagger";
     /// <summary>

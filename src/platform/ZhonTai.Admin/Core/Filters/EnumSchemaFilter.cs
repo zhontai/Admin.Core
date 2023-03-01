@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using FreeSql.Internal;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Linq;
@@ -19,7 +20,7 @@ public class EnumSchemaFilter : ISchemaFilter
             var enumValueType = type.GetField("value__").FieldType;
             var items = Enum.GetValues(type).Cast<Enum>()
             .Where(m => !m.ToString().Equals("Null")).Select(x =>
-            $"{x.ToDescription()}={Convert.ChangeType(x, enumValueType)}").ToList();
+            $"{x.ToNameWithDescription()}={Convert.ChangeType(x, enumValueType)}").ToList();
 
             if (items?.Count > 0)
             {
@@ -29,7 +30,6 @@ public class EnumSchemaFilter : ISchemaFilter
                 //    ["description"] = new OpenApiString(description)
                 //});
                 //CommonUtils.GetProperyCommentBySummary
-
                 schema.Description = string.IsNullOrEmpty(schema.Description) ? description : $"{schema.Description}:{description}";
             }
         }

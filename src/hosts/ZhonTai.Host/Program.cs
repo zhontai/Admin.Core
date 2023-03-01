@@ -39,8 +39,14 @@ new HostApp(new HostAppOptions
             options.TaskHandler = new TaskHandler(options.FreeSql);
         });
 
-        context.Services.AddOSS();
+        //context.Services.AddOSS();
     },
+
+    //配置mvc
+    ConfigureMvcBuilder = (mvcBuilder, options) =>
+    {
+    },
+
 	//配置后置中间件
 	ConfigurePostMiddleware = context =>
     {

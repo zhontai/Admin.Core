@@ -1,4 +1,5 @@
 ﻿using FreeSql;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Yitter.IdGenerator;
 using ZhonTai.DynamicApi;
@@ -24,6 +25,11 @@ public class HostAppOptions
     /// 注入后置服务
     /// </summary>
     public Action<HostAppContext> ConfigurePostServices { get; set; }
+
+    /// <summary>
+    /// 注入后置服务
+    /// </summary>
+    public Action<IMvcBuilder, HostAppContext> ConfigureMvcBuilder { get; set; }
 
     /// <summary>
     /// 注入前置中间件

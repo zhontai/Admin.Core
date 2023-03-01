@@ -31,6 +31,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using FreeSql;
 using ZhonTai.Admin.Domain.TenantPermission;
+using Microsoft.AspNetCore.Identity;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -46,6 +47,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly IUserRepository _userRepository;
     private readonly ITenantRepository _tenantRepository;
     private readonly ICaptchaTool _captchaTool;
+    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
 
     public AuthService(
         AppConfig appConfig,
@@ -236,10 +238,22 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             #endregion
 
             #region 登录
-            var password = MD5Encrypt.Encrypt32(input.Password);
-            var user = await _userRepository.Select.Where(a => a.UserName == input.UserName && a.Password == password).ToOneAsync();
-
-            if (!(user?.Id > 0))
+            var user = await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+            var valid = user?.Id > 0;
+            if(valid)
+            {
+                if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+                {
+                    var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, input.Password);
+                    valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
+                }
+                else
+                {
+                    var password = MD5Encrypt.Encrypt32(input.Password);
+                    valid = user.Password == password;
+                }
+            }
+            if (!valid)
             {
                 throw ResultOutput.Exception("用户名或密码错误");
             }
