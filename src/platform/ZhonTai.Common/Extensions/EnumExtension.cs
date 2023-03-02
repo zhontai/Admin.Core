@@ -19,7 +19,7 @@ public static class EnumExtension
     {
         string name = item.ToString();
         var desc = item.GetType().GetField(name)?.GetCustomAttribute<DescriptionAttribute>();
-        return $"name{(desc != null && desc.Description.IsNull() ? "" : $"({desc?.Description})")}";
+        return $"{name}{(desc == null || desc.Description.IsNull() ? "" : $"({desc?.Description})")}";
     }
 
     public static long ToInt64(this Enum item)
