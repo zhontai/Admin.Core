@@ -85,7 +85,7 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 头像
     /// </summary>
-    [Column(StringLength = 100)]
+    [Column(StringLength = 500)]
     public string Avatar { get; set; }
 
     /// <summary>
