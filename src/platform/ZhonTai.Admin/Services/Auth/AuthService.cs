@@ -32,6 +32,7 @@ using ZhonTai.DynamicApi.Attributes;
 using FreeSql;
 using ZhonTai.Admin.Domain.TenantPermission;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -108,6 +109,127 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
         return new AuthGetPasswordEncryptKeyOutput { Key = guid, EncyptKey = encyptKey };
     }
+
+    /// <summary>
+    /// 查询用户个人信息
+    /// </summary>
+    /// <returns></returns>
+    [Login]
+    public async Task<AuthUserProfileDto> GetUserProfileAsync()
+    {
+        if (!(User?.Id > 0))
+        {
+            throw ResultOutput.Exception("未登录");
+        }
+
+        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        {
+            var profile = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id);
+
+            return profile;
+        }
+    }
+   
+    /// <summary>
+    /// 查询用户菜单列表
+    /// </summary>
+    /// <returns></returns>
+    [Login]
+    public async Task<List<AuthUserMenuDto>> GetUserMenusAsync()
+    {
+        if (!(User?.Id > 0))
+        {
+            throw ResultOutput.Exception("未登录");
+        }
+
+        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        {
+            var menuSelect = _permissionRepository.Select;
+
+            if (!User.PlatformAdmin)
+            {
+                var db = _permissionRepository.Orm;
+                if (User.TenantAdmin)
+                {
+                    menuSelect = menuSelect.Where(a =>
+                       db.Select<TenantPermissionEntity>()
+                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+                   );
+                }
+                else
+                {
+                    menuSelect = menuSelect.Where(a =>
+                       db.Select<RolePermissionEntity>()
+                       .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                       .Where(b => b.PermissionId == a.Id)
+                       .Any()
+                   );
+                }
+
+                menuSelect = menuSelect.AsTreeCte(up: true);
+            }
+
+            var menuList = await menuSelect
+                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+
+            return menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
+
+        }
+    }
+
+    /// <summary>
+    /// 查询用户权限列表
+    /// </summary>
+    /// <returns></returns>
+    [Login]
+    public async Task<AuthGetUserPermissionsOutput> GetUserPermissionsAsync()
+    {
+        if (!(User?.Id > 0))
+        {
+            throw ResultOutput.Exception("未登录");
+        }
+
+        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        {
+            var authGetUserPermissionsOutput = new AuthGetUserPermissionsOutput
+            {
+                //用户信息
+                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
+            };
+
+            var dotSelect = _permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+
+            if (!User.PlatformAdmin)
+            {
+                var db = _permissionRepository.Orm;
+                if (User.TenantAdmin)
+                {
+                    dotSelect = dotSelect.Where(a =>
+                       db.Select<TenantPermissionEntity>()
+                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+                    );
+                }
+                else
+                {
+                    dotSelect = dotSelect.Where(a =>
+                        db.Select<RolePermissionEntity>()
+                        .InnerJoin<UserRoleEntity>((b, c) => b.RoleId == c.RoleId && c.UserId == User.Id)
+                        .Where(b => b.PermissionId == a.Id)
+                        .Any()
+                    );
+                }
+            }
+
+            //用户权限点
+            authGetUserPermissionsOutput.Permissions = await dotSelect.ToListAsync(a => a.Code);
+
+            return authGetUserPermissionsOutput;
+        }
+    }
+
 
     /// <summary>
     /// 查询用户信息

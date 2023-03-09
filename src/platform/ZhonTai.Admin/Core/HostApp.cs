@@ -60,8 +60,11 @@ namespace ZhonTai.Admin.Core;
 /// <summary>
 /// 宿主应用
 /// </summary>
-public class HostApp
+public partial class HostApp
 {
+    [GeneratedRegex("[\\{\\\\\\/\\}]")]
+    private static partial Regex PathRegex();
+
     readonly HostAppOptions _hostAppOptions;
 
     public HostApp()
@@ -321,7 +324,7 @@ public class HostApp
                 {
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
                     var api = controllerAction.AttributeRouteInfo.Template;
-                    api = Regex.Replace(api, @"[\{\\\/\}]", "-") + "-" + apiDesc.HttpMethod.ToLower();
+                    api = PathRegex().Replace(api, "-") + "-" + apiDesc.HttpMethod.ToLower();
                     return api.Replace("--", "-");
                 });
 
