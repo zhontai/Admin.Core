@@ -77,7 +77,7 @@ public interface ICacheTool
     /// </summary>
     /// <param name="key">键</param>
     /// <param name="value">值</param>
-    bool Set(string key, object value);
+    void Set(string key, object value);
 
     /// <summary>
     /// 设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
@@ -85,15 +85,7 @@ public interface ICacheTool
     /// <param name="key">键</param>
     /// <param name="value">值</param>
     /// <param name="expire">有效期</param>
-    bool Set(string key, object value, TimeSpan expire);
-
-    /// <summary>
-    /// 设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
-    /// </summary>
-    /// <param name="key">键</param>
-    /// <param name="value">值</param>
-    /// <returns></returns>
-    Task<bool> SetAsync(string key, object value);
+    void Set(string key, object value, TimeSpan expire);
 
     /// <summary>
     /// 设置指定 key 的值，所有写入参数object都支持string | byte[] | 数值 | 对象
@@ -102,7 +94,7 @@ public interface ICacheTool
     /// <param name="value">值</param>
     /// <param name="expire">有效期</param>
     /// <returns></returns>
-    Task<bool> SetAsync(string key, object value, TimeSpan expire);
+    Task SetAsync(string key, object value, TimeSpan? expire = null);
 
     /// <summary>
     /// 获取或设置缓存

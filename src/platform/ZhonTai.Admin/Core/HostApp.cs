@@ -54,6 +54,7 @@ using ZhonTai.DynamicApi.Attributes;
 using System.Text.RegularExpressions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json.Serialization;
+using FreeRedis;
 
 namespace ZhonTai.Admin.Core;
 
@@ -557,8 +558,10 @@ public partial class HostApp
         var cacheConfig = ConfigHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
         if (cacheConfig.Type == CacheType.Redis)
         {
-            var csredis = new CSRedis.CSRedisClient(cacheConfig.Redis.ConnectionString);
-            RedisHelper.Initialization(csredis);
+            var redis = new RedisClient(cacheConfig.Redis.ConnectionString);
+            redis.Serialize = JsonConvert.SerializeObject;
+            redis.Deserialize = JsonConvert.DeserializeObject;
+            services.AddSingleton(redis);
             services.AddSingleton<ICacheTool, RedisCacheTool>();
         }
         else
