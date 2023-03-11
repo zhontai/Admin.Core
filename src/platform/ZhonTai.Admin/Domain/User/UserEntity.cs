@@ -91,14 +91,19 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 用户状态
     /// </summary>
-    [Column(MapType = typeof(int))]
-    public UserStatus Status { get; set; }
+    [Column(MapType = typeof(int?))]
+    public UserStatus? Status { get; set; }
 
     /// <summary>
     /// 用户类型
     /// </summary>
     [Column(MapType = typeof(int))]
     public UserType Type { get; set; } = UserType.DefaultUser;
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; } = true;
 
     /// <summary>
     /// 角色列表

@@ -13,8 +13,11 @@ namespace ZhonTai.Admin.Tools.Cache;
 /// <summary>
 /// 内存缓存
 /// </summary>
-public class MemoryCacheTool : ICacheTool
+public partial class MemoryCacheTool : ICacheTool
 {
+    [GeneratedRegex("\\{.*\\}")]
+    private static partial Regex PatternRegex();
+
     private readonly IMemoryCache _memoryCache;
     public MemoryCacheTool(IMemoryCache memoryCache)
     {
@@ -45,7 +48,7 @@ public class MemoryCacheTool : ICacheTool
         if (pattern.IsNull())
             return default;
 
-        pattern = Regex.Replace(pattern, @"\{.*\}", "(.*)");
+        pattern = PatternRegex().Replace(pattern, "(.*)");
 
         var keys = GetAllKeys().Where(k => Regex.IsMatch(k, pattern));
 
@@ -87,28 +90,27 @@ public class MemoryCacheTool : ICacheTool
         return Task.FromResult(Get<T>(key));
     }
 
-    public bool Set(string key, object value)
+    public void Set(string key, object value)
     {
         _memoryCache.Set(key, value);
-        return true;
     }
 
-    public bool Set(string key, object value, TimeSpan expire)
+    public void Set(string key, object value, TimeSpan expire)
     {
         _memoryCache.Set(key, value, expire);
-        return true;
     }
 
-    public Task<bool> SetAsync(string key, object value)
+    public Task SetAsync(string key, object value, TimeSpan? expire = null)
     {
-        Set(key, value);
-        return Task.FromResult(true);
-    }
-
-    public Task<bool> SetAsync(string key, object value, TimeSpan expire)
-    {
-        Set(key, value, expire);
-        return Task.FromResult(true);
+        if(expire.HasValue)
+        {
+            Set(key, value, expire.Value);
+        }
+        else
+        {
+            Set(key, value);
+        }
+        return Task.CompletedTask;
     }
 
     public async Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null)

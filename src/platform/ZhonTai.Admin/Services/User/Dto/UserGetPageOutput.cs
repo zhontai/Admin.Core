@@ -46,7 +46,12 @@ public class UserGetPageOutput
     /// <summary>
     /// 是否主管
     /// </summary>
-    public bool IsManager { get; set; } = false;
+    public bool IsManager { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 
     [JsonIgnore]
     public ICollection<RoleEntity> Roles { get; set; }

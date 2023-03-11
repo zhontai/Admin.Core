@@ -36,6 +36,22 @@ public class AuthLoginOutput
     public long? OrgId { get; set; }
 
     /// <summary>
+    /// 租户信息
+    /// </summary>
+    public AuthLoginTenantDto Tenant { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
+}
+
+/// <summary>
+/// 租户信息
+/// </summary>
+public class AuthLoginTenantDto
+{
+    /// <summary>
     /// 租户类型
     /// </summary>
     public TenantType? TenantType { get; set; }
@@ -44,4 +60,9 @@ public class AuthLoginOutput
     /// 数据库注册键
     /// </summary>
     public string DbKey { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
 }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -15,7 +14,7 @@ public class UserAddInput: UserFormInput
     public virtual string Password { get; set; }
 
     /// <summary>
-    /// 状态
+    /// 启用
     /// </summary>
-    public UserStatus Status { get; set; } = UserStatus.Enabled;
+    public bool Enabled { get; set; } = true;
 }
