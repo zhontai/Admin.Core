@@ -5,7 +5,6 @@ using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;

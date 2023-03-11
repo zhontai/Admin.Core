@@ -1734,14 +1734,6 @@
             宿主应用
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.PathRegex">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match a character in the set [/\\{}].<br/>
-            </code>
-            </remarks>
-        </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[])">
             <summary>
             运行应用
@@ -3234,6 +3226,11 @@
             用户类型
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Roles">
             <summary>
             角色列表
@@ -3252,16 +3249,6 @@
         <member name="T:ZhonTai.Admin.Domain.User.UserStatus">
             <summary>
             用户状态
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.Enabled">
-            <summary>
-            正常
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Domain.User.UserStatus.Disabled">
-            <summary>
-            禁用
             </summary>
         </member>
         <member name="F:ZhonTai.Admin.Domain.User.UserStatus.WaitChangePasssword">
@@ -3809,14 +3796,34 @@
             部门Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.TenantType">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.Tenant">
+            <summary>
+            租户信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthLoginTenantDto">
+            <summary>
+            租户信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginTenantDto.TenantType">
             <summary>
             租户类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.DbKey">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginTenantDto.DbKey">
             <summary>
             数据库注册键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginTenantDto.Enabled">
+            <summary>
+            启用
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Id">
@@ -6154,6 +6161,21 @@
             创建时间
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantSetEnableInput">
+            <summary>
+            设置启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantSetEnableInput.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantSetEnableInput.Enabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantUpdateInput">
             <summary>
             修改
@@ -6223,6 +6245,13 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Tenant.TenantService.SetEnableAsync(ZhonTai.Admin.Services.Tenant.Dto.TenantSetEnableInput)">
+            <summary>
+            设置启用
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddInput">
             <summary>
             添加
@@ -6233,9 +6262,9 @@
             密码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Status">
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Enabled">
             <summary>
-            状态
+            启用
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddMemberInput">
@@ -6423,6 +6452,11 @@
             是否主管
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPageOutput.CreatedTime">
             <summary>
             创建时间
@@ -6461,6 +6495,21 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserResetPasswordInput.Password">
             <summary>
             密码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserSetEnableInput">
+            <summary>
+            设置启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserSetEnableInput.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserSetEnableInput.Enabled">
+            <summary>
+            是否启用
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserSetManagerInput">
@@ -6619,6 +6668,13 @@
         <member name="M:ZhonTai.Admin.Services.User.UserService.SetManagerAsync(ZhonTai.Admin.Services.User.Dto.UserSetManagerInput)">
             <summary>
             设置主管
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.SetEnableAsync(ZhonTai.Admin.Services.User.Dto.UserSetEnableInput)">
+            <summary>
+            设置启用
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -7223,61 +7279,34 @@
             </summary>
             <param name="app"></param>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PathRegex_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the PathRegex method.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.PathRegex_0.Instance">
-            <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PathRegex_0.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PathRegex_0.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PathRegex_0.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PathRegex_0.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PathRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PathRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_1">
+        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the PatternRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.PatternRegex_1.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.PatternRegex_0.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_1.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>

@@ -31,6 +31,7 @@ using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using Microsoft.AspNetCore.Identity;
 using ZhonTai.Admin.Services.File;
+using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -143,18 +144,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [NonAction]
     public async Task<AuthLoginOutput> GetLoginUserAsync(long id)
     {
-        var output = new ResultOutput<AuthLoginOutput>();
-        var entityDto = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
+        var output = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
             .WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
 
-        if (_appConfig.Tenant && entityDto?.TenantId.Value > 0)
+        if (_appConfig.Tenant && output?.TenantId.Value > 0)
         {
             var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-                .WhereDynamic(entityDto.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
-            entityDto.TenantType = tenant.TenantType;
-            entityDto.DbKey = tenant.DbKey;
+                .WhereDynamic(output.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            output.Tenant = tenant;
         }
-        return entityDto;
+        return output;
     }
 
     /// <summary>
@@ -596,6 +595,22 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var entity = await _userOrgRepository.Where(a => a.UserId == input.UserId && a.OrgId == input.OrgId).FirstAsync();
         entity.IsManager = input.IsManager;
         await _userOrgRepository.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 设置启用
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetEnableAsync(UserSetEnableInput input)
+    {
+        var entity = await _userRepository.GetAsync(input.UserId);
+        if (entity.Type == UserType.PlatformAdmin)
+        {
+            throw ResultOutput.Exception("平台管理员禁止禁用");
+        }
+        entity.Enabled = input.Enabled;
+        await _userRepository.UpdateAsync(entity);
     }
 
     /// <summary>

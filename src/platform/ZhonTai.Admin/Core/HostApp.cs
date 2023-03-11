@@ -61,11 +61,8 @@ namespace ZhonTai.Admin.Core;
 /// <summary>
 /// 宿主应用
 /// </summary>
-public partial class HostApp
+public class HostApp
 {
-    [GeneratedRegex("[\\{\\\\\\/\\}]")]
-    private static partial Regex PathRegex();
-
     readonly HostAppOptions _hostAppOptions;
 
     public HostApp()
@@ -325,7 +322,7 @@ public partial class HostApp
                 {
                     var controllerAction = apiDesc.ActionDescriptor as ControllerActionDescriptor;
                     var api = controllerAction.AttributeRouteInfo.Template;
-                    api = PathRegex().Replace(api, "-") + "-" + apiDesc.HttpMethod.ToLower();
+                    api = Regex.Replace(api, @"[\{\\\/\}]", "-") + "-" + apiDesc.HttpMethod.ToLower();
                     return api.Replace("--", "-");
                 });
 
@@ -558,9 +555,11 @@ public partial class HostApp
         var cacheConfig = ConfigHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
         if (cacheConfig.Type == CacheType.Redis)
         {
-            var redis = new RedisClient(cacheConfig.Redis.ConnectionString);
-            redis.Serialize = JsonConvert.SerializeObject;
-            redis.Deserialize = JsonConvert.DeserializeObject;
+            var redis = new RedisClient(cacheConfig.Redis.ConnectionString)
+            {
+                Serialize = JsonConvert.SerializeObject,
+                Deserialize = JsonConvert.DeserializeObject
+            };
             services.AddSingleton(redis);
             services.AddSingleton<ICacheTool, RedisCacheTool>();
         }

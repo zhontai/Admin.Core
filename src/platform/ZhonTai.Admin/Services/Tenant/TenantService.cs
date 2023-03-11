@@ -125,7 +125,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Name = input.RealName,
             Mobile = input.Phone,
             Email = input.Email,
-            Status = UserStatus.Enabled,
+            Enabled = true,
             Type = UserType.TenantAdmin,
             OrgId = org.Id
         };
@@ -195,10 +195,20 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TenantUpdateInput input)
     {
+        if (await _tenantRepository.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
+        {
+            throw ResultOutput.Exception($"企业名称已存在");
+        }
+
+        if (await _tenantRepository.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"企业编码已存在");
+        }
+
         var entity = await _tenantRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("租户不存在！");
+            throw ResultOutput.Exception("租户不存在");
         }
 
         Mapper.Map(input, entity);
@@ -287,5 +297,21 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
         //删除租户
         var result = await _tenantRepository.SoftDeleteAsync(ids);
+    }
+
+    /// <summary>
+    /// 设置启用
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetEnableAsync(TenantSetEnableInput input)
+    {
+        var entity = await _tenantRepository.GetAsync(input.TenantId);
+        if (entity.TenantType == TenantType.Platform)
+        {
+            throw ResultOutput.Exception("平台租户禁止禁用");
+        }
+        entity.Enabled = input.Enabled;
+        await _tenantRepository.UpdateAsync(entity);
     }
 }

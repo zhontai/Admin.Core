@@ -86,8 +86,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new Claim(ClaimAttributes.Name, user.Name),
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
             new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
-            new Claim(ClaimAttributes.TenantType, user.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
-            new Claim(ClaimAttributes.DbKey, user.DbKey??"")
+            new Claim(ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey??"")
         });
 
         return token;
@@ -353,7 +353,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 }
                 else
                 {
-                    throw ResultOutput.Exception("解密失败！");
+                    throw ResultOutput.Exception("解密失败");
                 }
             }
 
@@ -375,14 +375,15 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                     valid = user.Password == password;
                 }
             }
-            if (!valid)
+            
+            if(!valid)
             {
                 throw ResultOutput.Exception("用户名或密码错误");
             }
 
-            if (user.Status == UserStatus.Disabled)
+            if (!user.Enabled)
             {
-                throw ResultOutput.Exception("禁止登录，请联系管理员");
+                throw ResultOutput.Exception("账号已停用，禁止登录");
             }
             #endregion
 
@@ -390,9 +391,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
             if (_appConfig.Tenant)
             {
-                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DbKey });
-                authLoginOutput.TenantType = tenant.TenantType;
-                authLoginOutput.DbKey = tenant.DbKey;
+                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                if (!(tenant != null && tenant.Enabled))
+                {
+                    throw ResultOutput.Exception("企业已停用，禁止登录");
+                }
+                authLoginOutput.Tenant = tenant;
             }
             string token = GetToken(authLoginOutput);
             #endregion
@@ -457,8 +461,25 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("验签失败");
         }
 
-        var output = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
-        string newToken = GetToken(output);
+        var user = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
+        if(!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception("账号不存在");
+        }
+        if (!user.Enabled)
+        {
+            throw ResultOutput.Exception("账号已停用，禁止登录");
+        }
+
+        if (_appConfig.Tenant)
+        {
+            if (!(user.Tenant != null && user.Tenant.Enabled))
+            {
+                throw ResultOutput.Exception("企业已停用，禁止登录");
+            }
+        }
+
+        string newToken = GetToken(user);
         return new { token = newToken };
     }
 
