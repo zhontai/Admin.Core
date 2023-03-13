@@ -62,6 +62,11 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(OrgAddInput input)
     {
+        if(input.ParentId == 0)
+        {
+            throw ResultOutput.Exception($"请选择上级部门");
+        }
+
         if (await _orgRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
             throw ResultOutput.Exception($"此部门已存在");
@@ -93,6 +98,11 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(OrgUpdateInput input)
     {
+        if (input.ParentId == 0)
+        {
+            throw ResultOutput.Exception($"请选择上级部门");
+        }
+
         var entity = await _orgRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
