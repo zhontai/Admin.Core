@@ -186,6 +186,36 @@
             "description": "",
             "sort": 156,
             "enabled": true
+          },
+          {
+            "id": 394672333692998,
+            "parentId": 161227167719493,
+            "label": "查询用户个人信息",
+            "path": "/api/admin/auth/get-user-profile",
+            "httpMethods": "get",
+            "description": "",
+            "sort": 154,
+            "enabled": true
+          },
+          {
+            "id": 394672333692999,
+            "parentId": 161227167719493,
+            "label": "查询用户菜单列表",
+            "path": "/api/admin/auth/get-user-menus",
+            "httpMethods": "get",
+            "description": "",
+            "sort": 155,
+            "enabled": true
+          },
+          {
+            "id": 394672333697093,
+            "parentId": 161227167719493,
+            "label": "查询用户权限列表",
+            "path": "/api/admin/auth/get-user-permissions",
+            "httpMethods": "get",
+            "description": "",
+            "sort": 156,
+            "enabled": true
           }
         ]
       },
@@ -810,6 +840,16 @@
             "description": "",
             "sort": 140,
             "enabled": true
+          },
+          {
+            "id": 394672333692997,
+            "parentId": 161227167719497,
+            "label": "设置启用",
+            "path": "/api/admin/user/set-enable",
+            "httpMethods": "post",
+            "description": "",
+            "sort": 147,
+            "enabled": true
           }
         ]
       },
@@ -1255,6 +1295,16 @@
             "httpMethods": "delete",
             "description": "",
             "sort": 92,
+            "enabled": true
+          },
+          {
+            "id": 394672333688901,
+            "parentId": 161227167723593,
+            "label": "设置启用",
+            "path": "/api/admin/tenant/set-enable",
+            "httpMethods": "post",
+            "description": "",
+            "sort": 95,
             "enabled": true
           }
         ]

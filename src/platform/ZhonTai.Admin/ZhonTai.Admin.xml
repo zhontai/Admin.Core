@@ -2862,34 +2862,24 @@
             租户
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Name">
-            <summary>
-            企业名称
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Code">
-            <summary>
-            编码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.RealName">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Phone">
-            <summary>
-            手机号码
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Email">
-            <summary>
-            邮箱地址
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.UserId">
             <summary>
             授权用户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.OrgId">
+            <summary>
+            授权部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Org">
+            <summary>
+            部门
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.TenantType">
@@ -6056,6 +6046,11 @@
             添加
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Id">
+            <summary>
+            租户Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Name">
             <summary>
             企业名称
@@ -6069,6 +6064,11 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.RealName">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.UserName">
+            <summary>
+            账号
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Phone">
@@ -6111,19 +6111,24 @@
             主键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Code">
-            <summary>
-            企业编码
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Name">
             <summary>
             企业名称
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Code">
+            <summary>
+            企业编码
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.RealName">
             <summary>
             姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.UserName">
+            <summary>
+            账号
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Phone">
@@ -6183,7 +6188,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantUpdateInput.Id">
             <summary>
-            接口Id
+            租户Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.ITenantService">
@@ -6255,11 +6260,6 @@
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddInput">
             <summary>
             添加
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Password">
-            <summary>
-            密码
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Enabled">
