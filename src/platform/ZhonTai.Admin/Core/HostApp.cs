@@ -55,6 +55,8 @@ using System.Text.RegularExpressions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json.Serialization;
 using FreeRedis;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace ZhonTai.Admin.Core;
 
@@ -180,6 +182,9 @@ public class HostApp
         };
 
         _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
+
+        //健康检查
+        services.AddHealthChecks();
 
         //雪花漂移算法
         var idGeneratorOptions = new IdGeneratorOptions(1) { WorkerIdBitLength = 6 };
@@ -708,6 +713,16 @@ public class HostApp
             });
         }
         #endregion Swagger Api文档
+
+        //使用健康检查
+        if(appConfig.HealthChecks.Enable)
+        {
+            app.MapHealthChecks(appConfig.HealthChecks.Path, new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+        }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }

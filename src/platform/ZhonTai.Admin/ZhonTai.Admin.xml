@@ -381,6 +381,11 @@
             最大请求大小
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.HealthChecks">
+            <summary>
+            健康检查配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -559,6 +564,21 @@
         <member name="P:ZhonTai.Admin.Core.Configs.DynamicApiConfig.FormatResult">
             <summary>
             结果格式化
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.HealthChecksConfig">
+            <summary>
+            健康检查配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.HealthChecksConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.HealthChecksConfig.Path">
+            <summary>
+            访问路径
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.AppType">

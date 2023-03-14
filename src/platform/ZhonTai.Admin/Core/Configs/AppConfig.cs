@@ -99,6 +99,11 @@ public class AppConfig
     /// 最大请求大小
     /// </summary>
     public long MaxRequestBodySize { get; set; } = 104857600;
+
+    /// <summary>
+    /// 健康检查配置
+    /// </summary>
+    public HealthChecksConfig HealthChecks { get; set; } = new HealthChecksConfig();
 }
 
 /// <summary>
@@ -243,7 +248,6 @@ public class ValidateConfig
     public bool Permission { get; set; } = true;
 }
 
-
 /// <summary>
 /// 验证码配置
 /// </summary>
@@ -295,6 +299,22 @@ public class DynamicApiConfig
     /// 结果格式化
     /// </summary>
     public bool FormatResult { get; set; } = true;
+}
+
+/// <summary>
+/// 健康检查配置
+/// </summary>
+public class HealthChecksConfig
+{
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enable { get; set; } = true;
+
+    /// <summary>
+    /// 访问路径
+    /// </summary>
+    public string Path { get; set; } = "/health";
 }
 
 /// <summary>
