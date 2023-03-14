@@ -145,6 +145,17 @@
                 "description": "",
                 "enabled": true,
                 "childs": []
+              },
+              {
+                "id": 394672570462277,
+                "parentId": 161227168636998,
+                "label": "禁用",
+                "code": "api:admin:user:set-enable",
+                "type": 3,
+                "isKeepAlive": true,
+                "sort": 8,
+                "enabled": true,
+                "childs": []
               }
             ]
           },
@@ -452,6 +463,17 @@
                 "isKeepAlive": true,
                 "sort": 7,
                 "description": "",
+                "enabled": true,
+                "childs": []
+              },
+              {
+                "id": 394672685342789,
+                "parentId": 161227168751685,
+                "label": "禁用",
+                "code": "api:admin:tenant:set-enable",
+                "type": 3,
+                "isKeepAlive": true,
+                "sort": 8,
                 "enabled": true,
                 "childs": []
               }

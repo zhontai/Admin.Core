@@ -7,10 +7,6 @@ namespace ZhonTai.Admin.Services.User.Dto;
 /// </summary>
 public class UserAddInput: UserFormInput
 {
-    /// <summary>
-    /// 密码
-    /// </summary>
-    [Required(ErrorMessage = "请输入密码")]
     public virtual string Password { get; set; }
 
     /// <summary>

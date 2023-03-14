@@ -32,6 +32,9 @@ using ZhonTai.Admin.Domain.UserOrg;
 using Microsoft.AspNetCore.Identity;
 using ZhonTai.Admin.Services.File;
 using ZhonTai.Admin.Core.Auth;
+using System.Linq.Expressions;
+using System;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -116,7 +119,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         if(orgId.HasValue && orgId > 0)
         {
-            var managerUserIds = await _userOrgRepository.Select.Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
+            var managerUserIds = await _userOrgRepository.Select
+                .Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
+
             if (managerUserIds.Any())
             {
                 var managerUsers = list.Where(a => managerUserIds.Contains(a.Id));
@@ -297,19 +302,29 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddAsync(UserAddInput input)
     {
-        if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
-        {
-            throw ResultOutput.Exception($"账号已存在");
-        }
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Mobile == input.Mobile))
-        {
-            throw ResultOutput.Exception($"手机号已存在");
-        }
+        var existsUser = await _userRepository.Select.Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
-        if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Email == input.Email))
+        if (existsUser != null)
         {
-            throw ResultOutput.Exception($"邮箱已存在");
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
         }
 
         // 用户信息
@@ -336,10 +351,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         //用户角色
         if (input.RoleIds != null && input.RoleIds.Any())
         {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity 
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity
             { 
-                UserId = userId, 
-                RoleId = roleId 
+                UserId = userId,
+                RoleId = roleId
             }).ToList();
             await _userRoleRepository.InsertAsync(roles);
         }
@@ -372,19 +387,29 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         using (_userRepository.DataFilter.DisableAll())
         {
-            if (await _userRepository.Select.AnyAsync(a => a.UserName == input.UserName))
-            {
-                throw ResultOutput.Exception($"账号已存在");
-            }
+            Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+            where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+                .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-            if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Mobile == input.Mobile))
-            {
-                throw ResultOutput.Exception($"手机号已存在");
-            }
+            var existsUser = await _userRepository.Select.Where(where)
+                .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
-            if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Email == input.Email))
+            if (existsUser != null)
             {
-                throw ResultOutput.Exception($"邮箱已存在");
+                if (existsUser.UserName == input.UserName)
+                {
+                    throw ResultOutput.Exception($"账号已存在");
+                }
+
+                if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+                {
+                    throw ResultOutput.Exception($"手机号已存在");
+                }
+
+                if (input.Email.NotNull() && existsUser.Email == input.Email)
+                {
+                    throw ResultOutput.Exception($"邮箱已存在");
+                }
             }
 
             // 用户信息
@@ -419,25 +444,35 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task UpdateMemberAsync(UserUpdateMemberInput input)
     {
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
+
+        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
+        {
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
+        }
+
         var user = await _userRepository.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
             throw ResultOutput.Exception("用户不存在");
-        }
-
-        if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
-        {
-            throw ResultOutput.Exception($"账号已存在");
-        }
-
-        if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Mobile == input.Mobile))
-        {
-            throw ResultOutput.Exception($"手机号已存在");
-        }
-
-        if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Email == input.Email))
-        {
-            throw ResultOutput.Exception($"邮箱已存在");
         }
 
         Mapper.Map(input, user);
@@ -452,30 +487,40 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task UpdateAsync(UserUpdateInput input)
     {
-        var user = await _userRepository.GetAsync(input.Id);
-        if (!(user?.Id > 0))
-        {
-            throw ResultOutput.Exception("用户不存在");
-        }
-
         if (input.Id == input.ManagerUserId)
         {
             throw ResultOutput.Exception("直属主管不能是自己");
         }
 
-        if (await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.UserName == input.UserName))
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
+
+        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
         {
-            throw ResultOutput.Exception($"账号已存在");
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
         }
 
-        if (input.Mobile.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Mobile == input.Mobile))
+        var user = await _userRepository.GetAsync(input.Id);
+        if (!(user?.Id > 0))
         {
-            throw ResultOutput.Exception($"手机号已存在");
-        }
-
-        if (input.Email.NotNull() && await _userRepository.Select.AnyAsync(a => a.Id != input.Id && a.Email == input.Email))
-        {
-            throw ResultOutput.Exception($"邮箱已存在");
+            throw ResultOutput.Exception("用户不存在");
         }
 
         Mapper.Map(input, user);
@@ -629,7 +674,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         if(user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
         {
-            throw ResultOutput.Exception("平台管理员禁止删除");
+            throw ResultOutput.Exception($"平台管理员禁止删除");
         }
 
         //删除用户角色
@@ -641,6 +686,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         //删除用户
         await _userRepository.DeleteAsync(a => a.Id == id);
 
+        //删除用户数据权限缓存
         await Cache.DelAsync(CacheKeys.DataPermission + id);
     }
 

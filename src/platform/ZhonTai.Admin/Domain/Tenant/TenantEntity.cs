@@ -1,8 +1,8 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql;
 using FreeSql.DataAnnotations;
-using System;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Domain.Tenant;
 
@@ -10,46 +10,27 @@ namespace ZhonTai.Admin.Domain.Tenant;
 /// 租户
 /// </summary>
 [Table(Name = "ad_tenant")]
-[Index("idx_{tablename}_01", nameof(Name), true)]
-[Index("idx_{tablename}_02", nameof(Code), true)]
 public partial class TenantEntity : EntityBase
 {
     /// <summary>
-    /// 企业名称
-    /// </summary>
-    [Column(StringLength = 50)]
-    public string Name { get; set; }
-
-    /// <summary>
-    /// 编码
-    /// </summary>
-    [Column(StringLength = 50)]
-    public string Code { get; set; }
-
-    /// <summary>
-    /// 姓名
-    /// </summary>
-    [Column(StringLength = 50)]
-    public string RealName { get; set; }
-
-    /// <summary>
-    /// 手机号码
-    /// </summary>
-    [Column(StringLength = 20)]
-    public string Phone { get; set; }
-
-    /// <summary>
-    /// 邮箱地址
-    /// </summary>
-    [Column(StringLength = 50)]
-    public string Email { get; set; }
-
-    /// <summary>
     /// 授权用户
     /// </summary>
-    public long? UserId { get; set; }
+    public long UserId { get; set; }
 
+    /// <summary>
+    /// 用户
+    /// </summary>
     public UserEntity User { get; set; }
+
+    /// <summary>
+    /// 授权部门
+    /// </summary>
+    public long OrgId { get; set; }
+
+    /// <summary>
+    /// 部门
+    /// </summary>
+    public OrgEntity Org { get; set; }
 
     /// <summary>
     /// 租户类型

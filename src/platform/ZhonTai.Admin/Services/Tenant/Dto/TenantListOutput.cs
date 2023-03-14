@@ -11,19 +11,24 @@ public class TenantListOutput
     public long Id { get; set; }
 
     /// <summary>
-    /// 企业编码
-    /// </summary>
-    public string Code { get; set; }
-
-    /// <summary>
     /// 企业名称
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
+    /// 企业编码
+    /// </summary>
+    public string Code { get; set; }
+
+    /// <summary>
     /// 姓名
     /// </summary>
     public string RealName { get; set; }
+
+    /// <summary>
+    /// 账号
+    /// </summary>
+    public string UserName { get; set; }
 
     /// <summary>
     /// 手机号码
