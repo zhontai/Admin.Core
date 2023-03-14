@@ -1,11 +1,24 @@
 [
   {
     "id": 189097691009093,
+    "parentId": 0,
     "name": "中台",
     "code": "zhontai",
     "value": "",
+    "memberCount": 0,
     "enabled": true,
     "sort": 1,
-    "description": ""
+    "description": "",
+    "staffs": null,
+    "users": null,
+    "roles": null,
+    "childs": null,
+    "isDeleted": false,
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-03-14T11:23:44"
   }
 ]

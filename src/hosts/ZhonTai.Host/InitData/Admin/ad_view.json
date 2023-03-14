@@ -1,7 +1,11 @@
 [
   {
     "id": 161227168313413,
+    "parentId": 0,
+    "name": null,
     "label": "平台管理",
+    "path": null,
+    "description": null,
     "cache": true,
     "sort": 1,
     "enabled": true,
@@ -12,15 +16,26 @@
         "name": "admin/workbench",
         "label": "工作台",
         "path": "admin/workbench/index",
+        "description": null,
         "cache": true,
         "sort": 1,
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       },
       {
         "id": 161227168432197,
         "parentId": 161227168313413,
+        "name": null,
         "label": "系统管理",
+        "path": null,
+        "description": null,
         "cache": true,
         "sort": 3,
         "enabled": true,
@@ -31,9 +46,18 @@
             "name": "admin/api",
             "label": "接口管理",
             "path": "admin/api/index",
+            "description": null,
             "cache": true,
             "sort": 4,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168444485,
@@ -41,9 +65,18 @@
             "name": "admin/view",
             "label": "视图管理",
             "path": "admin/view/index",
+            "description": null,
             "cache": true,
             "sort": 5,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168448582,
@@ -51,9 +84,18 @@
             "name": "admin/cache",
             "label": "缓存管理",
             "path": "admin/cache/index",
+            "description": null,
             "cache": true,
             "sort": 3,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168456774,
@@ -61,9 +103,18 @@
             "name": "admin/document",
             "label": "文档管理",
             "path": "admin/document/index",
+            "description": null,
             "cache": true,
             "sort": 7,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 187053736300613,
@@ -74,7 +125,15 @@
             "description": "数据字典",
             "cache": true,
             "sort": 1,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 336556164300869,
@@ -85,7 +144,15 @@
             "description": "",
             "cache": true,
             "sort": 2,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 371247502852165,
@@ -93,11 +160,27 @@
             "name": "admin/file",
             "label": "文件管理",
             "path": "admin/file/index",
+            "description": null,
             "cache": true,
             "sort": 6,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           }
-        ]
+        ],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       },
       {
         "id": 161227168436293,
@@ -105,15 +188,25 @@
         "name": "admin/personal",
         "label": "个人中心",
         "path": "admin/personal/index",
+        "description": null,
         "cache": true,
         "sort": 5,
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       },
       {
         "id": 161227168436294,
         "parentId": 161227168313413,
+        "name": null,
         "label": "权限管理",
+        "path": null,
         "description": "",
         "cache": true,
         "sort": 2,
@@ -128,7 +221,15 @@
             "description": "",
             "cache": true,
             "sort": 1,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168440389,
@@ -139,7 +240,15 @@
             "description": "",
             "cache": true,
             "sort": 2,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168444486,
@@ -147,9 +256,18 @@
             "name": "admin/permission",
             "label": "权限管理",
             "path": "admin/permission/index",
+            "description": null,
             "cache": true,
             "sort": 4,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168448583,
@@ -157,9 +275,18 @@
             "name": "admin/tenant",
             "label": "租户管理",
             "path": "admin/tenant/index",
+            "description": null,
             "cache": true,
             "sort": 5,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 174312361087045,
@@ -170,14 +297,31 @@
             "description": "",
             "cache": true,
             "sort": 3,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           }
-        ]
+        ],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       },
       {
         "id": 161227168452677,
         "parentId": 161227168313413,
+        "name": null,
         "label": "日志管理",
+        "path": null,
         "description": "",
         "cache": true,
         "sort": 4,
@@ -189,9 +333,18 @@
             "name": "admin/oprationLog",
             "label": "操作日志",
             "path": "admin/logs/opration-log",
+            "description": null,
             "cache": true,
             "sort": 2,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           },
           {
             "id": 161227168456773,
@@ -199,18 +352,44 @@
             "name": "admin/loginLog",
             "label": "登录日志",
             "path": "admin/logs/login-log",
+            "description": null,
             "cache": true,
             "sort": 1,
-            "enabled": true
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-03-14T11:23:45"
           }
-        ]
+        ],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       }
-    ]
+    ],
+    "isDeleted": false,
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-03-14T11:23:45"
   },
   {
     "id": 361047466754117,
+    "parentId": 0,
     "name": "",
     "label": "布局管理",
+    "path": null,
+    "description": null,
     "cache": true,
     "sort": 2,
     "enabled": true,
@@ -221,10 +400,18 @@
         "name": "link",
         "label": "链接",
         "path": "layout/routerView/link",
+        "description": null,
         "cache": true,
         "sort": 1,
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       },
       {
         "id": 361047841796165,
@@ -232,11 +419,26 @@
         "name": "iframe",
         "label": "内嵌窗口",
         "path": "layout/routerView/iframes",
+        "description": null,
         "cache": true,
         "sort": 2,
         "enabled": true,
-        "childs": []
+        "childs": [],
+        "isDeleted": false,
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdTime": "2023-03-14T11:23:45"
       }
-    ]
+    ],
+    "isDeleted": false,
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-03-14T11:23:45"
   }
 ]

@@ -26,45 +26,21 @@ namespace ZhonTai.Admin.Repositories;
 
 public class CustomGenerateData : GenerateData, IGenerateData
 {
-    public virtual Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
+    public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
     {
         #region 读取数据
 
         //admin
         #region 数据字典
 
-        var dictionaryTypes = db.Queryable<DictionaryTypeEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync();
 
-        var dictionaries = db.Queryable<DictionaryEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync();
         #endregion
 
         #region 接口
 
-        var apis = db.Queryable<ApiEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var apis = await db.Queryable<ApiEntity>().ToListAsync();
         var apiTree = apis.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -83,15 +59,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 视图
 
-        var views = db.Queryable<ViewEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var views = await db.Queryable<ViewEntity>().ToListAsync();
         var viewTree = views.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -137,43 +105,19 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 用户
 
-        var users = db.Queryable<UserEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var users = await db.Queryable<UserEntity>().ToListAsync();
 
         #endregion
 
         #region 员工
 
-        var staffs = db.Queryable<UserStaffEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var staffs = await db.Queryable<UserStaffEntity>().ToListAsync();
 
         #endregion
 
         #region 部门
 
-        var orgs = db.Queryable<OrgEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var orgs = await db.Queryable<OrgEntity>().ToListAsync();
         var orgTree = orgs.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -192,87 +136,43 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 角色
 
-        var roles = db.Queryable<RoleEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var roles = await db.Queryable<RoleEntity>().ToListAsync();
 
         #endregion
 
         #region 用户角色
 
-        var userRoles = db.Queryable<UserRoleEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName
-        });
+        var userRoles = await db.Queryable<UserRoleEntity>().ToListAsync();
 
         #endregion
 
         #region 用户部门
 
-        var userOrgs = db.Queryable<UserOrgEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var userOrgs = await db.Queryable<UserOrgEntity>().ToListAsync();
 
         #endregion
 
         #region 角色权限
 
-        var rolePermissions = db.Queryable<RolePermissionEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName
-        });
+        var rolePermissions = await db.Queryable<RolePermissionEntity>().ToListAsync();
 
         #endregion
 
         #region 租户
 
-        var tenants = db.Queryable<TenantEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var tenants = await db.Queryable<TenantEntity>().ToListAsync();
 
         #endregion
 
         #region 租户权限
 
-        var tenantPermissions = db.Queryable<TenantPermissionEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName
-        });
+        var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync();
 
         #endregion
 
         #region 权限接口
 
-        var permissionApis = db.Queryable<PermissionApiEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName
-        });
+        var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync();
 
         #endregion
 
@@ -321,7 +221,5 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<TenantEntity>(tenants);
         SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions, propsContractResolver: new PropsContractResolver());
         #endregion
-
-        return Task.CompletedTask;
     }
 }

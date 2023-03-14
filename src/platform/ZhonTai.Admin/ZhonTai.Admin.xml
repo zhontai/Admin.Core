@@ -606,9 +606,19 @@
             同步结构
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncStructureSql">
+            <summary>
+            同步结构脚本
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncData">
             <summary>
             同步数据
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncDataCurd">
+            <summary>
+            同步数据监听Curd操作
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SysUpdateData">

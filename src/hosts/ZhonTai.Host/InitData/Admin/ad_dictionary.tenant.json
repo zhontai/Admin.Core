@@ -3,20 +3,38 @@
     "id": 187395320303685,
     "tenantId": 161223412138053,
     "dictionaryTypeId": 187395320434757,
+    "dictionaryType": null,
     "name": "男",
     "code": "male",
     "value": "1",
     "description": "",
-    "enabled": true
+    "enabled": true,
+    "sort": 0,
+    "isDeleted": false,
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-03-14T11:23:44"
   },
   {
     "id": 187395320369221,
     "tenantId": 161223412138053,
     "dictionaryTypeId": 187395320434757,
+    "dictionaryType": null,
     "name": "女",
     "code": "female",
     "value": "2",
     "description": "",
-    "enabled": true
+    "enabled": true,
+    "sort": 0,
+    "isDeleted": false,
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-03-14T11:23:44"
   }
 ]
