@@ -8,13 +8,22 @@
 		<DocumentationFile></DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 	  <Content Include="Configs\createdbsql.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.691" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.691" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.691" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.691" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.691" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.691" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\..\platform\ZhonTai.Admin\ZhonTai.Admin.csproj" />
 		<ProjectReference Include="..\..\platform\ZhonTai.ApiUI\ZhonTai.ApiUI.csproj" />
@@ -22,6 +31,12 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="ZhonTai.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.1.0" />
+	  <PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.1.0" />
+	  <PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

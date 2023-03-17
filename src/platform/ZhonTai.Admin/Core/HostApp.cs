@@ -112,6 +112,13 @@ public class HostApp
         //应用配置
         services.AddSingleton(appConfig);
 
+        var hostAppContext = new HostAppContext()
+        {
+            Services = services,
+            Environment = env,
+            Configuration = configuration
+        };
+
         //使用Autofac容器
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         //配置Autofac容器
@@ -125,6 +132,8 @@ public class HostApp
 
             // 模块注入
             builder.RegisterModule(new RegisterModule(appConfig));
+
+            _hostAppOptions?.ConfigureAutofacContainer?.Invoke(builder, hostAppContext);
         });
 
         //配置Kestrel服务器

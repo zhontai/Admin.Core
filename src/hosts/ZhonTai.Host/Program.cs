@@ -1,6 +1,10 @@
 ﻿using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
+using Savorboard.CAP.InMemoryMessageQueue;
+using System.Linq;
+using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
@@ -8,12 +12,24 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
+using ZhonTai.Common.Helpers;
 
 new HostApp(new HostAppOptions
 {
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
+        //var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        //Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+        //    .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+        //    .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        //context.Services.AddCap(config =>
+        //{
+        //    config.UseInMemoryStorage();
+        //    config.UseInMemoryMessageQueue();
+        //    config.UseDashboard();
+        //}).AddSubscriberAssembly(assemblies);
+
         //context.Services.AddTiDb(context);
 
         //添加任务调度
@@ -41,8 +57,14 @@ new HostApp(new HostAppOptions
         //context.Services.AddOSS();
     },
 
-    //配置mvc
-    ConfigureMvcBuilder = (mvcBuilder, options) =>
+    //配置Autofac容器
+    ConfigureAutofacContainer = (builder, context) =>
+    {
+
+    },
+
+    //配置Mvc
+    ConfigureMvcBuilder = (builder, context) =>
     {
     },
 

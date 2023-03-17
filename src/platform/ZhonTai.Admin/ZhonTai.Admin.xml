@@ -1978,7 +1978,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMvcBuilder">
             <summary>
-            注入后置服务
+            注入mvc构建器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureAutofacContainer">
+            <summary>
+            注入Autofac容器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreMiddleware">

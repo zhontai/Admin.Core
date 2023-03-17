@@ -26,9 +26,11 @@ public static class RateLimitServiceCollectionExtensions
         if (cacheConfig.TypeRateLimit == CacheType.Redis)
         {
             //redis
-            var redis = new RedisClient(cacheConfig.Redis.ConnectionStringRateLimit);
-            redis.Serialize = JsonConvert.SerializeObject;
-            redis.Deserialize = JsonConvert.DeserializeObject;
+            var redis = new RedisClient(cacheConfig.Redis.ConnectionStringRateLimit)
+            {
+                Serialize = JsonConvert.SerializeObject,
+                Deserialize = JsonConvert.DeserializeObject
+            };
             services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
             services.AddDistributedRateLimiting();
         }
