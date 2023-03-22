@@ -1,9 +1,6 @@
 ﻿using AspNetCoreRateLimit;
-using FreeRedis;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using ZhonTai.Admin.Tools.Cache;
 
 namespace ZhonTai.Admin.Core.Extensions;
@@ -25,19 +22,10 @@ public static class RateLimitServiceCollectionExtensions
 
         if (cacheConfig.TypeRateLimit == CacheType.Redis)
         {
-            //redis
-            var redis = new RedisClient(cacheConfig.Redis.ConnectionStringRateLimit)
-            {
-                Serialize = JsonConvert.SerializeObject,
-                Deserialize = JsonConvert.DeserializeObject
-            };
-            services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
             services.AddDistributedRateLimiting();
         }
         else
         {
-            //内存
-            services.AddMemoryCache();
             services.AddInMemoryRateLimiting();
         }
         services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();

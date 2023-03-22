@@ -4041,6 +4041,25 @@
             <param name="cacheKey"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Services.Cache.CaptchaService">
+            <summary>
+            验证码服务
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.Generate">
+            <summary>
+            生成
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.CheckAsync(System.String,Lazy.SlideCaptcha.Core.Validator.SlideTrack)">
+            <summary>
+            验证
+            </summary>
+            <param name="id"></param>
+            <param name="track"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService">
             <summary>
             数据字典类型服务

@@ -1,7 +1,11 @@
-﻿using FreeScheduler;
+﻿using Autofac.Core;
+using FreeRedis;
+using FreeScheduler;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +14,7 @@ using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
@@ -54,7 +59,14 @@ new HostApp(new HostAppOptions
             options.TaskHandler = new TaskHandler(options.FreeSql);
         });
 
+        //oss文件上传
         //context.Services.AddOSS();
+
+        //滑块验证码
+        context.Services.AddSlideCaptcha(context.Configuration, options =>
+        {
+            options.StoreageKeyPrefix = CacheKeys.Captcha;
+        });
     },
 
     //配置Autofac容器

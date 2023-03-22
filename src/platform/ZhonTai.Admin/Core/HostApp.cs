@@ -57,6 +57,7 @@ using System.Text.Json.Serialization;
 using FreeRedis;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace ZhonTai.Admin.Core;
 
@@ -576,10 +577,12 @@ public class HostApp
             };
             services.AddSingleton(redis);
             services.AddSingleton<ICacheTool, RedisCacheTool>();
+            services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
         }
         else
         {
             services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
             services.AddSingleton<ICacheTool, MemoryCacheTool>();
         }
 
