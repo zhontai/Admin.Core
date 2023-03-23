@@ -1,6 +1,10 @@
 ﻿using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
+using Savorboard.CAP.InMemoryMessageQueue;
+using System.Linq;
+using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
@@ -8,24 +12,41 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
+using ZhonTai.Common.Helpers;
 
 new HostApp(new HostAppOptions
 {
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
-        //var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
-        //Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-        //    .Where(a => appConfig.AssemblyNames.Contains(a.Name))
-        //    .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-        //context.Services.AddCap(config =>
-        //{
-        //    config.UseInMemoryStorage();
-        //    config.UseInMemoryMessageQueue();
-        //    config.UseDashboard();
-        //}).AddSubscriberAssembly(assemblies);
-
         //context.Services.AddTiDb(context);
+
+        //添加cap事件总线
+        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
+            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
+            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+
+        //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMqConfig>();
+        context.Services.AddCap(config =>
+        {
+            config.UseInMemoryStorage();
+            config.UseInMemoryMessageQueue();
+            
+            //DotNetCore.CAP.MySql
+            //DotNetCore.CAP.RabbitMQ
+            
+            //config.UseMySql(dbConfig.ConnectionString);
+            //config.UseRabbitMQ(mqConfig => {
+            //    mqConfig.HostName = rabbitMQ.HostName;
+            //    mqConfig.Port = rabbitMQ.Port;
+            //    mqConfig.UserName = rabbitMQ.UserName;
+            //    mqConfig.Password = rabbitMQ.Password;
+            //    mqConfig.ExchangeName = rabbitMQ.ExchangeName;
+            //});
+            config.UseDashboard();
+        }).AddSubscriberAssembly(assemblies);
 
         //添加任务调度
         context.Services.AddTaskScheduler(DbKeys.AppDb, options =>

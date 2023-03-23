@@ -865,6 +865,31 @@
             OSS配置列表
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.RabbitMqConfig">
+            <summary>
+            RabbitMq配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.HostName">
+            <summary>
+            主机IP或Url地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.Port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.Password">
+            <summary>
+             密码
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.UploadConfig">
             <summary>
             上传配置
