@@ -522,7 +522,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.Permission">
             <summary>
-            权限
+            接口权限
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.DataPermission">
+            <summary>
+            数据权限
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.VarifyCodeConfig">

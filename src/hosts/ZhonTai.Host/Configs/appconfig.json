@@ -15,8 +15,10 @@
   "validate": {
     //登录
     "login": true,
-    //权限
-    "permission": true
+    //接口权限
+    "permission": true,
+    //数据权限
+    "dataPermission": true
   },
   //Swagger文档
   "swagger": {

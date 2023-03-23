@@ -243,9 +243,14 @@ public class ValidateConfig
     public bool Login { get; set; } = true;
 
     /// <summary>
-    /// 权限
+    /// 接口权限
     /// </summary>
     public bool Permission { get; set; } = true;
+
+    /// <summary>
+    /// 数据权限
+    /// </summary>
+    public bool DataPermission { get; set; } = true;
 }
 
 /// <summary>

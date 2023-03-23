@@ -685,7 +685,7 @@ public class HostApp
         app.UseAuthorization();
 
         //登录用户初始化数据权限
-        if (appConfig.Validate.Permission)
+        if (appConfig.Validate.DataPermission)
         {
             app.Use(async (ctx, next) =>
             {
