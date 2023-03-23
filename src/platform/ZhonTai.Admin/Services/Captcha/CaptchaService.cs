@@ -6,6 +6,7 @@ using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Captcha;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -16,21 +17,22 @@ namespace ZhonTai.Admin.Services.Cache;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class CaptchaService : BaseService, IDynamicApi
 {
-    private readonly ICaptcha _captcha;
-    public CaptchaService(ICaptcha captcha)
+    private ICaptcha _captcha => LazyGetRequiredService<ICaptcha>();
+    private ISlideCaptcha _slideCaptcha => LazyGetRequiredService<ISlideCaptcha>();
+    public CaptchaService()
     {
-        _captcha = captcha;
     }
 
     /// <summary>
     /// 生成
     /// </summary>
+    /// <param name="captchaId"></param>
     /// <returns></returns>
     [AllowAnonymous]
     [NoOprationLog]
-    public CaptchaData Generate()
+    public CaptchaData Generate(string captchaId = null)
     {
-        return _captcha.Generate();
+        return _captcha.Generate(captchaId);
     }
 
     /// <summary>
@@ -43,6 +45,6 @@ public class CaptchaService : BaseService, IDynamicApi
     [NoOprationLog]
     public ValidateResult CheckAsync([FromQuery] string id, SlideTrack track)
     {
-        return _captcha.Validate(id, track);
+        return _slideCaptcha.Validate(id, track, false);
     }
 }

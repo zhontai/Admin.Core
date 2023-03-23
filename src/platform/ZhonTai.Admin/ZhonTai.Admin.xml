@@ -286,6 +286,15 @@
             基础控制器
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Captcha.ISlideCaptcha.Validate(System.String,Lazy.SlideCaptcha.Core.Validator.SlideTrack,System.Boolean)">
+            <summary>
+            校验
+            </summary>
+            <param name="captchaId">验证码id</param>
+            <param name="slideTrack">滑动轨迹</param>
+            <param name="removeIfSuccess">校验成功时是否移除缓存(用于多次验证)</param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.AppConfig">
             <summary>
             应用配置
@@ -4046,10 +4055,11 @@
             验证码服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.Generate">
+        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.Generate(System.String)">
             <summary>
             生成
             </summary>
+            <param name="captchaId"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.CheckAsync(System.String,Lazy.SlideCaptcha.Core.Validator.SlideTrack)">

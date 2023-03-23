@@ -1,6 +1,7 @@
 ﻿using Autofac.Core;
 using FreeRedis;
 using FreeScheduler;
+using Lazy.SlideCaptcha.Core;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
@@ -67,6 +69,8 @@ new HostApp(new HostAppOptions
         {
             options.StoreageKeyPrefix = CacheKeys.Captcha;
         });
+        context.Services.AddScoped<ISlideCaptcha, SlideCaptcha>();
+
     },
 
     //配置Autofac容器
