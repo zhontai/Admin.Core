@@ -69,8 +69,7 @@ public class RegisterModule : Module
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableClassInterceptors();
 
-            if(_appConfig.PasswordHasher)
-                builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance().PropertiesAutowired();
+            builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance().PropertiesAutowired();
 
             //仓储泛型注入
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
