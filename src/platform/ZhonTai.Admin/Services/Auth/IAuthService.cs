@@ -16,10 +16,6 @@ public interface IAuthService
 
     Task<AuthGetPasswordEncryptKeyOutput> GetPasswordEncryptKeyAsync();
 
-    Task<CaptchaOutput> GetCaptcha();
-
-    Task CheckCaptcha(CaptchaInput input);
-
     Task<dynamic> Refresh([BindRequired] string token);
 
 }

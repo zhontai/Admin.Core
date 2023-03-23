@@ -3718,15 +3718,9 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.GetCaptcha">
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.IsCaptcha">
             <summary>
-            获取验证数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.CheckCaptcha(ZhonTai.Admin.Tools.Captcha.CaptchaInput)">
-            <summary>
-            检查验证数据
+            是否开启验证码
             </summary>
             <returns></returns>
         </member>
@@ -3795,9 +3789,14 @@
             密码键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Captcha">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.CaptchaId">
             <summary>
-            验证数据
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.CaptchaData">
+            <summary>
+            验证码数据
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput.Id">
@@ -4059,15 +4058,15 @@
             <summary>
             生成
             </summary>
-            <param name="captchaId"></param>
+            <param name="captchaId">验证码id</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.CheckAsync(System.String,Lazy.SlideCaptcha.Core.Validator.SlideTrack)">
             <summary>
             验证
             </summary>
-            <param name="id"></param>
-            <param name="track"></param>
+            <param name="captchaId">验证码id</param>
+            <param name="track">滑动轨迹</param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService">

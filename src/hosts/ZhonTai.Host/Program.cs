@@ -1,25 +1,13 @@
-﻿using Autofac.Core;
-using FreeRedis;
-using FreeScheduler;
-using Lazy.SlideCaptcha.Core;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Savorboard.CAP.InMemoryMessageQueue;
-using System.Linq;
-using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
-using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Startup;
-using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
-using ZhonTai.Common.Helpers;
 
 new HostApp(new HostAppOptions
 {
@@ -60,17 +48,6 @@ new HostApp(new HostAppOptions
             //模块任务处理器
             options.TaskHandler = new TaskHandler(options.FreeSql);
         });
-
-        //oss文件上传
-        //context.Services.AddOSS();
-
-        //滑块验证码
-        context.Services.AddSlideCaptcha(context.Configuration, options =>
-        {
-            options.StoreageKeyPrefix = CacheKeys.Captcha;
-        });
-        context.Services.AddScoped<ISlideCaptcha, SlideCaptcha>();
-
     },
 
     //配置Autofac容器

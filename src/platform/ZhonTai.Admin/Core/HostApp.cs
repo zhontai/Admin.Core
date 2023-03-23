@@ -58,6 +58,7 @@ using FreeRedis;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
+using ZhonTai.Admin.Core.Captcha;
 
 namespace ZhonTai.Admin.Core;
 
@@ -619,6 +620,16 @@ public class HostApp
 
             _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
         });
+
+        //oss文件上传
+        services.AddOSS();
+
+        //滑块验证码
+        services.AddSlideCaptcha(configuration, options =>
+        {
+            options.StoreageKeyPrefix = CacheKeys.Captcha;
+        });
+        services.AddScoped<ISlideCaptcha, SlideCaptcha>();
 
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }

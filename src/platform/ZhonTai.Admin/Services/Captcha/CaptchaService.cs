@@ -26,7 +26,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <summary>
     /// 生成
     /// </summary>
-    /// <param name="captchaId"></param>
+    /// <param name="captchaId">验证码id</param>
     /// <returns></returns>
     [AllowAnonymous]
     [NoOprationLog]
@@ -38,13 +38,13 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <summary>
     /// 验证
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="track"></param>
+    /// <param name="captchaId">验证码id</param>
+    /// <param name="track">滑动轨迹</param>
     /// <returns></returns>
     [AllowAnonymous]
     [NoOprationLog]
-    public ValidateResult CheckAsync([FromQuery] string id, SlideTrack track)
+    public ValidateResult CheckAsync([FromQuery] string captchaId, SlideTrack track)
     {
-        return _slideCaptcha.Validate(id, track, false);
+        return _slideCaptcha.Validate(captchaId, track, false);
     }
 }
