@@ -33,10 +33,10 @@ new HostApp(new HostAppOptions
         {
             config.UseInMemoryStorage();
             config.UseInMemoryMessageQueue();
-            
-            //DotNetCore.CAP.MySql
-            //DotNetCore.CAP.RabbitMQ
-            
+
+            //<PackageReference Include="DotNetCore.CAP.MySql" Version="7.1.0" />
+            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.0" />
+
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
             //    mqConfig.HostName = rabbitMQ.HostName;

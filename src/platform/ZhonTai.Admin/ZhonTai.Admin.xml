@@ -990,6 +990,11 @@
             数据权限 admin:user:data:permission:用户主键
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.SmsCode">
+            <summary>
+            短信验证码 admin:sms:code:guid
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
             <summary>
             数据库键名
@@ -1028,6 +1033,16 @@
         <member name="F:ZhonTai.Admin.Core.Consts.FilterNames.Member">
             <summary>
             会员
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Consts.SubscribeNames">
+            <summary>
+            订阅命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSingleSend">
+            <summary>
+            短信单发
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -3180,6 +3195,11 @@
             入职时间
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.UserStaff.UserStaffEntity.WorkWeChatCard">
+            <summary>
+            企业微信名片
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.UserStaff.UserStaffEntity.Introduce">
             <summary>
             个人简介
@@ -3373,6 +3393,11 @@
         <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.EntryTime">
             <summary>
             入职时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.WorkWeChatCard">
+            <summary>
+            企业微信名片
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.User.StaffAddInput.Introduce">
@@ -3740,6 +3765,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.MobileLoginAsync(ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput)">
+            <summary>
+            手机号登录
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.Refresh(System.String)">
             <summary>
             刷新Token
@@ -3887,6 +3919,26 @@
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginTenantDto.Enabled">
             <summary>
             启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput">
+            <summary>
+            手机号登录信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput.CodeId">
+            <summary>
+            验证码Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserMenuDto.Id">
@@ -4098,6 +4150,38 @@
             <param name="captchaId">验证码id</param>
             <param name="track">滑动轨迹</param>
             <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.SendSmsCodeAsync(ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput)">
+            <summary>
+            发送短信验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput">
+            <summary>
+            发送短信验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput.CodeId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput.CaptchaId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput.Track">
+            <summary>
+            滑动轨迹
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService">
             <summary>

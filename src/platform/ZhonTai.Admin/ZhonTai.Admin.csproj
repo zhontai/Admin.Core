@@ -16,17 +16,17 @@
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="DotNetCore.CAP" Version="7.1.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-		<PackageReference Include="FreeRedis" Version="1.0.7" />
+		<PackageReference Include="FreeRedis" Version="1.0.8" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.0.5" />
-		<PackageReference Include="FreeSql" Version="3.2.691" />
-		<PackageReference Include="FreeSql.Cloud" Version="1.6.3" />
-		<PackageReference Include="FreeSql.Repository" Version="3.2.691" />
-		<PackageReference Include="FreeScheduler" Version="1.0.9" />
+		<PackageReference Include="FreeSql" Version="3.2.692" />
+		<PackageReference Include="FreeSql.Cloud" Version="1.6.4" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.692" />
+		<PackageReference Include="FreeScheduler" Version="1.1.0" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="7.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.4" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
 		<PackageReference Include="NLog" Version="5.1.2" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />

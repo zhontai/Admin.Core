@@ -29,6 +29,11 @@ public class StaffAddInput
     public DateTime? EntryTime { get; set; }
 
     /// <summary>
+    /// 企业微信名片
+    /// </summary>
+    public string WorkWeChatCard { get; set; }
+
+    /// <summary>
     /// 个人简介
     /// </summary>
     public string Introduce { get; set; }

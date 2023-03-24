@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Services.Auth.Dto;
-using ZhonTai.Admin.Tools.Captcha;
 
 namespace ZhonTai.Admin.Services.Auth;
 

@@ -33,6 +33,12 @@ public partial class UserStaffEntity : EntityTenant
     public DateTime? EntryTime { get; set; }
 
     /// <summary>
+    /// 企业微信名片
+    /// </summary>
+    [Column(StringLength = 500)]
+    public string WorkWeChatCard { get; set; }
+
+    /// <summary>
     /// 个人简介
     /// </summary>
     [Column(StringLength = 500)]
