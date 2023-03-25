@@ -34,9 +34,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.1.0" />
-	  <PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.1.0" />
-	  <PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.1.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.1.0" />
+		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.3" />
 	</ItemGroup>
 
 	<ItemGroup>
