@@ -22,6 +22,6 @@ public class AuthMobileLoginInput
     /// <summary>
     /// 验证码Id
     /// </summary>
-    [Required(ErrorMessage = "验证码Id不能为空")]
+    [Required(ErrorMessage = "请获取验证码")]
     public string CodeId { get; set; }
 }

@@ -31,6 +31,7 @@
 		<PackageReference Include="NLog" Version="5.1.2" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.1.9" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.3" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
