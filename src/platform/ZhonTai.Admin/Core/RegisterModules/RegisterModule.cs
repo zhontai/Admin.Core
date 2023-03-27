@@ -69,6 +69,7 @@ public class RegisterModule : Module
             .InterceptedBy(interceptorServiceTypes.ToArray())
             .EnableClassInterceptors();
 
+            //密码哈希泛型注入
             builder.RegisterGeneric(typeof(PasswordHasher<>)).As(typeof(IPasswordHasher<>)).SingleInstance().PropertiesAutowired();
 
             //仓储泛型注入
