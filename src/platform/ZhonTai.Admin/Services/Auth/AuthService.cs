@@ -5,7 +5,6 @@ using System.Text;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
@@ -21,7 +20,6 @@ using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Tools.Captcha;
 using ZhonTai.Admin.Services.LoginLog.Dto;
 using ZhonTai.Admin.Services.LoginLog;
 using ZhonTai.Admin.Services.User;
@@ -33,6 +31,10 @@ using FreeSql;
 using ZhonTai.Admin.Domain.TenantPermission;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using ZhonTai.Admin.Core.Captcha;
+using Newtonsoft.Json;
+using Lazy.SlideCaptcha.Core.Validator;
+using static Lazy.SlideCaptcha.Core.ValidateResult;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -47,16 +49,15 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly IPermissionRepository _permissionRepository;
     private readonly IUserRepository _userRepository;
     private readonly ITenantRepository _tenantRepository;
-    private readonly ICaptchaTool _captchaTool;
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
+    private ISlideCaptcha _captcha => LazyGetRequiredService<ISlideCaptcha>();
 
     public AuthService(
         AppConfig appConfig,
         JwtConfig jwtConfig,
         IUserRepository userRepository,
         IPermissionRepository permissionRepository,
-        ITenantRepository tenantRepository,
-        ICaptchaTool captchaTool
+        ITenantRepository tenantRepository
     )
     {
         _appConfig = appConfig;
@@ -64,7 +65,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _userRepository = userRepository;
         _permissionRepository = permissionRepository;
         _tenantRepository = tenantRepository;
-        _captchaTool = captchaTool;
     }
 
     /// <summary>
@@ -230,7 +230,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
     }
 
-
     /// <summary>
     /// 查询用户信息
     /// </summary>
@@ -324,12 +323,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             if (_appConfig.VarifyCode.Enable)
             {
-                input.Captcha.DeleteCache = true;
-                input.Captcha.CaptchaKey = CacheKeys.Captcha;
-                var isOk = await _captchaTool.CheckAsync(input.Captcha);
-                if (!isOk)
+                if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
                 {
-                    throw ResultOutput.Exception("安全验证不通过，请重新登录");
+                    throw ResultOutput.Exception("请完成安全验证");
+                }
+                var validateResult = _captcha.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+                if (validateResult.Result != ValidateResultType.Success)
+                {
+                    throw ResultOutput.Exception($"安全{validateResult.Message}，请重新登录");
                 }
             }
 
@@ -412,7 +413,89 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 ElapsedMilliseconds = sw.ElapsedMilliseconds,
                 Status = true,
                 CreatedUserId = authLoginOutput.Id,
-                CreatedUserName = input.UserName,
+                CreatedUserName = user.UserName,
+            };
+
+            await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+            #endregion 添加登录日志
+
+            return new { token };
+        }
+    }
+
+    /// <summary>
+    /// 手机号登录
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
+    {
+        using (_userRepository.DataFilter.DisableAll())
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+
+            #region 短信验证码验证
+            var codeKey = CacheKeys.SmsCode + input.CodeId;
+            if (await Cache.ExistsAsync(codeKey))
+            {
+                var code = await Cache.GetAsync(codeKey);
+                if (code != input.Code)
+                {
+                    throw ResultOutput.Exception("验证码输入有误，请重新输入");
+                }
+                await Cache.DelAsync(codeKey);
+            }
+            else
+            {
+                throw ResultOutput.Exception("验证码已过期，请重新发送");
+            }
+
+            #endregion
+
+            #region 登录
+            var user = await _userRepository.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+            if (!(user?.Id > 0))
+            {
+                throw ResultOutput.Exception("账号不存在");
+            }
+
+            if (!user.Enabled)
+            {
+                throw ResultOutput.Exception("账号已停用，禁止登录");
+            }
+            #endregion
+
+            #region 获得token
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+            if (_appConfig.Tenant)
+            {
+                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                if (!(tenant != null && tenant.Enabled))
+                {
+                    throw ResultOutput.Exception("企业已停用，禁止登录");
+                }
+                authLoginOutput.Tenant = tenant;
+            }
+            string token = GetToken(authLoginOutput);
+            #endregion
+
+            sw.Stop();
+
+            #region 添加登录日志
+
+            var loginLogAddInput = new LoginLogAddInput
+            {
+                TenantId = authLoginOutput.TenantId,
+                Name = authLoginOutput.Name,
+                ElapsedMilliseconds = sw.ElapsedMilliseconds,
+                Status = true,
+                CreatedUserId = authLoginOutput.Id,
+                CreatedUserName = user.UserName,
             };
 
             await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
@@ -484,34 +567,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     }
 
     /// <summary>
-    /// 获取验证数据
+    /// 是否开启验证码
     /// </summary>
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
     [NoOprationLog]
-    [EnableCors(AdminConsts.AllowAnyPolicyName)]
-    public async Task<CaptchaOutput> GetCaptcha()
+    public bool IsCaptcha()
     {
-        var data = await _captchaTool.GetAsync(CacheKeys.Captcha);
-        return data;
-    }
-
-    /// <summary>
-    /// 检查验证数据
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [AllowAnonymous]
-    [NoOprationLog]
-    [EnableCors(AdminConsts.AllowAnyPolicyName)]
-    public async Task CheckCaptcha([FromQuery] CaptchaInput input)
-    {
-        input.CaptchaKey = CacheKeys.Captcha;
-        var check = await _captchaTool.CheckAsync(input);
-        if (!check)
-        {
-            throw ResultOutput.Exception("安全验证不通过");
-        }
+        return _appConfig.VarifyCode.Enable;
     }
 }

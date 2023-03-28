@@ -44,9 +44,19 @@ public class DbConfig
     public bool SyncStructure { get; set; } = false;
 
     /// <summary>
+    /// 同步结构脚本
+    /// </summary>
+    public bool SyncStructureSql { get; set; } = false;
+
+    /// <summary>
     /// 同步数据
     /// </summary>
     public bool SyncData { get; set; } = false;
+
+    /// <summary>
+    /// 同步数据监听Curd操作
+    /// </summary>
+    public bool SyncDataCurd { get; set; } = false;
 
     /// <summary>
     /// 同步更新数据

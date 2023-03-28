@@ -2,5 +2,7 @@
   //监听所有操作
   "monitorCommand": false,
   //监听Curd操作
-  "curd": true
+  "curd": true,
+  //同步更新数据
+  "sysUpdateData": true
 }

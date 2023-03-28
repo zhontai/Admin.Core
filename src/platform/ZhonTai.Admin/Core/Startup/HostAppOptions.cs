@@ -1,4 +1,5 @@
-﻿using FreeSql;
+﻿using Autofac;
+using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Yitter.IdGenerator;
@@ -27,9 +28,14 @@ public class HostAppOptions
     public Action<HostAppContext> ConfigurePostServices { get; set; }
 
     /// <summary>
-    /// 注入后置服务
+    /// 注入mvc构建器
     /// </summary>
     public Action<IMvcBuilder, HostAppContext> ConfigureMvcBuilder { get; set; }
+
+    /// <summary>
+    /// 注入Autofac容器
+    /// </summary>
+    public Action<ContainerBuilder, HostAppContext> ConfigureAutofacContainer { get; set; }
 
     /// <summary>
     /// 注入前置中间件

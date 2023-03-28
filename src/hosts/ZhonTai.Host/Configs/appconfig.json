@@ -15,8 +15,10 @@
   "validate": {
     //登录
     "login": true,
-    //权限
-    "permission": true
+    //接口权限
+    "permission": true,
+    //数据权限
+    "dataPermission": true
   },
   //Swagger文档
   "swagger": {
@@ -29,14 +31,14 @@
     //启用枚举属性名
     "enableJsonStringEnumConverter": false,
     //路由前缀，如配置微服务文档地址：doc/module/swagger
-    "routePrefix": "swagger",
+    "routePrefix": "admin/swagger",
     //地址
     "url": "http://localhost:8000",
     "projects": [
       {
         "name": "中台Admin",
         "code": "admin",
-        "version": "v3.4.0",
+        "version": "v3.5.0",
         "description": ""
       }
     ]
@@ -46,7 +48,7 @@
     //启用
     "enable": true,
     //路由前缀，如配置微服务文档地址：doc/module
-    "routePrefix": "",
+    "routePrefix": "admin",
     //页脚
     "footer": {
       "enable": false,
@@ -81,7 +83,7 @@
   //验证码
   "varifyCode": {
     //启用
-    "enable": false,
+    "enable": true,
     //字体列表
     "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   },
@@ -92,8 +94,15 @@
     //结果格式化
     "formatResult": true
   },
-  //实现标准标识密码哈希
+  //实现标准标识密码哈希，相同密码加密后各不相同
   "passwordHasher": false,
   //最大请求大小
-  "maxRequestBodySize": 104857600
+  "maxRequestBodySize": 104857600,
+  //健康检查
+  "healthChecks": {
+    //启用
+    "enable": true,
+    //访问路径
+    "path": "/admin/health"
+  }
 }

@@ -9,6 +9,10 @@
   "monitorCommand": false,
   //监听Curd操作
   "curd": true,
+  //监听同步结构脚本
+  "syncStructureSql": false,
+  //监听同步数据Curd操作
+  "syncDataCurd": false,
 
   //建库，Sqlite数据库不用配置建库，连接语句自动建库
   "createDb": false,
@@ -28,8 +32,8 @@
   "syncStructure": true,
   //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
-  //同步更新数据
-  "sysUpdateData": true,
+  //同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先删除对应表的data.json，再执行数据更新操作
+  "sysUpdateData": false,
   //同步数据地址
   //"SyncDataPath": "InitData/Admin/Vue2",
 

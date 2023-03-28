@@ -551,7 +551,7 @@
         </member>
         <member name="M:ZhonTai.Common.Helpers.StringHelper.GenerateRandomNumber(System.Int32)">
             <summary>
-            生成随机字符串，只包含数字
+            生成随机6位数
             </summary>
             <param name="length"></param>
             <returns></returns>

@@ -55,6 +55,10 @@ using System.Text.RegularExpressions;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text.Json.Serialization;
 using FreeRedis;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Caching.Distributed;
+using ZhonTai.Admin.Core.Captcha;
 
 namespace ZhonTai.Admin.Core;
 
@@ -110,6 +114,13 @@ public class HostApp
         //应用配置
         services.AddSingleton(appConfig);
 
+        var hostAppContext = new HostAppContext()
+        {
+            Services = services,
+            Environment = env,
+            Configuration = configuration
+        };
+
         //使用Autofac容器
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         //配置Autofac容器
@@ -123,6 +134,8 @@ public class HostApp
 
             // 模块注入
             builder.RegisterModule(new RegisterModule(appConfig));
+
+            _hostAppOptions?.ConfigureAutofacContainer?.Invoke(builder, hostAppContext);
         });
 
         //配置Kestrel服务器
@@ -180,6 +193,9 @@ public class HostApp
         };
 
         _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
+
+        //健康检查
+        services.AddHealthChecks();
 
         //雪花漂移算法
         var idGeneratorOptions = new IdGeneratorOptions(1) { WorkerIdBitLength = 6 };
@@ -562,10 +578,12 @@ public class HostApp
             };
             services.AddSingleton(redis);
             services.AddSingleton<ICacheTool, RedisCacheTool>();
+            services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
         }
         else
         {
             services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
             services.AddSingleton<ICacheTool, MemoryCacheTool>();
         }
 
@@ -602,6 +620,16 @@ public class HostApp
 
             _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
         });
+
+        //oss文件上传
+        services.AddOSS();
+
+        //滑块验证码
+        services.AddSlideCaptcha(configuration, options =>
+        {
+            options.StoreageKeyPrefix = CacheKeys.Captcha;
+        });
+        services.AddScoped<ISlideCaptcha, SlideCaptcha>();
 
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
@@ -657,7 +685,7 @@ public class HostApp
         app.UseAuthorization();
 
         //登录用户初始化数据权限
-        if (appConfig.Validate.Permission)
+        if (appConfig.Validate.DataPermission)
         {
             app.Use(async (ctx, next) =>
             {
@@ -708,6 +736,16 @@ public class HostApp
             });
         }
         #endregion Swagger Api文档
+
+        //使用健康检查
+        if(appConfig.HealthChecks.Enable)
+        {
+            app.MapHealthChecks(appConfig.HealthChecks.Path, new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+        }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }

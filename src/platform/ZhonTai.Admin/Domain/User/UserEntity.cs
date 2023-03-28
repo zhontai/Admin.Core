@@ -41,7 +41,7 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 姓名
     /// </summary>
-    [Column(StringLength = 20)]
+    [Column(StringLength = 60)]
     public string Name { get; set; }
 
     /// <summary>
@@ -79,7 +79,7 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 昵称
     /// </summary>
-    [Column(StringLength = 20)]
+    [Column(StringLength = 60)]
     public string NickName { get; set; }
 
     /// <summary>

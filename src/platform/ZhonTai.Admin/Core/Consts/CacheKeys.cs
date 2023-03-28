@@ -32,4 +32,10 @@ public static partial class CacheKeys
     /// </summary>
     [Description("数据权限")]
     public const string DataPermission = "admin:user:data:permission:";
+
+    /// <summary>
+    /// 短信验证码 admin:sms:code:guid
+    /// </summary>
+    [Description("短信验证码")]
+    public const string SmsCode = "admin:sms:code:";
 }

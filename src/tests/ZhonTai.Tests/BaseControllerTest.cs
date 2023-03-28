@@ -166,13 +166,6 @@ public class BaseControllerTest : BaseTest
                 UserName = "admin",
                 Password = "111111"
             };
-            if (_appConfig.VarifyCode.Enable)
-            {
-                var res = await _captcha.GetAsync(CacheKeys.Captcha);
-                var captchaKey = CacheKeys.Captcha + res.Token;
-                var captchaData = await _cache.GetAsync(captchaKey);
-                input.Captcha = new CaptchaInput { CaptchaKey = CacheKeys.Captcha, Token = res.Token, Data = JsonConvert.SerializeObject(new { X = captchaData }) };
-            }
         }
 
         //Client.DefaultRequestHeaders.Connection.Add("keep-alive");

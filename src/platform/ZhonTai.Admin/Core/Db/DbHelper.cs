@@ -173,7 +173,7 @@ public class DbHelper
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
+        if (e.AuditValueType is AuditValueType.Insert or AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -207,7 +207,8 @@ public class DbHelper
 
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
+        
+        if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -222,6 +223,14 @@ public class DbHelper
         }
     }
 
+    private static void SyncStructureAfter(object? s, SyncStructureAfterEventArgs e)
+    {
+        if (e.Sql.NotNull())
+        {
+            Console.WriteLine(" sync structure sql:\n" + e.Sql);
+        }
+    }
+
     /// <summary>
     /// 同步结构
     /// </summary>
@@ -232,13 +241,10 @@ public class DbHelper
         //Console.WriteLine($"{Environment.NewLine} " + dDL);
 
         //打印结构同步脚本
-        //db.Aop.SyncStructureAfter += (s, e) =>
-        //{
-        //    if (e.Sql.NotNull())
-        //    {
-        //        Console.WriteLine(" sync structure sql:\n" + e.Sql);
-        //    }
-        //};
+        if(dbConfig.SyncStructureSql)
+        {
+            db.Aop.SyncStructureAfter += SyncStructureAfter;
+        }
 
         // 同步结构
         var dbType = dbConfig.Type.ToString();
@@ -253,7 +259,20 @@ public class DbHelper
         var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
         db.CodeFirst.SyncStructure(entityTypes);
 
+        if (dbConfig.SyncStructureSql)
+        {
+            db.Aop.SyncStructureAfter -= SyncStructureAfter;
+        }
+
         Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
+    }
+
+    private static void SyncDataCurdBefore(object? s, CurdBeforeEventArgs e)
+    {
+        if (e.Sql.NotNull())
+        {
+            Console.WriteLine($"{e.Sql}{Environment.NewLine}");
+        }
     }
 
     /// <summary>
@@ -284,7 +303,7 @@ public class DbHelper
             return;
         }
 
-        if (e.AuditValueType == AuditValueType.Insert || e.AuditValueType == AuditValueType.InsertOrUpdate)
+        if (e.AuditValueType is AuditValueType.Insert or AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -310,7 +329,8 @@ public class DbHelper
                     break;
             }
         }
-        else if (e.AuditValueType == AuditValueType.Update || e.AuditValueType == AuditValueType.InsertOrUpdate)
+
+        if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
         {
             switch (e.Property.Name)
             {
@@ -347,6 +367,11 @@ public class DbHelper
             {
                 db.Aop.AuditValue += SyncDataAuditValue;
 
+                if (dbConfig.SyncDataCurd)
+                {
+                    db.Aop.CurdBefore += SyncDataCurdBefore;
+                }
+
                 Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
                 .Where(a => dbConfig.AssemblyNames.Contains(a.Name))
                 .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
@@ -358,6 +383,11 @@ public class DbHelper
                 foreach (ISyncData syncData in syncDatas)
                 {
                     await syncData.SyncDataAsync(db, dbConfig, appConfig);
+                }
+
+                if (dbConfig.SyncDataCurd)
+                {
+                    db.Aop.CurdBefore -= SyncDataCurdBefore;
                 }
 
                 db.Aop.AuditValue -= SyncDataAuditValue;

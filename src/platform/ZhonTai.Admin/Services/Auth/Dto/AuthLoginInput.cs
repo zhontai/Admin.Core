@@ -1,5 +1,4 @@
-﻿using ZhonTai.Admin.Tools.Captcha;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
@@ -11,13 +10,13 @@ public class AuthLoginInput
     /// <summary>
     /// 账号
     /// </summary>
-    [Required(ErrorMessage = "用户名不能为空！")]
+    [Required(ErrorMessage = "用户名不能为空")]
     public string UserName { get; set; }
 
     /// <summary>
     /// 密码
     /// </summary>
-    [Required(ErrorMessage = "密码不能为空！")]
+    [Required(ErrorMessage = "密码不能为空")]
     public string Password { get; set; }
 
     /// <summary>
@@ -26,7 +25,12 @@ public class AuthLoginInput
     public string PasswordKey { get; set; }
 
     /// <summary>
-    /// 验证数据
+    /// 验证码Id
     /// </summary>
-    public CaptchaInput Captcha { get; set; }
+    public string CaptchaId { get; set; }
+
+    /// <summary>
+    /// 验证码数据
+    /// </summary>
+    public string CaptchaData { get; set; }
 }
