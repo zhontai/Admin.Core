@@ -14,5 +14,5 @@ public partial class UserUpdateInput: UserFormInput
     /// </summary>
     [Required]
     [ValidateRequired("请选择用户")]
-    public long Id { get; set; }
+    public override long Id { get; set; }
 }

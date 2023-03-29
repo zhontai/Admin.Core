@@ -379,6 +379,89 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
+    /// 修改用户
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task UpdateAsync(UserUpdateInput input)
+    {
+        if (input.Id == input.ManagerUserId)
+        {
+            throw ResultOutput.Exception("直属主管不能是自己");
+        }
+
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
+
+        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
+        {
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception($"账号已存在");
+            }
+
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+            {
+                throw ResultOutput.Exception($"手机号已存在");
+            }
+
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception($"邮箱已存在");
+            }
+        }
+
+        var user = await _userRepository.GetAsync(input.Id);
+        if (!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        Mapper.Map(input, user);
+        await _userRepository.UpdateAsync(user);
+
+        var userId = user.Id;
+
+        // 用户角色
+        await _userRoleRepository.DeleteAsync(a => a.UserId == userId);
+        if (input.RoleIds != null && input.RoleIds.Any())
+        {
+            var roles = input.RoleIds.Select(roleId => new UserRoleEntity
+            {
+                UserId = userId,
+                RoleId = roleId
+            }).ToList();
+            await _userRoleRepository.InsertAsync(roles);
+        }
+
+        // 员工信息
+        var staff = await _staffRepository.GetAsync(userId);
+        staff ??= new UserStaffEntity();
+        Mapper.Map(input.Staff, staff);
+        staff.Id = userId;
+        await _staffRepository.InsertOrUpdateAsync(staff);
+
+        //所属部门
+        await _userOrgRepository.DeleteAsync(a => a.UserId == userId);
+        if (input.OrgIds != null && input.OrgIds.Any())
+        {
+            var orgs = input.OrgIds.Select(orgId => new UserOrgEntity
+            {
+                UserId = userId,
+                OrgId = orgId
+            }).ToList();
+            await _userOrgRepository.InsertAsync(orgs);
+        }
+
+        await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
+    }
+
+    /// <summary>
     /// 新增会员
     /// </summary>
     /// <param name="input"></param>
@@ -477,89 +560,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         Mapper.Map(input, user);
         await _userRepository.UpdateAsync(user);
-    }
-
-    /// <summary>
-    /// 修改用户
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    public virtual async Task UpdateAsync(UserUpdateInput input)
-    {
-        if (input.Id == input.ManagerUserId)
-        {
-            throw ResultOutput.Exception("直属主管不能是自己");
-        }
-
-        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
-        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
-            .Or(input.Email.NotNull(), a => a.Email == input.Email);
-
-        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
-            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
-
-        if (existsUser != null)
-        {
-            if (existsUser.UserName == input.UserName)
-            {
-                throw ResultOutput.Exception($"账号已存在");
-            }
-
-            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
-            {
-                throw ResultOutput.Exception($"手机号已存在");
-            }
-
-            if (input.Email.NotNull() && existsUser.Email == input.Email)
-            {
-                throw ResultOutput.Exception($"邮箱已存在");
-            }
-        }
-
-        var user = await _userRepository.GetAsync(input.Id);
-        if (!(user?.Id > 0))
-        {
-            throw ResultOutput.Exception("用户不存在");
-        }
-
-        Mapper.Map(input, user);
-        await _userRepository.UpdateAsync(user);
-
-        var userId = user.Id;
-
-        // 用户角色
-        await _userRoleRepository.DeleteAsync(a => a.UserId == userId);
-        if (input.RoleIds != null && input.RoleIds.Any())
-        {
-            var roles = input.RoleIds.Select(roleId => new UserRoleEntity 
-            { 
-                UserId = userId, 
-                RoleId = roleId 
-            }).ToList();
-            await _userRoleRepository.InsertAsync(roles);
-        }
-
-        // 员工信息
-        var staff = await _staffRepository.GetAsync(userId);
-        staff ??= new UserStaffEntity();
-        Mapper.Map(input.Staff, staff);
-        staff.Id = userId;
-        await _staffRepository.InsertOrUpdateAsync(staff);
-
-        //所属部门
-        await _userOrgRepository.DeleteAsync(a => a.UserId == userId);
-        if (input.OrgIds != null && input.OrgIds.Any())
-        {
-            var orgs = input.OrgIds.Select(orgId => new UserOrgEntity
-            {
-                UserId = userId,
-                OrgId = orgId
-            }).ToList();
-            await _userOrgRepository.InsertAsync(orgs);
-        }
-
-        await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
     }
 
     /// <summary>

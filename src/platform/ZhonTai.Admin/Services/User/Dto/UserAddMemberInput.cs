@@ -13,6 +13,7 @@ public class UserAddMemberInput: UserMemberFormInput
     /// </summary>
     [Required(ErrorMessage = "请输入密码")]
     public string Password { get; set; }
+
     /// <summary>
     /// 状态
     /// </summary>

@@ -8,6 +8,11 @@ namespace ZhonTai.Admin.Services.User.Dto;
 public class UserMemberFormInput
 {
     /// <summary>
+    /// 会员Id
+    /// </summary>
+    public virtual long Id { get; set; }
+
+    /// <summary>
     /// 账号
     /// </summary>
     [Required(ErrorMessage = "请输入账号")]

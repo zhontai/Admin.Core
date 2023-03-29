@@ -94,7 +94,7 @@
     //结果格式化
     "formatResult": true
   },
-  //实现标准标识密码哈希，相同密码加密后各不相同
+  //实现标准标识密码哈希，启用后相同密码加密后各不相同
   "passwordHasher": false,
   //最大请求大小
   "maxRequestBodySize": 104857600,
