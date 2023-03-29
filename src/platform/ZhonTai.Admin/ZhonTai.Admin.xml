@@ -690,6 +690,11 @@
             监听Curd操作
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Dbs">
             <summary>
             多数据库

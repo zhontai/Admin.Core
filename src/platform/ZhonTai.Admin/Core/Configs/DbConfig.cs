@@ -94,6 +94,11 @@ public class DbConfig
     public bool Curd { get; set; } = false;
 
     /// <summary>
+    /// 空闲时间(分)
+    /// </summary>
+    public int? IdleTime { get; set; } = 10;
+
+    /// <summary>
     /// 多数据库
     /// </summary>
     public DbConfig[] Dbs { get; set; }

@@ -66,6 +66,9 @@
     //}
   ],
 
+  //空闲时间（分），若<=0或null则不自动回收
+  "idleTime": 0,
+
   //多数据库
   //定义DbKeys枚举
   //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
