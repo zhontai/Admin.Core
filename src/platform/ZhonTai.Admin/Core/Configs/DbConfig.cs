@@ -94,7 +94,7 @@ public class DbConfig
     public bool Curd { get; set; } = false;
 
     /// <summary>
-    /// 空闲时间(分)
+    /// 空闲时间（分），默认10分钟，设置idleTime=0则不自动回收
     /// </summary>
     public int? IdleTime { get; set; } = 10;
 
