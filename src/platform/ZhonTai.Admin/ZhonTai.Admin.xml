@@ -690,6 +690,11 @@
             监听Curd操作
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
+            <summary>
+            空闲时间(分)
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Dbs">
             <summary>
             多数据库
@@ -6484,6 +6489,11 @@
             用户表单
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserFormInput.UserName">
             <summary>
             账号
@@ -6644,6 +6654,11 @@
             会员表单
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.Id">
+            <summary>
+            会员Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput.UserName">
             <summary>
             账号
@@ -6800,6 +6815,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.UpdateAsync(ZhonTai.Admin.Services.User.Dto.UserUpdateInput)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.AddMemberAsync(ZhonTai.Admin.Services.User.Dto.UserAddMemberInput)">
             <summary>
             新增会员
@@ -6810,13 +6832,6 @@
         <member name="M:ZhonTai.Admin.Services.User.UserService.UpdateMemberAsync(ZhonTai.Admin.Services.User.Dto.UserUpdateMemberInput)">
             <summary>
             修改会员
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.UpdateAsync(ZhonTai.Admin.Services.User.Dto.UserUpdateInput)">
-            <summary>
-            修改用户
             </summary>
             <param name="input"></param>
             <returns></returns>

@@ -456,6 +456,7 @@ public class DbHelper
     )
     {
         //注册数据库
+        var idelTiem = dbConfig.IdleTime.HasValue && dbConfig.IdleTime.Value > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime.Value) : TimeSpan.MaxValue;
         freeSqlCloud.Register(dbConfig.Key, () =>
         {
             //创建数据库
@@ -605,7 +606,7 @@ public class DbHelper
             #endregion 监听Curd操作
 
             return fsql;
-        });
+        }, idelTiem);
 
         //执行注册数据库
         var fsql = freeSqlCloud.Use(dbConfig.Key);
