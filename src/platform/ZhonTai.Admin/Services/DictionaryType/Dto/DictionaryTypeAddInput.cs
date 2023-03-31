@@ -1,17 +1,20 @@
-﻿namespace ZhonTai.Admin.Services.DictionaryType.Dto;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ZhonTai.Admin.Services.DictionaryType.Dto;
 
 /// <summary>
-/// 添加
+/// 添加字典类型
 /// </summary>
 public class DictionaryTypeAddInput
 {
     /// <summary>
-    /// 字典名称
+    /// 字典类型名称
     /// </summary>
+    [Required(ErrorMessage = "请输入字典类型名称")]
     public string Name { get; set; }
 
     /// <summary>
-    /// 字典编码
+    /// 字典类型编码
     /// </summary>
     public string Code { get; set; }
 

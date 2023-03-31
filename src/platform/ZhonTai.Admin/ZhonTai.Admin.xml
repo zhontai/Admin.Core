@@ -692,7 +692,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
             <summary>
-            空闲时间(分)
+            空闲时间（分），默认10分钟，设置idleTime=0则不自动回收
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Dbs">
@@ -4251,17 +4251,17 @@
         </member>
         <member name="T:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput">
             <summary>
-            添加
+            添加字典类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Name">
             <summary>
-            字典名称
+            字典类型名称
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Code">
             <summary>
-            字典编码
+            字典类型编码
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Description">
@@ -4372,7 +4372,7 @@
         </member>
         <member name="T:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput">
             <summary>
-            添加
+            添加字典
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.DictionaryTypeId">

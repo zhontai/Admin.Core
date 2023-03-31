@@ -1,18 +1,23 @@
-﻿namespace ZhonTai.Admin.Services.Dictionary.Dto;
+﻿using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Core.Validators;
+
+namespace ZhonTai.Admin.Services.Dictionary.Dto;
 
 /// <summary>
-/// 添加
+/// 添加字典
 /// </summary>
 public class DictionaryAddInput
 {
     /// <summary>
     /// 字典类型Id
     /// </summary>
+    [ValidateRequired(ErrorMessage = "请选择字典类型")]
     public long DictionaryTypeId { get; set; }
 
     /// <summary>
     /// 字典名称
     /// </summary>
+    [Required(ErrorMessage = "请输入字典名称")]
     public string Name { get; set; }
 
     /// <summary>

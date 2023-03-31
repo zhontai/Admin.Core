@@ -73,6 +73,16 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
     /// <returns></returns>
     public async Task<long> AddAsync(DictionaryTypeAddInput input)
     {
+        if (await _DictionaryTypeRepository.Select.AnyAsync(a => a.Name == input.Name))
+        {
+            throw ResultOutput.Exception($"字典类型已存在");
+        }
+
+        if (input.Code.NotNull() && await _DictionaryTypeRepository.Select.AnyAsync(a => a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"字典类型编码已存在");
+        }
+
         var DictionaryType = Mapper.Map<DictionaryTypeEntity>(input);
         await _DictionaryTypeRepository.InsertAsync(DictionaryType);
         return DictionaryType.Id;
@@ -88,7 +98,17 @@ public class DictionaryTypeService : BaseService, IDictionaryTypeService, IDynam
         var entity = await _DictionaryTypeRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("数据字典不存在！");
+            throw ResultOutput.Exception("数据字典不存在");
+        }
+
+        if (await _DictionaryTypeRepository.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
+        {
+            throw ResultOutput.Exception($"字典类型已存在");
+        }
+
+        if (input.Code.NotNull() && await _DictionaryTypeRepository.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"字典类型编码已存在");
         }
 
         Mapper.Map(input, entity);

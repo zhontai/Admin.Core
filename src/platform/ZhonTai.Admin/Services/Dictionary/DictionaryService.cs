@@ -71,6 +71,26 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(DictionaryAddInput input)
     {
+        if (await _dictionaryRepository.Select.AnyAsync(a => a.DictionaryTypeId == input.DictionaryTypeId && a.Name == input.Name))
+        {
+            throw ResultOutput.Exception($"字典已存在");
+        }
+
+        if (input.Code.NotNull() && await _dictionaryRepository.Select.AnyAsync(a => a.DictionaryTypeId == input.DictionaryTypeId && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"字典编码已存在");
+        }
+
+        if (input.Code.NotNull() && await _dictionaryRepository.Select.AnyAsync(a => a.DictionaryTypeId == input.DictionaryTypeId && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"字典编码已存在");
+        }
+
+        if (input.Value.NotNull() && await _dictionaryRepository.Select.AnyAsync(a => a.DictionaryTypeId == input.DictionaryTypeId && a.Value == input.Value))
+        {
+            throw ResultOutput.Exception($"字典值已存在");
+        }
+
         var dictionary = Mapper.Map<DictionaryEntity>(input);
         await _dictionaryRepository.InsertAsync(dictionary);
         return dictionary.Id;
@@ -86,7 +106,22 @@ public class DictionaryService : BaseService, IDictionaryService, IDynamicApi
         var entity = await _dictionaryRepository.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("数据字典不存在");
+            throw ResultOutput.Exception("字典不存在");
+        }
+
+        if (await _dictionaryRepository.Select.AnyAsync(a => a.Id != input.Id && a.DictionaryTypeId == input.DictionaryTypeId && a.Name == input.Name))
+        {
+            throw ResultOutput.Exception($"字典已存在");
+        }
+
+        if (input.Code.NotNull() && await _dictionaryRepository.Select.AnyAsync(a => a.Id != input.Id && a.DictionaryTypeId == input.DictionaryTypeId && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception($"字典编码已存在");
+        }
+
+        if (input.Value.NotNull() && await _dictionaryRepository.Select.AnyAsync(a => a.Id != input.Id && a.DictionaryTypeId == input.DictionaryTypeId && a.Value == input.Value))
+        {
+            throw ResultOutput.Exception($"字典值已存在");
         }
 
         Mapper.Map(input, entity);
