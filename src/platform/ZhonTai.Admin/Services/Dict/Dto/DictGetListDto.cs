@@ -1,7 +1,15 @@
-﻿namespace ZhonTai.Admin.Services.Dictionary.Dto;
+﻿using Newtonsoft.Json;
 
-public class DictionaryListOutput
+namespace ZhonTai.Admin.Services.Dict.Dto;
+
+public class DictGetListDto
 {
+    /// <summary>
+    /// 字典类型编码
+    /// </summary>
+    [JsonIgnore]
+    public string DictTypeCode { get; set; }
+
     /// <summary>
     /// 主键Id
     /// </summary>
@@ -21,9 +29,4 @@ public class DictionaryListOutput
     /// 字典值
     /// </summary>
     public string Value { get; set; }
-
-    /// <summary>
-    /// 启用
-    /// </summary>
-	public bool Enabled { get; set; }
 }

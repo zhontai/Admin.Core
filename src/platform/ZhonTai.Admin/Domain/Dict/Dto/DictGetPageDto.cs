@@ -1,12 +1,12 @@
 ﻿
-namespace ZhonTai.Admin.Domain.Dictionary.Dto;
+namespace ZhonTai.Admin.Domain.Dict.Dto;
 
-public partial class DictionaryGetPageDto
+public partial class DictGetPageDto
 {
     /// <summary>
     /// 字典类型Id
     /// </summary>
-    public long DictionaryTypeId { get; set; }
+    public long DictTypeId { get; set; }
 
     /// <summary>
     /// 字典名称

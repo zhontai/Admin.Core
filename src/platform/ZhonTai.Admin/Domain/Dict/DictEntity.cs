@@ -1,25 +1,26 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using ZhonTai.Admin.Domain.DictionaryType;
+using ZhonTai.Admin.Domain.DictType;
 
-namespace ZhonTai.Admin.Domain.Dictionary;
+namespace ZhonTai.Admin.Domain.Dict;
 
 /// <summary>
 /// 数据字典
 /// </summary>
-[Table(Name = "ad_dictionary")]
-[Index("idx_{tablename}_01", nameof(DictionaryTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class DictionaryEntity : EntityTenant
+[Table(Name = "ad_dict", OldName = "ad_dictionary")]
+[Index("idx_{tablename}_01", nameof(DictTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
+public partial class DictEntity : EntityTenant
 {
     /// <summary>
     /// 字典类型Id
     /// </summary>
-    public long DictionaryTypeId { get; set; }
+    [Column(OldName = "DictionaryTypeId")]
+    public long DictTypeId { get; set; }
 
     /// <summary>
     /// 字典类型
     /// </summary>
-    public DictionaryTypeEntity DictionaryType { get; set; }
+    public DictTypeEntity DictType { get; set; }
 
     /// <summary>
     /// 字典名称

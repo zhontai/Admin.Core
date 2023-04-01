@@ -1,14 +1,14 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 
-namespace ZhonTai.Admin.Domain.DictionaryType;
+namespace ZhonTai.Admin.Domain.DictType;
 
 /// <summary>
 /// 数据字典类型
 /// </summary>
-[Table(Name = "ad_dictionary_type")]
+[Table(Name = "ad_dict_type", OldName = "ad_dictionary_type")]
 [Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
-public class DictionaryTypeEntity : EntityTenant
+public class DictTypeEntity : EntityTenant
 {
     /// <summary>
     /// 名称

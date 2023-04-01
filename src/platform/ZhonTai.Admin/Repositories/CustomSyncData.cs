@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Domain.DictionaryType;
-using ZhonTai.Admin.Domain.Dictionary;
+using ZhonTai.Admin.Domain.DictType;
+using ZhonTai.Admin.Domain.Dict;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
@@ -29,10 +29,10 @@ public class CustomSyncData : SyncData, ISyncData
         using var tran = uow.GetOrBeginTransaction();
         var isTenant = appConfig.Tenant;
 
-        var dictionaryTypes = GetData<DictionaryTypeEntity>(isTenant, dbConfig.SyncDataPath);
+        var dictionaryTypes = GetData<DictTypeEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, dictionaryTypes, dbConfig);
 
-        var dictionaries = GetData<DictionaryEntity>(isTenant, dbConfig.SyncDataPath);
+        var dictionaries = GetData<DictEntity>(path: dbConfig.SyncDataPath);
         await InitDataAsync(db, uow, tran, dictionaries, dbConfig);
 
         var users = GetData<UserEntity>(isTenant, dbConfig.SyncDataPath);

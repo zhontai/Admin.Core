@@ -1,18 +1,17 @@
 [
   {
     "id": 187395320434757,
-    "tenantId": 161223412138053,
     "name": "性别",
     "code": "sex",
     "description": "",
     "enabled": true,
-    "sort": 0,
+    "sort": 1,
     "isDeleted": false,
     "modifiedUserId": null,
     "modifiedUserName": null,
     "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-03-24T22:27:07"
+    "createdTime": "2023-04-01T22:06:30"
   }
 ]

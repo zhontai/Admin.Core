@@ -1,7 +1,7 @@
 ﻿
-namespace ZhonTai.Admin.Domain.DictionaryType.Dto;
+namespace ZhonTai.Admin.Domain.DictType.Dto;
 
-public partial class DictionaryTypeGetPageDto
+public partial class DictTypeGetPageDto
 {
     /// <summary>
     /// 字典名称

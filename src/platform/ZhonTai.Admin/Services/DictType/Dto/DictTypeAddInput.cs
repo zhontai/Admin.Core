@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ZhonTai.Admin.Services.DictionaryType.Dto;
+namespace ZhonTai.Admin.Services.DictType.Dto;
 
 /// <summary>
 /// 添加字典类型
 /// </summary>
-public class DictionaryTypeAddInput
+public class DictTypeAddInput
 {
     /// <summary>
     /// 字典类型名称
@@ -27,4 +27,9 @@ public class DictionaryTypeAddInput
     /// 启用
     /// </summary>
 	public bool Enabled { get; set; }
+
+    /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
 }
