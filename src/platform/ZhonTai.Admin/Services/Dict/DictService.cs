@@ -69,7 +69,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <summary>
     /// 查询列表
     /// </summary>
-    /// <param name="codes">编码列表</param>
+    /// <param name="codes">字典类型编码列表</param>
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost]
@@ -85,6 +85,30 @@ public class DictService : BaseService, IDictService, IDynamicApi
         {
             if (code.NotNull())
                 dicts[code] = list.Where(a => a.DictTypeCode == code).ToList();
+        }
+
+        return dicts;
+    }
+
+    /// <summary>
+    /// 根据字典类型名称列表查询字典列表
+    /// </summary>
+    /// <param name="names">字典类型名称列表</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [HttpPost]
+    public async Task<Dictionary<string, List<DictGetListDto>>> GetListByNamesAsync(string[] names)
+    {
+        var list = await _dictRepository.Select
+        .Where(a => names.Contains(a.DictType.Name) && a.DictType.Enabled == true && a.Enabled == true)
+        .OrderBy(a => a.Sort)
+        .ToListAsync(a => new DictGetListDto { DictTypeName = a.DictType.Name });
+
+        var dicts = new Dictionary<string, List<DictGetListDto>>();
+        foreach (var name in names)
+        {
+            if (name.NotNull())
+                dicts[name] = list.Where(a => a.DictTypeName == name).ToList();
         }
 
         return dicts;

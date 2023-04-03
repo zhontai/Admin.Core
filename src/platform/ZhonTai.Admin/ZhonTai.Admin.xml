@@ -4342,7 +4342,14 @@
             <summary>
             查询列表
             </summary>
-            <param name="codes">编码列表</param>
+            <param name="codes">字典类型编码列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListByNamesAsync(System.String[])">
+            <summary>
+            根据字典类型名称列表查询列表
+            </summary>
+            <param name="names">字典类型名称列表</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Dict.DictService.AddAsync(ZhonTai.Admin.Services.Dict.Dto.DictAddInput)">
@@ -4430,6 +4437,11 @@
         <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.DictTypeCode">
             <summary>
             字典类型编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.DictTypeName">
+            <summary>
+            字典类型名称
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.Id">

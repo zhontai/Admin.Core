@@ -11,6 +11,12 @@ public class DictGetListDto
     public string DictTypeCode { get; set; }
 
     /// <summary>
+    /// 字典类型名称
+    /// </summary>
+    [JsonIgnore]
+    public string DictTypeName { get; set; }
+
+    /// <summary>
     /// 主键Id
     /// </summary>
     public long Id { get; set; }
