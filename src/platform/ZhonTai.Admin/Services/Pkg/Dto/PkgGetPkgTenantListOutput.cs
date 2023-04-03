@@ -1,6 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Role.Dto;
+﻿namespace ZhonTai.Admin.Services.Pkg.Dto;
 
-public class UserGetRoleUserListOutput
+public class PkgGetPkgTenantListOutput
 {
     /// <summary>
     /// 主键Id
@@ -8,12 +8,12 @@ public class UserGetRoleUserListOutput
     public long Id { get; set; }
 
     /// <summary>
-    /// 姓名
+    /// 租户名
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// 手机号
+    /// 租户编码
     /// </summary>
-    public string Mobile { get; set; }
+    public string Code { get; set; }
 }

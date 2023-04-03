@@ -138,7 +138,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询角色权限-权限列表
+    /// 查询授权权限列表
     /// </summary>
     /// <returns></returns>
     public async Task<IEnumerable<dynamic>> GetPermissionList()
@@ -269,7 +269,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
 
         if (input.ApiIds != null && input.ApiIds.Any())
         {
-            var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a });
+            var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a }).ToList();
             await _permissionApiRepository.InsertAsync(permissionApis);
         }
 

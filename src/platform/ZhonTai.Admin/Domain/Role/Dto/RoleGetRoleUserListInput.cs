@@ -1,6 +1,6 @@
 ﻿namespace ZhonTai.Admin.Domain.Role.Dto;
 
-public partial class UserGetRoleUserListInput
+public partial class RoleGetRoleUserListInput
 {
     /// <summary>
     /// 姓名
