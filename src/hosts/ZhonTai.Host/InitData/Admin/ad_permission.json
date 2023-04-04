@@ -1383,7 +1383,7 @@
             "viewId": 402829224460357,
             "view": null,
             "name": null,
-            "path": "/admin/pkg/index",
+            "path": "/platform/auth/pkg",
             "redirect": null,
             "icon": "ele-Memo",
             "hidden": false,
