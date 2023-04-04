@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Security.Policy;
 using System.Xml.Linq;
 using Yitter.IdGenerator;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -82,34 +83,34 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+
+
+        var key = input.Filter?.Name;
+
+        var list = await _tenantRepository.Select
+        .WhereDynamicFilter(input.DynamicFilter)
+        .WhereIf(key.NotNull(), a => a.Org.Name.Contains(key))
+        .Count(out var total)
+        .OrderByDescending(true, a => a.Id)
+        .Page(input.CurrentPage, input.PageSize)
+        .ToListAsync(a => new TenantListOutput
         {
-            var key = input.Filter?.Name;
+            Name = a.Org.Name,
+            Code = a.Org.Code,
+            UserName = a.User.UserName,
+            RealName = a.User.Name,
+            Phone = a.User.Mobile,
+            Email = a.User.Email,
+        });
 
-            var list = await _tenantRepository.Select
-            .WhereDynamicFilter(input.DynamicFilter)
-            .WhereIf(key.NotNull(), a => a.Org.Name.Contains(key))
-            .Count(out var total)
-            .OrderByDescending(true, a => a.Id)
-            .Page(input.CurrentPage, input.PageSize)
-            .ToListAsync(a => new TenantListOutput
-            {
-                Name = a.Org.Name,
-                Code = a.Org.Code,
-                UserName = a.User.UserName,
-                RealName = a.User.Name,
-                Phone = a.User.Mobile,
-                Email = a.User.Email,
-            });
+        var data = new PageOutput<TenantListOutput>()
+        {
+            List = list,
+            Total = total
+        };
 
-            var data = new PageOutput<TenantListOutput>()
-            {
-                List = list,
-                Total = total
-            };
-
-            return data;
-        }
+        return data;
     }
 
     /// <summary>

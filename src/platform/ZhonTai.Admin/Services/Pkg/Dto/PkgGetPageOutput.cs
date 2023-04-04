@@ -25,6 +25,11 @@ public class PkgGetPageOutput
     public string Description { get; set; }
 
     /// <summary>
+    /// 排序
+    /// </summary>
+    public int Sort { get; set; }
+
+    /// <summary>
     /// 启用
     /// </summary>
 	public bool Enabled { get; set; }

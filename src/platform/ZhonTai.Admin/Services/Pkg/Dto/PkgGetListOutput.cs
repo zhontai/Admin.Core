@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Pkg.Dto;
+﻿using System;
+
+namespace ZhonTai.Admin.Services.Pkg.Dto;
 
 public class PkgGetListOutput
 {
@@ -31,4 +33,14 @@ public class PkgGetListOutput
     /// 描述
     /// </summary>
     public string Description { get; set; }
+
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enabled { get; set; }
+
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    public DateTime? CreatedTime { get; set; }
 }

@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -227,13 +226,7 @@ public class HostApp
         services.Configure<UploadConfig>(uploadConfig);
 
         //程序集
-        Assembly[] assemblies = null;
-        if(appConfig.AssemblyNames?.Length > 0)
-        {
-            assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-        }
+        Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
         #region Mapster 映射配置
         services.AddScoped<IMapper>(sp => new Mapper());
@@ -610,11 +603,6 @@ public class HostApp
         //动态api
         services.AddDynamicApi(options =>
         {
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => a.Name.EndsWith("Service"))
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-            options.AddAssemblyOptions(assemblies);
-
             options.FormatResult = appConfig.DynamicApi.FormatResult;
             options.FormatResultType = typeof(ResultOutput<>);
 

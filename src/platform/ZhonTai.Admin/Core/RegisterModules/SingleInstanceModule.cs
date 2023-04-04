@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using Microsoft.Extensions.DependencyModel;
 using System.Linq;
 using System.Reflection;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Common.Helpers;
 using Module = Autofac.Module;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
@@ -26,9 +26,7 @@ public class SingleInstanceModule : Module
         if(_appConfig.AssemblyNames?.Length > 0)
         {
             // 获得要注入的程序集
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
-                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+            Assembly[] assemblies = AssemblyHelper.GetAssemblyList(_appConfig.AssemblyNames);
 
             //无接口注入单例
             builder.RegisterAssemblyTypes(assemblies)

@@ -1,9 +1,7 @@
 ﻿using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using Savorboard.CAP.InMemoryMessageQueue;
-using System.Linq;
 using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
@@ -23,9 +21,7 @@ new HostApp(new HostAppOptions
 
         //添加cap事件总线
         var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
-        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
         //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMqConfig>();

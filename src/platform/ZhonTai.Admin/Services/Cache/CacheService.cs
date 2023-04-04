@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyModel;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +10,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -34,9 +34,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
         var list = new List<dynamic>();
 
         var appConfig = LazyGetRequiredService<AppConfig>();
-        Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => appConfig.AssemblyNames.Contains(a.Name))
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+        Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
         foreach (Assembly assembly in assemblies)
         {

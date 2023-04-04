@@ -6031,6 +6031,16 @@
             描述
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageDto.Name">
             <summary>
             名称
@@ -6054,6 +6064,11 @@
         <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Description">
             <summary>
             说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Sort">
+            <summary>
+            排序
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Enabled">
@@ -6130,6 +6145,13 @@
         <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgTenantListAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput)">
             <summary>
             查询套餐租户列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgTenantPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput})">
+            <summary>
+            查询套餐租户分页
             </summary>
             <param name="input"></param>
             <returns></returns>

@@ -14,6 +14,7 @@ using ZhonTai.Admin.Domain.Tenant;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.Org;
 
 namespace ZhonTai.Admin.Services.Pkg;
 
@@ -96,14 +97,46 @@ public class PkgService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task<List<PkgGetPkgTenantListOutput>> GetPkgTenantListAsync([FromQuery] PkgGetPkgTenantListInput input)
     {
-        var list = await _tenantRepository.Select.From<TenantPkgEntity>()
-            .InnerJoin(a => a.t2.TenantId == a.t1.Id)
-            .Where(a => a.t2.PkgId == input.PkgId)
-            .WhereIf(input.TenantName.NotNull(), a => a.t1.Org.Name.Contains(input.TenantName))
-            .OrderByDescending(a => a.t1.Id)
-            .ToListAsync(a=> new PkgGetPkgTenantListOutput { Id = a.t1.Id, Name = a.t1.Org.Name, Code = a.t1.Org.Code });
+        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+
+        var list = await _tenantRepository.Select.From<TenantPkgEntity, OrgEntity>((s, b, c) => s
+            .InnerJoin(a => a.Id == b.TenantId)
+            .InnerJoin(a => a.OrgId == c.Id))
+            .Where((a, b, c) => b.PkgId == input.PkgId)
+            .WhereIf(input.TenantName.NotNull(), (a, b, c) => c.Name.Contains(input.TenantName))
+            .OrderByDescending((a, b, c) => b.Id)
+            .ToListAsync((a, b, c) => new PkgGetPkgTenantListOutput { Id = a.Id, Name = c.Name, Code = c.Code });
 
         return list;
+    }
+
+    /// <summary>
+    /// 查询套餐租户分页
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<PageOutput<PkgGetPkgTenantListOutput>> GetPkgTenantPageAsync(PageInput<PkgGetPkgTenantListInput> input)
+    {
+        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+
+        var list = await _tenantRepository.Select.From<TenantPkgEntity, OrgEntity>((s, b, c) => s
+            .InnerJoin(a => a.Id == b.TenantId)
+            .InnerJoin(a => a.OrgId == c.Id))
+            .Where((a, b, c) => b.PkgId == input.Filter.PkgId)
+            .WhereIf(input.Filter.TenantName.NotNull(), (a, b, c) => c.Name.Contains(input.Filter.TenantName))
+            .Count(out var total)
+            .OrderByDescending((a, b, c) => b.Id)
+            .Page(input.CurrentPage, input.PageSize)
+            .ToListAsync((a, b, c) => new PkgGetPkgTenantListOutput { Id = a.Id, Name = c.Name, Code = c.Code });
+
+        var data = new PageOutput<PkgGetPkgTenantListOutput>()
+        {
+            List = list,
+            Total = total
+        };
+
+        return data;
     }
 
     /// <summary>

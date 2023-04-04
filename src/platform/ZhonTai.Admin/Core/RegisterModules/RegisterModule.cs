@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Module = Autofac.Module;
-using Microsoft.Extensions.DependencyModel;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
 using Microsoft.AspNetCore.Identity;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
 
@@ -41,9 +41,7 @@ public class RegisterModule : Module
         if(_appConfig.AssemblyNames?.Length > 0)
         {
             //程序集
-            Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => _appConfig.AssemblyNames.Contains(a.Name))
-                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+            Assembly[] assemblies = AssemblyHelper.GetAssemblyList(_appConfig.AssemblyNames);
 
             var nonRegisterIOCAttribute = typeof(NonRegisterIOCAttribute);
             var iRegisterIOCType = typeof(IRegisterIOC);
