@@ -3,6 +3,9 @@ using FreeSql;
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Org;
+using System.Collections.Generic;
+using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Domain.Pkg;
 
 namespace ZhonTai.Admin.Domain.Tenant;
 
@@ -65,4 +68,10 @@ public partial class TenantEntity : EntityBase
     /// </summary>
     [Column(StringLength = 500)]
     public string Description { get; set; }
+
+    /// <summary>
+    /// 套餐列表
+    /// </summary>
+    [Navigate(ManyToMany = typeof(TenantPkgEntity))]
+    public ICollection<PkgEntity> Pkgs { get; set; }
 }

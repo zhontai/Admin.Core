@@ -3110,6 +3110,11 @@
             说明
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Pkgs">
+            <summary>
+            套餐列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.Tenant.TenantType">
             <summary>
             租户类型
@@ -6710,6 +6715,11 @@
             编码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.PkgIds">
+            <summary>
+            套餐Ids
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.RealName">
             <summary>
             姓名
@@ -6755,6 +6765,16 @@
             说明
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantGetOutput.Pkgs">
+            <summary>
+            套餐列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantGetOutput.PkgIds">
+            <summary>
+            套餐Ids
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Id">
             <summary>
             主键
@@ -6768,6 +6788,11 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Code">
             <summary>
             企业编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.PkgNames">
+            <summary>
+            套餐
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.RealName">
@@ -6905,6 +6930,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Tenant.MapConfig">
+            <summary>
+            映射配置
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddInput">
             <summary>

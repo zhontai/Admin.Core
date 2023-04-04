@@ -22,10 +22,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
-using System.Security.Policy;
-using System.Xml.Linq;
 using Yitter.IdGenerator;
-using ZhonTai.Admin.Repositories;
+using ZhonTai.Admin.Domain.Pkg;
+using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -46,6 +47,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private IUserStaffRepository _userStaffRepository => LazyGetRequiredService<IUserStaffRepository>();
     private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
+    private ITenantPkgRepository _tenantPkgRepository => LazyGetRequiredService<ITenantPkgRepository>();
 
     public TenantService()
     {
@@ -62,10 +64,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         {
             var tenant = await _tenantRepository.Select
             .WhereDynamic(id)
+            .IncludeMany(a => a.Pkgs.Select(b => new PkgEntity { Id = b.Id, Name = b.Name }))
             .FirstAsync(a => new TenantGetOutput
             {
                 Name = a.Org.Name,
                 Code = a.Org.Code,
+                Pkgs = a.Pkgs,
                 UserName = a.User.UserName,
                 RealName = a.User.Name,
                 Phone = a.User.Mobile,
@@ -85,7 +89,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     {
         using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
 
-
         var key = input.Filter?.Name;
 
         var list = await _tenantRepository.Select
@@ -93,6 +96,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         .WhereIf(key.NotNull(), a => a.Org.Name.Contains(key))
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
+        .IncludeMany(a => a.Pkgs.Select(b => new PkgEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync(a => new TenantListOutput
         {
@@ -102,11 +106,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             RealName = a.User.Name,
             Phone = a.User.Mobile,
             Email = a.User.Email,
+            Pkgs = a.Pkgs,
         });
 
         var data = new PageOutput<TenantListOutput>()
         {
-            List = list,
+            List = Mapper.Map<List<TenantListOutput>>(list),
             Total = total
         };
 
@@ -169,6 +174,18 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             TenantEntity entity = Mapper.Map<TenantEntity>(input);
             TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
             long tenantId = tenant.Id;
+
+            //添加租户套餐
+            if (input.PkgIds != null && input.PkgIds.Any())
+            {
+                var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
+                {
+                    TenantId = tenantId,
+                    PkgId = pkgId
+                }).ToList();
+
+                await _tenantPkgRepository.InsertAsync(pkgs);
+            }
 
             //添加部门
             var org = new OrgEntity
@@ -376,6 +393,19 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                 Description = input.Description,
             })
             .UpdateColumns(a => new { a.Description, a.ModifiedTime }).ExecuteAffrowsAsync();
+
+            //更新租户套餐
+            await _tenantPkgRepository.DeleteAsync(a => a.TenantId == tenant.Id);
+            if (input.PkgIds != null && input.PkgIds.Any())
+            {
+                var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
+                {
+                    TenantId = tenant.Id,
+                    PkgId = pkgId
+                }).ToList();
+
+                await _tenantPkgRepository.InsertAsync(pkgs);
+            }
         }
     }
 
@@ -415,6 +445,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
             //删除角色
             await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+
+            //删除租户套餐
+            await _tenantPkgRepository.DeleteAsync(a => a.TenantId == id);
 
             //删除租户
             await _tenantRepository.DeleteAsync(id);

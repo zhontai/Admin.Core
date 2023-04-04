@@ -38,6 +38,9 @@ public class UserGetPageOutput
     /// </summary>
     public UserType Type { get; set; }
 
+    [JsonIgnore]
+    public ICollection<RoleEntity> Roles { get; set; }
+
     /// <summary>
     /// 角色
     /// </summary>
@@ -52,9 +55,6 @@ public class UserGetPageOutput
     /// 启用
     /// </summary>
     public bool Enabled { get; set; }
-
-    [JsonIgnore]
-    public ICollection<RoleEntity> Roles { get; set; }
 
     /// <summary>
     /// 创建时间

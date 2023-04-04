@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ZhonTai.Admin.Services.User.Dto;
+﻿namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
 /// 添加

@@ -19,7 +19,6 @@ using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.User.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
@@ -31,10 +30,8 @@ using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using Microsoft.AspNetCore.Identity;
 using ZhonTai.Admin.Services.File;
-using ZhonTai.Admin.Core.Auth;
 using System.Linq.Expressions;
 using System;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.User;
 
