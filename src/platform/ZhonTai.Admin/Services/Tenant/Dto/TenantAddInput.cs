@@ -25,6 +25,11 @@ public class TenantAddInput
     public string Code { get; set; }
 
     /// <summary>
+    /// 套餐Ids
+    /// </summary>
+    public virtual long[] PkgIds { get; set; }
+
+    /// <summary>
     /// 姓名
     /// </summary>
     [Required(ErrorMessage = "请输入姓名")]

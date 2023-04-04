@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Domain.DictionaryType;
-using ZhonTai.Admin.Domain.Dictionary;
+using ZhonTai.Admin.Domain.DictType;
+using ZhonTai.Admin.Domain.Dict;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
@@ -33,9 +33,9 @@ public class CustomGenerateData : GenerateData, IGenerateData
         //admin
         #region 数据字典
 
-        var dictionaryTypes = await db.Queryable<DictionaryTypeEntity>().ToListAsync();
+        var dictionaryTypes = await db.Queryable<DictTypeEntity>().ToListAsync();
 
-        var dictionaries = await db.Queryable<DictionaryEntity>().ToListAsync();
+        var dictionaries = await db.Queryable<DictEntity>().ToListAsync();
         #endregion
 
         #region 接口
@@ -182,8 +182,6 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         var isTenant = appConfig.Tenant;
 
-        SaveDataToJsonFile<DictionaryEntity>(dictionaries, isTenant);
-        SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes, isTenant);
         SaveDataToJsonFile<UserEntity>(users, isTenant);
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);
         SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
@@ -191,8 +189,6 @@ public class CustomGenerateData : GenerateData, IGenerateData
         if (isTenant)
         {
             var tenantIds = tenants?.Select(a => a.Id)?.ToList();
-            SaveDataToJsonFile<DictionaryEntity>(dictionaries.Where(a => tenantIds.Contains(a.TenantId.Value)));
-            SaveDataToJsonFile<DictionaryTypeEntity>(dictionaryTypes.Where(a => tenantIds.Contains(a.TenantId.Value)));
             SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
             SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
             orgTree = orgs.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
@@ -211,6 +207,8 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<OrgEntity>(orgTree);
             SaveDataToJsonFile<UserStaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
+        SaveDataToJsonFile<DictEntity>(dictionaries);
+        SaveDataToJsonFile<DictTypeEntity>(dictionaryTypes);
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
         SaveDataToJsonFile<UserOrgEntity>(userOrgs);
         SaveDataToJsonFile<ApiEntity>(apiTree);

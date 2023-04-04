@@ -35,6 +35,8 @@ using ZhonTai.Admin.Core.Captcha;
 using Newtonsoft.Json;
 using Lazy.SlideCaptcha.Core.Validator;
 using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Admin.Domain.PkgPermission;
+using ZhonTai.Admin.Domain.TenantPkg;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -155,6 +157,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                        .Any()
+
+                       ||
+
+                       db.Select<TenantPkgEntity, PkgPermissionEntity>()
+                       .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
+                       .Any()
                    );
                 }
                 else
@@ -209,6 +217,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                     dotSelect = dotSelect.Where(a =>
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+
+                       ||
+
+                       db.Select<TenantPkgEntity, PkgPermissionEntity>()
+                       .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
                     );
                 }

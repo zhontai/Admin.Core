@@ -692,7 +692,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.IdleTime">
             <summary>
-            空闲时间(分)
+            空闲时间（分），默认10分钟，设置idleTime=0则不自动回收
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.Dbs">
@@ -2150,92 +2150,92 @@
             主键Id
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity">
+        <member name="T:ZhonTai.Admin.Domain.DictType.DictTypeEntity">
             <summary>
             数据字典类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Name">
+        <member name="P:ZhonTai.Admin.Domain.DictType.DictTypeEntity.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Code">
+        <member name="P:ZhonTai.Admin.Domain.DictType.DictTypeEntity.Code">
             <summary>
             编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Description">
+        <member name="P:ZhonTai.Admin.Domain.DictType.DictTypeEntity.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Enabled">
+        <member name="P:ZhonTai.Admin.Domain.DictType.DictTypeEntity.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.DictionaryTypeEntity.Sort">
+        <member name="P:ZhonTai.Admin.Domain.DictType.DictTypeEntity.Sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeGetPageDto.Name">
+        <member name="P:ZhonTai.Admin.Domain.DictType.Dto.DictTypeGetPageDto.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity">
+        <member name="T:ZhonTai.Admin.Domain.Dict.DictEntity">
             <summary>
             数据字典
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.DictionaryTypeId">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.DictTypeId">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.DictionaryType">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.DictType">
             <summary>
             字典类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Name">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Code">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Value">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Value">
             <summary>
             字典值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Description">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Enabled">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.DictionaryEntity.Sort">
+        <member name="P:ZhonTai.Admin.Domain.Dict.DictEntity.Sort">
             <summary>
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto.DictionaryTypeId">
+        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto.DictTypeId">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto.Name">
+        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto.Name">
             <summary>
             字典名称
             </summary>
@@ -2712,6 +2712,95 @@
             权限点
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.PkgPermission.PkgPermissionEntity">
+            <summary>
+            套餐权限
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.PkgPermission.PkgPermissionEntity.PkgId">
+            <summary>
+            套餐Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.PkgPermission.PkgPermissionEntity.Pkg">
+            <summary>
+            套餐
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.PkgPermission.PkgPermissionEntity.PermissionId">
+            <summary>
+            权限Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.PkgPermission.PkgPermissionEntity.Permission">
+            <summary>
+            权限
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.Pkg.IPkgRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本套餐和下级套餐Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Domain.Pkg.IPkgRepository.GetChildIdListAsync(System.Int64[])">
+            <summary>
+            获得当前套餐和下级套餐Id
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.Pkg.PkgEntity">
+            <summary>
+            套餐
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Childs">
+            <summary>
+            子级列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Tenants">
+            <summary>
+            租户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Pkg.PkgEntity.Permissions">
+            <summary>
+            权限列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.RoleOrgEntity">
             <summary>
             角色部门
@@ -2802,12 +2891,12 @@
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput.Name">
+        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetRoleUserListInput.Name">
             <summary>
             姓名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput.RoleId">
+        <member name="P:ZhonTai.Admin.Domain.Role.Dto.RoleGetRoleUserListInput.RoleId">
             <summary>
             角色Id
             </summary>
@@ -2931,6 +3020,21 @@
             权限
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.TenantPkg.TenantPkgEntity">
+            <summary>
+            租户套餐
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TenantPkg.TenantPkgEntity.TenantId">
+            <summary>
+            租户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TenantPkg.TenantPkgEntity.PkgId">
+            <summary>
+            套餐Id
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.Dto.CreateFreeSqlTenantDto.DbType">
             <summary>
             数据库
@@ -3004,6 +3108,11 @@
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Description">
             <summary>
             说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Pkgs">
+            <summary>
+            套餐列表
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Tenant.TenantType">
@@ -3486,6 +3595,20 @@
             获得本部门和下级部门Id
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.PkgRepository.GetChildIdListAsync(System.Int64)">
+            <summary>
+            获得本角色和下级角色Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.PkgRepository.GetChildIdListAsync(System.Int64[])">
+            <summary>
+            获得当前角色和下级角色Id
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.RoleRepository.GetChildIdListAsync(System.Int64)">
@@ -4188,259 +4311,323 @@
             滑动轨迹
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService">
+        <member name="T:ZhonTai.Admin.Services.DictType.DictTypeService">
             <summary>
             数据字典类型服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.GetAsync(System.Int64)">
             <summary>
             查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.DictionaryType.Dto.DictionaryTypeGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.DictType.Dto.DictTypeGetPageDto})">
             <summary>
             查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.AddAsync(ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput)">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.AddAsync(ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput)">
             <summary>
             新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.UpdateAsync(ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeUpdateInput)">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.UpdateAsync(ZhonTai.Admin.Services.DictType.Dto.DictTypeUpdateInput)">
             <summary>
             修改
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.DeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.DeleteAsync(System.Int64)">
             <summary>
             彻底删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.BatchDeleteAsync(System.Int64[])">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.BatchDeleteAsync(System.Int64[])">
             <summary>
             批量彻底删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.SoftDeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.SoftDeleteAsync(System.Int64)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.DictionaryType.DictionaryTypeService.BatchSoftDeleteAsync(System.Int64[])">
+        <member name="M:ZhonTai.Admin.Services.DictType.DictTypeService.BatchSoftDeleteAsync(System.Int64[])">
             <summary>
             批量删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput">
+        <member name="T:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput">
             <summary>
-            添加
+            添加字典类型
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Name">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput.Name">
             <summary>
-            字典名称
+            字典类型名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Code">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput.Code">
             <summary>
-            字典编码
+            字典类型编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Description">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeAddInput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeGetPageOutput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeGetPageOutput.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeListOutput.Code">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeGetPageOutput.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeListOutput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeGetPageOutput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeUpdateInput">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeGetPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.DictType.Dto.DictTypeUpdateInput">
             <summary>
             修改
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.DictionaryType.Dto.DictionaryTypeUpdateInput.Id">
+        <member name="P:ZhonTai.Admin.Services.DictType.Dto.DictTypeUpdateInput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.DictionaryType.IDictionaryTypeService">
+        <member name="T:ZhonTai.Admin.Services.DictType.IDictTypeService">
             <summary>
             数据字典类型接口
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Dictionary.DictionaryService">
+        <member name="T:ZhonTai.Admin.Services.Dict.DictService">
             <summary>
             数据字典服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetAsync(System.Int64)">
             <summary>
             查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dictionary.Dto.DictionaryGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto})">
             <summary>
             查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.AddAsync(ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput)">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListAsync(System.String[])">
+            <summary>
+            查询列表
+            </summary>
+            <param name="codes">字典类型编码列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListByNamesAsync(System.String[])">
+            <summary>
+            根据字典类型名称列表查询字典列表
+            </summary>
+            <param name="names">字典类型名称列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.AddAsync(ZhonTai.Admin.Services.Dict.Dto.DictAddInput)">
             <summary>
             新增
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.UpdateAsync(ZhonTai.Admin.Services.Dictionary.Dto.DictionaryUpdateInput)">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.UpdateAsync(ZhonTai.Admin.Services.Dict.Dto.DictUpdateInput)">
             <summary>
             修改
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.DeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.DeleteAsync(System.Int64)">
             <summary>
             彻底删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.BatchDeleteAsync(System.Int64[])">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.BatchDeleteAsync(System.Int64[])">
             <summary>
             批量彻底删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.SoftDeleteAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.SoftDeleteAsync(System.Int64)">
             <summary>
             删除
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dictionary.DictionaryService.BatchSoftDeleteAsync(System.Int64[])">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.BatchSoftDeleteAsync(System.Int64[])">
             <summary>
             批量删除
             </summary>
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput">
+        <member name="T:ZhonTai.Admin.Services.Dict.Dto.DictAddInput">
             <summary>
-            添加
+            添加字典
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.DictionaryTypeId">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.DictTypeId">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.Name">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.Code">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.Value">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Value">
             <summary>
             字典值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.Description">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryAddInput.Enabled">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Enabled">
             <summary>
             启用
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryListOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.DictTypeCode">
+            <summary>
+            字典类型编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.DictTypeName">
+            <summary>
+            字典类型名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryListOutput.Name">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.Name">
             <summary>
             字典名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryListOutput.Code">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.Code">
             <summary>
             字典编码
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryListOutput.Value">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetListDto.Value">
             <summary>
             字典值
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryListOutput.Enabled">
-            <summary>
-            启用
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryUpdateInput">
-            <summary>
-            修改
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Dictionary.Dto.DictionaryUpdateInput.Id">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Id">
             <summary>
             主键Id
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Dictionary.IDictionaryService">
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Name">
+            <summary>
+            字典名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Code">
+            <summary>
+            字典编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Value">
+            <summary>
+            字典值
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictGetPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Dict.Dto.DictUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Dict.Dto.DictUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Dict.IDictService">
             <summary>
             数据字典接口
             </summary>
@@ -5657,7 +5844,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetPermissionList">
             <summary>
-            查询角色权限-权限列表
+            查询授权权限列表
             </summary>
             <returns></returns>
         </member>
@@ -5760,6 +5947,291 @@
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Admin.Permission.MapConfig">
+            <summary>
+            映射配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Pkg.Dto.PkgAddPkgTenantListInput">
+            <summary>
+            添加套餐租户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddPkgTenantListInput.PkgId">
+            <summary>
+            套餐
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgAddPkgTenantListInput.TenantIds">
+            <summary>
+            租户列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetListOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput.TenantName">
+            <summary>
+            租户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput.PkgId">
+            <summary>
+            套餐Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListOutput.Name">
+            <summary>
+            租户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListOutput.Code">
+            <summary>
+            租户编码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Pkg.Dto.PkgUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Pkg.Dto.PkgUpdateInput.Id">
+            <summary>
+            套餐Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Pkg.PkgService">
+            <summary>
+            套餐服务
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetListAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgGetListInput)">
+            <summary>
+            查询列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.Pkg.Dto.PkgGetPageDto})">
+            <summary>
+            查询分页
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgTenantListAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput)">
+            <summary>
+            查询套餐租户列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgTenantPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.Pkg.Dto.PkgGetPkgTenantListInput})">
+            <summary>
+            查询套餐租户分页
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgPermissionList(System.Int64)">
+            <summary>
+            查询套餐权限列表
+            </summary>
+            <param name="pkgId">套餐编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.SetPkgPermissionsAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgSetPkgPermissionsInput)">
+            <summary>
+            设置套餐权限
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.AddPkgTenantAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgAddPkgTenantListInput)">
+            <summary>
+            添加套餐租户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.RemovePkgTenantAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgAddPkgTenantListInput)">
+            <summary>
+            移除套餐租户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.AddAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.UpdateAsync(ZhonTai.Admin.Services.Pkg.Dto.PkgUpdateInput)">
+            <summary>
+            修改
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.DeleteAsync(System.Int64)">
+            <summary>
+            彻底删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.BatchDeleteAsync(System.Int64[])">
+            <summary>
+            批量彻底删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.BatchSoftDeleteAsync(System.Int64[])">
+            <summary>
+            批量删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Pkg.MapConfig">
             <summary>
             映射配置
             </summary>
@@ -5894,6 +6366,21 @@
             创建时间
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetRoleUserListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetRoleUserListOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleGetRoleUserListOutput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleSetDataScopeInput">
             <summary>
             设置数据范围
@@ -5922,21 +6409,6 @@
         <member name="P:ZhonTai.Admin.Services.Role.Dto.RoleUpdateInput.Id">
             <summary>
             角色Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Id">
-            <summary>
-            主键Id
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Name">
-            <summary>
-            姓名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Role.Dto.UserGetRoleUserListOutput.Mobile">
-            <summary>
-            手机号
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Role.IRoleService">
@@ -5970,7 +6442,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetRoleUserListAsync(ZhonTai.Admin.Domain.Role.Dto.UserGetRoleUserListInput)">
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetRoleUserListAsync(ZhonTai.Admin.Domain.Role.Dto.RoleGetRoleUserListInput)">
             <summary>
             查询角色用户列表
             </summary>
@@ -5979,7 +6451,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleUserAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddRoleUserListInput)">
             <summary>
-            新增角色用户
+            添加角色用户
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -5993,7 +6465,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddAsync(ZhonTai.Admin.Services.Role.Dto.RoleAddInput)">
             <summary>
-            添加
+            新增
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -6243,6 +6715,11 @@
             编码
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.PkgIds">
+            <summary>
+            套餐Ids
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.RealName">
             <summary>
             姓名
@@ -6288,6 +6765,16 @@
             说明
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantGetOutput.Pkgs">
+            <summary>
+            套餐列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantGetOutput.PkgIds">
+            <summary>
+            套餐Ids
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Id">
             <summary>
             主键
@@ -6301,6 +6788,11 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.Code">
             <summary>
             企业编码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.PkgNames">
+            <summary>
+            套餐
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantListOutput.RealName">
@@ -6438,6 +6930,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Tenant.MapConfig">
+            <summary>
+            映射配置
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddInput">
             <summary>

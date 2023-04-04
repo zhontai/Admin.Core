@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -79,15 +78,12 @@ public class DbHelper
         {
             return null;
         }
-
-        Assembly[]  assemblies = DependencyContext.Default.RuntimeLibraries
-            .Where(a => assemblyNames.Contains(a.Name))
-            .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
-
+ 
         var entityTypes = new List<Type>();
 
-        foreach (var assembly in assemblies)
+        foreach (var assemblyName in assemblyNames)
         {
+            var assembly = Assembly.Load(assemblyName);
             foreach (Type type in assembly.GetExportedTypes())
             {
                 foreach (Attribute attribute in type.GetCustomAttributes())
@@ -372,9 +368,7 @@ public class DbHelper
                     db.Aop.CurdBefore += SyncDataCurdBefore;
                 }
 
-                Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-                .Where(a => dbConfig.AssemblyNames.Contains(a.Name))
-                .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+                Assembly[] assemblies = AssemblyHelper.GetAssemblyList(dbConfig.AssemblyNames);
 
                 List<ISyncData> syncDatas = assemblies.Select(assembly => assembly.GetTypes()
                 .Where(x => typeof(ISyncData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
@@ -417,9 +411,7 @@ public class DbHelper
 
             if (dbConfig.AssemblyNames?.Length > 0)
             {
-                Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
-               .Where(a => dbConfig.AssemblyNames.Contains(a.Name))
-               .Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
+                Assembly[] assemblies = AssemblyHelper.GetAssemblyList(dbConfig.AssemblyNames);
 
                 List<IGenerateData> generateDatas = assemblies.Select(assembly => assembly.GetTypes()
                 .Where(x => typeof(IGenerateData).GetTypeInfo().IsAssignableFrom(x.GetTypeInfo()) && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract))
@@ -456,7 +448,7 @@ public class DbHelper
     )
     {
         //注册数据库
-        var idelTiem = dbConfig.IdleTime.HasValue && dbConfig.IdleTime.Value > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime.Value) : TimeSpan.MaxValue;
+        var idelTime = dbConfig.IdleTime.HasValue && dbConfig.IdleTime.Value > 0 ? TimeSpan.FromMinutes(dbConfig.IdleTime.Value) : TimeSpan.MaxValue;
         freeSqlCloud.Register(dbConfig.Key, () =>
         {
             //创建数据库
@@ -606,7 +598,7 @@ public class DbHelper
             #endregion 监听Curd操作
 
             return fsql;
-        }, idelTiem);
+        }, idelTime);
 
         //执行注册数据库
         var fsql = freeSqlCloud.Use(dbConfig.Key);

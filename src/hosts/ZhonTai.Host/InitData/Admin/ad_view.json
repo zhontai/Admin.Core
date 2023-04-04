@@ -27,7 +27,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       },
       {
         "id": 161227168432197,
@@ -57,7 +57,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168444485,
@@ -76,7 +76,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168448582,
@@ -95,7 +95,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168456774,
@@ -114,14 +114,14 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 187053736300613,
             "parentId": 161227168432197,
-            "name": "admin/dictionary",
+            "name": "admin/dict",
             "label": "数据字典",
-            "path": "admin/dictionary/index",
+            "path": "admin/dict/index",
             "description": "数据字典",
             "cache": true,
             "sort": 1,
@@ -133,7 +133,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 336556164300869,
@@ -152,7 +152,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 371247502852165,
@@ -171,7 +171,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           }
         ],
         "isDeleted": false,
@@ -180,7 +180,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       },
       {
         "id": 161227168436293,
@@ -199,7 +199,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       },
       {
         "id": 161227168436294,
@@ -229,7 +229,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168440389,
@@ -248,7 +248,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168444486,
@@ -267,7 +267,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168448583,
@@ -286,7 +286,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 174312361087045,
@@ -305,7 +305,26 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
+          },
+          {
+            "id": 402829224460357,
+            "parentId": 161227168436294,
+            "name": "admin/pkg",
+            "label": "套餐管理",
+            "path": "admin/pkg/index",
+            "description": null,
+            "cache": true,
+            "sort": 6,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdTime": "2023-04-04T16:16:47"
           }
         ],
         "isDeleted": false,
@@ -314,7 +333,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       },
       {
         "id": 161227168452677,
@@ -344,7 +363,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           },
           {
             "id": 161227168456773,
@@ -363,7 +382,7 @@
             "modifiedTime": null,
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-03-24T22:27:08"
+            "createdTime": "2023-04-04T16:16:47"
           }
         ],
         "isDeleted": false,
@@ -372,7 +391,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       }
     ],
     "isDeleted": false,
@@ -381,7 +400,7 @@
     "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-03-24T22:27:08"
+    "createdTime": "2023-04-04T16:16:47"
   },
   {
     "id": 361047466754117,
@@ -411,7 +430,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       },
       {
         "id": 361047841796165,
@@ -430,7 +449,7 @@
         "modifiedTime": null,
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-03-24T22:27:08"
+        "createdTime": "2023-04-04T16:16:47"
       }
     ],
     "isDeleted": false,
@@ -439,6 +458,6 @@
     "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-03-24T22:27:08"
+    "createdTime": "2023-04-04T16:16:47"
   }
 ]

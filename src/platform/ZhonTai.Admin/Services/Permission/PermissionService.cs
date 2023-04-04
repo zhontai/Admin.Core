@@ -19,6 +19,8 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
+using ZhonTai.Admin.Domain.PkgPermission;
+using ZhonTai.Admin.Domain.TenantPkg;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -138,7 +140,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询角色权限-权限列表
+    /// 查询授权权限列表
     /// </summary>
     /// <returns></returns>
     public async Task<IEnumerable<dynamic>> GetPermissionList()
@@ -147,6 +149,12 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _tenantPermissionRepository
                 .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                .Any()
+
+                ||
+
+                _permissionRepository.Orm.Select<TenantPkgEntity, PkgPermissionEntity>()
+                .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                 .Any()
             )
             .AsTreeCte(up: true)
@@ -269,7 +277,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
 
         if (input.ApiIds != null && input.ApiIds.Any())
         {
-            var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a });
+            var permissionApis = input.ApiIds.Select(a => new PermissionApiEntity { PermissionId = entity.Id, ApiId = a }).ToList();
             await _permissionApiRepository.InsertAsync(permissionApis);
         }
 
@@ -417,8 +425,19 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (_appConfig.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            var tenantPermissionIds = await cloud.Use(DbKeys.AppDb).Select<TenantPermissionEntity>().Where(d => d.TenantId == User.TenantId).ToListAsync(m => m.PermissionId);
-            insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d));
+            var mainDb = cloud.Use(DbKeys.AppDb);
+            var tenantPermissionIds = await mainDb.Select<TenantPermissionEntity>()
+                .Where(a => a.TenantId == User.TenantId).ToListAsync(a => a.PermissionId);
+
+            var pkgPermissionIds = await mainDb.Select<PkgPermissionEntity>()
+                .Where(a => 
+                    mainDb.Select<TenantPkgEntity>()
+                    .Where((b) => b.PkgId == a.PkgId && b.TenantId == User.TenantId)
+                    .Any()
+                )
+                .ToListAsync(a => a.PermissionId);
+
+            insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d) || pkgPermissionIds.Contains(d));
         }
 
         if (insertPermissionIds.Any())
@@ -479,6 +498,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         }
 
         //清除租户下所有用户权限缓存
+        using var _ = _userRepository.DataFilter.Disable(FilterNames.Tenant);
         var userIds = await _userRepository.Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
         if(userIds.Any())
         {

@@ -100,20 +100,20 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<List<UserGetRoleUserListOutput>> GetRoleUserListAsync([FromQuery] UserGetRoleUserListInput input)
+    public async Task<List<RoleGetRoleUserListOutput>> GetRoleUserListAsync([FromQuery] RoleGetRoleUserListInput input)
     {
         var list = await _userRepository.Select.From<UserRoleEntity>()
             .InnerJoin(a => a.t2.UserId == a.t1.Id)
             .Where(a => a.t2.RoleId == input.RoleId)
             .WhereIf(input.Name.NotNull(), a => a.t1.Name.Contains(input.Name))
             .OrderByDescending(a => a.t1.Id)
-            .ToListAsync<UserGetRoleUserListOutput>();
+            .ToListAsync<RoleGetRoleUserListOutput>();
 
         return list;
     }
 
     /// <summary>
-    /// 新增角色用户
+    /// 添加角色用户
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -173,7 +173,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
-    /// 添加
+    /// 新增
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>

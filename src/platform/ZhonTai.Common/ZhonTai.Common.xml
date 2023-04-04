@@ -239,6 +239,18 @@
             G字节
             </summary>
         </member>
+        <member name="T:ZhonTai.Common.Helpers.AssemblyHelper">
+            <summary>
+            程序集帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.AssemblyHelper.GetAssemblyList(System.String[])">
+            <summary>
+            根据程序集名称列表获取程序集列表
+            </summary>
+            <param name="assemblyNames"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Common.Helpers.ConfigHelper">
             <summary>
             配置帮助类

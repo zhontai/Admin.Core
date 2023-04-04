@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using ZhonTai.Admin.Domain.Pkg;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 
@@ -19,6 +21,14 @@ public class TenantListOutput
     /// 企业编码
     /// </summary>
     public string Code { get; set; }
+
+    [JsonIgnore]
+    public ICollection<PkgEntity> Pkgs { get; set; }
+
+    /// <summary>
+    /// 套餐
+    /// </summary>
+    public string[] PkgNames { get; set; }
 
     /// <summary>
     /// 姓名
