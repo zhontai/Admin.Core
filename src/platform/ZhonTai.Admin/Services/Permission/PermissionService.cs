@@ -21,8 +21,6 @@ using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
-using ZhonTai.Admin.Domain.Api;
-using ZhonTai.Admin.Services.User.Dto;
 
 namespace ZhonTai.Admin.Services.Permission;
 
