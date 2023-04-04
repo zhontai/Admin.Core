@@ -192,6 +192,7 @@ public class PkgService : BaseService, IDynamicApi
 
         //清除套餐下所有用户权限缓存
         var tenantIds = await _tenantPkgRepository.Select.Where(a => a.PkgId == input.PkgId).ToListAsync(a => a.TenantId);
+        using var _ = _userRepository.DataFilter.Disable(FilterNames.Tenant);
         var userIds = await _userRepository.Select.Where(a => tenantIds.Contains(a.TenantId.Value)).ToListAsync(a => a.Id);
         if (userIds.Any())
         {

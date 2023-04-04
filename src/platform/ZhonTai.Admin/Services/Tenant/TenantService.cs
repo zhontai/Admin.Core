@@ -25,8 +25,6 @@ using System.Collections.Generic;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Domain.TenantPkg;
-using ZhonTai.Admin.Core.Auth;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant;
 

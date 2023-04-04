@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Helpers;
@@ -32,6 +31,8 @@ using Microsoft.AspNetCore.Identity;
 using ZhonTai.Admin.Services.File;
 using System.Linq.Expressions;
 using System;
+using ZhonTai.Admin.Domain.PkgPermission;
+using ZhonTai.Admin.Domain.TenantPkg;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -274,11 +275,19 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
                 var db = cloud.Use(DbKeys.AppDb);
 
-                return await db.Select<ApiEntity>()
+                var tenantPermissions = await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()
                 .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
                 .Where((b, c) => c.ApiId == a.Id).Any())
                 .ToListAsync<UserPermissionsOutput>();
+
+                var pkgPermissions = await db.Select<ApiEntity>()
+                .Where(a => db.Select<TenantPkgEntity, PkgPermissionEntity, PermissionApiEntity>()
+                .InnerJoin((b, c, d) => b.PkgId == c.PkgId && c.PermissionId == d.PermissionId && b.TenantId == User.TenantId)
+                .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .ToListAsync<UserPermissionsOutput>();
+
+                return tenantPermissions.Union(pkgPermissions).Distinct().ToList();
             }
 
             return await _apiRepository
@@ -651,6 +660,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             throw ResultOutput.Exception("平台管理员禁止禁用");
         }
+        if (entity.Type == UserType.TenantAdmin)
+        {
+            throw ResultOutput.Exception("企业管理员禁止禁用");
+        }
         entity.Enabled = input.Enabled;
         await _userRepository.UpdateAsync(entity);
     }
@@ -669,9 +682,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("用户不存在");
         }
 
-        if(user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
+        if(user.Type == UserType.PlatformAdmin)
         {
             throw ResultOutput.Exception($"平台管理员禁止删除");
+        }
+
+        if (user.Type == UserType.TenantAdmin)
+        {
+            throw ResultOutput.Exception($"企业管理员禁止删除");
         }
 
         //删除用户角色
