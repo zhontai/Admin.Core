@@ -7,6 +7,7 @@ using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
@@ -14,6 +15,26 @@ using ZhonTai.Common.Helpers;
 
 new HostApp(new HostAppOptions
 {
+    //配置FreeSql
+    ConfigureFreeSql = (freeSql, dbConfig) =>
+    {
+        if(dbConfig.Key == DbKeys.AppDb)
+        {
+            freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
+            {
+                fsql.CodeFirst
+                .ConfigEntity<TaskInfo>(a =>
+                {
+                    a.Name("app_task");
+                })
+                .ConfigEntity<TaskLog>(a =>
+                {
+                    a.Name("app_task_log");
+                });
+            });
+        }
+    },
+
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
@@ -24,14 +45,14 @@ new HostApp(new HostAppOptions
         Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
         //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
-        //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMqConfig>();
+        //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
         {
             config.UseInMemoryStorage();
             config.UseInMemoryMessageQueue();
 
-            //<PackageReference Include="DotNetCore.CAP.MySql" Version="7.1.0" />
-            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.0" />
+            //<PackageReference Include="DotNetCore.CAP.MySql" Version="7.1.1" />
+            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.1" />
 
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
@@ -50,12 +71,10 @@ new HostApp(new HostAppOptions
             options.ConfigureFreeSql = freeSql =>
             {
                 freeSql.CodeFirst
-                //配置任务表
                 .ConfigEntity<TaskInfo>(a =>
                 {
                     a.Name("app_task");
                 })
-                //配置任务日志表
                 .ConfigEntity<TaskLog>(a =>
                 {
                     a.Name("app_task_log");
@@ -63,7 +82,7 @@ new HostApp(new HostAppOptions
             };
 
             //模块任务处理器
-            options.TaskHandler = new TaskHandler(options.FreeSql);
+            options.TaskHandler = new CloudTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
         });
     },
 

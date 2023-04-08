@@ -870,31 +870,6 @@
             OSS配置列表
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.RabbitMqConfig">
-            <summary>
-            RabbitMq配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.HostName">
-            <summary>
-            主机IP或Url地址
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.Port">
-            <summary>
-            端口号
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.UserName">
-            <summary>
-            用户名
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.RabbitMqConfig.Password">
-            <summary>
-             密码
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.UploadConfig">
             <summary>
             上传配置
@@ -1196,6 +1171,14 @@
             <param name="that"></param>
             <param name="filter">数据过滤 + 验证</param>
             <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.FreeSqlDbContextExtensions.SyncSchedulerStructure(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,System.Action{IFreeSql})">
+            <summary>
+            同步调度结构
+            </summary>
+            <param name="that"></param>
+            <param name="dbConfig"></param>
+            <param name="configureFreeSql"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.Transaction.TransactionAsyncInterceptor.InterceptSynchronous(Castle.DynamicProxy.IInvocation)">
             <summary>
@@ -2062,12 +2045,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">
             <summary>
-            配置主库FreeSql构建器
+            配置FreeSql构建器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">
             <summary>
-            配置主库FreeSql
+            配置FreeSql
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
@@ -7930,6 +7913,11 @@
         <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.FreeSql">
             <summary>
             数据库实例
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.FreeSqlCloud">
+            <summary>
+            多库实例
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.ConfigureFreeSql">

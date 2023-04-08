@@ -471,7 +471,7 @@ public class DbHelper
                 freeSqlBuilder.UseSlave(slaveList).UseSlaveWeight(slaveWeightList);
             }
 
-            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder);
+            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder, dbConfig);
 
             #region 监听所有命令
 
@@ -543,7 +543,7 @@ public class DbHelper
             //配置实体
             ConfigEntity(fsql, appConfig, dbConfig);
 
-            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql);
+            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql, dbConfig);
 
             #region 初始化数据库
 
