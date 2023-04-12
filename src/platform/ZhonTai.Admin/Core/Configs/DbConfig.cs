@@ -69,6 +69,16 @@ public class DbConfig
     public string SyncDataPath { get; set; } = "InitData/Admin";
 
     /// <summary>
+    /// 同步数据包含表列表
+    /// </summary>
+    public string[] SyncDataIncludeTables { get; set; }
+
+    /// <summary>
+    /// 同步数据排除表列表
+    /// </summary>
+    public string[] SyncDataExcludeTables { get; set; }
+
+    /// <summary>
     /// 建库
     /// </summary>
     public bool CreateDb { get; set; } = false;

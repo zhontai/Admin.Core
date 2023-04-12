@@ -665,6 +665,16 @@
             同步数据地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncDataIncludeTables">
+            <summary>
+            同步数据包含表列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncDataExcludeTables">
+            <summary>
+            同步数据排除表列表
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDb">
             <summary>
             建库
@@ -842,12 +852,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.IncludeExtension">
             <summary>
-            包含文件拓展名
+            包含文件拓展名列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.LocalUploadConfig.ExcludeExtension">
             <summary>
-            排除文件拓展名
+            排除文件拓展名列表
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.OSSConfig">
@@ -1047,13 +1057,12 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.InitDataAsync``1(IFreeSql,FreeSql.IUnitOfWork,System.Data.Common.DbTransaction,``0[],ZhonTai.Admin.Core.Configs.DbConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.InitDataAsync``1(IFreeSql,System.Data.Common.DbTransaction,``0[],ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化数据表数据
             </summary>
             <typeparam name="T"></typeparam>
             <param name="db"></param>
-            <param name="unitOfWork"></param>
             <param name="tran"></param>
             <param name="dataList"></param>
             <param name="dbConfig"></param>
@@ -3572,6 +3581,161 @@
             权限库基础仓储
             </summary>
             <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.GetTableName``1">
+            <summary>
+            获得表名
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitDictTypeAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化字典类型
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitDictAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化字典
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig,System.Boolean)">
+            <summary>
+            初始化用户
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <param name="isTenant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserStaffAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig,System.Boolean)">
+            <summary>
+            初始化用户员工
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <param name="isTenant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitOrgAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig,System.Boolean)">
+            <summary>
+            初始化部门
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <param name="isTenant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitRoleAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig,System.Boolean)">
+            <summary>
+            初始化角色
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <param name="isTenant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitApiAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化接口
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitViewAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化视图
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitPermissionAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化权限
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitPermissionApiAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化权限接口
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserRoleAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化用户角色
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserOrgAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化用户部门
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitRolePermissionAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化角色权限
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitTenantAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化租户
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitTenantPermissionAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
+            <summary>
+            初始化租户权限
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.SyncDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
+            <summary>
+            同步数据
+            </summary>
+            <param name="db"></param>
+            <param name="dbConfig"></param>
+            <param name="appConfig"></param>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.OrgRepository.GetChildIdListAsync(System.Int64)">
             <summary>

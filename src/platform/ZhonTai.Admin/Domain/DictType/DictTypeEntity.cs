@@ -7,8 +7,8 @@ namespace ZhonTai.Admin.Domain.DictType;
 /// 数据字典类型
 /// </summary>
 [Table(Name = "ad_dict_type", OldName = "ad_dictionary_type")]
-[Index("idx_{tablename}_01", nameof(Name) + "," + nameof(TenantId), true)]
-public class DictTypeEntity : EntityTenant
+[Index("idx_{tablename}_01", nameof(Name), true)]
+public class DictTypeEntity : EntityBase
 {
     /// <summary>
     /// 名称

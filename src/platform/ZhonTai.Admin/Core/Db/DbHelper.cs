@@ -47,7 +47,7 @@ public class DbHelper
 
         try
         {
-            Console.WriteLine($"{Environment.NewLine} create database started");
+            Console.WriteLine($"{Environment.NewLine}create database started");
             var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
             if (File.Exists(filePath))
             {
@@ -59,11 +59,11 @@ public class DbHelper
             }
 
             await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
-            Console.WriteLine(" create database succeed");
+            Console.WriteLine("create database succeed");
         }
         catch (Exception e)
         {
-            Console.WriteLine($" create database failed.\n {e.Message}");
+            Console.WriteLine($"create database failed.\n {e.Message}");
         }
     }
 
@@ -223,7 +223,7 @@ public class DbHelper
     {
         if (e.Sql.NotNull())
         {
-            Console.WriteLine(" sync structure sql:\n" + e.Sql);
+            Console.WriteLine("sync structure sql:\n" + e.Sql);
         }
     }
 
@@ -234,7 +234,7 @@ public class DbHelper
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
-        //Console.WriteLine($"{Environment.NewLine} " + dDL);
+        //Console.WriteLine($"{Environment.NewLine}" + dDL);
 
         //打印结构同步脚本
         if(dbConfig.SyncStructureSql)
@@ -244,7 +244,7 @@ public class DbHelper
 
         // 同步结构
         var dbType = dbConfig.Type.ToString();
-        Console.WriteLine($"{Environment.NewLine} {(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+        Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
         if (dbConfig.Type == DataType.Oracle)
         {
@@ -260,7 +260,7 @@ public class DbHelper
             db.Aop.SyncStructureAfter -= SyncStructureAfter;
         }
 
-        Console.WriteLine($" {(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
+        Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
     }
 
     private static void SyncDataCurdBefore(object? s, CurdBeforeEventArgs e)
@@ -357,7 +357,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine($"{Environment.NewLine} sync data started");
+            Console.WriteLine($"{Environment.NewLine}sync data started");
 
             if (dbConfig.AssemblyNames?.Length > 0)
             {
@@ -387,11 +387,11 @@ public class DbHelper
                 db.Aop.AuditValue -= SyncDataAuditValue;
             }
 
-            Console.WriteLine($" sync data succeed{Environment.NewLine}");
+            Console.WriteLine($"sync data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
-            throw new Exception($" sync data failed.\n{ex.Message}");
+            throw new Exception($"sync data failed.\n{ex.Message}");
         }
     }
 
@@ -407,7 +407,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine($"{Environment.NewLine} generate data started");
+            Console.WriteLine($"{Environment.NewLine}generate data started");
 
             if (dbConfig.AssemblyNames?.Length > 0)
             {
@@ -423,11 +423,11 @@ public class DbHelper
                 }
             }
 
-            Console.WriteLine($" generate data succeed{Environment.NewLine}");
+            Console.WriteLine($"generate data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
-            throw new Exception($" generate data failed。\n{ex.Message}{Environment.NewLine}");
+            throw new Exception($"generate data failed。\n{ex.Message}{Environment.NewLine}");
         }
     }
 
@@ -494,6 +494,35 @@ public class DbHelper
                 GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
             }
 
+            #region 初始化数据库
+
+            //同步结构
+            if (dbConfig.SyncStructure)
+            {
+                SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
+            }
+
+            #region 审计数据
+
+            //计算服务器时间
+            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            TimeOffset = timeOffset;
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                AuditValue(e, timeOffset, user);
+            };
+
+            #endregion 审计数据
+
+            //同步数据
+            if (dbConfig.SyncData)
+            {
+                SyncDataAsync(fsql, dbConfig, appConfig).Wait();
+            }
+
+            #endregion 初始化数据库
+
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
 
@@ -544,35 +573,6 @@ public class DbHelper
             ConfigEntity(fsql, appConfig, dbConfig);
 
             hostAppOptions?.ConfigureFreeSql?.Invoke(fsql, dbConfig);
-
-            #region 初始化数据库
-
-            //同步结构
-            if (dbConfig.SyncStructure)
-            {
-                SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
-            }
-
-            #region 审计数据
-
-            //计算服务器时间
-            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
-            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            TimeOffset = timeOffset;
-            fsql.Aop.AuditValue += (s, e) =>
-            {
-                AuditValue(e, timeOffset, user);
-            };
-
-            #endregion 审计数据
-
-            //同步数据
-            if (dbConfig.SyncData)
-            {
-                SyncDataAsync(fsql, dbConfig, appConfig).Wait();
-            }
-
-            #endregion 初始化数据库
 
             #region 监听Curd操作
 

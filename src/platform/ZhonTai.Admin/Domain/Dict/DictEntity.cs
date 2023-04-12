@@ -8,8 +8,8 @@ namespace ZhonTai.Admin.Domain.Dict;
 /// 数据字典
 /// </summary>
 [Table(Name = "ad_dict", OldName = "ad_dictionary")]
-[Index("idx_{tablename}_01", nameof(DictTypeId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class DictEntity : EntityTenant
+[Index("idx_{tablename}_01", nameof(DictTypeId) + "," + nameof(Name), true)]
+public partial class DictEntity : EntityBase
 {
     /// <summary>
     /// 字典类型Id

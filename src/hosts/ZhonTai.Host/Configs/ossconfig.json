@@ -8,9 +8,9 @@
     "Md5": false,
     //文件最大大小
     "MaxSize": 104857600,
-    //包含文件拓展名
+    //包含文件拓展名列表
     "IncludeExtension": [],
-    //排除文件拓展名
+    //排除文件拓展名列表
     "ExcludeExtension": [ ".exe", ".dll", ".jar" ]
   },
   //文件存储供应商
