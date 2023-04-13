@@ -1057,6 +1057,13 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.GetTableName``1">
+            <summary>
+            获得表名
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.InitDataAsync``1(IFreeSql,System.Data.Common.DbTransaction,``0[],ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化数据表数据
@@ -3582,13 +3589,6 @@
             </summary>
             <typeparam name="TEntity"></typeparam>
         </member>
-        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.GetTableName``1">
-            <summary>
-            获得表名
-            </summary>
-            <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitDictTypeAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化字典类型
@@ -3683,6 +3683,26 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData.UserRoleRecord">
+            <summary>
+            用户角色记录
+            </summary>
+            <param name="UserId"></param>
+            <param name="RoleId"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.UserRoleRecord.#ctor(System.Int64,System.Int64)">
+            <summary>
+            用户角色记录
+            </summary>
+            <param name="UserId"></param>
+            <param name="RoleId"></param>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.UserRoleRecord.UserId">
+            <summary></summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.UserRoleRecord.RoleId">
+            <summary></summary>
+        </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserRoleAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化用户角色
@@ -3692,6 +3712,26 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData.UserOrgRecord">
+            <summary>
+            用户部门记录
+            </summary>
+            <param name="UserId"></param>
+            <param name="OrgId"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.UserOrgRecord.#ctor(System.Int64,System.Int64)">
+            <summary>
+            用户部门记录
+            </summary>
+            <param name="UserId"></param>
+            <param name="OrgId"></param>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.UserOrgRecord.UserId">
+            <summary></summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.UserOrgRecord.OrgId">
+            <summary></summary>
+        </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitUserOrgAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化用户部门
@@ -3700,6 +3740,26 @@
             <param name="unitOfWork"></param>
             <param name="dbConfig"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData.RolePermissionRecord">
+            <summary>
+            角色权限记录
+            </summary>
+            <param name="RoleId"></param>
+            <param name="PermissionId"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.RolePermissionRecord.#ctor(System.Int64,System.Int64)">
+            <summary>
+            角色权限记录
+            </summary>
+            <param name="RoleId"></param>
+            <param name="PermissionId"></param>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.RolePermissionRecord.RoleId">
+            <summary></summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.RolePermissionRecord.PermissionId">
+            <summary></summary>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitRolePermissionAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
@@ -3718,6 +3778,26 @@
             <param name="unitOfWork"></param>
             <param name="dbConfig"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData.TenantPermissionRecord">
+            <summary>
+            租户权限记录
+            </summary>
+            <param name="TenantId"></param>
+            <param name="PermissionId"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.TenantPermissionRecord.#ctor(System.Int64,System.Int64)">
+            <summary>
+            租户权限记录
+            </summary>
+            <param name="TenantId"></param>
+            <param name="PermissionId"></param>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.TenantPermissionRecord.TenantId">
+            <summary></summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Repositories.CustomSyncData.TenantPermissionRecord.PermissionId">
+            <summary></summary>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitTenantPermissionAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>

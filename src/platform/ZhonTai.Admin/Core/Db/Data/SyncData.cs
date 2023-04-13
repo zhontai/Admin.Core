@@ -33,6 +33,36 @@ public abstract class SyncData
     }
 
     /// <summary>
+    /// 获得表名
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    protected static string GetTableName<T>() where T : class, new()
+    {
+        var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;
+        return table.Name;
+    }
+
+    protected static bool IsSyncData(string tableName, DbConfig dbConfig)
+    {
+        var isSyncData = true;
+
+        var hasDataIncludeTables = dbConfig.SyncDataIncludeTables?.Length > 0;
+        if (hasDataIncludeTables && !dbConfig.SyncDataIncludeTables.Contains(tableName))
+        {
+            isSyncData = false;
+        }
+
+        var hasSyncDataExcludeTables = dbConfig.SyncDataExcludeTables?.Length > 0;
+        if (hasSyncDataExcludeTables && dbConfig.SyncDataExcludeTables.Contains(tableName))
+        {
+            isSyncData = false;
+        }
+
+        return isSyncData;
+    }
+
+    /// <summary>
     /// 初始化数据表数据
     /// </summary>
     /// <typeparam name="T"></typeparam>

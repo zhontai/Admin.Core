@@ -18,44 +18,16 @@ using ZhonTai.Admin.Core.Db.Data;
 using ZhonTai.Admin.Domain.UserOrg;
 using System.Linq;
 using ZhonTai.Common.Extensions;
-using FreeSql.DataAnnotations;
 using System;
 using FreeSql;
+using ZhonTai.Admin.Core.Auth;
+using Mapster;
+using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Repositories;
 
 public class CustomSyncData : SyncData, ISyncData
 {
-    /// <summary>
-    /// 获得表名
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    private static string GetTableName<T>() where T : class, new()
-    {
-        var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;
-        return table.Name;
-    }
-
-    private static bool IsSyncData(string tableName, DbConfig dbConfig)
-    {
-        var isSyncData = true;
-
-        var hasDataIncludeTables = dbConfig.SyncDataIncludeTables?.Length > 0;
-        if (hasDataIncludeTables && !dbConfig.SyncDataIncludeTables.Contains(tableName))
-        {
-            isSyncData = false;
-        }
-
-        var hasSyncDataExcludeTables = dbConfig.SyncDataExcludeTables?.Length > 0;
-        if (hasSyncDataExcludeTables && dbConfig.SyncDataExcludeTables.Contains(tableName))
-        {
-            isSyncData = false;
-        }
-
-        return isSyncData;
-    }
-
     /// <summary>
     /// 初始化字典类型
     /// </summary>
@@ -160,6 +132,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -217,6 +190,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -274,6 +248,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -332,6 +307,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -389,6 +365,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -446,6 +423,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -503,6 +481,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -560,6 +539,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -599,18 +579,15 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //查询
-            var permissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var apiIds = dataList.Select(a => a.ApiId).ToList();
-            var records = await rep.Where(a => permissionIds.Contains(a.PermissionId) && apiIds.Contains(a.ApiId)).ToListAsync();
+            var recordList = await rep.Where(a => rep.Select.WithMemory(dataList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
 
             //新增
-            var recordPermissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var recordApiIds = dataList.Select(a => a.ApiId).ToList();
-            var insertDataList = dataList.Where(a => !(recordPermissionIds.Contains(a.PermissionId) && recordApiIds.Contains(a.ApiId)));
+            var insertDataList = dataList.Where(a => !recordList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any()).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -619,6 +596,13 @@ public class CustomSyncData : SyncData, ISyncData
             throw;
         }
     }
+
+    /// <summary>
+    /// 用户角色记录
+    /// </summary>
+    /// <param name="UserId"></param>
+    /// <param name="RoleId"></param>
+    record UserRoleRecord(long UserId, long RoleId);
 
     /// <summary>
     /// 初始化用户角色
@@ -650,18 +634,16 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //查询
-            var userIds = dataList.Select(a => a.UserId).ToList();
-            var roleIds = dataList.Select(a => a.RoleId).ToList();
-            var records = await rep.Where(a => userIds.Contains(a.UserId) && roleIds.Contains(a.RoleId)).ToListAsync();
+            var userRoleRecordList = dataList.Adapt<List<UserRoleRecord>>();
+            var recordList = await rep.Where(a => rep.Orm.Select<UserRoleRecord>().WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
 
             //新增
-            var recordUserIds = dataList.Select(a => a.UserId).ToList();
-            var recordRoleIds = dataList.Select(a => a.RoleId).ToList();
-            var insertDataList = dataList.Where(a => !(recordUserIds.Contains(a.UserId) && recordRoleIds.Contains(a.RoleId)));
+            var insertDataList = dataList.Where(a => !recordList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any()).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -670,6 +652,13 @@ public class CustomSyncData : SyncData, ISyncData
             throw;
         }
     }
+
+    /// <summary>
+    /// 用户部门记录
+    /// </summary>
+    /// <param name="UserId"></param>
+    /// <param name="OrgId"></param>
+    record UserOrgRecord(long UserId, long OrgId);
 
     /// <summary>
     /// 初始化用户部门
@@ -701,18 +690,16 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //查询
-            var userIds = dataList.Select(a => a.UserId).ToList();
-            var orgIds = dataList.Select(a => a.OrgId).ToList();
-            var records = await rep.Where(a => userIds.Contains(a.UserId) && orgIds.Contains(a.OrgId)).ToListAsync();
+            var userOrgRecordList = dataList.Adapt<List<UserOrgRecord>>();
+            var recordList = await rep.Where(a => rep.Orm.Select<UserOrgRecord>().WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
 
             //新增
-            var recordUserIds = dataList.Select(a => a.UserId).ToList();
-            var recordOrgIds = dataList.Select(a => a.OrgId).ToList();
-            var insertDataList = dataList.Where(a => !(recordUserIds.Contains(a.UserId) && recordOrgIds.Contains(a.OrgId)));
+            var insertDataList = dataList.Where(a => !recordList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any()).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -721,6 +708,13 @@ public class CustomSyncData : SyncData, ISyncData
             throw;
         }
     }
+
+    /// <summary>
+    /// 角色权限记录
+    /// </summary>
+    /// <param name="RoleId"></param>
+    /// <param name="PermissionId"></param>
+    record RolePermissionRecord(long RoleId, long PermissionId);
 
     /// <summary>
     /// 初始化角色权限
@@ -752,18 +746,16 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //查询
-            var roleIds = dataList.Select(a => a.RoleId).ToList();
-            var permissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var records = await rep.Where(a => roleIds.Contains(a.RoleId) && permissionIds.Contains(a.PermissionId)).ToListAsync();
+            var rolePermissionRecordList = dataList.Adapt<List<RolePermissionRecord>>();
+            var recordList = await rep.Where(a => rep.Orm.Select<RolePermissionRecord>().WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var recordRoleIds = dataList.Select(a => a.RoleId).ToList();
-            var recordPermissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var insertDataList = dataList.Where(a => !(recordRoleIds.Contains(a.RoleId) && recordPermissionIds.Contains(a.PermissionId)));
+            var insertDataList = dataList.Where(a => !recordList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any()).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -820,6 +812,7 @@ public class CustomSyncData : SyncData, ISyncData
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
@@ -828,6 +821,13 @@ public class CustomSyncData : SyncData, ISyncData
             throw;
         }
     }
+
+    /// <summary>
+    /// 租户权限记录
+    /// </summary>
+    /// <param name="TenantId"></param>
+    /// <param name="PermissionId"></param>
+    record TenantPermissionRecord(long TenantId, long PermissionId);
 
     /// <summary>
     /// 初始化租户权限
@@ -859,18 +859,16 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //查询
-            var tenantIds = dataList.Select(a => a.TenantId).ToList();
-            var permissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var records = await rep.Where(a => tenantIds.Contains(a.TenantId) && permissionIds.Contains(a.PermissionId)).ToListAsync();
+            var tenantPermissionRecordList = dataList.Adapt<List<TenantPermissionRecord>>();
+            var recordList = await rep.Where(a => rep.Orm.Select<TenantPermissionRecord>().WithMemory(tenantPermissionRecordList).Where(b => b.TenantId == a.TenantId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var recordTenantIds = dataList.Select(a => a.TenantId).ToList();
-            var recordPermissionIds = dataList.Select(a => a.PermissionId).ToList();
-            var insertDataList = dataList.Where(a => !(tenantIds.Contains(a.TenantId) && recordPermissionIds.Contains(a.PermissionId)));
+            var insertDataList = dataList.Where(a => !recordList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any()).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
+
             Console.WriteLine($"table: {tableName} sync data succeed");
         }
         catch (Exception ex)
