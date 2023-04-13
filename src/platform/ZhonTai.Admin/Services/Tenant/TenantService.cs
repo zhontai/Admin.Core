@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Services.Pkg;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -403,6 +405,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                 }).ToList();
 
                 await _tenantPkgRepository.InsertAsync(pkgs);
+
+                //清除租户下所有用户权限缓存
+                await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { tenant.Id });
             }
         }
     }
@@ -449,6 +454,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
             //删除租户
             await _tenantRepository.DeleteAsync(id);
+
+            //清除租户下所有用户权限缓存
+            await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { id });
         }
     }
 
@@ -479,6 +487,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
             //删除租户
             var result = await _tenantRepository.SoftDeleteAsync(id);
+
+            //清除租户下所有用户权限缓存
+            await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { id });
         }
     }
 
@@ -509,6 +520,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
             //删除租户
             var result = await _tenantRepository.SoftDeleteAsync(ids);
+
+            //清除租户下所有用户权限缓存
+            await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(ids.ToList());
         }
     }
 

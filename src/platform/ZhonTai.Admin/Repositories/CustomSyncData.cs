@@ -70,7 +70,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -80,8 +80,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -127,7 +128,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -137,8 +138,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -185,7 +187,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -195,8 +197,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -243,7 +246,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -253,8 +256,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -302,7 +306,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -312,8 +316,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -360,7 +365,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -370,8 +375,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -418,7 +424,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -428,8 +434,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -476,7 +483,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -486,8 +493,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -534,7 +542,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -544,8 +552,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -582,7 +591,7 @@ public class CustomSyncData : SyncData, ISyncData
             var recordList = await rep.Where(a => rep.Select.WithMemory(dataList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !recordList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any()).ToList();
+            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -592,8 +601,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -638,7 +648,7 @@ public class CustomSyncData : SyncData, ISyncData
             var recordList = await rep.Where(a => rep.Orm.Select<UserRoleRecord>().WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !recordList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any()).ToList();
+            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -648,8 +658,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -694,7 +705,7 @@ public class CustomSyncData : SyncData, ISyncData
             var recordList = await rep.Where(a => rep.Orm.Select<UserOrgRecord>().WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !recordList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any()).ToList();
+            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -704,8 +715,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -750,7 +762,7 @@ public class CustomSyncData : SyncData, ISyncData
             var recordList = await rep.Where(a => rep.Orm.Select<RolePermissionRecord>().WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !recordList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any()).ToList();
+            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -760,8 +772,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -807,7 +820,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (recordList?.Count > 0)
+            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -817,8 +830,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -863,7 +877,7 @@ public class CustomSyncData : SyncData, ISyncData
             var recordList = await rep.Where(a => rep.Orm.Select<TenantPermissionRecord>().WithMemory(tenantPermissionRecordList).Where(b => b.TenantId == a.TenantId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !recordList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any()).ToList();
+            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -873,8 +887,9 @@ public class CustomSyncData : SyncData, ISyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 
@@ -894,33 +909,19 @@ public class CustomSyncData : SyncData, ISyncData
             var isTenant = appConfig.Tenant;
 
             await InitDictTypeAsync(db, unitOfWork, dbConfig);
-
             await InitDictAsync(db, unitOfWork, dbConfig);
-
             await InitUserAsync(db, unitOfWork, dbConfig, isTenant);
-
             await InitUserStaffAsync(db, unitOfWork, dbConfig, isTenant);
-
             await InitOrgAsync(db, unitOfWork, dbConfig, isTenant);
-
             await InitRoleAsync(db, unitOfWork, dbConfig, isTenant);
-
             await InitApiAsync(db, unitOfWork, dbConfig);
-
             await InitViewAsync(db, unitOfWork, dbConfig);
-
             await InitPermissionAsync(db, unitOfWork, dbConfig);
-
             await InitPermissionApiAsync(db, unitOfWork, dbConfig);
-
             await InitUserRoleAsync(db, unitOfWork, dbConfig);
-
             await InitUserOrgAsync(db, unitOfWork, dbConfig);
-
             await InitRolePermissionAsync(db, unitOfWork, dbConfig);
-
             await InitTenantAsync(db, unitOfWork, dbConfig);
-
             await InitTenantPermissionAsync(db, unitOfWork, dbConfig);
 
             unitOfWork.Commit();

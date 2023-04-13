@@ -104,8 +104,9 @@ public abstract class SyncData
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"table: {tableName} sync data failed.\n{ex.Message}");
-            throw;
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
         }
     }
 

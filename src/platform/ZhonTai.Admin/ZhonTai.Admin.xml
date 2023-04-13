@@ -6353,6 +6353,12 @@
             套餐服务
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.ClearUserPermissionsAsync(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            清除租户下所有用户权限缓存
+            </summary>
+            <param name="tenantIds"></param>
+        </member>
         <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetAsync(System.Int64)">
             <summary>
             查询
@@ -6388,7 +6394,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgPermissionList(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Pkg.PkgService.GetPkgPermissionListAsync(System.Int64)">
             <summary>
             查询套餐权限列表
             </summary>
