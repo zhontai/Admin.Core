@@ -6069,20 +6069,20 @@
             <param name="end"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetPermissionList">
+        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetPermissionListAsync">
             <summary>
             查询授权权限列表
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetRolePermissionList(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetRolePermissionListAsync(System.Int64)">
             <summary>
             查询角色权限列表
             </summary>
             <param name="roleId"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetTenantPermissionList(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Permission.PermissionService.GetTenantPermissionListAsync(System.Int64)">
             <summary>
             查询租户权限列表
             </summary>

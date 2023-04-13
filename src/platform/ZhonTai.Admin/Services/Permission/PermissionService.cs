@@ -143,7 +143,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// 查询授权权限列表
     /// </summary>
     /// <returns></returns>
-    public async Task<IEnumerable<dynamic>> GetPermissionList()
+    public async Task<IEnumerable<dynamic>> GetPermissionListAsync()
     {
         var permissions = await _permissionRepository.Select
             .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant, a =>
@@ -177,7 +177,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="roleId"></param>
     /// <returns></returns>
-    public async Task<List<long>> GetRolePermissionList(long roleId = 0)
+    public async Task<List<long>> GetRolePermissionListAsync(long roleId = 0)
     {
         var permissionIds = await _rolePermissionRepository
             .Select.Where(d => d.RoleId == roleId)
