@@ -39,6 +39,11 @@
             禁用操作日志
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.NotGenAttribute">
+            <summary>
+            不生成特性
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.SingleInstanceAttribute">
             <summary>
             单例注入

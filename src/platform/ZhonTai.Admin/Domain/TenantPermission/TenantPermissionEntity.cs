@@ -2,6 +2,7 @@
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Permission;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.TenantPermission;
 
@@ -20,15 +21,17 @@ public class TenantPermissionEntity : EntityAdd
     /// <summary>
     /// 权限Id
     /// </summary>
-		public long PermissionId { get; set; }
+	public long PermissionId { get; set; }
 
     /// <summary>
     /// 租户
     /// </summary>
+    [NotGen]
     public TenantEntity Tenant { get; set; }
 
     /// <summary>
     /// 权限
     /// </summary>
+    [NotGen]
     public PermissionEntity Permission { get; set; }
 }

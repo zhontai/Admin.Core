@@ -6,6 +6,7 @@ using ZhonTai.Admin.Domain.Org;
 using System.Collections.Generic;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.Pkg;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Tenant;
 
@@ -23,6 +24,7 @@ public partial class TenantEntity : EntityBase
     /// <summary>
     /// 用户
     /// </summary>
+    [NotGen]
     public UserEntity User { get; set; }
 
     /// <summary>
@@ -33,6 +35,7 @@ public partial class TenantEntity : EntityBase
     /// <summary>
     /// 部门
     /// </summary>
+    [NotGen]
     public OrgEntity Org { get; set; }
 
     /// <summary>
@@ -72,6 +75,7 @@ public partial class TenantEntity : EntityBase
     /// <summary>
     /// 套餐列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(TenantPkgEntity))]
     public ICollection<PkgEntity> Pkgs { get; set; }
 }

@@ -5,6 +5,7 @@ using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserOrg;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Org;
 
@@ -62,18 +63,21 @@ public partial class OrgEntity : EntityTenant
     /// <summary>
     /// 员工列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<UserStaffEntity> Staffs { get; set; }
 
     /// <summary>
     /// 用户列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<UserEntity> Users { get; set; }
 
     /// <summary>
     /// 角色列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(RoleOrgEntity))]
     public ICollection<RoleEntity> Roles { get; set; }
 

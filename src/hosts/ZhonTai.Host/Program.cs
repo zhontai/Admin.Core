@@ -18,21 +18,21 @@ new HostApp(new HostAppOptions
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-        if(dbConfig.Key == DbKeys.AppDb)
-        {
-            freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
-            {
-                fsql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                });
-            });
-        }
+        //if(dbConfig.Key == DbKeys.AppDb)
+        //{
+        //    freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
+        //    {
+        //        fsql.CodeFirst
+        //        .ConfigEntity<TaskInfo>(a =>
+        //        {
+        //            a.Name("app_task");
+        //        })
+        //        .ConfigEntity<TaskLog>(a =>
+        //        {
+        //            a.Name("app_task_log");
+        //        });
+        //    });
+        //}
     },
 
 	//配置后置服务
@@ -66,24 +66,24 @@ new HostApp(new HostAppOptions
         }).AddSubscriberAssembly(assemblies);
 
         //添加任务调度
-        context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
-        {
-            options.ConfigureFreeSql = freeSql =>
-            {
-                freeSql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                });
-            };
+        //context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
+        //{
+        //    options.ConfigureFreeSql = freeSql =>
+        //    {
+        //        freeSql.CodeFirst
+        //        .ConfigEntity<TaskInfo>(a =>
+        //        {
+        //            a.Name("app_task");
+        //        })
+        //        .ConfigEntity<TaskLog>(a =>
+        //        {
+        //            a.Name("app_task_log");
+        //        });
+        //    };
 
-            //模块任务处理器
-            options.TaskHandler = new CloudTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
-        });
+        //    //模块任务处理器
+        //    options.TaskHandler = new CloudTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
+        //});
     },
 
     //配置Autofac容器

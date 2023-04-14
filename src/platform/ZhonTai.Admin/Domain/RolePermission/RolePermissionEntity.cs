@@ -2,6 +2,7 @@
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.Permission;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.RolePermission;
 
@@ -25,10 +26,12 @@ public class RolePermissionEntity : EntityAdd
     /// <summary>
     /// 角色
     /// </summary>
+    [NotGen]
     public RoleEntity Role { get; set; }
 
     /// <summary>
     /// 权限
     /// </summary>
+    [NotGen]
     public PermissionEntity Permission { get; set; }
 }

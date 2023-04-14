@@ -32,14 +32,13 @@
             "sort": 56,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168116805,
@@ -52,14 +51,13 @@
             "sort": 57,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168116806,
@@ -72,14 +70,13 @@
             "sort": 58,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168120901,
@@ -92,14 +89,13 @@
             "sort": 59,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168120902,
@@ -112,14 +108,13 @@
             "sort": 60,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168120903,
@@ -132,14 +127,13 @@
             "sort": 63,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168124997,
@@ -152,14 +146,13 @@
             "sort": 64,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168124998,
@@ -172,14 +165,13 @@
             "sort": 65,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651914309,
@@ -192,14 +184,13 @@
             "sort": 61,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 372400615755845,
@@ -212,24 +203,22 @@
             "sort": 62,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719493,
@@ -253,14 +242,13 @@
             "sort": 175,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168133189,
@@ -273,14 +261,13 @@
             "sort": 180,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168133190,
@@ -293,14 +280,13 @@
             "sort": 182,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651922501,
@@ -313,14 +299,13 @@
             "sort": 179,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 394672333692998,
@@ -333,14 +318,13 @@
             "sort": 176,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 394672333692999,
@@ -353,14 +337,13 @@
             "sort": 177,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 394672333697093,
@@ -373,14 +356,13 @@
             "sort": 178,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 399372669796424,
@@ -393,14 +375,13 @@
             "sort": 181,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 399372669796425,
@@ -413,24 +394,22 @@
             "sort": 183,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719494,
@@ -454,14 +433,13 @@
             "sort": 85,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168137286,
@@ -474,14 +452,13 @@
             "sort": 86,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168137287,
@@ -494,14 +471,13 @@
             "sort": 89,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168141381,
@@ -514,14 +490,13 @@
             "sort": 90,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168141382,
@@ -534,14 +509,13 @@
             "sort": 93,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 184100551516229,
@@ -554,14 +528,13 @@
             "sort": 94,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651922504,
@@ -574,14 +547,13 @@
             "sort": 91,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 372390893649989,
@@ -594,14 +566,13 @@
             "sort": 92,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402196463136837,
@@ -614,14 +585,13 @@
             "sort": 87,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164910149,
@@ -634,24 +604,22 @@
             "sort": 88,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719495,
@@ -675,14 +643,13 @@
             "sort": 122,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168145477,
@@ -695,14 +662,13 @@
             "sort": 118,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168145478,
@@ -715,14 +681,13 @@
             "sort": 119,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168149573,
@@ -735,14 +700,13 @@
             "sort": 120,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168149574,
@@ -755,14 +719,13 @@
             "sort": 123,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168149575,
@@ -775,14 +738,13 @@
             "sort": 124,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168153669,
@@ -795,14 +757,13 @@
             "sort": 126,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168153670,
@@ -815,14 +776,13 @@
             "sort": 127,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168153671,
@@ -835,14 +795,13 @@
             "sort": 128,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168157765,
@@ -855,14 +814,13 @@
             "sort": 130,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168157766,
@@ -875,14 +833,13 @@
             "sort": 131,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168161861,
@@ -895,14 +852,13 @@
             "sort": 132,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168161862,
@@ -915,14 +871,13 @@
             "sort": 135,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168165957,
@@ -935,14 +890,13 @@
             "sort": 136,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168165958,
@@ -955,14 +909,13 @@
             "sort": 121,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168165959,
@@ -975,14 +928,13 @@
             "sort": 129,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168170053,
@@ -995,14 +947,13 @@
             "sort": 133,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 170317848645701,
@@ -1015,14 +966,13 @@
             "sort": 125,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 170317848662085,
@@ -1035,14 +985,13 @@
             "sort": 137,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 187384805367877,
@@ -1055,24 +1004,22 @@
             "sort": 134,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719496,
@@ -1096,14 +1043,13 @@
             "sort": 144,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168170055,
@@ -1116,14 +1062,13 @@
             "sort": 146,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168174149,
@@ -1136,14 +1081,13 @@
             "sort": 150,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168178245,
@@ -1156,14 +1100,13 @@
             "sort": 151,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168178246,
@@ -1176,14 +1119,13 @@
             "sort": 154,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168182341,
@@ -1196,14 +1138,13 @@
             "sort": 155,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926604,
@@ -1216,14 +1157,13 @@
             "sort": 152,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241422917,
@@ -1236,14 +1176,13 @@
             "sort": 145,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241422918,
@@ -1256,14 +1195,13 @@
             "sort": 147,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241422919,
@@ -1276,14 +1214,13 @@
             "sort": 148,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241422920,
@@ -1296,14 +1233,13 @@
             "sort": 149,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241422921,
@@ -1316,14 +1252,13 @@
             "sort": 153,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 361090412425285,
@@ -1336,24 +1271,22 @@
             "sort": 156,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719497,
@@ -1377,14 +1310,13 @@
             "sort": 159,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168182343,
@@ -1397,14 +1329,13 @@
             "sort": 157,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168186437,
@@ -1417,14 +1348,13 @@
             "sort": 158,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168186438,
@@ -1437,14 +1367,13 @@
             "sort": 161,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168190533,
@@ -1457,14 +1386,13 @@
             "sort": 162,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168190534,
@@ -1477,14 +1405,13 @@
             "sort": 172,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168190535,
@@ -1497,14 +1424,13 @@
             "sort": 173,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168194629,
@@ -1517,14 +1443,13 @@
             "sort": 166,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168194630,
@@ -1537,14 +1462,13 @@
             "sort": 165,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168194631,
@@ -1557,14 +1481,13 @@
             "sort": 174,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926606,
@@ -1577,14 +1500,13 @@
             "sort": 160,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926607,
@@ -1597,14 +1519,13 @@
             "sort": 170,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241427019,
@@ -1617,14 +1538,13 @@
             "sort": 171,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 349749396615237,
@@ -1637,14 +1557,13 @@
             "sort": 167,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 349749396619333,
@@ -1657,14 +1576,13 @@
             "sort": 168,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 361090412441669,
@@ -1677,14 +1595,13 @@
             "sort": 163,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 361090412441670,
@@ -1697,14 +1614,13 @@
             "sort": 164,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 394672333692997,
@@ -1717,24 +1633,22 @@
             "sort": 169,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167719498,
@@ -1758,14 +1672,13 @@
             "sort": 47,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168198726,
@@ -1778,14 +1691,13 @@
             "sort": 48,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168202822,
@@ -1798,14 +1710,13 @@
             "sort": 49,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168202823,
@@ -1818,14 +1729,13 @@
             "sort": 50,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168206917,
@@ -1838,14 +1748,13 @@
             "sort": 53,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168206918,
@@ -1858,14 +1767,13 @@
             "sort": 54,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168206919,
@@ -1878,14 +1786,13 @@
             "sort": 55,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926608,
@@ -1898,14 +1805,13 @@
             "sort": 51,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 372401403850821,
@@ -1918,24 +1824,22 @@
             "sort": 52,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167723589,
@@ -1959,14 +1863,13 @@
             "sort": 66,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168211014,
@@ -1979,24 +1882,22 @@
             "sort": 67,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167723590,
@@ -2020,14 +1921,13 @@
             "sort": 25,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926601,
@@ -2040,24 +1940,22 @@
             "sort": 26,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167723591,
@@ -2081,14 +1979,13 @@
             "sort": 23,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926602,
@@ -2101,24 +1998,22 @@
             "sort": 24,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167723592,
@@ -2142,14 +2037,13 @@
             "sort": 30,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168219205,
@@ -2162,14 +2056,13 @@
             "sort": 27,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168219206,
@@ -2182,14 +2075,13 @@
             "sort": 28,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168223301,
@@ -2202,14 +2094,13 @@
             "sort": 41,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168223302,
@@ -2222,14 +2113,13 @@
             "sort": 32,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168227397,
@@ -2242,14 +2132,13 @@
             "sort": 33,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168227398,
@@ -2262,14 +2151,13 @@
             "sort": 35,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168231493,
@@ -2282,14 +2170,13 @@
             "sort": 36,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168231494,
@@ -2302,14 +2189,13 @@
             "sort": 40,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168235589,
@@ -2322,14 +2208,13 @@
             "sort": 29,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168235590,
@@ -2342,14 +2227,13 @@
             "sort": 37,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168235591,
@@ -2362,14 +2246,13 @@
             "sort": 42,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168239685,
@@ -2382,14 +2265,13 @@
             "sort": 31,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168239686,
@@ -2402,14 +2284,13 @@
             "sort": 39,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926599,
@@ -2422,14 +2303,13 @@
             "sort": 34,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926600,
@@ -2442,24 +2322,22 @@
             "sort": 38,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 161227167723593,
@@ -2483,14 +2361,13 @@
             "sort": 110,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168243782,
@@ -2503,14 +2380,13 @@
             "sort": 111,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168243783,
@@ -2523,14 +2399,13 @@
             "sort": 112,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168247877,
@@ -2543,14 +2418,13 @@
             "sort": 113,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168247878,
@@ -2563,14 +2437,13 @@
             "sort": 115,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 161227168251973,
@@ -2583,14 +2456,13 @@
             "sort": 116,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 163579785756741,
@@ -2603,14 +2475,13 @@
             "sort": 114,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 394672333688901,
@@ -2623,24 +2494,22 @@
             "sort": 117,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 174219034718277,
@@ -2664,14 +2533,13 @@
             "sort": 138,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034734674,
@@ -2684,14 +2552,13 @@
             "sort": 140,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034738757,
@@ -2704,14 +2571,13 @@
             "sort": 141,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034738758,
@@ -2724,14 +2590,13 @@
             "sort": 143,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 188049296683077,
@@ -2744,14 +2609,13 @@
             "sort": 139,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 342274923528261,
@@ -2764,24 +2628,22 @@
             "sort": 142,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 174219034718279,
@@ -2805,14 +2667,13 @@
             "sort": 77,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034734662,
@@ -2825,14 +2686,13 @@
             "sort": 78,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034734663,
@@ -2845,14 +2705,13 @@
             "sort": 79,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034734664,
@@ -2865,14 +2724,13 @@
             "sort": 80,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 174219034734665,
@@ -2885,14 +2743,13 @@
             "sort": 83,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 184100551532613,
@@ -2905,14 +2762,13 @@
             "sort": 84,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 271618651926597,
@@ -2925,14 +2781,13 @@
             "sort": 81,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 372390893666373,
@@ -2945,24 +2800,22 @@
             "sort": 82,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 336555241189445,
@@ -2986,24 +2839,22 @@
             "sort": 68,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 336555241193541,
@@ -3027,14 +2878,13 @@
             "sort": 69,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241427013,
@@ -3047,14 +2897,13 @@
             "sort": 70,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241427014,
@@ -3067,14 +2916,13 @@
             "sort": 71,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241427015,
@@ -3087,14 +2935,13 @@
             "sort": 72,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 336555241427016,
@@ -3107,14 +2954,13 @@
             "sort": 76,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 343342310699077,
@@ -3127,14 +2973,13 @@
             "sort": 73,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 343342310703173,
@@ -3147,14 +2992,13 @@
             "sort": 74,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 343342310703174,
@@ -3167,24 +3011,22 @@
             "sort": 75,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 371292589752389,
@@ -3208,14 +3050,13 @@
             "sort": 43,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 371678435708997,
@@ -3228,14 +3069,13 @@
             "sort": 45,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 371678435725381,
@@ -3248,14 +3088,13 @@
             "sort": 46,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 372031353708613,
@@ -3268,24 +3107,22 @@
             "sort": 44,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 399372669788229,
@@ -3309,14 +3146,13 @@
             "sort": 20,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 399372669796422,
@@ -3329,14 +3165,13 @@
             "sort": 21,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 399372669796423,
@@ -3349,24 +3184,22 @@
             "sort": 22,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       },
       {
         "id": 402830164901957,
@@ -3390,14 +3223,13 @@
             "sort": 95,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164910151,
@@ -3410,14 +3242,13 @@
             "sort": 96,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164910152,
@@ -3430,14 +3261,13 @@
             "sort": 97,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914245,
@@ -3450,14 +3280,13 @@
             "sort": 98,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914246,
@@ -3470,14 +3299,13 @@
             "sort": 100,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914247,
@@ -3490,14 +3318,13 @@
             "sort": 101,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914248,
@@ -3510,14 +3337,13 @@
             "sort": 102,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914249,
@@ -3530,14 +3356,13 @@
             "sort": 103,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914250,
@@ -3550,14 +3375,13 @@
             "sort": 104,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914251,
@@ -3570,14 +3394,13 @@
             "sort": 105,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914252,
@@ -3590,14 +3413,13 @@
             "sort": 106,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914253,
@@ -3610,14 +3432,13 @@
             "sort": 107,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914254,
@@ -3630,14 +3451,13 @@
             "sort": 108,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 402830164914255,
@@ -3650,14 +3470,13 @@
             "sort": 109,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:47"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           },
           {
             "id": 403173446250565,
@@ -3670,33 +3489,30 @@
             "sort": 99,
             "enabled": true,
             "childs": null,
-            "permissions": null,
             "isDeleted": false,
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedTime": "2023-04-04T16:16:59",
             "createdUserId": 161223411986501,
             "createdUserName": "admin",
-            "createdTime": "2023-04-04T16:16:59"
+            "createdTime": "2023-04-13T15:13:43",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedTime": null
           }
         ],
-        "permissions": null,
         "isDeleted": false,
-        "modifiedUserId": 161223411986501,
-        "modifiedUserName": "admin",
-        "modifiedTime": "2023-04-04T16:16:59",
         "createdUserId": 161223411986501,
         "createdUserName": "admin",
-        "createdTime": "2023-04-04T16:16:47"
+        "createdTime": "2023-04-13T15:13:43",
+        "modifiedUserId": null,
+        "modifiedUserName": null,
+        "modifiedTime": null
       }
     ],
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": 161223411986501,
-    "modifiedUserName": "admin",
-    "modifiedTime": "2023-04-04T16:16:59",
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   }
 ]

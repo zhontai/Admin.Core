@@ -1,6 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.DictType;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Dict;
 
@@ -20,6 +21,7 @@ public partial class DictEntity : EntityBase
     /// <summary>
     /// 字典类型
     /// </summary>
+    [NotGen]
     public DictTypeEntity DictType { get; set; }
 
     /// <summary>

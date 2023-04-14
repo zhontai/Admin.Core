@@ -21,6 +21,9 @@ using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
 using ZhonTai.Admin.Domain.UserOrg;
+using System.Reflection;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Helpers;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -78,15 +81,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #region 权限
 
-        var permissions = db.Queryable<PermissionEntity>().ToListIgnore(a => new
-        {
-            a.CreatedTime,
-            a.CreatedUserId,
-            a.CreatedUserName,
-            a.ModifiedTime,
-            a.ModifiedUserId,
-            a.ModifiedUserName
-        });
+        var permissions = await db.Queryable<PermissionEntity>().ToListAsync();
         var permissionTree = permissions.Clone().ToTree((r, c) =>
         {
             return c.ParentId == 0;
@@ -182,14 +177,10 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         var isTenant = appConfig.Tenant;
 
-        SaveDataToJsonFile<UserEntity>(users, isTenant);
-        SaveDataToJsonFile<RoleEntity>(roles, isTenant);
-        SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
-        SaveDataToJsonFile<UserStaffEntity>(staffs, isTenant);
         if (isTenant)
         {
             var tenantIds = tenants?.Select(a => a.Id)?.ToList();
-            SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)), false);
+            SaveDataToJsonFile<UserEntity>(users.Where(a => tenantIds.Contains(a.TenantId.Value)));
             SaveDataToJsonFile<RoleEntity>(roles.Where(a => tenantIds.Contains(a.TenantId.Value)));
             orgTree = orgs.Clone().Where(a => tenantIds.Contains(a.TenantId.Value)).ToList().ToTree((r, c) =>
             {
@@ -207,6 +198,12 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<OrgEntity>(orgTree);
             SaveDataToJsonFile<UserStaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
+
+        SaveDataToJsonFile<UserEntity>(users, isTenant);
+        SaveDataToJsonFile<RoleEntity>(roles, isTenant);
+        SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
+        SaveDataToJsonFile<UserStaffEntity>(staffs, isTenant);
+        
         SaveDataToJsonFile<DictEntity>(dictionaries);
         SaveDataToJsonFile<DictTypeEntity>(dictionaryTypes);
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
@@ -217,7 +214,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<PermissionApiEntity>(permissionApis);
         SaveDataToJsonFile<RolePermissionEntity>(rolePermissions);
         SaveDataToJsonFile<TenantEntity>(tenants);
-        SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions, propsContractResolver: new PropsContractResolver());
+        SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions);
         #endregion
     }
 }

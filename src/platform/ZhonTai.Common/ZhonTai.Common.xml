@@ -448,6 +448,11 @@
             <param name="hex"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Common.Helpers.EntityHelper">
+            <summary>
+            实体帮助类
+            </summary>
+        </member>
         <member name="M:ZhonTai.Common.Helpers.FileHelper.WriteFile(System.String,System.String)">
             <summary>
             写文件
@@ -477,6 +482,11 @@
             <param name="Path">文件路径</param>
             <param name="encode">编码格式</param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.InterfaceHelper">
+            <summary>
+            接口帮助类
+            </summary>
         </member>
         <member name="M:ZhonTai.Common.Helpers.IPHelper.IsIP(System.String)">
             <summary>
