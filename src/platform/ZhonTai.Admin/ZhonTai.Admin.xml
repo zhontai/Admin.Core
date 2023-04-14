@@ -680,6 +680,11 @@
             同步数据排除表列表
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncDataUser">
+            <summary>
+            同步数据操作用户
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDb">
             <summary>
             建库
@@ -733,6 +738,26 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SlaveDb.ConnectionString">
             <summary>
             数据库连接字符串
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.SyncDataUser">
+            <summary>
+            同步数据操作用户
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.TenantId">
+            <summary>
+            租户Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
@@ -1119,13 +1144,6 @@
             <summary>
             同步结构
             </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncDataAuditValue(System.Object,FreeSql.Aop.AuditValueEventArgs)">
-            <summary>
-            同步数据审计方法
-            </summary>
-            <param name="s"></param>
-            <param name="e"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>

@@ -43,6 +43,12 @@
   //同步排除表["ad_user"]
   //同步数据排除表，指定表不同步
   "syncDataExcludeTables": [],
+  //同步数据操作用户
+  "syncDataUser": {
+    "id": 161223411986501,
+    "userName": "admin",
+    "tenantId": 161223412138053
+  },
 
   //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
   //开启生成数据前先关闭createDb syncStructure syncData sysUpdateData

@@ -20,7 +20,6 @@ using System.Linq;
 using ZhonTai.Common.Extensions;
 using System;
 using FreeSql;
-using ZhonTai.Admin.Core.Auth;
 using Mapster;
 using System.Collections.Generic;
 
@@ -70,7 +69,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -128,7 +127,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -187,7 +186,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -246,7 +245,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -306,7 +305,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -365,7 +364,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -424,7 +423,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -483,7 +482,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -542,7 +541,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
@@ -820,7 +819,7 @@ public class CustomSyncData : SyncData, ISyncData
             }
 
             //修改
-            if (!dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
             {
                 var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
                 await rep.UpdateAsync(updateDataList);
