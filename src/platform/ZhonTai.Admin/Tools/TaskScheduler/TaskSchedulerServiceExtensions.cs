@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Tools.TaskScheduler;
 
@@ -33,40 +34,15 @@ public static class TaskSchedulerServiceExtensions
         ServiceProvider = services.BuildServiceProvider();
         var options = new TaskSchedulerOptions()
         {
+            FreeSqlCloud = ServiceProvider.GetService<FreeSqlCloud>(),
             FreeSql = ServiceProvider.GetService<FreeSqlCloud>().Use(dbKey)
         };
         configureOptions?.Invoke(options);
 
         var freeSql = options.FreeSql;
 
-        freeSql.CodeFirst
-        .ConfigEntity<TaskInfo>(a =>
-        {
-            a.Name("ad_task");
-            a.Property(b => b.Id).IsPrimary(true);
-            a.Property(b => b.Body).StringLength(-1);
-            a.Property(b => b.Interval).MapType(typeof(int));
-            a.Property(b => b.IntervalArgument).StringLength(1024);
-            a.Property(b => b.Status).MapType(typeof(int));
-            a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);
-            a.Property(b => b.LastRunTime).ServerTime(DateTimeKind.Local);
-        })
-        .ConfigEntity<TaskLog>(a =>
-        {
-            a.Name("ad_task_log");
-            a.Property(b => b.Exception).StringLength(-1);
-            a.Property(b => b.Remark).StringLength(-1);
-            a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);
-        });
-
-        options.ConfigureFreeSql?.Invoke(freeSql);
-
         var dbConfig = ServiceProvider.GetService<DbConfig>();
-        if (dbConfig.SyncStructure)
-        {
-            freeSql.CodeFirst.SyncStructure<TaskInfo>();
-            freeSql.CodeFirst.SyncStructure<TaskLog>();
-        }
+        freeSql.SyncSchedulerStructure(dbConfig, options.ConfigureFreeSql);
 
         if (options.TaskHandler != null && options.CustomTaskHandler == null)
         {

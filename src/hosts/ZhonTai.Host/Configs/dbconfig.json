@@ -32,10 +32,23 @@
   "syncStructure": true,
   //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
-  //同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先删除对应表的data.json，再执行数据更新操作
+  //同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
   "sysUpdateData": false,
   //同步数据地址
   //"SyncDataPath": "InitData/Admin/Vue2",
+  //同步所有表["ad_dict_type", "ad_dict", "ad_user",  "ad_user_staff", "ad_org", "ad_role", "ad_api", "ad_view", "ad_permission", "ad_permission_api", "ad_user_role", "ad_user_org", "ad_role_permission", "ad_tenant", "ad_tenant_permission"]
+  //同步指定表["ad_api", "ad_view", "ad_permission", "ad_permission_api"]
+  //同步数据包含表，指定表同步，不填同步所有表
+  "syncDataIncludeTables": [],
+  //同步排除表["ad_user"]
+  //同步数据排除表，指定表不同步
+  "syncDataExcludeTables": [],
+  //同步数据操作用户
+  "syncDataUser": {
+    "id": 161223411986501,
+    "userName": "admin",
+    "tenantId": 161223412138053
+  },
 
   //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
   //开启生成数据前先关闭createDb syncStructure syncData sysUpdateData

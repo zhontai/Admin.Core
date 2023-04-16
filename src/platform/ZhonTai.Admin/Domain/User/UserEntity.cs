@@ -8,6 +8,7 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserOrg;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.User;
 
@@ -18,6 +19,7 @@ namespace ZhonTai.Admin.Domain.User;
 [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
 public partial class UserEntity : EntityTenant
 {
+    [NotGen]
     public TenantEntity Tenant { get; set; }
 
     /// <summary>
@@ -64,6 +66,7 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 部门
     /// </summary>
+    [NotGen]
     public OrgEntity Org { get; set; }
 
     /// <summary>
@@ -74,6 +77,7 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 直属主管
     /// </summary>
+    [NotGen]
     public UserEntity ManagerUser { get; set; }
 
     /// <summary>
@@ -108,18 +112,21 @@ public partial class UserEntity : EntityTenant
     /// <summary>
     /// 角色列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<RoleEntity> Roles { get; set; }
 
     /// <summary>
     /// 部门列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(UserOrgEntity))]
     public ICollection<OrgEntity> Orgs { get; set; }
 
     /// <summary>
     /// 员工
     /// </summary>
+    [NotGen]
     [Navigate(nameof(Id))]
     public UserStaffEntity Staff { get; set; }
 }

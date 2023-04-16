@@ -7,6 +7,7 @@ using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Role;
 
@@ -71,18 +72,21 @@ public partial class RoleEntity : EntityTenant
     /// <summary>
     /// 用户列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(UserRoleEntity))]
     public ICollection<UserEntity> Users { get; set; }
 
     /// <summary>
     /// 部门列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(RoleOrgEntity))]
     public ICollection<OrgEntity> Orgs { get; set; }
 
     /// <summary>
     /// 权限列表
     /// </summary>
+    [NotGen]
     [Navigate(ManyToMany = typeof(RolePermissionEntity))]
     public ICollection<PermissionEntity> Permissions { get; set; }
 }

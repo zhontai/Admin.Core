@@ -19,11 +19,11 @@ public partial interface IPermissionService
 
     Task<PermissionGetDotOutput> GetDotAsync(long id);
 
-    Task<IEnumerable<dynamic>> GetPermissionList();
+    Task<IEnumerable<dynamic>> GetPermissionListAsync();
 
-    Task<List<long>> GetRolePermissionList(long roleId);
+    Task<List<long>> GetRolePermissionListAsync(long roleId);
 
-    Task<List<long>> GetTenantPermissionList(long tenantId);
+    Task<List<long>> GetTenantPermissionListAsync(long tenantId);
 
     Task<List<PermissionListOutput>> GetListAsync(string key, DateTime? start, DateTime? end);
 

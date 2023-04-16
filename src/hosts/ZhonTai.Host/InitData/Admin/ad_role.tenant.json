@@ -11,16 +11,13 @@
     "description": "",
     "hidden": false,
     "sort": 1,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   },
   {
     "id": 162605510979653,
@@ -34,16 +31,13 @@
     "description": "",
     "hidden": false,
     "sort": 3,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   },
   {
     "id": 336557474730053,
@@ -57,16 +51,13 @@
     "description": null,
     "hidden": false,
     "sort": 1,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   },
   {
     "id": 336557508276293,
@@ -80,16 +71,13 @@
     "description": null,
     "hidden": false,
     "sort": 2,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   },
   {
     "id": 336557578817605,
@@ -103,16 +91,13 @@
     "description": null,
     "hidden": false,
     "sort": 3,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   },
   {
     "id": 340428577087557,
@@ -126,15 +111,12 @@
     "description": "",
     "hidden": false,
     "sort": 2,
-    "users": null,
-    "orgs": null,
-    "permissions": null,
     "isDeleted": false,
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-04T16:16:47"
+    "createdTime": "2023-04-13T15:13:43",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
   }
 ]

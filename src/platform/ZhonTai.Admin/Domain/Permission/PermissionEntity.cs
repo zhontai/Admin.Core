@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Domain.PermissionApi;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Permission;
 
@@ -45,6 +46,7 @@ public partial class PermissionEntity : EntityBase
     /// <summary>
     /// 视图
     /// </summary>
+    [NotGen]
     public ViewEntity View { get; set; }
 
     /// <summary>
@@ -128,6 +130,7 @@ public partial class PermissionEntity : EntityBase
     /// </summary>
     public bool Enabled { get; set; } = true;
 
+    [NotGen]
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<ApiEntity> Apis { get; set; }
 

@@ -2,6 +2,7 @@
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.UserOrg;
 
@@ -20,6 +21,7 @@ public partial class UserOrgEntity : EntityUpdate
     /// <summary>
     /// 用户
     /// </summary>
+    [NotGen]
     public UserEntity User { get; set; }
 
     /// <summary>
@@ -30,6 +32,7 @@ public partial class UserOrgEntity : EntityUpdate
     /// <summary>
     /// 部门
     /// </summary>
+    [NotGen]
     public OrgEntity Org { get; set; }
 
     /// <summary>

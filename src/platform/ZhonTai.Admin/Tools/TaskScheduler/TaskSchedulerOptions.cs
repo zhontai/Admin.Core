@@ -1,4 +1,5 @@
 ﻿using FreeScheduler;
+using FreeSql;
 using System;
 using ZhonTai.Admin.Core.Consts;
 
@@ -18,6 +19,11 @@ public class TaskSchedulerOptions
     /// 数据库实例
     /// </summary>
     public IFreeSql FreeSql { get; set; }
+
+    /// <summary>
+    /// 多库实例
+    /// </summary>
+    public FreeSqlCloud FreeSqlCloud { get; set; }
 
     /// <summary>
     /// 配置FreeSql

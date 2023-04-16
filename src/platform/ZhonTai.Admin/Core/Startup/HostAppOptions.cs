@@ -3,6 +3,7 @@ using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Yitter.IdGenerator;
+using ZhonTai.Admin.Core.Configs;
 using ZhonTai.DynamicApi;
 
 namespace ZhonTai.Admin.Core.Startup;
@@ -53,14 +54,14 @@ public class HostAppOptions
     public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
 
     /// <summary>
-    /// 配置主库FreeSql构建器
+    /// 配置FreeSql构建器
     /// </summary>
-    public Action<FreeSqlBuilder> ConfigureFreeSqlBuilder { get; set; }
+    public Action<FreeSqlBuilder, DbConfig> ConfigureFreeSqlBuilder { get; set; }
 
     /// <summary>
-    /// 配置主库FreeSql
+    /// 配置FreeSql
     /// </summary>
-    public Action<IFreeSql> ConfigureFreeSql { get; set; }
+    public Action<IFreeSql, DbConfig> ConfigureFreeSql { get; set; }
 
     /// <summary>
     /// 配置动态Api

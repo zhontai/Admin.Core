@@ -31,7 +31,7 @@ public class UploadHelper
     { 
         if (file == null || file.Length < 1)
         {
-            throw ResultOutput.Exception("请上传文件！");
+            throw ResultOutput.Exception("请上传文件");
         }
 
         //格式限制

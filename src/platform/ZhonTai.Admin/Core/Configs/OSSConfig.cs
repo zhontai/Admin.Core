@@ -84,12 +84,12 @@ public class LocalUploadConfig
     public long MaxSize { get; set; } = 104857600;
 
     /// <summary>
-    /// 包含文件拓展名
+    /// 包含文件拓展名列表
     /// </summary>
     public string[] IncludeExtension { get; set; }
 
     /// <summary>
-    /// 排除文件拓展名
+    /// 排除文件拓展名列表
     /// </summary>
     public string[] ExcludeExtension { get; set; }
 }

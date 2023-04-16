@@ -2,6 +2,7 @@
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.Api;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.PermissionApi;
 
@@ -16,10 +17,11 @@ public class PermissionApiEntity : EntityAdd
     /// 权限Id
     /// </summary>
 	public long PermissionId { get; set; }
-    
+
     /// <summary>
     /// 权限
     /// </summary>
+    [NotGen]
     public PermissionEntity Permission { get; set; }
 
     /// <summary>
@@ -30,5 +32,6 @@ public class PermissionApiEntity : EntityAdd
     /// <summary>
     /// 接口
     /// </summary>
+    [NotGen]
     public ApiEntity Api { get; set; }
 }

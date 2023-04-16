@@ -58,6 +58,7 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
+using NLog;
 
 namespace ZhonTai.Admin.Core;
 
@@ -83,79 +84,99 @@ public class HostApp
     /// <param name="args"></param>
     public void Run(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
-
-        //使用NLog日志
-        builder.Host.UseNLog();
-
-        var services = builder.Services;
-        var env = builder.Environment;
-        var configuration = builder.Configuration;
-
-        var configHelper = new ConfigHelper();
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
-
-        //添加配置
-        builder.Configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
-        if (env.EnvironmentName.NotNull())
+        var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+        try
         {
-            builder.Configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            //应用程序启动
+            logger.Info("Application startup");
+
+            var builder = WebApplication.CreateBuilder(args);
+
+            //使用NLog日志
+            builder.Host.UseNLog();
+
+            var services = builder.Services;
+            var env = builder.Environment;
+            var configuration = builder.Configuration;
+
+            var configHelper = new ConfigHelper();
+            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
+
+            //添加配置
+            builder.Configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+            if (env.EnvironmentName.NotNull())
+            {
+                builder.Configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            }
+            builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            if (env.EnvironmentName.NotNull())
+            {
+                builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            }
+
+            var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
+            services.Configure<OSSConfig>(oSSConfigRoot);
+
+            //应用配置
+            services.AddSingleton(appConfig);
+
+            var hostAppContext = new HostAppContext()
+            {
+                Services = services,
+                Environment = env,
+                Configuration = configuration
+            };
+
+            //使用Autofac容器
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            //配置Autofac容器
+            builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+            {
+                // 控制器注入
+                builder.RegisterModule(new ControllerModule());
+
+                // 单例注入
+                builder.RegisterModule(new SingleInstanceModule(appConfig));
+
+                // 模块注入
+                builder.RegisterModule(new RegisterModule(appConfig));
+
+                _hostAppOptions?.ConfigureAutofacContainer?.Invoke(builder, hostAppContext);
+            });
+
+            //配置Kestrel服务器
+            builder.WebHost.ConfigureKestrel((context, options) =>
+            {
+                //设置应用服务器Kestrel请求体最大为100MB
+                options.Limits.MaxRequestBodySize = appConfig.MaxRequestBodySize;
+            });
+
+            //访问地址
+            builder.WebHost.UseUrls(appConfig.Urls);
+
+            //配置服务
+            ConfigureServices(services, env, configuration, configHelper, appConfig);
+
+            var app = builder.Build();
+
+            //配置中间件
+            ConfigureMiddleware(app, env, configuration, appConfig);
+
+            app.Run();
+
+            //应用程序停止
+            logger.Info("Application shutdown");
         }
-        builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-        if (env.EnvironmentName.NotNull())
+        catch (Exception exception)
         {
-            builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            //应用程序异常
+            logger.Error(exception, "Application stopped because of exception");
+            throw;
         }
-
-        var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
-        services.Configure<OSSConfig>(oSSConfigRoot);
-
-        //应用配置
-        services.AddSingleton(appConfig);
-
-        var hostAppContext = new HostAppContext()
+        finally
         {
-            Services = services,
-            Environment = env,
-            Configuration = configuration
-        };
-
-        //使用Autofac容器
-        builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-        //配置Autofac容器
-        builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
-        {
-            // 控制器注入
-            builder.RegisterModule(new ControllerModule());
-
-            // 单例注入
-            builder.RegisterModule(new SingleInstanceModule(appConfig));
-
-            // 模块注入
-            builder.RegisterModule(new RegisterModule(appConfig));
-
-            _hostAppOptions?.ConfigureAutofacContainer?.Invoke(builder, hostAppContext);
-        });
-
-        //配置Kestrel服务器
-        builder.WebHost.ConfigureKestrel((context, options) =>
-        {
-            //设置应用服务器Kestrel请求体最大为100MB
-            options.Limits.MaxRequestBodySize = appConfig.MaxRequestBodySize;
-        });
-
-        //访问地址
-        builder.WebHost.UseUrls(appConfig.Urls);
-
-        //配置服务
-        ConfigureServices(services, env, configuration, configHelper, appConfig);
-
-        var app = builder.Build();
-
-        //配置中间件
-        ConfigureMiddleware(app, env, configuration, appConfig);
-
-        app.Run();
+            LogManager.Shutdown();
+        }
     }
 
     /// <summary>

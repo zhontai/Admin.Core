@@ -69,6 +69,21 @@ public class DbConfig
     public string SyncDataPath { get; set; } = "InitData/Admin";
 
     /// <summary>
+    /// 同步数据包含表列表
+    /// </summary>
+    public string[] SyncDataIncludeTables { get; set; }
+
+    /// <summary>
+    /// 同步数据排除表列表
+    /// </summary>
+    public string[] SyncDataExcludeTables { get; set; }
+
+    /// <summary>
+    /// 同步数据操作用户
+    /// </summary>
+    public SyncDataUser SyncDataUser { get; set; } = new SyncDataUser { Id = 161223411986501, UserName = "admin", TenantId = 161223412138053 };
+
+    /// <summary>
     /// 建库
     /// </summary>
     public bool CreateDb { get; set; } = false;
@@ -123,4 +138,25 @@ public class SlaveDb
     /// 数据库连接字符串
     /// </summary>
     public string ConnectionString { get; set; }
+}
+
+/// <summary>
+/// 同步数据操作用户
+/// </summary>
+public class SyncDataUser
+{
+    /// <summary>
+    /// 用户Id
+    /// </summary>
+    public long Id { get; set; }
+
+    /// <summary>
+    /// 账号
+    /// </summary>
+    public string UserName { get; set; }
+
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    public long TenantId { get; set; }
 }

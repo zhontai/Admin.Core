@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Domain.Api;
 
@@ -62,6 +63,7 @@ public partial class ApiEntity : EntityBase
     [Navigate(nameof(ParentId))]
     public List<ApiEntity> Childs { get; set; }
 
+    [NotGen]
     [Navigate(ManyToMany = typeof(PermissionApiEntity))]
     public ICollection<PermissionEntity> Permissions { get; set; }
 }

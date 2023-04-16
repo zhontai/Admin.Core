@@ -157,9 +157,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                        .Any()
-
                        ||
-
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -218,9 +216,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                        .Any()
-
                        ||
-
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -276,11 +272,19 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                        .Any()
+                       ||
+                       db.Select<TenantPkgEntity, PkgPermissionEntity>()
+                       .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
+                       .Any()
                    );
 
                     dotSelect = dotSelect.Where(a =>
                        db.Select<TenantPermissionEntity>()
                        .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
+                       .Any()
+                       ||
+                       db.Select<TenantPkgEntity, PkgPermissionEntity>()
+                       .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
                     );
                 }
