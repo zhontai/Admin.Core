@@ -42,6 +42,11 @@ public class TenantAddInput
     public string UserName { get; set; }
 
     /// <summary>
+    /// 密码
+    /// </summary>
+    public string Password { get; set; }
+
+    /// <summary>
     /// 手机号码
     /// </summary>
     public string Phone { get; set; }

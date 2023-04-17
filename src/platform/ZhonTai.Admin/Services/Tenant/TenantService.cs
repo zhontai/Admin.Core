@@ -201,6 +201,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             await _orgRepository.InsertAsync(org);
 
             //添加用户
+            if (input.Password.IsNull())
+            {
+                input.Password = _appConfig.DefaultPassword;
+            }
             var user = new UserEntity
             {
                 TenantId = tenantId,
@@ -214,12 +218,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             };
             if (_appConfig.PasswordHasher)
             {
-                user.Password = _passwordHasher.HashPassword(user, _appConfig.DefaultPassword);
+                user.Password = _passwordHasher.HashPassword(user, input.Password);
                 user.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
             }
             else
             {
-                user.Password = MD5Encrypt.Encrypt32(_appConfig.DefaultPassword);
+                user.Password = MD5Encrypt.Encrypt32(input.Password);
                 user.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
             }
             await _userRepository.InsertAsync(user);

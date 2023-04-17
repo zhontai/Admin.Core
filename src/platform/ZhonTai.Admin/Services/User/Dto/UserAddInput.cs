@@ -5,6 +5,9 @@
 /// </summary>
 public class UserAddInput: UserFormInput
 {
+    /// <summary>
+    /// 密码
+    /// </summary>
     public virtual string Password { get; set; }
 
     /// <summary>
