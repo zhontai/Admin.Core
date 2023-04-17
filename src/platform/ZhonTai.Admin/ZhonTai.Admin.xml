@@ -1238,16 +1238,16 @@
             <typeparam name="TResult"></typeparam>
             <param name="invocation"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.UnitOfWorkExtensions.BeginTransaction(FreeSql.IUnitOfWork,DotNetCore.CAP.ICapPublisher,System.Boolean)">
+        <member name="M:ZhonTai.Admin.Core.Db.UnitOfWorkExtensions.BeginCapTran(FreeSql.IUnitOfWork,DotNetCore.CAP.ICapPublisher,System.Boolean)">
             <summary>
-            开启事务
+            开启Cap分布式事务
             </summary>
             <param name="unitOfWork"></param>
             <param name="capPublisher"></param>
             <param name="autoCommit"></param>
             <remarks>
             using var uow = LazyGetRequiredService&lt;UnitOfWorkManagerCloud&gt;().Begin(DbKeys.AppDb);<br/>
-            using var capTran = uow.BeginTransaction(LazyGetRequiredService&lt;ICapPublisher&gt;(), false);<br/>
+            using var capTran = uow.BeginCapTran(LazyGetRequiredService&lt;ICapPublisher&gt;(), false);<br/>
             capTran.Commit();
             </remarks>
             <returns></returns>
