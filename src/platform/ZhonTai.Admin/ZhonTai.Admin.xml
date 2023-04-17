@@ -1238,6 +1238,20 @@
             <typeparam name="TResult"></typeparam>
             <param name="invocation"></param>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Db.UnitOfWorkExtensions.BeginTransaction(FreeSql.IUnitOfWork,DotNetCore.CAP.ICapPublisher,System.Boolean)">
+            <summary>
+            开启事务
+            </summary>
+            <param name="unitOfWork"></param>
+            <param name="capPublisher"></param>
+            <param name="autoCommit"></param>
+            <remarks>
+            using var uow = LazyGetRequiredService&lt;UnitOfWorkManagerCloud&gt;().Begin(DbKeys.AppDb);<br/>
+            using var capTran = uow.BeginTransaction(LazyGetRequiredService&lt;ICapPublisher&gt;(), false);<br/>
+            capTran.Commit();
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbKey">
             <summary>
             数据库注册键
