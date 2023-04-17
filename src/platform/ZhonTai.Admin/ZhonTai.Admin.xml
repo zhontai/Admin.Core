@@ -6986,6 +6986,11 @@
             账号
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Phone">
             <summary>
             手机号码
@@ -7195,6 +7200,11 @@
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserAddInput">
             <summary>
             添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Password">
+            <summary>
+            密码
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserAddInput.Enabled">
