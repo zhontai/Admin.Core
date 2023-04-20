@@ -44,6 +44,26 @@
             不生成特性
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute">
+            <summary>
+            SchemaId
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.Prefix">
+            <summary>
+            前缀
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.Suffix">
+            <summary>
+            后缀
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.SchemaId">
+            <summary>
+            SchemaId
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.SingleInstanceAttribute">
             <summary>
             单例注入
@@ -423,6 +443,16 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableJsonStringEnumConverter">
             <summary>
             启用枚举属性名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableSchemaIdNamespace">
+            <summary>
+            启用SchemaId命名空间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.AssemblyNameList">
+            <summary>
+            程序集列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
@@ -1864,13 +1894,6 @@
             运行应用
             </summary>
             <param name="args"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.DefaultSchemaIdSelector(System.Type)">
-            <summary>
-            实体类型重命名
-            </summary>
-            <param name="modelType"></param>
-            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
