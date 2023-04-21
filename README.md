@@ -33,6 +33,22 @@
 
 - Admin.Core v3 版本 <a href="https://github.com/zhontai/Admin.Core" target="_blank">https://github.com/zhontai/Admin.Core</a>
 
+#### 🚀 功能介绍
+
+| 功能     | 介绍                                                                       |
+| -------- | -------------------------------------------------------------------------- |
+| 用户管理 | 支持禁用/启用、重置密码、设置主管、新增/修改用户可配置角色、部门和主管。   |
+| 角色管理 | 支持角色分组、设置菜单权限和数据权限、批量添加员工和移除员工。             |
+| 部门管理 | 配置部门，支持部门列表查询，以树形结构展示。                               |
+| 权限管理 | 配置菜单、操作、权限点、权限标识，支持权限列表查询，以树形结构展示。       |
+| 租户套餐 | 配置租户套餐，支持新增/移除套餐企业。                                      |
+| 租户管理 | 配置租户，新增和修改租户时初始化部门、角色和用户，支持租户禁用和启用功能。 |
+| 字典管理 | 支持字典类型和字典数据维护。                                               |
+| 任务调度 | 查看任务和任务日志，支持启动、执行、暂停等功能。                           |
+| 文件管理 | 支持文件列表查询、文件上传/下载、图片查看、复制地址、删除功能。            |
+| 操作日志 | 操作日志列表查询，记录用户正常操作日志和异常日志。                         |
+| 登录日志 | 登录日志列表查询，记录用户正常登录日志和异常日志。                         |
+
 #### ⚡ 使用说明
 
 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 > 7.0+</a>
@@ -94,7 +110,6 @@ cd Admin.Core
 - <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
 - <a href="https://gitee.com/pojianbing/lazy-slide-captcha" target="_blank">Lazy.SlideCaptcha.Core</a>
 - <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
-
 - <a href="https://github.com/ua-parser/uap-csharp" target="_blank">UAParser</a>
 
 #### 💌 支持作者
