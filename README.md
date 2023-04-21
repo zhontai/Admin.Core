@@ -23,34 +23,33 @@
 
 #### 🌈 介绍
 
-基于 .Net7.x + FreeSql 全家桶 + Autofac + DotNetCore.CAP + Mapster 等技术，前后端分离后台权限管理系统，希望减少工作量，帮助大家实现快速开发。支持多租户、数据权限、动态 Api、任务调度、OSS 文件上传、滑块拼图验证、国内外主流数据库自由切换和动态高级查询。基于 .Net 跨平台开发的 WebApi。集成统一认证授权、事件总线、分布式事务、数据验证、分布式缓存、Ip 限流、全 Api 鉴权、单元测试、性能分析、健康检查、接口文档等。
+基于 .Net7.x + FreeSql 全家桶 + Autofac + DotNetCore.CAP + Mapster 等技术，前后端分离后台权限管理系统，想你所想的开发理念，希望减少工作量，帮助大家实现快速开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。新版 swagger 接口文档更易于接口阅读和测试。
 
 #### ⛱️ 线上预览
 
-- v3.x 版本预览（admin.core）<a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
+- Admin.Core v3 版本预览 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
 
 #### 💒 代码仓库
 
-- v3.x 版本 <a href="https://github.com/zhontai/admin.core" target="_blank">https://github.com/zhontai/admin.core</a>
+- Admin.Core v3 版本 <a href="https://github.com/zhontai/Admin.Core" target="_blank">https://github.com/zhontai/Admin.Core</a>
 
 #### ⚡ 使用说明
 
-使用 .Net 最新版本 <a href="http://nodejs.cn/" target="_blank">.Net 版本 > 7.0+</a>
+使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 > 7.0+</a>
 
 ```bash
 # 克隆项目
-git clone https://github.com/zhontai/admin.core/git
+git clone https://github.com/zhontai/Admin.Core/git
 
 # 进入项目
 cd Admin.Core
 
 # 打开项目
-打开 ZhonTai.sln
+打开 ZhonTai.sln 解决方案
 
 # 运行项目
 设置 ZhonTai.Host 为启动项目 Ctrl + F5 直接编译运行项目
-或
-在 ZhonTai.Host 目录打开 cmd 输入 dotnet run
+或 在 ZhonTai.Host 目录打开 cmd 输入 dotnet run 命令运行项目
 
 # 打包发布
 选择 ZhonTai.Host 右键菜单点击发布
@@ -64,7 +63,7 @@ cd Admin.Core
 
 > 中台 admin 开发群（2000 人群）。
 
-- 中台 admin 开发群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">1058693879</a>
+- QQ 群号：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">1058693879</a>
 
   <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">
   	<img src="https://www.zhontai.net/imgs/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
@@ -73,10 +72,30 @@ cd Admin.Core
 #### 💕 特别感谢
 
 - <a href="https://github.com/dotnetcore/FreeSql" target="_blank">FreeSql</a>
+- <a href="https://github.com/2881099/FreeRedis" target="_blank">FreeRedis</a>
+- <a href="https://github.com/2881099/FreeSql.Cloud" target="_blank">FreeSql.Cloud</a>
+- <a href="https://github.com/2881099/FreeScheduler" target="_blank">FreeScheduler</a>
 
 #### ❤️ 鸣谢列表
 
 - <a href="https://github.com/dotnet/core" target="_blank">.Net</a>
+- <a href="https://github.com/autofac/Autofac" target="_blank">Autofac</a>
+- <a href="https://github.com/MapsterMapper/Mapster" target="_blank">Mapster</a>
+- <a href="https://github.com/dotnetcore/CAP" target="_blank">DotNetCore.CAP</a>
+- <a href="https://github.com/NLog/NLog" target="_blank">NLog</a>
+- <a href="https://github.com/yitter/idgenerator" target="_blank">Yitter.IdGenerator</a>
+- <a href="https://github.com/JamesNK/Newtonsoft.Json" target="_blank">Newtonsoft.Json</a>
+- <a href="https://github.com/domaindrivendev/Swashbuckle.AspNetCore" target="_blank">Swashbuckle.AspNetCore</a>
+- <a href="https://github.com/FluentValidation/FluentValidations" target="_blank">FluentValidation.AspNetCore</a>
+- <a href="https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks" target="_blank">AspNetCore.Diagnostics.HealthChecks</a>
+- <a href="https://github.com/MiniProfiler/dotnet" target="_blank">MiniProfiler</a>
+- <a href="https://github.com/IdentityServer/IdentityServer4" target="_blank">IdentityServer4</a>
+- <a href="https://github.com/stefanprodan/AspNetCoreRateLimit" target="_blank">AspNetCoreRateLimit</a>
+- <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
+- <a href="https://gitee.com/pojianbing/lazy-slide-captcha" target="_blank">Lazy.SlideCaptcha.Core</a>
+- <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
+
+- <a href="https://github.com/ua-parser/uap-csharp" target="_blank">UAParser</a>
 
 #### 💌 支持作者
 
