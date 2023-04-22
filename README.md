@@ -8,6 +8,9 @@
     <a href="https://freesql.net" target="_blank">
         <img src="https://img.shields.io/badge/FreeSql-3.x-blue" alt="FreeSql">
     </a>
+		<a href="https://autofac.org" target="_blank">
+		    <img src="https://img.shields.io/badge/Autofac-7.X-blueviolet" alt="Autofac">
+		</a>
     <a href="https://github.com/rivenfx/Mapster-docs" target="_blank">
 		    <img src="https://img.shields.io/badge/Mapster-7.x-orange" alt="Mapster">
 		</a>
@@ -23,7 +26,7 @@
 
 #### 🌈 介绍
 
-基于 .Net7.x + FreeSql 全家桶 + Autofac + DotNetCore.CAP + Mapster 等技术，前后端分离后台权限管理系统，想你所想的开发理念，希望减少工作量，帮助大家实现快速开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。新版 swagger 接口文档更易于接口阅读和测试。
+基于 .Net7.x + FreeSql 全家桶 + Autofac + DotNetCore.CAP + Mapster 等技术，前后端分离后台权限管理系统。想你所想的开发理念，希望减少工作量，帮助大家实现快速开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据至数据库。新版 swagger 接口文档更易于接口阅读和测试。
 
 #### ⛱️ 线上预览
 
@@ -35,23 +38,26 @@
 
 #### 🚀 功能介绍
 
-| 功能     | 介绍                                                                       |
-| -------- | -------------------------------------------------------------------------- |
-| 用户管理 | 支持禁用/启用、重置密码、设置主管、新增/修改用户可配置角色、部门和主管。   |
-| 角色管理 | 支持角色分组、设置菜单权限和数据权限、批量添加员工和移除员工。             |
-| 部门管理 | 配置部门，支持部门列表查询，以树形结构展示。                               |
-| 权限管理 | 配置菜单、操作、权限点、权限标识，支持权限列表查询，以树形结构展示。       |
-| 租户套餐 | 配置租户套餐，支持新增/移除套餐企业。                                      |
-| 租户管理 | 配置租户，新增和修改租户时初始化部门、角色和用户，支持租户禁用和启用功能。 |
-| 字典管理 | 支持字典类型和字典数据维护。                                               |
-| 任务调度 | 查看任务和任务日志，支持启动、执行、暂停等功能。                           |
-| 文件管理 | 支持文件列表查询、文件上传/下载、图片查看、复制地址、删除功能。            |
-| 操作日志 | 操作日志列表查询，记录用户正常操作日志和异常日志。                         |
-| 登录日志 | 登录日志列表查询，记录用户正常登录日志和异常日志。                         |
+1. 用户管理：配置用户，查看部门用户列表，支持禁用/启用、重置密码、设置主管、用户可配置多角色、多部门和上级主管。
+2. 角色管理：配置角色，支持角色分组、设置角色菜单和数据权限、批量添加和移除角色员工。
+3. 部门管理：配置部门，支持树形列表展示。
+4. 权限管理：配置分组、菜单、操作、权限点、权限标识，支持树形列表展示。
+5. 租户套餐：配置租户套餐，支持新增/移除套餐企业。
+6. 租户管理：配置租户，新增租户时初始化部门、角色和管理员数据，支持租户配置套餐、禁用/启用功能。
+7. 字典管理：配置字典，查看字典类型和字典数据列表，支持字典类型和字典数据维护。
+8. 任务调度：查看任务和任务日志列表，支持任务启动、执行、暂停等功能。
+9. 缓存管理：缓存列表查询，支持根据缓存键清除缓存
+10. 接口管理：配置接口，支持接口同步功能，用于新增权限点选择接口，支持树形列表展示。
+11. 视图管理：配置视图，支持视图维护功能，用于新增菜单选择视图，支持树形列表展示。
+12. 文件管理：支持文件列表查询、文件上传/下载、查看大图、复制文件地址、删除文件功能。
+13. 登录日志：登录日志列表查询，记录用户登录成功和失败日志。
+14. 操作日志：操作日志列表查询，记录用户操作正常和异常日志。
 
 #### ⚡ 使用说明
 
-使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 > 7.0+</a>
+> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 > 7.0+</a>
+
+使用项目源码新建项目
 
 ```bash
 # 克隆项目
@@ -69,6 +75,26 @@ cd Admin.Core
 
 # 打包发布
 选择 ZhonTai.Host 右键菜单点击发布
+```
+
+使用项目模板新建项目
+
+```bash
+# 安装模板
+dotnet new install ZhonTai.Template
+
+# 查看帮助
+dotnet new MyApp -h
+
+# 新建项目
+dotnet new MyApp -n MyCompanyName.MyProjectName
+
+# 运行项目
+设置 MyCompanyName.MyProjectName.Host 为启动项目 Ctrl + F5 直接编译运行项目
+或 在 MyCompanyName.MyProjectName.Host 目录打开 cmd 输入 dotnet run 命令运行项目
+
+# 打包发布
+选择 MyCompanyName.MyProjectName.Host 右键菜单点击发布
 ```
 
 #### 📚 开发文档
