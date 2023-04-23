@@ -6714,6 +6714,14 @@
             角色服务
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleOrgAsync(System.Int64,System.Int64[])">
+            <summary>
+            添加角色部门
+            </summary>
+            <param name="roleId"></param>
+            <param name="orgIds"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetAsync(System.Int64)">
             <summary>
             查询

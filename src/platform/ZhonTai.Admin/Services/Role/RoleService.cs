@@ -37,6 +37,25 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     }
 
     /// <summary>
+    /// 添加角色部门
+    /// </summary>
+    /// <param name="roleId"></param>
+    /// <param name="orgIds"></param>
+    /// <returns></returns>
+    private async Task AddRoleOrgAsync(long roleId, long[] orgIds)
+    {
+        if (orgIds != null && orgIds.Any())
+        {
+            var roleOrgs = orgIds.Select(orgId => new RoleOrgEntity
+            {
+                RoleId = roleId,
+                OrgId = orgId
+            }).ToList();
+            await _roleOrgRepository.InsertAsync(roleOrgs);
+        }
+    }
+
+    /// <summary>
     /// 查询
     /// </summary>
     /// <param name="id"></param>
@@ -156,19 +175,6 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         foreach (var userId in userIds)
         {
             await Cache.DelAsync(CacheKeys.DataPermission + userId);
-        }
-    }
-
-    private async Task AddRoleOrgAsync(long roleId, long[] orgIds)
-    {
-        if (orgIds != null && orgIds.Any())
-        {
-            var roleOrgs = orgIds.Select(orgId => new RoleOrgEntity 
-            { 
-                RoleId = roleId, 
-                OrgId = orgId 
-            }).ToList();
-            await _roleOrgRepository.InsertAsync(roleOrgs);
         }
     }
 

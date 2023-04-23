@@ -453,10 +453,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         await _staffRepository.InsertOrUpdateAsync(staff);
 
         //所属部门
-        await _userOrgRepository.DeleteAsync(a => a.UserId == userId);
-        if (input.OrgIds != null && input.OrgIds.Any())
+        var orgIds = await _userOrgRepository.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
+        var insertOrgIds = input.OrgIds.Except(orgIds);
+
+        var deleteOrgIds = orgIds.Except(input.OrgIds);
+        if (deleteOrgIds != null && deleteOrgIds.Any())
         {
-            var orgs = input.OrgIds.Select(orgId => new UserOrgEntity
+            await _userOrgRepository.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
+        }
+            
+        if (insertOrgIds != null && insertOrgIds.Any())
+        {
+            var orgs = insertOrgIds.Select(orgId => new UserOrgEntity
             {
                 UserId = userId,
                 OrgId = orgId
