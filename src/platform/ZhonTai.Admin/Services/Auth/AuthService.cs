@@ -458,19 +458,20 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             sw.Start();
 
             #region 短信验证码验证
-            var codeKey = CacheKeys.GetSmsCode(input.Mobile, input.CodeId);
-            if (await Cache.ExistsAsync(codeKey))
+            if(input.CodeId.IsNull() || input.Code.IsNull())
             {
-                var code = await Cache.GetAsync(codeKey);
-                await Cache.DelAsync(codeKey);
-                if (code != input.Code)
-                {
-                    throw ResultOutput.Exception("验证码输入有误，请重新输入");
-                }
+                throw ResultOutput.Exception("验证码错误");
             }
-            else
+            var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
+            var code = await Cache.GetAsync(codeKey);
+            if (code.IsNull())
             {
-                throw ResultOutput.Exception("验证码不存在，请重新发送");
+                throw ResultOutput.Exception("验证码错误");
+            }
+            await Cache.DelAsync(codeKey);
+            if (code != input.Code)
+            {
+                throw ResultOutput.Exception("验证码错误");
             }
 
             #endregion

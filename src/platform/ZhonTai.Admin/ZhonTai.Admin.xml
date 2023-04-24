@@ -1045,9 +1045,9 @@
             短信验证码 admin:sms:code:guid
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetSmsCode(System.String,System.String)">
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetSmsCodeKey(System.String,System.String)">
             <summary>
-            获取短信验证码
+            获取短信验证码缓存键
             </summary>
             <param name="mobile">手机号</param>
             <param name="code">唯一码</param>
