@@ -462,11 +462,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             if (await Cache.ExistsAsync(codeKey))
             {
                 var code = await Cache.GetAsync(codeKey);
+                await Cache.DelAsync(codeKey);
                 if (code != input.Code)
                 {
                     throw ResultOutput.Exception("验证码输入有误，请重新输入");
                 }
-                await Cache.DelAsync(codeKey);
             }
             else
             {
