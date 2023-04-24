@@ -38,4 +38,12 @@ public static partial class CacheKeys
     /// </summary>
     [Description("短信验证码")]
     public const string SmsCode = "admin:sms:code:";
+
+    /// <summary>
+    /// 获取短信验证码
+    /// </summary>
+    /// <param name="mobile">手机号</param>
+    /// <param name="code">唯一码</param>
+    /// <returns></returns>
+    public static string GetSmsCode(string mobile, string code) => $"{SmsCode}{mobile}:{code}";
 }

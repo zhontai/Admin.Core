@@ -1045,6 +1045,14 @@
             短信验证码 admin:sms:code:guid
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetSmsCode(System.String,System.String)">
+            <summary>
+            获取短信验证码
+            </summary>
+            <param name="mobile">手机号</param>
+            <param name="code">唯一码</param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
             <summary>
             数据库键名

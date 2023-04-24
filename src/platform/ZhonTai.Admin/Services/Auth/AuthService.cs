@@ -458,7 +458,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             sw.Start();
 
             #region 短信验证码验证
-            var codeKey = CacheKeys.SmsCode + input.CodeId;
+            var codeKey = CacheKeys.GetSmsCode(input.Mobile, input.CodeId);
             if (await Cache.ExistsAsync(codeKey))
             {
                 var code = await Cache.GetAsync(codeKey);
@@ -470,7 +470,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             }
             else
             {
-                throw ResultOutput.Exception("验证码已过期，请重新发送");
+                throw ResultOutput.Exception("验证码不存在，请重新发送");
             }
 
             #endregion
