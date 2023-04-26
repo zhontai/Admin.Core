@@ -40,10 +40,10 @@ public static class DBServiceCollectionExtensions
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
-        //定义基础仓储主库
+        //定义主库
         var fsql = freeSqlCloud.Use(dbConfig.Key);
         services.AddSingleton(provider => fsql);
-        //运行数据库注册方法
+        //运行主库
         fsql.Select<object>();
     }
 

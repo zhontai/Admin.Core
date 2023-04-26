@@ -533,7 +533,9 @@ public class DbHelper
                 () =>
                 {
                     if (user?.Id > 0 && user.Type != UserType.Member)
+                    {
                         return false;
+                    }
                     return true;
                 },
                 a => a.MemberId == user.Id
@@ -543,24 +545,24 @@ public class DbHelper
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Self,
                 () =>
                 {
-                    if (!(user?.Id > 0))
-                        return false;
                     var dataPermission = user.DataPermission;
-                    if (user.Type == UserType.DefaultUser && dataPermission != null)
-                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count == 0;
-                    return false;
+                    if (dataPermission != null && (dataPermission.DataScope == DataScope.All || dataPermission.OrgIds.Count > 0))
+                    {
+                        return false;
+                    }
+                    return true;
                 },
                 a => a.OwnerId == user.Id
             );
             fsql.GlobalFilter.ApplyOnlyIf<IData>(FilterNames.Data,
                 () =>
                 {
-                    if (!(user?.Id > 0))
-                        return false;
                     var dataPermission = user.DataPermission;
-                    if (user.Type == UserType.DefaultUser && dataPermission != null)
-                        return dataPermission.DataScope != DataScope.All && dataPermission.OrgIds.Count > 0;
-                    return false;
+                    if (dataPermission == null || (dataPermission != null && (dataPermission.DataScope == DataScope.All || dataPermission.OrgIds.Count == 0)))
+                    {
+                        return false;
+                    }
+                    return true;
                 },
                 a => a.OwnerId == user.Id || user.DataPermission.OrgIds.Contains(a.OwnerOrgId.Value)
             );
@@ -595,12 +597,5 @@ public class DbHelper
 
             return fsql;
         }, idelTime);
-
-        //执行注册数据库
-        var fsql = freeSqlCloud.Use(dbConfig.Key);
-        if (dbConfig.SyncStructure)
-        {
-            var _ = fsql.CodeFirst;
-        }
     }
 }

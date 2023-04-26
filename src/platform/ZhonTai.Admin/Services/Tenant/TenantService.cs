@@ -26,7 +26,6 @@ using Yitter.IdGenerator;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Services.Pkg;
-using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -287,7 +286,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                     Name = "普通员工",
                     Code = "emp",
                     ParentId = jobGroupId,
-                    DataScope = DataScope.All,
+                    DataScope = DataScope.Self,
                     Sort = 2
                 }
             };

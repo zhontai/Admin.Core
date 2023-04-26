@@ -237,7 +237,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 {
                     OrgId = user.OrgId,
                     OrgIds = orgIds.Distinct().ToList(),
-                    DataScope = dataScope
+                    DataScope = (User.PlatformAdmin || User.TenantAdmin) ? DataScope.All : dataScope
                 };
             }
         });
