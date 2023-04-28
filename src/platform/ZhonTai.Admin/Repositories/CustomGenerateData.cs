@@ -27,6 +27,9 @@ using ZhonTai.Admin.Core.Helpers;
 
 namespace ZhonTai.Admin.Repositories;
 
+/// <summary>
+/// 生成数据
+/// </summary>
 public class CustomGenerateData : GenerateData, IGenerateData
 {
     public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)

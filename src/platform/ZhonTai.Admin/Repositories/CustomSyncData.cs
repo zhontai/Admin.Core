@@ -25,6 +25,9 @@ using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Repositories;
 
+/// <summary>
+/// 同步数据
+/// </summary>
 public class CustomSyncData : SyncData, ISyncData
 {
     /// <summary>
@@ -48,31 +51,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<DictTypeEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<DictTypeEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -106,31 +118,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<DictEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<DictEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -165,31 +186,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<UserEntity>(isTenant, dbConfig.SyncDataPath);
+            var sourceDataList = GetData<UserEntity>(isTenant, dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -224,31 +254,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<UserStaffEntity>(isTenant, dbConfig.SyncDataPath);
+            var sourceDataList = GetData<UserStaffEntity>(isTenant, dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -284,31 +323,40 @@ public class CustomSyncData : SyncData, ISyncData
 
             //数据列表
             var dataTree = GetData<OrgEntity>(isTenant, dbConfig.SyncDataPath);
-            var dataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
+            var sourceDataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -343,31 +391,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<RoleEntity>(isTenant, dbConfig.SyncDataPath);
+            var sourceDataList = GetData<RoleEntity>(isTenant, dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -402,31 +459,40 @@ public class CustomSyncData : SyncData, ISyncData
 
             //数据列表
             var dataTree = GetData<ApiEntity>(path: dbConfig.SyncDataPath);
-            var dataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
+            var sourceDataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -461,31 +527,40 @@ public class CustomSyncData : SyncData, ISyncData
 
             //数据列表
             var dataTree = GetData<ViewEntity>(path: dbConfig.SyncDataPath);
-            var dataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
+            var sourceDataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -520,31 +595,40 @@ public class CustomSyncData : SyncData, ISyncData
 
             //数据列表
             var dataTree = GetData<PermissionEntity>(path: dbConfig.SyncDataPath);
-            var dataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
+            var sourceDataList = dataTree.ToList().ToPlainList((a) => a.Childs).ToArray();
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -578,19 +662,19 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<PermissionApiEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<PermissionApiEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var recordList = await rep.Where(a => rep.Select.WithMemory(dataList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
+            var dataList = await rep.Where(a => rep.Select.WithMemory(sourceDataList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any())).ToList();
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -634,20 +718,20 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<UserRoleEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<UserRoleEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var userRoleRecordList = dataList.Adapt<List<UserRoleRecord>>();
-            var recordList = await rep.Where(a => rep.Orm.Select<UserRoleRecord>().WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
+            var userRoleRecordList = sourceDataList.Adapt<List<UserRoleRecord>>();
+            var dataList = await rep.Where(a => rep.Orm.Select<UserRoleRecord>().WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any())).ToList();
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -691,20 +775,20 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<UserOrgEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<UserOrgEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var userOrgRecordList = dataList.Adapt<List<UserOrgRecord>>();
-            var recordList = await rep.Where(a => rep.Orm.Select<UserOrgRecord>().WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
+            var userOrgRecordList = sourceDataList.Adapt<List<UserOrgRecord>>();
+            var dataList = await rep.Where(a => rep.Orm.Select<UserOrgRecord>().WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any())).ToList();
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -748,20 +832,20 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<RolePermissionEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<RolePermissionEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var rolePermissionRecordList = dataList.Adapt<List<RolePermissionRecord>>();
-            var recordList = await rep.Where(a => rep.Orm.Select<RolePermissionRecord>().WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
+            var rolePermissionRecordList = sourceDataList.Adapt<List<RolePermissionRecord>>();
+            var dataList = await rep.Where(a => rep.Orm.Select<RolePermissionRecord>().WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any())).ToList();
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
@@ -798,31 +882,40 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<TenantEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<TenantEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var sourceDataIds = sourceDataList.Select(e => e.Id).ToList();
+            var dataList = await rep.Where(a => sourceDataIds.Contains(a.Id)).ToListAsync();
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dataIds = dataList.Select(a => a.Id).ToList();
+            var insertDataList = sourceDataList.Where(a => !dataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                var updateDataList = dataList.Where(a => sourceDataIds.Contains(a.Id));
+                if (updateDataList.Any())
+                {
+                    foreach (var data in updateDataList)
+                    {
+                        var sourceData = sourceDataList.Where(a => a.Id == data.Id).First();
+                        sourceData.Adapt(data);
+                    }
+
+                    await rep.UpdateAsync(updateDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");
@@ -863,20 +956,20 @@ public class CustomSyncData : SyncData, ISyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<TenantPermissionEntity>(path: dbConfig.SyncDataPath);
+            var sourceDataList = GetData<TenantPermissionEntity>(path: dbConfig.SyncDataPath);
 
-            if (!(dataList?.Length > 0))
+            if (!(sourceDataList?.Length > 0))
             {
                 Console.WriteLine($"table: {tableName} import data []");
                 return;
             }
 
             //查询
-            var tenantPermissionRecordList = dataList.Adapt<List<TenantPermissionRecord>>();
-            var recordList = await rep.Where(a => rep.Orm.Select<TenantPermissionRecord>().WithMemory(tenantPermissionRecordList).Where(b => b.TenantId == a.TenantId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
+            var tenantPermissionRecordList = sourceDataList.Adapt<List<TenantPermissionRecord>>();
+            var dataList = await rep.Where(a => rep.Orm.Select<TenantPermissionRecord>().WithMemory(tenantPermissionRecordList).Where(b => b.TenantId == a.TenantId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
-            var insertDataList = dataList.Where(a => !(recordList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any())).ToList();
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any())).ToList();
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);

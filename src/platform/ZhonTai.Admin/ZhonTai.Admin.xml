@@ -3657,6 +3657,16 @@
             </summary>
             <typeparam name="TEntity"></typeparam>
         </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomGenerateData">
+            <summary>
+            生成数据
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData">
+            <summary>
+            同步数据
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitDictTypeAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             初始化字典类型
