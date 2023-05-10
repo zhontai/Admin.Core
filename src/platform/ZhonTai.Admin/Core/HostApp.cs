@@ -59,6 +59,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
 using NLog;
+using StackExchange.Profiling.Internal;
 
 namespace ZhonTai.Admin.Core;
 
@@ -177,22 +178,6 @@ public class HostApp
         {
             LogManager.Shutdown();
         }
-    }
-
-    /// <summary>
-    /// 实体类型重命名
-    /// </summary>
-    /// <param name="modelType"></param>
-    /// <returns></returns>
-    private string DefaultSchemaIdSelector(Type modelType)
-    {
-        if (!modelType.IsConstructedGenericType) return modelType.Name.Replace("[]", "Array");
-
-        var prefix = modelType.GetGenericArguments()
-            .Select(DefaultSchemaIdSelector)
-            .Aggregate((previous, current) => previous + current);
-
-        return modelType.Name.Split('`').First() + prefix;
     }
 
     /// <summary>
@@ -357,6 +342,56 @@ public class HostApp
                 });
 
                 options.ResolveConflictingActions(apiDescription => apiDescription.First());
+
+                string DefaultSchemaIdSelector(Type modelType)
+                {
+                    var modelName = modelType.Name;
+                    if (appConfig.Swagger.EnableSchemaIdNamespace)
+                    {
+                        var nameSpaceList = appConfig.Swagger.AssemblyNameList;
+                        if (nameSpaceList?.Length > 0)
+                        {
+                            var nameSpace = modelType.Namespace;
+                            if(nameSpaceList.Where(a => nameSpace.Contains(a)).Any())
+                            {
+                                modelName = modelType.FullName;
+                            }
+                        }
+                        else
+                        {
+                            modelName = modelType.FullName;
+                        }
+                    }
+
+                    if (modelType.IsConstructedGenericType)
+                    {
+                        var prefix = modelType.GetGenericArguments()
+                        .Select(DefaultSchemaIdSelector)
+                        .Aggregate((previous, current) => previous + current);
+
+                        modelName = modelName.Split('`').First() + prefix;
+                    }
+                    else
+                    {
+                        modelName = modelName.Replace("[]", "Array");
+                    }
+
+                    if (modelType.IsDefined(typeof(SchemaIdAttribute)))
+                    {
+                        var swaggerSchemaIdAttribute = modelType.GetCustomAttribute<SchemaIdAttribute>();
+                        if (swaggerSchemaIdAttribute.SchemaId.NotNull())
+                        {
+                            return swaggerSchemaIdAttribute.SchemaId;
+                        }
+                        else
+                        {
+                            return swaggerSchemaIdAttribute.Prefix + modelName + swaggerSchemaIdAttribute.Suffix;
+                        }
+                    }
+
+                    return modelName;
+                }
+
                 options.CustomSchemaIds(modelType => DefaultSchemaIdSelector(modelType));
 
                 //支持多分组

@@ -25,7 +25,7 @@
     "name": "普通员工",
     "code": "emp",
     "type": 2,
-    "dataScope": 1,
+    "dataScope": 4,
     "description": "",
     "hidden": false,
     "sort": 3,

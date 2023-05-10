@@ -131,6 +131,16 @@ public class SwaggerConfig
     /// </summary>
     public bool EnableJsonStringEnumConverter { get; set; } = false;
 
+    /// <summary>
+    /// 启用SchemaId命名空间
+    /// </summary>
+    public bool EnableSchemaIdNamespace { get; set; } = false;
+
+    /// <summary>
+    /// 程序集列表
+    /// </summary>
+    public string[] AssemblyNameList { get; set; }
+
     private string _RoutePrefix = "swagger";
     /// <summary>
     /// 访问地址

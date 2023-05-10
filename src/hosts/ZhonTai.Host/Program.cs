@@ -118,6 +118,8 @@ new HostApp(new HostAppOptions
             });
 		}
         #endregion
+
+        app.UseTaskScheduler();
 	}
 }).Run(args);
 

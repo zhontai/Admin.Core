@@ -87,7 +87,7 @@ public class CaptchaService : BaseService, IDynamicApi
 
         var codeId = input.CodeId.IsNull() ? Guid.NewGuid().ToString() : input.CodeId;
         var code = StringHelper.GenerateRandomNumber();
-        await Cache.SetAsync(CacheKeys.SmsCode + codeId, code, TimeSpan.FromMinutes(5));
+        await Cache.SetAsync(CacheKeys.GetSmsCodeKey(input.Mobile, codeId), code, TimeSpan.FromMinutes(5));
 
         //发送短信
         await LazyGetRequiredService<ICapPublisher>().PublishAsync(SubscribeNames.SmsSingleSend,

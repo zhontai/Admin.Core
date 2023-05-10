@@ -44,6 +44,26 @@
             不生成特性
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute">
+            <summary>
+            SchemaId
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.Prefix">
+            <summary>
+            前缀
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.Suffix">
+            <summary>
+            后缀
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.SchemaIdAttribute.SchemaId">
+            <summary>
+            SchemaId
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.SingleInstanceAttribute">
             <summary>
             单例注入
@@ -423,6 +443,16 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableJsonStringEnumConverter">
             <summary>
             启用枚举属性名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.EnableSchemaIdNamespace">
+            <summary>
+            启用SchemaId命名空间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.AssemblyNameList">
+            <summary>
+            程序集列表
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SwaggerConfig.RoutePrefix">
@@ -1014,6 +1044,14 @@
             <summary>
             短信验证码 admin:sms:code:guid
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetSmsCodeKey(System.String,System.String)">
+            <summary>
+            获取短信验证码缓存键
+            </summary>
+            <param name="mobile">手机号</param>
+            <param name="code">唯一码</param>
+            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
             <summary>
@@ -1864,13 +1902,6 @@
             运行应用
             </summary>
             <param name="args"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.DefaultSchemaIdSelector(System.Type)">
-            <summary>
-            实体类型重命名
-            </summary>
-            <param name="modelType"></param>
-            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
@@ -3625,6 +3656,16 @@
             权限库基础仓储
             </summary>
             <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomGenerateData">
+            <summary>
+            生成数据
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Repositories.CustomSyncData">
+            <summary>
+            同步数据
+            </summary>
         </member>
         <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitDictTypeAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
@@ -6690,6 +6731,14 @@
             <summary>
             角色服务
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Role.RoleService.AddRoleOrgAsync(System.Int64,System.Int64[])">
+            <summary>
+            添加角色部门
+            </summary>
+            <param name="roleId"></param>
+            <param name="orgIds"></param>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Role.RoleService.GetAsync(System.Int64)">
             <summary>

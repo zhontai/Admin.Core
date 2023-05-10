@@ -10,13 +10,13 @@ public class AuthMobileLoginInput
     /// <summary>
     /// 手机号
     /// </summary>
-    [Required(ErrorMessage = "手机号不能为空")]
+    [Required(ErrorMessage = "请输入手机号")]
     public string Mobile { get; set; }
 
     /// <summary>
     /// 验证码
     /// </summary>
-    [Required(ErrorMessage = "验证码不能为空")]
+    [Required(ErrorMessage = "请输入验证码")]
     public string Code { get; set; }
 
     /// <summary>
