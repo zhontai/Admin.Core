@@ -43,16 +43,13 @@ public class RegisterModule : Module
             //程序集
             Assembly[] assemblies = AssemblyHelper.GetAssemblyList(_appConfig.AssemblyNames);
 
-            var nonRegisterIOCAttribute = typeof(NonRegisterIOCAttribute);
-            var iRegisterIOCType = typeof(IRegisterIOC);
-
-            bool Predicate(Type a) => !a.IsDefined(nonRegisterIOCAttribute, true) 
-                && (a.Name.EndsWith("Service") || a.Name.EndsWith("Repository") || iRegisterIOCType.IsAssignableFrom(a)) 
+            static bool Predicate(Type a) => !a.IsDefined(typeof(NonRegisterIOCAttribute), true) 
+                && (a.Name.EndsWith("Service") || a.Name.EndsWith("Repository") || typeof(IRegisterIOC).IsAssignableFrom(a)) 
                 && !a.IsAbstract && !a.IsInterface && a.IsPublic;
 
             //有接口实例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(Predicate)
+            .Where(new Func<Type, bool>(Predicate))
             .AsImplementedInterfaces()
             .InstancePerLifetimeScope()
             .PropertiesAutowired()// 属性注入
@@ -61,7 +58,7 @@ public class RegisterModule : Module
 
             //无接口实例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(Predicate)
+            .Where(new Func<Type, bool>(Predicate))
             .InstancePerLifetimeScope()
             .PropertiesAutowired()// 属性注入
             .InterceptedBy(interceptorServiceTypes.ToArray())
