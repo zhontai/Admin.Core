@@ -119,6 +119,7 @@ new HostApp(new HostAppOptions
 		}
         #endregion
 
+        //使用任务调度
         app.UseTaskScheduler();
 	}
 }).Run(args);
