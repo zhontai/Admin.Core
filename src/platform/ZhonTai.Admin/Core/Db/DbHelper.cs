@@ -246,11 +246,6 @@ public class DbHelper
         var dbType = dbConfig.Type.ToString();
         Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
-        if (dbConfig.Type == DataType.Oracle)
-        {
-            db.CodeFirst.IsSyncStructureToUpper = true;
-        }
-
         //获得指定程序集表实体
         var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
         db.CodeFirst.SyncStructure(entityTypes);
@@ -491,6 +486,11 @@ public class DbHelper
             }
 
             #region 初始化数据库
+
+            if (dbConfig.Type == DataType.Oracle)
+            {
+                fsql.CodeFirst.IsSyncStructureToUpper = true;
+            }
 
             //同步结构
             if (dbConfig.SyncStructure)
