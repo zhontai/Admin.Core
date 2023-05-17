@@ -27,7 +27,9 @@ public class DbHelper
     /// <summary>
     /// 偏移时间
     /// </summary>
-    public static TimeSpan TimeOffset;
+    private static TimeSpan timeOffset;
+
+    public static TimeSpan TimeOffset { get => timeOffset; set => timeOffset = value; }
 
     /// <summary>
     /// 创建数据库
@@ -230,7 +232,7 @@ public class DbHelper
     /// <summary>
     /// 同步结构
     /// </summary>
-    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, AppConfig appConfig = null)
+    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -495,7 +497,7 @@ public class DbHelper
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
+                SyncStructure(fsql, dbConfig: dbConfig);
             }
 
             #region 审计数据

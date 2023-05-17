@@ -1143,7 +1143,7 @@
             <param name="dbConfig"></param>
             <returns></returns>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Db.DbHelper.TimeOffset">
+        <member name="F:ZhonTai.Admin.Core.Db.DbHelper.timeOffset">
             <summary>
             偏移时间
             </summary>
@@ -1178,7 +1178,7 @@
             <param name="timeOffset"></param>
             <param name="user"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             同步结构
             </summary>
