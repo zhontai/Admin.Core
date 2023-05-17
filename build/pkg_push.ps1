@@ -53,8 +53,10 @@ Write-Host "dotnet pack -- end"
 # pause
 
 Write-Host "dotnet nuget push -- start"
-$allNuget = Join-Path $nuGetOutputFolder "/*.nupkg"
-dotnet nuget push $allNuget -s $sourceUrl -k $apiKey --skip-duplicate 
+$nupkgs = Join-Path $nuGetOutputFolder "/*.nupkg"
+$snupkgs = Join-Path $nuGetOutputFolder "/*.snupkg"
+dotnet nuget push $nupkgs -s $sourceUrl -k $apiKey --skip-duplicate
+dotnet nuget push $snupkgs -s $sourceUrl -k $apiKey --skip-duplicate
 Write-Host "dotnet nuget push -- end"
 
 pause
