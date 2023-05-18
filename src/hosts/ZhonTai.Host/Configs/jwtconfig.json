@@ -4,7 +4,7 @@
   //订阅者
   "audience": "http://127.0.0.1:8000",
   //密钥
-  "securityKey": "ertJKl#521*a@790asD&1#",
+  "securityKey": "8efbdb87-f521-11ed-a709-5254008978e9",
   //有效期(分钟) 120 = 2小时
   "expires": 120,
   //刷新有效期(分钟) 1440 = 1天
