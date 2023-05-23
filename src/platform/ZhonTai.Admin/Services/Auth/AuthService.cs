@@ -81,16 +81,25 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             return string.Empty;
         }
 
-        var token = LazyGetRequiredService<IUserToken>().Create(new[]
-        {
+        var claims = new List<Claim>()
+       {
             new Claim(ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
             new Claim(ClaimAttributes.UserName, user.UserName),
             new Claim(ClaimAttributes.Name, user.Name),
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
-            new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
-            new Claim(ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
-            new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey??"")
-        });
+        };
+
+        if (_appConfig.Tenant)
+        {
+            claims.AddRange(new []
+            {
+                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
+                new Claim(ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
+                new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey ?? "")
+            });
+        }
+
+        var token = LazyGetRequiredService<IUserToken>().Create(claims.ToArray());
 
         return token;
     }

@@ -616,24 +616,30 @@ public class HostApp
         _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
 
         #region 缓存
+        //添加内存缓存
+        services.AddMemoryCache();
 
         var cacheConfig = ConfigHelper.Get<CacheConfig>("cacheconfig", env.EnvironmentName);
         if (cacheConfig.Type == CacheType.Redis)
         {
+            //FreeRedis客户端
             var redis = new RedisClient(cacheConfig.Redis.ConnectionString)
             {
                 Serialize = JsonConvert.SerializeObject,
                 Deserialize = JsonConvert.DeserializeObject
             };
             services.AddSingleton(redis);
+            //Redis缓存
             services.AddSingleton<ICacheTool, RedisCacheTool>();
+            //分布式Redis缓存
             services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
         }
         else
         {
-            services.AddMemoryCache();
-            services.AddDistributedMemoryCache();
+            //内存缓存
             services.AddSingleton<ICacheTool, MemoryCacheTool>();
+            //分布式内存缓存
+            services.AddDistributedMemoryCache();
         }
 
         #endregion 缓存

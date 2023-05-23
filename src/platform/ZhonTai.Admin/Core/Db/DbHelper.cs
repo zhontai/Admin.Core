@@ -27,7 +27,9 @@ public class DbHelper
     /// <summary>
     /// 偏移时间
     /// </summary>
-    public static TimeSpan TimeOffset;
+    private static TimeSpan timeOffset;
+
+    public static TimeSpan TimeOffset { get => timeOffset; set => timeOffset = value; }
 
     /// <summary>
     /// 创建数据库
@@ -230,7 +232,7 @@ public class DbHelper
     /// <summary>
     /// 同步结构
     /// </summary>
-    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, AppConfig appConfig = null)
+    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -245,11 +247,6 @@ public class DbHelper
         // 同步结构
         var dbType = dbConfig.Type.ToString();
         Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
-
-        if (dbConfig.Type == DataType.Oracle)
-        {
-            db.CodeFirst.IsSyncStructureToUpper = true;
-        }
 
         //获得指定程序集表实体
         var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
@@ -492,10 +489,15 @@ public class DbHelper
 
             #region 初始化数据库
 
+            if (dbConfig.Type == DataType.Oracle)
+            {
+                fsql.CodeFirst.IsSyncStructureToUpper = true;
+            }
+
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                SyncStructure(fsql, dbConfig: dbConfig, appConfig: appConfig);
+                SyncStructure(fsql, dbConfig: dbConfig);
             }
 
             #region 审计数据

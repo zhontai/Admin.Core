@@ -9,7 +9,11 @@
     <NoWarn>1701;1702;1591;8632</NoWarn>
     <OutputPath></OutputPath>
   </PropertyGroup>
-
+	
+  <ItemGroup>
+	<None Include="../../../logo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+        
   <ItemGroup>
 	<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 	<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
