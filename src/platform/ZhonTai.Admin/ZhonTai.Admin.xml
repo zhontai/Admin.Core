@@ -4,6 +4,115 @@
         <name>ZhonTai.Admin</name>
     </assembly>
     <members>
+        <member name="T:ZhonTai.Admin.Core.AppInfo">
+            <summary>
+            应用全局信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.IsRun">
+            <summary>
+            应用是否运行
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.AppInfo.EffectiveAssemblies">
+            <summary>
+            有效程序集
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.AppInfo.EffectiveTypes">
+            <summary>
+            有效程序集类型
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.ServiceProvider">
+            <summary>
+            服务提供程序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.WebHostEnvironment">
+            <summary>
+            获取Web主机环境
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.HostEnvironment">
+            <summary>
+            获取泛型主机环境
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.Configuration">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.HttpContext">
+            <summary>
+            请求上下文
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.User">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetServiceProvider(System.Type,System.Boolean)">
+            <summary>
+            获得服务提供程序
+            </summary>
+            <param name="serviceType"></param>
+            <param name="isBuild"></param>
+            <returns></returns>
+            <exception cref="T:System.ApplicationException"></exception>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetService``1(System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetService``1(System.IServiceProvider,System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetService(System.Type,System.IServiceProvider,System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <param name="type"></param>
+            <param name="serviceProvider"></param>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptions``1(System.IServiceProvider)">
+            <summary>
+            获取选项
+            </summary>
+            <typeparam name="TOptions"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptionsMonitor``1(System.IServiceProvider)">
+            <summary>
+            获取选项
+            </summary>
+            <typeparam name="TOptions"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptionsSnapshot``1(System.IServiceProvider)">
+            <summary>
+            获取选项
+            </summary>
+            <typeparam name="TOptions"></typeparam>
+            <param name="serviceProvider"></param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
             <summary>
             启用权限库事务

@@ -59,7 +59,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
 using NLog;
-using StackExchange.Profiling.Internal;
+using NLog.Fluent;
 
 namespace ZhonTai.Admin.Core;
 
@@ -92,6 +92,7 @@ public class HostApp
             logger.Info("Application startup");
 
             var builder = WebApplication.CreateBuilder(args);
+            builder.ConfigureApplication();
 
             //使用NLog日志
             builder.Host.UseNLog();
@@ -104,15 +105,15 @@ public class HostApp
             var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
 
             //添加配置
-            builder.Configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+            configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())
             {
-                builder.Configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
-            builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())
             {
-                builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
 
             var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
@@ -159,6 +160,18 @@ public class HostApp
             ConfigureServices(services, env, configuration, configHelper, appConfig);
 
             var app = builder.Build();
+
+            app.ConfigureApplication();
+
+            app.Lifetime.ApplicationStarted.Register(() =>
+            {
+                AppInfo.IsRun = true;
+            });
+
+            app.Lifetime.ApplicationStopped.Register(() =>
+            {
+                AppInfo.IsRun = false;
+            });
 
             //配置中间件
             ConfigureMiddleware(app, env, configuration, appConfig);

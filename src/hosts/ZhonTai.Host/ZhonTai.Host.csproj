@@ -17,12 +17,12 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.695" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.695" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.695" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.695" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.695" />
-		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.695" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.696" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.696" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.696" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.696" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.696" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.696" />
 	</ItemGroup>
 	
 	<ItemGroup>
