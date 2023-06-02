@@ -31,12 +31,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.AppInfo.WebHostEnvironment">
             <summary>
-            获取Web主机环境
+            Web主机环境
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.AppInfo.HostEnvironment">
             <summary>
-            获取泛型主机环境
+            泛型主机环境
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.AppInfo.Configuration">
@@ -65,7 +65,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetService``1(System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获得请求生存周期的服务
             </summary>
             <typeparam name="TService"></typeparam>
             <param name="isBuild"></param>
@@ -73,7 +73,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetService``1(System.IServiceProvider,System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获得请求生存周期的服务
             </summary>
             <typeparam name="TService"></typeparam>
             <param name="serviceProvider"></param>
@@ -82,7 +82,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetService(System.Type,System.IServiceProvider,System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获得服务
             </summary>
             <param name="type"></param>
             <param name="serviceProvider"></param>
@@ -91,7 +91,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService``1(System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获得服务
             </summary>
             <typeparam name="TService"></typeparam>
             <param name="isBuild"></param>
@@ -99,7 +99,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService``1(System.IServiceProvider,System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获取服务
             </summary>
             <typeparam name="TService"></typeparam>
             <param name="serviceProvider"></param>
@@ -108,7 +108,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService(System.Type,System.IServiceProvider,System.Boolean)">
             <summary>
-            获取请求生存周期的服务
+            获得服务
             </summary>
             <param name="type"></param>
             <param name="serviceProvider"></param>
@@ -117,7 +117,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptions``1(System.String)">
             <summary>
-            获取选项
+            获得选项
             </summary>
             <typeparam name="TOptions"></typeparam>
             <param name="path"></param>
@@ -125,7 +125,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptions``1(System.IServiceProvider)">
             <summary>
-            获取选项
+            获得选项
             </summary>
             <typeparam name="TOptions"></typeparam>
             <param name="serviceProvider"></param>
@@ -133,7 +133,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptionsMonitor``1(System.IServiceProvider)">
             <summary>
-            获取选项
+            获得选项
             </summary>
             <typeparam name="TOptions"></typeparam>
             <param name="serviceProvider"></param>
@@ -141,7 +141,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptionsSnapshot``1(System.IServiceProvider)">
             <summary>
-            获取选项
+            获得选项
             </summary>
             <typeparam name="TOptions"></typeparam>
             <param name="serviceProvider"></param>

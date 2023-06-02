@@ -53,12 +53,12 @@ public static class AppInfo
     public static IServiceProvider ServiceProvider => IsRun ? AppInfoBase.ServiceProvider : null;
 
     /// <summary>
-    /// 获取Web主机环境
+    /// Web主机环境
     /// </summary>
     public static IWebHostEnvironment WebHostEnvironment => AppInfoBase.WebHostEnvironment;
 
     /// <summary>
-    /// 获取泛型主机环境
+    /// 泛型主机环境
     /// </summary>
     public static IHostEnvironment HostEnvironment => AppInfoBase.HostEnvironment;
 
@@ -153,7 +153,7 @@ public static class AppInfo
     }
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获得请求生存周期的服务
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     /// <param name="isBuild"></param>
@@ -162,7 +162,7 @@ public static class AppInfo
         GetService(typeof(TService), null, isBuild) as TService;
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获得请求生存周期的服务
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     /// <param name="serviceProvider"></param>
@@ -172,7 +172,7 @@ public static class AppInfo
         GetService(typeof(TService), serviceProvider, isBuild) as TService;
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获得服务
     /// </summary>
     /// <param name="type"></param>
     /// <param name="serviceProvider"></param>
@@ -182,7 +182,7 @@ public static class AppInfo
         (serviceProvider ?? GetServiceProvider(type, isBuild)).GetService(type);
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获得服务
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     /// <param name="isBuild"></param>
@@ -191,7 +191,7 @@ public static class AppInfo
         GetRequiredService(typeof(TService), null, isBuild) as TService;
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获取服务
     /// </summary>
     /// <typeparam name="TService"></typeparam>
     /// <param name="serviceProvider"></param>
@@ -201,7 +201,7 @@ public static class AppInfo
         GetRequiredService(typeof(TService), serviceProvider, isBuild) as TService;
 
     /// <summary>
-    /// 获取请求生存周期的服务
+    /// 获得服务
     /// </summary>
     /// <param name="type"></param>
     /// <param name="serviceProvider"></param>
@@ -214,7 +214,7 @@ public static class AppInfo
 
     #region Options
     /// <summary>
-    /// 获取选项
+    /// 获得选项
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="path"></param>
@@ -223,7 +223,7 @@ public static class AppInfo
         Configuration.GetSection(path).Get<TOptions>();
 
     /// <summary>
-    /// 获取选项
+    /// 获得选项
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="serviceProvider"></param>
@@ -232,7 +232,7 @@ public static class AppInfo
         GetService<IOptions<TOptions>>(serviceProvider ?? ServiceProvider, false)?.Value;
 
     /// <summary>
-    /// 获取选项
+    /// 获得选项
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="serviceProvider"></param>
@@ -241,7 +241,7 @@ public static class AppInfo
         GetService<IOptionsMonitor<TOptions>>(serviceProvider ?? ServiceProvider, false)?.CurrentValue;
 
     /// <summary>
-    /// 获取选项
+    /// 获得选项
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="serviceProvider"></param>
