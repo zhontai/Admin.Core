@@ -181,6 +181,35 @@ public static class AppInfo
     public static object GetService(Type type, IServiceProvider serviceProvider = null, bool isBuild = true) =>
         (serviceProvider ?? GetServiceProvider(type, isBuild)).GetService(type);
 
+    /// <summary>
+    /// 获取请求生存周期的服务
+    /// </summary>
+    /// <typeparam name="TService"></typeparam>
+    /// <param name="isBuild"></param>
+    /// <returns></returns>
+    public static TService GetRequiredService<TService>(bool isBuild = true) where TService : class =>
+        GetRequiredService(typeof(TService), null, isBuild) as TService;
+
+    /// <summary>
+    /// 获取请求生存周期的服务
+    /// </summary>
+    /// <typeparam name="TService"></typeparam>
+    /// <param name="serviceProvider"></param>
+    /// <param name="isBuild"></param>
+    /// <returns></returns>
+    public static TService GetRequiredService<TService>(IServiceProvider serviceProvider, bool isBuild = true) where TService : class =>
+        GetRequiredService(typeof(TService), serviceProvider, isBuild) as TService;
+
+    /// <summary>
+    /// 获取请求生存周期的服务
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="serviceProvider"></param>
+    /// <param name="isBuild"></param>
+    /// <returns></returns>
+    public static object GetRequiredService(Type type, IServiceProvider serviceProvider = null, bool isBuild = true) =>
+        (serviceProvider ?? GetServiceProvider(type, isBuild)).GetRequiredService(type);
+
     #endregion
 
     #region Options
@@ -188,13 +217,10 @@ public static class AppInfo
     /// 获取选项
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
-    /// <param name="serviceProvider"></param>
+    /// <param name="path"></param>
     /// <returns></returns>
-    public static TOptions GetOptions<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new()
-    {
-        IOptions<TOptions> service = GetService<IOptions<TOptions>>(serviceProvider ?? ServiceProvider, false);
-        return service?.Value;
-    }
+    public static TOptions GetOptions<TOptions>(string path) where TOptions : class, new() =>
+        Configuration.GetSection(path).Get<TOptions>();
 
     /// <summary>
     /// 获取选项
@@ -202,11 +228,8 @@ public static class AppInfo
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public static TOptions GetOptionsMonitor<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new()
-    {
-        IOptionsMonitor<TOptions> service = GetService<IOptionsMonitor<TOptions>>(serviceProvider ?? ServiceProvider, false);
-        return service?.CurrentValue;
-    }
+    public static TOptions GetOptions<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new() =>
+        GetService<IOptions<TOptions>>(serviceProvider ?? ServiceProvider, false)?.Value;
 
     /// <summary>
     /// 获取选项
@@ -214,10 +237,16 @@ public static class AppInfo
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    public static TOptions GetOptionsSnapshot<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new()
-    {
-        IOptionsSnapshot<TOptions> service = GetService<IOptionsSnapshot<TOptions>>(serviceProvider, false);
-        return service?.Value;
-    }
+    public static TOptions GetOptionsMonitor<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new() =>
+        GetService<IOptionsMonitor<TOptions>>(serviceProvider ?? ServiceProvider, false)?.CurrentValue;
+
+    /// <summary>
+    /// 获取选项
+    /// </summary>
+    /// <typeparam name="TOptions"></typeparam>
+    /// <param name="serviceProvider"></param>
+    /// <returns></returns>
+    public static TOptions GetOptionsSnapshot<TOptions>(IServiceProvider serviceProvider = null) where TOptions : class, new() =>
+        GetService<IOptionsSnapshot<TOptions>>(serviceProvider, false)?.Value;
     #endregion
 }

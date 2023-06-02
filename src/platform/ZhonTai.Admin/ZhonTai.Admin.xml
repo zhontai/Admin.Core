@@ -89,6 +89,40 @@
             <param name="isBuild"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService``1(System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService``1(System.IServiceProvider,System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <typeparam name="TService"></typeparam>
+            <param name="serviceProvider"></param>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetRequiredService(System.Type,System.IServiceProvider,System.Boolean)">
+            <summary>
+            获取请求生存周期的服务
+            </summary>
+            <param name="type"></param>
+            <param name="serviceProvider"></param>
+            <param name="isBuild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptions``1(System.String)">
+            <summary>
+            获取选项
+            </summary>
+            <typeparam name="TOptions"></typeparam>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetOptions``1(System.IServiceProvider)">
             <summary>
             获取选项
