@@ -77,6 +77,11 @@ public static class AppInfo
     /// </summary>
     public static IUser User => HttpContext == null ? null : ServiceProvider?.GetService<IUser>();
 
+    /// <summary>
+    /// 日志
+    /// </summary>
+    public static Logger Log => LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
     #region private
 
     private static IEnumerable<Type> GetTypes(Assembly ass)
@@ -86,8 +91,9 @@ public static class AppInfo
         {
             source = ass.GetTypes();
         }
-        catch
+        catch (Exception e)
         {
+            Log.Error(e, "GetTypes Exception:{msg}", e.Message);
             Console.WriteLine($@"Error load `{ass.FullName}` assembly.");
         }
 
@@ -108,8 +114,7 @@ public static class AppInfo
             }
             catch (Exception e)
             {
-                var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-                logger.Debug(e, "GetAllAssemblies Exception:{ex}", e.Message);
+                Log.Error(e, "GetAllAssemblies Exception:{msg}", e.Message);
             }
         }
         return list;

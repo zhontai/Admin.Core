@@ -54,6 +54,11 @@
             用户
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.Log">
+            <summary>
+            日志
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetServiceProvider(System.Type,System.Boolean)">
             <summary>
             获得服务提供程序
