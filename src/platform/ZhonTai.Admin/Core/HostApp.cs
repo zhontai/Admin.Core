@@ -59,7 +59,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
 using NLog;
-using NLog.Fluent;
+using Microsoft.Extensions.Logging;
 
 namespace ZhonTai.Admin.Core;
 
@@ -93,7 +93,8 @@ public class HostApp
 
             var builder = WebApplication.CreateBuilder(args);
             builder.ConfigureApplication();
-
+            //清空日志供应程序，避免.net自带日志输出到命令台
+            builder.Logging.ClearProviders();
             //使用NLog日志
             builder.Host.UseNLog();
 
