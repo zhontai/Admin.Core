@@ -172,11 +172,6 @@
             启用登录
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Attributes.NonFormatResultAttribute">
-            <summary>
-            不格式化结果数据
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.NonRegisterIOCAttribute">
             <summary>
             不注册到第三方IOC容器
