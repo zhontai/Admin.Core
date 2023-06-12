@@ -33,7 +33,7 @@ public class RoleAddInput
     /// <summary>
     /// 数据范围
     /// </summary>
-    public DataScope DataScope { get; set; }
+    public DataScope DataScope { get; set; } = DataScope.All;
 
     /// <summary>
     /// 指定部门

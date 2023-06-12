@@ -33,6 +33,7 @@ using System.Linq.Expressions;
 using System;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Core;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -104,8 +105,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
     {
+        var dataPermission = await AppInfo.GetRequiredService<IUserService>().GetDataPermissionAsync();
+
         var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
+        .WhereIf(dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
@@ -228,6 +233,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     //指定部门
                     if (customRoleIds.Count > 0)
                     {
+                        if(dataScope == DataScope.Self)
+                        {
+                            dataScope = DataScope.Custom;
+                        }
                         var customRoleOrgIds = await _roleOrgRepository.Select.Where(a => customRoleIds.Contains(a.RoleId)).ToListAsync(a => a.OrgId);
                         orgIds = orgIds.Concat(customRoleOrgIds).ToList();
                     }
