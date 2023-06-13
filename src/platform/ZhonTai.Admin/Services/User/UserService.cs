@@ -34,6 +34,9 @@ using System;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Core;
+using Newtonsoft.Json;
+using ZhonTai.Admin.Services.Auth;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -825,5 +828,38 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userRepository.UpdateAsync(entity);
         }
         return fileInfo.LinkUrl;
+    }
+
+    /// <summary>
+    /// 一键登录用户
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<dynamic> OneClickLoginAsync([Required]string userName)
+    {
+        if (userName.IsNull())
+        {
+            throw ResultOutput.Exception("请选择用户");
+        }
+
+        using var _ = _userRepository.DataFilter.DisableAll();
+
+        var user = await _userRepository.Select.Where(a => a.UserName == userName).ToOneAsync();
+
+        if(user == null)
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if (_appConfig.Tenant)
+        {
+            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            authLoginOutput.Tenant = tenant;
+        }
+
+        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+
+        return new { token }; 
     }
 }

@@ -74,7 +74,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// </summary>
     /// <param name="user">用户信息</param>
     /// <returns></returns>
-    private string GetToken(AuthLoginOutput user)
+    [NonAction]
+    public string GetToken(AuthLoginOutput user)
     {
         if (user == null)
         {

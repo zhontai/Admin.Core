@@ -9,6 +9,8 @@ namespace ZhonTai.Admin.Services.Auth;
 /// </summary>
 public interface IAuthService
 {
+    string GetToken(AuthLoginOutput user);
+
     Task<dynamic> LoginAsync(AuthLoginInput input);
 
     Task<AuthGetUserInfoOutput> GetUserInfoAsync();

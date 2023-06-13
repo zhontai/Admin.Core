@@ -7876,6 +7876,12 @@
             <param name="autoUpdate"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.User.UserService.OneClickLoginAsync(System.String)">
+            <summary>
+            一键登录用户
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Services.User.MapConfig">
             <summary>
             映射配置
