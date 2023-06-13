@@ -287,7 +287,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                     Code = "emp",
                     ParentId = jobGroupId,
                     DataScope = DataScope.Self,
-                    Sort = 2
+                    Sort = 1
                 }
             };
             await _roleRepository.InsertAsync(roles);
