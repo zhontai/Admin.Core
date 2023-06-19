@@ -92,6 +92,8 @@ public class HostApp
             logger.Info("Application startup");
 
             var builder = WebApplication.CreateBuilder(args);
+            _hostAppOptions?.ConfigureWebApplicationBuilder?.Invoke(builder);
+
             builder.ConfigureApplication();
             //清空日志供应程序，避免.net自带日志输出到命令台
             builder.Logging.ClearProviders();

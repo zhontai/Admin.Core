@@ -2230,44 +2230,49 @@
             宿主应用配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureWebApplicationBuilder">
+            <summary>
+            配置Web应用程序构建器
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreServices">
             <summary>
-            注入前置服务
+            配置前置服务
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureServices">
             <summary>
-            注入服务
+            配置服务
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostServices">
             <summary>
-            注入后置服务
+            配置后置服务
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMvcBuilder">
             <summary>
-            注入mvc构建器
+            配置mvc构建器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureAutofacContainer">
             <summary>
-            注入Autofac容器
+            配置Autofac容器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreMiddleware">
             <summary>
-            注入前置中间件
+            配置前置中间件
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureMiddleware">
             <summary>
-            注入中间件
+            配置中间件
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePostMiddleware">
             <summary>
-            注入后置中间件
+            配置后置中间件
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">

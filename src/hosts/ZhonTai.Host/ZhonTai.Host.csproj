@@ -35,8 +35,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.1.3" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.1.3" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.1.4" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.1.4" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.697" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.3" />
