@@ -92,7 +92,7 @@ public class HostApp
             logger.Info("Application startup");
 
             var builder = WebApplication.CreateBuilder(args);
-            _hostAppOptions?.ConfigureWebApplicationBuilder?.Invoke(builder);
+            _hostAppOptions?.ConfigurePreWebApplicationBuilder?.Invoke(builder);
 
             builder.ConfigureApplication();
             //清空日志供应程序，避免.net自带日志输出到命令台
@@ -157,10 +157,15 @@ public class HostApp
             });
 
             //访问地址
-            builder.WebHost.UseUrls(appConfig.Urls);
+            if(appConfig.Urls?.Length > 0)
+            {
+                builder.WebHost.UseUrls(appConfig.Urls);
+            }
 
             //配置服务
             ConfigureServices(services, env, configuration, configHelper, appConfig);
+
+            _hostAppOptions?.ConfigureWebApplicationBuilder?.Invoke(builder);
 
             var app = builder.Build();
 

@@ -2230,9 +2230,14 @@
             宿主应用配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreWebApplicationBuilder">
+            <summary>
+            配置前置应用程序构建器
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureWebApplicationBuilder">
             <summary>
-            配置Web应用程序构建器
+            配置应用程序构建器
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigurePreServices">

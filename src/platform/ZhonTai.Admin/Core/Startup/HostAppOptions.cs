@@ -15,7 +15,12 @@ namespace ZhonTai.Admin.Core.Startup;
 public class HostAppOptions
 {
     /// <summary>
-    /// 配置Web应用程序构建器
+    /// 配置前置应用程序构建器
+    /// </summary>
+    public Action<WebApplicationBuilder> ConfigurePreWebApplicationBuilder { get; set; }
+
+    /// <summary>
+    /// 配置应用程序构建器
     /// </summary>
     public Action<WebApplicationBuilder> ConfigureWebApplicationBuilder { get; set; }
 
