@@ -9,6 +9,10 @@
 		<DocumentationFile></DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<ServerGarbageCollection>false</ServerGarbageCollection>
+	</PropertyGroup>
 	
 	<ItemGroup>
 	  <Content Include="Configs\createdbsql.txt">
