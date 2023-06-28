@@ -464,8 +464,6 @@ public class DbHelper
                 freeSqlBuilder.UseSlave(slaveList).UseSlaveWeight(slaveWeightList);
             }
 
-            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder, dbConfig);
-
             #region 监听所有命令
 
             if (dbConfig.MonitorCommand)
@@ -478,6 +476,8 @@ public class DbHelper
             }
 
             #endregion 监听所有命令
+
+            hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder, dbConfig);
 
             var fsql = freeSqlBuilder.Build();
 
@@ -572,8 +572,6 @@ public class DbHelper
             //配置实体
             ConfigEntity(fsql, appConfig, dbConfig);
 
-            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql, dbConfig);
-
             #region 监听Curd操作
 
             if (dbConfig.Curd)
@@ -596,6 +594,8 @@ public class DbHelper
             }
 
             #endregion 监听Curd操作
+
+            hostAppOptions?.ConfigureFreeSql?.Invoke(fsql, dbConfig);
 
             return fsql;
         }, idelTime);
