@@ -399,7 +399,7 @@ public class HostApp
 
                     if (modelType.IsDefined(typeof(SchemaIdAttribute)))
                     {
-                        var swaggerSchemaIdAttribute = modelType.GetCustomAttribute<SchemaIdAttribute>();
+                        var swaggerSchemaIdAttribute = modelType.GetCustomAttribute<SchemaIdAttribute>(false);
                         if (swaggerSchemaIdAttribute.SchemaId.NotNull())
                         {
                             return swaggerSchemaIdAttribute.SchemaId;

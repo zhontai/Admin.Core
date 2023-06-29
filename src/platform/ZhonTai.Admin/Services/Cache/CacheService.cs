@@ -38,7 +38,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
 
         foreach (Assembly assembly in assemblies)
         {
-            var types = assembly.GetExportedTypes().Where(a => a.GetCustomAttribute<ScanCacheKeysAttribute>() != null);
+            var types = assembly.GetExportedTypes().Where(a => a.GetCustomAttribute<ScanCacheKeysAttribute>(false) != null);
             foreach (Type type in types)
             {
                 var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
