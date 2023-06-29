@@ -59,7 +59,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
 using NLog;
-using StackExchange.Profiling.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace ZhonTai.Admin.Core;
 
@@ -92,7 +92,11 @@ public class HostApp
             logger.Info("Application startup");
 
             var builder = WebApplication.CreateBuilder(args);
+            _hostAppOptions?.ConfigurePreWebApplicationBuilder?.Invoke(builder);
 
+            builder.ConfigureApplication();
+            //清空日志供应程序，避免.net自带日志输出到命令台
+            builder.Logging.ClearProviders();
             //使用NLog日志
             builder.Host.UseNLog();
 
@@ -104,15 +108,15 @@ public class HostApp
             var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
 
             //添加配置
-            builder.Configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+            configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())
             {
-                builder.Configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
-            builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())
             {
-                builder.Configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
 
             var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
@@ -153,12 +157,29 @@ public class HostApp
             });
 
             //访问地址
-            builder.WebHost.UseUrls(appConfig.Urls);
+            if(appConfig.Urls?.Length > 0)
+            {
+                builder.WebHost.UseUrls(appConfig.Urls);
+            }
 
             //配置服务
             ConfigureServices(services, env, configuration, configHelper, appConfig);
 
+            _hostAppOptions?.ConfigureWebApplicationBuilder?.Invoke(builder);
+
             var app = builder.Build();
+
+            app.ConfigureApplication();
+
+            app.Lifetime.ApplicationStarted.Register(() =>
+            {
+                AppInfo.IsRun = true;
+            });
+
+            app.Lifetime.ApplicationStopped.Register(() =>
+            {
+                AppInfo.IsRun = false;
+            });
 
             //配置中间件
             ConfigureMiddleware(app, env, configuration, appConfig);
@@ -378,7 +399,7 @@ public class HostApp
 
                     if (modelType.IsDefined(typeof(SchemaIdAttribute)))
                     {
-                        var swaggerSchemaIdAttribute = modelType.GetCustomAttribute<SchemaIdAttribute>();
+                        var swaggerSchemaIdAttribute = modelType.GetCustomAttribute<SchemaIdAttribute>(false);
                         if (swaggerSchemaIdAttribute.SchemaId.NotNull())
                         {
                             return swaggerSchemaIdAttribute.SchemaId;

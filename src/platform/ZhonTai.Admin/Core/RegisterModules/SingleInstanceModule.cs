@@ -30,13 +30,13 @@ public class SingleInstanceModule : Module
 
             //无接口注入单例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
+            .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>(false) != null)
             .SingleInstance()
             .PropertiesAutowired();
 
             //有接口注入单例
             builder.RegisterAssemblyTypes(assemblies)
-            .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>() != null)
+            .Where(t => t.GetCustomAttribute<SingleInstanceAttribute>(false) != null)
             .AsImplementedInterfaces()
             .SingleInstance()
             .PropertiesAutowired();

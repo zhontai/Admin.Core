@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.DynamicApi.Attributes;
 
 namespace ZhonTai.Admin.Core.Filters;
 

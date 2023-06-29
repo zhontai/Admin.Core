@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using FreeSql;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Yitter.IdGenerator;
@@ -14,42 +15,52 @@ namespace ZhonTai.Admin.Core.Startup;
 public class HostAppOptions
 {
     /// <summary>
-    /// 注入前置服务
+    /// 配置前置应用程序构建器
+    /// </summary>
+    public Action<WebApplicationBuilder> ConfigurePreWebApplicationBuilder { get; set; }
+
+    /// <summary>
+    /// 配置应用程序构建器
+    /// </summary>
+    public Action<WebApplicationBuilder> ConfigureWebApplicationBuilder { get; set; }
+
+    /// <summary>
+    /// 配置前置服务
     /// </summary>
     public Action<HostAppContext> ConfigurePreServices { get; set; }
 
     /// <summary>
-    /// 注入服务
+    /// 配置服务
     /// </summary>
     public Action<HostAppContext> ConfigureServices { get; set; }
 
     /// <summary>
-    /// 注入后置服务
+    /// 配置后置服务
     /// </summary>
     public Action<HostAppContext> ConfigurePostServices { get; set; }
 
     /// <summary>
-    /// 注入mvc构建器
+    /// 配置mvc构建器
     /// </summary>
     public Action<IMvcBuilder, HostAppContext> ConfigureMvcBuilder { get; set; }
 
     /// <summary>
-    /// 注入Autofac容器
+    /// 配置Autofac容器
     /// </summary>
     public Action<ContainerBuilder, HostAppContext> ConfigureAutofacContainer { get; set; }
 
     /// <summary>
-    /// 注入前置中间件
+    /// 配置前置中间件
     /// </summary>
     public Action<HostAppMiddlewareContext> ConfigurePreMiddleware { get; set; }
 
     /// <summary>
-    /// 注入中间件
+    /// 配置中间件
     /// </summary>
     public Action<HostAppMiddlewareContext> ConfigureMiddleware { get; set; }
 
     /// <summary>
-    /// 注入后置中间件
+    /// 配置后置中间件
     /// </summary>
     public Action<HostAppMiddlewareContext> ConfigurePostMiddleware { get; set; }
 

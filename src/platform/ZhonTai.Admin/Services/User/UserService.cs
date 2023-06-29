@@ -33,6 +33,10 @@ using System.Linq.Expressions;
 using System;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Core;
+using Newtonsoft.Json;
+using ZhonTai.Admin.Services.Auth;
+using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -104,8 +108,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
     {
+        var dataPermission = await AppInfo.GetRequiredService<IUserService>().GetDataPermissionAsync();
+
         var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
+        .WhereIf(dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
@@ -228,6 +236,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     //指定部门
                     if (customRoleIds.Count > 0)
                     {
+                        if(dataScope == DataScope.Self)
+                        {
+                            dataScope = DataScope.Custom;
+                        }
                         var customRoleOrgIds = await _roleOrgRepository.Select.Where(a => customRoleIds.Contains(a.RoleId)).ToListAsync(a => a.OrgId);
                         orgIds = orgIds.Concat(customRoleOrgIds).ToList();
                     }
@@ -816,5 +828,38 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userRepository.UpdateAsync(entity);
         }
         return fileInfo.LinkUrl;
+    }
+
+    /// <summary>
+    /// 一键登录用户
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<dynamic> OneClickLoginAsync([Required]string userName)
+    {
+        if (userName.IsNull())
+        {
+            throw ResultOutput.Exception("请选择用户");
+        }
+
+        using var _ = _userRepository.DataFilter.DisableAll();
+
+        var user = await _userRepository.Select.Where(a => a.UserName == userName).ToOneAsync();
+
+        if(user == null)
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if (_appConfig.Tenant)
+        {
+            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            authLoginOutput.Tenant = tenant;
+        }
+
+        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+
+        return new { token }; 
     }
 }

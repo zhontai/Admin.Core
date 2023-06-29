@@ -10,7 +10,7 @@ namespace ZhonTai.Common.Helpers;
 /// </summary>
 public class EntityHelper
 {
-    public static List<string> GetPropertyNamesByAttribute<T, A>() where T : class where A : Attribute
+    public static List<string> GetPropertyNamesByAttribute<T, A>(bool inherit = false) where T : class where A : Attribute
     {
         Type classType = typeof(T);
 
@@ -20,7 +20,7 @@ public class EntityHelper
         }
 
         var propertyNames = classType.GetProperties()
-        .Where(p => p.GetCustomAttribute<A>() != null)
+        .Where(p => p.GetCustomAttribute<A>(inherit) != null)
         .Select(p => p.Name)
         .ToList();
 

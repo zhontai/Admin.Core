@@ -135,7 +135,6 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 - <a href="https://github.com/stefanprodan/AspNetCoreRateLimit" target="_blank">AspNetCoreRateLimit</a>
 - <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
 - <a href="https://gitee.com/pojianbing/lazy-slide-captcha" target="_blank">Lazy.SlideCaptcha.Core</a>
-- <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
 - <a href="https://github.com/ua-parser/uap-csharp" target="_blank">UAParser</a>
 
 #### 💌 支持作者

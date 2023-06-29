@@ -10,6 +10,10 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using System.Collections.Generic;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Services.User;
+using System.Linq;
+using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -46,13 +50,25 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task<List<OrgListOutput>> GetListAsync(string key)
     {
-        var data = await _orgRepository
-            .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
+        var dataPermission = await AppInfo.GetRequiredService<IUserService>().GetDataPermissionAsync();
+        var hasOrg = dataPermission.OrgIds.Count > 0;
+
+        var select = _orgRepository.Select
+            .WhereIf(hasOrg, a => dataPermission.OrgIds.Contains(a.Id))
+            .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
+            .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key));
+
+        if (hasOrg)
+        {
+            select = select.AsTreeCte(up: true);
+        }
+
+        var data = await select
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
             .ToListAsync<OrgListOutput>();
 
-        return data;
+        return hasOrg ? data.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList() : data;
     }
 
     /// <summary>

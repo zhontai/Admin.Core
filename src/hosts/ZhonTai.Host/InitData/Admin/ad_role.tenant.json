@@ -14,7 +14,7 @@
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
+    "createdTime": "2023-06-13T16:23:05",
     "modifiedUserId": null,
     "modifiedUserName": null,
     "modifiedTime": null
@@ -30,14 +30,14 @@
     "dataScope": 4,
     "description": "",
     "hidden": false,
-    "sort": 3,
+    "sort": 1,
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedTime": "2023-06-13T16:28:58"
   },
   {
     "id": 336557474730053,
@@ -54,7 +54,7 @@
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
+    "createdTime": "2023-06-13T16:23:05",
     "modifiedUserId": null,
     "modifiedUserName": null,
     "modifiedTime": null
@@ -74,7 +74,7 @@
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
+    "createdTime": "2023-06-13T16:23:05",
     "modifiedUserId": null,
     "modifiedUserName": null,
     "modifiedTime": null
@@ -94,7 +94,7 @@
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
+    "createdTime": "2023-06-13T16:23:05",
     "modifiedUserId": null,
     "modifiedUserName": null,
     "modifiedTime": null
@@ -110,13 +110,13 @@
     "dataScope": 1,
     "description": "",
     "hidden": false,
-    "sort": 2,
+    "sort": 1,
     "isDeleted": false,
     "createdUserId": 161223411986501,
     "createdUserName": "admin",
-    "createdTime": "2023-04-13T15:13:43",
-    "modifiedUserId": null,
-    "modifiedUserName": null,
-    "modifiedTime": null
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedTime": "2023-06-13T16:28:50"
   }
 ]

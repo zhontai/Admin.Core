@@ -153,7 +153,7 @@ public class DynamicApiConvention : IApplicationModelConvention
     {
         foreach (var action in controller.Actions)
         {
-            if (!CheckNoMapMethod(action))
+            if (!CheckNoMapMethod(action) && !CheckNoFormatResultMethod(action))
             {
                 var returnType = action.ActionMethod.GetReturnType();
 
@@ -264,6 +264,24 @@ public class DynamicApiConvention : IApplicationModelConvention
         if (noMapMethod != null)
         {
             action.ApiExplorer.IsVisible = false;//对应的Api不映射
+            isExist = true;
+        }
+
+        return isExist;
+    }
+
+    /// <summary>
+    /// 不格式化结果数据
+    /// </summary>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    private bool CheckNoFormatResultMethod(ActionModel action)
+    {
+        bool isExist = false;
+        var nonFormatResult = ReflectionHelper.GetSingleAttributeOrDefault<NonFormatResultAttribute>(action.ActionMethod);
+
+        if (nonFormatResult != null)
+        {
             isExist = true;
         }
 
