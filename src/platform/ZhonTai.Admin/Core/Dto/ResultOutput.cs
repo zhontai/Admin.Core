@@ -10,7 +10,7 @@ public class ResultOutput<T> : IResultOutput<T>
     /// <summary>
     /// 是否成功标记
     /// </summary>
-    public bool Success { get; private set; }
+    public bool Success { get; set; }
 
     /// <summary>
     /// 编码
@@ -20,12 +20,12 @@ public class ResultOutput<T> : IResultOutput<T>
     /// <summary>
     /// 消息
     /// </summary>
-    public string Msg { get; private set; }
+    public string Msg { get; set; }
 
     /// <summary>
     /// 数据
     /// </summary>
-    public T Data { get; private set; }
+    public T Data { get; set; }
 
     /// <summary>
     /// 成功
