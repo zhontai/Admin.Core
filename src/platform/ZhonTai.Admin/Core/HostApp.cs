@@ -622,7 +622,7 @@ public class HostApp
             //使用驼峰 首字母小写
             options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             //设置时间格式
-            options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+            options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
         })
         .AddControllersAsServices();
 
