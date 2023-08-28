@@ -31,10 +31,9 @@ public class LogHandler : ILogHandler
 
     public async Task LogAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var sw = new Stopwatch();
-        sw.Start();
+        var stopwatch = Stopwatch.StartNew();
         var actionExecutedContext = await next();
-        sw.Stop();
+        stopwatch.Stop();
 
         //操作参数
         //var args = JsonConvert.SerializeObject(context.ActionArguments);
@@ -48,7 +47,7 @@ public class LogHandler : ILogHandler
                 Status = true,
                 ApiMethod = context.HttpContext.Request.Method.ToLower(),
                 ApiPath = context.ActionDescriptor.AttributeRouteInfo.Template.ToLower(),
-                ElapsedMilliseconds = sw.ElapsedMilliseconds
+                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds
             };
 
             if (actionExecutedContext.Exception != null)

@@ -583,10 +583,8 @@ public class HostApp
             {
                 options.Filters.Add<FormatResultFilter>(20);
             }
-            if (appConfig.Log.Operation)
-            {
-                options.Filters.Add<ControllerLogFilter>(10);
-            }
+
+            options.Filters.Add<ControllerLogFilter>(10);
 
             //禁止去除ActionAsync后缀
             //options.SuppressAsyncSuffixInActionNames = false;

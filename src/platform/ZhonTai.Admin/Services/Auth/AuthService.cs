@@ -344,8 +344,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         using (_userRepository.DataFilter.DisableAll())
         {
-            var sw = new Stopwatch();
-            sw.Start();
+            var stopwatch = Stopwatch.StartNew();
 
             #region 验证码校验
 
@@ -430,7 +429,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             string token = GetToken(authLoginOutput);
             #endregion
 
-            sw.Stop();
+            stopwatch.Stop();
 
             #region 添加登录日志
 
@@ -438,7 +437,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             {
                 TenantId = authLoginOutput.TenantId,
                 Name = authLoginOutput.Name,
-                ElapsedMilliseconds = sw.ElapsedMilliseconds,
+                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
                 Status = true,
                 CreatedUserId = authLoginOutput.Id,
                 CreatedUserName = user.UserName,
@@ -464,11 +463,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         using (_userRepository.DataFilter.DisableAll())
         {
-            var sw = new Stopwatch();
-            sw.Start();
+            var stopwatch = Stopwatch.StartNew();
 
             #region 短信验证码验证
-            if(input.CodeId.IsNull() || input.Code.IsNull())
+            if (input.CodeId.IsNull() || input.Code.IsNull())
             {
                 throw ResultOutput.Exception("验证码错误");
             }
@@ -513,7 +511,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             string token = GetToken(authLoginOutput);
             #endregion
 
-            sw.Stop();
+            stopwatch.Stop();
 
             #region 添加登录日志
 
@@ -521,7 +519,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             {
                 TenantId = authLoginOutput.TenantId,
                 Name = authLoginOutput.Name,
-                ElapsedMilliseconds = sw.ElapsedMilliseconds,
+                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
                 Status = true,
                 CreatedUserId = authLoginOutput.Id,
                 CreatedUserName = user.UserName,
