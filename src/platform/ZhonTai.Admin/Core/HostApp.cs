@@ -561,10 +561,7 @@ public class HostApp
 
         #region 操作日志
 
-        if (appConfig.Log.Operation)
-        {
-            services.AddScoped<ILogHandler, LogHandler>();
-        }
+        services.AddScoped<ILogHandler, LogHandler>();
 
         #endregion 操作日志
 

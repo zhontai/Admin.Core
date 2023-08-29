@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
@@ -13,12 +12,10 @@ namespace ZhonTai.Admin.Core.Filters;
 /// </summary>
 public class ControllerLogFilter : IAsyncActionFilter
 {
-    private readonly Lazy<ILogHandler> _logHandler;
     private readonly AppConfig _appConfig;
 
-    public ControllerLogFilter(Lazy<ILogHandler> logHandler, AppConfig appConfig)
+    public ControllerLogFilter(AppConfig appConfig)
     {
-        _logHandler = logHandler;
         _appConfig = appConfig;
     }
 
@@ -32,6 +29,6 @@ public class ControllerLogFilter : IAsyncActionFilter
             return;
         }
 
-        await _logHandler.Value.LogAsync(context, next);
+        await AppInfo.GetRequiredService<ILogHandler>().LogAsync(context, next);
     }
 }
