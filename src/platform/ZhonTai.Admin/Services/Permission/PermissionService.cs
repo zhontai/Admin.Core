@@ -146,6 +146,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task<IEnumerable<dynamic>> GetPermissionListAsync()
     {
         var permissions = await _permissionRepository.Select
+            .Where(a => a.Enabled == true)
             .WhereIf(_appConfig.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _tenantPermissionRepository
                 .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
