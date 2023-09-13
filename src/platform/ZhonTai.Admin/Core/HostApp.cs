@@ -266,8 +266,12 @@ public class HostApp
         #region Cors 跨域
         services.AddCors(options =>
         {
+            //指定跨域访问时预检等待时间
+            var preflightMaxAge = appConfig.PreflightMaxAge > 0 ? new TimeSpan(0, 0, appConfig.PreflightMaxAge) : new TimeSpan(0, 30, 0);
             options.AddPolicy(AdminConsts.RequestPolicyName, policy =>
             {
+                policy.SetPreflightMaxAge(preflightMaxAge);
+
                 var hasOrigins = appConfig.CorUrls?.Length > 0;
                 if (hasOrigins)
                 {
@@ -285,6 +289,8 @@ public class HostApp
                 {
                     policy.AllowCredentials();
                 }
+
+                policy.WithExposedHeaders("Content-Disposition");
             });
 
             //允许任何源访问Api策略，使用时在控制器或者接口上增加特性[EnableCors(AdminConsts.AllowAnyPolicyName)]
