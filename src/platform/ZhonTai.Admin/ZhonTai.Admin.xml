@@ -247,6 +247,11 @@
             自定义路由 /api/{version}/[area]/[controler]/[action]
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Validators.ValidateRequiredAttribute">
+            <summary>
+            指定属性、字段、参数必填
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Auth.ClaimAttributes">
             <summary>
             Claim属性
@@ -1438,21 +1443,6 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbKey">
-            <summary>
-            数据库注册键
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbType">
-            <summary>
-            数据库
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.ConnectionString">
-            <summary>
-            连接字符串
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Dto.IResultOutput">
             <summary>
             结果输出接口
@@ -2308,11 +2298,6 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
             <summary>
             自定义数据库初始化
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Validators.ValidateRequiredAttribute">
-            <summary>
-            指定属性、字段、参数必填
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">

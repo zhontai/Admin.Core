@@ -1,6 +1,6 @@
 ﻿namespace ZhonTai.DynamicApi;
 
-public class ResponseResul<T>
+public class ResponseResult<T>
 {
     /// <summary>
     /// 是否成功标记
