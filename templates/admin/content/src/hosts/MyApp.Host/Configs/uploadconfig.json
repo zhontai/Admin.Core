@@ -1,0 +1,38 @@
+{
+  //头像
+  "avatar": {
+    //上传路径 D:/upload/admin/avatar
+    "uploadPath": "../upload/admin/avatar",
+    //请求路径
+    "requestPath": "/upload/admin/avatar",
+
+    //路径日期格式 yyyy/MM/dd
+    "dateTimeFormat": "",
+    //{用户编号}
+    "format": "{Id}",
+    //图片大小不超过 1M = 1 * 1024 * 1024
+    "maxSize": 1048576,
+    //最大允许上传张数，-1不限制
+    "limit": 1,
+    //图片格式
+    "contentType": [ "image/jpg", "image/png", "image/jpeg", "image/gif" ]
+  },
+  //文档图片
+  "document": {
+    //上传路径 D:/upload/admin/document
+    "uploadPath": "../upload/admin/document",
+    //请求路径
+    "requestPath": "/images",
+
+    //路径日期格式 yyyy/MM/dd
+    "dateTimeFormat": "",
+    //{文档编号}
+    "format": "{Id}",
+    //图片大小不超过 1M = 1 * 1024 * 1024
+    "maxSize": 1048576,
+    //最大允许上传张数，-1不限制
+    "limit": -1,
+    //图片格式
+    "contentType": [ "image/jpg", "image/png", "image/jpeg", "image/gif" ]
+  }
+}

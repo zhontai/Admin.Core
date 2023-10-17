@@ -1,0 +1,36 @@
+[
+  {
+    "id": 187395320303685,
+    "dictTypeId": 187395320434757,
+    "name": "男",
+    "code": "male",
+    "value": "1",
+    "description": "",
+    "enabled": true,
+    "sort": 1,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
+  },
+  {
+    "id": 187395320369221,
+    "dictTypeId": 187395320434757,
+    "name": "女",
+    "code": "female",
+    "value": "2",
+    "description": "",
+    "enabled": true,
+    "sort": 2,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
+  }
+]

@@ -1,0 +1,147 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "xiao xue", 
+    "classifications": [ "ZhonTai", "Admin", "MyApp", "MVC", "WebApi", "Api", "App" ], 
+    "name": "ZhonTai.Template MyApp", 
+    "identity": "MyApp", 
+    "shortName": "MyApp",
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "MyApp",  
+    "preferNameDirectory": true,
+	"symbols": {
+		"NoApiUI": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable api document support"
+		},
+		"NoTaskScheduler": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable task scheduler support"
+		},
+		"NoCap": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Cap for building distributed transaction and eventbus"
+		},
+		"MergeDb": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Merge admindb to maindb support"
+		},
+		"MicroService": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Micro service project support"
+		},
+		"DbType": {
+			"type": "parameter",
+			"datatype": "choice",
+			"choices": [
+				{
+				  "choice": "MySql",
+				  "description": "MySql"
+				},
+				{
+				  "choice": "PostgreSQL",
+				  "description": "PostgreSQL"
+				},
+				{
+				  "choice": "SqlServer",
+				  "description": "SqlServer"
+				},
+				{
+				  "choice": "Oracle",
+				  "description": "Oracle"
+				},
+				{
+				  "choice": "Sqlite",
+				  "description": "Sqlite"
+				},
+				{
+				  "choice": "Firebird",
+				  "description": "Firebird"
+				},
+				{
+				  "choice": "MsAccess",
+				  "description": "MsAccess"
+				},
+				{
+				  "choice": "Dameng",
+				  "description": "达梦"
+				},
+				{
+				  "choice": "ShenTong",
+				  "description": "神通"
+				},
+				{
+				  "choice": "KingbaseES",
+				  "description": "人大金仓"
+				},
+				{
+				  "choice": "Gbase",
+				  "description": "南大通用"
+				}
+			],
+			"defaultValue": "Sqlite",
+			"description": "The database for the project"
+		},
+		"VueVersion": {
+			"type": "parameter",
+			"datatype": "choice",
+			"choices": [
+				{
+				  "choice": "Vue3",
+				  "description": "Vue3"
+				},
+				{
+				  "choice": "Vue2",
+				  "description": "Vue2"
+				}
+			],
+			"defaultValue": "Vue3",
+			"description": "The vue version for the project"
+		},
+	},
+	"sources": [
+		{
+		  "modifiers": [
+			{
+			  "condition": "(NoTaskScheduler)",
+			  "exclude": [
+				"src/platform/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
+				"src/platform/MyApp.Api/Core/Consts/TaskNames.cs"
+			  ]
+			},
+			{
+			  "condition": "(MicroService)",
+			  "exclude": [
+				"src/hosts/MyApp.Host/InitData/Admin/**",
+				"src/hosts/MyApp.Host/InitData/AdminVue2/**",
+				"src/hosts/MyApp.Host/wwwroot/captcha/**"
+			  ]
+			},
+			{
+			  "condition": "(VueVersion == \"Vue2\")",
+			  "exclude": [
+				"src/hosts/MyApp.Host/InitData/Admin/**"
+			  ]
+			},
+			{
+			  "condition": "(VueVersion == \"Vue3\")",
+			  "exclude": [
+				"src/hosts/MyApp.Host/InitData/AdminVue2/**"
+			  ]
+			}
+		  ]
+		}
+	]
+}

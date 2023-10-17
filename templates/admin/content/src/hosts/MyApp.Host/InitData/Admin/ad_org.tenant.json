@@ -1,0 +1,22 @@
+[
+  {
+    "id": 189097691009093,
+    "tenantId": 161223412138053,
+    "parentId": 0,
+    "name": "中台",
+    "code": "zhontai",
+    "value": "",
+    "memberCount": 0,
+    "enabled": true,
+    "sort": 1,
+    "description": "",
+    "childs": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
+  }
+]

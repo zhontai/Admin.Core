@@ -1,0 +1,44 @@
+[
+  {
+    "id": 161223412080709,
+    "parentId": 336557474730053,
+    "name": "主管理员",
+    "code": "main-admin",
+    "dataScope": 1,
+    "description": ""
+  },
+  {
+    "id": 162605510979653,
+    "parentId": 336557578817605,
+    "name": "普通员工",
+    "code": "emp",
+    "dataScope": 1,
+    "description": ""
+  },
+  {
+    "id": 336557474730053,
+    "name": "系统默认",
+    "dataScope": 1,
+    "sort": 1
+  },
+  {
+    "id": 336557508276293,
+    "name": "职务",
+    "dataScope": 1,
+    "sort": 2
+  },
+  {
+    "id": 336557578817605,
+    "name": "岗位",
+    "dataScope": 1,
+    "sort": 3
+  },
+  {
+    "id": 340428577087557,
+    "parentId": 336557508276293,
+    "name": "IT",
+    "code": "it",
+    "dataScope": 1,
+    "description": ""
+  }
+]

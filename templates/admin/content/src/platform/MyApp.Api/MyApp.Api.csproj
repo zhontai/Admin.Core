@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>MyApp接口库</Description>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>MyApp.Api.xml</DocumentationFile>
+		<NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ZhonTai.Admin" Version="$(PackageZhonTaiVersion)">
+			<CopyToOutputDirectory>*\*\*.xml</CopyToOutputDirectory>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Repositories\Module\" />
+	</ItemGroup>
+
+	<Target Name="AfterTargetsBuild" AfterTargets="Build">
+		<ItemGroup>
+			<PackageReferenceFiles Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\%(PackageReference.CopyToOutputDirectory)" />
+		</ItemGroup>
+		<Copy Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" SourceFiles="@(PackageReferenceFiles)" DestinationFolder="./../../hosts/MyApp.Host/$(OutDir)" />
+	</Target>
+</Project>
