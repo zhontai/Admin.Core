@@ -92,7 +92,7 @@
     "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   },
   //默认密码
-  "defaultPassword": "111111",
+  "defaultPassword": "123asd",
   //动态api
   "dynamicApi": {
     //结果格式化

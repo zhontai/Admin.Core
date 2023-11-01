@@ -2030,6 +2030,17 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Helpers.UserHelper">
+            <summary>
+            用户帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Helpers.UserHelper.CheckPassword(System.String)">
+            <summary>
+            检查密码
+            </summary>
+            <param name="password"></param>
+        </member>
         <member name="T:ZhonTai.Admin.Core.HostApp">
             <summary>
             宿主应用
