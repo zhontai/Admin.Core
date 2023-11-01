@@ -12,8 +12,8 @@ public class JsonHelper
     private static readonly JsonSerializerSettings _jsonSerializerSettings = new()
     {
         ContractResolver = new CamelCasePropertyNamesContractResolver(),
-        DateFormatString = "yyyy-MM-dd HH:mm:ss"
-};
+        DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK"
+    };
 
     /// <summary>
     /// 序列化

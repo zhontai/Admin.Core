@@ -1,0 +1,19 @@
+[
+  {
+    "id": 161223411986501,
+    "tenantId": 161223412138053,
+    "position": null,
+    "jobNumber": null,
+    "sex": 0,
+    "entryTime": null,
+    "workWeChatCard": null,
+    "introduce": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": null,
+    "modifiedUserName": null,
+    "modifiedTime": null
+  }
+]

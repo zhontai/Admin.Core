@@ -1,0 +1,26 @@
+[
+  {
+    "id": 161223411986501,
+    "tenantId": 161223412138053,
+    "userName": "admin",
+    "password": "96E79218965EB72C92A549DD5A330112",
+    "passwordEncryptType": 0,
+    "name": "管理员",
+    "mobile": "13122223333",
+    "email": "xiaoxue@zhontai.com",
+    "orgId": 189097691009093,
+    "managerUserId": null,
+    "nickName": "小雪转中雪",
+    "avatar": null,
+    "status": null,
+    "type": 100,
+    "enabled": true,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedTime": "2023-06-13T16:27:00"
+  }
+]

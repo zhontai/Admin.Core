@@ -37,6 +37,7 @@ using ZhonTai.Admin.Core;
 using Newtonsoft.Json;
 using ZhonTai.Admin.Services.Auth;
 using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Core.Helpers;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -47,6 +48,8 @@ namespace ZhonTai.Admin.Services.User;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
+    private readonly Lazy<UserHelper> _userHelper;
+
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
     private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
@@ -59,8 +62,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
     private IFileService _fileService => LazyGetRequiredService<IFileService>();
 
-    public UserService()
+    public UserService(Lazy<UserHelper> userHelper)
     {
+        _userHelper = userHelper;
     }
 
     /// <summary>
@@ -312,6 +316,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         return result;
     }
 
+    
+
     /// <summary>
     /// 新增用户
     /// </summary>
@@ -320,6 +326,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddAsync(UserAddInput input)
     {
+        _userHelper.Value.CheckPassword(input.Password);
+
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
@@ -331,17 +339,17 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             if (existsUser.UserName == input.UserName)
             {
-                throw ResultOutput.Exception($"账号已存在");
+                throw ResultOutput.Exception("账号已存在");
             }
 
             if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                throw ResultOutput.Exception($"手机号已存在");
+                throw ResultOutput.Exception("手机号已存在");
             }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                throw ResultOutput.Exception($"邮箱已存在");
+                throw ResultOutput.Exception("邮箱已存在");
             }
         }
 
@@ -494,55 +502,55 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public virtual async Task<long> AddMemberAsync(UserAddMemberInput input)
     {
-        using (_userRepository.DataFilter.DisableAll())
+        _userHelper.Value.CheckPassword(input.Password);
+
+        using var _ = _userRepository.DataFilter.DisableAll();
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
+
+        var existsUser = await _userRepository.Select.Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
         {
-            Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
-            where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
-                .Or(input.Email.NotNull(), a => a.Email == input.Email);
-
-            var existsUser = await _userRepository.Select.Where(where)
-                .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
-
-            if (existsUser != null)
+            if (existsUser.UserName == input.UserName)
             {
-                if (existsUser.UserName == input.UserName)
-                {
-                    throw ResultOutput.Exception($"账号已存在");
-                }
-
-                if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
-                {
-                    throw ResultOutput.Exception($"手机号已存在");
-                }
-
-                if (input.Email.NotNull() && existsUser.Email == input.Email)
-                {
-                    throw ResultOutput.Exception($"邮箱已存在");
-                }
+                throw ResultOutput.Exception($"账号已存在");
             }
 
-            // 用户信息
-            if (input.Password.IsNull())
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                input.Password = _appConfig.DefaultPassword;
+                throw ResultOutput.Exception($"手机号已存在");
             }
 
-            var entity = Mapper.Map<UserEntity>(input);
-            entity.Type = UserType.Member;
-            if (_appConfig.PasswordHasher)
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                entity.Password = _passwordHasher.HashPassword(entity, input.Password);
-                entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+                throw ResultOutput.Exception($"邮箱已存在");
             }
-            else
-            {
-                entity.Password = MD5Encrypt.Encrypt32(input.Password);
-                entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
-            }
-            var user = await _userRepository.InsertAsync(entity);
-
-            return user.Id;
         }
+
+        // 用户信息
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
+
+        var entity = Mapper.Map<UserEntity>(input);
+        entity.Type = UserType.Member;
+        if (_appConfig.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(input.Password);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+        }
+        var user = await _userRepository.InsertAsync(entity);
+
+        return user.Id;
     }
 
     /// <summary>
@@ -614,6 +622,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("新密码和确认密码不一致");
         }
 
+        _userHelper.Value.CheckPassword(input.NewPassword);
+
         var entity = await _userRepository.GetAsync(User.Id);
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
@@ -631,17 +641,22 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     public async Task<string> ResetPasswordAsync(UserResetPasswordInput input)
-    {
-        var entity = await _userRepository.GetAsync(input.Id);
+    { 
         var password = input.Password;
         if (password.IsNull())
         {
             password = _appConfig.DefaultPassword;
         }
+        else
+        {
+            _userHelper.Value.CheckPassword(password);
+        }
         if (password.IsNull())
         {
-            password = "111111";
+            password = "123asd";
         }
+
+        var entity = await _userRepository.GetAsync(input.Id);
         if (_appConfig.PasswordHasher)
         {
             entity.Password = _passwordHasher.HashPassword(entity, password);

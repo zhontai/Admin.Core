@@ -1,0 +1,22 @@
+﻿//#if (DbType == "Oracle")
+create temporary tablespace admindb_temp 
+tempfile 'D:\Oracle\Data\admindb_temp.dbf'
+size 50m
+autoextend on
+next 50m maxsize 20480m
+extent management local;
+
+create tablespace admindb
+logging
+datafile 'D:\Oracle\Data\admindb.dbf'
+size 50m
+autoextend on
+next 50m maxsize 20480m
+extent management local;
+
+create user admin identified by password
+default tablespace admindb
+temporary tablespace admindb_temp;
+
+grant connect,resource,dba to admin;
+//#endif

@@ -33,7 +33,6 @@ public class ValidateInputAttribute : ActionFilterAttribute
                    return sb.ToString();
                })
                .Aggregate((x, y) => x + "|" + y);
-                logger.LogError(errors);
                 context.Result = new JsonResult(ResultOutput.NotOk(errors));
             }
             catch

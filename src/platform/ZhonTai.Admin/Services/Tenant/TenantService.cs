@@ -26,6 +26,7 @@ using Yitter.IdGenerator;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Services.Pkg;
+using ZhonTai.Admin.Core.Helpers;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -36,6 +37,8 @@ namespace ZhonTai.Admin.Services.Tenant;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
+    private readonly Lazy<UserHelper> _userHelper;
+
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
     private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
@@ -48,8 +51,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
     private ITenantPkgRepository _tenantPkgRepository => LazyGetRequiredService<ITenantPkgRepository>();
 
-    public TenantService()
+    public TenantService(Lazy<UserHelper> userHelper)
     {
+        _userHelper = userHelper;
     }
 
     /// <summary>
@@ -113,7 +117,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             List = Mapper.Map<List<TenantListOutput>>(list),
             Total = total
         };
-
+         
         return data;
     }
 
@@ -125,131 +129,134 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddAsync(TenantAddInput input)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        _userHelper.Value.CheckPassword(input.Password);
+
+        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+
+        var existsOrg = await _orgRepository.Select
+        .Where(a => (a.Name == input.Name || a.Code == input.Code) && a.ParentId == 0)
+        .FirstAsync(a => new { a.Name, a.Code });
+
+        if (existsOrg != null)
         {
-            var existsOrg = await _orgRepository.Select
-            .Where(a => (a.Name == input.Name || a.Code == input.Code) && a.ParentId == 0)
-            .FirstAsync(a => new { a.Name, a.Code });
-
-            if (existsOrg != null)
+            if (existsOrg.Name == input.Name)
             {
-                if (existsOrg.Name == input.Name)
-                {
-                    throw ResultOutput.Exception($"企业名称已存在");
-                }
-
-                if (existsOrg.Code == input.Code)
-                {
-                    throw ResultOutput.Exception($"企业编码已存在");
-                }
+                throw ResultOutput.Exception($"企业名称已存在");
             }
 
-            Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
-            where = where.Or(input.Phone.NotNull(), a => a.Mobile == input.Phone)
-                .Or(input.Email.NotNull(), a => a.Email == input.Email);
-
-            var existsUser = await _userRepository.Select.Where(where)
-                .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
-
-            if (existsUser != null)
+            if (existsOrg.Code == input.Code)
             {
-                if (existsUser.UserName == input.UserName)
-                {
-                    throw ResultOutput.Exception($"企业账号已存在");
-                }
+                throw ResultOutput.Exception($"企业编码已存在");
+            }
+        }
 
-                if (input.Phone.NotNull() && existsUser.Mobile == input.Phone)
-                {
-                    throw ResultOutput.Exception($"企业手机号已存在");
-                }
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Phone.NotNull(), a => a.Mobile == input.Phone)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-                if (input.Email.NotNull() && existsUser.Email == input.Email)
-                {
-                    throw ResultOutput.Exception($"企业邮箱已存在");
-                }
+        var existsUser = await _userRepository.Select.Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
+        {
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception($"企业账号已存在");
             }
 
-            //添加租户
-            TenantEntity entity = Mapper.Map<TenantEntity>(input);
-            TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
-            long tenantId = tenant.Id;
-
-            //添加租户套餐
-            if (input.PkgIds != null && input.PkgIds.Any())
+            if (input.Phone.NotNull() && existsUser.Mobile == input.Phone)
             {
-                var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
-                {
-                    TenantId = tenantId,
-                    PkgId = pkgId
-                }).ToList();
-
-                await _tenantPkgRepository.InsertAsync(pkgs);
+                throw ResultOutput.Exception($"企业手机号已存在");
             }
 
-            //添加部门
-            var org = new OrgEntity
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception($"企业邮箱已存在");
+            }
+        }
+
+        //添加租户
+        TenantEntity entity = Mapper.Map<TenantEntity>(input);
+        TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
+        long tenantId = tenant.Id;
+
+        //添加租户套餐
+        if (input.PkgIds != null && input.PkgIds.Any())
+        {
+            var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
             {
                 TenantId = tenantId,
-                Name = input.Name,
-                Code = input.Code,
-                ParentId = 0,
-                MemberCount = 1,
-                Sort = 1,
-                Enabled = true
-            };
-            await _orgRepository.InsertAsync(org);
+                PkgId = pkgId
+            }).ToList();
 
-            //添加用户
-            if (input.Password.IsNull())
-            {
-                input.Password = _appConfig.DefaultPassword;
-            }
-            var user = new UserEntity
-            {
-                TenantId = tenantId,
-                UserName = input.UserName,
-                Name = input.RealName,
-                Mobile = input.Phone,
-                Email = input.Email,
-                Type = UserType.TenantAdmin,
-                OrgId = org.Id,
-                Enabled = true
-            };
-            if (_appConfig.PasswordHasher)
-            {
-                user.Password = _passwordHasher.HashPassword(user, input.Password);
-                user.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
-            }
-            else
-            {
-                user.Password = MD5Encrypt.Encrypt32(input.Password);
-                user.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
-            }
-            await _userRepository.InsertAsync(user);
+            await _tenantPkgRepository.InsertAsync(pkgs);
+        }
 
-            long userId = user.Id;
+        //添加部门
+        var org = new OrgEntity
+        {
+            TenantId = tenantId,
+            Name = input.Name,
+            Code = input.Code,
+            ParentId = 0,
+            MemberCount = 1,
+            Sort = 1,
+            Enabled = true
+        };
+        await _orgRepository.InsertAsync(org);
 
-            //添加用户员工
-            var emp = new UserStaffEntity
-            {
-                Id = userId,
-                TenantId = tenantId
-            };
-            await _userStaffRepository.InsertAsync(emp);
+        //添加用户
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
 
-            //添加用户部门
-            var userOrg = new UserOrgEntity
-            {
-                UserId = userId,
-                OrgId = org.Id
-            };
-            await _userOrgRepository.InsertAsync(userOrg);
+        var user = new UserEntity
+        {
+            TenantId = tenantId,
+            UserName = input.UserName,
+            Name = input.RealName,
+            Mobile = input.Phone,
+            Email = input.Email,
+            Type = UserType.TenantAdmin,
+            OrgId = org.Id,
+            Enabled = true
+        };
+        if (_appConfig.PasswordHasher)
+        {
+            user.Password = _passwordHasher.HashPassword(user, input.Password);
+            user.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+        }
+        else
+        {
+            user.Password = MD5Encrypt.Encrypt32(input.Password);
+            user.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+        }
+        await _userRepository.InsertAsync(user);
 
-            //添加角色分组和角色
-            var roleGroupId = YitIdHelper.NextId();
-            var roleId = YitIdHelper.NextId();
-            var jobGroupId = YitIdHelper.NextId();
-            var roles = new List<RoleEntity>{
+        long userId = user.Id;
+
+        //添加用户员工
+        var emp = new UserStaffEntity
+        {
+            Id = userId,
+            TenantId = tenantId
+        };
+        await _userStaffRepository.InsertAsync(emp);
+
+        //添加用户部门
+        var userOrg = new UserOrgEntity
+        {
+            UserId = userId,
+            OrgId = org.Id
+        };
+        await _userOrgRepository.InsertAsync(userOrg);
+
+        //添加角色分组和角色
+        var roleGroupId = YitIdHelper.NextId();
+        var roleId = YitIdHelper.NextId();
+        var jobGroupId = YitIdHelper.NextId();
+        var roles = new List<RoleEntity>{
                 new RoleEntity
                 {
                     Id = roleGroupId,
@@ -290,23 +297,22 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                     Sort = 1
                 }
             };
-            await _roleRepository.InsertAsync(roles);
+        await _roleRepository.InsertAsync(roles);
 
-            //添加用户角色
-            var userRole = new UserRoleEntity()
-            {
-                UserId = userId,
-                RoleId = roleId
-            };
-            await _userRoleRepository.InsertAsync(userRole);
+        //添加用户角色
+        var userRole = new UserRoleEntity()
+        {
+            UserId = userId,
+            RoleId = roleId
+        };
+        await _userRoleRepository.InsertAsync(userRole);
 
-            //更新租户的用户和部门
-            tenant.UserId = userId;
-            tenant.OrgId = org.Id;
-            await _tenantRepository.UpdateAsync(tenant);
+        //更新租户的用户和部门
+        tenant.UserId = userId;
+        tenant.OrgId = org.Id;
+        await _tenantRepository.UpdateAsync(tenant);
 
-            return tenant.Id;
-        }
+        return tenant.Id;
     }
 
     /// <summary>

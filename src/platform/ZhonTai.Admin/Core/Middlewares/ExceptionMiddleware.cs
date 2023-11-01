@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Exceptions;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Common.Helpers;
+using System.Linq;
 
 namespace ZhonTai.Admin.Core.Middlewares;
 
@@ -44,8 +45,6 @@ public class ExceptionMiddleware
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.OK;
 
-        //_logger.LogError(exception, "");
-
         return context.Response.WriteAsync(JsonHelper.Serialize(new ResultOutput<string>()
         {
             Code = appException.AppCode
@@ -56,7 +55,15 @@ public class ExceptionMiddleware
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        _logger.LogError(exception, "");
+
+        var authorization = context.Request.Headers.Authorization.FirstOrDefault();
+        var userAgent = context.Request.Headers.UserAgent.FirstOrDefault();
+        context.Items.TryGetValue("_ActionArguments", out object? actionArguments);
+        _logger.LogError(exception,
+        "Error while processing request. \r\nActionArguments: {ActionArguments} \r\nAuthorization: {Authorization} \r\nUserAgent: {UserAgent}",
+        actionArguments != null ? JsonHelper.Serialize(actionArguments) : "",
+        authorization,
+        userAgent);
 
         return context.Response.WriteAsync(JsonHelper.Serialize(new ResultOutput<string>().NotOk(exception.Message)));
     }

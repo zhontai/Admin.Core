@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 **/wwwroot/upload
+!**/ZhonTai.Admin/Core/Logs

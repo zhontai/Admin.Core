@@ -247,6 +247,11 @@
             自定义路由 /api/{version}/[area]/[controler]/[action]
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Validators.ValidateRequiredAttribute">
+            <summary>
+            指定属性、字段、参数必填
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Auth.ClaimAttributes">
             <summary>
             Claim属性
@@ -561,6 +566,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.HealthChecks">
             <summary>
             健康检查配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.PreflightMaxAge">
+            <summary>
+            指定跨域访问时预检等待时间，以秒为单位，默认30分钟
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
@@ -1433,21 +1443,6 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbKey">
-            <summary>
-            数据库注册键
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.DbType">
-            <summary>
-            数据库
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Dto.CreateFreeSqlTenantDto.ConnectionString">
-            <summary>
-            连接字符串
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Core.Dto.IResultOutput">
             <summary>
             结果输出接口
@@ -2035,6 +2030,17 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Helpers.UserHelper">
+            <summary>
+            用户帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Helpers.UserHelper.CheckPassword(System.String)">
+            <summary>
+            检查密码
+            </summary>
+            <param name="password"></param>
+        </member>
         <member name="T:ZhonTai.Admin.Core.HostApp">
             <summary>
             宿主应用
@@ -2303,11 +2309,6 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
             <summary>
             自定义数据库初始化
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Validators.ValidateRequiredAttribute">
-            <summary>
-            指定属性、字段、参数必填
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.Api.ApiEntity">

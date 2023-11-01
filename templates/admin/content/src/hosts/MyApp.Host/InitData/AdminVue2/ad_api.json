@@ -1,0 +1,1426 @@
+[
+  {
+    "id": 161227167658053,
+    "label": "接口服务",
+    "path": "api",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168079941,
+        "parentId": 161227167658053,
+        "label": "查询接口",
+        "path": "/api/admin/api/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168116805,
+        "parentId": 161227167658053,
+        "label": "查询列表",
+        "path": "/api/admin/api/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168116806,
+        "parentId": 161227167658053,
+        "label": "查询分页",
+        "path": "/api/admin/api/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168120901,
+        "parentId": 161227167658053,
+        "label": "添加",
+        "path": "/api/admin/api/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168120902,
+        "parentId": 161227167658053,
+        "label": "修改",
+        "path": "/api/admin/api/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168120903,
+        "parentId": 161227167658053,
+        "label": "删除",
+        "path": "/api/admin/api/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168124997,
+        "parentId": 161227167658053,
+        "label": "批量删除",
+        "path": "/api/admin/api/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168124998,
+        "parentId": 161227167658053,
+        "label": "同步",
+        "path": "/api/admin/api/sync",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651914309,
+        "parentId": 161227167658053,
+        "label": "彻底删除",
+        "path": "/api/admin/api/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719493,
+    "label": "认证授权服务",
+    "path": "auth",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168129094,
+        "parentId": 161227167719493,
+        "label": "查询密钥",
+        "path": "/api/admin/auth/get-password-encrypt-key",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168133189,
+        "parentId": 161227167719493,
+        "label": "登录",
+        "path": "/api/admin/auth/login",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168133190,
+        "parentId": 161227167719493,
+        "label": "刷新Token",
+        "path": "/api/admin/auth/refresh",
+        "httpMethods": "get",
+        "description": "以旧换新",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651922501,
+        "parentId": 161227167719493,
+        "label": "查询用户信息",
+        "path": "/api/admin/auth/get-user-info",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651922502,
+        "parentId": 161227167719493,
+        "label": "获取验证数据",
+        "path": "/api/admin/auth/get-captcha",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651922503,
+        "parentId": 161227167719493,
+        "label": "检查验证数据",
+        "path": "/api/admin/auth/check-captcha",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719494,
+    "label": "数据字典服务",
+    "path": "dictionary",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168137285,
+        "parentId": 161227167719494,
+        "label": "查询数据字典",
+        "path": "/api/admin/dictionary/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168137286,
+        "parentId": 161227167719494,
+        "label": "查询数据字典列表",
+        "path": "/api/admin/dictionary/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168137287,
+        "parentId": 161227167719494,
+        "label": "新增",
+        "path": "/api/admin/dictionary/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168141381,
+        "parentId": 161227167719494,
+        "label": "修改",
+        "path": "/api/admin/dictionary/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168141382,
+        "parentId": 161227167719494,
+        "label": "删除",
+        "path": "/api/admin/dictionary/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 184100551516229,
+        "parentId": 161227167719494,
+        "label": "批量删除",
+        "path": "/api/admin/dictionary/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651922504,
+        "parentId": 161227167719494,
+        "label": "彻底删除",
+        "path": "/api/admin/dictionary/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719495,
+    "label": "权限服务",
+    "path": "permission",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168141383,
+        "parentId": 161227167719495,
+        "label": "查询权限列表",
+        "path": "/api/admin/permission/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168145477,
+        "parentId": 161227167719495,
+        "label": "查询分组",
+        "path": "/api/admin/permission/get-group",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168145478,
+        "parentId": 161227167719495,
+        "label": "查询菜单",
+        "path": "/api/admin/permission/get-menu",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168149573,
+        "parentId": 161227167719495,
+        "label": "查询接口",
+        "path": "/api/admin/permission/get-api",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168149574,
+        "parentId": 161227167719495,
+        "label": "查询角色权限-权限列表",
+        "path": "/api/admin/permission/get-permission-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168149575,
+        "parentId": 161227167719495,
+        "label": "查询角色权限列表",
+        "path": "/api/admin/permission/get-role-permission-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168153669,
+        "parentId": 161227167719495,
+        "label": "新增分组",
+        "path": "/api/admin/permission/add-group",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168153670,
+        "parentId": 161227167719495,
+        "label": "新增菜单",
+        "path": "/api/admin/permission/add-menu",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168153671,
+        "parentId": 161227167719495,
+        "label": "新增接口",
+        "path": "/api/admin/permission/add-api",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168157765,
+        "parentId": 161227167719495,
+        "label": "修改分组",
+        "path": "/api/admin/permission/update-group",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168157766,
+        "parentId": 161227167719495,
+        "label": "修改菜单",
+        "path": "/api/admin/permission/update-menu",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168161861,
+        "parentId": 161227167719495,
+        "label": "修改接口",
+        "path": "/api/admin/permission/update-api",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168161862,
+        "parentId": 161227167719495,
+        "label": "删除",
+        "path": "/api/admin/permission/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168165957,
+        "parentId": 161227167719495,
+        "label": "保存角色权限",
+        "path": "/api/admin/permission/assign",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168165958,
+        "parentId": 161227167719495,
+        "label": "查询权限点",
+        "path": "/api/admin/permission/get-dot",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168165959,
+        "parentId": 161227167719495,
+        "label": "新增权限点",
+        "path": "/api/admin/permission/add-dot",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168170053,
+        "parentId": 161227167719495,
+        "label": "修改权限点",
+        "path": "/api/admin/permission/update-dot",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 170317848645701,
+        "parentId": 161227167719495,
+        "label": "查询租户权限列表",
+        "path": "/api/admin/permission/get-tenant-permission-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 170317848662085,
+        "parentId": 161227167719495,
+        "label": "保存租户权限",
+        "path": "/api/admin/permission/save-tenant-permissions",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 187384805367877,
+        "parentId": 161227167719495,
+        "label": "彻底删除",
+        "path": "/api/admin/permission/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719496,
+    "label": "角色服务",
+    "path": "role",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168170054,
+        "parentId": 161227167719496,
+        "label": "查询角色",
+        "path": "/api/admin/role/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168170055,
+        "parentId": 161227167719496,
+        "label": "查询角色列表",
+        "path": "/api/admin/role/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168174149,
+        "parentId": 161227167719496,
+        "label": "添加",
+        "path": "/api/admin/role/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168178245,
+        "parentId": 161227167719496,
+        "label": "修改",
+        "path": "/api/admin/role/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168178246,
+        "parentId": 161227167719496,
+        "label": "删除",
+        "path": "/api/admin/role/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168182341,
+        "parentId": 161227167719496,
+        "label": "批量删除",
+        "path": "/api/admin/role/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926604,
+        "parentId": 161227167719496,
+        "label": "彻底删除",
+        "path": "/api/admin/role/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241422917,
+        "parentId": 161227167719496,
+        "label": "查询角色列表",
+        "path": "/api/admin/role/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241422918,
+        "parentId": 161227167719496,
+        "label": "查询角色用户列表",
+        "path": "/api/admin/role/get-role-user-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241422919,
+        "parentId": 161227167719496,
+        "label": "新增角色用户",
+        "path": "/api/admin/role/add-role-user",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241422920,
+        "parentId": 161227167719496,
+        "label": "移除角色用户",
+        "path": "/api/admin/role/remove-role-user",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241422921,
+        "parentId": 161227167719496,
+        "label": "批量彻底删除",
+        "path": "/api/admin/role/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719497,
+    "label": "用户服务",
+    "path": "user",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168182342,
+        "parentId": 161227167719497,
+        "label": "查询用户基本信息",
+        "path": "/api/admin/user/get-basic",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168182343,
+        "parentId": 161227167719497,
+        "label": "查询用户",
+        "path": "/api/admin/user/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168186437,
+        "parentId": 161227167719497,
+        "label": "查询分页",
+        "path": "/api/admin/user/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168186438,
+        "parentId": 161227167719497,
+        "label": "新增用户",
+        "path": "/api/admin/user/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168190533,
+        "parentId": 161227167719497,
+        "label": "修改用户",
+        "path": "/api/admin/user/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168190534,
+        "parentId": 161227167719497,
+        "label": "删除用户",
+        "path": "/api/admin/user/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168190535,
+        "parentId": 161227167719497,
+        "label": "批量删除用户",
+        "path": "/api/admin/user/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168194629,
+        "parentId": 161227167719497,
+        "label": "修改用户密码",
+        "path": "/api/admin/user/change-password",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168194630,
+        "parentId": 161227167719497,
+        "label": "更新用户基本信息",
+        "path": "/api/admin/user/update-basic",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168194631,
+        "parentId": 161227167719497,
+        "label": "上传头像",
+        "path": "/api/admin/user/avatar-upload",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926606,
+        "parentId": 161227167719497,
+        "label": "查询用户权限信息",
+        "path": "/api/admin/user/get-permissions",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926607,
+        "parentId": 161227167719497,
+        "label": "彻底删除用户",
+        "path": "/api/admin/user/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241427019,
+        "parentId": 161227167719497,
+        "label": "批量彻底删除用户",
+        "path": "/api/admin/user/batch-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 349749396615237,
+        "parentId": 161227167719497,
+        "label": "重置密码",
+        "path": "/api/admin/user/reset-password",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 349749396619333,
+        "parentId": 161227167719497,
+        "label": "设置主管",
+        "path": "/api/admin/user/set-manager",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167719498,
+    "label": "视图服务",
+    "path": "view",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168198725,
+        "parentId": 161227167719498,
+        "label": "查询视图",
+        "path": "/api/admin/view/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168198726,
+        "parentId": 161227167719498,
+        "label": "查询列表",
+        "path": "/api/admin/view/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168202822,
+        "parentId": 161227167719498,
+        "label": "新增",
+        "path": "/api/admin/view/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168202823,
+        "parentId": 161227167719498,
+        "label": "修改",
+        "path": "/api/admin/view/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168206917,
+        "parentId": 161227167719498,
+        "label": "删除",
+        "path": "/api/admin/view/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168206918,
+        "parentId": 161227167719498,
+        "label": "批量删除",
+        "path": "/api/admin/view/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168206919,
+        "parentId": 161227167719498,
+        "label": "同步",
+        "path": "/api/admin/view/sync",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926608,
+        "parentId": 161227167719498,
+        "label": "彻底删除",
+        "path": "/api/admin/view/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167723589,
+    "label": "缓存服务",
+    "path": "cache",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168211013,
+        "parentId": 161227167723589,
+        "label": "查询列表",
+        "path": "/api/admin/cache/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168211014,
+        "parentId": 161227167723589,
+        "label": "清除缓存",
+        "path": "/api/admin/cache/clear",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167723590,
+    "label": "登录日志服务",
+    "path": "login-log",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168215109,
+        "parentId": 161227167723590,
+        "label": "查询登录日志列表",
+        "path": "/api/admin/login-log/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926601,
+        "parentId": 161227167723590,
+        "label": "新增",
+        "path": "/api/admin/login-log/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167723591,
+    "label": "操作日志服务",
+    "path": "opration-log",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168215110,
+        "parentId": 161227167723591,
+        "label": "查询操作日志列表",
+        "path": "/api/admin/opration-log/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926602,
+        "parentId": 161227167723591,
+        "label": "新增",
+        "path": "/api/admin/opration-log/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167723592,
+    "label": "文档服务",
+    "path": "document",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168215111,
+        "parentId": 161227167723592,
+        "label": "查询文档列表",
+        "path": "/api/admin/document/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168219205,
+        "parentId": 161227167723592,
+        "label": "查询分组",
+        "path": "/api/admin/document/get-group",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168219206,
+        "parentId": 161227167723592,
+        "label": "查询菜单",
+        "path": "/api/admin/document/get-menu",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168223301,
+        "parentId": 161227167723592,
+        "label": "查询精简文档列表",
+        "path": "/api/admin/document/get-plain-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168223302,
+        "parentId": 161227167723592,
+        "label": "新增分组",
+        "path": "/api/admin/document/add-group",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168227397,
+        "parentId": 161227167723592,
+        "label": "新增菜单",
+        "path": "/api/admin/document/add-menu",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168227398,
+        "parentId": 161227167723592,
+        "label": "修改分组",
+        "path": "/api/admin/document/update-group",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168231493,
+        "parentId": 161227167723592,
+        "label": "修改菜单",
+        "path": "/api/admin/document/update-menu",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168231494,
+        "parentId": 161227167723592,
+        "label": "删除文档",
+        "path": "/api/admin/document/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168235589,
+        "parentId": 161227167723592,
+        "label": "查询文档内容",
+        "path": "/api/admin/document/get-content",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168235590,
+        "parentId": 161227167723592,
+        "label": "修改文档内容",
+        "path": "/api/admin/document/update-content",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168235591,
+        "parentId": 161227167723592,
+        "label": "上传文档图片",
+        "path": "/api/admin/document/upload-image",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168239685,
+        "parentId": 161227167723592,
+        "label": "查询图片列表",
+        "path": "/api/admin/document/get-image-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168239686,
+        "parentId": 161227167723592,
+        "label": "彻底删除图片",
+        "path": "/api/admin/document/delete-image",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926599,
+        "parentId": 161227167723592,
+        "label": "新增图片",
+        "path": "/api/admin/document/add-image",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926600,
+        "parentId": 161227167723592,
+        "label": "彻底删除文档",
+        "path": "/api/admin/document/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 161227167723593,
+    "label": "租户服务",
+    "path": "tenant",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 161227168243781,
+        "parentId": 161227167723593,
+        "label": "查询租户",
+        "path": "/api/admin/tenant/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168243782,
+        "parentId": 161227167723593,
+        "label": "查询租户列表",
+        "path": "/api/admin/tenant/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168243783,
+        "parentId": 161227167723593,
+        "label": "新增",
+        "path": "/api/admin/tenant/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168247877,
+        "parentId": 161227167723593,
+        "label": "修改",
+        "path": "/api/admin/tenant/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168247878,
+        "parentId": 161227167723593,
+        "label": "删除",
+        "path": "/api/admin/tenant/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 161227168251973,
+        "parentId": 161227167723593,
+        "label": "批量删除",
+        "path": "/api/admin/tenant/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 163579785756741,
+        "parentId": 161227167723593,
+        "label": "彻底删除",
+        "path": "/api/admin/tenant/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 174219034718277,
+    "label": "部门服务",
+    "path": "org",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 174219034734672,
+        "parentId": 174219034718277,
+        "label": "查询部门",
+        "path": "/api/admin/org/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034734674,
+        "parentId": 174219034718277,
+        "label": "新增",
+        "path": "/api/admin/org/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034738757,
+        "parentId": 174219034718277,
+        "label": "修改",
+        "path": "/api/admin/org/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034738758,
+        "parentId": 174219034718277,
+        "label": "删除",
+        "path": "/api/admin/org/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 188049296683077,
+        "parentId": 174219034718277,
+        "label": "查询列表",
+        "path": "/api/admin/org/get-list",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 342274923528261,
+        "parentId": 174219034718277,
+        "label": "彻底删除",
+        "path": "/api/admin/org/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 174219034718279,
+    "label": "字典类型服务",
+    "path": "dictionary-type",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 174219034734661,
+        "parentId": 174219034718279,
+        "label": "查询字典类型",
+        "path": "/api/admin/dictionary-type/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034734662,
+        "parentId": 174219034718279,
+        "label": "查询字典类型列表",
+        "path": "/api/admin/dictionary-type/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034734663,
+        "parentId": 174219034718279,
+        "label": "新增",
+        "path": "/api/admin/dictionary-type/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034734664,
+        "parentId": 174219034718279,
+        "label": "修改",
+        "path": "/api/admin/dictionary-type/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 174219034734665,
+        "parentId": 174219034718279,
+        "label": "删除",
+        "path": "/api/admin/dictionary-type/soft-delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 184100551532613,
+        "parentId": 174219034718279,
+        "label": "批量删除",
+        "path": "/api/admin/dictionary-type/batch-soft-delete",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 271618651926597,
+        "parentId": 174219034718279,
+        "label": "彻底删除",
+        "path": "/api/admin/dictionary-type/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 336555241189445,
+    "label": "任务日志服务",
+    "path": "task-log",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 336555241427018,
+        "parentId": 336555241189445,
+        "label": "查询任务日志列表",
+        "path": "/api/admin/task-log/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  },
+  {
+    "id": 336555241193541,
+    "label": "任务服务",
+    "path": "task",
+    "description": "",
+    "enabled": true,
+    "childs": [
+      {
+        "id": 336555241422922,
+        "parentId": 336555241193541,
+        "label": "查询任务",
+        "path": "/api/admin/task/get",
+        "httpMethods": "get",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241427013,
+        "parentId": 336555241193541,
+        "label": "查询任务列表",
+        "path": "/api/admin/task/get-page",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241427014,
+        "parentId": 336555241193541,
+        "label": "新增",
+        "path": "/api/admin/task/add",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241427015,
+        "parentId": 336555241193541,
+        "label": "修改",
+        "path": "/api/admin/task/update",
+        "httpMethods": "put",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 336555241427016,
+        "parentId": 336555241193541,
+        "label": "删除任务",
+        "path": "/api/admin/task/delete",
+        "httpMethods": "delete",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 343342310699077,
+        "parentId": 336555241193541,
+        "label": "暂停任务",
+        "path": "/api/admin/task/pause",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 343342310703173,
+        "parentId": 336555241193541,
+        "label": "启动任务",
+        "path": "/api/admin/task/resume",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      },
+      {
+        "id": 343342310703174,
+        "parentId": 336555241193541,
+        "label": "执行任务",
+        "path": "/api/admin/task/run",
+        "httpMethods": "post",
+        "description": "",
+        "enabled": true,
+        "childs": []
+      }
+    ]
+  }
+]

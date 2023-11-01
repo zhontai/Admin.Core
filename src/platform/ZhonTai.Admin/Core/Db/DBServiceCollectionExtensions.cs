@@ -28,23 +28,26 @@ public static class DBServiceCollectionExtensions
         var freeSqlCloud = appConfig.DistributeKey.IsNull() ? new FreeSqlCloud() : new FreeSqlCloud(appConfig.DistributeKey);
         DbHelper.RegisterDb(freeSqlCloud, user, dbConfig, appConfig, hostAppOptions);
 
+        //运行主库
+        var masterDb = freeSqlCloud.Use(dbConfig.Key);
+        services.AddSingleton(provider => masterDb);
+        masterDb.Select<object>();
+
         //注册多数据库
         if (dbConfig.Dbs?.Length > 0)
         {
             foreach (var db in dbConfig.Dbs)
             {
                 DbHelper.RegisterDb(freeSqlCloud, user, db, appConfig, null);
+                //运行当前库
+                var currentDb = freeSqlCloud.Use(dbConfig.Key);
+                currentDb.Select<object>();
             }
         }
 
         services.AddSingleton<IFreeSql>(freeSqlCloud);
         services.AddSingleton(freeSqlCloud);
         services.AddScoped<UnitOfWorkManagerCloud>();
-        //定义主库
-        var fsql = freeSqlCloud.Use(dbConfig.Key);
-        services.AddSingleton(provider => fsql);
-        //运行主库
-        fsql.Select<object>();
     }
 
     /// <summary>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Logs;
 
 namespace ZhonTai.Admin.Core.Filters;
@@ -11,21 +12,23 @@ namespace ZhonTai.Admin.Core.Filters;
 /// </summary>
 public class ControllerLogFilter : IAsyncActionFilter
 {
-    private readonly ILogHandler _logHandler;
+    private readonly AppConfig _appConfig;
 
-    public ControllerLogFilter(ILogHandler logHandler)
+    public ControllerLogFilter(AppConfig appConfig)
     {
-        _logHandler = logHandler;
+        _appConfig = appConfig;
     }
 
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(NoOprationLogAttribute)))
+        context.HttpContext.Items["_ActionArguments"] = context.ActionArguments;
+
+        if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(NoOprationLogAttribute)) || !_appConfig.Log.Operation)
         {
             await next();
             return;
         }
 
-        await _logHandler.LogAsync(context, next);
+        await AppInfo.GetRequiredService<ILogHandler>().LogAsync(context, next);
     }
 }
