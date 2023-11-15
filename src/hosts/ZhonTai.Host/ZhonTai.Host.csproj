@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Description>中台接口宿主</Description>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
@@ -21,12 +21,12 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.801" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.801" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.801" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.801" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.700" />
-		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.801" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.803" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -39,9 +39,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.2.1" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.2.1" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.801" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.2.2" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.2.2" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
 	</ItemGroup>

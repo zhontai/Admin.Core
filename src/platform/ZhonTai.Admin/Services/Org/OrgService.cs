@@ -10,8 +10,6 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using System.Collections.Generic;
-using ZhonTai.Admin.Core;
-using ZhonTai.Admin.Services.User;
 using System.Linq;
 using ZhonTai.Admin.Domain.Role;
 
@@ -50,7 +48,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task<List<OrgListOutput>> GetListAsync(string key)
     {
-        var dataPermission = await AppInfo.GetRequiredService<IUserService>().GetDataPermissionAsync();
+        var dataPermission = User.DataPermission;
         var hasOrg = dataPermission.OrgIds.Count > 0;
 
         var select = _orgRepository.Select

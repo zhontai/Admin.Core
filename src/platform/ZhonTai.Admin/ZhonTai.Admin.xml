@@ -1158,11 +1158,6 @@
             默认租户
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.RequestPolicyName">
-            <summary>
-            请求策略
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.AllowAnyPolicyName">
             <summary>
             允许所有源访问策略
@@ -7770,10 +7765,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetDataPermissionAsync">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetDataPermissionAsync(System.String)">
             <summary>
             获得数据权限
             </summary>
+            <param name="apiPath"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.GetBasicAsync">
@@ -8256,7 +8252,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8271,7 +8269,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>

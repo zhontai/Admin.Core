@@ -41,7 +41,9 @@ public class UserToken : IUserToken
     public JwtSecurityToken Decode(string jwtToken)
     {
         var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+
         var jwtSecurityToken = jwtSecurityTokenHandler.ReadJwtToken(jwtToken);
+
         return jwtSecurityToken;
     }
 }

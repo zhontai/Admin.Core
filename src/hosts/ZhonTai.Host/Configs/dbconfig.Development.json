@@ -4,5 +4,5 @@
   //监听Curd操作
   "curd": true,
   //同步更新数据
-  "sysUpdateData": true
+  "sysUpdateData": false
 }

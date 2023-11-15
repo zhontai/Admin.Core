@@ -1,10 +1,10 @@
 {
   //发行者
-  "issuer": "http://127.0.0.1:8000",
+  "issuer": "admin.core",
   //订阅者
-  "audience": "http://127.0.0.1:8000",
+  "audience": "admin.core",
   //密钥
-  "securityKey": "8efbdb87-f521-11ed-a709-5254008978e9",
+  "securityKey": "8efbdb87f52111e08978e9edada709525407095254008978e98efbdb87f52111",
   //有效期(分钟) 120 = 2小时
   "expires": 120,
   //刷新有效期(分钟) 1440 = 1天

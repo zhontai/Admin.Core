@@ -18,7 +18,9 @@
     //接口权限
     "permission": true,
     //数据权限
-    "dataPermission": true
+    "dataPermission": true,
+    //接口数据权限
+    "apiDataPermission": true
   },
   //Swagger文档
   "swagger": {

@@ -266,6 +266,11 @@ public class ValidateConfig
     /// 数据权限
     /// </summary>
     public bool DataPermission { get; set; } = true;
+
+    /// <summary>
+    /// 接口数据权限
+    /// </summary>
+    public bool ApiDataPermission { get; set; } = false;
 }
 
 /// <summary>
