@@ -718,6 +718,11 @@
             数据权限
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.ApiDataPermission">
+            <summary>
+            接口数据权限
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.VarifyCodeConfig">
             <summary>
             验证码配置
