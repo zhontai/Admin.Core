@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Core.Auth;
+﻿using System.IdentityModel.Tokens.Jwt;
+
+namespace ZhonTai.Admin.Core.Auth;
 
 /// <summary>
 /// Claim属性
@@ -8,7 +10,7 @@ public static class ClaimAttributes
     /// <summary>
     /// 用户Id
     /// </summary>
-    public const string UserId = "sub";
+    public const string UserId = "id";
 
     /// <summary>
     /// 用户名

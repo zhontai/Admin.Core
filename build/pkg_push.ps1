@@ -7,7 +7,7 @@ if ([System.String]::IsNullOrWhiteSpace($apiKey))
 {
     $apiKey = $env:NUGET_KEY
 }
-$sourceUrl = "http://localhost:5000/v3/index.json"
+$sourceUrl = "https://api.nuget.org/v3/index.json"
 
 Write-Host "buildFolder:" $buildFolder
 Write-Host "rootFolder:" $rootFolder
