@@ -1,0 +1,23 @@
+<Project>
+	<PropertyGroup>
+		<Version>5.0.2</Version>
+		<LangVersion>Latest</LangVersion>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<Authors>xiaoxue</Authors>
+		<Company>xiaoxue</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
+		<PackageIcon>logo.png</PackageIcon>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+	</PropertyGroup>
+</Project>

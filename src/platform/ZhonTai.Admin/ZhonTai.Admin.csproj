@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Description>中台Admin权限管理接口库</Description>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>ZhonTai.Admin.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591;8632</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
 		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
@@ -40,14 +40,13 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
-
+		
 		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
 		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ZhonTai.Common\ZhonTai.Common.csproj" />
-		<ProjectReference Include="..\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj" />
+	  <ProjectReference Include="..\ZhonTai.Common\ZhonTai.Common.csproj" />
+	  <ProjectReference Include="..\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj" />
 	</ItemGroup>
-
 </Project>

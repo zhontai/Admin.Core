@@ -88,6 +88,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new Claim(ClaimAttributes.UserName, user.UserName),
             new Claim(ClaimAttributes.Name, user.Name),
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
         if (_appConfig.Tenant)

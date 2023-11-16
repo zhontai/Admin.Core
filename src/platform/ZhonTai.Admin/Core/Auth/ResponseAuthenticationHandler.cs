@@ -17,11 +17,20 @@ namespace ZhonTai.Admin.Core.Auth;
 /// </summary>
 public class ResponseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
+#if NET8_0
     public ResponseAuthenticationHandler(
         IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder
-    ) : base(options, logger, encoder)
+    ) : base(options, logger, encoder) 
+#else
+    public ResponseAuthenticationHandler(
+       IOptionsMonitor<AuthenticationSchemeOptions> options,
+       ILoggerFactory logger,
+       UrlEncoder encoder,
+       ISystemClock systemClock
+   ) : base(options, logger, encoder, systemClock)
+#endif
     {
     }
 
