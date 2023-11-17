@@ -26,7 +26,9 @@
     //"permission": true,
     ////#endif
     //数据权限
-    "dataPermission": true
+    "dataPermission": true,
+    //接口数据权限
+    "apiDataPermission": true
   },
   //Swagger接口文档，访问路径/swagger
   "swagger": {
@@ -51,7 +53,7 @@
       {
         "name": "MyApp",
         "code": "app",
-        "version": "v3.7.1",
+        "version": "v5.0.0",
         "description": "MyApp"
       }
       ////#if (!MicroService)
@@ -59,7 +61,7 @@
       {
         "name": "中台Admin",
         "code": "admin",
-        "version": "v3.7.1",
+        "version": "v5.0.3",
         "description": "权限管理"
       }
       ////#endif
@@ -114,7 +116,7 @@
     "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
   },
   //默认密码
-  "defaultPassword": "111111",
+  "defaultPassword": "123asd",
   //动态api
   "dynamicApi": {
     //结果格式化
@@ -130,5 +132,7 @@
     "enable": true,
     //访问路径
     "path": "/app/health"
-  }
+  },
+  //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
+  "PreflightMaxAge": 1800
 }

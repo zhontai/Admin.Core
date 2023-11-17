@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Description>MyApp测试库</Description>
-		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
