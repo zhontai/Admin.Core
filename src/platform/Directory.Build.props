@@ -1,14 +1,13 @@
 <Project>
 	<PropertyGroup>
-		<Version>5.0.2</Version>
-		<LangVersion>Latest</LangVersion>
+		<Version>5.0.3</Version>
 		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
-		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
 		<Authors>xiaoxue</Authors>
-		<Company>xiaoxue</Company>
+		<Company>zhontai</Company>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -18,6 +17,8 @@
 		<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
 		<PackageIcon>logo.png</PackageIcon>
 		<NoWarn>1701;1702;1591</NoWarn>
-		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 </Project>

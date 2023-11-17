@@ -7,7 +7,7 @@ if ([System.String]::IsNullOrWhiteSpace($apiKey))
 {
     $apiKey = $env:NUGET_KEY
 }
-$sourceUrl = "http://localhost:5000/v3/index.json"
+$sourceUrl = "https://api.nuget.org/v3/index.json"
 
 Write-Host "buildFolder:" $buildFolder
 Write-Host "rootFolder:" $rootFolder
@@ -47,7 +47,7 @@ Write-Host "dotnet pack -- start"
 foreach($project in $projects) {
 $projectFolder = Join-Path $rootFolder $project
 Write-Host "projectFolder:" $projectFolder
-dotnet pack $projectFolder -p:TargetFrameworks=net8.0 --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
+dotnet pack $projectFolder --no-build -c Release /p:SourceLinkCreate=true /p:SolutionDir=$rootFolder -o $nuGetOutputFolder;
 }
 Write-Host "dotnet pack -- end"
 # pause

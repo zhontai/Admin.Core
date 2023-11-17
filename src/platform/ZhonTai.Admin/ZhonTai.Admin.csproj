@@ -13,6 +13,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
 		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
@@ -22,14 +26,13 @@
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="FreeRedis" Version="1.2.5" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.2.5" />
-		<PackageReference Include="FreeSql" Version="3.2.803" />
+		<PackageReference Include="FreeSql" Version="3.2.805" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.6.8" />
-		<PackageReference Include="FreeSql.Repository" Version="3.2.803" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.805" />
 		<PackageReference Include="FreeScheduler" Version="2.0.12" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
 		<PackageReference Include="NLog" Version="5.2.5" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
@@ -40,9 +43,19 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
-		
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
 		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
+	</ItemGroup>
+	
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="7.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

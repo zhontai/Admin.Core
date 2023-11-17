@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Description>MyApp接口宿主</Description>
 	</PropertyGroup>
 
@@ -17,8 +17,8 @@
 
 	<ItemGroup>
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.2.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.2.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.2.2" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.2.2" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
@@ -44,7 +44,7 @@
 		<!--#else -->
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="$(PackageFreeSqlVersion)" />
 		<!--#endif -->
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.5" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
 	</ItemGroup>
 	
 	<ItemGroup>
