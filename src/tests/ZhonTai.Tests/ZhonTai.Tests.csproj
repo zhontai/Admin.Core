@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
 		<Description>中台测试库</Description>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
