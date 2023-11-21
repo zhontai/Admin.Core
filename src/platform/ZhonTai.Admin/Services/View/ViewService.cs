@@ -136,8 +136,8 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SyncAsync(ViewSyncInput input)
     {
-        //查询所有视图
-        var views = await _viewRepository.Select.ToListAsync();
+        //查询业务节点下的所有视图
+        var views = await _viewRepository.Select.Where(x => x.Id == 480973060259909).AsTreeCte().ToListAsync();
         var names = views.Select(a => a.Name).ToList();
         var paths = views.Select(a => a.Path).ToList();
 

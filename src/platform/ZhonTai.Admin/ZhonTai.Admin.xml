@@ -8014,6 +8014,11 @@
             缓存
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.View.Dto.ViewSyncDto.ParentId">
+            <summary>
+            上级节点id
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.View.Dto.ViewUpdateInput">
             <summary>
             修改
@@ -8257,7 +8262,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8272,7 +8279,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8503,10 +8512,6 @@
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
-        </member>
-    </members>
-</doc>
-ssions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
     </members>
 </doc>

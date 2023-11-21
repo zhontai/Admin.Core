@@ -26,4 +26,9 @@ public class ViewSyncDto
     /// 缓存
     /// </summary>
     public bool Cache { get; set; } = true;
+
+    /// <summary>
+    /// 上级节点id
+    /// </summary>
+    public long ParentId { get; set; }
 }

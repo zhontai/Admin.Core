@@ -480,6 +480,7 @@ public class DbHelper
             hostAppOptions?.ConfigureFreeSqlBuilder?.Invoke(freeSqlBuilder, dbConfig);
 
             var fsql = freeSqlBuilder.Build();
+            fsql.UseJsonMap();
 
             //生成数据
             if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
