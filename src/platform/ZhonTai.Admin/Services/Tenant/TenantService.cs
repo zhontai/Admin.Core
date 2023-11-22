@@ -129,6 +129,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddAsync(TenantAddInput input)
     {
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
         _userHelper.Value.CheckPassword(input.Password);
 
         using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
@@ -206,11 +210,6 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _orgRepository.InsertAsync(org);
 
         //添加用户
-        if (input.Password.IsNull())
-        {
-            input.Password = _appConfig.DefaultPassword;
-        }
-
         var user = new UserEntity
         {
             TenantId = tenantId,

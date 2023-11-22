@@ -515,6 +515,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public virtual async Task<long> AddMemberAsync(UserAddMemberInput input)
     {
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
         _userHelper.Value.CheckPassword(input.Password);
 
         using var _ = _userRepository.DataFilter.DisableAll();
@@ -544,11 +548,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 用户信息
-        if (input.Password.IsNull())
-        {
-            input.Password = _appConfig.DefaultPassword;
-        }
-
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.Member;
         if (_appConfig.PasswordHasher)
