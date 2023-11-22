@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;  
 using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Attributes;
 
@@ -21,8 +22,9 @@ public class ValidatePermissionAttribute : AuthorizeAttribute, IAuthorizationFil
         if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute)))
             return;
 
+        var serviceProvider = context.HttpContext.RequestServices;
         //登录验证
-        var user = context.HttpContext.RequestServices.GetService<IUser>();
+        var user = serviceProvider.GetService<IUser>();
         if (user == null || !(user?.Id > 0))
         {
             context.Result = new ChallengeResult();
@@ -34,13 +36,16 @@ public class ValidatePermissionAttribute : AuthorizeAttribute, IAuthorizationFil
             return;
 
         //权限验证
-        var httpMethod = context.HttpContext.Request.Method;
-        var api = context.ActionDescriptor.AttributeRouteInfo.Template;
-        var permissionHandler = context.HttpContext.RequestServices.GetService<IPermissionHandler>();
-        var isValid = await permissionHandler.ValidateAsync(api, httpMethod);
-        if (!isValid)
+        if (serviceProvider.GetRequiredService<AppConfig>().Validate.Permission)
         {
-            context.Result = new ForbidResult();
+            var httpMethod = context.HttpContext.Request.Method;
+            var api = context.ActionDescriptor.AttributeRouteInfo.Template;
+            var permissionHandler = serviceProvider.GetService<IPermissionHandler>();
+            var isValid = await permissionHandler.ValidateAsync(api, httpMethod);
+            if (!isValid)
+            {
+                context.Result = new ForbidResult();
+            }
         }
     }
 
