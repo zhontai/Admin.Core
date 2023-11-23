@@ -165,13 +165,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [NonAction]
     public async Task<AuthLoginOutput> GetLoginUserAsync(long id)
     {
-        var output = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-            .WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+        var output = await _userRepository.Select
+            .DisableGlobalFilter(FilterNames.Tenant)
+            .WhereDynamic(id)
+            .ToOneAsync<AuthLoginOutput>();
 
         if (_appConfig.Tenant && output?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-                .WhereDynamic(output.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRepository.Select
+                .DisableGlobalFilter(FilterNames.Tenant)
+                .WhereDynamic(output.TenantId)
+                .ToOneAsync<AuthLoginTenantDto>();
+
             output.Tenant = tenant;
         }
         return output;
@@ -283,13 +288,20 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录！");
+            throw ResultOutput.Exception("未登录");
         }
 
-        var data = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
-        data.Mobile = DataMaskHelper.PhoneMask(data.Mobile);
-        data.Email = DataMaskHelper.EmailMask(data.Email);
-        return data;
+        var user = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
+
+        if (user == null)
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        user.Mobile = DataMaskHelper.PhoneMask(user.Mobile);
+        user.Email = DataMaskHelper.EmailMask(user.Email);
+
+        return user;
     }
 
     /// <summary>
