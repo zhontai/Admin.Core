@@ -4,10 +4,6 @@
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<NoWarn>1701;1702;1591;8632</NoWarn>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>

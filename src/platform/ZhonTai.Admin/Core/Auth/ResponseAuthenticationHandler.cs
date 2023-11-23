@@ -17,7 +17,7 @@ namespace ZhonTai.Admin.Core.Auth;
 /// </summary>
 public class ResponseAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-#if NET8_0
+#if NET8_0_OR_GREATER
     public ResponseAuthenticationHandler(
         IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger,

@@ -7,7 +7,7 @@
 		<Description>中台接口文档库</Description>
 		<PackageTags>Api UI;Swagger UI;</PackageTags>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
