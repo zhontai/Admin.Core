@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<PackageZhonTaiVersion>5.0.3</PackageZhonTaiVersion>
+		<PackageZhonTaiVersion>5.0.5</PackageZhonTaiVersion>
 		<PackageFreeSqlVersion>3.2.805</PackageFreeSqlVersion>
 	</PropertyGroup>
 </Project>
