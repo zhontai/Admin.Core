@@ -122,8 +122,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
-        .WhereIf(dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
-        .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
+        .WhereIf(dataPermission!=null&&dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission != null && dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
