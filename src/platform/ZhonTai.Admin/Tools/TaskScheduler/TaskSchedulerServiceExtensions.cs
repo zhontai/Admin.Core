@@ -1,6 +1,4 @@
-﻿using FreeScheduler;
-using FreeSql;
-using Microsoft.AspNetCore.Builder;
+﻿using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using ZhonTai.Admin.Core.Configs;
@@ -44,28 +42,15 @@ public static class TaskSchedulerServiceExtensions
         var dbConfig = ServiceProvider.GetService<DbConfig>();
         freeSql.SyncSchedulerStructure(dbConfig, options.ConfigureFreeSql);
 
-        if (options.TaskHandler != null && options.CustomTaskHandler == null)
-        {
-            //开启任务
-            var scheduler = new Scheduler(options.TaskHandler);
-            services.AddSingleton(scheduler);
-        }
-        else if (options.TaskHandler != null && options.CustomTaskHandler != null)
-        {
-            //开启自定义任务
-            var scheduler = new Scheduler(options.TaskHandler, options.CustomTaskHandler);
-            services.AddSingleton(scheduler);
-        }
+        var freeSchedulerBuilder = new FreeSchedulerBuilder()
+        .UseStorage(freeSql);
+
+        options.ConfigureFreeSchedulerBuilder?.Invoke(freeSchedulerBuilder);
+
+        var scheduler = freeSchedulerBuilder.Build();
+
+        services.AddSingleton(scheduler);
 
         return services;
-    }
-
-    /// <summary>
-    /// 使用任务调度
-    /// </summary>
-    /// <param name="app"></param>
-    public static void UseTaskScheduler(this IApplicationBuilder app)
-    {
-        ServiceProvider = app.ApplicationServices;
     }
 }

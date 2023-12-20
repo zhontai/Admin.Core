@@ -80,9 +80,6 @@ new HostApp(new HostAppOptions
                     a.Name("app_task_log");
                 });
             };
-
-            //模块任务处理器
-            options.TaskHandler = new CloudTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
         });
     },
 
@@ -119,8 +116,7 @@ new HostApp(new HostAppOptions
 		}
         #endregion
 
-        //使用任务调度
-        app.UseTaskScheduler();
+        app.UseFreeSchedulerUI("/task");
 	}
 }).Run(args);
 

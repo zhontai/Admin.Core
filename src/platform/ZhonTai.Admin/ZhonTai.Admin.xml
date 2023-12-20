@@ -8436,14 +8436,9 @@
             配置FreeSql
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.TaskHandler">
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.ConfigureFreeSchedulerBuilder">
             <summary>
-            任务处理器
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.CustomTaskHandler">
-            <summary>
-            自定义任务处理器
+            配置FreeSql
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.AddTaskScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions})">
@@ -8460,12 +8455,6 @@
             <param name="services"></param>
             <param name="dbKey"></param>
             <param name="configureOptions"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.UseTaskScheduler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
-            <summary>
-            使用任务调度
-            </summary>
-            <param name="app"></param>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the PatternRegex method.</summary>
