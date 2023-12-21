@@ -13,28 +13,28 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.0" />
 		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
 		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
-		<PackageReference Include="DotNetCore.CAP" Version="7.2.2" />
+		<PackageReference Include="DotNetCore.CAP" Version="8.0.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="FreeRedis" Version="1.2.5" />
+		<PackageReference Include="FreeRedis" Version="1.2.11" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.2.5" />
-		<PackageReference Include="FreeSql" Version="3.2.805" />
-		<PackageReference Include="FreeSql.Cloud" Version="1.6.8" />
-		<PackageReference Include="FreeSql.Repository" Version="3.2.805" />
-		<PackageReference Include="FreeScheduler" Version="2.0.12" />
+		<PackageReference Include="FreeSql" Version="3.2.808" />
+		<PackageReference Include="FreeSql.Cloud" Version="1.8.2" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.808" />
+		<PackageReference Include="FreeScheduler" Version="2.0.18" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
-		<PackageReference Include="NLog" Version="5.2.5" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.5" />
+		<PackageReference Include="NLog" Version="5.2.7" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.7" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
-		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
-		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.0.1" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.1" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
