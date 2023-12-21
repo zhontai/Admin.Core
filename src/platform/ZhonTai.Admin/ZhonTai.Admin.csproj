@@ -28,6 +28,7 @@
 		<PackageReference Include="FreeScheduler" Version="2.0.18" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
+		<PackageReference Include="MailKit" Version="4.3.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
 		<PackageReference Include="NLog" Version="5.2.7" />

@@ -124,6 +124,8 @@ public class HostApp
             var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
             services.Configure<OSSConfig>(oSSConfigRoot);
 
+            services.Configure<EmailConfig>(configuration.GetSection("Email"));
+
             //应用配置
             services.AddSingleton(appConfig);
 

@@ -11,5 +11,11 @@ public class SubscribeNames
     /// 短信单发
     /// </summary>
     [Description("短信单发")]
-    public static string SmsSingleSend { get; set; } = "zhontai.admin.smsSingleSend";
+    public static string SmsSingleSend = "zhontai.admin.smsSingleSend";
+
+    /// <summary>
+    /// 邮件单发
+    /// </summary>
+    [Description("邮件单发")]
+    public static string EmailSingleSend = "zhontai.admin.emailSingleSend";
 }

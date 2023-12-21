@@ -948,6 +948,56 @@
             租户Id
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Host">
+            <summary>
+            主机
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.UseSsl">
+            <summary>
+            启用SSL
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.UserName">
+            <summary>
+            邮箱账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Password">
+            <summary>
+            邮箱密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.FromEmail">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.ToEmail">
+            <summary>
+            收件人
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
             <summary>
             Jwt配置
@@ -1251,9 +1301,14 @@
             订阅命名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSingleSend">
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSingleSend">
             <summary>
             短信单发
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.EmailSingleSend">
+            <summary>
+            邮件单发
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -5626,6 +5681,63 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Msg.EmailService.SingleSendAsync(ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent)">
+            <summary>
+            邮件单发
+            </summary>
+            <param name="event"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent">
+            <summary>
+            邮件单发
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.ToEmail">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Subject">
+            <summary>
+            邮件标题
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Body">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent">
+            <summary>
+            短信单发事件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent.Text">
+            <summary>
+            短信内容
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.OprationLog.Dto.OprationLogAddInput">
             <summary>
             添加
@@ -8257,9 +8369,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern:<br/>
-            <code>\\{.*\\}</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8274,9 +8384,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern:<br/>
-            <code>\\{.*\\}</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
