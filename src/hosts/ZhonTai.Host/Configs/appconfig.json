@@ -112,5 +112,12 @@
     "path": "/admin/health"
   },
   //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
-  "PreflightMaxAge": 1800
+  "PreflightMaxAge": 1800,
+  //是否开启任务调度管理界面
+  "TaskSchedulerUI": {
+    //启用
+    "enable": true,
+    //访问路径
+    "path": "/task"
+  }
 }

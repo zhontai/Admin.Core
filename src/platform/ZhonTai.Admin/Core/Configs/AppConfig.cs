@@ -109,6 +109,11 @@ public class AppConfig
     /// 指定跨域访问时预检等待时间，以秒为单位，默认30分钟
     /// </summary>
     public int PreflightMaxAge { get; set; }
+
+    /// <summary>
+    /// 任务调度管理界面配置
+    /// </summary>
+    public TaskSchedulerUIConfig TaskSchedulerUI { get; set; } = new TaskSchedulerUIConfig();
 }
 
 /// <summary>
@@ -340,6 +345,22 @@ public class HealthChecksConfig
     /// 访问路径
     /// </summary>
     public string Path { get; set; } = "/health";
+}
+
+/// <summary>
+/// 任务调度管理界面
+/// </summary>
+public class TaskSchedulerUIConfig
+{
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enable { get; set; } = false;
+
+    /// <summary>
+    /// 访问路径
+    /// </summary>
+    public string Path { get; set; } = "/task";
 }
 
 /// <summary>

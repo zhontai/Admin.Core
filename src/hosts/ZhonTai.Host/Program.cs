@@ -115,9 +115,6 @@ new HostApp(new HostAppOptions
             });
 		}
         #endregion
-
-        //内置任务调度管理界面
-        //app.UseFreeSchedulerUI("/task");
 	}
 }).Run(args);
 

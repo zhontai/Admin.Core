@@ -573,6 +573,11 @@
             指定跨域访问时预检等待时间，以秒为单位，默认30分钟
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.TaskSchedulerUI">
+            <summary>
+            任务调度管理界面配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -784,6 +789,21 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.HealthChecksConfig.Path">
+            <summary>
+            访问路径
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig">
+            <summary>
+            任务调度管理界面
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig.Path">
             <summary>
             访问路径
             </summary>
@@ -4789,7 +4809,7 @@
             <summary>
             验证
             </summary>
-            <param name="captchaId">验证码id</param>
+            <param name="captchaId">验证码Id</param>
             <param name="track">滑动轨迹</param>
             <returns></returns>
         </member>

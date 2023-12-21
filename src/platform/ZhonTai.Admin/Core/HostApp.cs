@@ -62,6 +62,7 @@ using NLog;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
+using FreeScheduler;
 
 namespace ZhonTai.Admin.Core;
 
@@ -834,6 +835,12 @@ public class HostApp
                 Predicate = _ => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+        }
+
+        //内置任务调度管理界面
+        if (appConfig.TaskSchedulerUI.Enable)
+        {
+            app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
         }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
