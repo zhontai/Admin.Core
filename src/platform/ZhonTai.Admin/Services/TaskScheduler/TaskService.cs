@@ -34,9 +34,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<TaskGetOutput> GetAsync(long id)
+    public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var result = await _taskInfoRepository.GetAsync<TaskGetOutput>(id);
+        var result = await _taskInfoRepository.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
         return result;
     }
 
@@ -87,7 +87,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             case TaskInterval.SEC when input.Round == -1:
                 id = scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
                 break;
-            case TaskInterval.SEC when input.Round > 0:
+            case TaskInterval.SEC when input.Round != -1:
                 {
                     int[] seconds = System.Array.Empty<int>();
                     var intervalArguments = input.IntervalArgument.Split(",");
@@ -98,16 +98,16 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
                     id = scheduler.AddTask(input.Topic, input.Body, seconds);
                     break;
                 }
-            case TaskInterval.RunOnDay when input.Round > 0:
+            case TaskInterval.RunOnDay:
                 id = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
                 break;
-            case TaskInterval.RunOnWeek when input.Round > 0:
+            case TaskInterval.RunOnWeek:
                 id = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
                 break;
-            case TaskInterval.RunOnMonth when input.Round > 0:
+            case TaskInterval.RunOnMonth:
                 id = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
                 break;
-            case TaskInterval.Custom when input.Round > 0:
+            case TaskInterval.Custom:
                 id = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
                 break;
         }

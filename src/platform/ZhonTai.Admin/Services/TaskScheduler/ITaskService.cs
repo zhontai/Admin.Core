@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 /// </summary>
 public interface ITaskService
 {
-    Task<TaskGetOutput> GetAsync(long id);
+    Task<TaskGetOutput> GetAsync(string id);
 
     Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input);
 
