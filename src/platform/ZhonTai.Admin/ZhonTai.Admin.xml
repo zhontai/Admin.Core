@@ -7134,7 +7134,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Body">
             <summary>
-            任务数据
+            任务参数
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Round">
@@ -7149,7 +7149,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.IntervalArgument">
             <summary>
-            定时参数值 60,60,60,120,120,1200,1200
+            定时参数 60,60,60,120,120,1200,1200
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Status">
+            <summary>
+            任务状态
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
@@ -7244,7 +7249,7 @@
             任务服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.String)">
             <summary>
             查询
             </summary>

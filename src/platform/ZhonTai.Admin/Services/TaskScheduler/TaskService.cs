@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
@@ -9,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
 using System;
+using Yitter.IdGenerator;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -75,47 +74,31 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public string Add(TaskAddInput input)
+    public async Task<string> Add(TaskAddInput input)
     {
         if (input.IntervalArgument.IsNull())
         {
             throw ResultOutput.Exception("请输入定时参数");
         }
 
-        var scheduler = _scheduler.Value;
-
-        string id = null;
-        switch (input.Interval)
+        var taskInfo = new TaskInfo
         {
-            case TaskInterval.SEC when input.Round == -1:
-                id = scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
-                break;
-            case TaskInterval.SEC when input.Round != -1:
-                {
-                    int[] seconds = System.Array.Empty<int>();
-                    var intervalArguments = input.IntervalArgument.Split(",");
-                    foreach (var arg in intervalArguments)
-                    {
-                        seconds.Append(arg.ToInt());
-                    }
-                    id = scheduler.AddTask(input.Topic, input.Body, seconds);
-                    break;
-                }
-            case TaskInterval.RunOnDay:
-                id = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnWeek:
-                id = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnMonth:
-                id = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.Custom:
-                id = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
-                break;
-        }
+            Id = $"{DateTime.UtcNow.ToString("yyyyMMdd")}.{YitIdHelper.NextId()}",
+            Topic = input.Topic,
+            Body = input.Body,
+            CreateTime = DateTime.UtcNow,
+            Round = input.Round,
+            Interval = input.Interval,
+            IntervalArgument = input.IntervalArgument,
+            CurrentRound = 0,
+            ErrorTimes = 0,
+            LastRunTime = new DateTime(1970, 1, 1),
+            Status = FreeScheduler.TaskStatus.Paused
+        };
 
-        return id;
+        await _taskRepository.Value.InsertAsync(taskInfo);
+
+        return taskInfo.Id;
     }
 
     /// <summary>

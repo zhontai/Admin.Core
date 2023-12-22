@@ -14,7 +14,7 @@ public interface ITaskService
 
     Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input);
 
-    string Add(TaskAddInput input);
+    Task<string> Add(TaskAddInput input);
 
     Task UpdateAsync(TaskUpdateInput input);
 
