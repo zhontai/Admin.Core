@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
+using System;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -22,11 +23,13 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
-    private ITaskRepository _taskInfoRepository => LazyGetRequiredService<ITaskRepository>();
+    private readonly Lazy<ITaskRepository> _taskRepository;
+    private readonly Lazy<Scheduler> _scheduler;
 
-    public TaskService()
+    public TaskService(Lazy<ITaskRepository> taskRepository, Lazy<Scheduler> scheduler)
     {
-
+        _taskRepository = taskRepository;
+        _scheduler = scheduler;
     }
 
     /// <summary>
@@ -36,7 +39,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var result = await _taskInfoRepository.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
+        var result = await _taskRepository.Value.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
         return result;
     }
 
@@ -50,7 +53,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     {
         var topic = input.Filter?.Topic;
 
-        var list = await _taskInfoRepository.Select
+        var list = await _taskRepository.Value.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(topic.NotNull(), a => a.Topic.Contains(topic))
         .Count(out var total)
@@ -79,7 +82,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             throw ResultOutput.Exception("请输入定时参数");
         }
 
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
 
         string id = null;
         switch (input.Interval)
@@ -122,14 +125,24 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TaskUpdateInput input)
     {
-        var entity = await _taskInfoRepository.GetAsync(a => a.Id == input.Id);
+        var entity = await _taskRepository.Value.GetAsync(a => a.Id == input.Id);
         if (entity != null && entity.Id.NotNull())
         {
             throw ResultOutput.Exception("任务不存在！");
         }
 
+        if (entity.Status == FreeScheduler.TaskStatus.Running)
+        {
+            Pause(entity.Id);
+        }
+
         Mapper.Map(input, entity);
-        await _taskInfoRepository.UpdateAsync(entity);
+        await _taskRepository.Value.UpdateAsync(entity);
+
+        if (entity.Status != FreeScheduler.TaskStatus.Paused)
+        {
+            Resume(entity.Id);
+        }
     }
 
     /// <summary>
@@ -139,7 +152,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Pause([BindRequired][ValidateRequired("请选择任务")]string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.PauseTask(id);
     }
 
@@ -150,7 +163,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Resume([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.ResumeTask(id);
     }
 
@@ -161,7 +174,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Run([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.RunNowTask(id);
     }
 
@@ -172,7 +185,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Delete([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.RemoveTask(id);
     }
 }
