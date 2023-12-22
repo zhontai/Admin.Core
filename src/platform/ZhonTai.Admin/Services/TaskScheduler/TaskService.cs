@@ -56,7 +56,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(topic.NotNull(), a => a.Topic.Contains(topic))
         .Count(out var total)
-        .OrderByDescending(true, c => c.Id)
+        .OrderByDescending(c => c.Id)
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync<TaskListOutput>();
 

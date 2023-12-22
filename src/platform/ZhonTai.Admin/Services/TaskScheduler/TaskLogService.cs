@@ -41,7 +41,7 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
         .WhereDynamicFilter(input.DynamicFilter)
         .Where(a => a.TaskId == input.Filter.TaskId)
         .Count(out var total)
-        .OrderBy(c => c.Round)
+        .OrderByDescending(a => a.CreateTime)
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync();
 

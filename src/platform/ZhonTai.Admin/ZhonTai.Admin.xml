@@ -8389,9 +8389,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern:<br/>
-            <code>\\{.*\\}</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8406,9 +8404,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern:<br/>
-            <code>\\{.*\\}</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
