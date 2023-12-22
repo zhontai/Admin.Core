@@ -87,7 +87,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             Topic = input.Topic,
             Body = input.Body,
             CreateTime = DateTime.UtcNow,
-            Round = input.Round,
+            Round = input.Interval == TaskInterval.Custom ? -1 : input.Round,
             Interval = input.Interval,
             IntervalArgument = input.IntervalArgument,
             CurrentRound = 0,
