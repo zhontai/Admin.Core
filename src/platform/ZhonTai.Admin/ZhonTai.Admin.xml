@@ -7152,11 +7152,6 @@
             定时参数 60,60,60,120,120,1200,1200
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Status">
-            <summary>
-            任务状态
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
             <summary>
             主键
@@ -8394,7 +8389,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8409,7 +8406,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>

@@ -109,9 +109,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     public async Task UpdateAsync(TaskUpdateInput input)
     {
         var entity = await _taskRepository.Value.GetAsync(a => a.Id == input.Id);
-        if (entity != null && entity.Id.NotNull())
+        if (entity == null)
         {
-            throw ResultOutput.Exception("任务不存在！");
+            throw ResultOutput.Exception("任务不存在");
         }
 
         if (entity.Status == FreeScheduler.TaskStatus.Running)
