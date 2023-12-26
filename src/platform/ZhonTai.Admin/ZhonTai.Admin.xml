@@ -7296,6 +7296,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAlerEmailAsync(System.String)">
+            <summary>
+            查询报警邮件
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
             <summary>
             查询分页

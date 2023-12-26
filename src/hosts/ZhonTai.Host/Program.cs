@@ -14,6 +14,23 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
 
+static void ConfigureScheduler(IFreeSql fsql)
+{
+    fsql.CodeFirst
+    .ConfigEntity<TaskInfo>(a =>
+    {
+        a.Name("app_task");
+    })
+    .ConfigEntity<TaskLog>(a =>
+    {
+        a.Name("app_task_log");
+    })
+    .ConfigEntity<TaskInfoExt>(a =>
+    {
+        a.Name("app_task_ext");
+    });
+}
+
 new HostApp(new HostAppOptions
 {
     //配置FreeSql
@@ -21,22 +38,7 @@ new HostApp(new HostAppOptions
     {
         if (dbConfig.Key == DbKeys.TaskDb)
         {
-            freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
-            {
-                fsql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                })
-                .ConfigEntity<TaskInfoExt>(a =>
-                {
-                    a.Name("app_task_ext");
-                });
-            });
+            freeSql.SyncSchedulerStructure(dbConfig, ConfigureScheduler);
         }
     },
 
@@ -73,25 +75,12 @@ new HostApp(new HostAppOptions
         //添加任务调度
         context.Services.AddTaskScheduler(DbKeys.TaskDb, options =>
         {
-            options.ConfigureFreeSql = freeSql =>
-            {
-                freeSql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                })
-                .ConfigEntity<TaskInfoExt>(a =>
-                {
-                    a.Name("app_task_ext");
-                });
-            };
+            options.ConfigureFreeSql = ConfigureScheduler;
 
+            //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
+                //执行任务
                 freeSchedulerBuilder.OnExecuting(taskInfo =>
                 {
 

@@ -42,7 +42,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     public async Task<TaskGetOutput> GetAsync(string id)
     {
         var result = await _taskRepository.Value.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
-        result.AlarmEmail = await _taskExtRepository.Value.Where(a => a.TaskId == id).ToOneAsync(a=>a.AlarmEmail);
+        result.AlarmEmail = await GetAlerEmailAsync(id);
         return result;
     }
 
@@ -150,12 +150,11 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         }
         else
         {
-            taskExt = new TaskInfoExt
+            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
             {
                 TaskId = entity.Id,
                 AlarmEmail = input.AlarmEmail
-            };
-            await _taskExtRepository.Value.InsertAsync(taskExt);
+            });
         }
 
         if (entity.Status != FreeScheduler.TaskStatus.Paused)
