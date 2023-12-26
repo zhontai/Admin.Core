@@ -18,7 +18,7 @@ public static class TaskSchedulerServiceExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddTaskScheduler(this IServiceCollection services, Action<TaskSchedulerOptions> configureOptions = null)
     {
-        return services.AddTaskScheduler(DbKeys.AppDb, configureOptions);
+        return services.AddTaskScheduler(DbKeys.TaskDb, configureOptions);
     }
 
     /// <summary>

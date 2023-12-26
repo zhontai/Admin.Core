@@ -12,6 +12,7 @@ using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
 using System;
 using Yitter.IdGenerator;
+using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -22,13 +23,15 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
-    private readonly Lazy<ITaskRepository> _taskRepository;
     private readonly Lazy<Scheduler> _scheduler;
+    private readonly Lazy<ITaskRepository> _taskRepository;
+    private readonly Lazy<ITaskExtRepository> _taskExtRepository;
 
-    public TaskService(Lazy<ITaskRepository> taskRepository, Lazy<Scheduler> scheduler)
+    public TaskService(Lazy<Scheduler> scheduler, Lazy<ITaskRepository> taskRepository, Lazy<ITaskExtRepository> taskExtRepository)
     {
-        _taskRepository = taskRepository;
         _scheduler = scheduler;
+        _taskRepository = taskRepository;
+        _taskExtRepository = taskExtRepository;
     }
 
     /// <summary>
@@ -39,7 +42,18 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     public async Task<TaskGetOutput> GetAsync(string id)
     {
         var result = await _taskRepository.Value.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
+        result.AlarmEmail = await _taskExtRepository.Value.Where(a => a.TaskId == id).ToOneAsync(a=>a.AlarmEmail);
         return result;
+    }
+
+    /// <summary>
+    /// 查询报警邮件
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<string> GetAlerEmailAsync(string id)
+    {
+        return await _taskExtRepository.Value.Where(a => a.TaskId == id).ToOneAsync(a => a.AlarmEmail);
     }
 
     /// <summary>
@@ -98,6 +112,12 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
 
         await _taskRepository.Value.InsertAsync(taskInfo);
 
+        await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+        {
+            TaskId = taskInfo.Id,
+            AlarmEmail = input.AlarmEmail
+        });
+
         return taskInfo.Id;
     }
 
@@ -121,6 +141,22 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
 
         Mapper.Map(input, entity);
         await _taskRepository.Value.UpdateAsync(entity);
+
+        var taskExt = await _taskExtRepository.Value.Select.WhereDynamic(entity.Id).ToOneAsync();
+        if(taskExt != null)
+        {
+            taskExt.AlarmEmail = input.AlarmEmail;
+            await _taskExtRepository.Value.UpdateAsync(taskExt);
+        }
+        else
+        {
+            taskExt = new TaskInfoExt
+            {
+                TaskId = entity.Id,
+                AlarmEmail = input.AlarmEmail
+            };
+            await _taskExtRepository.Value.InsertAsync(taskExt);
+        }
 
         if (entity.Status != FreeScheduler.TaskStatus.Paused)
         {

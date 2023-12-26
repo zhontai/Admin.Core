@@ -9,6 +9,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
@@ -18,7 +19,7 @@ new HostApp(new HostAppOptions
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-        if (dbConfig.Key == DbKeys.AppDb)
+        if (dbConfig.Key == DbKeys.TaskDb)
         {
             freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
             {
@@ -30,6 +31,10 @@ new HostApp(new HostAppOptions
                 .ConfigEntity<TaskLog>(a =>
                 {
                     a.Name("app_task_log");
+                })
+                .ConfigEntity<TaskInfoExt>(a =>
+                {
+                    a.Name("app_task_ext");
                 });
             });
         }
@@ -66,7 +71,7 @@ new HostApp(new HostAppOptions
         }).AddSubscriberAssembly(assemblies);
 
         //添加任务调度
-        context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
+        context.Services.AddTaskScheduler(DbKeys.TaskDb, options =>
         {
             options.ConfigureFreeSql = freeSql =>
             {
@@ -78,6 +83,18 @@ new HostApp(new HostAppOptions
                 .ConfigEntity<TaskLog>(a =>
                 {
                     a.Name("app_task_log");
+                })
+                .ConfigEntity<TaskInfoExt>(a =>
+                {
+                    a.Name("app_task_ext");
+                });
+            };
+
+            options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
+            {
+                freeSchedulerBuilder.OnExecuting(taskInfo =>
+                {
+
                 });
             };
         });

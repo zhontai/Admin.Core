@@ -31,4 +31,9 @@ public class TaskAddInput
     /// 定时参数 60,60,60,120,120,1200,1200
     /// </summary>
     public string IntervalArgument { get; set; }
+
+    /// <summary>
+    /// 报警邮件，多个邮件地址则逗号分隔
+    /// </summary>
+    public string AlarmEmail { get; set; }
 }

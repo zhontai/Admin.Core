@@ -1286,6 +1286,11 @@
             数据库注册键
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.TaskDb">
+            <summary>
+            任务调度数据库注册键
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Consts.FilterNames">
             <summary>
             全局过滤器名
@@ -3289,6 +3294,41 @@
         <member name="F:ZhonTai.Admin.Domain.Role.RoleType.Role">
             <summary>
             角色
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Domain.TaskInfoExt">
+            <summary>
+            任务邮件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.TaskId">
+            <summary>
+            任务Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.AlarmEmail">
+            <summary>
+            报警邮件，多个邮件地址则逗号分隔
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.CreatedTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.CreatedUserId">
+            <summary>
+            添加用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.ModifiedUserId">
+            <summary>
+            修改用户Id
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
@@ -7152,6 +7192,11 @@
             定时参数 60,60,60,120,120,1200,1200
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.AlarmEmail">
+            <summary>
+            报警邮件，多个邮件地址则逗号分隔
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
             <summary>
             主键
@@ -8389,7 +8434,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>
@@ -8404,7 +8451,9 @@
         </member>
         <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
             <remarks>
-            Pattern explanation:<br/>
+            Pattern:<br/>
+            <code>\\{.*\\}</code><br/>
+            Explanation:<br/>
             <code>
             ○ Match '{'.<br/>
             ○ Match a character other than '\n' greedily any number of times.<br/>

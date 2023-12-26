@@ -3,6 +3,7 @@ using ZhonTai.Admin.Core.Repositories;
 using System.Linq.Expressions;
 using FreeScheduler;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Core.Db;
 
@@ -59,6 +60,13 @@ public static class FreeSqlDbContextExtensions
             a.Property(b => b.Exception).StringLength(-1);
             a.Property(b => b.Remark).StringLength(-1);
             a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);
+        })
+        .ConfigEntity<TaskInfoExt>(a =>
+        {
+            a.Name("ad_task_ext");
+            a.Property(b => b.TaskId).IsPrimary(true);
+            a.Property(b => b.CreatedTime).CanUpdate(false).ServerTime(DateTimeKind.Local);
+            a.Property(b => b.ModifiedTime).CanInsert(false).ServerTime(DateTimeKind.Local);
         });
 
         configureFreeSql?.Invoke(that);
@@ -67,6 +75,7 @@ public static class FreeSqlDbContextExtensions
         {
             that.CodeFirst.SyncStructure<TaskInfo>();
             that.CodeFirst.SyncStructure<TaskLog>();
+            that.CodeFirst.SyncStructure<TaskInfoExt>();
         }
         
     }
