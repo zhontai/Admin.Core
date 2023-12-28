@@ -12,6 +12,8 @@ using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
 using System;
 using ZhonTai.Admin.Domain;
+using Mapster;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
@@ -35,18 +37,6 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<TaskGetOutput> GetAsync(string id)
-    {
-        var result = await _taskRepository.Value.Where(a => a.Id == id).ToOneAsync<TaskGetOutput>();
-        result.AlarmEmail = await GetAlerEmailAsync(id);
-        return result;
-    }
-
-    /// <summary>
     /// 查询报警邮件
     /// </summary>
     /// <param name="id"></param>
@@ -57,27 +47,44 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     }
 
     /// <summary>
+    /// 查询
+    /// </summary>
+    /// <param name="topic"></param>
+    /// <returns></returns>
+    public async Task<TaskGetOutput> GetAsync(string topic)
+    {
+        var result = Datafeed.GetPage(_scheduler.Value, null, topic);
+        var taskInfo = result.Tasks?.FirstOrDefault()?.Adapt<TaskGetOutput>();
+        if (taskInfo != null)
+        {
+            taskInfo.AlarmEmail = await GetAlerEmailAsync(taskInfo.Id);
+        }
+
+        return taskInfo;
+    }
+
+    /// <summary>
     /// 查询分页
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input)
+    public PageOutput<TaskListOutput> GetPage(PageInput<TaskGetPageDto> input)
     {
-        var topic = input.Filter?.Topic;
-
-        var list = await _taskRepository.Value.Select
-        .WhereDynamicFilter(input.DynamicFilter)
-        .WhereIf(topic.NotNull(), a => a.Topic.Contains(topic))
-        .Count(out var total)
-        .OrderByDescending(c => c.Id)
-        .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync<TaskListOutput>();
+        var result = Datafeed.GetPage(_scheduler.Value,
+            input.Filter.ClusterId,
+            input.Filter.Topic,
+            input.Filter.TaskStatus,
+            input.Filter.StartAddTime,
+            input.Filter.EndAddTime,
+            input.PageSize,
+            input.CurrentPage
+        );
 
         var data = new PageOutput<TaskListOutput>()
         {
-            List = list,
-            Total = total
+            List = result.Tasks.Adapt<List<TaskListOutput>>(),
+            Total = result.Total
         };
 
         return data;
@@ -97,37 +104,20 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
 
         var scheduler = _scheduler.Value;
 
-        string taskId = null;
-        switch (input.Interval)
+        var taskld = Datafeed.AddTask(scheduler, input.Topic, input.Body, input.Round, input.Interval, input.IntervalArgument);
+
+        if (taskld.NotNull())
         {
-            case TaskInterval.SEC:
-                var secs = input.IntervalArgument.Split(',').Select(a => int.Parse(a.Trim())).ToArray();
-                if (secs.Length > 1) taskId = scheduler.AddTask(input.Topic, input.Body, secs);
-                else taskId = scheduler.AddTask(input.Topic, input.Body, input.Round, secs[0]);
-                break;
-            case TaskInterval.RunOnDay:
-                taskId = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnWeek:
-                taskId = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnMonth:
-                taskId = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.Custom:
-                taskId = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
-                break;
+            Pause(taskld);
+
+            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+            {
+                TaskId = taskld,
+                AlarmEmail = input.AlarmEmail
+            });
         }
 
-        Pause(taskId);
-
-        await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
-        {
-            TaskId = taskId,
-            AlarmEmail = input.AlarmEmail
-        });
-
-        return taskId;
+        return taskld;
     }
 
     /// <summary>
@@ -137,6 +127,8 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TaskUpdateInput input)
     {
+        var scheduler = _scheduler.Value;
+
         var entity = await _taskRepository.Value.GetAsync(a => a.Id == input.Id);
         if (entity == null)
         {
@@ -216,9 +208,11 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public void Delete([BindRequired][ValidateRequired("请选择任务")] string id)
+    public async Task Delete([BindRequired][ValidateRequired("请选择任务")] string id)
     {
         var scheduler = _scheduler.Value;
         scheduler.RemoveTask(id);
+
+        await _taskExtRepository.Value.DeleteAsync(a => a.TaskId == id);
     }
 }

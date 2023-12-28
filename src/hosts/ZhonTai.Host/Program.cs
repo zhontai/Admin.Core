@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Savorboard.CAP.InMemoryMessageQueue;
+using System;
 using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
@@ -81,9 +82,12 @@ new HostApp(new HostAppOptions
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
                 //执行任务
-                freeSchedulerBuilder.OnExecuting(taskInfo =>
+                freeSchedulerBuilder.OnExecuting(task =>
                 {
 
+                }).UseCustomInterval(task =>
+                {
+                    return TimeSpan.FromSeconds(5);
                 });
             };
         });

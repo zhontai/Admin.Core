@@ -20,12 +20,12 @@
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="DotNetCore.CAP" Version="8.0.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="FreeRedis" Version="1.2.11" />
+		<PackageReference Include="FreeRedis" Version="1.2.12" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.2.5" />
 		<PackageReference Include="FreeSql" Version="3.2.808" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.8.2" />
 		<PackageReference Include="FreeSql.Repository" Version="3.2.808" />
-		<PackageReference Include="FreeScheduler" Version="2.0.18" />
+		<PackageReference Include="FreeScheduler" Version="2.0.19" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="MailKit" Version="4.3.0" />

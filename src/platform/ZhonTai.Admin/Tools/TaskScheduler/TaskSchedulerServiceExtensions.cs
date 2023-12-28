@@ -43,7 +43,8 @@ public static class TaskSchedulerServiceExtensions
         freeSql.SyncSchedulerStructure(dbConfig, options.ConfigureFreeSql);
 
         var freeSchedulerBuilder = new FreeSchedulerBuilder()
-        .UseStorage(freeSql);
+        .UseStorage(freeSql)
+        .UseTimeZone(TimeSpan.FromHours(8));
 
         options.ConfigureFreeSchedulerBuilder?.Invoke(freeSchedulerBuilder);
 

@@ -3917,7 +3917,27 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.Topic">
             <summary>
-            任务名称名称
+            任务名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.ClusterId">
+            <summary>
+            集群Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.StartAddTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.EndAddTime">
+            <summary>
+            创建结束时间
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Repositories.AdminRepositoryBase`1">
@@ -7277,7 +7297,7 @@
             任务日志服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
             <summary>
             查询分页
             </summary>
@@ -7289,13 +7309,6 @@
             任务服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.String)">
-            <summary>
-            查询
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAlerEmailAsync(System.String)">
             <summary>
             查询报警邮件
@@ -7303,7 +7316,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.String)">
+            <summary>
+            查询
+            </summary>
+            <param name="topic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
             <summary>
             查询分页
             </summary>
