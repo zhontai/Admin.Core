@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
 using System;
-using Yitter.IdGenerator;
 using ZhonTai.Admin.Domain;
+using System.Linq;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -95,30 +95,39 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             throw ResultOutput.Exception("请输入定时参数");
         }
 
-        var taskInfo = new TaskInfo
-        {
-            Id = $"{DateTime.UtcNow.ToString("yyyyMMdd")}.{YitIdHelper.NextId()}",
-            Topic = input.Topic,
-            Body = input.Body,
-            CreateTime = DateTime.UtcNow,
-            Round = input.Interval == TaskInterval.Custom ? -1 : input.Round,
-            Interval = input.Interval,
-            IntervalArgument = input.IntervalArgument,
-            CurrentRound = 0,
-            ErrorTimes = 0,
-            LastRunTime = new DateTime(1970, 1, 1),
-            Status = FreeScheduler.TaskStatus.Paused
-        };
+        var scheduler = _scheduler.Value;
 
-        await _taskRepository.Value.InsertAsync(taskInfo);
+        string taskId = null;
+        switch (input.Interval)
+        {
+            case TaskInterval.SEC:
+                var secs = input.IntervalArgument.Split(',').Select(a => int.Parse(a.Trim())).ToArray();
+                if (secs.Length > 1) taskId = scheduler.AddTask(input.Topic, input.Body, secs);
+                else taskId = scheduler.AddTask(input.Topic, input.Body, input.Round, secs[0]);
+                break;
+            case TaskInterval.RunOnDay:
+                taskId = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.RunOnWeek:
+                taskId = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.RunOnMonth:
+                taskId = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
+                break;
+            case TaskInterval.Custom:
+                taskId = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
+                break;
+        }
+
+        Pause(taskId);
 
         await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
         {
-            TaskId = taskInfo.Id,
+            TaskId = taskId,
             AlarmEmail = input.AlarmEmail
         });
 
-        return taskInfo.Id;
+        return taskId;
     }
 
     /// <summary>
@@ -140,6 +149,12 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         }
 
         Mapper.Map(input, entity);
+
+        if (entity.Status == FreeScheduler.TaskStatus.Completed)
+        {
+            entity.Status = FreeScheduler.TaskStatus.Paused;
+        }
+
         await _taskRepository.Value.UpdateAsync(entity);
 
         var taskExt = await _taskExtRepository.Value.Select.WhereDynamic(entity.Id).ToOneAsync();
