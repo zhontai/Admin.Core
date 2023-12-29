@@ -1,4 +1,5 @@
-﻿using FreeScheduler;
+﻿using Cronos;
+using FreeScheduler;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Savorboard.CAP.InMemoryMessageQueue;
@@ -78,16 +79,23 @@ new HostApp(new HostAppOptions
         {
             options.ConfigureFreeSql = ConfigureScheduler;
 
+
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                //执行任务
-                freeSchedulerBuilder.OnExecuting(task =>
+                freeSchedulerBuilder
+                .OnExecuting(task =>
                 {
+                    //执行任务
+                })
+                .UseCustomInterval(task =>
+                {
+                    //自定义间隔
+                    var expression = CronExpression.Parse(task.IntervalArgument, CronFormat.IncludeSeconds);
+                    var next = expression.GetNextOccurrence(DateTimeOffset.Now, TimeZoneInfo.Local);
+                    var nextLocalTime = next?.DateTime;
 
-                }).UseCustomInterval(task =>
-                {
-                    return TimeSpan.FromSeconds(5);
+                    return nextLocalTime == null ? null : nextLocalTime - DateTime.Now;
                 });
             };
         });
