@@ -1,0 +1,26 @@
+.my-layout {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 0px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+.my-fill {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .el-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+  }
+
+  .el-table {
+    flex: 1;
+  }
+}

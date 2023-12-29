@@ -1,0 +1,27 @@
+<%
+const { routeInfo, utils } = it;
+const {
+  operationId,
+  method,
+  route,
+  moduleName,
+  responsesTypes,
+  description,
+  tags,
+  summary,
+  pathArgs,
+} = routeInfo;
+const { _, fmtToJSDocLine, require } = utils;
+
+const createCustomOperationId = (method, route, moduleName) => {
+  const hasPathInserts = /\{(\w){1,}\}/g.test(route);
+  const splitedRouteBySlash = _.compact(_.replace(route, /\{(\w){1,}\}/g, "").split("/"));
+  const routeParts = (splitedRouteBySlash.length > 1
+    ? [splitedRouteBySlash[splitedRouteBySlash.length-1]]
+    : splitedRouteBySlash
+  ).join("_");
+  return _.camelCase(_.lowerCase(routeParts));
+};
+
+return createCustomOperationId(method, route, moduleName);
+%>

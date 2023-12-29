@@ -1,0 +1,230 @@
+@mixin flex($direction: row) {
+  /* #ifndef APP-NVUE */
+  display: flex;
+  /* #endif */
+  flex-direction: $direction;
+}
+
+// flex布局
+.my-flex,
+.my-flex-row,
+.my-flex-x {
+  @include flex;
+}
+
+.my-flex-y,
+.my-flex-column {
+  @include flex(column);
+}
+
+.my-flex-x-center {
+  @include flex;
+  justify-content: center;
+}
+
+.my-flex-xy-center {
+  @include flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-flex-y-center {
+  @include flex;
+  align-items: center;
+}
+
+.my-flex-x-left {
+  @include flex;
+}
+
+.my-flex-x-reverse,
+.my-flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.my-flex-y-reverse,
+.my-flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.my-flex.my-flex-reverse,
+.my-flex-row.my-flex-reverse,
+.my-flex-x.my-flex-reverse {
+  flex-direction: row-reverse;
+}
+
+.my-flex-column.my-flex-reverse,
+.my-flex-y.my-flex-reverse {
+  flex-direction: column-reverse;
+}
+
+// 自动伸缩
+.my-flex-fill {
+  flex: 1;
+}
+
+// 边界自动伸缩
+.my-margin-top-auto,
+.my-m-t-auto {
+  margin-top: auto !important;
+}
+
+.my-margin-right-auto,
+.my-m-r-auto {
+  margin-right: auto !important;
+}
+
+.my-margin-bottom-auto,
+.my-m-b-auto {
+  margin-bottom: auto !important;
+}
+
+.my-margin-left-auto,
+.my-m-l-auto {
+  margin-left: auto !important;
+}
+
+.my-margin-center-auto,
+.my-m-c-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.my-margin-middle-auto,
+.my-m-m-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+/* #endif */
+
+// 换行
+.my-flex-wrap {
+  flex-wrap: wrap;
+}
+
+// 反向换行
+.my-flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+// 主轴起点对齐
+.my-flex-start {
+  justify-content: flex-start;
+}
+
+// 主轴中间对齐
+.my-flex-center {
+  justify-content: center;
+}
+
+// 主轴终点对齐
+.my-flex-end {
+  justify-content: flex-end;
+}
+
+// 主轴等比间距
+.my-flex-between {
+  justify-content: space-between;
+}
+
+// 主轴均分间距
+.my-flex-around {
+  justify-content: space-around;
+}
+
+// 交叉轴起点对齐
+.my-flex-items-start {
+  align-items: flex-start;
+}
+
+// 交叉轴中间对齐
+.my-flex-items-center {
+  align-items: center;
+}
+
+// 交叉轴终点对齐
+.my-flex-items-end {
+  align-items: flex-end;
+}
+
+// 交叉轴第一行文字基线对齐
+.my-flex-items-baseline {
+  align-items: baseline;
+}
+
+// 交叉轴方向拉伸对齐
+.my-flex-items-stretch {
+  align-items: stretch;
+}
+
+// 以下属于项目(子元素)的类
+
+// 子元素交叉轴起点对齐
+.my-flex-self-start {
+  align-self: flex-start;
+}
+
+// 子元素交叉轴居中对齐
+.my-flex-self-center {
+  align-self: center;
+}
+
+// 子元素交叉轴终点对齐
+.my-flex-self-end {
+  align-self: flex-end;
+}
+
+// 子元素交叉轴第一行文字基线对齐
+.my-flex-self-baseline {
+  align-self: baseline;
+}
+
+// 子元素交叉轴方向拉伸对齐
+.my-flex-self-stretch {
+  align-self: stretch;
+}
+
+// 多轴交叉时的对齐方式
+
+// 起点对齐
+.my-flex-content-start {
+  align-content: flex-start;
+}
+
+// 居中对齐
+.my-flex-content-center {
+  align-content: center;
+}
+
+// 终点对齐
+.my-flex-content-end {
+  align-content: flex-end;
+}
+
+// 两端对齐
+.my-flex-content-between {
+  align-content: space-between;
+}
+
+// 均分间距
+.my-flex-content-around {
+  align-content: space-around;
+}
+
+// 全部居中对齐
+.my-flex-middle {
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+}
+
+// 是否可以放大
+.my-flex-grow {
+  flex-grow: 1;
+}
+
+// 是否可以缩小
+.my-flex-shrink {
+  flex-shrink: 1;
+}

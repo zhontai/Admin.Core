@@ -1,0 +1,10 @@
+@import './index.scss';
+
+/* 页面宽度小于800px
+------------------------------- */
+@media screen and (max-width: 800px) {
+  .el-drawer.ltr,
+  .el-drawer.rtl {
+    width: 90% !important;
+  }
+}
