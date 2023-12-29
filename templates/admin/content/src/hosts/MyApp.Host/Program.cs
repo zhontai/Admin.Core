@@ -26,8 +26,8 @@ using FreeScheduler;
 #endif
 using AdminDbkeys = ZhonTai.Admin.Core.Consts.DbKeys;
 using AdminSubscribeNames = ZhonTai.Admin.Core.Consts.SubscribeNames;
-using ZhonTai.Admin.Core.Db;
 #if (!NoTaskScheduler)
+using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain;
 using System;
 using Cronos;

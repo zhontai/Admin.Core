@@ -138,7 +138,11 @@
   //是否开启任务调度管理界面
   "TaskSchedulerUI": {
     //启用
-    "enable": true,
+    ////#if (NoTaskScheduler)
+    //"enable": false,
+    ////#else
+    //"enable": true,
+    ////#endif
     //访问路径
     "path": "/task"
   }
