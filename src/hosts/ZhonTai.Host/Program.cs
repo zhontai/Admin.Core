@@ -79,7 +79,6 @@ new HostApp(new HostAppOptions
         {
             options.ConfigureFreeSql = ConfigureScheduler;
 
-
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {

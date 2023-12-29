@@ -120,6 +120,8 @@ new FreeSchedulerBuilder()
     </el-dialog>
 
     <MyCronDialog ref="myCronDialogRef" @fill="onCronFill"></MyCronDialog>
+
+    <JsonEditorDialog ref="jsonEditorDialogRef"></JsonEditorDialog>
   </div>
 </template>
 
@@ -132,6 +134,8 @@ import eventBus from '/@/utils/mitt'
 
 const MyCronDialog = defineAsyncComponent(() => import('/@/components/my-cron/dialog.vue'))
 
+const JsonEditorDialog = defineAsyncComponent(() => import('./json-editor-dialog.vue'))
+
 defineProps({
   title: {
     type: String,
@@ -141,6 +145,7 @@ defineProps({
 
 const formRef = ref()
 const myCronDialogRef = ref()
+const jsonEditorDialogRef = ref()
 const state = reactive({
   showDialog: false,
   sureLoading: false,

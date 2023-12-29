@@ -15,9 +15,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!--#if (!NoTaskScheduler) -->
+		<PackageReference Include="Cronos" Version="0.8.0" />
+		<!--#endif -->
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="7.2.2" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="7.2.2" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.0.0" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->

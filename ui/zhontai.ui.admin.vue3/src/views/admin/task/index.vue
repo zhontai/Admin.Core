@@ -30,7 +30,7 @@
         <el-table-column prop="interval" label="定时类型" width="100" :formatter="formatterInterval" />
         <el-table-column prop="intervalArgument" label="定时参数" min-width="180" />
         <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="100" />
-        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="120" />
+        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="100" />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:task-log:get-page'" icon="ele-Tickets" size="small" text type="primary" @click="onShowLogs(row)"

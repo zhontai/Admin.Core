@@ -22,15 +22,49 @@ using System.Reflection;
 using System.Linq;
 #endif
 #if (!NoTaskScheduler)
-using MyApp.Api.Core.Handlers;
 using FreeScheduler;
 #endif
 using AdminDbkeys = ZhonTai.Admin.Core.Consts.DbKeys;
 using AdminSubscribeNames = ZhonTai.Admin.Core.Consts.SubscribeNames;
 using ZhonTai.Admin.Core.Db;
+#if (!NoTaskScheduler)
+using ZhonTai.Admin.Domain;
+using System;
+using Cronos;
+#endif
+#if (!NoTaskScheduler)
+
+static void ConfigureScheduler(IFreeSql fsql)
+{
+    fsql.CodeFirst
+    .ConfigEntity<TaskInfo>(a =>
+    {
+        a.Name("app_task");
+    })
+    .ConfigEntity<TaskLog>(a =>
+    {
+        a.Name("app_task_log");
+    })
+    .ConfigEntity<TaskInfoExt>(a =>
+    {
+        a.Name("app_task_ext");
+    });
+}
+#endif
 
 new HostApp(new HostAppOptions()
 {
+    //配置FreeSql
+    ConfigureFreeSql = (freeSql, dbConfig) =>
+    {
+#if (!NoTaskScheduler)
+        if (dbConfig.Key == AdminDbkeys.TaskDb)
+        {
+            freeSql.SyncSchedulerStructure(dbConfig, ConfigureScheduler);
+        }
+#endif
+    },
+
     //配置前置服务
     ConfigurePreServices = context =>
 	{
@@ -50,30 +84,30 @@ new HostApp(new HostAppOptions()
     ConfigurePostServices = context =>
 	{
 #if (!NoTaskScheduler)
-		//添加任务调度，默认使用权限库作为任务调度库
-		context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
-
+        //添加任务调度，默认使用权限库作为任务调度库
+        context.Services.AddTaskScheduler(AdminDbkeys.TaskDb, options =>
         {
-			options.ConfigureFreeSql = freeSql =>
-			{
-				freeSql.CodeFirst
-				//配置任务表
-				.ConfigEntity<TaskInfo>(a =>
-				{
-					a.Name("app_task");
-				})
-				//配置任务日志表
-				.ConfigEntity<TaskLog>(a =>
-				{
-					a.Name("app_task_log");
-				});
-			};
+            options.ConfigureFreeSql = ConfigureScheduler;
 
-			//模块任务处理器
-			options.TaskHandler = new AppTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
-			//模块自定义任务处理器，解析cron表达式
-			options.CustomTaskHandler = new AppCustomTaskHandler();
-		});
+            //配置任务调度
+            options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
+            {
+                freeSchedulerBuilder
+                .OnExecuting(task =>
+                {
+                    //执行任务
+                })
+                .UseCustomInterval(task =>
+                {
+                    //自定义间隔
+                    var expression = CronExpression.Parse(task.IntervalArgument, CronFormat.IncludeSeconds);
+                    var next = expression.GetNextOccurrence(DateTimeOffset.Now, TimeZoneInfo.Local);
+                    var nextLocalTime = next?.DateTime;
+
+                    return nextLocalTime == null ? null : nextLocalTime - DateTime.Now;
+                });
+            };
+        });
 #endif
 #if (!NoCap)
         //添加cap事件总线
@@ -89,40 +123,19 @@ new HostApp(new HostAppOptions()
 			config.UseInMemoryStorage();
 			config.UseInMemoryMessageQueue();
 
-			//<PackageReference Include="DotNetCore.CAP.MySql" Version="7.1.0" />
-			//<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.0" />
+            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.0.0" />
+            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.0.0" />
 
-			//config.UseMySql(dbConfig.ConnectionString);
-			//config.UseRabbitMQ(mqConfig => {
-			//    mqConfig.HostName = rabbitMQ.HostName;
-			//    mqConfig.Port = rabbitMQ.Port;
-			//    mqConfig.UserName = rabbitMQ.UserName;
-			//    mqConfig.Password = rabbitMQ.Password;
-			//    mqConfig.ExchangeName = rabbitMQ.ExchangeName;
-			//});
-			config.UseDashboard();
+            //config.UseMySql(dbConfig.ConnectionString);
+            //config.UseRabbitMQ(mqConfig => {
+            //    mqConfig.HostName = rabbitMQ.HostName;
+            //    mqConfig.Port = rabbitMQ.Port;
+            //    mqConfig.UserName = rabbitMQ.UserName;
+            //    mqConfig.Password = rabbitMQ.Password;
+            //    mqConfig.ExchangeName = rabbitMQ.ExchangeName;
+            //});
+            config.UseDashboard();
 		}).AddSubscriberAssembly(assemblies);
-#endif
-    },
-    //配置FreeSql
-    ConfigureFreeSql = (freeSql, dbConfig) =>
-    {
-#if (!NoTaskScheduler)
-        if (dbConfig.Key == DbKeys.AppDb)
-        {
-            freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
-            {
-                fsql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                });
-            });
-        }
 #endif
     },
     //配置Autofac容器
@@ -156,11 +169,6 @@ new HostApp(new HostAppOptions()
             });
         }
 		#endregion
-#endif
-#if (!NoTaskScheduler)
-
-		//使用任务调度
-		app.UseTaskScheduler();
 #endif
 	}
 }).Run(args);

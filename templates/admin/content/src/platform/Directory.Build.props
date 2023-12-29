@@ -1,7 +1,9 @@
 <Project>
 	<PropertyGroup>
-		<Version>5.0.1</Version>
+		<Version>5.1.0</Version>
 		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<PackageZhonTaiVersion>5.1.0</PackageZhonTaiVersion>
+		<PackageFreeSqlVersion>3.2.808</PackageFreeSqlVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
@@ -19,7 +21,5 @@
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-		<PackageZhonTaiVersion>5.0.5</PackageZhonTaiVersion>
-		<PackageFreeSqlVersion>3.2.805</PackageFreeSqlVersion>
   </PropertyGroup>
 </Project>
