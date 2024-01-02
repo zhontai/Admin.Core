@@ -148,6 +148,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             }
         }
 
+        throw ResultOutput.Exception("测试异常", "100", 500);
+
         var data = new PageOutput<UserGetPageOutput>()
         {
             List = Mapper.Map<List<UserGetPageOutput>>(list),

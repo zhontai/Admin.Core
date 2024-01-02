@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+
 #if NET7_0
 using System.Runtime.Serialization;
 #endif
@@ -12,6 +14,7 @@ public class AppException : Exception
 {
     public string AppMessage { get; set; }
     public string AppCode { get; set; }
+    public int StatusCode { get; set; } = (int)HttpStatusCode.OK;
 
     public AppException()
     {
@@ -31,10 +34,18 @@ public class AppException : Exception
     }
 
     public AppException(string message, string code)
+    : base(message)
+    {
+        AppMessage = message;
+        AppCode = code;
+    }
+
+    public AppException(string message, string code, int statusCode)
      : base(message)
     {
-        AppMessage= message;
-        AppCode= code;
+        AppMessage = message;
+        AppCode = code;
+        StatusCode = statusCode;
     }
 
 
@@ -49,6 +60,14 @@ public class AppException : Exception
     {
         AppMessage = message;
         AppCode = code;
+    }
+
+    public AppException(string message, string code, int statusCode, Exception innerException)
+        : base(message, innerException)
+    {
+        AppMessage = message;
+        AppCode = code;
+        StatusCode = statusCode;
     }
 }
     
