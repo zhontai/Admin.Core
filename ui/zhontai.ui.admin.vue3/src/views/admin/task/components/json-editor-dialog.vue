@@ -61,7 +61,7 @@ const emits = defineEmits(['sure'])
 const state = reactive({
   showDialog: false,
   content: '',
-  lang: 'json', //解析json
+  lang: 'json', //解析 json yaml
   theme: 'monokai', //主题 github chrome monokai
   readOnly: false, //是否只读
   options: {

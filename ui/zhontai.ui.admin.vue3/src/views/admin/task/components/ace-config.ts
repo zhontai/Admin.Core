@@ -9,6 +9,9 @@ ace.config.setModuleUrl('ace/theme/monokai', themeMonokaiUrl)
 // import 'ace-builds/src-noconflict/ext-language_tools'
 // ace.require('ace/ext/language_tools')
 
+// import modeYamlUrl from 'ace-builds/src-noconflict/mode-yaml?url'
+// ace.config.setModuleUrl('ace/mode/yaml', modeYamlUrl)
+
 // import themeGithubUrl from 'ace-builds/src-noconflict/theme-github?url'
 // ace.config.setModuleUrl('ace/theme/github', themeGithubUrl)
 
@@ -20,9 +23,6 @@ ace.config.setModuleUrl('ace/theme/monokai', themeMonokaiUrl)
 
 // import modeHtmlUrl from 'ace-builds/src-noconflict/mode-html?url'
 // ace.config.setModuleUrl('ace/mode/html', modeHtmlUrl)
-
-// import modeYamlUrl from 'ace-builds/src-noconflict/mode-yaml?url'
-// ace.config.setModuleUrl('ace/mode/yaml', modeYamlUrl)
 
 // import workerBaseUrl from 'ace-builds/src-noconflict/worker-base?url'
 // ace.config.setModuleUrl('ace/mode/base', workerBaseUrl)
