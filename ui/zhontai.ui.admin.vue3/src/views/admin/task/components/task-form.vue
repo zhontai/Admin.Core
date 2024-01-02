@@ -27,6 +27,7 @@
                 </div>
               </template>
               <el-input v-model="form.body" clearable type="textarea" rows="6" />
+              <el-link icon="ele-Edit" :underline="false" style="line-height: normal; margin-top: 5px" @click="onOpenJson">Json</el-link>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -119,9 +120,9 @@ new FreeSchedulerBuilder()
       </template>
     </el-dialog>
 
-    <MyCronDialog ref="myCronDialogRef" @fill="onCronFill"></MyCronDialog>
+    <MyCronDialog ref="myCronDialogRef" @fill="onFillCron"></MyCronDialog>
 
-    <JsonEditorDialog ref="jsonEditorDialogRef"></JsonEditorDialog>
+    <JsonEditorDialog ref="jsonEditorDialogRef" @sure="onSureBody"></JsonEditorDialog>
   </div>
 </template>
 
@@ -161,12 +162,14 @@ const state = reactive({
 
 const { form } = toRefs(state)
 
-const onCronFill = (value: any) => {
+//确定Cron表达式
+const onFillCron = (value: any) => {
   form.value.intervalArgument = value
 }
 
-const onOpenCronDialog = () => {
-  myCronDialogRef.value.open(state.form.intervalArgument)
+//确定任务参数
+const onSureBody = (value: any) => {
+  form.value.body = value
 }
 
 // 打开对话框
@@ -182,6 +185,16 @@ const open = async (row: TaskUpdateInput = { id: '' }) => {
 
   state.form = formData
   state.showDialog = true
+}
+
+//打开Cron对话框
+const onOpenCronDialog = () => {
+  myCronDialogRef.value.open(state.form.intervalArgument)
+}
+
+//打开Json对话框
+const onOpenJson = () => {
+  jsonEditorDialogRef.value.open(state.form.body)
 }
 
 // 取消
