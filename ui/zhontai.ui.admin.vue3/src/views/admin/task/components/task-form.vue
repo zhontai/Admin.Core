@@ -85,7 +85,7 @@
               <el-alert v-else-if="form.interval === 12" type="info" :closable="false">
                 设置 1:08:00:00 则每周一 08:00:00 触发
                 <br />
-                设置 -0:08:00:00 则每周日 08:00:00 触发
+                设置 0:08:00:00 则每周日 08:00:00 触发
               </el-alert>
               <el-alert v-else-if="form.interval === 13" type="info" :closable="false">
                 设置 1:08:00:00 则每月1日 08:00:00 触发
