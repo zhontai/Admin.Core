@@ -322,9 +322,7 @@
         </member>
         <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.PhoneMaskRegex">
             <remarks>
-            Pattern:<br/>
-            <code>(\\d{3})\\d{4}(\\d{4})</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ 1st capture group.<br/>
                 ○ Match a Unicode digit exactly 3 times.<br/>
@@ -336,9 +334,7 @@
         </member>
         <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.EmailMaskRegex">
             <remarks>
-            Pattern:<br/>
-            <code>(?&lt;=.{2})[^@]+(?=.{2}@)</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Zero-width positive lookbehind.<br/>
                 ○ Match a character other than '\n' exactly 2 times right-to-left.<br/>
@@ -351,21 +347,19 @@
         </member>
         <member name="M:ZhonTai.Common.Helpers.DataMaskHelper.IPMaskRegex">
             <remarks>
-            Pattern:<br/>
-            <code>([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ 1st capture group.<br/>
-                ○ Match a character in the set [0-9] atomically at least 1 and at most 3 times.<br/>
+                ○ Match '0' through '9' atomically at least 1 and at most 3 times.<br/>
             ○ Match '.'.<br/>
             ○ 2nd capture group.<br/>
-                ○ Match a character in the set [0-9] atomically at least 1 and at most 3 times.<br/>
+                ○ Match '0' through '9' atomically at least 1 and at most 3 times.<br/>
             ○ Match '.'.<br/>
             ○ 3rd capture group.<br/>
-                ○ Match a character in the set [0-9] atomically at least 1 and at most 3 times.<br/>
+                ○ Match '0' through '9' atomically at least 1 and at most 3 times.<br/>
             ○ Match '.'.<br/>
             ○ 4th capture group.<br/>
-                ○ Match a character in the set [0-9] atomically at least 1 and at most 3 times.<br/>
+                ○ Match '0' through '9' atomically at least 1 and at most 3 times.<br/>
             </code>
             </remarks>
         </member>
@@ -572,9 +566,7 @@
         </member>
         <member name="M:ZhonTai.Common.Helpers.PasswordHelper.RegexPassword">
             <remarks>
-            Pattern:<br/>
-            <code>^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d!@#$%^&amp;.*]{6,16}$</code><br/>
-            Explanation:<br/>
+            Pattern explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ Zero-width positive lookahead.<br/>
@@ -815,15 +807,6 @@
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
             <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IndexOfAnyDigit(System.ReadOnlySpan{System.Char})">
-            <summary>Finds the next index of any character that matches a Unicode digit.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiExceptDigits">
-            <summary>Supports searching for characters in or not in "\0\u0001\u0002\u0003\u0004\u0005\u0006\a\b\t\n\v\f\r\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f !\"#$%&amp;'()*+,-./:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007f".</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiLetters">
-            <summary>Supports searching for characters in or not in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
         </member>
     </members>
 </doc>
