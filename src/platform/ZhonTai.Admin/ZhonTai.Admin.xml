@@ -5789,6 +5789,11 @@
             地址
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.FromEmail">
+            <summary>
+            发件人
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.ToEmail">
             <summary>
             收件人

@@ -27,6 +27,11 @@ public class EamilSingleSendEvent
     }
 
     /// <summary>
+    /// 发件人
+    /// </summary>
+    public Models.EmailModel? FromEmail { get; set; }
+
+    /// <summary>
     /// 收件人
     /// </summary>
     [Required(ErrorMessage = "请输入收件人")]

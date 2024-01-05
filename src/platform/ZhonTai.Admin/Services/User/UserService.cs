@@ -492,10 +492,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         // 员工信息
         var staff = await _staffRepository.GetAsync(userId);
+        var existsStaff = staff == null;
         staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
-        await _staffRepository.InsertOrUpdateAsync(staff);
+        if (existsStaff) 
+        { 
+            await _staffRepository.UpdateAsync(staff);
+        }
+        else
+        {
+            await _staffRepository.InsertAsync(staff);
+        }
 
         //所属部门
         var orgIds = await _userOrgRepository.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);

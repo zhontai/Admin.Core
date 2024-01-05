@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
+using System.Linq;
 using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
@@ -12,6 +13,9 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Services.Msg;
+using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
@@ -87,6 +91,35 @@ new HostApp(new HostAppOptions
                 {
                     //执行任务
                 })
+                .OnExecuted(async (task, taskLog) =>
+                {
+                    if (!taskLog.Success)
+                    {
+                        var taskService = AppInfo.GetRequiredService<TaskService>();
+                        var emailService = AppInfo.GetRequiredService<EmailService>();
+                        var alerEmail = await taskService.GetAlerEmailAsync(task.Id);
+                        alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                        {
+                            await emailService.SingleSendAsync(new EamilSingleSendEvent
+                            {
+                                FromEmail = new EamilSingleSendEvent.Models.EmailModel
+                                {
+                                    Name = "任务调度"
+                                },
+                                ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                {
+                                    Address = address,
+                                    Name = address
+                                },
+                                Subject = "任务调度中心监控报警",
+                                Body = $@"<p>任务名称：{task.Topic}</p>
+<p>任务编号：{task.Id}</p>
+<p>告警类型：调度失败</p>
+<p>告警内容：<br/>{taskLog.Exception}</p>"
+                            });
+                        });
+                    }
+                })
                 .UseCustomInterval(task =>
                 {
                     //自定义间隔
@@ -124,7 +157,7 @@ new HostApp(new HostAppOptions
             app.UseApiUI(options =>
             {
                 options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
-                var routePath = options.RoutePrefix.NotNull() ? $"{options.RoutePrefix}/" : "";
+                var routePath = options.RoutePrefix.NotNull() ? $"{ options.RoutePrefix}/" : "";
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
                     options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);

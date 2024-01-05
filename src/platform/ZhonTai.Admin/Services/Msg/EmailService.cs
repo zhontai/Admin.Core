@@ -39,7 +39,10 @@ public class EmailService: ICapSubscribe
             Subject = @event.Subject,
             Body = builder.ToMessageBody()
         };
-        message.From.Add(new MailboxAddress(emailConfig.FromEmail.Name, emailConfig.FromEmail.Address));
+
+        var fromEmailName = @event.FromEmail!=null && @event.FromEmail.Name.NotNull() ? @event.FromEmail.Name : emailConfig.FromEmail.Name;
+        var fromEmailAddress = @event.FromEmail != null && @event.FromEmail.Address.NotNull() ? @event.FromEmail.Address : emailConfig.FromEmail.Address;
+        message.From.Add(new MailboxAddress(fromEmailName, fromEmailAddress));
         message.To.Add(new MailboxAddress(@event.ToEmail.Name, @event.ToEmail.Address));
 
         using var client = new SmtpClient();
