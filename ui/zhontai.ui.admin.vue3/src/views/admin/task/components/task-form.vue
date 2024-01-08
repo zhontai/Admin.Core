@@ -176,7 +176,7 @@ const onSureArgs = (task: any) => {
 // 打开对话框
 const open = async (row: TaskUpdateInput = { id: '' }) => {
   let formData = cloneDeep(row) as TaskUpdateInput
-  if (row.topic) {
+  if (row.id && row.topic) {
     const res = await new TaskApi().get({ topic: row.topic }, { loading: true })
 
     if (res?.success) {

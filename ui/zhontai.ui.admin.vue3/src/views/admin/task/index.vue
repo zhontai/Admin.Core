@@ -33,32 +33,40 @@
         <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="100" />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:task-log:get-page'" icon="ele-Tickets" size="small" text type="primary" @click="onShowLogs(row)"
-              >日志</el-button
-            >
-            <el-button
-              v-if="row.status === 1 || row.status === 'Paused'"
-              v-auth="'api:admin:task:pause'"
-              icon="ele-CaretRight"
-              size="small"
-              text
-              type="primary"
-              @click="onStart(row)"
-              >启动</el-button
-            >
-            <el-button
-              v-if="row.status === 0 || row.status === 'Running'"
-              v-auth="'api:admin:task:resume'"
-              icon="ele-VideoPause"
-              size="small"
-              text
-              type="primary"
-              @click="onPause(row)"
-              >停止</el-button
-            >
-            <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onRun(row)">执行</el-button>
-            <el-button v-auth="'api:admin:task:update'" icon="ele-Edit" size="small" text type="primary" @click="onUpdate(row)">修改</el-button>
-            <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <div class="my-flex">
+              <el-button v-auth="'api:admin:task-log:get-page'" icon="ele-Tickets" size="small" text type="primary" @click="onShowLogs(row)"
+                >日志</el-button
+              >
+              <el-button v-auth="'api:admin:task:update'" icon="ele-Edit" size="small" text type="primary" @click="onUpdate(row)">修改</el-button>
+              <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            </div>
+
+            <div class="my-flex">
+              <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onRun(row)">执行</el-button>
+              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)"
+                >复制</el-button
+              >
+              <el-button
+                v-if="row.status === 1 || row.status === 'Paused'"
+                v-auth="'api:admin:task:pause'"
+                icon="ele-CaretRight"
+                size="small"
+                text
+                type="primary"
+                @click="onStart(row)"
+                >启动</el-button
+              >
+              <el-button
+                v-if="row.status === 0 || row.status === 'Running'"
+                v-auth="'api:admin:task:resume'"
+                icon="ele-VideoPause"
+                size="small"
+                text
+                type="primary"
+                @click="onPause(row)"
+                >停止</el-button
+              >
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -88,6 +96,7 @@ import { TaskListOutput, PageInputTaskGetPageDto } from '/@/api/admin/data-contr
 import { TaskApi } from '/@/api/admin/Task'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
+import { cloneDeep } from 'lodash-es'
 
 // 引入组件
 const TaskLogs = defineAsyncComponent(() => import('./components/task-logs.vue'))
@@ -176,6 +185,13 @@ const onAdd = () => {
 const onUpdate = (row: TaskListOutput) => {
   state.taskFormTitle = '修改任务'
   taskFormRef.value.open(row)
+}
+
+const onCopy = (row: TaskListOutput) => {
+  state.taskFormTitle = '新增任务'
+  var task = cloneDeep(row)
+  task.id = null
+  taskFormRef.value.open(task)
 }
 
 // 查看日志
