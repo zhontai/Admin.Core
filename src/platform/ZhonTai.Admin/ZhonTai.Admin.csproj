@@ -25,7 +25,7 @@
 		<PackageReference Include="FreeSql" Version="3.2.808" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.8.2" />
 		<PackageReference Include="FreeSql.Repository" Version="3.2.808" />
-		<PackageReference Include="FreeScheduler" Version="2.0.26" />
+		<PackageReference Include="FreeScheduler" Version="2.0.27" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="MailKit" Version="4.3.0" />
