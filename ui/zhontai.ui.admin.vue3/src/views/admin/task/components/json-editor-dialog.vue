@@ -16,9 +16,15 @@
       </template>
     </el-dialog> -->
 
-  <el-drawer v-model="state.showDialog" :title="title" direction="rtl" destroy-on-close size="520">
+  <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size">
+    <template #header="{ titleId, titleClass }">
+      <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
+      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
+      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+    </template>
     <div class="my-fill h100" style="padding: 20px">
       <div class="mb10 my-flex my-flex-end">
+        <el-button type="primary" @click="onJsonShell" size="default">Shell</el-button>
         <el-button type="primary" @click="onJsonHttp" size="default">Http</el-button>
         <el-button type="primary" @click="onJsonFormat" size="default">格式化</el-button>
         <el-button type="primary" @click="onJsonCompress" size="default">压 缩</el-button>
@@ -44,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 
 import { VAceEditor } from 'vue3-ace-editor'
 import './ace-config'
@@ -60,7 +66,10 @@ const emits = defineEmits(['sure'])
 
 const state = reactive({
   showDialog: false,
+  isFull: false,
+  isMobile: document.body.clientWidth < 1000,
   content: '',
+  topic: '',
   lang: 'json', //解析 json yaml
   theme: 'monokai', //主题 github chrome monokai
   readOnly: false, //是否只读
@@ -74,7 +83,21 @@ const state = reactive({
   },
 })
 
+const size = computed(() => {
+  return state.isMobile ? '100%' : state.isFull ? '100%' : '50%'
+})
+
+const onJsonShell = () => {
+  state.topic = '[system]shell'
+  state.content = `{
+  "fileName": "",
+  "arguments": "",
+  "workingDirectory": ""
+}`
+}
+
 const onJsonHttp = () => {
+  state.topic = '[系统预留]Http请求'
   state.content = `{
   "method": "get",
   "url": "",
@@ -108,8 +131,11 @@ const onJsonCompress = () => {
 }
 
 // 打开对话框
-const open = (content: string) => {
-  if (content) state.content = content
+const open = (task: any) => {
+  if (task) {
+    state.topic = task.topic || ''
+    state.content = task.body || ''
+  }
   state.showDialog = true
 }
 
@@ -120,8 +146,7 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
-  emits('sure', state.content)
-
+  emits('sure', { topic: state.topic, body: state.content })
   state.showDialog = false
 }
 
@@ -135,5 +160,12 @@ defineExpose({
   border-width: 0px !important;
   margin-left: 110px;
   margin-top: 10px;
+}
+.el-drawer__btn {
+  cursor: pointer;
+  margin-right: 8px;
+  &:hover {
+    color: var(--el-color-primary);
+  }
 }
 </style>

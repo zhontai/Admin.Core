@@ -11,8 +11,7 @@ namespace ZhonTai.Admin.Tools.Cache;
 /// </summary>
 public partial class RedisCacheTool : ICacheTool
 {
-    [GeneratedRegex("\\{.*\\}")]
-    private static partial Regex PatternRegex();
+    private static readonly string PatternRegex = @"\{.*\}";
 
     private readonly RedisClient _redisClient;
     public RedisCacheTool(RedisClient redisClient)
@@ -34,7 +33,7 @@ public partial class RedisCacheTool : ICacheTool
         if (pattern.IsNull())
             return default;
 
-        pattern = PatternRegex().Replace(pattern, "*");
+        pattern = Regex.Replace(pattern, PatternRegex, "*");
 
         var keys = await _redisClient.KeysAsync(pattern);
         if (keys != null && keys.Length > 0)

@@ -49,22 +49,6 @@
             模块任务名
             </summary>
         </member>
-        <member name="T:MyApp.Api.Core.Handlers.AppCustomTaskHandler">
-            <summary>
-            模块自定义任务处理器
-            </summary>
-        </member>
-        <member name="T:MyApp.Api.Core.Handlers.AppTaskHandler">
-            <summary>
-            模块任务处理器
-            </summary>
-        </member>
-        <member name="M:MyApp.Api.Core.Handlers.AppTaskHandler.ModuleTask(FreeScheduler.TaskInfo)">
-            <summary>
-            模块任务
-            </summary>
-            <param name="task"></param>
-        </member>
         <member name="T:MyApp.Api.Domain.Module.Dto.ModuleGetPageDto">
             <summary>
             模块分页

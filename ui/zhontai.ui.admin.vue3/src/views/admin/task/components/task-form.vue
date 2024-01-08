@@ -122,7 +122,7 @@ new FreeSchedulerBuilder()
 
     <MyCronDialog ref="myCronDialogRef" @fill="onFillCron"></MyCronDialog>
 
-    <JsonEditorDialog ref="jsonEditorDialogRef" @sure="onSureBody"></JsonEditorDialog>
+    <JsonEditorDialog ref="jsonEditorDialogRef" @sure="onSureArgs"></JsonEditorDialog>
   </div>
 </template>
 
@@ -168,8 +168,9 @@ const onFillCron = (value: any) => {
 }
 
 //确定任务参数
-const onSureBody = (value: any) => {
-  form.value.body = value
+const onSureArgs = (task: any) => {
+  form.value.topic = task.topic
+  form.value.body = task.body
 }
 
 // 打开对话框
@@ -194,7 +195,7 @@ const onOpenCronDialog = () => {
 
 //打开Json对话框
 const onOpenJson = () => {
-  jsonEditorDialogRef.value.open(state.form.body)
+  jsonEditorDialogRef.value.open(state.form)
 }
 
 // 取消
