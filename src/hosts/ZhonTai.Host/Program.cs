@@ -1,9 +1,12 @@
 ﻿using Cronos;
 using FreeScheduler;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using ZhonTai;
@@ -89,30 +92,81 @@ new HostApp(new HostAppOptions
                 freeSchedulerBuilder
                 .OnExecuting(task =>
                 {
-                    //执行任务
+                    switch (task.Topic)
+                    {
+                        //执行shell
+                        case "[system]shell":
+                            var jsonArgs = JToken.Parse(task.Body);
+                            var shellArgs = jsonArgs.Adapt<ShellArgs>();
+
+                            var startInfo = new ProcessStartInfo
+                            {
+                                FileName = shellArgs.FileName,
+                                Arguments = shellArgs.Arguments,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                WorkingDirectory = shellArgs.WorkingDirectory
+                            };
+
+                            var response = string.Empty;
+                            var error = string.Empty;
+                            using (var process = Process.Start(startInfo))
+                            {
+                                response = process.StandardOutput.ReadToEnd();
+                                error = process.StandardError.ReadToEnd();
+
+                                //if (response.NotNull())
+                                //{
+                                //    Console.WriteLine("Response:");
+                                //    Console.WriteLine(response);
+                                //}
+
+                                //if (error.NotNull())
+                                //{
+                                //    Console.WriteLine("Error:");
+                                //    Console.WriteLine(error);
+                                //}
+
+                                process.WaitForExit();
+                            }
+
+                            if (response.NotNull())
+                                task.Remark(response);
+
+                            if (error.NotNull())
+                                throw new Exception(error);
+
+                            break;
+                    }
                 })
-                .OnExecuted(async (task, taskLog) =>
+                .OnExecuted((task, taskLog) =>
                 {
                     if (!taskLog.Success)
                     {
+                        //发送告警邮件
                         var taskService = AppInfo.GetRequiredService<TaskService>();
                         var emailService = AppInfo.GetRequiredService<EmailService>();
-                        var alerEmail = await taskService.GetAlerEmailAsync(task.Id);
+                        var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
+                        var topic = task.Topic;
+                        if (alerEmail.NotNull())
+                        {
+                            var jsonArgs = JToken.Parse(task.Body);
+                            var desc = jsonArgs["desc"]?.ToString();
+                            if (desc.NotNull())
+                                topic = desc;
+                        }
                         alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
                         {
                             await emailService.SingleSendAsync(new EamilSingleSendEvent
                             {
-                                FromEmail = new EamilSingleSendEvent.Models.EmailModel
-                                {
-                                    Name = "任务调度"
-                                },
                                 ToEmail = new EamilSingleSendEvent.Models.EmailModel
                                 {
                                     Address = address,
                                     Name = address
                                 },
-                                Subject = "任务调度中心监控报警",
-                                Body = $@"<p>任务名称：{task.Topic}</p>
+                                Subject = "【任务调度中心】监控报警",
+                                Body = $@"<p>任务名称：{topic}</p>
 <p>任务编号：{task.Id}</p>
 <p>告警类型：调度失败</p>
 <p>告警内容：<br/>{taskLog.Exception}</p>"

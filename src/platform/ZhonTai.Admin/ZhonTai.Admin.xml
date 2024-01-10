@@ -8597,6 +8597,21 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.FileName">
+            <summary>
+            执行应用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.Arguments">
+            <summary>
+            执行参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.WorkingDirectory">
+            <summary>
+            命令应用工作目录
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
             <summary>
             TaskScheduler配置
