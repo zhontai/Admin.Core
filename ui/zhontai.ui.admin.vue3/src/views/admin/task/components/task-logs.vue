@@ -1,9 +1,14 @@
 <template>
-  <el-drawer v-model="state.showDialog" :title="title" direction="ltr" size="780">
+  <el-drawer v-model="state.showDialog" direction="ltr" :size="size">
+    <template #header="{ titleId, titleClass }">
+      <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
+      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
+      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+    </template>
     <div class="my-fill h100">
       <el-table v-loading="state.loading" :data="state.taskLogListData" row-key="id" style="width: 100%">
-        <el-table-column prop="round" label="当前次数" width="80" />
-        <el-table-column prop="success" label="状态" width="80">
+        <el-table-column prop="round" label="当前次数" width="90" />
+        <el-table-column prop="success" label="状态" width="90">
           <template #default="{ row }">
             <el-tag v-if="!row.success" type="danger" disable-transitions>失败</el-tag>
             <el-tag v-else type="success" disable-transitions>成功</el-tag>
@@ -39,7 +44,7 @@
 </template>
 
 <script lang="ts" setup name="admin/taskLog">
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { ResultOutputPageOutputTaskLog, PageInputTaskLogGetPageDto, TaskListOutput } from '/@/api/admin/data-contracts'
 import { TaskLogApi } from '/@/api/admin/TaskLog'
 import dayjs from 'dayjs'
@@ -54,6 +59,8 @@ defineProps({
 const state = reactive({
   showDialog: false,
   loading: false,
+  isFull: false,
+  isMobile: document.body.clientWidth < 1000,
   taskLogFormTitle: '',
   total: 0,
   pageInput: {
@@ -64,6 +71,10 @@ const state = reactive({
     },
   } as PageInputTaskLogGetPageDto,
   taskLogListData: [] as Array<ResultOutputPageOutputTaskLog>,
+})
+
+const size = computed(() => {
+  return state.isMobile ? '100%' : state.isFull ? '100%' : '50%'
 })
 
 const formatterTime = (row: any, column: any, cellValue: any) => {
@@ -110,5 +121,13 @@ defineExpose({
 <style scoped lang="scss">
 .my-drawer-body-padding {
   padding: 10px;
+}
+
+.el-drawer__btn {
+  cursor: pointer;
+  margin-right: 8px;
+  &:hover {
+    color: var(--el-color-primary);
+  }
 }
 </style>
