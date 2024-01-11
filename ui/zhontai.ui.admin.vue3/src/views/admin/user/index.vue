@@ -18,6 +18,7 @@
               <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
                 <el-form-item>
                   <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+                  <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
                   <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
                 </el-form-item>
               </el-col>
@@ -94,6 +95,7 @@
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
+        <MyFilter ref="myFilterRef" :fields="state.filters" @sure="onFilterSure"></MyFilter>
       </div>
     </pane>
   </my-layout>
@@ -116,11 +118,13 @@ const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 const MySelectInput = defineAsyncComponent(() => import('/@/components/my-select-input/index.vue'))
 const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MyFilter = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const userFormRef = ref()
 const userRestPwdRef = ref()
+const myFilterRef = ref()
 
 const storesUseUserInfo = useUserInfo()
 
@@ -163,6 +167,18 @@ const state = reactive({
       description: '用户名',
       componentName: 'el-input',
     },
+    {
+      field: 'createdTime',
+      operator: 'daterange',
+      description: '创建时间',
+      componentName: 'el-date-picker',
+      type: 'date',
+      config: {
+        type: 'daterange',
+        format: 'YYYY-MM-DD',
+        valueFormat: 'YYYY-MM-DD',
+      },
+    },
   ] as Array<DynamicFilterInfo>,
 })
 
@@ -187,6 +203,16 @@ const onQuery = async () => {
   state.userListData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
   state.loading = false
+}
+
+//高级查询
+const onFilter = () => {
+  myFilterRef.value.open()
+}
+
+const onFilterSure = (dynamicFilter: any) => {
+  state.pageInput.dynamicFilter = dynamicFilter
+  onQuery()
 }
 
 //新增

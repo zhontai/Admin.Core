@@ -353,9 +353,9 @@ declare type OperatorEnum =
 
 declare type DynamicFilterInfo = {
   field: string
-  operator: OperatorEnum = 'Eq'
+  operator: OperatorEnum
   value: string
   description: string
   defaultSelect: boolean
-  componentName: ComponentEnum = 'el-input'
+  componentName: ComponentEnum
 }
