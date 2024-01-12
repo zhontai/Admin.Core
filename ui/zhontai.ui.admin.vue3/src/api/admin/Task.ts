@@ -55,7 +55,7 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    */
   get = (
     query?: {
-      topic?: string
+      id?: string
     },
     params: RequestParams = {}
   ) =>

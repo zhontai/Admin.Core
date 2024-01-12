@@ -14,7 +14,6 @@ using System;
 using ZhonTai.Admin.Domain;
 using Mapster;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -49,18 +48,19 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <summary>
     /// 查询
     /// </summary>
-    /// <param name="topic"></param>
+    /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<TaskGetOutput> GetAsync(string topic)
+    public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var result = Datafeed.GetPage(_scheduler.Value, null, topic);
-        var taskInfo = result.Tasks?.FirstOrDefault()?.Adapt<TaskGetOutput>();
-        if (taskInfo != null)
+        var entity = await _taskRepository.Value.GetAsync(a => a.Id == id);
+        if (entity == null)
         {
-            taskInfo.AlarmEmail = await GetAlerEmailAsync(taskInfo.Id);
+            throw ResultOutput.Exception("任务不存在");
         }
 
-        return taskInfo;
+        var taskGetOutput = entity.Adapt<TaskGetOutput>();
+        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(entity.Id);
+        return taskGetOutput;
     }
 
     /// <summary>
