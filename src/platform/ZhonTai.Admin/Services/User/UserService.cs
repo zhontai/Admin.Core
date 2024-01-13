@@ -49,6 +49,8 @@ namespace ZhonTai.Admin.Services.User;
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
     private readonly Lazy<UserHelper> _userHelper;
+    private readonly Lazy<IRoleRepository> _roleRepository;
+    private readonly Lazy<IRolePermissionRepository> _rolePermissionRepository;
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
@@ -62,9 +64,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
     private IFileService _fileService => LazyGetRequiredService<IFileService>();
 
-    public UserService(Lazy<UserHelper> userHelper)
+    public UserService(Lazy<UserHelper> userHelper, 
+        Lazy<IRoleRepository> roleRepository,
+        Lazy<IRolePermissionRepository> rolePermissionRepository)
     {
         _userHelper = userHelper;
+        _roleRepository = roleRepository;
+        _rolePermissionRepository = rolePermissionRepository;
     }
 
     /// <summary>
@@ -112,12 +118,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
     {
-        var dataPermission = await AppInfo.GetRequiredService<IUserService>().GetDataPermissionAsync();
+        var dataPermission = User.DataPermission;
 
         var orgId = input.Filter?.OrgId;
         var list = await _userRepository.Select
-        .WhereIf(dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
-        .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
+        .WhereIf(dataPermission!=null&&dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission != null && dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
@@ -159,13 +165,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [NonAction]
     public async Task<AuthLoginOutput> GetLoginUserAsync(long id)
     {
-        var output = await _userRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-            .WhereDynamic(id).ToOneAsync<AuthLoginOutput>();
+        var output = await _userRepository.Select
+            .DisableGlobalFilter(FilterNames.Tenant)
+            .WhereDynamic(id)
+            .ToOneAsync<AuthLoginOutput>();
 
         if (_appConfig.Tenant && output?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select.DisableGlobalFilter(FilterNames.Tenant)
-                .WhereDynamic(output.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRepository.Select
+                .DisableGlobalFilter(FilterNames.Tenant)
+                .WhereDynamic(output.TenantId)
+                .ToOneAsync<AuthLoginTenantDto>();
+
             output.Tenant = tenant;
         }
         return output;
@@ -174,9 +185,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <summary>
     /// 获得数据权限
     /// </summary>
+    /// <param name="apiPath"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task<DataPermissionDto> GetDataPermissionAsync()
+    public async Task<DataPermissionDto> GetDataPermissionAsync(string? apiPath)
     {
         if (!(User?.Id > 0))
         {
@@ -186,76 +198,84 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var key = CacheKeys.DataPermission + User.Id;
         return await Cache.GetOrSetAsync(key, async () =>
         {
-            using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+            using var _ = _userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
+
+            var user = await _userRepository.Select
+            .WhereDynamic(User.Id)
+            .ToOneAsync(a => new { a.OrgId });
+
+            if (user == null)
+                return null;
+
+            var orgId = user.OrgId;
+
+            //查询角色
+            var roleRepository = _roleRepository.Value;
+            var rolePermissionRepository = _rolePermissionRepository.Value;
+            var roles = await roleRepository.Select
+            .InnerJoin<UserRoleEntity>((a, b) => a.Id == b.RoleId && b.UserId == User.Id)
+            .WhereIf(apiPath.NotNull(), r => rolePermissionRepository.Select
+                .From<PermissionApiEntity, ApiEntity>((s, b, c) =>
+                    s.InnerJoin(a => a.PermissionId == b.PermissionId)
+                    .InnerJoin(a => b.ApiId == c.Id && c.Path == apiPath)
+                ).ToList((a, b, c) => a.RoleId).Contains(r.Id))
+            .ToListAsync(a => new { a.Id, a.DataScope });
+
+            //数据范围
+            DataScope dataScope = DataScope.Self;
+            var customRoleIds = new List<long>();
+            roles?.ToList().ForEach(role =>
             {
-                var user = await _userRepository.Select
-                .IncludeMany(a => a.Roles.Select(b => new RoleEntity
+                if (role.DataScope == DataScope.Custom)
                 {
-                    Id = b.Id,
-                    DataScope = b.DataScope
-                }))
-                .WhereDynamic(User.Id)
-                .ToOneAsync(a => new
+                    customRoleIds.Add(role.Id);
+                }
+                else if (role.DataScope <= dataScope)
                 {
-                    a.OrgId,
-                    a.Roles
-                });
+                    dataScope = role.DataScope;
+                }
+            });
 
-                if (user == null)
-                    return null;
-
-                //数据范围
-                DataScope dataScope = DataScope.Self;
-                var customRoleIds = new List<long>();
-                user.Roles?.ToList().ForEach(role =>
+            //部门列表
+            var orgIds = new List<long>();
+            if (dataScope != DataScope.All)
+            {
+                //本部门
+                if (dataScope == DataScope.Dept)
                 {
-                    if (role.DataScope == DataScope.Custom)
-                    {
-                        customRoleIds.Add(role.Id);
-                    }
-                    else if (role.DataScope <= dataScope)
-                    {
-                        dataScope = role.DataScope;
-                    }
-                });
-
-                //部门列表
-                var orgIds = new List<long>();
-                if (dataScope != DataScope.All)
+                    orgIds.Add(orgId);
+                }
+                //本部门和下级部门
+                else if (dataScope == DataScope.DeptWithChild)
                 {
-                    //本部门
-                    if (dataScope == DataScope.Dept)
-                    {
-                        orgIds.Add(user.OrgId);
-                    }
-                    //本部门和下级部门
-                    else if (dataScope == DataScope.DeptWithChild)
-                    {
-                        orgIds = await _orgRepository
-                        .Where(a => a.Id == user.OrgId)
-                        .AsTreeCte()
-                        .ToListAsync(a => a.Id);
-                    }
-
-                    //指定部门
-                    if (customRoleIds.Count > 0)
-                    {
-                        if(dataScope == DataScope.Self)
-                        {
-                            dataScope = DataScope.Custom;
-                        }
-                        var customRoleOrgIds = await _roleOrgRepository.Select.Where(a => customRoleIds.Contains(a.RoleId)).ToListAsync(a => a.OrgId);
-                        orgIds = orgIds.Concat(customRoleOrgIds).ToList();
-                    }
+                    orgIds = await _orgRepository
+                    .Where(a => a.Id == orgId)
+                    .AsTreeCte()
+                    .ToListAsync(a => a.Id);
                 }
 
-                return new DataPermissionDto
+                //指定部门
+                if (customRoleIds.Count > 0)
                 {
-                    OrgId = user.OrgId,
-                    OrgIds = orgIds.Distinct().ToList(),
-                    DataScope = (User.PlatformAdmin || User.TenantAdmin) ? DataScope.All : dataScope
-                };
+                    if (dataScope == DataScope.Self)
+                    {
+                        dataScope = DataScope.Custom;
+                    }
+
+                    var customRoleOrgIds = await _roleOrgRepository.Select
+                    .Where(a => customRoleIds.Contains(a.RoleId))
+                    .ToListAsync(a => a.OrgId);
+
+                    orgIds = orgIds.Concat(customRoleOrgIds).ToList();
+                }
             }
+
+            return new DataPermissionDto
+            {
+                OrgId = orgId,
+                OrgIds = orgIds.Distinct().ToList(),
+                DataScope = (User.PlatformAdmin || User.TenantAdmin) ? DataScope.All : dataScope
+            };
         });
     }
 
@@ -268,13 +288,20 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录！");
+            throw ResultOutput.Exception("未登录");
         }
 
-        var data = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
-        data.Mobile = DataMaskHelper.PhoneMask(data.Mobile);
-        data.Email = DataMaskHelper.EmailMask(data.Email);
-        return data;
+        var user = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
+
+        if (user == null)
+        {
+            throw ResultOutput.Exception("用户不存在");
+        }
+
+        user.Mobile = DataMaskHelper.PhoneMask(user.Mobile);
+        user.Email = DataMaskHelper.EmailMask(user.Email);
+
+        return user;
     }
 
     /// <summary>
@@ -308,15 +335,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
             return await _apiRepository
             .Where(a => _apiRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
-            .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
-            .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
-            .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
+                .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
+                .Where((b, c, d) => d.ApiId == a.Id).Any())
             .ToListAsync<UserPermissionsOutput>();
         });
         return result;
     }
-
-    
 
     /// <summary>
     /// 新增用户
@@ -326,6 +351,11 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddAsync(UserAddInput input)
     {
+        //检查密码
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
         _userHelper.Value.CheckPassword(input.Password);
 
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
@@ -354,11 +384,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 用户信息
-        if (input.Password.IsNull())
-        {
-            input.Password = _appConfig.DefaultPassword;
-        }
-
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.DefaultUser;
         if (_appConfig.PasswordHasher)
@@ -467,10 +492,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         // 员工信息
         var staff = await _staffRepository.GetAsync(userId);
+        var existsStaff = staff != null;
         staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
-        await _staffRepository.InsertOrUpdateAsync(staff);
+        if (existsStaff) 
+        { 
+            await _staffRepository.UpdateAsync(staff);
+        }
+        else
+        {
+            await _staffRepository.InsertAsync(staff);
+        }
 
         //所属部门
         var orgIds = await _userOrgRepository.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
@@ -502,6 +535,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public virtual async Task<long> AddMemberAsync(UserAddMemberInput input)
     {
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
         _userHelper.Value.CheckPassword(input.Password);
 
         using var _ = _userRepository.DataFilter.DisableAll();
@@ -531,11 +568,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         // 用户信息
-        if (input.Password.IsNull())
-        {
-            input.Password = _appConfig.DefaultPassword;
-        }
-
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.Member;
         if (_appConfig.PasswordHasher)

@@ -1,0 +1,24 @@
+<Project>
+	<PropertyGroup>
+		<Version>5.1.3</Version>
+		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<Authors>xiaoxue</Authors>
+		<Company>zhontai</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
+		<PackageIcon>logo.png</PackageIcon>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;</NoWarn>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+</Project>

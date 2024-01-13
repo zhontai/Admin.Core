@@ -45,7 +45,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <summary>
     /// 验证
     /// </summary>
-    /// <param name="captchaId">验证码id</param>
+    /// <param name="captchaId">验证码Id</param>
     /// <param name="track">滑动轨迹</param>
     /// <returns></returns>
     [AllowAnonymous]

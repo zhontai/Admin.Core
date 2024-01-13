@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
@@ -9,9 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
+using System;
+using ZhonTai.Admin.Domain;
+using Mapster;
+using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -22,11 +24,25 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
-    private ITaskRepository _taskInfoRepository => LazyGetRequiredService<ITaskRepository>();
+    private readonly Lazy<Scheduler> _scheduler;
+    private readonly Lazy<ITaskRepository> _taskRepository;
+    private readonly Lazy<ITaskExtRepository> _taskExtRepository;
 
-    public TaskService()
+    public TaskService(Lazy<Scheduler> scheduler, Lazy<ITaskRepository> taskRepository, Lazy<ITaskExtRepository> taskExtRepository)
     {
+        _scheduler = scheduler;
+        _taskRepository = taskRepository;
+        _taskExtRepository = taskExtRepository;
+    }
 
+    /// <summary>
+    /// 查询报警邮件
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<string> GetAlerEmailAsync(string id)
+    {
+        return await _taskExtRepository.Value.Where(a => a.TaskId == id).ToOneAsync(a => a.AlarmEmail);
     }
 
     /// <summary>
@@ -34,10 +50,17 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<TaskGetOutput> GetAsync(long id)
+    public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var result = await _taskInfoRepository.GetAsync<TaskGetOutput>(id);
-        return result;
+        var entity = await _taskRepository.Value.GetAsync(a => a.Id == id);
+        if (entity == null)
+        {
+            throw ResultOutput.Exception("任务不存在");
+        }
+
+        var taskGetOutput = entity.Adapt<TaskGetOutput>();
+        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(entity.Id);
+        return taskGetOutput;
     }
 
     /// <summary>
@@ -46,22 +69,22 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TaskListOutput>> GetPageAsync(PageInput<TaskGetPageDto> input)
+    public PageOutput<TaskListOutput> GetPage(PageInput<TaskGetPageDto> input)
     {
-        var topic = input.Filter?.Topic;
-
-        var list = await _taskInfoRepository.Select
-        .WhereDynamicFilter(input.DynamicFilter)
-        .WhereIf(topic.NotNull(), a => a.Topic.Contains(topic))
-        .Count(out var total)
-        .OrderByDescending(true, c => c.Id)
-        .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync<TaskListOutput>();
+        var result = Datafeed.GetPage(_scheduler.Value,
+            input.Filter.ClusterId,
+            input.Filter.Topic,
+            input.Filter.TaskStatus,
+            input.Filter.StartAddTime,
+            input.Filter.EndAddTime,
+            input.PageSize,
+            input.CurrentPage
+        );
 
         var data = new PageOutput<TaskListOutput>()
         {
-            List = list,
-            Total = total
+            List = result.Tasks.Adapt<List<TaskListOutput>>(),
+            Total = result.Total
         };
 
         return data;
@@ -72,47 +95,29 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public string Add(TaskAddInput input)
+    public async Task<string> Add(TaskAddInput input)
     {
         if (input.IntervalArgument.IsNull())
         {
             throw ResultOutput.Exception("请输入定时参数");
         }
 
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
 
-        string id = null;
-        switch (input.Interval)
+        var taskld = Datafeed.AddTask(scheduler, input.Topic, input.Body, input.Round, input.Interval, input.IntervalArgument);
+
+        if (taskld.NotNull())
         {
-            case TaskInterval.SEC when input.Round == -1:
-                id = scheduler.AddTask(input.Topic, input.Body, input.Round, input.IntervalArgument.ToInt());
-                break;
-            case TaskInterval.SEC when input.Round > 0:
-                {
-                    int[] seconds = System.Array.Empty<int>();
-                    var intervalArguments = input.IntervalArgument.Split(",");
-                    foreach (var arg in intervalArguments)
-                    {
-                        seconds.Append(arg.ToInt());
-                    }
-                    id = scheduler.AddTask(input.Topic, input.Body, seconds);
-                    break;
-                }
-            case TaskInterval.RunOnDay when input.Round > 0:
-                id = scheduler.AddTaskRunOnDay(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnWeek when input.Round > 0:
-                id = scheduler.AddTaskRunOnWeek(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.RunOnMonth when input.Round > 0:
-                id = scheduler.AddTaskRunOnMonth(input.Topic, input.Body, input.Round, input.IntervalArgument);
-                break;
-            case TaskInterval.Custom when input.Round > 0:
-                id = scheduler.AddTaskCustom(input.Topic, input.Body, input.IntervalArgument);
-                break;
+            Pause(taskld);
+
+            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+            {
+                TaskId = taskld,
+                AlarmEmail = input.AlarmEmail
+            });
         }
 
-        return id;
+        return taskld;
     }
 
     /// <summary>
@@ -122,14 +127,47 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TaskUpdateInput input)
     {
-        var entity = await _taskInfoRepository.GetAsync(a => a.Id == input.Id);
-        if (entity != null && entity.Id.NotNull())
+        var scheduler = _scheduler.Value;
+
+        var entity = await _taskRepository.Value.GetAsync(a => a.Id == input.Id);
+        if (entity == null)
         {
-            throw ResultOutput.Exception("任务不存在！");
+            throw ResultOutput.Exception("任务不存在");
+        }
+
+        if (entity.Status == FreeScheduler.TaskStatus.Running)
+        {
+            Pause(entity.Id);
         }
 
         Mapper.Map(input, entity);
-        await _taskInfoRepository.UpdateAsync(entity);
+
+        if (entity.Status == FreeScheduler.TaskStatus.Completed)
+        {
+            entity.Status = FreeScheduler.TaskStatus.Paused;
+        }
+
+        await _taskRepository.Value.UpdateAsync(entity);
+
+        var taskExt = await _taskExtRepository.Value.Select.WhereDynamic(entity.Id).ToOneAsync();
+        if(taskExt != null)
+        {
+            taskExt.AlarmEmail = input.AlarmEmail;
+            await _taskExtRepository.Value.UpdateAsync(taskExt);
+        }
+        else
+        {
+            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+            {
+                TaskId = entity.Id,
+                AlarmEmail = input.AlarmEmail
+            });
+        }
+
+        if (entity.Status != FreeScheduler.TaskStatus.Paused)
+        {
+            Resume(entity.Id);
+        }
     }
 
     /// <summary>
@@ -139,7 +177,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Pause([BindRequired][ValidateRequired("请选择任务")]string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.PauseTask(id);
     }
 
@@ -150,7 +188,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Resume([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.ResumeTask(id);
     }
 
@@ -161,7 +199,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Run([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.RunNowTask(id);
     }
 
@@ -170,9 +208,11 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public void Delete([BindRequired][ValidateRequired("请选择任务")] string id)
+    public async Task Delete([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = LazyGetRequiredService<Scheduler>();
+        var scheduler = _scheduler.Value;
         scheduler.RemoveTask(id);
+
+        await _taskExtRepository.Value.DeleteAsync(a => a.TaskId == id);
     }
 }

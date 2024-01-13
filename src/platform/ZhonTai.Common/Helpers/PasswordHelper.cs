@@ -8,20 +8,21 @@ namespace ZhonTai.Common.Helpers;
 public partial class PasswordHelper
 {
    
-    [GeneratedRegex(@"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&.*]{6,16}$")]
-    public static partial Regex RegexPassword();
+    // 验证密码的正则表达式  
+    public static readonly string PasswordRegex = @"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&.*]{6,16}$";
 
-    /// <summary>
-    /// 验证
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
+    /// <summary>  
+    /// 验证密码是否符合要求  
+    /// </summary>  
+    /// <param name="input"></param>  
+    /// <returns></returns>  
     public static bool Verify(string input)
     {
-        if (input.IsNull()) { 
-            return false; 
+        if (input.IsNull())
+        {
+            return false;
         }
 
-        return RegexPassword().IsMatch(input);
+        return Regex.IsMatch(input, PasswordRegex);
     }
 }

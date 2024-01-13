@@ -1,4 +1,5 @@
-﻿using ZhonTai.Admin.Core.Exceptions;
+﻿using System.Net;
+using ZhonTai.Admin.Core.Exceptions;
 
 namespace ZhonTai.Admin.Core.Dto;
 
@@ -108,10 +109,11 @@ public static partial class ResultOutput
     /// </summary>
     /// <param name="msg">消息</param>
     /// <param name="code">编码</param>
+    /// <param name="statusCode">状态编码</param>
     /// <returns></returns>
-    public static AppException Exception(string msg = null, string code = null)
+    public static AppException Exception(string msg = null, string code = null, int statusCode = (int)HttpStatusCode.OK)
     {
-        return new AppException(msg, code);
+        return new AppException(msg, code, statusCode);
     }
 
     /// <summary>

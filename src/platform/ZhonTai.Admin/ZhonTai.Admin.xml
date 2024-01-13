@@ -573,6 +573,11 @@
             指定跨域访问时预检等待时间，以秒为单位，默认30分钟
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.TaskSchedulerUI">
+            <summary>
+            任务调度管理界面配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -718,6 +723,11 @@
             数据权限
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.ValidateConfig.ApiDataPermission">
+            <summary>
+            接口数据权限
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.VarifyCodeConfig">
             <summary>
             验证码配置
@@ -779,6 +789,21 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.HealthChecksConfig.Path">
+            <summary>
+            访问路径
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig">
+            <summary>
+            任务调度管理界面
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.TaskSchedulerUIConfig.Path">
             <summary>
             访问路径
             </summary>
@@ -941,6 +966,56 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.TenantId">
             <summary>
             租户Id
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Models.EmailModel.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Host">
+            <summary>
+            主机
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.UseSsl">
+            <summary>
+            启用SSL
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.UserName">
+            <summary>
+            邮箱账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.Password">
+            <summary>
+            邮箱密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.FromEmail">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.EmailConfig.ToEmail">
+            <summary>
+            收件人
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.JwtConfig">
@@ -1158,11 +1233,6 @@
             默认租户
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.RequestPolicyName">
-            <summary>
-            请求策略
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.AllowAnyPolicyName">
             <summary>
             允许所有源访问策略
@@ -1216,6 +1286,11 @@
             数据库注册键
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Consts.DbKeys.TaskDb">
+            <summary>
+            任务调度数据库注册键
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Consts.FilterNames">
             <summary>
             全局过滤器名
@@ -1251,9 +1326,14 @@
             订阅命名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSingleSend">
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSingleSend">
             <summary>
             短信单发
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.EmailSingleSend">
+            <summary>
+            邮件单发
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -1594,12 +1674,13 @@
             <param name="msg">消息</param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Exception(System.String,System.String)">
+        <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Exception(System.String,System.String,System.Int32)">
             <summary>
             系统异常
             </summary>
             <param name="msg">消息</param>
             <param name="code">编码</param>
+            <param name="statusCode">状态编码</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Dto.ResultOutput.Result``1(System.Boolean)">
@@ -3216,6 +3297,41 @@
             角色
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.TaskInfoExt">
+            <summary>
+            任务邮件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.TaskId">
+            <summary>
+            任务Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.AlarmEmail">
+            <summary>
+            报警邮件，多个邮件地址则逗号分隔
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.CreatedTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.CreatedUserId">
+            <summary>
+            添加用户Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.ModifiedUserId">
+            <summary>
+            修改用户Id
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.TenantPermission.TenantPermissionEntity">
             <summary>
             租户权限
@@ -3802,7 +3918,27 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.Topic">
             <summary>
-            任务名称名称
+            任务名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.ClusterId">
+            <summary>
+            集群Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.StartAddTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.EndAddTime">
+            <summary>
+            创建结束时间
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Repositories.AdminRepositoryBase`1">
@@ -4734,7 +4870,7 @@
             <summary>
             验证
             </summary>
-            <param name="captchaId">验证码id</param>
+            <param name="captchaId">验证码Id</param>
             <param name="track">滑动轨迹</param>
             <returns></returns>
         </member>
@@ -5625,6 +5761,68 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Msg.EmailService.SingleSendAsync(ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent)">
+            <summary>
+            邮件单发
+            </summary>
+            <param name="event"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent">
+            <summary>
+            邮件单发
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.FromEmail">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.ToEmail">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Subject">
+            <summary>
+            邮件标题
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Body">
+            <summary>
+            邮件内容
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent">
+            <summary>
+            短信单发事件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.SmsSingleSendEvent.Text">
+            <summary>
+            短信内容
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.OprationLog.Dto.OprationLogAddInput">
             <summary>
@@ -7002,7 +7200,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Body">
             <summary>
-            任务数据
+            任务参数
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.Round">
@@ -7017,7 +7215,12 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.IntervalArgument">
             <summary>
-            定时参数值 60,60,60,120,120,1200,1200
+            定时参数 60,60,60,120,120,1200,1200
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.AlarmEmail">
+            <summary>
+            报警邮件，多个邮件地址则逗号分隔
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
@@ -7100,7 +7303,7 @@
             任务日志服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
             <summary>
             查询分页
             </summary>
@@ -7112,14 +7315,21 @@
             任务服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAlerEmailAsync(System.String)">
+            <summary>
+            查询报警邮件
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetAsync(System.String)">
             <summary>
             查询
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
             <summary>
             查询分页
             </summary>
@@ -7770,10 +7980,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetDataPermissionAsync">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetDataPermissionAsync(System.String)">
             <summary>
             获得数据权限
             </summary>
+            <param name="apiPath"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.User.UserService.GetBasicAsync">
@@ -8254,30 +8465,10 @@
             内存缓存
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Tools.Cache.MemoryCacheTool.PatternRegex">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match '{'.<br/>
-            ○ Match a character other than '\n' greedily any number of times.<br/>
-            ○ Match '}'.<br/>
-            </code>
-            </remarks>
-        </member>
         <member name="T:ZhonTai.Admin.Tools.Cache.RedisCacheTool">
             <summary>
             Redis缓存
             </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.Cache.RedisCacheTool.PatternRegex">
-            <remarks>
-            Pattern explanation:<br/>
-            <code>
-            ○ Match '{'.<br/>
-            ○ Match a character other than '\n' greedily any number of times.<br/>
-            ○ Match '}'.<br/>
-            </code>
-            </remarks>
         </member>
         <member name="P:ZhonTai.Admin.Tools.Captcha.CaptchaInput.Token">
             <summary>
@@ -8406,6 +8597,21 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.FileName">
+            <summary>
+            执行应用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.Arguments">
+            <summary>
+            执行参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.WorkingDirectory">
+            <summary>
+            命令应用工作目录
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
             <summary>
             TaskScheduler配置
@@ -8431,14 +8637,9 @@
             配置FreeSql
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.TaskHandler">
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.ConfigureFreeSchedulerBuilder">
             <summary>
-            任务处理器
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions.CustomTaskHandler">
-            <summary>
-            自定义任务处理器
+            配置FreeSql
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.AddTaskScheduler(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions})">
@@ -8455,53 +8656,6 @@
             <param name="services"></param>
             <param name="dbKey"></param>
             <param name="configureOptions"></param>
-        </member>
-        <member name="M:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerServiceExtensions.UseTaskScheduler(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
-            <summary>
-            使用任务调度
-            </summary>
-            <param name="app"></param>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the PatternRegex method.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.PatternRegex_0.Instance">
-            <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.PatternRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
-            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
-            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
-            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
         </member>
     </members>
 </doc>

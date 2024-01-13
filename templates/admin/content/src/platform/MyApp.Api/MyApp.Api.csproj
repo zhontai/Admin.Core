@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Description>MyApp接口库</Description>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>MyApp.Api.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591</NoWarn>
 	</PropertyGroup>
 
@@ -16,6 +16,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Repositories\Module\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">

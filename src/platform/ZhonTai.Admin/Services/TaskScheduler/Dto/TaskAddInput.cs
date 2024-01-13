@@ -13,7 +13,7 @@ public class TaskAddInput
     public string Topic { get; set; }
 
     /// <summary>
-    /// 任务数据
+    /// 任务参数
     /// </summary>
     public string Body { get; set; }
 
@@ -28,7 +28,12 @@ public class TaskAddInput
     public TaskInterval Interval { get; set; }
 
     /// <summary>
-    /// 定时参数值 60,60,60,120,120,1200,1200
+    /// 定时参数 60,60,60,120,120,1200,1200
     /// </summary>
     public string IntervalArgument { get; set; }
+
+    /// <summary>
+    /// 报警邮件，多个邮件地址则逗号分隔
+    /// </summary>
+    public string AlarmEmail { get; set; }
 }

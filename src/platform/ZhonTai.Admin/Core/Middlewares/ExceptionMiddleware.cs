@@ -43,7 +43,7 @@ public class ExceptionMiddleware
     private static Task HandleAppExceptionAsync(HttpContext context, AppException appException)
     {
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.OK;
+        context.Response.StatusCode = appException.StatusCode;
 
         return context.Response.WriteAsync(JsonHelper.Serialize(new ResultOutput<string>()
         {

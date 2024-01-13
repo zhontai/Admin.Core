@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 **/wwwroot/upload
 !**/ZhonTai.Admin/Core/Logs
+!**/views/admin/logs
+/ZhonTai.sln.EasyRun.json

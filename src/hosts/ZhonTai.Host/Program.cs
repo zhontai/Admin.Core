@@ -1,7 +1,13 @@
-﻿using FreeScheduler;
+﻿using Cronos;
+using FreeScheduler;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
+using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using ZhonTai;
 using ZhonTai.Admin.Core;
@@ -9,29 +15,39 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Startup;
+using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Services.Msg;
+using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
+
+static void ConfigureScheduler(IFreeSql fsql)
+{
+    fsql.CodeFirst
+    .ConfigEntity<TaskInfo>(a =>
+    {
+        a.Name("app_task");
+    })
+    .ConfigEntity<TaskLog>(a =>
+    {
+        a.Name("app_task_log");
+    })
+    .ConfigEntity<TaskInfoExt>(a =>
+    {
+        a.Name("app_task_ext");
+    });
+}
 
 new HostApp(new HostAppOptions
 {
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-        if (dbConfig.Key == DbKeys.AppDb)
+        if (dbConfig.Key == DbKeys.TaskDb)
         {
-            freeSql.SyncSchedulerStructure(dbConfig, (fsql) =>
-            {
-                fsql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
-                {
-                    a.Name("app_task");
-                })
-                .ConfigEntity<TaskLog>(a =>
-                {
-                    a.Name("app_task_log");
-                });
-            });
+            freeSql.SyncSchedulerStructure(dbConfig, ConfigureScheduler);
         }
     },
 
@@ -66,23 +82,108 @@ new HostApp(new HostAppOptions
         }).AddSubscriberAssembly(assemblies);
 
         //添加任务调度
-        context.Services.AddTaskScheduler(DbKeys.AppDb, options =>
+        context.Services.AddTaskScheduler(DbKeys.TaskDb, options =>
         {
-            options.ConfigureFreeSql = freeSql =>
+            options.ConfigureFreeSql = ConfigureScheduler;
+
+            //配置任务调度
+            options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                freeSql.CodeFirst
-                .ConfigEntity<TaskInfo>(a =>
+                freeSchedulerBuilder
+                .OnExecuting(task =>
                 {
-                    a.Name("app_task");
+                    switch (task.Topic)
+                    {
+                        //执行shell
+                        case "[system]shell":
+                            var jsonArgs = JToken.Parse(task.Body);
+                            var shellArgs = jsonArgs.Adapt<ShellArgs>();
+
+                            var startInfo = new ProcessStartInfo
+                            {
+                                FileName = shellArgs.FileName,
+                                Arguments = shellArgs.Arguments,
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                WorkingDirectory = shellArgs.WorkingDirectory
+                            };
+
+                            var response = string.Empty;
+                            var error = string.Empty;
+                            using (var process = Process.Start(startInfo))
+                            {
+                                response = process.StandardOutput.ReadToEnd();
+                                error = process.StandardError.ReadToEnd();
+
+                                //if (response.NotNull())
+                                //{
+                                //    Console.WriteLine("Response:");
+                                //    Console.WriteLine(response);
+                                //}
+
+                                //if (error.NotNull())
+                                //{
+                                //    Console.WriteLine("Error:");
+                                //    Console.WriteLine(error);
+                                //}
+
+                                process.WaitForExit();
+                            }
+
+                            if (response.NotNull())
+                                task.Remark(response);
+
+                            if (error.NotNull())
+                                throw new Exception(error);
+
+                            break;
+                    }
                 })
-                .ConfigEntity<TaskLog>(a =>
+                .OnExecuted((task, taskLog) =>
                 {
-                    a.Name("app_task_log");
+                    if (!taskLog.Success)
+                    {
+                        //发送告警邮件
+                        var taskService = AppInfo.GetRequiredService<TaskService>();
+                        var emailService = AppInfo.GetRequiredService<EmailService>();
+                        var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
+                        var topic = task.Topic;
+                        if (alerEmail.NotNull())
+                        {
+                            var jsonArgs = JToken.Parse(task.Body);
+                            var desc = jsonArgs["desc"]?.ToString();
+                            if (desc.NotNull())
+                                topic = desc;
+                        }
+                        alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                        {
+                            await emailService.SingleSendAsync(new EamilSingleSendEvent
+                            {
+                                ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                {
+                                    Address = address,
+                                    Name = address
+                                },
+                                Subject = "【任务调度中心】监控报警",
+                                Body = $@"<p>任务名称：{topic}</p>
+<p>任务编号：{task.Id}</p>
+<p>告警类型：调度失败</p>
+<p>告警内容：<br/>{taskLog.Exception}</p>"
+                            });
+                        });
+                    }
+                })
+                .UseCustomInterval(task =>
+                {
+                    //自定义间隔
+                    var expression = CronExpression.Parse(task.IntervalArgument, CronFormat.IncludeSeconds);
+                    var next = expression.GetNextOccurrence(DateTimeOffset.Now, TimeZoneInfo.Local);
+                    var nextLocalTime = next?.DateTime;
+
+                    return nextLocalTime == null ? null : nextLocalTime - DateTime.Now;
                 });
             };
-
-            //模块任务处理器
-            options.TaskHandler = new CloudTaskHandler(options.FreeSqlCloud, DbKeys.AppDb);
         });
     },
 
@@ -110,7 +211,7 @@ new HostApp(new HostAppOptions
             app.UseApiUI(options =>
             {
                 options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
-                var routePath = options.RoutePrefix.NotNull() ? $"{options.RoutePrefix}/" : "";
+                var routePath = options.RoutePrefix.NotNull() ? $"{ options.RoutePrefix}/" : "";
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
                     options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
@@ -118,9 +219,6 @@ new HostApp(new HostAppOptions
             });
 		}
         #endregion
-
-        //使用任务调度
-        app.UseTaskScheduler();
 	}
 }).Run(args);
 

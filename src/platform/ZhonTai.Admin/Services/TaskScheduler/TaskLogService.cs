@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
-using ZhonTai.Admin.Repositories;
+using System;
+using Mapster;
+using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -17,11 +18,11 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
-    private ITaskLogRepository _taskLogRepository => LazyGetRequiredService<ITaskLogRepository>();
+    private readonly Lazy<Scheduler> _scheduler;
 
-    public TaskLogService()
+    public TaskLogService(Lazy<Scheduler> scheduler)
     {
-
+        _scheduler = scheduler;
     }
 
     /// <summary>
@@ -30,25 +31,19 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TaskLog>> GetPageAsync(PageInput<TaskLogGetPageDto> input)
+    public PageOutput<TaskLog> GetPage(PageInput<TaskLogGetPageDto> input)
     {
         if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
         {
             throw ResultOutput.Exception("请选择任务");
         }
 
-        var list = await _taskLogRepository.Select
-        .WhereDynamicFilter(input.DynamicFilter)
-        .Where(a => a.TaskId == input.Filter.TaskId)
-        .Count(out var total)
-        .OrderBy(c => c.Round)
-        .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync();
+        var result = Datafeed.GetLogs(_scheduler.Value, input.Filter.TaskId, input.PageSize, input.CurrentPage);
 
         var data = new PageOutput<TaskLog>()
         {
-            List = list,
-            Total = total
+            List = result.Logs.Adapt<List<TaskLog>>(),
+            Total = result.Total
         };
 
         return data;

@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Core.Configs;
+﻿using System;
+
+namespace ZhonTai.Admin.Core.Configs;
 
 /// <summary>
 /// Jwt配置
@@ -18,7 +20,7 @@ public class JwtConfig
     /// <summary>
     /// 密钥
     /// </summary>
-    public string SecurityKey { get; set; } = "ertJKl#521*a@790asD&1#";
+    public string SecurityKey { get; set; } = "8efbdb87f52111e08978e9edada709525407095254008978e98efbdb87f52111";
 
     /// <summary>
     /// 有效期(分钟)

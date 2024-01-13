@@ -60,6 +60,9 @@ using Microsoft.Extensions.Caching.Distributed;
 using ZhonTai.Admin.Core.Captcha;
 using NLog;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Logging;
+using FreeScheduler;
 
 namespace ZhonTai.Admin.Core;
 
@@ -121,6 +124,8 @@ public class HostApp
 
             var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
             services.Configure<OSSConfig>(oSSConfigRoot);
+
+            services.Configure<EmailConfig>(configuration.GetSection("Email"));
 
             //应用配置
             services.AddSingleton(appConfig);
@@ -268,7 +273,7 @@ public class HostApp
         {
             //指定跨域访问时预检等待时间
             var preflightMaxAge = appConfig.PreflightMaxAge > 0 ? new TimeSpan(0, 0, appConfig.PreflightMaxAge) : new TimeSpan(0, 30, 0);
-            options.AddPolicy(AdminConsts.RequestPolicyName, policy =>
+            options.AddDefaultPolicy(policy =>
             {
                 policy.SetPreflightMaxAge(preflightMaxAge);
 
@@ -336,7 +341,7 @@ public class HostApp
                     ValidIssuer = jwtConfig.Issuer,
                     ValidAudience = jwtConfig.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.SecurityKey)),
-                    ClockSkew = TimeSpan.Zero
+                    ClockSkew = TimeSpan.FromSeconds(10)
                 };
             }
         })
@@ -727,6 +732,8 @@ public class HostApp
         //异常处理
         app.UseMiddleware<ExceptionMiddleware>();
 
+        IdentityModelEventSource.ShowPII = true;
+
         //IP限流
         if (appConfig.RateLimit)
         {
@@ -748,7 +755,7 @@ public class HostApp
         app.UseRouting();
 
         //跨域
-        app.UseCors(AdminConsts.RequestPolicyName);
+        app.UseCors();
 
         //认证
         app.UseAuthentication();
@@ -764,8 +771,19 @@ public class HostApp
                 var user = ctx.RequestServices.GetRequiredService<IUser>();
                 if (user?.Id > 0)
                 {
+                    var endpoint = ctx.GetEndpoint();
+                    string path = null;
+
+                    //排除匿名或者登录接口
+                    if (appConfig.Validate.ApiDataPermission && endpoint != null && !endpoint.Metadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute) || m.GetType() == typeof(LoginAttribute)))
+                    {
+                        var actionDescriptor = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
+                        var template = actionDescriptor?.AttributeRouteInfo?.Template;
+                        path = template.NotNull() ? $"/{template}" : null;
+                    }
+
                     var userService = ctx.RequestServices.GetRequiredService<IUserService>();
-                    await userService.GetDataPermissionAsync();
+                    await userService.GetDataPermissionAsync(path);
                 }
 
                 await next();
@@ -817,6 +835,12 @@ public class HostApp
                 Predicate = _ => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
+        }
+
+        //内置任务调度管理界面
+        if (appConfig.TaskSchedulerUI.Enable)
+        {
+            app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
         }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);

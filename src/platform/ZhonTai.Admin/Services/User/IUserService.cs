@@ -20,7 +20,7 @@ public interface IUserService
 
     Task<AuthLoginOutput> GetLoginUserAsync(long id);
 
-    Task<DataPermissionDto> GetDataPermissionAsync();
+    Task<DataPermissionDto> GetDataPermissionAsync(string? apiPath);
 
     Task<long> AddAsync(UserAddInput input);
 

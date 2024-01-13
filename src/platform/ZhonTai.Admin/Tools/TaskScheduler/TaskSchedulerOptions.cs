@@ -1,5 +1,4 @@
-﻿using FreeScheduler;
-using FreeSql;
+﻿using FreeSql;
 using System;
 using ZhonTai.Admin.Core.Consts;
 
@@ -31,12 +30,7 @@ public class TaskSchedulerOptions
     public Action<IFreeSql> ConfigureFreeSql { get; set; }
 
     /// <summary>
-    /// 任务处理器
+    /// 配置FreeSql
     /// </summary>
-    public ITaskHandler TaskHandler{ get; set; } = null;
-
-    /// <summary>
-    /// 自定义任务处理器
-    /// </summary>
-    public ITaskIntervalCustomHandler CustomTaskHandler { get; set; } = null; 
+    public Action<FreeSchedulerBuilder> ConfigureFreeSchedulerBuilder { get; set; }
 }

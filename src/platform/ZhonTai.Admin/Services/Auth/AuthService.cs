@@ -88,6 +88,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new Claim(ClaimAttributes.UserName, user.UserName),
             new Claim(ClaimAttributes.Name, user.Name),
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
         if (_appConfig.Tenant)
@@ -342,113 +343,113 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
-        using (_userRepository.DataFilter.DisableAll())
+        using var _ = _userRepository.DataFilter.DisableAll();
+        using var __ = _userRepository.DataFilter.Enable(FilterNames.Delete);
+
+        var stopwatch = Stopwatch.StartNew();
+
+        #region 验证码校验
+
+        if (_appConfig.VarifyCode.Enable)
         {
-            var stopwatch = Stopwatch.StartNew();
-
-            #region 验证码校验
-
-            if (_appConfig.VarifyCode.Enable)
+            if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
             {
-                if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
-                {
-                    throw ResultOutput.Exception("请完成安全验证");
-                }
-                var validateResult = _captcha.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
-                if (validateResult.Result != ValidateResultType.Success)
-                {
-                    throw ResultOutput.Exception($"安全{validateResult.Message}，请重新登录");
-                }
+                throw ResultOutput.Exception("请完成安全验证");
             }
-
-            #endregion
-
-            #region 密码解密
-
-            if (input.PasswordKey.NotNull())
+            var validateResult = _captcha.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+            if (validateResult.Result != ValidateResultType.Success)
             {
-                var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
-                var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
-                if (existsPasswordKey)
-                {
-                    var secretKey = await Cache.GetAsync(passwordEncryptKey);
-                    if (secretKey.IsNull())
-                    {
-                        throw ResultOutput.Exception("解密失败");
-                    }
-                    input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
-                    await Cache.DelAsync(passwordEncryptKey);
-                }
-                else
+                throw ResultOutput.Exception($"安全{validateResult.Message}，请重新登录");
+            }
+        }
+
+        #endregion
+
+        #region 密码解密
+
+        if (input.PasswordKey.NotNull())
+        {
+            var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
+            var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
+            if (existsPasswordKey)
+            {
+                var secretKey = await Cache.GetAsync(passwordEncryptKey);
+                if (secretKey.IsNull())
                 {
                     throw ResultOutput.Exception("解密失败");
                 }
+                input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
+                await Cache.DelAsync(passwordEncryptKey);
             }
-
-            #endregion
-
-            #region 登录
-            var user = await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
-            var valid = user?.Id > 0;
-            if(valid)
+            else
             {
-                if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
-                {
-                    var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, input.Password);
-                    valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
-                }
-                else
-                {
-                    var password = MD5Encrypt.Encrypt32(input.Password);
-                    valid = user.Password == password;
-                }
+                throw ResultOutput.Exception("解密失败");
             }
-            
-            if(!valid)
-            {
-                throw ResultOutput.Exception("用户名或密码错误");
-            }
-
-            if (!user.Enabled)
-            {
-                throw ResultOutput.Exception("账号已停用，禁止登录");
-            }
-            #endregion
-
-            #region 获得token
-            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Tenant)
-            {
-                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
-                if (!(tenant != null && tenant.Enabled))
-                {
-                    throw ResultOutput.Exception("企业已停用，禁止登录");
-                }
-                authLoginOutput.Tenant = tenant;
-            }
-            string token = GetToken(authLoginOutput);
-            #endregion
-
-            stopwatch.Stop();
-
-            #region 添加登录日志
-
-            var loginLogAddInput = new LoginLogAddInput
-            {
-                TenantId = authLoginOutput.TenantId,
-                Name = authLoginOutput.Name,
-                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-                Status = true,
-                CreatedUserId = authLoginOutput.Id,
-                CreatedUserName = user.UserName,
-            };
-
-            await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-            #endregion 添加登录日志
-
-            return new { token };
         }
+
+        #endregion
+
+        #region 登录
+        var user = await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+        var valid = user?.Id > 0;
+        if(valid)
+        {
+            if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+            {
+                var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, input.Password);
+                valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
+            }
+            else
+            {
+                var password = MD5Encrypt.Encrypt32(input.Password);
+                valid = user.Password == password;
+            }
+        }
+            
+        if(!valid)
+        {
+            throw ResultOutput.Exception("用户名或密码错误");
+        }
+
+        if (!user.Enabled)
+        {
+            throw ResultOutput.Exception("账号已停用，禁止登录");
+        }
+        #endregion
+
+        #region 获得token
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if (_appConfig.Tenant)
+        {
+            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            if (!(tenant != null && tenant.Enabled))
+            {
+                throw ResultOutput.Exception("企业已停用，禁止登录");
+            }
+            authLoginOutput.Tenant = tenant;
+        }
+        string token = GetToken(authLoginOutput);
+        #endregion
+
+        stopwatch.Stop();
+
+        #region 添加登录日志
+
+        var loginLogAddInput = new LoginLogAddInput
+        {
+            TenantId = authLoginOutput.TenantId,
+            Name = authLoginOutput.Name,
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
+            Status = true,
+            CreatedUserId = authLoginOutput.Id,
+            CreatedUserName = user.UserName,
+        };
+
+        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+        #endregion 添加登录日志
+
+        return new { token };
     }
 
     /// <summary>
@@ -461,76 +462,76 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
     {
-        using (_userRepository.DataFilter.DisableAll())
+        using var _ = _userRepository.DataFilter.DisableAll();
+        using var __ = _userRepository.DataFilter.Enable(FilterNames.Delete);
+
+        var stopwatch = Stopwatch.StartNew();
+
+        #region 短信验证码验证
+        if (input.CodeId.IsNull() || input.Code.IsNull())
         {
-            var stopwatch = Stopwatch.StartNew();
-
-            #region 短信验证码验证
-            if (input.CodeId.IsNull() || input.Code.IsNull())
-            {
-                throw ResultOutput.Exception("验证码错误");
-            }
-            var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
-            var code = await Cache.GetAsync(codeKey);
-            if (code.IsNull())
-            {
-                throw ResultOutput.Exception("验证码错误");
-            }
-            await Cache.DelAsync(codeKey);
-            if (code != input.Code)
-            {
-                throw ResultOutput.Exception("验证码错误");
-            }
-
-            #endregion
-
-            #region 登录
-            var user = await _userRepository.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
-            if (!(user?.Id > 0))
-            {
-                throw ResultOutput.Exception("账号不存在");
-            }
-
-            if (!user.Enabled)
-            {
-                throw ResultOutput.Exception("账号已停用，禁止登录");
-            }
-            #endregion
-
-            #region 获得token
-            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Tenant)
-            {
-                var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
-                if (!(tenant != null && tenant.Enabled))
-                {
-                    throw ResultOutput.Exception("企业已停用，禁止登录");
-                }
-                authLoginOutput.Tenant = tenant;
-            }
-            string token = GetToken(authLoginOutput);
-            #endregion
-
-            stopwatch.Stop();
-
-            #region 添加登录日志
-
-            var loginLogAddInput = new LoginLogAddInput
-            {
-                TenantId = authLoginOutput.TenantId,
-                Name = authLoginOutput.Name,
-                ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-                Status = true,
-                CreatedUserId = authLoginOutput.Id,
-                CreatedUserName = user.UserName,
-            };
-
-            await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-            #endregion 添加登录日志
-
-            return new { token };
+            throw ResultOutput.Exception("验证码错误");
         }
+        var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception("验证码错误");
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception("验证码错误");
+        }
+
+        #endregion
+
+        #region 登录
+        var user = await _userRepository.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+        if (!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception("账号不存在");
+        }
+
+        if (!user.Enabled)
+        {
+            throw ResultOutput.Exception("账号已停用，禁止登录");
+        }
+        #endregion
+
+        #region 获得token
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if (_appConfig.Tenant)
+        {
+            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            if (!(tenant != null && tenant.Enabled))
+            {
+                throw ResultOutput.Exception("企业已停用，禁止登录");
+            }
+            authLoginOutput.Tenant = tenant;
+        }
+        string token = GetToken(authLoginOutput);
+        #endregion
+
+        stopwatch.Stop();
+
+        #region 添加登录日志
+
+        var loginLogAddInput = new LoginLogAddInput
+        {
+            TenantId = authLoginOutput.TenantId,
+            Name = authLoginOutput.Name,
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
+            Status = true,
+            CreatedUserId = authLoginOutput.Id,
+            CreatedUserName = user.UserName,
+        };
+
+        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+        #endregion 添加登录日志
+
+        return new { token };
     }
 
     /// <summary>

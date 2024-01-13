@@ -40,7 +40,7 @@ public static class DBServiceCollectionExtensions
             {
                 DbHelper.RegisterDb(freeSqlCloud, user, db, appConfig, null);
                 //运行当前库
-                var currentDb = freeSqlCloud.Use(dbConfig.Key);
+                var currentDb = freeSqlCloud.Use(db.Key);
                 currentDb.Select<object>();
             }
         }

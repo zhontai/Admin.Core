@@ -15,8 +15,7 @@ namespace ZhonTai.Admin.Tools.Cache;
 /// </summary>
 public partial class MemoryCacheTool : ICacheTool
 {
-    [GeneratedRegex("\\{.*\\}")]
-    private static partial Regex PatternRegex();
+    private static readonly string PatternRegex = @"\{.*\}";
 
     private readonly IMemoryCache _memoryCache;
     public MemoryCacheTool(IMemoryCache memoryCache)
@@ -48,7 +47,7 @@ public partial class MemoryCacheTool : ICacheTool
         if (pattern.IsNull())
             return default;
 
-        pattern = PatternRegex().Replace(pattern, "(.*)");
+        pattern = Regex.Replace(pattern, PatternRegex, "(.*)");
 
         var keys = GetAllKeys().Where(k => Regex.IsMatch(k, pattern));
 

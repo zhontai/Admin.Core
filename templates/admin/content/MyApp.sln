@@ -15,9 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{0600A063
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A1F23C8-24A6-4571-B3DE-D27D024A051D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A6C50476-5236-4FD3-8C29-6449494846C0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.build", "02.build", "{A6C50476-5236-4FD3-8C29-6449494846C0}"
 	ProjectSection(SolutionItems) = preProject
-		build\pkg.props = build\pkg.props
+		src\platform\Directory.Build.props = src\platform\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.sln", "01.sln", "{B5DE2B4F-A7DB-433D-8E98-5C352EFAE88B}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
 Global

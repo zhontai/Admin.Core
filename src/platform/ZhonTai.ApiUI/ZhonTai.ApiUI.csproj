@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0;net7.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Description>中台接口文档库</Description>
 		<PackageTags>Api UI;Swagger UI;</PackageTags>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>

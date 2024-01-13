@@ -4,10 +4,6 @@
 		<PackageTags>DynamicApi;WebApi;</PackageTags>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	<DocumentationFile></DocumentationFile>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
