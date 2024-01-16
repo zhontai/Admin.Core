@@ -24,7 +24,15 @@
     </template>
     <div class="my-fill h100" style="padding: 20px">
       <div class="mb10 my-flex my-flex-end">
-        <el-button type="primary" @click="onJsonShell" size="default">Shell</el-button>
+        <el-dropdown split-button type="primary" @click="onJsonShell" class="mr15">
+          Shell
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="onJsonShellLinux">Linux</el-dropdown-item>
+              <el-dropdown-item @click="onJsonShellWindows">Windows</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
         <el-button type="primary" @click="onJsonHttp" size="default">Http</el-button>
         <el-button type="primary" @click="onJsonFormat" size="default">格式化</el-button>
         <el-button type="primary" @click="onJsonCompress" size="default">压 缩</el-button>
@@ -105,6 +113,24 @@ const onJsonHttp = () => {
     "Content-Type": "application/json"
   },
   "body": "{}"
+}`
+}
+
+const onJsonShellLinux = () => {
+  state.topic = '[system]shell'
+  state.content = `{
+  "desc": "任务描述",
+  "fileName": "/app/bin/grpcurl",
+  "arguments": "-plaintext -d \"{ \\\"id\\\": 1 }\" no-protocol-host:port YourNamespace.YourGrpcService/YourMethod"
+}`
+}
+
+const onJsonShellWindows = () => {
+  state.topic = '[system]shell'
+  state.content = `{
+  "desc": "任务描述",
+  "fileName": "C:/grpcurl_1.8.7/grpcurl",
+  "arguments": "-plaintext -d \"{ \\\"id\\\": 1 }\" no-protocol-host:port YourNamespace.YourGrpcService/YourMethod"
 }`
 }
 
