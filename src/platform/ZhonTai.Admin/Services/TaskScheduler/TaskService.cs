@@ -52,14 +52,15 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var entity = await _taskRepository.Value.GetAsync(a => a.Id == id);
-        if (entity == null)
+        var taskInfo = Datafeed.GetTask(_scheduler.Value, id);
+
+        if (taskInfo == null)
         {
             throw ResultOutput.Exception("任务不存在");
         }
 
-        var taskGetOutput = entity.Adapt<TaskGetOutput>();
-        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(entity.Id);
+        var taskGetOutput = taskInfo.Adapt<TaskGetOutput>();
+        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(taskInfo.Id);
         return taskGetOutput;
     }
 
