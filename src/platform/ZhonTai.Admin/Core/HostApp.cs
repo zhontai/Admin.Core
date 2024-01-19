@@ -815,7 +815,7 @@ public class HostApp
                 {
                     options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                 });
-                
+
                 options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api
                 //options.DefaultModelsExpandDepth(-1);//不显示Models
                 if (appConfig.MiniProfiler)
@@ -823,6 +823,8 @@ public class HostApp
                     options.InjectJavascript("/swagger/mini-profiler.js?v=4.2.22+2.0");
                     options.InjectStylesheet("/swagger/mini-profiler.css?v=4.2.22+2.0");
                 }
+
+                _hostAppOptions?.ConfigureSwaggerUI?.Invoke(options);
             });
         }
         #endregion Swagger Api文档

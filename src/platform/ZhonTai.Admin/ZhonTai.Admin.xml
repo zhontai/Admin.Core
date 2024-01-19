@@ -2387,6 +2387,11 @@
             配置雪花漂移算法
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureSwaggerUI">
+            <summary>
+            配置SwaggerUI
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
             <summary>
             自定义数据库初始化

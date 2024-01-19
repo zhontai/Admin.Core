@@ -1,6 +1,7 @@
 ﻿using Cronos;
 using FreeScheduler;
 using Mapster;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Linq;
@@ -219,7 +220,12 @@ new HostApp(new HostAppOptions
             });
 		}
         #endregion
-	}
+	},
+
+    ConfigureSwaggerUI = options =>
+    {
+        //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
+    }
 }).Run(args);
 
 #if DEBUG

@@ -2,6 +2,7 @@
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Configs;
@@ -83,6 +84,11 @@ public class HostAppOptions
     /// 配置雪花漂移算法
     /// </summary>
     public Action<IdGeneratorOptions> ConfigureIdGenerator { get; set; }
+
+    /// <summary>
+    /// 配置SwaggerUI
+    /// </summary>
+    public Action<SwaggerUIOptions> ConfigureSwaggerUI { get; set; }
 
     /// <summary>
     /// 自定义数据库初始化
