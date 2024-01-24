@@ -35,7 +35,7 @@
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
-		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.0" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.1" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />

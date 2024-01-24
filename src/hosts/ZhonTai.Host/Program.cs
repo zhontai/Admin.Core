@@ -10,6 +10,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
@@ -143,36 +144,43 @@ new HostApp(new HostAppOptions
                 })
                 .OnExecuted((task, taskLog) =>
                 {
-                    if (!taskLog.Success)
+                    try
                     {
-                        //发送告警邮件
-                        var taskService = AppInfo.GetRequiredService<TaskService>();
-                        var emailService = AppInfo.GetRequiredService<EmailService>();
-                        var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
-                        var topic = task.Topic;
-                        if (alerEmail.NotNull())
+                        if (!taskLog.Success)
                         {
-                            var jsonArgs = JToken.Parse(task.Body);
-                            var desc = jsonArgs["desc"]?.ToString();
-                            if (desc.NotNull())
-                                topic = desc;
-                        }
-                        alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
-                        {
-                            await emailService.SingleSendAsync(new EamilSingleSendEvent
+                            //发送告警邮件
+                            var taskService = AppInfo.GetRequiredService<TaskService>();
+                            var emailService = AppInfo.GetRequiredService<EmailService>();
+                            var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
+                            var topic = task.Topic;
+                            if (alerEmail.NotNull())
                             {
-                                ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                var jsonArgs = JToken.Parse(task.Body);
+                                var desc = jsonArgs["desc"]?.ToString();
+                                if (desc.NotNull())
+                                    topic = desc;
+                            }
+                            alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                            {
+                                await emailService.SingleSendAsync(new EamilSingleSendEvent
                                 {
-                                    Address = address,
-                                    Name = address
-                                },
-                                Subject = "【任务调度中心】监控报警",
-                                Body = $@"<p>任务名称：{topic}</p>
+                                    ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                    {
+                                        Address = address,
+                                        Name = address
+                                    },
+                                    Subject = "【任务调度中心】监控报警",
+                                    Body = $@"<p>任务名称：{topic}</p>
 <p>任务编号：{task.Id}</p>
 <p>告警类型：调度失败</p>
 <p>告警内容：<br/>{taskLog.Exception}</p>"
+                                });
                             });
-                        });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        AppInfo.Log.Error(ex);
                     }
                 })
                 .UseCustomInterval(task =>

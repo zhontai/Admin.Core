@@ -24,7 +24,7 @@ using System.Linq;
 #if (!NoTaskScheduler)
 using FreeScheduler;
 #endif
-using AdminDbkeys = ZhonTai.Admin.Core.Consts.DbKeys;
+using AdminDbKeys = ZhonTai.Admin.Core.Consts.DbKeys;
 using AdminSubscribeNames = ZhonTai.Admin.Core.Consts.SubscribeNames;
 #if (!NoTaskScheduler)
 using ZhonTai.Admin.Core.Db;
@@ -58,7 +58,7 @@ new HostApp(new HostAppOptions()
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
 #if (!NoTaskScheduler)
-        if (dbConfig.Key == AdminDbkeys.TaskDb)
+        if (dbConfig.Key == AdminDbKeys.TaskDb)
         {
             freeSql.SyncSchedulerStructure(dbConfig, ConfigureScheduler);
         }
@@ -74,9 +74,12 @@ new HostApp(new HostAppOptions()
 			DbKeys.AppDb = dbConfig.Key;
 		}
 #if (MergeDb)
-		AdminDbkeys.AppDb = DbKeys.AppDb;
+		AdminDbKeys.AppDb = DbKeys.AppDb;
+#if (!NoTaskScheduler)
+        AdminDbKeys.TaskDb = DbKeys.AppDb;
+        #endif
 #else
-        AdminDbkeys.AppDb = "admindb";
+        AdminDbKeys.AppDb = "admindb";
 #endif
         AdminSubscribeNames.SmsSingleSend = "app.smsSingleSend";
     },
@@ -85,7 +88,7 @@ new HostApp(new HostAppOptions()
 	{
 #if (!NoTaskScheduler)
         //添加任务调度，默认使用权限库作为任务调度库
-        context.Services.AddTaskScheduler(AdminDbkeys.TaskDb, options =>
+        context.Services.AddTaskScheduler(AdminDbKeys.TaskDb, options =>
         {
             options.ConfigureFreeSql = ConfigureScheduler;
 
@@ -155,7 +158,7 @@ new HostApp(new HostAppOptions()
 		var appConfig = app.Services.GetService<AppConfig>();
 #if (!NoApiUI)
 
-		#region 新版Api文档
+        #region 新版Api文档
 		if (env.IsDevelopment() || appConfig.ApiUI.Enable)
 		{
             app.UseApiUI(options =>
@@ -168,7 +171,7 @@ new HostApp(new HostAppOptions()
                 });
             });
         }
-		#endregion
+        #endregion
 #endif
 	}
 }).Run(args);
