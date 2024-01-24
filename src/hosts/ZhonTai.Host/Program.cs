@@ -113,7 +113,7 @@ new HostApp(new HostAppOptions
                             var modeulName = jsonArgs["moduleName"]?.ToString();
                             if (modeulName.NotNull())
                             {
-                                //通过modeulNamed获取配置文件modeulNamed对应的Grpc远程地址
+                                //通过moduleName获取配置文件moduleName对应的Grpc远程地址
                                 var grpcAddress = string.Empty; 
                                 if (grpcAddress.NotNull())
                                 {
