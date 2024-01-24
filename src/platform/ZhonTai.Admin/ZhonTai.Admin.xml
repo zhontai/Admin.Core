@@ -8617,6 +8617,51 @@
             命令应用工作目录
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig">
+            <summary>
+            任务调度配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Adress">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.FileName">
+            <summary>
+            应用程序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.WorkingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.ProcessStartInfo">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
             <summary>
             TaskScheduler配置

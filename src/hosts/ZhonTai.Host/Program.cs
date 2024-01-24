@@ -4,6 +4,7 @@ using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
@@ -53,6 +54,11 @@ new HostApp(new HostAppOptions
         }
     },
 
+    ConfigurePreServices = context =>
+    {
+        context.Services.Configure<TaskSchedulerConfig>(context.Configuration.GetSection("TaskScheduler"));
+    },
+
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
@@ -94,6 +100,8 @@ new HostApp(new HostAppOptions
                 freeSchedulerBuilder
                 .OnExecuting(task =>
                 {
+                    var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
+
                     switch (task.Topic)
                     {
                         //执行shell
@@ -101,14 +109,38 @@ new HostApp(new HostAppOptions
                             var jsonArgs = JToken.Parse(task.Body);
                             var shellArgs = jsonArgs.Adapt<ShellArgs>();
 
+                            var arguments = shellArgs.Arguments;
+                            var modeulName = jsonArgs["moduleName"]?.ToString();
+                            if (modeulName.NotNull())
+                            {
+                                //通过modeulNamed获取配置文件modeulNamed对应的Grpc远程地址
+                                var grpcAddress = string.Empty; 
+                                if (grpcAddress.NotNull())
+                                {
+                                    arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
+                                }
+                            }
+
+                            var fileName = shellArgs.FileName;
+                            if (fileName.IsNull())
+                            {
+                                fileName = taskSchedulerConfig?.ProcessStartInfo?.FileName;
+                            }
+
+                            var workingDirectory = shellArgs.WorkingDirectory;
+                            if (workingDirectory.IsNull())
+                            {
+                                workingDirectory = taskSchedulerConfig?.ProcessStartInfo?.WorkingDirectory;
+                            }
+
                             var startInfo = new ProcessStartInfo
                             {
-                                FileName = shellArgs.FileName,
-                                Arguments = shellArgs.Arguments,
+                                FileName = fileName,
+                                Arguments = arguments,
                                 UseShellExecute = false,
                                 RedirectStandardOutput = true,
                                 RedirectStandardError = true,
-                                WorkingDirectory = shellArgs.WorkingDirectory
+                                WorkingDirectory = workingDirectory
                             };
 
                             var response = string.Empty;
