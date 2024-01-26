@@ -2387,6 +2387,11 @@
             配置雪花漂移算法
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureSwaggerUI">
+            <summary>
+            配置SwaggerUI
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
             <summary>
             自定义数据库初始化
@@ -7326,7 +7331,7 @@
             <summary>
             查询
             </summary>
-            <param name="topic"></param>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
@@ -8596,6 +8601,66 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.FileName">
+            <summary>
+            执行应用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.Arguments">
+            <summary>
+            执行参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.WorkingDirectory">
+            <summary>
+            命令应用工作目录
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig">
+            <summary>
+            任务调度配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Adress">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.FileName">
+            <summary>
+            应用程序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.WorkingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.ProcessStartInfo">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
             <summary>

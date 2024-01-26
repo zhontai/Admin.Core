@@ -16,12 +16,12 @@
 
 	<ItemGroup>
 		<!--#if (!NoTaskScheduler) -->
-		<PackageReference Include="Cronos" Version="0.8.0" />
+		<PackageReference Include="Cronos" Version="0.8.2" />
 		<!--#endif -->
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.0.0" />
-		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.1" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.0.1" />
+		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.0.0" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
 		<PackageReference Include="FreeSql.Provider.MySql" Version="$(PackageFreeSqlVersion)" />
@@ -46,7 +46,7 @@
 		<!--#else -->
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="$(PackageFreeSqlVersion)" />
 		<!--#endif -->
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.7" />
 	</ItemGroup>
 	
 	<ItemGroup>
