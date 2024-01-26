@@ -102,76 +102,72 @@ new HostApp(new HostAppOptions
                 {
                     var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
 
-                    switch (task.Topic)
+                    if (task.Topic?.StartsWith("[system]shell") == true)
                     {
-                        //执行shell
-                        case "[system]shell":
-                            var jsonArgs = JToken.Parse(task.Body);
-                            var shellArgs = jsonArgs.Adapt<ShellArgs>();
+                        var jsonArgs = JToken.Parse(task.Body);
+                        var shellArgs = jsonArgs.Adapt<ShellArgs>();
 
-                            var arguments = shellArgs.Arguments;
-                            var modeulName = jsonArgs["moduleName"]?.ToString();
-                            if (modeulName.NotNull())
+                        var arguments = shellArgs.Arguments;
+                        var modeulName = jsonArgs["moduleName"]?.ToString();
+                        if (modeulName.NotNull())
+                        {
+                            //通过moduleName获取配置文件moduleName对应的Grpc远程地址
+                            var grpcAddress = string.Empty;
+                            if (grpcAddress.NotNull())
                             {
-                                //通过moduleName获取配置文件moduleName对应的Grpc远程地址
-                                var grpcAddress = string.Empty; 
-                                if (grpcAddress.NotNull())
-                                {
-                                    arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
-                                }
+                                arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
                             }
+                        }
 
-                            var fileName = shellArgs.FileName;
-                            if (fileName.IsNull())
-                            {
-                                fileName = taskSchedulerConfig?.ProcessStartInfo?.FileName;
-                            }
+                        var fileName = shellArgs.FileName;
+                        if (fileName.IsNull())
+                        {
+                            fileName = taskSchedulerConfig?.ProcessStartInfo?.FileName;
+                        }
 
-                            var workingDirectory = shellArgs.WorkingDirectory;
-                            if (workingDirectory.IsNull())
-                            {
-                                workingDirectory = taskSchedulerConfig?.ProcessStartInfo?.WorkingDirectory;
-                            }
+                        var workingDirectory = shellArgs.WorkingDirectory;
+                        if (workingDirectory.IsNull())
+                        {
+                            workingDirectory = taskSchedulerConfig?.ProcessStartInfo?.WorkingDirectory;
+                        }
 
-                            var startInfo = new ProcessStartInfo
-                            {
-                                FileName = fileName,
-                                Arguments = arguments,
-                                UseShellExecute = false,
-                                RedirectStandardOutput = true,
-                                RedirectStandardError = true,
-                                WorkingDirectory = workingDirectory
-                            };
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = fileName,
+                            Arguments = arguments,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            WorkingDirectory = workingDirectory
+                        };
 
-                            var response = string.Empty;
-                            var error = string.Empty;
-                            using (var process = Process.Start(startInfo))
-                            {
-                                response = process.StandardOutput.ReadToEnd();
-                                error = process.StandardError.ReadToEnd();
+                        var response = string.Empty;
+                        var error = string.Empty;
+                        using (var process = Process.Start(startInfo))
+                        {
+                            response = process.StandardOutput.ReadToEnd();
+                            error = process.StandardError.ReadToEnd();
 
-                                //if (response.NotNull())
-                                //{
-                                //    Console.WriteLine("Response:");
-                                //    Console.WriteLine(response);
-                                //}
+                            //if (response.NotNull())
+                            //{
+                            //    Console.WriteLine("Response:");
+                            //    Console.WriteLine(response);
+                            //}
 
-                                //if (error.NotNull())
-                                //{
-                                //    Console.WriteLine("Error:");
-                                //    Console.WriteLine(error);
-                                //}
+                            //if (error.NotNull())
+                            //{
+                            //    Console.WriteLine("Error:");
+                            //    Console.WriteLine(error);
+                            //}
 
-                                process.WaitForExit();
-                            }
+                            process.WaitForExit();
+                        }
 
-                            if (response.NotNull())
-                                task.Remark(response);
+                        if (response.NotNull())
+                            task.Remark(response);
 
-                            if (error.NotNull())
-                                throw new Exception(error);
-
-                            break;
+                        if (error.NotNull())
+                            throw new Exception(error);
                     }
                 })
                 .OnExecuted((task, taskLog) =>

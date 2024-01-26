@@ -25,12 +25,16 @@
         </el-table-column>
         <el-table-column prop="round" label="运行次数" width="80" />
         <el-table-column prop="currentRound" label="当前次数" width="80" />
-        <el-table-column prop="errorTimes" label="失败次数" width="80" />
-        <el-table-column prop="body" label="任务数据" min-width="180" show-overflow-tooltip />
+        <el-table-column prop="errorTimes" label="失败次数" width="80">
+          <template #default="{ row }">
+            <el-text class="mx-1" type="danger">{{ row.errorTimes }}</el-text>
+          </template>
+        </el-table-column>
+        <el-table-column prop="body" label="任务数据" min-width="260" />
         <el-table-column prop="interval" label="定时类型" width="100" :formatter="formatterInterval" />
         <el-table-column prop="intervalArgument" label="定时参数" min-width="180" />
         <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="100" />
-        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="100" />
+        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="120" />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <div class="my-flex">
