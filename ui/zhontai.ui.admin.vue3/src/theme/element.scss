@@ -107,7 +107,8 @@
 .el-sub-menu:not(.is-opened):hover .el-sub-menu__title {
   @extend .el-menu-hover-bg-color;
 }
-.el-menu-item:hover {
+.el-menu-item:hover,
+.el-sub-menu__title:hover {
   @extend .el-menu-hover-bg-color;
 }
 .el-sub-menu.is-active.is-opened .el-sub-menu__title {

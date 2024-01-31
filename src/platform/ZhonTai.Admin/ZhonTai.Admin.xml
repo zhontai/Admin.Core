@@ -933,6 +933,11 @@
             读写分离从库列表
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.ForceUpdate">
+            <summary>
+            强制更新
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SlaveDb">
             <summary>
             读写分离从库
@@ -961,6 +966,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.UserName">
             <summary>
             账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.Name">
+            <summary>
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.TenantId">
@@ -1403,13 +1413,14 @@
             <param name="appConfig"></param>
             <param name="dbConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,ZhonTai.Admin.Core.Auth.IUser)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             审计数据
             </summary>
             <param name="e"></param>
             <param name="timeOffset"></param>
             <param name="user"></param>
+            <param name="dbConfig"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
@@ -1714,12 +1725,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserId">
             <summary>
-            创建者Id
+            创建者用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserName">
             <summary>
-            创建者
+            创建者用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserRealName">
+            <summary>
+            创建者姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedTime">
@@ -1864,12 +1880,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserId">
             <summary>
-            修改者Id
+            修改者用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserName">
             <summary>
-            修改者
+            修改者用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserRealName">
+            <summary>
+            修改者姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedTime">

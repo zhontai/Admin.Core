@@ -140,13 +140,18 @@ public class DbHelper
     /// <param name="e"></param>
     /// <param name="timeOffset"></param>
     /// <param name="user"></param>
-    public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user)
+    /// <param name="dbConfig"></param>
+    public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user, DbConfig dbConfig)
     {
         //数据库时间
         if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
         && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
         && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
         {
+            if(!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+            {
+                return;
+            }
             e.Value = DateTime.Now.Subtract(timeOffset);
         }
 
@@ -183,11 +188,16 @@ public class DbHelper
                         e.Value = user.Id;
                     }
                     break;
-
                 case "CreatedUserName":
                     if (e.Value == null || ((string)e.Value).IsNull())
                     {
                         e.Value = user.UserName;
+                    }
+                    break;
+                case "CreatedUserRealName":
+                    if (e.Value == null || ((string)e.Value).IsNull())
+                    {
+                        e.Value = user.Name;
                     }
                     break;
                 case "OwnerOrgId":
@@ -196,6 +206,7 @@ public class DbHelper
                         e.Value = user.DataPermission?.OrgId;
                     }
                     break;
+
                 case "TenantId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
@@ -206,16 +217,18 @@ public class DbHelper
             }
         }
 
-        if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
+        if ((e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate) || dbConfig.ForceUpdate)
         {
             switch (e.Property.Name)
             {
                 case "ModifiedUserId":
                     e.Value = user.Id;
                     break;
-
                 case "ModifiedUserName":
                     e.Value = user.UserName;
+                    break;
+                case "ModifiedUserRealName":
+                    e.Value = user.Name;
                     break;
             }
         }
@@ -297,6 +310,10 @@ public class DbHelper
                            && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
                            && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
                     {
+                        if (!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+                        {
+                            return;
+                        }
                         e.Value = DateTime.Now.Subtract(TimeOffset);
                     }
 
@@ -322,14 +339,18 @@ public class DbHelper
                                     e.Value = user.Id;
                                 }
                                 break;
-
                             case "CreatedUserName":
                                 if (e.Value == null || ((string)e.Value).IsNull())
                                 {
                                     e.Value = user.UserName;
                                 }
                                 break;
-
+                            case "CreatedUserRealName":
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.Name;
+                                }
+                                break;
                             case "TenantId":
                                 if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                                 {
@@ -339,16 +360,21 @@ public class DbHelper
                         }
                     }
 
-                    if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
+                    if ((e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate) || dbConfig.ForceUpdate)
                     {
                         switch (e.Property.Name)
                         {
                             case "ModifiedUserId":
                                 e.Value = user.Id;
                                 break;
-
                             case "ModifiedUserName":
                                 e.Value = user.UserName;
+                                break;
+                            case "ModifiedUserRealName":
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.Name;
+                                }
                                 break;
                         }
                     }
@@ -508,7 +534,7 @@ public class DbHelper
             TimeOffset = timeOffset;
             fsql.Aop.AuditValue += (s, e) =>
             {
-                AuditValue(e, timeOffset, user);
+                AuditValue(e, timeOffset, user, dbConfig);
             };
 
             #endregion 审计数据

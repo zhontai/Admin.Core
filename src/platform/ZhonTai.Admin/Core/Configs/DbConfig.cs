@@ -122,6 +122,11 @@ public class DbConfig
     /// 读写分离从库列表
     /// </summary>
     public SlaveDb[] SlaveList { get; set; }
+
+    /// <summary>
+    /// 强制更新
+    /// </summary>
+    public bool ForceUpdate { get; set; } = false;
 }
 
 /// <summary>
@@ -154,6 +159,11 @@ public class SyncDataUser
     /// 账号
     /// </summary>
     public string UserName { get; set; }
+
+    /// <summary>
+    /// 姓名
+    /// </summary>
+    public string Name { get; set; }
 
     /// <summary>
     /// 租户Id
