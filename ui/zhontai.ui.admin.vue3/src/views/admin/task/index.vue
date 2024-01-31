@@ -47,9 +47,7 @@
 
             <div class="my-flex">
               <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onRun(row)">执行</el-button>
-              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)"
-                >复制</el-button
-              >
+              <el-button v-auth="'api:admin:task:add'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">复制</el-button>
               <el-button
                 v-if="row.status === 1 || row.status === 'Paused'"
                 v-auth="'api:admin:task:pause'"
