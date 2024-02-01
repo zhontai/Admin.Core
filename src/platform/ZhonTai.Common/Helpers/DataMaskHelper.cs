@@ -11,7 +11,7 @@ public partial class DataMaskHelper
      
     public static readonly string EmailMaskRegex = "(?<=.{2})[^@]+(?=.{2}@)";
 
-    public static readonly string IPMaskRegex = @"(\d{1,3})\.\d{1,3}\.\d{1,3}\.\d{1,3}";
+    public static readonly string IPMaskRegex = @"(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})";
 
     /// <summary>
     /// 手机号脱敏
