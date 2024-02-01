@@ -1,0 +1,38 @@
+{
+  "Profiles": [
+    {
+      "Name": "Default",
+      "Filter": "",
+      "UseTye": false,
+      "TyePort": 8000,
+      "LoggingTargetType": 0,
+      "LoggingPath": "./.logs",
+      "LoggerUrl": null,
+      "Services": [
+        {
+          "ServiceType": 0,
+          "Name": "ZhonTai.Host",
+          "TyeName": null,
+          "Bindings": null,
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1,
+          "ProjectFile": "hosts\\ZhonTai.Host\\ZhonTai.Host.csproj",
+          "DefaultSelected": false
+        },
+        {
+          "ServiceType": 0,
+          "Name": "ZhonTai.Tests",
+          "TyeName": null,
+          "Bindings": null,
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1,
+          "ProjectFile": "tests\\ZhonTai.Tests\\ZhonTai.Tests.csproj",
+          "DefaultSelected": false
+        }
+      ]
+    }
+  ],
+  "SettingsId": "a4de970e-a839-4619-aea6-e5b090d5051d"
+}
