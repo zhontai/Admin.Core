@@ -15,7 +15,7 @@
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%">
         <el-table-column prop="id" label="任务编号" width="126" />
-        <el-table-column prop="topic" label="任务名称" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="topic" label="任务名称" min-width="180" />
         <el-table-column prop="status" label="任务状态" width="80">
           <template #default="{ row }">
             <el-tag v-if="row.status === 0 || row.status === 'Running'" disable-transitions>运行中</el-tag>
