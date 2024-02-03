@@ -22,8 +22,8 @@
 		</a>
 	</p>
 	<p align="center">
-    <a href="README.en.md">English</a> |   
-    <span>中文</span>
+		<span>中文</span> |   
+    <a href="README.en.md">English</a>
 	</p>
 	<p>&nbsp;</p>
 </div>
