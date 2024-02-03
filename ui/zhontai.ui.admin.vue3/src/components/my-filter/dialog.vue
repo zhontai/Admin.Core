@@ -19,10 +19,12 @@
   </el-dialog>
 </template>
 
-<script lang="ts" setup name="my-captcha-dialog">
-import { ref, reactive, defineAsyncComponent } from 'vue'
+<script lang="ts" setup name="my-filter-dialog">
+import { ref, reactive, defineAsyncComponent, PropType } from 'vue'
 
-defineProps({})
+defineProps({
+  modelValue: Object as PropType<any | undefined | null>,
+})
 
 const MyFilter = defineAsyncComponent(() => import('./index.vue'))
 
