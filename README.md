@@ -2,23 +2,23 @@
 	<h2>中台admin</h2>
 	<h3>前后端分离后台权限管理系统</h3>
 	<p align="center">
-    <a href="https://learn.microsoft.com/zh-cn/aspnet/core/introduction-to-aspnet-core" target="_blank">
-        <img src="https://img.shields.io/badge/.Net-7.x-green" alt=".Net">
-    </a>
-    <a href="https://freesql.net" target="_blank">
-        <img src="https://img.shields.io/badge/FreeSql-3.x-blue" alt="FreeSql">
-    </a>
-		<a href="https://autofac.org" target="_blank">
-		    <img src="https://img.shields.io/badge/Autofac-7.X-blueviolet" alt="Autofac">
+		<a href="https://learn.microsoft.com/zh-cn/aspnet/core/introduction-to-aspnet-core" target="_blank">
+			<img src="https://img.shields.io/badge/.Net-8.x-green" alt=".Net">
 		</a>
-    <a href="https://github.com/rivenfx/Mapster-docs" target="_blank">
-		    <img src="https://img.shields.io/badge/Mapster-7.x-orange" alt="Mapster">
+		<a href="https://freesql.net" target="_blank">
+			<img src="https://img.shields.io/nuget/v/FreeSql?label=FreeSql&color=blue" alt="FreeSql">
+		</a>
+		<a href="https://autofac.org" target="_blank">
+		    <img src="https://img.shields.io/nuget/v/Autofac?label=Autofac&color=blueviolet" alt="Autofac">
+		</a>
+		<a href="https://github.com/rivenfx/Mapster-docs" target="_blank">
+			<img src="https://img.shields.io/nuget/v/Mapster?label=Mapster&color=orange" alt="Mapster">
 		</a>
 		<a href="https://cap.dotnetcore.xyz" target="_blank">
-		    <img src="https://img.shields.io/badge/CAP-7.x-yellow" alt="CAP">
+			<img src="https://img.shields.io/nuget/v/CAP?label=CAP&color=yellow" alt="CAP">
 		</a>
 		<a href="https://github.com/zhontai/admin.ui.plus/blob/master/LICENSE" target="_blank">
-		    <img src="https://img.shields.io/badge/license-MIT-success" alt="license">
+			<img src="https://img.shields.io/badge/license-MIT-success" alt="license">
 		</a>
 	</p>
 	<p>&nbsp;</p>
@@ -26,7 +26,7 @@
 
 #### 🌈 介绍
 
-基于 .Net7.x + FreeSql 全家桶 + Autofac + DotNetCore.CAP + Mapster 等技术，前后端分离后台权限管理系统。想你所想的开发理念，希望减少工作量，帮助大家实现快速开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据至数据库。新版 swagger 接口文档更易于接口阅读和测试。
+基于 .Net8.0 + FreeSql 全家桶 + Autofac + CAP + Mapster 等技术，前后端分离后台权限管理系统。想你所想的开发理念，希望减少工作量，帮助大家实现快速开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据至数据库。新版 swagger 接口文档更易于接口阅读和测试。
 
 #### ⛱️ 线上预览
 
