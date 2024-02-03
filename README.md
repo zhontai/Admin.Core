@@ -105,10 +105,10 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 
 > 中台 admin 开发群（2000 人群）。
 
-- QQ 群号：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">1058693879</a>
+- QQ 群号：<a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">1058693879</a>
 
-  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">
-  	<img src="https://www.zhontai.net/imgs/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
+  <a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">
+  	<img src="https://zhontai.net/images/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
   </a>
 
 #### 💕 特别感谢
