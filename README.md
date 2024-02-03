@@ -15,7 +15,7 @@
 			<img src="https://img.shields.io/nuget/v/Mapster?label=Mapster&color=orange" alt="Mapster">
 		</a>
 		<a href="https://cap.dotnetcore.xyz" target="_blank">
-			<img src="https://img.shields.io/nuget/v/CAP?label=CAP&color=yellow" alt="CAP">
+			<img src="https://img.shields.io/nuget/v/DotNetCore.CAP?label=CAP&color=yellow" alt="DotNetCore.CAP">
 		</a>
 		<a href="https://github.com/zhontai/admin.ui.plus/blob/master/LICENSE" target="_blank">
 			<img src="https://img.shields.io/badge/license-MIT-success" alt="license">
