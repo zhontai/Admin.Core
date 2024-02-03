@@ -21,6 +21,10 @@
 			<img src="https://img.shields.io/badge/license-MIT-success" alt="license">
 		</a>
 	</p>
+	<p align="center">
+    <a href="README.en.md">English</a> |   
+    <span>中文</span>
+	</p>
 	<p>&nbsp;</p>
 </div>
 
@@ -45,7 +49,7 @@
 5. 租户套餐：配置租户套餐，支持新增/移除套餐企业。
 6. 租户管理：配置租户，新增租户时初始化部门、角色和管理员数据，支持租户配置套餐、禁用/启用功能。
 7. 字典管理：配置字典，查看字典类型和字典数据列表，支持字典类型和字典数据维护。
-8. 任务调度：查看任务和任务日志列表，支持任务启动、执行、暂停等功能。
+8. 任务调度：查看任务和任务日志列表，支持任务新增、修改启动、执行、暂停、复制、查看日志等功能。
 9. 缓存管理：缓存列表查询，支持根据缓存键清除缓存
 10. 接口管理：配置接口，支持接口同步功能，用于新增权限点选择接口，支持树形列表展示。
 11. 视图管理：配置视图，支持视图维护功能，用于新增菜单选择视图，支持树形列表展示。
@@ -55,7 +59,7 @@
 
 #### ⚡ 使用说明
 
-> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 > 7.0+</a>
+> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 >= 7.0+</a>
 
 使用项目源码新建项目
 
