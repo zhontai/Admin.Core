@@ -1,0 +1,12 @@
+##
+node_modules
+package-lock.json
+yarn.lock
+/unpackage/
+project.config.json
+project.private.config.json
+GPUCache/data_0
+GPUCache/data_1
+GPUCache/data_2
+GPUCache/data_3
+GPUCache/index
