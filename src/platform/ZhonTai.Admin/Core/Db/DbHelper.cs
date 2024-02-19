@@ -143,6 +143,11 @@ public class DbHelper
     /// <param name="dbConfig"></param>
     public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user, DbConfig dbConfig)
     {
+        if (e.Property == null)
+        {
+            return;
+        }
+
         //数据库时间
         if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
         && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
@@ -306,6 +311,11 @@ public class DbHelper
                 // 同步数据审计方法
                 void SyncDataAuditValue(object s, AuditValueEventArgs e)
                 {
+                    if (e.Property == null)
+                    {
+                        return;
+                    }
+
                     if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
                            && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
                            && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
