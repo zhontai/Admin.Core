@@ -10,6 +10,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.DictType;
 
@@ -20,12 +21,14 @@ namespace ZhonTai.Admin.Services.DictType;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
 {
-    private readonly IDictTypeRepository _dictTypeRepository;
-    private readonly IDictRepository _dictRepository;
-    public DictTypeService(IDictTypeRepository DictionaryTypeRepository, IDictRepository dictRepository)
+    private readonly AdminRepositoryBase<DictTypeEntity> _dictTypeRep;
+    private readonly AdminRepositoryBase<DictEntity> _dictRep;
+
+    public DictTypeService(AdminRepositoryBase<DictTypeEntity> dictTypeRep, 
+        AdminRepositoryBase<DictEntity> dictRep)
     {
-        _dictTypeRepository = DictionaryTypeRepository;
-        _dictRepository = dictRepository;
+        _dictTypeRep = dictTypeRep;
+        _dictRep = dictRep;
     }
 
     /// <summary>
@@ -35,7 +38,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// <returns></returns>
     public async Task<DictTypeGetOutput> GetAsync(long id)
     {
-        var result = await _dictTypeRepository.GetAsync<DictTypeGetOutput>(id);
+        var result = await _dictTypeRep.GetAsync<DictTypeGetOutput>(id);
         return result;
     }
 
@@ -49,7 +52,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     {
         var key = input.Filter?.Name;
 
-        var list = await _dictTypeRepository.Select
+        var list = await _dictTypeRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
         .Count(out var total)
@@ -73,12 +76,12 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(DictTypeAddInput input)
     {
-        if (await _dictTypeRepository.Select.AnyAsync(a => a.Name == input.Name))
+        if (await _dictTypeRep.Select.AnyAsync(a => a.Name == input.Name))
         {
             throw ResultOutput.Exception($"字典类型已存在");
         }
 
-        if (input.Code.NotNull() && await _dictTypeRepository.Select.AnyAsync(a => a.Code == input.Code))
+        if (input.Code.NotNull() && await _dictTypeRep.Select.AnyAsync(a => a.Code == input.Code))
         {
             throw ResultOutput.Exception($"字典类型编码已存在");
         }
@@ -86,10 +89,10 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         var entity = Mapper.Map<DictTypeEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _dictRepository.Select.MaxAsync(a => a.Sort);
+            var sort = await _dictRep.Select.MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
-        await _dictTypeRepository.InsertAsync(entity);
+        await _dictTypeRep.InsertAsync(entity);
         return entity.Id;
     }
 
@@ -100,24 +103,24 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(DictTypeUpdateInput input)
     {
-        var entity = await _dictTypeRepository.GetAsync(input.Id);
+        var entity = await _dictTypeRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception("数据字典不存在");
         }
 
-        if (await _dictTypeRepository.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
+        if (await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
         {
             throw ResultOutput.Exception($"字典类型已存在");
         }
 
-        if (input.Code.NotNull() && await _dictTypeRepository.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
+        if (input.Code.NotNull() && await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
         {
             throw ResultOutput.Exception($"字典类型编码已存在");
         }
 
         Mapper.Map(input, entity);
-        await _dictTypeRepository.UpdateAsync(entity);
+        await _dictTypeRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -129,10 +132,10 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     public virtual async Task DeleteAsync(long id)
     {
         //删除字典数据
-        await _dictRepository.DeleteAsync(a => a.DictTypeId == id);
+        await _dictRep.DeleteAsync(a => a.DictTypeId == id);
 
         //删除数据字典类型
-        await _dictTypeRepository.DeleteAsync(a => a.Id == id);
+        await _dictTypeRep.DeleteAsync(a => a.Id == id);
     }
 
     /// <summary>
@@ -144,10 +147,10 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     public virtual async Task BatchDeleteAsync(long[] ids)
     {
         //删除字典数据
-        await _dictRepository.DeleteAsync(a => ids.Contains(a.DictTypeId));
+        await _dictRep.DeleteAsync(a => ids.Contains(a.DictTypeId));
 
         //删除数据字典类型
-        await _dictTypeRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _dictTypeRep.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>
@@ -158,8 +161,8 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
-        await _dictRepository.SoftDeleteAsync(a => a.DictTypeId == id);
-        await _dictTypeRepository.SoftDeleteAsync(id);
+        await _dictRep.SoftDeleteAsync(a => a.DictTypeId == id);
+        await _dictTypeRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -170,7 +173,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
-        await _dictRepository.SoftDeleteAsync(a => ids.Contains(a.DictTypeId));
-        await _dictTypeRepository.SoftDeleteAsync(ids);
+        await _dictRep.SoftDeleteAsync(a => ids.Contains(a.DictTypeId));
+        await _dictTypeRep.SoftDeleteAsync(ids);
     }
 }

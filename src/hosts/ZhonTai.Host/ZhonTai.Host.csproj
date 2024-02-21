@@ -20,16 +20,16 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.811" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.811" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.811" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.811" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.811" />
-		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.811" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.812" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.812" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.812" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.812" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.812" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.812" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cronos" Version="0.8.2" />
+		<PackageReference Include="Cronos" Version="0.8.3" />
 		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.1" />
 		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.0.1" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.0.0" />

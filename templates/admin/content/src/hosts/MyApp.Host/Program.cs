@@ -39,6 +39,8 @@ using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Services.Msg.Events;
 using Mapster;
 #endif
+using Autofac;
+using MyApp.Api.Core.Repositories;
 #if (!NoTaskScheduler)
 
 static void ConfigureScheduler(IFreeSql fsql)
@@ -260,7 +262,7 @@ new HostApp(new HostAppOptions()
     //配置Autofac容器
     ConfigureAutofacContainer = (builder, context) =>
     {
-
+        builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
     },
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) =>

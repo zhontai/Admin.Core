@@ -10,6 +10,7 @@ using ZhonTai.Admin.Domain.Api.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -20,11 +21,11 @@ namespace ZhonTai.Admin.Services.Api;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class ApiService : BaseService, IApiService, IDynamicApi
 {
-    private readonly IApiRepository _apiRepository;
+    private readonly AdminRepositoryBase<ApiEntity> _apiRep;
 
-    public ApiService(IApiRepository moduleRepository)
+    public ApiService(AdminRepositoryBase<ApiEntity> apiRep)
     {
-        _apiRepository = moduleRepository;
+        _apiRep = apiRep;
     }
 
     /// <summary>
@@ -34,7 +35,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task<ApiGetOutput> GetAsync(long id)
     {
-        var result = await _apiRepository.GetAsync<ApiGetOutput>(id);
+        var result = await _apiRep.GetAsync<ApiGetOutput>(id);
         return result;
     }
 
@@ -45,7 +46,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task<List<ApiListOutput>> GetListAsync(string key)
     {
-        var data = await _apiRepository
+        var data = await _apiRep
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
@@ -64,7 +65,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     {
         var key = input.Filter?.Label;
 
-        var list = await _apiRepository.Select
+        var list = await _apiRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
         .Count(out var total)
@@ -91,7 +92,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     {
         var path = input.Path;
 
-        var entity = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+        var entity = await _apiRep.Select.DisableGlobalFilter(FilterNames.Delete)
             .Where(w => w.Path.Equals(path) && w.IsDeleted).FirstAsync();
 
         if (entity?.Id > 0)
@@ -99,7 +100,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             Mapper.Map(input, entity);
             entity.IsDeleted = false;
             entity.Enabled = true;
-            await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(entity).ExecuteAffrowsAsync();
+            await _apiRep.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(entity).ExecuteAffrowsAsync();
 
             return entity.Id;
         }
@@ -107,11 +108,11 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         if (entity.Sort == 0)
         {
-            var sort = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete).Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _apiRep.Select.DisableGlobalFilter(FilterNames.Delete).Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
 
-        await _apiRepository.InsertAsync(entity);
+        await _apiRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -123,14 +124,14 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(ApiUpdateInput input)
     {
-        var entity = await _apiRepository.GetAsync(input.Id);
+        var entity = await _apiRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception("接口不存在！");
         }
 
         Mapper.Map(input, entity);
-        await _apiRepository.UpdateAsync(entity);
+        await _apiRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -140,7 +141,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _apiRepository.DeleteAsync(a => a.Id == id);
+        await _apiRep.DeleteAsync(a => a.Id == id);
     }
 
     /// <summary>
@@ -150,7 +151,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task BatchDeleteAsync(long[] ids)
     {
-        await _apiRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _apiRep.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>
@@ -161,7 +162,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     [HttpDelete]
     public async Task SoftDeleteAsync(long id)
     {
-        await _apiRepository.SoftDeleteAsync(id);
+        await _apiRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -171,7 +172,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        await _apiRepository.SoftDeleteAsync(ids);
+        await _apiRep.SoftDeleteAsync(ids);
     }
 
     /// <summary>
@@ -186,13 +187,13 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         //查询分组下所有模块的api
         var groupPaths = input.Apis.FindAll(a => a.ParentPath.IsNull()).Select(a => a.Path);
-        var groups = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+        var groups = await _apiRep.Select.DisableGlobalFilter(FilterNames.Delete)
             .Where(a => a.ParentId == 0 && groupPaths.Contains(a.Path)).ToListAsync();
         var groupIds = groups.Select(a => a.Id);
-        var modules = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+        var modules = await _apiRep.Select.DisableGlobalFilter(FilterNames.Delete)
             .Where(a => groupIds.Contains(a.ParentId)).ToListAsync();
         var moduleIds = modules.Select(a => a.Id);
-        var apis = await _apiRepository.Select.DisableGlobalFilter(FilterNames.Delete)
+        var apis = await _apiRep.Select.DisableGlobalFilter(FilterNames.Delete)
             .Where(a=> moduleIds.Contains(a.ParentId)).ToListAsync();
 
         apis = groups.Concat(modules).Concat(apis).ToList();
@@ -213,7 +214,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         if (pApis.Count > 0)
         {
             var insertPApis = Mapper.Map<List<ApiEntity>>(pApis);
-            insertPApis = await _apiRepository.InsertAsync(insertPApis);
+            insertPApis = await _apiRep.InsertAsync(insertPApis);
             apis.AddRange(insertPApis);
         }
 
@@ -223,7 +224,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         if (cApis.Count > 0)
         {
             var insertCApis = Mapper.Map<List<ApiEntity>>(cApis);
-            insertCApis = await _apiRepository.InsertAsync(insertCApis);
+            insertCApis = await _apiRep.InsertAsync(insertCApis);
             apis.AddRange(insertCApis);
         }
 
@@ -301,7 +302,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         #endregion 修改和禁用
 
         //批量更新
-        await _apiRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
+        await _apiRep.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
         .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Sort, a.Enabled, a.IsDeleted, a.ModifiedTime })
         .ExecuteAffrowsAsync();
     }
