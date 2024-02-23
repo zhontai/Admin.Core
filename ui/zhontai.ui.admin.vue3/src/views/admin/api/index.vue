@@ -54,7 +54,7 @@ import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyn
 import { ApiListOutput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import { ApiApi as ApiExtApi } from '/@/api/admin.extend/Api'
-import { listToTree, treeToList, filterTree } from '/@/utils/tree'
+import { listToTree, treeToList, filterTree, filterList } from '/@/utils/tree'
 import { cloneDeep, isArray } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 
@@ -103,7 +103,14 @@ const onQuery = async () => {
         return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
       },
     })
-    state.formApiTreeData = listToTree(res.data.filter((a) => a.parentId === 0))
+
+    state.formApiTreeData = listToTree(
+      filterList(cloneDeep(res.data), '', {
+        filterWhere: (item: any, word: string) => {
+          return !item.httpMethods
+        },
+      })
+    )
   } else {
     state.apiTreeData = []
     state.formApiTreeData = []
