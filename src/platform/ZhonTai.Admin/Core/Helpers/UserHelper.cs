@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FileInfo = ZhonTai.Common.Files.FileInfo;
-using ZhonTai.Admin.Core.Attributes;
+﻿using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
 

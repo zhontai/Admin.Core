@@ -249,15 +249,15 @@ const onDelete = (node: any, data: any) => {
   filters.splice(index, 1)
 }
 
-// const reset = () => {
-//   state.dataTree.filters = []
-// }
+const reset = () => {
+  state.dataTree.filters = []
+}
 
 const getDynamicFilter = () => {
   return cloneDeep(state.dataTree)
 }
 
-defineExpose({ getDynamicFilter })
+defineExpose({ getDynamicFilter, reset })
 </script>
 
 <style lang="scss" scoped>
