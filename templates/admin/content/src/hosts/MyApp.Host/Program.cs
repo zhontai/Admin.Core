@@ -41,6 +41,8 @@ using Mapster;
 #endif
 using Autofac;
 using MyApp.Api.Core.Repositories;
+using System.IO;
+using System.Text;
 #if (!NoTaskScheduler)
 
 static void ConfigureScheduler(IFreeSql fsql)
@@ -152,8 +154,11 @@ new HostApp(new HostAppOptions()
                         var error = string.Empty;
                         using (var process = Process.Start(startInfo))
                         {
-                            response = process.StandardOutput.ReadToEnd();
-                            error = process.StandardError.ReadToEnd();
+                            using var responseReader = new StreamReader(process.StandardOutput.ReadToEnd(), Encoding.UTF8);
+                            response = responseReader.ReadToEnd();
+
+                            using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
+                            error = errorReader.ReadToEnd();
 
                             //if (response.NotNull())
                             //{

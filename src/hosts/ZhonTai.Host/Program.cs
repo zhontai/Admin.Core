@@ -9,8 +9,10 @@ using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using ZhonTai;
 using ZhonTai.Admin.Core;
@@ -145,8 +147,11 @@ new HostApp(new HostAppOptions
                         var error = string.Empty;
                         using (var process = Process.Start(startInfo))
                         {
-                            response = process.StandardOutput.ReadToEnd();
-                            error = process.StandardError.ReadToEnd();
+                            using var responseReader = new StreamReader(process.StandardOutput.ReadToEnd(), Encoding.UTF8);
+                            response = responseReader.ReadToEnd();
+
+                            using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
+                            error = errorReader.ReadToEnd();
 
                             //if (response.NotNull())
                             //{
