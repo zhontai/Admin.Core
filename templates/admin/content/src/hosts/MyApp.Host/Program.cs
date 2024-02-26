@@ -154,7 +154,7 @@ new HostApp(new HostAppOptions()
                         var error = string.Empty;
                         using (var process = Process.Start(startInfo))
                         {
-                            using var responseReader = new StreamReader(process.StandardOutput.ReadToEnd(), Encoding.UTF8);
+                            using var responseReader = new StreamReader(process.StandardOutput.BaseStream, Encoding.UTF8);
                             response = responseReader.ReadToEnd();
 
                             using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
