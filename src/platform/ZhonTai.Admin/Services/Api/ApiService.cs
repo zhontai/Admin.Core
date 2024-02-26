@@ -11,6 +11,9 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using System;
+using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -22,10 +25,12 @@ namespace ZhonTai.Admin.Services.Api;
 public class ApiService : BaseService, IApiService, IDynamicApi
 {
     private readonly AdminRepositoryBase<ApiEntity> _apiRep;
+    private readonly Lazy<AppConfig> _appConfig;
 
-    public ApiService(AdminRepositoryBase<ApiEntity> apiRep)
+    public ApiService(AdminRepositoryBase<ApiEntity> apiRep, Lazy<AppConfig> appConfig)
     {
         _apiRep = apiRep;
+        _appConfig = appConfig;
     }
 
     /// <summary>
@@ -305,5 +310,16 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         await _apiRep.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).SetSource(apis)
         .UpdateColumns(a => new { a.ParentId, a.Label, a.HttpMethods, a.Description, a.Sort, a.Enabled, a.IsDeleted, a.ModifiedTime })
         .ExecuteAffrowsAsync();
+    }
+
+    /// <summary>
+    /// 获得项目列表
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [NoOprationLog]
+    public List<ProjectConfig> GetProjects()
+    {
+        return _appConfig.Value.Swagger.Projects;
     }
 }

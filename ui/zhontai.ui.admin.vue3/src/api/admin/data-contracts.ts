@@ -41,30 +41,40 @@ export interface ApiEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -796,30 +806,40 @@ export interface FileEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -1094,30 +1114,40 @@ export interface OrgEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -1744,30 +1774,40 @@ export interface PermissionEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -2229,30 +2269,40 @@ export interface PkgEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -2427,6 +2477,18 @@ export interface PkgUpdateInput {
    * @format int64
    */
   id: number
+}
+
+/** 项目配置 */
+export interface ProjectConfig {
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 版本 */
+  version?: string | null
+  /** 描述 */
+  description?: string | null
 }
 
 /** 结果输出 */
@@ -2744,6 +2806,18 @@ export interface ResultOutputListPkgGetPkgTenantListOutput {
   msg?: string | null
   /** 数据 */
   data?: PkgGetPkgTenantListOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListProjectConfig {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: ProjectConfig[] | null
 }
 
 /** 结果输出 */
@@ -3164,30 +3238,40 @@ export interface RoleEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -3649,30 +3733,40 @@ export interface TenantEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -3971,30 +4065,40 @@ export interface UserEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -4212,30 +4316,40 @@ export interface UserStaffEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time
@@ -4395,30 +4509,40 @@ export interface ViewEntity {
    */
   id?: number
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
   /**
-   * 创建者
+   * 创建者用户名
    * @maxLength 50
    */
   createdUserName?: string | null
+  /**
+   * 创建者姓名
+   * @maxLength 50
+   */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
   /**
-   * 修改者Id
+   * 修改者用户Id
    * @format int64
    */
   modifiedUserId?: number | null
   /**
-   * 修改者
+   * 修改者用户名
    * @maxLength 50
    */
   modifiedUserName?: string | null
+  /**
+   * 修改者姓名
+   * @maxLength 50
+   */
+  modifiedUserRealName?: string | null
   /**
    * 修改时间
    * @format date-time

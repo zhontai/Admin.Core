@@ -18,6 +18,7 @@ import {
   ResultOutputApiGetOutput,
   ResultOutputInt64,
   ResultOutputListApiListOutput,
+  ResultOutputListProjectConfig,
   ResultOutputPageOutputApiEntity,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -224,6 +225,23 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name GetProjects
+   * @summary 获得项目列表
+   * @request GET:/api/admin/api/get-projects
+   * @secure
+   */
+  getProjects = (params: RequestParams = {}) =>
+    this.request<ResultOutputListProjectConfig, any>({
+      path: `/api/admin/api/get-projects`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
       ...params,
     })
 }

@@ -4335,6 +4335,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetProjects">
+            <summary>
+            获得项目列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiAddInput">
             <summary>
             添加
