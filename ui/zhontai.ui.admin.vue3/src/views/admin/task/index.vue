@@ -198,7 +198,7 @@ const onCopy = (row: TaskListOutput) => {
 
 // 查看日志
 const onShowLogs = (row: TaskListOutput) => {
-  state.taskLogsTitle = `${row.topic}${row.id}运行日志`
+  state.taskLogsTitle = `${row.topic} ${row.id} 运行日志`
   taskLogsRef.value.open(row)
 }
 
