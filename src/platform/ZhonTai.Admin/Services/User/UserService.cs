@@ -194,9 +194,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             return null;
         }
-
-        var key = CacheKeys.DataPermission + User.Id;
-        return await Cache.GetOrSetAsync(key, async () =>
+         
+        return await Cache.GetOrSetAsync(CacheKeys.GetDataPermissionKey(User.Id, apiPath), async () =>
         {
             using var _ = _userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
 
@@ -525,7 +524,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userOrgRepository.InsertAsync(orgs);
         }
 
-        await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
     }
 
     /// <summary>
@@ -769,7 +768,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         await _userRepository.DeleteAsync(a => a.Id == id);
 
         //删除用户数据权限缓存
-        await Cache.DelAsync(CacheKeys.DataPermission + id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
     }
 
     /// <summary>
@@ -799,7 +798,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         foreach (var userId in ids)
         {
-            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 
@@ -827,7 +826,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         await _staffRepository.SoftDeleteAsync(a => a.Id == id);
         await _userRepository.SoftDeleteAsync(id);
 
-        await Cache.DelAsync(CacheKeys.DataPermission + id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
     }
 
     /// <summary>
@@ -853,7 +852,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         foreach (var userId in ids)
         {
-            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 

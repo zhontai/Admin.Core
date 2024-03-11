@@ -185,7 +185,7 @@ public class User : IUser
         }
         else
         {
-            return cache.Get<DataPermissionDto>(CacheKeys.DataPermission + Id);
+            return cache.Get<DataPermissionDto>(CacheKeys.GetDataPermissionKey(Id));
         }
     }
 

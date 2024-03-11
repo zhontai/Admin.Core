@@ -63,6 +63,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
 using FreeScheduler;
+using SixLabors.ImageSharp.Drawing;
 
 namespace ZhonTai.Admin.Core;
 
@@ -771,19 +772,17 @@ public class HostApp
                 var user = ctx.RequestServices.GetRequiredService<IUser>();
                 if (user?.Id > 0)
                 {
-                    var endpoint = ctx.GetEndpoint();
-                    string path = null;
-
                     //排除匿名或者登录接口
+                    var endpoint = ctx.GetEndpoint();
                     if (appConfig.Validate.ApiDataPermission && endpoint != null && !endpoint.Metadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute) || m.GetType() == typeof(LoginAttribute)))
                     {
                         var actionDescriptor = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
                         var template = actionDescriptor?.AttributeRouteInfo?.Template;
-                        path = template.NotNull() ? $"/{template}" : null;
+                        AppInfo.CurrentDataPermissionApiPath = template.NotNull() ? $"/{template}" : null;
                     }
 
                     var userService = ctx.RequestServices.GetRequiredService<IUserService>();
-                    await userService.GetDataPermissionAsync(path);
+                    await userService.GetDataPermissionAsync(AppInfo.CurrentDataPermissionApiPath);
                 }
 
                 await next();

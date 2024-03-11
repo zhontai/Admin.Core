@@ -59,6 +59,11 @@
             日志
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.CurrentDataPermissionApiPath">
+            <summary>
+            数据权限接口路径
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetServiceProvider(System.Type,System.Boolean)">
             <summary>
             获得服务提供程序
@@ -1284,6 +1289,21 @@
             </summary>
             <param name="mobile">手机号</param>
             <param name="code">唯一码</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetDataPermissionKey(System.Int64,System.String)">
+            <summary>
+            获取数据权限缓存键
+            </summary>
+            <param name="userId">用户Id</param>
+            <param name="apiPath">请求接口路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetDataPermissionPattern(System.Int64)">
+            <summary>
+            获取数据权限模板
+            </summary>
+            <param name="userId">用户Id</param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
