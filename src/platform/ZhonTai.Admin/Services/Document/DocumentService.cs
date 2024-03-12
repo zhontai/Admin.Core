@@ -12,6 +12,7 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using System.Collections.Generic;
+using ZhonTai.Admin.Services.File;
 
 namespace ZhonTai.Admin.Services.Document;
 
@@ -24,14 +25,17 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
 {
     private readonly IDocumentRepository _documentRepository;
     private readonly IDocumentImageRepository _documentImageRepository;
+    private readonly Lazy<IFileService> _fileService;
 
     public DocumentService(
         IDocumentRepository DocumentRepository,
-        IDocumentImageRepository documentImageRepository
+        IDocumentImageRepository documentImageRepository,
+        Lazy<IFileService> fileService
     )
     {
         _documentRepository = DocumentRepository;
         _documentImageRepository = documentImageRepository;
+        _fileService = fileService;
     }
 
     /// <summary>
@@ -245,17 +249,13 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     [HttpPost]
     public async Task<string> UploadImage([FromForm] DocumentUploadImageInput input)
     {
-        var uploadConfig = LazyGetRequiredService<IOptionsMonitor<UploadConfig>>().CurrentValue;
-        var uploadHelper = LazyGetRequiredService<UploadHelper>();
-
-        var config = uploadConfig.Document;
-        var fileInfo = await uploadHelper.UploadAsync(input.File, config, new { input.Id });
+        var fileInfo = await _fileService.Value.UploadFileAsync(input.File);
         //保存文档图片
         await AddImageAsync(new DocumentAddImageInput
         {
             DocumentId = input.Id,
-            Url = fileInfo.FileRequestPath
+            Url = fileInfo.LinkUrl
         });
-        return fileInfo.FileRequestPath;
+        return fileInfo.LinkUrl;
     }
 }

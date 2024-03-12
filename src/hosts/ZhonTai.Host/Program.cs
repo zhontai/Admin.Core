@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
@@ -104,7 +103,7 @@ new HostApp(new HostAppOptions
                 {
                     var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
 
-                    if (task.Topic?.StartsWith("[system]shell") == true)
+                    if (task.Topic?.StartsWith("[shell]") == true)
                     {
                         var jsonArgs = JToken.Parse(task.Body);
                         var shellArgs = jsonArgs.Adapt<ShellArgs>();

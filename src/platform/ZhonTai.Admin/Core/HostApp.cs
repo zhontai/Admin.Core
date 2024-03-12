@@ -63,7 +63,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
 using FreeScheduler;
-using SixLabors.ImageSharp.Drawing;
 
 namespace ZhonTai.Admin.Core;
 
@@ -108,24 +107,24 @@ public class HostApp
             var env = builder.Environment;
             var configuration = builder.Configuration;
 
-            var configHelper = new ConfigHelper();
-            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
-
             //添加配置
-            configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
-            if (env.EnvironmentName.NotNull())
-            {
-                configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-            }
             configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             if (env.EnvironmentName.NotNull())
             {
                 configuration.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
             }
 
+            var configHelper = new ConfigHelper();
+            var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName) ?? new AppConfig();
+
+            configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+            if (env.EnvironmentName.NotNull())
+            {
+                configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            }
+
             var oSSConfigRoot = ConfigHelper.Load("ossconfig", env.EnvironmentName, true);
             services.Configure<OSSConfig>(oSSConfigRoot);
-
             services.Configure<EmailConfig>(configuration.GetSection("Email"));
 
             //应用配置
@@ -253,10 +252,6 @@ public class HostApp
         {
             services.AddDb(env, _hostAppOptions);
         }
-
-        //上传配置
-        var uploadConfig = ConfigHelper.Load("uploadconfig", env.EnvironmentName, true);
-        services.Configure<UploadConfig>(uploadConfig);
 
         //程序集
         Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
@@ -750,7 +745,6 @@ public class HostApp
         //静态文件
         app.UseDefaultFiles();
         app.UseStaticFiles();
-        app.UseUploadConfig();
 
         //路由
         app.UseRouting();

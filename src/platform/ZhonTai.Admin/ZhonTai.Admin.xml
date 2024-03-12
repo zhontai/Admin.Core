@@ -1183,61 +1183,6 @@
             OSS配置列表
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.UploadConfig">
-            <summary>
-            上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.UploadConfig.Avatar">
-            <summary>
-            头像上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.UploadConfig.Document">
-            <summary>
-            文档图片上传配置
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.FileUploadConfig">
-            <summary>
-            文件上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.UploadPath">
-            <summary>
-            上传路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.RequestPath">
-            <summary>
-            请求路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.Format">
-            <summary>
-            路径格式
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.DateTimeFormat">
-            <summary>
-            路径日期格式
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.MaxSize">
-            <summary>
-            文件大小 10M = 10 * 1024 * 1024
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.Limit">
-            <summary>
-            最大允许上传个数 -1不限制
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.ContentType">
-            <summary>
-            文件格式
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.AreaName">
             <summary>
             默认域
@@ -2132,16 +2077,6 @@
             <summary>
             文件上传帮助类
             </summary>
-        </member>
-        <member name="M:ZhonTai.Admin.Core.Helpers.UploadHelper.UploadAsync(Microsoft.AspNetCore.Http.IFormFile,ZhonTai.Admin.Core.Configs.FileUploadConfig,System.Object,System.Threading.CancellationToken)">
-            <summary>
-            上传单文件
-            </summary>
-            <param name="file"></param>
-            <param name="config"></param>
-            <param name="args"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Helpers.UploadHelper.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
             <summary>
