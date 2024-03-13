@@ -157,6 +157,21 @@
             <param name="serviceProvider"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Core.AppSettings">
+            <summary>
+            应用配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppSettings.UseConfigCenter">
+            <summary>
+            使用配置中心
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppSettings.ConfigCenterPath">
+            <summary>
+            配置中心路径
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
             <summary>
             启用权限库事务
@@ -2103,20 +2118,29 @@
             宿主应用
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Core.HostApp.AddJsonFilesFromDirectory(Microsoft.Extensions.Configuration.ConfigurationManager,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            添加配置文件
+            </summary>
+            <param name="configuration">配置</param>
+            <param name="environmentName">环境名</param>
+            <param name="directory">目录</param>
+            <param name="optional">可选</param>
+            <param name="reloadOnChange">热更新</param>
+        </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[])">
             <summary>
             运行应用
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             配置服务
             </summary>
             <param name="services"></param>
             <param name="env"></param>
             <param name="configuration"></param>
-            <param name="configHelper"></param>
             <param name="appConfig"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureMiddleware(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">

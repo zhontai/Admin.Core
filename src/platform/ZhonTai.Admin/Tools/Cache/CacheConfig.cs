@@ -29,10 +29,10 @@ public class RedisConfig
     /// <summary>
     /// 连接字符串
     /// </summary>
-    public string ConnectionString { get; set; } = "127.0.0.1:6379,password=,defaultDatabase=2";
+    public string ConnectionString { get; set; } = "127.0.0.1:6379,password=,defaultDatabase=0";
 
     /// <summary>
     /// 限流连接字符串
     /// </summary>
-    public string ConnectionStringRateLimit { get; set; } = "127.0.0.1:6379,password=,defaultDatabase=1";
+    public string ConnectionStringRateLimit { get; set; } = "127.0.0.1:6379,password=,defaultDatabase=0";
 }

@@ -83,7 +83,7 @@ public class AppConfig
     /// <summary>
     /// 默认密码
     /// </summary>
-    public string DefaultPassword { get; set; } = "111111";
+    public string DefaultPassword { get; set; } = "123asd";
 
     /// <summary>
     /// 动态Api配置

@@ -22,8 +22,8 @@ public static class DBServiceCollectionExtensions
     /// <returns></returns>
     public static void AddDb(this IServiceCollection services, IHostEnvironment env, HostAppOptions hostAppOptions)
     {
-        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", env.EnvironmentName);
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", env.EnvironmentName);
+        var dbConfig = AppInfo.GetOptions<DbConfig>();
+        var appConfig = AppInfo.GetOptions<AppConfig>();
         var user = services.BuildServiceProvider().GetService<IUser>();
         var freeSqlCloud = appConfig.DistributeKey.IsNull() ? new FreeSqlCloud() : new FreeSqlCloud(appConfig.DistributeKey);
         DbHelper.RegisterDb(freeSqlCloud, user, dbConfig, appConfig, hostAppOptions);
@@ -58,7 +58,7 @@ public static class DBServiceCollectionExtensions
     /// <param name="version">版本</param>
     public static void AddTiDb(this IServiceCollection _, HostAppContext context, string version = "8.0")
     {
-        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        var dbConfig = AppInfo.GetOptions<DbConfig>();
         var _dicMySqlVersion = typeof(FreeSqlGlobalExtensions).GetField("_dicMySqlVersion", BindingFlags.NonPublic | BindingFlags.Static);
         var dicMySqlVersion = new ConcurrentDictionary<string, string>();
         dicMySqlVersion[dbConfig.ConnectionString] = version;

@@ -1,6 +1,7 @@
 ﻿using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
@@ -39,7 +40,7 @@ public static class TaskSchedulerServiceExtensions
 
         var freeSql = options.FreeSql;
 
-        var dbConfig = ServiceProvider.GetService<DbConfig>();
+        var dbConfig = AppInfo.GetOptions<DbConfig>();
         freeSql.SyncSchedulerStructure(dbConfig, options.ConfigureFreeSql);
 
         var freeSchedulerBuilder = new FreeSchedulerBuilder()

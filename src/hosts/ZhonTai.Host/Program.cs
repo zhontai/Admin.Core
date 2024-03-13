@@ -66,10 +66,10 @@ new HostApp(new HostAppOptions
         //context.Services.AddTiDb(context);
 
         //添加cap事件总线
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        var appConfig = AppInfo.GetRequiredService<AppConfig>(false);
         Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
-        //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        //var dbConfig = AppInfo.GetRequiredService<DbConfig>(false);
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
         {
