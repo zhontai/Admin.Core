@@ -89,27 +89,23 @@
 				{
 				  "choice": "Gbase",
 				  "description": "南大通用"
+				},
+				{
+				  "choice": "ClickHouse",
+				  "description": "ClickHouse"
+				},
+				{
+				  "choice": "QuestDb",
+				  "description": "QuestDb"
+				},
+				{
+				  "choice": "Xugu",
+				  "description": "虚谷"
 				}
 			],
 			"defaultValue": "Sqlite",
 			"description": "The database for the project"
-		},
-		"VueVersion": {
-			"type": "parameter",
-			"datatype": "choice",
-			"choices": [
-				{
-				  "choice": "Vue3",
-				  "description": "Vue3"
-				},
-				{
-				  "choice": "Vue2",
-				  "description": "Vue2"
-				}
-			],
-			"defaultValue": "Vue3",
-			"description": "The vue version for the project"
-		},
+		}
 	},
 	"sources": [
 		{
@@ -127,18 +123,6 @@
 				"src/hosts/MyApp.Host/InitData/Admin/**",
 				"src/hosts/MyApp.Host/InitData/AdminVue2/**",
 				"src/hosts/MyApp.Host/wwwroot/captcha/**"
-			  ]
-			},
-			{
-			  "condition": "(VueVersion == \"Vue2\")",
-			  "exclude": [
-				"src/hosts/MyApp.Host/InitData/Admin/**"
-			  ]
-			},
-			{
-			  "condition": "(VueVersion == \"Vue3\")",
-			  "exclude": [
-				"src/hosts/MyApp.Host/InitData/AdminVue2/**"
 			  ]
 			}
 		  ]

@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 		<!--#if (!NoTaskScheduler) -->
-		<PackageReference Include="Cronos" Version="0.8.2" />
+		<PackageReference Include="Cronos" Version="0.8.4" />
 		<!--#endif -->
 		<!--#if (!NoCap) -->
 		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.1" />
@@ -43,6 +43,12 @@
 		<PackageReference Include="FreeSql.Provider.KingbaseES" Version="$(PackageFreeSqlVersion)" />
 		<!--#elseif (DbType == "GBase") -->
 		<PackageReference Include="FreeSql.Provider.GBase" Version="$(PackageFreeSqlVersion)" />
+		<!--#elseif (DbType == "ClickHouse") -->
+		<PackageReference Include="FreeSql.Provider.ClickHouse" Version="$(PackageFreeSqlVersion)" />
+		<!--#elseif (DbType == "QuestDb") -->
+		<PackageReference Include="FreeSql.Provider.QuestDb" Version="$(PackageFreeSqlVersion)" />
+		<!--#elseif (DbType == "Xugu") -->
+		<PackageReference Include="FreeSql.Provider.Xugu" Version="$(PackageFreeSqlVersion)" />
 		<!--#else -->
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="$(PackageFreeSqlVersion)" />
 		<!--#endif -->

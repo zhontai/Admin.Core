@@ -12,7 +12,6 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 #if (!NoApiUI)
 using ZhonTai.ApiUI;
 #endif
-using ZhonTai.Common.Helpers;
 using MyApp.Api.Core.Consts;
 using Microsoft.AspNetCore.Builder;
 #if (!NoCap)
@@ -79,7 +78,7 @@ new HostApp(new HostAppOptions()
     //配置前置服务
     ConfigurePreServices = context =>
 	{
-        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        var dbConfig = AppInfo.GetOptions<DbConfig>();
 		if (dbConfig.Key.NotNull())
 		{
 			DbKeys.AppDb = dbConfig.Key;
@@ -111,7 +110,7 @@ new HostApp(new HostAppOptions()
                 {
                     var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
 
-                    if (task.Topic?.StartsWith("[system]shell") == true)
+                    if (task.Topic?.StartsWith("[shell]") == true)
                     {
                         var jsonArgs = JToken.Parse(task.Body);
                         var shellArgs = jsonArgs.Adapt<ShellArgs>();
@@ -237,12 +236,12 @@ new HostApp(new HostAppOptions()
 #endif
 #if (!NoCap)
         //添加cap事件总线
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        var appConfig = AppInfo.GetOptions<AppConfig>();
 		Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
 			.Where(a => appConfig.AssemblyNames.Contains(a.Name))
 			.Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
-        //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        //var dbConfig = AppInfo.GetOptions<DbConfig>();
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
 		{
@@ -278,7 +277,7 @@ new HostApp(new HostAppOptions()
 	{
 		var app = context.App;
 		var env = app.Environment;
-		var appConfig = app.Services.GetService<AppConfig>();
+		var appConfig = AppInfo.GetOptions<AppConfig>();
 #if (!NoApiUI)
 
         #region 新版Api文档
