@@ -64,6 +64,11 @@
             数据权限接口路径
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.HostInfo">
+            <summary>
+            模块信息
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetServiceProvider(System.Type,System.Boolean)">
             <summary>
             获得服务提供程序
@@ -596,6 +601,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.TaskSchedulerUI">
             <summary>
             任务调度管理界面配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.IdGenerator">
+            <summary>
+            Id生成器配置
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
@@ -2050,7 +2060,13 @@
             系统异常
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Extensions.RateLimitServiceCollectionExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Tools.Cache.CacheConfig)">
+        <member name="M:ZhonTai.Admin.Core.Extensions.IdGeneratorExtensions.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加Id生成器
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Extensions.IpRateLimitExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Tools.Cache.CacheConfig)">
             <summary>
             添加Ip限流
             </summary>
@@ -2128,11 +2144,12 @@
             <param name="optional">可选</param>
             <param name="reloadOnChange">热更新</param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[])">
+        <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[],System.Reflection.Assembly)">
             <summary>
             运行应用
             </summary>
             <param name="args"></param>
+            <param name="assembly"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
@@ -2151,6 +2168,41 @@
             <param name="env"></param>
             <param name="configuration"></param>
             <param name="appConfig"></param>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.HostInfo">
+            <summary>
+            宿主信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Id">
+            <summary>
+            唯一Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.ShortName">
+            <summary>
+            短命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.FullName">
+            <summary>
+            全命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Description">
+            <summary>
+            描述
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Logs.ApiHelper">
             <summary>
@@ -2380,11 +2432,6 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
             <summary>
             配置动态Api
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureIdGenerator">
-            <summary>
-            配置雪花漂移算法
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureSwaggerUI">
@@ -8470,6 +8517,16 @@
             <param name="func">获取数据的方法</param>
             <param name="expire">有效期</param>
             <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.Cache.ICacheTool.Keys">
+            <summary>
+            所有缓存键
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Tools.Cache.ICacheTool.GetKeysByPattern(System.String)">
+            <summary>
+            根据 key 模板获得所有缓存键
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Tools.Cache.MemoryCacheTool">
             <summary>

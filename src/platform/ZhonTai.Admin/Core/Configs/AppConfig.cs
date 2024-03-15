@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Text.RegularExpressions;
+using Yitter.IdGenerator;
 
 namespace ZhonTai.Admin.Core.Configs;
 
@@ -114,6 +116,11 @@ public class AppConfig
     /// 任务调度管理界面配置
     /// </summary>
     public TaskSchedulerUIConfig TaskSchedulerUI { get; set; } = new TaskSchedulerUIConfig();
+
+    /// <summary>
+    /// Id生成器配置
+    /// </summary>
+    public IdGeneratorConfig IdGenerator { get; set; } = new IdGeneratorConfig();
 }
 
 /// <summary>
@@ -361,6 +368,11 @@ public class TaskSchedulerUIConfig
     /// 访问路径
     /// </summary>
     public string Path { get; set; } = "/task";
+}
+
+public class IdGeneratorConfig: IdGeneratorOptions
+{
+    public string CachePrefix { get; set; } = "zhontai:workerid:";
 }
 
 /// <summary>

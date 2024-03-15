@@ -266,7 +266,7 @@ new HostApp(new HostAppOptions
     {
         //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
     }
-}).Run(args);
+}).Run(args, typeof(Program).Assembly);
 
 #if DEBUG
 public partial class Program { }

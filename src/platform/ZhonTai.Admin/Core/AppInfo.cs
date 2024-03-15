@@ -94,6 +94,11 @@ public static class AppInfo
         set => _asyncLocal.Value = value;
     }
 
+    /// <summary>
+    /// 模块信息
+    /// </summary>
+    public static HostInfo HostInfo => AppInfoBase.HostInfo;
+
     #region private
 
     private static IEnumerable<Type> GetTypes(Assembly ass)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ZhonTai.Admin.Tools.Cache;
@@ -105,4 +106,14 @@ public interface ICacheTool
     /// <param name="expire">有效期</param>
     /// <returns></returns>
     Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> func, TimeSpan? expire = null);
+
+    /// <summary>
+    /// 所有缓存键
+    /// </summary>
+    List<string> Keys { get; }
+
+    /// <summary>
+    /// 根据 key 模板获得所有缓存键
+    /// </summary>
+    List<string> GetKeysByPattern(string pattern);
 }

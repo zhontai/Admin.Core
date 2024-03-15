@@ -7,7 +7,7 @@ using OSSOptions = ZhonTai.Admin.Core.Configs.OSSOptions;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
-public static class ServiceCollectionExtensions
+public static class OSSExtensions
 {
     private static void CreateBucketName(IOSSServiceFactory oSSServiceFactory, OSSOptions oSSOptions)
     {

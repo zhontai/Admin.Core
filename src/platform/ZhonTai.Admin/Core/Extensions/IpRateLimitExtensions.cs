@@ -5,7 +5,7 @@ using ZhonTai.Admin.Tools.Cache;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
-public static class RateLimitServiceCollectionExtensions
+public static class IpRateLimitExtensions
 {
     /// <summary>
     /// 添加Ip限流

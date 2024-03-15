@@ -114,7 +114,8 @@ public class HostApp
     /// 运行应用
     /// </summary>
     /// <param name="args"></param>
-    public void Run(string[] args)
+    /// <param name="assembly"></param>
+    public void Run(string[] args, Assembly assembly = null)
     {
         var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
         try
@@ -125,7 +126,7 @@ public class HostApp
             var builder = WebApplication.CreateBuilder(args);
             _hostAppOptions?.ConfigurePreWebApplicationBuilder?.Invoke(builder);
 
-            builder.ConfigureApplication();
+            builder.ConfigureApplication(assembly ?? Assembly.GetCallingAssembly());
             //清空日志供应程序，避免.net自带日志输出到命令台
             builder.Logging.ClearProviders();
             //使用NLog日志
@@ -164,19 +165,19 @@ public class HostApp
             else
             {
                 //app应用配置
-                services.Configure<AppConfig>(ConfigHelper.Load("appconfig", env.EnvironmentName, true));
+                services.Configure<AppConfig>(ConfigHelper.Load("appconfig", env.EnvironmentName));
 
                 //jwt配置
-                services.Configure<JwtConfig>(ConfigHelper.Load("jwtconfig", env.EnvironmentName, true));
+                services.Configure<JwtConfig>(ConfigHelper.Load("jwtconfig", env.EnvironmentName));
 
                 //数据库配置
-                services.Configure<DbConfig>(ConfigHelper.Load("dbconfig", env.EnvironmentName, true));
+                services.Configure<DbConfig>(ConfigHelper.Load("dbconfig", env.EnvironmentName));
 
                 //缓存配置
-                services.Configure<CacheConfig>(ConfigHelper.Load("cacheconfig", env.EnvironmentName, true));
+                services.Configure<CacheConfig>(ConfigHelper.Load("cacheconfig", env.EnvironmentName));
 
                 //oss上传配置
-                services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName, true));
+                services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
             }
 
             services.Configure<EmailConfig>(configuration.GetSection("Email"));
@@ -291,10 +292,39 @@ public class HostApp
         //健康检查
         services.AddHealthChecks();
 
-        //雪花漂移算法
-        var idGeneratorOptions = new IdGeneratorOptions(1) { WorkerIdBitLength = 6 };
-        _hostAppOptions?.ConfigureIdGenerator?.Invoke(idGeneratorOptions);
-        YitIdHelper.SetIdGenerator(idGeneratorOptions);
+        var cacheConfig = AppInfo.GetOptions<CacheConfig>();
+
+        #region 缓存
+        //添加内存缓存
+        services.AddMemoryCache();
+        if (cacheConfig.Type == CacheType.Redis)
+        {
+            //FreeRedis客户端
+            var redis = new RedisClient(cacheConfig.Redis.ConnectionString)
+            {
+                Serialize = JsonConvert.SerializeObject,
+                Deserialize = JsonConvert.DeserializeObject
+            };
+            services.AddSingleton(redis);
+            services.AddSingleton<IRedisClient>(redis);
+            //Redis缓存
+            services.AddSingleton<ICacheTool, RedisCacheTool>();
+            //分布式Redis缓存
+            services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
+            //分布式雪花漂移Id
+            services.AddIdGenerator();
+        }
+        else
+        {
+            //内存缓存
+            services.AddSingleton<ICacheTool, MemoryCacheTool>();
+            //分布式内存缓存
+            services.AddDistributedMemoryCache();
+            //雪花漂移Id
+            YitIdHelper.SetIdGenerator(appConfig.IdGenerator);
+        }
+
+        #endregion 缓存
 
         //权限处理
         services.AddScoped<IPermissionHandler, PermissionHandler>();
@@ -693,35 +723,6 @@ public class HostApp
         services.AddHttpClient();
 
         _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
-
-        #region 缓存
-        //添加内存缓存
-        services.AddMemoryCache();
-
-        var cacheConfig =  AppInfo.GetOptions<CacheConfig>();
-        if (cacheConfig.Type == CacheType.Redis)
-        {
-            //FreeRedis客户端
-            var redis = new RedisClient(cacheConfig.Redis.ConnectionString)
-            {
-                Serialize = JsonConvert.SerializeObject,
-                Deserialize = JsonConvert.DeserializeObject
-            };
-            services.AddSingleton(redis);
-            //Redis缓存
-            services.AddSingleton<ICacheTool, RedisCacheTool>();
-            //分布式Redis缓存
-            services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
-        }
-        else
-        {
-            //内存缓存
-            services.AddSingleton<ICacheTool, MemoryCacheTool>();
-            //分布式内存缓存
-            services.AddDistributedMemoryCache();
-        }
-
-        #endregion 缓存
 
         #region IP限流
 

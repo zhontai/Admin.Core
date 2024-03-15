@@ -81,11 +81,6 @@ public class HostAppOptions
     public Action<DynamicApiOptions> ConfigureDynamicApi { get; set; }
 
     /// <summary>
-    /// 配置雪花漂移算法
-    /// </summary>
-    public Action<IdGeneratorOptions> ConfigureIdGenerator { get; set; }
-
-    /// <summary>
     /// 配置SwaggerUI
     /// </summary>
     public Action<SwaggerUIOptions> ConfigureSwaggerUI { get; set; }
