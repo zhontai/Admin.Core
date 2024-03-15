@@ -30,6 +30,8 @@ public static class IdGeneratorExtensions
             if (_isSet)
                 throw new InvalidOperationException("只允许添加一次Id生成器");
 
+            Task.Delay(new Random().Next(10, 100)).Wait();
+
             SetIdGenerator(idGeneratorConfig);
 
             _isSet = true;

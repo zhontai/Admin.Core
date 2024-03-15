@@ -20,7 +20,7 @@
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="DotNetCore.CAP" Version="8.0.1" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="FreeRedis" Version="1.2.13" />
+		<PackageReference Include="FreeRedis" Version="1.2.14" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.2.5" />
 		<PackageReference Include="FreeSql" Version="3.2.815" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.8.3" />

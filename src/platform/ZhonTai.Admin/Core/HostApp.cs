@@ -311,7 +311,7 @@ public class HostApp
             services.AddSingleton<ICacheTool, RedisCacheTool>();
             //分布式Redis缓存
             services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
-            //分布式雪花漂移Id
+            //分布式Id生成器
             services.AddIdGenerator();
         }
         else
@@ -320,7 +320,7 @@ public class HostApp
             services.AddSingleton<ICacheTool, MemoryCacheTool>();
             //分布式内存缓存
             services.AddDistributedMemoryCache();
-            //雪花漂移Id
+            //Id生成器
             YitIdHelper.SetIdGenerator(appConfig.IdGenerator);
         }
 
