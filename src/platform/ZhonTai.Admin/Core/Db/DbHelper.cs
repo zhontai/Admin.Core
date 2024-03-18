@@ -50,7 +50,7 @@ public class DbHelper
         try
         {
             Console.WriteLine($"{Environment.NewLine}create database started");
-            var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
+            var filePath = Path.Combine(AppContext.BaseDirectory, dbConfig.CreateDbSqlFile).ToPath();
             if (File.Exists(filePath))
             {
                 var createDbSql = FileHelper.ReadFile(filePath);

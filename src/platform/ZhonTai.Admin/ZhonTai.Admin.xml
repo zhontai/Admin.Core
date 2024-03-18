@@ -938,6 +938,11 @@
             建库脚本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDbSqlFile">
+            <summary>
+            建库脚本文件
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.MonitorCommand">
             <summary>
             监听所有操作

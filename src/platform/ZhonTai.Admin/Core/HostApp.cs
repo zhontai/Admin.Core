@@ -146,13 +146,6 @@ public class HostApp
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             var appSettings = AppInfo.GetOptions<AppSettings>();
 
-            //限流配置
-            configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
-            if (env.EnvironmentName.NotNull())
-            {
-                configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-            }
-
             if(appSettings.UseConfigCenter)
             {
                 AddJsonFilesFromDirectory(configuration, env.EnvironmentName, appSettings.ConfigCenterPath);
@@ -178,6 +171,13 @@ public class HostApp
 
                 //oss上传配置
                 services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
+
+                //限流配置
+                configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
+                if (env.EnvironmentName.NotNull())
+                {
+                    configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                }
             }
 
             services.Configure<EmailConfig>(configuration.GetSection("Email"));

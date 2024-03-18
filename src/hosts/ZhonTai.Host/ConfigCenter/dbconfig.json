@@ -28,6 +28,8 @@
     //SqlServer "CREATE DATABASE [admindb]"
     //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
     "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+    //建库脚本文件
+    "createDbSqlFile": "Configs/createdbsql.txt",
 
     //同步结构
     "syncStructure": true,

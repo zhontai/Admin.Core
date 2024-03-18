@@ -99,6 +99,11 @@ public class DbConfig
     public string CreateDbSql { get; set; }
 
     /// <summary>
+    /// 建库脚本文件
+    /// </summary>
+    public string CreateDbSqlFile { get; set; } = "Configs/createdbsql.txt";
+
+    /// <summary>
     /// 监听所有操作
     /// </summary>
     public bool MonitorCommand { get; set; } = false;
