@@ -13,7 +13,6 @@ using ZhonTai.Admin.Core.Validators;
 using System;
 using ZhonTai.Admin.Domain;
 using Mapster;
-using FreeSql;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
