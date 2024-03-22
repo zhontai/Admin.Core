@@ -1414,7 +1414,7 @@ export interface PageInputRoleGetPageDto {
 }
 
 /** 分页信息输入 */
-export interface PageInputTaskGetPageDto {
+export interface PageInputTaskGetPageInput {
   /**
    * 当前页标
    * @format int32
@@ -1426,7 +1426,7 @@ export interface PageInputTaskGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
-  filter?: TaskGetPageDto
+  filter?: TaskGetPageInput
 }
 
 /** 分页信息输入 */
@@ -3566,9 +3566,11 @@ export interface TaskGetOutput {
   id: string
 }
 
-export interface TaskGetPageDto {
+export interface TaskGetPageInput {
+  /** 分组名称 */
+  groupName?: string | null
   /** 任务名称 */
-  topic?: string | null
+  taskName?: string | null
   /** 集群Id */
   clusterId?: string | null
   /** Running=0,Paused=1,Completed=2 */

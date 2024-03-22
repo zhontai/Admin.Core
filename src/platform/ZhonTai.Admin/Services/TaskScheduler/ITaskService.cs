@@ -12,7 +12,7 @@ public interface ITaskService
 {
     Task<TaskGetOutput> GetAsync(string id);
 
-    PageOutput<TaskListOutput> GetPage(PageInput<TaskGetPageDto> input);
+    Task<PageOutput<TaskListOutput>> GetPage(PageInput<TaskGetPageInput> input);
 
     Task<string> Add(TaskAddInput input);
 

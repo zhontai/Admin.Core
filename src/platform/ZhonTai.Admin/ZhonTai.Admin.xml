@@ -3998,6 +3998,36 @@
             创建结束时间
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.GroupName">
+            <summary>
+            分组名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskName">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.ClusterId">
+            <summary>
+            集群Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.StartAddTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.EndAddTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Repositories.AdminRepositoryBase`1">
             <summary>
             权限库基础仓储
@@ -7392,7 +7422,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput})">
             <summary>
             查询分页
             </summary>
@@ -7439,6 +7469,33 @@
             删除任务
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchRun(System.String[])">
+            <summary>
+            批量执行任务
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchPause(System.String[])">
+            <summary>
+            批量暂停任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchResume(System.String[])">
+            <summary>
+            批量启动任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchDelete(System.String[])">
+            <summary>
+            批量删除任务
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput">
