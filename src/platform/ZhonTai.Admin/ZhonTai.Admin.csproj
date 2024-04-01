@@ -18,14 +18,14 @@
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
 		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
-		<PackageReference Include="DotNetCore.CAP" Version="8.0.1" />
+		<PackageReference Include="DotNetCore.CAP" Version="8.1.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="FreeRedis" Version="1.2.14" />
+		<PackageReference Include="FreeRedis" Version="1.2.15" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.2.5" />
-		<PackageReference Include="FreeSql" Version="3.2.815" />
+		<PackageReference Include="FreeSql" Version="3.2.820" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.8.3" />
-		<PackageReference Include="FreeSql.Repository" Version="3.2.815" />
-		<PackageReference Include="FreeScheduler" Version="2.0.29" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.820" />
+		<PackageReference Include="FreeScheduler" Version="2.0.30" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="MailKit" Version="4.4.0" />
@@ -36,7 +36,7 @@
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.3" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
