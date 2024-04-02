@@ -53,16 +53,17 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IUserRepository> _userRep;
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IPermissionRepository> _permissionRep;
-
-    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
-    private ISlideCaptcha _captcha => LazyGetRequiredService<ISlideCaptcha>();
+    private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
+    private readonly Lazy<ISlideCaptcha> _captcha;
 
     public AuthService(
         Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IOptions<JwtConfig>> jwtConfig,
         Lazy<IUserRepository> userRep,
         Lazy<ITenantRepository> tenantRep,
-        Lazy<IPermissionRepository> permissionRep
+        Lazy<IPermissionRepository> permissionRep,
+        Lazy<IPasswordHasher<UserEntity>> passwordHasher,
+        Lazy<ISlideCaptcha> captcha
     )
     {
         _appConfig = appConfig;
@@ -70,6 +71,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _userRep = userRep;
         _tenantRep = tenantRep;
         _permissionRep = permissionRep;
+        _passwordHasher = passwordHasher;
+        _captcha = captcha;
     }
 
     /// <summary>
@@ -370,7 +373,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             {
                 throw ResultOutput.Exception("请完成安全验证");
             }
-            var validateResult = _captcha.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+            var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
             if (validateResult.Result != ValidateResultType.Success)
             {
                 throw ResultOutput.Exception($"安全{validateResult.Message}，请重新登录");
@@ -410,7 +413,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
             {
-                var passwordVerificationResult = _passwordHasher.VerifyHashedPassword(user, user.Password, input.Password);
+                var passwordVerificationResult = _passwordHasher.Value.VerifyHashedPassword(user, user.Password, input.Password);
                 valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
             }
             else
