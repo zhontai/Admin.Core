@@ -37,6 +37,7 @@ using Lazy.SlideCaptcha.Core.Validator;
 using static Lazy.SlideCaptcha.Core.ValidateResult;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -46,27 +47,29 @@ namespace ZhonTai.Admin.Services.Auth;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class AuthService : BaseService, IAuthService, IDynamicApi
 {
-    private readonly AppConfig _appConfig;
-    private readonly JwtConfig _jwtConfig;
-    private readonly IPermissionRepository _permissionRepository;
-    private readonly IUserRepository _userRepository;
-    private readonly ITenantRepository _tenantRepository;
+    
+    private readonly Lazy<IOptions<AppConfig>> _appConfig;
+    private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
+    private readonly Lazy<IUserRepository> _userRep;
+    private readonly Lazy<ITenantRepository> _tenantRep;
+    private readonly Lazy<IPermissionRepository> _permissionRep;
+
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
     private ISlideCaptcha _captcha => LazyGetRequiredService<ISlideCaptcha>();
 
     public AuthService(
-        AppConfig appConfig,
-        JwtConfig jwtConfig,
-        IUserRepository userRepository,
-        IPermissionRepository permissionRepository,
-        ITenantRepository tenantRepository
+        Lazy<IOptions<AppConfig>> appConfig,
+        Lazy<IOptions<JwtConfig>> jwtConfig,
+        Lazy<IUserRepository> userRep,
+        Lazy<ITenantRepository> tenantRep,
+        Lazy<IPermissionRepository> permissionRep
     )
     {
         _appConfig = appConfig;
         _jwtConfig = jwtConfig;
-        _userRepository = userRepository;
-        _permissionRepository = permissionRepository;
-        _tenantRepository = tenantRepository;
+        _userRep = userRep;
+        _tenantRep = tenantRep;
+        _permissionRep = permissionRep;
     }
 
     /// <summary>
@@ -91,7 +94,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
-        if (_appConfig.Tenant)
+        if (_appConfig.Value.Value.Tenant)
         {
             claims.AddRange(new []
             {
@@ -135,9 +138,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("未登录");
         }
 
-        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        var userRep = _userRep.Value;
+
+        using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
-            var profile = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id);
+            var profile = await userRep.GetAsync<AuthUserProfileDto>(User.Id);
 
             return profile;
         }
@@ -155,13 +160,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("未登录");
         }
 
-        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        using (_userRep.Value.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
-            var menuSelect = _permissionRepository.Select;
+            var permissionRep = _permissionRep.Value;
+            var menuSelect = permissionRep.Select;
 
             if (!User.PlatformAdmin)
             {
-                var db = _permissionRepository.Orm;
+                var db = permissionRep.Orm;
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
@@ -208,19 +214,22 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("未登录");
         }
 
-        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        var userRep = _userRep.Value;
+        var permissionRep = _permissionRep.Value;
+
+        using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
             var authGetUserPermissionsOutput = new AuthGetUserPermissionsOutput
             {
                 //用户信息
-                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
+                User = await userRep.GetAsync<AuthUserProfileDto>(User.Id)
             };
 
-            var dotSelect = _permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+            var dotSelect = permissionRep.Select.Where(a => a.Type == PermissionType.Dot);
 
             if (!User.PlatformAdmin)
             {
-                var db = _permissionRepository.Orm;
+                var db = permissionRep.Orm;
                 if (User.TenantAdmin)
                 {
                     dotSelect = dotSelect.Where(a =>
@@ -263,20 +272,23 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("未登录");
         }
 
-        using (_userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        var userRep = _userRep.Value;
+        var permissionRep = _permissionRep.Value;
+
+        using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
             var authGetUserInfoOutput = new AuthGetUserInfoOutput
             {
                 //用户信息
-                User = await _userRepository.GetAsync<AuthUserProfileDto>(User.Id)
+                User = await userRep.GetAsync<AuthUserProfileDto>(User.Id)
             };
 
-            var menuSelect = _permissionRepository.Select;
-            var dotSelect = _permissionRepository.Select.Where(a => a.Type == PermissionType.Dot);
+            var menuSelect = permissionRep.Select;
+            var dotSelect = permissionRep.Select.Where(a => a.Type == PermissionType.Dot);
 
             if (!User.PlatformAdmin)
             {
-                var db = _permissionRepository.Orm;
+                var db = permissionRep.Orm;
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
@@ -343,14 +355,16 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
-        using var _ = _userRepository.DataFilter.DisableAll();
-        using var __ = _userRepository.DataFilter.Enable(FilterNames.Delete);
+        var userRep = _userRep.Value;
+
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
 
         var stopwatch = Stopwatch.StartNew();
 
         #region 验证码校验
 
-        if (_appConfig.VarifyCode.Enable)
+        if (_appConfig.Value.Value.VarifyCode.Enable)
         {
             if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
             {
@@ -390,7 +404,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #endregion
 
         #region 登录
-        var user = await _userRepository.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+        var user = await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
         var valid = user?.Id > 0;
         if(valid)
         {
@@ -419,9 +433,9 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         #region 获得token
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Tenant)
+        if (_appConfig.Value.Value.Tenant)
         {
-            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
             if (!(tenant != null && tenant.Enabled))
             {
                 throw ResultOutput.Exception("企业已停用，禁止登录");
@@ -462,8 +476,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
     {
-        using var _ = _userRepository.DataFilter.DisableAll();
-        using var __ = _userRepository.DataFilter.Enable(FilterNames.Delete);
+        var userRep = _userRep.Value;
+
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
 
         var stopwatch = Stopwatch.StartNew();
 
@@ -487,7 +503,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #endregion
 
         #region 登录
-        var user = await _userRepository.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+        var user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
         if (!(user?.Id > 0))
         {
             throw ResultOutput.Exception("账号不存在");
@@ -501,9 +517,9 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         #region 获得token
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Tenant)
+        if (_appConfig.Value.Value.Tenant)
         {
-            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
             if (!(tenant != null && tenant.Enabled))
             {
                 throw ResultOutput.Exception("企业已停用，禁止登录");
@@ -564,7 +580,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         //验签
-        var securityKey = _jwtConfig.SecurityKey;
+        var securityKey = _jwtConfig.Value.Value.SecurityKey;
         var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(securityKey)), SecurityAlgorithms.HmacSha256);
         var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
         if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
@@ -582,7 +598,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception("账号已停用，禁止登录");
         }
 
-        if (_appConfig.Tenant)
+        if (_appConfig.Value.Value.Tenant)
         {
             if (!(user.Tenant != null && user.Tenant.Enabled))
             {
@@ -603,6 +619,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public bool IsCaptcha()
     {
-        return _appConfig.VarifyCode.Enable;
+        return _appConfig.Value.Value.VarifyCode.Enable;
     }
 }

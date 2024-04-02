@@ -167,8 +167,8 @@ const state = reactive({
     taskName: '',
     groupName: '',
     taskStatus: undefined as TaskStatus | undefined,
-    startAddTime: null,
-    endAddTime: null,
+    startAddTime: undefined,
+    endAddTime: undefined,
   },
   total: 0,
   pageInput: {
