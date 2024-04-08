@@ -311,8 +311,16 @@ public class HostApp
             services.AddSingleton<ICacheTool, RedisCacheTool>();
             //分布式Redis缓存
             services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
-            //分布式Id生成器
-            services.AddIdGenerator();
+            if(_hostAppOptions?.ConfigureIdGenerator != null)
+            {
+                _hostAppOptions?.ConfigureIdGenerator?.Invoke(appConfig.IdGenerator);
+                YitIdHelper.SetIdGenerator(appConfig.IdGenerator);
+            }
+            else
+            {
+                //分布式Id生成器
+                services.AddIdGenerator();
+            }
         }
         else
         {
@@ -321,6 +329,7 @@ public class HostApp
             //分布式内存缓存
             services.AddDistributedMemoryCache();
             //Id生成器
+            _hostAppOptions?.ConfigureIdGenerator?.Invoke(appConfig.IdGenerator);
             YitIdHelper.SetIdGenerator(appConfig.IdGenerator);
         }
 

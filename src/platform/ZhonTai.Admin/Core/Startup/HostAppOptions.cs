@@ -91,6 +91,11 @@ public class HostAppOptions
     public Action<SwaggerUIOptions> ConfigureSwaggerUI { get; set; }
 
     /// <summary>
+    /// 配置雪花漂移算法
+    /// </summary>
+    public Action<IdGeneratorOptions> ConfigureIdGenerator { get; set; }
+
+    /// <summary>
     /// 自定义数据库初始化
     /// </summary>
     public bool CustomInitDb { get; set; } = false;
