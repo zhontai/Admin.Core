@@ -50,7 +50,7 @@ public class DbConfig
     /// </summary>
     public bool SyncStructureSql { get; set; } = false;
 
-    private int _syncStructureEntityBatchSize = 10;
+    private int _syncStructureEntityBatchSize = 1;
 
     /// <summary>
     /// 同步结构批次实体数
