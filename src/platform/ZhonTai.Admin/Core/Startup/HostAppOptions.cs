@@ -71,6 +71,11 @@ public class HostAppOptions
     public Action<FreeSqlBuilder, DbConfig> ConfigureFreeSqlBuilder { get; set; }
 
     /// <summary>
+    /// 配置FreeSql同步结构
+    /// </summary>
+    public Action<IFreeSql, DbConfig> ConfigureFreeSqlSyncStructure { get; set; }
+
+    /// <summary>
     /// 配置FreeSql
     /// </summary>
     public Action<IFreeSql, DbConfig> ConfigureFreeSql { get; set; }

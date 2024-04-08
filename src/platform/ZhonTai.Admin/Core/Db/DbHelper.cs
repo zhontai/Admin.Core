@@ -250,7 +250,11 @@ public class DbHelper
     /// <summary>
     /// 同步结构
     /// </summary>
-    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
+    /// <param name="db"></param>
+    /// <param name="msg"></param>
+    /// <param name="dbConfig"></param>
+    /// <param name="configureFreeSqlSyncStructure"></param>
+    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, Action<IFreeSql, DbConfig> configureFreeSqlSyncStructure = null)
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -267,8 +271,18 @@ public class DbHelper
         Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
         //获得指定程序集表实体
-        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
-        db.CodeFirst.SyncStructure(entityTypes);
+        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames)?.ToList();
+
+        var batchSize = dbConfig.SyncStructureEntityBatchSize;
+
+        for (int i = 0, count = (entityTypes != null ? entityTypes.Count : 0); i < count; i += batchSize)
+        {
+            var batchEntityTypes = entityTypes.GetRange(i, Math.Min(batchSize, count - i));
+            db.CodeFirst.SyncStructure(batchEntityTypes.ToArray());
+        }
+
+        //自定义迁移结构
+        configureFreeSqlSyncStructure?.Invoke(db, dbConfig);
 
         if (dbConfig.SyncStructureSql)
         {
@@ -533,7 +547,7 @@ public class DbHelper
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                SyncStructure(fsql, dbConfig: dbConfig);
+                SyncStructure(fsql, dbConfig: dbConfig, configureFreeSqlSyncStructure: hostAppOptions?.ConfigureFreeSqlSyncStructure);
             }
 
             #region 审计数据

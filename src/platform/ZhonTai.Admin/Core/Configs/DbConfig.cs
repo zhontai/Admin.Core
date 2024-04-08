@@ -49,6 +49,11 @@ public class DbConfig
     public bool SyncStructureSql { get; set; } = false;
 
     /// <summary>
+    /// 同步结构批次实体数
+    /// </summary>
+    public int SyncStructureEntityBatchSize { get; set; } = 10;
+
+    /// <summary>
     /// 同步数据
     /// </summary>
     public bool SyncData { get; set; } = false;

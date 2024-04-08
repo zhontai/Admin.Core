@@ -888,6 +888,11 @@
             同步结构脚本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncStructureEntityBatchSize">
+            <summary>
+            同步结构批次实体数
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncData">
             <summary>
             同步数据
@@ -1417,10 +1422,14 @@
             <param name="user"></param>
             <param name="dbConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig,System.Action{IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig})">
             <summary>
             同步结构
             </summary>
+            <param name="db"></param>
+            <param name="msg"></param>
+            <param name="dbConfig"></param>
+            <param name="configureFreeSqlSyncStructure"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
@@ -2427,6 +2436,11 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlBuilder">
             <summary>
             配置FreeSql构建器
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlSyncStructure">
+            <summary>
+            配置FreeSql同步结构
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">

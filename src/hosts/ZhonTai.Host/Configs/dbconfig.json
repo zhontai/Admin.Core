@@ -2,7 +2,7 @@
   //数据库注册键
   "key": "admindb",
 
-  //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
+  //程序集名称，自动获取实体表，为空则通过ConfigureFreeSqlSyncStructure自定义配置
   "assemblyNames": [ "ZhonTai.Admin" ],
 
   //监听所有操作
@@ -30,6 +30,8 @@
 
   //同步结构
   "syncStructure": true,
+  //同步结构批次实体数
+  "syncStructureEntityBatchSize": 10,
   //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
   //同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
