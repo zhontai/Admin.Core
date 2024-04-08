@@ -274,11 +274,25 @@ public class DbHelper
         var entityTypes = GetEntityTypes(dbConfig.AssemblyNames)?.ToList();
 
         var batchSize = dbConfig.SyncStructureEntityBatchSize;
+        batchSize = batchSize <= 1 ? 1 : batchSize;
 
-        for (int i = 0, count = (entityTypes != null ? entityTypes.Count : 0); i < count; i += batchSize)
+        if(entityTypes != null && entityTypes.Count > 0)
         {
-            var batchEntityTypes = entityTypes.GetRange(i, Math.Min(batchSize, count - i));
-            db.CodeFirst.SyncStructure(batchEntityTypes.ToArray());
+            if (batchSize == 1)
+            {
+                foreach (var entityType in entityTypes)
+                {
+                    db.CodeFirst.SyncStructure(entityType);
+                }
+            }
+            else
+            {
+                for (int i = 0, count = entityTypes.Count; i < count; i += batchSize)
+                {
+                    var batchEntityTypes = entityTypes.GetRange(i, Math.Min(batchSize, count - i));
+                    db.CodeFirst.SyncStructure(batchEntityTypes.ToArray());
+                }
+            }
         }
 
         //自定义迁移结构

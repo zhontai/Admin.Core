@@ -1,4 +1,6 @@
-﻿using ZhonTai.Admin.Core.Consts;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using ZhonTai.Admin.Core.Consts;
 using DataType = FreeSql.DataType;
 
 namespace ZhonTai.Admin.Core.Configs;
@@ -48,10 +50,16 @@ public class DbConfig
     /// </summary>
     public bool SyncStructureSql { get; set; } = false;
 
+    private int _syncStructureEntityBatchSize = 10;
+
     /// <summary>
     /// 同步结构批次实体数
     /// </summary>
-    public int SyncStructureEntityBatchSize { get; set; } = 10;
+    public int SyncStructureEntityBatchSize
+    {
+        get => _syncStructureEntityBatchSize <= 1 ? 1 : _syncStructureEntityBatchSize;
+        set => _syncStructureEntityBatchSize = value;
+    }
 
     /// <summary>
     /// 同步数据

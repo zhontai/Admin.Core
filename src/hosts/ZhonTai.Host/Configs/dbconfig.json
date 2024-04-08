@@ -31,7 +31,7 @@
   //同步结构
   "syncStructure": true,
   //同步结构批次实体数
-  "syncStructureEntityBatchSize": 10,
+  "syncStructureEntityBatchSize": 1,
   //同步数据，只新增数据不修改数据，想要修改数据需开启sysUpdateData
   "syncData": true,
   //同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
