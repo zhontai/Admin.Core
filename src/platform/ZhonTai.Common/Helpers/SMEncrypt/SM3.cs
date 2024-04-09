@@ -46,10 +46,10 @@ public abstract class GeneralDigest : IDigest
     int inOff,
     int length)
     {
-            //
-            // fill the current word
-            //
-            while ((xBufOff != 0) && (length > 0))
+        //
+        // fill the current word
+        //
+        while ((xBufOff != 0) && (length > 0))
         {
             Update(input[inOff]);
             inOff++;
@@ -116,13 +116,13 @@ public abstract class GeneralDigest : IDigest
 
 public class SupportClass
 {
-        /// <summary>
-        /// Performs an unsigned bitwise right shift with the specified number
-        /// </summary>
-        ///<param name="number">Number to operate on
-        ///<param name="bits">Ammount of bits to shift
-        /// <returns>The resulting number from the shift operation</returns>
-        public static int URShift(int number, int bits)
+    /// <summary>
+    /// Performs an unsigned bitwise right shift with the specified number
+    /// </summary>
+    /// <param name="number">Number to operate on</param>
+    /// <param name="bits">Ammount of bits to shift</param>
+    /// <returns>The resulting number from the shift operation</returns>
+    public static int URShift(int number, int bits)
     {
         if (number >= 0)
             return number >> bits;
@@ -133,8 +133,8 @@ public class SupportClass
     /// <summary>
             /// Performs an unsigned bitwise right shift with the specified number
             /// </summary>
-            ///<param name="number">Number to operate on
-            ///<param name="bits">Ammount of bits to shift
+            ///<param name="number">Number to operate on</param>
+            ///<param name="bits">Ammount of bits to shift</param>
             /// <returns>The resulting number from the shift operation</returns>
     public static int URShift(int number, long bits)
     {
@@ -144,8 +144,8 @@ public class SupportClass
     /// <summary>
             /// Performs an unsigned bitwise right shift with the specified number
             /// </summary>
-            ///<param name="number">Number to operate on
-            ///<param name="bits">Ammount of bits to shift
+            ///<param name="number">Number to operate on</param>
+            ///<param name="bits">Ammount of bits to shift</param>
             /// <returns>The resulting number from the shift operation</returns>
     public static long URShift(long number, int bits)
     {
@@ -158,8 +158,8 @@ public class SupportClass
     /// <summary>
             /// Performs an unsigned bitwise right shift with the specified number
             /// </summary>
-            ///<param name="number">Number to operate on
-            ///<param name="bits">Ammount of bits to shift
+            ///<param name="number">Number to operate on</param>
+            ///<param name="bits">Ammount of bits to shift</param>
             /// <returns>The resulting number from the shift operation</returns>
     public static long URShift(long number, long bits)
     {
