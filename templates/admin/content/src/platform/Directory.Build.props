@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<Version>5.1.4</Version>
 		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
-		<PackageZhonTaiVersion>8.0.0</PackageZhonTaiVersion>
-		<PackageFreeSqlVersion>3.2.815</PackageFreeSqlVersion>
+		<PackageZhonTaiVersion>8.1.0</PackageZhonTaiVersion>
+		<PackageFreeSqlVersion>3.2.820</PackageFreeSqlVersion>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>

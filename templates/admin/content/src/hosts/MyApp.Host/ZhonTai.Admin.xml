@@ -888,6 +888,11 @@
             同步结构脚本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncStructureEntityBatchSize">
+            <summary>
+            同步结构批次实体数
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncData">
             <summary>
             同步数据
@@ -936,6 +941,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDbSql">
             <summary>
             建库脚本
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDbSqlFile">
+            <summary>
+            建库脚本文件
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.MonitorCommand">
@@ -1412,10 +1422,14 @@
             <param name="user"></param>
             <param name="dbConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig,System.Action{IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig})">
             <summary>
             同步结构
             </summary>
+            <param name="db"></param>
+            <param name="msg"></param>
+            <param name="dbConfig"></param>
+            <param name="configureFreeSqlSyncStructure"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
@@ -2424,6 +2438,11 @@
             配置FreeSql构建器
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlSyncStructure">
+            <summary>
+            配置FreeSql同步结构
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">
             <summary>
             配置FreeSql
@@ -2437,6 +2456,11 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureSwaggerUI">
             <summary>
             配置SwaggerUI
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureIdGenerator">
+            <summary>
+            配置雪花漂移算法
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.CustomInitDb">
@@ -3989,6 +4013,36 @@
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.EndAddTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.GroupName">
+            <summary>
+            分组名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskName">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.ClusterId">
+            <summary>
+            集群Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.StartAddTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.EndAddTime">
             <summary>
             创建结束时间
             </summary>
@@ -7387,7 +7441,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput})">
             <summary>
             查询分页
             </summary>
@@ -7434,6 +7488,33 @@
             删除任务
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchRun(System.String[])">
+            <summary>
+            批量执行任务
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchPause(System.String[])">
+            <summary>
+            批量暂停任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchResume(System.String[])">
+            <summary>
+            批量启动任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchDelete(System.String[])">
+            <summary>
+            批量删除任务
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput">

@@ -53,6 +53,8 @@
 
     //同步结构
     "syncStructure": true,
+    //同步结构批次实体数
+    "syncStructureEntityBatchSize": 1,
     //同步数据
     "syncData": true,
     //同步更新数据
