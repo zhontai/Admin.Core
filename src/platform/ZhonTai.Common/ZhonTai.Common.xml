@@ -528,6 +528,134 @@
             <param name="input"></param>  
             <returns></returns>  
         </member>
+        <member name="T:ZhonTai.Common.Helpers.SM2Encrypt">
+            <summary>
+            SM2加密类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.GenerateKeyPair(Org.BouncyCastle.Math.EC.ECPoint@,Org.BouncyCastle.Math.BigInteger@)">
+            <summary>
+            
+            </summary>
+            <param name="pubk"></param>
+            <param name="prik"></param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.GenerateKeyPair(System.String@,System.String@)">
+            <summary>
+            
+            </summary>
+            <param name="pubk"></param>
+            <param name="prik"></param>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.Encrypt(System.Byte[],System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="publicKey"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.Decrypt(System.Byte[],System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="privateKey"></param>
+            <param name="encryptedData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.SM3Encrypt">
+            <summary>
+            SM3加密类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encrypt.Encrypt(System.String,System.Boolean)">
+            <summary>
+            SM3加密类
+            </summary>
+            <param name="plainText"></param>
+            <param name="Case">false小写，true大写</param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.SM4Encrypt">
+            <summary>
+            SM4加密类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Encrypt_ECB(System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="plainText"></param>
+            <param name="secretKey"></param>
+            <param name="hexstring"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Decrypt_ECB(System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="cipherText"></param>
+            <param name="secretKey"></param>
+            <param name="hexstring"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Encrypt_CBC(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="plainText"></param>
+            <param name="secretKey"></param>
+            <param name="iv"></param>
+            <param name="hexstring"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Decrypt_CBC(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="cipherText"></param>
+            <param name="secretKey"></param>
+            <param name="iv"></param>
+            <param name="hexstring"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.SMEncrypt.ByteUtils">
+            <summary>
+            字节数组操作扩展类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int32,System.Int32)">
+            <summary>
+            Performs an unsigned bitwise right shift with the specified number
+            </summary>
+            <param name="number">Number to operate on</param>
+            <param name="bits">Ammount of bits to shift</param>
+            <returns>The resulting number from the shift operation</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int32,System.Int64)">
+             <summary>
+             Performs an unsigned bitwise right shift with the specified number
+             </summary>
+            <param name="number">Number to operate on</param>
+            <param name="bits">Ammount of bits to shift</param>
+             <returns>The resulting number from the shift operation</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int64,System.Int32)">
+             <summary>
+             Performs an unsigned bitwise right shift with the specified number
+             </summary>
+            <param name="number">Number to operate on</param>
+            <param name="bits">Ammount of bits to shift</param>
+             <returns>The resulting number from the shift operation</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int64,System.Int64)">
+             <summary>
+             Performs an unsigned bitwise right shift with the specified number
+             </summary>
+            <param name="number">Number to operate on</param>
+            <param name="bits">Ammount of bits to shift</param>
+             <returns>The resulting number from the shift operation</returns>
+        </member>
         <member name="T:ZhonTai.Common.Helpers.StringHelper">
             <summary>
             字符串帮助类
