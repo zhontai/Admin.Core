@@ -90,10 +90,10 @@ public class ApiControllerTest : BaseControllerTest
     //    String pubk2 = "04F6E0C3345AE42B51E06BF50B98834988D54EBC7460FE135A48171BC0629EAE205EEDE253A530608178A98F1E19BB737302813BA39ED3FA3C51639D7A20C7391A";
 
     //    System.Console.Out.WriteLine("加密: ");
-    //    String cipherText = SM2Utils.Encrypt(Hex.Decode(pubk), sourceData);
+    //    String cipherText = SM2Encrypt.Encrypt(Hex.Decode(pubk), sourceData);
     //    System.Console.Out.WriteLine(cipherText);
     //    System.Console.Out.WriteLine("解密: ");
-    //    plainText = Encoding.Default.GetString(SM2Utils.Decrypt(Hex.Decode(prik), Hex.Decode(cipherText)));
+    //    plainText = Encoding.Default.GetString(SM2Encrypt.Decrypt(Hex.Decode(prik), Hex.Decode(cipherText)));
     //    System.Console.Out.WriteLine(plainText);
     //    Assert.Equal("ererfeiisgod", plainText);
     //}
