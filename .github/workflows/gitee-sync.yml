@@ -14,5 +14,5 @@ jobs:
               env:
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_HOME }}
               with:
-                  source-repo: "git@github.com:zhontai/Admin.Core.git"
-                  destination-repo: "git@gitee.com:zhontai/Admin.Core.git"
+                  source-repo: "git@github.com:TTonlyV5/Admin.Core.git"
+                  destination-repo: "git@gitee.com:TTonlyV5/Admin.Core.git"
