@@ -1,34 +1,45 @@
-name: Upstream Sync
-
-permissions:
-    contents: write
-
-on:
-    schedule:
-        - cron: "0 0 * * *"
-    workflow_dispatch:
-
-jobs:
-    sync_with_upstream:
-        name: Sync with Upstream
-        runs-on: ubuntu-latest
-        if: ${{ github.event.repository.fork }}
-
-        steps:
-            - name: Checkout target repo
-              uses: actions/checkout@v3
-
-            - name: Sync Upstream
-              uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
-              with:
-                  target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-                  upstream_sync_repo: TTonlyV5/Admin.Core
-                  upstream_sync_branch: main
-                  target_sync_branch: main
-                  test_mode: false
-
-            - name: Check for Failure
-              if: failure()
-              run: |
-                  echo "[Error] Due to a change in the workflow file of the upstream repository, GitHub has automatically suspended the scheduled automatic update. You need to manually sync your fork."
-                  exit 1
+name: Sync Fork  
+  
+on:  
+  # 这里可以配置触发条件，例如定期运行  
+  schedule:  
+    - cron: '0 0 * * *' # 每天午夜触发一次  
+  
+jobs:  
+  sync:  
+    runs-on: ubuntu-latest  
+    steps:  
+      - name: Checkout  
+        uses: actions/checkout@v2  
+        with:  
+          # 配置你的fork仓库的引用，例如你的默认分支可能是main  
+          ref: main  
+          # 确保你的fork仓库是可写的  
+          persist-credentials: false  
+          # 不检查子模块  
+          submodules: false  
+  
+      - name: Configure Git  
+        run: |  
+          # 设置用户名和邮箱，用于提交  
+          git config --global user.name "TTonlyV5"  
+          git config --global user.email "514263710@qq.com"  
+  
+      - name: Fetch Upstream Changes  
+        run: |  
+          # 添加上游仓库作为远程仓库  
+          git remote add upstream https://github.com/upstream-owner/upstream-repo.git  
+          # 获取上游仓库的所有更新  
+          git fetch upstream  
+  
+      - name: Merge Upstream Changes  
+        run: |  
+          # 尝试合并上游更改到你的fork仓库  
+          git merge upstream/main  
+          # 如果出现冲突，你可以选择如何解决，例如放弃本地更改，使用上游的更改  
+          # git checkout --theirs .  
+  
+      - name: Push Changes  
+        run: |  
+          # 强制推送合并后的更改到你的fork仓库  
+          git push origin main --force-with-lease
