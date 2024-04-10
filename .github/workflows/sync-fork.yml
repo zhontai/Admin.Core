@@ -28,7 +28,7 @@ jobs:
       - name: Fetch Upstream Changes  
         run: |  
           # 添加上游仓库作为远程仓库  
-          git remote add upstream https://github.com/upstream-owner/upstream-repo.git  
+          git remote add upstream https://github.com/zhontai/Admin.Core.git
           # 获取上游仓库的所有更新  
           git fetch upstream  
   
