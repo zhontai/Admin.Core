@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Sync to Gitee 💕
-              uses: wearerequired/git-mirror-action@master
+              uses: TTonlyV5/git-mirror-action@master
               env:
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_HOME }}
               with:
