@@ -22,7 +22,7 @@ jobs:
               uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
               with:
                   target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-                  upstream_sync_repo: HackJava/HackJava
+                  upstream_sync_repo: TTonlyV5/Admin.Core
                   upstream_sync_branch: main
                   target_sync_branch: main
                   test_mode: false
