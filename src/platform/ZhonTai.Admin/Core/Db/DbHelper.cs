@@ -50,7 +50,7 @@ public class DbHelper
         try
         {
             Console.WriteLine($"{Environment.NewLine}create database started");
-            var filePath = Path.Combine(AppContext.BaseDirectory, "Configs/createdbsql.txt").ToPath();
+            var filePath = Path.Combine(AppContext.BaseDirectory, dbConfig.CreateDbSqlFile).ToPath();
             if (File.Exists(filePath))
             {
                 var createDbSql = FileHelper.ReadFile(filePath);
@@ -140,13 +140,23 @@ public class DbHelper
     /// <param name="e"></param>
     /// <param name="timeOffset"></param>
     /// <param name="user"></param>
-    public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user)
+    /// <param name="dbConfig"></param>
+    public static void AuditValue(AuditValueEventArgs e, TimeSpan timeOffset, IUser user, DbConfig dbConfig)
     {
+        if (e.Property == null)
+        {
+            return;
+        }
+
         //数据库时间
         if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
         && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
         && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
         {
+            if(!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+            {
+                return;
+            }
             e.Value = DateTime.Now.Subtract(timeOffset);
         }
 
@@ -183,11 +193,16 @@ public class DbHelper
                         e.Value = user.Id;
                     }
                     break;
-
                 case "CreatedUserName":
                     if (e.Value == null || ((string)e.Value).IsNull())
                     {
                         e.Value = user.UserName;
+                    }
+                    break;
+                case "CreatedUserRealName":
+                    if (e.Value == null || ((string)e.Value).IsNull())
+                    {
+                        e.Value = user.Name;
                     }
                     break;
                 case "OwnerOrgId":
@@ -196,6 +211,7 @@ public class DbHelper
                         e.Value = user.DataPermission?.OrgId;
                     }
                     break;
+
                 case "TenantId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
@@ -206,16 +222,18 @@ public class DbHelper
             }
         }
 
-        if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
+        if ((e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate) || dbConfig.ForceUpdate)
         {
             switch (e.Property.Name)
             {
                 case "ModifiedUserId":
                     e.Value = user.Id;
                     break;
-
                 case "ModifiedUserName":
                     e.Value = user.UserName;
+                    break;
+                case "ModifiedUserRealName":
+                    e.Value = user.Name;
                     break;
             }
         }
@@ -232,7 +250,11 @@ public class DbHelper
     /// <summary>
     /// 同步结构
     /// </summary>
-    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null)
+    /// <param name="db"></param>
+    /// <param name="msg"></param>
+    /// <param name="dbConfig"></param>
+    /// <param name="configureFreeSqlSyncStructure"></param>
+    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, Action<IFreeSql, DbConfig> configureFreeSqlSyncStructure = null)
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -249,8 +271,32 @@ public class DbHelper
         Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
         //获得指定程序集表实体
-        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
-        db.CodeFirst.SyncStructure(entityTypes);
+        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames)?.ToList();
+
+        var batchSize = dbConfig.SyncStructureEntityBatchSize;
+        batchSize = batchSize <= 1 ? 1 : batchSize;
+
+        if(entityTypes != null && entityTypes.Count > 0)
+        {
+            if (batchSize == 1)
+            {
+                foreach (var entityType in entityTypes)
+                {
+                    db.CodeFirst.SyncStructure(entityType);
+                }
+            }
+            else
+            {
+                for (int i = 0, count = entityTypes.Count; i < count; i += batchSize)
+                {
+                    var batchEntityTypes = entityTypes.GetRange(i, Math.Min(batchSize, count - i));
+                    db.CodeFirst.SyncStructure(batchEntityTypes.ToArray());
+                }
+            }
+        }
+
+        //自定义迁移结构
+        configureFreeSqlSyncStructure?.Invoke(db, dbConfig);
 
         if (dbConfig.SyncStructureSql)
         {
@@ -293,10 +339,19 @@ public class DbHelper
                 // 同步数据审计方法
                 void SyncDataAuditValue(object s, AuditValueEventArgs e)
                 {
+                    if (e.Property == null)
+                    {
+                        return;
+                    }
+
                     if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
                            && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
                            && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
                     {
+                        if (!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+                        {
+                            return;
+                        }
                         e.Value = DateTime.Now.Subtract(TimeOffset);
                     }
 
@@ -322,14 +377,18 @@ public class DbHelper
                                     e.Value = user.Id;
                                 }
                                 break;
-
                             case "CreatedUserName":
                                 if (e.Value == null || ((string)e.Value).IsNull())
                                 {
                                     e.Value = user.UserName;
                                 }
                                 break;
-
+                            case "CreatedUserRealName":
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.Name;
+                                }
+                                break;
                             case "TenantId":
                                 if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                                 {
@@ -339,16 +398,21 @@ public class DbHelper
                         }
                     }
 
-                    if (e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate)
+                    if ((e.AuditValueType is AuditValueType.Update or AuditValueType.InsertOrUpdate) || dbConfig.ForceUpdate)
                     {
                         switch (e.Property.Name)
                         {
                             case "ModifiedUserId":
                                 e.Value = user.Id;
                                 break;
-
                             case "ModifiedUserName":
                                 e.Value = user.UserName;
+                                break;
+                            case "ModifiedUserRealName":
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.Name;
+                                }
                                 break;
                         }
                     }
@@ -497,7 +561,7 @@ public class DbHelper
             //同步结构
             if (dbConfig.SyncStructure)
             {
-                SyncStructure(fsql, dbConfig: dbConfig);
+                SyncStructure(fsql, dbConfig: dbConfig, configureFreeSqlSyncStructure: hostAppOptions?.ConfigureFreeSqlSyncStructure);
             }
 
             #region 审计数据
@@ -508,7 +572,7 @@ public class DbHelper
             TimeOffset = timeOffset;
             fsql.Aop.AuditValue += (s, e) =>
             {
-                AuditValue(e, timeOffset, user);
+                AuditValue(e, timeOffset, user, dbConfig);
             };
 
             #endregion 审计数据

@@ -1,0 +1,33 @@
+{
+  /*
+  https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware
+  https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/Using-Redis-as-a-distributed-counter-store
+  */
+  "IpRateLimiting": {
+    "EnableEndpointRateLimiting": true,
+    "StackBlockedRequests": false,
+    "RealIpHeader": "X-Real-IP",
+    "ClientIdHeader": "X-ClientId",
+    "IpWhitelist": [], // "127.0.0.1"
+    "EndpointWhitelist": [ "get:/api/admin/auth/refresh" ], // "get:/api/a", "*:/api/b"
+    "ClientWhitelist": [],
+    "HttpStatusCode": 429,
+    "QuotaExceededResponse": {
+      "Content": "{{\"code\":429,\"msg\":\"访问过于频繁！\",\"success\": false}}",
+      "ContentType": "application/json; charset=utf-8",
+      "StatusCode": 429
+    },
+    "GeneralRules": [
+      {
+        "Endpoint": "*",
+        "Period": "1s",
+        "Limit": 3
+      },
+      {
+        "Endpoint": "*",
+        "Period": "10m",
+        "Limit": 200
+      }
+    ]
+  }
+}

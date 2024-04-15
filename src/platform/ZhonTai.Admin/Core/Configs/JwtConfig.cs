@@ -10,17 +10,17 @@ public class JwtConfig
     /// <summary>
     /// 发行者
     /// </summary>
-    public string Issuer { get; set; } = "http://127.0.0.1:8888";
+    public string Issuer { get; set; } = "admin.core";
 
     /// <summary>
     /// 订阅者
     /// </summary>
-    public string Audience { get; set; } = "http://127.0.0.1:8888";
+    public string Audience { get; set; } = "admin.core";
 
     /// <summary>
     /// 密钥
     /// </summary>
-    public string SecurityKey { get; set; } = "8efbdb87f52111e08978e9edada709525407095254008978e98efbdb87f52111";
+    public string SecurityKey { get; set; } = "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877ad";
 
     /// <summary>
     /// 有效期(分钟)

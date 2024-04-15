@@ -101,8 +101,15 @@ const onQuery = async () => {
   state.loading = false
 }
 
-const customNodeClass = (data: any) => {
-  return data.row ? 'is-penultimate' : ''
+const customNodeClass = (data: any, node: any) => {
+  let isPenultimate = true
+  for (const key in data.children) {
+    if (data.children[key]?.children?.length ?? 0 > 0) {
+      isPenultimate = false
+      break
+    }
+  }
+  return data.children?.length > 0 && isPenultimate ? `is-penultimate level${node.level}` : ''
 }
 
 // 取消
@@ -152,6 +159,26 @@ defineExpose({
       .el-tree-node__expand-icon.is-leaf {
         display: none;
       }
+    }
+  }
+  &.level1 {
+    .el-tree-node__children {
+      padding-left: 36px;
+    }
+  }
+  &.level2 {
+    .el-tree-node__children {
+      padding-left: 54x;
+    }
+  }
+  &.level3 {
+    .el-tree-node__children {
+      padding-left: 72px;
+    }
+  }
+  &.level4 {
+    .el-tree-node__children {
+      padding-left: 90px;
     }
   }
 }

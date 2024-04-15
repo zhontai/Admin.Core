@@ -90,9 +90,9 @@ const size = computed(() => {
 const onJsonShell = () => {
   state.topic = '[system]shell'
   state.content = `{
-  "fileName": "",
-  "arguments": "",
-  "workingDirectory": ""
+  "desc": "任务描述",
+  "arguments": "-plaintext -d \\"{ \\\\\\"id\\\\\\": 1 }\\" \${grpcAddress} YourNamespace.YourGrpcService/YourMethod",
+  "moduleName": "YourModuleName"
 }`
 }
 

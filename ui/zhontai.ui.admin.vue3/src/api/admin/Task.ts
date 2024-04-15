@@ -11,7 +11,7 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PageInputTaskGetPageDto,
+  PageInputTaskGetPageInput,
   ResultOutputPageOutputTaskListOutput,
   ResultOutputString,
   ResultOutputTaskGetOutput,
@@ -76,7 +76,7 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request POST:/api/admin/task/get-page
    * @secure
    */
-  getPage = (data: PageInputTaskGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputTaskGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputTaskListOutput, any>({
       path: `/api/admin/task/get-page`,
       method: 'POST',
@@ -209,6 +209,78 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       method: 'DELETE',
       query: query,
       secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags task
+   * @name BatchRun
+   * @summary 批量执行任务
+   * @request PUT:/api/admin/task/batch-run
+   * @secure
+   */
+  batchRun = (data: string[], params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/task/batch-run`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags task
+   * @name BatchPause
+   * @summary 批量暂停任务
+   * @request PUT:/api/admin/task/batch-pause
+   * @secure
+   */
+  batchPause = (data: string[], params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/task/batch-pause`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags task
+   * @name BatchResume
+   * @summary 批量启动任务
+   * @request PUT:/api/admin/task/batch-resume
+   * @secure
+   */
+  batchResume = (data: string[], params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/task/batch-resume`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags task
+   * @name BatchDelete
+   * @summary 批量删除任务
+   * @request PUT:/api/admin/task/batch-delete
+   * @secure
+   */
+  batchDelete = (data: string[], params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/task/batch-delete`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     })
 }

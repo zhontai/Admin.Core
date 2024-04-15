@@ -8,12 +8,12 @@
 .el-button i.fa,
 .el-button--default i.iconfont,
 .el-button--default i.fa {
-  font-size: 14px !important;
+  font-size: 14px;
   margin-right: 5px;
 }
 .el-button--small i.iconfont,
 .el-button--small i.fa {
-  font-size: 12px !important;
+  font-size: 12px;
   margin-right: 5px;
 }
 
@@ -107,7 +107,8 @@
 .el-sub-menu:not(.is-opened):hover .el-sub-menu__title {
   @extend .el-menu-hover-bg-color;
 }
-.el-menu-item:hover {
+.el-menu-item:hover,
+.el-sub-menu__title:hover {
   @extend .el-menu-hover-bg-color;
 }
 .el-sub-menu.is-active.is-opened .el-sub-menu__title {

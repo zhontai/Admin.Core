@@ -7,6 +7,10 @@ const apis = [
     output: path.resolve(__dirname, '../src/api/admin'),
     url: 'http://localhost:8000/admin/swagger/admin/swagger.json',
   },
+  // {
+  //   output: path.resolve(__dirname, '../src/api/app'),
+  //   url: 'http://localhost:8000/admin/swagger/app/swagger.json',
+  // },
 ]
 
 apis?.forEach((api, index) => {

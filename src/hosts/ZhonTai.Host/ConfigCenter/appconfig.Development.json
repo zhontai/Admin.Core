@@ -1,0 +1,10 @@
+{
+  "AppConfig": {
+    //跨域地址
+    "corUrls": [],
+    "IdentityServer": {
+      //地址
+      "url": "https://localhost:5000"
+    }
+  }
+}

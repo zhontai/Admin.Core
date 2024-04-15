@@ -1,36 +1,86 @@
 <template>
   <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-      <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item>
-          <el-input v-model="state.filter.topic" placeholder="任务名称" @keyup.enter="onQuery" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:task:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
+    <div class="mt8" style="position: relative">
+      <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-form :inline="true" @submit.stop.prevent>
+          <el-form-item label="任务分组">
+            <el-select v-model="state.filter.groupName" style="width: 120px" @change="onQuery">
+              <el-option v-for="group in state.groupList" :key="group.name" :label="group.name" :value="group.value" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="任务名称">
+            <el-input v-model="state.filter.taskName" placeholder="任务名称" @keyup.enter="onQuery" />
+          </el-form-item>
+          <el-form-item label="任务状态">
+            <el-select v-model="state.filter.taskStatus" style="width: 120px" @change="onQuery">
+              <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="创建日期">
+            <MyDateRange v-model:startDate="state.filter.startAddTime" v-model:endDate="state.filter.endAddTime" style="width: 230px" />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+            <el-button v-auth="'api:admin:task:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          </el-form-item>
+        </el-form>
+        <div
+          v-show="rowSelectCount > 0"
+          class="my-flex my-flex-items-center pl10"
+          style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff"
+        >
+          <el-text class="mx-1"
+            >已选中 <el-text class="mx-1" type="primary">{{ rowSelectCount }}</el-text> 项</el-text
+          >
+          <el-divider direction="vertical" />
+          <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onBatchRun">执行</el-button>
+          <el-divider direction="vertical" />
+          <el-button v-auth="'api:admin:task:pause'" icon="ele-CaretRight" size="small" text type="primary" @click="onBatchStart">启动</el-button>
+          <el-divider direction="vertical" />
+          <el-button v-auth="'api:admin:task:resume'" icon="ele-VideoPause" size="small" text type="primary" @click="onBatchPause">停止</el-button>
+          <el-divider direction="vertical" />
+          <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" size="small" text type="danger" @click="onBatchDelete">删除</el-button>
 
-    <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%">
-        <el-table-column prop="id" label="任务编号" width="126" />
-        <el-table-column prop="topic" label="任务名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="status" label="任务状态" width="80">
+          <el-button size="large" link @click="onClear" style="position: absolute; right: 6px; top: 6px">
+            <svgIcon name="ele-Close" size="18"></svgIcon>
+          </el-button>
+        </div>
+      </el-card>
+    </div>
+
+    <el-card class="my-fill mt8 el-card-table" shadow="never">
+      <el-table ref="tableRef" v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%">
+        <el-table-column type="selection" width="40" />
+        <el-table-column type="index" label="序号" width="60" :index="indexMethod" />
+        <el-table-column prop="topic" label="任务名称" min-width="260">
+          <template #default="{ row }">
+            <div>{{ row.id }}</div>
+            <div>{{ row.topic }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" label="任务状态" width="90">
           <template #default="{ row }">
             <el-tag v-if="row.status === 0 || row.status === 'Running'" disable-transitions>运行中</el-tag>
             <el-tag v-if="row.status === 1 || row.status === 'Paused'" type="info" disable-transitions>停止</el-tag>
             <el-tag v-if="row.status === 2 || row.status === 'Completed'" type="success" disable-transitions>完成</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="round" label="运行次数" width="80" />
-        <el-table-column prop="currentRound" label="当前次数" width="80" />
-        <el-table-column prop="errorTimes" label="失败次数" width="80" />
-        <el-table-column prop="body" label="任务数据" min-width="180" show-overflow-tooltip />
-        <el-table-column prop="interval" label="定时类型" width="100" :formatter="formatterInterval" />
-        <el-table-column prop="intervalArgument" label="定时参数" min-width="180" />
+        <el-table-column prop="round" label="运行次数" width="90" />
+        <el-table-column prop="currentRound" label="当前次数" width="90" />
+        <el-table-column prop="errorTimes" label="失败次数" width="90">
+          <template #default="{ row }">
+            <el-text class="mx-1" type="danger">{{ row.errorTimes }}</el-text>
+          </template>
+        </el-table-column>
+        <el-table-column prop="body" label="任务数据" min-width="260" />
+        <el-table-column prop="intervalArgument" label="定时参数" min-width="120">
+          <template #default="{ row }">
+            <div>{{ formatterInterval(row.interval) }}</div>
+            <div>{{ row.intervalArgument }}</div>
+          </template>
+        </el-table-column>
         <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="100" />
-        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="100" />
+        <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="120" />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <div class="my-flex">
@@ -91,8 +141,9 @@
 </template>
 
 <script lang="ts" setup name="admin/task">
-import { ref, reactive, onMounted, onBeforeMount, getCurrentInstance, defineAsyncComponent } from 'vue'
-import { TaskListOutput, PageInputTaskGetPageDto } from '/@/api/admin/data-contracts'
+import { ref, reactive, onMounted, onBeforeMount, getCurrentInstance, defineAsyncComponent, computed } from 'vue'
+import { ElTable, ElMessage } from 'element-plus'
+import { TaskListOutput, PageInputTaskGetPageInput, TaskStatus } from '/@/api/admin/data-contracts'
 import { TaskApi } from '/@/api/admin/Task'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
@@ -101,25 +152,38 @@ import { cloneDeep } from 'lodash-es'
 // 引入组件
 const TaskLogs = defineAsyncComponent(() => import('./components/task-logs.vue'))
 const TaskForm = defineAsyncComponent(() => import('./components/task-form.vue'))
+const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const taskLogsRef = ref()
 const taskFormRef = ref()
+const tableRef = ref<InstanceType<typeof ElTable>>()
 
 const state = reactive({
   loading: false,
   taskFormTitle: '',
   filter: {
-    topic: '',
+    taskName: '',
+    groupName: '',
+    taskStatus: undefined as TaskStatus | undefined,
+    startAddTime: undefined,
+    endAddTime: undefined,
   },
   total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputTaskGetPageDto,
+  } as PageInputTaskGetPageInput,
   taskListData: [] as Array<TaskListOutput>,
   taskLogsTitle: '',
+  groupList: [{ name: '全部', value: '' }],
+  statusList: [
+    { name: '全部', value: '' },
+    { name: '运行中', value: 0 },
+    { name: '停止', value: 1 },
+    { name: '已完成', value: 2 },
+  ],
 })
 
 onMounted(() => {
@@ -134,7 +198,20 @@ onBeforeMount(() => {
   eventBus.off('refreshTask')
 })
 
-const formatterInterval = (row: any, column: any, cellValue: any) => {
+const rowSelectCount = computed(() => {
+  return tableRef.value?.getSelectionRows().length
+})
+
+const taskIds = computed(() => {
+  return tableRef.value?.getSelectionRows().map((a: any) => a.id)
+})
+
+const indexMethod = (index: number) => {
+  if (state.pageInput.currentPage && state.pageInput.pageSize) return index + 1 + (state.pageInput.currentPage - 1) * state.pageInput.pageSize
+  else return index
+}
+
+const formatterInterval = (cellValue: any) => {
   let label = ''
   switch (cellValue) {
     case 1:
@@ -163,6 +240,10 @@ const formatterInterval = (row: any, column: any, cellValue: any) => {
 
 const formatterTime = (row: any, column: any, cellValue: any) => {
   return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss')
+}
+
+const onClear = () => {
+  tableRef.value?.clearSelection()
 }
 
 const onQuery = async () => {
@@ -202,7 +283,7 @@ const onShowLogs = (row: TaskListOutput) => {
 
 const onRun = (row: TaskListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要运行【${row.topic}】任务?`)
+    .confirm(`确定要运行【${row.topic}】任务?`)
     .then(async () => {
       await new TaskApi().run({ id: row.id as string }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -212,7 +293,7 @@ const onRun = (row: TaskListOutput) => {
 
 const onPause = (row: TaskListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要停止【${row.topic}】任务?`)
+    .confirm(`确定要停止【${row.topic}】任务?`)
     .then(async () => {
       await new TaskApi().pause({ id: row.id as string }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -222,7 +303,7 @@ const onPause = (row: TaskListOutput) => {
 
 const onStart = (row: TaskListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要启动【${row.topic}】任务?`)
+    .confirm(`确定要启动【${row.topic}】任务?`)
     .then(async () => {
       await new TaskApi().resume({ id: row.id as string }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -235,6 +316,74 @@ const onDelete = (row: TaskListOutput) => {
     .confirmDelete(`确定要删除【${row.topic}】任务?`)
     .then(async () => {
       await new TaskApi().delete({ id: row.id as string }, { loading: true, showSuccessMessage: true })
+      onQuery()
+    })
+    .catch(() => {})
+}
+
+const checkRowSelect = () => {
+  if (rowSelectCount.value > 0) {
+    return true
+  } else {
+    ElMessage({
+      message: '请选择任务再操作',
+      type: 'warning',
+    })
+    return false
+  }
+}
+
+const onBatchRun = () => {
+  if (!checkRowSelect()) {
+    return
+  }
+
+  proxy.$modal
+    .confirm(`确定要运行 ${rowSelectCount.value} 项任务?`)
+    .then(async () => {
+      await new TaskApi().batchRun(taskIds.value, { loading: true, showSuccessMessage: true })
+      onQuery()
+    })
+    .catch(() => {})
+}
+
+const onBatchPause = () => {
+  if (!checkRowSelect()) {
+    return
+  }
+
+  proxy.$modal
+    .confirm(`确定要停止 ${rowSelectCount.value} 项任务?`)
+    .then(async () => {
+      await new TaskApi().batchPause(taskIds.value, { loading: true, showSuccessMessage: true })
+      onQuery()
+    })
+    .catch(() => {})
+}
+
+const onBatchStart = () => {
+  if (!checkRowSelect()) {
+    return
+  }
+
+  proxy.$modal
+    .confirm(`确定要启动 ${rowSelectCount.value} 项任务?`)
+    .then(async () => {
+      await new TaskApi().batchResume(taskIds.value, { loading: true, showSuccessMessage: true })
+      onQuery()
+    })
+    .catch(() => {})
+}
+
+const onBatchDelete = () => {
+  if (!checkRowSelect()) {
+    return
+  }
+
+  proxy.$modal
+    .confirm(`确定要删除 ${rowSelectCount.value} 项任务?`)
+    .then(async () => {
+      await new TaskApi().batchDelete(taskIds.value, { loading: true, showSuccessMessage: true })
       onQuery()
     })
     .catch(() => {})

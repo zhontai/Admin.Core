@@ -12,6 +12,7 @@
     <MyFilter ref="myFilterRef" v-bind="$attrs"></MyFilter>
     <template #footer>
       <span class="dialog-footer">
+        <el-button @click="onReset" size="default">重 置</el-button>
         <el-button @click="onCancel" size="default">取 消</el-button>
         <el-button type="primary" @click="onSure">确定</el-button>
       </span>
@@ -19,10 +20,12 @@
   </el-dialog>
 </template>
 
-<script lang="ts" setup name="my-captcha-dialog">
-import { ref, reactive, defineAsyncComponent } from 'vue'
+<script lang="ts" setup name="my-filter-dialog">
+import { ref, reactive, defineAsyncComponent, PropType } from 'vue'
 
-defineProps({})
+defineProps({
+  modelValue: Object as PropType<any | undefined | null>,
+})
 
 const MyFilter = defineAsyncComponent(() => import('./index.vue'))
 
@@ -49,6 +52,11 @@ const onSure = () => {
 // 取消
 const onCancel = () => {
   state.showDialog = false
+}
+
+//重置
+const onReset = () => {
+  myFilterRef.value.reset()
 }
 
 defineExpose({

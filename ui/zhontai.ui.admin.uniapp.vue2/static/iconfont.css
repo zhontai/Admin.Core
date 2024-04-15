@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "custom-icon"; /* Project id 3315230 */
+  src: 
+       url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAUMAAsAAAAACZAAAATAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACDHAqGGIVDATYCJAMQCwoABCAFhQsHSBtvCFFUTpJkX2DbsEeLUXGznjsOCxR3jKDh4c4gAACYIAQQAMiH3rPeZFJN0mWxFJLs+gS3R/IP0pewMZdPfJ4jzKPsvYOxQltIU6D00vRBqp3fzm9yjAG3DGIbBGw3QECK2SaENpc3//d79ae1wAXwH33fj0zrBvsWbXk8a2mzAQ3HG6BNYIvsAnUs+iMgABiiZODy7l7eK6OetmaVMR5OMwHySNIz9O1KR5aDJ1AJtCI19CoPMhsFuGncdVQwK/558gG7tAAHFYXznKqf3Mrva2giHfuf0IcIm0DAbucAqABQAGELU5KuZH179dQfhoKhvA0kAO/VggMGHSt8zf/z7E1BrQvR9Q+PA4gaDhRZfFyAAq+9fGaOFLJSEBaZyIbAAXgqKVoAOoBcAcshuFnKgUCd7piSodfbeM8Y8B27y3MZYURPRMLAMLLvf7Gh+YaxYYujbiu389b7Ga5HbXdfEb4leIv5Vt2dugULhCOyTCzKVUW6KV1WDgZsPLt2sizwjnxLnm8Y0dcwn1lMysJxi6xGeYFgNXcYQMosdNqbgD++YAEYpPljF1jNdYsEq/EWQ+/xxB0yrs182CJYF5mFO2W9cEt2GV1OM4ty+7aycCGzbAajwXgLxTDoIp2ju5elmzc7WbYSMm6bdQtic860tJi5hLq2SCtTFm0SqUsWr7culReOm4HMumU2/6tlgt/5HuzoKP6RpPHTjBo66ovfF+ma33IVl+vmunTumJh2Yomu6eKp1ylVQSPlAekT28+Z7zUkul1Qdbu4fupJO2s3VOx3a3XrOzL4QmCOLHl9P7bmfVwAbe5/+oeLHqZim5bIxDgkPc+lwT41Gocx0kHCpgqxbXMvitr25y+nF7UGtwvpM7xrTMfo1No0pXNtcHFgUVFsbk8Nb3QsMQlDRJ92SQcFdb98Q/kwwLdpwgT/RI1oLwofgolrTufOOa55bmVtIEVWRUZXxlbTNrRLdEOkIsXUxXUpyXXNcu3U3i0r6FdXb6+nBjh6lw4aUOZZ4aW0Sv5VfsMmu8ru9caTHddUxFXGt4od9K3uDW6Wsc4anWl5R3zoHKY6THWeOn78VGd70TspWm8vNvFdMC8VHfSuL0q7/YyL379o4bD14+PXL2Q3prhApC72PGqcAX05K+kT2gD+T/9oPw5K/6nxq21Dn309N233Xzv9p9zyeIN2A2f9L1+BIfhVWGDmj4UM2JA3HQDPo7g++2dVjPXTeDkAzDUD/1mzg8dDCB3B4QCBAMcccNDAA1AI8Efz+Ci0Cp+KVuMLAEOoasZgu0eqg/A6AAFmsYDA5ADgYINrgMLkHprHf0GpiKnQarwrYFDaPk1AQFNy+5Ot5IJzgxA587wExbJQTpf25Ffyy8QWNTfzfJIUIdsK24goROieMpL+ThRnf6fqgSecwt2w76MkYciFI0JdBaq5sY7sjPqUFXJaORDEpogLtHcDukEs44WPFCoVFEstCb/nFfGVEjYhl4DwfiIiw5BbDIgWIQqGvocZtOACTw9w5tsZSHlAZ57RzQgKlqwlietnoC96U4QgtdK1gzdniOQadYbC1bTC9Ib3ADA4L+cJRyjhiQqadkm4zO1b70IY2Jpp20F4QTa5VSo=') format('woff2');
+}
+
+.custom-icon {
+  font-family: "custom-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.custom-icon-ali-pay:before {
+  content: "\e647";
+}
+
+.custom-icon-wechat-pay:before {
+  content: "\e684";
+}
+
+.custom-icon-history:before {
+  content: "\e620";
+}

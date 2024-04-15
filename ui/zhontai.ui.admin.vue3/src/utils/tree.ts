@@ -143,6 +143,75 @@ export function filterTree(tree: any = [], keyword: string, options = {}) {
 }
 
 /**
+* @description: 列表过滤数据并返回所有父级数据
+* @example
+filterList(cloneDeep(list), keyword)
+
+filterList(cloneDeep(list), keyword, {
+      parentWhere: (item: any, parent: any) => {
+        return item.id === parent.parentId
+      },
+      parentEndWhere: (item: any) => {
+        return item.parentId > 0
+      },
+      filterWhere: (item: any, word: string) => {
+        return item.label?.toLocaleLowerCase().includes(word)
+      },
+})
+*/
+export function filterList(list: any[], keyword: string, options = {}) {
+  const { parentWhere, parentEndWhere, filterWhere } = Object.assign(
+    {
+      parentWhere: (item: any, parent: any) => {
+        return item.id === parent.parentId
+      },
+      parentEndWhere: (item: any) => {
+        return item.parentId > 0
+      },
+      filterWhere: (item: any, word: string) => {
+        return item.label?.toLocaleLowerCase().includes(word)
+      },
+    },
+    options || {}
+  )
+
+  let dataList: any[] = []
+
+  function searchParentList(parent: any, list: any[]): any[] {
+    let parentList: any[] = []
+    for (let i = 0; i < list.length; i++) {
+      const item = list[i]
+      if (parentWhere(item, parent)) {
+        parentList.push(item)
+        if (parentEndWhere(item)) {
+          const parentNodesData = searchParentList(item, list)
+          parentList.push(...parentNodesData)
+        }
+      }
+    }
+    return parentList
+  }
+
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i]
+    if (filterWhere(item, keyword)) {
+      dataList.push(item)
+      const parentList = searchParentList(item, list)
+      dataList.push(...parentList)
+    }
+  }
+
+  const uniqueNodes: { [id: string | number]: any } = {}
+  for (const item of dataList) {
+    uniqueNodes[item.id] = item
+  }
+
+  dataList = Object.values(uniqueNodes)
+
+  return dataList
+}
+
+/**
 * @description: 树形列表转列表包含子级
 * @example
 treeToListWithChildren(cloneDeep(tree))

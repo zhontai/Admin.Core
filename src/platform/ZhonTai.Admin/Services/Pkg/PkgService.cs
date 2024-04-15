@@ -310,12 +310,6 @@ public class PkgService : BaseService, IDynamicApi
 
         Mapper.Map(input, entity);
         await _pkgRepository.UpdateAsync(entity);
-
-        var tenantIds = await _tenantPkgRepository.Select.Where(a => a.PkgId == entity.Id).ToListAsync(a => a.TenantId);
-        foreach (var tenantId in tenantIds)
-        {
-            await Cache.DelAsync(CacheKeys.DataPermission + tenantId);
-        }
     }    
 
     /// <summary>

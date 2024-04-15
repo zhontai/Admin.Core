@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using SixLabors.ImageSharp.Drawing;
+using System.ComponentModel;
 using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Consts;
@@ -46,4 +47,27 @@ public static partial class CacheKeys
     /// <param name="code">唯一码</param>
     /// <returns></returns>
     public static string GetSmsCodeKey(string mobile, string code) => $"{SmsCode}{mobile}:{code}";
+
+    /// <summary>
+    /// 获取数据权限缓存键
+    /// </summary>
+    /// <param name="userId">用户Id</param>
+    /// <param name="apiPath">请求接口路径</param>
+    /// <returns></returns>
+    public static string GetDataPermissionKey(long userId, string apiPath = null)
+    {
+        if(apiPath.IsNull())
+        {
+            apiPath = AppInfo.CurrentDataPermissionApiPath;
+        }
+
+        return $"{DataPermission}{userId}{(apiPath.NotNull() ? (":" + apiPath) : "")}";
+    }
+
+    /// <summary>
+    /// 获取数据权限模板
+    /// </summary>
+    /// <param name="userId">用户Id</param>
+    /// <returns></returns>
+    public static string GetDataPermissionPattern(long userId) => $"{DataPermission}{userId}*";
 }

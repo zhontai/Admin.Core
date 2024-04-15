@@ -1,4 +1,6 @@
-﻿using ZhonTai.Admin.Core.Consts;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using ZhonTai.Admin.Core.Consts;
 using DataType = FreeSql.DataType;
 
 namespace ZhonTai.Admin.Core.Configs;
@@ -47,6 +49,17 @@ public class DbConfig
     /// 同步结构脚本
     /// </summary>
     public bool SyncStructureSql { get; set; } = false;
+
+    private int _syncStructureEntityBatchSize = 1;
+
+    /// <summary>
+    /// 同步结构批次实体数
+    /// </summary>
+    public int SyncStructureEntityBatchSize
+    {
+        get => _syncStructureEntityBatchSize <= 1 ? 1 : _syncStructureEntityBatchSize;
+        set => _syncStructureEntityBatchSize = value;
+    }
 
     /// <summary>
     /// 同步数据
@@ -99,6 +112,11 @@ public class DbConfig
     public string CreateDbSql { get; set; }
 
     /// <summary>
+    /// 建库脚本文件
+    /// </summary>
+    public string CreateDbSqlFile { get; set; } = "Configs/createdbsql.txt";
+
+    /// <summary>
     /// 监听所有操作
     /// </summary>
     public bool MonitorCommand { get; set; } = false;
@@ -122,6 +140,11 @@ public class DbConfig
     /// 读写分离从库列表
     /// </summary>
     public SlaveDb[] SlaveList { get; set; }
+
+    /// <summary>
+    /// 强制更新
+    /// </summary>
+    public bool ForceUpdate { get; set; } = false;
 }
 
 /// <summary>
@@ -154,6 +177,11 @@ public class SyncDataUser
     /// 账号
     /// </summary>
     public string UserName { get; set; }
+
+    /// <summary>
+    /// 姓名
+    /// </summary>
+    public string Name { get; set; }
 
     /// <summary>
     /// 租户Id

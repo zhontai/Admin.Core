@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Host", "hosts\ZhonTai.Host\ZhonTai.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin", "platform\ZhonTai.Admin\ZhonTai.Admin.csproj", "{E725F0A1-0B03-406F-B84B-0F486C6137FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Common", "platform\ZhonTai.Common\ZhonTai.Common.csproj", "{97D32A49-994C-44C5-A167-51E71D173B6F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Tests", "tests\ZhonTai.Tests\ZhonTai.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.DynamicApi", "platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj", "{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platform", "platform", "{7D22DC19-78FC-4277-9768-06B5AF60FD14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{0600A063-03CE-4BE1-AE77-FCB1B496A2A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A1F23C8-24A6-4571-B3DE-D27D024A051D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.build", "02.build", "{A6C50476-5236-4FD3-8C29-6449494846C0}"
+	ProjectSection(SolutionItems) = preProject
+		platform\Directory.Build.props = platform\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.ApiUI", "platform\ZhonTai.ApiUI\ZhonTai.ApiUI.csproj", "{A6911102-A4F8-4000-A997-045F84F73060}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.sln", "01.sln", "{DA553AC2-CFE8-4DF7-B4BF-E57252CE5B83}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97D32A49-994C-44C5-A167-51E71D173B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D32A49-994C-44C5-A167-51E71D173B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D32A49-994C-44C5-A167-51E71D173B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D32A49-994C-44C5-A167-51E71D173B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6911102-A4F8-4000-A997-045F84F73060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6911102-A4F8-4000-A997-045F84F73060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6911102-A4F8-4000-A997-045F84F73060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6911102-A4F8-4000-A997-045F84F73060}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F} = {0600A063-03CE-4BE1-AE77-FCB1B496A2A6}
+		{E725F0A1-0B03-406F-B84B-0F486C6137FC} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
+		{97D32A49-994C-44C5-A167-51E71D173B6F} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
+		{69A9CD28-39CE-415E-8150-A4A876E708FD} = {4A1F23C8-24A6-4571-B3DE-D27D024A051D}
+		{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
+		{A6911102-A4F8-4000-A997-045F84F73060} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}
+	EndGlobalSection
+EndGlobal

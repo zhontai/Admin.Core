@@ -11,6 +11,7 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
 using Microsoft.AspNetCore.Identity;
 using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Core.RegisterModules;
 
@@ -70,6 +71,7 @@ public class RegisterModule : Module
             //仓储泛型注入
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
             builder.RegisterGeneric(typeof(RepositoryBase<,>)).As(typeof(IRepositoryBase<,>)).InstancePerLifetimeScope().PropertiesAutowired();
+            builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
         }
     }
 }

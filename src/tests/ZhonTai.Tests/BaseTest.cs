@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core;
 
 namespace ZhonTai.Tests;
 
@@ -17,7 +18,7 @@ public class BaseTest
 
     protected BaseTest()
     {
-        AppConfig = ConfigHelper.Get<AppConfig>("appconfig") ?? new AppConfig();
+        AppConfig = AppInfo.GetRequiredService<AppConfig>(false);
         var application = new WebApplicationFactory<Program>();
         Client = application.CreateClient();
         Server = application.Server;

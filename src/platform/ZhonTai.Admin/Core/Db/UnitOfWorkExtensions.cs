@@ -67,7 +67,7 @@ namespace ZhonTai.Admin.Core.Db
             {
                 AutoCommit = autoCommit
             };
-            return capPublisher.Transaction.Value = transaction;
+            return capPublisher.Transaction = transaction;
         }
     }
 }

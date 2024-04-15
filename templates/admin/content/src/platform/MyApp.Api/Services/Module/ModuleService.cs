@@ -10,6 +10,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Api.Core.Consts;
+using MyApp.Api.Core.Repositories;
 #if (!NoTaskScheduler)
 using FreeScheduler;
 using Newtonsoft.Json;
@@ -24,10 +25,11 @@ namespace MyApp.Api.Services.Module;
 [DynamicApi(Area = ApiConsts.AreaName)]
 public class ModuleService : BaseService, IModuleService, IDynamicApi
 {
-    private IModuleRepository _moduleRepository => LazyGetRequiredService<IModuleRepository>();
+    private readonly AppRepositoryBase<ModuleEntity> _moduleRep;
 
-    public ModuleService()
+    public ModuleService(AppRepositoryBase<ModuleEntity> moduleRep)
     {
+        _moduleRep = moduleRep;
     }
 
     /// <summary>
@@ -37,7 +39,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     /// <returns></returns>
     public async Task<ModuleGetOutput> GetAsync(long id)
     {
-        var result = await _moduleRepository.GetAsync<ModuleGetOutput>(id);
+        var result = await _moduleRep.GetAsync<ModuleGetOutput>(id);
         return result;
     }
 
@@ -51,7 +53,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     {
         var key = input.Filter?.Name;
 
-        var list = await _moduleRepository.Select
+        var list = await _moduleRep.Select
         .WhereIf(key.NotNull(), a => a.Name.Contains(key))
         .Count(out var total)
         .OrderByDescending(true, c => c.Id)
@@ -75,7 +77,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     public async Task<long> AddAsync(ModuleAddInput input)
     {
         var entity = Mapper.Map<ModuleEntity>(input);
-        await _moduleRepository.InsertAsync(entity);
+        await _moduleRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -87,14 +89,14 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(ModuleUpdateInput input)
     {
-        var entity = await _moduleRepository.GetAsync(input.Id);
+        var entity = await _moduleRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception("模块不存在");
         }
 
         Mapper.Map(input, entity);
-        await _moduleRepository.UpdateAsync(entity);
+        await _moduleRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -104,7 +106,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _moduleRepository.DeleteAsync(m => m.Id == id);
+        await _moduleRep.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -114,7 +116,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     /// <returns></returns>
     public async Task SoftDeleteAsync(long id)
     {
-        await _moduleRepository.SoftDeleteAsync(id);
+        await _moduleRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -124,7 +126,7 @@ public class ModuleService : BaseService, IModuleService, IDynamicApi
     /// <returns></returns>
     public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        await _moduleRepository.SoftDeleteAsync(ids);
+        await _moduleRep.SoftDeleteAsync(ids);
     }
 
 #if (!NoTaskScheduler)

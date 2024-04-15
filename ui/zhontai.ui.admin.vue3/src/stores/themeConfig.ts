@@ -25,8 +25,8 @@ export const useThemeConfig = defineStore('themeConfig', {
       /**
        * 顶栏设置
        */
-      // 默认顶栏导航背景颜色
-      topBar: '#323233',
+      // 默认顶栏导航背景颜色 #FFFFFF #323233
+      topBar: '#FFFFFF',
       // 默认顶栏导航字体颜色
       topBarColor: '#eaeaea',
       // 是否开启顶栏背景颜色渐变
@@ -35,8 +35,8 @@ export const useThemeConfig = defineStore('themeConfig', {
       /**
        * 菜单设置
        */
-      // 默认菜单导航背景颜色
-      menuBar: '#252526',
+      // 默认菜单导航背景颜色 #FFFFFF #252526
+      menuBar: '#FFFFFF',
       // 默认菜单导航字体颜色
       menuBarColor: '#eaeaea',
       // 默认菜单高亮背景色
@@ -127,7 +127,7 @@ export const useThemeConfig = defineStore('themeConfig', {
        * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
        */
       // 布局切换：可选值"<默认 defaults | 经典 classic | 横向 transverse | 分栏 columns>"，默认 defaults
-      layout: 'classic',
+      layout: 'columns',
 
       /**
        * 后端控制路由

@@ -1,14 +1,18 @@
 ﻿using Cronos;
 using FreeScheduler;
 using Mapster;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
@@ -51,16 +55,21 @@ new HostApp(new HostAppOptions
         }
     },
 
+    ConfigurePreServices = context =>
+    {
+        context.Services.Configure<TaskSchedulerConfig>(context.Configuration.GetSection("TaskScheduler"));
+    },
+
 	//配置后置服务
 	ConfigurePostServices = context =>
 	{
         //context.Services.AddTiDb(context);
 
         //添加cap事件总线
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        var appConfig = AppInfo.GetRequiredService<AppConfig>(false);
         Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
 
-        //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        //var dbConfig = AppInfo.GetRequiredService<DbConfig>(false);
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
         {
@@ -92,86 +101,118 @@ new HostApp(new HostAppOptions
                 freeSchedulerBuilder
                 .OnExecuting(task =>
                 {
-                    switch (task.Topic)
+                    var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
+
+                    if (task.Topic?.StartsWith("[shell]") == true)
                     {
-                        //执行shell
-                        case "[system]shell":
-                            var jsonArgs = JToken.Parse(task.Body);
-                            var shellArgs = jsonArgs.Adapt<ShellArgs>();
+                        var jsonArgs = JToken.Parse(task.Body);
+                        var shellArgs = jsonArgs.Adapt<ShellArgs>();
 
-                            var startInfo = new ProcessStartInfo
+                        var arguments = shellArgs.Arguments;
+                        var modeulName = jsonArgs["moduleName"]?.ToString();
+                        if (modeulName.NotNull())
+                        {
+                            //通过moduleName获取配置文件moduleName对应的Grpc远程地址
+                            var grpcAddress = string.Empty;
+                            if (grpcAddress.NotNull())
                             {
-                                FileName = shellArgs.FileName,
-                                Arguments = shellArgs.Arguments,
-                                UseShellExecute = false,
-                                RedirectStandardOutput = true,
-                                RedirectStandardError = true,
-                                WorkingDirectory = shellArgs.WorkingDirectory
-                            };
-
-                            var response = string.Empty;
-                            var error = string.Empty;
-                            using (var process = Process.Start(startInfo))
-                            {
-                                response = process.StandardOutput.ReadToEnd();
-                                error = process.StandardError.ReadToEnd();
-
-                                //if (response.NotNull())
-                                //{
-                                //    Console.WriteLine("Response:");
-                                //    Console.WriteLine(response);
-                                //}
-
-                                //if (error.NotNull())
-                                //{
-                                //    Console.WriteLine("Error:");
-                                //    Console.WriteLine(error);
-                                //}
-
-                                process.WaitForExit();
+                                arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
                             }
+                        }
 
-                            if (response.NotNull())
-                                task.Remark(response);
+                        var fileName = shellArgs.FileName;
+                        if (fileName.IsNull())
+                        {
+                            fileName = taskSchedulerConfig?.ProcessStartInfo?.FileName;
+                        }
 
-                            if (error.NotNull())
-                                throw new Exception(error);
+                        var workingDirectory = shellArgs.WorkingDirectory;
+                        if (workingDirectory.IsNull())
+                        {
+                            workingDirectory = taskSchedulerConfig?.ProcessStartInfo?.WorkingDirectory;
+                        }
 
-                            break;
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = fileName,
+                            Arguments = arguments,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            WorkingDirectory = workingDirectory
+                        };
+
+                        var response = string.Empty;
+                        var error = string.Empty;
+                        using (var process = Process.Start(startInfo))
+                        {
+                            using var responseReader = new StreamReader(process.StandardOutput.BaseStream, Encoding.UTF8);
+                            response = responseReader.ReadToEnd();
+
+                            using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
+                            error = errorReader.ReadToEnd();
+
+                            //if (response.NotNull())
+                            //{
+                            //    Console.WriteLine("Response:");
+                            //    Console.WriteLine(response);
+                            //}
+
+                            //if (error.NotNull())
+                            //{
+                            //    Console.WriteLine("Error:");
+                            //    Console.WriteLine(error);
+                            //}
+
+                            process.WaitForExit();
+                        }
+
+                        if (response.NotNull())
+                            task.Remark(response);
+
+                        if (error.NotNull())
+                            throw new Exception(error);
                     }
                 })
                 .OnExecuted((task, taskLog) =>
                 {
-                    if (!taskLog.Success)
+                    try
                     {
-                        //发送告警邮件
-                        var taskService = AppInfo.GetRequiredService<TaskService>();
-                        var emailService = AppInfo.GetRequiredService<EmailService>();
-                        var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
-                        var topic = task.Topic;
-                        if (alerEmail.NotNull())
+                        if (!taskLog.Success)
                         {
-                            var jsonArgs = JToken.Parse(task.Body);
-                            var desc = jsonArgs["desc"]?.ToString();
-                            if (desc.NotNull())
-                                topic = desc;
-                        }
-                        alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
-                        {
-                            await emailService.SingleSendAsync(new EamilSingleSendEvent
+                            //发送告警邮件
+                            var taskService = AppInfo.GetRequiredService<TaskService>();
+                            var emailService = AppInfo.GetRequiredService<EmailService>();
+                            var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
+                            var topic = task.Topic;
+                            if (alerEmail.NotNull())
                             {
-                                ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                var jsonArgs = JToken.Parse(task.Body);
+                                var desc = jsonArgs["desc"]?.ToString();
+                                if (desc.NotNull())
+                                    topic = desc;
+                            }
+                            alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                            {
+                                await emailService.SingleSendAsync(new EamilSingleSendEvent
                                 {
-                                    Address = address,
-                                    Name = address
-                                },
-                                Subject = "【任务调度中心】监控报警",
-                                Body = $@"<p>任务名称：{topic}</p>
+                                    ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                    {
+                                        Address = address,
+                                        Name = address
+                                    },
+                                    Subject = "【任务调度中心】监控报警",
+                                    Body = $@"<p>任务名称：{topic}</p>
 <p>任务编号：{task.Id}</p>
 <p>告警类型：调度失败</p>
 <p>告警内容：<br/>{taskLog.Exception}</p>"
+                                });
                             });
-                        });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        AppInfo.Log.Error(ex);
                     }
                 })
                 .UseCustomInterval(task =>
@@ -219,8 +260,13 @@ new HostApp(new HostAppOptions
             });
 		}
         #endregion
-	}
-}).Run(args);
+	},
+
+    ConfigureSwaggerUI = options =>
+    {
+        //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
+    }
+}).Run(args, typeof(Program).Assembly);
 
 #if DEBUG
 public partial class Program { }

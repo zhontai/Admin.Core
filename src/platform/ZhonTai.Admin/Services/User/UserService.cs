@@ -48,29 +48,52 @@ namespace ZhonTai.Admin.Services.User;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
+    private readonly Lazy<AppConfig> _appConfig;
     private readonly Lazy<UserHelper> _userHelper;
+    private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<IRoleRepository> _roleRepository;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRepository;
+    private readonly Lazy<IFileService> _fileService;
+    private readonly Lazy<IUserRepository> _userRep;
+    
+    private readonly Lazy<IUserOrgRepository> _userOrgRepository;
+    private readonly Lazy<IRoleOrgRepository> _roleOrgRepository;
+    private readonly Lazy<IUserRoleRepository> _userRoleRepository;
+    private readonly Lazy<IUserStaffRepository> _userStaffRepository;
+    private readonly Lazy<IApiRepository> _apiRepository;
+    private readonly Lazy<ITenantRepository> _tenantRepository;
+    
+    private readonly Lazy<IOrgRepository> _orgRepository;
 
-    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
-    private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
-    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
-    private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
-    private IApiRepository _apiRepository => LazyGetRequiredService<IApiRepository>();
-    private IUserStaffRepository _staffRepository => LazyGetRequiredService<IUserStaffRepository>();
-    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
-    private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
-    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
-    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
-    private IFileService _fileService => LazyGetRequiredService<IFileService>();
-
-    public UserService(Lazy<UserHelper> userHelper, 
+    public UserService(Lazy<AppConfig> appConfig, 
+        Lazy<UserHelper> userHelper,
+        Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<IRoleRepository> roleRepository,
-        Lazy<IRolePermissionRepository> rolePermissionRepository)
+        Lazy<IRolePermissionRepository> rolePermissionRepository,
+        Lazy<IFileService> fileService,
+        Lazy<IUserRepository> userRepository,
+        Lazy<IUserOrgRepository> userOrgRepository,
+        Lazy<IRoleOrgRepository> roleOrgRepository,
+        Lazy<IUserRoleRepository> userRoleRepository,
+        Lazy<IUserStaffRepository> userStaffRepository,
+        Lazy<IApiRepository> apiRepository,
+        Lazy<ITenantRepository> tenantRepository,
+        Lazy<IOrgRepository> orgRepository)
     {
+        _appConfig = appConfig;
         _userHelper = userHelper;
+        _passwordHasher = passwordHasher;
         _roleRepository = roleRepository;
         _rolePermissionRepository = rolePermissionRepository;
+        _fileService = fileService;
+        _userRep = userRepository;
+        _userOrgRepository = userOrgRepository;
+        _roleOrgRepository = roleOrgRepository;
+        _userRoleRepository = userRoleRepository;
+        _userStaffRepository = userStaffRepository;
+        _apiRepository = apiRepository;
+        _tenantRepository = tenantRepository;
+        _orgRepository = orgRepository;
     }
 
     /// <summary>
@@ -80,7 +103,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task<UserGetOutput> GetAsync(long id)
     {
-        var userEntity = await _userRepository.Select
+        var userEntity = await _userRep.Value.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
         .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
@@ -121,10 +144,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var dataPermission = User.DataPermission;
 
         var orgId = input.Filter?.OrgId;
-        var list = await _userRepository.Select
-        .WhereIf(dataPermission!=null&&dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        var list = await _userRep.Value.Select
+        .WhereIf(dataPermission!=null&&dataPermission.OrgIds.Count > 0, a => _userOrgRepository.Value.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
         .WhereIf(dataPermission != null && dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
-        .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
+        .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRepository.Value.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
         .Where(a=>a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
@@ -135,7 +158,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         if(orgId.HasValue && orgId > 0)
         {
-            var managerUserIds = await _userOrgRepository.Select
+            var managerUserIds = await _userOrgRepository.Value.Select
                 .Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
 
             if (managerUserIds.Any())
@@ -165,14 +188,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [NonAction]
     public async Task<AuthLoginOutput> GetLoginUserAsync(long id)
     {
-        var output = await _userRepository.Select
+        var output = await _userRep.Value.Select
             .DisableGlobalFilter(FilterNames.Tenant)
             .WhereDynamic(id)
             .ToOneAsync<AuthLoginOutput>();
 
-        if (_appConfig.Tenant && output?.TenantId.Value > 0)
+        if (_appConfig.Value.Tenant && output?.TenantId.Value > 0)
         {
-            var tenant = await _tenantRepository.Select
+            var tenant = await _tenantRepository.Value.Select
                 .DisableGlobalFilter(FilterNames.Tenant)
                 .WhereDynamic(output.TenantId)
                 .ToOneAsync<AuthLoginTenantDto>();
@@ -194,13 +217,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             return null;
         }
-
-        var key = CacheKeys.DataPermission + User.Id;
-        return await Cache.GetOrSetAsync(key, async () =>
+         
+        return await Cache.GetOrSetAsync(CacheKeys.GetDataPermissionKey(User.Id, apiPath), async () =>
         {
-            using var _ = _userRepository.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
+            using var _ = _userRep.Value.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
 
-            var user = await _userRepository.Select
+            var user = await _userRep.Value.Select
             .WhereDynamic(User.Id)
             .ToOneAsync(a => new { a.OrgId });
 
@@ -248,7 +270,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 //本部门和下级部门
                 else if (dataScope == DataScope.DeptWithChild)
                 {
-                    orgIds = await _orgRepository
+                    orgIds = await _orgRepository.Value
                     .Where(a => a.Id == orgId)
                     .AsTreeCte()
                     .ToListAsync(a => a.Id);
@@ -262,7 +284,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                         dataScope = DataScope.Custom;
                     }
 
-                    var customRoleOrgIds = await _roleOrgRepository.Select
+                    var customRoleOrgIds = await _roleOrgRepository.Value.Select
                     .Where(a => customRoleIds.Contains(a.RoleId))
                     .ToListAsync(a => a.OrgId);
 
@@ -291,7 +313,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("未登录");
         }
 
-        var user = await _userRepository.GetAsync<UserGetBasicOutput>(User.Id);
+        var user = await _userRep.Value.GetAsync<UserGetBasicOutput>(User.Id);
 
         if (user == null)
         {
@@ -333,8 +355,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 return tenantPermissions.Union(pkgPermissions).Distinct().ToList();
             }
 
-            return await _apiRepository
-            .Where(a => _apiRepository.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
+            return await _apiRepository.Value
+            .Where(a => _apiRepository.Value.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
                 .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
                 .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
                 .Where((b, c, d) => d.ApiId == a.Id).Any())
@@ -354,7 +376,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         //检查密码
         if (input.Password.IsNull())
         {
-            input.Password = _appConfig.DefaultPassword;
+            input.Password = _appConfig.Value.DefaultPassword;
         }
         _userHelper.Value.CheckPassword(input.Password);
 
@@ -362,7 +384,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        var existsUser = await _userRepository.Select.Where(where)
+        var existsUser = await _userRep.Value.Select.Where(where)
             .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
         if (existsUser != null)
@@ -386,9 +408,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         // 用户信息
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.DefaultUser;
-        if (_appConfig.PasswordHasher)
+        if (_appConfig.Value.PasswordHasher)
         {
-            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.Password = _passwordHasher.Value.HashPassword(entity, input.Password);
             entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
@@ -396,7 +418,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             entity.Password = MD5Encrypt.Encrypt32(input.Password);
             entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
-        var user = await _userRepository.InsertAsync(entity);
+        var user = await _userRep.Value.InsertAsync(entity);
         var userId = user.Id;
 
         //用户角色
@@ -407,13 +429,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 UserId = userId,
                 RoleId = roleId
             }).ToList();
-            await _userRoleRepository.InsertAsync(roles);
+            await _userRoleRepository.Value.InsertAsync(roles);
         }
 
         // 员工信息
         var staff = input.Staff == null ? new UserStaffEntity() : Mapper.Map<UserStaffEntity>(input.Staff);
         staff.Id = userId;
-        await _staffRepository.InsertAsync(staff);
+        await _userStaffRepository.Value.InsertAsync(staff);
 
         //所属部门
         if (input.OrgIds != null && input.OrgIds.Any())
@@ -423,7 +445,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 UserId = userId,
                 OrgId = orgId
             }).ToList();
-            await _userOrgRepository.InsertAsync(orgs);
+            await _userOrgRepository.Value.InsertAsync(orgs);
         }
 
         return userId;
@@ -446,7 +468,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
+        var existsUser = await _userRep.Value.Select.Where(a => a.Id != input.Id).Where(where)
             .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
         if (existsUser != null)
@@ -467,19 +489,19 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             }
         }
 
-        var user = await _userRepository.GetAsync(input.Id);
+        var user = await _userRep.Value.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
             throw ResultOutput.Exception("用户不存在");
         }
 
         Mapper.Map(input, user);
-        await _userRepository.UpdateAsync(user);
+        await _userRep.Value.UpdateAsync(user);
 
         var userId = user.Id;
 
         // 用户角色
-        await _userRoleRepository.DeleteAsync(a => a.UserId == userId);
+        await _userRoleRepository.Value.DeleteAsync(a => a.UserId == userId);
         if (input.RoleIds != null && input.RoleIds.Any())
         {
             var roles = input.RoleIds.Select(roleId => new UserRoleEntity
@@ -487,32 +509,32 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 UserId = userId,
                 RoleId = roleId
             }).ToList();
-            await _userRoleRepository.InsertAsync(roles);
+            await _userRoleRepository.Value.InsertAsync(roles);
         }
 
         // 员工信息
-        var staff = await _staffRepository.GetAsync(userId);
+        var staff = await _userStaffRepository.Value.GetAsync(userId);
         var existsStaff = staff != null;
         staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
         if (existsStaff) 
         { 
-            await _staffRepository.UpdateAsync(staff);
+            await _userStaffRepository.Value.UpdateAsync(staff);
         }
         else
         {
-            await _staffRepository.InsertAsync(staff);
+            await _userStaffRepository.Value.InsertAsync(staff);
         }
 
         //所属部门
-        var orgIds = await _userOrgRepository.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
+        var orgIds = await _userOrgRepository.Value.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
         var insertOrgIds = input.OrgIds.Except(orgIds);
 
         var deleteOrgIds = orgIds.Except(input.OrgIds);
         if (deleteOrgIds != null && deleteOrgIds.Any())
         {
-            await _userOrgRepository.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
+            await _userOrgRepository.Value.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
         }
             
         if (insertOrgIds != null && insertOrgIds.Any())
@@ -522,10 +544,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 UserId = userId,
                 OrgId = orgId
             }).ToList();
-            await _userOrgRepository.InsertAsync(orgs);
+            await _userOrgRepository.Value.InsertAsync(orgs);
         }
 
-        await Cache.DelAsync(CacheKeys.DataPermission + user.Id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
     }
 
     /// <summary>
@@ -537,16 +559,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (input.Password.IsNull())
         {
-            input.Password = _appConfig.DefaultPassword;
+            input.Password = _appConfig.Value.DefaultPassword;
         }
         _userHelper.Value.CheckPassword(input.Password);
 
-        using var _ = _userRepository.DataFilter.DisableAll();
+        using var _ = _userRep.Value.DataFilter.DisableAll();
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        var existsUser = await _userRepository.Select.Where(where)
+        var existsUser = await _userRep.Value.Select.Where(where)
             .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
         if (existsUser != null)
@@ -570,9 +592,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         // 用户信息
         var entity = Mapper.Map<UserEntity>(input);
         entity.Type = UserType.Member;
-        if (_appConfig.PasswordHasher)
+        if (_appConfig.Value.PasswordHasher)
         {
-            entity.Password = _passwordHasher.HashPassword(entity, input.Password);
+            entity.Password = _passwordHasher.Value.HashPassword(entity, input.Password);
             entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
@@ -580,7 +602,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             entity.Password = MD5Encrypt.Encrypt32(input.Password);
             entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
-        var user = await _userRepository.InsertAsync(entity);
+        var user = await _userRep.Value.InsertAsync(entity);
 
         return user.Id;
     }
@@ -597,7 +619,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        var existsUser = await _userRepository.Select.Where(a => a.Id != input.Id).Where(where)
+        var existsUser = await _userRep.Value.Select.Where(a => a.Id != input.Id).Where(where)
             .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
         if (existsUser != null)
@@ -618,14 +640,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             }
         }
 
-        var user = await _userRepository.GetAsync(input.Id);
+        var user = await _userRep.Value.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
             throw ResultOutput.Exception("用户不存在");
         }
 
         Mapper.Map(input, user);
-        await _userRepository.UpdateAsync(user);
+        await _userRep.Value.UpdateAsync(user);
     }
 
     /// <summary>
@@ -636,9 +658,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [Login]
     public async Task UpdateBasicAsync(UserUpdateBasicInput input)
     {
-        var entity = await _userRepository.GetAsync(User.Id);
+        var entity = await _userRep.Value.GetAsync(User.Id);
         entity = Mapper.Map(input, entity);
-        await _userRepository.UpdateAsync(entity);
+        await _userRep.Value.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -656,7 +678,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         _userHelper.Value.CheckPassword(input.NewPassword);
 
-        var entity = await _userRepository.GetAsync(User.Id);
+        var entity = await _userRep.Value.GetAsync(User.Id);
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
         {
@@ -664,7 +686,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
-        await _userRepository.UpdateAsync(entity);
+        await _userRep.Value.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -677,7 +699,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var password = input.Password;
         if (password.IsNull())
         {
-            password = _appConfig.DefaultPassword;
+            password = _appConfig.Value.DefaultPassword;
         }
         else
         {
@@ -688,10 +710,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             password = "123asd";
         }
 
-        var entity = await _userRepository.GetAsync(input.Id);
-        if (_appConfig.PasswordHasher)
+        var entity = await _userRep.Value.GetAsync(input.Id);
+        if (_appConfig.Value.PasswordHasher)
         {
-            entity.Password = _passwordHasher.HashPassword(entity, password);
+            entity.Password = _passwordHasher.Value.HashPassword(entity, password);
             entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
@@ -699,7 +721,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             entity.Password = MD5Encrypt.Encrypt32(password);
             entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
-        await _userRepository.UpdateAsync(entity);
+        await _userRep.Value.UpdateAsync(entity);
         return password;
     }
 
@@ -710,9 +732,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task SetManagerAsync(UserSetManagerInput input)
     {
-        var entity = await _userOrgRepository.Where(a => a.UserId == input.UserId && a.OrgId == input.OrgId).FirstAsync();
+        var entity = await _userOrgRepository.Value.Where(a => a.UserId == input.UserId && a.OrgId == input.OrgId).FirstAsync();
         entity.IsManager = input.IsManager;
-        await _userOrgRepository.UpdateAsync(entity);
+        await _userOrgRepository.Value.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -722,7 +744,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task SetEnableAsync(UserSetEnableInput input)
     {
-        var entity = await _userRepository.GetAsync(input.UserId);
+        var entity = await _userRep.Value.GetAsync(input.UserId);
         if (entity.Type == UserType.PlatformAdmin)
         {
             throw ResultOutput.Exception("平台管理员禁止禁用");
@@ -732,7 +754,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("企业管理员禁止禁用");
         }
         entity.Enabled = input.Enabled;
-        await _userRepository.UpdateAsync(entity);
+        await _userRep.Value.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -743,7 +765,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
     {
-        var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
+        var user = await _userRep.Value.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
         if(user == null)
         {
             throw ResultOutput.Exception("用户不存在");
@@ -760,16 +782,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         //删除用户角色
-        await _userRoleRepository.DeleteAsync(a => a.UserId == id);
+        await _userRoleRepository.Value.DeleteAsync(a => a.UserId == id);
         //删除用户所属部门
-        await _userOrgRepository.DeleteAsync(a => a.UserId == id);
+        await _userOrgRepository.Value.DeleteAsync(a => a.UserId == id);
         //删除员工
-        await _staffRepository.DeleteAsync(a => a.Id == id);
+        await _userStaffRepository.Value.DeleteAsync(a => a.Id == id);
         //删除用户
-        await _userRepository.DeleteAsync(a => a.Id == id);
+        await _userRep.Value.DeleteAsync(a => a.Id == id);
 
         //删除用户数据权限缓存
-        await Cache.DelAsync(CacheKeys.DataPermission + id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
     }
 
     /// <summary>
@@ -780,7 +802,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchDeleteAsync(long[] ids)
     {
-        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
+        var admin = await _userRep.Value.Select.Where(a => ids.Contains(a.Id) && 
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
@@ -789,17 +811,17 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
        
         //删除用户角色
-        await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userRoleRepository.Value.DeleteAsync(a => ids.Contains(a.UserId));
         //删除用户所属部门
-        await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userOrgRepository.Value.DeleteAsync(a => ids.Contains(a.UserId));
         //删除员工
-        await _staffRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _userStaffRepository.Value.DeleteAsync(a => ids.Contains(a.Id));
         //删除用户
-        await _userRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _userRep.Value.DeleteAsync(a => ids.Contains(a.Id));
 
         foreach (var userId in ids)
         {
-            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 
@@ -811,7 +833,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
-        var user = await _userRepository.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
+        var user = await _userRep.Value.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
         if (user == null)
         {
             throw ResultOutput.Exception("用户不存在");
@@ -822,12 +844,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("平台管理员禁止删除");
         }
 
-        await _userRoleRepository.DeleteAsync(a => a.UserId == id);
-        await _userOrgRepository.DeleteAsync(a => a.UserId == id);
-        await _staffRepository.SoftDeleteAsync(a => a.Id == id);
-        await _userRepository.SoftDeleteAsync(id);
+        await _userRoleRepository.Value.DeleteAsync(a => a.UserId == id);
+        await _userOrgRepository.Value.DeleteAsync(a => a.UserId == id);
+        await _userStaffRepository.Value.SoftDeleteAsync(a => a.Id == id);
+        await _userRep.Value.SoftDeleteAsync(id);
 
-        await Cache.DelAsync(CacheKeys.DataPermission + id);
+        await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
     }
 
     /// <summary>
@@ -838,7 +860,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
-        var admin = await _userRepository.Select.Where(a => ids.Contains(a.Id) && 
+        var admin = await _userRep.Value.Select.Where(a => ids.Contains(a.Id) && 
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
@@ -846,14 +868,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("平台管理员禁止删除");
         }
 
-        await _userRoleRepository.DeleteAsync(a => ids.Contains(a.UserId));
-        await _userOrgRepository.DeleteAsync(a => ids.Contains(a.UserId));
-        await _staffRepository.SoftDeleteAsync(a => ids.Contains(a.Id));
-        await _userRepository.SoftDeleteAsync(ids);
+        await _userRoleRepository.Value.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userOrgRepository.Value.DeleteAsync(a => ids.Contains(a.UserId));
+        await _userStaffRepository.Value.SoftDeleteAsync(a => ids.Contains(a.Id));
+        await _userRep.Value.SoftDeleteAsync(ids);
 
         foreach (var userId in ids)
         {
-            await Cache.DelAsync(CacheKeys.DataPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 
@@ -867,12 +889,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [Login]
     public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
     {
-        var fileInfo = await _fileService.UploadFileAsync(file);
+        var fileInfo = await _fileService.Value.UploadFileAsync(file);
         if (autoUpdate)
         {
-            var entity = await _userRepository.GetAsync(User.Id);
+            var entity = await _userRep.Value.GetAsync(User.Id);
             entity.Avatar = fileInfo.LinkUrl;
-            await _userRepository.UpdateAsync(entity);
+            await _userRep.Value.UpdateAsync(entity);
         }
         return fileInfo.LinkUrl;
     }
@@ -889,9 +911,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("请选择用户");
         }
 
-        using var _ = _userRepository.DataFilter.DisableAll();
+        using var _ = _userRep.Value.DataFilter.DisableAll();
 
-        var user = await _userRepository.Select.Where(a => a.UserName == userName).ToOneAsync();
+        var user = await _userRep.Value.Select.Where(a => a.UserName == userName).ToOneAsync();
 
         if(user == null)
         {
@@ -899,9 +921,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Tenant)
+        if (_appConfig.Value.Tenant)
         {
-            var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRepository.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
             authLoginOutput.Tenant = tenant;
         }
 

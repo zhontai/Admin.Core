@@ -8,6 +8,7 @@ using ZhonTai.Admin.Services.View.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
+using System;
 
 namespace ZhonTai.Admin.Services.View;
 
@@ -18,11 +19,11 @@ namespace ZhonTai.Admin.Services.View;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class ViewService : BaseService, IViewService, IDynamicApi
 {
-    private IViewRepository _viewRepository => LazyGetRequiredService<IViewRepository>();
+    private readonly IViewRepository _viewRep;
 
-    public ViewService()
+    public ViewService(IViewRepository viewRep)
     {
-
+        _viewRep = viewRep;
     }
 
     /// <summary>
@@ -32,7 +33,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task<ViewGetOutput> GetAsync(long id)
     {
-        var result = await _viewRepository.GetAsync<ViewGetOutput>(id);
+        var result = await _viewRep.GetAsync<ViewGetOutput>(id);
         return result;
     }
 
@@ -43,7 +44,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task<List<ViewListOutput>> GetListAsync(string key)
     {
-        var data = await _viewRepository
+        var data = await _viewRep
             .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
@@ -62,10 +63,10 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         var entity = Mapper.Map<ViewEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _viewRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _viewRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
-        await _viewRepository.InsertAsync(entity);
+        await _viewRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -77,14 +78,14 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(ViewUpdateInput input)
     {
-        var entity = await _viewRepository.GetAsync(input.Id);
+        var entity = await _viewRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception("视图不存在！");
         }
 
         Mapper.Map(input, entity);
-        await _viewRepository.UpdateAsync(entity);
+        await _viewRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -94,7 +95,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _viewRepository.DeleteAsync(m => m.Id == id);
+        await _viewRep.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -104,7 +105,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task BatchDeleteAsync(long[] ids)
     {
-        await _viewRepository.DeleteAsync(a => ids.Contains(a.Id));
+        await _viewRep.DeleteAsync(a => ids.Contains(a.Id));
     }
 
     /// <summary>
@@ -114,7 +115,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task SoftDeleteAsync(long id)
     {
-        await _viewRepository.SoftDeleteAsync(id);
+        await _viewRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -125,7 +126,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
 
     public async Task BatchSoftDeleteAsync(long[] ids)
     {
-        await _viewRepository.SoftDeleteAsync(ids);
+        await _viewRep.SoftDeleteAsync(ids);
     }
 
     /// <summary>
@@ -137,7 +138,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     public virtual async Task SyncAsync(ViewSyncInput input)
     {
         //查询所有视图
-        var views = await _viewRepository.Select.ToListAsync();
+        var views = await _viewRep.Select.ToListAsync();
         var names = views.Select(a => a.Name).ToList();
         var paths = views.Select(a => a.Path).ToList();
 
@@ -160,7 +161,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
                         insertView.Label = insertView.Name;
                     }
                 }
-                insertViews = await _viewRepository.InsertAsync(insertViews);
+                insertViews = await _viewRep.InsertAsync(insertViews);
                 views.AddRange(insertViews);
             }
         }
@@ -202,7 +203,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             }
 
             updateViews.AddRange(disabledViews);
-            await _viewRepository.UpdateDiy.SetSource(updateViews)
+            await _viewRep.UpdateDiy.SetSource(updateViews)
             .UpdateColumns(a => new { a.Label, a.Name, a.Path, a.Enabled, a.Description })
             .ExecuteAffrowsAsync();
         }

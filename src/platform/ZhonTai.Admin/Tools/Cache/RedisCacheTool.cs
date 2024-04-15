@@ -1,5 +1,7 @@
 ﻿using FreeRedis;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ZhonTai.Common.Extensions;
@@ -14,6 +16,9 @@ public partial class RedisCacheTool : ICacheTool
     private static readonly string PatternRegex = @"\{.*\}";
 
     private readonly RedisClient _redisClient;
+
+    public List<string> Keys => _redisClient.Keys("*").ToList();
+
     public RedisCacheTool(RedisClient redisClient)
     {
         _redisClient = redisClient;
@@ -108,5 +113,10 @@ public partial class RedisCacheTool : ICacheTool
         await _redisClient.SetAsync(key, result, expire.HasValue ? expire.Value.TotalSeconds.ToInt() : 0);
 
         return result;
+    }
+
+    public List<string> GetKeysByPattern(string pattern)
+    {
+        return _redisClient.Keys(pattern).ToList();
     }
 }

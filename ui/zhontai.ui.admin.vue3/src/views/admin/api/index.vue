@@ -54,7 +54,7 @@ import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyn
 import { ApiListOutput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import { ApiApi as ApiExtApi } from '/@/api/admin.extend/Api'
-import { listToTree, treeToList, filterTree } from '/@/utils/tree'
+import { listToTree, treeToList, filterTree, filterList } from '/@/utils/tree'
 import { cloneDeep, isArray } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 
@@ -103,7 +103,15 @@ const onQuery = async () => {
         return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
       },
     })
-    state.formApiTreeData = listToTree(res.data.filter((a) => a.parentId === 0))
+
+    //修复#57
+    state.formApiTreeData = listToTree(
+      filterList(cloneDeep(res.data), '', {
+        filterWhere: (item: any, word: string) => {
+          return !item.httpMethods
+        },
+      })
+    )
   } else {
     state.apiTreeData = []
     state.formApiTreeData = []
@@ -178,12 +186,18 @@ const syncApi = async (swaggerResource: any) => {
   return await new ApiApi().sync({ apis })
 }
 
-const onSync = () => {
+const onSync = async () => {
   state.syncLoading = true
-  const swaggerResources = ['/admin/swagger-resources']
-  const lastSwaggerResourcesIndex = swaggerResources.length - 1
-  swaggerResources.forEach(async (swaggerResource, swaggerResourcesIndex) => {
-    const resSwaggerResources = await new ApiExtApi().getSwaggerResources(swaggerResource, { showErrorMessage: false }).catch(() => {
+  const resProjects = await new ApiApi().getProjects({ showErrorMessage: false }).catch(() => {
+    state.syncLoading = false
+  })
+  if (!resProjects?.success) {
+    return
+  }
+  const swaggerResourceUrls = resProjects.data?.map((project) => `/${project.code}/swagger-resources`) as string[]
+  const lastSwaggerResourcesIndex = swaggerResourceUrls.length - 1
+  swaggerResourceUrls.forEach(async (swaggerResourceUrl, swaggerResourcesIndex) => {
+    const resSwaggerResources = await new ApiExtApi().getSwaggerResources(swaggerResourceUrl, { showErrorMessage: false }).catch(() => {
       state.syncLoading = false
     })
     if (isArray(resSwaggerResources) && (resSwaggerResources?.length as number) > 0) {

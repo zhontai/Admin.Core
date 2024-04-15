@@ -20,20 +20,20 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.808" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.808" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.808" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.808" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.808" />
-		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.808" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.820" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.820" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.820" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.820" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.820" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.820" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cronos" Version="0.8.0" />
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.0.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.0.0" />
-		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="7.0.0" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.6" />
+		<PackageReference Include="Cronos" Version="0.8.4" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.1.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.1.0" />
+		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.0.0" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.7" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -55,6 +55,19 @@
 		<Content Update="wwwroot\*\*\*\*\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="ConfigCenter\ratelimitconfig.Development.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="ConfigCenter\ratelimitconfig.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

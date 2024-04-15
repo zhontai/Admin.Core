@@ -95,7 +95,7 @@
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyFilter ref="myFilterRef" :fields="state.filters" @sure="onFilterSure"></MyFilter>
+        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
       </div>
     </pane>
   </my-layout>
@@ -118,13 +118,13 @@ const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 const MySelectInput = defineAsyncComponent(() => import('/@/components/my-select-input/index.vue'))
 const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
-const MyFilter = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
+const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const userFormRef = ref()
 const userRestPwdRef = ref()
-const myFilterRef = ref()
+const myFilterDialogRef = ref()
 
 const storesUseUserInfo = useUserInfo()
 
@@ -207,7 +207,7 @@ const onQuery = async () => {
 
 //高级查询
 const onFilter = () => {
-  myFilterRef.value.open()
+  myFilterDialogRef.value.open()
 }
 
 const onFilterSure = (dynamicFilter: any) => {
@@ -309,6 +309,7 @@ const onOneClickLogin = (row: UserGetPageOutput) => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }

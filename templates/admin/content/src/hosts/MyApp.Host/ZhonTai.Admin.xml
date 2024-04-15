@@ -59,6 +59,16 @@
             日志
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.CurrentDataPermissionApiPath">
+            <summary>
+            数据权限接口路径
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppInfo.HostInfo">
+            <summary>
+            模块信息
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.AppInfo.GetServiceProvider(System.Type,System.Boolean)">
             <summary>
             获得服务提供程序
@@ -151,6 +161,21 @@
             <typeparam name="TOptions"></typeparam>
             <param name="serviceProvider"></param>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.AppSettings">
+            <summary>
+            应用配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppSettings.UseConfigCenter">
+            <summary>
+            使用配置中心
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.AppSettings.ConfigCenterPath">
+            <summary>
+            配置中心路径
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.AdminTransactionAttribute">
             <summary>
@@ -578,6 +603,11 @@
             任务调度管理界面配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.IdGenerator">
+            <summary>
+            Id生成器配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -858,6 +888,11 @@
             同步结构脚本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncStructureEntityBatchSize">
+            <summary>
+            同步结构批次实体数
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SyncData">
             <summary>
             同步数据
@@ -908,6 +943,11 @@
             建库脚本
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.CreateDbSqlFile">
+            <summary>
+            建库脚本文件
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.MonitorCommand">
             <summary>
             监听所有操作
@@ -931,6 +971,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.SlaveList">
             <summary>
             读写分离从库列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.DbConfig.ForceUpdate">
+            <summary>
+            强制更新
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SlaveDb">
@@ -961,6 +1006,11 @@
         <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.UserName">
             <summary>
             账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.Name">
+            <summary>
+            姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.SyncDataUser.TenantId">
@@ -1168,61 +1218,6 @@
             OSS配置列表
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.UploadConfig">
-            <summary>
-            上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.UploadConfig.Avatar">
-            <summary>
-            头像上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.UploadConfig.Document">
-            <summary>
-            文档图片上传配置
-            </summary>
-        </member>
-        <member name="T:ZhonTai.Admin.Core.Configs.FileUploadConfig">
-            <summary>
-            文件上传配置
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.UploadPath">
-            <summary>
-            上传路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.RequestPath">
-            <summary>
-            请求路径
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.Format">
-            <summary>
-            路径格式
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.DateTimeFormat">
-            <summary>
-            路径日期格式
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.MaxSize">
-            <summary>
-            文件大小 10M = 10 * 1024 * 1024
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.Limit">
-            <summary>
-            最大允许上传个数 -1不限制
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Core.Configs.FileUploadConfig.ContentType">
-            <summary>
-            文件格式
-            </summary>
-        </member>
         <member name="F:ZhonTai.Admin.Core.Consts.AdminConsts.AreaName">
             <summary>
             默认域
@@ -1274,6 +1269,21 @@
             </summary>
             <param name="mobile">手机号</param>
             <param name="code">唯一码</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetDataPermissionKey(System.Int64,System.String)">
+            <summary>
+            获取数据权限缓存键
+            </summary>
+            <param name="userId">用户Id</param>
+            <param name="apiPath">请求接口路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetDataPermissionPattern(System.Int64)">
+            <summary>
+            获取数据权限模板
+            </summary>
+            <param name="userId">用户Id</param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.Consts.DbKeys">
@@ -1403,18 +1413,23 @@
             <param name="appConfig"></param>
             <param name="dbConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,ZhonTai.Admin.Core.Auth.IUser)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.AuditValue(FreeSql.Aop.AuditValueEventArgs,System.TimeSpan,ZhonTai.Admin.Core.Auth.IUser,ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             审计数据
             </summary>
             <param name="e"></param>
             <param name="timeOffset"></param>
             <param name="user"></param>
+            <param name="dbConfig"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig)">
+        <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncStructure(IFreeSql,System.String,ZhonTai.Admin.Core.Configs.DbConfig,System.Action{IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig})">
             <summary>
             同步结构
             </summary>
+            <param name="db"></param>
+            <param name="msg"></param>
+            <param name="dbConfig"></param>
+            <param name="configureFreeSqlSyncStructure"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.SyncDataAsync(IFreeSql,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
@@ -1714,12 +1729,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserId">
             <summary>
-            创建者Id
+            创建者用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserName">
             <summary>
-            创建者
+            创建者用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedUserRealName">
+            <summary>
+            创建者姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityAdd`1.CreatedTime">
@@ -1864,12 +1884,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserId">
             <summary>
-            修改者Id
+            修改者用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserName">
             <summary>
-            修改者
+            修改者用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedUserRealName">
+            <summary>
+            修改者姓名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Entities.EntityUpdate`1.ModifiedTime">
@@ -2049,7 +2074,13 @@
             系统异常
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Extensions.RateLimitServiceCollectionExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Tools.Cache.CacheConfig)">
+        <member name="M:ZhonTai.Admin.Core.Extensions.IdGeneratorExtensions.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加Id生成器
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Extensions.IpRateLimitExtensions.AddIpRateLimit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Tools.Cache.CacheConfig)">
             <summary>
             添加Ip限流
             </summary>
@@ -2092,16 +2123,6 @@
             文件上传帮助类
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Helpers.UploadHelper.UploadAsync(Microsoft.AspNetCore.Http.IFormFile,ZhonTai.Admin.Core.Configs.FileUploadConfig,System.Object,System.Threading.CancellationToken)">
-            <summary>
-            上传单文件
-            </summary>
-            <param name="file"></param>
-            <param name="config"></param>
-            <param name="args"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
         <member name="M:ZhonTai.Admin.Core.Helpers.UploadHelper.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
             <summary>
             保存文件
@@ -2127,20 +2148,30 @@
             宿主应用
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[])">
+        <member name="M:ZhonTai.Admin.Core.HostApp.AddJsonFilesFromDirectory(Microsoft.Extensions.Configuration.ConfigurationManager,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            添加配置文件
+            </summary>
+            <param name="configuration">配置</param>
+            <param name="environmentName">环境名</param>
+            <param name="directory">目录</param>
+            <param name="optional">可选</param>
+            <param name="reloadOnChange">热更新</param>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.HostApp.Run(System.String[],System.Reflection.Assembly)">
             <summary>
             运行应用
             </summary>
             <param name="args"></param>
+            <param name="assembly"></param>
         </member>
-        <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Common.Helpers.ConfigHelper,ZhonTai.Admin.Core.Configs.AppConfig)">
+        <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">
             <summary>
             配置服务
             </summary>
             <param name="services"></param>
             <param name="env"></param>
             <param name="configuration"></param>
-            <param name="configHelper"></param>
             <param name="appConfig"></param>
         </member>
         <member name="M:ZhonTai.Admin.Core.HostApp.ConfigureMiddleware(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration,ZhonTai.Admin.Core.Configs.AppConfig)">
@@ -2151,6 +2182,41 @@
             <param name="env"></param>
             <param name="configuration"></param>
             <param name="appConfig"></param>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.HostInfo">
+            <summary>
+            宿主信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Id">
+            <summary>
+            唯一Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.ShortName">
+            <summary>
+            短命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.FullName">
+            <summary>
+            全命名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.HostInfo.Description">
+            <summary>
+            描述
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Logs.ApiHelper">
             <summary>
@@ -2372,6 +2438,11 @@
             配置FreeSql构建器
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSqlSyncStructure">
+            <summary>
+            配置FreeSql同步结构
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureFreeSql">
             <summary>
             配置FreeSql
@@ -2380,6 +2451,11 @@
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureDynamicApi">
             <summary>
             配置动态Api
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureSwaggerUI">
+            <summary>
+            配置SwaggerUI
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Core.Startup.HostAppOptions.ConfigureIdGenerator">
@@ -3941,6 +4017,36 @@
             创建结束时间
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.GroupName">
+            <summary>
+            分组名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskName">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.ClusterId">
+            <summary>
+            集群Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.TaskStatus">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.StartAddTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput.EndAddTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Repositories.AdminRepositoryBase`1">
             <summary>
             权限库基础仓储
@@ -4307,6 +4413,12 @@
             同步
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetProjects">
+            <summary>
+            获得项目列表
+            </summary>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiAddInput">
@@ -7326,10 +7438,10 @@
             <summary>
             查询
             </summary>
-            <param name="topic"></param>
+            <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskGetPageInput})">
             <summary>
             查询分页
             </summary>
@@ -7376,6 +7488,33 @@
             删除任务
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchRun(System.String[])">
+            <summary>
+            批量执行任务
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchPause(System.String[])">
+            <summary>
+            批量暂停任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchResume(System.String[])">
+            <summary>
+            批量启动任务
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskService.BatchDelete(System.String[])">
+            <summary>
+            批量删除任务
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput">
@@ -8460,6 +8599,16 @@
             <param name="expire">有效期</param>
             <returns></returns>
         </member>
+        <member name="P:ZhonTai.Admin.Tools.Cache.ICacheTool.Keys">
+            <summary>
+            所有缓存键
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Tools.Cache.ICacheTool.GetKeysByPattern(System.String)">
+            <summary>
+            根据 key 模板获得所有缓存键
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Tools.Cache.MemoryCacheTool">
             <summary>
             内存缓存
@@ -8596,6 +8745,66 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.FileName">
+            <summary>
+            执行应用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.Arguments">
+            <summary>
+            执行参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.ShellArgs.WorkingDirectory">
+            <summary>
+            命令应用工作目录
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig">
+            <summary>
+            任务调度配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.AlerEmail.Adress">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.FileName">
+            <summary>
+            应用程序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.Models.ProcessStartInfoModel.WorkingDirectory">
+            <summary>
+            工作目录
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.ProcessStartInfo">
+            <summary>
+            进程启动信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerConfig.AlerEmail">
+            <summary>
+            告警邮件
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Tools.TaskScheduler.TaskSchedulerOptions">
             <summary>

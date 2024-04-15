@@ -2,6 +2,7 @@
 using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Configs;
@@ -70,6 +71,11 @@ public class HostAppOptions
     public Action<FreeSqlBuilder, DbConfig> ConfigureFreeSqlBuilder { get; set; }
 
     /// <summary>
+    /// 配置FreeSql同步结构
+    /// </summary>
+    public Action<IFreeSql, DbConfig> ConfigureFreeSqlSyncStructure { get; set; }
+
+    /// <summary>
     /// 配置FreeSql
     /// </summary>
     public Action<IFreeSql, DbConfig> ConfigureFreeSql { get; set; }
@@ -78,6 +84,11 @@ public class HostAppOptions
     /// 配置动态Api
     /// </summary>
     public Action<DynamicApiOptions> ConfigureDynamicApi { get; set; }
+
+    /// <summary>
+    /// 配置SwaggerUI
+    /// </summary>
+    public Action<SwaggerUIOptions> ConfigureSwaggerUI { get; set; }
 
     /// <summary>
     /// 配置雪花漂移算法

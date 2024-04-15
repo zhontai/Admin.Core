@@ -13,7 +13,6 @@ using ZhonTai.Admin.Core.Validators;
 using System;
 using ZhonTai.Admin.Domain;
 using Mapster;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -52,14 +51,15 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var entity = await _taskRepository.Value.GetAsync(a => a.Id == id);
-        if (entity == null)
+        var taskInfo = Datafeed.GetTask(_scheduler.Value, id);
+
+        if (taskInfo == null)
         {
             throw ResultOutput.Exception("任务不存在");
         }
 
-        var taskGetOutput = entity.Adapt<TaskGetOutput>();
-        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(entity.Id);
+        var taskGetOutput = taskInfo.Adapt<TaskGetOutput>();
+        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(taskInfo.Id);
         return taskGetOutput;
     }
 
@@ -69,22 +69,47 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public PageOutput<TaskListOutput> GetPage(PageInput<TaskGetPageDto> input)
+    public async Task<PageOutput<TaskListOutput>> GetPage(PageInput<TaskGetPageInput> input)
     {
-        var result = Datafeed.GetPage(_scheduler.Value,
-            input.Filter.ClusterId,
-            input.Filter.Topic,
-            input.Filter.TaskStatus,
-            input.Filter.StartAddTime,
-            input.Filter.EndAddTime,
-            input.PageSize,
-            input.CurrentPage
-        );
+        //var result = Datafeed.GetPage(_scheduler.Value,
+        //    input.Filter.ClusterId,
+        //    input.Filter.Topic,
+        //    input.Filter.TaskStatus,
+        //    input.Filter.StartAddTime,
+        //    input.Filter.EndAddTime,
+        //    input.PageSize,
+        //    input.CurrentPage
+        //);
+
+        //var data = new PageOutput<TaskListOutput>()
+        //{
+        //    List = result.Tasks.Adapt<List<TaskListOutput>>(),
+        //    Total = result.Total
+        //};
+
+        var taskName = input.Filter?.TaskName;
+        var groupName = input.Filter?.GroupName;
+        var taskStatus = input.Filter?.TaskStatus;
+        var startAddTime = input.Filter?.StartAddTime;
+        var endAddTime = input.Filter?.EndAddTime;
+
+        var list = await _taskRepository.Value.Select
+        .WhereDynamicFilter(input.DynamicFilter)
+        .WhereIf(groupName.NotNull(), a => a.Topic.Contains(groupName))
+        .WhereIf(taskName.NotNull(), a => a.Topic.Contains(taskName))
+        .WhereIf(taskStatus.HasValue,a=> a.Status == taskStatus.Value)
+        .WhereIf(startAddTime.HasValue && !endAddTime.HasValue, a => a.CreateTime >= startAddTime.Value)
+        .WhereIf(endAddTime.HasValue && !startAddTime.HasValue, a => a.CreateTime < endAddTime.Value.AddDays(1))
+        .WhereIf(startAddTime.HasValue && endAddTime.HasValue, a => a.CreateTime.BetweenEnd(startAddTime.Value, endAddTime.Value.AddDays(1)))
+        .Count(out var total)
+        .OrderByDescending(true, c => c.Id)
+        .Page(input.CurrentPage, input.PageSize)
+        .ToListAsync<TaskListOutput>();
 
         var data = new PageOutput<TaskListOutput>()
         {
-            List = result.Tasks.Adapt<List<TaskListOutput>>(),
-            Total = result.Total
+            List = list,
+            Total = total
         };
 
         return data;
@@ -214,5 +239,56 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         scheduler.RemoveTask(id);
 
         await _taskExtRepository.Value.DeleteAsync(a => a.TaskId == id);
+    }
+
+    /// <summary>
+    /// 批量执行任务
+    /// </summary>
+    /// <param name="ids"></param>
+    public void BatchRun([BindRequired][ValidateRequired("请选择任务")] string[] ids)
+    {
+        foreach (var id in ids)
+        {
+            Run(id);
+        }
+    }
+
+    /// <summary>
+    /// 批量暂停任务
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public void BatchPause([BindRequired][ValidateRequired("请选择任务")] string[] ids)
+    {
+        foreach (var id in ids)
+        {
+            Pause(id);
+        }
+    }
+
+    /// <summary>
+    /// 批量启动任务
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public void BatchResume([BindRequired][ValidateRequired("请选择任务")] string[] ids)
+    {
+        foreach (var id in ids)
+        {
+            Resume(id);
+        }
+    }
+
+    /// <summary>
+    /// 批量删除任务
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    public async Task BatchDelete([BindRequired][ValidateRequired("请选择任务")] string[] ids)
+    {
+        foreach (var id in ids)
+        {
+            await Delete(id);
+        }
     }
 }

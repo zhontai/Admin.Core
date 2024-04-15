@@ -23,6 +23,8 @@ public partial class MemoryCacheTool : ICacheTool
         _memoryCache = memoryCache;
     }
 
+    public List<string> Keys => GetAllKeys();
+
     public long Del(params string[] key)
     {
         foreach (var k in key)
@@ -153,5 +155,10 @@ public partial class MemoryCacheTool : ICacheTool
             keys.Add(cacheItem.Key.ToString());
         }
         return keys;
+    }
+
+    public List<string> GetKeysByPattern(string pattern)
+    {
+        return GetAllKeys().Where(k => Regex.IsMatch(k, pattern)).ToList();
     }
 }

@@ -12,7 +12,6 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 #if (!NoApiUI)
 using ZhonTai.ApiUI;
 #endif
-using ZhonTai.Common.Helpers;
 using MyApp.Api.Core.Consts;
 using Microsoft.AspNetCore.Builder;
 #if (!NoCap)
@@ -24,14 +23,25 @@ using System.Linq;
 #if (!NoTaskScheduler)
 using FreeScheduler;
 #endif
-using AdminDbkeys = ZhonTai.Admin.Core.Consts.DbKeys;
+using AdminDbKeys = ZhonTai.Admin.Core.Consts.DbKeys;
 using AdminSubscribeNames = ZhonTai.Admin.Core.Consts.SubscribeNames;
 #if (!NoTaskScheduler)
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain;
 using System;
 using Cronos;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using ZhonTai.Admin.Services.Msg;
+using ZhonTai.Admin.Services.TaskScheduler;
+using ZhonTai.Admin.Services.Msg.Events;
+using Mapster;
 #endif
+using Autofac;
+using MyApp.Api.Core.Repositories;
+using System.IO;
+using System.Text;
 #if (!NoTaskScheduler)
 
 static void ConfigureScheduler(IFreeSql fsql)
@@ -58,7 +68,7 @@ new HostApp(new HostAppOptions()
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
 #if (!NoTaskScheduler)
-        if (dbConfig.Key == AdminDbkeys.TaskDb)
+        if (dbConfig.Key == AdminDbKeys.TaskDb)
         {
             freeSql.SyncSchedulerStructure(dbConfig, ConfigureScheduler);
         }
@@ -68,15 +78,18 @@ new HostApp(new HostAppOptions()
     //配置前置服务
     ConfigurePreServices = context =>
 	{
-        var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        var dbConfig = AppInfo.GetOptions<DbConfig>();
 		if (dbConfig.Key.NotNull())
 		{
 			DbKeys.AppDb = dbConfig.Key;
 		}
 #if (MergeDb)
-		AdminDbkeys.AppDb = DbKeys.AppDb;
+		AdminDbKeys.AppDb = DbKeys.AppDb;
+#if (!NoTaskScheduler)
+        AdminDbKeys.TaskDb = DbKeys.AppDb;
+        #endif
 #else
-        AdminDbkeys.AppDb = "admindb";
+        AdminDbKeys.AppDb = "admindb";
 #endif
         AdminSubscribeNames.SmsSingleSend = "app.smsSingleSend";
     },
@@ -85,7 +98,7 @@ new HostApp(new HostAppOptions()
 	{
 #if (!NoTaskScheduler)
         //添加任务调度，默认使用权限库作为任务调度库
-        context.Services.AddTaskScheduler(AdminDbkeys.TaskDb, options =>
+        context.Services.AddTaskScheduler(AdminDbKeys.TaskDb, options =>
         {
             options.ConfigureFreeSql = ConfigureScheduler;
 
@@ -95,7 +108,119 @@ new HostApp(new HostAppOptions()
                 freeSchedulerBuilder
                 .OnExecuting(task =>
                 {
-                    //执行任务
+                    var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
+
+                    if (task.Topic?.StartsWith("[shell]") == true)
+                    {
+                        var jsonArgs = JToken.Parse(task.Body);
+                        var shellArgs = jsonArgs.Adapt<ShellArgs>();
+
+                        var arguments = shellArgs.Arguments;
+                        var modeulName = jsonArgs["moduleName"]?.ToString();
+                        if (modeulName.NotNull())
+                        {
+                            //通过moduleName获取配置文件moduleName对应的Grpc远程地址
+                            var grpcAddress = string.Empty;
+                            if (grpcAddress.NotNull())
+                            {
+                                arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
+                            }
+                        }
+
+                        var fileName = shellArgs.FileName;
+                        if (fileName.IsNull())
+                        {
+                            fileName = taskSchedulerConfig?.ProcessStartInfo?.FileName;
+                        }
+
+                        var workingDirectory = shellArgs.WorkingDirectory;
+                        if (workingDirectory.IsNull())
+                        {
+                            workingDirectory = taskSchedulerConfig?.ProcessStartInfo?.WorkingDirectory;
+                        }
+
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = fileName,
+                            Arguments = arguments,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            WorkingDirectory = workingDirectory
+                        };
+
+                        var response = string.Empty;
+                        var error = string.Empty;
+                        using (var process = Process.Start(startInfo))
+                        {
+                            using var responseReader = new StreamReader(process.StandardOutput.BaseStream, Encoding.UTF8);
+                            response = responseReader.ReadToEnd();
+
+                            using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
+                            error = errorReader.ReadToEnd();
+
+                            //if (response.NotNull())
+                            //{
+                            //    Console.WriteLine("Response:");
+                            //    Console.WriteLine(response);
+                            //}
+
+                            //if (error.NotNull())
+                            //{
+                            //    Console.WriteLine("Error:");
+                            //    Console.WriteLine(error);
+                            //}
+
+                            process.WaitForExit();
+                        }
+
+                        if (response.NotNull())
+                            task.Remark(response);
+
+                        if (error.NotNull())
+                            throw new Exception(error);
+                    }
+                })
+                .OnExecuted((task, taskLog) =>
+                {
+                    try
+                    {
+                        if (!taskLog.Success)
+                        {
+                            //发送告警邮件
+                            var taskService = AppInfo.GetRequiredService<TaskService>();
+                            var emailService = AppInfo.GetRequiredService<EmailService>();
+                            var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
+                            var topic = task.Topic;
+                            if (alerEmail.NotNull())
+                            {
+                                var jsonArgs = JToken.Parse(task.Body);
+                                var desc = jsonArgs["desc"]?.ToString();
+                                if (desc.NotNull())
+                                    topic = desc;
+                            }
+                            alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                            {
+                                await emailService.SingleSendAsync(new EamilSingleSendEvent
+                                {
+                                    ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                    {
+                                        Address = address,
+                                        Name = address
+                                    },
+                                    Subject = "【任务调度中心】监控报警",
+                                    Body = $@"<p>任务名称：{topic}</p>
+<p>任务编号：{task.Id}</p>
+<p>告警类型：调度失败</p>
+<p>告警内容：<br/>{taskLog.Exception}</p>"
+                                });
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        AppInfo.Log.Error(ex);
+                    }
                 })
                 .UseCustomInterval(task =>
                 {
@@ -111,12 +236,12 @@ new HostApp(new HostAppOptions()
 #endif
 #if (!NoCap)
         //添加cap事件总线
-        var appConfig = ConfigHelper.Get<AppConfig>("appconfig", context.Environment.EnvironmentName);
+        var appConfig = AppInfo.GetOptions<AppConfig>();
 		Assembly[] assemblies = DependencyContext.Default.RuntimeLibraries
 			.Where(a => appConfig.AssemblyNames.Contains(a.Name))
 			.Select(o => Assembly.Load(new AssemblyName(o.Name))).ToArray();
 
-        //var dbConfig = ConfigHelper.Get<DbConfig>("dbconfig", context.Environment.EnvironmentName);
+        //var dbConfig = AppInfo.GetOptions<DbConfig>();
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
 		{
@@ -141,7 +266,7 @@ new HostApp(new HostAppOptions()
     //配置Autofac容器
     ConfigureAutofacContainer = (builder, context) =>
     {
-
+        builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
     },
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) =>
@@ -152,10 +277,10 @@ new HostApp(new HostAppOptions()
 	{
 		var app = context.App;
 		var env = app.Environment;
-		var appConfig = app.Services.GetService<AppConfig>();
+		var appConfig = AppInfo.GetOptions<AppConfig>();
 #if (!NoApiUI)
 
-		#region 新版Api文档
+        #region 新版Api文档
 		if (env.IsDevelopment() || appConfig.ApiUI.Enable)
 		{
             app.UseApiUI(options =>
@@ -168,7 +293,7 @@ new HostApp(new HostAppOptions()
                 });
             });
         }
-		#endregion
+        #endregion
 #endif
 	}
 }).Run(args);

@@ -24,10 +24,6 @@
 	"MicroService": {
       "longName": "micro-service",
       "shortName": "ms"
-    },
-	"VueVersion": {
-      "longName": "vue-version",
-      "shortName": "vv"
     }
   },
   "usageExamples": [

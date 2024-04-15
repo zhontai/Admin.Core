@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Threading;
 using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Core;
@@ -81,6 +82,22 @@ public static class AppInfo
     /// 日志
     /// </summary>
     public static Logger Log => LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+    static readonly AsyncLocal<string> _asyncLocal = new();
+
+    /// <summary>
+    /// 数据权限接口路径
+    /// </summary>
+    public static string CurrentDataPermissionApiPath
+    {
+        get => _asyncLocal.Value;
+        set => _asyncLocal.Value = value;
+    }
+
+    /// <summary>
+    /// 模块信息
+    /// </summary>
+    public static HostInfo HostInfo => AppInfoBase.HostInfo;
 
     #region private
 

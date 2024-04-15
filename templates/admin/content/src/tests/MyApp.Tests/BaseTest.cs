@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Net.Http;
-using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core;
 
 namespace MyApp.Tests;
 
@@ -20,7 +20,7 @@ public class BaseTest
 
     protected BaseTest()
     {
-        AppConfig = ConfigHelper.Get<AppConfig>("appconfig") ?? new AppConfig();
+        AppConfig = AppInfo.GetOptions<AppConfig>() ?? new AppConfig();
         var application = new WebApplicationFactory<Program>();
         Client = application.CreateClient();
         Server = application.Server;
