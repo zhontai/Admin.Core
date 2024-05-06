@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Org.BouncyCastle.Utilities.Encoders;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
-using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api.Dto;
+using ZhonTai.Admin.Services.Api.Dto;
 
 namespace ZhonTai.Tests.Controllers;
 
@@ -50,9 +52,9 @@ public class ApiControllerTest : BaseControllerTest
     {
         var input = new ApiAddInput
         {
-           Label = "新接口",
-           Path = "/api/admin/api/newapi",
-           HttpMethods = "post"
+            Label = "新接口",
+            Path = "/api/admin/api/newapi",
+            HttpMethods = "post"
         };
 
         var res = await PostResult($"/api/admin/api/add", input);
@@ -75,46 +77,56 @@ public class ApiControllerTest : BaseControllerTest
     }
 
     //[Fact]
-    //public void TestSM2()
+    //public void TestSM()
     //{
 
-    //    SM2Encrypt.GenerateKeyPair(out string pubk, out string prik);
+    //    //SM2Encryption.GenerateSM2KeyPair(out string privateKey, out string publicKey);
+    //    string privateKey = "Ja4UIUJz7XRNDhIiuWXwL78qd1Pc7SC0/Z9LzyF4SL8=";
+    //    string publicKey = "BGe1BZDFN+NhCQtc2qlVk8nUlXrIwcyjT3mMt7Xx3BkDNBGBQjFPV0+h3/cGUYXo2TFI1SShS7hWl9zi6SxUHvg=";
 
-    //    String plainText = "ererfeiisgod";
-    //    byte[] sourceData = Encoding.Default.GetBytes(plainText);
+    //    string raw = "Hello, SM2 Encryption!";
+    //    string e = SM2Encryption.Encrypt(raw, publicKey);
+    //    Console.WriteLine($"加密结果：{e}");
 
-    //    //下面的秘钥可以使用generateKeyPair()生成的秘钥内容  
-    //    // 国密规范正式私钥  
-    //    String prik1 = "3690655E33D5EA3D9A4AE1A1ADD766FDEA045CDEAA43A9206FB8C430CEFE0D94";
-    //    // 国密规范正式公钥  
-    //    String pubk2 = "04F6E0C3345AE42B51E06BF50B98834988D54EBC7460FE135A48171BC0629EAE205EEDE253A530608178A98F1E19BB737302813BA39ED3FA3C51639D7A20C7391A";
+    //    string d = SM2Encryption.Decrypt(e, privateKey);
+    //    Console.WriteLine($"解密结果：{d}");
 
-    //    System.Console.Out.WriteLine("加密: ");
-    //    String cipherText = SM2Encrypt.Encrypt(Hex.Decode(pubk), sourceData);
-    //    System.Console.Out.WriteLine(cipherText);
-    //    System.Console.Out.WriteLine("解密: ");
-    //    plainText = Encoding.Default.GetString(SM2Encrypt.Decrypt(Hex.Decode(prik), Hex.Decode(cipherText)));
-    //    System.Console.Out.WriteLine(plainText);
-    //    Assert.Equal("ererfeiisgod", plainText);
+
+    //    string data = "Hello, SM3 Encryption!";
+    //    string sm3key = "98C63180C3748ED2";
+
+    //    string sm3Hash = SM3Encryption.ComputeSM3HashBase64(data);
+    //    string sm3HashHex = SM3Encryption.ComputeSM3HashHex(data);
+    //    //sm3 with key
+    //    byte[] hash = SM3Encryption.ComputeHMacSM3(data, sm3key);
+    //    string stringHash = Base64.ToBase64String(hash);
+    //    string a = SM3Encryption.ComputeSM3HashBase64(data);
+    //    string hexHash = Hex.ToHexString(hash); // 如果需要十六进制字符串表示  
+
+    //    Console.WriteLine("Original Data: " + data);
+    //    Console.WriteLine("SM3 Hash(string): " + sm3Hash);
+    //    Console.WriteLine("SM3 Hash(Hex): " + sm3HashHex);
+    //    Console.WriteLine("HMAC-SM3 Hash (string): " + stringHash);
+    //    Console.WriteLine("HMAC-SM3 Hash (Hex): " + hexHash);
+
+
+    //    var msg = "Hello, SM4 Encryption!";
+    //    string key = "98C63180C3748ED2";
+    //    var iv = "UISwD9fW6cFh9SNS";
+    //    var mode = "CBC";
+    //    string encryptMsg = SM4Encryption.Encrypt(msg, key, iv, mode, false);
+    //    string decryptedMsg = SM4Encryption.Decrypt(encryptMsg, key, iv, mode, false);
+
+    //    //Hex
+    //    string encryptMsgHex = SM4Encryption.Encrypt(msg, key, iv, mode, true);
+    //    string decryptedMsgHex = SM4Encryption.Decrypt(encryptMsgHex, key, iv, mode, true);
+    //    // 打印加密相关信息  
+
+    //    Console.WriteLine("Message:\t\t{0}", encryptMsg);
+    //    Console.WriteLine("decryptedMsg:\t\t{0}", decryptedMsg);
+    //    Console.WriteLine("MessageHex:\t\t{0}", encryptMsgHex);
+    //    Console.WriteLine("decryptedMsgHex:\t{0}", decryptedMsgHex);
     //}
 
-    //[Fact]
-    //public void TestSM3()
-    //{
-    //    var a = SM3Encrypt.Encrypt("sss");
-    //    Assert.Equal("a6575581922eb9a386a8b941f2fd1f3ea8ef92051edc3a0dc277a972fc353c14", a);
-    //}
-    //[Fact]
-    //public void TestSM4()
-    //{
-    //    var a = SM4Encrypt.Encrypt_ECB("1", "c4ca4238a0b923820dcc509a6f75849b");
-    //    var b = SM4Encrypt.Decrypt_ECB(a, "c4ca4238a0b923820dcc509a6f75849b");
-
-    //    var a1 = SM4Encrypt.Encrypt_CBC("1", "c4ca4238a0b923820dcc509a6f75849b", "c4ca4238a0b923820dcc509a6f75849b");
-    //    var b1 = SM4Encrypt.Decrypt_CBC(a1, "c4ca4238a0b923820dcc509a6f75849b", "c4ca4238a0b923820dcc509a6f75849b");
-    //    Assert.Equal("1", b);
-    //    Assert.Equal("1", b1);
-
-    //}
 
 }
