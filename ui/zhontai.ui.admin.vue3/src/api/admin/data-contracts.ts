@@ -1398,6 +1398,22 @@ export interface PageInputPkgGetPkgTenantListInput {
 }
 
 /** 分页信息输入 */
+export interface PageInputRegionGetPageInput {
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  dynamicFilter?: DynamicFilterInfo
+  filter?: RegionGetPageInput
+}
+
+/** 分页信息输入 */
 export interface PageInputRoleGetPageDto {
   /**
    * 当前页标
@@ -1564,6 +1580,17 @@ export interface PageOutputPkgGetPkgTenantListOutput {
   total?: number
   /** 数据 */
   list?: PkgGetPkgTenantListOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputRegionGetPageOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: RegionGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -2491,6 +2518,202 @@ export interface ProjectConfig {
   description?: string | null
 }
 
+/** 添加 */
+export interface RegionAddInput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  level?: RegionLevel
+  /** 代码 */
+  code?: string | null
+  /** 提取Url */
+  url?: string | null
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 热门 */
+  hot?: boolean
+  /** 启用 */
+  enabled?: boolean
+}
+
+export interface RegionGetChildListOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 名称 */
+  name?: string | null
+  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  level?: RegionLevel
+  /** 拼音 */
+  pinyin?: string | null
+  /** 拼音首字母 */
+  pinyinFirst?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /** 热门 */
+  hot?: boolean
+  /** 叶子节点 */
+  leaf?: boolean
+}
+
+export interface RegionGetListInput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 热门 */
+  hot?: boolean | null
+  /** 启用 */
+  enabled?: boolean | null
+}
+
+export interface RegionGetOutput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  level?: RegionLevel
+  /** 代码 */
+  code?: string | null
+  /** 提取Url */
+  url?: string | null
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 热门 */
+  hot?: boolean
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id: number
+  parentIdList?: number[] | null
+}
+
+export interface RegionGetPageInput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number | null
+  /** 名称 */
+  name?: string | null
+  /** 热门 */
+  hot?: boolean | null
+  /** 启用 */
+  enabled?: boolean | null
+}
+
+export interface RegionGetPageOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 代码 */
+  code?: string | null
+  /** 拼音 */
+  pinyin?: string | null
+  /** 拼音首字母 */
+  pinyinFirst?: string | null
+  /** 城乡分类代码 */
+  vilageCode?: string | null
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 热门 */
+  hot?: boolean
+  /** 启用 */
+  enabled?: boolean
+}
+
+/**
+ * Province=1,City=2,County=3,Town=4,Vilage=5
+ * @format int32
+ */
+export type RegionLevel = 1 | 2 | 3 | 4 | 5
+
+/** 设置启用 */
+export interface RegionSetEnableInput {
+  /**
+   * 地区Id
+   * @format int64
+   */
+  regionId?: number
+  /** 是否启用 */
+  enabled?: boolean
+}
+
+/** 设置热门 */
+export interface RegionSetHotInput {
+  /**
+   * 地区Id
+   * @format int64
+   */
+  regionId?: number
+  /** 热门 */
+  hot?: boolean
+}
+
+/** 修改 */
+export interface RegionUpdateInput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  level?: RegionLevel
+  /** 代码 */
+  code?: string | null
+  /** 提取Url */
+  url?: string | null
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 热门 */
+  hot?: boolean
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id: number
+}
+
 /** 结果输出 */
 export interface ResultOutputApiGetOutput {
   /** 是否成功标记 */
@@ -2821,6 +3044,18 @@ export interface ResultOutputListProjectConfig {
 }
 
 /** 结果输出 */
+export interface ResultOutputListRegionGetChildListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: RegionGetChildListOutput[] | null
+}
+
+/** 结果输出 */
 export interface ResultOutputListRoleGetListOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -2988,6 +3223,18 @@ export interface ResultOutputPageOutputPkgGetPkgTenantListOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputPageOutputRegionGetPageOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputRegionGetPageOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputPageOutputRoleGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -3100,6 +3347,17 @@ export interface ResultOutputPkgGetOutput {
   /** 消息 */
   msg?: string | null
   data?: PkgGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputRegionGetOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  data?: RegionGetOutput
 }
 
 /** 结果输出 */

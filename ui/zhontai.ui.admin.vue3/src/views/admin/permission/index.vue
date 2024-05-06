@@ -79,9 +79,13 @@
               @click="onEdit(row)"
               >编辑</el-button
             >
-            <el-button v-auth="'api:admin:permission:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)"
-              >删除</el-button
-            >
+            <my-dropdown-more v-auths="['api:admin:permission:delete']">
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item v-if="auth('api:admin:permission:delete')" @click="onDelete(row)">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </my-dropdown-more>
           </template>
         </el-table-column>
       </el-table>
@@ -120,6 +124,7 @@ import { auth } from '/@/utils/authFunction'
 const PermissionGroupForm = defineAsyncComponent(() => import('./components/permission-group-form.vue'))
 const PermissionMenuForm = defineAsyncComponent(() => import('./components/permission-menu-form.vue'))
 const PermissionDotForm = defineAsyncComponent(() => import('./components/permission-dot-form.vue'))
+const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

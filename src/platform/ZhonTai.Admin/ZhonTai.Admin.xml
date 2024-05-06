@@ -3179,6 +3179,91 @@
             权限列表
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.Region.RegionEntity">
+            <summary>
+            地区
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.ParentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Pinyin">
+            <summary>
+            拼音
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.PinyinFirst">
+            <summary>
+            拼音首字母
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Url">
+            <summary>
+            提取地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.VilageCode">
+            <summary>
+            城乡分类代码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.Region.RegionEntity.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.County">
+            <summary>
+            县/区
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.Town">
+            <summary>
+            镇/乡/街道
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.Vilage">
+            <summary>
+            村/村委会/社区/居委会
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Domain.RoleOrgEntity">
             <summary>
             角色部门
@@ -7010,6 +7095,302 @@
             <summary>
             映射配置
             </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Region.RegionAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.ParentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Url">
+            <summary>
+            提取Url
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionAddInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetListInput.ParentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetListInput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetListInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.ParentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Region.RegionSetEnableInput">
+            <summary>
+            设置启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionSetEnableInput.RegionId">
+            <summary>
+            地区Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionSetEnableInput.Enabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Region.RegionSetHotInput">
+            <summary>
+            设置热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionSetHotInput.RegionId">
+            <summary>
+            地区Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionSetHotInput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Region.RegionUpdateInput">
+            <summary>
+            修改
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionUpdateInput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Pinyin">
+            <summary>
+            拼音
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.PinyinFirst">
+            <summary>
+            拼音首字母
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetChildListOutput.Leaf">
+            <summary>
+            叶子节点
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Id">
+            <summary>
+            主键Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.ParentId">
+            <summary>
+            上级Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Pinyin">
+            <summary>
+            拼音
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.PinyinFirst">
+            <summary>
+            拼音首字母
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.VilageCode">
+            <summary>
+            城乡分类代码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Hot">
+            <summary>
+            热门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Region.RegionService">
+            <summary>
+            地区服务
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.GetAsync(System.Int64)">
+            <summary>
+            查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.GetChildListAsync(ZhonTai.Admin.Services.Region.RegionGetListInput)">
+            <summary>
+            查询下级列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.Region.RegionGetPageInput})">
+            <summary>
+            查询分页
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.AddAsync(ZhonTai.Admin.Services.Region.RegionAddInput)">
+            <summary>
+            新增
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.UpdateAsync(ZhonTai.Admin.Services.Region.RegionUpdateInput)">
+            <summary>
+            修改
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.DeleteAsync(System.Int64)">
+            <summary>
+            彻底删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.SoftDeleteAsync(System.Int64)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.SetEnableAsync(ZhonTai.Admin.Services.Region.RegionSetEnableInput)">
+            <summary>
+            设置启用
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.SetHotAsync(ZhonTai.Admin.Services.Region.RegionSetHotInput)">
+            <summary>
+            设置热门
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.SyncRegionAsync(ZhonTai.Admin.Domain.Region.RegionEntity,System.String,ZhonTai.Admin.Domain.Region.RegionLevel,System.String,System.String)">
+            <summary>
+            同步地区
+            </summary>
+            <param name="region"></param>
+            <param name="selectors"></param>
+            <param name="regionLevel"></param>
+            <param name="url"></param>
+            <param name="splitUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Region.RegionService.SyncDataAsync(ZhonTai.Admin.Domain.Region.RegionLevel)">
+            <summary>
+            同步数据
+            </summary>
+            <param name="regionLevel">地区级别</param>
+            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Services.Role.Dto.RoleAddInput">
             <summary>

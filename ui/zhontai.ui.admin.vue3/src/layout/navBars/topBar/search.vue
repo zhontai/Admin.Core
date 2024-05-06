@@ -102,6 +102,8 @@ defineExpose({
 .layout-search-dialog {
   position: relative;
   :deep(.el-dialog) {
+    background-color: unset;
+    box-shadow: unset;
     .el-dialog__header,
     .el-dialog__body {
       display: none;

@@ -1,6 +1,6 @@
 {
   "name": "admin.ui.plus",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "description": "vue3 vite admin plus",
   "author": "",
   "license": "MIT",
@@ -16,14 +16,15 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
+    "ace-builds": "^1.33.1",
     "axios": "^1.6.8",
     "countup.js": "^2.8.0",
-    "cropperjs": "^1.6.1",
+    "cropperjs": "^1.6.2",
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
     "echarts-gl": "^2.0.9",
     "echarts-wordcloud": "^2.1.0",
-    "element-plus": "2.7.0",
+    "element-plus": "2.7.2",
     "js-cookie": "^3.0.5",
     "js-table2excel": "^1.1.2",
     "jsplumb": "^2.15.6",
@@ -42,10 +43,9 @@
     "vue-clipboard3": "^2.0.0",
     "vue-demi": "^0.14.7",
     "vue-grid-layout": "^3.0.0-beta1",
-    "vue-i18n": "^9.12.1",
-    "vue-router": "^4.3.0",
-    "vue3-ace-editor": "^2.2.4",
-    "ace-builds": "^1.33.0"
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.3.2",
+    "vue3-ace-editor": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
@@ -54,7 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
     "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/compiler-sfc": "^3.4.21",
+    "@vue/compiler-sfc": "^3.4.25",
     "dotenv": "16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.25.0",
@@ -62,10 +62,11 @@
     "sass": "^1.75.0",
     "swagger-typescript-api": "13.0.3",
     "typescript": "^5.4.5",
-    "vite": "^5.2.8",
-    "vue-eslint-parser": "^9.4.2",
+    "vite": "^5.2.10",
     "vite-plugin-compression": "0.5.1",
-    "vite-plugin-vue-setup-extend-plus": "^0.1.0"
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-vue-setup-extend-plus": "^0.1.0",
+    "vue-eslint-parser": "^9.4.2"
   },
   "browserslist": [
     "> 1%",
