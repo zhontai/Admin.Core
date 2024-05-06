@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Utilities.Encoders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -99,9 +98,9 @@ public class ApiControllerTest : BaseControllerTest
     //    string sm3HashHex = SM3Encryption.ComputeSM3HashHex(data);
     //    //sm3 with key
     //    byte[] hash = SM3Encryption.ComputeHMacSM3(data, sm3key);
-    //    string stringHash = Base64.ToBase64String(hash);
+    //    string stringHash = Org.BouncyCastle.Utilities.Encoders.Base64.ToBase64String(hash);
     //    string a = SM3Encryption.ComputeSM3HashBase64(data);
-    //    string hexHash = Hex.ToHexString(hash); // 如果需要十六进制字符串表示  
+    //    string hexHash = Org.BouncyCastle.Utilities.Encoders.Hex.ToHexString(hash); // 如果需要十六进制字符串表示  
 
     //    Console.WriteLine("Original Data: " + data);
     //    Console.WriteLine("SM3 Hash(string): " + sm3Hash);
