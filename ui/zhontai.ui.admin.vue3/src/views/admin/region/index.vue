@@ -20,8 +20,8 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-popconfirm title="确定要同步地区" hide-icon width="180" hide-after="0" @confirm="onSync">
+          <el-button v-if="auth('api:admin:region:add')" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-popconfirm v-if="auth('api:admin:region:sync-data')" title="确定要同步地区" hide-icon width="180" hide-after="0" @confirm="onSync">
             <template #reference>
               <el-button :loading="state.syncLoading" type="primary" icon="ele-Refresh"> 同步 </el-button>
             </template>
@@ -39,6 +39,7 @@
         <el-table-column label="状态" width="80" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
+              v-if="auth('api:admin:region:set-enable')"
               v-model="row.enabled"
               :loading="row.loading"
               :active-value="true"
@@ -48,7 +49,7 @@
               inactive-text="禁用"
               :before-change="() => onSetEnable(row)"
             />
-            <template>
+            <template v-else>
               <el-tag type="success" v-if="row.enabled">启用</el-tag>
               <el-tag type="danger" v-else>禁用</el-tag>
             </template>
@@ -57,6 +58,7 @@
         <el-table-column label="热门" width="80" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
+              v-if="auth('api:admin:region:set-hot')"
               v-model="row.hot"
               :loading="row.hotLoading"
               :active-value="true"
@@ -66,7 +68,7 @@
               inactive-text="否"
               :before-change="() => onSetHot(row)"
             />
-            <template>
+            <template v-else>
               <el-tag type="success" v-if="row.enabled">是</el-tag>
               <el-tag type="danger" v-else>否</el-tag>
             </template>
@@ -74,8 +76,8 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:api:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:api:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:region:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:region:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -103,6 +105,7 @@ import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyn
 import { PageInputRegionGetPageInput, RegionGetPageOutput } from '/@/api/admin/data-contracts'
 import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
+import { auth } from '/@/utils/authFunction'
 
 // 引入组件
 const RegionForm = defineAsyncComponent(() => import('./components/region-form.vue'))
