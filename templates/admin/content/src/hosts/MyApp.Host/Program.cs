@@ -146,18 +146,17 @@ new HostApp(new HostAppOptions()
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
-                            WorkingDirectory = workingDirectory
+                            WorkingDirectory = workingDirectory,
+                            StandardOutputEncoding = Encoding.UTF8,
+                            StandardErrorEncoding = Encoding.UTF8,
                         };
 
                         var response = string.Empty;
                         var error = string.Empty;
                         using (var process = Process.Start(startInfo))
                         {
-                            using var responseReader = new StreamReader(process.StandardOutput.BaseStream, Encoding.UTF8);
-                            response = responseReader.ReadToEnd();
-
-                            using var errorReader = new StreamReader(process.StandardError.BaseStream, Encoding.UTF8);
-                            error = errorReader.ReadToEnd();
+                            response = process.StandardOutput.ReadToEnd();
+                            error = process.StandardError.ReadToEnd();
 
                             //if (response.NotNull())
                             //{
