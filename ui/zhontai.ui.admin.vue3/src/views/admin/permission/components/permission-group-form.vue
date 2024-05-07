@@ -27,32 +27,6 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图">
-              <el-tree-select
-                v-model="form.viewId"
-                :data="state.viewTreeData"
-                node-key="id"
-                :props="{ label: 'path' }"
-                default-expand-all
-                render-after-expand
-                fit-input-width
-                clearable
-                filterable
-                :filter-node-method="onViewFilterNode"
-                class="w100"
-              >
-                <template #default="{ data }">
-                  <span class="my-flex my-flex-between">
-                    <span>{{ data.label }}</span>
-                    <span class="my-line-1 my-ml-12" :title="data.path">
-                      {{ data.path }}
-                    </span>
-                  </span>
-                </template>
-              </el-tree-select>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="名称" prop="label" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.label" clearable />
             </el-form-item>
@@ -60,11 +34,6 @@
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="路由地址" prop="path" :rules="[{ required: true, message: '请输入路由地址', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.path" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="路由命名">
-              <el-input v-model="form.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -111,10 +80,8 @@
 
 <script lang="ts" setup name="admin/permission/permission-group-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent } from 'vue'
-import { PermissionListOutput, PermissionUpdateGroupInput, ViewListOutput } from '/@/api/admin/data-contracts'
+import { PermissionListOutput, PermissionUpdateGroupInput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
-import { ViewApi } from '/@/api/admin/View'
-import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 
 // 引入组件
@@ -137,23 +104,12 @@ const state = reactive({
   showDialog: false,
   sureLoading: false,
   form: { enabled: true, opened: true } as PermissionUpdateGroupInput,
-  viewTreeData: [] as ViewListOutput[],
 })
 const { form } = toRefs(state)
-
-const getViews = async () => {
-  const res = await new ViewApi().getList()
-  if (res?.success && res.data && res.data.length > 0) {
-    state.viewTreeData = listToTree(res.data) as ViewListOutput[]
-  } else {
-    state.viewTreeData = []
-  }
-}
 
 // 打开对话框
 const open = async (row: any = {}) => {
   proxy.$modal.loading()
-  await getViews()
   if (row.id > 0) {
     const res = await new PermissionApi().getGroup({ id: row.id }).catch(() => {
       proxy.$modal.closeLoading()
@@ -165,15 +121,10 @@ const open = async (row: any = {}) => {
       state.form = formData
     }
   } else {
-    state.form = { enabled: true, opened: true, icon: 'ele-Memo' } as PermissionUpdateGroupInput
+    state.form = { enabled: true, opened: true, icon: 'ele-Memo', parentId: row.parentId } as PermissionUpdateGroupInput
   }
   proxy.$modal.closeLoading()
   state.showDialog = true
-}
-
-const onViewFilterNode = (value: string, data: ViewListOutput) => {
-  if (!value) return true
-  return data.label?.indexOf(value) !== -1 || data.path?.indexOf(value) !== -1
 }
 
 // 取消

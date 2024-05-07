@@ -189,7 +189,7 @@ const open = async (row: any = {}) => {
       state.form = formData
     }
   } else {
-    state.form = { enabled: true, isKeepAlive: true, icon: 'ele-Memo' } as PermissionUpdateMenuInput
+    state.form = { enabled: true, isKeepAlive: true, icon: 'ele-Memo', parentId: row.parentId } as PermissionUpdateMenuInput
   }
 
   proxy.$modal.closeLoading()

@@ -157,7 +157,7 @@ const open = async (row: any = {}) => {
       state.form = formData
     }
   } else {
-    state.form = { enabled: true } as PermissionUpdateDotInput
+    state.form = { enabled: true, parentId: row.parentId } as PermissionUpdateDotInput
   }
 
   proxy.$modal.closeLoading()
