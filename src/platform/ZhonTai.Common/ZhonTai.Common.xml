@@ -528,133 +528,154 @@
             <param name="input"></param>  
             <returns></returns>  
         </member>
-        <member name="T:ZhonTai.Common.Helpers.SM2Encrypt">
+        <member name="T:ZhonTai.Common.Helpers.SM2Encryption">
             <summary>
-            SM2加密类
+            加密工具类，提供基于SM2算法的加密和解密功能。  
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.GenerateKeyPair(Org.BouncyCastle.Math.EC.ECPoint@,Org.BouncyCastle.Math.BigInteger@)">
+        <member name="F:ZhonTai.Common.Helpers.SM2Encryption.CurveParams">
             <summary>
-            
-            </summary>
-            <param name="pubk"></param>
-            <param name="prik"></param>
-        </member>
-        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.GenerateKeyPair(System.String@,System.String@)">
-            <summary>
-            
-            </summary>
-            <param name="pubk"></param>
-            <param name="prik"></param>
-        </member>
-        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.Encrypt(System.Byte[],System.Byte[])">
-            <summary>
-            
-            </summary>
-            <param name="publicKey"></param>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ZhonTai.Common.Helpers.SM2Encrypt.Decrypt(System.Byte[],System.Byte[])">
-            <summary>
-            
-            </summary>
-            <param name="privateKey"></param>
-            <param name="encryptedData"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Common.Helpers.SM3Encrypt">
-            <summary>
-            SM3加密类
+            获取SM2曲线参数
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM3Encrypt.Encrypt(System.String,System.Boolean)">
+        <member name="F:ZhonTai.Common.Helpers.SM2Encryption.secureRandom">
             <summary>
-            SM3加密类
-            </summary>
-            <param name="plainText"></param>
-            <param name="Case">false小写，true大写</param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Common.Helpers.SM4Encrypt">
-            <summary>
-            SM4加密类
+            随机数
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Encrypt_ECB(System.String,System.String,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="plainText"></param>
-            <param name="secretKey"></param>
-            <param name="hexstring"></param>
-            <returns></returns>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encryption.GenerateSM2KeyPair(System.String@,System.String@)">
+            <summary>  
+            生成SM2密钥对，密钥对使用Base64进行编码  
+            </summary>  
+            <param name="privateKey">输出的私钥（Base64编码）</param>  
+            <param name="publicKey">输出的公钥（Base64编码）</param>  
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Decrypt_ECB(System.String,System.String,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="cipherText"></param>
-            <param name="secretKey"></param>
-            <param name="hexstring"></param>
-            <returns></returns>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encryption.Encrypt(System.String,System.String)">
+            <summary>  
+            SM2 公钥加密  
+            </summary>  
+            <param name="message">待加密的消息</param>  
+            <param name="publicKey">SM2公钥（Base64编码）</param>  
+            <returns>加密后的密文（Base64编码）</returns>  
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Encrypt_CBC(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="plainText"></param>
-            <param name="secretKey"></param>
-            <param name="iv"></param>
-            <param name="hexstring"></param>
-            <returns></returns>
+        <member name="M:ZhonTai.Common.Helpers.SM2Encryption.Decrypt(System.String,System.String)">
+            <summary>  
+            使用SM2私钥解密消息  
+            </summary>  
+            <param name="ciphertext">待解密的密文（Base64编码）</param>  
+            <param name="privateKey">SM2私钥（Base64编码）</param>  
+            <returns>解密后的明文</returns>  
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SM4Encrypt.Decrypt_CBC(System.String,System.String,System.String,System.Boolean)">
+        <member name="T:ZhonTai.Common.Helpers.SM3Encryption">
             <summary>
-            
-            </summary>
-            <param name="cipherText"></param>
-            <param name="secretKey"></param>
-            <param name="iv"></param>
-            <param name="hexstring"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ZhonTai.Common.Helpers.SMEncrypt.ByteUtils">
-            <summary>
-            字节数组操作扩展类
+            提供基于SM3算法的哈希计算和HMAC功能。
             </summary>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int32,System.Int32)">
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeSM3Hash(System.String)">
             <summary>
-            Performs an unsigned bitwise right shift with the specified number
+            计算给定数据的SM3哈希值（二进制表示）。
             </summary>
-            <param name="number">Number to operate on</param>
-            <param name="bits">Ammount of bits to shift</param>
-            <returns>The resulting number from the shift operation</returns>
+            <param name="data">要计算哈希的数据（字符串形式）。</param>
+            <returns>SM3哈希值的二进制数组。</returns>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int32,System.Int64)">
-             <summary>
-             Performs an unsigned bitwise right shift with the specified number
-             </summary>
-            <param name="number">Number to operate on</param>
-            <param name="bits">Ammount of bits to shift</param>
-             <returns>The resulting number from the shift operation</returns>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeSM3HashHex(System.String)">
+            <summary>
+            计算给定数据的SM3哈希值（十六进制表示）。
+            </summary>
+            <param name="data">要计算哈希的数据（字符串形式）。</param>
+            <returns>SM3哈希值的十六进制字符串。</returns>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int64,System.Int32)">
-             <summary>
-             Performs an unsigned bitwise right shift with the specified number
-             </summary>
-            <param name="number">Number to operate on</param>
-            <param name="bits">Ammount of bits to shift</param>
-             <returns>The resulting number from the shift operation</returns>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeSM3HashBase64(System.String)">
+            <summary>
+            计算给定数据的SM3哈希值（十六进制表示）。
+            </summary>
+            <param name="data">要计算哈希的数据（字符串形式）。</param>
+            <returns>SM3哈希值的十六进制字符串。</returns>
         </member>
-        <member name="M:ZhonTai.Common.Helpers.SMEncrypt.SupportClass.URShift(System.Int64,System.Int64)">
-             <summary>
-             Performs an unsigned bitwise right shift with the specified number
-             </summary>
-            <param name="number">Number to operate on</param>
-            <param name="bits">Ammount of bits to shift</param>
-             <returns>The resulting number from the shift operation</returns>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeHMacSM3(System.String,System.String)">
+            <summary>
+            计算给定数据和密钥的HMAC-SM3值（二进制表示）。
+            </summary>
+            <param name="data">要计算HMAC的数据（字符串形式）。</param>
+            <param name="key">HMAC密钥（字符串形式）。</param>
+            <returns>HMAC-SM3值的二进制数组。</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeHMACSM3Hex(System.String,System.String)">
+            <summary>
+            计算给定数据和密钥的HMAC-SM3值（十六进制表示）。
+            </summary>
+            <param name="data">要计算HMAC的数据（字符串形式）。</param>
+            <param name="key">HMAC密钥（字符串形式）。</param>
+            <returns>HMAC-SM3值的十六进制字符串。</returns>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM3Encryption.ComputeHMACSM3Base64(System.String,System.String)">
+            <summary>
+            计算给定数据和密钥的HMAC-SM3值（Base64表示）。
+            </summary>
+            <param name="data">要计算HMAC的数据（字符串形式）。</param>
+            <param name="key">HMAC密钥（字符串形式）。</param>
+            <returns>HMAC-SM3值的Base64字符串。</returns>
+        </member>
+        <member name="T:ZhonTai.Common.Helpers.SM4Encryption">
+            <summary>  
+            加密工具类，提供基于SM4算法的加密和解密功能。  
+            </summary>  
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encryption.Encrypt(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>  
+            使用SM4算法对指定明文进行加密。  
+            </summary>  
+            <param name="msg">待加密的明文。</param>  
+            <param name="key">用于加密的密钥。</param>  
+            <param name="iv">初始化向量，对于ECB模式可以传递null。</param>  
+            <param name="mode">加密模式，默认为"ECB"。</param>  
+            <param name="isHex">是否返回十六进制格式的密文，默认为false（返回Base64格式）。</param>  
+            <returns>加密后的密文，格式为十六进制或Base64。</returns>  
+            <exception cref="T:System.ArgumentNullException">当msg或key为空时抛出。</exception>  
+            <exception cref="T:System.ArgumentException">当mode不被支持时抛出。</exception>  
+            <exception cref="T:System.Security.Cryptography.CryptographicException">当加密过程中发生错误时抛出。</exception>  
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encryption.Decrypt(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>  
+            使用SM4算法对指定密文进行解密。  
+            </summary>  
+            <param name="encryptMsg">待解密的密文，可以是十六进制或Base64格式。</param>  
+            <param name="key">用于解密的密钥。</param>  
+            <param name="iv">初始化向量，对于ECB模式可以传递null。</param>  
+            <param name="mode">加密模式，用于确定解密时使用的模式，默认为"ECB"。</param>  
+            <param name="isHex">是否输入密文是十六进制格式，默认为false（表示Base64格式）。</param>  
+            <returns>解密后的明文。</returns>  
+            <exception cref="T:System.ArgumentNullException">当key或encryptMsg为空时抛出。</exception>  
+            <exception cref="T:System.ArgumentException">当mode不被支持或iv对于非ECB模式为空时抛出。</exception>  
+            <exception cref="T:System.Security.Cryptography.CryptographicException">当解密过程中发生错误时抛出。</exception>  
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encryption.Encrypt(System.String,System.Byte[],System.Byte[],System.String,System.Boolean)">
+            <summary>  
+            使用SM4算法对指定明文进行加密。  
+            </summary>  
+            <param name="msg">待加密的明文。</param>  
+            <param name="key">用于加密的密钥（字节数组形式）。</param>  
+            <param name="iv">初始化向量（字节数组形式），对于ECB模式可以传递null。</param>  
+            <param name="mode">加密模式，默认为"ECB"。</param>  
+            <param name="isHex">是否返回十六进制格式的密文，默认为false（返回Base64格式）。</param>  
+            <returns>加密后的密文，格式为十六进制或Base64。</returns>  
+            <exception cref="T:System.ArgumentNullException">当msg或key为空时抛出。</exception>  
+            <exception cref="T:System.ArgumentException">当mode不被支持时抛出。</exception>  
+            <exception cref="T:System.Security.Cryptography.CryptographicException">当加密过程中发生错误时抛出。</exception>  
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SM4Encryption.Decrypt(System.String,System.Byte[],System.Byte[],System.String,System.Boolean)">
+            <summary>  
+            使用SM4算法对指定密文进行解密。  
+            </summary>  
+            <param name="encryptMsg">待解密的密文，可以是十六进制或Base64格式。</param>  
+            <param name="key">用于解密的密钥（字节数组形式）。</param>  
+            <param name="iv">初始化向量（字节数组形式），对于ECB模式可以传递null。</param>  
+            <param name="mode">加密模式，用于确定解密时使用的模式，默认为"ECB"。</param>  
+            <param name="isHex">是否输入密文是十六进制格式，默认为false（表示Base64格式）。</param>  
+            <returns>解密后的明文。</returns>  
+            <exception cref="T:System.ArgumentNullException">当key或encryptMsg为空时抛出。</exception>  
+            <exception cref="T:System.ArgumentException">当mode不被支持或iv对于非ECB模式为空时抛出。</exception>  
+            <exception cref="T:System.Security.Cryptography.CryptographicException">当解密过程中发生错误时抛出。</exception>  
         </member>
         <member name="T:ZhonTai.Common.Helpers.StringHelper">
             <summary>
