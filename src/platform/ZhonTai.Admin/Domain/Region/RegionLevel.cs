@@ -1,5 +1,8 @@
 namespace ZhonTai.Admin.Domain.Region;
 
+/// <summary>
+/// 地区级别
+/// </summary>
 public enum RegionLevel
 {
     /// <summary>

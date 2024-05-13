@@ -130,6 +130,14 @@ const state = reactive({
     { name: '是', value: true },
     { name: '否', value: false },
   ],
+  regionLevelList: [
+    { name: '省份', value: 1 },
+    { name: '城市', value: 2 },
+    { name: '县/区', value: 3 },
+    { name: '镇/乡/街道', value: 4 },
+    { name: '村/村委会/社区/居委会', value: 5 },
+  ],
+  syncRegionLevel: 2,
   filter: {
     parentId: undefined as number | undefined,
     name: '',
@@ -217,6 +225,7 @@ const onSetEnable = (row: RegionGetPageOutput & { loading: boolean }) => {
           })
         if (res && res.success) {
           resolve(true)
+          onQuery()
         } else {
           reject(new Error('Cancel'))
         }
@@ -231,7 +240,7 @@ const onSetEnable = (row: RegionGetPageOutput & { loading: boolean }) => {
 const onSetHot = (row: RegionGetPageOutput & { loading: boolean; hotLoading: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.hot ? '禁用' : '启用'}【${row.name}】热门?`)
+      .confirm(`确定要${row.hot ? '关闭' : '开启'}【${row.name}】热门?`)
       .then(async () => {
         row.hotLoading = true
         const res = await new RegionApi()
@@ -244,6 +253,7 @@ const onSetHot = (row: RegionGetPageOutput & { loading: boolean; hotLoading: boo
           })
         if (res && res.success) {
           resolve(true)
+          onQuery()
         } else {
           reject(new Error('Cancel'))
         }
