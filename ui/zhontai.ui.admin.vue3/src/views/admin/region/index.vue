@@ -258,14 +258,16 @@ const onSync = async () => {
   state.syncLoading = true
   await new RegionApi()
     .syncData(2)
+    .then(() => {
+      proxy.$modal.msgSuccess(`同步完成`)
+      onQuery()
+    })
     .catch(() => {
       proxy.$modal.msgSuccess(`同步失败`)
     })
     .finally(() => {
       state.syncLoading = false
     })
-
-  proxy.$modal.msgSuccess(`同步完成`)
 }
 </script>
 

@@ -911,9 +911,11 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception("请选择用户");
         }
 
-        using var _ = _userRep.Value.DataFilter.DisableAll();
+        var userRep = _userRep.Value;
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Tenant);
 
-        var user = await _userRep.Value.Select.Where(a => a.UserName == userName).ToOneAsync();
+        var user = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync();
 
         if(user == null)
         {
