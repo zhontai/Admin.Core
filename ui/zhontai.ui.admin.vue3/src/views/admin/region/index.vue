@@ -21,11 +21,20 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-if="auth('api:admin:region:add')" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-popconfirm v-if="auth('api:admin:region:sync-data')" title="确定要同步地区" hide-icon width="180" hide-after="0" @confirm="onSync">
-            <template #reference>
-              <el-button :loading="state.syncLoading" type="primary" icon="ele-Refresh"> 同步 </el-button>
-            </template>
-          </el-popconfirm>
+          <el-button ref="syncRef" :loading="state.sync.loading" type="primary" icon="ele-Refresh"> 同步 </el-button>
+          <el-popover ref="popoverRef" :virtual-ref="syncRef" trigger="click" virtual-triggering :width="300">
+            <p class="my-flex my-flex-items-center">
+              确定要同步地区至
+              <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
+                <el-option v-for="item in state.regionLevelList" :key="item.name" :label="item.name" :value="item.value" />
+              </el-select>
+              ？
+            </p>
+            <div class="mt10" style="text-align: right">
+              <el-button size="small" text @click="onSyncCancel">取消</el-button>
+              <el-button size="small" type="primary" @click="onSync"> 确定 </el-button>
+            </div>
+          </el-popover>
         </el-form-item>
       </el-form>
     </el-card>
@@ -102,7 +111,7 @@
 
 <script lang="ts" setup name="admin/region">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { PageInputRegionGetPageInput, RegionGetPageOutput } from '/@/api/admin/data-contracts'
+import { PageInputRegionGetPageInput, RegionGetPageOutput, RegionLevel } from '/@/api/admin/data-contracts'
 import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -114,10 +123,15 @@ const RegionSelect = defineAsyncComponent(() => import('./components/region-sele
 const { proxy } = getCurrentInstance() as any
 
 const formRef = ref()
+const syncRef = ref()
+const popoverRef = ref()
 
 const state = reactive({
   loading: false,
-  syncLoading: false,
+  sync: {
+    loading: false,
+    regionLevel: 2 as RegionLevel,
+  },
   formTitle: '',
   total: 0,
   statusList: [
@@ -134,10 +148,9 @@ const state = reactive({
     { name: '省份', value: 1 },
     { name: '城市', value: 2 },
     { name: '县/区', value: 3 },
-    { name: '镇/乡/街道', value: 4 },
-    { name: '村/村委会/社区/居委会', value: 5 },
+    { name: '镇/乡', value: 4 },
+    { name: '村/社区', value: 5 },
   ],
-  syncRegionLevel: 2,
   filter: {
     parentId: undefined as number | undefined,
     name: '',
@@ -264,10 +277,15 @@ const onSetHot = (row: RegionGetPageOutput & { loading: boolean; hotLoading: boo
   })
 }
 
+const onSyncCancel = () => {
+  popoverRef.value?.hide?.()
+}
+
 const onSync = async () => {
-  state.syncLoading = true
+  onSyncCancel()
+  state.sync.loading = true
   await new RegionApi()
-    .syncData(2)
+    .syncData(state.sync.regionLevel)
     .then(() => {
       proxy.$modal.msgSuccess(`同步完成`)
       onQuery()
@@ -276,7 +294,7 @@ const onSync = async () => {
       proxy.$modal.msgSuccess(`同步失败`)
     })
     .finally(() => {
-      state.syncLoading = false
+      state.sync.loading = false
     })
 }
 </script>

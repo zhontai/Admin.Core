@@ -3239,6 +3239,11 @@
             启用
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.Region.RegionLevel">
+            <summary>
+            地区级别
+            </summary>
+        </member>
         <member name="F:ZhonTai.Admin.Domain.Region.RegionLevel.Province">
             <summary>
             省份
