@@ -124,7 +124,6 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <returns></returns>
     [NonFormatResult]
     [HttpGet]
-    [AllowAnonymous]
     public async Task<ActionResult> ExportListAsync()
     {
         using var _ = _dictRep.DataFilter.DisableAll();
