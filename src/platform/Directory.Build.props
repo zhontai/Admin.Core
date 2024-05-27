@@ -4,6 +4,7 @@
 		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<LangVersion>latest</LangVersion>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
 		<IsPackable>true</IsPackable>
 		<Authors>xiaoxue</Authors>

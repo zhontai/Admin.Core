@@ -440,6 +440,74 @@ public class HostApp
 
         #endregion 身份认证授权
 
+        #region 操作日志
+
+        services.AddScoped<ILogHandler, LogHandler>();
+
+        #endregion 操作日志
+
+        #region 控制器
+        void mvcConfigure(MvcOptions options)
+        {
+            //options.Filters.Add<ControllerExceptionFilter>();
+            options.Filters.Add<ValidateInputFilter>();
+            if (appConfig.Validate.Login || appConfig.Validate.Permission)
+            {
+                options.Filters.Add<ValidatePermissionAttribute>();
+            }
+            //在具有较高的 Order 值的筛选器之前运行 before 代码
+            //在具有较高的 Order 值的筛选器之后运行 after 代码
+            if (appConfig.DynamicApi.FormatResult)
+            {
+                options.Filters.Add<FormatResultFilter>(20);
+            }
+
+            options.Filters.Add<ControllerLogFilter>(10);
+
+            //禁止去除ActionAsync后缀
+            //options.SuppressAsyncSuffixInActionNames = false;
+
+            if (env.IsDevelopment() || appConfig.Swagger.Enable)
+            {
+                //API分组约定
+                options.Conventions.Add(new ApiGroupConvention());
+            }
+        }
+
+        var mvcBuilder = appConfig.AppType switch
+        {
+            AppType.Controllers => services.AddControllers(mvcConfigure),
+            AppType.ControllersWithViews => services.AddControllersWithViews(mvcConfigure),
+            AppType.MVC => services.AddMvc(mvcConfigure),
+            _ => services.AddControllers(mvcConfigure)
+        };
+
+        if (assemblies?.Length > 0)
+        {
+            foreach (var assembly in assemblies)
+            {
+                services.AddValidatorsFromAssembly(assembly);
+            }
+        }
+        services.AddFluentValidationAutoValidation();
+
+        mvcBuilder.AddNewtonsoftJson(options =>
+        {
+            //忽略循环引用
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //使用驼峰 首字母小写
+            options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //设置时间格式
+            options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
+        })
+        .AddControllersAsServices();
+
+        if (appConfig.Swagger.EnableJsonStringEnumConverter)
+            mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+        _hostAppOptions?.ConfigureMvcBuilder?.Invoke(mvcBuilder, hostAppContext);
+        #endregion 控制器
+
         #region Swagger Api文档
 
         if (env.IsDevelopment() || appConfig.Swagger.Enable)
@@ -661,74 +729,6 @@ public class HostApp
 
         #endregion Swagger Api文档
 
-        #region 操作日志
-
-        services.AddScoped<ILogHandler, LogHandler>();
-
-        #endregion 操作日志
-
-        #region 控制器
-        void mvcConfigure(MvcOptions options)
-        {
-            //options.Filters.Add<ControllerExceptionFilter>();
-            options.Filters.Add<ValidateInputFilter>();
-            if (appConfig.Validate.Login || appConfig.Validate.Permission)
-            {
-                options.Filters.Add<ValidatePermissionAttribute>();
-            }
-            //在具有较高的 Order 值的筛选器之前运行 before 代码
-            //在具有较高的 Order 值的筛选器之后运行 after 代码
-            if (appConfig.DynamicApi.FormatResult)
-            {
-                options.Filters.Add<FormatResultFilter>(20);
-            }
-
-            options.Filters.Add<ControllerLogFilter>(10);
-
-            //禁止去除ActionAsync后缀
-            //options.SuppressAsyncSuffixInActionNames = false;
-
-            if (env.IsDevelopment() || appConfig.Swagger.Enable)
-            {
-                //API分组约定
-                options.Conventions.Add(new ApiGroupConvention());
-            }
-        }
-
-        var mvcBuilder = appConfig.AppType switch
-        {
-            AppType.Controllers => services.AddControllers(mvcConfigure),
-            AppType.ControllersWithViews => services.AddControllersWithViews(mvcConfigure),
-            AppType.MVC => services.AddMvc(mvcConfigure),
-            _ => services.AddControllers(mvcConfigure)
-        };
-
-        if (assemblies?.Length > 0)
-        {
-            foreach (var assembly in assemblies)
-            {
-                services.AddValidatorsFromAssembly(assembly);
-            }
-        }
-        services.AddFluentValidationAutoValidation();
-
-        mvcBuilder.AddNewtonsoftJson(options =>
-        {
-            //忽略循环引用
-            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //使用驼峰 首字母小写
-            options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //设置时间格式
-            options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
-        })
-        .AddControllersAsServices();
-
-        if (appConfig.Swagger.EnableJsonStringEnumConverter)
-            mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
-        _hostAppOptions?.ConfigureMvcBuilder?.Invoke(mvcBuilder, hostAppContext);
-        #endregion 控制器
-
         services.AddHttpClient();
 
         _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
@@ -756,7 +756,7 @@ public class HostApp
         {
             options.FormatResult = appConfig.DynamicApi.FormatResult;
             options.FormatResultType = typeof(ResultOutput<>);
-
+            options.AddAssemblyOptions(GetType().Assembly);
             _hostAppOptions?.ConfigureDynamicApi?.Invoke(options);
         });
 
@@ -811,7 +811,7 @@ public class HostApp
         //静态文件
         app.UseDefaultFiles();
         app.UseStaticFiles();
-
+        
         //路由
         app.UseRouting();
 
@@ -862,17 +862,17 @@ public class HostApp
             {
                 routePrefix = appConfig.Swagger.RoutePrefix;
             }
-            var routePath = routePrefix.NotNull() ? $"{routePrefix}/" : "";
+            
             app.UseSwagger(optoins =>
             {
-                optoins.RouteTemplate = routePath + optoins.RouteTemplate;
+                optoins.RouteTemplate = routePrefix + (optoins.RouteTemplate.StartsWith("/") ? "" : "/") + optoins.RouteTemplate;
             });
             app.UseSwaggerUI(options =>
             {
                 options.RoutePrefix = appConfig.Swagger.RoutePrefix;
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
-                    options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
+                    options.SwaggerEndpoint($"/{routePrefix}/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                 });
 
                 options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);//折叠Api

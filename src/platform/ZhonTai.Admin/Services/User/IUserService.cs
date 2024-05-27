@@ -48,7 +48,7 @@ public interface IUserService
 
     Task<IList<UserPermissionsOutput>> GetPermissionsAsync();
 
-    Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false);
+    Task<string> AvatarUpload(IFormFile file, bool autoUpdate = false);
 
     Task<dynamic> OneClickLoginAsync(string userName);
 }

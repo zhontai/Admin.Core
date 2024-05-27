@@ -5,7 +5,15 @@
         <template slot="tabBarExtraContent">
           <a-row v-if="responseStatus" class="knife4j-debug-status">
             <span>
-              <a-checkbox :defaultChecked="responseFieldDescriptionChecked" @change="showFieldDesChange"><span style="color: #919191;" v-html="$t('debug.response.showDes')">显示说明</span></a-checkbox>
+              <a-checkbox
+                :defaultChecked="responseFieldDescriptionChecked"
+                @change="showFieldDesChange"
+                ><span
+                  style="color: #919191"
+                  v-html="$t('debug.response.showDes')"
+                  >显示说明</span
+                ></a-checkbox
+              >
             </span>
             <span class="key" v-html="$t('debug.response.code')">响应码:</span>
             <span class="value">{{ responseStatus.code }}</span>
@@ -22,18 +30,32 @@
                 <img :src="responseContent.blobUrl" />
               </div>
               <div v-else>
-                <a-button type="link" :href="responseContent.blobUrl" :download="responseContent.blobFileName" v-html="$t('debug.response.download')">下载文件</a-button>
+                <a-button
+                  type="link"
+                  :href="responseContent.blobUrl"
+                  :download="responseContent.blobFileName"
+                  v-html="$t('debug.response.download')"
+                  >下载文件</a-button
+                >
               </div>
             </a-row>
             <a-row :id="'responseEditorContent' + api.id" v-else>
-              <editor-debug-show @showDescription="showEditorFieldDescription" @debugEditorChange="debugEditorChange" :debugResponse="debugResponse" :value="responseContent.text" :mode="responseContent.mode"></editor-debug-show>
+              <editor-debug-show
+                @showDescription="showEditorFieldDescription"
+                @debugEditorChange="debugEditorChange"
+                :debugResponse="debugResponse"
+                :value="responseContent.text"
+                :mode="responseContent.mode"
+              ></editor-debug-show>
             </a-row>
           </a-row>
         </a-tab-pane>
         <a-tab-pane tab="Raw" key="debugRaw" forceRender>
           <a-row class="knife4j-debug-response-mt">
             <a-button :id="'btnDebugCopyRaw' + api.id" type="primary">
-              <a-icon type="copy" /> <span v-html="$t('debug.response.copy')">复制</span></a-button>
+              <a-icon type="copy" />
+              <span v-html="$t('debug.response.copy')">复制</span></a-button
+            >
           </a-row>
           <a-row class="knife4j-debug-response-mt">
             <a-textarea :rows="10" :value="responseRawText" />
@@ -41,14 +63,23 @@
         </a-tab-pane>
         <a-tab-pane tab="Headers" key="debugHeaders">
           <a-row class="knife4j-debug-response-mt">
-            <a-table bordered size="small" :columns="responseHeaderColumn" :pagination="pagination" :dataSource="responseHeaders" rowKey="id">
+            <a-table
+              bordered
+              size="small"
+              :columns="responseHeaderColumn"
+              :pagination="pagination"
+              :dataSource="responseHeaders"
+              rowKey="id"
+            >
             </a-table>
           </a-row>
         </a-tab-pane>
         <a-tab-pane tab="Curl" key="debugCurl">
           <a-row class="knife4j-debug-response-mt">
             <a-button :id="'btnDebugCopyCurl' + api.id" type="primary">
-              <a-icon type="copy" />  <span v-html="$t('debug.response.copy')">复制</span></a-button>
+              <a-icon type="copy" />
+              <span v-html="$t('debug.response.copy')">复制</span></a-button
+            >
           </a-row>
           <a-row class="knife4j-debug-response-mt">
             <pre class="knife4j-debug-response-curl">{{
@@ -56,7 +87,15 @@
             }}</pre>
           </a-row>
         </a-tab-pane>
-        <a-tab-pane v-if="responseContent!=null&&responseContent.base64!=null&&responseContent.base64!=''" tab="Base64Img" key="debugBase64Img">
+        <a-tab-pane
+          v-if="
+            responseContent != null &&
+            responseContent.base64 != null &&
+            responseContent.base64 != ''
+          "
+          tab="Base64Img"
+          key="debugBase64Img"
+        >
           <a-row class="knife4j-debug-response-mt">
             <img :src="responseContent.base64" />
           </a-row>
@@ -75,58 +114,56 @@ export default {
   props: {
     api: {
       type: Object,
-      required: true
+      required: true,
     },
     swaggerInstance: {
       type: Object,
-      required: true
+      required: true,
     },
     debugSend: {
       type: Boolean,
-      default: false
+      default: false,
     },
     responseHeaders: {
-      type: Array
+      type: Array,
     },
     responseRawText: {
       type: String,
-      default:""
+      default: "",
     },
     responseCurlText: {
       type: String,
-      default: ""
+      default: "",
     },
     responseStatus: {
-      type: Object
+      type: Object,
     },
     responseContent: {
-      type: Object
+      type: Object,
     },
     responseFieldDescriptionChecked: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  components: { 'EditorDebugShow':()=>import('./EditorDebugShow') },
+  components: { EditorDebugShow: () => import("./EditorDebugShow") },
   data() {
     return {
       pagination: false,
-      i18n:null,
-      base64Image:false,
+      i18n: null,
+      base64Image: false,
       debugResponse: true,
-      responseHeaderColumn: [
-       
-      ]
+      responseHeaderColumn: [],
     };
   },
-  watch:{
-    language:function(val,oldval){
+  watch: {
+    language: function (val, oldval) {
       this.initI18n();
-    }
+    },
   },
   computed: {
-    language(){
-       return this.$store.state.globals.language;
+    language() {
+      return this.$store.state.globals.language;
     },
     responseSizeText() {
       var str = "0 B";
@@ -144,7 +181,7 @@ export default {
         }
       }
       return str;
-    }
+    },
   },
   created() {
     //this.resetResponseContent();
@@ -155,20 +192,20 @@ export default {
     //this.showEditorFieldDescription();
   },
   methods: {
-    getCurrentI18nInstance(){
+    getCurrentI18nInstance() {
       return this.$i18n.messages[this.language];
     },
-    base64Init(){
-      var bimg=KUtils.getValue(this.responseContent,"base64","",true);
+    base64Init() {
+      var bimg = KUtils.getValue(this.responseContent, "base64", "", true);
       //console.log(this.responseContent)
-      if(KUtils.strNotBlank(bimg)){
-        this.base64Image=true;
+      if (KUtils.strNotBlank(bimg)) {
+        this.base64Image = true;
       }
     },
-    initI18n(){
+    initI18n() {
       //根据i18n初始化部分参数
-      this.i18n=this.getCurrentI18nInstance();
-      this.responseHeaderColumn=this.i18n.table.debugResponseHeaderColumns;
+      this.i18n = this.getCurrentI18nInstance();
+      this.responseHeaderColumn = this.i18n.table.debugResponseHeaderColumns;
     },
     copyRawText() {
       //复制raw的文本信息
@@ -177,16 +214,16 @@ export default {
       var clipboard = new ClipboardJS("#" + btnId, {
         text() {
           return that.responseRawText;
-        }
+        },
       });
       //复制Raw成功
-      var successMessage=this.i18n.message.copy.raw.success;
+      var successMessage = this.i18n.message.copy.raw.success;
       //复制Raw失败
-      var failMessage=this.i18n.message.copy.raw.fail;
-      clipboard.on("success", function(e) {
+      var failMessage = this.i18n.message.copy.raw.fail;
+      clipboard.on("success", function (e) {
         that.$message.info(successMessage);
       });
-      clipboard.on("error", function(e) {
+      clipboard.on("error", function (e) {
         that.$message.info(failMessage);
       });
     },
@@ -197,16 +234,16 @@ export default {
       var clipboard = new ClipboardJS("#" + btnId, {
         text() {
           return that.responseCurlText;
-        }
+        },
       });
       //复制Raw成功
-      var successMessage=this.i18n.message.copy.curl.success;
+      var successMessage = this.i18n.message.copy.curl.success;
       //复制Raw失败
-      var failMessage=this.i18n.message.copy.curl.fail;
-      clipboard.on("success", function(e) {
+      var failMessage = this.i18n.message.copy.curl.fail;
+      clipboard.on("success", function (e) {
         that.$message.info(successMessage);
       });
-      clipboard.on("error", function(e) {
+      clipboard.on("error", function (e) {
         that.$message.info(failMessage);
       });
     },
@@ -238,7 +275,7 @@ export default {
         "knife4j-debug-editor-field-description"
       );
       if (KUtils.arrNotEmpty(fields)) {
-        fields.forEach(function(item) {
+        fields.forEach(function (item) {
           if (flag) {
             //显示
             item.style.display = "block";
@@ -254,8 +291,8 @@ export default {
     showEditorFieldDescription(p) {
       //console.log("emit事件-"+p)
       var that = this;
-      if(KUtils.checkUndefined(p)){
-        if(parseInt(p)<=200){
+      if (KUtils.checkUndefined(p)) {
+        if (parseInt(p) <= 200) {
           //如果超过200行,不显示属性的字段说明
           //需要延时1s处理
           setTimeout(() => {
@@ -263,7 +300,6 @@ export default {
           }, 100);
         }
       }
-      
     },
     showEditorFieldWait() {
       //显示editor字段说明
@@ -285,13 +321,16 @@ export default {
       //console(cid);
       var paths = [];
       //var aceJsonText = $aceJsonContent.find(".ace_text-layer");
-      var aceJsonText = editorContainer.getElementsByClassName(
-        "ace_text-layer"
-      );
+      var aceJsonText =
+        editorContainer.getElementsByClassName("ace_text-layer");
       var acePrintMarginLeft = 0;
-      var acePrintMarginObject=editorContainer.querySelector(".ace_print-margin")
-      if(KUtils.checkUndefined(acePrintMarginObject)&&KUtils.checkUndefined(acePrintMarginObject.style)){
-        acePrintMarginLeft=acePrintMarginObject.style.left;
+      var acePrintMarginObject =
+        editorContainer.querySelector(".ace_print-margin");
+      if (
+        KUtils.checkUndefined(acePrintMarginObject) &&
+        KUtils.checkUndefined(acePrintMarginObject.style)
+      ) {
+        acePrintMarginLeft = acePrintMarginObject.style.left;
       }
       //editorContainer.querySelector(".ace_print-margin").style.left;
       if (aceJsonText.length > 0) {
@@ -317,7 +356,7 @@ export default {
                 key,
                 swaggerInstance
               );
-              fieldSpan.style.left = (parseFloat(acePrintMarginLeft) + 5) + 'px';
+              fieldSpan.style.left = parseFloat(acePrintMarginLeft) + 5 + "px";
               item.appendChild(fieldSpan);
             }
           }
@@ -343,7 +382,7 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>

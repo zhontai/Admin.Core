@@ -251,10 +251,9 @@ new HostApp(new HostAppOptions
             app.UseApiUI(options =>
             {
                 options.RoutePrefix = appConfig.ApiUI.RoutePrefix;
-                var routePath = options.RoutePrefix.NotNull() ? $"{ options.RoutePrefix}/" : "";
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
-                    options.SwaggerEndpoint($"/{routePath}swagger/{project.Code.ToLower()}/swagger.json", project.Name);
+                    options.SwaggerEndpoint($"/{options.RoutePrefix}/swagger/{project.Code.ToLower()}/swagger.json", project.Name);
                 });
             });
 		}

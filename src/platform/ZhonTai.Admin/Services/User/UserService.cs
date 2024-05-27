@@ -887,7 +887,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [Login]
-    public async Task<string> AvatarUpload([FromForm] IFormFile file, bool autoUpdate = false)
+    public async Task<string> AvatarUpload(IFormFile file, bool autoUpdate = false)
     {
         var fileInfo = await _fileService.Value.UploadFileAsync(file);
         if (autoUpdate)

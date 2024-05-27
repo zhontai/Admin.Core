@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using ZhonTai.Admin.Repositories;
+using Magicodes.ExporterAndImporter.Excel;
+using Magicodes.ExporterAndImporter.Excel.AspNetCore;
 
 namespace ZhonTai.Admin.Services.Dict;
 
@@ -93,7 +95,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
     }
 
     /// <summary>
-    /// 根据字典类型名称列表查询字典列表
+    /// 查询字典类型字典列表
     /// </summary>
     /// <param name="names">字典类型名称列表</param>
     /// <returns></returns>
@@ -114,6 +116,28 @@ public class DictService : BaseService, IDictService, IDynamicApi
         }
 
         return dicts;
+    }
+
+    /// <summary>
+    /// 导出列表
+    /// </summary>
+    /// <returns></returns>
+    [NonFormatResult]
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<ActionResult> ExportListAsync()
+    {
+        using var _ = _dictRep.DataFilter.DisableAll();
+
+        var select = _dictRep.Select;
+
+        //查询数据
+        var dataList = await select.ToListAsync<DictExport>();
+
+        //导出数据
+        var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();
+
+        return new XlsxFileResult(result, $"数据字典列表{DateTime.Now:yyyyMMddHHmm}.xlsx");
     }
 
     /// <summary>

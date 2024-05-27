@@ -4,14 +4,14 @@
         <name>ZhonTai.ApiUI</name>
     </assembly>
     <members>
-        <member name="M:ZhonTai.ApiUI.ApiUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,ZhonTai.ApiUI.ApiUIOptions)">
+        <member name="M:ZhonTai.ApiUI.ApiUIBuilderExtensions.UseApiUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,ZhonTai.ApiUI.ApiUIOptions)">
             <summary>
-            Register the SwaggerUI middleware with provided options
+            Register the ApiUI middleware with provided options
             </summary>
         </member>
         <member name="M:ZhonTai.ApiUI.ApiUIBuilderExtensions.UseApiUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{ZhonTai.ApiUI.ApiUIOptions})">
             <summary>
-            Register the SwaggerUI middleware with optional setup action for DI-injected options
+            Register the ApiUI middleware with optional setup action for DI-injected options
             </summary>
         </member>
         <member name="P:ZhonTai.ApiUI.ApiUIOptions.RoutePrefix">
@@ -47,6 +47,26 @@
         <member name="P:ZhonTai.ApiUI.ApiUIOptions.Interceptors">
             <summary>
             Gets the interceptor functions that define client-side request/response interceptors
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptions.JsonSerializerOptions">
+            <summary>
+            Gets or sets the optional JSON serialization options to use to serialize options to the HTML document.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptions.ScriptBundlePath">
+            <summary>
+            Gets or sets the path or URL to the Swagger UI JavaScript bundle file.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptions.ScriptPresetsPath">
+            <summary>
+            Gets or sets the path or URL to the Swagger UI JavaScript standalone presets file.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptions.StylesPath">
+            <summary>
+            Gets or sets the path or URL to the Swagger UI CSS file.
             </summary>
         </member>
         <member name="P:ZhonTai.ApiUI.ConfigObject.Urls">

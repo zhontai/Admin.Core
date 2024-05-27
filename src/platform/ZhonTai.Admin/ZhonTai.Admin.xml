@@ -5267,9 +5267,15 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListByNamesAsync(System.String[])">
             <summary>
-            根据字典类型名称列表查询字典列表
+            查询字典类型字典列表
             </summary>
             <param name="names">字典类型名称列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.ExportListAsync">
+            <summary>
+            导出列表
+            </summary>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Dict.DictService.AddAsync(ZhonTai.Admin.Services.Dict.Dto.DictAddInput)">
