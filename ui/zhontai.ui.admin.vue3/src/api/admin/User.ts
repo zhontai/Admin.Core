@@ -367,13 +367,8 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    */
   avatarUpload = (
     data: {
-      ContentType?: string
-      ContentDisposition?: string
-      Headers?: Record<string, string[]>
-      /** @format int64 */
-      Length?: number
-      Name?: string
-      FileName?: string
+      /** @format binary */
+      file?: File
     },
     query?: {
       /** @default false */

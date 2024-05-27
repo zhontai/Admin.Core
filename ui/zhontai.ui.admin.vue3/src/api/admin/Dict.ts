@@ -89,7 +89,7 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    *
    * @tags dict
    * @name GetListByNames
-   * @summary 根据字典类型名称列表查询字典列表
+   * @summary 查询字典类型字典列表
    * @request POST:/api/admin/dict/get-list-by-names
    * @secure
    */
@@ -101,6 +101,22 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       secure: true,
       type: ContentType.Json,
       format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name ExportList
+   * @summary 导出列表
+   * @request GET:/api/admin/dict/export-list
+   * @secure
+   */
+  exportList = (params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/export-list`,
+      method: 'GET',
+      secure: true,
       ...params,
     })
   /**

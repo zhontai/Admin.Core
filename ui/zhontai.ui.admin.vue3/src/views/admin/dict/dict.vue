@@ -8,6 +8,7 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">导出</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -55,6 +56,7 @@ import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyn
 import { DictGetPageOutput, PageInputDictGetPageDto, DictTypeGetPageOutput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
+import dayjs from 'dayjs'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
@@ -77,6 +79,9 @@ const state = reactive({
   } as PageInputDictGetPageDto,
   dictListData: [] as Array<DictGetPageOutput>,
   dictTypeName: '',
+  export: {
+    loading: false,
+  },
 })
 
 onMounted(async () => {
@@ -123,6 +128,31 @@ const onDelete = (row: DictGetPageOutput) => {
       onQuery()
     })
     .catch(() => {})
+}
+
+const onExport = async () => {
+  state.export.loading = true
+
+  await new DictApi()
+    .exportList({ format: 'blob', returnResponse: true })
+    .then((res: any) => {
+      const contentDisposition = res.headers['content-disposition']
+      const matchs = /filename="?([^;"]+)/i.exec(contentDisposition)
+      let fileName = ''
+      if (matchs && matchs.length > 1) {
+        fileName = decodeURIComponent(matchs[1])
+      } else {
+        fileName = `数据字典列表${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
+      }
+      const a = document.createElement('a')
+      a.download = fileName
+      a.href = URL.createObjectURL(res.data as Blob)
+      a.click()
+      URL.revokeObjectURL(a.href)
+    })
+    .finally(() => {
+      state.export.loading = false
+    })
 }
 
 const onSizeChange = (val: number) => {

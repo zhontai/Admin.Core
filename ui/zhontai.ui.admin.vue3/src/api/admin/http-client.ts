@@ -41,6 +41,8 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'pa
   loadingOptions?: LoadingOptions
   /** 取消重复请求 */
   cancelRepeatRequest?: boolean
+  /** 返回整个响应对象 */
+  returnResponse?: boolean
 }
 
 export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>
@@ -307,6 +309,7 @@ export class HttpClient<SecurityDataType = unknown> {
     loading = false,
     loadingOptions = {},
     cancelRepeatRequest = false,
+    returnResponse = false,
     ...params
   }: FullRequestParams): Promise<T> => {
     const secureParams =
@@ -349,6 +352,10 @@ export class HttpClient<SecurityDataType = unknown> {
       (res) => {
         this.removePending(res.config)
         loading && this.closeLoading(loading)
+
+        if (res.config?.responseType == 'blob') {
+          return res
+        }
 
         const data = res.data
         if (data.success) {
@@ -394,6 +401,6 @@ export class HttpClient<SecurityDataType = unknown> {
         data: body,
         url: path,
       })
-      .then((response) => response.data)
+      .then((response) => (returnResponse ? response : response.data))
   }
 }

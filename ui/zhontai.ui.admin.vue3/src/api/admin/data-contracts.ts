@@ -2527,7 +2527,7 @@ export interface RegionAddInput {
   parentId?: number
   /** 名称 */
   name?: string | null
-  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town=4,Vilage=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
@@ -2552,7 +2552,7 @@ export interface RegionGetChildListOutput {
   id?: number
   /** 名称 */
   name?: string | null
-  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town=4,Vilage=5 */
   level?: RegionLevel
   /** 拼音 */
   pinyin?: string | null
@@ -2586,7 +2586,7 @@ export interface RegionGetOutput {
   parentId?: number
   /** 名称 */
   name?: string | null
-  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town=4,Vilage=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
@@ -2656,7 +2656,7 @@ export interface RegionGetPageOutput {
 }
 
 /**
- * Province=1,City=2,County=3,Town=4,Vilage=5
+ * 地区级别:Province=1,City=2,County=3,Town=4,Vilage=5
  * @format int32
  */
 export type RegionLevel = 1 | 2 | 3 | 4 | 5
@@ -2692,7 +2692,7 @@ export interface RegionUpdateInput {
   parentId?: number
   /** 名称 */
   name?: string | null
-  /** Province=1,City=2,County=3,Town=4,Vilage=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town=4,Vilage=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
