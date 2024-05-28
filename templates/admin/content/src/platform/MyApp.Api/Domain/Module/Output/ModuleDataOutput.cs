@@ -1,7 +1,7 @@
 ﻿namespace MyApp.Api.Domain.Module.Output;
 
 /// <summary>
-/// 模块导出
+/// 模块数据导出
 /// </summary>
 public partial class ModuleDataOutput
 {

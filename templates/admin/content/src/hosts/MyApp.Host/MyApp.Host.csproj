@@ -19,8 +19,8 @@
 		<PackageReference Include="Cronos" Version="0.8.4" />
 		<!--#endif -->
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.1.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.1.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.1.2" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.1.2" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.0.0" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
@@ -52,7 +52,7 @@
 		<!--#else -->
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="$(PackageFreeSqlVersion)" />
 		<!--#endif -->
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
 	</ItemGroup>
 	
 	<ItemGroup>

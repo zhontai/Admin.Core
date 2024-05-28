@@ -54,7 +54,7 @@
         {
           "name": "MyApp",
           "code": "app",
-          "version": "v8.1.0",
+          "version": "v8.2.0",
           "description": "MyApp"
         }
         ////#if (!MicroService)
@@ -62,7 +62,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.1.0",
+          "version": "v8.2.0",
           "description": "权限管理"
         }
         ////#endif

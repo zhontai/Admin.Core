@@ -188,6 +188,27 @@
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
             "modifiedTime": "2024-01-31T18:09:02"
+          },
+          {
+            "id": 541192324943941,
+            "parentId": 161227168432197,
+            "name": "admin/region",
+            "label": "地区管理",
+            "path": "admin/region/index",
+            "description": null,
+            "cache": true,
+            "sort": 8,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-04-28T16:17:14",
+            "modifiedUserId": null,
+            "modifiedUserName": null,
+            "modifiedUserRealName": null,
+            "modifiedTime": null
           }
         ],
         "isDeleted": false,
