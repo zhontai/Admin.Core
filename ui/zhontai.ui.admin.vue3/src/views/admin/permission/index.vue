@@ -200,7 +200,7 @@ const onAdd = (row: PermissionListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
-      permissionGroupFormRef.value.open()
+      permissionGroupFormRef.value.open({ parentId: row.parentId })
       break
     case 2:
       state.permissionFormTitle = '新增菜单'
