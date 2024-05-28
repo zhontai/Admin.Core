@@ -8,7 +8,9 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-button icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">导出</el-button>
+          <el-button v-auth="'api:admin:dict:export-list'" icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">
+            导出
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>

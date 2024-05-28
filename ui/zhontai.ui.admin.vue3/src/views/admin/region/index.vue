@@ -21,8 +21,17 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-if="auth('api:admin:region:add')" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-button ref="syncRef" :loading="state.sync.loading" type="primary" icon="ele-Refresh"> 同步 </el-button>
-          <el-popover ref="popoverRef" :virtual-ref="syncRef" trigger="click" virtual-triggering :width="300">
+          <el-button v-if="auth('api:admin:region:sync-data')" ref="syncRef" :loading="state.sync.loading" type="primary" icon="ele-Refresh">
+            同步
+          </el-button>
+          <el-popover
+            v-if="auth('api:admin:region:sync-data')"
+            ref="popoverRef"
+            :virtual-ref="syncRef"
+            trigger="click"
+            virtual-triggering
+            :width="300"
+          >
             <p class="my-flex my-flex-items-center">
               确定要同步地区至
               <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
