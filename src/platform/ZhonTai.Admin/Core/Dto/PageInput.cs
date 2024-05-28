@@ -25,7 +25,7 @@ public class PageInput
         get
         {
             if (_pageSize < 1) _pageSize = 1;
-            if (_pageSize > 1000) _pageSize = 1000;
+            //if (_pageSize > 1000) _pageSize = 1000;
             return _pageSize;
         }
         set => _pageSize = value;
