@@ -5,7 +5,6 @@ using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
-using System;
 using Mapster;
 using System.Collections.Generic;
 
@@ -18,9 +17,9 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
-    private readonly Lazy<Scheduler> _scheduler;
+    private readonly Scheduler _scheduler;
 
-    public TaskLogService(Lazy<Scheduler> scheduler)
+    public TaskLogService(Scheduler scheduler)
     {
         _scheduler = scheduler;
     }
@@ -38,7 +37,7 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
             throw ResultOutput.Exception("请选择任务");
         }
 
-        var result = Datafeed.GetLogs(_scheduler.Value, input.Filter.TaskId, input.PageSize, input.CurrentPage);
+        var result = Datafeed.GetLogs(_scheduler, input.Filter.TaskId, input.PageSize, input.CurrentPage);
 
         var data = new PageOutput<TaskLog>()
         {

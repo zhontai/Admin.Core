@@ -40,16 +40,16 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     private readonly Lazy<UserHelper> _userHelper;
 
     private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
-    private ITenantRepository _tenantRepository => LazyGetRequiredService<ITenantRepository>();
-    private IRoleRepository _roleRepository => LazyGetRequiredService<IRoleRepository>();
-    private IUserRepository _userRepository => LazyGetRequiredService<IUserRepository>();
-    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
-    private IUserRoleRepository _userRoleRepository => LazyGetRequiredService<IUserRoleRepository>();
-    private IRolePermissionRepository _rolePermissionRepository => LazyGetRequiredService<IRolePermissionRepository>();
-    private IUserStaffRepository _userStaffRepository => LazyGetRequiredService<IUserStaffRepository>();
-    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
+    private ITenantRepository _tenantRep => LazyGetRequiredService<ITenantRepository>();
+    private IRoleRepository _roleRep => LazyGetRequiredService<IRoleRepository>();
+    private IUserRepository _userRep => LazyGetRequiredService<IUserRepository>();
+    private IOrgRepository _orgRep => LazyGetRequiredService<IOrgRepository>();
+    private IUserRoleRepository _userRoleRep => LazyGetRequiredService<IUserRoleRepository>();
+    private IRolePermissionRepository _rolePermissionRep => LazyGetRequiredService<IRolePermissionRepository>();
+    private IUserStaffRepository _userStaffRep => LazyGetRequiredService<IUserStaffRepository>();
+    private IUserOrgRepository _userOrgRep => LazyGetRequiredService<IUserOrgRepository>();
     private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
-    private ITenantPkgRepository _tenantPkgRepository => LazyGetRequiredService<ITenantPkgRepository>();
+    private ITenantPkgRepository _tenantPkgRep => LazyGetRequiredService<ITenantPkgRepository>();
 
     public TenantService(Lazy<UserHelper> userHelper)
     {
@@ -63,9 +63,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <returns></returns>
     public async Task<TenantGetOutput> GetAsync(long id)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using (_tenantRep.DataFilter.Disable(FilterNames.Tenant))
         {
-            var tenant = await _tenantRepository.Select
+            var tenant = await _tenantRep.Select
             .WhereDynamic(id)
             .IncludeMany(a => a.Pkgs.Select(b => new PkgEntity { Id = b.Id, Name = b.Name }))
             .FirstAsync(a => new TenantGetOutput
@@ -90,11 +90,11 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input)
     {
-        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+        using var _ = _tenantRep.DataFilter.Disable(FilterNames.Tenant);
 
         var key = input.Filter?.Name;
 
-        var list = await _tenantRepository.Select
+        var list = await _tenantRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(key.NotNull(), a => a.Org.Name.Contains(key))
         .Count(out var total)
@@ -135,9 +135,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         }
         _userHelper.Value.CheckPassword(input.Password);
 
-        using var _ = _tenantRepository.DataFilter.Disable(FilterNames.Tenant);
+        using var _ = _tenantRep.DataFilter.Disable(FilterNames.Tenant);
 
-        var existsOrg = await _orgRepository.Select
+        var existsOrg = await _orgRep.Select
         .Where(a => (a.Name == input.Name || a.Code == input.Code) && a.ParentId == 0)
         .FirstAsync(a => new { a.Name, a.Code });
 
@@ -158,7 +158,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         where = where.Or(input.Phone.NotNull(), a => a.Mobile == input.Phone)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-        var existsUser = await _userRepository.Select.Where(where)
+        var existsUser = await _userRep.Select.Where(where)
             .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
 
         if (existsUser != null)
@@ -181,7 +181,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
 
         //添加租户
         TenantEntity entity = Mapper.Map<TenantEntity>(input);
-        TenantEntity tenant = await _tenantRepository.InsertAsync(entity);
+        TenantEntity tenant = await _tenantRep.InsertAsync(entity);
         long tenantId = tenant.Id;
 
         //添加租户套餐
@@ -193,7 +193,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                 PkgId = pkgId
             }).ToList();
 
-            await _tenantPkgRepository.InsertAsync(pkgs);
+            await _tenantPkgRep.InsertAsync(pkgs);
         }
 
         //添加部门
@@ -207,7 +207,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Sort = 1,
             Enabled = true
         };
-        await _orgRepository.InsertAsync(org);
+        await _orgRep.InsertAsync(org);
 
         //添加用户
         var user = new UserEntity
@@ -231,7 +231,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             user.Password = MD5Encrypt.Encrypt32(input.Password);
             user.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
-        await _userRepository.InsertAsync(user);
+        await _userRep.InsertAsync(user);
 
         long userId = user.Id;
 
@@ -241,7 +241,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Id = userId,
             TenantId = tenantId
         };
-        await _userStaffRepository.InsertAsync(emp);
+        await _userStaffRep.InsertAsync(emp);
 
         //添加用户部门
         var userOrg = new UserOrgEntity
@@ -249,7 +249,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             OrgId = org.Id
         };
-        await _userOrgRepository.InsertAsync(userOrg);
+        await _userOrgRep.InsertAsync(userOrg);
 
         //添加角色分组和角色
         var roleGroupId = YitIdHelper.NextId();
@@ -296,7 +296,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                     Sort = 1
                 }
             };
-        await _roleRepository.InsertAsync(roles);
+        await _roleRep.InsertAsync(roles);
 
         //添加用户角色
         var userRole = new UserRoleEntity()
@@ -304,12 +304,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             RoleId = roleId
         };
-        await _userRoleRepository.InsertAsync(userRole);
+        await _userRoleRep.InsertAsync(userRole);
 
         //更新租户的用户和部门
         tenant.UserId = userId;
         tenant.OrgId = org.Id;
-        await _tenantRepository.UpdateAsync(tenant);
+        await _tenantRep.UpdateAsync(tenant);
 
         return tenant.Id;
     }
@@ -321,15 +321,15 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TenantUpdateInput input)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using (_tenantRep.DataFilter.Disable(FilterNames.Tenant))
         {
-            var tenant = await _tenantRepository.GetAsync(input.Id);
+            var tenant = await _tenantRep.GetAsync(input.Id);
             if (!(tenant?.Id > 0))
             {
                 throw ResultOutput.Exception("租户不存在");
             }
 
-            var existsOrg = await _orgRepository.Select
+            var existsOrg = await _orgRep.Select
                 .Where(a => a.Id != tenant.OrgId && (a.Name == input.Name || a.Code == input.Code))
                 .FirstAsync(a => new { a.Name, a.Code });
 
@@ -350,7 +350,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             where = where.Or(input.Phone.NotNull(), a => a.Mobile == input.Phone)
                 .Or(input.Email.NotNull(), a => a.Email == input.Email);
 
-            var existsUser = await _userRepository.Select.Where(a => a.Id != tenant.UserId).Where(where)
+            var existsUser = await _userRep.Select.Where(a => a.Id != tenant.UserId).Where(where)
                 .FirstAsync(a => new { a.Id, a.Name, a.UserName, a.Mobile, a.Email });
 
             if (existsUser != null)
@@ -372,7 +372,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             }
 
             //更新用户
-            await _userRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
+            await _userRep.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
             new UserEntity()
             {
                 Id = tenant.UserId,
@@ -384,7 +384,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             .UpdateColumns(a => new { a.Name, a.UserName, a.Mobile, a.Email, a.ModifiedTime }).ExecuteAffrowsAsync();
 
             //更新部门
-            await _orgRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
+            await _orgRep.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
             new OrgEntity()
             {
                 Id = tenant.OrgId,
@@ -394,7 +394,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             .UpdateColumns(a => new { a.Name, a.Code, a.ModifiedTime }).ExecuteAffrowsAsync();
 
             //更新租户
-            await _tenantRepository.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
+            await _tenantRep.UpdateDiy.DisableGlobalFilter(FilterNames.Tenant).SetSource(
             new TenantEntity()
             {
                 Id = tenant.Id,
@@ -403,7 +403,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             .UpdateColumns(a => new { a.Description, a.ModifiedTime }).ExecuteAffrowsAsync();
 
             //更新租户套餐
-            await _tenantPkgRepository.DeleteAsync(a => a.TenantId == tenant.Id);
+            await _tenantPkgRep.DeleteAsync(a => a.TenantId == tenant.Id);
             if (input.PkgIds != null && input.PkgIds.Any())
             {
                 var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
@@ -412,7 +412,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                     PkgId = pkgId
                 }).ToList();
 
-                await _tenantPkgRepository.InsertAsync(pkgs);
+                await _tenantPkgRep.InsertAsync(pkgs);
 
                 //清除租户下所有用户权限缓存
                 await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { tenant.Id });
@@ -428,40 +428,40 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using (_tenantRep.DataFilter.Disable(FilterNames.Tenant))
         {
-            var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+            var tenantType = await _tenantRep.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
             if (tenantType == TenantType.Platform)
             {
                 throw ResultOutput.Exception("平台租户禁止删除");
             }
 
             //删除角色权限
-            await _rolePermissionRepository.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _rolePermissionRep.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除用户角色
-            await _userRoleRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userRoleRep.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除员工
-            await _userStaffRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userStaffRep.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除用户部门
-            await _userOrgRepository.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userOrgRep.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除部门
-            await _orgRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _orgRep.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除用户
-            await _userRepository.Where(a => a.TenantId == id && a.Type != UserType.Member).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userRep.Where(a => a.TenantId == id && a.Type != UserType.Member).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除角色
-            await _roleRepository.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _roleRep.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除租户套餐
-            await _tenantPkgRepository.DeleteAsync(a => a.TenantId == id);
+            await _tenantPkgRep.DeleteAsync(a => a.TenantId == id);
 
             //删除租户
-            await _tenantRepository.DeleteAsync(id);
+            await _tenantRep.DeleteAsync(id);
 
             //清除租户下所有用户权限缓存
             await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { id });
@@ -476,25 +476,25 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using (_tenantRep.DataFilter.Disable(FilterNames.Tenant))
         {
-            var tenantType = await _tenantRepository.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
+            var tenantType = await _tenantRep.Select.WhereDynamic(id).ToOneAsync(a => a.TenantType);
             if (tenantType == TenantType.Platform)
             {
                 throw ResultOutput.Exception("平台租户禁止删除");
             }
 
             //删除部门
-            await _orgRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
+            await _orgRep.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
 
             //删除用户
-            await _userRepository.SoftDeleteAsync(a => a.TenantId == id && a.Type != UserType.Member, FilterNames.Tenant);
+            await _userRep.SoftDeleteAsync(a => a.TenantId == id && a.Type != UserType.Member, FilterNames.Tenant);
 
             //删除角色
-            await _roleRepository.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
+            await _roleRep.SoftDeleteAsync(a => a.TenantId == id, FilterNames.Tenant);
 
             //删除租户
-            var result = await _tenantRepository.SoftDeleteAsync(id);
+            var result = await _tenantRep.SoftDeleteAsync(id);
 
             //清除租户下所有用户权限缓存
             await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(new List<long> { id });
@@ -509,25 +509,25 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
-        using (_tenantRepository.DataFilter.Disable(FilterNames.Tenant))
+        using (_tenantRep.DataFilter.Disable(FilterNames.Tenant))
         {
-            var tenantType = await _tenantRepository.Select.WhereDynamic(ids).ToOneAsync(a => a.TenantType);
+            var tenantType = await _tenantRep.Select.WhereDynamic(ids).ToOneAsync(a => a.TenantType);
             if (tenantType == TenantType.Platform)
             {
                 throw ResultOutput.Exception("平台租户禁止删除");
             }
 
             //删除部门
-            await _orgRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
+            await _orgRep.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
 
             //删除用户
-            await _userRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member, FilterNames.Tenant);
+            await _userRep.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value) && a.Type != UserType.Member, FilterNames.Tenant);
 
             //删除角色
-            await _roleRepository.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
+            await _roleRep.SoftDeleteAsync(a => ids.Contains(a.TenantId.Value), FilterNames.Tenant);
 
             //删除租户
-            var result = await _tenantRepository.SoftDeleteAsync(ids);
+            var result = await _tenantRep.SoftDeleteAsync(ids);
 
             //清除租户下所有用户权限缓存
             await LazyGetRequiredService<PkgService>().ClearUserPermissionsAsync(ids.ToList());
@@ -541,12 +541,12 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <returns></returns>
     public async Task SetEnableAsync(TenantSetEnableInput input)
     {
-        var entity = await _tenantRepository.GetAsync(input.TenantId);
+        var entity = await _tenantRep.GetAsync(input.TenantId);
         if (entity.TenantType == TenantType.Platform)
         {
             throw ResultOutput.Exception("平台租户禁止禁用");
         }
         entity.Enabled = input.Enabled;
-        await _tenantRepository.UpdateAsync(entity);
+        await _tenantRep.UpdateAsync(entity);
     }
 }

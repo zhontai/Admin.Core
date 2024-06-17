@@ -5,10 +5,10 @@ using System;
 
 namespace ZhonTai.Admin.Services.Dict.Dto;
 
-[ExcelExporter(Name = "数据字典列表", TableStyle = TableStyles.None, AutoFitAllColumn = true, AutoFitMaxRows = 5000)]
+[ExcelExporter(Name = "字典列表", TableStyle = TableStyles.None, AutoFitAllColumn = true, AutoFitMaxRows = 5000)]
 public class DictExport
 {
-    [ExporterHeader(DisplayName = "数据字典编号", Format = "0")]
+    [ExporterHeader(DisplayName = "字典编号", Format = "0")]
     public long Id { get; set; }
 
     [ExporterHeader(DisplayName = "字典名称")]

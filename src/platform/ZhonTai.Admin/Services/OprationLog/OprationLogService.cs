@@ -20,15 +20,15 @@ namespace ZhonTai.Admin.Services.OprationLog;
 public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
 {
     private readonly IHttpContextAccessor _context;
-    private readonly IOprationLogRepository _oprationLogRepository;
+    private readonly IOprationLogRepository _oprationLogRep;
 
     public OprationLogService(
         IHttpContextAccessor context,
-        IOprationLogRepository oprationLogRepository
+        IOprationLogRepository oprationLogRep
     )
     {
         _context = context;
-        _oprationLogRepository = oprationLogRepository;
+        _oprationLogRep = oprationLogRep;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
     {
         var userName = input.Filter?.CreatedUserName;
 
-        var list = await _oprationLogRepository.Select
+        var list = await _oprationLogRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(userName.NotNull(), a => a.CreatedUserName.Contains(userName))
         .Count(out var total)
@@ -81,7 +81,7 @@ public class OprationLogService : BaseService, IOprationLogService, IDynamicApi
         input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
 
         var entity = Mapper.Map<OprationLogEntity>(input);
-        await _oprationLogRepository.InsertAsync(entity);
+        await _oprationLogRep.InsertAsync(entity);
 
         return entity.Id;
     }

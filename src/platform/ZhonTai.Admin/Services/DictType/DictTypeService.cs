@@ -11,6 +11,7 @@ using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
+using System;
 
 namespace ZhonTai.Admin.Services.DictType;
 
@@ -24,8 +25,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     private readonly AdminRepositoryBase<DictTypeEntity> _dictTypeRep;
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
 
-    public DictTypeService(AdminRepositoryBase<DictTypeEntity> dictTypeRep, 
-        AdminRepositoryBase<DictEntity> dictRep)
+    public DictTypeService(AdminRepositoryBase<DictTypeEntity> dictTypeRep, AdminRepositoryBase<DictEntity> dictRep)
     {
         _dictTypeRep = dictTypeRep;
         _dictRep = dictRep;

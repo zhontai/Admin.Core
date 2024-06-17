@@ -10,7 +10,6 @@ using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Validators;
-using System;
 using ZhonTai.Admin.Domain;
 using Mapster;
 
@@ -23,11 +22,14 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TaskService : BaseService, ITaskService, IDynamicApi
 {
-    private readonly Lazy<Scheduler> _scheduler;
-    private readonly Lazy<ITaskRepository> _taskRepository;
-    private readonly Lazy<ITaskExtRepository> _taskExtRepository;
+    private readonly Scheduler _scheduler;
+    private readonly ITaskRepository _taskRepository;
+    private readonly ITaskExtRepository _taskExtRepository;
 
-    public TaskService(Lazy<Scheduler> scheduler, Lazy<ITaskRepository> taskRepository, Lazy<ITaskExtRepository> taskExtRepository)
+    public TaskService(Scheduler scheduler, 
+        ITaskRepository taskRepository, 
+        ITaskExtRepository taskExtRepository
+    )
     {
         _scheduler = scheduler;
         _taskRepository = taskRepository;
@@ -41,7 +43,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task<string> GetAlerEmailAsync(string id)
     {
-        return await _taskExtRepository.Value.Where(a => a.TaskId == id).ToOneAsync(a => a.AlarmEmail);
+        return await _taskExtRepository.Where(a => a.TaskId == id).ToOneAsync(a => a.AlarmEmail);
     }
 
     /// <summary>
@@ -51,7 +53,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task<TaskGetOutput> GetAsync(string id)
     {
-        var taskInfo = Datafeed.GetTask(_scheduler.Value, id);
+        var taskInfo = Datafeed.GetTask(_scheduler, id);
 
         if (taskInfo == null)
         {
@@ -93,12 +95,12 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         var startAddTime = input.Filter?.StartAddTime;
         var endAddTime = input.Filter?.EndAddTime;
 
-        var list = await _taskRepository.Value.Select
+        var list = await _taskRepository.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(groupName.NotNull(), a => a.Topic.Contains(groupName))
         .WhereIf(taskName.NotNull(), a => a.Topic.Contains(taskName))
-        .WhereIf(taskStatus.HasValue,a=> a.Status == taskStatus.Value)
-        .WhereIf(startAddTime.HasValue && !endAddTime.HasValue, a => a.CreateTime >= startAddTime.Value)
+        .WhereIf(taskStatus.HasValue,a=> a.Status == taskStatus)
+        .WhereIf(startAddTime.HasValue && !endAddTime.HasValue, a => a.CreateTime >= startAddTime)
         .WhereIf(endAddTime.HasValue && !startAddTime.HasValue, a => a.CreateTime < endAddTime.Value.AddDays(1))
         .WhereIf(startAddTime.HasValue && endAddTime.HasValue, a => a.CreateTime.BetweenEnd(startAddTime.Value, endAddTime.Value.AddDays(1)))
         .Count(out var total)
@@ -127,7 +129,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             throw ResultOutput.Exception("请输入定时参数");
         }
 
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
 
         var taskld = Datafeed.AddTask(scheduler, input.Topic, input.Body, input.Round, input.Interval, input.IntervalArgument);
 
@@ -135,7 +137,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         {
             Pause(taskld);
 
-            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+            await _taskExtRepository.InsertAsync(new TaskInfoExt
             {
                 TaskId = taskld,
                 AlarmEmail = input.AlarmEmail
@@ -152,9 +154,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(TaskUpdateInput input)
     {
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
 
-        var entity = await _taskRepository.Value.GetAsync(a => a.Id == input.Id);
+        var entity = await _taskRepository.GetAsync(a => a.Id == input.Id);
         if (entity == null)
         {
             throw ResultOutput.Exception("任务不存在");
@@ -172,17 +174,17 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             entity.Status = FreeScheduler.TaskStatus.Paused;
         }
 
-        await _taskRepository.Value.UpdateAsync(entity);
+        await _taskRepository.UpdateAsync(entity);
 
-        var taskExt = await _taskExtRepository.Value.Select.WhereDynamic(entity.Id).ToOneAsync();
+        var taskExt = await _taskExtRepository.Select.WhereDynamic(entity.Id).ToOneAsync();
         if(taskExt != null)
         {
             taskExt.AlarmEmail = input.AlarmEmail;
-            await _taskExtRepository.Value.UpdateAsync(taskExt);
+            await _taskExtRepository.UpdateAsync(taskExt);
         }
         else
         {
-            await _taskExtRepository.Value.InsertAsync(new TaskInfoExt
+            await _taskExtRepository.InsertAsync(new TaskInfoExt
             {
                 TaskId = entity.Id,
                 AlarmEmail = input.AlarmEmail
@@ -202,7 +204,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Pause([BindRequired][ValidateRequired("请选择任务")]string id)
     {
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
         scheduler.PauseTask(id);
     }
 
@@ -213,7 +215,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Resume([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
         scheduler.ResumeTask(id);
     }
 
@@ -224,7 +226,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public void Run([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
         scheduler.RunNowTask(id);
     }
 
@@ -235,10 +237,10 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <returns></returns>
     public async Task Delete([BindRequired][ValidateRequired("请选择任务")] string id)
     {
-        var scheduler = _scheduler.Value;
+        var scheduler = _scheduler;
         scheduler.RemoveTask(id);
 
-        await _taskExtRepository.Value.DeleteAsync(a => a.TaskId == id);
+        await _taskExtRepository.DeleteAsync(a => a.TaskId == id);
     }
 
     /// <summary>

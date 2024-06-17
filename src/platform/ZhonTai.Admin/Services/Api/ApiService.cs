@@ -11,7 +11,6 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using System;
 using ZhonTai.Admin.Core.Configs;
 

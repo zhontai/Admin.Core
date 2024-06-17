@@ -20,15 +20,15 @@ namespace ZhonTai.Admin.Services.LoginLog;
 public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
 {
     private readonly IHttpContextAccessor _context;
-    private readonly ILoginLogRepository _loginLogRepository;
+    private readonly ILoginLogRepository _loginLogRep;
 
     public LoginLogService(
         IHttpContextAccessor context,
-        ILoginLogRepository loginLogRepository
+        ILoginLogRepository loginLogRep
     )
     {
         _context = context;
-        _loginLogRepository = loginLogRepository;
+        _loginLogRep = loginLogRep;
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     {
         var userName = input.Filter?.CreatedUserName;
 
-        var list = await _loginLogRepository.Select
+        var list = await _loginLogRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(userName.NotNull(), a => a.CreatedUserName.Contains(userName))
         .Count(out var total)
@@ -79,7 +79,7 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
             input.BrowserInfo = ua;
         }
         var entity = Mapper.Map<LoginLogEntity>(input);
-        await _loginLogRepository.InsertAsync(entity);
+        await _loginLogRep.InsertAsync(entity);
 
         return entity.Id;
     }

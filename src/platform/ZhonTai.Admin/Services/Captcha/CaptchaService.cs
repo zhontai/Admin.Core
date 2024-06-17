@@ -24,10 +24,15 @@ namespace ZhonTai.Admin.Services.Cache;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class CaptchaService : BaseService, IDynamicApi
 {
-    private ICaptcha _captcha => LazyGetRequiredService<ICaptcha>();
-    private ISlideCaptcha _slideCaptcha => LazyGetRequiredService<ISlideCaptcha>();
-    public CaptchaService()
+    private readonly ICaptcha _captcha;
+    private readonly ISlideCaptcha _slideCaptcha;
+    private readonly ICapPublisher _capPublisher;
+
+    public CaptchaService(ICaptcha captcha, ISlideCaptcha slideCaptcha, ICapPublisher capPublisher)
     {
+        _captcha = captcha;
+        _slideCaptcha = slideCaptcha;
+        _capPublisher = capPublisher;
     }
 
     /// <summary>
@@ -90,8 +95,7 @@ public class CaptchaService : BaseService, IDynamicApi
         await Cache.SetAsync(CacheKeys.GetSmsCodeKey(input.Mobile, codeId), code, TimeSpan.FromMinutes(5));
 
         //发送短信
-        await LazyGetRequiredService<ICapPublisher>().PublishAsync(SubscribeNames.SmsSingleSend,
-        new
+        await _capPublisher.PublishAsync(SubscribeNames.SmsSingleSend, new
         {
             input.Mobile,
             Text = code

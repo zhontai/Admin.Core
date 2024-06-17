@@ -12,7 +12,6 @@ using System.IO;
 using System;
 using ZhonTai.Admin.Core.Configs;
 using OnceMi.AspNetCore.OSS;
-using Microsoft.Extensions.Options;
 using System.Linq;
 using ZhonTai.Common.Files;
 using ZhonTai.Common.Helpers;
@@ -30,14 +29,22 @@ namespace ZhonTai.Admin.Services.File;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class FileService : BaseService, IFileService, IDynamicApi
 {
-    private IFileRepository _fileRepository => LazyGetRequiredService<IFileRepository>();
-    private IOSSServiceFactory _oSSServiceFactory => LazyGetRequiredService<IOSSServiceFactory>();
-    private OSSConfig _oSSConfig => LazyGetRequiredService<IOptions<OSSConfig>>().Value;
-    private IHttpContextAccessor _httpContextAccessor => LazyGetRequiredService<IHttpContextAccessor>();
+    private readonly IFileRepository _fileRep;
+    private readonly IOSSServiceFactory _oSSServiceFactory;
+    private readonly OSSConfig _oSSConfig;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public FileService()
+    public FileService(
+        IFileRepository fileRep,
+        IOSSServiceFactory oSSServiceFactory,
+        OSSConfig oSSConfig,
+        IHttpContextAccessor httpContextAccessor
+    )
     {
-
+        _fileRep = fileRep;
+        _oSSServiceFactory = oSSServiceFactory;
+        _oSSConfig = oSSConfig;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <summary>
@@ -50,7 +57,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
     {
         var fileName = input.Filter?.FileName;
 
-        var list = await _fileRepository.Select
+        var list = await _fileRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(fileName.NotNull(), a => a.FileName.Contains(fileName))
         .Count(out var total)
@@ -75,13 +82,13 @@ public class FileService : BaseService, IFileService, IDynamicApi
     [HttpPost]
     public async Task DeleteAsync(FileDeleteInput input)
     {
-        var file = await _fileRepository.GetAsync(input.Id);
+        var file = await _fileRep.GetAsync(input.Id);
         if (file == null)
         {
             return;
         }
 
-        var shareFile = await _fileRepository.Where(a=>a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
+        var shareFile = await _fileRep.Where(a=>a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
         if (!shareFile)
         {
             if(file.Provider.HasValue)
@@ -106,7 +113,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
             }
         }
 
-        await _fileRepository.DeleteAsync(file.Id);
+        await _fileRep.DeleteAsync(file.Id);
     }
 
     /// <summary>
@@ -145,7 +152,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
         if (enableMd5)
         {
             md5 = MD5Encrypt.GetHash(file.OpenReadStream());
-            var md5FileEntity = await _fileRepository.WhereIf(enableOss, a => a.Provider == oSSOptions.Provider).Where(a => a.Md5 == md5).FirstAsync();
+            var md5FileEntity = await _fileRep.WhereIf(enableOss, a => a.Provider == oSSOptions.Provider).Where(a => a.Md5 == md5).FirstAsync();
             if (md5FileEntity != null)
             {
                 var sameFileEntity = new FileEntity
@@ -162,7 +169,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
                     LinkUrl = md5FileEntity.LinkUrl,
                     Md5 = md5,
                 };
-                sameFileEntity = await _fileRepository.InsertAsync(sameFileEntity);
+                sameFileEntity = await _fileRep.InsertAsync(sameFileEntity);
                 return sameFileEntity;
             }
         }
@@ -244,7 +251,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
             await uploadHelper.SaveAsync(file, filePath);
         }
        
-        fileEntity = await _fileRepository.InsertAsync(fileEntity);
+        fileEntity = await _fileRep.InsertAsync(fileEntity);
 
         return fileEntity;
     }

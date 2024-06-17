@@ -22,12 +22,19 @@ namespace ZhonTai.Admin.Services.Org;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class OrgService : BaseService, IOrgService, IDynamicApi
 {
-    private IOrgRepository _orgRepository => LazyGetRequiredService<IOrgRepository>();
-    private IUserOrgRepository _userOrgRepository => LazyGetRequiredService<IUserOrgRepository>();
-    private IRoleOrgRepository _roleOrgRepository => LazyGetRequiredService<IRoleOrgRepository>();
+    private readonly IOrgRepository _orgRep;
+    private readonly IUserOrgRepository _userOrgRep;
+    private readonly IRoleOrgRepository _roleOrgRep;
 
-    public OrgService()
+    public OrgService(
+        IOrgRepository orgRep,
+        IUserOrgRepository userOrgRep,
+        IRoleOrgRepository roleOrgRep
+    )
     {
+        _orgRep = orgRep;
+        _userOrgRep = userOrgRep;
+        _roleOrgRep = roleOrgRep;
     }
 
     /// <summary>
@@ -37,7 +44,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task<OrgGetOutput> GetAsync(long id)
     {
-        var result = await _orgRepository.GetAsync<OrgGetOutput>(id);
+        var result = await _orgRep.GetAsync<OrgGetOutput>(id);
         return result;
     }
 
@@ -51,7 +58,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         var dataPermission = User.DataPermission;
         var hasOrg = dataPermission.OrgIds.Count > 0;
 
-        var select = _orgRepository.Select
+        var select = _orgRep.Select
             .WhereIf(hasOrg, a => dataPermission.OrgIds.Contains(a.Id))
             .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key));
@@ -81,12 +88,12 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
             throw ResultOutput.Exception($"请选择上级部门");
         }
 
-        if (await _orgRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
+        if (await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
             throw ResultOutput.Exception($"此部门已存在");
         }
 
-        if (input.Code.NotNull() && await _orgRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
+        if (input.Code.NotNull() && await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
             throw ResultOutput.Exception($"此部门编码已存在");
         }
@@ -95,11 +102,11 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
 
         if (entity.Sort == 0)
         {
-            var sort = await _orgRepository.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _orgRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
 
-        await _orgRepository.InsertAsync(entity);
+        await _orgRep.InsertAsync(entity);
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
 
         return entity.Id;
@@ -117,7 +124,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
             throw ResultOutput.Exception($"请选择上级部门");
         }
 
-        var entity = await _orgRepository.GetAsync(input.Id);
+        var entity = await _orgRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception("部门不存在");
@@ -128,24 +135,24 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
             throw ResultOutput.Exception("上级部门不能是本部门");
         }
 
-        if (await _orgRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
+        if (await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
             throw ResultOutput.Exception($"此部门已存在");
         }
 
-        if (input.Code.NotNull() && await _orgRepository.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
+        if (input.Code.NotNull() && await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
             throw ResultOutput.Exception($"此部门编码已存在");
         }
 
-        var childIdList = await _orgRepository.GetChildIdListAsync(input.Id);
+        var childIdList = await _orgRep.GetChildIdListAsync(input.Id);
         if (childIdList.Contains(input.ParentId))
         {
             throw ResultOutput.Exception($"上级部门不能是下级部门");
         }
 
         Mapper.Map(input, entity);
-        await _orgRepository.UpdateAsync(entity);
+        await _orgRep.UpdateAsync(entity);
 
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
     }
@@ -159,23 +166,23 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     public async Task DeleteAsync(long id)
     {
         //本部门下是否有员工
-        if(await _userOrgRepository.HasUser(id))
+        if(await _userOrgRep.HasUser(id))
         {
             throw ResultOutput.Exception($"当前部门有员工无法删除");
         }
 
-        var orgIdList = await _orgRepository.GetChildIdListAsync(id);
+        var orgIdList = await _orgRep.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
-        if (await _userOrgRepository.HasUser(orgIdList))
+        if (await _userOrgRep.HasUser(orgIdList))
         {
             throw ResultOutput.Exception($"本部门的下级部门有员工无法删除");
         }
 
         //删除部门角色
-        await _roleOrgRepository.DeleteAsync(a => orgIdList.Contains(a.OrgId));
+        await _roleOrgRep.DeleteAsync(a => orgIdList.Contains(a.OrgId));
 
         //删除本部门和下级部门
-        await _orgRepository.DeleteAsync(a => orgIdList.Contains(a.Id));
+        await _orgRep.DeleteAsync(a => orgIdList.Contains(a.Id));
 
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
     }
@@ -189,23 +196,23 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     public async Task SoftDeleteAsync(long id)
     {
         //本部门下是否有员工
-        if (await _userOrgRepository.HasUser(id))
+        if (await _userOrgRep.HasUser(id))
         {
             throw ResultOutput.Exception($"当前部门有员工无法删除");
         }
 
-        var orgIdList = await _orgRepository.GetChildIdListAsync(id);
+        var orgIdList = await _orgRep.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
-        if (await _userOrgRepository.HasUser(orgIdList))
+        if (await _userOrgRep.HasUser(orgIdList))
         {
             throw ResultOutput.Exception($"本部门的下级部门有员工无法删除");
         }
 
         //删除部门角色
-        await _roleOrgRepository.SoftDeleteAsync(a => orgIdList.Contains(a.OrgId));
+        await _roleOrgRep.SoftDeleteAsync(a => orgIdList.Contains(a.OrgId));
 
         //删除本部门和下级部门
-        await _orgRepository.SoftDeleteAsync(a => orgIdList.Contains(a.Id));
+        await _orgRep.SoftDeleteAsync(a => orgIdList.Contains(a.Id));
 
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
     }

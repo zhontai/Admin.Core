@@ -24,9 +24,9 @@ namespace ZhonTai.Admin.Services.Region;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class RegionService : BaseService, IDynamicApi
 {
-    private readonly Lazy<AdminRepositoryBase<RegionEntity>> _regionRep;
+    private readonly AdminRepositoryBase<RegionEntity> _regionRep;
 
-    public RegionService(Lazy<AdminRepositoryBase<RegionEntity>> regionRep)
+    public RegionService(AdminRepositoryBase<RegionEntity> regionRep)
     {
         _regionRep = regionRep;
     }
@@ -34,7 +34,7 @@ public class RegionService : BaseService, IDynamicApi
     [NonAction]
     public async Task<List<long>> GetParentIdListAsync(long id)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         return await regionRep.Select
@@ -50,7 +50,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task<RegionGetOutput> GetAsync(long id)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var ouput =  await regionRep.Select
@@ -70,7 +70,7 @@ public class RegionService : BaseService, IDynamicApi
     [HttpPost]
     public async Task<List<RegionGetChildListOutput>> GetChildListAsync(RegionGetListInput input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         return await regionRep.Select
@@ -91,7 +91,7 @@ public class RegionService : BaseService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<RegionGetPageOutput>> GetPageAsync(PageInput<RegionGetPageInput> input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var filter = input.Filter;
@@ -124,7 +124,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(RegionAddInput input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         if (await regionRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
@@ -153,7 +153,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(RegionUpdateInput input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var entity = await regionRep.GetAsync(input.Id);
@@ -179,7 +179,7 @@ public class RegionService : BaseService, IDynamicApi
     [NonAction]
     public async Task<List<long>> GetChildIdListAsync(long id)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         return await regionRep.Select
@@ -195,7 +195,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var idList = await GetChildIdListAsync(id);
@@ -210,7 +210,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task SoftDeleteAsync(long id)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var idList = await GetChildIdListAsync(id);
@@ -225,7 +225,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task SetEnableAsync(RegionSetEnableInput input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var entity = await regionRep.GetAsync(input.RegionId);
@@ -240,7 +240,7 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task SetHotAsync(RegionSetHotInput input)
     {
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var entity = await regionRep.GetAsync(input.RegionId);
@@ -302,7 +302,7 @@ public class RegionService : BaseService, IDynamicApi
             });
         }
 
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var codeList = dataList.Select(a => a.Code).ToList();
@@ -349,7 +349,7 @@ public class RegionService : BaseService, IDynamicApi
             return;
         }
 
-        var regionRep = _regionRep.Value;
+        var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
         var provinceList = await regionRep.Where(a => a.Level == RegionLevel.Province).ToListAsync();
