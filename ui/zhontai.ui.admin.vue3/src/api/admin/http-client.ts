@@ -307,7 +307,9 @@ export class HttpClient<SecurityDataType = unknown> {
     showSuccessMessage = false,
     login = true,
     loading = false,
-    loadingOptions = {},
+    loadingOptions = {
+      background:'rgba(0,0,0,0.5)'
+    },
     cancelRepeatRequest = false,
     returnResponse = false,
     ...params
