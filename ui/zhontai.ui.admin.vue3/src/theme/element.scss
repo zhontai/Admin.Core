@@ -234,6 +234,7 @@
 ------------------------------- */
 .el-overlay {
   overflow: hidden;
+  // background-color: var(--el-overlay-color-lighter);
   .el-overlay-dialog {
     display: flex;
     align-items: center;
