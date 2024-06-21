@@ -33,7 +33,7 @@
             :width="300"
           >
             <p class="my-flex my-flex-items-center">
-              确定要同步地区至
+              确定要同步至
               <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
                 <el-option v-for="item in state.regionLevelList" :key="item.name" :label="item.name" :value="item.value" />
               </el-select>
@@ -294,13 +294,13 @@ const onSync = async () => {
   onSyncCancel()
   state.sync.loading = true
   await new RegionApi()
-    .syncData(state.sync.regionLevel)
+    .syncData(state.sync.regionLevel, { showErrorMessage: false })
     .then(() => {
       proxy.$modal.msgSuccess(`同步完成`)
       onQuery()
     })
     .catch(() => {
-      proxy.$modal.msgSuccess(`同步失败`)
+      proxy.$modal.msgError(`同步失败`)
     })
     .finally(() => {
       state.sync.loading = false
