@@ -48,7 +48,7 @@ Based on technologies such as .NET 8.0, FreeSql full stack, Autofac, CAP, and Ma
 4. Permission Management: Configure groups, menus, actions, permission points, and permission identifiers, supports tree-view list display.
 5. Tenant Packages: Configure tenant packages, supports adding/removing package enterprises.
 6. Tenant Management: Configure tenants, initialize department, role, and administrator data when adding new tenants, supports tenant package configuration, disabling/enabling features.
-7. Dictionary Management: Configure dictionaries, view dictionary types and dictionary data lists, supports maintenance of dictionary types and dictionary data.
+7. Dictionary Management: Configure dictionaries, view dictionary types and dictionary data lists, supports maintenance of dictionary types and dictionary data, can export dictionary subclass data.
 8. Task Scheduling: View task and task log lists, supports adding new tasks, modifying, starting, executing, pausing, copying tasks, and viewing logs.
 9. Cache Management: Query cache lists, supports clearing caches based on cache keys.
 10. Interface Management: Configure interfaces, supports interface synchronization for adding permission points and selecting interfaces, supports tree-view list display.
