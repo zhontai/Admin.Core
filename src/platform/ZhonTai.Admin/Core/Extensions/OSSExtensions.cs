@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Minio;
 using OnceMi.AspNetCore.OSS;
+using System.Linq;
 using ZhonTai.Admin.Core.Configs;
 using OSSOptions = ZhonTai.Admin.Core.Configs.OSSOptions;
 
@@ -43,7 +44,8 @@ public static class OSSExtensions
     public static IServiceCollection AddOSS(this IServiceCollection services)
     {
         var oSSConfig = services.BuildServiceProvider().GetRequiredService<IOptions<OSSConfig>>().Value;
-        if (oSSConfig.OSSConfigs?.Count > 0)
+
+        if (oSSConfig.OSSConfigs != null && oSSConfig.OSSConfigs.Any(s => s.Enable))
         {
             foreach (var oSSOptions in oSSConfig.OSSConfigs)
             {
@@ -64,6 +66,14 @@ public static class OSSExtensions
                     CreateBucketName(oSSServiceFactory, oSSOptions);
                 }
             }
+        }
+        else
+        {
+            //未启用OSS注入
+            services.AddOSSService(option =>
+            {
+                option.Provider = OSSProvider.Invalid;
+            });
         }
 
         return services;
