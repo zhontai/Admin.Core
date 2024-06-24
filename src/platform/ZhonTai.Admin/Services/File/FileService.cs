@@ -19,6 +19,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.File;
 
@@ -37,13 +38,13 @@ public class FileService : BaseService, IFileService, IDynamicApi
     public FileService(
         IFileRepository fileRep,
         IOSSServiceFactory oSSServiceFactory,
-        OSSConfig oSSConfig,
+        IOptions<OSSConfig> oSSConfig,
         IHttpContextAccessor httpContextAccessor
     )
     {
         _fileRep = fileRep;
         _oSSServiceFactory = oSSServiceFactory;
-        _oSSConfig = oSSConfig;
+        _oSSConfig = oSSConfig.Value;
         _httpContextAccessor = httpContextAccessor;
     }
 
