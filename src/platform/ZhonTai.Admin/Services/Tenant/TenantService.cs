@@ -37,22 +37,42 @@ namespace ZhonTai.Admin.Services.Tenant;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
+    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
+    private readonly ITenantRepository _tenantRep;
+    private readonly ITenantPkgRepository _tenantPkgRep;
+    private readonly IRoleRepository _roleRep;
+    private readonly IUserRepository _userRep;
+    private readonly IOrgRepository _orgRep;
+    private readonly Lazy<IUserRoleRepository> _userRoleRep;
+    private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
+    private readonly Lazy<IUserStaffRepository> _userStaffRep;
+    private readonly Lazy<IUserOrgRepository> _userOrgRep;
+    private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<UserHelper> _userHelper;
 
-    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
-    private ITenantRepository _tenantRep => LazyGetRequiredService<ITenantRepository>();
-    private IRoleRepository _roleRep => LazyGetRequiredService<IRoleRepository>();
-    private IUserRepository _userRep => LazyGetRequiredService<IUserRepository>();
-    private IOrgRepository _orgRep => LazyGetRequiredService<IOrgRepository>();
-    private IUserRoleRepository _userRoleRep => LazyGetRequiredService<IUserRoleRepository>();
-    private IRolePermissionRepository _rolePermissionRep => LazyGetRequiredService<IRolePermissionRepository>();
-    private IUserStaffRepository _userStaffRep => LazyGetRequiredService<IUserStaffRepository>();
-    private IUserOrgRepository _userOrgRep => LazyGetRequiredService<IUserOrgRepository>();
-    private IPasswordHasher<UserEntity> _passwordHasher => LazyGetRequiredService<IPasswordHasher<UserEntity>>();
-    private ITenantPkgRepository _tenantPkgRep => LazyGetRequiredService<ITenantPkgRepository>();
-
-    public TenantService(Lazy<UserHelper> userHelper)
+    public TenantService(
+        ITenantRepository tenantRep,
+        ITenantPkgRepository tenantPkgRep,
+        IRoleRepository roleRep,
+        IUserRepository userRep,
+        IOrgRepository orgRep,
+        Lazy<IUserRoleRepository> userRoleRep,
+        Lazy<IRolePermissionRepository> rolePermissionRep,
+        Lazy<IUserStaffRepository> userStaffRep,
+        Lazy<IUserOrgRepository> userOrgRep,
+        Lazy<IPasswordHasher<UserEntity>> passwordHasher,
+        Lazy<UserHelper> userHelper)
     {
+        _tenantRep = tenantRep;
+        _tenantPkgRep = tenantPkgRep;
+        _roleRep = roleRep;
+        _userRep = userRep;
+        _orgRep = orgRep;
+        _userRoleRep = userRoleRep;
+        _rolePermissionRep = rolePermissionRep;
+        _userStaffRep = userStaffRep;
+        _userOrgRep = userOrgRep;
+        _passwordHasher = passwordHasher;
         _userHelper = userHelper;
     }
 
@@ -223,7 +243,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         };
         if (_appConfig.PasswordHasher)
         {
-            user.Password = _passwordHasher.HashPassword(user, input.Password);
+            user.Password = _passwordHasher.Value.HashPassword(user, input.Password);
             user.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
@@ -241,7 +261,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Id = userId,
             TenantId = tenantId
         };
-        await _userStaffRep.InsertAsync(emp);
+        await _userStaffRep.Value.InsertAsync(emp);
 
         //添加用户部门
         var userOrg = new UserOrgEntity
@@ -249,7 +269,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             OrgId = org.Id
         };
-        await _userOrgRep.InsertAsync(userOrg);
+        await _userOrgRep.Value.InsertAsync(userOrg);
 
         //添加角色分组和角色
         var roleGroupId = YitIdHelper.NextId();
@@ -304,7 +324,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             UserId = userId,
             RoleId = roleId
         };
-        await _userRoleRep.InsertAsync(userRole);
+        await _userRoleRep.Value.InsertAsync(userRole);
 
         //更新租户的用户和部门
         tenant.UserId = userId;
@@ -437,16 +457,16 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             }
 
             //删除角色权限
-            await _rolePermissionRep.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _rolePermissionRep.Value.Where(a => a.Role.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除用户角色
-            await _userRoleRep.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userRoleRep.Value.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除员工
-            await _userStaffRep.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userStaffRep.Value.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除用户部门
-            await _userOrgRep.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
+            await _userOrgRep.Value.Where(a => a.User.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
 
             //删除部门
             await _orgRep.Where(a => a.TenantId == id).DisableGlobalFilter(FilterNames.Tenant).ToDelete().ExecuteAffrowsAsync();
