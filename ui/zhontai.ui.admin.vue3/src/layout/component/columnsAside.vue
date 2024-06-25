@@ -51,7 +51,6 @@
 import { reactive, ref, onMounted, nextTick, watch, onUnmounted, computed } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import pinia from '/@/stores/index'
 import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
@@ -94,8 +93,20 @@ const setColumnsAsideMove = (k: number) => {
 // 菜单高亮点击事件
 const onColumnsAsideMenuClick = async (v: RouteItem) => {
   let { path, redirect } = v
-  if (redirect) router.push(redirect)
-  else router.push(path)
+  if (redirect) {
+    onColumnsAsideDown(v.k)
+    if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect))
+    else router.push(redirect)
+  } else {
+    if (!v.children) {
+      router.push(path)
+    } else {
+      const resData: MittMenu = setSendChildren(path)
+      if (Object.keys(resData).length <= 0) return false
+      onColumnsAsideDown(resData.item?.k)
+      mittBus.emit('setSendColumnsChildren', resData)
+    }
+  }
 
   // 一个路由设置自动收起菜单
   // if (!v.children) themeConfig.value.isCollapse = true
@@ -196,10 +207,10 @@ onBeforeRouteUpdate((to) => {
 })
 // 监听布局配置信息的变化，动态增加菜单高亮位置移动像素
 watch(
-  pinia.state,
-  (val) => {
-    val.themeConfig.themeConfig.columnsAsideStyle === 'columnsRound' ? (state.difference = 3) : (state.difference = 0)
-    if (!val.routesList.isColumnsMenuHover && !val.routesList.isColumnsNavHover) {
+  [() => themeConfig.value.columnsAsideStyle, isColumnsMenuHover, isColumnsNavHover],
+  () => {
+    themeConfig.value.columnsAsideStyle === 'columnsRound' ? (state.difference = 3) : (state.difference = 0)
+    if (!isColumnsMenuHover.value && !isColumnsNavHover.value) {
       state.liHoverIndex = null
       mittBus.emit('setSendColumnsChildren', setSendChildren(route.path))
     } else {

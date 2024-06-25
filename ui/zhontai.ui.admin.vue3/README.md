@@ -32,8 +32,7 @@
 
 #### 🚧 安装 cnpm、yarn
 
-- 复制代码(桌面 cmd 运行) `npm install -g cnpm --registry=https://registry.npm.taobao.org`
-- 复制代码(桌面 cmd 运行) `npm install -g yarn`
+- 复制代码(桌面 cmd 运行) `npm install -g pnpm --registry=https://registry.npmmirror.com`
 
 #### 🏭 环境支持
 
@@ -45,7 +44,7 @@
 
 #### ⚡ 使用说明
 
-建议使用 cnpm，因为 yarn 有时会报错。<a href="http://nodejs.cn" target="_blank">node 版本 > 14.18+/16+</a>
+建议使用 pnpm，因为 yarn 有时会报错。<a href="http://nodejs.cn" target="_blank">node 版本 > 14.18+/16+</a>
 
 > Vite 不再支持 Node 12 / 13 / 15，因为上述版本已经进入了 EOL 阶段。现在你必须使用 Node 14.18+ / 16+ 版本。
 
@@ -57,13 +56,13 @@ git clone https://github.com/zhontai/Admin.Core.git
 cd ui\zhontai.ui.admin.vue3
 
 # 安装依赖
-cnpm install
+pnpm install
 
 # 运行项目
-cnpm run dev
+pnpm run dev
 
 # 打包发布
-cnpm run build
+pnpm run build
 ```
 
 #### 📚 开发文档
