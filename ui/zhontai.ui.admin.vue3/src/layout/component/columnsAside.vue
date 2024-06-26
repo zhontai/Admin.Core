@@ -149,7 +149,10 @@ const setFilterRoutes = () => {
   // resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
   // 刷新时，初始化无路由设置自动收起菜单
   !resData.children || resData.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
-  mittBus.emit('setSendColumnsChildren', resData)
+
+  setTimeout(() => {
+    mittBus.emit('setSendColumnsChildren', resData)
+  }, 100)
 }
 // 传送当前子级数据到菜单中
 const setSendChildren = (path: string) => {
