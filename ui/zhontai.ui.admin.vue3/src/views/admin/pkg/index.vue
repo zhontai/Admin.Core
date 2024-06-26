@@ -200,9 +200,11 @@ const onQuery = async () => {
   state.pkgData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
 
-  nextTick(() => {
-    pkgTableRef.value!.setCurrentRow(state.pkgData[0])
-  })
+  if (state.pkgData?.length > 0) {
+    nextTick(() => {
+      pkgTableRef.value!.setCurrentRow(state.pkgData[0])
+    })
+  }
 
   state.loading = false
 }
