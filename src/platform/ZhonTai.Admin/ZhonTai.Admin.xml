@@ -608,6 +608,11 @@
             Id生成器配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Lang">
+            <summary>
+            默认语言
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
             <summary>
             Swagger配置
@@ -2073,6 +2078,13 @@
             <summary>
             系统异常
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Extensions.ApplicationBuilderExtensions.UseMyLocalization(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用多语言
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Extensions.IdGeneratorExtensions.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>

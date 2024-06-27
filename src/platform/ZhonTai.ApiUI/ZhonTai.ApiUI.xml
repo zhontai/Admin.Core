@@ -14,6 +14,205 @@
             Register the ApiUI middleware with optional setup action for DI-injected options
             </summary>
         </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.UrlDescriptor">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.IEnumerableUrlDescriptor">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Boolean">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.ModelRendering">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DocExpansion">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.NullableInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.SubmitMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.IEnumerableSubmitMethod">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.ConfigObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.InterceptorFunctions">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.IEnumerableString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DictionaryStringString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.OAuthConfigObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Byte">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.SByte">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Int16">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.UInt16">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.UInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.UInt64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Single">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Double">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Decimal">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Char">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DateTime">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DateTimeOffset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.TimeSpan">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.JsonArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.JsonObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.JsonDocument">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.DateOnly">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.TimeOnly">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:ZhonTai.ApiUI.ApiUIOptionsJsonContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:ZhonTai.ApiUI.ApiUIOptionsJsonContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:ZhonTai.ApiUI.ApiUIOptionsJsonContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ZhonTai.ApiUI.ApiUIOptionsJsonContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
         <member name="P:ZhonTai.ApiUI.ApiUIOptions.RoutePrefix">
             <summary>
             Gets or sets a route prefix for accessing the swagger-ui

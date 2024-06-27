@@ -63,6 +63,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
 using FreeScheduler;
+using Microsoft.AspNetCore.Mvc.Razor;
+using ZhonTai.Admin.Services.Org;
+using System.Globalization;
 
 namespace ZhonTai.Admin.Core;
 
@@ -491,6 +494,9 @@ public class HostApp
         }
         services.AddFluentValidationAutoValidation();
 
+        //多语言
+        services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
+
         mvcBuilder.AddNewtonsoftJson(options =>
         {
             //忽略循环引用
@@ -500,7 +506,12 @@ public class HostApp
             //设置时间格式
             options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
         })
-        .AddControllersAsServices();
+        .AddControllersAsServices()
+        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+        .AddDataAnnotationsLocalization(options =>
+        {
+            options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(type);
+        });
 
         if (appConfig.Swagger.EnableJsonStringEnumConverter)
             mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -796,6 +807,9 @@ public class HostApp
 
         IdentityModelEventSource.ShowPII = true;
 
+        //多语言
+        app.UseMyLocalization();
+
         //IP限流
         if (appConfig.RateLimit)
         {
@@ -811,7 +825,7 @@ public class HostApp
         //静态文件
         app.UseDefaultFiles();
         app.UseStaticFiles();
-        
+
         //路由
         app.UseRouting();
 

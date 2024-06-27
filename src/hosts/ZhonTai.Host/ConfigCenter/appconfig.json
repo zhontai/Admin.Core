@@ -128,6 +128,8 @@
       "WorkerIdBitLength": 6, // 机器码位长，决定 WorkerId 的最大值，默认值6，取值范围 [1, 19]
       "SeqBitLength": 6, // 序列数位长，默认值6，取值范围 [3, 21]，决定每毫秒基础生成的ID个数。如果每秒请求数不超过5W，保持默认值6即可；如果超过5W，不超过50W，建议赋值10或更大，以此类推。
       "CachePrefix": "zhontai:workerid" // 缓存前缀
-    }
+    },
+    //默认语言 zh | en
+    "Lang": "en"
   }
 }

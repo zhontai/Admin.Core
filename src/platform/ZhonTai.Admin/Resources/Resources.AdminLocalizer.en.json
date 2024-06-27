@@ -1,0 +1,11 @@
+{
+  //OrgService
+  "请选择上级部门": "Please select the superior department",
+  "此部门已存在": "This department already exists",
+  "此部门编码已存在": "The department code already exists",
+  "部门不存在": "Department does not exist",
+  "上级部门不能是本部门": "The superior department cannot be the same as the current department",
+  "上级部门不能是下级部门": "The superior department cannot be a subordinate department",
+  "当前部门有员工无法删除": "The current department has employees and cannot be deleted",
+  "本部门的下级部门有员工无法删除": "The subordinate departments of this department have employees and cannot be deleted"
+}

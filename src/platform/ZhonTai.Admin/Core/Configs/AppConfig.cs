@@ -121,6 +121,11 @@ public class AppConfig
     /// Id生成器配置
     /// </summary>
     public IdGeneratorConfig IdGenerator { get; set; } = new IdGeneratorConfig();
+
+    /// <summary>
+    /// 默认语言
+    /// </summary>
+    public string Lang { get; set; }
 }
 
 /// <summary>

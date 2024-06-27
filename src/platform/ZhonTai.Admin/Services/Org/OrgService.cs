@@ -12,6 +12,8 @@ using ZhonTai.Admin.Domain.UserOrg;
 using System.Collections.Generic;
 using System.Linq;
 using ZhonTai.Admin.Domain.Role;
+using Microsoft.Extensions.Localization;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -25,16 +27,19 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     private readonly IOrgRepository _orgRep;
     private readonly IUserOrgRepository _userOrgRep;
     private readonly IRoleOrgRepository _roleOrgRep;
+    private readonly IStringLocalizer<AdminLocalizer> _localizer;
 
     public OrgService(
         IOrgRepository orgRep,
         IUserOrgRepository userOrgRep,
-        IRoleOrgRepository roleOrgRep
+        IRoleOrgRepository roleOrgRep,
+        IStringLocalizer<AdminLocalizer> localizer
     )
     {
         _orgRep = orgRep;
         _userOrgRep = userOrgRep;
         _roleOrgRep = roleOrgRep;
+        _localizer = localizer;
     }
 
     /// <summary>
@@ -85,17 +90,17 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     {
         if(input.ParentId == 0)
         {
-            throw ResultOutput.Exception($"请选择上级部门");
+            throw ResultOutput.Exception(_localizer["请选择上级部门"]);
         }
 
         if (await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此部门已存在");
+            throw ResultOutput.Exception(_localizer["此部门已存在"]);
         }
 
         if (input.Code.NotNull() && await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此部门编码已存在");
+            throw ResultOutput.Exception(_localizer["此部门编码已存在"]);
         }
 
         var entity = Mapper.Map<OrgEntity>(input);
@@ -121,34 +126,34 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     {
         if (input.ParentId == 0)
         {
-            throw ResultOutput.Exception($"请选择上级部门");
+            throw ResultOutput.Exception(_localizer["请选择上级部门"]);
         }
 
         var entity = await _orgRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("部门不存在");
+            throw ResultOutput.Exception(_localizer["部门不存在"]);
         }
 
         if (input.Id == input.ParentId)
         {
-            throw ResultOutput.Exception("上级部门不能是本部门");
+            throw ResultOutput.Exception(_localizer["上级部门不能是本部门"]);
         }
 
         if (await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此部门已存在");
+            throw ResultOutput.Exception(_localizer["此部门已存在"]);
         }
 
         if (input.Code.NotNull() && await _orgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此部门编码已存在");
+            throw ResultOutput.Exception(_localizer["此部门编码已存在"]);
         }
 
         var childIdList = await _orgRep.GetChildIdListAsync(input.Id);
         if (childIdList.Contains(input.ParentId))
         {
-            throw ResultOutput.Exception($"上级部门不能是下级部门");
+            throw ResultOutput.Exception(_localizer["上级部门不能是下级部门"]);
         }
 
         Mapper.Map(input, entity);
@@ -168,14 +173,14 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         //本部门下是否有员工
         if(await _userOrgRep.HasUser(id))
         {
-            throw ResultOutput.Exception($"当前部门有员工无法删除");
+            throw ResultOutput.Exception(_localizer["当前部门有员工无法删除"]);
         }
 
         var orgIdList = await _orgRep.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
         if (await _userOrgRep.HasUser(orgIdList))
         {
-            throw ResultOutput.Exception($"本部门的下级部门有员工无法删除");
+            throw ResultOutput.Exception(_localizer["本部门的下级部门有员工无法删除"]);
         }
 
         //删除部门角色
@@ -198,14 +203,14 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         //本部门下是否有员工
         if (await _userOrgRep.HasUser(id))
         {
-            throw ResultOutput.Exception($"当前部门有员工无法删除");
+            throw ResultOutput.Exception(_localizer["当前部门有员工无法删除"]);
         }
 
         var orgIdList = await _orgRep.GetChildIdListAsync(id);
         //本部门的下级部门下是否有员工
         if (await _userOrgRep.HasUser(orgIdList))
         {
-            throw ResultOutput.Exception($"本部门的下级部门有员工无法删除");
+            throw ResultOutput.Exception(_localizer["本部门的下级部门有员工无法删除"]);
         }
 
         //删除部门角色
