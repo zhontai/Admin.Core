@@ -130,6 +130,6 @@
       "CachePrefix": "zhontai:workerid" // 缓存前缀
     },
     //默认语言 zh | en
-    "Lang": "en"
+    "Lang": "zh"
   }
 }
