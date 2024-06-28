@@ -99,6 +99,7 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
     else router.push(redirect)
   } else {
     if (!v.children) {
+      onColumnsAsideDown(v.k)
       router.push(path)
     } else {
       const resData: MittMenu = setSendChildren(path)
@@ -109,9 +110,9 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
   }
 
   // 一个路由设置自动收起菜单
-  // if (!v.children) themeConfig.value.isCollapse = true
-  // else if (v.children.length > 1) themeConfig.value.isCollapse = false
-  // !v.children || v.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
+  if (!v.children) themeConfig.value.isCollapse = true
+  else if (v.children.length > 1) themeConfig.value.isCollapse = false
+  !v.children || v.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
 }
 // 鼠标移入时，显示当前的子级菜单
 const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
