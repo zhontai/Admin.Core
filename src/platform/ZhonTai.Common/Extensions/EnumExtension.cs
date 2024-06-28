@@ -8,11 +8,11 @@ namespace ZhonTai.Common.Extensions;
 
 public static class EnumExtension
 {
-    public static string ToDescription(this Enum item)
+    public static string ToDescription(this Enum item, bool useName = true)
     {
         string name = item.ToString();
         var desc = item.GetType().GetField(name)?.GetCustomAttribute<DescriptionAttribute>(false);
-        return desc?.Description ?? name;
+        return useName ? (desc?.Description ?? name) : desc?.Description;
     }
 
     public static string ToNameWithDescription(this Enum item)

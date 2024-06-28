@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.File.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Domain.File.Dto;
-using ZhonTai.Admin.Domain.File;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
@@ -20,8 +17,11 @@ using System.Collections.Generic;
 using ZhonTai.Admin.Core.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Services.Dto;
+using ZhonTai.Admin.Domain.Dto;
 
-namespace ZhonTai.Admin.Services.File;
+namespace ZhonTai.Admin.Services;
 
 /// <summary>
 /// 文件服务

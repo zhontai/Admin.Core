@@ -1,18 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Document;
 using ZhonTai.Admin.Domain.DocumentImage;
 using ZhonTai.Admin.Services.Document.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Core.Consts;
 using System.Collections.Generic;
-using ZhonTai.Admin.Services.File;
 
 namespace ZhonTai.Admin.Services.Document;
 

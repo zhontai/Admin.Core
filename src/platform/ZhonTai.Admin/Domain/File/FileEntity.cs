@@ -4,7 +4,7 @@ using OnceMi.AspNetCore.OSS;
 using ZhonTai.Admin.Core.Attributes;
 using System;
 
-namespace ZhonTai.Admin.Domain.File;
+namespace ZhonTai.Admin.Domain;
 
 /// <summary>
 /// 文件

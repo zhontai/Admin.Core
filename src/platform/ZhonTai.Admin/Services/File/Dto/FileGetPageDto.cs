@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Admin.Domain.File.Dto;
+﻿namespace ZhonTai.Admin.Domain.Dto;
 
 public partial class FileGetPageDto
 {

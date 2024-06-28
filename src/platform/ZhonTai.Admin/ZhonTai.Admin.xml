@@ -2715,69 +2715,64 @@
             Markdown文档
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Domain.File.FileEntity">
+        <member name="T:ZhonTai.Admin.Domain.FileEntity">
             <summary>
             文件
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Provider">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.Provider">
             <summary>
             OSS供应商
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.BucketName">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.BucketName">
             <summary>
             存储桶名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileDirectory">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.FileDirectory">
             <summary>
             文件目录
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileGuid">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.FileGuid">
             <summary>
             文件Guid
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.SaveFileName">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.SaveFileName">
             <summary>
             保存文件名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.FileName">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.FileName">
             <summary>
             文件名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Extension">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.Extension">
             <summary>
             文件扩展名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Size">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.Size">
             <summary>
             文件字节长度
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.SizeFormat">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.SizeFormat">
             <summary>
             文件大小格式化
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.LinkUrl">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.LinkUrl">
             <summary>
             链接地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.File.FileEntity.Md5">
+        <member name="P:ZhonTai.Admin.Domain.FileEntity.Md5">
             <summary>
             md5码，防止上传重复文件
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Domain.File.Dto.FileGetPageDto.FileName">
-            <summary>
-            文件名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.LogGetPageDto.CreatedUserName">
@@ -4094,6 +4089,11 @@
             启用
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Dto.FileGetPageDto.FileName">
+            <summary>
+            文件名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Task.Dto.TaskGetPageDto.Topic">
             <summary>
             任务名称
@@ -4523,6 +4523,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetEnums">
+            <summary>
+            获得枚举列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiAddInput">
             <summary>
             添加
@@ -4561,6 +4567,46 @@
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiAddInput.Enabled">
             <summary>
             启用
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput">
+            <summary>
+            枚举
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Options">
+            <summary>
+            选项列表
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options">
+            <summary>
+            选项
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options.Value">
+            <summary>
+            值
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiListOutput.Id">
@@ -5721,96 +5767,96 @@
             文档接口
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileDeleteInput.Id">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileDeleteInput.Id">
             <summary>
             文件Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.Id">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.Id">
             <summary>
             文件Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ProviderName">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.ProviderName">
             <summary>
             OSS供应商
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.BucketName">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.BucketName">
             <summary>
             存储桶名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.FileDirectory">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.FileDirectory">
             <summary>
             文件目录
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.FileGuid">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.FileGuid">
             <summary>
             文件Guid
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.FileName">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.FileName">
             <summary>
             文件名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.Extension">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.Extension">
             <summary>
             文件扩展名
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.SizeFormat">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.SizeFormat">
             <summary>
             文件大小格式化
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.LinkUrl">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.LinkUrl">
             <summary>
             链接地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.CreatedUserName">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.CreatedUserName">
             <summary>
             创建者
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.CreatedTime">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.CreatedTime">
             <summary>
             创建时间
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ModifiedUserName">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.ModifiedUserName">
             <summary>
             修改者
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.File.Dto.FileGetPageOutput.ModifiedTime">
+        <member name="P:ZhonTai.Admin.Services.Dto.FileGetPageOutput.ModifiedTime">
             <summary>
             修改时间
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.File.FileService">
+        <member name="T:ZhonTai.Admin.Services.FileService">
             <summary>
             文件服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.File.Dto.FileGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.FileService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dto.FileGetPageDto})">
             <summary>
             查询分页
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.DeleteAsync(ZhonTai.Admin.Services.File.Dto.FileDeleteInput)">
+        <member name="M:ZhonTai.Admin.Services.FileService.DeleteAsync(ZhonTai.Admin.Services.Dto.FileDeleteInput)">
             <summary>
             删除
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Boolean)">
+        <member name="M:ZhonTai.Admin.Services.FileService.UploadFileAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Boolean)">
             <summary>
             上传文件
             </summary>
@@ -5819,7 +5865,7 @@
             <param name="fileReName">文件重命名</param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.File.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.Boolean)">
+        <member name="M:ZhonTai.Admin.Services.FileService.UploadFilesAsync(Microsoft.AspNetCore.Http.IFormFileCollection,System.String,System.Boolean)">
             <summary>
             上传多文件
             </summary>
@@ -5828,7 +5874,7 @@
             <param name="fileReName">文件重命名</param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.File.IFileService">
+        <member name="T:ZhonTai.Admin.Services.IFileService">
             <summary>
             文件接口
             </summary>
@@ -7292,6 +7338,11 @@
         <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Name">
             <summary>
             名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Level">
+            <summary>
+            级别
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageOutput.Code">

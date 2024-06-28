@@ -1,5 +1,5 @@
 ﻿using ZhonTai.Admin.Core.Db.Transaction;
-using ZhonTai.Admin.Domain.File;
+using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Repositories;
 

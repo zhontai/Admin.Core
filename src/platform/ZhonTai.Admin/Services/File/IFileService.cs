@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.File;
-using ZhonTai.Admin.Domain.File.Dto;
-using ZhonTai.Admin.Services.File.Dto;
+using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Domain.Dto;
+using ZhonTai.Admin.Services.Dto;
 
-namespace ZhonTai.Admin.Services.File;
+namespace ZhonTai.Admin.Services;
 
 /// <summary>
 /// 文件接口

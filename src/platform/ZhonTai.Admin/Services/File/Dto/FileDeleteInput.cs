@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using ZhonTai.Admin.Core.Validators;
 
-namespace ZhonTai.Admin.Services.File.Dto;
+namespace ZhonTai.Admin.Services.Dto;
 
 public class FileDeleteInput
 {

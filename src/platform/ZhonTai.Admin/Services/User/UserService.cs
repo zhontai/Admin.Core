@@ -28,7 +28,6 @@ using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
 using Microsoft.AspNetCore.Identity;
-using ZhonTai.Admin.Services.File;
 using System.Linq.Expressions;
 using System;
 using ZhonTai.Admin.Domain.PkgPermission;

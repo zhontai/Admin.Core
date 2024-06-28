@@ -507,11 +507,7 @@ public class HostApp
             options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
         })
         .AddControllersAsServices()
-        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-        .AddDataAnnotationsLocalization(options =>
-        {
-            options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(type);
-        });
+        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
         if (appConfig.Swagger.EnableJsonStringEnumConverter)
             mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));

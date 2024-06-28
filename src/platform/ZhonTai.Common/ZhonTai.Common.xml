@@ -78,6 +78,11 @@
             <param name="list">列表</param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Common.Extensions.TypeExtensions">
+            <summary>
+            类型扩展
+            </summary>
+        </member>
         <member name="T:ZhonTai.Common.Extensions.UtilConvertExtension">
             <summary>
             数据类型转换
