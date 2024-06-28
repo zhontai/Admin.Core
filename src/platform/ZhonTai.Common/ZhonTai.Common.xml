@@ -701,6 +701,18 @@
             <param name="length"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Common.Helpers.SummaryHelper">
+            <summary>
+            文档说明帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Common.Helpers.SummaryHelper.GetEnumSummaryList(System.Type)">
+            <summary>
+            获得枚举类型说明列表
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Common.Helpers.UnicodeHelper.StringToUnicode(System.String)">
             <summary>
             字符串转Unicode码
