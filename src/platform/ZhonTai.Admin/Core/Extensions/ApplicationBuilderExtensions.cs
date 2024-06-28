@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Extensions;
@@ -22,7 +21,7 @@ public static class ApplicationBuilderExtensions
             .AddSupportedCultures(cultures)
             .AddSupportedUICultures(cultures)
             .SetDefaultCulture(appConfig!.Lang ?? cultures[0]);
-
+        
         //只保留从请求头 Accept-Language 解析
         var acceptLanguageHeaderRequestCultureProvider = options.RequestCultureProviders[2];
         options.RequestCultureProviders = [acceptLanguageHeaderRequestCultureProvider];

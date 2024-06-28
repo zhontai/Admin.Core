@@ -4,9 +4,6 @@
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Resources\OrgService.en-US.json" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Content Include="Resources\Resources.AdminLocalizer.en.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
