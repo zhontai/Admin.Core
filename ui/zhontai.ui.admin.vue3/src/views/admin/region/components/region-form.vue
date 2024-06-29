@@ -17,6 +17,13 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="类型" prop="name" :rules="[{ required: true, message: '请选择类型', trigger: ['change'] }]">
+              <el-select v-model="form.level" placeholder="请选择类型" class="w100">
+                <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="地区名称" prop="name" :rules="[{ required: true, message: '请输入地区名称', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" clearable />
             </el-form-item>
@@ -63,6 +70,8 @@ import { reactive, toRefs, ref, defineAsyncComponent } from 'vue'
 import { RegionUpdateInput, RegionGetOutput } from '/@/api/admin/data-contracts'
 import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
+import { RegionLevel as RegionLevelEnum } from '/@/api/admin/enum-contracts'
+import { toOptionsByValue } from '/@/utils/enum'
 
 const RegionSelect = defineAsyncComponent(() => import('./region-select.vue'))
 
@@ -77,6 +86,7 @@ const formRef = ref()
 const state = reactive({
   showDialog: false,
   sureLoading: false,
+  regionLevelList: toOptionsByValue(RegionLevelEnum),
   form: {
     enabled: true,
     hot: false,

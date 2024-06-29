@@ -8,13 +8,19 @@
         <el-form-item label="">
           <el-input v-model="state.filter.name" placeholder="地区名" @keyup.enter="onQuery" />
         </el-form-item>
+        <el-form-item label="类型">
+          <el-select v-model="state.filter.level" empty-values="[null]" style="width: 100px" @change="onQuery">
+            <el-option label="全部" :value="undefined" />
+            <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="state.filter.enabled" :empty-values="[null]" style="width: 120px" @change="onQuery">
+          <el-select v-model="state.filter.enabled" :empty-values="[null]" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.statusList" :key="item.name" :label="item.name" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item label="热门">
-          <el-select v-model="state.filter.hot" :empty-values="[null]" style="width: 120px" @change="onQuery">
+          <el-select v-model="state.filter.hot" :empty-values="[null]" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.hotList" :key="item.name" :label="item.name" :value="item.value" />
           </el-select>
         </el-form-item>
@@ -35,7 +41,7 @@
             <p class="my-flex my-flex-items-center">
               确定要同步至
               <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
-                <el-option v-for="item in state.regionLevelList" :key="item.name" :label="item.name" :value="item.value" />
+                <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
               ？
             </p>
@@ -52,6 +58,7 @@
       <el-table v-loading="state.loading" :data="state.dataList" default-expand-all highlight-current-row style="width: 100%">
         <el-table-column prop="name" label="地区名" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="代码" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="level" label="类型" min-width="140" show-overflow-tooltip :formatter="formatterEnum" />
         <el-table-column prop="pinyin" label="拼音" min-width="120" show-overflow-tooltip />
         <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
         <el-table-column label="状态" width="80" align="center" fixed="right">
@@ -121,9 +128,11 @@
 <script lang="ts" setup name="admin/region">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { PageInputRegionGetPageInput, RegionGetPageOutput, RegionLevel } from '/@/api/admin/data-contracts'
+import { RegionLevel as RegionLevelEnum } from '/@/api/admin/enum-contracts'
 import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import { toOptionsByValue, getDescByValue } from '/@/utils/enum'
 
 // 引入组件
 const RegionForm = defineAsyncComponent(() => import('./components/region-form.vue'))
@@ -153,18 +162,13 @@ const state = reactive({
     { name: '是', value: true },
     { name: '否', value: false },
   ],
-  regionLevelList: [
-    { name: '省份', value: 1 },
-    { name: '城市', value: 2 },
-    { name: '县/区', value: 3 },
-    { name: '镇/乡', value: 4 },
-    { name: '村/社区', value: 5 },
-  ],
+  regionLevelList: toOptionsByValue(RegionLevelEnum),
   filter: {
     parentId: undefined as number | undefined,
     name: '',
     enabled: undefined,
     hot: undefined,
+    level: undefined,
   },
   pageInput: {
     currentPage: 1,
@@ -185,6 +189,10 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshRegion')
 })
+
+const formatterEnum = (row: any, column: any, cellValue: any) => {
+  return getDescByValue(RegionLevelEnum, cellValue)
+}
 
 const onSizeChange = (val: number) => {
   state.pageInput.currentPage = 1
