@@ -4579,7 +4579,7 @@
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Description">
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Desc">
             <summary>
             描述
             </summary>
@@ -4599,7 +4599,7 @@
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options.Description">
+        <member name="P:ZhonTai.Admin.Services.Api.Dto.ApiGetEnumsOutput.Models.Options.Desc">
             <summary>
             描述
             </summary>
@@ -7233,6 +7233,11 @@
         <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Name">
             <summary>
             名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Level">
+            <summary>
+            级别
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Region.RegionGetPageInput.Hot">

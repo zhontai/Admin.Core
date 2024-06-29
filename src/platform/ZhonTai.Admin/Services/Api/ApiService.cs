@@ -23,6 +23,7 @@ using System.Threading;
 using System.Xml.XPath;
 using System.Xml;
 using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -343,7 +344,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     public List<ApiGetEnumsOutput> GetEnums()
     {
         var enums = new List<ApiGetEnumsOutput>();
-
+        
         var appConfig = _appConfig.Value;
         var assemblyNames = appConfig.AssemblyNames;
         if (!(assemblyNames?.Length > 0))
@@ -362,11 +363,11 @@ public class ApiService : BaseService, IApiService, IDynamicApi
                 var enumDescriptor = new ApiGetEnumsOutput
                 {
                     Name = enumType.Name,
-                    Description = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
+                    Desc = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
                     Options = Enum.GetValues(enumType).Cast<Enum>().Select(x => new ApiGetEnumsOutput.Models.Options
                     {
                         Name = x.ToString(),
-                        Description = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
+                        Desc = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
                         Value = x.ToInt64()
                     }).ToList()
                 };

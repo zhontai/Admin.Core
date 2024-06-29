@@ -99,6 +99,7 @@ public class RegionService : BaseService, IDynamicApi
         var list = await regionRep.Select
         .WhereIf(filter != null && filter.Name.NotNull(), a => a.Name.Contains(filter.Name))
         .WhereIf(filter != null && filter.ParentId.HasValue, a => a.ParentId == filter.ParentId.Value)
+        .WhereIf(filter != null && filter.Level.HasValue, a => a.Level == filter.Level.Value)
         .WhereIf(filter != null && filter.Hot.HasValue, a => a.Hot == filter.Hot.Value)
         .WhereIf(filter != null && filter.Enabled.HasValue, a => a.Enabled == filter.Enabled.Value)
         .Count(out var total)

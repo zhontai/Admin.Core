@@ -15,7 +15,7 @@ public class ApiGetEnumsOutput
     /// <summary>
     /// 描述
     /// </summary>
-    public string Description { get; set; }
+    public string Desc { get; set; }
 
     /// <summary>
     /// 选项列表
@@ -37,7 +37,7 @@ public class ApiGetEnumsOutput
             /// <summary>
             /// 描述
             /// </summary>
-            public string Description { get; set; }
+            public string Desc { get; set; }
 
             /// <summary>
             /// 值

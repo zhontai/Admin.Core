@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Region;
+﻿using ZhonTai.Admin.Domain.Region;
+
+namespace ZhonTai.Admin.Services.Region;
 
 public class RegionGetPageInput
 {
@@ -11,6 +13,11 @@ public class RegionGetPageInput
     /// 名称
     /// </summary>
     public string Name { get; set; }
+
+    /// <summary>
+    /// 级别
+    /// </summary>
+    public RegionLevel? Level { get; set; }
 
     /// <summary>
     /// 热门

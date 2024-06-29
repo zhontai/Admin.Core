@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace ZhonTai.Admin.Domain.Region;
 
 /// <summary>
@@ -23,10 +25,12 @@ public enum RegionLevel
     /// <summary>
     /// 镇/乡/街道
     /// </summary>
+    [Description("镇/乡")]
     Town = 4,
 
     /// <summary>
     /// 村/村委会/社区/居委会
     /// </summary>
+    [Description("村/社区")]
     Vilage = 5
 }
