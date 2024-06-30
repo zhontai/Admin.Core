@@ -56,6 +56,8 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import mittBus from '/@/utils/mitt'
 import logoMini from '/@/assets/logo-mini.svg'
+import { filterTree } from '/@/utils/tree'
+import { cloneDeep } from 'lodash-es'
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<RefType>([])
@@ -158,9 +160,24 @@ const setFilterRoutes = () => {
 // 传送当前子级数据到菜单中
 const setSendChildren = (path: string) => {
   const currentPathSplit = path.split('/')
+  let rootPath=`/${currentPathSplit[1]}`
+  //判断是否能够找到根节点
+  if(!state.columnsAsideList.find(v=>v.path===rootPath)){
+    //不存在则使用顶级的分类
+    let routeTree=filterTree(cloneDeep(state.columnsAsideList), path, {
+      children: 'children',
+      filterWhere: (item: any, filterword: string) => {
+        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
+      }
+    })
+    //找到根节点则使用根节点
+    if(routeTree.length>0&&routeTree[0]?.path){
+      rootPath=routeTree[0].path
+    }
+  }
   let currentData: MittMenu = { children: [] }
   state.columnsAsideList.map((v: RouteItem, k: number) => {
-    if (v.path === `/${currentPathSplit[1]}`) {
+    if (v.path === rootPath) {
       v['k'] = k
       currentData['item'] = { ...v }
       currentData['children'] = [{ ...v }]
