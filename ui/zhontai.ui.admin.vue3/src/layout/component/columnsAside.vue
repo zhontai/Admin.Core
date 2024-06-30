@@ -143,8 +143,8 @@ const onColumnsAsideDown = (k: number) => {
   })
 }
 // 设置/过滤路由（非静态路由/是否显示在菜单中）
-  const setFilterRoutes = () => {
-    state.columnsAsideList = filterRoutesFun(routesList.value)
+const setFilterRoutes = () => {
+  state.columnsAsideList = filterRoutesFun(routesList.value)
   const resData: MittMenu = setSendChildren(route.path)
   if (Object.keys(resData).length <= 0) return false
   onColumnsAsideDown(resData.item?.k)
