@@ -72,6 +72,28 @@ const setLocalThemeConfig = () => {
 }
 // 处理面包屑数据
 const getBreadcrumbList = (arr: RouteItems, path: string) => {
+  //第一次初始化时执行时,避免使用路由查找时重复执行
+  if (state.routeSplitIndex == 1) {
+    //优先使用菜单判断面包屑显示，如果找不到匹配的路由菜单，则执行旧的逻辑使用地址判断
+    let routeTree = filterTree(cloneDeep(arr), path, {
+      children: 'children',
+      filterWhere: (item: any, filterword: string) => {
+        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
+      },
+    })
+    if (routeTree.length > 0) {
+      //查找第一个匹配的路由，将其展开添加到面包屑中
+      const routeArr = treeToList([routeTree[0]])
+      if (routeArr.length > 0) {
+        routeArr.forEach((item: RouteItem, k: number) => {
+          !state.breadcrumbList.find((a) => a.path === item.path) && state.breadcrumbList.push(item)
+        })
+        //匹配不到再使用路径去匹配
+        if (state.breadcrumbList.length > 0) return
+      }
+    }
+  }
+  //不存在则使用顶级的分类
   arr.forEach((item: RouteItem) => {
     state.routeSplit.forEach((v: string, k: number, arrs: string[]) => {
       if (state.routeSplitFirst === item.path) {
@@ -82,25 +104,6 @@ const getBreadcrumbList = (arr: RouteItems, path: string) => {
       }
     })
   })
-
-  //找不到面包屑的时候，从路由中解析
-  if (state.breadcrumbList.length == 0) {
-    //不存在则使用顶级的分类
-    let routeTree = filterTree(cloneDeep(arr), path, {
-      children: 'children',
-      filterWhere: (item: any, filterword: string) => {
-        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
-      },
-    })
-    const routeArr = treeToList(routeTree)
-    if (routeArr.length > 0) {
-      routeArr.forEach((item: RouteItem, k: number) => {
-        state.routeSplitFirst += `${item.path}`
-        state.breadcrumbList.push(item)
-        state.routeSplitIndex++
-      })
-    }
-  }
 }
 // 当前路由字符串切割成数组，并删除第一项空内容
 const initRouteSplit = (toRoute: RouteLocationNormalized) => {
