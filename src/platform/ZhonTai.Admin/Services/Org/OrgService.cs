@@ -12,7 +12,6 @@ using ZhonTai.Admin.Domain.UserOrg;
 using System.Collections.Generic;
 using System.Linq;
 using ZhonTai.Admin.Domain.Role;
-using Microsoft.Extensions.Localization;
 using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Org;
