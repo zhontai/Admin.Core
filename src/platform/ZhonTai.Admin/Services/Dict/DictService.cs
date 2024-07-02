@@ -14,6 +14,7 @@ using System;
 using ZhonTai.Admin.Repositories;
 using Magicodes.ExporterAndImporter.Excel;
 using Magicodes.ExporterAndImporter.Excel.AspNetCore;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Dict;
 
@@ -25,10 +26,12 @@ namespace ZhonTai.Admin.Services.Dict;
 public class DictService : BaseService, IDictService, IDynamicApi
 {
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public DictService(AdminRepositoryBase<DictEntity> dictRep)
+    public DictService(AdminRepositoryBase<DictEntity> dictRep, AdminLocalizer adminLocalizer)
     {
         _dictRep = dictRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -136,7 +139,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
         //导出数据
         var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();
 
-        return new XlsxFileResult(result, $"数据字典列表{DateTime.Now:yyyyMMddHHmm}.xlsx");
+        return new XlsxFileResult(result, _adminLocalizer["数据字典列表{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmm")]);
     }
 
     /// <summary>
@@ -148,22 +151,17 @@ public class DictService : BaseService, IDictService, IDynamicApi
     {
         if (await _dictRep.Select.AnyAsync(a => a.DictTypeId == input.DictTypeId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"字典已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典已存在"]);
         }
 
         if (input.Code.NotNull() && await _dictRep.Select.AnyAsync(a => a.DictTypeId == input.DictTypeId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"字典编码已存在");
-        }
-
-        if (input.Code.NotNull() && await _dictRep.Select.AnyAsync(a => a.DictTypeId == input.DictTypeId && a.Code == input.Code))
-        {
-            throw ResultOutput.Exception($"字典编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典编码已存在"]);
         }
 
         if (input.Value.NotNull() && await _dictRep.Select.AnyAsync(a => a.DictTypeId == input.DictTypeId && a.Value == input.Value))
         {
-            throw ResultOutput.Exception($"字典值已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典值已存在"]);
         }
 
         var entity = Mapper.Map<DictEntity>(input);
@@ -186,22 +184,22 @@ public class DictService : BaseService, IDictService, IDynamicApi
         var entity = await _dictRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("字典不存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典不存在"]);
         }
 
         if (await _dictRep.Select.AnyAsync(a => a.Id != input.Id && a.DictTypeId == input.DictTypeId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"字典已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典已存在"]);
         }
 
         if (input.Code.NotNull() && await _dictRep.Select.AnyAsync(a => a.Id != input.Id && a.DictTypeId == input.DictTypeId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"字典编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典编码已存在"]);
         }
 
         if (input.Value.NotNull() && await _dictRep.Select.AnyAsync(a => a.Id != input.Id && a.DictTypeId == input.DictTypeId && a.Value == input.Value))
         {
-            throw ResultOutput.Exception($"字典值已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典值已存在"]);
         }
 
         Mapper.Map(input, entity);

@@ -88,7 +88,7 @@
     //空闲时间（分），设置idleTime=0则不自动回收, 设置1天不使用则自动回收
     "idleTime": 1440,
 
-    //新增强制更新EntityUpdate数据
+    //新增时强制更新EntityUpdate数据
     "forceUpdate": false,
 
     //多数据库

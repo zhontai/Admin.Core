@@ -16,14 +16,8 @@ using ZhonTai.Admin.Core.Configs;
 using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 using ZhonTai.Common.Extensions;
-using FreeSql.Internal;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Xml.XPath;
-using System.Xml;
 using ZhonTai.Common.Helpers;
-using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -36,11 +30,15 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 {
     private readonly AdminRepositoryBase<ApiEntity> _apiRep;
     private readonly Lazy<AppConfig> _appConfig;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public ApiService(AdminRepositoryBase<ApiEntity> apiRep, Lazy<AppConfig> appConfig)
+    public ApiService(AdminRepositoryBase<ApiEntity> apiRep, 
+        Lazy<AppConfig> appConfig,
+        AdminLocalizer adminLocalizer)
     {
         _apiRep = apiRep;
         _appConfig = appConfig;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -142,7 +140,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
         var entity = await _apiRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("接口不存在！");
+            throw ResultOutput.Exception(_adminLocalizer["接口不存在"]);
         }
 
         Mapper.Map(input, entity);

@@ -1,4 +1,90 @@
 {
+  // ApiService  
+  "接口不存在": "API does not exist",
+
+  // AuthService  
+  "未登录": "Not logged in",
+  "请完成安全验证": "Please complete security verification",
+  "安全{0}，请重新登录": "Security {0}, please log in again",
+  "解密失败": "Decryption failed",
+  "用户名或密码错误": "Incorrect username or password",
+  "账号已停用，禁止登录": "Account has been deactivated, login prohibited",
+  "企业已停用，禁止登录": "Enterprise has been deactivated, login prohibited",
+  "验证码错误": "Verification code is incorrect",
+  "账号不存在": "Account does not exist",
+  "无法解析token": "Unable to parse token",
+  "登录信息已过期": "Login information has expired",
+  "验签失败": "Signature verification failed",
+
+  // DictService  
+  "数据字典列表{0}.xlsx": "Data dictionary list {0}.xlsx",
+  "字典已存在": "Dictionary already exists",
+  "字典编码已存在": "Dictionary code already exists",
+  "字典不存在": "Dictionary does not exist",
+
+  // DictTypeService  
+  "字典类型已存在": "Dictionary type already exists",
+  "字典类型编码已存在": "Dictionary type code already exists",
+  "字典类型不存在": "Dictionary type does not exist",
+
+  // FileService  
+  "不允许上传{0}文件格式": "File format {0} is not allowed for upload",
+  "文件大小不能超过{0}": "File size cannot exceed {0}",
+  "请配置{0}的Url参数": "Please configure the URL parameter for {0}",
+
+  // PermissionService  
+  "权限点不存在": "Permission point does not exist",
+  "该角色不存在或已被删除": "The role does not exist or has been deleted",
+
+  // PkgService  
+  "此套餐名已存在": "This package name already exists",
+  "此套餐编码已存在": "This package code already exists",
+  "套餐不存在": "Package does not exist",
+
+  // RegionService  
+  "此地区名已存在": "This region name already exists",
+  "此地区代码已存在": "This region code already exists",
+  "地区不存在": "Region does not exist",
+
+  // RoleService  
+  "角色不存在": "Role does not exist",
+  "此{0}已存在": "This {0} already exists",
+  "此{0}编码已存在": "This {0} code already exists",
+
+  // TaskService  
+  "任务不存在": "Task does not exist",
+  "请输入定时参数": "Please enter scheduling parameters",
+
+  // TaskLogService  
+  "请选择任务": "Please select a task",
+
+  // TenantService  
+  "企业名称已存在": "Enterprise name already exists",
+  "企业编码已存在": "Enterprise code already exists",
+  "企业账号已存在": "Enterprise account already exists",
+  "企业手机号已存在": "Enterprise phone number already exists",
+  "企业邮箱已存在": "Enterprise email already exists",
+  "租户不存在": "Tenant does not exist",
+  "平台租户禁止删除": "Platform tenant deletion is prohibited",
+  "平台租户禁止禁用": "Platform tenant deactivation is prohibited",
+
+  // UserService  
+  "用户不存在": "User does not exist",
+  "账号已存在": "Account already exists",
+  "手机号已存在": "Phone number already exists",
+  "邮箱已存在": "Email already exists",
+  "直属主管不能是自己": "Direct supervisor cannot be yourself",
+  "新密码和确认密码不一致": "New password and confirmation password do not match",
+  "旧密码不正确": "Old password is incorrect",
+  "平台管理员禁止禁用": "Platform administrator deactivation is prohibited",
+  "企业管理员禁止禁用": "Enterprise administrator deactivation is prohibited",
+  "平台管理员禁止删除": "Platform administrator deletion is prohibited",
+  "企业管理员禁止删除": "Enterprise administrator deletion is prohibited",
+  "请选择用户": "Please select a user",
+
+  // ViewService  
+  "视图不存在": "View does not exist",
+
   //OrgService
   "请选择上级部门": "Please select the superior department",
   "此部门已存在": "This department already exists",

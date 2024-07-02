@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.View;
+using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.View.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Consts;
-using System;
 
 namespace ZhonTai.Admin.Services.View;
 
@@ -20,10 +21,12 @@ namespace ZhonTai.Admin.Services.View;
 public class ViewService : BaseService, IViewService, IDynamicApi
 {
     private readonly IViewRepository _viewRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public ViewService(IViewRepository viewRep)
+    public ViewService(IViewRepository viewRep, AdminLocalizer adminLocalizer)
     {
         _viewRep = viewRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -81,7 +84,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         var entity = await _viewRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("视图不存在！");
+            throw ResultOutput.Exception(_adminLocalizer["视图不存在"]);
         }
 
         Mapper.Map(input, entity);

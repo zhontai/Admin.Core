@@ -1,21 +1,22 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Pkg;
-using ZhonTai.Admin.Domain.PkgPermission;
-using ZhonTai.Admin.Services.Pkg.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Domain.Pkg;
+using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.Tenant;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Org;
-using System;
+using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Services.Pkg.Dto;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
 
 namespace ZhonTai.Admin.Services.Pkg;
 
@@ -32,6 +33,7 @@ public class PkgService : BaseService, IDynamicApi
     private readonly Lazy<IPkgPermissionRepository> _pkgPermissionRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<IUserRepository> _userRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public PkgService(
         IPkgRepository pkgRep,
@@ -39,7 +41,8 @@ public class PkgService : BaseService, IDynamicApi
         ITenantPkgRepository tenantPkgRep,
         Lazy<IPkgPermissionRepository> pkgPermissionRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
-        Lazy<IUserRepository> userRep
+        Lazy<IUserRepository> userRep,
+        AdminLocalizer adminLocalizer
     )
     {
         _pkgRep = pkgRep;
@@ -48,6 +51,7 @@ public class PkgService : BaseService, IDynamicApi
         _pkgPermissionRep = pkgPermissionRep;
         _rolePermissionRep = rolePermissionRep;
         _userRep = userRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -279,12 +283,12 @@ public class PkgService : BaseService, IDynamicApi
     {
         if (await _pkgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此套餐名已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此套餐名已存在"]);
         }
 
         if (input.Code.NotNull() && await _pkgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此套餐编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此套餐编码已存在"]);
         }
 
         var entity = Mapper.Map<PkgEntity>(input);
@@ -309,17 +313,17 @@ public class PkgService : BaseService, IDynamicApi
         var entity = await _pkgRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("套餐不存在");
+            throw ResultOutput.Exception(_adminLocalizer["套餐不存在"]);
         }
 
         if (await _pkgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此套餐名已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此套餐名已存在"]);
         }
 
         if (input.Code.NotNull() && await _pkgRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此套餐编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此套餐编码已存在"]);
         }
 
         Mapper.Map(input, entity);

@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Newtonsoft.Json;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
@@ -27,17 +31,14 @@ using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using FreeSql;
 using ZhonTai.Admin.Domain.TenantPermission;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
 using ZhonTai.Admin.Core.Captcha;
-using Newtonsoft.Json;
-using Lazy.SlideCaptcha.Core.Validator;
-using static Lazy.SlideCaptcha.Core.ValidateResult;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
-using Microsoft.Extensions.Options;
+using FreeSql;
+using Lazy.SlideCaptcha.Core.Validator;
+using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -55,6 +56,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IPermissionRepository> _permissionRep;
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<ISlideCaptcha> _captcha;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public AuthService(
         Lazy<IOptions<AppConfig>> appConfig,
@@ -63,7 +65,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<ITenantRepository> tenantRep,
         Lazy<IPermissionRepository> permissionRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
-        Lazy<ISlideCaptcha> captcha
+        Lazy<ISlideCaptcha> captcha,
+        AdminLocalizer adminLocalizer
     )
     {
         _appConfig = appConfig;
@@ -73,6 +76,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _permissionRep = permissionRep;
         _passwordHasher = passwordHasher;
         _captcha = captcha;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -138,7 +142,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录");
+            throw ResultOutput.Exception(_adminLocalizer["未登录"]);
         }
 
         var userRep = _userRep.Value;
@@ -160,7 +164,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录");
+            throw ResultOutput.Exception(_adminLocalizer["未登录"]);
         }
 
         using (_userRep.Value.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
@@ -214,7 +218,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录");
+            throw ResultOutput.Exception(_adminLocalizer["未登录"]);
         }
 
         var userRep = _userRep.Value;
@@ -272,7 +276,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录");
+            throw ResultOutput.Exception(_adminLocalizer["未登录"]);
         }
 
         var userRep = _userRep.Value;
@@ -371,12 +375,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
             {
-                throw ResultOutput.Exception("请完成安全验证");
+                throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
             }
             var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
             if (validateResult.Result != ValidateResultType.Success)
             {
-                throw ResultOutput.Exception($"安全{validateResult.Message}，请重新登录");
+                throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);
             }
         }
 
@@ -393,14 +397,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 var secretKey = await Cache.GetAsync(passwordEncryptKey);
                 if (secretKey.IsNull())
                 {
-                    throw ResultOutput.Exception("解密失败");
+                    throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
                 }
                 input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
                 await Cache.DelAsync(passwordEncryptKey);
             }
             else
             {
-                throw ResultOutput.Exception("解密失败");
+                throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
             }
         }
 
@@ -425,12 +429,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             
         if(!valid)
         {
-            throw ResultOutput.Exception("用户名或密码错误");
+            throw ResultOutput.Exception(_adminLocalizer["用户名或密码错误"]);
         }
 
         if (!user.Enabled)
         {
-            throw ResultOutput.Exception("账号已停用，禁止登录");
+            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
         }
         #endregion
 
@@ -441,7 +445,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
             if (!(tenant != null && tenant.Enabled))
             {
-                throw ResultOutput.Exception("企业已停用，禁止登录");
+                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
             }
             authLoginOutput.Tenant = tenant;
         }
@@ -489,18 +493,18 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #region 短信验证码验证
         if (input.CodeId.IsNull() || input.Code.IsNull())
         {
-            throw ResultOutput.Exception("验证码错误");
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
         }
         var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
         var code = await Cache.GetAsync(codeKey);
         if (code.IsNull())
         {
-            throw ResultOutput.Exception("验证码错误");
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
         }
         await Cache.DelAsync(codeKey);
         if (code != input.Code)
         {
-            throw ResultOutput.Exception("验证码错误");
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
         }
 
         #endregion
@@ -509,12 +513,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
         if (!(user?.Id > 0))
         {
-            throw ResultOutput.Exception("账号不存在");
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
         }
 
         if (!user.Enabled)
         {
-            throw ResultOutput.Exception("账号已停用，禁止登录");
+            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
         }
         #endregion
 
@@ -525,7 +529,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
             if (!(tenant != null && tenant.Enabled))
             {
-                throw ResultOutput.Exception("企业已停用，禁止登录");
+                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
             }
             authLoginOutput.Tenant = tenant;
         }
@@ -567,19 +571,19 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var userClaims = jwtSecurityToken?.Claims?.ToArray();
         if (userClaims == null || userClaims.Length == 0)
         {
-            throw ResultOutput.Exception("无法解析token");
+            throw ResultOutput.Exception(_adminLocalizer["无法解析token"]);
         }
 
         var refreshExpires = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.RefreshExpires)?.Value;
         if (refreshExpires.IsNull() || refreshExpires.ToLong() <= DateTime.Now.ToTimestamp())
         {
-            throw ResultOutput.Exception("登录信息已过期");
+            throw ResultOutput.Exception(_adminLocalizer["登录信息已过期"]);
         }
 
         var userId = userClaims.FirstOrDefault(a => a.Type == ClaimAttributes.UserId)?.Value;
         if (userId.IsNull())
         {
-            throw ResultOutput.Exception("登录信息已失效");
+            throw ResultOutput.Exception(_adminLocalizer["登录信息已失效"]);
         }
 
         //验签
@@ -588,24 +592,24 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var input = jwtSecurityToken.RawHeader + "." + jwtSecurityToken.RawPayload;
         if (jwtSecurityToken.RawSignature != JwtTokenUtilities.CreateEncodedSignature(input, signingCredentials))
         {
-            throw ResultOutput.Exception("验签失败");
+            throw ResultOutput.Exception(_adminLocalizer["验签失败"]);
         }
 
         var user = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
         if(!(user?.Id > 0))
         {
-            throw ResultOutput.Exception("账号不存在");
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
         }
         if (!user.Enabled)
         {
-            throw ResultOutput.Exception("账号已停用，禁止登录");
+            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
         }
 
         if (_appConfig.Value.Value.Tenant)
         {
             if (!(user.Tenant != null && user.Tenant.Enabled))
             {
-                throw ResultOutput.Exception("企业已停用，禁止登录");
+                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
             }
         }
 

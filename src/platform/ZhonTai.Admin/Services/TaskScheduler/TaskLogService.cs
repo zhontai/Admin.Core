@@ -7,6 +7,7 @@ using ZhonTai.Admin.Core.Consts;
 using FreeScheduler;
 using Mapster;
 using System.Collections.Generic;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -18,10 +19,12 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
     private readonly Scheduler _scheduler;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public TaskLogService(Scheduler scheduler)
+    public TaskLogService(Scheduler scheduler, AdminLocalizer adminLocalizer)
     {
         _scheduler = scheduler;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -34,7 +37,7 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     {
         if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
         {
-            throw ResultOutput.Exception("请选择任务");
+            throw ResultOutput.Exception(_adminLocalizer["请选择任务"]);
         }
 
         var result = Datafeed.GetLogs(_scheduler, input.Filter.TaskId, input.PageSize, input.CurrentPage);

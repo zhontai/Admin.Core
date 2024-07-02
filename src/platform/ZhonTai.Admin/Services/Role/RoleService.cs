@@ -1,21 +1,22 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Domain.RolePermission;
-using ZhonTai.Admin.Services.Role.Dto;
-using ZhonTai.Admin.Domain.Role.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.User;
-using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.RolePermission;
+using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
-using System.Collections.Generic;
+using ZhonTai.Admin.Services.Role.Dto;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Role;
 
@@ -31,13 +32,15 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     private readonly IUserRoleRepository _userRoleRep;
     private readonly IRolePermissionRepository _rolePermissionRep;
     private readonly IRoleOrgRepository _roleOrgRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public RoleService(
         IRoleRepository roleRep,
         IUserRepository userRep,
         IUserRoleRepository userRoleRep,
         IRolePermissionRepository rolePermissionRep,
-        IRoleOrgRepository roleOrgRep
+        IRoleOrgRepository roleOrgRep,
+        AdminLocalizer adminLocalizer
     )
     {
         _roleRep = roleRep;
@@ -45,6 +48,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         _userRoleRep = userRoleRep;
         _rolePermissionRep = rolePermissionRep;
         _roleOrgRep = roleOrgRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -198,12 +202,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         if (await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此{0}已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
         }
 
         if (input.Code.NotNull() && await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此{0}编码已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
         }
 
         var entity = Mapper.Map<RoleEntity>(input);
@@ -232,17 +236,17 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var entity = await _roleRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("角色不存在");
+            throw ResultOutput.Exception(_adminLocalizer["角色不存在"]);
         }
 
         if (await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此{0}已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
         }
 
         if (input.Code.NotNull() && await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此{(input.Type == RoleType.Group ? "分组" : "角色")}编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此{0}编码已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
         }
 
         Mapper.Map(input, entity);
@@ -356,7 +360,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
         var entity = await _roleRep.GetAsync(input.RoleId);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("角色不存在");
+            throw ResultOutput.Exception(_adminLocalizer["角色不存在"]);
         }
 
         Mapper.Map(input, entity);

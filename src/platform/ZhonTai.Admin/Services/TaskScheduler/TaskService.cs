@@ -1,17 +1,18 @@
 ﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.TaskScheduler.Dto;
-using ZhonTai.Admin.Domain.Task.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
 using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Core.Consts;
-using FreeScheduler;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ZhonTai.Admin.Repositories;
+using Mapster;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Validators;
 using ZhonTai.Admin.Domain;
-using Mapster;
+using ZhonTai.Admin.Domain.Task.Dto;
+using ZhonTai.Admin.Services.TaskScheduler.Dto;
+using ZhonTai.Admin.Repositories;
+using ZhonTai.Admin.Resources;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
+using FreeScheduler;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -25,15 +26,18 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     private readonly Scheduler _scheduler;
     private readonly ITaskRepository _taskRepository;
     private readonly ITaskExtRepository _taskExtRepository;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public TaskService(Scheduler scheduler, 
         ITaskRepository taskRepository, 
-        ITaskExtRepository taskExtRepository
+        ITaskExtRepository taskExtRepository,
+        AdminLocalizer adminLocalizer
     )
     {
         _scheduler = scheduler;
         _taskRepository = taskRepository;
         _taskExtRepository = taskExtRepository;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -57,7 +61,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
 
         if (taskInfo == null)
         {
-            throw ResultOutput.Exception("任务不存在");
+            throw ResultOutput.Exception(_adminLocalizer["任务不存在"]);
         }
 
         var taskGetOutput = taskInfo.Adapt<TaskGetOutput>();
@@ -126,7 +130,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     {
         if (input.IntervalArgument.IsNull())
         {
-            throw ResultOutput.Exception("请输入定时参数");
+            throw ResultOutput.Exception(_adminLocalizer["请输入定时参数"]);
         }
 
         var scheduler = _scheduler;
@@ -159,7 +163,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         var entity = await _taskRepository.GetAsync(a => a.Id == input.Id);
         if (entity == null)
         {
-            throw ResultOutput.Exception("任务不存在");
+            throw ResultOutput.Exception(_adminLocalizer["任务不存在"]);
         }
 
         if (entity.Status == FreeScheduler.TaskStatus.Running)

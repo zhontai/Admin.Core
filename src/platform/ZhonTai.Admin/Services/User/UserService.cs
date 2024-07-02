@@ -1,12 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
+using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
@@ -14,29 +22,22 @@ using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Services.Auth.Dto;
-using ZhonTai.Admin.Services.User.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.Org;
-using System.Data;
+using ZhonTai.Admin.Services.Auth;
+using ZhonTai.Admin.Services.Auth.Dto;
+using ZhonTai.Admin.Services.User.Dto;
+using ZhonTai.Common.Helpers;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Domain.TenantPermission;
-using FreeSql;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
-using Microsoft.AspNetCore.Identity;
-using System.Linq.Expressions;
-using System;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
-using ZhonTai.Admin.Core;
-using Newtonsoft.Json;
-using ZhonTai.Admin.Services.Auth;
-using System.ComponentModel.DataAnnotations;
-using ZhonTai.Admin.Core.Helpers;
+using FreeSql;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -61,13 +62,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<IApiRepository> _apiRep;
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public UserService(
         IUserRepository userRep,
         IUserOrgRepository userOrgRep,
         IUserRoleRepository userRoleRep,
         IUserStaffRepository userStaffRep,
-        AppConfig appConfig, 
+        AppConfig appConfig,
         UserHelper userHelper,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<IRoleRepository> roleRep,
@@ -76,7 +78,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IRoleOrgRepository> roleOrgRep,
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
-        Lazy<IOrgRepository> orgRep
+        Lazy<IOrgRepository> orgRep,
+        AdminLocalizer adminLocalizer
     )
     {
         _appConfig = appConfig;
@@ -93,6 +96,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         _apiRep = apiRep;
         _tenantRep = tenantRep;
         _orgRep = orgRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -144,10 +148,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var orgId = input.Filter?.OrgId;
         var list = await _userRep.Select
-        .WhereIf(dataPermission!=null&&dataPermission.OrgIds.Count > 0, a => _userOrgRep.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission != null && dataPermission.OrgIds.Count > 0, a => _userOrgRep.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
         .WhereIf(dataPermission != null && dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
         .WhereIf(orgId.HasValue && orgId > 0, a => _userOrgRep.Where(b => b.UserId == a.Id && b.OrgId == orgId).Any())
-        .Where(a=>a.Type != UserType.Member)
+        .Where(a => a.Type != UserType.Member)
         .WhereDynamicFilter(input.DynamicFilter)
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
@@ -155,7 +159,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync(a => new UserGetPageOutput { Roles = a.Roles });
 
-        if(orgId.HasValue && orgId > 0)
+        if (orgId.HasValue && orgId > 0)
         {
             var managerUserIds = await _userOrgRep.Select
                 .Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
@@ -216,7 +220,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             return null;
         }
-         
+
         return await Cache.GetOrSetAsync(CacheKeys.GetDataPermissionKey(User.Id, apiPath), async () =>
         {
             using var _ = _userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
@@ -309,14 +313,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (!(User?.Id > 0))
         {
-            throw ResultOutput.Exception("未登录");
+            throw ResultOutput.Exception(_adminLocalizer["未登录"]);
         }
 
         var user = await _userRep.GetAsync<UserGetBasicOutput>(User.Id);
 
         if (user == null)
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
         user.Mobile = DataMaskHelper.PhoneMask(user.Mobile);
@@ -390,17 +394,17 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             if (existsUser.UserName == input.UserName)
             {
-                throw ResultOutput.Exception("账号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["账号已存在"]);
             }
 
             if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                throw ResultOutput.Exception("手机号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["手机号已存在"]);
             }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                throw ResultOutput.Exception("邮箱已存在");
+                throw ResultOutput.Exception(_adminLocalizer["邮箱已存在"]);
             }
         }
 
@@ -424,7 +428,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         if (input.RoleIds != null && input.RoleIds.Any())
         {
             var roles = input.RoleIds.Select(roleId => new UserRoleEntity
-            { 
+            {
                 UserId = userId,
                 RoleId = roleId
             }).ToList();
@@ -460,7 +464,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (input.Id == input.ManagerUserId)
         {
-            throw ResultOutput.Exception("直属主管不能是自己");
+            throw ResultOutput.Exception(_adminLocalizer["直属主管不能是自己"]);
         }
 
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
@@ -474,24 +478,24 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             if (existsUser.UserName == input.UserName)
             {
-                throw ResultOutput.Exception($"账号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["账号已存在"]);
             }
 
             if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                throw ResultOutput.Exception($"手机号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["手机号已存在"]);
             }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                throw ResultOutput.Exception($"邮箱已存在");
+                throw ResultOutput.Exception(_adminLocalizer["邮箱已存在"]);
             }
         }
 
         var user = await _userRep.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
         Mapper.Map(input, user);
@@ -517,8 +521,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         staff ??= new UserStaffEntity();
         Mapper.Map(input.Staff, staff);
         staff.Id = userId;
-        if (existsStaff) 
-        { 
+        if (existsStaff)
+        {
             await _userStaffRep.UpdateAsync(staff);
         }
         else
@@ -535,7 +539,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             await _userOrgRep.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
         }
-            
+
         if (insertOrgIds != null && insertOrgIds.Any())
         {
             var orgs = insertOrgIds.Select(orgId => new UserOrgEntity
@@ -574,17 +578,17 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             if (existsUser.UserName == input.UserName)
             {
-                throw ResultOutput.Exception($"账号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["账号已存在"]);
             }
 
             if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                throw ResultOutput.Exception($"手机号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["手机号已存在"]);
             }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                throw ResultOutput.Exception($"邮箱已存在");
+                throw ResultOutput.Exception(_adminLocalizer["邮箱已存在"]);
             }
         }
 
@@ -625,24 +629,24 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             if (existsUser.UserName == input.UserName)
             {
-                throw ResultOutput.Exception($"账号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["账号已存在"]);
             }
 
             if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
             {
-                throw ResultOutput.Exception($"手机号已存在");
+                throw ResultOutput.Exception(_adminLocalizer["手机号已存在"]);
             }
 
             if (input.Email.NotNull() && existsUser.Email == input.Email)
             {
-                throw ResultOutput.Exception($"邮箱已存在");
+                throw ResultOutput.Exception(_adminLocalizer["邮箱已存在"]);
             }
         }
 
         var user = await _userRep.GetAsync(input.Id);
         if (!(user?.Id > 0))
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
         Mapper.Map(input, user);
@@ -672,7 +676,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     {
         if (input.ConfirmPassword != input.NewPassword)
         {
-            throw ResultOutput.Exception("新密码和确认密码不一致");
+            throw ResultOutput.Exception(_adminLocalizer["新密码和确认密码不一致"]);
         }
 
         _userHelper.CheckPassword(input.NewPassword);
@@ -681,7 +685,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
         if (oldPassword != entity.Password)
         {
-            throw ResultOutput.Exception("旧密码不正确");
+            throw ResultOutput.Exception(_adminLocalizer["旧密码不正确"]);
         }
 
         entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
@@ -694,7 +698,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     public async Task<string> ResetPasswordAsync(UserResetPasswordInput input)
-    { 
+    {
         var password = input.Password;
         if (password.IsNull())
         {
@@ -746,11 +750,11 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var entity = await _userRep.GetAsync(input.UserId);
         if (entity.Type == UserType.PlatformAdmin)
         {
-            throw ResultOutput.Exception("平台管理员禁止禁用");
+            throw ResultOutput.Exception(_adminLocalizer["平台管理员禁止禁用"]);
         }
         if (entity.Type == UserType.TenantAdmin)
         {
-            throw ResultOutput.Exception("企业管理员禁止禁用");
+            throw ResultOutput.Exception(_adminLocalizer["企业管理员禁止禁用"]);
         }
         entity.Enabled = input.Enabled;
         await _userRep.UpdateAsync(entity);
@@ -765,19 +769,19 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     public virtual async Task DeleteAsync(long id)
     {
         var user = await _userRep.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
-        if(user == null)
+        if (user == null)
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
-        if(user.Type == UserType.PlatformAdmin)
+        if (user.Type == UserType.PlatformAdmin)
         {
-            throw ResultOutput.Exception($"平台管理员禁止删除");
+            throw ResultOutput.Exception(_adminLocalizer["平台管理员禁止删除"]);
         }
 
         if (user.Type == UserType.TenantAdmin)
         {
-            throw ResultOutput.Exception($"企业管理员禁止删除");
+            throw ResultOutput.Exception(_adminLocalizer["企业管理员禁止删除"]);
         }
 
         //删除用户角色
@@ -801,14 +805,14 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchDeleteAsync(long[] ids)
     {
-        var admin = await _userRep.Select.Where(a => ids.Contains(a.Id) && 
+        var admin = await _userRep.Select.Where(a => ids.Contains(a.Id) &&
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
         {
-            throw ResultOutput.Exception("平台管理员禁止删除");
+            throw ResultOutput.Exception(_adminLocalizer["平台管理员禁止删除"]);
         }
-       
+
         //删除用户角色
         await _userRoleRep.DeleteAsync(a => ids.Contains(a.UserId));
         //删除用户所属部门
@@ -835,12 +839,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var user = await _userRep.Select.WhereDynamic(id).ToOneAsync(a => new { a.Type });
         if (user == null)
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
         if (user.Type == UserType.PlatformAdmin || user.Type == UserType.TenantAdmin)
         {
-            throw ResultOutput.Exception("平台管理员禁止删除");
+            throw ResultOutput.Exception(_adminLocalizer["平台管理员禁止删除"]);
         }
 
         await _userRoleRep.DeleteAsync(a => a.UserId == id);
@@ -859,12 +863,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
-        var admin = await _userRep.Select.Where(a => ids.Contains(a.Id) && 
+        var admin = await _userRep.Select.Where(a => ids.Contains(a.Id) &&
         (a.Type == UserType.PlatformAdmin || a.Type == UserType.TenantAdmin)).AnyAsync();
 
         if (admin)
         {
-            throw ResultOutput.Exception("平台管理员禁止删除");
+            throw ResultOutput.Exception(_adminLocalizer["平台管理员禁止删除"]);
         }
 
         await _userRoleRep.DeleteAsync(a => ids.Contains(a.UserId));
@@ -903,11 +907,11 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<dynamic> OneClickLoginAsync([Required]string userName)
+    public async Task<dynamic> OneClickLoginAsync([Required] string userName)
     {
         if (userName.IsNull())
         {
-            throw ResultOutput.Exception("请选择用户");
+            throw ResultOutput.Exception(_adminLocalizer["请选择用户"]);
         }
 
         var userRep = _userRep;
@@ -916,9 +920,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var user = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync();
 
-        if(user == null)
+        if (user == null)
         {
-            throw ResultOutput.Exception("用户不存在");
+            throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
@@ -930,6 +934,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
 
-        return new { token }; 
+        return new { token };
     }
 }

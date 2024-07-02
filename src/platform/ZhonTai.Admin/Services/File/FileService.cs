@@ -1,25 +1,26 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
-using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Core.Consts;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using System;
-using ZhonTai.Admin.Core.Configs;
-using OnceMi.AspNetCore.OSS;
+﻿using System;
 using System.Linq;
-using ZhonTai.Common.Files;
-using ZhonTai.Common.Helpers;
+using System.IO;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using ZhonTai.Admin.Core.Helpers;
+using System.Threading.Tasks;
+using OnceMi.AspNetCore.OSS;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Domain;
 using ZhonTai.Admin.Services.Dto;
+using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Dto;
+using ZhonTai.Common.Files;
+using ZhonTai.Common.Helpers;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services;
 
@@ -34,18 +35,21 @@ public class FileService : BaseService, IFileService, IDynamicApi
     private readonly IOSSServiceFactory _oSSServiceFactory;
     private readonly OSSConfig _oSSConfig;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly AdminLocalizer _adminLocalizer;
 
     public FileService(
         IFileRepository fileRep,
         IOSSServiceFactory oSSServiceFactory,
         IOptions<OSSConfig> oSSConfig,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        AdminLocalizer adminLocalizer
     )
     {
         _fileRep = fileRep;
         _oSSServiceFactory = oSSServiceFactory;
         _oSSConfig = oSSConfig.Value;
         _httpContextAccessor = httpContextAccessor;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -132,18 +136,18 @@ public class FileService : BaseService, IFileService, IDynamicApi
         var hasIncludeExtension = localUploadConfig.IncludeExtension?.Length > 0;
         if(hasIncludeExtension && !localUploadConfig.IncludeExtension.Contains(extention))
         {
-            throw new Exception($"不允许上传{extention}文件格式");
+            throw new Exception(_adminLocalizer["不允许上传{0}文件格式", extention]);
         }
         var hasExcludeExtension = localUploadConfig.ExcludeExtension?.Length > 0;
         if (hasExcludeExtension && localUploadConfig.ExcludeExtension.Contains(extention))
         {
-            throw new Exception($"不允许上传{extention}文件格式");
+            throw new Exception(_adminLocalizer["不允许上传{0}文件格式", extention]);
         }
 
         var fileLenth = file.Length;
         if(fileLenth > localUploadConfig.MaxSize) 
         {
-            throw new Exception($"文件大小不能超过{new FileSize(localUploadConfig.MaxSize)}");
+            throw new Exception(_adminLocalizer["文件大小不能超过{0}", new FileSize(localUploadConfig.MaxSize)]);
         }
        
         var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == _oSSConfig.Provider).FirstOrDefault();
@@ -218,7 +222,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
 
                 if (url.IsNull())
                 {
-                    throw ResultOutput.Exception($"请配置{oSSOptions.Provider}的Url参数");
+                    throw ResultOutput.Exception(_adminLocalizer["请配置{0}的Url参数", oSSOptions.Provider]);
                 }
 
                 var urlProtocol = oSSOptions.IsEnableHttps ? "https" : "http";

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
 using System;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.DictType;
 
@@ -24,11 +25,15 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
 {
     private readonly AdminRepositoryBase<DictTypeEntity> _dictTypeRep;
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public DictTypeService(AdminRepositoryBase<DictTypeEntity> dictTypeRep, AdminRepositoryBase<DictEntity> dictRep)
+    public DictTypeService(AdminRepositoryBase<DictTypeEntity> dictTypeRep, 
+        AdminRepositoryBase<DictEntity> dictRep,
+        AdminLocalizer adminLocalizer)
     {
         _dictTypeRep = dictTypeRep;
         _dictRep = dictRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -78,12 +83,12 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     {
         if (await _dictTypeRep.Select.AnyAsync(a => a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"字典类型已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典类型已存在"]);
         }
 
         if (input.Code.NotNull() && await _dictTypeRep.Select.AnyAsync(a => a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"字典类型编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典类型编码已存在"]);
         }
 
         var entity = Mapper.Map<DictTypeEntity>(input);
@@ -106,17 +111,17 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         var entity = await _dictTypeRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("数据字典不存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典类型不存在"]);
         }
 
         if (await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"字典类型已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典类型已存在"]);
         }
 
         if (input.Code.NotNull() && await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"字典类型编码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["字典类型编码已存在"]);
         }
 
         Mapper.Map(input, entity);

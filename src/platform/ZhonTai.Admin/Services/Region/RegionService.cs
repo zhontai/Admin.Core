@@ -1,19 +1,19 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
-using AngleSharp;
+﻿using AngleSharp;
+using AngleSharp.Html.Dom;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Yitter.IdGenerator;
 using ToolGood.Words.Pinyin;
-using AngleSharp.Html.Dom;
-using System.Linq;
-using ZhonTai.Common.Extensions;
-using ZhonTai.Admin.Domain.Region;
 using ZhonTai.Admin.Core.Consts;
-using System;
-using ZhonTai.Admin.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Domain.Region;
+using ZhonTai.Admin.Repositories;
+using ZhonTai.Common.Extensions;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Region;
 
@@ -25,10 +25,12 @@ namespace ZhonTai.Admin.Services.Region;
 public class RegionService : BaseService, IDynamicApi
 {
     private readonly AdminRepositoryBase<RegionEntity> _regionRep;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public RegionService(AdminRepositoryBase<RegionEntity> regionRep)
+    public RegionService(AdminRepositoryBase<RegionEntity> regionRep, AdminLocalizer adminLocalizer)
     {
         _regionRep = regionRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     [NonAction]
@@ -130,12 +132,12 @@ public class RegionService : BaseService, IDynamicApi
 
         if (await regionRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此地区名已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此地区名已存在"]);
         }
 
         if (input.Code.NotNull() && await regionRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此地区代码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此地区代码已存在"]);
         }
 
         var entity = Mapper.Map<RegionEntity>(input);
@@ -160,17 +162,17 @@ public class RegionService : BaseService, IDynamicApi
         var entity = await regionRep.GetAsync(input.Id);
         if (entity == null)
         {
-            throw ResultOutput.Exception("地区不存在");
+            throw ResultOutput.Exception(_adminLocalizer["地区不存在"]);
         }
 
         if (await regionRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Name == input.Name))
         {
-            throw ResultOutput.Exception($"此地区名已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此地区名已存在"]);
         }
 
         if (input.Code.NotNull() && await regionRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Id != input.Id && a.Code == input.Code))
         {
-            throw ResultOutput.Exception($"此地区代码已存在");
+            throw ResultOutput.Exception(_adminLocalizer["此地区代码已存在"]);
         }
 
         Mapper.Map(input, entity);

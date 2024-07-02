@@ -21,6 +21,7 @@ using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -39,7 +40,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<ITenantPermissionRepository> _tenantPermissionRep;
     private readonly Lazy<IUserRoleRepository> _userRoleRep;
-    
+    private readonly AdminLocalizer _adminLocalizer;
 
     public PermissionService(
         IPermissionRepository permissionRep,
@@ -49,7 +50,8 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         Lazy<IUserRepository> userRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
         Lazy<ITenantPermissionRepository> tenantPermissionRep,
-        Lazy<IUserRoleRepository> userRoleRep
+        Lazy<IUserRoleRepository> userRoleRep,
+        AdminLocalizer adminLocalizer
     )
     {
         _permissionRep = permissionRep;
@@ -60,6 +62,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         _rolePermissionRep = rolePermissionRep;
         _tenantPermissionRep = tenantPermissionRep;
         _userRoleRep = userRoleRep;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -351,7 +354,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var entity = await _permissionRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
-            throw ResultOutput.Exception("权限点不存在！");
+            throw ResultOutput.Exception(_adminLocalizer["权限点不存在"]);
         }
 
         Mapper.Map(input, entity);
@@ -424,7 +427,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var exists = await _roleRep.Value.Select.DisableGlobalFilter(FilterNames.Tenant).WhereDynamic(input.RoleId).AnyAsync();
         if (!exists)
         {
-            throw ResultOutput.Exception("该角色不存在或已被删除！");
+            throw ResultOutput.Exception(_adminLocalizer["该角色不存在或已被删除"]);
         }
 
         //查询角色权限
