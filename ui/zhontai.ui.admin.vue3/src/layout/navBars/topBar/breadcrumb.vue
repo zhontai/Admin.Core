@@ -31,6 +31,8 @@ import other from '/@/utils/other'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useRoutesList } from '/@/stores/routesList'
+import { filterTree, treeToList } from '/@/utils/tree'
+import { cloneDeep } from 'lodash-es'
 
 // 定义变量内容
 const stores = useRoutesList()
@@ -69,17 +71,36 @@ const setLocalThemeConfig = () => {
   Local.set('themeConfig', themeConfig.value)
 }
 // 处理面包屑数据
-const getBreadcrumbList = (arr: RouteItems) => {
+const getBreadcrumbList = (arr: RouteItems, path: string) => {
   arr.forEach((item: RouteItem) => {
     state.routeSplit.forEach((v: string, k: number, arrs: string[]) => {
       if (state.routeSplitFirst === item.path) {
         state.routeSplitFirst += `/${arrs[state.routeSplitIndex]}`
         !state.breadcrumbList.find((a) => a.path === item.path) && state.breadcrumbList.push(item)
         state.routeSplitIndex++
-        if (item.children) getBreadcrumbList(item.children)
+        if (item.children) getBreadcrumbList(item.children, path)
       }
     })
   })
+
+  //找不到面包屑的时候，从路由中解析
+  if (state.breadcrumbList.length == 0) {
+    //不存在则使用顶级的分类
+    let routeTree = filterTree(cloneDeep(arr), path, {
+      children: 'children',
+      filterWhere: (item: any, filterword: string) => {
+        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
+      },
+    })
+    const routeArr = treeToList(routeTree)
+    if (routeArr.length > 0) {
+      routeArr.forEach((item: RouteItem, k: number) => {
+        state.routeSplitFirst += `${item.path}`
+        state.breadcrumbList.push(item)
+        state.routeSplitIndex++
+      })
+    }
+  }
 }
 // 当前路由字符串切割成数组，并删除第一项空内容
 const initRouteSplit = (toRoute: RouteLocationNormalized) => {
@@ -89,7 +110,7 @@ const initRouteSplit = (toRoute: RouteLocationNormalized) => {
   state.routeSplit.shift()
   state.routeSplitFirst = `/${state.routeSplit[0]}`
   state.routeSplitIndex = 1
-  getBreadcrumbList(routesList.value)
+  getBreadcrumbList(routesList.value, toRoute.path)
   if (toRoute.name === 'home' || (toRoute.name === 'notFound' && state.breadcrumbList.length > 1)) state.breadcrumbList.shift()
   if (state.breadcrumbList.length > 0)
     state.breadcrumbList[state.breadcrumbList.length - 1].meta.tagsViewName = other.setTagsViewNameI18n(<RouteToFrom>route)
