@@ -27,13 +27,13 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     private readonly IOrgRepository _orgRep;
     private readonly IUserOrgRepository _userOrgRep;
     private readonly IRoleOrgRepository _roleOrgRep;
-    private readonly IStringLocalizer<AdminLocalizer> _localizer;
+    private readonly AdminLocalizer _localizer;
 
     public OrgService(
         IOrgRepository orgRep,
         IUserOrgRepository userOrgRep,
         IRoleOrgRepository roleOrgRep,
-        IStringLocalizer<AdminLocalizer> localizer
+        AdminLocalizer localizer
     )
     {
         _orgRep = orgRep;

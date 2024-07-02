@@ -4442,6 +4442,11 @@
             <param name="idList"></param>
             <returns></returns>
         </member>
+        <member name="T:ZhonTai.Admin.Resources.AdminLocalizer">
+            <summary>
+            Admin国际化
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.Api.ApiService">
             <summary>
             接口服务
