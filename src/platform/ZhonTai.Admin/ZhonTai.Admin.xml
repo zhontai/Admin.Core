@@ -610,7 +610,27 @@
         </member>
         <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.Lang">
             <summary>
+            语言配置
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.LangConfig">
+            <summary>
+            语言配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LangConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LangConfig.DefaultLang">
+            <summary>
             默认语言
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.LangConfig.Langs">
+            <summary>
+            语言列表
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
@@ -2266,6 +2286,21 @@
         <member name="T:ZhonTai.Admin.Core.Middlewares.ExceptionMiddleware">
             <summary>
             异常中间件
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.ModuleInfo">
+            <summary>
+            模块信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.ModuleInfo.Assembly">
+            <summary>
+            任务层程序集
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.ModuleInfo.LocalizerType">
+            <summary>
+            多语言文件类型
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Core.RegisterModules.ControllerModule.#ctor">

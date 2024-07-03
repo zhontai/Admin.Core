@@ -18,11 +18,12 @@
 		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.832" />
 		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.832" />
 		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.832" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.832" />
+		
 		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.832" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.832" />
 		<PackageReference Include="Cronos" Version="0.8.4" />
 		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.2.0" />
 		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.2.0" />

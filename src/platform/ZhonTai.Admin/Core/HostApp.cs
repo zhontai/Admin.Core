@@ -1,71 +1,70 @@
-﻿using AspNetCoreRateLimit;
-using Autofac;
-using IdentityServer4.AccessTokenValidation;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Mapster;
-using Yitter.IdGenerator;
+using System.Text.RegularExpressions;
+using System.Text.Json.Serialization;
+using AspNetCoreRateLimit;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using HealthChecks.UI.Client;
+using FreeRedis;
+using FreeScheduler;
+using FreeSql;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
+using Mapster;
+using MapsterMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using NLog;
+using NLog.Web;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Auth;
-using ZhonTai.Admin.Tools.Cache;
-using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Captcha;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Conventions;
 using ZhonTai.Admin.Core.Db;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Filters;
 using ZhonTai.Admin.Core.Logs;
 using ZhonTai.Admin.Core.RegisterModules;
-using System.IO;
-using Microsoft.OpenApi.Any;
-using Microsoft.AspNetCore.Mvc.Controllers;
-using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core.Consts;
-using MapsterMapper;
-using ZhonTai.DynamicApi;
-using NLog.Web;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Startup;
-using ZhonTai.Admin.Core.Conventions;
-using FreeSql;
-using ZhonTai.Admin.Services.User;
 using ZhonTai.Admin.Core.Middlewares;
-using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Services.User;
+using ZhonTai.Admin.Tools.Cache;
+using ZhonTai.Common.Helpers;
+using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using System.Text.RegularExpressions;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Text.Json.Serialization;
-using FreeRedis;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Caching.Distributed;
-using ZhonTai.Admin.Core.Captcha;
-using NLog;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.IdentityModel.Logging;
-using FreeScheduler;
-using Microsoft.AspNetCore.Mvc.Razor;
-using ZhonTai.Admin.Services.Org;
-using System.Globalization;
 
 namespace ZhonTai.Admin.Core;
 
@@ -495,7 +494,10 @@ public class HostApp
         services.AddFluentValidationAutoValidation();
 
         //多语言
-        services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
+        if (appConfig.Lang.Enable)
+        {
+            services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
+        }
 
         mvcBuilder.AddNewtonsoftJson(options =>
         {
@@ -506,8 +508,41 @@ public class HostApp
             //设置时间格式
             options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
         })
-        .AddControllersAsServices()
-        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+        .AddControllersAsServices();
+
+        if (appConfig.Lang.Enable)
+        {
+            //加载模块信息
+            var modules = new List<ModuleInfo>();
+            foreach (var assembly in assemblies)
+            {
+                modules.Add(new ModuleInfo
+                {
+                    Assembly = assembly,
+                    LocalizerType = assembly.GetTypes().FirstOrDefault(m => typeof(IModuleLocalizer).IsAssignableFrom(m))
+                });
+            }
+
+            mvcBuilder
+            .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization(options =>
+            {
+                options.DataAnnotationLocalizerProvider = (type, factory) =>
+                {
+                    var module = modules.FirstOrDefault(m => m.Assembly == type.Assembly);
+                    if (module != null)
+                    {
+                        var localizerType = module.LocalizerType;
+                        if (localizerType != null)
+                        {
+                            return factory.Create(localizerType);
+                        }
+                    }
+
+                    return factory.Create(type);
+                };
+            });
+        }
 
         if (appConfig.Swagger.EnableJsonStringEnumConverter)
             mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -804,7 +839,10 @@ public class HostApp
         IdentityModelEventSource.ShowPII = true;
 
         //多语言
-        app.UseMyLocalization();
+        if (appConfig.Lang.Enable)
+        {
+            app.UseMyLocalization();
+        }
 
         //IP限流
         if (appConfig.RateLimit)

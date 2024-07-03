@@ -123,9 +123,35 @@ public class AppConfig
     public IdGeneratorConfig IdGenerator { get; set; } = new IdGeneratorConfig();
 
     /// <summary>
+    /// 语言配置
+    /// </summary>
+    public LangConfig Lang { get; set; }
+}
+
+/// <summary>
+/// 语言配置
+/// </summary>
+public class LangConfig
+{
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enable { get; set; } = true;
+
+    /// <summary>
     /// 默认语言
     /// </summary>
-    public string Lang { get; set; }
+    public string DefaultLang { get; set; } = "zh";
+
+    /// <summary>
+    /// 语言列表
+    /// </summary>
+    public string[] Langs { get; set; }
+
+    /// <summary>
+    /// 语言请求解析列表
+    /// </summary>
+    public string[] RequestCultureProviders { get; set; }
 }
 
 /// <summary>
