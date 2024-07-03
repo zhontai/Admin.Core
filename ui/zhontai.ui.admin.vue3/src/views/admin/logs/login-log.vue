@@ -87,6 +87,7 @@ const onQuery = async () => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }

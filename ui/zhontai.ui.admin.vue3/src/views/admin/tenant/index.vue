@@ -176,6 +176,7 @@ const onSetEnable = (row: TenantListOutput & { loading: boolean }) => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }
