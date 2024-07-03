@@ -530,13 +530,9 @@ public class HostApp
                 options.DataAnnotationLocalizerProvider = (type, factory) =>
                 {
                     var module = modules.FirstOrDefault(m => m.Assembly == type.Assembly);
-                    if (module != null)
+                    if (module != null && module.LocalizerType != null)
                     {
-                        var localizerType = module.LocalizerType;
-                        if (localizerType != null)
-                        {
-                            return factory.Create(localizerType);
-                        }
+                        return factory.Create(module.LocalizerType);
                     }
 
                     return factory.Create(type);
