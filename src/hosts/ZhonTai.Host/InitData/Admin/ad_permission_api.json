@@ -1429,5 +1429,32 @@
     "createdUserName": "admin",
     "createdUserRealName": "管理员",
     "createdTime": "2024-05-28T09:42:44"
+  },
+  {
+    "id": 564648879657029,
+    "permissionId": 564648879607877,
+    "apiId": 361090412425285,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:02:12"
+  },
+  {
+    "id": 564648879673413,
+    "permissionId": 564648879607877,
+    "apiId": 161227168170054,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:02:12"
+  },
+  {
+    "id": 564648879673414,
+    "permissionId": 564648879607877,
+    "apiId": 188049296683077,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:02:12"
   }
 ]
