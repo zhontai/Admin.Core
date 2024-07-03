@@ -12,7 +12,7 @@ using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Tools.Captcha;
 
-[SingleInstance]
+[InjectSingleton]
 public class VerifyCodeHelper
 {
     private readonly AppConfig _appConfig;

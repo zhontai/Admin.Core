@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Core.Helpers;
 /// <summary>
 /// 用户帮助类
 /// </summary>
-[SingleInstance]
+[InjectSingleton]
 public class UserHelper
 {
     /// <summary>

@@ -17,7 +17,7 @@ namespace ZhonTai.Admin.Tools.Captcha;
 /// <summary>
 /// 滑块拼图验证
 /// </summary>
-[SingleInstance]
+[InjectSingleton]
 public class SlideJigsawCaptchaTool : ICaptchaTool
 {
     private readonly ICacheTool _cache;

@@ -10,7 +10,7 @@ using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core.Auth;
 
-[SingleInstance]
+[InjectSingleton]
 public class UserToken : IUserToken
 {
     private readonly JwtConfig _jwtConfig;

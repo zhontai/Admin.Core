@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Core.Logs;
 /// <summary>
 /// Api帮助类
 /// </summary>
-[SingleInstance]
+[InjectSingleton]
 public class ApiHelper
 {
     private List<ApiHelperDto> _apis;

@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Core.Helpers;
 /// <summary>
 /// 文件上传帮助类
 /// </summary>
-[SingleInstance]
+[InjectSingleton]
 public class UploadHelper
 {
     /// <summary>

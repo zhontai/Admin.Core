@@ -212,8 +212,8 @@ public class HostApp
                 // 控制器注入
                 builder.RegisterModule(new ControllerModule());
 
-                // 单例注入
-                builder.RegisterModule(new SingleInstanceModule(appConfig));
+                // 生命周期注入
+                builder.RegisterModule(new LifecycleModule(appConfig));
 
                 // 模块注入
                 builder.RegisterModule(new RegisterModule(appConfig));
