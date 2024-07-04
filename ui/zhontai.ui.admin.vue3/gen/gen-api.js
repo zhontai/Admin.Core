@@ -32,7 +32,9 @@ const genEnums = async (api) => {
 }
 
 apis?.forEach(async (api) => {
-  await genEnums(api)
+  if (api.enumUrl) {
+    await genEnums(api)
+  }
 
   await generateApi({
     output: api.output,
