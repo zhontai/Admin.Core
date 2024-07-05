@@ -40,7 +40,7 @@ namespace ZhonTai.Admin.Core.Auth
                 && m.HttpMethods.NotNull() && m.HttpMethods.Split(',').Any(n => n.NotNull() && n.EqualsIgnoreCase(httpMethod))
             );
 
-            if (!valid) 
+            if (!valid && apiAccess != null) 
             {
                 if (apiAccess.All)
                 {
