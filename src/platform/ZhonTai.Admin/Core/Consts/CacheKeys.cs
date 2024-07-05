@@ -26,7 +26,7 @@ public static partial class CacheKeys
     /// 用户权限 admin:user:permissions:用户主键
     /// </summary>
     [Description("用户权限")]
-    public const string UserPermissions = "admin:user:permissions:";
+    public const string UserPermission = "admin:user:permission:";
 
     /// <summary>
     /// 数据权限 admin:user:data:permission:用户主键

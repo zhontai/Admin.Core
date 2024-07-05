@@ -38,6 +38,7 @@ using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using FreeSql;
 using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Domain.Permission;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -62,6 +63,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<IApiRepository> _apiRep;
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
+    private readonly Lazy<IPermissionRepository> _permissionRep;
     private readonly AdminLocalizer _adminLocalizer;
 
     public UserService(
@@ -79,6 +81,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IOrgRepository> orgRep,
+        Lazy<IPermissionRepository> permissionRep,
         AdminLocalizer adminLocalizer
     )
     {
@@ -96,6 +99,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         _apiRep = apiRep;
         _tenantRep = tenantRep;
         _orgRep = orgRep;
+        _permissionRep = permissionRep;
         _adminLocalizer = adminLocalizer;
     }
 
@@ -333,37 +337,68 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// 查询用户权限信息
     /// </summary>
     /// <returns></returns>
-    public async Task<IList<UserPermissionsOutput>> GetPermissionsAsync()
+    public async Task<UserGetPermissionOutput> GetPermissionAsync()
     {
-        var key = CacheKeys.UserPermissions + User.Id;
+        var key = CacheKeys.UserPermission + User.Id;
         var result = await Cache.GetOrSetAsync(key, async () =>
         {
+            var output = new UserGetPermissionOutput();
             if (User.TenantAdmin)
             {
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
                 var db = cloud.Use(DbKeys.AppDb);
 
-                var tenantPermissions = await db.Select<ApiEntity>()
+                //租户接口
+                var tenantApis = await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()
-                .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
-                .Where((b, c) => c.ApiId == a.Id).Any())
-                .ToListAsync<UserPermissionsOutput>();
+                    .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
+                    .Where((b, c) => c.ApiId == a.Id).Any())
+                .ToListAsync<UserGetPermissionOutput.Models.ApiModel>();
 
-                var pkgPermissions = await db.Select<ApiEntity>()
+                //租户权限点编码
+                var tenantCodes = await db.Select<PermissionEntity>()
+                .Where(p => db.Select<TenantPermissionEntity>()
+                    .InnerJoin(tp => tp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
+                    && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code))
+                .ToListAsync(p => p.Code);
+
+                //套餐接口
+                var pkgApis = await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPkgEntity, PkgPermissionEntity, PermissionApiEntity>()
-                .InnerJoin((b, c, d) => b.PkgId == c.PkgId && c.PermissionId == d.PermissionId && b.TenantId == User.TenantId)
-                .Where((b, c, d) => d.ApiId == a.Id).Any())
-                .ToListAsync<UserPermissionsOutput>();
+                    .InnerJoin((b, c, d) => b.PkgId == c.PkgId && c.PermissionId == d.PermissionId && b.TenantId == User.TenantId)
+                    .Where((b, c, d) => d.ApiId == a.Id).Any())
+                .ToListAsync<UserGetPermissionOutput.Models.ApiModel>();
 
-                return tenantPermissions.Union(pkgPermissions).Distinct().ToList();
+                //套餐权限点编码
+                var pkgCodes = await db.Select<PermissionEntity>()
+                .Where(p => db.Select<TenantPkgEntity, PkgPermissionEntity>()
+                    .InnerJoin((tp, pp) => tp.PkgId == pp.PkgId && pp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
+                    && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code))
+                .ToListAsync(p => p.Code);
+
+                output.Apis = tenantApis.Union(pkgApis).Distinct().ToList();
+
+                output.Codes = tenantCodes.Union(pkgCodes).Distinct().ToList();
+
+                return output;
             }
 
-            return await _apiRep.Value
+            //角色接口
+            output.Apis = await _apiRep.Value
             .Where(a => _apiRep.Value.Orm.Select<UserRoleEntity, RolePermissionEntity, PermissionApiEntity>()
                 .InnerJoin((b, c, d) => b.RoleId == c.RoleId && b.UserId == User.Id)
                 .InnerJoin((b, c, d) => c.PermissionId == d.PermissionId)
                 .Where((b, c, d) => d.ApiId == a.Id).Any())
-            .ToListAsync<UserPermissionsOutput>();
+            .ToListAsync<UserGetPermissionOutput.Models.ApiModel>();
+
+            //角色权限点编码
+            output.Codes = await _permissionRep.Value.Where(p => _permissionRep.Value.Orm.Select<UserRoleEntity, RolePermissionEntity>()
+                .InnerJoin((ur, rp) => ur.RoleId == rp.RoleId && ur.UserId == User.Id
+                && rp.PermissionId == p.Id && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code)).Any()
+            ).ToListAsync(p => p.Code);
+            output.Codes = output.Codes.Distinct().ToList();
+
+            return output;
         });
         return result;
     }

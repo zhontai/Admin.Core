@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BaiduBce.Services.Bos.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,13 +37,20 @@ public class ValidatePermissionAttribute : AuthorizeAttribute, IAuthorizationFil
         if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(LoginAttribute)))
             return;
 
+        if (user.PlatformAdmin)
+        {
+            return;
+        }
+
         //权限验证
         if (serviceProvider.GetRequiredService<AppConfig>().Validate.Permission)
         {
+            var apiAccess = context.HttpContext.GetEndpoint()?.Metadata?.GetMetadata<ApiAccessAttribute>();
+            
             var httpMethod = context.HttpContext.Request.Method;
             var api = context.ActionDescriptor.AttributeRouteInfo.Template;
             var permissionHandler = serviceProvider.GetService<IPermissionHandler>();
-            var isValid = await permissionHandler.ValidateAsync(api, httpMethod);
+            var isValid = await permissionHandler.ValidateAsync(api, httpMethod, apiAccess);
             if (!isValid)
             {
                 context.Result = new ForbidResult();

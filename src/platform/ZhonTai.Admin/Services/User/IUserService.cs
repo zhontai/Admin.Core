@@ -46,7 +46,7 @@ public interface IUserService
 
     Task<UserGetBasicOutput> GetBasicAsync();
 
-    Task<IList<UserPermissionsOutput>> GetPermissionsAsync();
+    Task<UserGetPermissionOutput> GetPermissionAsync();
 
     Task<string> AvatarUpload(IFormFile file, bool autoUpdate = false);
 

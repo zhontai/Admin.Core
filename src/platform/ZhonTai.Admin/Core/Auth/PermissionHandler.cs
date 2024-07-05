@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Services.User;
 
 namespace ZhonTai.Admin.Core.Auth
@@ -23,20 +24,34 @@ namespace ZhonTai.Admin.Core.Auth
         /// </summary>
         /// <param name="api">接口路径</param>
         /// <param name="httpMethod">http请求方法</param>
+        /// <param name="apiAccess">接口访问</param>
         /// <returns></returns>
-        public async Task<bool> ValidateAsync(string api, string httpMethod)
+        public async Task<bool> ValidateAsync(string api, string httpMethod, ApiAccessAttribute apiAccess)
         {
             if (_user.PlatformAdmin)
             {
                 return true;
             }
 
-            var permissions = await _userService.GetPermissionsAsync();
+            var userPermission = await _userService.GetPermissionAsync();
 
-            var valid = permissions.Any(m =>
+            var valid = userPermission.Apis.Any(m =>
                 m.Path.NotNull() && m.Path.EqualsIgnoreCase($"/{api}")
                 && m.HttpMethods.NotNull() && m.HttpMethods.Split(',').Any(n => n.NotNull() && n.EqualsIgnoreCase(httpMethod))
             );
+
+            if (!valid) 
+            {
+                if (apiAccess.All)
+                {
+                    valid = userPermission.Codes.All(a => apiAccess.Codes.Contains(a));
+                }
+                else
+                {
+                    valid = userPermission.Codes.Any(a => apiAccess.Codes.Contains(a));
+                }
+                 
+            }
 
             return valid;
         }

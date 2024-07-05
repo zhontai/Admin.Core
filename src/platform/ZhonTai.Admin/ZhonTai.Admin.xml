@@ -182,6 +182,27 @@
             启用权限库事务
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.ApiAccessAttribute">
+            <summary>
+            接口访问
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.ApiAccessAttribute.All">
+            <summary>
+            默认 false， 满足任意一个可访问。若设置 true 全部满足可访问
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.ApiAccessAttribute.Codes">
+            <summary>
+            权限点
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Attributes.ApiAccessAttribute.#ctor(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="codes">权限点</param>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.ApiGroupAttribute">
             <summary>
             接口分组
@@ -342,12 +363,13 @@
             权限处理接口
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Auth.IPermissionHandler.ValidateAsync(System.String,System.String)">
+        <member name="M:ZhonTai.Admin.Core.Auth.IPermissionHandler.ValidateAsync(System.String,System.String,ZhonTai.Admin.Core.Attributes.ApiAccessAttribute)">
             <summary>
             权限验证
             </summary>
             <param name="api"></param>
             <param name="httpMethod"></param>
+            <param name="apiAccess"></param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.IUser">
@@ -415,12 +437,13 @@
             权限处理
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Core.Auth.PermissionHandler.ValidateAsync(System.String,System.String)">
+        <member name="M:ZhonTai.Admin.Core.Auth.PermissionHandler.ValidateAsync(System.String,System.String,ZhonTai.Admin.Core.Attributes.ApiAccessAttribute)">
             <summary>
             权限验证
             </summary>
             <param name="api">接口路径</param>
             <param name="httpMethod">http请求方法</param>
+            <param name="apiAccess">接口访问</param>
             <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.Auth.ResponseAuthenticationHandler">
@@ -1293,7 +1316,7 @@
             密码加密 admin:password:encrypt:guid
             </summary>
         </member>
-        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.UserPermissions">
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.UserPermission">
             <summary>
             用户权限 admin:user:permissions:用户主键
             </summary>
@@ -8497,6 +8520,36 @@
             创建时间
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput.Models.ApiModel">
+            <summary>
+            接口
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput.Models.ApiModel.HttpMethods">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput.Models.ApiModel.Path">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput.Apis">
+            <summary>
+            接口列表
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetPermissionOutput.Codes">
+            <summary>
+            权限点编码列表
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Services.User.Dto.UserMemberFormInput">
             <summary>
             会员表单
@@ -8651,7 +8704,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPermissionsAsync">
+        <member name="M:ZhonTai.Admin.Services.User.UserService.GetPermissionAsync">
             <summary>
             查询用户权限信息
             </summary>
