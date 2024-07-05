@@ -10,5 +10,10 @@ public class AuthGetPasswordEncryptKeyOutput
     /// <summary>
     /// 密码加密密钥
     /// </summary>
-    public string EncyptKey { get; set; }
+    public string EncryptKey { get; set; }
+
+    /// <summary>
+    /// 密码加密向量
+    /// </summary>
+    public string Iv { get;  set; }
 }

@@ -79,6 +79,7 @@ import { reactive, computed, ref, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import { sm4 } from 'sm-crypto-v2'
 // import Cookies from 'js-cookie'
 // import { storeToRefs } from 'pinia'
 // import { useThemeConfig } from '/@/stores/themeConfig'
@@ -136,6 +137,14 @@ const onOk = (data: any) => {
 //登录
 const login = async () => {
   state.loading.signIn = true
+  //登录时获取SM4加密参数
+  const resPwd = await new AuthApi().getPasswordEncryptKey()
+  if (resPwd && resPwd.success) {
+    state.ruleForm.passwordKey = resPwd.data?.key
+    let encryptData = sm4.encrypt(state.ruleForm.password, resPwd.data?.encryptKey as string, { mode: 'cbc', iv: resPwd.data?.iv as string })
+    state.ruleForm.password = encryptData.toString()
+  }
+
   const res = await new AuthApi().login(state.ruleForm).catch(() => {
     state.loading.signIn = false
   })
