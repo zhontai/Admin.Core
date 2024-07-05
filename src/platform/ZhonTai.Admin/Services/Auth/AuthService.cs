@@ -1,44 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using FreeSql;
+using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using ZhonTai.Admin.Core.Auth;
+using Org.BouncyCastle.Utilities.Encoders;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Permission;
-using ZhonTai.Admin.Domain.User;
-using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Services.Auth.Dto;
+using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.RolePermission;
+using ZhonTai.Admin.Domain.Tenant;
+using ZhonTai.Admin.Domain.TenantPermission;
+using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Services.LoginLog.Dto;
+using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.LoginLog;
+using ZhonTai.Admin.Services.LoginLog.Dto;
 using ZhonTai.Admin.Services.User;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Domain.TenantPermission;
-using ZhonTai.Admin.Core.Captcha;
-using ZhonTai.Admin.Domain.PkgPermission;
-using ZhonTai.Admin.Domain.TenantPkg;
-using FreeSql;
-using Lazy.SlideCaptcha.Core.Validator;
 using static Lazy.SlideCaptcha.Core.ValidateResult;
-using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -128,9 +129,19 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         //写入Redis
         var guid = Guid.NewGuid().ToString("N");
         var key = CacheKeys.PassWordEncrypt + guid;
-        var encyptKey = StringHelper.GenerateRandom(8);
-        await Cache.SetAsync(key, encyptKey, TimeSpan.FromMinutes(5));
-        return new AuthGetPasswordEncryptKeyOutput { Key = guid, EncyptKey = encyptKey };
+        //创建key
+        byte[] keyBytes = Encoding.Default.GetBytes(StringHelper.GenerateRandom(16));
+        string keyHexString = BitConverter.ToString(keyBytes);
+        var encryptKey = keyHexString.Replace("-", "").ToLower();
+        //创建iv
+        byte[] ivBytes = Encoding.Default.GetBytes(StringHelper.GenerateRandom(16));
+        string ivHexString = BitConverter.ToString(ivBytes);
+        var iv = ivHexString.Replace("-", "").ToLower();
+        //输出
+        var passwordKeyOutput= new AuthGetPasswordEncryptKeyOutput { Key = guid, EncryptKey = encryptKey, Iv = iv };
+        //写缓存
+        await Cache.SetAsync(key, passwordKeyOutput, TimeSpan.FromMinutes(5));
+        return passwordKeyOutput;
     }
 
     /// <summary>
@@ -394,12 +405,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
             if (existsPasswordKey)
             {
-                var secretKey = await Cache.GetAsync(passwordEncryptKey);
-                if (secretKey.IsNull())
+                var secretKey = await Cache.GetAsync<AuthGetPasswordEncryptKeyOutput>(passwordEncryptKey);
+                if (secretKey.EncryptKey.IsNull())
                 {
                     throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
                 }
-                input.Password = DesEncrypt.Decrypt(input.Password, secretKey);
+                input.Password = SM4Encryption.Decrypt(input.Password, Hex.Decode(secretKey.EncryptKey), Hex.Decode(secretKey.Iv), "CBC", true).TrimEnd('\0');//SM4解密后会有\0符号，需要去除。
                 await Cache.DelAsync(passwordEncryptKey);
             }
             else

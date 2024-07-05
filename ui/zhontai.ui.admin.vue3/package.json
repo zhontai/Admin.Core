@@ -37,6 +37,7 @@
     "qrcodejs2-fixes": "^0.0.2",
     "qs": "^6.12.2",
     "screenfull": "^6.0.2",
+    "sm-crypto-v2": "^1.9.0",
     "sortablejs": "^1.15.2",
     "splitpanes": "^3.1.5",
     "vue": "3.4.31",

@@ -4833,9 +4833,14 @@
             缓存键
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.EncyptKey">
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.EncryptKey">
             <summary>
             密码加密密钥
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.Iv">
+            <summary>
+            密码加密向量
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserInfoOutput.User">

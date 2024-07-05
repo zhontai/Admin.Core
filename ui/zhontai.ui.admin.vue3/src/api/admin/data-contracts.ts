@@ -231,7 +231,9 @@ export interface AuthGetPasswordEncryptKeyOutput {
   /** 缓存键 */
   key?: string | null
   /** 密码加密密钥 */
-  encyptKey?: string | null
+  encryptKey?: string | null
+    /** 密码加密向量 */
+  iv?: string | null
 }
 
 export interface AuthGetUserInfoOutput {
