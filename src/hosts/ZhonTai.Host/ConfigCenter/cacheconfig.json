@@ -1,9 +1,9 @@
 {
   "CacheConfig": {
     //缓存类型 Memory = 0,Redis = 1
-    "type": "Redis",
+    "type": "Memory",
     //限流缓存类型 Memory = 0,Redis = 1
-    "typeRateLimit": "Redis",
+    "typeRateLimit": "Memory",
     //Redis配置
     "redis": {
       //连接字符串
