@@ -7,9 +7,9 @@
     //Redis配置
     "redis": {
       //连接字符串
-      "connectionString": "127.0.0.1:6379,password=welcome1!,defaultDatabase=1",
+      "connectionString": "127.0.0.1:6379,password=,defaultDatabase=1",
       //限流连接字符串
-      "connectionStringRateLimit": "127.0.0.1:6379,password=welcome1!,defaultDatabase=1"
+      "connectionStringRateLimit": "127.0.0.1:6379,password=,defaultDatabase=1"
     }
   }
 }

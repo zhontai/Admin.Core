@@ -50,7 +50,6 @@ namespace ZhonTai.Admin.Core.Auth
                 {
                     valid = userPermission.Codes.Any(a => apiAccess.Codes.Contains(a));
                 }
-                 
             }
 
             return valid;
