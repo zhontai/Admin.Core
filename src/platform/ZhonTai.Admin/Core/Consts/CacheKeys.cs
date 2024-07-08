@@ -65,6 +65,13 @@ public static partial class CacheKeys
     }
 
     /// <summary>
+    /// 获取数据权限缓存键
+    /// </summary>
+    /// <param name="userId">用户Id</param>
+    /// <returns></returns>
+    public static string GetUserPermissionKey(long userId) => $"{UserPermission}{userId}";
+
+    /// <summary>
     /// 获取数据权限模板
     /// </summary>
     /// <param name="userId">用户Id</param>

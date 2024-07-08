@@ -7,6 +7,9 @@ using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Domain.Tenant;
+using ZhonTai.Admin.Services.User.Dto;
+using System.Linq;
+using BaiduBce.Services.Bos.Model;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -193,4 +196,72 @@ public class User : IUser
     /// 数据权限
     /// </summary>
     public virtual DataPermissionDto DataPermission => GetDataPermission();
+
+    /// <summary>
+    /// 获得用户权限
+    /// </summary>
+    /// <returns></returns>
+    UserGetPermissionOutput GetUserPermission()
+    {
+        var cache = _accessor?.HttpContext?.RequestServices.GetRequiredService<ICacheTool>();
+        if (cache == null)
+        {
+            return null;
+        }
+        else
+        {
+            return cache.Get<UserGetPermissionOutput>(CacheKeys.GetUserPermissionKey(Id));
+        }
+    }
+
+    /// <summary>
+    /// 用户权限
+    /// </summary>
+    public virtual UserGetPermissionOutput UserPermission => GetUserPermission();
+
+    /// <summary>
+    /// 检查用户是否拥有某个权限点
+    /// </summary>
+    /// <param name="permissionCode">权限点编码</param>
+    /// <returns></returns>
+    public virtual bool HasPermission(string permissionCode)
+    {
+        if (permissionCode.IsNull())
+        {
+            throw new ArgumentNullException(nameof(permissionCode), "权限点编码不能为空");
+        }
+
+        return HasPermissions([permissionCode]);
+    }
+
+    /// <summary>
+    /// 检查用户是否拥有这些权限点
+    /// </summary>
+    /// <param name="permissionCodes">权限点编码列表</param>
+    /// <param name="all">是否全部满足</param>
+    /// <returns></returns>
+    public virtual bool HasPermissions(string[] permissionCodes, bool all = false)
+    {
+        if (!(permissionCodes?.Length > 0 ))
+        {
+            throw new ArgumentException(nameof(permissionCodes), "权限点编码列表不能为空");
+        }
+
+        if (PlatformAdmin)
+        {
+            return true;
+        }
+
+        var valid = false;
+        if (all)
+        {
+            valid = UserPermission.Codes.All(a => permissionCodes.Contains(a));
+        }
+        else
+        {
+            valid = UserPermission.Codes.Any(a => permissionCodes.Contains(a));
+        }
+
+        return valid;
+    }
 }

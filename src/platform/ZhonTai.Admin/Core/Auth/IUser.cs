@@ -1,6 +1,7 @@
 ﻿using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.User.Dto;
+using ZhonTai.Admin.Services.User.Dto;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -63,4 +64,24 @@ public interface IUser
     /// 数据权限
     /// </summary>
     DataPermissionDto DataPermission { get; }
+
+    /// <summary>
+    /// 用户权限
+    /// </summary>
+    UserGetPermissionOutput UserPermission { get; }
+
+    /// <summary>
+    /// 检查用户是否拥有某个权限点
+    /// </summary>
+    /// <param name="permissionCode">权限点编码</param>
+    /// <returns></returns>
+    bool HasPermission(string permissionCode);
+
+    /// <summary>
+    /// 检查用户是否拥有这些权限点
+    /// </summary>
+    /// <param name="permissionCodes">权限点编码列表</param>
+    /// <param name="all">是否全部满足</param>
+    /// <returns></returns>
+    bool HasPermissions(string[] permissionCodes, bool all = false);
 }

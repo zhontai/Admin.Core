@@ -432,6 +432,26 @@
             数据权限
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.IUser.UserPermission">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Auth.IUser.HasPermission(System.String)">
+            <summary>
+            检查用户是否拥有某个权限点
+            </summary>
+            <param name="permissionCode">权限点编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Auth.IUser.HasPermissions(System.String[],System.Boolean)">
+            <summary>
+            检查用户是否拥有这些权限点
+            </summary>
+            <param name="permissionCodes">权限点编码列表</param>
+            <param name="all">是否全部满足</param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Auth.PermissionHandler">
             <summary>
             权限处理
@@ -516,6 +536,32 @@
             <summary>
             数据权限
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Auth.User.GetUserPermission">
+            <summary>
+            获得用户权限
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Auth.User.UserPermission">
+            <summary>
+            用户权限
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Auth.User.HasPermission(System.String)">
+            <summary>
+            检查用户是否拥有某个权限点
+            </summary>
+            <param name="permissionCode">权限点编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Auth.User.HasPermissions(System.String[],System.Boolean)">
+            <summary>
+            检查用户是否拥有这些权限点
+            </summary>
+            <param name="permissionCodes">权限点编码列表</param>
+            <param name="all">是否全部满足</param>
+            <returns></returns>
         </member>
         <member name="T:ZhonTai.Admin.Core.BaseController">
             <summary>
@@ -1345,6 +1391,13 @@
             </summary>
             <param name="userId">用户Id</param>
             <param name="apiPath">请求接口路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetUserPermissionKey(System.Int64)">
+            <summary>
+            获取数据权限缓存键
+            </summary>
+            <param name="userId">用户Id</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetDataPermissionPattern(System.Int64)">

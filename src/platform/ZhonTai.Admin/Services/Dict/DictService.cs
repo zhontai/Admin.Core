@@ -15,7 +15,6 @@ using ZhonTai.Admin.Repositories;
 using Magicodes.ExporterAndImporter.Excel;
 using Magicodes.ExporterAndImporter.Excel.AspNetCore;
 using ZhonTai.Admin.Resources;
-using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Services.Dict;
 
