@@ -209,11 +209,11 @@ public class HostApp
             //配置Autofac容器
             builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
             {
-                // 控制器注入
-                builder.RegisterModule(new ControllerModule());
-
                 // 生命周期注入
                 builder.RegisterModule(new LifecycleModule(appConfig));
+
+                // 控制器注入
+                builder.RegisterModule(new ControllerModule());
 
                 // 模块注入
                 builder.RegisterModule(new RegisterModule(appConfig));
@@ -288,6 +288,14 @@ public class HostApp
             Environment = env,
             Configuration = configuration
         };
+
+        //多语言
+        if (appConfig.Lang.Enable)
+        {
+            services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
+        }
+
+        services.AddSingleton<AdminLocalizer>();
 
         _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
 
@@ -492,12 +500,6 @@ public class HostApp
             }
         }
         services.AddFluentValidationAutoValidation();
-
-        //多语言
-        if (appConfig.Lang.Enable)
-        {
-            services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
-        }
 
         mvcBuilder.AddNewtonsoftJson(options =>
         {

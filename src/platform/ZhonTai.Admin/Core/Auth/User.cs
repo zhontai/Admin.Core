@@ -9,7 +9,8 @@ using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Services.User.Dto;
 using System.Linq;
-using BaiduBce.Services.Bos.Model;
+using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Core.Exceptions;
 
 namespace ZhonTai.Admin.Core.Auth;
 
@@ -19,10 +20,12 @@ namespace ZhonTai.Admin.Core.Auth;
 public class User : IUser
 {
     private readonly IHttpContextAccessor _accessor;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public User(IHttpContextAccessor accessor)
+    public User(IHttpContextAccessor accessor, AdminLocalizer adminLocalizer)
     {
         _accessor = accessor;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -228,7 +231,7 @@ public class User : IUser
     {
         if (permissionCode.IsNull())
         {
-            throw new ArgumentNullException(nameof(permissionCode), "权限点编码不能为空");
+            throw new AppException(_adminLocalizer["权限点编码不能为空"]);
         }
 
         return HasPermissions([permissionCode]);
@@ -242,9 +245,9 @@ public class User : IUser
     /// <returns></returns>
     public virtual bool HasPermissions(string[] permissionCodes, bool all = false)
     {
-        if (!(permissionCodes?.Length > 0 ))
+        if (!(permissionCodes?.Length > 0))
         {
-            throw new ArgumentException(nameof(permissionCodes), "权限点编码列表不能为空");
+            throw new AppException(_adminLocalizer["权限点编码列表不能为空"]);
         }
 
         if (PlatformAdmin)

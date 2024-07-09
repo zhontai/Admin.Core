@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FreeSql;
-using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;

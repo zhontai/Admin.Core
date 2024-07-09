@@ -99,5 +99,7 @@
   "请输入旧密码": "Please enter your old password",
   "请输入新密码": "Please enter your new password",
   "请输入确认新密码": "Please re-enter your new password for confirmation",
-  "请选择会员": "Please select a member"
+  "请选择会员": "Please select a member",
+  "权限点编码不能为空": "The permission point code cannot be empty",
+  "权限点编码列表不能为空": "The permission point code list cannot be empty"
 }
