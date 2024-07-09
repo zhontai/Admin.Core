@@ -66,7 +66,7 @@ export const useUserInfo = defineStore('userInfo', {
                 authBtnList: res[1].data?.permissions,
               }
 
-              //水印文案
+              // 水印文案
               const storesThemeConfig = useThemeConfig()
               storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || ''
               Local.remove('themeConfig')
