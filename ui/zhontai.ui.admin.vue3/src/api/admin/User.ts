@@ -12,13 +12,13 @@
 import { AxiosResponse } from 'axios'
 import {
   PageInputUserGetPageDto,
-  ResultOutputIListUserPermissionsOutput,
   ResultOutputInt64,
   ResultOutputObject,
   ResultOutputPageOutputUserGetPageOutput,
   ResultOutputString,
   ResultOutputUserGetBasicOutput,
   ResultOutputUserGetOutput,
+  ResultOutputUserGetPermissionOutput,
   UserAddInput,
   UserAddMemberInput,
   UserChangePasswordInput,
@@ -96,14 +96,14 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * No description
    *
    * @tags user
-   * @name GetPermissions
+   * @name GetPermission
    * @summary 查询用户权限信息
-   * @request GET:/api/admin/user/get-permissions
+   * @request GET:/api/admin/user/get-permission
    * @secure
    */
-  getPermissions = (params: RequestParams = {}) =>
-    this.request<ResultOutputIListUserPermissionsOutput, any>({
-      path: `/api/admin/user/get-permissions`,
+  getPermission = (params: RequestParams = {}) =>
+    this.request<ResultOutputUserGetPermissionOutput, any>({
+      path: `/api/admin/user/get-permission`,
       method: 'GET',
       secure: true,
       format: 'json',

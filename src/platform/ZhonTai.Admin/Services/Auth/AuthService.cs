@@ -22,6 +22,7 @@ using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.RolePermission;
@@ -30,6 +31,7 @@ using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
+using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.LoginLog;
@@ -160,8 +162,30 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
-            var profile = await userRep.GetAsync<AuthUserProfileDto>(User.Id);
+            var profile = await userRep
+            .Where(u => u.Id == User.Id)
+            .FirstAsync(u => new AuthUserProfileDto 
+            {
+                DeptName = u.Org.Name,
+                CorpName = u.Tenant.Org.Name,
+                Position = u.Staff.Position
+            });
 
+            var mobile = profile.Mobile?.ToString();
+            var userId = User.Id.ToString();
+            string number = string.Empty;
+            if (mobile.NotNull())
+            {
+                number = mobile.Length >= 4 ? mobile.Substring(mobile.Length - 4) : mobile;
+            }
+
+            if (number.IsNull())
+            {
+                number = userId.Length >= 4 ? userId.Substring(userId.Length - 4) : userId;
+            }
+
+            profile.WatermarkText = $"{profile.Name}@{profile.CorpName} {number}";
+            
             return profile;
         }
     }
@@ -237,11 +261,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
-            var authGetUserPermissionsOutput = new AuthGetUserPermissionsOutput
-            {
-                //用户信息
-                User = await userRep.GetAsync<AuthUserProfileDto>(User.Id)
-            };
+            var authGetUserPermissionsOutput = new AuthGetUserPermissionsOutput();
 
             var dotSelect = permissionRep.Select.Where(a => a.Type == PermissionType.Dot);
 

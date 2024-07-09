@@ -63,5 +63,6 @@ public class UserFormInput
     /// <summary>
     /// 员工
     /// </summary>
+    [Required]
     public StaffAddInput Staff { get; set; }
 }

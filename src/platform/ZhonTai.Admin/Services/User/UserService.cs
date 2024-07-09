@@ -884,7 +884,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         await _userRoleRep.DeleteAsync(a => a.UserId == id);
         await _userOrgRep.DeleteAsync(a => a.UserId == id);
-        await _userStaffRep.SoftDeleteAsync(a => a.Id == id);
+        await _userStaffRep.SoftDeleteAsync(id);
         await _userRep.SoftDeleteAsync(id);
 
         await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(id));
@@ -908,7 +908,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         await _userRoleRep.DeleteAsync(a => ids.Contains(a.UserId));
         await _userOrgRep.DeleteAsync(a => ids.Contains(a.UserId));
-        await _userStaffRep.SoftDeleteAsync(a => ids.Contains(a.Id));
+        await _userStaffRep.SoftDeleteAsync(ids);
         await _userRep.SoftDeleteAsync(ids);
 
         foreach (var userId in ids)

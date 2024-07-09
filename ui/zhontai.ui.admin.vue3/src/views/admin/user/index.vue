@@ -235,7 +235,7 @@ const onDelete = (row: UserGetPageOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
-      await new UserApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
+      await new UserApi().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
     })
     .catch(() => {})

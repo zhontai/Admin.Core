@@ -28,19 +28,23 @@ export function getDescByValue<T extends EnumType>(enumObj: T, value: T[keyof T]
 }
 
 /** 枚举转换为下拉选项列表（使用值作为value） */
-export function toOptionsByValue<T extends EnumType>(enumObj: T): DropdownOption[] {
-  return Object.values(enumObj).map((item) => ({
+export function toOptionsByValue<T extends EnumType>(enumObj: T, includeUnknown: boolean = false): DropdownOption[] {
+  return Object.values(enumObj).reduce((options, item) => {
     if (includeUnknown || item.name !== 'Unknown') {
-    value: item.value,
-  }))
+      options.push({ label: item.desc, value: item.value })
+    }
+    return options
+  }, [] as DropdownOption[])
 }
 
 /** 转换为下拉选项列表（使用名称作为value） */
-export function toOptionsByName<T extends EnumType>(enumObj: T): DropdownOption[] {
-  return Object.values(enumObj).map((item) => ({
-    label: item.desc,
-    value: item.name,
-  }))
+export function toOptionsByName<T extends EnumType>(enumObj: T, includeUnknown: boolean = false): DropdownOption[] {
+  return Object.values(enumObj).reduce((options, item) => {
+    if (includeUnknown || item.name !== 'Unknown') {
+      options.push({ label: item.desc, value: item.name })
+    }
+    return options
+  }, [] as DropdownOption[])
 }
 
 export default {

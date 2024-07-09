@@ -181,6 +181,14 @@ export interface ApiListOutput {
   enabled?: boolean
 }
 
+/** 接口 */
+export interface ApiModel {
+  /** 请求方法 */
+  httpMethods?: string | null
+  /** 请求地址 */
+  path?: string | null
+}
+
 /** 接口同步Dto */
 export interface ApiSyncDto {
   /** 接口名称 */
@@ -232,7 +240,7 @@ export interface AuthGetPasswordEncryptKeyOutput {
   key?: string | null
   /** 密码加密密钥 */
   encryptKey?: string | null
-    /** 密码加密向量 */
+  /** 密码加密向量 */
   iv?: string | null
 }
 
@@ -246,8 +254,6 @@ export interface AuthGetUserInfoOutput {
 }
 
 export interface AuthGetUserPermissionsOutput {
-  /** 用户个人信息 */
-  user?: AuthUserProfileDto
   /** 用户权限列表 */
   permissions?: string[] | null
 }
@@ -343,10 +349,18 @@ export interface AuthUserProfileDto {
   userName?: string | null
   /** 姓名 */
   name?: string | null
+  /** 手机号 */
+  mobile?: string | null
   /** 昵称 */
   nickName?: string | null
   /** 头像 */
   avatar?: string | null
+  /** 企业 */
+  corpName?: string | null
+  /** 职位 */
+  position?: string | null
+  /** 水印文案 */
+  watermarkText?: string | null
 }
 
 export interface CaptchaData {
@@ -2914,18 +2928,6 @@ export interface ResultOutputIEnumerableObject {
 }
 
 /** 结果输出 */
-export interface ResultOutputIListUserPermissionsOutput {
-  /** 是否成功标记 */
-  success?: boolean
-  /** 编码 */
-  code?: string | null
-  /** 消息 */
-  msg?: string | null
-  /** 数据 */
-  data?: UserPermissionsOutput[] | null
-}
-
-/** 结果输出 */
 export interface ResultOutputInt64 {
   /** 是否成功标记 */
   success?: boolean
@@ -3466,6 +3468,18 @@ export interface ResultOutputUserGetOutput {
   /** 消息 */
   msg?: string | null
   data?: UserGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputUserGetPermissionOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 用户权限 */
+  data?: UserGetPermissionOutput
 }
 
 /** 结果输出 */
@@ -4305,7 +4319,7 @@ export interface UserAddInput {
   /** 直属主管姓名 */
   managerUserName?: string | null
   /** 员工添加 */
-  staff?: StaffAddInput
+  staff: StaffAddInput
   /** 密码 */
   password?: string | null
   /** 启用 */
@@ -4505,7 +4519,7 @@ export interface UserGetOutput {
   /** 直属主管姓名 */
   managerUserName?: string | null
   /** 员工添加 */
-  staff?: StaffAddInput
+  staff: StaffAddInput
   /**
    * 主键Id
    * @format int64
@@ -4560,15 +4574,18 @@ export interface UserGetPageOutput {
   createdTime?: string | null
 }
 
+/** 用户权限 */
+export interface UserGetPermissionOutput {
+  /** 接口列表 */
+  apis?: ApiModel[] | null
+  /** 权限点编码列表 */
+  codes?: string[] | null
+}
+
 export interface UserGetRoleDto {
   /** @format int64 */
   id?: number
   name?: string | null
-}
-
-export interface UserPermissionsOutput {
-  httpMethods?: string | null
-  path?: string | null
 }
 
 /** 重置密码 */
@@ -4736,7 +4753,7 @@ export interface UserUpdateInput {
   /** 直属主管姓名 */
   managerUserName?: string | null
   /** 员工添加 */
-  staff?: StaffAddInput
+  staff: StaffAddInput
   /**
    * 主键Id
    * @format int64

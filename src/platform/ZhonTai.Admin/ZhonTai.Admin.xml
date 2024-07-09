@@ -4934,11 +4934,6 @@
             用户权限列表
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserPermissionsOutput.User">
-            <summary>
-            用户个人信息
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetUserPermissionsOutput.Permissions">
             <summary>
             用户权限列表
@@ -5164,6 +5159,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.NickName">
             <summary>
             昵称
@@ -5172,6 +5172,26 @@
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.Avatar">
             <summary>
             头像
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.CorpName">
+            <summary>
+            企业
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.Position">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.DeptName">
+            <summary>
+            主属部门
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthUserProfileDto.WatermarkText">
+            <summary>
+            水印文案
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Auth.IAuthService">
