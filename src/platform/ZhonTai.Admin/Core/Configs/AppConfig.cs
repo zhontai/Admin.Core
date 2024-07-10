@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using Yitter.IdGenerator;
@@ -100,7 +101,13 @@ public class AppConfig
     /// <summary>
     /// 最大请求大小
     /// </summary>
-    public long MaxRequestBodySize { get; set; } = 104857600;
+    [Obsolete("请使用 Kestrel: { MaxRequestBodySize: 104857600 }配置")]
+    public long? MaxRequestBodySize { get; set; } = 104857600;
+
+    /// <summary>
+    /// Kestrel服务器
+    /// </summary>
+    public KestrelConfig Kestrel { get; set; } = new KestrelConfig();
 
     /// <summary>
     /// 健康检查配置
@@ -126,6 +133,27 @@ public class AppConfig
     /// 语言配置
     /// </summary>
     public LangConfig Lang { get; set; }
+}
+
+/// <summary>
+/// Kestrel服务器配置
+/// </summary>
+public class KestrelConfig
+{
+    /// <summary>
+    /// HTTP连接保活最长时间，单位秒
+    /// </summary>
+    public double KeepAliveTimeout { get; set; } = 130;
+
+    /// <summary>
+    /// 发送请求头最长时间，单位秒
+    /// </summary>
+    public double RequestHeadersTimeout { get; set; } = 30;
+
+    /// <summary>
+    /// 最大请求大小，单位bytes
+    /// </summary>
+    public long? MaxRequestBodySize { get; set; } = 30000000;
 }
 
 /// <summary>

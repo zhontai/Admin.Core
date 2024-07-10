@@ -103,8 +103,15 @@
     },
     //实现标准标识密码哈希，启用后相同密码加密后各不相同
     "passwordHasher": false,
-    //最大请求大小
-    "maxRequestBodySize": 104857600,
+    //Kestrel服务器配置
+    "Kestrel": {
+      //HTTP连接保活最长时间，单位秒，600 = 10 分钟
+      "KeepAliveTimeout": 600,
+      //发送请求头最长时间，单位秒，600 = 10 分钟
+      "RequestHeadersTimeout": 600,
+      //最大请求大小，单位 bytes, 设置 null 不限制大小，104857600 = 100 MB
+      "maxRequestBodySize": 104857600
+    },
     //健康检查
     "healthChecks": {
       //启用

@@ -222,10 +222,11 @@ public class HostApp
             });
 
             //配置Kestrel服务器
-            builder.WebHost.ConfigureKestrel((context, options) =>
+            builder.WebHost.ConfigureKestrel(options =>
             {
-                //设置应用服务器Kestrel请求体最大为100MB
-                options.Limits.MaxRequestBodySize = appConfig.MaxRequestBodySize;
+                options.Limits.KeepAliveTimeout = TimeSpan.FromSeconds(appConfig.Kestrel.KeepAliveTimeout);
+                options.Limits.RequestHeadersTimeout = TimeSpan.FromSeconds(appConfig.Kestrel.RequestHeadersTimeout);
+                options.Limits.MaxRequestBodySize = appConfig.Kestrel.MaxRequestBodySize;
             });
 
             //访问地址
