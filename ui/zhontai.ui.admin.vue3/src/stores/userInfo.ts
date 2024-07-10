@@ -67,10 +67,12 @@ export const useUserInfo = defineStore('userInfo', {
               }
 
               // 水印文案
-              const storesThemeConfig = useThemeConfig()
-              storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || ''
-              Local.remove('themeConfig')
-              Local.set('themeConfig', storesThemeConfig.themeConfig)
+              if (user?.watermarkText) {
+                const storesThemeConfig = useThemeConfig()
+                storesThemeConfig.themeConfig.watermarkText = user?.watermarkText
+                Local.remove('themeConfig')
+                Local.set('themeConfig', storesThemeConfig.themeConfig)
+              }
 
               resolve(userInfos)
             } else {
