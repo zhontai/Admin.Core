@@ -3,6 +3,7 @@ import { AuthApi } from '/@/api/admin/Auth'
 import { merge } from 'lodash-es'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
+import Watermark from '/@/utils/watermark'
 
 export const adminTokenKey = 'admin-token'
 
@@ -67,11 +68,14 @@ export const useUserInfo = defineStore('userInfo', {
               }
 
               // 水印文案
-              if (user?.watermarkText) {
-                const storesThemeConfig = useThemeConfig()
-                storesThemeConfig.themeConfig.watermarkText = user?.watermarkText
+              const storesThemeConfig = useThemeConfig()
+              if (storesThemeConfig.themeConfig.isWatermark) {
+                storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || '中台Admin'
+                Watermark.set(storesThemeConfig.themeConfig.watermarkText)
                 Local.remove('themeConfig')
                 Local.set('themeConfig', storesThemeConfig.themeConfig)
+              } else {
+                Watermark.del()
               }
 
               resolve(userInfos)

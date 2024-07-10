@@ -159,35 +159,33 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         var userRep = _userRep.Value;
+        using var _u = userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data);
 
-        using (userRep.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
+        var profile = await userRep
+        .Where(u => u.Id == User.Id)
+        .FirstAsync(u => new AuthUserProfileDto 
         {
-            var profile = await userRep
-            .Where(u => u.Id == User.Id)
-            .FirstAsync(u => new AuthUserProfileDto 
-            {
-                DeptName = u.Org.Name,
-                CorpName = u.Tenant.Org.Name,
-                Position = u.Staff.Position
-            });
+            DeptName = u.Org.Name,
+            CorpName = u.Tenant.Org.Name,
+            Position = u.Staff.Position
+        });
 
-            var mobile = profile.Mobile?.ToString();
-            var userId = User.Id.ToString();
-            string number = string.Empty;
-            if (mobile.NotNull())
-            {
-                number = mobile.Length >= 4 ? mobile.Substring(mobile.Length - 4) : mobile;
-            }
-
-            if (number.IsNull())
-            {
-                number = userId.Length >= 4 ? userId.Substring(userId.Length - 4) : userId;
-            }
-
-            profile.WatermarkText = $"{profile.Name}@{profile.CorpName} {number}";
-            
-            return profile;
+        var mobile = profile.Mobile?.ToString();
+        string number = string.Empty;
+        if (mobile.NotNull())
+        {
+            number = mobile.Length >= 4 ? mobile.Substring(mobile.Length - 4) : mobile;
         }
+
+        if (number.IsNull())
+        {
+            var userId = User.Id.ToString();
+            number = userId.Length >= 4 ? userId.Substring(userId.Length - 4) : userId;
+        }
+
+        profile.WatermarkText = $"{profile.Name}@{profile.CorpName} {number}";
+            
+        return profile;
     }
    
     /// <summary>
