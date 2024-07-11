@@ -587,6 +587,90 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     }
 
     /// <summary>
+    /// 邮箱登录
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<dynamic> EmailLoginAsync(AuthEmailLoginInput input)
+    {
+        var userRep = _userRep.Value;
+
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
+
+        var stopwatch = Stopwatch.StartNew();
+
+        #region 邮箱验证码验证
+        if (input.CodeId.IsNull() || input.Code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        var codeKey = CacheKeys.GetEmailCodeKey(input.Email, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+
+        #endregion
+
+        #region 登录
+        var user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
+        if (!(user?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+        }
+
+        if (!user.Enabled)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
+        }
+        #endregion
+
+        #region 获得token
+        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+        if (_appConfig.Value.Value.Tenant)
+        {
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            if (!(tenant != null && tenant.Enabled))
+            {
+                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+            }
+            authLoginOutput.Tenant = tenant;
+        }
+        string token = GetToken(authLoginOutput);
+        #endregion
+
+        stopwatch.Stop();
+
+        #region 添加登录日志
+
+        var loginLogAddInput = new LoginLogAddInput
+        {
+            TenantId = authLoginOutput.TenantId,
+            Name = authLoginOutput.Name,
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
+            Status = true,
+            CreatedUserId = authLoginOutput.Id,
+            CreatedUserName = user.UserName,
+        };
+
+        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
+
+        #endregion 添加登录日志
+
+        return new { token };
+    }
+
+    /// <summary>
     /// 刷新Token
     /// 以旧换新
     /// </summary>

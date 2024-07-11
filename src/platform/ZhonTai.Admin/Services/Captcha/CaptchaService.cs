@@ -14,6 +14,7 @@ using System;
 using ZhonTai.Common.Helpers;
 using DotNetCore.CAP;
 using ZhonTai.Admin.Services.Captcha.Dto;
+using ZhonTai.Admin.Services.Msg.Events;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -94,11 +95,53 @@ public class CaptchaService : BaseService, IDynamicApi
         var code = StringHelper.GenerateRandomNumber();
         await Cache.SetAsync(CacheKeys.GetSmsCodeKey(input.Mobile, codeId), code, TimeSpan.FromMinutes(5));
 
-        //发送短信
-        await _capPublisher.PublishAsync(SubscribeNames.SmsSingleSend, new
+        //发送短信验证码
+        await _capPublisher.PublishAsync(SubscribeNames.SmsSendCode, new
         {
             input.Mobile,
             Text = code
+        });
+
+        return codeId;
+    }
+
+    /// <summary>
+    /// 发送邮件验证码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task<string> SendEmailCodeAsync(SendEmailCodeInput input)
+    {
+        if (input.Email.IsNull())
+        {
+            throw ResultOutput.Exception("请输入邮件地址");
+        }
+
+        if (input.CaptchaId.IsNull() || input.Track == null)
+        {
+            throw ResultOutput.Exception("请完成安全验证");
+        }
+
+        var validateResult = _captcha.Validate(input.CaptchaId, input.Track);
+        if (validateResult.Result != ValidateResultType.Success)
+        {
+            throw ResultOutput.Exception($"安全{validateResult.Message}");
+        }
+
+        var codeId = input.CodeId.IsNull() ? Guid.NewGuid().ToString() : input.CodeId;
+        var code = StringHelper.GenerateRandomNumber();
+        await Cache.SetAsync(CacheKeys.GetEmailCodeKey(input.Email, codeId), code, TimeSpan.FromMinutes(5));
+
+        //发送邮箱验证码
+        await _capPublisher.PublishAsync(SubscribeNames.EmailSendCode, new EmailSendCodeEvent
+        {
+            ToEmail = new EmailSendCodeEvent.Models.EmailModel
+            {
+                Address = input.Email,
+            },
+            Code = code,
         });
 
         return codeId;

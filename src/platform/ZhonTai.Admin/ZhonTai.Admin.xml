@@ -1402,11 +1402,24 @@
             短信验证码 admin:sms:code:guid
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.CacheKeys.EmailCode">
+            <summary>
+            邮箱验证码 admin:email:code:guid
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetSmsCodeKey(System.String,System.String)">
             <summary>
             获取短信验证码缓存键
             </summary>
             <param name="mobile">手机号</param>
+            <param name="code">唯一码</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Consts.CacheKeys.GetEmailCodeKey(System.String,System.String)">
+            <summary>
+            获取邮箱验证码缓存键
+            </summary>
+            <param name="email">邮件地址</param>
             <param name="code">唯一码</param>
             <returns></returns>
         </member>
@@ -1487,9 +1500,19 @@
             短信单发
             </summary>
         </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.SmsSendCode">
+            <summary>
+            短信验证码发送
+            </summary>
+        </member>
         <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.EmailSingleSend">
             <summary>
             邮件单发
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Consts.SubscribeNames.EmailSendCode">
+            <summary>
+            邮箱验证码发送
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Conventions.ApiGroupConvention">
@@ -4915,6 +4938,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.EmailLoginAsync(ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput)">
+            <summary>
+            邮箱登录
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.Refresh(System.String)">
             <summary>
             刷新Token
@@ -4928,6 +4958,26 @@
             是否开启验证码
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput">
+            <summary>
+            邮箱登录信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput.Email">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput.CodeId">
+            <summary>
+            验证码Id
+            </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthGetPasswordEncryptKeyOutput.Key">
             <summary>
@@ -5325,6 +5375,38 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Cache.CaptchaService.SendEmailCodeAsync(ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput)">
+            <summary>
+            发送邮件验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput">
+            <summary>
+            发送邮件验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput.Email">
+            <summary>
+            邮件地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput.CodeId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput.CaptchaId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Captcha.Dto.SendEmailCodeInput.Track">
+            <summary>
+            滑动轨迹
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Captcha.Dto.SendSmsCodeInput">
             <summary>
@@ -6213,49 +6295,86 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Msg.EmailService.SingleSendAsync(ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent)">
+        <member name="M:ZhonTai.Admin.Services.Msg.EmailService.SingleSendAsync(ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent)">
             <summary>
             邮件单发
             </summary>
             <param name="event"></param>
             <returns></returns>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent">
+        <member name="M:ZhonTai.Admin.Services.Msg.EmailService.SendCodeAsync(ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent)">
             <summary>
-            邮件单发
+            发送邮箱验证码
+            </summary>
+            <param name="event"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent">
+            <summary>
+            邮箱验证码
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel">
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent.Models.EmailModel">
             <summary>
             邮箱
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Name">
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent.Models.EmailModel.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Models.EmailModel.Address">
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent.Models.EmailModel.Address">
             <summary>
             地址
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.FromEmail">
-            <summary>
-            发件人
-            </summary>
-        </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.ToEmail">
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent.ToEmail">
             <summary>
             收件人
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Subject">
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSendCodeEvent.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent">
+            <summary>
+            邮件单发
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.Models.EmailModel">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.Models.EmailModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.Models.EmailModel.Address">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.FromEmail">
+            <summary>
+            发件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.ToEmail">
+            <summary>
+            收件人
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.Subject">
             <summary>
             邮件标题
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.Msg.Events.EamilSingleSendEvent.Body">
+        <member name="P:ZhonTai.Admin.Services.Msg.Events.EmailSingleSendEvent.Body">
             <summary>
             邮件内容
             </summary>

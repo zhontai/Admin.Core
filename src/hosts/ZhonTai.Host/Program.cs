@@ -193,9 +193,9 @@ new HostApp(new HostAppOptions
                             }
                             alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
                             {
-                                await emailService.SingleSendAsync(new EamilSingleSendEvent
+                                await emailService.SingleSendAsync(new EmailSingleSendEvent
                                 {
-                                    ToEmail = new EamilSingleSendEvent.Models.EmailModel
+                                    ToEmail = new EmailSingleSendEvent.Models.EmailModel
                                     {
                                         Address = address,
                                         Name = address

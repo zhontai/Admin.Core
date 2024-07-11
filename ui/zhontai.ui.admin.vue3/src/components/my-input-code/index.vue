@@ -30,6 +30,7 @@
 <script lang="ts" setup name="my-input-code">
 import { reactive, defineAsyncComponent, ref, computed } from 'vue'
 import { isMobile } from '/@/utils/test'
+import { verifyEmail } from '/@/utils/toolsValidate'
 import { ElMessage } from 'element-plus'
 import { CaptchaApi } from '/@/api/admin/Captcha'
 
@@ -59,6 +60,10 @@ const props = defineProps({
     default: '重新发送验证码',
   },
   mobile: {
+    type: String,
+    default: '',
+  },
+  email: {
     type: String,
     default: '',
   },
@@ -118,13 +123,21 @@ const onOk = async (data: any) => {
 
   //发送短信验证码
   state.loading.getCode = true
-  const res = await new CaptchaApi()
-    .sendSmsCode({
-      mobile: props.mobile,
-      captchaId: data.captchaId,
-      track: data.track,
-      codeId: state.codeId,
-    })
+  const api = props.mobile
+    ? new CaptchaApi().sendSmsCode({
+        mobile: props.mobile,
+        captchaId: data.captchaId,
+        track: data.track,
+        codeId: state.codeId,
+      })
+    : new CaptchaApi().sendEmailCode({
+        email: props.email,
+        captchaId: data.captchaId,
+        track: data.track,
+        codeId: state.codeId,
+      })
+
+  const res = await api
     .catch(() => {})
     .finally(() => {
       state.loading.getCode = false
@@ -139,10 +152,18 @@ const onOk = async (data: any) => {
 
 //获得验证码
 const getCode = () => {
-  //验证手机号
-  if (!isMobile(props.mobile)) {
-    ElMessage.warning({ message: '请输入正确的手机号码', grouping: true })
-    return
+  if (props.mobile) {
+    //验证手机号
+    if (!isMobile(props.mobile)) {
+      ElMessage.warning({ message: '请输入正确的手机号码', grouping: true })
+      return
+    }
+  } else {
+    //验证邮箱
+    if (!verifyEmail(props.email)) {
+      ElMessage.warning({ message: '请输入正确的邮件地址', grouping: true })
+      return
+    }
   }
 
   state.showDialog = true

@@ -29,6 +29,9 @@
                   <el-tab-pane :label="$t('message.label.two2')" name="mobile">
                     <Mobile />
                   </el-tab-pane>
+                  <el-tab-pane :label="$t('message.label.two3')" name="email">
+                    <Email />
+                  </el-tab-pane>
                 </el-tabs>
               </div>
               <Scan v-if="state.isScan" />
@@ -56,6 +59,7 @@ import loginBg from '/@/assets/login-bg.svg'
 // 引入组件
 const Account = defineAsyncComponent(() => import('./component/account.vue'))
 const Mobile = defineAsyncComponent(() => import('./component/mobile.vue'))
+const Email = defineAsyncComponent(() => import('./component/email.vue'))
 const Scan = defineAsyncComponent(() => import('./component/scan.vue'))
 
 // 定义变量内容

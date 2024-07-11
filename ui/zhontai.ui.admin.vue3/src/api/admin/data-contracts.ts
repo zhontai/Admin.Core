@@ -235,6 +235,25 @@ export interface ApiUpdateInput {
   id: number
 }
 
+/** 邮箱登录信息 */
+export interface AuthEmailLoginInput {
+  /**
+   * 邮件地址
+   * @minLength 1
+   */
+  email: string
+  /**
+   * 验证码
+   * @minLength 1
+   */
+  code: string
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  codeId: string
+}
+
 export interface AuthGetPasswordEncryptKeyOutput {
   /** 缓存键 */
   key?: string | null
@@ -359,6 +378,8 @@ export interface AuthUserProfileDto {
   corpName?: string | null
   /** 职位 */
   position?: string | null
+  /** 主属部门 */
+  deptName?: string | null
   /** 水印文案 */
   watermarkText?: string | null
 }
@@ -3775,6 +3796,23 @@ export interface RoleUpdateInput {
    * @format int64
    */
   id: number
+}
+
+/** 发送邮件验证码 */
+export interface SendEmailCodeInput {
+  /**
+   * 邮件地址
+   * @minLength 1
+   */
+  email: string
+  /** 验证码Id */
+  codeId?: string | null
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  captchaId: string
+  track: SlideTrack
 }
 
 /** 发送短信验证码 */

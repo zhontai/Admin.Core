@@ -11,11 +11,23 @@ public class SubscribeNames
     /// 短信单发
     /// </summary>
     [Description("短信单发")]
-    public static string SmsSingleSend = "zhontai.admin.smsSingleSend";
+    public const string SmsSingleSend = "zhontai.admin.sms:singleSend";
+
+    /// <summary>
+    /// 短信验证码发送
+    /// </summary>
+    [Description("短信验证码发送")]
+    public const string SmsSendCode = "zhontai.admin.sms:sendCode";
 
     /// <summary>
     /// 邮件单发
     /// </summary>
     [Description("邮件单发")]
-    public static string EmailSingleSend = "zhontai.admin.emailSingleSend";
+    public const string EmailSingleSend = "zhontai.admin.email:singleSend";
+
+    /// <summary>
+    /// 邮箱验证码发送
+    /// </summary>
+    [Description("邮箱验证码发送")]
+    public const string EmailSendCode = "zhontai.admin.email:sendCode";
 }

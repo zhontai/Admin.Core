@@ -9,7 +9,14 @@
  * ---------------------------------------------------------------
  */
 
-import { ResultOutputCaptchaData, ResultOutputString, ResultOutputValidateResult, SendSmsCodeInput, SlideTrack } from './data-contracts'
+import {
+  ResultOutputCaptchaData,
+  ResultOutputString,
+  ResultOutputValidateResult,
+  SendEmailCodeInput,
+  SendSmsCodeInput,
+  SlideTrack,
+} from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
 export class CaptchaApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
@@ -76,6 +83,25 @@ export class CaptchaApi<SecurityDataType = unknown> extends HttpClient<SecurityD
   sendSmsCode = (data: SendSmsCodeInput, params: RequestParams = {}) =>
     this.request<ResultOutputString, any>({
       path: `/api/admin/captcha/send-sms-code`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags captcha
+   * @name SendEmailCode
+   * @summary 发送邮件验证码
+   * @request POST:/api/admin/captcha/send-email-code
+   * @secure
+   */
+  sendEmailCode = (data: SendEmailCodeInput, params: RequestParams = {}) =>
+    this.request<ResultOutputString, any>({
+      path: `/api/admin/captcha/send-email-code`,
       method: 'POST',
       body: data,
       secure: true,

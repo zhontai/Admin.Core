@@ -5,7 +5,7 @@ namespace ZhonTai.Admin.Services.Msg.Events;
 /// <summary>
 /// 邮件单发
 /// </summary>
-public class EamilSingleSendEvent
+public class EmailSingleSendEvent
 {
     public static class Models 
     {
