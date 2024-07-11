@@ -235,7 +235,17 @@ public class FileService : BaseService, IFileService, IDynamicApi
         }
         else
         {
-            fileEntity.LinkUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host.Value}/{filePath}";
+            string scheme = _httpContextAccessor.HttpContext.Request.Scheme;
+            string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+            string domainName = $"{scheme}://{host}";
+
+            if (_httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Forwarded-Proto", out var forwardedProto) &&
+                _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Forwarded-Host", out var forwardedHost))
+            {
+                domainName = $"{forwardedProto.FirstOrDefault()}://{forwardedHost.FirstOrDefault()}";
+            }
+
+            fileEntity.LinkUrl = $"{(domainName.EndsWith("/") ? domainName : domainName + "/")}{filePath}";
         }
 
         if (enableOss)
