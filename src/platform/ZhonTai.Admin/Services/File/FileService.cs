@@ -134,7 +134,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
 
         var extention = Path.GetExtension(file.FileName).ToLower();
         var hasIncludeExtension = localUploadConfig.IncludeExtension?.Length > 0;
-        if(hasIncludeExtension && !localUploadConfig.IncludeExtension.Contains(extention))
+        if (hasIncludeExtension && !localUploadConfig.IncludeExtension.Contains(extention))
         {
             throw new Exception(_adminLocalizer["不允许上传{0}文件格式", extention]);
         }
@@ -145,11 +145,11 @@ public class FileService : BaseService, IFileService, IDynamicApi
         }
 
         var fileLenth = file.Length;
-        if(fileLenth > localUploadConfig.MaxSize) 
+        if (fileLenth > localUploadConfig.MaxSize)
         {
             throw new Exception(_adminLocalizer["文件大小不能超过{0}", new FileSize(localUploadConfig.MaxSize)]);
         }
-       
+
         var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == _oSSConfig.Provider).FirstOrDefault();
         var enableOss = oSSOptions != null && oSSOptions.Enable;
         var enableMd5 = enableOss ? oSSOptions.Md5 : localUploadConfig.Md5;
@@ -239,7 +239,11 @@ public class FileService : BaseService, IFileService, IDynamicApi
             string host = _httpContextAccessor.HttpContext.Request.Host.Value;
             string domainName = $"{scheme}://{host}";
 
-            if (_httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Forwarded-Proto", out var forwardedProto) &&
+            if (_httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Original", out var original))
+            {
+                domainName = original.FirstOrDefault();
+            }
+            else if (_httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Forwarded-Proto", out var forwardedProto) &&
                 _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("X-Forwarded-Host", out var forwardedHost))
             {
                 domainName = $"{forwardedProto.FirstOrDefault()}://{forwardedHost.FirstOrDefault()}";
@@ -265,7 +269,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
             filePath = Path.Combine(env.WebRootPath, filePath).ToPath();
             await uploadHelper.SaveAsync(file, filePath);
         }
-       
+
         fileEntity = await _fileRep.InsertAsync(fileEntity);
 
         return fileEntity;
