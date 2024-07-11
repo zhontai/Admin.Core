@@ -37,7 +37,11 @@ public class IPHelper
         {
             ip = request.HttpContext?.Connection?.RemoteIpAddress?.ToString();
         }
-        if (ip.IsNull() || !IsIP(ip.Split(":")[0]))
+        if (ip.IsNull())
+        {
+            ip = ip.Split(":")?.FirstOrDefault();
+        }
+        if (ip.IsNull() || !IsIP(ip))
         {
             ip = "127.0.0.1";
         }
