@@ -23,7 +23,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入短信验证码', trigger: ['blur', 'change'] }]">
+      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入邮箱验证码', trigger: ['blur', 'change'] }]">
         <MyInputCode v-model="state.ruleForm.code" @keyup.enter="onSignIn" :email="state.ruleForm.email" :validate="validate" @send="onSend" />
       </el-form-item>
       <el-form-item class="login-animation3">
