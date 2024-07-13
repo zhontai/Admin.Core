@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using FreeSql.DataAnnotations;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Entities;
+using FreeSql;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
@@ -125,5 +127,65 @@ public abstract class SyncData
         var data = JsonConvert.DeserializeObject<T[]>(jsonData);
 
         return data;
+    }
+
+    /// <summary>
+    /// 同步实体数据
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="unitOfWork"></param>
+    /// <param name="dbConfig">模块数据库配置</param>
+    /// <param name="appConfig">应用配置</param>
+    /// <param name="readPath">读取数据路径 InitData/xxx </param>
+    /// <returns></returns>
+    protected virtual async Task SyncEntityAsync<T>(IFreeSql db, IRepositoryUnitOfWork unitOfWork, DbConfig dbConfig, AppConfig appConfig, string readPath) where T : EntityBase, new()
+    {
+        var tableName = GetTableName<T>();
+        try
+        {
+            if (!IsSyncData(tableName, dbConfig))
+            {
+                return;
+            }
+            var isTenant = appConfig.Tenant && typeof(T).IsAssignableFrom(typeof(EntityTenant));
+            var rep = db.GetRepository<T>();
+            rep.UnitOfWork = unitOfWork;
+
+            //数据列表
+            var dataList = GetData<T>(isTenant, readPath);
+
+            if (!(dataList?.Length > 0))
+            {
+                Console.WriteLine($"table: {tableName} import data []");
+                return;
+            }
+
+            //查询
+            var ids = dataList.Select(e => e.Id).ToList();
+            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+
+            //新增
+            var recordIds = recordList.Select(a => a.Id).ToList();
+            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            if (insertDataList.Any())
+            {
+                await rep.InsertAsync(insertDataList);
+            }
+
+            //修改
+            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            {
+                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
+                await rep.UpdateAsync(updateDataList);
+            }
+
+            Console.WriteLine($"table: {tableName} sync data succeed");
+        }
+        catch (Exception ex)
+        {
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
+        }
     }
 }
