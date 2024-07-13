@@ -1,7 +1,7 @@
 type EnumType = {
   [key: string]: {
     name: string
-    value: number | string // 枚举值可以是数字或字符串
+    value: number | string
     desc: string
   }
 }

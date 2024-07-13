@@ -1,8 +1,8 @@
 // 定义内容
 export default {
   label: {
-    one1: 'User name login',
-    two2: 'Mobile number login',
+    one1: 'Account login',
+    two2: 'Mobile login',
     two3: 'Email login',
   },
   link: {
@@ -10,9 +10,8 @@ export default {
     two4: 'Links',
   },
   account: {
-    accountPlaceholder1: 'The user name',
-    accountPlaceholder2: 'Password',
-    accountPlaceholder3: 'Please enter the verification code',
+    accountPlaceholder1: 'Please input account',
+    accountPlaceholder2: 'Please input Password',
     accountBtnText: 'Sign in',
   },
   mobile: {

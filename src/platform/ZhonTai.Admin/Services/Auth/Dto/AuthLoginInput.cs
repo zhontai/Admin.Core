@@ -7,11 +7,47 @@ namespace ZhonTai.Admin.Services.Auth.Dto;
 /// </summary>
 public class AuthLoginInput
 {
+    public static class Models
+    {
+        /// <summary>
+        /// 账户类型
+        /// </summary>
+        public enum AccountType
+        {
+            /// <summary>
+            /// 账号
+            /// </summary>
+            UserName = 1,
+            /// <summary>
+            /// 手机
+            /// </summary>
+            Mobile = 2,
+            /// <summary>
+            /// 邮箱
+            /// </summary>
+            Email = 3
+        }
+    }
+
     /// <summary>
     /// 账号
     /// </summary>
-    [Required(ErrorMessage = "用户名不能为空")]
     public string UserName { get; set; }
+
+    /// <summary>
+    /// 手机号
+    /// </summary>
+    public string Mobile { get; set; }
+
+    /// <summary>
+    /// 邮箱地址
+    /// </summary>
+    public string Email { get; set; }
+
+    /// <summary>
+    /// 账户类型
+    /// </summary>
+    public Models.AccountType AccountType { get; set; }
 
     /// <summary>
     /// 密码

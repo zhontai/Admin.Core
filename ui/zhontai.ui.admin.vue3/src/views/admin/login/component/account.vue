@@ -1,7 +1,15 @@
 <template>
   <div>
     <el-form ref="formRef" :model="state.ruleForm" size="large" class="login-content-form">
-      <el-form-item class="login-animation1" prop="userName" :rules="[{ required: true, message: '请输入用户名', trigger: ['blur', 'change'] }]">
+      <div class="login-title">
+        <span class="login-title-showy">{{ getDescByValue(AccountType, state.ruleForm.accountType as number) }}密码</span>登录
+      </div>
+      <el-form-item
+        v-if="state.ruleForm.accountType == AccountType.UserName.value"
+        class="login-animation1"
+        prop="userName"
+        :rules="[{ required: true, message: '请输入账号', trigger: ['blur', 'change'] }]"
+      >
         <el-input
           text
           :placeholder="$t('message.account.accountPlaceholder1')"
@@ -12,6 +20,53 @@
         >
           <template #prefix>
             <el-icon class="el-input__icon"><ele-User /></el-icon>
+          </template>
+        </el-input>
+      </el-form-item>
+      <el-form-item
+        v-if="state.ruleForm.accountType == AccountType.Mobile.value"
+        class="login-animation1"
+        prop="mobile"
+        :rules="[
+          { required: true, message: '请输入手机号', trigger: ['blur', 'change'] },
+          { validator: testMobile, trigger: ['blur', 'change'] },
+        ]"
+      >
+        <el-input
+          ref="phoneRef"
+          text
+          :placeholder="$t('message.mobile.placeholder1')"
+          maxlength="11"
+          v-model="state.ruleForm.mobile"
+          clearable
+          autocomplete="off"
+          @keyup.enter="onSignIn"
+        >
+          <template #prefix>
+            <el-icon class="el-input__icon"><ele-Iphone /></el-icon>
+          </template>
+        </el-input>
+      </el-form-item>
+      <el-form-item
+        v-if="state.ruleForm.accountType == AccountType.Email.value"
+        class="login-animation1"
+        prop="email"
+        :rules="[
+          { required: true, message: '请输入邮箱地址', trigger: ['blur', 'change'] },
+          { validator: testEmail, trigger: ['blur', 'change'] },
+        ]"
+      >
+        <el-input
+          ref="phoneRef"
+          text
+          :placeholder="$t('message.email.placeholder1')"
+          v-model="state.ruleForm.email"
+          clearable
+          autocomplete="off"
+          @keyup.enter="onSignIn"
+        >
+          <template #prefix>
+            <el-icon class="el-input__icon"><ele-Promotion /></el-icon>
           </template>
         </el-input>
       </el-form-item>
@@ -36,27 +91,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <!-- <el-form-item class="login-animation3">
-      <el-col :span="15">
-        <el-input
-          text
-          maxlength="4"
-          :placeholder="$t('message.account.accountPlaceholder3')"
-          v-model="state.ruleForm.code"
-          clearable
-          autocomplete="off"
-        >
-          <template #prefix>
-            <el-icon class="el-input__icon"><ele-Position /></el-icon>
-          </template>
-        </el-input>
-      </el-col>
-      <el-col :span="1"></el-col>
-      <el-col :span="8">
-        <el-button class="login-content-code" v-waves>1234</el-button>
-      </el-col>
-    </el-form-item> -->
-      <el-form-item class="login-animation4">
+      <el-form-item class="login-animation4 mb12">
         <el-button
           type="primary"
           class="login-content-submit"
@@ -69,30 +104,55 @@
           <span>{{ $t('message.account.accountBtnText') }}</span>
         </el-button>
       </el-form-item>
+      <div
+        class="login-animation4 my-flex f12 mt10"
+        :class="state.ruleForm.accountType == AccountType.UserName.value ? 'my-flex-end' : 'my-flex-between'"
+      >
+        <el-link
+          v-if="state.ruleForm.accountType == AccountType.Mobile.value"
+          :underline="false"
+          type="primary"
+          class="f12"
+          @click="loginComponentName = LoginComponentType.Mobile.name"
+          >手机验证码登录</el-link
+        >
+        <el-link
+          v-if="state.ruleForm.accountType == AccountType.Email.value"
+          :underline="false"
+          type="primary"
+          class="f12"
+          @click="loginComponentName = LoginComponentType.Email.name"
+          >邮箱验证码登录</el-link
+        >
+        <el-link :underline="false" type="primary" class="f12">忘记密码</el-link>
+      </div>
     </el-form>
     <MyCaptchaDialog ref="myCaptchaDialogRef" v-model="state.showDialog" @ok="onOk" />
   </div>
 </template>
 
 <script setup lang="ts" name="loginAccount">
-import { reactive, computed, ref, defineAsyncComponent } from 'vue'
+import { reactive, computed, ref, defineAsyncComponent, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { sm4 } from 'sm-crypto-v2'
-// import Cookies from 'js-cookie'
-// import { storeToRefs } from 'pinia'
-// import { useThemeConfig } from '/@/stores/themeConfig'
-// import { initFrontEndControlRoutes } from '/@/router/frontEnd'
 import { initBackEndControlRoutes } from '/@/router/backEnd'
 import { Session } from '/@/utils/storage'
 import { formatAxis } from '/@/utils/formatTime'
 import { NextLoading } from '/@/utils/loading'
 import { AuthApi } from '/@/api/admin/Auth'
-import { AuthLoginInput } from '/@/api/admin/data-contracts'
+import { AuthLoginInput, AccountType as AccountTypeEnum } from '/@/api/admin/data-contracts'
 import { useUserInfo } from '/@/stores/userInfo'
+import { cloneDeep } from 'lodash-es'
+import { testMobile, testEmail } from '/@/utils/test'
+import { AccountType } from '/@/api/admin/enum-contracts'
+import { getDescByValue } from '/@/utils/enum'
+import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
 
 const MyCaptchaDialog = defineAsyncComponent(() => import('/@/components/my-captcha/dialog.vue'))
+const loginComponentName = defineModel('loginComponentName', { type: String })
+const accountType = defineModel('accountType', { type: Number, default: AccountType.UserName.value })
 
 // 定义变量内容
 const { t } = useI18n()
@@ -108,6 +168,9 @@ const state = reactive({
   isShowPassword: false,
   ruleForm: {
     userName: '',
+    mobile: '',
+    email: '',
+    accountType: accountType.value,
     password: '',
     captchaId: '',
     captchaData: '',
@@ -137,15 +200,16 @@ const onOk = (data: any) => {
 //登录
 const login = async () => {
   state.loading.signIn = true
+  const loginForm = cloneDeep(state.ruleForm)
   //登录时获取SM4加密参数
   const resPwd = await new AuthApi().getPasswordEncryptKey()
   if (resPwd && resPwd.success) {
-    state.ruleForm.passwordKey = resPwd.data?.key
-    let encryptData = sm4.encrypt(state.ruleForm.password, resPwd.data?.encryptKey as string, { mode: 'cbc', iv: resPwd.data?.iv as string })
-    state.ruleForm.password = encryptData.toString()
+    loginForm.passwordKey = resPwd.data?.key
+    let encryptData = sm4.encrypt(loginForm.password, resPwd.data?.encryptKey as string, { mode: 'cbc', iv: resPwd.data?.iv as string })
+    loginForm.password = encryptData.toString()
   }
 
-  const res = await new AuthApi().login(state.ruleForm).catch(() => {
+  const res = await new AuthApi().login(loginForm).catch(() => {
     state.loading.signIn = false
   })
   if (!res?.success) {
@@ -211,11 +275,22 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
   }
   state.loading.signIn = false
 }
+
+watchEffect(() => {
+  state.ruleForm.accountType = accountType.value as AccountTypeEnum
+})
 </script>
 
 <style scoped lang="scss">
 .login-content-form {
-  margin-top: 20px;
+  .login-title {
+    margin-bottom: 50px;
+    font-size: 27px;
+    text-align: center;
+    letter-spacing: 3px;
+    color: var(--el-text-color-primary);
+    position: relative;
+  }
   @for $i from 1 through 4 {
     .login-animation#{$i} {
       opacity: 0;
@@ -244,6 +319,10 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
     letter-spacing: 2px;
     font-weight: 300;
     margin-top: 15px;
+  }
+
+  .f12 {
+    font-size: 12px;
   }
 }
 </style>

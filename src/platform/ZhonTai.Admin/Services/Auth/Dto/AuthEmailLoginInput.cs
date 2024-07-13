@@ -8,9 +8,9 @@ namespace ZhonTai.Admin.Services.Auth.Dto;
 public class AuthEmailLoginInput
 {
     /// <summary>
-    /// 邮件地址
+    /// 邮箱地址
     /// </summary>
-    [Required(ErrorMessage = "请输入邮件地址")]
+    [Required(ErrorMessage = "请输入邮箱地址")]
     public string Email { get; set; }
 
     /// <summary>

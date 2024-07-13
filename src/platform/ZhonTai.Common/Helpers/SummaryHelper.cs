@@ -73,7 +73,11 @@ public class SummaryHelper
                 }
                 var xmlNav = xpath.CreateNavigator();
 
-                var className = (localType.IsNested ? $"{localType.Namespace}.{localType.DeclaringType.Name}.{localType.Name}" : $"{localType.Namespace}.{localType.Name}").Trim('.');
+                var className = (localType.IsNested ? (localType.DeclaringType != null && localType.DeclaringType.DeclaringType != null &&
+                    localType.DeclaringType.DeclaringType.FullName.NotNull() ? $"{localType.DeclaringType.DeclaringType.FullName}.{localType.DeclaringType.Name}.{localType.Name}" :
+                    $"{localType.Namespace}.{localType.DeclaringType.Name}.{localType.Name}") :
+                    $"{localType.Namespace}.{localType.Name}").Trim('.');
+
                 var node = xmlNav.SelectSingleNode($"/doc/members/member[@name='T:{className}']/summary");
                 if (node != null)
                 {

@@ -19,20 +19,28 @@
           <span class="login-right-warp-one"></span>
           <span class="login-right-warp-two"></span>
           <div class="login-right-warp-mian">
-            <div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }} 欢迎您！</div>
+            <div class="login-right-warp-main-header"></div>
             <div class="login-right-warp-main-form">
               <div v-if="!state.isScan">
-                <el-tabs v-model="state.tabsActiveName">
-                  <el-tab-pane :label="$t('message.label.one1')" name="account">
-                    <Account />
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('message.label.two2')" name="mobile">
-                    <Mobile />
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('message.label.two3')" name="email">
-                    <Email />
-                  </el-tab-pane>
-                </el-tabs>
+                <component
+                  :is="logins[state.loginComponentName]"
+                  v-model:loginComponentName="state.loginComponentName"
+                  v-model:accountType="state.accountType"
+                />
+                <el-divider style="margin-top: 40px">其他方式登录</el-divider>
+                <div class="login-other my-flex my-flex-center">
+                  <el-link
+                    v-for="(loginMethod, index) in loginMethods"
+                    :key="index"
+                    v-show="isShow(loginMethod)"
+                    :icon="loginMethod.icon"
+                    :underline="false"
+                    :name="loginMethod.name"
+                    @click="onLogin(loginMethod)"
+                  >
+                    {{ $t(loginMethod.title) }}
+                  </el-link>
+                </div>
               </div>
               <Scan v-if="state.isScan" />
               <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
@@ -55,35 +63,109 @@ import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
 import loginBg from '/@/assets/login-bg.svg'
+import { AccountType } from '/@/api/admin/enum-contracts'
+import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
-const Account = defineAsyncComponent(() => import('./component/account.vue'))
-const Mobile = defineAsyncComponent(() => import('./component/mobile.vue'))
-const Email = defineAsyncComponent(() => import('./component/email.vue'))
+const logins: any = {
+  account: defineAsyncComponent(() => import('./component/account.vue')),
+  mobile: defineAsyncComponent(() => import('./component/mobile.vue')),
+  email: defineAsyncComponent(() => import('./component/email.vue')),
+}
 const Scan = defineAsyncComponent(() => import('./component/scan.vue'))
+
+const accountComponentName = LoginComponentType.Account.name
+const mobileComponentName = LoginComponentType.Mobile.name
+const emailComponentName = LoginComponentType.Email.name
+
+const loginMethods = [
+  {
+    icon: 'ele-User',
+    name: accountComponentName,
+    title: 'message.label.one1',
+  },
+  {
+    icon: 'ele-Iphone',
+    name: mobileComponentName,
+    title: 'message.label.two2',
+  },
+  {
+    icon: 'ele-Message',
+    name: emailComponentName,
+    title: 'message.label.two3',
+  },
+] as any
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
-  tabsActiveName: 'account',
+  loginComponentName: LoginComponentType.Account.name, //默认账号登录
+  accountType: AccountType.UserName.value, //默认用户名账号
   isScan: false,
 })
+
+//是否显示
+const isShow = (loginMethod: any) => {
+  if (loginMethod.name === accountComponentName) {
+    return !(state.loginComponentName === accountComponentName && state.accountType === AccountType.UserName.value)
+  } else if (loginMethod.name === mobileComponentName) {
+    return !(
+      state.loginComponentName === mobileComponentName ||
+      (state.loginComponentName === accountComponentName && state.accountType === AccountType.Mobile.value)
+    )
+  } else if (loginMethod.name == emailComponentName) {
+    return !(
+      state.loginComponentName === emailComponentName ||
+      (state.loginComponentName === accountComponentName && state.accountType === AccountType.Email.value)
+    )
+  }
+}
 
 // 获取布局配置信息
 const getThemeConfig = computed(() => {
   return themeConfig.value
 })
+
 // 页面加载时
 onMounted(() => {
   NextLoading.done()
 })
+
+//登录
+const onLogin = (loginMethod: any) => {
+  state.loginComponentName = loginMethod.name
+  if (loginMethod.name === accountComponentName) {
+    state.accountType = AccountType.UserName.value
+  }
+}
 </script>
 
 <style scoped lang="scss">
 :deep() {
   .el-scrollbar__view {
     height: 100%;
+  }
+  .el-divider__text {
+    font-size: 12px;
+    color: #7f8792;
+  }
+
+  .login-other {
+    .el-link {
+      color: #7f8792;
+      margin-right: 20px;
+      .el-link__inner {
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: var(--el-link-hover-text-color);
+      }
+    }
+    .el-link .el-icon {
+      margin-right: 4px;
+    }
   }
 }
 .login-container {
@@ -211,9 +293,9 @@ onMounted(() => {
         display: flex;
         flex-direction: column;
         height: 100%;
-        .login-right-warp-main-title {
-          height: 130px;
-          line-height: 130px;
+        .login-right-warp-main-header {
+          height: 60px;
+          line-height: 60px;
           font-size: 27px;
           text-align: center;
           letter-spacing: 3px;

@@ -440,9 +440,22 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #endregion
 
         #region 登录
-        var user = await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+        UserEntity user = null;
+        user = input.AccountType switch
+        {
+            AuthLoginInput.Models.AccountType.UserName => await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync(),
+            AuthLoginInput.Models.AccountType.Mobile => await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync(),
+            AuthLoginInput.Models.AccountType.Email => await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync(),
+            _ => null
+        };
+
         var valid = user?.Id > 0;
-        if(valid)
+        if (!valid)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+        }
+
+        if (valid)
         {
             if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
             {
@@ -458,7 +471,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             
         if(!valid)
         {
-            throw ResultOutput.Exception(_adminLocalizer["用户名或密码错误"]);
+            throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
         }
 
         if (!user.Enabled)

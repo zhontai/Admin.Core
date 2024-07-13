@@ -1,8 +1,8 @@
 // 定义内容
 export default {
   label: {
-    one1: '用户名登录',
-    two2: '手机号登录',
+    one1: '账号登录',
+    two2: '手机登录',
     two3: '邮箱登录',
   },
   link: {
@@ -10,9 +10,8 @@ export default {
     two4: '友情链接',
   },
   account: {
-    accountPlaceholder1: '用户名',
-    accountPlaceholder2: '密码',
-    accountPlaceholder3: '请输入验证码',
+    accountPlaceholder1: '请输入账号',
+    accountPlaceholder2: '请输入密码',
     accountBtnText: '登 录',
   },
   mobile: {

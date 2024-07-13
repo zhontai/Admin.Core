@@ -9,6 +9,12 @@
  * ---------------------------------------------------------------
  */
 
+/**
+ * 账户类型:UserName=1,Mobile=2,Email=3
+ * @format int32
+ */
+export type AccountType = 1 | 2 | 3
+
 /** 添加 */
 export interface ApiAddInput {
   /**
@@ -238,7 +244,7 @@ export interface ApiUpdateInput {
 /** 邮箱登录信息 */
 export interface AuthEmailLoginInput {
   /**
-   * 邮件地址
+   * 邮箱地址
    * @minLength 1
    */
   email: string
@@ -279,11 +285,14 @@ export interface AuthGetUserPermissionsOutput {
 
 /** 登录信息 */
 export interface AuthLoginInput {
-  /**
-   * 账号
-   * @minLength 1
-   */
-  userName: string
+  /** 账号 */
+  userName?: string | null
+  /** 手机号 */
+  mobile?: string | null
+  /** 邮箱地址 */
+  email?: string | null
+  /** 账户类型:UserName=1,Mobile=2,Email=3 */
+  accountType?: AccountType
   /**
    * 密码
    * @minLength 1

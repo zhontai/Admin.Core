@@ -4966,7 +4966,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput.Email">
             <summary>
-            邮件地址
+            邮箱地址
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput.Code">
@@ -5029,9 +5029,44 @@
             登录信息
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType">
+            <summary>
+            账户类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.Mobile">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.UserName">
             <summary>
             账号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Email">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.AccountType">
+            <summary>
+            账户类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Password">

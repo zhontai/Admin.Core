@@ -103,3 +103,10 @@ export const AppType = {
   MVC: { name: 'MVC', value: 2, desc: '' },
 }
 
+/** 账户类型 */
+export const AccountType = {
+  UserName: { name: 'UserName', value: 1, desc: '账号' },
+  Mobile: { name: 'Mobile', value: 2, desc: '手机' },
+  Email: { name: 'Email', value: 3, desc: '邮箱' },
+}
+
