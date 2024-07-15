@@ -723,7 +723,15 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["旧密码不正确"]);
         }
 
-        entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+        if (entity.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+        {
+            entity.Password = _passwordHasher.Value.HashPassword(entity, input.NewPassword);
+        }
+        else
+        {
+            entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+        }
+       
         await _userRep.UpdateAsync(entity);
     }
 
@@ -749,15 +757,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
 
         var entity = await _userRep.GetAsync(input.Id);
-        if (_appConfig.PasswordHasher)
+        if (entity.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
         {
             entity.Password = _passwordHasher.Value.HashPassword(entity, password);
-            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
         {
             entity.Password = MD5Encrypt.Encrypt32(password);
-            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
         await _userRep.UpdateAsync(entity);
         return password;
