@@ -359,7 +359,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 var tenantCodes = await db.Select<PermissionEntity>()
                 .Where(p => db.Select<TenantPermissionEntity>()
                     .InnerJoin(tp => tp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
-                    && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code))
+                    && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
                 .ToListAsync(p => p.Code);
 
                 //套餐接口
@@ -373,7 +373,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 var pkgCodes = await db.Select<PermissionEntity>()
                 .Where(p => db.Select<TenantPkgEntity, PkgPermissionEntity>()
                     .InnerJoin((tp, pp) => tp.PkgId == pp.PkgId && pp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
-                    && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code))
+                    && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
                 .ToListAsync(p => p.Code);
 
                 output.Apis = tenantApis.Union(pkgApis).Distinct().ToList();
@@ -394,7 +394,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             //角色权限点编码
             output.Codes = await _permissionRep.Value.Where(p => _permissionRep.Value.Orm.Select<UserRoleEntity, RolePermissionEntity>()
                 .InnerJoin((ur, rp) => ur.RoleId == rp.RoleId && ur.UserId == User.Id
-                && rp.PermissionId == p.Id && p.Type == PermissionType.Dot && !string.IsNullOrWhiteSpace(p.Code)).Any()
+                && rp.PermissionId == p.Id && p.Type == PermissionType.Dot && p.Code != null && p.Code != "").Any()
             ).ToListAsync(p => p.Code);
             output.Codes = output.Codes.Distinct().ToList();
 

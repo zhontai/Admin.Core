@@ -1520,6 +1520,16 @@
             Api分组约定
             </summary>
         </member>
+        <member name="M:ZhonTai.Admin.Core.Db.Data.GenerateData.SaveEntityAsync``1(IFreeSql,ZhonTai.Admin.Core.Configs.AppConfig,System.String)">
+            <summary>
+            保存实体数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="db"></param>
+            <param name="appConfig">应用配置</param>
+            <param name="outPath">输出路径 InitData/xxx </param>
+            <returns></returns>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Db.Data.IGenerateData">
             <summary>
             生成数据接口
@@ -1553,6 +1563,17 @@
             <param name="tran"></param>
             <param name="dataList"></param>
             <param name="dbConfig"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Db.Data.SyncData.SyncEntityAsync``1(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig,ZhonTai.Admin.Core.Configs.AppConfig,System.String)">
+            <summary>
+            同步实体数据
+            </summary>
+            <param name="db"></param>
+            <param name="unitOfWork"></param>
+            <param name="dbConfig">模块数据库配置</param>
+            <param name="appConfig">应用配置</param>
+            <param name="readPath">读取数据路径 InitData/xxx </param>
             <returns></returns>
         </member>
         <member name="F:ZhonTai.Admin.Core.Db.DbHelper.timeOffset">
@@ -2201,6 +2222,21 @@
         <member name="F:ZhonTai.Admin.Core.Enums.ApiVersion.V2">
             <summary>
             V2 版本
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Enums.ContentTypeEnum">
+            <summary>
+            内容类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Enums.ContentTypeEnum.FormData">
+            <summary>
+            表单数据
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Core.Enums.ContentTypeEnum.Json">
+            <summary>
+            Json格式
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Enums.StatusCodes">
