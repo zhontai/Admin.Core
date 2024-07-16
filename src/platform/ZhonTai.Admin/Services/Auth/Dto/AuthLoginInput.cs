@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
@@ -7,30 +8,8 @@ namespace ZhonTai.Admin.Services.Auth.Dto;
 /// </summary>
 public class AuthLoginInput
 {
-    public static class Models
-    {
-        /// <summary>
-        /// 账户类型
-        /// </summary>
-        public enum AccountType
-        {
-            /// <summary>
-            /// 账号
-            /// </summary>
-            UserName = 1,
-            /// <summary>
-            /// 手机
-            /// </summary>
-            Mobile = 2,
-            /// <summary>
-            /// 邮箱
-            /// </summary>
-            Email = 3
-        }
-    }
-
     /// <summary>
-    /// 账号
+    /// 用户名
     /// </summary>
     public string UserName { get; set; }
 
@@ -45,9 +24,9 @@ public class AuthLoginInput
     public string Email { get; set; }
 
     /// <summary>
-    /// 账户类型
+    /// 账号类型
     /// </summary>
-    public Models.AccountType AccountType { get; set; }
+    public AccountType AccountType { get; set; }
 
     /// <summary>
     /// 密码

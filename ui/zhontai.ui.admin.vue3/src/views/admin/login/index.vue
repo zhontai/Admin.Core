@@ -21,32 +21,43 @@
           <div class="login-right-warp-mian">
             <div class="login-right-warp-main-header"></div>
             <div class="login-right-warp-main-form">
-              <div v-if="!state.isScan">
-                <component
-                  :is="logins[state.loginComponentName]"
-                  v-model:loginComponentName="state.loginComponentName"
-                  v-model:accountType="state.accountType"
-                />
-                <el-divider style="margin-top: 40px">其他方式登录</el-divider>
-                <div class="login-other my-flex my-flex-center">
-                  <el-link
-                    v-for="(loginMethod, index) in loginMethods"
-                    :key="index"
-                    v-show="isShow(loginMethod)"
-                    :icon="loginMethod.icon"
-                    :underline="false"
-                    :name="loginMethod.name"
-                    @click="onLogin(loginMethod)"
-                  >
-                    {{ $t(loginMethod.title) }}
-                  </el-link>
+              <component
+                v-if="state.isChangePassword"
+                :is="changePasswordComponents[state.changePasswordComponentName]"
+                v-model:isChangePassword="state.isChangePassword"
+                v-model:hasConfirmPassword="state.hasConfirmPassword"
+              />
+              <ChangePassword v-if="state.isChangePassword" v-model:isChangePassword="state.isChangePassword" />
+              <template v-else>
+                <div v-if="!state.isScan">
+                  <component
+                    :is="loginComponents[state.loginComponentName]"
+                    v-model:loginComponentName="state.loginComponentName"
+                    v-model:accountType="state.accountType"
+                    v-model:isChangePassword="state.isChangePassword"
+                    v-model:changePasswordComponentName="state.changePasswordComponentName"
+                  />
+                  <el-divider style="margin-top: 40px">其他方式登录</el-divider>
+                  <div class="login-other my-flex my-flex-center">
+                    <el-link
+                      v-for="(loginMethod, index) in loginMethods"
+                      :key="index"
+                      v-show="isShow(loginMethod)"
+                      :icon="loginMethod.icon"
+                      :underline="false"
+                      :name="loginMethod.name"
+                      @click="onLogin(loginMethod)"
+                    >
+                      {{ $t(loginMethod.title) }}
+                    </el-link>
+                  </div>
                 </div>
-              </div>
-              <Scan v-if="state.isScan" />
-              <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
-                <i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
-                <div class="login-content-main-sacn-delta"></div>
-              </div>
+                <Scan v-if="state.isScan" />
+                <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
+                  <i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
+                  <div class="login-content-main-sacn-delta"></div>
+                </div>
+              </template>
             </div>
           </div>
         </div>
@@ -64,19 +75,24 @@ import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
 import loginBg from '/@/assets/login-bg.svg'
 import { AccountType } from '/@/api/admin/enum-contracts'
-import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
-const logins: any = {
+const loginComponents: any = {
   account: defineAsyncComponent(() => import('./component/account.vue')),
   mobile: defineAsyncComponent(() => import('./component/mobile.vue')),
   email: defineAsyncComponent(() => import('./component/email.vue')),
 }
 const Scan = defineAsyncComponent(() => import('./component/scan.vue'))
 
-const accountComponentName = LoginComponentType.Account.name
-const mobileComponentName = LoginComponentType.Mobile.name
-const emailComponentName = LoginComponentType.Email.name
+const changePasswordComponents: any = {
+  mobile: defineAsyncComponent(() => import('/@/views/admin/change-password/component/mobile.vue')),
+  email: defineAsyncComponent(() => import('/@/views/admin/change-password/component/email.vue')),
+}
+
+const accountComponentName = ComponentType.Account.name
+const mobileComponentName = ComponentType.Mobile.name
+const emailComponentName = ComponentType.Email.name
 
 const loginMethods = [
   {
@@ -100,9 +116,12 @@ const loginMethods = [
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
-  loginComponentName: LoginComponentType.Account.name, //默认账号登录
+  loginComponentName: accountComponentName, //默认账号登录
   accountType: AccountType.UserName.value, //默认用户名账号
   isScan: false,
+  isChangePassword: false,
+  changePasswordComponentName: emailComponentName, //默认邮箱更改密码
+  hasConfirmPassword: false, //默认更改密码不用填确认密码
 })
 
 //是否显示
@@ -305,7 +324,7 @@ const onLogin = (loginMethod: any) => {
         }
         .login-right-warp-main-form {
           flex: 1;
-          padding: 0 50px 50px;
+          padding: 0px 50px 20px 50px;
           .login-content-main-sacn {
             position: absolute;
             top: 0;

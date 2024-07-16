@@ -22,7 +22,7 @@ using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.RolePermission;
@@ -31,7 +31,6 @@ using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.LoginLog;
@@ -59,6 +58,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IPermissionRepository> _permissionRep;
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<ISlideCaptcha> _captcha;
+    private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
 
     public AuthService(
@@ -69,6 +69,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<IPermissionRepository> permissionRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<ISlideCaptcha> captcha,
+        UserHelper userHelper,
         AdminLocalizer adminLocalizer
     )
     {
@@ -79,6 +80,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _permissionRep = permissionRep;
         _passwordHasher = passwordHasher;
         _captcha = captcha;
+        _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
     }
 
@@ -391,11 +393,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
-        var userRep = _userRep.Value;
-
-        using var _ = userRep.DataFilter.DisableAll();
-        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
-
         var stopwatch = Stopwatch.StartNew();
 
         #region 验证码校验
@@ -440,12 +437,16 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #endregion
 
         #region 登录
+        var userRep = _userRep.Value;
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
+
         UserEntity user = null;
         user = input.AccountType switch
         {
-            AuthLoginInput.Models.AccountType.UserName => await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync(),
-            AuthLoginInput.Models.AccountType.Mobile => await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync(),
-            AuthLoginInput.Models.AccountType.Email => await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync(),
+            AccountType.UserName => await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync(),
+            AccountType.Mobile => await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync(),
+            AccountType.Email => await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync(),
             _ => null
         };
 
@@ -516,7 +517,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     }
 
     /// <summary>
-    /// 手机号登录
+    /// 手机登录
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -681,6 +682,138 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         #endregion 添加登录日志
 
         return new { token };
+    }
+
+    /// <summary>
+    /// 邮箱更改密码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task ChangePasswordByEmailAsync(AuthChangePasswordByEmailInput input)
+    {
+        if (input.ConfirmPassword.NotNull() && input.ConfirmPassword != input.NewPassword)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["新密码和确认密码不一致"]);
+        }
+
+        //检查密码格式
+        _userHelper.CheckPassword(input.NewPassword);
+
+        #region 邮箱验证码验证
+
+        if (input.Email.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请输入邮箱地址"]);
+        }
+
+        if (input.CodeId.IsNull() || input.Code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        var codeKey = CacheKeys.GetEmailCodeKey(input.Email, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+
+        #endregion
+
+        var userRep = _userRep.Value;
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
+
+        UserEntity user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
+
+        if (user == null) 
+        {
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+        }
+
+        if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+        {
+            user.Password = _passwordHasher.Value.HashPassword(user, input.NewPassword);
+        }
+        else
+        {
+            user.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+        }
+
+        await userRep.UpdateAsync(user);
+    }
+
+    /// <summary>
+    /// 手机更改密码
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task ChangePasswordByMobileAsync(AuthChangePasswordByMobileInput input)
+    {
+        if (input.ConfirmPassword.NotNull() && input.ConfirmPassword != input.NewPassword)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["新密码和确认密码不一致"]);
+        }
+
+        //检查密码格式
+        _userHelper.CheckPassword(input.NewPassword);
+
+        #region 短信验证码验证
+
+        if (input.Mobile.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
+        }
+
+        if (input.CodeId.IsNull() || input.Code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+
+        #endregion
+
+        var userRep = _userRep.Value;
+        using var _ = userRep.DataFilter.DisableAll();
+        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
+
+        UserEntity user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+
+        if (user == null)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+        }
+
+        if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+        {
+            user.Password = _passwordHasher.Value.HashPassword(user, input.NewPassword);
+        }
+        else
+        {
+            user.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+        }
+
+        await userRep.UpdateAsync(user);
     }
 
     /// <summary>

@@ -4,6 +4,13 @@ export const CacheType = {
   Redis: { name: 'Redis', value: 1, desc: 'Redis缓存' },
 }
 
+/** 账号类型 */
+export const AccountType = {
+  UserName: { name: 'UserName', value: 1, desc: '账号' },
+  Mobile: { name: 'Mobile', value: 2, desc: '手机' },
+  Email: { name: 'Email', value: 3, desc: '邮箱' },
+}
+
 /** 密码加密类型 */
 export const PasswordEncryptType = {
   MD5Encrypt32: { name: 'MD5Encrypt32', value: 0, desc: '32位MD5加密' },
@@ -80,10 +87,10 @@ export const ApiVersion = {
   V2: { name: 'V2', value: 2, desc: 'V2 版本' },
 }
 
-/**  */
+/** 内容类型 */
 export const ContentTypeEnum = {
-  FormData: { name: 'FormData', value: 0, desc: '' },
-  Json: { name: 'Json', value: 1, desc: '' },
+  FormData: { name: 'FormData', value: 0, desc: '表单数据' },
+  Json: { name: 'Json', value: 1, desc: 'Json格式' },
 }
 
 /** 状态码枚举 */
@@ -101,12 +108,5 @@ export const AppType = {
   Controllers: { name: 'Controllers', value: 0, desc: '' },
   ControllersWithViews: { name: 'ControllersWithViews', value: 1, desc: '' },
   MVC: { name: 'MVC', value: 2, desc: '' },
-}
-
-/** 账户类型 */
-export const AccountType = {
-  UserName: { name: 'UserName', value: 1, desc: '账号' },
-  Mobile: { name: 'Mobile', value: 2, desc: '手机' },
-  Email: { name: 'Email', value: 3, desc: '邮箱' },
 }
 

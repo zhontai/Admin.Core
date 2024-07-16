@@ -70,7 +70,7 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    *
    * @tags dict
    * @name GetList
-   * @summary 查询列表
+   * @summary 通过类型编码查询列表
    * @request POST:/api/admin/dict/get-list
    * @secure
    */
@@ -89,7 +89,7 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    *
    * @tags dict
    * @name GetListByNames
-   * @summary 查询字典类型字典列表
+   * @summary 通过类型名称查询列表
    * @request POST:/api/admin/dict/get-list-by-names
    * @secure
    */

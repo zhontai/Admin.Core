@@ -11,7 +11,7 @@
         ]"
       >
         <el-input
-          ref="phoneRef"
+          ref="emailRef"
           text
           :placeholder="$t('message.email.placeholder1')"
           v-model="state.ruleForm.email"
@@ -32,9 +32,8 @@
           <span>{{ $t('message.mobile.btnText') }}</span>
         </el-button>
       </el-form-item>
-      <div class="login-animation4 my-flex my-flex-between f12 mt10">
+      <div class="login-animation4 f12 mt10">
         <el-link :underline="false" type="primary" class="f12" @click="onLogin">邮箱密码登录</el-link>
-        <el-link :underline="false" type="primary" class="f12">忘记密码</el-link>
       </div>
     </el-form>
   </div>
@@ -54,7 +53,7 @@ import { NextLoading } from '/@/utils/loading'
 import { useI18n } from 'vue-i18n'
 import { formatAxis } from '/@/utils/formatTime'
 import { AccountType } from '/@/api/admin/enum-contracts'
-import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const loginComponentName = defineModel('loginComponentName', { type: String })
@@ -65,7 +64,7 @@ const route = useRoute()
 const router = useRouter()
 
 const formRef = ref()
-const phoneRef = ref()
+const emailRef = ref()
 // 定义变量内容
 const state = reactive({
   ruleForm: {
@@ -78,11 +77,11 @@ const state = reactive({
   },
 })
 
-//验证手机号
+//验证邮箱
 const validate = (callback: Function) => {
   formRef.value.validateField('email', (isValid: boolean) => {
     if (!isValid) {
-      phoneRef.value?.focus()
+      emailRef.value?.focus()
       return
     }
     callback?.()
@@ -96,7 +95,7 @@ const currentTime = computed(() => {
 
 //切换登录
 const onLogin = () => {
-  loginComponentName.value = LoginComponentType.Account.name
+  loginComponentName.value = ComponentType.Account.name
   accountType.value = AccountType.Email.value
 }
 

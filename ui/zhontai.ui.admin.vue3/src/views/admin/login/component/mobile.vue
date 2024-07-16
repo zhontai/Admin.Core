@@ -34,9 +34,8 @@
           <span>{{ $t('message.mobile.btnText') }}</span>
         </el-button>
       </el-form-item>
-      <div class="login-animation4 my-flex my-flex-between f12 mt10">
+      <div class="login-animation4 f12 mt10">
         <el-link :underline="false" type="primary" class="f12" @click="onLogin">手机密码登录</el-link>
-        <el-link :underline="false" type="primary" class="f12">忘记密码</el-link>
       </div>
       <!-- <div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div> -->
     </el-form>
@@ -57,7 +56,7 @@ import { NextLoading } from '/@/utils/loading'
 import { useI18n } from 'vue-i18n'
 import { formatAxis } from '/@/utils/formatTime'
 import { AccountType } from '/@/api/admin/enum-contracts'
-import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const loginComponentName = defineModel('loginComponentName', { type: String })
@@ -99,7 +98,7 @@ const currentTime = computed(() => {
 
 //切换登录
 const onLogin = () => {
-  loginComponentName.value = LoginComponentType.Account.name
+  loginComponentName.value = ComponentType.Account.name
   accountType.value = AccountType.Mobile.value
 }
 

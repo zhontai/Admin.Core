@@ -10,7 +10,7 @@
  */
 
 /**
- * 账户类型:UserName=1,Mobile=2,Email=3
+ * 账号类型:UserName=1,Mobile=2,Email=3
  * @format int32
  */
 export type AccountType = 1 | 2 | 3
@@ -241,6 +241,52 @@ export interface ApiUpdateInput {
   id: number
 }
 
+/** 邮箱更改密码 */
+export interface AuthChangePasswordByEmailInput {
+  /** 邮箱地址 */
+  email?: string | null
+  /**
+   * 验证码
+   * @minLength 1
+   */
+  code: string
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  codeId: string
+  /**
+   * 新密码
+   * @minLength 1
+   */
+  newPassword: string
+  /** 确认新密码 */
+  confirmPassword?: string | null
+}
+
+/** 手机更改密码 */
+export interface AuthChangePasswordByMobileInput {
+  /** 手机号 */
+  mobile?: string | null
+  /**
+   * 验证码
+   * @minLength 1
+   */
+  code: string
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  codeId: string
+  /**
+   * 新密码
+   * @minLength 1
+   */
+  newPassword: string
+  /** 确认新密码 */
+  confirmPassword?: string | null
+}
+
 /** 邮箱登录信息 */
 export interface AuthEmailLoginInput {
   /**
@@ -285,13 +331,13 @@ export interface AuthGetUserPermissionsOutput {
 
 /** 登录信息 */
 export interface AuthLoginInput {
-  /** 账号 */
+  /** 用户名 */
   userName?: string | null
   /** 手机号 */
   mobile?: string | null
   /** 邮箱地址 */
   email?: string | null
-  /** 账户类型:UserName=1,Mobile=2,Email=3 */
+  /** 账号类型:UserName=1,Mobile=2,Email=3 */
   accountType?: AccountType
   /**
    * 密码

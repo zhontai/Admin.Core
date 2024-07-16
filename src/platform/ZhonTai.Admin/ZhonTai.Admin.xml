@@ -4043,6 +4043,26 @@
             个人简介
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Domain.User.AccountType">
+            <summary>
+            账号类型
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.AccountType.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.AccountType.Mobile">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="F:ZhonTai.Admin.Domain.User.AccountType.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.Dto.DataPermissionDto.OrgId">
             <summary>
             部门Id
@@ -4969,7 +4989,7 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.MobileLoginAsync(ZhonTai.Admin.Services.Auth.Dto.AuthMobileLoginInput)">
             <summary>
-            手机号登录
+            手机登录
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4977,6 +4997,20 @@
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.EmailLoginAsync(ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput)">
             <summary>
             邮箱登录
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.ChangePasswordByEmailAsync(ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput)">
+            <summary>
+            邮箱更改密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.ChangePasswordByMobileAsync(ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput)">
+            <summary>
+            手机更改密码
             </summary>
             <param name="input"></param>
             <returns></returns>
@@ -4994,6 +5028,66 @@
             是否开启验证码
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput">
+            <summary>
+            邮箱更改密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput.Email">
+            <summary>
+            邮箱地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput.CodeId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByEmailInput.ConfirmPassword">
+            <summary>
+            确认新密码
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput">
+            <summary>
+            手机更改密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput.CodeId">
+            <summary>
+            验证码Id
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthChangePasswordByMobileInput.ConfirmPassword">
+            <summary>
+            确认新密码
+            </summary>
         </member>
         <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthEmailLoginInput">
             <summary>
@@ -5065,29 +5159,9 @@
             登录信息
             </summary>
         </member>
-        <member name="T:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType">
-            <summary>
-            账户类型
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.UserName">
-            <summary>
-            账号
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.Mobile">
-            <summary>
-            手机
-            </summary>
-        </member>
-        <member name="F:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Models.AccountType.Email">
-            <summary>
-            邮箱
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.UserName">
             <summary>
-            账号
+            用户名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Mobile">
@@ -5102,7 +5176,7 @@
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.AccountType">
             <summary>
-            账户类型
+            账号类型
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Auth.Dto.AuthLoginInput.Password">
@@ -5656,14 +5730,14 @@
         </member>
         <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListAsync(System.String[])">
             <summary>
-            查询列表
+            通过类型编码查询列表
             </summary>
             <param name="codes">字典类型编码列表</param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetListByNamesAsync(System.String[])">
             <summary>
-            查询字典类型字典列表
+            通过类型名称查询列表
             </summary>
             <param name="names">字典类型名称列表</param>
             <returns></returns>

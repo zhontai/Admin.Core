@@ -9,7 +9,10 @@
  * ---------------------------------------------------------------
  */
 
+import { AxiosResponse } from 'axios'
 import {
+  AuthChangePasswordByEmailInput,
+  AuthChangePasswordByMobileInput,
   AuthEmailLoginInput,
   AuthLoginInput,
   AuthMobileLoginInput,
@@ -133,7 +136,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    *
    * @tags auth
    * @name MobileLogin
-   * @summary 手机号登录
+   * @summary 手机登录
    * @request POST:/api/admin/auth/mobile-login
    * @secure
    */
@@ -164,6 +167,42 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       secure: true,
       type: ContentType.Json,
       format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags auth
+   * @name ChangePasswordByEmail
+   * @summary 邮箱更改密码
+   * @request POST:/api/admin/auth/change-password-by-email
+   * @secure
+   */
+  changePasswordByEmail = (data: AuthChangePasswordByEmailInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/auth/change-password-by-email`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags auth
+   * @name ChangePasswordByMobile
+   * @summary 手机更改密码
+   * @request POST:/api/admin/auth/change-password-by-mobile
+   * @secure
+   */
+  changePasswordByMobile = (data: AuthChangePasswordByMobileInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/auth/change-password-by-mobile`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     })
   /**

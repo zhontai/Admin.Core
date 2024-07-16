@@ -72,22 +72,14 @@
       </el-form-item>
       <el-form-item class="login-animation2" prop="password" :rules="[{ required: true, message: '请输入密码', trigger: ['blur', 'change'] }]">
         <el-input
-          :type="state.isShowPassword ? 'text' : 'password'"
           :placeholder="$t('message.account.accountPlaceholder2')"
           v-model="state.ruleForm.password"
+          show-password
           autocomplete="off"
           @keyup.enter="onSignIn"
         >
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Unlock /></el-icon>
-          </template>
-          <template #suffix>
-            <i
-              class="iconfont el-input__icon login-content-password"
-              :class="state.isShowPassword ? 'icon-yincangmima' : 'icon-xianshimima'"
-              @click="state.isShowPassword = !state.isShowPassword"
-            >
-            </i>
           </template>
         </el-input>
       </el-form-item>
@@ -113,7 +105,7 @@
           :underline="false"
           type="primary"
           class="f12"
-          @click="loginComponentName = LoginComponentType.Mobile.name"
+          @click="loginComponentName = ComponentType.Mobile.name"
           >手机验证码登录</el-link
         >
         <el-link
@@ -121,10 +113,10 @@
           :underline="false"
           type="primary"
           class="f12"
-          @click="loginComponentName = LoginComponentType.Email.name"
+          @click="loginComponentName = ComponentType.Email.name"
           >邮箱验证码登录</el-link
         >
-        <el-link :underline="false" type="primary" class="f12">忘记密码</el-link>
+        <el-link :underline="false" type="primary" class="f12" @click="onForgotPassword">忘记密码</el-link>
       </div>
     </el-form>
     <MyCaptchaDialog ref="myCaptchaDialogRef" v-model="state.showDialog" @ok="onOk" />
@@ -148,11 +140,13 @@ import { cloneDeep } from 'lodash-es'
 import { testMobile, testEmail } from '/@/utils/test'
 import { AccountType } from '/@/api/admin/enum-contracts'
 import { getDescByValue } from '/@/utils/enum'
-import { LoginComponentType } from '/@/api/admin.extend/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 const MyCaptchaDialog = defineAsyncComponent(() => import('/@/components/my-captcha/dialog.vue'))
 const loginComponentName = defineModel('loginComponentName', { type: String })
 const accountType = defineModel('accountType', { type: Number, default: AccountType.UserName.value })
+const isChangePassword = defineModel('isChangePassword', { type: Boolean, default: false })
+const changePasswordComponentName = defineModel('changePasswordComponentName', { type: String })
 
 // 定义变量内容
 const { t } = useI18n()
@@ -165,7 +159,6 @@ const myCaptchaDialogRef = ref()
 
 const state = reactive({
   showDialog: false,
-  isShowPassword: false,
   ruleForm: {
     userName: '',
     mobile: '',
@@ -187,6 +180,13 @@ const state = reactive({
 const currentTime = computed(() => {
   return formatAxis(new Date())
 })
+
+//忘记密码
+const onForgotPassword = () => {
+  if (state.ruleForm.accountType == AccountType.Email.value) changePasswordComponentName.value = ComponentType.Email.name
+  else if (state.ruleForm.accountType == AccountType.Mobile.value) changePasswordComponentName.value = ComponentType.Mobile.name
+  isChangePassword.value = true
+}
 
 //验证通过
 const onOk = (data: any) => {
@@ -298,14 +298,6 @@ watchEffect(() => {
       animation-duration: 0.5s;
       animation-fill-mode: forwards;
       animation-delay: calc($i/10) + s;
-    }
-  }
-  .login-content-password {
-    display: inline-block;
-    width: 20px;
-    cursor: pointer;
-    &:hover {
-      color: #909399;
     }
   }
   .login-content-code {

@@ -74,7 +74,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询列表
+    /// 通过类型编码查询列表
     /// </summary>
     /// <param name="codes">字典类型编码列表</param>
     /// <returns></returns>
@@ -98,7 +98,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询字典类型字典列表
+    /// 通过类型名称查询列表
     /// </summary>
     /// <param name="names">字典类型名称列表</param>
     /// <returns></returns>
