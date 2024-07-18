@@ -916,6 +916,8 @@ public class HostApp
             });
             app.UseSwaggerUI(options =>
             {
+                options.ConfigObject.AdditionalItems.Add("persistAuthorization", "true");
+
                 options.RoutePrefix = appConfig.Swagger.RoutePrefix;
                 appConfig.Swagger.Projects?.ForEach(project =>
                 {
