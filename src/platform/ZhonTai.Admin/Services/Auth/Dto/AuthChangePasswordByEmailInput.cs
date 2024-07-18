@@ -10,6 +10,7 @@ public class AuthChangePasswordByEmailInput
     /// <summary>
     /// 邮箱地址
     /// </summary>
+    [Required(ErrorMessage = "请输入邮箱地址")]
     public string Email { get; set; }
 
     /// <summary>

@@ -10,6 +10,7 @@ public class AuthChangePasswordByMobileInput
     /// <summary>
     /// 手机号
     /// </summary>
+    [Required(ErrorMessage = "请输入手机号")]
     public string Mobile { get; set; }
 
     /// <summary>

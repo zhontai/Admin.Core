@@ -442,13 +442,38 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
 
         UserEntity user = null;
-        user = input.AccountType switch
+        switch (input.AccountType)
         {
-            AccountType.UserName => await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync(),
-            AccountType.Mobile => await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync(),
-            AccountType.Email => await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync(),
-            _ => null
-        };
+            case AccountType.UserName:
+                {
+                    if (input.UserName.IsNull())
+                    {
+                        throw ResultOutput.Exception(_adminLocalizer["请输入账号"]);
+                    }
+                    user = await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+                    break;
+                }
+
+            case AccountType.Mobile:
+                {
+                    if (input.Mobile.IsNull())
+                    {
+                        throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
+                    }
+                    user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+                    break;
+                }
+
+            case AccountType.Email:
+                {
+                    if (input.Email.IsNull())
+                    {
+                        throw ResultOutput.Exception(_adminLocalizer["请输入邮箱地址"]);
+                    }
+                    user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
+                    break;
+                }
+        }
 
         var valid = user?.Id > 0;
         if (!valid)
