@@ -4121,6 +4121,8 @@ export interface TenantAddInput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
+  /** 域名 */
+  domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
   /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
@@ -4198,6 +4200,8 @@ export interface TenantEntity {
   org?: OrgEntity
   /** 租户类型:Platform=1,Tenant=2 */
   tenantType?: TenantType
+  /** 域名 */
+  domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
   /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
@@ -4239,6 +4243,8 @@ export interface TenantGetOutput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
+  /** 域名 */
+  domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
   /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
@@ -4348,6 +4354,8 @@ export interface TenantUpdateInput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
+  /** 域名 */
+  domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
   /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */

@@ -426,9 +426,10 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         new TenantEntity()
         {
             Id = tenant.Id,
+            Domain = input.Domain,
             Description = input.Description,
         })
-        .UpdateColumns(a => new { a.Description, a.ModifiedTime }).ExecuteAffrowsAsync();
+        .UpdateColumns(a => new { a.Description, a.Domain, a.ModifiedTime }).ExecuteAffrowsAsync();
 
         //更新租户套餐
         await _tenantPkgRep.DeleteAsync(a => a.TenantId == tenant.Id);

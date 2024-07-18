@@ -57,6 +57,11 @@ public class TenantAddInput
     public string Email { get; set; }
 
     /// <summary>
+    /// 域名
+    /// </summary>
+    public string Domain { get; set; }
+
+    /// <summary>
     /// 数据库注册键
     /// </summary>
     public string DbKey { get; set; }

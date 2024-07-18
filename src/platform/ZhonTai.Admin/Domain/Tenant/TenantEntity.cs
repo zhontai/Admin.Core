@@ -44,6 +44,12 @@ public partial class TenantEntity : EntityBase
     public TenantType? TenantType { get; set; } = Tenant.TenantType.Tenant;
 
     /// <summary>
+    /// 域名
+    /// </summary>
+    [Column(StringLength = 300)]
+    public string Domain { get; set; }
+
+    /// <summary>
     /// 数据库注册键
     /// </summary>
     [Column(StringLength = 50)]

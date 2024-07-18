@@ -3809,6 +3809,11 @@
             租户类型
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.Domain">
+            <summary>
+            域名
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.Tenant.TenantEntity.DbKey">
             <summary>
             数据库注册键
@@ -8474,6 +8479,11 @@
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Email">
             <summary>
             邮箱地址
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.Domain">
+            <summary>
+            域名
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.Tenant.Dto.TenantAddInput.DbKey">
