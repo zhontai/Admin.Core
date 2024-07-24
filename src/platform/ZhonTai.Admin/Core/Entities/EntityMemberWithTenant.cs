@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体会员租户
 /// </summary>
-public class EntityMemberWithTenant<TKey> : EntityMember, ITenant
+public class EntityMemberWithTenant<TKey> : EntityMember<TKey>, ITenant where TKey : struct
 {
     /// <summary>
     /// 租户Id

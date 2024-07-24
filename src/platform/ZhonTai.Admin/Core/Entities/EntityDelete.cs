@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体删除
 /// </summary>
-public class EntityDelete<TKey> : EntityUpdate, IDelete
+public class EntityDelete<TKey> : EntityUpdate<TKey>, IDelete where TKey : struct
 {
     /// <summary>
     /// 是否删除

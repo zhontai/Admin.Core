@@ -26,7 +26,7 @@ public class AuthLoginInput
     /// <summary>
     /// 账号类型
     /// </summary>
-    public AccountType AccountType { get; set; }
+    public AccountType AccountType { get; set; } = AccountType.UserName;
 
     /// <summary>
     /// 密码

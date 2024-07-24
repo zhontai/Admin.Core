@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体数据权限
 /// </summary>
-public class EntityData<TKey> : EntityBase, IData
+public class EntityData<TKey> : EntityBase<TKey>, IData where TKey : struct
 {
     /// <summary>
     /// 拥有者Id
