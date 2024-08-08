@@ -924,7 +924,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
         }
-        var codeKey = CacheKeys.GetEmailCodeKey(input.Mobile, input.CodeId);
+        var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
         var code = await Cache.GetAsync(codeKey);
         if (code.IsNull())
         {
