@@ -418,6 +418,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
         _userHelper.CheckPassword(input.Password);
 
+        using var _ = _userRep.DataFilter.DisableAll();
+
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
@@ -501,6 +503,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         {
             throw ResultOutput.Exception(_adminLocalizer["直属主管不能是自己"]);
         }
+
+        using var _ = _userRep.DataFilter.DisableAll();
 
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
@@ -602,6 +606,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         _userHelper.CheckPassword(input.Password);
 
         using var _ = _userRep.DataFilter.DisableAll();
+
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);
@@ -653,6 +658,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     [AdminTransaction]
     public virtual async Task UpdateMemberAsync(UserUpdateMemberInput input)
     {
+        using var _ = _userRep.DataFilter.DisableAll();
+
         Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
         where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
             .Or(input.Email.NotNull(), a => a.Email == input.Email);

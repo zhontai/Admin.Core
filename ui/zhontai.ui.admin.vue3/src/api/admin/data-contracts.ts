@@ -243,8 +243,11 @@ export interface ApiUpdateInput {
 
 /** 邮箱更改密码 */
 export interface AuthChangePasswordByEmailInput {
-  /** 邮箱地址 */
-  email?: string | null
+  /**
+   * 邮箱地址
+   * @minLength 1
+   */
+  email: string
   /**
    * 验证码
    * @minLength 1
@@ -266,8 +269,11 @@ export interface AuthChangePasswordByEmailInput {
 
 /** 手机更改密码 */
 export interface AuthChangePasswordByMobileInput {
-  /** 手机号 */
-  mobile?: string | null
+  /**
+   * 手机号
+   * @minLength 1
+   */
+  mobile: string
   /**
    * 验证码
    * @minLength 1
@@ -369,6 +375,64 @@ export interface AuthMobileLoginInput {
    * @minLength 1
    */
   codeId: string
+}
+
+/** 邮箱注册 */
+export interface AuthRegByEmailInput {
+  /**
+   * 邮箱地址
+   * @minLength 1
+   */
+  email: string
+  /**
+   * 验证码
+   * @minLength 1
+   */
+  code: string
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  codeId: string
+  /**
+   * 密码
+   * @minLength 1
+   */
+  password: string
+  /**
+   * 企业名称
+   * @minLength 1
+   */
+  corpName: string
+}
+
+/** 手机号注册 */
+export interface AuthRegByMobileInput {
+  /**
+   * 手机号
+   * @minLength 1
+   */
+  mobile: string
+  /**
+   * 验证码
+   * @minLength 1
+   */
+  code: string
+  /**
+   * 验证码Id
+   * @minLength 1
+   */
+  codeId: string
+  /**
+   * 密码
+   * @minLength 1
+   */
+  password: string
+  /**
+   * 企业名称
+   * @minLength 1
+   */
+  corpName: string
 }
 
 export interface AuthUserMenuDto {
@@ -3799,6 +3863,8 @@ export interface RoleGetRoleUserListOutput {
   name?: string | null
   /** 手机号 */
   mobile?: string | null
+  /** 邮箱 */
+  email?: string | null
 }
 
 /** 设置数据范围 */
@@ -4098,18 +4164,12 @@ export interface TenantAddInput {
    * @minLength 1
    */
   name: string
-  /**
-   * 编码
-   * @minLength 1
-   */
-  code: string
+  /** 编码 */
+  code?: string | null
   /** 套餐Ids */
   pkgIds?: number[] | null
-  /**
-   * 姓名
-   * @minLength 1
-   */
-  realName: string
+  /** 姓名 */
+  realName?: string | null
   /**
    * 账号
    * @minLength 1
@@ -4222,16 +4282,10 @@ export interface TenantGetOutput {
    * @minLength 1
    */
   name: string
-  /**
-   * 编码
-   * @minLength 1
-   */
-  code: string
-  /**
-   * 姓名
-   * @minLength 1
-   */
-  realName: string
+  /** 编码 */
+  code?: string | null
+  /** 姓名 */
+  realName?: string | null
   /**
    * 账号
    * @minLength 1
@@ -4331,18 +4385,12 @@ export interface TenantUpdateInput {
    * @minLength 1
    */
   name: string
-  /**
-   * 编码
-   * @minLength 1
-   */
-  code: string
+  /** 编码 */
+  code?: string | null
   /** 套餐Ids */
   pkgIds?: number[] | null
-  /**
-   * 姓名
-   * @minLength 1
-   */
-  realName: string
+  /** 姓名 */
+  realName?: string | null
   /**
    * 账号
    * @minLength 1

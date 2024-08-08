@@ -35,6 +35,8 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.LoginLog;
 using ZhonTai.Admin.Services.LoginLog.Dto;
+using ZhonTai.Admin.Services.Tenant;
+using ZhonTai.Admin.Services.Tenant.Dto;
 using ZhonTai.Admin.Services.User;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
@@ -58,6 +60,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IPermissionRepository> _permissionRep;
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<ISlideCaptcha> _captcha;
+    private readonly Lazy<ITenantService> _tenantService;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
 
@@ -69,6 +72,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<IPermissionRepository> permissionRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<ISlideCaptcha> captcha,
+        Lazy<ITenantService> tenantService,
         UserHelper userHelper,
         AdminLocalizer adminLocalizer
     )
@@ -80,6 +84,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _permissionRep = permissionRep;
         _passwordHasher = passwordHasher;
         _captcha = captcha;
+        _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
     }
@@ -101,18 +106,18 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
        {
             new Claim(ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
             new Claim(ClaimAttributes.UserName, user.UserName),
-            new Claim(ClaimAttributes.Name, user.Name),
+            new Claim(ClaimAttributes.Name, user.Name??""),
             new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
         if (_appConfig.Value.Value.Tenant)
         {
-            claims.AddRange(new []
+            claims.AddRange(new[]
             {
                 new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
                 new Claim(ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
-                new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey ?? "")
+                new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey??"")
             });
         }
 
@@ -839,6 +844,108 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         await userRep.UpdateAsync(user);
+    }
+
+    /// <summary>
+    /// 邮箱注册
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task RegByEmailAsync(AuthRegByEmailInput input)
+    {
+        //检查密码格式
+        if (input.Password.NotNull())
+        {
+            _userHelper.CheckPassword(input.Password);
+        }
+
+        #region 邮箱验证码验证
+
+        if (input.Email.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请输入邮箱地址"]);
+        }
+
+        if (input.CodeId.IsNull() || input.Code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        var codeKey = CacheKeys.GetEmailCodeKey(input.Email, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+
+        #endregion
+
+        await _tenantService.Value.RegAsync(new TenantRegInput
+        {
+            Name = input.CorpName,
+            UserName = input.Email,
+            Email = input.Email,
+            Password = input.Password,
+            Enabled = true,
+        });
+    }
+
+    /// <summary>
+    /// 手机号注册
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [AllowAnonymous]
+    [NoOprationLog]
+    public async Task RegByMobileAsync(AuthRegByMobileInput input)
+    {
+        //检查密码格式
+        if (input.Password.NotNull())
+        {
+            _userHelper.CheckPassword(input.Password);
+        }
+
+        #region 短信验证码验证
+
+        if (input.Mobile.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
+        }
+
+        if (input.CodeId.IsNull() || input.Code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        var codeKey = CacheKeys.GetEmailCodeKey(input.Mobile, input.CodeId);
+        var code = await Cache.GetAsync(codeKey);
+        if (code.IsNull())
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+        await Cache.DelAsync(codeKey);
+        if (code != input.Code)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+        }
+
+        #endregion
+
+        await _tenantService.Value.RegAsync(new TenantRegInput
+        {
+            Name = input.CorpName,
+            UserName = input.Mobile,
+            Mobile = input.Mobile,
+            Password = input.Password,
+            Enabled = true,
+        });
     }
 
     /// <summary>

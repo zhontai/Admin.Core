@@ -16,4 +16,9 @@ public class RoleGetRoleUserListOutput
     /// 手机号
     /// </summary>
     public string Mobile { get; set; }
+
+    /// <summary>
+    /// 邮箱
+    /// </summary>
+    public string Email { get; set; }
 }

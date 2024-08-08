@@ -16,6 +16,8 @@ import {
   AuthEmailLoginInput,
   AuthLoginInput,
   AuthMobileLoginInput,
+  AuthRegByEmailInput,
+  AuthRegByMobileInput,
   ResultOutputAuthGetPasswordEncryptKeyOutput,
   ResultOutputAuthGetUserInfoOutput,
   ResultOutputAuthGetUserPermissionsOutput,
@@ -199,6 +201,42 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
   changePasswordByMobile = (data: AuthChangePasswordByMobileInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
       path: `/api/admin/auth/change-password-by-mobile`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags auth
+   * @name RegByEmail
+   * @summary 邮箱注册
+   * @request POST:/api/admin/auth/reg-by-email
+   * @secure
+   */
+  regByEmail = (data: AuthRegByEmailInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/auth/reg-by-email`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags auth
+   * @name RegByMobile
+   * @summary 手机号注册
+   * @request POST:/api/admin/auth/reg-by-mobile
+   * @secure
+   */
+  regByMobile = (data: AuthRegByMobileInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/auth/reg-by-mobile`,
       method: 'POST',
       body: data,
       secure: true,

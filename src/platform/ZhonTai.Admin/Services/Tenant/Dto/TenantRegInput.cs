@@ -3,9 +3,9 @@
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 
 /// <summary>
-/// 添加
+/// 注册
 /// </summary>
-public class TenantAddInput
+public class TenantRegInput
 {
     /// <summary>
     /// 租户Id
@@ -45,34 +45,14 @@ public class TenantAddInput
     public string Password { get; set; }
 
     /// <summary>
-    /// 手机号码
+    /// 手机号
     /// </summary>
-    public string Phone { get; set; }
+    public string Mobile { get; set; }
 
     /// <summary>
     /// 邮箱地址
     /// </summary>
     public string Email { get; set; }
-
-    /// <summary>
-    /// 域名
-    /// </summary>
-    public string Domain { get; set; }
-
-    /// <summary>
-    /// 数据库注册键
-    /// </summary>
-    public string DbKey { get; set; }
-
-    /// <summary>
-    /// 数据库
-    /// </summary>
-    public FreeSql.DataType? DbType { get; set; }
-
-    /// <summary>
-    /// 连接字符串
-    /// </summary>
-    public string ConnectionString { get; set; }
 
     /// <summary>
     /// 启用

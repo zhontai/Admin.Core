@@ -7,7 +7,7 @@
     draggable
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    width="780px"
+    width="880px"
   >
     <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
       <el-row :gutter="8" style="width: 100%">
@@ -45,7 +45,7 @@
               <el-table-column v-if="multiple" type="selection" width="55" />
               <el-table-column prop="name" label="姓名" min-width="80" show-overflow-tooltip />
               <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-              <!-- <el-table-column prop="email" label="邮箱" min-width="120" show-overflow-tooltip /> -->
+              <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
             </el-table>
             <div class="my-flex my-flex-end" style="margin-top: 20px">
               <el-pagination

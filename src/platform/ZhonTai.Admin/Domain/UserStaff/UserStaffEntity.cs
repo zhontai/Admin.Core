@@ -24,7 +24,7 @@ public partial class UserStaffEntity : EntityTenant
     /// <summary>
     /// 性别
     /// </summary>
-    [Column(MapType = typeof(int))]
+    [Column(MapType = typeof(int?))]
     public Sex? Sex { get; set; }
 
     /// <summary>

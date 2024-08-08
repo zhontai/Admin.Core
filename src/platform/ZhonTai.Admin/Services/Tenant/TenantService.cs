@@ -28,6 +28,7 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Resources;
+using Mapster;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -164,7 +165,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         using var _u = _userRep.DataFilter.Disable(FilterNames.Tenant);
 
         var existsOrg = await _orgRep.Select
-        .Where(a => (a.Name == input.Name || a.Code == input.Code) && a.ParentId == 0)
+        .Where(a => a.Name == input.Name && a.ParentId == 0)
+        .WhereIf(input.Code.NotNull(), a => a.Code == input.Code)
         .FirstAsync(a => new { a.Name, a.Code });
 
         if (existsOrg != null)
@@ -174,7 +176,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
                 throw ResultOutput.Exception(_adminLocalizer["企业名称已存在"]);
             }
 
-            if (existsOrg.Code == input.Code)
+            if (input.Code.NotNull() && existsOrg.Code == input.Code)
             {
                 throw ResultOutput.Exception(_adminLocalizer["企业编码已存在"]);
             }
@@ -205,10 +207,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             }
         }
 
-        //添加租户
-        TenantEntity entity = Mapper.Map<TenantEntity>(input);
-        TenantEntity tenant = await _tenantRep.InsertAsync(entity);
-        long tenantId = tenant.Id;
+        //租户Id
+        long tenantId = input.Id > 0 ? input.Id : YitIdHelper.NextId();
 
         //添加租户套餐
         if (input.PkgIds != null && input.PkgIds.Any())
@@ -278,50 +278,41 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         await _userOrgRep.Value.InsertAsync(userOrg);
 
         //添加角色分组和角色
-        var roleGroupId = YitIdHelper.NextId();
         var roleId = YitIdHelper.NextId();
         var jobGroupId = YitIdHelper.NextId();
-        var roles = new List<RoleEntity>{
-                new RoleEntity
-                {
-                    Id = roleGroupId,
-                    ParentId = 0,
-                    TenantId = tenantId,
-                    Type = RoleType.Group,
-                    Name = "系统默认",
-                    Sort = 1
-                },
-                new RoleEntity
-                {
-                    Id = roleId,
-                    TenantId = tenantId,
-                    Type = RoleType.Role,
-                    Name = "主管理员",
-                    Code = "main-admin",
-                    ParentId = roleGroupId,
-                    DataScope = DataScope.All,
-                    Sort = 1
-                },
-                new RoleEntity
-                {
-                    Id= jobGroupId,
-                    ParentId = 0,
-                    TenantId = tenantId,
-                    Type = RoleType.Group,
-                    Name = "岗位",
-                    Sort = 2
-                },
-                new RoleEntity
-                {
-                    TenantId = tenantId,
-                    Type = RoleType.Role,
-                    Name = "普通员工",
-                    Code = "emp",
-                    ParentId = jobGroupId,
-                    DataScope = DataScope.Self,
-                    Sort = 1
-                }
-            };
+        var roles = new List<RoleEntity>
+        {
+            new()
+            {
+                Id= jobGroupId,
+                ParentId = 0,
+                TenantId = tenantId,
+                Type = RoleType.Group,
+                Name = "岗位",
+                Sort = 1
+            },
+            new()
+            {
+                Id = roleId,
+                TenantId = tenantId,
+                Type = RoleType.Role,
+                Name = "主管理员",
+                Code = "main-admin",
+                ParentId = jobGroupId,
+                DataScope = DataScope.All,
+                Sort = 1
+            },
+            new()
+            {
+                TenantId = tenantId,
+                Type = RoleType.Role,
+                Name = "普通员工",
+                Code = "emp",
+                ParentId = jobGroupId,
+                DataScope = DataScope.Self,
+                Sort = 1
+            }
+        };
         await _roleRep.InsertAsync(roles);
 
         //添加用户角色
@@ -332,12 +323,204 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         };
         await _userRoleRep.Value.InsertAsync(userRole);
 
-        //更新租户的用户和部门
+        //添加租户
+        var tenant = input.Adapt<TenantEntity>();
+        tenant.Id = tenantId;
         tenant.UserId = userId;
         tenant.OrgId = org.Id;
-        await _tenantRep.UpdateAsync(tenant);
+        await _tenantRep.InsertAsync(tenant);
 
         return tenant.Id;
+    }
+
+    /// <summary>
+    /// 注册
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AdminTransaction]
+    [NonAction]
+    public virtual async Task<long> RegAsync(TenantRegInput input)
+    {
+        if (input.Password.IsNull())
+        {
+            input.Password = _appConfig.DefaultPassword;
+        }
+        _userHelper.Value.CheckPassword(input.Password);
+
+        using var _t = _tenantRep.DataFilter.Disable(FilterNames.Tenant);
+        using var _o = _orgRep.DataFilter.Disable(FilterNames.Tenant);
+        using var _u = _userRep.DataFilter.Disable(FilterNames.Tenant);
+ 
+        Expression<Func<UserEntity, bool>> where = (a => a.UserName == input.UserName);
+        where = where.Or(input.Mobile.NotNull(), a => a.Mobile == input.Mobile)
+            .Or(input.Email.NotNull(), a => a.Email == input.Email);
+
+        //检查用户
+        var existsUser = await _userRep.Select.Where(where)
+            .FirstAsync(a => new { a.UserName, a.Mobile, a.Email });
+
+        if (existsUser != null)
+        {
+            if (existsUser.UserName == input.UserName)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["企业账号已注册"]);
+            }
+
+            if (input.Mobile.NotNull() && existsUser.Mobile == input.Mobile)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["企业手机号已注册"]);
+            }
+
+            if (input.Email.NotNull() && existsUser.Email == input.Email)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["企业邮箱已注册"]);
+            }
+        }
+
+        //检查部门
+        var existsOrg = await _orgRep.Select
+       .Where(a => a.Name == input.Name && a.ParentId == 0)
+       .WhereIf(input.Code.NotNull(), a => a.Code == input.Code)
+       .FirstAsync(a => new { a.Id, a.TenantId });
+
+        var hasTenant = existsOrg?.TenantId > 0;
+
+        //租户Id
+        long tenantId = hasTenant ? existsOrg.TenantId.Value : (input.Id > 0 ? input.Id : YitIdHelper.NextId());
+
+        //添加部门
+        var orgId = existsOrg?.Id > 0 ? existsOrg.Id : YitIdHelper.NextId();
+        if (existsOrg == null)
+        {
+            var org = new OrgEntity
+            {
+                Id = orgId,
+                TenantId = tenantId,
+                Name = input.Name,
+                Code = input.Code,
+                ParentId = 0,
+                MemberCount = 1,
+                Sort = 1,
+                Enabled = true
+            };
+            await _orgRep.InsertAsync(org);
+        }
+       
+        //添加用户
+        var user = new UserEntity
+        {
+            TenantId = tenantId,
+            UserName = input.UserName,
+            Name = input.RealName,
+            Mobile = input.Mobile,
+            Email = input.Email,
+            Type = hasTenant ? UserType.DefaultUser : UserType.TenantAdmin,
+            OrgId = orgId,
+            Enabled = true
+        };
+        if (_appConfig.PasswordHasher)
+        {
+            user.Password = _passwordHasher.Value.HashPassword(user, input.Password);
+            user.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
+        }
+        else
+        {
+            user.Password = MD5Encrypt.Encrypt32(input.Password);
+            user.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
+        }
+        await _userRep.InsertAsync(user);
+
+        long userId = user.Id;
+
+        //添加用户员工
+        var emp = new UserStaffEntity
+        {
+            Id = userId,
+            TenantId = tenantId,
+        };
+        await _userStaffRep.Value.InsertAsync(emp);
+
+        //添加用户部门
+        var userOrg = new UserOrgEntity
+        {
+            UserId = userId,
+            OrgId = orgId
+        };
+        await _userOrgRep.Value.InsertAsync(userOrg);
+
+        //添加角色分组和角色
+        if (!hasTenant)
+        {
+            var roleId = YitIdHelper.NextId();
+            var jobGroupId = YitIdHelper.NextId();
+            var roles = new List<RoleEntity>
+            {
+                new()
+                {
+                    Id= jobGroupId,
+                    ParentId = 0,
+                    TenantId = tenantId,
+                    Type = RoleType.Group,
+                    Name = "岗位",
+                    Sort = 1
+                },
+                new()
+                {
+                    Id = roleId,
+                    TenantId = tenantId,
+                    Type = RoleType.Role,
+                    Name = "主管理员",
+                    Code = "main-admin",
+                    ParentId = jobGroupId,
+                    DataScope = DataScope.All,
+                    Sort = 1
+                },
+                new()
+                {
+                    TenantId = tenantId,
+                    Type = RoleType.Role,
+                    Name = "普通员工",
+                    Code = "emp",
+                    ParentId = jobGroupId,
+                    DataScope = DataScope.Self,
+                    Sort = 1
+                }
+            };
+            await _roleRep.InsertAsync(roles);
+
+            //添加用户角色
+            var userRole = new UserRoleEntity()
+            {
+                UserId = userId,
+                RoleId = roleId
+            };
+            await _userRoleRep.Value.InsertAsync(userRole);
+        }
+
+        //添加租户
+        if(!hasTenant)
+        {
+            var tenant = input.Adapt<TenantEntity>();
+            tenant.Id = tenantId;
+            tenant.UserId = userId;
+            tenant.OrgId = orgId;
+            await _tenantRep.InsertAsync(tenant);
+
+            //添加租户套餐
+            if (input.PkgIds != null && input.PkgIds.Length != 0)
+            {
+                var pkgs = input.PkgIds.Select(pkgId => new TenantPkgEntity
+                {
+                    TenantId = tenantId,
+                    PkgId = pkgId
+                }).ToList();
+
+                await _tenantPkgRep.InsertAsync(pkgs);
+            }
+        }
+
+        return tenantId;
     }
 
     /// <summary>

@@ -16,6 +16,8 @@ public interface ITenantService
 
     Task<long> AddAsync(TenantAddInput input);
 
+    Task<long> RegAsync(TenantRegInput input);
+
     Task UpdateAsync(TenantUpdateInput input);
 
     Task DeleteAsync(long id);
