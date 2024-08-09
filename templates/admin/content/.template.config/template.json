@@ -30,6 +30,18 @@
 			"defaultValue": "false",
 			"description": "Cap for building distributed transaction and eventbus"
 		},
+		"NoTests": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No testing project library"
+		},
+		"NoSample": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No module examples"
+		},
 		"MergeDb": {
 			"type": "parameter",
 			"datatype": "bool",
@@ -113,16 +125,32 @@
 			{
 			  "condition": "(NoTaskScheduler)",
 			  "exclude": [
-				"src/platform/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
-				"src/platform/MyApp.Api/Core/Consts/TaskNames.cs"
+				"src/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
+				"src/MyApp.Api/Core/Consts/TaskNames.cs"
 			  ]
 			},
 			{
 			  "condition": "(MicroService)",
 			  "exclude": [
-				"src/hosts/MyApp.Host/InitData/Admin/**",
-				"src/hosts/MyApp.Host/InitData/AdminVue2/**",
-				"src/hosts/MyApp.Host/wwwroot/captcha/**"
+				"src/MyApp.Host/InitData/Admin/**"
+			  ]
+			},
+			{
+			  "condition": "(NoTests)",
+			  "exclude": [
+				"src/MyApp.Tests/**"
+			  ]
+			},
+			{
+			  "condition": "(NoTests)",
+			  "exclude": [
+				"src/MyApp.Api.Contracts/Services/Module/**",
+				"src/MyApp.Api/Domain/Module/**",
+				"src/MyApp.Api/Repositories/Module/**",
+				"src/MyApp.Api/Repositories/CustomGenerateData.cs",
+				"src/MyApp.Api/Repositories/CustomSyncData.cs",
+				"src/MyApp.Api/Services/Module/**",
+				"src/MyApp.Host/InitData/App/**"
 			  ]
 			}
 		  ]

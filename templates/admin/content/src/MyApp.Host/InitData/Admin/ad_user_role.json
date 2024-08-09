@@ -1,0 +1,20 @@
+[
+  {
+    "id": 510322210627653,
+    "userId": 161223411986501,
+    "roleId": 161223412080709,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-02-01T10:46:24"
+  },
+  {
+    "id": 564648041144389,
+    "userId": 161223411986501,
+    "roleId": 564647954321477,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T22:58:47"
+  }
+]

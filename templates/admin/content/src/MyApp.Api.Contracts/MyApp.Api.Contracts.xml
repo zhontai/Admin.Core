@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyApp.Api.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:MyApp.Api.Contracts.Services.Module.IModuleService">
+            <summary>
+            模块接口
+            </summary>
+        </member>
+        <member name="T:MyApp.Api.Contracts.Services.Module.Input.ModuleAddInput">
+            <summary>
+            添加模块
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Input.ModuleAddInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:MyApp.Api.Contracts.Services.Module.Input.ModuleGetPageInput">
+            <summary>
+            模块分页
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Input.ModuleGetPageInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:MyApp.Api.Contracts.Services.Module.Input.ModuleUpdateInput">
+            <summary>
+            修改模块
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Input.ModuleUpdateInput.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Input.ModuleUpdateInput.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="T:MyApp.Api.Contracts.Services.Module.Output.ModuleGetOutput">
+            <summary>
+            模块
+            </summary>
+        </member>
+        <member name="T:MyApp.Api.Contracts.Services.Module.Output.ModuleGetPageOutput">
+            <summary>
+            模块列表
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Output.ModuleGetPageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:MyApp.Api.Contracts.Services.Module.Output.ModuleGetPageOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+    </members>
+</doc>
