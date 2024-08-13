@@ -132,7 +132,7 @@ public class AppConfig
     /// <summary>
     /// 语言配置
     /// </summary>
-    public LangConfig Lang { get; set; }
+    public LangConfig Lang { get; set; } = new LangConfig();
 }
 
 /// <summary>
