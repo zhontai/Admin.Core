@@ -1,6 +1,7 @@
 ﻿using FreeSql.DataAnnotations;
 using System;
 using System.ComponentModel;
+using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Entities;
 
@@ -20,14 +21,16 @@ public class EntityMember<TKey> : Entity<TKey>, IMember, IDelete
     /// 创建时间
     /// </summary>
     [Description("创建时间")]
-    [Column(Position = -20, CanUpdate = false, ServerTime = DateTimeKind.Local)]
+    [Column(Position = -20, CanUpdate = false)]
+    [ServerTime]
     public virtual DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// 修改时间
     /// </summary>
     [Description("修改时间")]
-    [Column(Position = -10, CanInsert = false, ServerTime = DateTimeKind.Local)]
+    [Column(Position = -10)]
+    [ServerTime(true)]
     public virtual DateTime? ModifiedTime { get; set; }
 
     /// <summary>

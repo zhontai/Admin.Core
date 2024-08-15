@@ -150,14 +150,17 @@ public class DbHelper
 
         //数据库时间
         if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
-        && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
-        && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
+        && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) is ServerTimeAttribute serverTimeAttribute)
         {
             if(!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
             {
                 return;
             }
-            e.Value = DateTime.Now.Subtract(timeOffset);
+
+            if((e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default) || serverTimeAttribute.AlwaysUpdate)
+            {
+                e.Value = DateTime.Now.Subtract(timeOffset);
+            }
         }
 
         //雪花Id
@@ -211,14 +214,12 @@ public class DbHelper
                         e.Value = user.DataPermission?.OrgId;
                     }
                     break;
-
                 case "TenantId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {
                         e.Value = user.TenantId;
                     }
                     break;
-
             }
         }
 
@@ -403,10 +404,16 @@ public class DbHelper
                         switch (e.Property.Name)
                         {
                             case "ModifiedUserId":
-                                e.Value = user.Id;
+                                if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
+                                {
+                                    e.Value = user.Id;
+                                }
                                 break;
                             case "ModifiedUserName":
-                                e.Value = user.UserName;
+                                if (e.Value == null || ((string)e.Value).IsNull())
+                                {
+                                    e.Value = user.UserName;
+                                }
                                 break;
                             case "ModifiedUserRealName":
                                 if (e.Value == null || ((string)e.Value).IsNull())
@@ -551,7 +558,10 @@ public class DbHelper
                 GenerateDataAsync(fsql, appConfig, dbConfig).Wait();
             }
 
-            #region 初始化数据库
+            //计算服务器时间
+            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
+            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
+            TimeOffset = timeOffset;
 
             if (dbConfig.Type == DataType.Oracle)
             {
@@ -564,26 +574,19 @@ public class DbHelper
                 SyncStructure(fsql, dbConfig: dbConfig, configureFreeSqlSyncStructure: hostAppOptions?.ConfigureFreeSqlSyncStructure);
             }
 
-            #region 审计数据
-
-            //计算服务器时间
-            var serverTime = fsql.Ado.QuerySingle(() => DateTime.UtcNow);
-            var timeOffset = DateTime.UtcNow.Subtract(serverTime);
-            TimeOffset = timeOffset;
-            fsql.Aop.AuditValue += (s, e) =>
-            {
-                AuditValue(e, timeOffset, user, dbConfig);
-            };
-
-            #endregion 审计数据
-
             //同步数据
             if (dbConfig.SyncData)
             {
                 SyncDataAsync(fsql, dbConfig, appConfig).Wait();
             }
 
-            #endregion 初始化数据库
+            //审计数据
+            fsql.Aop.AuditValue += (s, e) =>
+            {
+                AuditValue(e, timeOffset, user, dbConfig);
+            };
+
+            #region 过滤器
 
             //软删除过滤器
             fsql.GlobalFilter.ApplyOnly<IDelete>(FilterNames.Delete, a => a.IsDeleted == false);
@@ -632,6 +635,8 @@ public class DbHelper
                 },
                 a => a.OwnerId == user.Id || user.DataPermission.OrgIds.Contains(a.OwnerOrgId.Value)
             );
+
+            #endregion
 
             //配置实体
             ConfigEntity(fsql, appConfig, dbConfig);

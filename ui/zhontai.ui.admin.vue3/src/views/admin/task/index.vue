@@ -400,5 +400,3 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 </script>
-
-<style scoped lang="scss"></style>

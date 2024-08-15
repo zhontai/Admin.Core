@@ -268,6 +268,16 @@
             SchemaId
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Attributes.ServerTimeAttribute">
+            <summary>
+            服务端时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Attributes.ServerTimeAttribute.AlwaysUpdate">
+            <summary>
+            一直更新，默认值false，指定为true一直更新该字段服务器端时间
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Attributes.SingleInstanceAttribute">
             <summary>
             单例注入
@@ -4764,6 +4774,12 @@
         <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetProjects">
             <summary>
             获得项目列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetEnums">
+            <summary>
+            获得枚举列表
             </summary>
             <returns></returns>
         </member>
