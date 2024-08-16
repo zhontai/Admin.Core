@@ -65,7 +65,7 @@
 	</ItemGroup>
 	<!--#if (!NoApiUI) -->
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.ApiUI" Version="8.3.0" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="8.3.1" />
 	</ItemGroup>
 	<!--#endif -->
 	<ItemGroup>

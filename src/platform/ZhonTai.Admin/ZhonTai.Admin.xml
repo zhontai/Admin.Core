@@ -4782,12 +4782,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetEnums">
-            <summary>
-            获得枚举列表
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:ZhonTai.Admin.Services.Api.Dto.ApiAddInput">
             <summary>
             添加
