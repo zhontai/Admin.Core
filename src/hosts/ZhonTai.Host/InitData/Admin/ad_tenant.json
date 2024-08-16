@@ -4,6 +4,7 @@
     "userId": 161223411986501,
     "orgId": 189097691009093,
     "tenantType": 1,
+    "domain": null,
     "dbKey": "masterdb",
     "dbType": null,
     "connectionString": "",

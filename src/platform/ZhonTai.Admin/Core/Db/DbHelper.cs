@@ -152,12 +152,12 @@ public class DbHelper
         if ((e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
         && e.Property.GetCustomAttribute<ServerTimeAttribute>(false) is ServerTimeAttribute serverTimeAttribute)
         {
-            if(!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+            if(!dbConfig.ForceUpdate && !serverTimeAttribute.CanInsert && e.AuditValueType is AuditValueType.Insert)
             {
                 return;
             }
 
-            if((e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default) || serverTimeAttribute.AlwaysUpdate)
+            if((e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default) || serverTimeAttribute.CanUpdate)
             {
                 e.Value = DateTime.Now.Subtract(timeOffset);
             }
@@ -345,15 +345,19 @@ public class DbHelper
                         return;
                     }
 
-                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) != null
+                    if (e.Property.GetCustomAttribute<ServerTimeAttribute>(false) is ServerTimeAttribute serverTimeAttribute
                            && (e.Column.CsType == typeof(DateTime) || e.Column.CsType == typeof(DateTime?))
                            && (e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default))
                     {
-                        if (!dbConfig.ForceUpdate && e.AuditValueType is AuditValueType.Insert && e.Property.Name == "ModifiedTime")
+                        if (!dbConfig.ForceUpdate && !serverTimeAttribute.CanInsert && e.AuditValueType is AuditValueType.Insert)
                         {
                             return;
                         }
-                        e.Value = DateTime.Now.Subtract(TimeOffset);
+
+                        if ((e.Value == null || (DateTime)e.Value == default || (DateTime?)e.Value == default) || serverTimeAttribute.CanUpdate)
+                        {
+                            e.Value = DateTime.Now.Subtract(timeOffset);
+                        }
                     }
 
                     if (e.Column.CsType == typeof(long)

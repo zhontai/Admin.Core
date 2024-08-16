@@ -30,7 +30,7 @@ public class EntityMember<TKey> : Entity<TKey>, IMember, IDelete
     /// </summary>
     [Description("修改时间")]
     [Column(Position = -10)]
-    [ServerTime(true)]
+    [ServerTime(CanInsert = false, CanUpdate = true)]
     public virtual DateTime? ModifiedTime { get; set; }
 
     /// <summary>

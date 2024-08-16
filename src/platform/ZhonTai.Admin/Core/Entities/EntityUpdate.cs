@@ -47,7 +47,7 @@ public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate<TKey> where TKe
     [JsonProperty(Order = 10002)]
     [JsonPropertyOrder(10002)]
     [Column(Position = -10)]
-    [ServerTime(true)]
+    [ServerTime(CanInsert = false, CanUpdate = true)]
     public virtual DateTime? ModifiedTime { get; set; }
 }
 

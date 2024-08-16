@@ -40,8 +40,8 @@
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="3.3.0" />
-		<PackageReference Include="NLog" Version="5.3.2" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.11" />
+		<PackageReference Include="NLog" Version="5.3.3" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.12" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />

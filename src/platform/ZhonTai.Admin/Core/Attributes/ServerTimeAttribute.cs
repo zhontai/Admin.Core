@@ -9,12 +9,12 @@ namespace ZhonTai.Admin.Core.Attributes;
 public class ServerTimeAttribute : Attribute
 {
     /// <summary>
-    /// 一直更新，默认值false，指定为true一直更新该字段服务器端时间
+    /// 更新设置该字段服务器端时间，默认值false，指定为true更新时设置
     /// </summary>
-    public bool AlwaysUpdate { get; set; } = false;
+    public bool CanUpdate { get; set; } = false;
 
-    public ServerTimeAttribute(bool alwaysUpdate = false)
-    {
-        AlwaysUpdate = alwaysUpdate;
-    }
+    /// <summary>
+    /// 插入设置该字段服务器端时间，默认值true，指定为false插入时不设置
+    /// </summary>
+    public bool CanInsert { get; set; } = true;
 }
