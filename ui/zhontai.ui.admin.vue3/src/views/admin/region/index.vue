@@ -1,7 +1,7 @@
 <template>
   <div class="my-layout">
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-      <el-form :inline="true" label-width="auto" @submit.stop.prevent>
+      <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
         <el-form-item label="">
           <RegionSelect v-model:parentId="state.filter.parentId" placeholder="上级地区" />
         </el-form-item>

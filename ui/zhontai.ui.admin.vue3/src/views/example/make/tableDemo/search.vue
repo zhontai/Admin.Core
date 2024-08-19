@@ -27,7 +27,7 @@
           <el-form-item class="table-form-btn" :label-width="search.length <= 1 ? '10px' : '100px'">
             <template #label v-if="search.length > 1">
               <div class="table-form-btn-toggle ml10" @click="state.isToggle = !state.isToggle">
-                <span>{{ state.isToggle ? '收筛选' : '展筛选' }}</span>
+                <span>{{ state.isToggle ? '收起' : '展开' }}</span>
                 <SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
               </div>
             </template>
@@ -104,6 +104,7 @@ onMounted(() => {
       display: flex;
       align-items: center;
       color: var(--el-color-primary);
+      cursor: pointer;
     }
   }
 }

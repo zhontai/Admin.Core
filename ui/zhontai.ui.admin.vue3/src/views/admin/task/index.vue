@@ -2,7 +2,7 @@
   <div class="my-layout">
     <div class="mt8" style="position: relative">
       <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
-        <el-form :inline="true" @submit.stop.prevent>
+        <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
           <el-form-item label="任务分组">
             <el-select v-model="state.filter.groupName" :empty-values="[null, undefined]" style="width: 120px" @change="onQuery">
               <el-option v-for="group in state.groupList" :key="group.name" :label="group.name" :value="group.value" />
