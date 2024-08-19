@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumb">
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, computed, onMounted, watch } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter, RouteLocationNormalized } from 'vue-router'
 import { Local } from '/@/utils/storage'
 import other from '/@/utils/other'
@@ -50,7 +50,6 @@ const state = reactive<BreadcrumbState>({
 
 // 动态设置经典、横向布局不显示
 const isShowBreadcrumb = computed(() => {
-  initRouteSplit(route)
   const { layout, isBreadcrumb } = themeConfig.value
   if (layout === 'classic' || layout === 'transverse') return false
   else return isBreadcrumb ? true : false
@@ -126,6 +125,13 @@ onMounted(() => {
 onBeforeRouteUpdate((to) => {
   initRouteSplit(to)
 })
+
+watch(
+  () => themeConfig.value.isBreadcrumb,
+  () => {
+    route && initRouteSplit(route)
+  }
+)
 </script>
 
 <style scoped lang="scss">
