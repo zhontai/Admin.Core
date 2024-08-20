@@ -21,13 +21,21 @@ const props = defineProps({
     default: '#333',
   },
   size: {
-    type: Number,
-    default: () => 14,
+    type: [Number, String],
+    default: 14,
   },
 })
 
 const symbolId = computed(() => `#${props.prefix}-${props.name}`)
-const style = computed(() => `width:${props.size}px;height:${props.size}px;`)
+const style = computed(() => {
+  let sizeStyle = ''
+  if (typeof props.size === 'number') {
+    sizeStyle = `width:${props.size}px;height:${props.size}px;`
+  } else if (typeof props.size === 'string') {
+    sizeStyle = `width:${props.size};height:${props.size};`
+  }
+  return sizeStyle
+})
 </script>
 
 <style scoped lang="scss">
