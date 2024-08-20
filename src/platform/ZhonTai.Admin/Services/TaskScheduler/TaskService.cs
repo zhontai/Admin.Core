@@ -65,7 +65,20 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         }
 
         var taskGetOutput = taskInfo.Adapt<TaskGetOutput>();
-        taskGetOutput.AlarmEmail = await GetAlerEmailAsync(taskInfo.Id);
+        var taskExt = await _taskExtRepository.Where(a => a.TaskId == id).ToOneAsync(a => new
+        {
+            a.AlarmEmail,
+            a.FailRetryCount,
+            a.FailRetryInterval
+        });
+
+        if (taskExt != null)
+        {
+            taskGetOutput.AlarmEmail = taskExt.AlarmEmail;
+            taskGetOutput.FailRetryCount = taskExt.FailRetryCount;
+            taskGetOutput.FailRetryInterval = taskExt.FailRetryInterval;
+        }
+
         return taskGetOutput;
     }
 
@@ -144,7 +157,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             await _taskExtRepository.InsertAsync(new TaskInfoExt
             {
                 TaskId = taskld,
-                AlarmEmail = input.AlarmEmail
+                AlarmEmail = input.AlarmEmail,
+                FailRetryCount = input.FailRetryCount,
+                FailRetryInterval = input.FailRetryInterval,
             });
         }
 
@@ -184,6 +199,8 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         if(taskExt != null)
         {
             taskExt.AlarmEmail = input.AlarmEmail;
+            taskExt.FailRetryCount = input.FailRetryCount;
+            taskExt.FailRetryInterval = input.FailRetryInterval;
             await _taskExtRepository.UpdateAsync(taskExt);
         }
         else
@@ -191,7 +208,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
             await _taskExtRepository.InsertAsync(new TaskInfoExt
             {
                 TaskId = entity.Id,
-                AlarmEmail = input.AlarmEmail
+                AlarmEmail = input.AlarmEmail,
+                FailRetryCount = input.FailRetryCount,
+                FailRetryInterval = input.FailRetryInterval,
             });
         }
 

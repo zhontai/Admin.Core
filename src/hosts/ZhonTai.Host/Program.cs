@@ -1,4 +1,5 @@
-﻿using Cronos;
+﻿using COSXML.Callback;
+using Cronos;
 using FreeScheduler;
 using Mapster;
 using Microsoft.AspNetCore.Builder;
@@ -98,8 +99,7 @@ new HostApp(new HostAppOptions
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                freeSchedulerBuilder
-                .OnExecuting(task =>
+                void OnExecuting(TaskInfo task)
                 {
                     var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
 
@@ -172,15 +172,67 @@ new HostApp(new HostAppOptions
                         if (error.NotNull())
                             throw new Exception(error);
                     }
-                })
+                }
+
+                freeSchedulerBuilder
+                .OnExecuting(task => OnExecuting(task))
                 .OnExecuted((task, taskLog) =>
                 {
                     try
                     {
                         if (!taskLog.Success)
                         {
-                            //发送告警邮件
                             var taskService = AppInfo.GetRequiredService<TaskService>();
+                            var taskInfo = taskService.GetAsync(task.Id).Result;
+
+                            //失败重试
+                            if (taskInfo != null && taskInfo.FailRetryCount > 0)
+                            {
+                                var retryRound = 0;
+                                var failRetryCount = taskInfo.FailRetryCount;
+                                var failRetryInterval = taskInfo.FailRetryInterval > 0 ? taskInfo.FailRetryInterval.Value : 10;
+                                var scheduler = AppInfo.GetRequiredService<Scheduler>();
+                                var currentRound = taskLog.Round;
+                                void OnFailedCallBak()
+                                {
+                                    failRetryCount--;
+                                    retryRound++;
+                                    var startdt = DateTime.UtcNow;
+                                    var result = new TaskLog
+                                    {
+                                        CreateTime = DateTime.UtcNow.Add(scheduler.TimeOffset),
+                                        TaskId = task.Id,
+                                        Round = currentRound,
+                                        Remark = $"第{retryRound}次失败重试",
+                                        Success = true
+                                    };
+
+                                    try
+                                    {
+                                        OnExecuting(task);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        result.Success = false;
+                                        result.Exception = ex.InnerException == null ? $"{ex.Message}\r\n{ex.StackTrace}" : $"{ex.Message}\r\n{ex.StackTrace}\r\n\r\nInnerException: {ex.InnerException.Message}\r\n{ex.InnerException.StackTrace}";
+
+                                        if (failRetryCount > 0)
+                                        {
+                                            scheduler.AddTempTask(TimeSpan.FromSeconds(failRetryInterval), OnFailedCallBak);
+                                        }
+                                    }
+                                    finally
+                                    {
+                                        result.ElapsedMilliseconds = (long)DateTime.UtcNow.Subtract(startdt).TotalMilliseconds;
+                                        var taskLogService = AppInfo.GetRequiredService<TaskLogService>();
+                                        taskLogService.Add(result);
+                                    }
+                                }
+
+                                scheduler.AddTempTask(TimeSpan.FromSeconds(failRetryInterval), OnFailedCallBak);
+                            }
+
+                            //发送告警邮件
                             var emailService = AppInfo.GetRequiredService<EmailService>();
                             var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
                             var topic = task.Topic;

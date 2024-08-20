@@ -20,6 +20,16 @@ public class TaskInfoExt
     public string AlarmEmail { get; set; }
 
     /// <summary>
+    /// 失败重试次数
+    /// </summary>
+    public int? FailRetryCount { get; set; }
+
+    /// <summary>
+    /// 失败重试间隔（秒）
+    /// </summary>
+    public int? FailRetryInterval { get; set; }
+
+    /// <summary>
     /// 添加时间
     /// </summary>
     public DateTime? CreatedTime { get; set; }

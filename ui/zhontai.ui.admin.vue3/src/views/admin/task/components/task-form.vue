@@ -43,7 +43,23 @@
               <el-input v-model="form.alarmEmail" clearable placeholder="多个邮件地址用逗号分隔" />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+            <el-form-item prop="failRetryCount">
+              <template #label>
+                <div class="my-flex-y-center">失败重试次数</div>
+              </template>
+              <el-input-number v-model="form.failRetryCount" :min="0" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+            <el-form-item prop="failRetryCount">
+              <template #label>
+                <div class="my-flex-y-center">重试间隔（秒）</div>
+              </template>
+              <el-input-number v-model="form.failRetryInterval" :min="0" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <el-form-item prop="round" :rules="[{ required: true, message: '请输入执行轮数', trigger: ['blur', 'change'] }]">
               <template #label>
                 <div class="my-flex-y-center">
@@ -56,7 +72,7 @@
               <el-input-number v-model="form.round" :min="-1" :disabled="form.interval === 21" />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <el-form-item label="定时类型" prop="interval" :rules="[{ required: true, message: '请选择定时类型', trigger: ['change'] }]">
               <el-select v-model="form.interval" placeholder="请选择定时类型" style="width: 150px" @change="onIntervalChange">
                 <el-option v-for="item in state.intervals" :key="item.value" :label="item.label" :value="item.value" />

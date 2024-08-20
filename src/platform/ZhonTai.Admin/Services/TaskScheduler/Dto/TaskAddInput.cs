@@ -36,4 +36,14 @@ public class TaskAddInput
     /// 报警邮件，多个邮件地址则逗号分隔
     /// </summary>
     public string AlarmEmail { get; set; }
+
+    /// <summary>
+    /// 失败重试次数
+    /// </summary>
+    public int? FailRetryCount { get; set; }
+
+    /// <summary>
+    /// 失败重试间隔（秒）
+    /// </summary>
+    public int? FailRetryInterval { get; set; }
 }

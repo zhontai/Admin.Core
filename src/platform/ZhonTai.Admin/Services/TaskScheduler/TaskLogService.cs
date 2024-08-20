@@ -8,6 +8,8 @@ using FreeScheduler;
 using Mapster;
 using System.Collections.Generic;
 using ZhonTai.Admin.Resources;
+using System;
+using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -20,11 +22,15 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
     private readonly Scheduler _scheduler;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly Lazy<ITaskLogRepository> _taskLogRep;
 
-    public TaskLogService(Scheduler scheduler, AdminLocalizer adminLocalizer)
+    public TaskLogService(Scheduler scheduler, 
+        AdminLocalizer adminLocalizer,
+        Lazy<ITaskLogRepository> taskLogRep)
     {
         _scheduler = scheduler;
         _adminLocalizer = adminLocalizer;
+        _taskLogRep = taskLogRep;
     }
 
     /// <summary>
@@ -49,5 +55,16 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
         };
 
         return data;
+    }
+
+    /// <summary>
+    /// 添加
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [NonAction]
+    public void Add(TaskLog input)
+    {
+        _taskLogRep.Value.InsertAsync(input);
     }
 }

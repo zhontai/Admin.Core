@@ -3714,6 +3714,16 @@
             报警邮件，多个邮件地址则逗号分隔
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.FailRetryCount">
+            <summary>
+            失败重试次数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.FailRetryInterval">
+            <summary>
+            失败重试间隔（秒）
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.TaskInfoExt.CreatedTime">
             <summary>
             添加时间
@@ -4779,6 +4789,12 @@
         <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetProjects">
             <summary>
             获得项目列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Api.ApiService.GetEnums">
+            <summary>
+            获得枚举列表
             </summary>
             <returns></returns>
         </member>
@@ -8337,6 +8353,16 @@
             报警邮件，多个邮件地址则逗号分隔
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.FailRetryCount">
+            <summary>
+            失败重试次数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskAddInput.FailRetryInterval">
+            <summary>
+            失败重试间隔（秒）
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Services.TaskScheduler.Dto.TaskListOutput.Id">
             <summary>
             主键
@@ -8420,6 +8446,13 @@
         <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.GetPage(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Task.Dto.TaskLogGetPageDto})">
             <summary>
             查询分页
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.TaskScheduler.TaskLogService.Add(FreeScheduler.TaskLog)">
+            <summary>
+            添加
             </summary>
             <param name="input"></param>
             <returns></returns>

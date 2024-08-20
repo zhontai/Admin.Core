@@ -4013,6 +4013,16 @@ export interface TaskAddInput {
   intervalArgument?: string | null
   /** 报警邮件，多个邮件地址则逗号分隔 */
   alarmEmail?: string | null
+  /**
+   * 失败重试次数
+   * @format int32
+   */
+  failRetryCount?: number | null
+  /**
+   * 失败重试间隔（秒）
+   * @format int32
+   */
+  failRetryInterval?: number | null
 }
 
 export interface TaskGetOutput {
@@ -4031,6 +4041,16 @@ export interface TaskGetOutput {
   intervalArgument?: string | null
   /** 报警邮件，多个邮件地址则逗号分隔 */
   alarmEmail?: string | null
+  /**
+   * 失败重试次数
+   * @format int32
+   */
+  failRetryCount?: number | null
+  /**
+   * 失败重试间隔（秒）
+   * @format int32
+   */
+  failRetryInterval?: number | null
   /**
    * 任务Id
    * @minLength 1
@@ -4145,6 +4165,16 @@ export interface TaskUpdateInput {
   intervalArgument?: string | null
   /** 报警邮件，多个邮件地址则逗号分隔 */
   alarmEmail?: string | null
+  /**
+   * 失败重试次数
+   * @format int32
+   */
+  failRetryCount?: number | null
+  /**
+   * 失败重试间隔（秒）
+   * @format int32
+   */
+  failRetryInterval?: number | null
   /**
    * 任务Id
    * @minLength 1
