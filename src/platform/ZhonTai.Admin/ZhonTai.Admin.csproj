@@ -34,6 +34,7 @@
 		<PackageReference Include="FreeSql.Repository" Version="3.2.833" />
 		<PackageReference Include="FreeScheduler" Version="2.0.30" />
 		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="IP2Region.Net" Version="2.0.2" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.0" />
 		<PackageReference Include="Magicodes.IE.Excel" Version="2.7.5.1" />
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.7.5.1" />

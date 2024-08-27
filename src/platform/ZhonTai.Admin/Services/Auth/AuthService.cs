@@ -1,4 +1,6 @@
-﻿using FreeSql;
+﻿using BaiduBce.Services.Bos.Model;
+using FreeSql;
+using IP2Region.Net.Abstractions;
 using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,11 +18,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Domain.Permission;
@@ -43,6 +47,7 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using static Lazy.SlideCaptcha.Core.ValidateResult;
+using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 
 namespace ZhonTai.Admin.Services.Auth;
 
@@ -63,6 +68,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<ITenantService> _tenantService;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly ISearcher _searcher;
 
     public AuthService(
         Lazy<IOptions<AppConfig>> appConfig,
@@ -74,7 +80,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<ISlideCaptcha> captcha,
         Lazy<ITenantService> tenantService,
         UserHelper userHelper,
-        AdminLocalizer adminLocalizer
+        AdminLocalizer adminLocalizer,
+        ISearcher searcher
     )
     {
         _appConfig = appConfig;
@@ -87,6 +94,57 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
+        _searcher = searcher;
+    }
+
+    /// <summary>
+    /// 添加登录日志
+    /// </summary>
+    /// <param name="authLoginOutput"></param>
+    /// <param name="locationInfo"></param>
+    /// <param name="user"></param>
+    /// <param name="stopwatch"></param>
+    /// <returns></returns>
+    private async Task AddLoginLogAsync(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
+    {
+        await LazyGetRequiredService<ILoginLogService>().AddAsync(new LoginLogAddInput
+        {
+            TenantId = authLoginOutput.TenantId,
+            Name = authLoginOutput.Name,
+            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
+            Status = true,
+            CreatedUserId = authLoginOutput.Id,
+            CreatedUserName = user.UserName,
+            Country = locationInfo.Country,
+            Province = locationInfo.Province,
+            City = locationInfo.City,
+            Isp = locationInfo.Isp,
+        });
+    }
+
+    /// <summary>
+    /// 更新最后登录信息
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<LocationInfo> UpdateLastLoginInfoAsync(long userId)
+    {
+        var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
+        var region = _searcher.Search(ip);
+        var locationInfo = LocationInfo.Parse(region);
+
+        await _userRep.Value.UpdateDiy.Set(a => new UserEntity
+        {
+            LastLoginTime = DbHelper.ServerTime,
+            LastLoginIP = ip,
+            LastLoginCountry = locationInfo.Country,
+            LastLoginProvince = locationInfo.Province,
+            LastLoginCity = locationInfo.City,
+        })
+        .WhereDynamic(userId)
+        .ExecuteAffrowsAsync();
+
+        return locationInfo;
     }
 
     /// <summary>
@@ -511,6 +569,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
         #endregion
 
+        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
+
         #region 获得token
         var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Value.Value.Tenant)
@@ -527,21 +587,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         stopwatch.Stop();
 
-        #region 添加登录日志
-
-        var loginLogAddInput = new LoginLogAddInput
-        {
-            TenantId = authLoginOutput.TenantId,
-            Name = authLoginOutput.Name,
-            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-            Status = true,
-            CreatedUserId = authLoginOutput.Id,
-            CreatedUserName = user.UserName,
-        };
-
-        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-        #endregion 添加登录日志
+        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
 
         return new { token };
     }
@@ -609,23 +655,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         string token = GetToken(authLoginOutput);
         #endregion
 
+        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
+
         stopwatch.Stop();
 
-        #region 添加登录日志
-
-        var loginLogAddInput = new LoginLogAddInput
-        {
-            TenantId = authLoginOutput.TenantId,
-            Name = authLoginOutput.Name,
-            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-            Status = true,
-            CreatedUserId = authLoginOutput.Id,
-            CreatedUserName = user.UserName,
-        };
-
-        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-        #endregion 添加登录日志
+        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
 
         return new { token };
     }
@@ -693,23 +727,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         string token = GetToken(authLoginOutput);
         #endregion
 
+        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
+
         stopwatch.Stop();
 
-        #region 添加登录日志
-
-        var loginLogAddInput = new LoginLogAddInput
-        {
-            TenantId = authLoginOutput.TenantId,
-            Name = authLoginOutput.Name,
-            ElapsedMilliseconds = stopwatch.ElapsedMilliseconds,
-            Status = true,
-            CreatedUserId = authLoginOutput.Id,
-            CreatedUserName = user.UserName,
-        };
-
-        await LazyGetRequiredService<ILoginLogService>().AddAsync(loginLogAddInput);
-
-        #endregion 添加登录日志
+        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
 
         return new { token };
     }

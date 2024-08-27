@@ -63,5 +63,11 @@
 	  </Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="ip2region.xdb">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

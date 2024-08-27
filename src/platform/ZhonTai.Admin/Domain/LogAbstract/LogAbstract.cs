@@ -27,6 +27,30 @@ public abstract class LogAbstract : EntityAdd, ITenant
     public string IP { get; set; }
 
     /// <summary>
+    /// 国家
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Country { get; set; }
+
+    /// <summary>
+    /// 省份
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Province { get; set; }
+
+    /// <summary>
+    /// 城市
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string City { get; set; }
+
+    /// <summary>
+    /// 网络服务商
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string Isp { get; init; }
+
+    /// <summary>
     /// 浏览器
     /// </summary>
     [Column(StringLength = 100)]

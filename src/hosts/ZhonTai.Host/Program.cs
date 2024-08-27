@@ -1,6 +1,7 @@
-﻿using COSXML.Callback;
-using Cronos;
+﻿using Cronos;
 using FreeScheduler;
+using IP2Region.Net.Abstractions;
+using IP2Region.Net.XDB;
 using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,6 +75,9 @@ new HostApp(new HostAppOptions
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
         {
+            //开发阶段不同开发人员的消息区分，可以通过配置版本号实现
+            config.Version = "v1";
+
             config.UseInMemoryStorage();
             config.UseInMemoryMessageQueue();
 
@@ -277,6 +281,8 @@ new HostApp(new HostAppOptions
                 });
             };
         });
+
+        context.Services.AddSingleton<ISearcher>(new Searcher(CachePolicy.Content, Path.Combine(AppContext.BaseDirectory, "ip2region.xdb")));
     },
 
     //配置Autofac容器

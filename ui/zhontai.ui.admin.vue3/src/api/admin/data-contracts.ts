@@ -1105,14 +1105,14 @@ export interface LoginLogAddInput {
   name?: string | null
   /** IP */
   ip?: string | null
-  /** 浏览器 */
-  browser?: string | null
-  /** 操作系统 */
-  os?: string | null
-  /** 设备 */
-  device?: string | null
-  /** 浏览器信息 */
-  browserInfo?: string | null
+  /** 国家 */
+  country?: string | null
+  /** 省份 */
+  province?: string | null
+  /** 城市 */
+  city?: string | null
+  /** 网络服务商 */
+  isp?: string | null
   /**
    * 耗时（毫秒）
    * @format int64
@@ -1145,6 +1145,14 @@ export interface LoginLogListOutput {
   createdUserName?: string | null
   /** IP */
   ip?: string | null
+  /** 国家 */
+  country?: string | null
+  /** 省份 */
+  province?: string | null
+  /** 城市 */
+  city?: string | null
+  /** 网络服务商 */
+  isp?: string | null
   /** 浏览器 */
   browser?: string | null
   /** 操作系统 */
@@ -4641,6 +4649,19 @@ export interface UserEntity {
   status?: UserStatus
   /** 用户类型:Member=0,DefaultUser=1,TenantAdmin=10,PlatformAdmin=100 */
   type?: UserType
+  /**
+   * 最后登录时间
+   * @format date-time
+   */
+  lastLoginTime?: string | null
+  /** 最后登录IP */
+  lastLoginIP?: string | null
+  /** 最后登录国家 */
+  lastLoginCountry?: string | null
+  /** 最后登录省份 */
+  lastLoginProvince?: string | null
+  /** 最后登录城市 */
+  lastLoginCity?: string | null
   /** 启用 */
   enabled?: boolean
   /** 角色列表 */
@@ -4662,6 +4683,19 @@ export interface UserGetBasicOutput {
   mobile?: string | null
   /** 邮箱 */
   email?: string | null
+  /**
+   * 最后登录时间
+   * @format date-time
+   */
+  lastLoginTime?: string | null
+  /** 最后登录IP */
+  lastLoginIP?: string | null
+  /** 最后登录国家 */
+  lastLoginCountry?: string | null
+  /** 最后登录省份 */
+  lastLoginProvince?: string | null
+  /** 最后登录城市 */
+  lastLoginCity?: string | null
 }
 
 export interface UserGetOrgDto {

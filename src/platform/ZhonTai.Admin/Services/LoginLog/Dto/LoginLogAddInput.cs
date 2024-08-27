@@ -21,24 +21,24 @@ public class LoginLogAddInput
     public string IP { get; set; }
 
     /// <summary>
-    /// 浏览器
+    /// 国家
     /// </summary>
-    public string Browser { get; set; }
+    public string Country { get; set; }
 
     /// <summary>
-    /// 操作系统
+    /// 省份
     /// </summary>
-    public string Os { get; set; }
+    public string Province { get; set; }
 
     /// <summary>
-    /// 设备
+    /// 城市
     /// </summary>
-    public string Device { get; set; }
+    public string City { get; set; }
 
     /// <summary>
-    /// 浏览器信息
+    /// 网络服务商
     /// </summary>
-    public string BrowserInfo { get; set; }
+    public string Isp { get; init; }
 
     /// <summary>
     /// 耗时（毫秒）

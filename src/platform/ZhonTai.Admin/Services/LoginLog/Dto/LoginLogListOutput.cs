@@ -25,6 +25,26 @@ public class LoginLogListOutput
     public string IP { get; set; }
 
     /// <summary>
+    /// 国家
+    /// </summary>
+    public string Country { get; set; }
+
+    /// <summary>
+    /// 省份
+    /// </summary>
+    public string Province { get; set; }
+
+    /// <summary>
+    /// 城市
+    /// </summary>
+    public string City { get; set; }
+
+    /// <summary>
+    /// 网络服务商
+    /// </summary>
+    public string Isp { get; init; }
+
+    /// <summary>
     /// 浏览器
     /// </summary>
     public string Browser { get; set; }

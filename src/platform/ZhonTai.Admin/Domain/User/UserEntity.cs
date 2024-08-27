@@ -107,6 +107,36 @@ public partial class UserEntity : EntityTenant
     public UserType Type { get; set; } = UserType.DefaultUser;
 
     /// <summary>
+    /// 最后登录时间
+    /// </summary>
+    [Column(StringLength = 100)]
+    public DateTime? LastLoginTime { get; set; }
+
+    /// <summary>
+    /// 最后登录IP
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string LastLoginIP { get; set; }
+
+    /// <summary>
+    /// 最后登录国家
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string LastLoginCountry { get; set; }
+
+    /// <summary>
+    /// 最后登录省份
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string LastLoginProvince { get; set; }
+
+    /// <summary>
+    /// 最后登录城市
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string LastLoginCity { get; set; }
+
+    /// <summary>
     /// 启用
     /// </summary>
     public bool Enabled { get; set; } = true;

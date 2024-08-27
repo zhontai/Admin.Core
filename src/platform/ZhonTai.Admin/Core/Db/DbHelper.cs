@@ -32,6 +32,11 @@ public class DbHelper
     public static TimeSpan TimeOffset { get => timeOffset; set => timeOffset = value; }
 
     /// <summary>
+    /// 数据库时间
+    /// </summary>
+    public static DateTime ServerTime => DateTime.Now.Subtract(timeOffset);
+
+    /// <summary>
     /// 创建数据库
     /// </summary>
     /// <param name="dbConfig"></param>

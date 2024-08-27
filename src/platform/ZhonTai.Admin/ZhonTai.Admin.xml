@@ -1596,6 +1596,11 @@
             偏移时间
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Db.DbHelper.ServerTime">
+            <summary>
+            数据库时间
+            </summary>
+        </member>
         <member name="M:ZhonTai.Admin.Core.Db.DbHelper.CreateDatabaseAsync(ZhonTai.Admin.Core.Configs.DbConfig)">
             <summary>
             创建数据库
@@ -2498,6 +2503,38 @@
             多语言文件类型
             </summary>
         </member>
+        <member name="T:ZhonTai.Admin.Core.Records.LocationInfo">
+            <summary>
+            位置信息
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Records.LocationInfo.Country">
+            <summary>
+            国家
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Records.LocationInfo.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Records.LocationInfo.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Records.LocationInfo.Isp">
+            <summary>
+            网络服务商
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Core.Records.LocationInfo.Parse(System.String)">
+            <summary>
+            转换地址信息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:ZhonTai.Admin.Core.RegisterModules.ControllerModule.#ctor">
             <summary>
             控制器注入
@@ -3027,6 +3064,26 @@
         <member name="P:ZhonTai.Admin.Domain.LogAbstract.IP">
             <summary>
             IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.LogAbstract.Country">
+            <summary>
+            国家
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.LogAbstract.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.LogAbstract.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.LogAbstract.Isp">
+            <summary>
+            网络服务商
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.LogAbstract.Browser">
@@ -4198,6 +4255,31 @@
             用户类型
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.LastLoginTime">
+            <summary>
+            最后登录时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.LastLoginIP">
+            <summary>
+            最后登录IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.LastLoginCountry">
+            <summary>
+            最后登录国家
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.LastLoginProvince">
+            <summary>
+            最后登录省份
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.User.UserEntity.LastLoginCity">
+            <summary>
+            最后登录城市
+            </summary>
+        </member>
         <member name="P:ZhonTai.Admin.Domain.User.UserEntity.Enabled">
             <summary>
             启用
@@ -4972,6 +5054,22 @@
             <summary>
             认证授权服务
             </summary>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.AddLoginLogAsync(ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput,ZhonTai.Admin.Core.Records.LocationInfo,ZhonTai.Admin.Domain.User.UserEntity,System.Diagnostics.Stopwatch)">
+            <summary>
+            添加登录日志
+            </summary>
+            <param name="authLoginOutput"></param>
+            <param name="locationInfo"></param>
+            <param name="user"></param>
+            <param name="stopwatch"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.UpdateLastLoginInfoAsync(System.Int64)">
+            <summary>
+            更新最后登录信息
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.GetToken(ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput)">
             <summary>
@@ -6415,24 +6513,24 @@
             IP
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Browser">
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Country">
             <summary>
-            浏览器
+            国家
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Os">
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Province">
             <summary>
-            操作系统
+            省份
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Device">
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.City">
             <summary>
-            设备
+            城市
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.BrowserInfo">
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Isp">
             <summary>
-            浏览器信息
+            网络服务商
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.ElapsedMilliseconds">
@@ -6483,6 +6581,26 @@
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.IP">
             <summary>
             IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.Country">
+            <summary>
+            国家
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.Isp">
+            <summary>
+            网络服务商
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.Browser">
@@ -9003,6 +9121,31 @@
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.Email">
             <summary>
             邮箱
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.LastLoginTime">
+            <summary>
+            最后登录时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.LastLoginIP">
+            <summary>
+            最后登录IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.LastLoginCountry">
+            <summary>
+            最后登录国家
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.LastLoginProvince">
+            <summary>
+            最后登录省份
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetBasicOutput.LastLoginCity">
+            <summary>
+            最后登录城市
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.User.Dto.UserGetOutput.Roles">

@@ -65,7 +65,10 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(LoginLogAddInput input)
     {
-        input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
+        if(input.IP.IsNull())
+            input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
+
+        var entity = Mapper.Map<LoginLogEntity>(input);
 
         string ua = _context.HttpContext.Request.Headers["User-Agent"];
         if (ua.NotNull())
@@ -73,12 +76,12 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
             var client = UAParser.Parser.GetDefault().Parse(ua);
             var device = client.Device.Family;
             device = device.ToLower() == "other" ? "" : device;
-            input.Browser = client.UA.Family;
-            input.Os = client.OS.Family;
-            input.Device = device;
-            input.BrowserInfo = ua;
+            entity.Browser = client.UA.Family;
+            entity.Os = client.OS.Family;
+            entity.Device = device;
+            entity.BrowserInfo = ua;
         }
-        var entity = Mapper.Map<LoginLogEntity>(input);
+       
         await _loginLogRep.InsertAsync(entity);
 
         return entity.Id;
