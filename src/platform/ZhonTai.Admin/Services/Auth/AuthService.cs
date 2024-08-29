@@ -1,5 +1,4 @@
-﻿using BaiduBce.Services.Bos.Model;
-using FreeSql;
+﻿using FreeSql;
 using IP2Region.Net.Abstractions;
 using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
@@ -57,7 +56,6 @@ namespace ZhonTai.Admin.Services.Auth;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class AuthService : BaseService, IAuthService, IDynamicApi
 {
-    
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
     private readonly Lazy<IUserRepository> _userRep;
@@ -68,7 +66,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<ITenantService> _tenantService;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
-    private readonly ISearcher _searcher;
 
     public AuthService(
         Lazy<IOptions<AppConfig>> appConfig,
@@ -80,8 +77,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<ISlideCaptcha> captcha,
         Lazy<ITenantService> tenantService,
         UserHelper userHelper,
-        AdminLocalizer adminLocalizer,
-        ISearcher searcher
+        AdminLocalizer adminLocalizer
     )
     {
         _appConfig = appConfig;
@@ -94,7 +90,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
-        _searcher = searcher;
     }
 
     /// <summary>
@@ -115,10 +110,10 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             Status = true,
             CreatedUserId = authLoginOutput.Id,
             CreatedUserName = user.UserName,
-            Country = locationInfo.Country,
-            Province = locationInfo.Province,
-            City = locationInfo.City,
-            Isp = locationInfo.Isp,
+            Country = locationInfo?.Country,
+            Province = locationInfo?.Province,
+            City = locationInfo?.City,
+            Isp = locationInfo?.Isp,
         });
     }
 
@@ -130,18 +125,29 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     public async Task<LocationInfo> UpdateLastLoginInfoAsync(long userId)
     {
         var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
-        var region = _searcher.Search(ip);
-        var locationInfo = LocationInfo.Parse(region);
+       
 
-        await _userRep.Value.UpdateDiy.Set(a => new UserEntity
+        var update = _userRep.Value.UpdateDiy.Set(a => new UserEntity
         {
-            LastLoginTime = DbHelper.ServerTime,
             LastLoginIP = ip,
-            LastLoginCountry = locationInfo.Country,
-            LastLoginProvince = locationInfo.Province,
-            LastLoginCity = locationInfo.City,
-        })
-        .WhereDynamic(userId)
+            LastLoginTime = DbHelper.ServerTime,
+        });
+
+        var locationInfo = new LocationInfo();
+
+        if (_appConfig.Value.Value.IP2Region.Enable)
+        {
+            var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
+            locationInfo = LocationInfo.Parse(region);
+            update = update.Set(a => new UserEntity
+            {
+                LastLoginCountry = locationInfo.Country,
+                LastLoginProvince = locationInfo.Province,
+                LastLoginCity = locationInfo.City,
+            });
+        }
+
+        await update.WhereDynamic(userId)
         .ExecuteAffrowsAsync();
 
         return locationInfo;

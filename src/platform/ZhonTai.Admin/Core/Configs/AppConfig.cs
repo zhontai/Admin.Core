@@ -133,6 +133,11 @@ public class AppConfig
     /// 语言配置
     /// </summary>
     public LangConfig Lang { get; set; } = new LangConfig();
+
+    /// <summary>
+    /// IP地址定位配置
+    /// </summary>
+    public IP2RegionConfig IP2Region { get; set; } = new IP2RegionConfig();
 }
 
 /// <summary>
@@ -180,6 +185,22 @@ public class LangConfig
     /// 语言请求解析列表
     /// </summary>
     public string[] RequestCultureProviders { get; set; }
+}
+
+/// <summary>
+/// IP地址定位配置
+/// </summary>
+public class IP2RegionConfig
+{
+    /// <summary>
+    /// 启用
+    /// </summary>
+    public bool Enable { get; set; } = false;
+
+    /// <summary>
+    /// 数据库路径
+    /// </summary>
+    public string DbPath { get; set; }
 }
 
 /// <summary>

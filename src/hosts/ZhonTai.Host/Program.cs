@@ -1,7 +1,5 @@
 ﻿using Cronos;
 using FreeScheduler;
-using IP2Region.Net.Abstractions;
-using IP2Region.Net.XDB;
 using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +9,6 @@ using Newtonsoft.Json.Linq;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -281,8 +278,6 @@ new HostApp(new HostAppOptions
                 });
             };
         });
-
-        context.Services.AddSingleton<ISearcher>(new Searcher(CachePolicy.Content, Path.Combine(AppContext.BaseDirectory, "ip2region.xdb")));
     },
 
     //配置Autofac容器

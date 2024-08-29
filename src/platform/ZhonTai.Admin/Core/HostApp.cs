@@ -65,6 +65,8 @@ using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using IP2Region.Net.Abstractions;
+using IP2Region.Net.XDB;
 
 namespace ZhonTai.Admin.Core;
 
@@ -810,6 +812,12 @@ public class HostApp
             options.StoreageKeyPrefix = CacheKeys.Captcha;
         });
         services.AddScoped<ISlideCaptcha, SlideCaptcha>();
+
+        //IP地址定位库
+        if (appConfig.IP2Region.Enable)
+        {
+            services.AddSingleton<ISearcher>(new Searcher(CachePolicy.Content, Path.Combine(AppContext.BaseDirectory, "ip2region.xdb")));
+        }
 
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }

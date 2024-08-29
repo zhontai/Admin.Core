@@ -44,6 +44,6 @@ public record LocationInfo
             };
         }
 
-        return null;
+        return new LocationInfo();
     }
 }

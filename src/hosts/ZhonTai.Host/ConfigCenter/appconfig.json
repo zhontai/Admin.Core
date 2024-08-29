@@ -146,6 +146,13 @@
       "Langs": [ "zh", "en" ],
       //语言请求解析列表
       "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
+    },
+    //IP地址定位
+    "IP2Region": {
+      //启用
+      "Enable": true,
+      //绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
+      "DbPath": ""
     }
   }
 }

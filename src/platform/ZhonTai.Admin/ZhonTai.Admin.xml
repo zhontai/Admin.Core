@@ -717,6 +717,11 @@
             语言配置
             </summary>
         </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.AppConfig.IP2Region">
+            <summary>
+            IP地址定位配置
+            </summary>
+        </member>
         <member name="T:ZhonTai.Admin.Core.Configs.KestrelConfig">
             <summary>
             Kestrel服务器配置
@@ -760,6 +765,21 @@
         <member name="P:ZhonTai.Admin.Core.Configs.LangConfig.RequestCultureProviders">
             <summary>
             语言请求解析列表
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Admin.Core.Configs.IP2RegionConfig">
+            <summary>
+            IP地址定位配置
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.IP2RegionConfig.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Core.Configs.IP2RegionConfig.DbPath">
+            <summary>
+            数据库路径
             </summary>
         </member>
         <member name="T:ZhonTai.Admin.Core.Configs.SwaggerConfig">
