@@ -3644,7 +3644,7 @@
         "viewId": null,
         "name": null,
         "path": "/platform/log",
-        "redirect": "/platform/log/login-log",
+        "redirect": "/platform/logs/login-log",
         "icon": "ele-Tickets",
         "hidden": false,
         "opened": true,
