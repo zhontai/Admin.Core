@@ -818,6 +818,7 @@ onUnmounted(() => {
       background-size: 200% 100%;
       animation: masked-animation 4s infinite linear;
       -webkit-box-reflect: below -2px -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 0.1)));
+      position: relative;
       @keyframes masked-animation {
         0% {
           background-position: 0 0;
@@ -826,7 +827,7 @@ onUnmounted(() => {
           background-position: -100% 0;
         }
       }
-      position: relative;
+
       &::after {
         content: '';
         width: 50%;
@@ -1108,25 +1109,33 @@ onUnmounted(() => {
             width: 100px;
             height: 95px;
             animation: turnAround 6s infinite linear;
-            box-shadow: 0 0 1px 0 #869fe4, inset 0 0 10px 0 #869fe4;
+            box-shadow:
+              0 0 1px 0 #869fe4,
+              inset 0 0 10px 0 #869fe4;
           }
           .circle:nth-of-type(2) {
             width: 95px;
             height: 100px;
             animation: turnAround 10s infinite linear;
-            box-shadow: 0 0 1px 0 #3397f2, inset 0 0 10px 0 #3397f2;
+            box-shadow:
+              0 0 1px 0 #3397f2,
+              inset 0 0 10px 0 #3397f2;
           }
           .circle:nth-of-type(3) {
             width: 110px;
             height: 100px;
             animation: turnAround 5s infinite linear;
-            box-shadow: 0 0 1px 0 #3eaadc, inset 0 0 10px 0 #3eaadc;
+            box-shadow:
+              0 0 1px 0 #3eaadc,
+              inset 0 0 10px 0 #3eaadc;
           }
           .circle:nth-of-type(4) {
             width: 100px;
             height: 110px;
             animation: turnAround 15s infinite linear;
-            box-shadow: 0 0 1px 0 #09f, inset 0 0 10px 0 #09f;
+            box-shadow:
+              0 0 1px 0 #09f,
+              inset 0 0 10px 0 #09f;
           }
           @keyframes turnAround {
             100% {
@@ -1270,8 +1279,14 @@ onUnmounted(() => {
                   width: 200%;
                   height: 200%;
                   background-repeat: no-repeat;
-                  background-size: 50% 50%, 50% 50%;
-                  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+                  background-size:
+                    50% 50%,
+                    50% 50%;
+                  background-position:
+                    0 0,
+                    100% 0,
+                    100% 100%,
+                    0 100%;
                   background-image: linear-gradient(#19d4ae, #19d4ae), linear-gradient(#5ab1ef, #5ab1ef), linear-gradient(#fa6e86, #fa6e86),
                     linear-gradient(#ffb980, #ffb980);
                   animation: rotate 2s linear infinite;
