@@ -186,8 +186,8 @@ const onQuery = async () => {
         return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
       },
     })
-    state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a) => a.type === 1))
-    state.formPermissionMenuTreeData = listToTree(cloneDeep(res.data).filter((a) => a.type === 1 || a.type === 2))
+    state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1))
+    state.formPermissionMenuTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1 || a.type === 2))
   } else {
     state.permissionTreeData = []
     state.formPermissionGroupTreeData = []
