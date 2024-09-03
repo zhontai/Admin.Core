@@ -56,17 +56,17 @@ public class LoginLogAddInput
     public string Msg { get; set; }
 
     /// <summary>
-    /// 操作结果
-    /// </summary>
-    public string Result { get; set; }
-
-    /// <summary>
-    /// 创建者Id
+    /// 创建者用户Id
     /// </summary>
     public long? CreatedUserId { get; set; }
 
     /// <summary>
-    /// 创建者
+    /// 创建者用户名
     /// </summary>
     public string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    public string CreatedUserRealName { get; set; }
 }

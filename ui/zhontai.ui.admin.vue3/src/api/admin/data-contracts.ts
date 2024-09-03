@@ -1122,15 +1122,34 @@ export interface LoginLogAddInput {
   status?: boolean | null
   /** 操作消息 */
   msg?: string | null
-  /** 操作结果 */
-  result?: string | null
   /**
-   * 创建者Id
+   * 创建者用户Id
    * @format int64
    */
   createdUserId?: number | null
+  /** 创建者用户名 */
+  createdUserName?: string | null
+  /** 创建者姓名 */
+  createdUserRealName?: string | null
+}
+
+export interface LoginLogGetPageInput {
   /** 创建者 */
   createdUserName?: string | null
+  /** 操作状态 */
+  status?: boolean | null
+  /** IP */
+  ip?: string | null
+  /**
+   * 创建开始时间
+   * @format date-time
+   */
+  addStartTime?: string | null
+  /**
+   * 创建结束时间
+   * @format date-time
+   */
+  addEndTime?: string | null
 }
 
 export interface LoginLogListOutput {
@@ -1550,6 +1569,22 @@ export interface PageInputLogGetPageDto {
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
   filter?: LogGetPageDto
+}
+
+/** 分页信息输入 */
+export interface PageInputLoginLogGetPageInput {
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  dynamicFilter?: DynamicFilterInfo
+  filter?: LoginLogGetPageInput
 }
 
 /** 分页信息输入 */

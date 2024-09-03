@@ -3141,11 +3141,6 @@
             操作消息
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.LogAbstract.Result">
-            <summary>
-            操作结果
-            </summary>
-        </member>
         <member name="T:ZhonTai.Admin.Domain.LoginLog.LoginLogEntity">
             <summary>
             登录日志
@@ -3168,12 +3163,17 @@
         </member>
         <member name="P:ZhonTai.Admin.Domain.OprationLog.OprationLogEntity.ApiMethod">
             <summary>
-            接口提交方法
+            接口方法
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Domain.OprationLog.OprationLogEntity.Params">
             <summary>
-            操作参数
+            请求参数
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Domain.OprationLog.OprationLogEntity.Result">
+            <summary>
+            响应结果
             </summary>
         </member>
         <member name="M:ZhonTai.Admin.Domain.Org.IOrgRepository.GetChildIdListAsync(System.Int64)">
@@ -5085,10 +5085,20 @@
             <param name="stopwatch"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.UpdateLastLoginInfoAsync(System.Int64)">
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.GetIpLocationInfo(System.String)">
+            <summary>
+            获得IP地址
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Admin.Services.Auth.AuthService.UpdateLastLoginInfoAsync(System.Int64,System.String,ZhonTai.Admin.Core.Records.LocationInfo)">
             <summary>
             更新最后登录信息
             </summary>
+            <param name="userId"></param>
+            <param name="ip"></param>
+            <param name="locationInfo"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Admin.Services.Auth.AuthService.GetToken(ZhonTai.Admin.Services.Auth.Dto.AuthLoginOutput)">
@@ -6568,19 +6578,44 @@
             操作消息
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.Result">
-            <summary>
-            操作结果
-            </summary>
-        </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.CreatedUserId">
             <summary>
-            创建者Id
+            创建者用户Id
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.CreatedUserName">
             <summary>
+            创建者用户名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogAddInput.CreatedUserRealName">
+            <summary>
+            创建者姓名
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput.CreatedUserName">
+            <summary>
             创建者
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput.AddStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput.AddEndTime">
+            <summary>
+            创建结束时间
             </summary>
         </member>
         <member name="P:ZhonTai.Admin.Services.LoginLog.Dto.LoginLogListOutput.Id">
@@ -6668,7 +6703,7 @@
             登录日志服务
             </summary>
         </member>
-        <member name="M:ZhonTai.Admin.Services.LoginLog.LoginLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.LogGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.LoginLog.LoginLogService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Services.LoginLog.Dto.LoginLogGetPageInput})">
             <summary>
             查询分页
             </summary>

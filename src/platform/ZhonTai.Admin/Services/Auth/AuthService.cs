@@ -66,6 +66,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<ITenantService> _tenantService;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly ILoginLogService _loginLogService;
 
     public AuthService(
         Lazy<IOptions<AppConfig>> appConfig,
@@ -77,7 +78,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<ISlideCaptcha> captcha,
         Lazy<ITenantService> tenantService,
         UserHelper userHelper,
-        AdminLocalizer adminLocalizer
+        AdminLocalizer adminLocalizer,
+        ILoginLogService loginLogService
     )
     {
         _appConfig = appConfig;
@@ -90,6 +92,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
+        _loginLogService = loginLogService;
     }
 
     /// <summary>
@@ -118,27 +121,40 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     }
 
     /// <summary>
+    /// 获得IP地址
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    private LocationInfo GetIpLocationInfo(string ip)
+    {
+        var locationInfo = new LocationInfo();
+        if (_appConfig.Value.Value.IP2Region.Enable)
+        {
+            var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
+            locationInfo = LocationInfo.Parse(region);
+        }
+
+        return locationInfo;
+    }
+
+    /// <summary>
     /// 更新最后登录信息
     /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="ip"></param>
+    /// <param name="locationInfo"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task<LocationInfo> UpdateLastLoginInfoAsync(long userId)
+    public async Task UpdateLastLoginInfoAsync(long userId, string ip, LocationInfo locationInfo)
     {
-        var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
-       
-
         var update = _userRep.Value.UpdateDiy.Set(a => new UserEntity
         {
             LastLoginIP = ip,
             LastLoginTime = DbHelper.ServerTime,
         });
 
-        var locationInfo = new LocationInfo();
-
         if (_appConfig.Value.Value.IP2Region.Enable)
         {
-            var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
-            locationInfo = LocationInfo.Parse(region);
             update = update.Set(a => new UserEntity
             {
                 LastLoginCountry = locationInfo.Country,
@@ -149,8 +165,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         await update.WhereDynamic(userId)
         .ExecuteAffrowsAsync();
-
-        return locationInfo;
     }
 
     /// <summary>
@@ -464,138 +478,179 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         var stopwatch = Stopwatch.StartNew();
 
-        #region 验证码校验
-
-        if (_appConfig.Value.Value.VarifyCode.Enable)
+        var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
+        var locationInfo = GetIpLocationInfo(ip);
+        var loginLogAddInput = new LoginLogAddInput
         {
-            if(input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
-            {
-                throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
-            }
-            var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
-            if (validateResult.Result != ValidateResultType.Success)
-            {
-                throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);
-            }
-        }
-
-        #endregion
-
-        #region 密码解密
-
-        if (input.PasswordKey.NotNull())
+            Status = true,
+            IP = ip,
+            Country = locationInfo?.Country,
+            Province = locationInfo?.Province,
+            City = locationInfo?.City,
+            Isp = locationInfo?.Isp,
+        };
+        loginLogAddInput.CreatedUserName = input.AccountType switch
         {
-            var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
-            var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
-            if (existsPasswordKey)
+            AccountType.UserName => input.UserName,
+            AccountType.Email => input.Email,
+            AccountType.Mobile => input.Mobile,
+            _ => null
+        };
+
+        try
+        {
+            #region 验证码校验
+
+            if (_appConfig.Value.Value.VarifyCode.Enable)
             {
-                var secretKey = await Cache.GetAsync<AuthGetPasswordEncryptKeyOutput>(passwordEncryptKey);
-                if (secretKey.EncryptKey.IsNull())
+                if (input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
+                {
+                    throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
+                }
+                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+                if (validateResult.Result != ValidateResultType.Success)
+                {
+                    throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);
+                }
+            }
+
+            #endregion
+
+            #region 密码解密
+
+            if (input.PasswordKey.NotNull())
+            {
+                var passwordEncryptKey = CacheKeys.PassWordEncrypt + input.PasswordKey;
+                var existsPasswordKey = await Cache.ExistsAsync(passwordEncryptKey);
+                if (existsPasswordKey)
+                {
+                    var secretKey = await Cache.GetAsync<AuthGetPasswordEncryptKeyOutput>(passwordEncryptKey);
+                    if (secretKey.EncryptKey.IsNull())
+                    {
+                        throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
+                    }
+                    input.Password = SM4Encryption.Decrypt(input.Password, Hex.Decode(secretKey.EncryptKey), Hex.Decode(secretKey.Iv), "CBC", true).TrimEnd('\0');//SM4解密后会有\0符号，需要去除。
+                    await Cache.DelAsync(passwordEncryptKey);
+                }
+                else
                 {
                     throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
                 }
-                input.Password = SM4Encryption.Decrypt(input.Password, Hex.Decode(secretKey.EncryptKey), Hex.Decode(secretKey.Iv), "CBC", true).TrimEnd('\0');//SM4解密后会有\0符号，需要去除。
-                await Cache.DelAsync(passwordEncryptKey);
             }
-            else
+
+            #endregion
+
+            #region 登录
+            var userRep = _userRep.Value;
+            using var _ = userRep.DataFilter.DisableAll();
+            using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
+
+            UserEntity user = null;
+            switch (input.AccountType)
             {
-                throw ResultOutput.Exception(_adminLocalizer["解密失败"]);
+                case AccountType.UserName:
+                    {
+                        if (input.UserName.IsNull())
+                        {
+                            throw ResultOutput.Exception(_adminLocalizer["请输入账号"]);
+                        }
+                        user = await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
+                        break;
+                    }
+
+                case AccountType.Mobile:
+                    {
+                        if (input.Mobile.IsNull())
+                        {
+                            throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
+                        }
+                        user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+                        break;
+                    }
+
+                case AccountType.Email:
+                    {
+                        if (input.Email.IsNull())
+                        {
+                            throw ResultOutput.Exception(_adminLocalizer["请输入邮箱地址"]);
+                        }
+                        user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
+                        break;
+                    }
             }
-        }
 
-        #endregion
-
-        #region 登录
-        var userRep = _userRep.Value;
-        using var _ = userRep.DataFilter.DisableAll();
-        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
-
-        UserEntity user = null;
-        switch (input.AccountType)
-        {
-            case AccountType.UserName:
-                {
-                    if (input.UserName.IsNull())
-                    {
-                        throw ResultOutput.Exception(_adminLocalizer["请输入账号"]);
-                    }
-                    user = await userRep.Select.Where(a => a.UserName == input.UserName).ToOneAsync();
-                    break;
-                }
-
-            case AccountType.Mobile:
-                {
-                    if (input.Mobile.IsNull())
-                    {
-                        throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
-                    }
-                    user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
-                    break;
-                }
-
-            case AccountType.Email:
-                {
-                    if (input.Email.IsNull())
-                    {
-                        throw ResultOutput.Exception(_adminLocalizer["请输入邮箱地址"]);
-                    }
-                    user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
-                    break;
-                }
-        }
-
-        var valid = user?.Id > 0;
-        if (!valid)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
-        }
-
-        if (valid)
-        {
-            if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+            var valid = user?.Id > 0;
+            if (!valid)
             {
-                var passwordVerificationResult = _passwordHasher.Value.VerifyHashedPassword(user, user.Password, input.Password);
-                valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
+                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
             }
-            else
+
+            if (valid)
             {
-                var password = MD5Encrypt.Encrypt32(input.Password);
-                valid = user.Password == password;
+                if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
+                {
+                    var passwordVerificationResult = _passwordHasher.Value.VerifyHashedPassword(user, user.Password, input.Password);
+                    valid = passwordVerificationResult == PasswordVerificationResult.Success || passwordVerificationResult == PasswordVerificationResult.SuccessRehashNeeded;
+                }
+                else
+                {
+                    var password = MD5Encrypt.Encrypt32(input.Password);
+                    valid = user.Password == password;
+                }
             }
-        }
+
+            if (!valid)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
+            }
+
+            if (!user.Enabled)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
+            }
+            #endregion
+
+            loginLogAddInput.Name = user.Name;
+            loginLogAddInput.CreatedUserId = user.Id;
+            loginLogAddInput.CreatedUserName = user.UserName;
+            loginLogAddInput.CreatedUserRealName = user.Name;
+
+            #region 获得token
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+            if (_appConfig.Value.Value.Tenant)
+            {
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                if (!(tenant != null && tenant.Enabled))
+                {
+                    throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+                }
+                authLoginOutput.Tenant = tenant;
+            } 
             
-        if(!valid)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
+            string token = GetToken(authLoginOutput);
+            #endregion
+
+            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+
+            //更新最后登录信息
+            await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
+
+            return new { token };
         }
-
-        if (!user.Enabled)
+        catch (Exception ex)
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
+            loginLogAddInput.Status = false;
+            loginLogAddInput.Msg = ex.Message;
+
+            throw;
         }
-        #endregion
-
-        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
-
-        #region 获得token
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Value.Value.Tenant)
+        finally
         {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
-            if (!(tenant != null && tenant.Enabled))
-            {
-                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
-            }
-            authLoginOutput.Tenant = tenant;
+            stopwatch.Stop();
+            loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
+            await _loginLogService.AddAsync(loginLogAddInput);
         }
-        string token = GetToken(authLoginOutput);
-        #endregion
-
-        stopwatch.Stop();
-
-        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
-
-        return new { token };
     }
 
     /// <summary>
@@ -608,66 +663,104 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
     {
-        var userRep = _userRep.Value;
-
-        using var _ = userRep.DataFilter.DisableAll();
-        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
-
         var stopwatch = Stopwatch.StartNew();
 
-        #region 短信验证码验证
-        if (input.CodeId.IsNull() || input.Code.IsNull())
+        var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
+        var locationInfo = GetIpLocationInfo(ip);
+        var loginLogAddInput = new LoginLogAddInput
         {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
-        var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
-        var code = await Cache.GetAsync(codeKey);
-        if (code.IsNull())
-        {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
-        await Cache.DelAsync(codeKey);
-        if (code != input.Code)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
+            Status = true,
+            IP = ip,
+            Country = locationInfo?.Country,
+            Province = locationInfo?.Province,
+            City = locationInfo?.City,
+            Isp = locationInfo?.Isp,
+            CreatedUserName = input.Mobile
+        };
 
-        #endregion
-
-        #region 登录
-        var user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
-        if (!(user?.Id > 0))
+        try
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
-        }
+            var userRep = _userRep.Value;
 
-        if (!user.Enabled)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
-        }
-        #endregion
+            using var _ = userRep.DataFilter.DisableAll();
+            using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
 
-        #region 获得token
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Value.Value.Tenant)
-        {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
-            if (!(tenant != null && tenant.Enabled))
+            #region 短信验证码验证
+            if (input.CodeId.IsNull() || input.Code.IsNull())
             {
-                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
             }
-            authLoginOutput.Tenant = tenant;
+            var codeKey = CacheKeys.GetSmsCodeKey(input.Mobile, input.CodeId);
+            var code = await Cache.GetAsync(codeKey);
+            if (code.IsNull())
+            {
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+            }
+            await Cache.DelAsync(codeKey);
+            if (code != input.Code)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+            }
+
+            #endregion
+
+            #region 登录
+            var user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
+            if (!(user?.Id > 0))
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+            }
+
+            if (!user.Enabled)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
+            }
+            #endregion
+
+            loginLogAddInput.Name = user.Name;
+            loginLogAddInput.CreatedUserId = user.Id;
+            loginLogAddInput.CreatedUserName = user.UserName;
+            loginLogAddInput.CreatedUserRealName = user.Name;
+
+            #region 获得token
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+            if (_appConfig.Value.Value.Tenant)
+            {
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                if (!(tenant != null && tenant.Enabled))
+                {
+                    throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+                }
+                authLoginOutput.Tenant = tenant;
+            }
+            string token = GetToken(authLoginOutput);
+            #endregion
+
+            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+
+            //更新最后登录信息
+            await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
+
+            stopwatch.Stop();
+
+            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+
+            return new { token };
         }
-        string token = GetToken(authLoginOutput);
-        #endregion
+        catch (Exception ex)
+        {
+            loginLogAddInput.Status = false;
+            loginLogAddInput.Msg = ex.Message;
 
-        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
+            throw;
+        }
+        finally
+        {
+            stopwatch.Stop();
+            loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-        stopwatch.Stop();
-
-        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
-
-        return new { token };
+            await _loginLogService.AddAsync(loginLogAddInput);
+        }
     }
 
     /// <summary>
@@ -680,66 +773,104 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOprationLog]
     public async Task<dynamic> EmailLoginAsync(AuthEmailLoginInput input)
     {
-        var userRep = _userRep.Value;
-
-        using var _ = userRep.DataFilter.DisableAll();
-        using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
-
         var stopwatch = Stopwatch.StartNew();
 
-        #region 邮箱验证码验证
-        if (input.CodeId.IsNull() || input.Code.IsNull())
+        var ip = IPHelper.GetIP(AppInfo.HttpContext?.Request);
+        var locationInfo = GetIpLocationInfo(ip);
+        var loginLogAddInput = new LoginLogAddInput
         {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
-        var codeKey = CacheKeys.GetEmailCodeKey(input.Email, input.CodeId);
-        var code = await Cache.GetAsync(codeKey);
-        if (code.IsNull())
-        {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
-        await Cache.DelAsync(codeKey);
-        if (code != input.Code)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
-        }
+            Status = true,
+            IP = ip,
+            Country = locationInfo?.Country,
+            Province = locationInfo?.Province,
+            City = locationInfo?.City,
+            Isp = locationInfo?.Isp,
+            CreatedUserName = input.Email
+        };
 
-        #endregion
-
-        #region 登录
-        var user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
-        if (!(user?.Id > 0))
+        try
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
-        }
+            var userRep = _userRep.Value;
 
-        if (!user.Enabled)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
-        }
-        #endregion
+            using var _ = userRep.DataFilter.DisableAll();
+            using var __ = userRep.DataFilter.Enable(FilterNames.Delete);
 
-        #region 获得token
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-        if (_appConfig.Value.Value.Tenant)
-        {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
-            if (!(tenant != null && tenant.Enabled))
+            #region 邮箱验证码验证
+            if (input.CodeId.IsNull() || input.Code.IsNull())
             {
-                throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
             }
-            authLoginOutput.Tenant = tenant;
+            var codeKey = CacheKeys.GetEmailCodeKey(input.Email, input.CodeId);
+            var code = await Cache.GetAsync(codeKey);
+            if (code.IsNull())
+            {
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+            }
+            await Cache.DelAsync(codeKey);
+            if (code != input.Code)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["验证码错误"]);
+            }
+
+            #endregion
+
+            #region 登录
+            var user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
+            if (!(user?.Id > 0))
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+            }
+
+            if (!user.Enabled)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
+            }
+            #endregion
+
+            loginLogAddInput.Name = user.Name;
+            loginLogAddInput.CreatedUserId = user.Id;
+            loginLogAddInput.CreatedUserName = user.UserName;
+            loginLogAddInput.CreatedUserRealName = user.Name;
+
+            #region 获得token
+            var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
+            if (_appConfig.Value.Value.Tenant)
+            {
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                if (!(tenant != null && tenant.Enabled))
+                {
+                    throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
+                }
+                authLoginOutput.Tenant = tenant;
+            }
+            string token = GetToken(authLoginOutput);
+            #endregion
+
+            loginLogAddInput.TenantId = authLoginOutput.TenantId;
+
+            //更新最后登录信息
+            await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
+
+            stopwatch.Stop();
+
+            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+
+            return new { token };
         }
-        string token = GetToken(authLoginOutput);
-        #endregion
+        catch (Exception ex)
+        {
+            loginLogAddInput.Status = false;
+            loginLogAddInput.Msg = ex.Message;
 
-        var locationInfo = await UpdateLastLoginInfoAsync(user.Id);
+            throw;
+        }
+        finally
+        {
+            stopwatch.Stop();
+            loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-        stopwatch.Stop();
-
-        await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
-
-        return new { token };
+            await _loginLogService.AddAsync(loginLogAddInput);
+        }
     }
 
     /// <summary>

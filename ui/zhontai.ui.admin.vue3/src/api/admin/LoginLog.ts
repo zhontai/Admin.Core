@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { LoginLogAddInput, PageInputLogGetPageDto, ResultOutputInt64, ResultOutputPageOutputLoginLogListOutput } from './data-contracts'
+import { LoginLogAddInput, PageInputLoginLogGetPageInput, ResultOutputInt64, ResultOutputPageOutputLoginLogListOutput } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
 export class LoginLogApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
@@ -22,7 +22,7 @@ export class LoginLogApi<SecurityDataType = unknown> extends HttpClient<Security
    * @request POST:/api/admin/login-log/get-page
    * @secure
    */
-  getPage = (data: PageInputLogGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputLoginLogGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputLoginLogListOutput, any>({
       path: `/api/admin/login-log/get-page`,
       method: 'POST',

@@ -87,12 +87,6 @@ public abstract class LogAbstract : EntityAdd, ITenant
     /// <summary>
     /// 操作消息
     /// </summary>
-    [Column(StringLength = 500)]
-    public string Msg { get; set; }
-
-    /// <summary>
-    /// 操作结果
-    /// </summary>
     [Column(StringLength = -1)]
-    public string Result { get; set; }
+    public string Msg { get; set; }
 }

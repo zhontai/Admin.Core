@@ -21,14 +21,20 @@ public partial class OprationLogEntity : LogAbstract
     public string ApiPath { get; set; }
 
     /// <summary>
-    /// 接口提交方法
+    /// 接口方法
     /// </summary>
     [Column(Position = 4, StringLength = 50)]
     public string ApiMethod { get; set; }
 
     /// <summary>
-    /// 操作参数
+    /// 请求参数
     /// </summary>
     [Column(StringLength = -1)]
     public string Params { get; set; }
+
+    /// <summary>
+    /// 响应结果
+    /// </summary>
+    [Column(StringLength = -1)]
+    public string Result { get; set; }
 }
