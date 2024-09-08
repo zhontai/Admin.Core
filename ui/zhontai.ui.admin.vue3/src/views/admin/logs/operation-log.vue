@@ -24,24 +24,28 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.loginLogListData" row-key="id" style="width: 100%">
-        <el-table-column prop="createdUserName" label="登录账号" min-width="150" show-overflow-tooltip>
+      <el-table ref="tableRef" v-loading="state.loading" :data="state.operationLogListData" row-key="id" style="width: 100%">
+        <el-table-column prop="createdUserName" label="操作账号" min-width="150" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.status ? 'success' : 'danger'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.createdUserName }}<br />{{ row.nickName }}
           </template>
         </el-table-column>
-        <el-table-column prop="ip" label="登录IP" min-width="150">
+        <el-table-column prop="apiLabel" label="操作名称" min-width="220" show-overflow-tooltip />
+        <el-table-column prop="apiPath" label="操作接口" min-width="260" show-overflow-tooltip />
+        <el-table-column prop="ip" label="IP地址" min-width="150">
           <template #default="{ row }"> {{ row.ip }} {{ row.isp }} </template>
         </el-table-column>
-        <el-table-column prop="country" label="登录地区" min-width="150" show-overflow-tooltip>
+        <el-table-column prop="country" label="IP所在地" min-width="150" show-overflow-tooltip>
           <template #default="{ row }"> {{ row.country }} {{ row.province }} {{ row.city }} </template>
         </el-table-column>
-        <el-table-column prop="os" label="操作系统" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="browser" label="浏览器" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="elapsedMilliseconds" label="耗时 ms" min-width="120" />
-        <el-table-column prop="msg" label="登录信息" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="createdTime" label="登录时间" :formatter="formatterTime" min-width="160" />
+        <el-table-column prop="elapsedMilliseconds" label="耗时 ms" min-width="100" />
+        <el-table-column prop="createdTime" label="操作时间" :formatter="formatterTime" min-width="160" />
+        <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
+          <template #default="{ row }">
+            <el-button size="small" text type="primary" @click="onShowDetails(row)">查看详情</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="my-flex my-flex-end" style="margin-top: 20px">
         <el-pagination
@@ -57,56 +61,54 @@
         />
       </div>
     </el-card>
+
+    <Details ref="detailsRef"></Details>
   </div>
 </template>
 
-<script lang="ts" setup name="admin/loginLog">
+<script lang="ts" setup name="admin/operationLog">
 import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
-import { PageInputLoginLogGetPageInput, LoginLogGetPageInput, LoginLogGetPageOutput } from '/@/api/admin/data-contracts'
-import { LoginLogApi } from '/@/api/admin/LoginLog'
+import { OperationLogGetPageOutput, PageInputOperationLogGetPageInput, OperationLogGetPageInput } from '/@/api/admin/data-contracts'
+import { OperationLogApi } from '/@/api/admin/OperationLog'
 import dayjs from 'dayjs'
-import type { FormInstance } from 'element-plus'
-
-const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
+import type { FormInstance, TableInstance } from 'element-plus'
 
 const filterFormRef = ref<FormInstance>()
+const tableRef = ref<TableInstance>()
+const detailsRef = ref()
+
+const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
+const Details = defineAsyncComponent(() => import('./components/details.vue'))
 
 const state = reactive({
   loading: false,
-  loginLogFormTitle: '',
-  filter: {} as LoginLogGetPageInput,
+  oprationLogFormTitle: '',
+  filter: {} as OperationLogGetPageInput,
   total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputLoginLogGetPageInput,
-  loginLogListData: [] as Array<LoginLogGetPageOutput>,
-  loginLogLogsTitle: '',
+  } as PageInputOperationLogGetPageInput,
+  operationLogListData: [] as Array<OperationLogGetPageOutput>,
+  operationLogLogsTitle: '',
   statusList: [
     { name: '全部', value: undefined },
     { name: '成功', value: true },
     { name: '失败', value: false },
   ],
+  details: {},
 })
 
 onMounted(() => {
   onQuery()
 })
 
-const formatterTime = (row: any, column: any, cellValue: any) => {
+const formatterTime = (row: OperationLogGetPageOutput, column: any, cellValue: any) => {
   return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss')
 }
 
-const onQuery = async () => {
-  state.loading = true
-  state.pageInput.filter = state.filter
-  const res = await new LoginLogApi().getPage(state.pageInput).catch(() => {
-    state.loading = false
-  })
-
-  state.loginLogListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
-  state.loading = false
+const onShowDetails = (row: OperationLogGetPageOutput) => {
+  detailsRef.value!.open(row)
 }
 
 const onReset = (formEl: FormInstance | undefined) => {
@@ -118,15 +120,28 @@ const onReset = (formEl: FormInstance | undefined) => {
   onQuery()
 }
 
+const onQuery = async () => {
+  state.loading = true
+  state.pageInput.filter = state.filter
+  const res = await new OperationLogApi().getPage(state.pageInput).catch(() => {
+    state.loading = false
+  })
+
+  state.operationLogListData = res?.data?.list ?? []
+  state.total = res?.data?.total ?? 0
+  state.loading = false
+}
+
 const onSizeChange = (val: number) => {
   state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }
 
-const onCurrentChange = (val: number) => {
+const onCurrentChange = async (val: number) => {
   state.pageInput.currentPage = val
-  onQuery()
+  await onQuery()
+  tableRef.value?.setScrollTop(0)
 }
 </script>
 

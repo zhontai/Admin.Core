@@ -74,7 +74,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <el-form-item label="定时类型" prop="interval" :rules="[{ required: true, message: '请选择定时类型', trigger: ['change'] }]">
-              <el-select v-model="form.interval" placeholder="请选择定时类型" style="width: 150px" @change="onIntervalChange">
+              <el-select v-model="form.interval" style="width: 150px" @change="onIntervalChange">
                 <el-option v-for="item in state.intervals" :key="item.value" :label="item.label" :value="item.value" />
               </el-select>
             </el-form-item>

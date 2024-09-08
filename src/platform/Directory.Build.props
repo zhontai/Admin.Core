@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>8.3.1</Version>
+		<Version>8.5.0</Version>
 		<TargetFramework>net8.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>

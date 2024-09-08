@@ -9,22 +9,27 @@
  * ---------------------------------------------------------------
  */
 
-import { LoginLogAddInput, PageInputLoginLogGetPageInput, ResultOutputInt64, ResultOutputPageOutputLoginLogGetPageOutput } from './data-contracts'
+import {
+  OperationLogAddInput,
+  PageInputOperationLogGetPageInput,
+  ResultOutputInt64,
+  ResultOutputPageOutputOperationLogGetPageOutput,
+} from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
-export class LoginLogApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class OperationLogApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
-   * @tags login-log
+   * @tags operation-log
    * @name GetPage
    * @summary 查询分页
-   * @request POST:/api/admin/login-log/get-page
+   * @request POST:/api/admin/operation-log/get-page
    * @secure
    */
-  getPage = (data: PageInputLoginLogGetPageInput, params: RequestParams = {}) =>
-    this.request<ResultOutputPageOutputLoginLogGetPageOutput, any>({
-      path: `/api/admin/login-log/get-page`,
+  getPage = (data: PageInputOperationLogGetPageInput, params: RequestParams = {}) =>
+    this.request<ResultOutputPageOutputOperationLogGetPageOutput, any>({
+      path: `/api/admin/operation-log/get-page`,
       method: 'POST',
       body: data,
       secure: true,
@@ -35,15 +40,15 @@ export class LoginLogApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags login-log
+   * @tags operation-log
    * @name Add
    * @summary 新增
-   * @request POST:/api/admin/login-log/add
+   * @request POST:/api/admin/operation-log/add
    * @secure
    */
-  add = (data: LoginLogAddInput, params: RequestParams = {}) =>
+  add = (data: OperationLogAddInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
-      path: `/api/admin/login-log/add`,
+      path: `/api/admin/operation-log/add`,
       method: 'POST',
       body: data,
       secure: true,
