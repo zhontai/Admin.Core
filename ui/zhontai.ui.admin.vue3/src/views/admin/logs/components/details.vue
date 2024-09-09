@@ -9,7 +9,7 @@
     :lock-scroll="false"
   >
     <div class="my-fill h100" style="padding: 12px">
-      <el-descriptions class="margin-top" :column="1" :size="size" border>
+      <el-descriptions class="margin-top" :column="1" border>
         <el-descriptions-item label="操作名称" label-class-name="label">{{ state.details.apiLabel }}</el-descriptions-item>
         <el-descriptions-item label="操作接口" label-class-name="label">{{ state.details.apiPath }}</el-descriptions-item>
         <el-descriptions-item label="请求方法" label-class-name="label">{{ state.details.apiMethod }}</el-descriptions-item>
@@ -54,11 +54,12 @@
 </template>
 
 <script lang="ts" setup name="operation-log-details">
-import { ref, reactive } from 'vue'
+import { reactive } from 'vue'
 import { OperationLogGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
 import { VAceEditor } from 'vue3-ace-editor'
 import modeJsonUrl from 'ace-builds/src-noconflict/mode-json?url'
+import ace from 'ace-builds'
 ace.config.setModuleUrl('ace/mode/json', modeJsonUrl)
 
 const state = reactive({
@@ -74,6 +75,10 @@ const state = reactive({
     fontSize: 13,
   },
 })
+
+const jsonError = (e: any) => {
+  window.console.log(`JSON字符串错误：${e.message}`)
+}
 
 // JSON格式化
 const onJsonFormatParams = () => {
