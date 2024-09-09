@@ -2931,12 +2931,12 @@
             排序
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto.DictTypeId">
+        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageInput.DictTypeId">
             <summary>
             字典类型Id
             </summary>
         </member>
-        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto.Name">
+        <member name="P:ZhonTai.Admin.Domain.Dict.Dto.DictGetPageInput.Name">
             <summary>
             字典名称
             </summary>
@@ -6032,7 +6032,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dict.Dto.DictGetPageDto})">
+        <member name="M:ZhonTai.Admin.Services.Dict.DictService.GetPageAsync(ZhonTai.Admin.Core.Dto.PageInput{ZhonTai.Admin.Domain.Dict.Dto.DictGetPageInput})">
             <summary>
             查询分页
             </summary>

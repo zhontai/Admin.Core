@@ -42,7 +42,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <param name="captchaId">验证码id</param>
     /// <returns></returns>
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public CaptchaData Generate(string captchaId = null)
     {
         return _captcha.Generate(captchaId);
@@ -55,7 +55,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <param name="track">滑动轨迹</param>
     /// <returns></returns>
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public ValidateResult CheckAsync([FromQuery] string captchaId, SlideTrack track)
     {
         if (captchaId.IsNull() || track == null)
@@ -72,7 +72,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<string> SendSmsCodeAsync(SendSmsCodeInput input)
     {
         if (input.Mobile.IsNull())
@@ -111,7 +111,7 @@ public class CaptchaService : BaseService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<string> SendEmailCodeAsync(SendEmailCodeInput input)
     {
         if (input.Email.IsNull())

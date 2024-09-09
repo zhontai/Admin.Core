@@ -6,6 +6,6 @@ namespace ZhonTai.Admin.Core.Attributes;
 /// 禁用操作日志
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
-public class NoOeprationLogAttribute : Attribute
+public class NoOperationLogAttribute : Attribute
 {
 }

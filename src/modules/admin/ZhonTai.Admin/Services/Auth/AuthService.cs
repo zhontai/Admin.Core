@@ -210,7 +210,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<AuthGetPasswordEncryptKeyOutput> GetPasswordEncryptKeyAsync()
     {
         //写入Redis
@@ -473,7 +473,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<dynamic> LoginAsync(AuthLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -660,7 +660,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -770,7 +770,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task<dynamic> EmailLoginAsync(AuthEmailLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -880,7 +880,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task ChangePasswordByEmailAsync(AuthChangePasswordByEmailInput input)
     {
         if (input.ConfirmPassword.NotNull() && input.ConfirmPassword != input.NewPassword)
@@ -946,7 +946,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task ChangePasswordByMobileAsync(AuthChangePasswordByMobileInput input)
     {
         if (input.ConfirmPassword.NotNull() && input.ConfirmPassword != input.NewPassword)
@@ -1012,7 +1012,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task RegByEmailAsync(AuthRegByEmailInput input)
     {
         //检查密码格式
@@ -1063,7 +1063,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpPost]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public async Task RegByMobileAsync(AuthRegByMobileInput input)
     {
         //检查密码格式
@@ -1173,7 +1173,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
-    [NoOeprationLog]
+    [NoOperationLog]
     public bool IsCaptcha()
     {
         return _appConfig.Value.Value.VarifyCode.Enable;

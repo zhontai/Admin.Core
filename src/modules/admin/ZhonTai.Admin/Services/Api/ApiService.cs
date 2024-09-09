@@ -384,7 +384,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [NoOeprationLog]
+    [NoOperationLog]
     public List<ProjectConfig> GetProjects()
     {
         return _appConfig.Value.Swagger.Projects;
@@ -396,7 +396,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    [NoOeprationLog]
+    [NoOperationLog]
     [AllowAnonymous]
     public List<ApiGetEnumsOutput> GetEnums()
     {

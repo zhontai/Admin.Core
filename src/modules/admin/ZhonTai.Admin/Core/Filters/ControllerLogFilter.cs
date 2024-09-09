@@ -23,7 +23,7 @@ public class ControllerLogFilter : IAsyncActionFilter
     {
         context.HttpContext.Items["_ActionArguments"] = context.ActionArguments;
 
-        if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(NoOeprationLogAttribute)) || !_appConfig.Log.Operation)
+        if (context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(NoOperationLogAttribute)) || !_appConfig.Log.Operation)
         {
             await next();
             return;
