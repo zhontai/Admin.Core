@@ -167,9 +167,9 @@ public class KestrelConfig
 public class LangConfig
 {
     /// <summary>
-    /// 启用
+    /// 启用Json配置
     /// </summary>
-    public bool Enable { get; set; } = true;
+    public bool EnableJson { get; set; } = true;
 
     /// <summary>
     /// 默认语言

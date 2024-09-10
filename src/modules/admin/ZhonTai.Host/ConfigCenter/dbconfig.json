@@ -63,6 +63,9 @@
 
     //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
     //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
+    //切换数据库需要手动添加对应的数据库实现包：
+    //1、单击Host项目文件直接更改FreeSql.Provider.Sqlite包
+    //2、首先在管理Nuget程序包浏览选项卡中搜索FreeSql.Provider，选择对应包安装。其次在已安装选项卡中卸载FreeSql.Provider.Sqlite包
     "type": "Sqlite",
     //连接字符串
     //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1"

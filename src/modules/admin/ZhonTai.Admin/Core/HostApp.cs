@@ -297,7 +297,11 @@ public class HostApp
         {
             services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
         }
-
+        else
+        {
+            services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+        }
+        
         services.AddSingleton<AdminLocalizer>();
 
         _hostAppOptions?.ConfigurePreServices?.Invoke(hostAppContext);
@@ -846,10 +850,7 @@ public class HostApp
         IdentityModelEventSource.ShowPII = true;
 
         //多语言
-        if (appConfig.Lang.Enable)
-        {
-            app.UseMyLocalization();
-        }
+        app.UseMyLocalization();
 
         //IP限流
         if (appConfig.RateLimit)

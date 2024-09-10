@@ -138,8 +138,8 @@
     },
     //语言配置
     "Lang": {
-      //启用
-      "Enable": true,
+      //启用Json配置
+      "EnableJson": true,
       //默认语言
       "DefaultLang": "zh",
       //语言列表
