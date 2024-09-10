@@ -125,7 +125,7 @@ onBeforeMount(() => {
 const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabled ? '禁用' : '启用'}【${row.label}】?`)
+      .confirm(`确定要${row.enabledParams ? '禁用' : '启用'}【${row.label}】请求参数?`)
       .then(async () => {
         row.loadingEnabledParams = true
         const res = await new ApiApi()
@@ -152,7 +152,7 @@ const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boole
 const onSetEnableResult = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabled ? '禁用' : '启用'}【${row.label}】?`)
+      .confirm(`确定要${row.enabledResult ? '禁用' : '启用'}【${row.label}】响应结果?`)
       .then(async () => {
         row.loadingEnabledResult = true
         const res = await new ApiApi()
