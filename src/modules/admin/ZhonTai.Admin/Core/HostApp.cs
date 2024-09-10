@@ -519,7 +519,7 @@ public class HostApp
         })
         .AddControllersAsServices();
 
-        if (appConfig.Lang.Enable)
+        if (appConfig.Lang.EnableJson)
         {
             //加载模块信息
             var modules = new List<ModuleInfo>();
