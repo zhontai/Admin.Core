@@ -76,10 +76,16 @@ public class HostAppOptions
     public Action<IFreeSql, DbConfig> ConfigureFreeSqlSyncStructure { get; set; }
 
     /// <summary>
+    /// 前置配置FreeSql
+    /// </summary>
+    public Action<IFreeSql, DbConfig> ConfigurePreFreeSql { get; set; }
+
+    /// <summary>
     /// 配置FreeSql
     /// </summary>
     public Action<IFreeSql, DbConfig> ConfigureFreeSql { get; set; }
 
+    
     /// <summary>
     /// 配置动态Api
     /// </summary>

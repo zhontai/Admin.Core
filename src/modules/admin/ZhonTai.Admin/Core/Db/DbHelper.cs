@@ -561,6 +561,8 @@ public class DbHelper
 
             var fsql = freeSqlBuilder.Build();
 
+            hostAppOptions?.ConfigurePreFreeSql?.Invoke(fsql, dbConfig);
+
             //生成数据
             if (dbConfig.GenerateData && !dbConfig.CreateDb && !dbConfig.SyncData)
             {

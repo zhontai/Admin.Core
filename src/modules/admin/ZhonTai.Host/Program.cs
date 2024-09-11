@@ -45,6 +45,13 @@ static void ConfigureScheduler(IFreeSql fsql)
 
 new HostApp(new HostAppOptions
 {
+    //前置配置FreeSql
+    ConfigurePreFreeSql = (freeSql, dbConfig) =>
+    {
+        freeSql.UseJsonMap();//启用JsonMap功能
+    },
+
+
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
