@@ -2,12 +2,15 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using ZhonTai.Admin.Core.Exceptions;
 using ZhonTai.Admin.Services.OperationLog;
 using ZhonTai.Admin.Services.OperationLog.Dto;
 using ZhonTai.Common.Helpers;
+using ZhonTai.Admin.Core.Dto;
 
 namespace ZhonTai.Admin.Core.Logs;
 
@@ -57,7 +60,7 @@ public class LogHandler : ILogHandler
             }
 
             //操作结果
-            if (api.EnabledResult && actionExecutedContext.Result is JsonResult result)
+            if (api.EnabledResult && actionExecutedContext.Result != null && actionExecutedContext.Result is JsonResult result)
             {
                 input.Result = JsonHelper.Serialize(result.Value);
             }
@@ -65,8 +68,25 @@ public class LogHandler : ILogHandler
             if (actionExecutedContext.Exception != null)
             {
                 input.Status = false;
-                input.Msg = actionExecutedContext.Exception.Message;
+
+                var code = "";
+                if(actionExecutedContext.Exception is AppException appException)
+                {
+                    input.StatusCode = appException.StatusCode;
+                    code = appException.AppCode;
+                }
+                else
+                {
+                    input.StatusCode = (int)HttpStatusCode.InternalServerError;
+                }
+
+                input.Result = JsonHelper.Serialize(new ResultOutput<string>()
+                {
+                    Code = code
+                }.NotOk(actionExecutedContext.Exception.Message));
             }
+            
+
 
             input.ApiLabel = api?.Label;
 

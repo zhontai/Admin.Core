@@ -2,18 +2,18 @@
   <div class="my-layout">
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
-        <el-form-item label="登录账号" prop="createdUserName">
-          <el-input v-model="state.filter.createdUserName" placeholder="登录账号" @keyup.enter="onQuery" />
+        <el-form-item label="操作账号" prop="createdUserName">
+          <el-input v-model="state.filter.createdUserName" placeholder="操作账号" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="登录状态" prop="status">
+        <el-form-item label="操作状态" prop="status">
           <el-select v-model="state.filter.status" :empty-values="[null]" style="width: 120px" @change="onQuery">
             <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="登录IP" prop="ip">
-          <el-input v-model="state.filter.ip" placeholder="登录IP" @keyup.enter="onQuery" />
+        <el-form-item label="操作IP" prop="ip">
+          <el-input v-model="state.filter.ip" placeholder="操作IP" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="登录时间">
+        <el-form-item label="操作时间">
           <MyDateRange v-model:startDate="state.filter.addStartTime" v-model:endDate="state.filter.addEndTime" :shortcuts="[]" style="width: 230px" />
         </el-form-item>
         <el-form-item>
@@ -66,7 +66,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="admin/operationLog">
+<script lang="ts" setup name="admin/operation-log">
 import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
 import { OperationLogGetPageOutput, PageInputOperationLogGetPageInput, OperationLogGetPageInput } from '/@/api/admin/data-contracts'
 import { OperationLogApi } from '/@/api/admin/OperationLog'
