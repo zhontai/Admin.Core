@@ -25,6 +25,7 @@
         </el-descriptions-item>
         <el-descriptions-item label="耗时ms" label-class-name="label">{{ state.details.elapsedMilliseconds }}</el-descriptions-item>
         <el-descriptions-item label="操作账号" label-class-name="label">{{ state.details.createdUserName }}</el-descriptions-item>
+        <el-descriptions-item label="操作人员" label-class-name="label">{{ state.details.createdUserRealName }}</el-descriptions-item>
         <el-descriptions-item label="创建时间" label-class-name="label">{{
           dayjs(state.details.createdTime).format('YYYY-MM-DD HH:mm:ss')
         }}</el-descriptions-item>

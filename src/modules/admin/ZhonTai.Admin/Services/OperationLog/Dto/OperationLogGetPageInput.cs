@@ -15,6 +15,11 @@ public class OperationLogGetPageInput
     public bool? Status { get; set; }
 
     /// <summary>
+    /// 操作接口
+    /// </summary>
+    public string Api { get; set; }
+
+    /// <summary>
     /// IP
     /// </summary>
     public string IP { get; set; }

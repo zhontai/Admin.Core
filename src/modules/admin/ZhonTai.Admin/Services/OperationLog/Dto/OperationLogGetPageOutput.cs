@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace ZhonTai.Admin.Services.OperationLog.Dto;
 
@@ -13,11 +15,6 @@ public class OperationLogGetPageOutput
     /// 昵称
     /// </summary>
     public string NickName { get; set; }
-
-    /// <summary>
-    /// 创建者
-    /// </summary>
-    public string CreatedUserName { get; set; }
 
     /// <summary>
     /// 接口名称
@@ -85,6 +82,11 @@ public class OperationLogGetPageOutput
     public bool Status { get; set; }
 
     /// <summary>
+    /// 状态码
+    /// </summary>
+    public int? StatusCode { get; set; }
+
+    /// <summary>
     /// 操作消息
     /// </summary>
     public string Msg { get; set; }
@@ -95,14 +97,20 @@ public class OperationLogGetPageOutput
     public string Params { get; set; }
 
     /// <summary>
-    /// 状态码
-    /// </summary>
-    public int? StatusCode { get; set; }
-
-    /// <summary>
     /// 响应结果
     /// </summary>
     public string Result { get; set; }
+
+
+    /// <summary>
+    /// 创建者
+    /// </summary>
+    public string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    public string CreatedUserRealName { get; set; }
 
     /// <summary>
     /// 创建时间

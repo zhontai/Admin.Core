@@ -73,6 +73,7 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
             select = select
             .WhereIf(input.Filter.CreatedUserName.NotNull(), a => a.CreatedUserName.Contains(input.Filter.CreatedUserName))
             .WhereIf(input.Filter.Status.HasValue, a => a.Status == input.Filter.Status)
+            .WhereIf(input.Filter.Api.NotNull(), a => a.ApiPath.Contains(input.Filter.Api) || a.ApiLabel.Contains(input.Filter.Api))
             .WhereIf(input.Filter.IP.NotNull(), a => a.IP.Contains(input.Filter.IP))
             .WhereIf(addStartTime.HasValue && !addEndTime.HasValue, a => a.CreatedTime >= addStartTime)
             .WhereIf(addEndTime.HasValue && !addStartTime.HasValue, a => a.CreatedTime < addEndTime.Value.AddDays(1))
