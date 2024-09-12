@@ -12,7 +12,7 @@ public partial interface IDictService
 {
     Task<DictGetOutput> GetAsync(long id);
 
-    Task<PageOutput<DictGetPageOutput>> GetPageAsync(PageInput<DictGetPageDto> input);
+    Task<PageOutput<DictGetPageOutput>> GetPageAsync(PageInput<DictGetPageInput> input);
 
     Task<long> AddAsync(DictAddInput input);
 

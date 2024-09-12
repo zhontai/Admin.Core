@@ -51,16 +51,30 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<DictGetPageOutput>> GetPageAsync(PageInput<DictGetPageDto> input)
+    public async Task<PageOutput<DictGetPageOutput>> GetPageAsync(PageInput<DictGetPageInput> input)
     {
         var key = input.Filter?.Name;
         var dictTypeId = input.Filter?.DictTypeId;
-        var list = await _dictRep.Select
+
+        var select = _dictRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(dictTypeId.HasValue && dictTypeId.Value > 0, a => a.DictTypeId == dictTypeId)
         .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
-        .Count(out var total)
-        .OrderByDescending(a => a.Sort)
+        .Count(out var total);
+
+        if (input.SortList != null && input.SortList.Count > 0)
+        {
+            input.SortList.ForEach(sort =>
+            {
+                select = select.OrderByPropertyNameIf(sort.Order.HasValue, sort.PropName, sort.IsAscending.Value);
+            });
+        }
+        else
+        {
+            select = select.OrderBy(a => a.Sort);
+        }
+
+        var list = await select
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync<DictGetPageOutput>();
 
@@ -131,10 +145,10 @@ public class DictService : BaseService, IDictService, IDynamicApi
     {
         using var _ = _dictRep.DataFilter.DisableAll();
 
-        var select = _dictRep.Select;
+        var select = _dictRep.Select.OrderBy(a => a.DictType.Sort).OrderBy(a => a.Sort);
 
         //查询数据
-        var dataList = await select.ToListAsync<DictExport>();
+        var dataList = await select.ToListAsync(a => new DictExport { DictTypeName = a.DictType.Name });
 
         //导出数据
         var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();

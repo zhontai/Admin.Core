@@ -16,12 +16,19 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.dictListData" row-key="id" style="width: 100%">
+      <el-table
+        v-loading="state.loading"
+        :data="state.dictListData"
+        row-key="id"
+        style="width: 100%"
+        :default-sort="state.defalutSort"
+        @sort-change="onSortChange"
+      >
         <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="value" label="值" width="80" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="70" align="center" show-overflow-tooltip>
+        <el-table-column prop="value" label="值" width="80" sortable="custom" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="80" align="center" sortable="custom" show-overflow-tooltip />
+        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -55,7 +62,7 @@
 
 <script lang="ts" setup name="admin/dictData">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { DictGetPageOutput, PageInputDictGetPageDto, DictTypeGetPageOutput } from '/@/api/admin/data-contracts'
+import { DictGetPageOutput, PageInputDictGetPageInput, DictTypeGetPageOutput, SortInput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
@@ -67,6 +74,17 @@ const { proxy } = getCurrentInstance() as any
 
 const dictFormRef = ref()
 
+const defalutSort = { prop: 'sort', order: 'ascending' }
+
+const getSortList = (data: { prop: string; order: any }) => {
+  return [
+    {
+      propName: data.prop,
+      order: data.order === 'ascending' ? 0 : data.order === 'descending' ? 1 : undefined,
+    },
+  ] as [SortInput]
+}
+
 const state = reactive({
   loading: false,
   dictFormTitle: '',
@@ -74,11 +92,13 @@ const state = reactive({
     name: '',
     dictTypeId: 0,
   },
+  defalutSort: defalutSort,
   total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputDictGetPageDto,
+    sortList: getSortList(defalutSort),
+  } as PageInputDictGetPageInput,
   dictListData: [] as Array<DictGetPageOutput>,
   dictTypeName: '',
   export: {
@@ -96,6 +116,11 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshDict')
 })
+
+const onSortChange = (data: { column: any; prop: string; order: any }) => {
+  state.pageInput.sortList = getSortList(data)
+  onQuery()
+}
 
 const onQuery = async () => {
   state.loading = true

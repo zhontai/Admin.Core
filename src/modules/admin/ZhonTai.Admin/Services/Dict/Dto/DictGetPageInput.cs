@@ -1,7 +1,7 @@
 ﻿
 namespace ZhonTai.Admin.Domain.Dict.Dto;
 
-public partial class DictGetPageDto
+public partial class DictGetPageInput
 {
     /// <summary>
     /// 字典类型Id

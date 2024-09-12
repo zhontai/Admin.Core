@@ -627,7 +627,7 @@ export interface DictGetOutput {
   id: number
 }
 
-export interface DictGetPageDto {
+export interface DictGetPageInput {
   /**
    * 字典类型Id
    * @format int64
@@ -1278,6 +1278,8 @@ export interface OperationLogGetPageInput {
   createdUserName?: string | null
   /** 操作状态 */
   status?: boolean | null
+  /** 操作接口 */
+  api?: string | null
   /** IP */
   ip?: string | null
   /**
@@ -1300,8 +1302,6 @@ export interface OperationLogGetPageOutput {
   id?: number
   /** 昵称 */
   nickName?: string | null
-  /** 创建者 */
-  createdUserName?: string | null
   /** 接口名称 */
   apiLabel?: string | null
   /** 接口地址 */
@@ -1331,17 +1331,21 @@ export interface OperationLogGetPageOutput {
   elapsedMilliseconds?: number
   /** 操作状态 */
   status?: boolean
-  /** 操作消息 */
-  msg?: string | null
-  /** 请求参数 */
-  params?: string | null
   /**
    * 状态码
    * @format int32
    */
   statusCode?: number | null
+  /** 操作消息 */
+  msg?: string | null
+  /** 请求参数 */
+  params?: string | null
   /** 响应结果 */
   result?: string | null
+  /** 创建者 */
+  createdUserName?: string | null
+  /** 创建者姓名 */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
@@ -1578,11 +1582,13 @@ export interface PageInputApiGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: ApiGetPageDto
 }
 
 /** 分页信息输入 */
-export interface PageInputDictGetPageDto {
+export interface PageInputDictGetPageInput {
   /**
    * 当前页标
    * @format int32
@@ -1594,7 +1600,9 @@ export interface PageInputDictGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
-  filter?: DictGetPageDto
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  filter?: DictGetPageInput
 }
 
 /** 分页信息输入 */
@@ -1610,6 +1618,8 @@ export interface PageInputDictTypeGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: DictTypeGetPageDto
 }
 
@@ -1626,6 +1636,8 @@ export interface PageInputFileGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: FileGetPageDto
 }
 
@@ -1642,6 +1654,8 @@ export interface PageInputLoginLogGetPageInput {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: LoginLogGetPageInput
 }
 
@@ -1658,6 +1672,8 @@ export interface PageInputOperationLogGetPageInput {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: OperationLogGetPageInput
 }
 
@@ -1674,6 +1690,8 @@ export interface PageInputPkgGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: PkgGetPageDto
 }
 
@@ -1690,6 +1708,8 @@ export interface PageInputPkgGetPkgTenantListInput {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: PkgGetPkgTenantListInput
 }
 
@@ -1706,6 +1726,8 @@ export interface PageInputRegionGetPageInput {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: RegionGetPageInput
 }
 
@@ -1722,6 +1744,8 @@ export interface PageInputRoleGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: RoleGetPageDto
 }
 
@@ -1738,6 +1762,8 @@ export interface PageInputTaskGetPageInput {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: TaskGetPageInput
 }
 
@@ -1754,6 +1780,8 @@ export interface PageInputTaskLogGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: TaskLogGetPageDto
 }
 
@@ -1770,6 +1798,8 @@ export interface PageInputTenantGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   filter?: TenantGetPageDto
 }
 
@@ -1786,6 +1816,8 @@ export interface PageInputUserGetPageDto {
    */
   pageSize?: number
   dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /** 用户分页查询条件 */
   filter?: UserGetPageDto
 }
@@ -4093,6 +4125,22 @@ export interface SlideTrack {
   /** @format float */
   percent?: number
 }
+
+/** 排序 */
+export interface SortInput {
+  /** 属性名称 */
+  propName?: string | null
+  /** 排序方式:Asc=0,Desc=1 */
+  order?: SortOrder
+  /** 是否升序 */
+  isAscending?: boolean | null
+}
+
+/**
+ * 排序方式:Asc=0,Desc=1
+ * @format int32
+ */
+export type SortOrder = 0 | 1
 
 /** 员工添加 */
 export interface StaffAddInput {

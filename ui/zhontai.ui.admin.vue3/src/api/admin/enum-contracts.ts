@@ -103,6 +103,12 @@ export const StatusCodes = {
   Status500InternalServerError: { name: 'Status500InternalServerError', value: 500, desc: '系统内部错误' },
 }
 
+/** 排序方式 */
+export const SortOrder = {
+  Asc: { name: 'Asc', value: 0, desc: '' },
+  Desc: { name: 'Desc', value: 1, desc: '' },
+}
+
 /** 应用程序类型 */
 export const AppType = {
   Controllers: { name: 'Controllers', value: 0, desc: '' },

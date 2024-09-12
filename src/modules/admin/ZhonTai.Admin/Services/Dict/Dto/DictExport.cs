@@ -11,6 +11,9 @@ public class DictExport
     [ExporterHeader(DisplayName = "字典编号", Format = "0")]
     public long Id { get; set; }
 
+    [ExporterHeader(DisplayName = "字典分类")]
+    public string DictTypeName { get; set; }
+
     [ExporterHeader(DisplayName = "字典名称")]
     public string Name { get; set; }
 
