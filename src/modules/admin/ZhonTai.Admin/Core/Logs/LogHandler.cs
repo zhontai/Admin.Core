@@ -53,8 +53,10 @@ public class LogHandler : ILogHandler
 
             var api = (await _apiHelper.GetApiListAsync()).FirstOrDefault(a => a.Path == input.ApiPath);
 
+            var excepton = actionExecutedContext.Exception;
+
             //操作参数
-            if (api.EnabledParams && context.ActionArguments.Count > 0) 
+            if ((api.EnabledParams && context.ActionArguments.Count > 0) || excepton != null) 
             {
                 input.Params = JsonHelper.Serialize(context.ActionArguments);
             }
@@ -65,12 +67,12 @@ public class LogHandler : ILogHandler
                 input.Result = JsonHelper.Serialize(result.Value);
             }
 
-            if (actionExecutedContext.Exception != null)
+            if (excepton != null)
             {
                 input.Status = false;
 
                 var code = "";
-                if(actionExecutedContext.Exception is AppException appException)
+                if(excepton is AppException appException)
                 {
                     input.StatusCode = appException.StatusCode;
                     code = appException.AppCode;
@@ -83,7 +85,7 @@ public class LogHandler : ILogHandler
                 input.Result = JsonHelper.Serialize(new ResultOutput<string>()
                 {
                     Code = code
-                }.NotOk(actionExecutedContext.Exception.Message));
+                }.NotOk(excepton.Message));
             }
             
 
