@@ -43,7 +43,7 @@ public partial class DictEntity : EntityBase
     public string Value { get; set; }
 
     /// <summary>
-    /// 描述
+    /// 说明
     /// </summary>
     [Column(StringLength = 500)]
     public string Description { get; set; }

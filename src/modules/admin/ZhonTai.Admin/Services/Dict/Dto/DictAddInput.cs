@@ -31,7 +31,7 @@ public class DictAddInput
     public string Value { get; set; }
 
     /// <summary>
-    /// 描述
+    /// 说明
     /// </summary>
     public string Description { get; set; }
 

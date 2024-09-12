@@ -141,19 +141,36 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <returns></returns>
     [NonFormatResult]
     [HttpGet]
-    public async Task<ActionResult> ExportListAsync()
+    public async Task<ActionResult> ExportListAsync(ExportInput input)
     {
         using var _ = _dictRep.DataFilter.DisableAll();
 
-        var select = _dictRep.Select.OrderBy(a => a.DictType.Sort).OrderBy(a => a.Sort);
+        var select = _dictRep.Select;
+        if (input.SortList != null && input.SortList.Count > 0)
+        {
+            input.SortList.ForEach(sort =>
+            {
+                select = select.OrderByPropertyNameIf(sort.Order.HasValue, sort.PropName, sort.IsAscending.Value);
+            });
+        }
+        else
+        {
+            select = select.OrderBy(a => a.DictType.Sort).OrderBy(a => a.Sort);
+        }
 
         //查询数据
-        var dataList = await select.ToListAsync(a => new DictExport { DictTypeName = a.DictType.Name });
+        var dataList = await select.WhereDynamicFilter(input.DynamicFilter).ToListAsync(a => new DictExport { DictTypeName = a.DictType.Name });
+
+        var title = dataList.Count > 0 ? dataList[0].DictTypeName : string.Empty;
+        if (title.NotNull())
+        {
+            title = "-" + title;
+        }
 
         //导出数据
         var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();
-
-        return new XlsxFileResult(result, _adminLocalizer["数据字典列表{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmm")]);
+        
+        return new XlsxFileResult(result, _adminLocalizer[$"数据字典{title}列表{{0}}.xlsx", DateTime.Now.ToString("yyyyMMddHHmm")]);
     }
 
     /// <summary>
