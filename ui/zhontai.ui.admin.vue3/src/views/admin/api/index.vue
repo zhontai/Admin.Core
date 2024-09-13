@@ -27,7 +27,12 @@
         :expand-row-keys="state.expandRowKeys"
       >
         <el-table-column prop="label" label="接口名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip>
+          <template #default="{ row }">
+            <el-tag v-if="row.httpMethods" :type="getTagTypeByHttpMethod(row.httpMethods)">{{ row.httpMethods }}</el-tag>
+            {{ row.path }}
+          </template>
+        </el-table-column>
         <el-table-column label="请求参数" width="80" align="center">
           <template #default="{ row }">
             <el-switch
@@ -120,6 +125,21 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshApi')
 })
+
+const getTagTypeByHttpMethod = (httpMethods: string) => {
+  const methods = httpMethods.toLowerCase().split(/\s+/)
+  if (methods.some((method) => method === 'get')) {
+    return 'success'
+  }
+  if (methods.some((method) => method === 'delete')) {
+    return 'danger'
+  }
+  if (methods.some((method) => method === 'patch')) {
+    return 'info'
+  }
+
+  return 'primary'
+}
 
 //启用或禁用请求参数
 const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
