@@ -5,6 +5,10 @@
 /// </summary>
 public class ExportInput: QueryInput
 {
+    /// <summary>
+    /// 文件名
+    /// </summary>
+    public string FileName { get; set; }
 }
 
 /// <summary>

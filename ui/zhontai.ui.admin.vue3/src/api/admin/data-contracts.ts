@@ -567,7 +567,7 @@ export interface DictAddInput {
   code?: string | null
   /** 字典值 */
   value?: string | null
-  /** 描述 */
+  /** 说明 */
   description?: string | null
   /** 启用 */
   enabled?: boolean
@@ -611,7 +611,7 @@ export interface DictGetOutput {
   code?: string | null
   /** 字典值 */
   value?: string | null
-  /** 描述 */
+  /** 说明 */
   description?: string | null
   /** 启用 */
   enabled?: boolean
@@ -767,7 +767,7 @@ export interface DictUpdateInput {
   code?: string | null
   /** 字典值 */
   value?: string | null
-  /** 描述 */
+  /** 说明 */
   description?: string | null
   /** 启用 */
   enabled?: boolean
@@ -985,6 +985,15 @@ export type DynamicFilterLogic = 0 | 1
  * @format int32
  */
 export type DynamicFilterOperator = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18
+
+/** 导出信息输入 */
+export interface ExportInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /** 文件名 */
+  fileName?: string | null
+}
 
 export interface FileDeleteInput {
   /**
@@ -1571,6 +1580,9 @@ export interface OrgUpdateInput {
 
 /** 分页信息输入 */
 export interface PageInputApiGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1581,14 +1593,14 @@ export interface PageInputApiGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: ApiGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputDictGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1599,14 +1611,14 @@ export interface PageInputDictGetPageInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: DictGetPageInput
 }
 
 /** 分页信息输入 */
 export interface PageInputDictTypeGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1617,14 +1629,14 @@ export interface PageInputDictTypeGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: DictTypeGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputFileGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1635,14 +1647,14 @@ export interface PageInputFileGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: FileGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputLoginLogGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1653,14 +1665,14 @@ export interface PageInputLoginLogGetPageInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: LoginLogGetPageInput
 }
 
 /** 分页信息输入 */
 export interface PageInputOperationLogGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1671,14 +1683,14 @@ export interface PageInputOperationLogGetPageInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: OperationLogGetPageInput
 }
 
 /** 分页信息输入 */
 export interface PageInputPkgGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1689,14 +1701,14 @@ export interface PageInputPkgGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: PkgGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputPkgGetPkgTenantListInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1707,14 +1719,14 @@ export interface PageInputPkgGetPkgTenantListInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: PkgGetPkgTenantListInput
 }
 
 /** 分页信息输入 */
 export interface PageInputRegionGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1725,14 +1737,14 @@ export interface PageInputRegionGetPageInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: RegionGetPageInput
 }
 
 /** 分页信息输入 */
 export interface PageInputRoleGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1743,14 +1755,14 @@ export interface PageInputRoleGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: RoleGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputTaskGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1761,14 +1773,14 @@ export interface PageInputTaskGetPageInput {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: TaskGetPageInput
 }
 
 /** 分页信息输入 */
 export interface PageInputTaskLogGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1779,14 +1791,14 @@ export interface PageInputTaskLogGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: TaskLogGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputTenantGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1797,14 +1809,14 @@ export interface PageInputTenantGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   filter?: TenantGetPageDto
 }
 
 /** 分页信息输入 */
 export interface PageInputUserGetPageDto {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
   /**
    * 当前页标
    * @format int32
@@ -1815,9 +1827,6 @@ export interface PageInputUserGetPageDto {
    * @format int32
    */
   pageSize?: number
-  dynamicFilter?: DynamicFilterInfo
-  /** 排序列表 */
-  sortList?: SortInput[] | null
   /** 用户分页查询条件 */
   filter?: UserGetPageDto
 }

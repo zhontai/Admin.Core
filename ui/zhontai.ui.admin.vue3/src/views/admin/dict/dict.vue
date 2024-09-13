@@ -161,7 +161,15 @@ const onExport = async () => {
   state.export.loading = true
 
   await new DictApi()
-    .exportList({ format: 'blob', returnResponse: true })
+    .exportList(
+      {
+        dynamicFilter: {
+          filters: [{ field: 'dictTypeId', operator: 6, value: state.pageInput.filter?.dictTypeId }],
+        },
+        sortList: state.pageInput.sortList,
+      },
+      { format: 'blob', returnResponse: true }
+    )
     .then((res: any) => {
       const contentDisposition = res.headers['content-disposition']
       const matchs = /filename="?([^;"]+)/i.exec(contentDisposition)

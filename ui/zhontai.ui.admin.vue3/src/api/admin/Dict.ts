@@ -13,6 +13,7 @@ import { AxiosResponse } from 'axios'
 import {
   DictAddInput,
   DictUpdateInput,
+  ExportInput,
   PageInputDictGetPageInput,
   ResultOutputDictGetOutput,
   ResultOutputDictionaryStringListDictGetListDto,
@@ -109,14 +110,16 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @tags dict
    * @name ExportList
    * @summary 导出列表
-   * @request GET:/api/admin/dict/export-list
+   * @request POST:/api/admin/dict/export-list
    * @secure
    */
-  exportList = (params: RequestParams = {}) =>
+  exportList = (data: ExportInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
       path: `/api/admin/dict/export-list`,
-      method: 'GET',
+      method: 'POST',
+      body: data,
       secure: true,
+      type: ContentType.Json,
       ...params,
     })
   /**
