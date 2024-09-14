@@ -76,7 +76,7 @@
 
 <script lang="ts" setup>
 import { reactive, toRefs, ref, PropType } from 'vue'
-import { ApiListOutput, ApiUpdateInput } from '/@/api/admin/data-contracts'
+import { ApiGetListOutput, ApiUpdateInput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import eventBus from '/@/utils/mitt'
 
@@ -86,7 +86,7 @@ defineProps({
     default: '',
   },
   apiTreeData: {
-    type: Array as PropType<ApiListOutput[]>,
+    type: Array as PropType<ApiGetListOutput[]>,
     default: () => [],
   },
 })

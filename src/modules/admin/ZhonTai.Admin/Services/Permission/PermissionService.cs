@@ -106,17 +106,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询接口
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public async Task<PermissionGetApiOutput> GetApiAsync(long id)
-    {
-        var result = await _permissionRep.GetAsync<PermissionGetApiOutput>(id);
-        return result;
-    }
-
-    /// <summary>
     /// 查询权限点
     /// </summary>
     /// <param name="id"></param>
@@ -325,18 +314,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     public async Task UpdateMenuAsync(PermissionUpdateMenuInput input)
-    {
-        var entity = await _permissionRep.GetAsync(input.Id);
-        entity = Mapper.Map(input, entity);
-        await _permissionRep.UpdateAsync(entity);
-    }
-
-    /// <summary>
-    /// 修改接口
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    public async Task UpdateApiAsync(PermissionUpdateApiInput input)
     {
         var entity = await _permissionRep.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);

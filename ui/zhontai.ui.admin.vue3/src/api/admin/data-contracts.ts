@@ -575,7 +575,7 @@ export interface DictAddInput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
 }
 
 export interface DictGetListDto {
@@ -619,7 +619,7 @@ export interface DictGetOutput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
   /**
    * 主键Id
    * @format int64
@@ -775,7 +775,7 @@ export interface DictUpdateInput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
   /**
    * 主键Id
    * @format int64
@@ -2234,41 +2234,6 @@ export interface PermissionEntity {
   childs?: PermissionEntity[] | null
 }
 
-export interface PermissionGetApiOutput {
-  /**
-   * 父级节点
-   * @format int64
-   */
-  parentId?: number
-  /**
-   * 接口
-   * @format int64
-   */
-  apiId?: number | null
-  /** 权限名称 */
-  label?: string | null
-  /** 权限编码 */
-  code?: string | null
-  /** 说明 */
-  description?: string | null
-  /** 隐藏 */
-  hidden?: boolean
-  /** 图标 */
-  icon?: string | null
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 权限Id
-   * @format int64
-   */
-  id: number
-}
-
 export interface PermissionGetDotOutput {
   /**
    * 父级节点
@@ -2438,41 +2403,6 @@ export interface PermissionSaveTenantPermissionsInput {
  * @format int32
  */
 export type PermissionType = 1 | 2 | 3
-
-export interface PermissionUpdateApiInput {
-  /**
-   * 父级节点
-   * @format int64
-   */
-  parentId?: number
-  /**
-   * 接口
-   * @format int64
-   */
-  apiId?: number | null
-  /** 权限名称 */
-  label?: string | null
-  /** 权限编码 */
-  code?: string | null
-  /** 说明 */
-  description?: string | null
-  /** 隐藏 */
-  hidden?: boolean
-  /** 图标 */
-  icon?: string | null
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 权限Id
-   * @format int64
-   */
-  id: number
-}
 
 export interface PermissionUpdateDotInput {
   /**
@@ -3633,17 +3563,6 @@ export interface ResultOutputPageOutputUserGetPageOutput {
   msg?: string | null
   /** 分页信息输出 */
   data?: PageOutputUserGetPageOutput
-}
-
-/** 结果输出 */
-export interface ResultOutputPermissionGetApiOutput {
-  /** 是否成功标记 */
-  success?: boolean
-  /** 编码 */
-  code?: string | null
-  /** 消息 */
-  msg?: string | null
-  data?: PermissionGetApiOutput
 }
 
 /** 结果输出 */

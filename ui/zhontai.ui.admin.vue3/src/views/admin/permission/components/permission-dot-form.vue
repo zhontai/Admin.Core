@@ -96,7 +96,7 @@
 
 <script lang="ts" setup name="admin/permission/permission-dot-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType } from 'vue'
-import { PermissionListOutput, PermissionUpdateDotInput, ApiListOutput } from '/@/api/admin/data-contracts'
+import { PermissionListOutput, PermissionUpdateDotInput, ApiGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ApiApi } from '/@/api/admin/Api'
 import { listToTree, treeToList } from '/@/utils/tree'
@@ -121,7 +121,7 @@ const state = reactive({
   showDialog: false,
   sureLoading: false,
   form: { enabled: true } as PermissionUpdateDotInput,
-  apiTreeData: [] as ApiListOutput[],
+  apiTreeData: [] as ApiGetListOutput[],
   expandRowKeys: [] as number[],
 })
 
@@ -130,7 +130,7 @@ const { form } = toRefs(state)
 const getApis = async () => {
   const res = await new ApiApi().getList()
   if (res?.success && res.data && res.data.length > 0) {
-    state.apiTreeData = listToTree(res.data) as ApiListOutput[]
+    state.apiTreeData = listToTree(res.data) as ApiGetListOutput[]
   } else {
     state.apiTreeData = []
   }
@@ -143,8 +143,8 @@ const open = async (row: any = {}) => {
   await getApis()
 
   state.expandRowKeys = treeToList(cloneDeep(state.apiTreeData))
-    .filter((a: ApiListOutput) => a.parentId === 0)
-    .map((a: ApiListOutput) => a.id) as number[]
+    .filter((a: ApiGetListOutput) => a.parentId === 0)
+    .map((a: ApiGetListOutput) => a.id) as number[]
 
   if (row.id > 0) {
     const res = await new PermissionApi().getDot({ id: row.id }).catch(() => {
@@ -164,12 +164,12 @@ const open = async (row: any = {}) => {
   state.showDialog = true
 }
 
-const onApiFilterNode = (value: string, data: ApiListOutput) => {
+const onApiFilterNode = (value: string, data: ApiGetListOutput) => {
   if (!value) return true
   return data.label?.indexOf(value) !== -1 || data.path?.indexOf(value) !== -1
 }
 
-const onApiCurrentChange = (data: ApiListOutput) => {
+const onApiCurrentChange = (data: ApiGetListOutput) => {
   if (data) {
     if (!state.form.label) {
       state.form.label = data.label

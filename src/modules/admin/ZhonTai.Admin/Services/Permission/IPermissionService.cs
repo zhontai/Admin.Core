@@ -15,8 +15,6 @@ public partial interface IPermissionService
 
     Task<PermissionGetMenuOutput> GetMenuAsync(long id);
 
-    Task<PermissionGetApiOutput> GetApiAsync(long id);
-
     Task<PermissionGetDotOutput> GetDotAsync(long id);
 
     Task<IEnumerable<dynamic>> GetPermissionListAsync();
@@ -38,8 +36,6 @@ public partial interface IPermissionService
     Task UpdateGroupAsync(PermissionUpdateGroupInput input);
 
     Task UpdateMenuAsync(PermissionUpdateMenuInput input);
-
-    Task UpdateApiAsync(PermissionUpdateApiInput input);
 
     Task UpdateDotAsync(PermissionUpdateDotInput input);
 
