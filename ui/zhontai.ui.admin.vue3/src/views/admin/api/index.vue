@@ -29,7 +29,7 @@
         <el-table-column prop="label" label="接口名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
-            <el-tag v-if="row.httpMethods" :type="getTagTypeByHttpMethod(row.httpMethods)">{{ row.httpMethods }}</el-tag>
+            <el-tag v-if="row.httpMethods" :type="getTagTypeByHttpMethod(row.httpMethods)" style="width: 54px">{{ row.httpMethods }}</el-tag>
             {{ row.path }}
           </template>
         </el-table-column>

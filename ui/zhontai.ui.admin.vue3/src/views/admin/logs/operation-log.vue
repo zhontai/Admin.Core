@@ -10,7 +10,7 @@
             <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="操作接口" prop="ip">
+        <el-form-item label="操作接口" prop="api">
           <el-input v-model="state.filter.api" placeholder="操作接口" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item label="操作IP" prop="ip">
