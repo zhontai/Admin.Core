@@ -169,8 +169,10 @@ public class DictService : BaseService, IDictService, IDynamicApi
 
         //导出数据
         var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();
-        
-        return new XlsxFileResult(result, _adminLocalizer["数据字典{0}列表{1}.xlsx", title, DateTime.Now.ToString("yyyyMMddHHmm")]);
+
+        var fileName = input.FileName.NotNull() ? input.FileName : _adminLocalizer["数据字典{0}列表{1}.xlsx", title, DateTime.Now.ToString("yyyyMMddHHmm")];
+
+        return new XlsxFileResult(result, fileName);
     }
 
     /// <summary>
