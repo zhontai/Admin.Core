@@ -56,13 +56,13 @@ public class LogHandler : ILogHandler
             var excepton = actionExecutedContext.Exception;
 
             //操作参数
-            if ((api.EnabledParams && context.ActionArguments.Count > 0) || excepton != null) 
+            if ((api != null && api.EnabledParams && context.ActionArguments.Count > 0) || excepton != null) 
             {
                 input.Params = JsonHelper.Serialize(context.ActionArguments);
             }
 
             //操作结果
-            if (api.EnabledResult && actionExecutedContext.Result != null && actionExecutedContext.Result is JsonResult result)
+            if (api != null && api.EnabledResult && actionExecutedContext.Result != null && actionExecutedContext.Result is JsonResult result)
             {
                 input.Result = JsonHelper.Serialize(result.Value);
             }

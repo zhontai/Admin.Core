@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Domain.View;
 /// </summary>
 [Table(Name = "ad_view")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
-public partial class ViewEntity : EntityBase
+public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 {
     /// <summary>
     /// 所属节点

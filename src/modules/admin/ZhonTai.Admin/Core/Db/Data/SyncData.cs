@@ -8,6 +8,8 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Entities;
 using FreeSql;
+using Mapster;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
@@ -137,9 +139,21 @@ public abstract class SyncData
     /// <param name="dbConfig">模块数据库配置</param>
     /// <param name="appConfig">应用配置</param>
     /// <param name="readPath">读取数据路径 InitData/xxx </param>
+    /// <param name="processChilds">处理子级列表</param>
     /// <returns></returns>
-    protected virtual async Task SyncEntityAsync<T>(IFreeSql db, IRepositoryUnitOfWork unitOfWork, DbConfig dbConfig, AppConfig appConfig, string readPath) where T : EntityBase, new()
+    protected virtual async Task SyncEntityAsync<T>(IFreeSql db, 
+        IRepositoryUnitOfWork unitOfWork, 
+        DbConfig dbConfig, 
+        AppConfig appConfig, 
+        string readPath = null, 
+        bool processChilds = false) 
+        where T : Entity<long>, new()
     {
+        if (processChilds && typeof(T).IsAssignableFrom(typeof(IChilds<T>)))
+        {
+            throw new InvalidOperationException("processChilds is true but T does not implement IChilds<T>");
+        }
+
         var tableName = GetTableName<T>();
         try
         {
@@ -152,7 +166,7 @@ public abstract class SyncData
             rep.UnitOfWork = unitOfWork;
 
             //数据列表
-            var dataList = GetData<T>(isTenant, readPath);
+            var dataList = GetData<T>(isTenant, readPath ?? dbConfig.SyncDataPath);
 
             if (!(dataList?.Length > 0))
             {
@@ -161,22 +175,31 @@ public abstract class SyncData
             }
 
             //查询
-            var ids = dataList.Select(e => e.Id).ToList();
-            var recordList = await rep.Where(a => ids.Contains(a.Id)).ToListAsync();
+            var dataIds = dataList.Select(e => e.Id).ToList();
+            var dbDataList = await rep.Where(a => dataIds.Contains(a.Id)).ToListAsync();
+            if (processChilds)
+            {
+               dataList = dataList.ToList().ToPlainList((a) => ((IChilds<T>)a).Childs).ToArray();
+            }
 
             //新增
-            var recordIds = recordList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !recordIds.Contains(a.Id));
+            var dbDataIds = dbDataList.Select(a => a.Id).ToList();
+            var insertDataList = dataList.Where(a => !dbDataIds.Contains(a.Id));
             if (insertDataList.Any())
             {
                 await rep.InsertAsync(insertDataList);
             }
 
             //修改
-            if (dbConfig.SysUpdateData && recordList?.Count > 0)
+            if (dbConfig.SysUpdateData && dbDataList?.Count > 0)
             {
-                var updateDataList = dataList.Where(a => recordIds.Contains(a.Id));
-                await rep.UpdateAsync(updateDataList);
+                foreach (var dbData in dbDataList)
+                {
+                    var data = dataList.Where(a => a.Id == dbData.Id).First();
+                    data.Adapt(dbData);
+                }
+
+                await rep.UpdateAsync(dbDataList);
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");

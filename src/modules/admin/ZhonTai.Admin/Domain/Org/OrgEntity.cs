@@ -14,7 +14,7 @@ namespace ZhonTai.Admin.Domain.Org;
 /// </summary>
 [Table(Name = "ad_org")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
-public partial class OrgEntity : EntityTenant
+public partial class OrgEntity : EntityTenant, IChilds<OrgEntity>
 {
     /// <summary>
     /// 父级
