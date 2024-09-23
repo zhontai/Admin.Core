@@ -141,9 +141,9 @@
       //启用Json配置
       "EnableJson": true,
       //默认语言
-      "DefaultLang": "zh",
+      "DefaultLang": "zh-CN",
       //语言列表
-      "Langs": [ "zh", "en" ],
+      "Langs": [ "zh-CN", "en" ],
       //语言请求解析列表
       "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
     },

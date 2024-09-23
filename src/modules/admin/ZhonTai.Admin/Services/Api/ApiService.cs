@@ -18,6 +18,7 @@ using System.Reflection;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -168,7 +169,8 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             EnabledParams = input.EnabledParams,
             ModifiedUserId = User.Id,
             ModifiedUserName = User.UserName,
-            ModifiedUserRealName = User.Name
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime
         })
         .WhereDynamic(input.ApiId)
         .ExecuteAffrowsAsync();
@@ -188,7 +190,8 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             EnabledResult = input.EnabledResult,
             ModifiedUserId = User.Id,
             ModifiedUserName = User.UserName,
-            ModifiedUserRealName = User.Name
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime
         })
         .WhereDynamic(input.ApiId)
         .ExecuteAffrowsAsync();

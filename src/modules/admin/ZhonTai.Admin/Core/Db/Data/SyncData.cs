@@ -149,7 +149,7 @@ public abstract class SyncData
         bool processChilds = false) 
         where T : Entity<long>, new()
     {
-        if (processChilds && typeof(T).IsAssignableFrom(typeof(IChilds<T>)))
+        if (processChilds && !typeof(T).IsAssignableTo(typeof(IChilds<T>)))
         {
             throw new InvalidOperationException("processChilds is true but T does not implement IChilds<T>");
         }
@@ -161,7 +161,8 @@ public abstract class SyncData
             {
                 return;
             }
-            var isTenant = appConfig.Tenant && typeof(T).IsAssignableFrom(typeof(EntityTenant));
+
+            var isTenant = appConfig.Tenant && typeof(T).IsAssignableTo(typeof(EntityTenant));
             var rep = db.GetRepository<T>();
             rep.UnitOfWork = unitOfWork;
 
@@ -174,13 +175,14 @@ public abstract class SyncData
                 return;
             }
 
+            if (processChilds)
+            {
+                dataList = dataList.ToList().ToPlainList((a) => ((IChilds<T>)a).Childs).ToArray();
+            }
+
             //查询
             var dataIds = dataList.Select(e => e.Id).ToList();
             var dbDataList = await rep.Where(a => dataIds.Contains(a.Id)).ToListAsync();
-            if (processChilds)
-            {
-               dataList = dataList.ToList().ToPlainList((a) => ((IChilds<T>)a).Childs).ToArray();
-            }
 
             //新增
             var dbDataIds = dbDataList.Select(a => a.Id).ToList();
