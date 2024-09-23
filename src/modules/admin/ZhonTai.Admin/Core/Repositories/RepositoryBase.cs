@@ -3,6 +3,7 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Repositories
@@ -40,7 +41,9 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.UserName
+                    ModifiedUserName = User.UserName,
+                    ModifiedUserRealName = User.Name,
+                    ModifiedTime = DbHelper.ServerTime
                 })
                 .WhereDynamic(id)
                 .ExecuteAffrowsAsync();
@@ -55,7 +58,9 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.UserName
+                    ModifiedUserName = User.UserName,
+                    ModifiedUserRealName = User.Name,
+                    ModifiedTime = DbHelper.ServerTime
                 })
                 .WhereDynamic(ids)
                 .ExecuteAffrowsAsync();
@@ -70,7 +75,9 @@ namespace ZhonTai.Admin.Core.Repositories
                 {
                     IsDeleted = true,
                     ModifiedUserId = User.Id,
-                    ModifiedUserName = User.UserName
+                    ModifiedUserName = User.UserName,
+                    ModifiedUserRealName = User.Name,
+                    ModifiedTime = DbHelper.ServerTime
                 })
                 .Where(exp)
                 .DisableGlobalFilter(disableGlobalFilterNames)
@@ -102,7 +109,9 @@ namespace ZhonTai.Admin.Core.Repositories
             {
                 IsDeleted = true,
                 ModifiedUserId = User.Id,
-                ModifiedUserName = User.UserName
+                ModifiedUserName = User.UserName,
+                ModifiedUserRealName = User.Name,
+                ModifiedTime = DbHelper.ServerTime
             })
             .ExecuteAffrowsAsync();
 
