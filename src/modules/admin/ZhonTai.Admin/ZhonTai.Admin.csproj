@@ -46,12 +46,12 @@
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="3.3.0" />
 		<PackageReference Include="NLog" Version="5.3.4" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.13" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.14" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />

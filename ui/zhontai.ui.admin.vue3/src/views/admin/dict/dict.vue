@@ -8,6 +8,7 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button v-auth="'api:admin:dict:export-list'" icon="ele-Download" type="primary" @click="onImport"> 导入 </el-button>
           <el-button v-auth="'api:admin:dict:export-list'" icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">
             导出
           </el-button>
@@ -57,6 +58,8 @@
     </el-card>
 
     <dict-form ref="dictFormRef" :title="state.dictFormTitle"></dict-form>
+
+    <MyImport ref="dictImportRef" :title="state.import.title" v-model="state.import"></MyImport>
   </div>
 </template>
 
@@ -69,10 +72,12 @@ import dayjs from 'dayjs'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
+const MyImport = defineAsyncComponent(() => import('/@/components/my-import/index.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const dictFormRef = ref()
+const dictImportRef = ref()
 
 const defalutSort = { prop: 'sort', order: 'ascending' }
 
@@ -101,6 +106,13 @@ const state = reactive({
   } as PageInputDictGetPageInput,
   dictListData: [] as Array<DictGetPageOutput>,
   dictTypeName: '',
+  import: {
+    title: '',
+    action: import.meta.env.VITE_API_URL + '/api/admin/dict/import-data',
+    duplicateAction: 1,
+    uniqueRules: ['字典名称', '字典编码', '字典值'],
+    requiredColumns: ['字典类型', '字典名称'],
+  },
   export: {
     loading: false,
   },
@@ -138,12 +150,12 @@ const onAdd = () => {
     proxy.$modal.msgWarning('请选择字典类型')
     return
   }
-  state.dictFormTitle = `新增【${state.dictTypeName}】字典`
+  state.dictFormTitle = `新增【${state.dictTypeName}】字典数据`
   dictFormRef.value.open({ dictTypeId: state.filterModel.dictTypeId })
 }
 
 const onEdit = (row: DictGetPageOutput) => {
-  state.dictFormTitle = `编辑【${state.dictTypeName}】字典`
+  state.dictFormTitle = `编辑【${state.dictTypeName}】字典数据`
   dictFormRef.value.open(row)
 }
 
@@ -157,11 +169,16 @@ const onDelete = (row: DictGetPageOutput) => {
     .catch(() => {})
 }
 
+const onImport = () => {
+  state.import.title = `导入【${state.dictTypeName}】字典数据`
+  dictImportRef.value.open()
+}
+
 const onExport = async () => {
   state.export.loading = true
 
   await new DictApi()
-    .exportList(
+    .exportData(
       {
         dynamicFilter: {
           filters: [{ field: 'dictTypeId', operator: 6, value: state.pageInput.filter?.dictTypeId }],

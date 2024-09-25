@@ -7,6 +7,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      style="padding: 0px"
     >
       <div class="upgrade-title">
         <div class="upgrade-title-warp">

@@ -12,9 +12,15 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using ZhonTai.Admin.Repositories;
-using Magicodes.ExporterAndImporter.Excel;
-using Magicodes.ExporterAndImporter.Excel.AspNetCore;
 using ZhonTai.Admin.Resources;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using Magicodes.ExporterAndImporter.Core.Models;
+using ZhonTai.Admin.Domain.DictType;
+using Mapster;
+using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.Dict;
 
@@ -26,12 +32,19 @@ namespace ZhonTai.Admin.Services.Dict;
 public class DictService : BaseService, IDictService, IDynamicApi
 {
     private readonly AdminRepositoryBase<DictEntity> _dictRep;
+    private readonly AdminRepositoryBase<DictTypeEntity> _dictTypeRep;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly IEHelper _iEHelper;
 
-    public DictService(AdminRepositoryBase<DictEntity> dictRep, AdminLocalizer adminLocalizer)
+    public DictService(AdminRepositoryBase<DictEntity> dictRep,
+        AdminRepositoryBase<DictTypeEntity> dictTypeRep,
+        AdminLocalizer adminLocalizer,
+        IEHelper iEHelper)
     {
         _dictRep = dictRep;
+        _dictTypeRep = dictTypeRep;
         _adminLocalizer = adminLocalizer;
+        _iEHelper = iEHelper;
     }
 
     /// <summary>
@@ -136,22 +149,48 @@ public class DictService : BaseService, IDictService, IDynamicApi
     }
 
     /// <summary>
-    /// 导出列表
+    /// 下载导入模板
     /// </summary>
     /// <returns></returns>
-    [NonFormatResult]
     [HttpPost]
-    public async Task<ActionResult> ExportListAsync(ExportInput input)
+    [NonFormatResult]
+    public async Task<ActionResult> DownloadTemplateAsync()
+    {
+        var fileName = _adminLocalizer["数据字典模板{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss")];
+        return await _iEHelper.DownloadTemplateAsync(new DictImport(), fileName);
+    }
+
+    /// <summary>
+    /// 下载错误标记文件
+    /// </summary>
+    /// <param name="fileId"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    [HttpPost]
+    [NonFormatResult]
+    public async Task<ActionResult> DownloadErrorMarkAsync(string fileId, string fileName)
+    {
+        if (fileName.IsNull())
+        {
+            fileName = _adminLocalizer["数据字典错误标记{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss")];
+        }
+        return await _iEHelper.DownloadErrorMarkAsync(fileId, fileName);
+    }
+
+    /// <summary>
+    /// 导出数据
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    [NonFormatResult]
+    public async Task<ActionResult> ExportDataAsync(ExportInput input)
     {
         using var _ = _dictRep.DataFilter.DisableAll();
 
         var select = _dictRep.Select;
         if (input.SortList != null && input.SortList.Count > 0)
         {
-            input.SortList.ForEach(sort =>
-            {
-                select = select.OrderByPropertyNameIf(sort.Order.HasValue, sort.PropName, sort.IsAscending.Value);
-            });
+            select = select.SortList(input.SortList);
         }
         else
         {
@@ -161,18 +200,140 @@ public class DictService : BaseService, IDictService, IDynamicApi
         //查询数据
         var dataList = await select.WhereDynamicFilter(input.DynamicFilter).ToListAsync(a => new DictExport { DictTypeName = a.DictType.Name });
 
-        var title = dataList.Count > 0 ? dataList[0].DictTypeName : string.Empty;
-        if (title.NotNull())
-        {
-            title = "-" + title;
-        }
+        var dictTypeName = dataList.Count > 0 ? dataList[0].DictTypeName : string.Empty;
 
         //导出数据
-        var result = await new ExcelExporter().Append(dataList).ExportAppendDataAsByteArray();
+        var fileName = input.FileName.NotNull() ? input.FileName : _adminLocalizer["数据字典-{0}列表{1}.xlsx", dictTypeName, DateTime.Now.ToString("yyyyMMddHHmmss")];
 
-        var fileName = input.FileName.NotNull() ? input.FileName : _adminLocalizer["数据字典{0}列表{1}.xlsx", title, DateTime.Now.ToString("yyyyMMddHHmm")];
+        return await _iEHelper.ExportDataAsync(dataList, fileName, dictTypeName);
+    }
 
-        return new XlsxFileResult(result, fileName);
+    /// <summary>
+    /// 导入数据
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="duplicateAction"></param>
+    /// <param name="fileId"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ImportOutput> ImportDataAsync([Required] IFormFile file, int duplicateAction, string fileId)
+    {
+        var importResult = await _iEHelper.ImportDataAsync<DictImport>(file, fileId, async (importResult) =>
+        {
+            //检查数据
+            var importDataList = importResult.Data;
+            var importDictTypeNameList = importDataList.Select(a => a.DictTypeName).Distinct().ToList();
+            var dictTypeList = await _dictTypeRep.Where(a => importDictTypeNameList.Contains(a.Name)).ToListAsync(a => new { a.Id, a.Name });
+            var dictTypeIdList = dictTypeList.Select(a => a.Id).Distinct().ToList();
+            var dictList = await _dictRep.Where(a => dictTypeIdList.Contains(a.DictTypeId)).ToListAsync(a => new { a.Id, a.DictTypeId, a.Name, a.Code, a.Value });
+
+            if (importResult.RowErrors == null)
+            {
+                importResult.RowErrors = new List<DataRowErrorInfo>();
+            }
+            var errorList = importResult.RowErrors;
+
+            foreach (var importData in importDataList)
+            {
+                var rowIndex = importDataList.ToList().FindIndex(o => o.Equals(importData)) + 2;
+                importData.DictTypeId = dictTypeList.Where(a => a.Name == importData.DictTypeName).Select(a => a.Id).FirstOrDefault();
+
+                if (importData.DictTypeId > 0)
+                {
+                    importData.Id = dictList.Where(a => a.DictTypeId == importData.DictTypeId && a.Name == importData.Name).Select(a => a.Id).FirstOrDefault();
+
+                    if (importData.Id > 0)
+                    {
+                        if (duplicateAction == 1)
+                        {
+                            if (importData.Code.NotNull() && dictList.Where(a => a.Id != importData.Id && a.DictTypeId == importData.DictTypeId && a.Code == importData.Code).Any())
+                            {
+                                var errorInfo = new DataRowErrorInfo()
+                                {
+                                    RowIndex = rowIndex,
+                                };
+                                errorInfo.FieldErrors.Add("字典编码", importData.Code + "已存在");
+                                errorList.Add(errorInfo);
+                            }
+
+                            if (importData.Value.NotNull() && dictList.Where(a => a.Id != importData.Id && a.DictTypeId == importData.DictTypeId && a.Value == importData.Value).Any())
+                            {
+                                var errorInfo = new DataRowErrorInfo()
+                                {
+                                    RowIndex = rowIndex,
+                                };
+                                errorInfo.FieldErrors.Add("字典值", importData.Value + "已存在");
+                                errorList.Add(errorInfo);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (importData.Code.NotNull() && dictList.Where(a => a.DictTypeId == importData.DictTypeId && a.Code == importData.Code).Any())
+                        {
+                            var errorInfo = new DataRowErrorInfo()
+                            {
+                                RowIndex = rowIndex,
+                            };
+                            errorInfo.FieldErrors.Add("字典编码", importData.Code + "已存在");
+                            errorList.Add(errorInfo);
+                        }
+
+                        if (importData.Value.NotNull() && dictList.Where(a => a.DictTypeId == importData.DictTypeId && a.Value == importData.Value).Any())
+                        {
+                            var errorInfo = new DataRowErrorInfo()
+                            {
+                                RowIndex = rowIndex,
+                            };
+                            errorInfo.FieldErrors.Add("字典值", importData.Value + "已存在");
+                            errorList.Add(errorInfo);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorInfo = new DataRowErrorInfo()
+                    {
+                        RowIndex = rowIndex,
+                    };
+                    errorInfo.FieldErrors.Add("字典分类", importData.DictTypeName + "不存在");
+                    errorList.Add(errorInfo);
+                }
+            }
+
+            return importResult;
+        });
+
+        var importDataList = importResult.Data;
+        var output = new ImportOutput()
+        {
+            Total = importDataList.Count
+        };
+        if (output.Total > 0)
+        {
+            //新增
+            var insetImportDataList = importDataList.Where(a=>a.Id == 0).ToList();
+            var insetDataList = insetImportDataList.Adapt<List<DictEntity>>();
+            output.InsertCount = insetDataList.Count;
+            await _dictRep.InsertAsync(insetDataList);
+
+            //修改
+            var updateImportDataList = importDataList.Where(a => a.Id > 0).ToList();
+            if (duplicateAction == 1 && updateImportDataList?.Count > 0)
+            {
+                var updateImportDataIds = updateImportDataList.Select(e => e.Id).ToList();
+                var dbDataList = await _dictRep.Where(a => updateImportDataIds.Contains(a.Id)).ToListAsync();
+                foreach (var dbData in dbDataList)
+                {
+                    var data = updateImportDataList.Where(a => a.Id == dbData.Id).First();
+                    data.Adapt(dbData);
+                }
+                output.UpdateCount = updateImportDataList.Count;
+                await _dictRep.UpdateAsync(dbDataList);
+            }
+        }
+
+        return output;
     }
 
     /// <summary>

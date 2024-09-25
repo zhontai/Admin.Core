@@ -1128,6 +1128,25 @@ export interface FileGetPageOutput {
   modifiedTime?: string | null
 }
 
+/** 导入输出 */
+export interface ImportOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /**
+   * 新增数
+   * @format int64
+   */
+  insertCount?: number
+  /**
+   * 更新数
+   * @format int64
+   */
+  updateCount?: number
+}
+
 /** 添加 */
 export interface LoginLogAddInput {
   /**
@@ -3153,6 +3172,18 @@ export interface ResultOutputIEnumerableObject {
   msg?: string | null
   /** 数据 */
   data?: any[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputImportOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 导入输出 */
+  data?: ImportOutput
 }
 
 /** 结果输出 */

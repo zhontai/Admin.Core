@@ -222,11 +222,8 @@
 
 /* Steps 步骤条
 ------------------------------- */
-.el-step__icon-inner {
-  font-size: 30px !important;
-  font-weight: 400 !important;
-}
-.el-step__title {
+.el-step__title,
+.el-step.is-simple .el-step__title {
   font-size: 14px;
 }
 

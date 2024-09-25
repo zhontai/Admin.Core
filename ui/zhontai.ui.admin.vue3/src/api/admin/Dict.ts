@@ -17,6 +17,7 @@ import {
   PageInputDictGetPageInput,
   ResultOutputDictGetOutput,
   ResultOutputDictionaryStringListDictGetListDto,
+  ResultOutputImportOutput,
   ResultOutputInt64,
   ResultOutputPageOutputDictGetPageOutput,
 } from './data-contracts'
@@ -108,18 +109,88 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * No description
    *
    * @tags dict
-   * @name ExportList
-   * @summary 导出列表
-   * @request POST:/api/admin/dict/export-list
+   * @name DownloadTemplate
+   * @summary 下载导入模板
+   * @request POST:/api/admin/dict/download-template
    * @secure
    */
-  exportList = (data: ExportInput, params: RequestParams = {}) =>
+  downloadTemplate = (params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/dict/export-list`,
+      path: `/api/admin/dict/download-template`,
+      method: 'POST',
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name DownloadErrorMark
+   * @summary 下载错误标记文件
+   * @request POST:/api/admin/dict/download-error-mark
+   * @secure
+   */
+  downloadErrorMark = (
+    query?: {
+      fileId?: string
+      fileName?: string
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/download-error-mark`,
+      method: 'POST',
+      query: query,
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name ExportData
+   * @summary 导出数据
+   * @request POST:/api/admin/dict/export-data
+   * @secure
+   */
+  exportData = (data: ExportInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/export-data`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name ImportData
+   * @summary 导入数据
+   * @request POST:/api/admin/dict/import-data
+   * @secure
+   */
+  importData = (
+    data: {
+      /** @format binary */
+      file: File
+    },
+    query?: {
+      /** @format int32 */
+      duplicateAction?: number
+      fileId?: string
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<ResultOutputImportOutput, any>({
+      path: `/api/admin/dict/import-data`,
+      method: 'POST',
+      query: query,
+      body: data,
+      secure: true,
+      type: ContentType.FormData,
+      format: 'json',
       ...params,
     })
   /**

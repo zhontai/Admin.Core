@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using SixLabors.ImageSharp.Drawing;
+using System.ComponentModel;
 using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Consts;
@@ -22,13 +23,13 @@ public static partial class CacheKeys
     public const string PassWordEncrypt = "admin:password:encrypt:";
 
     /// <summary>
-    /// 用户权限 admin:user:permissions:用户主键
+    /// 用户权限 admin:user:permissions:userId
     /// </summary>
     [Description("用户权限")]
     public const string UserPermission = "admin:user:permission:";
 
     /// <summary>
-    /// 数据权限 admin:user:data:permission:用户主键
+    /// 数据权限 admin:user:data:permission:userId
     /// </summary>
     [Description("数据权限")]
     public const string DataPermission = "admin:user:data:permission:";
@@ -50,6 +51,12 @@ public static partial class CacheKeys
     /// </summary>
     [Description("接口列表")]
     public const string ApiList = "admin:api:list";
+
+    /// <summary>
+    /// Excel错误标记文件 admin:excel:error_mark:userId:fileId
+    /// </summary>
+    [Description("Excel错误标记文件")]
+    public const string ExcelErrorMark = "admin:excel:error_mark:";
 
     /// <summary>
     /// 获取短信验证码缓存键
@@ -96,4 +103,12 @@ public static partial class CacheKeys
     /// <param name="userId">用户Id</param>
     /// <returns></returns>
     public static string GetDataPermissionPattern(long userId) => $"{DataPermission}{userId}*";
+
+    /// <summary>
+    /// 获取Excel错误标记文件缓存键
+    /// </summary>
+    /// <param name="userId">用户Id</param>
+    /// <param name="fileId">文件Id</param>
+    /// <returns></returns>
+    public static string GetExcelErrorMarkKey(long userId, string fileId) => $"{ExcelErrorMark}{userId}{(fileId.NotNull() ? (":" + fileId) : "")}";
 }

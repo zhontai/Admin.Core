@@ -205,7 +205,11 @@ const login = async () => {
   const resPwd = await new AuthApi().getPasswordEncryptKey()
   if (resPwd && resPwd.success) {
     loginForm.passwordKey = resPwd.data?.key
-    let encryptData = sm4.encrypt(loginForm.password, resPwd.data?.encryptKey as string, { mode: 'cbc', iv: resPwd.data?.iv as string })
+    let encryptData = sm4.encrypt(loginForm.password, resPwd.data?.encryptKey as string, {
+      output: 'string',
+      mode: 'cbc',
+      iv: resPwd.data?.iv as string,
+    })
     loginForm.password = encryptData.toString()
   }
 
