@@ -23,6 +23,9 @@
         <el-descriptions-item label="IP所在地" label-class-name="label"
           >{{ state.details.country }} {{ state.details.province }} {{ state.details.city }}
         </el-descriptions-item>
+        <el-descriptions-item label="浏览器信息" label-class-name="label"
+          >{{ state.details.os }} {{ state.details.browser }} {{ state.details.device }}
+        </el-descriptions-item>
         <el-descriptions-item label="耗时ms" label-class-name="label">{{ state.details.elapsedMilliseconds }}</el-descriptions-item>
         <el-descriptions-item label="操作账号" label-class-name="label">{{ state.details.createdUserName }}</el-descriptions-item>
         <el-descriptions-item label="操作人员" label-class-name="label">{{ state.details.createdUserRealName }}</el-descriptions-item>
