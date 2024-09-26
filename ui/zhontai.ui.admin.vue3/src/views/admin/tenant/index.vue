@@ -50,6 +50,7 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item v-if="auth('api:admin:tenant:delete')" @click="onDelete(row)">删除租户</el-dropdown-item>
+                  <el-dropdown-item v-if="auth('api:admin:tenant:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -80,8 +81,13 @@
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { TenantListOutput, PageInputTenantGetPageDto } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
+import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import { Session } from '/@/utils/storage'
+import { useUserInfo } from '/@/stores/userInfo'
+
+const storesUseUserInfo = useUserInfo()
 
 // 引入组件
 const TenantForm = defineAsyncComponent(() => import('./components/tenant-form.vue'))
@@ -173,6 +179,23 @@ const onSetEnable = (row: TenantListOutput & { loading: boolean }) => {
         reject(new Error('Cancel'))
       })
   })
+}
+
+//一键登录
+const onOneClickLogin = (row: TenantListOutput) => {
+  proxy.$modal
+    .confirmDelete(`确定要一键登录【${row.name}】?`)
+    .then(async () => {
+      const res = await new UserApi().oneClickLogin({ userName: row.userName || '' }, { loading: true })
+      if (res?.success) {
+        proxy.$modal.msgSuccess('一键登录成功')
+        window.requests = []
+        Session.remove('tagsViewList')
+        storesUseUserInfo.setToken(res.data.token)
+        window.location.href = '/'
+      }
+    })
+    .catch(() => {})
 }
 
 const onSizeChange = (val: number) => {
