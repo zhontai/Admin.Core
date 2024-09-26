@@ -46,7 +46,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168116805,
@@ -69,7 +69,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168116806,
@@ -92,7 +92,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168120901,
@@ -115,7 +115,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168120902,
@@ -138,7 +138,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168120903,
@@ -161,7 +161,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168124997,
@@ -184,7 +184,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168124998,
@@ -207,7 +207,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651914309,
@@ -230,7 +230,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 372400615755845,
@@ -253,7 +253,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288079,
@@ -276,7 +276,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858712645,
@@ -299,7 +299,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858712646,
@@ -322,7 +322,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858712647,
@@ -345,7 +345,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -356,7 +356,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719493,
@@ -381,7 +381,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 196,
+            "sort": 199,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -392,7 +392,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168133189,
@@ -404,7 +404,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 201,
+            "sort": 204,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -415,7 +415,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168133190,
@@ -427,7 +427,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "以旧换新",
-            "sort": 208,
+            "sort": 211,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -438,7 +438,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651922501,
@@ -446,6 +446,29 @@
             "name": null,
             "label": "查询用户信息",
             "path": "/api/admin/auth/get-user-info",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 203,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 394672333692998,
+            "parentId": 161227167719493,
+            "name": null,
+            "label": "查询用户个人信息",
+            "path": "/api/admin/auth/get-user-profile",
             "httpMethods": "get",
             "enabledParams": false,
             "enabledResult": false,
@@ -461,30 +484,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 394672333692998,
-            "parentId": 161227167719493,
-            "name": null,
-            "label": "查询用户个人信息",
-            "path": "/api/admin/auth/get-user-profile",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 197,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 394672333692999,
@@ -496,7 +496,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 198,
+            "sort": 201,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -507,7 +507,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 394672333697093,
@@ -516,29 +516,6 @@
             "label": "查询用户权限列表",
             "path": "/api/admin/auth/get-user-permissions",
             "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 199,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 399372669796424,
-            "parentId": 161227167719493,
-            "name": null,
-            "label": "手机登录",
-            "path": "/api/admin/auth/mobile-login",
-            "httpMethods": "post",
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
@@ -553,7 +530,30 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 399372669796424,
+            "parentId": 161227167719493,
+            "name": null,
+            "label": "手机登录",
+            "path": "/api/admin/auth/mobile-login",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 205,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 399372669796425,
@@ -565,7 +565,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 209,
+            "sort": 212,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -576,7 +576,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858712649,
@@ -587,75 +587,6 @@
             "httpMethods": "post",
             "enabledParams": false,
             "enabledResult": false,
-            "description": "",
-            "sort": 203,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2024-09-09T10:26:00",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 588527858712650,
-            "parentId": 161227167719493,
-            "name": null,
-            "label": "邮箱更改密码",
-            "path": "/api/admin/auth/change-password-by-email",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 204,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2024-09-09T10:26:00",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 588527858712651,
-            "parentId": 161227167719493,
-            "name": null,
-            "label": "手机更改密码",
-            "path": "/api/admin/auth/change-password-by-mobile",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 205,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2024-09-09T10:26:00",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 588527858712652,
-            "parentId": 161227167719493,
-            "name": null,
-            "label": "邮箱注册",
-            "path": "/api/admin/auth/reg-by-email",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
             "description": "",
             "sort": 206,
             "enabled": true,
@@ -668,14 +599,14 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 588527858716741,
+            "id": 588527858712650,
             "parentId": 161227167719493,
             "name": null,
-            "label": "手机号注册",
-            "path": "/api/admin/auth/reg-by-mobile",
+            "label": "邮箱更改密码",
+            "path": "/api/admin/auth/change-password-by-email",
             "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
@@ -691,7 +622,76 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 588527858712651,
+            "parentId": 161227167719493,
+            "name": null,
+            "label": "手机更改密码",
+            "path": "/api/admin/auth/change-password-by-mobile",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 208,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-09T10:26:00",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 588527858712652,
+            "parentId": 161227167719493,
+            "name": null,
+            "label": "邮箱注册",
+            "path": "/api/admin/auth/reg-by-email",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 209,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-09T10:26:00",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 588527858716741,
+            "parentId": 161227167719493,
+            "name": null,
+            "label": "手机号注册",
+            "path": "/api/admin/auth/reg-by-mobile",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 210,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-09T10:26:00",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -702,7 +702,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719494,
@@ -738,7 +738,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168137286,
@@ -761,7 +761,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168137287,
@@ -770,121 +770,6 @@
             "label": "新增",
             "path": "/api/admin/dict/add",
             "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 111,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168141381,
-            "parentId": 161227167719494,
-            "name": null,
-            "label": "修改",
-            "path": "/api/admin/dict/update",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 112,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168141382,
-            "parentId": 161227167719494,
-            "name": null,
-            "label": "删除",
-            "path": "/api/admin/dict/soft-delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 115,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 184100551516229,
-            "parentId": 161227167719494,
-            "name": null,
-            "label": "批量删除",
-            "path": "/api/admin/dict/batch-soft-delete",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 116,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 271618651922504,
-            "parentId": 161227167719494,
-            "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/dict/delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 113,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 372390893649989,
-            "parentId": 161227167719494,
-            "name": null,
-            "label": "批量彻底删除",
-            "path": "/api/admin/dict/batch-delete",
-            "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -899,7 +784,122 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168141381,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "修改",
+            "path": "/api/admin/dict/update",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 115,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168141382,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "删除",
+            "path": "/api/admin/dict/soft-delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 118,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 184100551516229,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "批量删除",
+            "path": "/api/admin/dict/batch-soft-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 119,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 271618651922504,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "彻底删除",
+            "path": "/api/admin/dict/delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 116,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 372390893649989,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "批量彻底删除",
+            "path": "/api/admin/dict/batch-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 117,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 402196463136837,
@@ -922,7 +922,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 402830164910149,
@@ -945,7 +945,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 551709465014341,
@@ -957,7 +957,7 @@
             "enabledParams": true,
             "enabledResult": false,
             "description": "",
-            "sort": 110,
+            "sort": 112,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -968,7 +968,76 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 594300204093509,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "下载导入模板",
+            "path": "/api/admin/dict/download-template",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 110,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-25T17:53:44",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 594300204109893,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "下载错误标记文件",
+            "path": "/api/admin/dict/download-error-mark",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 111,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-25T17:53:44",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 594300204109894,
+            "parentId": 161227167719494,
+            "name": null,
+            "label": "导入数据",
+            "path": "/api/admin/dict/import-data",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 113,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2024-09-25T17:53:44",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -979,7 +1048,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719495,
@@ -1004,7 +1073,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 143,
+            "sort": 146,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -1015,7 +1084,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168145477,
@@ -1027,7 +1096,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 140,
+            "sort": 143,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -1038,7 +1107,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168145478,
@@ -1046,29 +1115,6 @@
             "name": null,
             "label": "查询菜单",
             "path": "/api/admin/permission/get-menu",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 141,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168149574,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "查询授权权限列表",
-            "path": "/api/admin/permission/get-permission-list",
             "httpMethods": "get",
             "enabledParams": false,
             "enabledResult": false,
@@ -1084,40 +1130,17 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168149575,
+            "id": 161227168149574,
             "parentId": 161227167719495,
             "name": null,
-            "label": "查询角色权限列表",
-            "path": "/api/admin/permission/get-role-permission-list",
+            "label": "查询授权权限列表",
+            "path": "/api/admin/permission/get-permission-list",
             "httpMethods": "get",
             "enabledParams": false,
             "enabledResult": false,
-            "description": "",
-            "sort": 145,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168153669,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "新增分组",
-            "path": "/api/admin/permission/add-group",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
             "description": "",
             "sort": 147,
             "enabled": true,
@@ -1130,17 +1153,17 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168153670,
+            "id": 161227168149575,
             "parentId": 161227167719495,
             "name": null,
-            "label": "新增菜单",
-            "path": "/api/admin/permission/add-menu",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
+            "label": "查询角色权限列表",
+            "path": "/api/admin/permission/get-role-permission-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
             "description": "",
             "sort": 148,
             "enabled": true,
@@ -1153,152 +1176,14 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168153671,
+            "id": 161227168153669,
             "parentId": 161227167719495,
             "name": null,
-            "label": "新增接口",
-            "path": "/api/admin/permission/add-api",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 149,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168157765,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "修改分组",
-            "path": "/api/admin/permission/update-group",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 151,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168157766,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "修改菜单",
-            "path": "/api/admin/permission/update-menu",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 152,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168161862,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "删除",
-            "path": "/api/admin/permission/soft-delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 155,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168165957,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "保存角色权限",
-            "path": "/api/admin/permission/assign",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 156,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168165958,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "查询权限点",
-            "path": "/api/admin/permission/get-dot",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 142,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168165959,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "新增权限点",
-            "path": "/api/admin/permission/add-dot",
+            "label": "新增分组",
+            "path": "/api/admin/permission/add-group",
             "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
@@ -1314,65 +1199,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168170053,
+            "id": 161227168153670,
             "parentId": 161227167719495,
             "name": null,
-            "label": "修改权限点",
-            "path": "/api/admin/permission/update-dot",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 153,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 170317848645701,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "查询租户权限列表",
-            "path": "/api/admin/permission/get-tenant-permission-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 146,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 170317848662085,
-            "parentId": 161227167719495,
-            "name": null,
-            "label": "保存租户权限",
-            "path": "/api/admin/permission/save-tenant-permissions",
+            "label": "新增菜单",
+            "path": "/api/admin/permission/add-menu",
             "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 157,
+            "sort": 151,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -1383,15 +1222,38 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 187384805367877,
+            "id": 161227168153671,
             "parentId": 161227167719495,
             "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/permission/delete",
-            "httpMethods": "delete",
+            "label": "新增接口",
+            "path": "/api/admin/permission/add-api",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 152,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168157765,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "修改分组",
+            "path": "/api/admin/permission/update-group",
+            "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -1406,7 +1268,214 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168157766,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "修改菜单",
+            "path": "/api/admin/permission/update-menu",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 155,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168161862,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "删除",
+            "path": "/api/admin/permission/soft-delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 158,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168165957,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "保存角色权限",
+            "path": "/api/admin/permission/assign",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 159,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168165958,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "查询权限点",
+            "path": "/api/admin/permission/get-dot",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 145,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168165959,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "新增权限点",
+            "path": "/api/admin/permission/add-dot",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 153,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168170053,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "修改权限点",
+            "path": "/api/admin/permission/update-dot",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 156,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 170317848645701,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "查询租户权限列表",
+            "path": "/api/admin/permission/get-tenant-permission-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 149,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 170317848662085,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "保存租户权限",
+            "path": "/api/admin/permission/save-tenant-permissions",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 160,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 187384805367877,
+            "parentId": 161227167719495,
+            "name": null,
+            "label": "彻底删除",
+            "path": "/api/admin/permission/delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 157,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -1417,7 +1486,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719496,
@@ -1442,190 +1511,6 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 164,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168170055,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "查询分页",
-            "path": "/api/admin/role/get-page",
-            "httpMethods": "post",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 166,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168174149,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "新增",
-            "path": "/api/admin/role/add",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 170,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168178245,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "修改",
-            "path": "/api/admin/role/update",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 171,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168178246,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "删除",
-            "path": "/api/admin/role/soft-delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 174,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168182341,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "批量删除",
-            "path": "/api/admin/role/batch-soft-delete",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 175,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 271618651926604,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/role/delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 172,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 336555241422917,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "查询列表",
-            "path": "/api/admin/role/get-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 165,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 336555241422918,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "查询角色用户列表",
-            "path": "/api/admin/role/get-role-user-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
             "sort": 167,
             "enabled": true,
             "childs": null,
@@ -1637,40 +1522,17 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 336555241422919,
+            "id": 161227168170055,
             "parentId": 161227167719496,
             "name": null,
-            "label": "添加角色用户",
-            "path": "/api/admin/role/add-role-user",
+            "label": "查询分页",
+            "path": "/api/admin/role/get-page",
             "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 168,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 336555241422920,
-            "parentId": 161227167719496,
-            "name": null,
-            "label": "移除角色用户",
-            "path": "/api/admin/role/remove-role-user",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
+            "enabledParams": false,
+            "enabledResult": false,
             "description": "",
             "sort": 169,
             "enabled": true,
@@ -1683,15 +1545,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 336555241422921,
+            "id": 161227168174149,
             "parentId": 161227167719496,
             "name": null,
-            "label": "批量彻底删除",
-            "path": "/api/admin/role/batch-delete",
-            "httpMethods": "put",
+            "label": "新增",
+            "path": "/api/admin/role/add",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -1706,15 +1568,199 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 361090412425285,
+            "id": 161227168178245,
             "parentId": 161227167719496,
             "name": null,
-            "label": "设置数据权限",
-            "path": "/api/admin/role/set-data-scope",
+            "label": "修改",
+            "path": "/api/admin/role/update",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 174,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168178246,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "删除",
+            "path": "/api/admin/role/soft-delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 177,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168182341,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "批量删除",
+            "path": "/api/admin/role/batch-soft-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 178,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 271618651926604,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "彻底删除",
+            "path": "/api/admin/role/delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 175,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241422917,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "查询列表",
+            "path": "/api/admin/role/get-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 168,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241422918,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "查询角色用户列表",
+            "path": "/api/admin/role/get-role-user-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 170,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241422919,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "添加角色用户",
+            "path": "/api/admin/role/add-role-user",
             "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 171,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241422920,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "移除角色用户",
+            "path": "/api/admin/role/remove-role-user",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 172,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241422921,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "批量彻底删除",
+            "path": "/api/admin/role/batch-delete",
+            "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -1729,7 +1775,30 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 361090412425285,
+            "parentId": 161227167719496,
+            "name": null,
+            "label": "设置数据权限",
+            "path": "/api/admin/role/set-data-scope",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 179,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -1740,7 +1809,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719497,
@@ -1765,7 +1834,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 179,
+            "sort": 182,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -1776,7 +1845,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168182343,
@@ -1788,7 +1857,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 177,
+            "sort": 180,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -1799,7 +1868,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-26T09:28:46"
           },
           {
             "id": 161227168186437,
@@ -1810,29 +1879,6 @@
             "httpMethods": "post",
             "enabledParams": false,
             "enabledResult": false,
-            "description": "",
-            "sort": 178,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168186438,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "新增用户",
-            "path": "/api/admin/user/add",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
             "description": "",
             "sort": 181,
             "enabled": true,
@@ -1845,7 +1891,30 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168186438,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "新增用户",
+            "path": "/api/admin/user/add",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 184,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168190533,
@@ -1853,98 +1922,6 @@
             "name": null,
             "label": "修改用户",
             "path": "/api/admin/user/update",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 182,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168190534,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "删除用户",
-            "path": "/api/admin/user/soft-delete",
-            "httpMethods": "delete",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 192,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168190535,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "批量删除用户",
-            "path": "/api/admin/user/batch-soft-delete",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 193,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168194629,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "修改用户密码",
-            "path": "/api/admin/user/change-password",
-            "httpMethods": "put",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 186,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168194630,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "更新用户基本信息",
-            "path": "/api/admin/user/update-basic",
             "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
@@ -1960,42 +1937,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168194631,
+            "id": 161227168190534,
             "parentId": 161227167719497,
             "name": null,
-            "label": "上传头像",
-            "path": "/api/admin/user/avatar-upload",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 194,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 271618651926607,
-            "parentId": 161227167719497,
-            "name": null,
-            "label": "彻底删除用户",
-            "path": "/api/admin/user/delete",
+            "label": "删除用户",
+            "path": "/api/admin/user/soft-delete",
             "httpMethods": "delete",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 190,
+            "sort": 195,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2006,19 +1960,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 336555241427019,
+            "id": 161227168190535,
             "parentId": 161227167719497,
             "name": null,
-            "label": "批量彻底删除用户",
-            "path": "/api/admin/user/batch-delete",
+            "label": "批量删除用户",
+            "path": "/api/admin/user/batch-soft-delete",
             "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 191,
+            "sort": 196,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2029,19 +1983,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 349749396615237,
+            "id": 161227168194629,
             "parentId": 161227167719497,
             "name": null,
-            "label": "重置密码",
-            "path": "/api/admin/user/reset-password",
-            "httpMethods": "post",
+            "label": "修改用户密码",
+            "path": "/api/admin/user/change-password",
+            "httpMethods": "put",
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 187,
+            "sort": 189,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2052,15 +2006,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 349749396619333,
+            "id": 161227168194630,
             "parentId": 161227167719497,
             "name": null,
-            "label": "设置主管",
-            "path": "/api/admin/user/set-manager",
-            "httpMethods": "post",
+            "label": "更新用户基本信息",
+            "path": "/api/admin/user/update-basic",
+            "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -2075,7 +2029,122 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168194631,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "上传头像",
+            "path": "/api/admin/user/avatar-upload",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 197,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 271618651926607,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "彻底删除用户",
+            "path": "/api/admin/user/delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 193,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 336555241427019,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "批量彻底删除用户",
+            "path": "/api/admin/user/batch-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 194,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 349749396615237,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "重置密码",
+            "path": "/api/admin/user/reset-password",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 190,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 349749396619333,
+            "parentId": 161227167719497,
+            "name": null,
+            "label": "设置主管",
+            "path": "/api/admin/user/set-manager",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 191,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 361090412441669,
@@ -2087,7 +2156,7 @@
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 183,
+            "sort": 186,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2098,7 +2167,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 361090412441670,
@@ -2110,7 +2179,7 @@
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 184,
+            "sort": 187,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2121,7 +2190,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 394672333692997,
@@ -2133,7 +2202,7 @@
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 189,
+            "sort": 192,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2144,7 +2213,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 427947639398469,
@@ -2156,7 +2225,7 @@
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 195,
+            "sort": 198,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2167,7 +2236,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858712648,
@@ -2179,7 +2248,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 180,
+            "sort": 183,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -2190,7 +2259,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -2201,7 +2270,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167719498,
@@ -2237,7 +2306,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168198726,
@@ -2260,7 +2329,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168202822,
@@ -2283,7 +2352,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168202823,
@@ -2306,7 +2375,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168206917,
@@ -2329,7 +2398,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168206918,
@@ -2352,7 +2421,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168206919,
@@ -2375,7 +2444,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926608,
@@ -2398,7 +2467,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 372401403850821,
@@ -2421,7 +2490,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -2432,7 +2501,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167723589,
@@ -2468,7 +2537,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168211014,
@@ -2491,7 +2560,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -2502,7 +2571,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167723590,
@@ -2538,7 +2607,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926601,
@@ -2561,7 +2630,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -2572,7 +2641,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167723591,
@@ -2608,7 +2677,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926602,
@@ -2631,7 +2700,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -2642,7 +2711,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167723592,
@@ -2678,7 +2747,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168219205,
@@ -2701,7 +2770,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168219206,
@@ -2724,7 +2793,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168223301,
@@ -2747,7 +2816,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168223302,
@@ -2770,7 +2839,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168227397,
@@ -2793,7 +2862,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168227398,
@@ -2816,7 +2885,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168231493,
@@ -2839,7 +2908,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168231494,
@@ -2862,7 +2931,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168235589,
@@ -2885,7 +2954,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168235590,
@@ -2908,7 +2977,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168235591,
@@ -2931,7 +3000,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168239685,
@@ -2954,7 +3023,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 161227168239686,
@@ -2977,7 +3046,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926599,
@@ -3000,7 +3069,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926600,
@@ -3023,7 +3092,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3034,7 +3103,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 161227167723593,
@@ -3059,75 +3128,6 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 132,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168243782,
-            "parentId": 161227167723593,
-            "name": null,
-            "label": "查询分页",
-            "path": "/api/admin/tenant/get-page",
-            "httpMethods": "post",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 133,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168243783,
-            "parentId": 161227167723593,
-            "name": null,
-            "label": "新增",
-            "path": "/api/admin/tenant/add",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 134,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 161227168247877,
-            "parentId": 161227167723593,
-            "name": null,
-            "label": "修改",
-            "path": "/api/admin/tenant/update",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
             "sort": 135,
             "enabled": true,
             "childs": null,
@@ -3139,15 +3139,38 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168247878,
+            "id": 161227168243782,
             "parentId": 161227167723593,
             "name": null,
-            "label": "删除",
-            "path": "/api/admin/tenant/soft-delete",
-            "httpMethods": "delete",
+            "label": "查询分页",
+            "path": "/api/admin/tenant/get-page",
+            "httpMethods": "post",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 136,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 161227168243783,
+            "parentId": 161227167723593,
+            "name": null,
+            "label": "新增",
+            "path": "/api/admin/tenant/add",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -3162,14 +3185,14 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 161227168251973,
+            "id": 161227168247877,
             "parentId": 161227167723593,
             "name": null,
-            "label": "批量删除",
-            "path": "/api/admin/tenant/batch-soft-delete",
+            "label": "修改",
+            "path": "/api/admin/tenant/update",
             "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
@@ -3185,19 +3208,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 163579785756741,
+            "id": 161227168247878,
             "parentId": 161227167723593,
             "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/tenant/delete",
+            "label": "删除",
+            "path": "/api/admin/tenant/soft-delete",
             "httpMethods": "delete",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
-            "sort": 136,
+            "sort": 140,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -3208,15 +3231,38 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 394672333688901,
+            "id": 161227168251973,
             "parentId": 161227167723593,
             "name": null,
-            "label": "设置启用",
-            "path": "/api/admin/tenant/set-enable",
-            "httpMethods": "post",
+            "label": "批量删除",
+            "path": "/api/admin/tenant/batch-soft-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 141,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 163579785756741,
+            "parentId": 161227167723593,
+            "name": null,
+            "label": "彻底删除",
+            "path": "/api/admin/tenant/delete",
+            "httpMethods": "delete",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -3231,7 +3277,30 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 394672333688901,
+            "parentId": 161227167723593,
+            "name": null,
+            "label": "设置启用",
+            "path": "/api/admin/tenant/set-enable",
+            "httpMethods": "post",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 142,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3242,7 +3311,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 174219034718277,
@@ -3267,52 +3336,6 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 158,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 174219034734674,
-            "parentId": 174219034718277,
-            "name": null,
-            "label": "新增",
-            "path": "/api/admin/org/add",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 160,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 174219034738757,
-            "parentId": 174219034718277,
-            "name": null,
-            "label": "修改",
-            "path": "/api/admin/org/update",
-            "httpMethods": "put",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
             "sort": 161,
             "enabled": true,
             "childs": null,
@@ -3324,15 +3347,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 174219034738758,
+            "id": 174219034734674,
             "parentId": 174219034718277,
             "name": null,
-            "label": "删除",
-            "path": "/api/admin/org/soft-delete",
-            "httpMethods": "delete",
+            "label": "新增",
+            "path": "/api/admin/org/add",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -3347,19 +3370,19 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 188049296683077,
+            "id": 174219034738757,
             "parentId": 174219034718277,
             "name": null,
-            "label": "查询列表",
-            "path": "/api/admin/org/get-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
+            "label": "修改",
+            "path": "/api/admin/org/update",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
             "description": "",
-            "sort": 159,
+            "sort": 164,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -3370,17 +3393,40 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 342274923528261,
+            "id": 174219034738758,
             "parentId": 174219034718277,
             "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/org/delete",
+            "label": "删除",
+            "path": "/api/admin/org/soft-delete",
             "httpMethods": "delete",
             "enabledParams": true,
             "enabledResult": true,
+            "description": "",
+            "sort": 166,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 188049296683077,
+            "parentId": 174219034718277,
+            "name": null,
+            "label": "查询列表",
+            "path": "/api/admin/org/get-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
             "description": "",
             "sort": 162,
             "enabled": true,
@@ -3393,7 +3439,30 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 342274923528261,
+            "parentId": 174219034718277,
+            "name": null,
+            "label": "彻底删除",
+            "path": "/api/admin/org/delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 165,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3404,7 +3473,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 174219034718279,
@@ -3440,7 +3509,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 174219034734662,
@@ -3463,7 +3532,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 174219034734663,
@@ -3486,7 +3555,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 174219034734664,
@@ -3509,7 +3578,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 174219034734665,
@@ -3532,7 +3601,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 184100551532613,
@@ -3555,7 +3624,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 271618651926597,
@@ -3578,7 +3647,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 372390893666373,
@@ -3601,7 +3670,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3612,7 +3681,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 336555241189445,
@@ -3648,7 +3717,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3659,7 +3728,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 336555241193541,
@@ -3695,7 +3764,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 336555241427013,
@@ -3718,7 +3787,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 336555241427014,
@@ -3741,7 +3810,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 336555241427015,
@@ -3764,7 +3833,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 336555241427016,
@@ -3787,7 +3856,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 343342310699077,
@@ -3810,7 +3879,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 343342310703173,
@@ -3833,7 +3902,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 343342310703174,
@@ -3856,7 +3925,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288080,
@@ -3879,7 +3948,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288081,
@@ -3902,7 +3971,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292292165,
@@ -3925,7 +3994,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292292166,
@@ -3948,7 +4017,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292292167,
@@ -3971,7 +4040,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -3982,7 +4051,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 371292589752389,
@@ -4018,7 +4087,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 371678435708997,
@@ -4041,7 +4110,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 371678435725381,
@@ -4064,7 +4133,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 372031353708613,
@@ -4087,7 +4156,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -4098,7 +4167,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 399372669788229,
@@ -4134,7 +4203,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 399372669796422,
@@ -4157,7 +4226,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 399372669796423,
@@ -4180,7 +4249,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 588527858696261,
@@ -4203,7 +4272,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -4214,7 +4283,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 402830164901957,
@@ -4239,75 +4308,6 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 117,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 402830164910151,
-            "parentId": 402830164901957,
-            "name": null,
-            "label": "查询列表",
-            "path": "/api/admin/pkg/get-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 118,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 402830164910152,
-            "parentId": 402830164901957,
-            "name": null,
-            "label": "查询分页",
-            "path": "/api/admin/pkg/get-page",
-            "httpMethods": "post",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
-            "sort": 119,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 402830164914245,
-            "parentId": 402830164901957,
-            "name": null,
-            "label": "查询套餐租户列表",
-            "path": "/api/admin/pkg/get-pkg-tenant-list",
-            "httpMethods": "get",
-            "enabledParams": false,
-            "enabledResult": false,
-            "description": "",
             "sort": 120,
             "enabled": true,
             "childs": null,
@@ -4319,15 +4319,38 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914246,
+            "id": 402830164910151,
             "parentId": 402830164901957,
             "name": null,
-            "label": "查询套餐权限列表",
-            "path": "/api/admin/pkg/get-pkg-permission-list",
+            "label": "查询列表",
+            "path": "/api/admin/pkg/get-list",
             "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
+            "description": "",
+            "sort": 121,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 402830164910152,
+            "parentId": 402830164901957,
+            "name": null,
+            "label": "查询分页",
+            "path": "/api/admin/pkg/get-page",
+            "httpMethods": "post",
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
@@ -4342,17 +4365,17 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914247,
+            "id": 402830164914245,
             "parentId": 402830164901957,
             "name": null,
-            "label": "设置套餐权限",
-            "path": "/api/admin/pkg/set-pkg-permissions",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
+            "label": "查询套餐租户列表",
+            "path": "/api/admin/pkg/get-pkg-tenant-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
             "description": "",
             "sort": 123,
             "enabled": true,
@@ -4365,40 +4388,17 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914248,
+            "id": 402830164914246,
             "parentId": 402830164901957,
             "name": null,
-            "label": "添加套餐租户",
-            "path": "/api/admin/pkg/add-pkg-tenant",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
-            "description": "",
-            "sort": 124,
-            "enabled": true,
-            "childs": null,
-            "isDeleted": false,
-            "createdUserId": 161223411986501,
-            "createdUserName": "admin",
-            "createdUserRealName": "管理员",
-            "createdTime": "2023-06-13T16:23:05",
-            "modifiedUserId": 161223411986501,
-            "modifiedUserName": "admin",
-            "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
-          },
-          {
-            "id": 402830164914249,
-            "parentId": 402830164901957,
-            "name": null,
-            "label": "移除套餐租户",
-            "path": "/api/admin/pkg/remove-pkg-tenant",
-            "httpMethods": "post",
-            "enabledParams": true,
-            "enabledResult": true,
+            "label": "查询套餐权限列表",
+            "path": "/api/admin/pkg/get-pkg-permission-list",
+            "httpMethods": "get",
+            "enabledParams": false,
+            "enabledResult": false,
             "description": "",
             "sort": 125,
             "enabled": true,
@@ -4411,14 +4411,14 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914250,
+            "id": 402830164914247,
             "parentId": 402830164901957,
             "name": null,
-            "label": "新增",
-            "path": "/api/admin/pkg/add",
+            "label": "设置套餐权限",
+            "path": "/api/admin/pkg/set-pkg-permissions",
             "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
@@ -4434,15 +4434,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914251,
+            "id": 402830164914248,
             "parentId": 402830164901957,
             "name": null,
-            "label": "修改",
-            "path": "/api/admin/pkg/update",
-            "httpMethods": "put",
+            "label": "添加套餐租户",
+            "path": "/api/admin/pkg/add-pkg-tenant",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -4457,15 +4457,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914252,
+            "id": 402830164914249,
             "parentId": 402830164901957,
             "name": null,
-            "label": "彻底删除",
-            "path": "/api/admin/pkg/delete",
-            "httpMethods": "delete",
+            "label": "移除套餐租户",
+            "path": "/api/admin/pkg/remove-pkg-tenant",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -4480,15 +4480,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914253,
+            "id": 402830164914250,
             "parentId": 402830164901957,
             "name": null,
-            "label": "批量彻底删除",
-            "path": "/api/admin/pkg/batch-delete",
-            "httpMethods": "put",
+            "label": "新增",
+            "path": "/api/admin/pkg/add",
+            "httpMethods": "post",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -4503,15 +4503,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914254,
+            "id": 402830164914251,
             "parentId": 402830164901957,
             "name": null,
-            "label": "删除",
-            "path": "/api/admin/pkg/soft-delete",
-            "httpMethods": "delete",
+            "label": "修改",
+            "path": "/api/admin/pkg/update",
+            "httpMethods": "put",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -4526,15 +4526,15 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
-            "id": 402830164914255,
+            "id": 402830164914252,
             "parentId": 402830164901957,
             "name": null,
-            "label": "批量删除",
-            "path": "/api/admin/pkg/batch-soft-delete",
-            "httpMethods": "put",
+            "label": "彻底删除",
+            "path": "/api/admin/pkg/delete",
+            "httpMethods": "delete",
             "enabledParams": true,
             "enabledResult": true,
             "description": "",
@@ -4549,7 +4549,76 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 402830164914253,
+            "parentId": 402830164901957,
+            "name": null,
+            "label": "批量彻底删除",
+            "path": "/api/admin/pkg/batch-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 132,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 402830164914254,
+            "parentId": 402830164901957,
+            "name": null,
+            "label": "删除",
+            "path": "/api/admin/pkg/soft-delete",
+            "httpMethods": "delete",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 133,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
+          },
+          {
+            "id": 402830164914255,
+            "parentId": 402830164901957,
+            "name": null,
+            "label": "批量删除",
+            "path": "/api/admin/pkg/batch-soft-delete",
+            "httpMethods": "put",
+            "enabledParams": true,
+            "enabledResult": true,
+            "description": "",
+            "sort": 134,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2023-06-13T16:23:05",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 403173446250565,
@@ -4561,7 +4630,7 @@
             "enabledParams": false,
             "enabledResult": false,
             "description": "",
-            "sort": 121,
+            "sort": 124,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -4572,7 +4641,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -4583,7 +4652,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       },
       {
         "id": 544353292267589,
@@ -4619,7 +4688,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288070,
@@ -4642,7 +4711,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288071,
@@ -4665,7 +4734,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288072,
@@ -4688,7 +4757,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288073,
@@ -4711,7 +4780,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288074,
@@ -4734,7 +4803,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288075,
@@ -4757,7 +4826,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288076,
@@ -4780,7 +4849,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288077,
@@ -4803,7 +4872,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           },
           {
             "id": 544353292288078,
@@ -4826,7 +4895,7 @@
             "modifiedUserId": 161223411986501,
             "modifiedUserName": "admin",
             "modifiedUserRealName": "管理员",
-            "modifiedTime": "2024-09-14T17:39:18"
+            "modifiedTime": "2024-09-25T17:53:44"
           }
         ],
         "isDeleted": false,
@@ -4837,7 +4906,7 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-09-14T17:39:18"
+        "modifiedTime": "2024-09-25T17:53:44"
       }
     ],
     "isDeleted": false,
@@ -4848,6 +4917,6 @@
     "modifiedUserId": 161223411986501,
     "modifiedUserName": "admin",
     "modifiedUserRealName": "管理员",
-    "modifiedTime": "2024-09-14T17:39:18"
+    "modifiedTime": "2024-09-25T17:53:44"
   }
 ]
