@@ -122,7 +122,7 @@ export function filterTree(tree: any = [], keyword: string, options = {}) {
     {
       children: 'children',
       filterWhere: (item: any, word: string) => {
-        return item.name?.toLocaleLowerCase().indexOf(word) > -1
+        return item.name?.toLocaleLowerCase().indexOf(word?.toLocaleLowerCase()) > -1
       },
     },
     options || {}
