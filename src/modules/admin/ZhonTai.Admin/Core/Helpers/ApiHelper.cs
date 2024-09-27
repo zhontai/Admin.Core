@@ -6,7 +6,7 @@ using ZhonTai.Admin.Tools.Cache;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Consts;
 
-namespace ZhonTai.Admin.Core.Logs;
+namespace ZhonTai.Admin.Core.Handlers;
 
 /// <summary>
 /// Api帮助类

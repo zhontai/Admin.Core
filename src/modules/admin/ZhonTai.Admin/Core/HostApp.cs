@@ -55,7 +55,7 @@ using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Filters;
-using ZhonTai.Admin.Core.Logs;
+using ZhonTai.Admin.Core.Handlers;
 using ZhonTai.Admin.Core.RegisterModules;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Core.Middlewares;

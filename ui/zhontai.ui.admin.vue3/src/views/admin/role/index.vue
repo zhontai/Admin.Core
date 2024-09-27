@@ -267,9 +267,6 @@ const onCurrentChange = (currentRow: RoleGetListOutput, oldCurrentRow: RoleGetLi
 }
 
 const onUserRowClick = (row: RoleGetRoleUserListOutput) => {
-  // TODO: improvement typing when refactor table
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   userTableRef.value!.toggleRowSelection(row, undefined)
 }
 

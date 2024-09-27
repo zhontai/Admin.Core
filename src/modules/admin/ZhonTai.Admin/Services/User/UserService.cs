@@ -39,7 +39,7 @@ using ZhonTai.Admin.Domain.TenantPkg;
 using FreeSql;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
-using ZhonTai.Admin.Core.Logs;
+using ZhonTai.Admin.Core.Handlers;
 
 namespace ZhonTai.Admin.Services.User;
 

@@ -60,24 +60,14 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     public async Task<List<OrgListOutput>> GetListAsync(string key)
     {
         var dataPermission = User.DataPermission;
-        var hasOrg = dataPermission.OrgIds.Count > 0;
 
-        var select = _orgRep.Select
-            .WhereIf(hasOrg, a => dataPermission.OrgIds.Contains(a.Id))
+        var data = await _orgRep.Select
+            .WhereIf(dataPermission.OrgIds.Count > 0, a => dataPermission.OrgIds.Contains(a.Id))
             .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
-            .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key));
-
-        if (hasOrg)
-        {
-            select = select.AsTreeCte(up: true);
-        }
-
-        var data = await select
-            .OrderBy(a => a.ParentId)
-            .OrderBy(a => a.Sort)
+            .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
             .ToListAsync<OrgListOutput>();
 
-        return hasOrg ? data.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList() : data;
+        return data?.Count > 0 ? data.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList() : data;
     }
 
     /// <summary>

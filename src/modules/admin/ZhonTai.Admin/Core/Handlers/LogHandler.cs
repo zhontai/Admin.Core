@@ -12,7 +12,7 @@ using ZhonTai.Admin.Services.OperationLog.Dto;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
 
-namespace ZhonTai.Admin.Core.Logs;
+namespace ZhonTai.Admin.Core.Handlers;
 
 /// <summary>
 /// 操作日志处理

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 
-namespace ZhonTai.Admin.Core.Logs;
+namespace ZhonTai.Admin.Core.Handlers;
 
 /// <summary>
 /// 操作日志处理接口
