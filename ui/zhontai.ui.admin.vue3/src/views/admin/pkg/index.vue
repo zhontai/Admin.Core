@@ -200,14 +200,17 @@ const onQuery = async () => {
   state.pkgData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
 
-  nextTick(() => {
-    pkgTableRef.value!.setCurrentRow(state.pkgData[0])
-  })
+  if (state.pkgData?.length > 0) {
+    nextTick(() => {
+      pkgTableRef.value!.setCurrentRow(state.pkgData[0])
+    })
+  }
 
   state.loading = false
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }
@@ -271,9 +274,6 @@ const onTenantCurrentChange = (val: number) => {
 }
 
 const onTenantRowClick = (row: PkgGetPkgTenantListOutput) => {
-  // TODO: improvement typing when refactor table
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   tenantTableRef.value!.toggleRowSelection(row, undefined)
 }
 

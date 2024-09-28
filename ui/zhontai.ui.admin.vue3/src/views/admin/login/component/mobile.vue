@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-form ref="formRef" :model="state.ruleForm" size="large" class="login-content-form">
+      <div class="login-title"><span class="login-title-showy">手机验证码</span>登录</div>
       <el-form-item
         class="login-animation1"
         prop="mobile"
@@ -27,11 +28,15 @@
       <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入短信验证码', trigger: ['blur', 'change'] }]">
         <MyInputCode v-model="state.ruleForm.code" @keyup.enter="onSignIn" :mobile="state.ruleForm.mobile" :validate="validate" @send="onSend" />
       </el-form-item>
-      <el-form-item class="login-animation3">
+
+      <el-form-item class="login-animation3 mb12">
         <el-button round type="primary" v-waves class="login-content-submit" @click="onSignIn" :loading="state.loading.signIn">
           <span>{{ $t('message.mobile.btnText') }}</span>
         </el-button>
       </el-form-item>
+      <div class="login-animation4 f12 mt10">
+        <el-link :underline="false" type="primary" class="f12" @click="onLogin">手机密码登录</el-link>
+      </div>
       <!-- <div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div> -->
     </el-form>
   </div>
@@ -50,8 +55,12 @@ import { Session } from '/@/utils/storage'
 import { NextLoading } from '/@/utils/loading'
 import { useI18n } from 'vue-i18n'
 import { formatAxis } from '/@/utils/formatTime'
+import { AccountType } from '/@/api/admin/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
+const loginComponentName = defineModel('loginComponentName', { type: String })
+const accountType = defineModel('accountType', { type: Number })
 
 const { t } = useI18n()
 const route = useRoute()
@@ -86,6 +95,12 @@ const validate = (callback: Function) => {
 const currentTime = computed(() => {
   return formatAxis(new Date())
 })
+
+//切换登录
+const onLogin = () => {
+  loginComponentName.value = ComponentType.Account.name
+  accountType.value = AccountType.Mobile.value
+}
 
 //发送验证码
 const onSend = (codeId: string) => {
@@ -146,7 +161,14 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
 
 <style scoped lang="scss">
 .login-content-form {
-  margin-top: 20px;
+  .login-title {
+    margin-bottom: 50px;
+    font-size: 27px;
+    text-align: center;
+    letter-spacing: 3px;
+    color: var(--el-text-color-primary);
+    position: relative;
+  }
   @for $i from 1 through 4 {
     .login-animation#{$i} {
       opacity: 0;
@@ -168,6 +190,9 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
   }
   .login-msg {
     color: var(--el-text-color-placeholder);
+  }
+  .f12 {
+    font-size: 12px;
   }
 }
 </style>

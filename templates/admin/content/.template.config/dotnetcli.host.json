@@ -13,6 +13,14 @@
       "longName": "no-cap",
       "shortName": "nc"
     },
+	"NoTests": {
+      "longName": "no-tests",
+      "shortName": "nt"
+    },
+	"NoSample": {
+      "longName": "no-sample",
+      "shortName": "ns"
+    },
 	"DbType": {
       "longName": "db-type",
       "shortName": "db"

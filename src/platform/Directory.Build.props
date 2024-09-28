@@ -1,9 +1,10 @@
 <Project>
 	<PropertyGroup>
-		<Version>8.1.0</Version>
-		<TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+		<Version>8.5.0</Version>
+		<TargetFramework>net8.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<LangVersion>latest</LangVersion>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
 		<IsPackable>true</IsPackable>
 		<Authors>xiaoxue</Authors>

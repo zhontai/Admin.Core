@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../../../platform/Directory.Build.props" />
+	<PropertyGroup>
+		<Description>中台Admin权限管理接口库</Description>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+	</PropertyGroup>
+	
+	<ItemGroup>
+	  <Content Include="Resources\Resources.AdminLocalizer.en.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="../../../../logo.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="AngleSharp" Version="1.1.2" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
+		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
+		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
+		<PackageReference Include="Cronos" Version="0.8.4" />
+		<PackageReference Include="DotNetCore.CAP" Version="8.2.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+		<PackageReference Include="FreeRedis" Version="1.3.2" />
+		<PackageReference Include="FreeRedis.DistributedCache" Version="1.3.2" />
+		<PackageReference Include="FreeSql" Version="3.2.833" />
+		<PackageReference Include="FreeSql.Cloud" Version="1.9.1" />
+		<PackageReference Include="FreeSql.Repository" Version="3.2.833" />
+		<PackageReference Include="FreeScheduler" Version="2.0.30" />
+		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.2.833" />
+		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+		<PackageReference Include="IP2Region.Net" Version="2.0.2" />
+		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.1" />
+		<PackageReference Include="Magicodes.IE.Excel" Version="2.7.5.2" />
+		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.7.5.2" />
+		<PackageReference Include="MailKit" Version="4.7.1.1" />
+		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
+		<PackageReference Include="My.Extensions.Localization.Json" Version="3.3.0" />
+		<PackageReference Include="NLog" Version="5.3.4" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.14" />
+		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
+		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0" />
+		<PackageReference Include="UAParser" Version="3.1.47" />
+		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
+		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\platform\ZhonTai.Common\ZhonTai.Common.csproj" />
+	  <ProjectReference Include="..\..\..\platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,177 @@
+{
+  "AppConfig": {
+    //应用程序类型Controllers ControllersWithViews MVC
+    "appType": "Controllers",
+    //Api地址
+    "urls": [ "http://*:8000" ],
+    //跨域地址
+    "corUrls": [],
+    //程序集名称
+    "assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
+    //租户
+    "tenant": true,
+    //分布式事务唯一标识app，为空则不生成分布式事务表
+    "distributeKey": "",
+    //验证
+    "validate": {
+      //登录
+      ////#if (MicroService)
+      //"login": false,
+      ////#else
+      //"login": true,
+      ////#endif
+      //权限
+      ////#if (MicroService)
+      //"permission": false,
+      ////#else
+      //"permission": true,
+      ////#endif
+      //数据权限
+      "dataPermission": true,
+      //接口数据权限
+      "apiDataPermission": true
+    },
+    //Swagger接口文档，访问路径/swagger
+    "swagger": {
+      //启用
+      "enable": true,
+      //启用枚举架构过滤器
+      "enableEnumSchemaFilter": true,
+      //启用接口排序文档过滤器
+      "enableOrderTagsDocumentFilter": true,
+      //启用枚举属性名
+      "enableJsonStringEnumConverter": false,
+      //启用SchemaId命名空间
+      "enableSchemaIdNamespace": false,
+      //程序集列表，用于启用SchemaId命名空间
+      "assemblyNameList": [],
+      //路由前缀，如配置微服务文档地址：doc/module/swagger
+      "routePrefix": "app/swagger",
+      //地址
+      "url": "http://localhost:8000",
+      //项目列表
+      "projects": [
+        {
+          "name": "MyApp",
+          "code": "app",
+          "version": "v8.3.1",
+          "description": "MyApp"
+        }
+        ////#if (!MicroService)
+        ,
+        {
+          "name": "中台Admin",
+          "code": "admin",
+          "version": "v8.3.1",
+          "description": "权限管理"
+        }
+        ////#endif
+      ]
+    },
+    //新版接口文档展示
+    "apiUI": {
+      //启用
+      "enable": true,
+      //路由前缀，如配置微服务文档地址：doc/module
+      "routePrefix": "app",
+      //页脚
+      "footer": {
+        "enable": false,
+        "content": "Copyright<a-icon type=\"copyright\" /> 2022-<a target=\"_blank\" href=\"https://www.zhontai.net\">中台Admin</a>"
+      }
+    },
+    //MiniProfiler性能分析器
+    "miniProfiler": false,
+    //统一认证授权服务器
+    "identityServer": {
+      //启用
+      "enable": false,
+      //地址，开发认证地址前往appconfig.Development.json修改
+      "url": "https://localhost:5000",
+      //启用Https
+      "requireHttpsMetadata": true,
+      //受众
+      "audience": "admin.server.api"
+    },
+    //面向切面编程
+    "aop": {
+      //事物
+      "transaction": true
+    },
+    //日志
+    "log": {
+      //操作日志
+      ////#if (MicroService)
+      //"operation": false
+      ////#else
+      //"operation": true
+      ////#endif
+    },
+    //限流
+    "rateLimit": false,
+    //验证码
+    "varifyCode": {
+      //启用
+      "enable": true,
+      //字体列表
+      "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
+    },
+    //默认密码
+    "defaultPassword": "123asd",
+    //动态api
+    "dynamicApi": {
+      //结果格式化
+      "formatResult": true
+    },
+    //实现标准标识密码哈希
+    "passwordHasher": false,
+    //Kestrel服务器配置
+    "Kestrel": {
+      //HTTP连接保活最长时间，单位秒，600 = 10 分钟
+      "KeepAliveTimeout": 600,
+      //发送请求头最长时间，单位秒，600 = 10 分钟
+      "RequestHeadersTimeout": 600,
+      //最大请求大小，单位 bytes, 设置 null 不限制大小，104857600 = 100 MB
+      "maxRequestBodySize": 104857600
+    },
+    //健康检查
+    "healthChecks": {
+      //启用
+      "enable": true,
+      //访问路径
+      "path": "/app/health"
+    },
+    //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
+    "PreflightMaxAge": 1800,
+    //是否开启任务调度管理界面
+    "TaskSchedulerUI": {
+      //启用
+      ////#if (NoTaskScheduler)
+      //"enable": false,
+      ////#else
+      //"enable": true,
+      ////#endif
+      //访问路径
+      "path": "/task"
+    },
+    //Id生成器
+    "IdGenerator": {
+      "DataCenterId": 0, // 数据中心ID（机房ID，默认0） 请确保全局唯一
+      "WorkerId": 1, // 机器码，必须全局唯一（或相同 DataCenterId 内唯一），理论最大值 2^WorkerIdBitLength-1 = 63，最大值 524287
+      "WorkerIdBitLength": 6, // 机器码位长，决定 WorkerId 的最大值，默认值6，取值范围 [1, 19]
+      "SeqBitLength": 6, // 序列数位长，默认值6，取值范围 [3, 21]，决定每毫秒基础生成的ID个数。如果每秒请求数不超过5W，保持默认值6即可；如果超过5W，不超过50W，建议赋值10或更大，以此类推。
+      "CachePrefix": "zhontai:workerid" // 缓存前缀
+    },
+    //语言配置
+    "Lang": {
+      //启用
+      "Enable": true,
+      //默认语言
+      "DefaultLang": "zh",
+      //语言列表
+      "Langs": [ "zh", "en" ],
+      //语言请求解析列表
+      "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
+    }
+  }
+}

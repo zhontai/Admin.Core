@@ -1,5 +1,8 @@
 <template>
   <div class="login-scan-container">
+    <div class="login-title">
+      <span class="login-title-showy">扫码登录</span>
+    </div>
     <div ref="qrcodeRef"></div>
     <div class="font12 mt20 login-msg">
       <i class="iconfont icon-saoyisao mr5"></i>
@@ -35,6 +38,14 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+.login-title {
+  margin-bottom: 50px;
+  font-size: 27px;
+  text-align: center;
+  letter-spacing: 3px;
+  color: var(--el-text-color-primary);
+  position: relative;
+}
 .login-scan-animation {
   opacity: 0;
   animation-name: error-num;

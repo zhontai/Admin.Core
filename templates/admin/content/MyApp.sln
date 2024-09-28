@@ -3,27 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Host", "src\hosts\MyApp.Host\MyApp.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Host", "src\MyApp.Host\MyApp.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Api", "src\platform\MyApp.Api\MyApp.Api.csproj", "{E725F0A1-0B03-406F-B84B-0F486C6137FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Api", "src\MyApp.Api\MyApp.Api.csproj", "{E725F0A1-0B03-406F-B84B-0F486C6137FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Tests", "src\tests\MyApp.Tests\MyApp.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
+#if (!NoTests)
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Tests", "src\MyApp.Tests\MyApp.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platform", "platform", "{7D22DC19-78FC-4277-9768-06B5AF60FD14}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{0600A063-03CE-4BE1-AE77-FCB1B496A2A6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A1F23C8-24A6-4571-B3DE-D27D024A051D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.build", "02.build", "{A6C50476-5236-4FD3-8C29-6449494846C0}"
-	ProjectSection(SolutionItems) = preProject
-		src\platform\Directory.Build.props = src\platform\Directory.Build.props
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.sln", "01.sln", "{B5DE2B4F-A7DB-433D-8E98-5C352EFAE88B}"
-	ProjectSection(SolutionItems) = preProject
-		src\Directory.Build.props = src\Directory.Build.props
-	EndProjectSection
+#endif
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Api.Contracts", "src\MyApp.Api.Contracts\MyApp.Api.Contracts.csproj", "{5DD4A326-A418-4A6F-8C88-C4FADFB618D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,18 +27,19 @@ Global
 		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E725F0A1-0B03-406F-B84B-0F486C6137FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		#if (!NoTests)
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A9CD28-39CE-415E-8150-A4A876E708FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		#endif
+		{5DD4A326-A418-4A6F-8C88-C4FADFB618D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD4A326-A418-4A6F-8C88-C4FADFB618D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD4A326-A418-4A6F-8C88-C4FADFB618D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD4A326-A418-4A6F-8C88-C4FADFB618D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{6F47A41A-085E-4422-BB73-5A2CBAA07D9F} = {0600A063-03CE-4BE1-AE77-FCB1B496A2A6}
-		{E725F0A1-0B03-406F-B84B-0F486C6137FC} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
-		{69A9CD28-39CE-415E-8150-A4A876E708FD} = {4A1F23C8-24A6-4571-B3DE-D27D024A051D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

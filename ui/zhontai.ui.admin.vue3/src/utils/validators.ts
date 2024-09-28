@@ -13,3 +13,14 @@ export const validatorPwd = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+
+/**
+ * 同意
+ */
+export const validatorAgree = (rule: any, value: any, callback: any) => {
+  if (value) {
+    callback()
+  } else {
+    callback(new Error('请勾选同意协议'))
+  }
+}

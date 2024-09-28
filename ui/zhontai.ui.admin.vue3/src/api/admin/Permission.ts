@@ -17,7 +17,6 @@ import {
   PermissionAddMenuInput,
   PermissionAssignInput,
   PermissionSaveTenantPermissionsInput,
-  PermissionUpdateApiInput,
   PermissionUpdateDotInput,
   PermissionUpdateGroupInput,
   PermissionUpdateMenuInput,
@@ -25,7 +24,6 @@ import {
   ResultOutputInt64,
   ResultOutputListInt64,
   ResultOutputListPermissionListOutput,
-  ResultOutputPermissionGetApiOutput,
   ResultOutputPermissionGetDotOutput,
   ResultOutputPermissionGetGroupOutput,
   ResultOutputPermissionGetMenuOutput,
@@ -75,30 +73,6 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   ) =>
     this.request<ResultOutputPermissionGetMenuOutput, any>({
       path: `/api/admin/permission/get-menu`,
-      method: 'GET',
-      query: query,
-      secure: true,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags permission
-   * @name GetApi
-   * @summary 查询接口
-   * @request GET:/api/admin/permission/get-api
-   * @secure
-   */
-  getApi = (
-    query?: {
-      /** @format int64 */
-      id?: number
-    },
-    params: RequestParams = {}
-  ) =>
-    this.request<ResultOutputPermissionGetApiOutput, any>({
-      path: `/api/admin/permission/get-api`,
       method: 'GET',
       query: query,
       secure: true,
@@ -331,24 +305,6 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   updateMenu = (data: PermissionUpdateMenuInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
       path: `/api/admin/permission/update-menu`,
-      method: 'PUT',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags permission
-   * @name UpdateApi
-   * @summary 修改接口
-   * @request PUT:/api/admin/permission/update-api
-   * @secure
-   */
-  updateApi = (data: PermissionUpdateApiInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/permission/update-api`,
       method: 'PUT',
       body: data,
       secure: true,

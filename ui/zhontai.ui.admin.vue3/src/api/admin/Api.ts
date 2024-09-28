@@ -12,12 +12,15 @@
 import { AxiosResponse } from 'axios'
 import {
   ApiAddInput,
+  ApiSetEnableParamsInput,
+  ApiSetEnableResultInput,
   ApiSyncInput,
   ApiUpdateInput,
   PageInputApiGetPageDto,
   ResultOutputApiGetOutput,
   ResultOutputInt64,
-  ResultOutputListApiListOutput,
+  ResultOutputListApiGetEnumsOutput,
+  ResultOutputListApiGetListOutput,
   ResultOutputListProjectConfig,
   ResultOutputPageOutputApiEntity,
 } from './data-contracts'
@@ -63,7 +66,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputListApiListOutput, any>({
+    this.request<ResultOutputListApiGetListOutput, any>({
       path: `/api/admin/api/get-list`,
       method: 'GET',
       query: query,
@@ -122,6 +125,42 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     this.request<AxiosResponse, any>({
       path: `/api/admin/api/update`,
       method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name SetEnableParams
+   * @summary 设置启用请求参数
+   * @request POST:/api/admin/api/set-enable-params
+   * @secure
+   */
+  setEnableParams = (data: ApiSetEnableParamsInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/api/set-enable-params`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name SetEnableResult
+   * @summary 设置启用响应结果
+   * @request POST:/api/admin/api/set-enable-result
+   * @secure
+   */
+  setEnableResult = (data: ApiSetEnableResultInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/api/set-enable-result`,
+      method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -239,6 +278,23 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   getProjects = (params: RequestParams = {}) =>
     this.request<ResultOutputListProjectConfig, any>({
       path: `/api/admin/api/get-projects`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name GetEnums
+   * @summary 获得枚举列表
+   * @request GET:/api/admin/api/get-enums
+   * @secure
+   */
+  getEnums = (params: RequestParams = {}) =>
+    this.request<ResultOutputListApiGetEnumsOutput, any>({
+      path: `/api/admin/api/get-enums`,
       method: 'GET',
       secure: true,
       format: 'json',

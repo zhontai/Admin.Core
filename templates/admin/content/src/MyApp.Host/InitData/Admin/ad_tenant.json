@@ -1,0 +1,23 @@
+[
+  {
+    "id": 161223412138053,
+    "userId": 161223411986501,
+    "orgId": 189097691009093,
+    "tenantType": 1,
+    "domain": null,
+    "dbKey": "masterdb",
+    "dbType": null,
+    "connectionString": "",
+    "enabled": true,
+    "description": "",
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2023-06-13T16:23:05",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2024-01-31T18:09:02"
+  }
+]

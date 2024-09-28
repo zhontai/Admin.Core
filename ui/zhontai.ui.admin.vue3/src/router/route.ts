@@ -53,7 +53,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
             path: '/example',
             name: 'example',
             component: () => import('/@/layout/routerView/parent.vue'),
-            redirect: '/example/home',
+            redirect: '',
             meta: {
               title: '参考样例',
               isLink: '',

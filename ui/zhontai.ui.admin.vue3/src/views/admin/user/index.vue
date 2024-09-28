@@ -28,7 +28,7 @@
 
         <el-card class="my-fill mt8" shadow="never">
           <el-table v-loading="state.loading" :data="state.userListData" row-key="id" style="width: 100%">
-            <el-table-column prop="userName" label="账号" width="120" show-overflow-tooltip />
+            <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip />
             <el-table-column prop="name" label="姓名" width="120" show-overflow-tooltip>
               <template #default="{ row }"> {{ row.name }} <el-tag v-if="row.isManager" type="success">主管</el-tag> </template>
             </el-table-column>
@@ -235,7 +235,7 @@ const onDelete = (row: UserGetPageOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
-      await new UserApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
+      await new UserApi().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
     })
     .catch(() => {})

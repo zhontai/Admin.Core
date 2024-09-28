@@ -137,6 +137,7 @@ const onDelete = (row: DictTypeGetPageOutput) => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }

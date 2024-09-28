@@ -1,63 +1,39 @@
+import { cloneDeep } from 'lodash-es'
+
 /**
 * @description: 列表转树形列表
 * @example
 listToTree(cloneDeep(list))
 
 listToTree(cloneDeep(list), {
-  rootWhere: (parent, self) => {
-    return self.parentId === 0
-  },
-  childsWhere: (parent, self) => {
-    return parent.id === self.parentId
-  },
-  addChilds: (parent, childList) => {
-    if (childList?.length > 0) {
-      parent['children'] = childList
-    }
-  }
+  idKey: 'id',
+  parentIdKey: 'parentId',
+  childrenKey: 'children',
 })
 */
 export function listToTree(list: any = [], options = {}, data = null) {
-  const { rootWhere, childsWhere, addChilds } = Object.assign(
+  const { idKey, parentIdKey, childrenKey } = Object.assign(
     {
-      rootWhere: (parent: any, self: any) => {
-        return self.parentId === 0
-      },
-      childsWhere: (parent: any, self: any) => {
-        return parent.id === self.parentId
-      },
-      addChilds: (parent: any, childList: any) => {
-        if (childList?.length > 0) {
-          parent['children'] = childList
-        }
-      },
+      idKey: 'id',
+      parentIdKey: 'parentId',
+      childrenKey: 'children',
     },
     options || {}
   )
-  let tree = [] as any
-  // 空列表
-  if (!(list?.length > 0)) {
-    return tree
-  }
+  const idMap: { [key: string]: any } = {}
+  list.forEach((item: any) => {
+    idMap[item[idKey]] = cloneDeep(item)
+    idMap[item[idKey]][childrenKey] = []
+  })
 
-  // 顶级
-  const rootList = list.filter((item: any) => rootWhere && rootWhere(data, item))
-  if (!(rootList?.length > 0)) {
-    return tree
-  }
-  tree = tree.concat(rootList)
-
-  // 子级
-  tree.forEach((root: any) => {
-    const rootChildList = list.filter((item: any) => childsWhere && childsWhere(root, item))
-    if (!(rootChildList?.length > 0)) {
-      return
+  const tree = [] as any
+  list.forEach((item: any) => {
+    const parentId = item[parentIdKey]
+    if (idMap[parentId]) {
+      idMap[parentId][childrenKey].push(idMap[item[idKey]])
+    } else {
+      tree.push(idMap[item[idKey]])
     }
-    rootChildList.forEach((item: any) => {
-      const childList = listToTree(list, { rootWhere: childsWhere, childsWhere, addChilds }, item)
-      addChilds && addChilds(item, childList)
-    })
-    addChilds && addChilds(root, rootChildList)
   })
 
   return tree
@@ -122,7 +98,7 @@ export function filterTree(tree: any = [], keyword: string, options = {}) {
     {
       children: 'children',
       filterWhere: (item: any, word: string) => {
-        return item.name?.toLocaleLowerCase().indexOf(word) > -1
+        return item.name?.toLocaleLowerCase().indexOf(word?.toLocaleLowerCase()) > -1
       },
     },
     options || {}

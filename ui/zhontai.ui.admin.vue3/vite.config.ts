@@ -4,6 +4,7 @@ import { defineConfig, ConfigEnv } from 'vite'
 import compression from 'vite-plugin-compression'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 import { loadEnv } from '/@/utils/vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const pathResolve = (dir: string): any => {
   return resolve(__dirname, '.', dir)
@@ -24,6 +25,12 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         threshold: 5121,
         disable: !env.VITE_COMPRESSION,
         deleteOriginFile: false,
+      }),
+      createSvgIconsPlugin({
+        iconDirs: [pathResolve('src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]',
+        inject: 'body-last',
+        customDomId: '__svg__icons__dom__',
       }),
     ],
     root: process.cwd(),

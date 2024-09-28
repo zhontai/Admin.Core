@@ -28,12 +28,11 @@
 
 #### 💒 代码仓库
 
-- vue3.x 版本 <a href="https://github.com/zhontai/admin.ui.plus" target="_blank">https://github.com/zhontai/admin.ui.plus</a>
+- vue3.x 版本 <a href="https://github.com/zhontai/Admin.Core/tree/master/ui/zhontai.ui.admin.vue3" target="_blank">zhontai.ui.admin.vue3</a>
 
 #### 🚧 安装 cnpm、yarn
 
-- 复制代码(桌面 cmd 运行) `npm install -g cnpm --registry=https://registry.npm.taobao.org`
-- 复制代码(桌面 cmd 运行) `npm install -g yarn`
+- 复制代码(桌面 cmd 运行) `npm install -g pnpm --registry=https://registry.npmmirror.com`
 
 #### 🏭 环境支持
 
@@ -45,25 +44,25 @@
 
 #### ⚡ 使用说明
 
-建议使用 cnpm，因为 yarn 有时会报错。<a href="http://nodejs.cn/" target="_blank">node 版本 > 14.18+/16+</a>
+建议使用 pnpm，因为 yarn 有时会报错。<a href="http://nodejs.cn" target="_blank">node 版本 > 14.18+/16+</a>
 
 > Vite 不再支持 Node 12 / 13 / 15，因为上述版本已经进入了 EOL 阶段。现在你必须使用 Node 14.18+ / 16+ 版本。
 
 ```bash
 # 克隆项目
-git clone https://github.com/zhontai/admin.ui.plus/git
+git clone https://github.com/zhontai/Admin.Core.git
 
 # 进入项目
-cd admin.ui.plus
+cd ui\zhontai.ui.admin.vue3
 
 # 安装依赖
-cnpm install
+pnpm install
 
 # 运行项目
-cnpm run dev
+pnpm run dev
 
 # 打包发布
-cnpm run build
+pnpm run build
 ```
 
 #### 📚 开发文档
@@ -74,10 +73,10 @@ cnpm run build
 
 > 中台 admin 开发群（2000 人群）。
 
-- 中台 admin 开发群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">1058693879</a>
+- QQ 群号：<a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">1058693879</a>
 
-  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=99e2f5cbf895d14aa61f4d038f3cfcb4a778f69e04e529394ada1bb307e6ded4">
-  	<img src="https://www.zhontai.net/imgs/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
+  <a target="_blank" href="//qm.qq.com/cgi-bin/qm/qr?k=zjVRMcdD_oxPokw7zG1kv8Ud4kPJUZAk&jump_from=webapi&authKey=smP6idH1QaIqi6NSiBck8nZuY1BokW4fpi/IGcRi6w/Xt/HTyqfqrC5WpVRsSi22">
+  	<img src="https://zhontai.net/images/qq-group-1058693879.png" width="220" height="220" alt="中台admin 开发群" title="中台admin 开发群"/>
   </a>
 
 #### 💕 特别感谢

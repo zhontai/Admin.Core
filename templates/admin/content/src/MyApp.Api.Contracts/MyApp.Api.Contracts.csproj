@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Description>MyApp接口契约库</Description>
+		<Version>8.3.1</Version>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+		<TargetFramework>net8.0</TargetFramework>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<Authors>xiaoxue</Authors>
+		<Company>zhontai</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ZhonTai Admin Api Contracts;</PackageTags>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ZhonTai.Admin" Version="8.3.1">
+			<CopyToOutputDirectory>*\*\*.xml</CopyToOutputDirectory>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Services\" />
+	</ItemGroup>
+
+	<Target Name="AfterTargetsBuild" AfterTargets="Build">
+		<ItemGroup>
+			<PackageReferenceFiles Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\%(PackageReference.CopyToOutputDirectory)" />
+		</ItemGroup>
+		<Copy Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" SourceFiles="@(PackageReferenceFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
+	</Target>
+</Project>

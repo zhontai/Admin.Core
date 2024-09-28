@@ -16,9 +16,9 @@
             ></el-button>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item v-if="auth('api:admin:permission:addgroup')" @click="onAdd(1)">新增分组</el-dropdown-item>
-                <el-dropdown-item v-if="auth('api:admin:permission:addmenu')" @click="onAdd(2)">新增菜单</el-dropdown-item>
-                <el-dropdown-item v-if="auth('api:admin:permission:adddot')" @click="onAdd(3)">新增权限点</el-dropdown-item>
+                <el-dropdown-item v-if="auth('api:admin:permission:addgroup')" @click="onAdd({ type: 1 })">新增分组</el-dropdown-item>
+                <el-dropdown-item v-if="auth('api:admin:permission:addmenu')" @click="onAdd({ type: 2 })">新增菜单</el-dropdown-item>
+                <el-dropdown-item v-if="auth('api:admin:permission:adddot')" @click="onAdd({ type: 3 })">新增权限点</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -79,9 +79,29 @@
               @click="onEdit(row)"
               >编辑</el-button
             >
-            <el-button v-auth="'api:admin:permission:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)"
-              >删除</el-button
+            <my-dropdown-more
+              v-auths="[
+                'api:admin:permission:delete',
+                'api:admin:permission:addgroup',
+                'api:admin:permission:addmenu',
+                'api:admin:permission:adddot',
+              ]"
             >
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addgroup')" @click="onAdd({ type: 1, parentId: row.id })">
+                    新增分组
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addgroup')" @click="onAdd({ type: 2, parentId: row.id })">
+                    新增菜单
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:addmenu')" @click="onAdd({ type: 3, parentId: row.id })">
+                    新增权限点
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="auth('api:admin:permission:delete')" @click="onDelete(row)">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </my-dropdown-more>
           </template>
         </el-table-column>
       </el-table>
@@ -120,6 +140,7 @@ import { auth } from '/@/utils/authFunction'
 const PermissionGroupForm = defineAsyncComponent(() => import('./components/permission-group-form.vue'))
 const PermissionMenuForm = defineAsyncComponent(() => import('./components/permission-menu-form.vue'))
 const PermissionDotForm = defineAsyncComponent(() => import('./components/permission-dot-form.vue'))
+const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
@@ -165,8 +186,8 @@ const onQuery = async () => {
         return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
       },
     })
-    state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a) => a.type === 1))
-    state.formPermissionMenuTreeData = listToTree(cloneDeep(res.data).filter((a) => a.type === 1 || a.type === 2))
+    state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1))
+    state.formPermissionMenuTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1 || a.type === 2))
   } else {
     state.permissionTreeData = []
     state.formPermissionGroupTreeData = []
@@ -175,19 +196,19 @@ const onQuery = async () => {
   state.loading = false
 }
 
-const onAdd = (type: number) => {
-  switch (type) {
+const onAdd = (row: PermissionListOutput) => {
+  switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
-      permissionGroupFormRef.value.open()
+      permissionGroupFormRef.value.open({ parentId: row.parentId })
       break
     case 2:
       state.permissionFormTitle = '新增菜单'
-      permissionMenuFormRef.value.open()
+      permissionMenuFormRef.value.open({ parentId: row.parentId })
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open()
+      permissionDotFormRef.value.open({ parentId: row.parentId })
       break
   }
 }

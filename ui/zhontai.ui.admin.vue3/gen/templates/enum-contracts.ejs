@@ -1,0 +1,6 @@
+<% data.forEach((enumType) => { %>/** <%= enumType.desc %> */
+export const <%= enumType.name %> = {<% enumType.options.forEach((option) => { %>
+  <%= option.name %>: { name: '<%= option.name %>', value: <%= option.value %>, desc: '<%= option.desc %>' },<% }) %>
+}
+
+<% }) %>

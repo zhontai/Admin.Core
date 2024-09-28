@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<Description>MyApp接口宿主</Description>
+		<TargetFramework>net8.0</TargetFramework>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+		<NoWarn>1701;1702;1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="ConfigCenter\createdbsql.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--#if (!NoTaskScheduler) -->
+		<PackageReference Include="Cronos" Version="0.8.4" />
+		<!--#endif -->
+		<!--#if (!NoCap) -->
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.2.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.2.0" />
+		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
+		<!--#endif -->
+		<!--#if (DbType == "MySql") -->
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.2.833" />
+		<!--#elseif (DbType == "SqlServer") -->
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.833" />
+		<!--#elseif (DbType == "PostgreSQL") -->
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.2.833" />
+		<!--#elseif (DbType == "Oracle") -->
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.2.833" />
+		<!--#elseif (DbType == "Firebird") -->
+		<PackageReference Include="FreeSql.Provider.Firebird" Version="3.2.833" />
+		<!--#elseif (DbType == "MsAccess") -->
+		<PackageReference Include="FreeSql.Provider.MsAccess" Version="3.2.833" />
+		<!--#elseif (DbType == "Dameng") -->
+		<PackageReference Include="FreeSql.Provider.Dameng" Version="3.2.833" />
+		<!--#elseif (DbType == "ShenTong") -->
+		<PackageReference Include="FreeSql.Provider.ShenTong" Version="3.2.833" />
+		<!--#elseif (DbType == "KingbaseES") -->
+		<PackageReference Include="FreeSql.Provider.KingbaseES" Version="3.2.833" />
+		<!--#elseif (DbType == "GBase") -->
+		<PackageReference Include="FreeSql.Provider.GBase" Version="3.2.833" />
+		<!--#elseif (DbType == "ClickHouse") -->
+		<PackageReference Include="FreeSql.Provider.ClickHouse" Version="3.2.833" />
+		<!--#elseif (DbType == "QuestDb") -->
+		<PackageReference Include="FreeSql.Provider.QuestDb" Version="3.2.833" />
+		<!--#elseif (DbType == "Xugu") -->
+		<PackageReference Include="FreeSql.Provider.Xugu" Version="3.2.833" />
+		<!--#else -->
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.833" />
+		<!--#endif -->
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MyApp.Api\MyApp.Api.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="MyApp.Tests" />
+	</ItemGroup>
+	<!--#if (!NoApiUI) -->
+	<ItemGroup>
+		<PackageReference Include="ZhonTai.ApiUI" Version="8.3.1" />
+	</ItemGroup>
+	<!--#endif -->
+	<ItemGroup>
+		<Content Update="wwwroot\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\*\*\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\*\*\*\*\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<Target Name="AfterTargetsPublish" AfterTargets="Publish">
+		<ItemGroup>
+			<PackageReferenceFiles Include="*\*\*\*.xml" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PackageReferenceFiles)" DestinationFolder="$(PublishDir)" />
+	</Target>
+</Project>

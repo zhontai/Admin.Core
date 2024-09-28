@@ -8,17 +8,28 @@
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button v-auth="'api:admin:dict:export-data'" icon="ele-Download" type="primary" @click="onImport"> 导入 </el-button>
+          <el-button v-auth="'api:admin:dict:import-data'" icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">
+            导出
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.dictListData" row-key="id" style="width: 100%">
+      <el-table
+        v-loading="state.loading"
+        :data="state.dictListData"
+        row-key="id"
+        style="width: 100%"
+        :default-sort="state.defalutSort"
+        @sort-change="onSortChange"
+      >
         <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="value" label="值" width="80" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="70" align="center" show-overflow-tooltip>
+        <el-table-column prop="value" label="值" width="80" sortable="custom" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="80" align="center" sortable="custom" show-overflow-tooltip />
+        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -47,21 +58,37 @@
     </el-card>
 
     <dict-form ref="dictFormRef" :title="state.dictFormTitle"></dict-form>
+
+    <MyImport ref="dictImportRef" :title="state.import.title" v-model="state.import"></MyImport>
   </div>
 </template>
 
 <script lang="ts" setup name="admin/dictData">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { DictGetPageOutput, PageInputDictGetPageDto, DictTypeGetPageOutput } from '/@/api/admin/data-contracts'
+import { DictGetPageOutput, PageInputDictGetPageInput, DictTypeGetPageOutput, SortInput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
+import dayjs from 'dayjs'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
+const MyImport = defineAsyncComponent(() => import('/@/components/my-import/index.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const dictFormRef = ref()
+const dictImportRef = ref()
+
+const defalutSort = { prop: 'sort', order: 'ascending' }
+
+const getSortList = (data: { prop: string; order: any }) => {
+  return [
+    {
+      propName: data.prop,
+      order: data.order === 'ascending' ? 0 : data.order === 'descending' ? 1 : undefined,
+    },
+  ] as [SortInput]
+}
 
 const state = reactive({
   loading: false,
@@ -70,13 +97,25 @@ const state = reactive({
     name: '',
     dictTypeId: 0,
   },
+  defalutSort: defalutSort,
   total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputDictGetPageDto,
+    sortList: getSortList(defalutSort),
+  } as PageInputDictGetPageInput,
   dictListData: [] as Array<DictGetPageOutput>,
   dictTypeName: '',
+  import: {
+    title: '',
+    action: import.meta.env.VITE_API_URL + '/api/admin/dict/import-data',
+    duplicateAction: 1,
+    uniqueRules: ['字典名称', '字典编码', '字典值'],
+    requiredColumns: ['字典类型', '字典名称'],
+  },
+  export: {
+    loading: false,
+  },
 })
 
 onMounted(async () => {
@@ -89,6 +128,11 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshDict')
 })
+
+const onSortChange = (data: { column: any; prop: string; order: any }) => {
+  state.pageInput.sortList = getSortList(data)
+  onQuery()
+}
 
 const onQuery = async () => {
   state.loading = true
@@ -106,12 +150,12 @@ const onAdd = () => {
     proxy.$modal.msgWarning('请选择字典类型')
     return
   }
-  state.dictFormTitle = `新增【${state.dictTypeName}】字典`
+  state.dictFormTitle = `新增【${state.dictTypeName}】字典数据`
   dictFormRef.value.open({ dictTypeId: state.filterModel.dictTypeId })
 }
 
 const onEdit = (row: DictGetPageOutput) => {
-  state.dictFormTitle = `编辑【${state.dictTypeName}】字典`
+  state.dictFormTitle = `编辑【${state.dictTypeName}】字典数据`
   dictFormRef.value.open(row)
 }
 
@@ -125,7 +169,46 @@ const onDelete = (row: DictGetPageOutput) => {
     .catch(() => {})
 }
 
+const onImport = () => {
+  state.import.title = `导入【${state.dictTypeName}】字典数据`
+  dictImportRef.value.open()
+}
+
+const onExport = async () => {
+  state.export.loading = true
+
+  await new DictApi()
+    .exportData(
+      {
+        dynamicFilter: {
+          filters: [{ field: 'dictTypeId', operator: 6, value: state.pageInput.filter?.dictTypeId }],
+        },
+        sortList: state.pageInput.sortList,
+      },
+      { format: 'blob', returnResponse: true }
+    )
+    .then((res: any) => {
+      const contentDisposition = res.headers['content-disposition']
+      const matchs = /filename="?([^;"]+)/i.exec(contentDisposition)
+      let fileName = ''
+      if (matchs && matchs.length > 1) {
+        fileName = decodeURIComponent(matchs[1])
+      } else {
+        fileName = `数据字典列表${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
+      }
+      const a = document.createElement('a')
+      a.download = fileName
+      a.href = URL.createObjectURL(res.data as Blob)
+      a.click()
+      URL.revokeObjectURL(a.href)
+    })
+    .finally(() => {
+      state.export.loading = false
+    })
+}
+
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }

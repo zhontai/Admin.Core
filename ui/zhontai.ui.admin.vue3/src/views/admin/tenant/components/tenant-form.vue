@@ -22,7 +22,6 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <!-- :rules="[{ required: true, message: '请选择套餐', trigger: ['change'] }]" -->
             <el-form-item label="套餐" prop="pkgIds">
               <el-select
                 v-model="form.pkgIds"
@@ -60,9 +59,27 @@
               <el-input v-model="form.userName" autocomplete="off" />
             </el-form-item>
           </el-col>
+          <el-col v-if="!isUpdate" :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-form-item prop="password" :rules="[{ validator: validatorPwd, trigger: ['blur', 'change'] }]">
+              <template #label>
+                <div class="my-flex-y-center">
+                  密码<el-tooltip effect="dark" placement="top" hide-after="0">
+                    <template #content>选填，不填则使用系统默认密码<br />字母+数字+可选特殊字符，长度在6-16之间</template>
+                    <SvgIcon name="ele-InfoFilled" class="ml5" />
+                  </el-tooltip>
+                </div>
+              </template>
+              <el-input key="password" v-model="form.password" @input="onInputPwd" show-password autocomplete="off" />
+            </el-form-item>
+          </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="邮箱" prop="email" :rules="[{ validator: testEmail, trigger: ['blur', 'change'] }]">
               <el-input v-model="form.email" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="colCount" :md="colCount" :lg="colCount" :xl="colCount">
+            <el-form-item label="域名" prop="domain">
+              <el-input v-model="form.domain" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -83,12 +100,14 @@
 </template>
 
 <script lang="ts" setup name="admin/tenant/form">
-import { reactive, toRefs, getCurrentInstance, ref } from 'vue'
+import { reactive, toRefs, getCurrentInstance, ref, computed } from 'vue'
 import { TenantAddInput, TenantUpdateInput, PkgGetListOutput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 import { PkgApi } from '/@/api/admin/Pkg'
 import { isMobile, testMobile, testEmail } from '/@/utils/test'
 import eventBus from '/@/utils/mitt'
+import { validatorPwd } from '/@/utils/validators'
+import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 
 defineProps({
   title: {
@@ -107,6 +126,14 @@ const state = reactive({
   form: {} as TenantAddInput & TenantUpdateInput,
 })
 const { form } = toRefs(state)
+
+const isUpdate = computed(() => {
+  return state.form.id > 0
+})
+
+const colCount = computed(() => {
+  return isUpdate.value ? 24 : 12
+})
 
 const getPkgs = async () => {
   const res = await new PkgApi().getList().catch(() => {
@@ -132,6 +159,11 @@ const open = async (row: any = {}) => {
     state.form = { pkgIds: [] as number[], enabled: true } as TenantAddInput & TenantUpdateInput
   }
   state.showDialog = true
+}
+
+// 输入密码
+const onInputPwd = (val: string) => {
+  state.form.password = verifyCnAndSpace(val)
 }
 
 //手机号失去焦点

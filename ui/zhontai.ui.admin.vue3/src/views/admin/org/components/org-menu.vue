@@ -96,7 +96,7 @@ const initData = async () => {
       nextTick(() => {
         const firstNode = state.orgTreeData[0]
         orgMenuRef.value?.setCurrentKey(firstNode.id)
-        emits('node-click', firstNode)
+        onNodeClick(firstNode)
       })
     }
   } else {

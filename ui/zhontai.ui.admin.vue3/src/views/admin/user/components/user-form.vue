@@ -112,6 +112,19 @@
               <el-input v-model="form.email" autocomplete="off" />
             </el-form-item>
           </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-form-item label="职位">
+              <el-input v-model="form.staff.position" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-form-item label="性别">
+              <el-select v-model="form.staff.sex" placeholder="请选择性别" class="w100">
+                <el-option label="" :value="undefined" />
+                <el-option v-for="item in state.sexList" :key="item.label" :label="item.label" :value="item.value" />
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <template #footer>
@@ -137,6 +150,8 @@ import { validatorPwd } from '/@/utils/validators'
 import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
+import { Sex } from '/@/api/admin/enum-contracts'
+import { toOptionsByValue } from '/@/utils/enum'
 
 // 引入组件
 const MySelectUser = defineAsyncComponent(() => import('./my-select-user.vue'))
@@ -162,6 +177,7 @@ const state = reactive({
   orgs: [] as any,
   orgTreeData: [] as OrgListOutput[],
   roleTreeData: [] as RoleGetListOutput[],
+  sexList: toOptionsByValue(Sex),
 })
 const { form } = toRefs(state)
 

@@ -48,14 +48,15 @@ Based on technologies such as .NET 8.0, FreeSql full stack, Autofac, CAP, and Ma
 4. Permission Management: Configure groups, menus, actions, permission points, and permission identifiers, supports tree-view list display.
 5. Tenant Packages: Configure tenant packages, supports adding/removing package enterprises.
 6. Tenant Management: Configure tenants, initialize department, role, and administrator data when adding new tenants, supports tenant package configuration, disabling/enabling features.
-7. Dictionary Management: Configure dictionaries, view dictionary types and dictionary data lists, supports maintenance of dictionary types and dictionary data.
+7. Dictionary Management: Configure dictionaries, view dictionary types and dictionary data lists, supports maintenance of dictionary types and dictionary data, can export dictionary subclass data.
 8. Task Scheduling: View task and task log lists, supports adding new tasks, modifying, starting, executing, pausing, copying tasks, and viewing logs.
 9. Cache Management: Query cache lists, supports clearing caches based on cache keys.
 10. Interface Management: Configure interfaces, supports interface synchronization for adding permission points and selecting interfaces, supports tree-view list display.
 11. View Management: Configure views, supports view maintenance for adding menus and selecting views, supports tree-view list display.
 12. File Management: Supports file list queries, file uploads/downloads, viewing large images, copying file addresses, and deleting files.
-13. Login Logs: Query login log lists, records user successful and failed login attempts.
-14. Operation Logs: Query operation log lists, records user normal and abnormal operation logs.
+13. Regional Management: managing and querying regions, supporting the disabling/enabling of regions, setting/canceling popular regions, and one-click synchronization of statistical bureau's regional data.
+14. Login Logs: Query login log lists, records user successful and failed login attempts.
+15. Operation Logs: Query operation log lists, records user normal and abnormal operation logs.
 
 #### ⚡ Usage instructions
 

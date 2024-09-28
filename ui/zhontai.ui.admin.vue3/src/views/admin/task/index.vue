@@ -2,9 +2,9 @@
   <div class="my-layout">
     <div class="mt8" style="position: relative">
       <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
-        <el-form :inline="true" @submit.stop.prevent>
+        <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
           <el-form-item label="任务分组">
-            <el-select v-model="state.filter.groupName" style="width: 120px" @change="onQuery">
+            <el-select v-model="state.filter.groupName" :empty-values="[null, undefined]" style="width: 120px" @change="onQuery">
               <el-option v-for="group in state.groupList" :key="group.name" :label="group.name" :value="group.value" />
             </el-select>
           </el-form-item>
@@ -12,7 +12,7 @@
             <el-input v-model="state.filter.taskName" placeholder="任务名称" @keyup.enter="onQuery" />
           </el-form-item>
           <el-form-item label="任务状态">
-            <el-select v-model="state.filter.taskStatus" style="width: 120px" @change="onQuery">
+            <el-select v-model="state.filter.taskStatus" :empty-values="[null]" style="width: 120px" @change="onQuery">
               <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
             </el-select>
           </el-form-item>
@@ -179,7 +179,7 @@ const state = reactive({
   taskLogsTitle: '',
   groupList: [{ name: '全部', value: '' }],
   statusList: [
-    { name: '全部', value: '' },
+    { name: '全部', value: undefined },
     { name: '运行中', value: 0 },
     { name: '停止', value: 1 },
     { name: '已完成', value: 2 },
@@ -390,6 +390,7 @@ const onBatchDelete = () => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }
@@ -399,5 +400,3 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 </script>
-
-<style scoped lang="scss"></style>

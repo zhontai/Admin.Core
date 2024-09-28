@@ -95,6 +95,8 @@ const open = async (row: RoleUpdateInput = { id: 0 }) => {
     if (res?.success) {
       formData = res.data as RoleUpdateInput
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+    } else {
+      return
     }
   }
 

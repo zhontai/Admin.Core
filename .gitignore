@@ -402,3 +402,8 @@ FodyWeavers.xsd
 !**/views/admin/logs
 /ZhonTai.sln.EasyRun.json
 !**/zhontai.ui.admin.vue3/bin
+
+**/ZhonTai.Admin/ZhonTai.Admin.xml
+**/ZhonTai.ApiUI/ZhonTai.ApiUI.xml
+**/ZhonTai.Common/ZhonTai.Common.xml
+**/ZhonTai.DynamicApi/ZhonTai.DynamicApi.xml

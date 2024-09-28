@@ -27,8 +27,42 @@
         :expand-row-keys="state.expandRowKeys"
       >
         <el-table-column prop="label" label="接口名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="description" label="接口描述" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip>
+          <template #default="{ row }">
+            <el-tag v-if="row.httpMethods" :type="getTagTypeByHttpMethod(row.httpMethods)" style="width: 54px">{{ row.httpMethods }}</el-tag>
+            {{ row.path }}
+          </template>
+        </el-table-column>
+        <el-table-column label="请求参数" width="80" align="center">
+          <template #default="{ row }">
+            <el-switch
+              v-if="row.httpMethods"
+              v-model="row.enabledParams"
+              :loading="row.loadingEnabledParams"
+              :active-value="true"
+              :inactive-value="false"
+              inline-prompt
+              active-text="启用"
+              inactive-text="禁用"
+              :before-change="() => onSetEnableParams(row)"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column label="响应结果" width="80" align="center">
+          <template #default="{ row }">
+            <el-switch
+              v-if="row.httpMethods"
+              v-model="row.enabledResult"
+              :loading="row.loadingEnabledResult"
+              :active-value="true"
+              :inactive-value="false"
+              inline-prompt
+              active-text="启用"
+              inactive-text="禁用"
+              :before-change="() => onSetEnableResult(row)"
+            />
+          </template>
+        </el-table-column>
         <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
         <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
           <template #default="{ row }">
@@ -51,7 +85,7 @@
 
 <script lang="ts" setup name="admin/api">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { ApiListOutput } from '/@/api/admin/data-contracts'
+import { ApiGetListOutput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import { ApiApi as ApiExtApi } from '/@/api/admin.extend/Api'
 import { listToTree, treeToList, filterTree, filterList } from '/@/utils/tree'
@@ -72,16 +106,16 @@ const state = reactive({
   filter: {
     name: '',
   },
-  apiTreeData: [] as Array<ApiListOutput>,
-  formApiTreeData: [] as Array<ApiListOutput>,
+  apiTreeData: [] as Array<ApiGetListOutput>,
+  formApiTreeData: [] as Array<ApiGetListOutput>,
   expandRowKeys: [] as string[],
 })
 
 onMounted(async () => {
   await onQuery()
   state.expandRowKeys = treeToList(cloneDeep(state.apiTreeData))
-    .filter((a: ApiListOutput) => a.parentId === 0)
-    .map((a: ApiListOutput) => a.id + '') as string[]
+    .filter((a: ApiGetListOutput) => a.parentId === 0)
+    .map((a: ApiGetListOutput) => a.id + '') as string[]
   eventBus.off('refreshApi')
   eventBus.on('refreshApi', async () => {
     onQuery()
@@ -91,6 +125,75 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshApi')
 })
+
+const getTagTypeByHttpMethod = (httpMethods: string) => {
+  const methods = httpMethods.toLowerCase().split(/\s+/)
+  if (methods.some((method) => method === 'get')) {
+    return 'success'
+  }
+  if (methods.some((method) => method === 'delete')) {
+    return 'danger'
+  }
+  if (methods.some((method) => method === 'patch')) {
+    return 'info'
+  }
+
+  return 'primary'
+}
+
+//启用或禁用请求参数
+const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
+  return new Promise((resolve, reject) => {
+    proxy.$modal
+      .confirm(`确定要${row.enabledParams ? '禁用' : '启用'}【${row.label}】请求参数?`)
+      .then(async () => {
+        row.loadingEnabledParams = true
+        const res = await new ApiApi()
+          .setEnableParams({ apiId: row.id, enabledParams: !row.enabledParams }, { showSuccessMessage: true })
+          .catch(() => {
+            reject(new Error('Error'))
+          })
+          .finally(() => {
+            row.loadingEnabledParams = false
+          })
+        if (res && res.success) {
+          resolve(true)
+        } else {
+          reject(new Error('Cancel'))
+        }
+      })
+      .catch(() => {
+        reject(new Error('Cancel'))
+      })
+  })
+}
+
+//启用或禁用响应结果
+const onSetEnableResult = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
+  return new Promise((resolve, reject) => {
+    proxy.$modal
+      .confirm(`确定要${row.enabledResult ? '禁用' : '启用'}【${row.label}】响应结果?`)
+      .then(async () => {
+        row.loadingEnabledResult = true
+        const res = await new ApiApi()
+          .setEnableResult({ apiId: row.id, enabledResult: !row.enabledResult }, { showSuccessMessage: true })
+          .catch(() => {
+            reject(new Error('Error'))
+          })
+          .finally(() => {
+            row.loadingEnabledResult = false
+          })
+        if (res && res.success) {
+          resolve(true)
+        } else {
+          reject(new Error('Cancel'))
+        }
+      })
+      .catch(() => {
+        reject(new Error('Cancel'))
+      })
+  })
+}
 
 const onQuery = async () => {
   state.loading = true
@@ -124,12 +227,12 @@ const onAdd = () => {
   apiFormRef.value.open()
 }
 
-const onEdit = (row: ApiListOutput) => {
+const onEdit = (row: ApiGetListOutput) => {
   state.apiFormTitle = '编辑接口'
   apiFormRef.value.open(row)
 }
 
-const onDelete = (row: ApiListOutput) => {
+const onDelete = (row: ApiGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除接口【${row.label}】?`, { type: 'info' })
     .then(async () => {

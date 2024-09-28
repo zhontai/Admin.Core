@@ -26,17 +26,31 @@
             </div>
             <div class="personal-user-right">
               <el-row>
-                <el-col :span="24" class="personal-title mb18">{{ currentTime }}，{{ personalInfo.name }}，开心点，少生气，好好爱自己吧！ </el-col>
+                <el-col :span="24" class="personal-title mb18">{{ currentTime }}，{{ personalInfo.name }} </el-col>
                 <el-col :span="24">
                   <el-row>
                     <el-col v-if="personalForm.nickName" :xs="24" :sm="8" class="personal-item mb6">
                       <div class="personal-item-label">昵称：</div>
                       <div class="personal-item-value">{{ personalInfo.nickName }}</div>
                     </el-col>
-                    <!-- <el-col :xs="24" :sm="16" class="personal-item mb6">
-                      <div class="personal-item-label">身份：</div>
-                      <div class="personal-item-value">超级管理员</div>
-                    </el-col> -->
+                    <el-col :xs="24" :sm="16" class="personal-item mb6">
+                      <div class="personal-item-label">登录地区：</div>
+                      <div class="personal-item-value">
+                        {{ personalInfo.lastLoginCountry }} {{ personalInfo.lastLoginProvince }} {{ personalInfo.lastLoginCity }}
+                      </div>
+                    </el-col>
+                  </el-row>
+                </el-col>
+                <el-col :span="24">
+                  <el-row>
+                    <el-col :xs="24" :sm="8" class="personal-item mb6">
+                      <div class="personal-item-label">登录IP：</div>
+                      <div class="personal-item-value">{{ personalInfo.lastLoginIP }}</div>
+                    </el-col>
+                    <el-col :xs="24" :sm="16" class="personal-item mb6">
+                      <div class="personal-item-label">登录时间：</div>
+                      <div class="personal-item-value">{{ personalInfo.lastLoginTime }}</div>
+                    </el-col>
                   </el-row>
                 </el-col>
               </el-row>

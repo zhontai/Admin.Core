@@ -19,22 +19,49 @@
           <span class="login-right-warp-one"></span>
           <span class="login-right-warp-two"></span>
           <div class="login-right-warp-mian">
-            <div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }} 欢迎您！</div>
+            <div class="login-right-warp-main-header"></div>
             <div class="login-right-warp-main-form">
-              <div v-if="!state.isScan">
-                <el-tabs v-model="state.tabsActiveName">
-                  <el-tab-pane :label="$t('message.label.one1')" name="account">
-                    <Account />
-                  </el-tab-pane>
-                  <el-tab-pane :label="$t('message.label.two2')" name="mobile">
-                    <Mobile />
-                  </el-tab-pane>
-                </el-tabs>
+              <component
+                v-if="state.isChangePassword"
+                :is="changePasswordComponents[state.changePasswordComponentName]"
+                v-model:isChangePassword="state.isChangePassword"
+                v-model:hasConfirmPassword="state.hasConfirmPassword"
+              />
+
+              <component
+                v-if="state.isReg"
+                :is="regComponents[state.regComponentName]"
+                v-model:isReg="state.isReg"
+                v-model:hasPassword="state.hasPassword"
+                v-model:hasConfirmPassword="state.hasConfirmPassword"
+              />
+
+              <div v-if="!state.isScan && !state.isChangePassword && !state.isReg">
+                <component
+                  :is="loginComponents[state.loginComponentName]"
+                  v-model:loginComponentName="state.loginComponentName"
+                  v-model:accountType="state.accountType"
+                  v-model:isChangePassword="state.isChangePassword"
+                  v-model:changePasswordComponentName="state.changePasswordComponentName"
+                />
+                <el-divider style="margin-top: 40px">其他方式登录</el-divider>
+                <div class="login-other my-flex my-flex-center">
+                  <el-link
+                    v-for="(loginMethod, index) in loginMethods"
+                    :key="index"
+                    v-show="isShow(loginMethod)"
+                    :icon="loginMethod.icon"
+                    :underline="false"
+                    :name="loginMethod.name"
+                    @click="onLogin(loginMethod)"
+                  >
+                    {{ $t(loginMethod.title) }}
+                  </el-link>
+                </div>
               </div>
-              <Scan v-if="state.isScan" />
-              <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
-                <i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
-                <div class="login-content-main-sacn-delta"></div>
+              <div v-if="!(state.isScan || state.isChangePassword)" class="login-content-main-switch" @click="onReg">
+                <span>{{ state.isReg ? '登录' : '注册' }}</span>
+                <div class="login-content-main-switch-delta"></div>
               </div>
             </div>
           </div>
@@ -52,34 +79,135 @@ import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
 import loginBg from '/@/assets/login-bg.svg'
+import { AccountType } from '/@/api/admin/enum-contracts'
+import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
-const Account = defineAsyncComponent(() => import('./component/account.vue'))
-const Mobile = defineAsyncComponent(() => import('./component/mobile.vue'))
+const loginComponents: any = {
+  account: defineAsyncComponent(() => import('./component/account.vue')),
+  mobile: defineAsyncComponent(() => import('./component/mobile.vue')),
+  email: defineAsyncComponent(() => import('./component/email.vue')),
+}
 const Scan = defineAsyncComponent(() => import('./component/scan.vue'))
+
+const changePasswordComponents: any = {
+  mobile: defineAsyncComponent(() => import('/@/views/admin/change-password/component/mobile.vue')),
+  email: defineAsyncComponent(() => import('/@/views/admin/change-password/component/email.vue')),
+}
+
+const regComponents: any = {
+  mobile: defineAsyncComponent(() => import('/@/views/admin/reg/component/mobile.vue')),
+  email: defineAsyncComponent(() => import('/@/views/admin/reg/component/email.vue')),
+}
+
+const accountComponentName = ComponentType.Account.name
+const mobileComponentName = ComponentType.Mobile.name
+const emailComponentName = ComponentType.Email.name
+
+const loginMethods = [
+  {
+    icon: 'ele-User',
+    name: accountComponentName,
+    title: 'message.label.one1',
+  },
+  {
+    icon: 'ele-Iphone',
+    name: mobileComponentName,
+    title: 'message.label.two2',
+  },
+  {
+    icon: 'ele-Message',
+    name: emailComponentName,
+    title: 'message.label.two3',
+  },
+] as any
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
-  tabsActiveName: 'account',
+  loginComponentName: accountComponentName, //默认账号登录
+  accountType: AccountType.UserName.value, //默认用户名账号
   isScan: false,
+  isChangePassword: false,
+  isReg: false,
+  changePasswordComponentName: emailComponentName, //默认邮箱更改密码
+  regComponentName: emailComponentName, //默认邮箱注册
+  hasPassword: true, //默认不用填密码
+  hasConfirmPassword: false, //默认不用填确认密码
 })
+
+//是否显示
+const isShow = (loginMethod: any) => {
+  if (loginMethod.name === accountComponentName) {
+    return !(state.loginComponentName === accountComponentName && state.accountType === AccountType.UserName.value)
+  } else if (loginMethod.name === mobileComponentName) {
+    return !(
+      state.loginComponentName === mobileComponentName ||
+      (state.loginComponentName === accountComponentName && state.accountType === AccountType.Mobile.value)
+    )
+  } else if (loginMethod.name == emailComponentName) {
+    return !(
+      state.loginComponentName === emailComponentName ||
+      (state.loginComponentName === accountComponentName && state.accountType === AccountType.Email.value)
+    )
+  }
+}
 
 // 获取布局配置信息
 const getThemeConfig = computed(() => {
   return themeConfig.value
 })
+
 // 页面加载时
 onMounted(() => {
   NextLoading.done()
 })
+
+//注册
+const onReg = () => {
+  if (state.loginComponentName == mobileComponentName) {
+    state.regComponentName = mobileComponentName
+  } else {
+    state.regComponentName = emailComponentName
+  }
+  state.isReg = !state.isReg
+}
+
+//登录
+const onLogin = (loginMethod: any) => {
+  state.loginComponentName = loginMethod.name
+  if (loginMethod.name === accountComponentName) {
+    state.accountType = AccountType.UserName.value
+  }
+}
 </script>
 
 <style scoped lang="scss">
 :deep() {
   .el-scrollbar__view {
     height: 100%;
+  }
+  .el-divider__text {
+    font-size: 12px;
+    color: #7f8792;
+  }
+
+  .login-other {
+    .el-link {
+      color: #7f8792;
+      margin-right: 20px;
+      .el-link__inner {
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: var(--el-link-hover-text-color);
+      }
+    }
+    .el-link .el-icon {
+      margin-right: 4px;
+    }
   }
 }
 .login-container {
@@ -207,9 +335,9 @@ onMounted(() => {
         display: flex;
         flex-direction: column;
         height: 100%;
-        .login-right-warp-main-title {
-          height: 130px;
-          line-height: 130px;
+        .login-right-warp-main-header {
+          height: 60px;
+          line-height: 60px;
           font-size: 27px;
           text-align: center;
           letter-spacing: 3px;
@@ -219,8 +347,39 @@ onMounted(() => {
         }
         .login-right-warp-main-form {
           flex: 1;
-          padding: 0 50px 50px;
-          .login-content-main-sacn {
+          padding: 0px 50px 20px 50px;
+          .login-content-main-switch {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70px;
+            height: 70px;
+            z-index: 0;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all ease 0.3s;
+            background: var(--el-color-primary-light-1);
+            span {
+              position: absolute;
+              color: #fff;
+              top: 10px;
+              right: 7px;
+              font-size: 14px;
+              font-weight: 500;
+            }
+            &-delta {
+              position: absolute;
+              width: 50px;
+              height: 100px;
+              z-index: 0;
+              top: 3px;
+              right: 27px;
+              background: var(--el-color-white);
+              transform: rotate(-45deg);
+              cursor: default;
+            }
+          }
+          .login-content-main-scan {
             position: absolute;
             top: 0;
             right: 0;
