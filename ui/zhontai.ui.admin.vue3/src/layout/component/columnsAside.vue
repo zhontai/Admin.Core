@@ -100,7 +100,7 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
     if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect))
     else router.push(redirect)
   } else {
-    if (v.children) {
+    if (v.children&&v.children.length>0) {
       const resData: MittMenu = setSendChildren(path)
       if (Object.keys(resData).length <= 0) return false
       onColumnsAsideDown(resData.item?.k)

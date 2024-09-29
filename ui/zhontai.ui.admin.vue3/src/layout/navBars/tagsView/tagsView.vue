@@ -278,6 +278,9 @@ const closeCurrentTagsView = (path: string) => {
       }
     }
   })
+  if(state.tagsViewList===[]|| state.tagsViewList.length===0)
+  router.push('/')
+
   addBrowserSetSession(state.tagsViewList)
 }
 // 4、关闭其它 tagsView：如果是设置了固定的（isAffix），不进行关闭
@@ -308,6 +311,7 @@ const closeAllTagsView = () => {
       }
     })
     addBrowserSetSession(state.tagsViewList)
+
   }
 }
 // 6、开启当前页面全屏
@@ -357,8 +361,10 @@ const onCurrentContextmenuClick = async (item: RouteItem) => {
       closeOtherTagsView(path)
       break
     case 3:
+    
       // 关闭全部
       closeAllTagsView()
+      router.push('/')
       break
     case 4:
       // 开启当前页面全屏

@@ -42,7 +42,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
     path: '/',
     name: '/',
     component: () => import('/@/layout/index.vue'),
-    redirect: '/platform/workbench',
+    //redirect: '/platform/workbench',
     meta: {
       isKeepAlive: true,
     },
