@@ -77,13 +77,14 @@ const setLocalThemeConfig = () => {
 }
 // 处理面包屑数据
 const getBreadcrumbList = (arr: RouteItems, path: string) => {
+  path=path?.toLocaleLowerCase()
   //第一次初始化时执行时,避免使用路由查找时重复执行
   if (state.routeSplitIndex == 1) {
     //优先使用菜单判断面包屑显示，如果找不到匹配的路由菜单，则执行旧的逻辑使用地址判断
     let routeTree = filterTree(cloneDeep(arr), path, {
       children: 'children',
       filterWhere: (item: any, filterword: string) => {
-        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
+        return item.path?.toLocaleLowerCase()===filterword
       },
     })
     if (routeTree.length > 0) {
