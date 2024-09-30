@@ -404,9 +404,9 @@
           {
             "id": 161227168452678,
             "parentId": 161227168452677,
-            "name": "admin/oprationLog",
+            "name": "admin/operationLog",
             "label": "操作日志",
-            "path": "admin/logs/opration-log",
+            "path": "admin/logs/operation-log",
             "description": null,
             "cache": true,
             "sort": 2,

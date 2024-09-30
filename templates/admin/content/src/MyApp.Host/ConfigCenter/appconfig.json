@@ -54,7 +54,7 @@
         {
           "name": "MyApp",
           "code": "app",
-          "version": "v8.3.1",
+          "version": "v8.5.0",
           "description": "MyApp"
         }
         ////#if (!MicroService)
@@ -62,7 +62,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.3.1",
+          "version": "v8.5.0",
           "description": "权限管理"
         }
         ////#endif
@@ -167,11 +167,18 @@
       //启用
       "Enable": true,
       //默认语言
-      "DefaultLang": "zh",
+      "DefaultLang": "zh-CN",
       //语言列表
-      "Langs": [ "zh", "en" ],
+      "Langs": [ "zh-CN", "en" ],
       //语言请求解析列表
       "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
+    },
+    //IP地址定位
+    "IP2Region": {
+      //启用
+      "Enable": true,
+      //绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
+      "DbPath": ""
     }
   }
 }

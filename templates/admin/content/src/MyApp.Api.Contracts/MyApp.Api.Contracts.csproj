@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Description>MyApp接口契约库</Description>
-		<Version>8.3.1</Version>
+		<Version>8.5.0</Version>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 		<TargetFramework>net8.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -25,7 +25,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin" Version="8.3.1">
+		<PackageReference Include="ZhonTai.Admin" Version="8.5.0">
 			<CopyToOutputDirectory>*\*\*.xml</CopyToOutputDirectory>
 		</PackageReference>
 	</ItemGroup>

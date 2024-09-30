@@ -65,7 +65,7 @@
 	</ItemGroup>
 	<!--#if (!NoApiUI) -->
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.ApiUI" Version="8.3.1" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="8.5.0" />
 	</ItemGroup>
 	<!--#endif -->
 	<ItemGroup>
@@ -78,6 +78,11 @@
 		<Content Update="wwwroot\*\*\*\*\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="ip2region.xdb">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 	<Target Name="AfterTargetsPublish" AfterTargets="Publish">
