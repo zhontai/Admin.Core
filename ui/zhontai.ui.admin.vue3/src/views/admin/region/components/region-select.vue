@@ -3,6 +3,7 @@
     placeholder="请选择上级地区"
     :options="state.regionList"
     :props="cascaderProps"
+    :persistent="false"
     filterable
     clearable
     class="w100"
