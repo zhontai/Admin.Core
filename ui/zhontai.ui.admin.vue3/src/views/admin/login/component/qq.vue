@@ -1,12 +1,13 @@
 <template>
   <div class="login-scan-container">
-    <div class="login-title">
-      <span class="login-title-showy">扫码登录</span>
-    </div>
+    <!-- <div class="login-title">
+      <span class="login-title-showy">QQ扫码登录</span>
+    </div> -->
     <div ref="qrcodeRef"></div>
     <div class="font12 mt20 login-msg">
       <i class="iconfont icon-saoyisao mr5"></i>
-      <span>{{ $t('message.scan.text') }}</span>
+      <span>{{ $t('打开 QQ 扫一扫，加入Admin开发交流群') }}</span>
+      <!-- <span>{{ $t('message.scan.text') }}</span> -->
     </div>
   </div>
 </template>
