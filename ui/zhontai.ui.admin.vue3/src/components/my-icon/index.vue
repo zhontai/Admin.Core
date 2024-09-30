@@ -4,7 +4,7 @@
   </svg>
 </template>
 
-<script lang="ts" setup name="my-svg-icon">
+<script lang="ts" setup name="my-icon">
 import { computed } from 'vue'
 
 const props = defineProps({

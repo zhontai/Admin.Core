@@ -11,7 +11,7 @@ import { verifyUrl } from '/@/utils/toolsValidate'
 
 // 引入组件
 const SvgIcon = defineAsyncComponent(() => import('/@/components/svgIcon/index.vue'))
-const MySvgIcon = defineAsyncComponent(() => import('/@/components/my-svg-icon/index.vue'))
+const MyIcon = defineAsyncComponent(() => import('/@/components/my-icon/index.vue'))
 
 /**
  * 导出全局注册 element plus svg 图标
@@ -24,7 +24,7 @@ export function elSvg(app: App) {
     app.component(`ele-${icons[i].name}`, icons[i])
   }
   app.component('SvgIcon', SvgIcon)
-  app.component('MySvgIcon', MySvgIcon)
+  app.component('MyIcon', MyIcon)
 }
 
 /**

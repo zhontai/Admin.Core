@@ -55,7 +55,7 @@
                     :name="loginMethod.name"
                     @click="onLogin(loginMethod)"
                   >
-                    <el-icon v-if="loginMethod.svg"><MySvgIcon :name="loginMethod.svg" color="var(--color)"></MySvgIcon></el-icon>
+                    <el-icon v-if="loginMethod.svg"><my-icon :name="loginMethod.svg" color="var(--color)"></my-icon></el-icon>
                     {{ $t(loginMethod.title) }}
                   </el-link>
                 </div>
