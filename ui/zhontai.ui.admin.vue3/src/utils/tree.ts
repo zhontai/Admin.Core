@@ -11,7 +11,7 @@ listToTree(cloneDeep(list), {
   childrenKey: 'children',
 })
 */
-export function listToTree(list: any = [], options = {}, data = null) {
+export function listToTree(list: any = [], options = {}) {
   const { idKey, parentIdKey, childrenKey } = Object.assign(
     {
       idKey: 'id',
