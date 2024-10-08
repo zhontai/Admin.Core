@@ -72,7 +72,7 @@
       <div v-show="state.step !== 1" class="mt20 pb20">
         <el-progress :text-inside="true" :stroke-width="26" :percentage="state.percent" :stroke-linecap="'square'" status="success" />
 
-        <div v-if="state.step === 3 && !state.showErrorMark" class="mt10">
+        <div v-if="state.step === 3 && state.uploadSuccess" class="mt10">
           导入完成，共 {{ state.importResult.total }} 条 <el-text type="warning">{{ result }}</el-text>
         </div>
 
@@ -124,6 +124,7 @@ const initState = {
     loadingTemplate: false,
     loadingErrorMark: false,
   },
+  uploadSuccess: false,
   showErrorMark: false,
   uploading: false,
   step: 1,
@@ -215,6 +216,7 @@ const onProgress: UploadProps['onProgress'] = (evt: UploadProgressEvent, uploadF
 // 上传成功
 const onSuccess: UploadProps['onSuccess'] = (response) => {
   if (response?.success) {
+    state.uploadSuccess = true
     state.importResult = response.data
     ElMessage({
       message: '导入成功',
