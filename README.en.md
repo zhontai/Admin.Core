@@ -36,6 +36,10 @@ A backend permission management system with frontend and backend separation, bui
 
 - Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
 
+#### 📚 Development documentation
+
+- View development documentation：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
+
 #### 💒 Code repository
 
 - Admin.Core v3 version <a href="https://github.com/zhontai/Admin.Core" target="_blank">https://github.com/zhontai/Admin.Core</a>
@@ -102,10 +106,6 @@ Alternatively, navigate to the 'MyCompanyName.MyProjectName.Host' directory in C
 # Package and Publish
 Select MyCompanyName.MyProjectName.Host, then right-click and choose Publish from the context menu.
 ```
-
-#### 📚 Development documentation
-
-- View development documentation：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
 
 #### 💯 Join a QQ group for learning and communication
 

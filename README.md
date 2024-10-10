@@ -36,6 +36,10 @@
 
 - Admin.Core v3 版本预览 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
 
+#### 📚 开发文档
+
+- 查看开发文档：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
+
 #### 💒 代码仓库
 
 - Admin.Core v3 版本 <a href="https://github.com/zhontai/Admin.Core" target="_blank">https://github.com/zhontai/Admin.Core</a>
@@ -102,10 +106,6 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 # 打包发布
 选择 MyCompanyName.MyProjectName.Host 右键菜单点击发布
 ```
-
-#### 📚 开发文档
-
-- 查看开发文档：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
 
 #### 💯 学习交流加 QQ 群
 
