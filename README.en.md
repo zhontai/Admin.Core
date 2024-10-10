@@ -61,7 +61,7 @@ A backend permission management system with frontend and backend separation, bui
 
 #### ⚡ Usage instructions
 
-> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net version > 7.0+</a>
+> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net version > 8.0+</a>
 
 Create a new project using the source code of an existing project.
 
