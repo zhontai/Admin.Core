@@ -30,7 +30,7 @@
 
 #### 🌈 Introduction
 
-Based on technologies such as .NET 8.0, FreeSql full stack, Autofac, CAP, and Mapster, we have developed a front-end and back-end separated backend permission management system. With a development philosophy of anticipating your needs, we aim to reduce workload and help everyone achieve rapid development. Developed using FreeSql ORM, the system supports mainstream databases both domestically and internationally, read-write separation, table and database sharding, distributed transactions TCC/SAGA, and other features. Upon starting the project, the database is automatically generated, and the CodeFirst model supports automatic synchronization of table structures and permission data from entity configurations to the database. The new version of the Swagger interface documentation provides easier interface reading and testing.
+A backend permission management system with frontend and backend separation, built on technologies such as .NET 8.0, FreeSql Suite, Autofac, Mapster, CAP, and more. It embraces a development philosophy that anticipates your needs, aiming to facilitate rapid development for everyone. Leveraging FreeSql ORM, it supports mainstream domestic and international databases, read-write separation, sharding, distributed transactions (TCC/SAGA), and other functionalities. Upon project initialization, the database is automatically generated. The CodeFirst mode enables automatic synchronization of table structures and permission data from entity configurations to the database. To explore the project, utilize the new version of Swagger API documentation to view interface request parameters and response data.
 
 #### ⛱️ Online preview
 
@@ -42,21 +42,22 @@ Based on technologies such as .NET 8.0, FreeSql full stack, Autofac, CAP, and Ma
 
 #### 🚀 Feature introduction
 
-1. User Management: Configure users, view departmental user lists, supports disabling/enabling, password resets, setting supervisors, users can be assigned multiple roles, departments, and higher-level supervisors.
-2. Role Management: Configure roles, supports role grouping, setting role menus and data permissions, bulk adding and removing role members.
-3. Department Management: Configure departments, supports tree-view list display.
-4. Permission Management: Configure groups, menus, actions, permission points, and permission identifiers, supports tree-view list display.
-5. Tenant Packages: Configure tenant packages, supports adding/removing package enterprises.
-6. Tenant Management: Configure tenants, initialize department, role, and administrator data when adding new tenants, supports tenant package configuration, disabling/enabling features.
-7. Dictionary Management: Configure dictionaries, view dictionary types and dictionary data lists, supports maintenance of dictionary types and dictionary data, can export dictionary subclass data.
-8. Task Scheduling: View task and task log lists, supports adding new tasks, modifying, starting, executing, pausing, copying tasks, and viewing logs.
-9. Cache Management: Query cache lists, supports clearing caches based on cache keys.
-10. Interface Management: Configure interfaces, supports interface synchronization for adding permission points and selecting interfaces, supports tree-view list display.
-11. View Management: Configure views, supports view maintenance for adding menus and selecting views, supports tree-view list display.
-12. File Management: Supports file list queries, file uploads/downloads, viewing large images, copying file addresses, and deleting files.
-13. Regional Management: managing and querying regions, supporting the disabling/enabling of regions, setting/canceling popular regions, and one-click synchronization of statistical bureau's regional data.
-14. Login Logs: Query login log lists, records user successful and failed login attempts.
-15. Operation Logs: Query operation log lists, records user normal and abnormal operation logs.
+1. **User Management**: Manage and query users, supporting advanced search and user linkage by department. Users can be disabled/enabled, supervisors can be set/removed, passwords can be reset, multiple roles and departments can be configured, superior supervisors can be assigned, and one-click login to specified users is supported.
+2. **Role Management**: Manage roles and role groups, supporting user linkage by role, setting menu and data permissions, and bulk adding and removing employees.
+3. **Department Management**: Manage departments, supporting tree-list display.
+4. **Permission Management**: Manage permission groups, menus, and permission points, supporting tree-list display.
+5. **Tenant Packages**: Manage tenant packages, supporting menu permission settings for tenant packages and bulk adding and removing enterprises.
+6. **Tenant Management**: Manage tenants, automatically initializing tenant departments, default roles, and administrators upon adding a new tenant. Supports configuring packages, disabling/enabling, and one-click login to tenant administrators.
+7. **Dictionary Management**: Manage data dictionary categories and subcategories, supporting subcategory linkage by dictionary category, multi-column sorting on the server, data import and export.
+8. **Task Scheduling**: Manage and view tasks and their run logs, supporting task creation, modification, deletion, starting, pausing, immediate execution, retry on failure, and sending alert emails.
+9. **Cache Management**: Query cache lists and clear cache based on cache keys.
+10. **API Management**: Manage APIs, supporting API synchronization functionality, primarily used for selecting APIs when adding permission points. Supports tree-list display, operation log request parameters, and response result configuration.
+11. **View Management**: Manage views, used for selecting view components when adding menus. Supports tree-list display.
+12. **File Management**: Manage file uploads, supporting file querying, uploading to OSS or locally, downloading, copying file addresses, deleting files, and viewing large images for image files.
+13. **Region Management**: Manage and query regions, supporting disabling/enabling, setting/removing popular regions, and one-click synchronization of statistical bureau region data.
+14. **Login Logs**: Query login log lists, recording successful and failed user login logs, with IP location tracking.
+15. **Operation Logs**: Query operation log lists, recording normal and abnormal user operations, with IP location tracking and detailed operation log viewing.
+16. **Personal Center**: This feature allows users to display and modify their personal information, view their last login information, change their passwords, and more.
 
 #### ⚡ Usage instructions
 
