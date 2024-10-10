@@ -36,6 +36,8 @@ import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
+import { treeToList, listToTree, filterList } from '/@/utils/tree'
+import { cloneDeep } from 'lodash-es'
 
 // 引入组件
 const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'))
@@ -73,9 +75,29 @@ const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
       return item
     })
 }
+
+// 获得根菜单路径
+const getRootPath = (path: string) => {
+  let rootPath = ''
+  let routeTree = listToTree(
+    filterList(treeToList(cloneDeep(routesList.value)), path, {
+      filterWhere: (item: any, filterword: string) => {
+        return item.path?.toLocaleLowerCase() === filterword
+      },
+    })
+  )
+  if (routeTree.length > 0 && routeTree[0]?.path) {
+    rootPath = routeTree[0].path
+  }
+
+  return rootPath
+}
+
 // 传送当前子级数据到菜单中
 const setSendClassicChildren = (path: string) => {
-  const currentPathSplit = path.split('/')
+  let rootPath = getRootPath(path)
+  rootPath = rootPath || path
+  const currentPathSplit = rootPath.split('/')
   let currentData: MittMenu = { children: [] }
   filterRoutesFun(routesList.value).map((v, k) => {
     if (v.path === `/${currentPathSplit[1]}`) {
@@ -85,13 +107,16 @@ const setSendClassicChildren = (path: string) => {
       if (v.children) currentData['children'] = v.children
     }
   })
+
   return currentData
 }
 // 设置页面当前路由高亮
 const setCurrentRouterHighlight = (currentRoute: RouteToFrom) => {
   const { path, meta } = currentRoute
   if (themeConfig.value.layout === 'classic') {
-    state.defaultActive = `/${path?.split('/')[1]}`
+    let rootPath = getRootPath(path || '')
+    rootPath = rootPath || path || ''
+    state.defaultActive = `/${rootPath?.split('/')[1]}`
   } else {
     const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/')
     if (pathSplit.length >= 4 && meta?.isHide) state.defaultActive = pathSplit.splice(0, 3).join('/')

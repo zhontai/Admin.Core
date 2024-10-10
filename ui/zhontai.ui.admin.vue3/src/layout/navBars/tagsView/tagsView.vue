@@ -387,15 +387,6 @@ const onMousedownMenu = (v: RouteItem, e: MouseEvent) => {
 const onTagsClick = (v: RouteItem, k: number) => {
   state.tagsRefsIndex = k
   router.push(v)
-  // 分栏布局时，收起/展开菜单
-  if (getThemeConfig.value.layout === 'columns') {
-    const item: RouteItem = routesList.value.find((r: RouteItem) => r.path.indexOf(`/${v.path.split('/')[1]}`) > -1)
-    !item.children || item.children?.length === 0 ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
-  }
-  // if (getThemeConfig.value.layout === 'columns') {
-  //   const item: RouteItem = routesList.value.find((r: RouteItem) => r.path.indexOf(`/${v.path.split('/')[1]}`) > -1)
-  //   item.meta?.isHide ? (getThemeConfig.value.isCollapse = true) : (getThemeConfig.value.isCollapse = false)
-  // }
 }
 // 处理 url，地址栏链接有参数时，tagsview 右键菜单刷新功能失效问题，感谢 @ZzZz-RIPPER、@dejavuuuuu
 const transUrlParams = (v: RouteItem) => {

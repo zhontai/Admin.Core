@@ -56,7 +56,7 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import mittBus from '/@/utils/mitt'
 import logoMini from '/@/assets/logo-mini.svg'
-import { filterTree } from '/@/utils/tree'
+import { treeToList, listToTree, filterList } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 
 // 定义变量内容
@@ -100,7 +100,7 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
     if (route.path.startsWith(redirect)) mittBus.emit('setSendColumnsChildren', setSendChildren(redirect))
     else router.push(redirect)
   } else {
-    if (v.children&&v.children.length>0) {
+    if (v.children && v.children.length > 0) {
       const resData: MittMenu = setSendChildren(path)
       if (Object.keys(resData).length <= 0) return false
       onColumnsAsideDown(resData.item?.k)
@@ -112,8 +112,6 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
   }
 
   // 一个路由设置自动收起菜单
-  if (!v.children) themeConfig.value.isCollapse = true
-  else if (v.children.length > 1) themeConfig.value.isCollapse = false
   !v.children || v.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
 }
 // 鼠标移入时，显示当前的子级菜单
@@ -160,19 +158,21 @@ const setFilterRoutes = () => {
 // 传送当前子级数据到菜单中
 const setSendChildren = (path: string) => {
   const currentPathSplit = path.split('/')
-  let rootPath=`/${currentPathSplit[1]}`
+  let rootPath = `/${currentPathSplit[1]}`
   //判断是否能够找到根节点
-  if(!state.columnsAsideList.find(v=>v.path===rootPath)){
+  if (!state.columnsAsideList.find((v) => v.path === rootPath)) {
     //不存在则使用顶级的分类
-    let routeTree=filterTree(cloneDeep(state.columnsAsideList), path, {
-      children: 'children',
-      filterWhere: (item: any, filterword: string) => {
-        return item.path?.toLocaleLowerCase().indexOf(filterword) > -1
-      }
-    })
+    let routeTree = listToTree(
+      filterList(treeToList(cloneDeep(state.columnsAsideList)), path, {
+        filterWhere: (item: any, filterword: string) => {
+          return item.path?.toLocaleLowerCase() === filterword
+        },
+      })
+    )
+
     //找到根节点则使用根节点
-    if(routeTree.length>0&&routeTree[0]?.path){
-      rootPath=routeTree[0].path
+    if (routeTree.length > 0 && routeTree[0]?.path) {
+      rootPath = routeTree[0].path
     }
   }
   let currentData: MittMenu = { children: [] }
@@ -201,7 +201,21 @@ const setColumnsMenuHighlight = (path: string) => {
   state.routeSplit = path.split('/')
   state.routeSplit.shift()
   const routeFirst = `/${state.routeSplit[0]}`
-  const currentSplitRoute = state.columnsAsideList.find((v: RouteItem) => v.path === routeFirst)
+  let currentSplitRoute = state.columnsAsideList.find((v: RouteItem) => v.path === routeFirst)
+  if (!currentSplitRoute) {
+    let routeTree = listToTree(
+      filterList(treeToList(cloneDeep(state.columnsAsideList)), path, {
+        filterWhere: (item: any, filterword: string) => {
+          return item.path?.toLocaleLowerCase() === filterword
+        },
+      })
+    )
+
+    if (routeTree.length > 0 && routeTree[0]?.path) {
+      const rootPath = routeTree[0].path
+      currentSplitRoute = state.columnsAsideList.find((v: RouteItem) => v.path === rootPath)
+    }
+  }
   if (!currentSplitRoute) return false
   // 延迟拿值，防止取不到
   setTimeout(() => {

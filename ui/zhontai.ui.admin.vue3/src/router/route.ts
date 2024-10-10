@@ -63,6 +63,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
               isIframe: false,
               roles: ['admin'],
               icon: 'ele-Menu',
+              isDir: true,
             },
             children: [
               {

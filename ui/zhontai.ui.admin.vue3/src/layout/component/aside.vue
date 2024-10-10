@@ -116,6 +116,7 @@ onBeforeMount(() => {
   // 此界面不需要取消监听(mittBus.off('setSendColumnsChildren))
   // 因为切换布局时有的监听需要使用，取消了监听，某些操作将不生效
   mittBus.on('setSendColumnsChildren', (res: MittMenu) => {
+    !res.children || res.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
     state.menuList = res.children
   })
   // 开启经典布局分割菜单时，设置菜单数据
