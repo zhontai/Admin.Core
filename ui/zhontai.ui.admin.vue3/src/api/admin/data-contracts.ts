@@ -1128,7 +1128,7 @@ export interface FileGetPageOutput {
   modifiedTime?: string | null
 }
 
-/** 导入输出 */
+/** 导入信息输出 */
 export interface ImportOutput {
   /**
    * 数据总数
@@ -3182,7 +3182,7 @@ export interface ResultOutputImportOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
-  /** 导入输出 */
+  /** 导入信息输出 */
   data?: ImportOutput
 }
 
