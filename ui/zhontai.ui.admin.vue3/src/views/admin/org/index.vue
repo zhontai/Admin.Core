@@ -1,24 +1,39 @@
 <template>
   <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card v-show="state.showQuery" class="query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="部门名称">
           <el-input v-model="state.filter.name" placeholder="部门名称" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:org:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
+      <div class="tools-box mb8 my-flex my-flex-between">
+        <div>
+          <el-button v-show="state.showOrgList" v-auth="'api:admin:org:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+        </div>
+        <div>
+          <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
+            <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
+          </el-tooltip>
+
+          <el-tooltip effect="dark" :content="state.showOrgList ? '部门图形' : '部门列表'" placement="top">
+            <el-button :icon="state.showOrgList ? 'ele-Share' : 'ele-Grid'" circle @click="onChangeOrgList" />
+          </el-tooltip>
+        </div>
+      </div>
       <el-table
-        :data="state.orgTreeData"
+        v-if="state.showOrgList"
+        :data="state.data"
         style="width: 100%"
         v-loading="state.loading"
         row-key="id"
         default-expand-all
+        border
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column prop="name" label="部门名称" min-width="120" show-overflow-tooltip />
@@ -31,8 +46,9 @@
             <el-tag type="danger" v-else>禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="200" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
+            <el-button v-if="auth('api:admin:org:add')" icon="ele-Plus" size="small" text type="primary" @click="onAdd(row)"> 新增 </el-button>
             <el-button
               v-if="auth('api:admin:org:update') && row.parentId > 0"
               icon="ele-EditPen"
@@ -54,9 +70,10 @@
           </template>
         </el-table-column>
       </el-table>
+      <OrgImg ref="orgImgRef" v-else></OrgImg>
     </el-card>
 
-    <org-form ref="orgFormRef" :title="state.orgFormTitle" :org-tree-data="state.orgTreeData"></org-form>
+    <org-form ref="orgFormRef" :title="state.orgFormTitle"></org-form>
   </div>
 </template>
 
@@ -64,16 +81,18 @@
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { OrgListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
-import { listToTree, filterTree } from '/@/utils/tree'
+import { listToTree, filterList } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 
 // 引入组件
 const OrgForm = defineAsyncComponent(() => import('./components/org-form.vue'))
+const OrgImg = defineAsyncComponent(() => import('./components/org-img.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const orgFormRef = ref()
+const orgImgRef = ref()
 
 const state = reactive({
   loading: false,
@@ -81,14 +100,16 @@ const state = reactive({
   filter: {
     name: '',
   },
-  orgTreeData: [] as Array<OrgListOutput>,
+  data: [] as Array<OrgListOutput>,
+  showQuery: true,
+  showOrgList: true,
 })
 
 onMounted(() => {
-  onQuery()
+  Query()
   eventBus.off('refreshOrg')
   eventBus.on('refreshOrg', () => {
-    onQuery()
+    Query()
   })
 })
 
@@ -96,22 +117,45 @@ onBeforeMount(() => {
   eventBus.off('refreshOrg')
 })
 
-const onQuery = async () => {
+const onChangeOrgList = () => {
+  state.showOrgList = !state.showOrgList
+  if (state.showOrgList) {
+    Query()
+  }
+}
+
+const onQuery = () => {
+  if (state.showOrgList) {
+    Query()
+  } else {
+    orgImgRef.value.filter(state.filter.name)
+  }
+}
+
+const Query = async () => {
   state.loading = true
   const res = await new OrgApi().getList().catch(() => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {
-    state.orgTreeData = filterTree(listToTree(res.data), state.filter.name)
+    state.data = listToTree(
+      state.filter.name
+        ? filterList(res.data, state.filter.name, {
+            filterWhere: (item: any, filterword: string) => {
+              return item.name?.toLocaleLowerCase().indexOf(filterword) > -1
+            },
+          })
+        : res.data
+    )
   } else {
-    state.orgTreeData = []
+    state.data = []
   }
   state.loading = false
 }
 
-const onAdd = () => {
+const onAdd = (row: OrgListOutput) => {
   state.orgFormTitle = '新增部门'
-  orgFormRef.value.open()
+  orgFormRef.value.open({ parentId: row.id })
 }
 
 const onEdit = (row: OrgListOutput) => {
@@ -124,10 +168,34 @@ const onDelete = (row: OrgListOutput) => {
     .confirmDelete(`确定要删除部门【${row.name}】?`)
     .then(async () => {
       await new OrgApi().delete({ id: row.id }, { loading: true })
-      onQuery()
+      Query()
     })
     .catch(() => {})
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+:deep() {
+  --el-table-header-bg-color: var(--el-fill-color);
+  --el-table-header-text-color: var(--el-text-color-primary);
+
+  .el-table th.el-table__cell {
+    font-weight: 500;
+  }
+
+  .el-card__body {
+    padding: 10px;
+  }
+  .query-box {
+    .el-form-item {
+      margin-bottom: 10px !important;
+    }
+    .el-form {
+      .el-form-item--default.el-form-item:last-of-type,
+      .el-form-item--small.el-form-item:last-of-type {
+        margin-bottom: 10px !important;
+      }
+    }
+  }
+}
+</style>

@@ -46,7 +46,8 @@
     "vue-grid-layout": "^3.0.0-beta1",
     "vue-i18n": "^10.0.4",
     "vue-router": "^4.4.5",
-    "vue3-ace-editor": "^2.2.4"
+    "vue3-ace-editor": "^2.2.4",
+    "vue3-tree-org": "^4.2.2"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
@@ -60,7 +61,7 @@
     "dotenv": "16.4.5",
     "ejs": "^3.1.10",
     "eslint": "^9.12.0",
-    "eslint-plugin-vue": "^9.28.0",
+    "eslint-plugin-vue": "^9.29.0",
     "prettier": "^3.3.3",
     "sass": "^1.79.5",
     "swagger-typescript-api": "13.0.22",
