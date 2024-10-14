@@ -299,9 +299,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     orgIds = orgIds.Concat(customRoleOrgIds).ToList();
                 }
             }
+            var orgName = await _orgRep.Value
+                         .Where(a => a.Id == orgId)
+                         .ToOneAsync(a => a.Name);
 
             return new DataPermissionDto
             {
+                OrgName = orgName,
                 OrgId = orgId,
                 OrgIds = orgIds.Distinct().ToList(),
                 DataScope = (User.PlatformAdmin || User.TenantAdmin) ? DataScope.All : dataScope

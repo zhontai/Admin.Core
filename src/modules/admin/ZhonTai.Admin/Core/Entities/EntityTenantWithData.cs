@@ -21,6 +21,12 @@ public class EntityTenantWithData<TKey> : EntityTenant<TKey>, IData where TKey :
     [Description("拥有者部门Id")]
     [Column(Position = -40)]
     public virtual long? OwnerOrgId { get; set; }
+    /// <summary>
+    /// 拥有者部门名称
+    /// </summary>
+    [Description("拥有者部门名称")]
+    [Column(Position = -39)]
+    public virtual string? OwnerOrgName { get; set; }
 }
 
 /// <summary>
