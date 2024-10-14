@@ -11,6 +11,10 @@ public class DataPermissionDto
     public long OrgId { get; set; }
 
     /// <summary>
+    /// 部门名称
+    /// </summary>
+    public string OrgName { get; set; }
+    /// <summary>
     /// 部门列表
     /// </summary>
     public List<long> OrgIds { get; set; }
