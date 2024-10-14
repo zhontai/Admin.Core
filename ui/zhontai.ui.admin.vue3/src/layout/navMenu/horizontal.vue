@@ -30,7 +30,7 @@
 
 <script setup lang="ts" name="navMenuHorizontal">
 import { defineAsyncComponent, reactive, computed, onBeforeMount } from 'vue'
-import { useRoute, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router'
+import { useRoute, onBeforeRouteUpdate, RouteRecordRaw, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
@@ -38,6 +38,8 @@ import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 import { treeToList, listToTree, filterList } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
+
+const router = useRouter()
 
 // 引入组件
 const SubItem = defineAsyncComponent(() => import('/@/layout/navMenu/subItem.vue'))
@@ -89,7 +91,6 @@ const getRootPath = (path: string) => {
   if (routeTree.length > 0 && routeTree[0]?.path) {
     rootPath = routeTree[0].path
   }
-
   return rootPath
 }
 
@@ -117,6 +118,7 @@ const setCurrentRouterHighlight = (currentRoute: RouteToFrom) => {
     let rootPath = getRootPath(path || '')
     rootPath = rootPath || path || ''
     state.defaultActive = `/${rootPath?.split('/')[1]}`
+    if (!state.defaultActive || state.defaultActive === '/') router.push(routesList.value[0].path)
   } else {
     const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/')
     if (pathSplit.length >= 4 && meta?.isHide) state.defaultActive = pathSplit.splice(0, 3).join('/')

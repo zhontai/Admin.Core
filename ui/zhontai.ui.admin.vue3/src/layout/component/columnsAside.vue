@@ -149,11 +149,15 @@ const setFilterRoutes = () => {
   // 刷新时，初始化一个路由设置自动收起菜单
   // resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
   // 刷新时，初始化无路由设置自动收起菜单
-  !resData.children || resData.children.length < 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
-
-  setTimeout(() => {
-    mittBus.emit('setSendColumnsChildren', resData)
-  }, 100)
+  if (!resData.children || resData.children.length < 1) {
+    themeConfig.value.isCollapse = true
+    if (state.columnsAsideList?.length > 0) onColumnsAsideMenuClick(state.columnsAsideList[0])
+  } else {
+    themeConfig.value.isCollapse = false
+    setTimeout(() => {
+      mittBus.emit('setSendColumnsChildren', resData)
+    }, 100)
+  }
 }
 // 传送当前子级数据到菜单中
 const setSendChildren = (path: string) => {
