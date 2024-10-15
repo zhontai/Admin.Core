@@ -142,7 +142,7 @@
 			  ]
 			},
 			{
-			  "condition": "(NoTests)",
+			  "condition": "(NoSample)",
 			  "exclude": [
 				"src/MyApp.Api.Contracts/Services/Module/**",
 				"src/MyApp.Api/Domain/Module/**",
