@@ -20,8 +20,8 @@
 		<PackageReference Include="Cronos" Version="0.8.4" />
 		<!--#endif -->
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.2.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.2.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.0" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
@@ -65,7 +65,7 @@
 	</ItemGroup>
 	<!--#if (!NoApiUI) -->
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.ApiUI" Version="8.5.0" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="8.5.1" />
 	</ItemGroup>
 	<!--#endif -->
 	<ItemGroup>
