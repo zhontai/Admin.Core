@@ -14,7 +14,7 @@ const apis = [
   },
   // {
   //   output: path.resolve(projectPath, 'src/api/app'),
-  //   url: 'http://localhost:8000/admin/swagger/app/swagger.json',
+  //   url: 'http://localhost:8000/app/swagger/app/swagger.json',
   // },
 ]
 
