@@ -43,7 +43,8 @@ export function useTitle() {
     } else {
       webTitle = setTagsViewNameI18n(router.currentRoute.value)
     }
-    document.title = `${webTitle} - ${globalTitle}` || globalTitle
+
+    document.title = webTitle ? `${webTitle} - ${globalTitle}` : globalTitle
   })
 }
 

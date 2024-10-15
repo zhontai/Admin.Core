@@ -25,19 +25,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin" Version="8.5.1">
-			<CopyToOutputDirectory>*\*\*.xml</CopyToOutputDirectory>
-		</PackageReference>
+		<PackageReference Include="ZhonTai.Admin" Version="8.5.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Services\" />
 	</ItemGroup>
 
+
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">
 		<ItemGroup>
-			<PackageReferenceFiles Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\%(PackageReference.CopyToOutputDirectory)" />
+			<PackageReferenceXmlFiles Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
+			<PackageReferenceJsonFiles Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
 		</ItemGroup>
-		<Copy Condition="'%(PackageReference.CopyToOutputDirectory)' != ''" SourceFiles="@(PackageReferenceFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
+
+		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
+		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)Resources" />
 	</Target>
 </Project>

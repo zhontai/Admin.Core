@@ -87,8 +87,10 @@
 
 	<Target Name="AfterTargetsPublish" AfterTargets="Publish">
 		<ItemGroup>
-			<PackageReferenceFiles Include="*\*\*\*.xml" />
+			<PackageReferenceXmlFiles Include="*\*\*\*.xml" />
+			<PackageReferenceJsonFiles Include="*\*\*\Resources\*.json" />
 		</ItemGroup>
-		<Copy SourceFiles="@(PackageReferenceFiles)" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="$(PublishDir)Resources" />
 	</Target>
 </Project>
