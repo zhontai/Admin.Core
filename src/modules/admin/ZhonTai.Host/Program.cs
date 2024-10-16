@@ -248,7 +248,7 @@ new HostApp(new HostAppOptions
                                 var emailService = AppInfo.GetRequiredService<EmailService>();
                                 if (alarmEmail.IsNull())
                                 {
-                                    alarmEmail = taskSchedulerConfig.AlerEmail.Adress;
+                                    alarmEmail = taskSchedulerConfig.AlerEmail.Address;
                                 }
                                 var topic = task.Topic;
                                 if (alarmEmail.NotNull())

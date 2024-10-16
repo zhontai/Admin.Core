@@ -20,7 +20,7 @@ public class TaskSchedulerConfig
             /// <summary>
             /// 邮件地址
             /// </summary>
-            public string Adress { get; set; }
+            public string Address { get; set; }
         }
 
         /// <summary>
