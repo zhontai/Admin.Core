@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
+using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Consts;
 
@@ -11,11 +12,11 @@ public class DbKeys
     /// 数据库注册键
     /// </summary>
     [Description("数据库注册键")]
-    public static string AppDb { get; set; } = "admindb";
+    public static string AppDb { get; set; } =  AppInfo.GetOptions<DbConfig>()?.Key??"admindb";
 
     /// <summary>
     /// 任务调度数据库注册键
     /// </summary>
     [Description("任务调度数据库注册键")]
-    public static string TaskDb { get; set; } = "admindb";
+    public static string TaskDb { get; set; } = AppInfo.GetOptions<DbConfig>()?.Key??"admindb";
 }
