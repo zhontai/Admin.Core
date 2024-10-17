@@ -473,5 +473,5 @@ watch(
 </script>
 
 <style scoped lang="scss">
-@import './chart.scss';
+@use './chart.scss' as *;
 </style>
