@@ -25,7 +25,7 @@ public class EntityData<TKey> : EntityBase<TKey>, IData where TKey : struct
     /// <summary>
     /// 拥有者部门名称
     /// </summary>
-    [Description("拥有者部门Id")]
+    [Description("拥有者部门名称")]
     [Column(Position = -40)]
     public virtual string? OwnerOrgName { get; set; }
 }

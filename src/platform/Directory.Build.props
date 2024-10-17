@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<Version>8.6.0</Version>
 		<TargetFramework>net8.0</TargetFramework>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<LangVersion>latest</LangVersion>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
