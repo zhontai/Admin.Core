@@ -12,10 +12,17 @@ public interface IEntityUpdate<TKey> where TKey : struct
     /// 修改者Id
     /// </summary>
     long? ModifiedUserId { get; set; }
+
     /// <summary>
     /// 修改者
     /// </summary>
     string ModifiedUserName { get; set; }
+
+    /// <summary>
+    /// 修改者姓名
+    /// </summary>
+    string ModifiedUserRealName { get; set; }
+
     /// <summary>
     /// 修改时间
     /// </summary>

@@ -12,10 +12,17 @@ public interface IEntityAdd<TKey> where TKey : struct
     /// 创建者用户Id
     /// </summary>
     long? CreatedUserId { get; set; }
+
     /// <summary>
     /// 创建者
     /// </summary>
     string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    string CreatedUserRealName { get; set; }
+
     /// <summary>
     /// 创建时间
     /// </summary>
