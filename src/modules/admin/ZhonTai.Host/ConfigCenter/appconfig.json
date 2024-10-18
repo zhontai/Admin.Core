@@ -8,6 +8,8 @@
     "corUrls": [],
     //程序集名称
     "assemblyNames": [ "ZhonTai.Admin" ],
+    //枚举列表程序集名称
+    "EnumListAssemblyNames": [ "ZhonTai.Admin" ],
     //租户
     "tenant": true,
     //分布式事务唯一标识admin，为空则不生成分布式事务表

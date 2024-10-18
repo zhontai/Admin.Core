@@ -19,7 +19,6 @@ import {
   PageInputApiGetPageDto,
   ResultOutputApiGetOutput,
   ResultOutputInt64,
-  ResultOutputListApiGetEnumsOutput,
   ResultOutputListApiGetListOutput,
   ResultOutputListProjectConfig,
   ResultOutputPageOutputApiEntity,
@@ -275,27 +274,17 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @request GET:/api/admin/api/get-projects
    * @secure
    */
-  getProjects = (params: RequestParams = {}) =>
+  getProjects = (
+    query?: {
+      /** @default "/swagger" */
+      suffix?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputListProjectConfig, any>({
       path: `/api/admin/api/get-projects`,
       method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags api
-   * @name GetEnums
-   * @summary 获得枚举列表
-   * @request GET:/api/admin/api/get-enums
-   * @secure
-   */
-  getEnums = (params: RequestParams = {}) =>
-    this.request<ResultOutputListApiGetEnumsOutput, any>({
-      path: `/api/admin/api/get-enums`,
-      method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

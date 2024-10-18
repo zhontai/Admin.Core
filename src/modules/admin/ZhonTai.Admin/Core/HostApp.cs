@@ -67,6 +67,9 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using IP2Region.Net.Abstractions;
 using IP2Region.Net.XDB;
+using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Services.Api.Dto;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core;
 
@@ -867,7 +870,7 @@ public class HostApp
         //静态文件
         app.UseDefaultFiles();
         app.UseStaticFiles();
-
+      
         //路由
         app.UseRouting();
 
@@ -907,6 +910,12 @@ public class HostApp
 
         //配置端点
         app.MapControllers();
+
+        //获取枚举列表接口
+        if (env.IsDevelopment())
+        {
+            app.MapGet("/api/system/get-enums", (ApiHelper apiHelper) => ResultOutput.Ok(apiHelper.GetEnumList()));
+        }
 
         _hostAppOptions?.ConfigureMiddleware?.Invoke(hostAppMiddlewareContext);
 

@@ -388,56 +388,24 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [NoOperationLog]
-    public List<ProjectConfig> GetProjects()
+    public List<ProjectConfig> GetProjects(string suffix = "/swagger")
     {
-        return _appConfig.Value.Swagger.Projects;
-    }
-
-#if DEBUG
-    /// <summary>
-    /// 获得枚举列表
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [NoOperationLog]
-    [AllowAnonymous]
-    public List<ApiGetEnumsOutput> GetEnums()
-    {
-        var enums = new List<ApiGetEnumsOutput>();
-        
-        var appConfig = _appConfig.Value;
-        var assemblyNames = appConfig.AssemblyNames;
-        if (!(assemblyNames?.Length > 0))
+        var routePrefix = _appConfig.Value.ApiUI?.RoutePrefix;
+        if (routePrefix.IsNull())
         {
-            return enums;
-        }
-       
-        foreach (var assemblyName in assemblyNames)
-        {
-            var assembly = Assembly.Load(assemblyName);
-            var enumTypes = assembly.GetTypes().Where(m => m.IsEnum);
-            foreach (var enumType in enumTypes)
+            if (routePrefix.EndsWith(suffix))
             {
-                var summaryList = SummaryHelper.GetEnumSummaryList(enumType);
-
-                var enumDescriptor = new ApiGetEnumsOutput
-                {
-                    Name = enumType.Name,
-                    Desc = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
-                    Options = Enum.GetValues(enumType).Cast<Enum>().Select(x => new ApiGetEnumsOutput.Models.Options
-                    {
-                        Name = x.ToString(),
-                        Desc = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
-                        Value = x.ToInt64()
-                    }).ToList()
-                };
-                
-                enums.Add(enumDescriptor);
+                int suffixIndex = routePrefix.LastIndexOf(suffix);
+                routePrefix = routePrefix.Substring(0, suffixIndex);
             }
         }
 
-        return enums;
+        return new List<ProjectConfig>
+        {
+            new ProjectConfig
+            {
+                Code = routePrefix
+            }
+        };
     }
-#endif
-
 }

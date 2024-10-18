@@ -5,6 +5,13 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Tools.Cache;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Consts;
+using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Services.Api.Dto;
+using ZhonTai.Common.Helpers;
+using System.Reflection;
+using ZhonTai.Common.Extensions;
+using System;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -16,12 +23,13 @@ public class ApiHelper
 {
     private readonly ICacheTool _cacheTool;
     private readonly IApiRepository _apiRepository;
-    
+    private readonly IOptions<AppConfig> _appConfig;
 
-    public ApiHelper(ICacheTool cacheTool, IApiRepository apiRepository)
+    public ApiHelper(ICacheTool cacheTool, IApiRepository apiRepository, IOptions<AppConfig> appConfig)
     {
         _cacheTool = cacheTool;
         _apiRepository = apiRepository;
+        _appConfig = appConfig;
     }
 
     public async Task<List<ApiModel>> GetApiListAsync()
@@ -46,6 +54,44 @@ public class ApiHelper
 
             return apiList;
         });
+    }
+
+    public List<ApiGetEnumsOutput> GetEnumList()
+    {
+        var enums = new List<ApiGetEnumsOutput>();
+
+        var appConfig = _appConfig.Value;
+        var assemblyNames = appConfig.EnumListAssemblyNames;
+        if (!(assemblyNames?.Length > 0))
+        {
+            return enums;
+        }
+
+        foreach (var assemblyName in assemblyNames)
+        {
+            var assembly = Assembly.Load(assemblyName);
+            var enumTypes = assembly.GetTypes().Where(m => m.IsEnum);
+            foreach (var enumType in enumTypes)
+            {
+                var summaryList = SummaryHelper.GetEnumSummaryList(enumType);
+
+                var enumDescriptor = new ApiGetEnumsOutput
+                {
+                    Name = enumType.Name,
+                    Desc = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
+                    Options = Enum.GetValues(enumType).Cast<Enum>().Select(x => new ApiGetEnumsOutput.Models.Options
+                    {
+                        Name = x.ToString(),
+                        Desc = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
+                        Value = x.ToInt64()
+                    }).ToList()
+                };
+
+                enums.Add(enumDescriptor);
+            }
+        }
+
+        return enums;
     }
 }
 

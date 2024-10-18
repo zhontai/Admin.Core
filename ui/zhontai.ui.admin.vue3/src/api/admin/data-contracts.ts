@@ -118,16 +118,6 @@ export interface ApiEntity {
   permissions?: PermissionEntity[] | null
 }
 
-/** 枚举 */
-export interface ApiGetEnumsOutput {
-  /** 名称 */
-  name?: string | null
-  /** 描述 */
-  desc?: string | null
-  /** 选项列表 */
-  options?: Options[] | null
-}
-
 export interface ApiGetListOutput {
   /**
    * 接口Id
@@ -1379,19 +1369,6 @@ export interface OperationLogGetPageOutput {
    * @format date-time
    */
   createdTime?: string | null
-}
-
-/** 选项 */
-export interface Options {
-  /** 名称 */
-  name?: string | null
-  /** 描述 */
-  desc?: string | null
-  /**
-   * 值
-   * @format int64
-   */
-  value?: number
 }
 
 /** 添加 */
@@ -3199,18 +3176,6 @@ export interface ResultOutputInt64 {
    * @format int64
    */
   data?: number
-}
-
-/** 结果输出 */
-export interface ResultOutputListApiGetEnumsOutput {
-  /** 是否成功标记 */
-  success?: boolean
-  /** 编码 */
-  code?: string | null
-  /** 消息 */
-  msg?: string | null
-  /** 数据 */
-  data?: ApiGetEnumsOutput[] | null
 }
 
 /** 结果输出 */
