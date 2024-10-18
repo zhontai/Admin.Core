@@ -291,13 +291,9 @@ const syncApi = async (swaggerResource: any) => {
 
 const onSync = async () => {
   state.syncLoading = true
-  const resProjects = await new ApiApi().getProjects({ showErrorMessage: false }).catch(() => {
-    state.syncLoading = false
-  })
-  if (!resProjects?.success) {
-    return
-  }
-  const swaggerResourceUrls = resProjects.data?.map((project) => `/${project.code}/swagger-resources`) as string[]
+  const swaggerResourcePaths = ['admin']
+  // const swaggerResourcePaths = ['app']
+  const swaggerResourceUrls = swaggerResourcePaths?.map((path) => `/${path}/swagger-resources`) as string[]
   const lastSwaggerResourcesIndex = swaggerResourceUrls.length - 1
   swaggerResourceUrls.forEach(async (swaggerResourceUrl, swaggerResourcesIndex) => {
     const resSwaggerResources = await new ApiExtApi().getSwaggerResources(swaggerResourceUrl, { showErrorMessage: false }).catch(() => {
