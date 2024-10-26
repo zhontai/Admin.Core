@@ -101,6 +101,8 @@ export interface ApiEntity {
   path?: string | null
   /** 接口提交方法 */
   httpMethods?: string | null
+  /** 启用接口日志 */
+  enabledLog?: boolean
   /** 启用请求参数 */
   enabledParams?: boolean
   /** 启用响应结果 */
@@ -137,6 +139,8 @@ export interface ApiGetListOutput {
   path?: string | null
   /** 接口提交方法 */
   httpMethods?: string | null
+  /** 启用操作日志 */
+  enabledLog?: boolean
   /** 启用请求参数 */
   enabledParams?: boolean
   /** 启用响应结果 */
@@ -191,6 +195,17 @@ export interface ApiModel {
   httpMethods?: string | null
   /** 请求地址 */
   path?: string | null
+}
+
+/** 设置启用请求日志 */
+export interface ApiSetEnableLogInput {
+  /**
+   * 接口Id
+   * @format int64
+   */
+  apiId?: number
+  /** 是否启用请求参数 */
+  enabledLog?: boolean
 }
 
 /** 设置启用请求参数 */

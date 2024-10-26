@@ -88,7 +88,7 @@
       "operation": true
     },
     //限流
-    "rateLimit": false,
+    "rateLimit": true,
     //验证码
     "varifyCode": {
       //启用

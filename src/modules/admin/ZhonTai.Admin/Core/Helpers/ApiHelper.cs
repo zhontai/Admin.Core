@@ -12,6 +12,7 @@ using ZhonTai.Common.Helpers;
 using System.Reflection;
 using ZhonTai.Common.Extensions;
 using System;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -36,7 +37,7 @@ public class ApiHelper
     {
         return await _cacheTool.GetOrSetAsync(CacheKeys.ApiList, async () =>
         {
-            var apis = await _apiRepository.Select.ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Path, a.EnabledParams, a.EnabledResult });
+            var apis = await _apiRepository.Select.ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Path, a.EnabledLog, a.EnabledParams, a.EnabledResult });
 
             var apiList = new List<ApiModel>();
             foreach (var api in apis)
@@ -47,6 +48,7 @@ public class ApiHelper
                 {
                     Label = parentLabel.NotNull() ? $"{parentLabel} / {api.Label}" : api.Label,
                     Path = api.Path?.ToLower().Trim('/'),
+                    EnabledLog = api.EnabledLog,
                     EnabledParams = api.EnabledParams,
                     EnabledResult = api.EnabledResult,
                 });
@@ -106,7 +108,10 @@ public class ApiModel
     /// 接口地址
     /// </summary>
     public string Path { get; set; }
-
+    /// <summary>
+    /// 启用接口日志
+    /// </summary>
+    public bool EnabledLog { get; set; }
     /// <summary>
     /// 启用请求参数
     /// </summary>

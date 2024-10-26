@@ -33,6 +33,11 @@ public class ApiGetListOutput
     public string HttpMethods { get; set; }
 
     /// <summary>
+    /// 启用操作日志
+    /// </summary>
+    public bool EnabledLog { get; set; }
+
+    /// <summary>
     /// 启用请求参数
     /// </summary>
     public bool EnabledParams { get; set; }

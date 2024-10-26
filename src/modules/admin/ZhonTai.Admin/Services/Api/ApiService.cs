@@ -156,7 +156,26 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         await ClearCacheAsync();
     }
+    /// <summary>
+    /// 设置启用接口日志
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetEnableLogAsync(ApiSetEnableLogInput input)
+    {
+        await _apiRep.UpdateDiy.Set(a => new ApiEntity
+        {
+            EnabledLog = input.EnabledLog,
+            ModifiedUserId = User.Id,
+            ModifiedUserName = User.UserName,
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime
+        })
+        .WhereDynamic(input.ApiId)
+        .ExecuteAffrowsAsync();
 
+        await ClearCacheAsync();
+    }
     /// <summary>
     /// 设置启用请求参数
     /// </summary>
