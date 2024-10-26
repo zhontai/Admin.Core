@@ -134,7 +134,7 @@ public static class TaskSchedulerServiceExtensions
     /// <param name="task"></param>
     /// <param name="taskLog"></param>
     /// <param name="onExecuting"></param>
-    public static void FailRetry(TaskGetOutput taskInfo, TaskInfo task, TaskLog taskLog, Action<TaskInfo> onExecuting)
+    public static void FailedRetry(TaskGetOutput taskInfo, TaskInfo task, TaskLog taskLog, Action<TaskInfo> onExecuting)
     {
         //失败重试
         if (taskInfo != null && taskInfo.FailRetryCount > 0)

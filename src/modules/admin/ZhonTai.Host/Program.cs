@@ -98,7 +98,7 @@ new HostApp(new HostAppOptions
                             var taskInfo = taskService.GetAsync(task.Id).Result;
 
                             //失败重试
-                            TaskSchedulerServiceExtensions.FailRetry(taskInfo, task, taskLog, OnExecuting);
+                            TaskSchedulerServiceExtensions.FailedRetry(taskInfo, task, taskLog, OnExecuting);
 
                             //发送告警邮件
                             TaskSchedulerServiceExtensions.SendAlarmEmail(taskInfo, task, taskLog);
