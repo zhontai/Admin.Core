@@ -45,6 +45,11 @@ public partial class ApiEntity : EntityBase, IChilds<ApiEntity>
     public string HttpMethods { get; set; }
 
     /// <summary>
+    /// 启用接口日志
+    /// </summary>
+    public bool EnabledLog { get; set; } = true;
+
+    /// <summary>
     /// 启用请求参数
     /// </summary>
     public bool EnabledParams { get; set; } = false;

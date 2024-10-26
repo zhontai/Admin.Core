@@ -160,6 +160,9 @@ export class HttpClient<SecurityDataType = unknown> {
         case 409:
           message = '系统已存在相同数据'
           break
+        case 429:
+          message = '访问过于频繁！'
+        break
         case 500:
           message = '服务器内部错误'
           break

@@ -12,6 +12,7 @@
 import { AxiosResponse } from 'axios'
 import {
   ApiAddInput,
+  ApiSetEnableLogInput,
   ApiSetEnableParamsInput,
   ApiSetEnableResultInput,
   ApiSyncInput,
@@ -124,6 +125,24 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     this.request<AxiosResponse, any>({
       path: `/api/admin/api/update`,
       method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name SetEnableLog
+   * @summary 设置启用接口日志
+   * @request POST:/api/admin/api/set-enable-log
+   * @secure
+   */
+  setEnableLog = (data: ApiSetEnableLogInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/api/set-enable-log`,
+      method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,

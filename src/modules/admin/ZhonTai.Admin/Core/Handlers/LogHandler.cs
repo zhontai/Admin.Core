@@ -52,47 +52,50 @@ public class LogHandler : ILogHandler
             };
 
             var api = (await _apiHelper.GetApiListAsync()).FirstOrDefault(a => a.Path == input.ApiPath);
-
-            var excepton = actionExecutedContext.Exception;
-
-            //操作参数
-            if ((api != null && api.EnabledParams && context.ActionArguments.Count > 0) || excepton != null) 
+            //操作日志启用
+            if ((api != null && api.EnabledLog))
             {
-                input.Params = JsonHelper.Serialize(context.ActionArguments);
-            }
+                var excepton = actionExecutedContext.Exception;
 
-            //操作结果
-            if (api != null && api.EnabledResult && actionExecutedContext.Result != null && actionExecutedContext.Result is JsonResult result)
-            {
-                input.Result = JsonHelper.Serialize(result.Value);
-            }
-
-            if (excepton != null)
-            {
-                input.Status = false;
-
-                var code = "";
-                if(excepton is AppException appException)
+                //操作参数
+                if ((api != null && api.EnabledParams && context.ActionArguments.Count > 0) || excepton != null)
                 {
-                    input.StatusCode = appException.StatusCode;
-                    code = appException.AppCode;
-                }
-                else
-                {
-                    input.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    input.Params = JsonHelper.Serialize(context.ActionArguments);
                 }
 
-                input.Result = JsonHelper.Serialize(new ResultOutput<string>()
+                //操作结果
+                if (api != null && api.EnabledResult && actionExecutedContext.Result != null && actionExecutedContext.Result is JsonResult result)
                 {
-                    Code = code
-                }.NotOk(excepton.Message));
+                    input.Result = JsonHelper.Serialize(result.Value);
+                }
+
+                if (excepton != null)
+                {
+                    input.Status = false;
+
+                    var code = "";
+                    if (excepton is AppException appException)
+                    {
+                        input.StatusCode = appException.StatusCode;
+                        code = appException.AppCode;
+                    }
+                    else
+                    {
+                        input.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    }
+
+                    input.Result = JsonHelper.Serialize(new ResultOutput<string>()
+                    {
+                        Code = code
+                    }.NotOk(excepton.Message));
+                }
+
+
+
+                input.ApiLabel = api?.Label;
+
+                await _operationLogService.AddAsync(input);
             }
-            
-
-
-            input.ApiLabel = api?.Label;
-
-            await _operationLogService.AddAsync(input);
         }
         catch (Exception ex)
         {
