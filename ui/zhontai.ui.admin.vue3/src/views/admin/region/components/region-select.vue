@@ -11,7 +11,7 @@
     v-bind="$attrs"
     ><template #default="{ data }">
       <span>{{ data.name }}</span>
-      <MySvgIcon v-if="data.hot" name="hot" color="#ea322b" size="12" class="ml5"></MySvgIcon>
+	  <my-icon v-if="data.hot" name="hot" color="#ea322b" size="12" class="ml5"></my-icon>
     </template>
   </el-cascader>
 </template>
