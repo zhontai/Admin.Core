@@ -11,7 +11,7 @@ namespace ZhonTai.Admin.Domain.Region;
 [Table(Name = "base_region")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name), true)]
 [Index("idx_{tablename}_02", nameof(ParentId) + "," + nameof(Code), true)]
-public partial class RegionEntity : EntityBase
+public partial class RegionEntity : EntityBase, IChilds<RegionEntity>
 {
     /// <summary>
     /// 上级Id
