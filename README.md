@@ -146,4 +146,4 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 #### 💌 支持作者
 
 如果觉得框架不错，或者已经在使用了，希望你可以去 <a target="_blank" href="https://github.com/zhontai/admin.core">Github</a> 或者
-<a target="_blank" href="https://gitee.com/zhontai/admin.core">Gitee</a> 帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+<a target="_blank" href="https://gitee.com/zhontai/Admin.Core">Gitee</a> 帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
