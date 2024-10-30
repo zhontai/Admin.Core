@@ -146,4 +146,4 @@ Select MyCompanyName.MyProjectName.Host, then right-click and choose Publish fro
 #### 💌 Support the author
 
 If you think the framework is good, or if you are already using it, we hope you can go to <a target="_blank" href="https://github.com/zhontai/admin.core">Github</a> or
-<a target="_blank" href="https://gitee.com/zhontai/admin.core">Gitee</a> Please give me a ⭐ Star, it would be a great encouragement and support to me.
+<a target="_blank" href="https://gitee.com/zhontai/Admin.Core">Gitee</a> Please give me a ⭐ Star, it would be a great encouragement and support to me.
