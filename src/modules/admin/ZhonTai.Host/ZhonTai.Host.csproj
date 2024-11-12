@@ -32,11 +32,11 @@
 		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.2.833" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.833" />
 		-->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.1" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.1" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.833" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
-		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.9" />
 	</ItemGroup>
 
 	<ItemGroup>
