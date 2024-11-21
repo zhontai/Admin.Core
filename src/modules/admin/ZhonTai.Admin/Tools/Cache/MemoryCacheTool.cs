@@ -146,9 +146,9 @@ public partial class MemoryCacheTool : ICacheTool
     {
         var keys = new List<string>();
         const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
-        var coherentState = _memoryCache.GetType().GetField("_coherentState", flags).GetValue(_memoryCache);
+        var coherentState = _memoryCache?.GetType()?.GetField("_coherentState", flags)?.GetValue(_memoryCache);
         if(coherentState == null) return keys;
-        var entries = coherentState.GetType().GetField("_stringEntries", flags).GetValue(coherentState);
+        var entries = coherentState?.GetType()?.GetField("_stringEntries", flags)?.GetValue(coherentState);
         var cacheItems = entries as IDictionary;
         
         if (cacheItems == null) return keys;
