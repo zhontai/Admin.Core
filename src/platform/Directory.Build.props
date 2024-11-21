@@ -17,7 +17,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>ZhonTai AdminApi;WebApi;HttpApi;</PackageTags>
 		<PackageIcon>logo.png</PackageIcon>
-		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;</NoWarn>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;NU1902;NU1903;NU1904;</NoWarn>
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
