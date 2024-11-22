@@ -971,17 +971,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         using var _ = userRep.DataFilter.DisableAll();
         using var __ = userRep.DataFilter.Enable(FilterNames.Tenant);
 
-        var user = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync();
+        var authLoginOutput = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync<AuthLoginOutput>();
 
-        if (user == null)
+        if (authLoginOutput == null)
         {
             throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(authLoginOutput.TenantId).ToOneAsync<AuthLoginTenantDto>();
             authLoginOutput.Tenant = tenant;
         }
 

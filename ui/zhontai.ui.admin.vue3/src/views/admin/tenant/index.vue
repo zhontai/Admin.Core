@@ -81,7 +81,6 @@
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { TenantListOutput, PageInputTenantGetPageDto } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
-import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { Session } from '/@/utils/storage'
@@ -186,7 +185,7 @@ const onOneClickLogin = (row: TenantListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要一键登录【${row.name}】?`)
     .then(async () => {
-      const res = await new UserApi().oneClickLogin({ userName: row.userName || '' }, { loading: true })
+      const res = await new TenantApi().oneClickLogin({ tenantId: row.id }, { loading: true })
       if (res?.success) {
         proxy.$modal.msgSuccess('一键登录成功')
         window.requests = []

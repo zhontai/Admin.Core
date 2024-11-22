@@ -75,6 +75,15 @@ export const PermissionType = {
   Dot: { name: 'Dot', value: 3, desc: '权限点' },
 }
 
+/**  */
+export const MsgStatusEnum = {
+  Draft: { name: 'Draft', value: 1, desc: '草稿' },
+  Published: { name: 'Published', value: 2, desc: '已发布' },
+  Scheduled: { name: 'Scheduled', value: 3, desc: '定时发布' },
+  Revoked: { name: 'Revoked', value: 4, desc: '已撤销' },
+  Archived: { name: 'Archived', value: 5, desc: '已归档' },
+}
+
 /** 文档类型 */
 export const DocumentType = {
   Group: { name: 'Group', value: 1, desc: '分组' },

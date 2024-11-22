@@ -29,6 +29,11 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Resources;
 using Mapster;
+using System.ComponentModel.DataAnnotations;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Services.Auth.Dto;
+using ZhonTai.Admin.Services.Auth;
+using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -759,5 +764,42 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         }
         entity.Enabled = input.Enabled;
         await _tenantRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 一键登录
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<dynamic> OneClickLoginAsync([ValidateRequired] long tenantId)
+    {
+        if (!(tenantId > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请选择租户"]);
+        }
+
+        var userRep = _userRep;
+        using var _ = userRep.DataFilter.DisableAll();
+
+        var authLoginOutput = await userRep.Select
+            .Where(a => a.Tenant.Id == tenantId && a.Tenant.UserId == a.Id)
+            .ToOneAsync(a=> new AuthLoginOutput
+            {
+                Tenant = new AuthLoginTenantDto
+                {
+                    DbKey = a.Tenant.DbKey,
+                    Enabled = a.Tenant.Enabled,
+                    TenantType = a.Tenant.TenantType,
+                }
+            });
+
+        if (authLoginOutput == null)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["超级管理员不存在"]);
+        }
+
+        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+
+        return new { token };
     }
 }
