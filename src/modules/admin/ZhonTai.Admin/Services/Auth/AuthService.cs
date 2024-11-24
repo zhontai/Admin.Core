@@ -56,6 +56,9 @@ namespace ZhonTai.Admin.Services.Auth;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class AuthService : BaseService, IAuthService, IDynamicApi
 {
+    private readonly UserHelper _userHelper;
+    private readonly AdminLocalizer _adminLocalizer;
+    private readonly ILoginLogService _loginLogService;
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
     private readonly Lazy<IUserRepository> _userRep;
@@ -64,11 +67,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<ISlideCaptcha> _captcha;
     private readonly Lazy<ITenantService> _tenantService;
-    private readonly UserHelper _userHelper;
-    private readonly AdminLocalizer _adminLocalizer;
-    private readonly ILoginLogService _loginLogService;
 
     public AuthService(
+        UserHelper userHelper,
+        AdminLocalizer adminLocalizer,
+        ILoginLogService loginLogService,
         Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IOptions<JwtConfig>> jwtConfig,
         Lazy<IUserRepository> userRep,
@@ -76,10 +79,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<IPermissionRepository> permissionRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<ISlideCaptcha> captcha,
-        Lazy<ITenantService> tenantService,
-        UserHelper userHelper,
-        AdminLocalizer adminLocalizer,
-        ILoginLogService loginLogService
+        Lazy<ITenantService> tenantService
     )
     {
         _appConfig = appConfig;

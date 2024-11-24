@@ -16,6 +16,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Core.Db;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -27,16 +28,18 @@ namespace ZhonTai.Admin.Services.Api;
 public class ApiService : BaseService, IApiService, IDynamicApi
 {
     private readonly AdminRepositoryBase<ApiEntity> _apiRep;
-    private readonly Lazy<AppConfig> _appConfig;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly Lazy<IOptions<AppConfig>> _appConfig;
 
-    public ApiService(AdminRepositoryBase<ApiEntity> apiRep, 
-        Lazy<AppConfig> appConfig,
-        AdminLocalizer adminLocalizer)
+    public ApiService(
+        AdminRepositoryBase<ApiEntity> apiRep, 
+        AdminLocalizer adminLocalizer,
+        Lazy<IOptions<AppConfig>> appConfig
+    )
     {
         _apiRep = apiRep;
-        _appConfig = appConfig;
         _adminLocalizer = adminLocalizer;
+        _appConfig = appConfig;
     }
 
     private async Task ClearCacheAsync()
@@ -406,7 +409,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     [NoOperationLog]
     public List<ProjectConfig> GetProjects(string suffix = "/swagger")
     {
-        var routePrefix = _appConfig.Value.ApiUI?.RoutePrefix;
+        var routePrefix = _appConfig.Value.Value.ApiUI?.RoutePrefix;
         if (routePrefix.IsNull())
         {
             if (routePrefix.EndsWith(suffix))

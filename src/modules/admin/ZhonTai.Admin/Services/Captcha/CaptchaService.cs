@@ -1,20 +1,20 @@
-﻿using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Consts;
-using Lazy.SlideCaptcha.Core;
-using Lazy.SlideCaptcha.Core.Validator;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using DotNetCore.CAP;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Captcha;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
-using static Lazy.SlideCaptcha.Core.ValidateResult;
-using System.Threading.Tasks;
-using System;
-using ZhonTai.Common.Helpers;
-using DotNetCore.CAP;
 using ZhonTai.Admin.Services.Captcha.Dto;
 using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Common.Helpers;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
+using Lazy.SlideCaptcha.Core;
+using Lazy.SlideCaptcha.Core.Validator;
+using static Lazy.SlideCaptcha.Core.ValidateResult;
 
 namespace ZhonTai.Admin.Services.Cache;
 

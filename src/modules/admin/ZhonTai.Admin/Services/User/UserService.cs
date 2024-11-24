@@ -39,7 +39,7 @@ using ZhonTai.Admin.Domain.TenantPkg;
 using FreeSql;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
-using ZhonTai.Admin.Core.Handlers;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -50,12 +50,13 @@ namespace ZhonTai.Admin.Services.User;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
+    private readonly AppConfig _appConfig;
+    private readonly UserHelper _userHelper;
+    private readonly AdminLocalizer _adminLocalizer;
     private readonly IUserRepository _userRep;
     private readonly IUserOrgRepository _userOrgRep;
     private readonly IUserRoleRepository _userRoleRep;
     private readonly IUserStaffRepository _userStaffRep;
-    private readonly AppConfig _appConfig;
-    private readonly UserHelper _userHelper;
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<IRoleRepository> _roleRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
@@ -65,15 +66,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
     private readonly Lazy<IPermissionRepository> _permissionRep;
-    private readonly AdminLocalizer _adminLocalizer;
+   
 
     public UserService(
+        IOptions<AppConfig> appConfig,
+        UserHelper userHelper,
+        AdminLocalizer adminLocalizer,
         IUserRepository userRep,
         IUserOrgRepository userOrgRep,
         IUserRoleRepository userRoleRep,
         IUserStaffRepository userStaffRep,
-        AppConfig appConfig,
-        UserHelper userHelper,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<IRoleRepository> roleRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
@@ -82,26 +84,25 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IOrgRepository> orgRep,
-        Lazy<IPermissionRepository> permissionRep,
-        AdminLocalizer adminLocalizer
+        Lazy<IPermissionRepository> permissionRep
     )
     {
-        _appConfig = appConfig;
+        _appConfig = appConfig.Value;
         _userHelper = userHelper;
+        _adminLocalizer = adminLocalizer;
+        _userRep = userRep;
+        _userOrgRep = userOrgRep;
+        _userRoleRep = userRoleRep;
+        _userStaffRep = userStaffRep;
         _passwordHasher = passwordHasher;
         _roleRep = roleRep;
         _rolePermissionRep = rolePermissionRep;
         _fileService = fileService;
-        _userRep = userRep;
-        _userOrgRep = userOrgRep;
         _roleOrgRep = roleOrgRep;
-        _userRoleRep = userRoleRep;
-        _userStaffRep = userStaffRep;
         _apiRep = apiRep;
         _tenantRep = tenantRep;
         _orgRep = orgRep;
         _permissionRep = permissionRep;
-        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>

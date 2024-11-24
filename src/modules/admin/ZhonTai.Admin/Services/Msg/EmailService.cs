@@ -1,9 +1,9 @@
-﻿using DotNetCore.CAP;
-using MailKit.Net.Smtp;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using DotNetCore.CAP;
 using MimeKit;
-using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Services.Msg.Events;
@@ -12,11 +12,11 @@ namespace ZhonTai.Admin.Services.Msg;
 
 public class EmailService: ICapSubscribe
 {
-    private readonly IOptions<EmailConfig> _emailConfig;
+    private readonly EmailConfig _emailConfig;
 
     public EmailService(IOptions<EmailConfig> emailConfig)
     {
-        _emailConfig = emailConfig;
+        _emailConfig = emailConfig.Value;
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class EmailService: ICapSubscribe
     [CapSubscribe(SubscribeNames.EmailSingleSend)]
     public async Task SingleSendAsync(EmailSingleSendEvent @event)
     {
-        var emailConfig = _emailConfig.Value;
+        var emailConfig = _emailConfig;
 
         var builder = new BodyBuilder()
         {

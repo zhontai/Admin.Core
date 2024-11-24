@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Mapster;
+using FreeScheduler;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Validators;
@@ -12,7 +13,6 @@ using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using FreeScheduler;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
