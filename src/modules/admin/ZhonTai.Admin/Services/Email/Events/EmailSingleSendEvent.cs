@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ZhonTai.Admin.Services.Msg.Events;
+namespace ZhonTai.Admin.Services.Email.Events;
 
 /// <summary>
 /// 邮件单发

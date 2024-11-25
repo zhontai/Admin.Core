@@ -8,7 +8,7 @@ using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Captcha.Dto;
-using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.Email.Events;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;

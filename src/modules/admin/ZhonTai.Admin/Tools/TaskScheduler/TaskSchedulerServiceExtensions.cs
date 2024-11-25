@@ -14,8 +14,8 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain;
-using ZhonTai.Admin.Services.Msg;
-using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.Email;
+using ZhonTai.Admin.Services.Email.Events;
 using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
 

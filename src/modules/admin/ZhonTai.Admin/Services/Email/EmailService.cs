@@ -6,9 +6,9 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.Email.Events;
 
-namespace ZhonTai.Admin.Services.Msg;
+namespace ZhonTai.Admin.Services.Email;
 
 public class EmailService: ICapSubscribe
 {
