@@ -18,6 +18,10 @@ import '@wangeditor/editor/dist/css/style.css'
 import { reactive, shallowRef, watch, onBeforeUnmount } from 'vue'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
+import { FileApi } from '/@/api/admin/File'
+
+type InsertFnType = (url: string, alt: string, href: string) => void
+type InsertVideoFnType = (url: string, poster: string) => void
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -56,6 +60,41 @@ const editorRef = shallowRef()
 const state = reactive({
   editorConfig: {
     placeholder: props.placeholder,
+    MENU_CONF: {
+      uploadImage: {
+        fieldName: 'file',
+        customUpload(file: File, insertFn: InsertFnType) {
+          new FileApi().uploadFile({ file: file }).then((res) => {
+            if (res?.success) {
+              const url = res.data?.linkUrl as string
+              insertFn(url, res.data?.fileName as string, url)
+            }
+          })
+        },
+      },
+      insertImage: {
+        checkImage(src: string, alt: string, href: string): boolean | string | undefined {
+          if (!src) {
+            return
+          }
+          if (src.indexOf('http') !== 0) {
+            return '图片网址必须以 http/https 开头'
+          }
+          return true
+        },
+      },
+      uploadVideo: {
+        fieldName: 'file',
+        customUpload(file: File, insertFn: InsertVideoFnType) {
+          new FileApi().uploadFile({ file: file }).then((res) => {
+            if (res?.success) {
+              const url = res.data?.linkUrl as string
+              insertFn(url, '')
+            }
+          })
+        },
+      },
+    },
   },
   editorVal: props.getHtml,
 })
