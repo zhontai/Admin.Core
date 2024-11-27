@@ -137,7 +137,14 @@ const getApis = async () => {
 }
 
 // 打开对话框
-const open = async (row: any = {}) => {
+const open = async (
+  row: PermissionUpdateDotInput = {
+    id: 0,
+    enabled: true,
+    parentId: undefined,
+  },
+  isCopy = false
+) => {
   proxy.$modal.loading()
 
   await getApis()
@@ -154,10 +161,11 @@ const open = async (row: any = {}) => {
     if (res?.success) {
       let formData = res.data as PermissionUpdateDotInput
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+      if (isCopy) formData.id = 0
       state.form = formData
     }
   } else {
-    state.form = { enabled: true, parentId: row.parentId } as PermissionUpdateDotInput
+    state.form = row
   }
 
   proxy.$modal.closeLoading()

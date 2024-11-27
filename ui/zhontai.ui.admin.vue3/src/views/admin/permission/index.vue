@@ -92,13 +92,16 @@
                   <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addgroup')" @click="onAdd({ type: 1, parentId: row.id })">
                     新增分组
                   </el-dropdown-item>
-                  <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addgroup')" @click="onAdd({ type: 2, parentId: row.id })">
+                  <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addmenu')" @click="onAdd({ type: 2, parentId: row.id })">
                     新增菜单
                   </el-dropdown-item>
-                  <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:addmenu')" @click="onAdd({ type: 3, parentId: row.id })">
+                  <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:adddot')" @click="onAdd({ type: 3, parentId: row.id })">
                     新增权限点
                   </el-dropdown-item>
                   <el-dropdown-item v-if="auth('api:admin:permission:delete')" @click="onDelete(row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="row.type === 1 && auth('api:admin:permission:addgroup')" @click="onCopy(row)"> 复制 </el-dropdown-item>
+                  <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:addmenu')" @click="onCopy(row)"> 复制 </el-dropdown-item>
+                  <el-dropdown-item v-if="row.type === 3 && auth('api:admin:permission:adddot')" @click="onCopy(row)"> 复制 </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -226,6 +229,23 @@ const onEdit = (row: PermissionListOutput) => {
     case 3:
       state.permissionFormTitle = '编辑权限点'
       permissionDotFormRef.value.open(row)
+      break
+  }
+}
+
+const onCopy = (row: PermissionListOutput) => {
+  switch (row.type) {
+    case 1:
+      state.permissionFormTitle = '新增分组'
+      permissionGroupFormRef.value.open(row, true)
+      break
+    case 2:
+      state.permissionFormTitle = '新增菜单'
+      permissionMenuFormRef.value.open(row, true)
+      break
+    case 3:
+      state.permissionFormTitle = '新增权限点'
+      permissionDotFormRef.value.open(row, true)
       break
   }
 }
