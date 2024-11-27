@@ -14,7 +14,12 @@
           <el-input v-model="state.filter.ip" placeholder="登录IP" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item label="登录时间">
-          <MyDateRange v-model:startDate="state.filter.addStartTime" v-model:endDate="state.filter.addEndTime" :shortcuts="[]" style="width: 230px" />
+          <MyDateRange
+            v-model:startDate="state.filter.addStartTime as string"
+            v-model:endDate="state.filter.addEndTime as string"
+            :shortcuts="[]"
+            style="width: 230px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>

@@ -36,9 +36,7 @@
           <template #default="{ row }">
             <el-button v-auth="'api:admin:view:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
             <el-button v-auth="'api:admin:view:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
-            <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">
-              复制
-            </el-button>
+            <el-button v-auth="'api:admin:view:add'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">复制</el-button>
           </template>
         </el-table-column>
       </el-table>
