@@ -260,6 +260,63 @@ public class CustomSyncData : SyncData, ISyncData
     }
 
     /// <summary>
+    /// 权限接口记录
+    /// </summary>
+    /// <param name="PermissionId"></param>
+    /// <param name="ApiId"></param>
+    record PermissionApiRecord(long PermissionId, long ApiId);
+
+    /// <summary>
+    /// 初始化权限接口
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="unitOfWork"></param>
+    /// <param name="dbConfig"></param>
+    /// <returns></returns>
+    private async Task InitPermissionApiAsync(IFreeSql db, IRepositoryUnitOfWork unitOfWork, DbConfig dbConfig)
+    {
+        var tableName = GetTableName<PermissionApiEntity>();
+        try
+        {
+            if (!IsSyncData(tableName, dbConfig))
+            {
+                return;
+            }
+
+            var rep = db.GetRepository<PermissionApiEntity>();
+            rep.UnitOfWork = unitOfWork;
+
+            //数据列表
+            var sourceDataList = GetData<PermissionApiEntity>(path: dbConfig.SyncDataPath);
+
+            if (!(sourceDataList?.Length > 0))
+            {
+                Console.WriteLine($"table: {tableName} import data []");
+                return;
+            }
+
+            //查询
+            var dataRecordList = sourceDataList.Adapt<List<PermissionApiRecord>>();
+            var dataList = await rep.Where(a => rep.Orm.Select<PermissionApiRecord>().WithMemory(dataRecordList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
+
+            //新增
+            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any())).ToList();
+            if (insertDataList.Any())
+            {
+                await rep.InsertAsync(insertDataList);
+            }
+
+            Console.WriteLine($"table: {tableName} sync data succeed");
+        }
+        catch (Exception ex)
+        {
+            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
+            Console.WriteLine(msg);
+            throw new Exception(msg);
+        }
+    }
+
+    /// <summary>
     /// 同步数据
     /// </summary>
     /// <param name="db"></param>
@@ -285,11 +342,11 @@ public class CustomSyncData : SyncData, ISyncData
             await SyncEntityAsync<ApiEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true);
             await SyncEntityAsync<ViewEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true);
             await SyncEntityAsync<PermissionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true);
-            await SyncEntityAsync<PermissionApiEntity>(db, unitOfWork, dbConfig, appConfig);
+            await SyncEntityAsync<TenantEntity>(db, unitOfWork, dbConfig, appConfig);
             await InitUserRoleAsync(db, unitOfWork, dbConfig);
             await InitUserOrgAsync(db, unitOfWork, dbConfig);
+            await InitPermissionApiAsync(db, unitOfWork, dbConfig);
             await InitRolePermissionAsync(db, unitOfWork, dbConfig);
-            await SyncEntityAsync<TenantEntity>(db, unitOfWork, dbConfig, appConfig);
             await InitTenantPermissionAsync(db, unitOfWork, dbConfig);
 
             unitOfWork.Commit();
