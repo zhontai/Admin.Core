@@ -24,20 +24,21 @@
 </template>
 
 <script lang="ts" setup name="admin/org/menu">
-import { onMounted, reactive, ref, watch, nextTick } from 'vue'
+import { onMounted, reactive, ref, watch, nextTick, PropType } from 'vue'
 import { OrgListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
 import { ElTree } from 'element-plus'
 
-interface Props {
-  modelValue: number[] | null | undefined
-  selectFirstNode: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  modelValue: () => [],
-  selectFirstNode: false,
+const props = defineProps({
+  modelValue: {
+    type: Array as PropType<number[] | undefined | null>,
+    default: () => [],
+  },
+  selectFirstNode: {
+    type: Boolean,
+    default: () => false,
+  },
 })
 
 const orgMenuRef = ref<InstanceType<typeof ElTree>>()
