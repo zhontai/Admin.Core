@@ -8,6 +8,7 @@
       v-model="state.editorVal"
       @onCreated="handleCreated"
       @onChange="handleChange"
+      @onBlur="onBlur"
     />
   </div>
 </template>
@@ -15,7 +16,7 @@
 <script setup lang="ts" name="wngEditor">
 // https://www.wangeditor.com/v5/for-frame.html#vue3
 import '@wangeditor/editor/dist/css/style.css'
-import { reactive, shallowRef, watch, onBeforeUnmount } from 'vue'
+import { reactive, shallowRef, watch, onBeforeUnmount, PropType } from 'vue'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import { FileApi } from '/@/api/admin/File'
@@ -47,13 +48,13 @@ const props = defineProps({
     default: () => '310px',
   },
   // 双向绑定，用于获取 editor.getHtml()
-  modelValue: String,
+  modelValue: String as PropType<string | undefined | null>,
   // 双向绑定，用于获取 editor.getText()
-  getText: String,
+  getText: String as PropType<string | undefined | null>,
 })
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['update:modelValue', 'update:getText'])
+const emit = defineEmits(['update:modelValue', 'update:getText', 'onBlur', 'onChange'])
 
 // 定义变量内容
 const editorRef = shallowRef()
@@ -99,6 +100,10 @@ const state = reactive({
   editorVal: props.modelValue,
 })
 
+const onBlur = () => {
+  emit('onBlur')
+}
+
 // 编辑器回调函数
 const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor
@@ -129,11 +134,20 @@ watch(
 // 监听双向绑定值改变，用于回显
 watch(
   () => props.modelValue,
-  (val) => {
+  (val, oVal) => {
+    if (oVal) emit('onChange')
     state.editorVal = val
   },
   {
     deep: true,
   }
 )
+
+const isEmpty = () => {
+  return editorRef.value.isEmpty()
+}
+
+defineExpose({
+  isEmpty,
+})
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <my-layout>
+  <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
         <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
@@ -114,7 +114,7 @@
     ></user-select>
     <set-role-menu ref="setRoleMenuRef"></set-role-menu>
     <set-role-data-scope ref="setRoleDataScopeRef"></set-role-data-scope>
-  </my-layout>
+  </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/role">
@@ -134,7 +134,7 @@ const SetRoleMenu = defineAsyncComponent(() => import('./components/set-role-men
 const SetRoleDataScope = defineAsyncComponent(() => import('./components/set-role-data-scope.vue'))
 const UserSelect = defineAsyncComponent(() => import('/@/views/admin/user/components/user-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

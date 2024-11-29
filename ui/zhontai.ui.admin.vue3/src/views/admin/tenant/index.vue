@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="企业名称">
@@ -74,7 +74,7 @@
     </el-card>
 
     <tenant-form ref="tenantFormRef" :title="state.tenantFormTitle"></tenant-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/tenant">

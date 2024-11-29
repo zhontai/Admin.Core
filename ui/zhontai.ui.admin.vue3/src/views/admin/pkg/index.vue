@@ -1,5 +1,5 @@
 <template>
-  <my-layout>
+  <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
         <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
@@ -113,7 +113,7 @@
       @sure="onSureTenant"
     ></tenant-select>
     <set-pkg-menu ref="setPkgMenuRef"></set-pkg-menu>
-  </my-layout>
+  </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/pkg">
@@ -136,7 +136,7 @@ const PkgForm = defineAsyncComponent(() => import('./components/pkg-form.vue'))
 const SetPkgMenu = defineAsyncComponent(() => import('./components/set-pkg-menu.vue'))
 const TenantSelect = defineAsyncComponent(() => import('/@/views/admin/tenant/components/tenant-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

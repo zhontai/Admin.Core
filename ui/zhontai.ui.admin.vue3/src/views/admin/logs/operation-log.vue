@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
         <el-form-item label="操作账号" prop="createdUserName">
@@ -66,7 +66,7 @@
     </el-card>
 
     <Details ref="detailsRef"></Details>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/operation-log">

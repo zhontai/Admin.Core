@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="视图名称">
@@ -43,7 +43,7 @@
     </el-card>
 
     <view-form ref="viewFormRef" :title="state.viewFormTitle" :view-tree-data="state.viewTreeData"></view-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/view">

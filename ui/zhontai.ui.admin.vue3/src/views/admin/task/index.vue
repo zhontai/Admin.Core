@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <div class="mt8" style="position: relative">
       <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
@@ -139,7 +139,7 @@
 
     <task-logs ref="taskLogsRef" :title="state.taskLogsTitle"></task-logs>
     <task-form ref="taskFormRef" :title="state.taskFormTitle"></task-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/task">

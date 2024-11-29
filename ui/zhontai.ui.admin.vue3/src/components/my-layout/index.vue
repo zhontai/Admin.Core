@@ -1,16 +1,12 @@
 <template>
   <div class="my-layout h100" :style="`position: ${state.isMobile ? 'relative' : 'absolute'}`">
-    <splitpanes :horizontal="state.isMobile" class="default-theme">
-      <slot></slot>
-    </splitpanes>
+    <slot></slot>
   </div>
 </template>
 
 <script lang="ts" setup name="my-layout">
 import { reactive, onBeforeMount } from 'vue'
 import mittBus from '/@/utils/mitt'
-import { Splitpanes } from 'splitpanes'
-import 'splitpanes/dist/splitpanes.css'
 
 const state = reactive({
   isMobile: document.body.clientWidth < 1000,
@@ -25,17 +21,3 @@ onBeforeMount(() => {
   })
 })
 </script>
-
-<style scoped lang="scss">
-:deep(.splitpanes.default-theme .splitpanes__splitter) {
-  background-color: transparent;
-  border-left-color: transparent;
-}
-:deep(.splitpanes.default-theme .splitpanes__pane) {
-  background-color: transparent;
-}
-
-:deep(.splitpanes__pane) {
-  transition: none;
-}
-</style>

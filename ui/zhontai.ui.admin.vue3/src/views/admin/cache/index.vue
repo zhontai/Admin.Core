@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.cacheListData" row-key="id" style="width: 100%">
         <el-table-column type="index" width="80" label="#" />
@@ -13,7 +13,7 @@
         </el-table-column>
       </el-table>
     </el-card>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/cache">

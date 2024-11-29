@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <MyLayout>
     <el-card v-show="state.showQuery" class="query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="部门名称">
@@ -74,7 +74,7 @@
     </el-card>
 
     <org-form ref="orgFormRef" :title="state.orgFormTitle"></org-form>
-  </div>
+  </MyLayout>
 </template>
 
 <script lang="ts" setup name="admin/org">
@@ -84,6 +84,7 @@ import { OrgApi } from '/@/api/admin/Org'
 import { listToTree, filterList } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import mittBus from '/@/utils/mitt'
 
 // 引入组件
 const OrgForm = defineAsyncComponent(() => import('./components/org-form.vue'))
@@ -103,6 +104,7 @@ const state = reactive({
   data: [] as Array<OrgListOutput>,
   showQuery: true,
   showOrgList: true,
+  isMobile: document.body.clientWidth < 1000,
 })
 
 onMounted(() => {
@@ -115,6 +117,11 @@ onMounted(() => {
 
 onBeforeMount(() => {
   eventBus.off('refreshOrg')
+
+  mittBus.on('layoutMobileResize', (res: LayoutMobileResize) => {
+    // 判断是否是手机端
+    state.isMobile = res.clientWidth < 1000
+  })
 })
 
 const onChangeOrgList = () => {

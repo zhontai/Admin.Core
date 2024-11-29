@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="权限名称">
@@ -127,7 +127,7 @@
       :title="state.permissionFormTitle"
       :permission-tree-data="state.formPermissionMenuTreeData"
     ></permission-dot-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/permission">

@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
@@ -89,7 +89,7 @@
     </el-card>
 
     <file-upload ref="fileUploadRef" title="上传文件"></file-upload>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/file">

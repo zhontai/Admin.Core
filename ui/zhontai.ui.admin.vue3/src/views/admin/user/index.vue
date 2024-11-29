@@ -1,5 +1,5 @@
 <template>
-  <my-layout>
+  <MySplitPanes>
     <pane size="20" min-size="20" max-size="35">
       <div class="my-flex-column w100 h100">
         <org-menu @node-click="onOrgNodeClick" select-first-node></org-menu>
@@ -98,7 +98,7 @@
         <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
       </div>
     </pane>
-  </my-layout>
+  </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/user">
@@ -117,7 +117,7 @@ const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 const MySelectInput = defineAsyncComponent(() => import('/@/components/my-select-input/index.vue'))
-const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any

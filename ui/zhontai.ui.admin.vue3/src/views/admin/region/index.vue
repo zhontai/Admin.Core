@@ -1,5 +1,5 @@
 <template>
-  <div class="my-layout">
+  <my-layout>
     <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
         <el-form-item label="">
@@ -122,7 +122,7 @@
     </el-card>
 
     <RegionForm ref="formRef" :title="state.formTitle"></RegionForm>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/region">
