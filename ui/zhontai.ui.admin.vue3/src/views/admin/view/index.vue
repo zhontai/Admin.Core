@@ -1,6 +1,6 @@
 <template>
   <my-layout>
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="视图名称">
           <el-input v-model="state.filter.name" placeholder="视图名称" @keyup.enter="onQuery" />
@@ -20,6 +20,7 @@
         row-key="id"
         default-expand-all
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        border
       >
         <el-table-column prop="label" label="视图名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="name" label="视图命名" min-width="120" show-overflow-tooltip />

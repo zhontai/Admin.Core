@@ -1,6 +1,6 @@
 <template>
   <my-layout>
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="权限名称">
           <el-input v-model="state.filter.name" placeholder="权限名称" @keyup.enter="onQuery" />
@@ -34,6 +34,7 @@
         row-key="id"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         :expand-row-keys="state.expandRowKeys"
+        border
       >
         <el-table-column prop="label" label="权限名称" width="240" show-overflow-tooltip>
           <template #default="{ row }">

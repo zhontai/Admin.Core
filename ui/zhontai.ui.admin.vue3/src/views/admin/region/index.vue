@@ -1,6 +1,6 @@
 <template>
   <my-layout>
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
         <el-form-item label="">
           <RegionSelect v-model:parentId="state.filter.parentId" placeholder="上级地区" />
@@ -55,7 +55,7 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.dataList" default-expand-all highlight-current-row style="width: 100%">
+      <el-table v-loading="state.loading" :data="state.dataList" default-expand-all highlight-current-row style="width: 100%" border>
         <el-table-column prop="name" label="地区名" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="代码" min-width="120" show-overflow-tooltip />
         <el-table-column prop="level" label="类型" min-width="140" show-overflow-tooltip :formatter="formatterEnum" />
@@ -106,7 +106,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"

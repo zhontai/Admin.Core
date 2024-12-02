@@ -3,7 +3,7 @@
     <template #header>
       <el-input v-model="state.filterText" placeholder="筛选部门" clearable />
     </template>
-    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:var(--el-card-padding)">
+    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
       <el-tree
         ref="orgMenuRef"
         :data="state.orgTreeData"

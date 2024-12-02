@@ -1,7 +1,7 @@
 <template>
   <MyLayout>
-    <el-card v-show="state.showQuery" class="query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-      <el-form :inline="true" @submit.stop.prevent>
+    <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+      <el-form :inline="true" label-width="auto" @submit.stop.prevent>
         <el-form-item label="部门名称">
           <el-input v-model="state.filter.name" placeholder="部门名称" @keyup.enter="onQuery" />
         </el-form-item>
@@ -12,7 +12,7 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <div class="tools-box mb8 my-flex my-flex-between">
+      <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-button v-show="state.showOrgList" v-auth="'api:admin:org:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
         </div>
@@ -181,28 +181,4 @@ const onDelete = (row: OrgListOutput) => {
 }
 </script>
 
-<style scoped lang="scss">
-:deep() {
-  --el-table-header-bg-color: var(--el-fill-color);
-  --el-table-header-text-color: var(--el-text-color-primary);
-
-  .el-table th.el-table__cell {
-    font-weight: 500;
-  }
-
-  .el-card__body {
-    padding: 10px;
-  }
-  .query-box {
-    .el-form-item {
-      margin-bottom: 10px !important;
-    }
-    .el-form {
-      .el-form-item--default.el-form-item:last-of-type,
-      .el-form-item--small.el-form-item:last-of-type {
-        margin-bottom: 10px !important;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

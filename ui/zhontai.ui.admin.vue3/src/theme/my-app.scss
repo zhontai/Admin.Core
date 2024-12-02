@@ -24,3 +24,14 @@
     flex: 1;
   }
 }
+.my-query-box {
+  .el-form-item {
+    margin-bottom: 10px !important;
+  }
+  .el-form.el-form--inline {
+    .el-form-item--default.el-form-item:last-of-type,
+    .el-form-item--small.el-form-item:last-of-type {
+      margin-bottom: 10px !important;
+    }
+  }
+}

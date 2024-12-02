@@ -2,7 +2,7 @@
   <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="角色名称">
               <el-input v-model="state.filter.roleName" placeholder="角色名称" @keyup.enter="onQuery" />
@@ -34,6 +34,7 @@
             :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
             highlight-current-row
             style="width: 100%"
+            border
             @current-change="onCurrentChange"
           >
             <el-table-column prop="name" label="角色名称" min-width="120" show-overflow-tooltip />
@@ -73,7 +74,7 @@
     </pane>
     <pane>
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="姓名">
               <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onGetRoleUserList" />
@@ -93,6 +94,7 @@
             :data="state.userListData"
             row-key="id"
             style="width: 100%"
+            border
             @row-click="onUserRowClick"
           >
             <el-table-column type="selection" width="55" />

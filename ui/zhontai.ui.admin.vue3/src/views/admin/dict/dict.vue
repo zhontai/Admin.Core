@@ -1,6 +1,6 @@
 <template>
   <div class="my-flex-column w100 h100">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
           <el-input v-model="state.filterModel.name" placeholder="名称或编码" @keyup.enter="onQuery" />
@@ -24,6 +24,7 @@
         style="width: 100%"
         :default-sort="state.defalutSort"
         @sort-change="onSortChange"
+        border
       >
         <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
@@ -42,7 +43,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"

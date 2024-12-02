@@ -7,27 +7,21 @@
     </pane>
     <pane size="80">
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-          <el-form @submit.stop.prevent style="max-width: 640px">
-            <el-row :gutter="35">
-              <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                <el-form-item>
-                  <my-select-input v-model="state.pageInput.dynamicFilter" :filters="state.filters" @search="onQuery" />
-                </el-form-item>
-              </el-col>
-              <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-                <el-form-item>
-                  <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-                  <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
-                  <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-                </el-form-item>
-              </el-col>
-            </el-row>
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+          <el-form :inline="true" label-width="auto" @submit.stop.prevent>
+            <el-form-item>
+              <my-select-input v-model="state.pageInput.dynamicFilter" :filters="state.filters" @search="onQuery" />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+              <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
+              <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+            </el-form-item>
           </el-form>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
-          <el-table v-loading="state.loading" :data="state.userListData" row-key="id" style="width: 100%">
+          <el-table v-loading="state.loading" :data="state.userListData" row-key="id">
             <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip />
             <el-table-column prop="name" label="姓名" width="120" show-overflow-tooltip>
               <template #default="{ row }"> {{ row.name }} <el-tag v-if="row.isManager" type="success">主管</el-tag> </template>
@@ -78,7 +72,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="my-flex my-flex-end" style="margin-top: 20px">
+          <div class="my-flex my-flex-end" style="margin-top: 10px">
             <el-pagination
               v-model:currentPage="state.pageInput.currentPage"
               v-model:page-size="state.pageInput.pageSize"

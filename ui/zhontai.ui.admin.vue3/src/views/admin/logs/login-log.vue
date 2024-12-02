@@ -1,6 +1,6 @@
 <template>
   <my-layout>
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
         <el-form-item label="登录账号" prop="createdUserName">
           <el-input v-model="state.filter.createdUserName" placeholder="登录账号" @keyup.enter="onQuery" />
@@ -29,7 +29,7 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.loginLogListData" row-key="id" style="width: 100%">
+      <el-table v-loading="state.loading" :data="state.loginLogListData" row-key="id" style="width: 100%" border>
         <el-table-column prop="createdUserName" label="登录账号" min-width="150" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.status ? 'success' : 'danger'" is-dot :offset="[0, 12]"></el-badge>
@@ -48,7 +48,7 @@
         <el-table-column prop="msg" label="登录信息" min-width="150" show-overflow-tooltip />
         <el-table-column prop="createdTime" label="登录时间" :formatter="formatterTime" min-width="160" />
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
