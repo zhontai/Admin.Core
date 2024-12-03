@@ -75,7 +75,7 @@ export const PermissionType = {
   Dot: { name: 'Dot', value: 3, desc: '权限点' },
 }
 
-/**  */
+/** 消息状态 */
 export const MsgStatusEnum = {
   Draft: { name: 'Draft', value: 1, desc: '草稿' },
   Published: { name: 'Published', value: 2, desc: '已发布' },

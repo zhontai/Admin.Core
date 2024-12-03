@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Domain.Msg;
 
+/// <summary>
+/// 消息状态
+/// </summary>
 public enum MsgStatusEnum
 {
     /// <summary>

@@ -1252,6 +1252,213 @@ export interface LoginLogGetPageOutput {
   createdTime?: string | null
 }
 
+/** 添加 */
+export interface MsgAddInput {
+  /** 标题 */
+  title?: string | null
+  /** 内容 */
+  content?: string | null
+  /**
+   * 类型Id
+   * @format int64
+   */
+  typeId?: number
+  /** 类型名称 */
+  typeName?: string | null
+}
+
+/** 添加消息用户列表 */
+export interface MsgAddMsgUserListInput {
+  /**
+   * 消息
+   * @format int64
+   */
+  msgId: number
+  /** 用户 */
+  userIds?: number[] | null
+}
+
+export interface MsgGetMsgUserListOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 姓名 */
+  name?: string | null
+  /** 手机号 */
+  mobile?: string | null
+  /** 邮箱 */
+  email?: string | null
+}
+
+export interface MsgGetOutput {
+  /** 标题 */
+  title?: string | null
+  /** 内容 */
+  content?: string | null
+  /**
+   * 类型Id
+   * @format int64
+   */
+  typeId?: number
+  /** 类型名称 */
+  typeName?: string | null
+  /**
+   * 消息Id
+   * @format int64
+   */
+  id: number
+}
+
+export interface MsgGetPageInput {
+  /** 标题 */
+  title?: string | null
+}
+
+export interface MsgGetPageOutput {
+  /**
+   * 消息Id
+   * @format int64
+   */
+  id?: number
+  /** 标题 */
+  title?: string | null
+  /**
+   * 类型Id
+   * @format int64
+   */
+  typeId?: number
+  /** 类型名称 */
+  typeName?: string | null
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createdTime?: string | null
+}
+
+/** 添加 */
+export interface MsgTypeAddInput {
+  /**
+   * 父级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /** 说明 */
+  description?: string | null
+}
+
+export interface MsgTypeGetListOutput {
+  /**
+   * 主键
+   * @format int64
+   */
+  id?: number
+  /**
+   * 父级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /** 描述 */
+  description?: string | null
+}
+
+export interface MsgTypeGetOutput {
+  /**
+   * 父级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /** 说明 */
+  description?: string | null
+  /**
+   * 消息分类Id
+   * @format int64
+   */
+  id: number
+}
+
+/** 修改 */
+export interface MsgTypeUpdateInput {
+  /**
+   * 父级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /** 说明 */
+  description?: string | null
+  /**
+   * 消息分类Id
+   * @format int64
+   */
+  id: number
+}
+
+/** 修改 */
+export interface MsgUpdateInput {
+  /** 标题 */
+  title?: string | null
+  /** 内容 */
+  content?: string | null
+  /**
+   * 类型Id
+   * @format int64
+   */
+  typeId?: number
+  /** 类型名称 */
+  typeName?: string | null
+  /**
+   * 消息Id
+   * @format int64
+   */
+  id: number
+}
+
 /**
  * Invalid=0,Minio=1,Aliyun=2,QCloud=3,Qiniu=4,HuaweiCloud=5,BaiduCloud=6,Ctyun=7
  * @format int32
@@ -1680,6 +1887,24 @@ export interface PageInputLoginLogGetPageInput {
 }
 
 /** 分页信息输入 */
+export interface PageInputMsgGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  filter?: MsgGetPageInput
+}
+
+/** 分页信息输入 */
 export interface PageInputOperationLogGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
@@ -1895,6 +2120,17 @@ export interface PageOutputLoginLogGetPageOutput {
   total?: number
   /** 数据 */
   list?: LoginLogGetPageOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputMsgGetPageOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: MsgGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -3254,6 +3490,30 @@ export interface ResultOutputListInt64 {
 }
 
 /** 结果输出 */
+export interface ResultOutputListMsgGetMsgUserListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: MsgGetMsgUserListOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListMsgTypeGetListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: MsgTypeGetListOutput[] | null
+}
+
+/** 结果输出 */
 export interface ResultOutputListObject {
   /** 是否成功标记 */
   success?: boolean
@@ -3386,6 +3646,28 @@ export interface ResultOutputListViewListOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputMsgGetOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  data?: MsgGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputMsgTypeGetOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  data?: MsgTypeGetOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputObject {
   /** 是否成功标记 */
   success?: boolean
@@ -3466,6 +3748,18 @@ export interface ResultOutputPageOutputLoginLogGetPageOutput {
   msg?: string | null
   /** 分页信息输出 */
   data?: PageOutputLoginLogGetPageOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputPageOutputMsgGetPageOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputMsgGetPageOutput
 }
 
 /** 结果输出 */
@@ -5123,7 +5417,7 @@ export interface ViewAddInput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
   /** 启用 */
   enabled?: boolean
 }
@@ -5222,7 +5516,7 @@ export interface ViewGetOutput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
   /** 启用 */
   enabled?: boolean
   /**
@@ -5300,7 +5594,7 @@ export interface ViewUpdateInput {
    * 排序
    * @format int32
    */
-  sort?: number
+  sort?: number | null
   /** 启用 */
   enabled?: boolean
   /**

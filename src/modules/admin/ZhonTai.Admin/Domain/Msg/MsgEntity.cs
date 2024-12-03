@@ -1,5 +1,7 @@
 ﻿using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.MsgType;
 
 namespace ZhonTai.Admin.Domain.Msg;
 
@@ -23,7 +25,14 @@ public partial class MsgEntity : EntityBase
     /// <summary>
     /// 类型Id
     /// </summary>
-    public string TypeId { get; set; }
+    public long TypeId { get; set; }
+
+    /// <summary>
+    /// 类型
+    /// </summary>
+    [NotGen]
+    [Navigate(nameof(TypeId))]
+    public MsgTypeEntity Type { get; set; }
 
     /// <summary>
     /// 类型名称
