@@ -5,7 +5,7 @@
       v-model="getThemeConfig.isDrawer"
       direction="rtl"
       destroy-on-close
-      size="260px"
+      size="280px"
       @close="onDrawerClose"
     >
       <el-scrollbar class="layout-breadcrumb-seting-bar">
@@ -214,7 +214,7 @@
               :max="9999"
               @change="setLocalThemeConfig"
               size="default"
-              style="width: 90px"
+              style="width: 110px"
             >
             </el-input-number>
           </div>
@@ -310,7 +310,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt14">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourWatermarkText') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-input v-model="getThemeConfig.watermarkText" size="default" style="width: 90px" @input="onWatermarkTextInput"></el-input>
+            <el-input v-model="getThemeConfig.watermarkText" size="default" style="width: 110px" @input="onWatermarkTextInput"></el-input>
           </div>
         </div>
 
@@ -319,7 +319,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveTagsStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" style="width: 90px" @change="setLocalThemeConfig">
+            <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" style="width: 110px" @change="setLocalThemeConfig">
               <el-option label="卡片" value="tags-style-one"></el-option>
               <el-option label="简约" value="tags-style-four"></el-option>
               <el-option label="圆滑" value="tags-style-five"></el-option>
@@ -334,7 +334,7 @@
               placeholder="请选择"
               placement="bottom-end"
               size="default"
-              style="width: 90px"
+              style="width: 110px"
               @change="setLocalThemeConfig"
             >
               <el-option label="右滑动" value="slide-right"></el-option>
@@ -350,7 +350,7 @@
               v-model="getThemeConfig.columnsAsideStyle"
               placeholder="请选择"
               size="default"
-              style="width: 90px"
+              style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
             >
@@ -366,7 +366,7 @@
               v-model="getThemeConfig.columnsAsideLayout"
               placeholder="请选择"
               size="default"
-              style="width: 90px"
+              style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
             >
