@@ -93,7 +93,11 @@ public class MsgService : BaseService, IDynamicApi
             .Where(a => a.t2.MsgId == input.MsgId)
             .WhereIf(input.Name.NotNull(), a => a.t1.Name.Contains(input.Name))
             .OrderByDescending(a => a.t1.Id)
-            .ToListAsync<MsgGetMsgUserListOutput>();
+            .ToListAsync(a=> new MsgGetMsgUserListOutput
+            {
+                IsRead = a.t2.IsRead,
+                ReadTime = a.t2.ReadTime,
+            });
 
         return list;
     }

@@ -1290,6 +1290,13 @@ export interface MsgGetMsgUserListOutput {
   mobile?: string | null
   /** 邮箱 */
   email?: string | null
+  /** 是否已读 */
+  isRead?: boolean
+  /**
+   * 已读时间
+   * @format date-time
+   */
+  readTime?: string | null
 }
 
 export interface MsgGetOutput {

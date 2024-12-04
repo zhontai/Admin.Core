@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Msg.Dto;
+﻿using System;
+
+namespace ZhonTai.Admin.Services.Msg.Dto;
 
 public class MsgGetMsgUserListOutput
 {
@@ -21,4 +23,14 @@ public class MsgGetMsgUserListOutput
     /// 邮箱
     /// </summary>
     public string Email { get; set; }
+
+    /// <summary>
+    /// 是否已读
+    /// </summary>
+    public bool IsRead { get; set; }
+
+    /// <summary>
+    /// 已读时间
+    /// </summary>
+    public DateTime? ReadTime { get; set; }
 }

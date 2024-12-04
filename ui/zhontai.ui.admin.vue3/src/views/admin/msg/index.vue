@@ -26,7 +26,7 @@
             border
           >
             <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="typeName" label="消息类型" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
             <el-table-column prop="createdTime" label="创建时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
             <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
               <template #default="{ row }">
@@ -84,8 +84,15 @@
           >
             <el-table-column type="selection" width="55" />
             <el-table-column prop="name" label="姓名" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
+            <el-table-column label="是否已读" width="100" align="center" show-overflow-tooltip>
+              <template #default="{ row }">
+                <el-tag type="success" v-if="row.isRead">已读</el-tag>
+                <el-tag type="info" v-else>未读</el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="readTime" label="已读时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
+            <!-- <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip /> -->
           </el-table>
         </el-card>
       </div>
@@ -167,7 +174,7 @@ onBeforeMount(() => {
 })
 
 const formatterTime = (row: any, column: any, cellValue: any) => {
-  return dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss')
+  return cellValue ? dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss') : ''
 }
 
 const onQuery = async () => {
