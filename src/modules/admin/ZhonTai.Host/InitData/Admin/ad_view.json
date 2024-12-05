@@ -495,6 +495,27 @@
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
         "modifiedTime": "2024-01-31T18:09:02"
+      },
+      {
+        "id": 619301345665093,
+        "parentId": 161227168313413,
+        "name": "admin/site-msg",
+        "label": "站内信",
+        "path": "admin/site-msg/index",
+        "description": "",
+        "cache": true,
+        "sort": 6,
+        "enabled": true,
+        "childs": [],
+        "isDeleted": false,
+        "createdUserId": 161223411986501,
+        "createdUserName": "admin",
+        "createdUserRealName": "管理员",
+        "createdTime": "2024-12-05T09:23:38",
+        "modifiedUserId": 161223411986501,
+        "modifiedUserName": "admin",
+        "modifiedUserRealName": "管理员",
+        "modifiedTime": "2024-12-05T09:23:53"
       }
     ],
     "isDeleted": false,

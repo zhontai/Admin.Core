@@ -4297,7 +4297,7 @@
     "isAffix": false,
     "link": null,
     "isIframe": false,
-    "sort": 3,
+    "sort": 4,
     "description": null,
     "enabled": true,
     "childs": [
@@ -4376,7 +4376,7 @@
     "modifiedUserId": 161223411986501,
     "modifiedUserName": "admin",
     "modifiedUserRealName": "管理员",
-    "modifiedTime": "2024-01-31T18:09:02"
+    "modifiedTime": "2024-12-05T09:34:50"
   },
   {
     "id": 361084141387845,
@@ -4409,6 +4409,39 @@
     "modifiedUserId": 161223411986501,
     "modifiedUserName": "admin",
     "modifiedUserRealName": "管理员",
-    "modifiedTime": "2024-11-27T15:52:47"
+    "modifiedTime": "2024-12-05T09:53:04"
+  },
+  {
+    "id": 619304029352005,
+    "parentId": 0,
+    "label": "站内信",
+    "code": null,
+    "type": 2,
+    "viewId": 619301345665093,
+    "name": "admin/site-msg",
+    "path": "/site-msg",
+    "redirect": null,
+    "icon": "ele-Message",
+    "hidden": true,
+    "opened": false,
+    "newWindow": false,
+    "external": false,
+    "isKeepAlive": true,
+    "isAffix": false,
+    "link": null,
+    "isIframe": false,
+    "sort": 3,
+    "description": null,
+    "enabled": true,
+    "childs": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-12-05T09:34:34",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2024-12-05T09:53:09"
   }
 ]
