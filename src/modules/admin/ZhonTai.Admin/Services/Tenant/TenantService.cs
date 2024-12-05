@@ -29,6 +29,11 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Resources;
 using Mapster;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Services.Auth.Dto;
+using ZhonTai.Admin.Services.Auth;
+using ZhonTai.Admin.Core.Validators;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -39,12 +44,12 @@ namespace ZhonTai.Admin.Services.Tenant;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class TenantService : BaseService, ITenantService, IDynamicApi
 {
-    private AppConfig _appConfig => LazyGetRequiredService<AppConfig>();
     private readonly ITenantRepository _tenantRep;
     private readonly ITenantPkgRepository _tenantPkgRep;
     private readonly IRoleRepository _roleRep;
     private readonly IUserRepository _userRep;
     private readonly IOrgRepository _orgRep;
+    private readonly AppConfig _appConfig;
     private readonly Lazy<IUserRoleRepository> _userRoleRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<IUserStaffRepository> _userStaffRep;
@@ -59,19 +64,22 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         IRoleRepository roleRep,
         IUserRepository userRep,
         IOrgRepository orgRep,
+        IOptions<AppConfig> appConfig,
         Lazy<IUserRoleRepository> userRoleRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
         Lazy<IUserStaffRepository> userStaffRep,
         Lazy<IUserOrgRepository> userOrgRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<UserHelper> userHelper,
-        AdminLocalizer adminLocalizer)
+        AdminLocalizer adminLocalizer
+    )
     {
         _tenantRep = tenantRep;
         _tenantPkgRep = tenantPkgRep;
         _roleRep = roleRep;
         _userRep = userRep;
         _orgRep = orgRep;
+        _appConfig = appConfig.Value;
         _userRoleRep = userRoleRep;
         _rolePermissionRep = rolePermissionRep;
         _userStaffRep = userStaffRep;
@@ -759,5 +767,42 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         }
         entity.Enabled = input.Enabled;
         await _tenantRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 一键登录
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<dynamic> OneClickLoginAsync([ValidateRequired] long tenantId)
+    {
+        if (!(tenantId > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请选择租户"]);
+        }
+
+        var userRep = _userRep;
+        using var _ = userRep.DataFilter.DisableAll();
+
+        var authLoginOutput = await userRep.Select
+            .Where(a => a.Tenant.Id == tenantId && a.Tenant.UserId == a.Id)
+            .ToOneAsync(a=> new AuthLoginOutput
+            {
+                Tenant = new AuthLoginTenantDto
+                {
+                    DbKey = a.Tenant.DbKey,
+                    Enabled = a.Tenant.Enabled,
+                    TenantType = a.Tenant.TenantType,
+                }
+            });
+
+        if (authLoginOutput == null)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["超级管理员不存在"]);
+        }
+
+        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+
+        return new { token };
     }
 }

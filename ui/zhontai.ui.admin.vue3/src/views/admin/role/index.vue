@@ -1,8 +1,8 @@
 <template>
-  <my-layout>
+  <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="角色名称">
               <el-input v-model="state.filter.roleName" placeholder="角色名称" @keyup.enter="onQuery" />
@@ -34,6 +34,7 @@
             :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
             highlight-current-row
             style="width: 100%"
+            border
             @current-change="onCurrentChange"
           >
             <el-table-column prop="name" label="角色名称" min-width="120" show-overflow-tooltip />
@@ -73,7 +74,7 @@
     </pane>
     <pane>
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="姓名">
               <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onGetRoleUserList" />
@@ -93,6 +94,7 @@
             :data="state.userListData"
             row-key="id"
             style="width: 100%"
+            border
             @row-click="onUserRowClick"
           >
             <el-table-column type="selection" width="55" />
@@ -114,7 +116,7 @@
     ></user-select>
     <set-role-menu ref="setRoleMenuRef"></set-role-menu>
     <set-role-data-scope ref="setRoleDataScopeRef"></set-role-data-scope>
-  </my-layout>
+  </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/role">
@@ -134,7 +136,7 @@ const SetRoleMenu = defineAsyncComponent(() => import('./components/set-role-men
 const SetRoleDataScope = defineAsyncComponent(() => import('./components/set-role-data-scope.vue'))
 const UserSelect = defineAsyncComponent(() => import('/@/views/admin/user/components/user-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

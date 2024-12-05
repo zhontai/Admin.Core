@@ -8,6 +8,8 @@
     "corUrls": [],
     //程序集名称
     "assemblyNames": [ "ZhonTai.Admin" ],
+    //枚举列表程序集名称
+    "EnumListAssemblyNames": [ "ZhonTai.Admin" ],
     //租户
     "tenant": true,
     //分布式事务唯一标识admin，为空则不生成分布式事务表
@@ -45,7 +47,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.5.0",
+          "version": "v8.6.0",
           "description": ""
         }
       ]
@@ -86,7 +88,7 @@
       "operation": true
     },
     //限流
-    "rateLimit": false,
+    "rateLimit": true,
     //验证码
     "varifyCode": {
       //启用
@@ -124,7 +126,7 @@
     //是否开启任务调度管理界面
     "TaskSchedulerUI": {
       //启用
-      "enable": true,
+      "enable": false,
       //访问路径
       "path": "/task"
     },

@@ -102,8 +102,7 @@ new HostApp(new HostAppOptions()
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                freeSchedulerBuilder
-                .OnExecuting(task =>
+                void OnExecuting(TaskInfo task)
                 {
                     var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
 
@@ -176,41 +175,101 @@ new HostApp(new HostAppOptions()
                         if (error.NotNull())
                             throw new Exception(error);
                     }
-                })
+                }
+
+                freeSchedulerBuilder
+                .OnExecuting(task => OnExecuting(task))
                 .OnExecuted((task, taskLog) =>
                 {
                     try
                     {
                         if (!taskLog.Success)
                         {
-                            //发送告警邮件
                             var taskService = AppInfo.GetRequiredService<TaskService>();
-                            var emailService = AppInfo.GetRequiredService<EmailService>();
-                            var alerEmail = taskService.GetAlerEmailAsync(task.Id).Result;
-                            var topic = task.Topic;
-                            if (alerEmail.NotNull())
+                            var taskInfo = taskService.GetAsync(task.Id).Result;
+
+                            //失败重试
+                            if (taskInfo != null && taskInfo.FailRetryCount > 0)
                             {
-                                var jsonArgs = JToken.Parse(task.Body);
-                                var desc = jsonArgs["desc"]?.ToString();
-                                if (desc.NotNull())
-                                    topic = desc;
-                            }
-                            alerEmail?.Split(',')?.ToList()?.ForEach(async address =>
-                            {
-                                await emailService.SingleSendAsync(new EmailSingleSendEvent
+                                var retryRound = 0;
+                                var failRetryCount = taskInfo.FailRetryCount;
+                                var failRetryInterval = taskInfo.FailRetryInterval > 0 ? taskInfo.FailRetryInterval.Value : 10;
+                                var scheduler = AppInfo.GetRequiredService<Scheduler>();
+                                var currentRound = taskLog.Round;
+                                void OnFailedCallBak()
                                 {
-                                    ToEmail = new EmailSingleSendEvent.Models.EmailModel
+                                    failRetryCount--;
+                                    retryRound++;
+                                    var startdt = DateTime.UtcNow;
+                                    var result = new TaskLog
                                     {
-                                        Address = address,
-                                        Name = address
-                                    },
-                                    Subject = "【任务调度中心】监控报警",
-                                    Body = $@"<p>任务名称：{topic}</p>
+                                        CreateTime = DateTime.UtcNow.Add(scheduler.TimeOffset),
+                                        TaskId = task.Id,
+                                        Round = currentRound,
+                                        Remark = $"第{retryRound}次失败重试",
+                                        Success = true
+                                    };
+
+                                    try
+                                    {
+                                        OnExecuting(task);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        result.Success = false;
+                                        result.Exception = ex.InnerException == null ? $"{ex.Message}\r\n{ex.StackTrace}" : $"{ex.Message}\r\n{ex.StackTrace}\r\n\r\nInnerException: {ex.InnerException.Message}\r\n{ex.InnerException.StackTrace}";
+
+                                        if (failRetryCount > 0)
+                                        {
+                                            scheduler.AddTempTask(TimeSpan.FromSeconds(failRetryInterval), OnFailedCallBak);
+                                        }
+                                    }
+                                    finally
+                                    {
+                                        result.ElapsedMilliseconds = (long)DateTime.UtcNow.Subtract(startdt).TotalMilliseconds;
+                                        var taskLogService = AppInfo.GetRequiredService<TaskLogService>();
+                                        taskLogService.Add(result);
+                                    }
+                                }
+
+                                scheduler.AddTempTask(TimeSpan.FromSeconds(failRetryInterval), OnFailedCallBak);
+                            }
+
+                            //发送告警邮件
+                            var alarmEmail = taskInfo?.AlarmEmail;
+                            var taskSchedulerConfig = AppInfo.GetRequiredService<IOptionsMonitor<TaskSchedulerConfig>>().CurrentValue;
+                            if (taskSchedulerConfig.AlerEmail != null && taskSchedulerConfig.AlerEmail.Enable)
+                            {
+                                var emailService = AppInfo.GetRequiredService<EmailService>();
+                                if (alarmEmail.IsNull())
+                                {
+                                    alarmEmail = taskSchedulerConfig.AlerEmail.Adress;
+                                }
+                                var topic = task.Topic;
+                                if (alarmEmail.NotNull())
+                                {
+                                    var jsonArgs = JToken.Parse(task.Body);
+                                    var desc = jsonArgs["desc"]?.ToString();
+                                    if (desc.NotNull())
+                                        topic = desc;
+                                }
+                                alarmEmail?.Split(',')?.ToList()?.ForEach(async address =>
+                                {
+                                    await emailService.SingleSendAsync(new EmailSingleSendEvent
+                                    {
+                                        ToEmail = new EmailSingleSendEvent.Models.EmailModel
+                                        {
+                                            Address = address,
+                                            Name = address
+                                        },
+                                        Subject = "【任务调度中心】监控报警",
+                                        Body = $@"<p>任务名称：{topic}</p>
 <p>任务编号：{task.Id}</p>
 <p>告警类型：调度失败</p>
 <p>告警内容：<br/>{taskLog.Exception}</p>"
+                                    });
                                 });
-                            });
+                            }
                         }
                     }
                     catch (Exception ex)

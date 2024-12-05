@@ -13,12 +13,10 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
 using System;
 using ZhonTai.Admin.Core.Configs;
-using Microsoft.AspNetCore.Authorization;
-using System.Reflection;
 using ZhonTai.Common.Extensions;
-using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Core.Db;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Api;
 
@@ -30,16 +28,18 @@ namespace ZhonTai.Admin.Services.Api;
 public class ApiService : BaseService, IApiService, IDynamicApi
 {
     private readonly AdminRepositoryBase<ApiEntity> _apiRep;
-    private readonly Lazy<AppConfig> _appConfig;
     private readonly AdminLocalizer _adminLocalizer;
+    private readonly Lazy<IOptions<AppConfig>> _appConfig;
 
-    public ApiService(AdminRepositoryBase<ApiEntity> apiRep, 
-        Lazy<AppConfig> appConfig,
-        AdminLocalizer adminLocalizer)
+    public ApiService(
+        AdminRepositoryBase<ApiEntity> apiRep, 
+        AdminLocalizer adminLocalizer,
+        Lazy<IOptions<AppConfig>> appConfig
+    )
     {
         _apiRep = apiRep;
-        _appConfig = appConfig;
         _adminLocalizer = adminLocalizer;
+        _appConfig = appConfig;
     }
 
     private async Task ClearCacheAsync()
@@ -156,7 +156,26 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         await ClearCacheAsync();
     }
+    /// <summary>
+    /// 设置启用接口日志
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetEnableLogAsync(ApiSetEnableLogInput input)
+    {
+        await _apiRep.UpdateDiy.Set(a => new ApiEntity
+        {
+            EnabledLog = input.EnabledLog,
+            ModifiedUserId = User.Id,
+            ModifiedUserName = User.UserName,
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime
+        })
+        .WhereDynamic(input.ApiId)
+        .ExecuteAffrowsAsync();
 
+        await ClearCacheAsync();
+    }
     /// <summary>
     /// 设置启用请求参数
     /// </summary>
@@ -388,56 +407,24 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [NoOperationLog]
-    public List<ProjectConfig> GetProjects()
+    public List<ProjectConfig> GetProjects(string suffix = "/swagger")
     {
-        return _appConfig.Value.Swagger.Projects;
-    }
-
-#if DEBUG
-    /// <summary>
-    /// 获得枚举列表
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet]
-    [NoOperationLog]
-    [AllowAnonymous]
-    public List<ApiGetEnumsOutput> GetEnums()
-    {
-        var enums = new List<ApiGetEnumsOutput>();
-        
-        var appConfig = _appConfig.Value;
-        var assemblyNames = appConfig.AssemblyNames;
-        if (!(assemblyNames?.Length > 0))
+        var routePrefix = _appConfig.Value.Value.ApiUI?.RoutePrefix;
+        if (routePrefix.IsNull())
         {
-            return enums;
-        }
-       
-        foreach (var assemblyName in assemblyNames)
-        {
-            var assembly = Assembly.Load(assemblyName);
-            var enumTypes = assembly.GetTypes().Where(m => m.IsEnum);
-            foreach (var enumType in enumTypes)
+            if (routePrefix.EndsWith(suffix))
             {
-                var summaryList = SummaryHelper.GetEnumSummaryList(enumType);
-
-                var enumDescriptor = new ApiGetEnumsOutput
-                {
-                    Name = enumType.Name,
-                    Desc = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
-                    Options = Enum.GetValues(enumType).Cast<Enum>().Select(x => new ApiGetEnumsOutput.Models.Options
-                    {
-                        Name = x.ToString(),
-                        Desc = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
-                        Value = x.ToInt64()
-                    }).ToList()
-                };
-                
-                enums.Add(enumDescriptor);
+                int suffixIndex = routePrefix.LastIndexOf(suffix);
+                routePrefix = routePrefix.Substring(0, suffixIndex);
             }
         }
 
-        return enums;
+        return new List<ProjectConfig>
+        {
+            new ProjectConfig
+            {
+                Code = routePrefix
+            }
+        };
     }
-#endif
-
 }

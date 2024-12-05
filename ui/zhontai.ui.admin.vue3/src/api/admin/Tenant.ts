@@ -13,6 +13,7 @@ import { AxiosResponse } from 'axios'
 import {
   PageInputTenantGetPageDto,
   ResultOutputInt64,
+  ResultOutputObject,
   ResultOutputPageOutputTenantListOutput,
   ResultOutputTenantGetOutput,
   TenantAddInput,
@@ -182,6 +183,30 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags tenant
+   * @name OneClickLogin
+   * @summary 一键登录
+   * @request POST:/api/admin/tenant/one-click-login
+   * @secure
+   */
+  oneClickLogin = (
+    query?: {
+      /** @format int64 */
+      tenantId?: number
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<ResultOutputObject, any>({
+      path: `/api/admin/tenant/one-click-login`,
+      method: 'POST',
+      query: query,
+      secure: true,
+      format: 'json',
       ...params,
     })
 }

@@ -20,8 +20,8 @@
 		<PackageReference Include="Cronos" Version="0.8.4" />
 		<!--#endif -->
 		<!--#if (!NoCap) -->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.2.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.2.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.0" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.0" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
@@ -65,7 +65,7 @@
 	</ItemGroup>
 	<!--#if (!NoApiUI) -->
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.ApiUI" Version="8.3.1" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="8.5.1" />
 	</ItemGroup>
 	<!--#endif -->
 	<ItemGroup>
@@ -79,11 +79,18 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="ip2region.xdb">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 
 	<Target Name="AfterTargetsPublish" AfterTargets="Publish">
 		<ItemGroup>
-			<PackageReferenceFiles Include="*\*\*\*.xml" />
+			<PackageReferenceXmlFiles Include="*\*\*\*.xml" />
+			<PackageReferenceJsonFiles Include="*\*\*\Resources\*.json" />
 		</ItemGroup>
-		<Copy SourceFiles="@(PackageReferenceFiles)" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="$(PublishDir)Resources" />
 	</Target>
 </Project>

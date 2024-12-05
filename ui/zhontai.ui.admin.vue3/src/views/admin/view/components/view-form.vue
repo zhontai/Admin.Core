@@ -78,6 +78,7 @@ import { reactive, toRefs, ref, PropType } from 'vue'
 import { ViewListOutput, ViewUpdateInput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import eventBus from '/@/utils/mitt'
+import { cloneDeep } from 'lodash-es'
 
 defineProps({
   title: {
@@ -102,7 +103,8 @@ const state = reactive({
 const { form } = toRefs(state)
 
 // 打开对话框
-const open = async (row: any = {}) => {
+const open = async (row: ViewUpdateInput = { id: 0, enabled: true, cache: true }) => {
+  let formData = cloneDeep(row)
   if (row.id > 0) {
     const res = await new ViewApi().get({ id: row.id }, { loading: true })
 
@@ -112,10 +114,7 @@ const open = async (row: any = {}) => {
       state.form = formData
     }
   } else {
-    state.form = {
-      enabled: true,
-      cache: true,
-    } as ViewUpdateInput
+    state.form = formData
   }
 
   state.showDialog = true

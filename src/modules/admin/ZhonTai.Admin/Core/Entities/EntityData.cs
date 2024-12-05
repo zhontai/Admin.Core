@@ -12,15 +12,22 @@ public class EntityData<TKey> : EntityBase<TKey>, IData where TKey : struct
     /// 拥有者Id
     /// </summary>
     [Description("拥有者Id")]
-    [Column(Position = -41)]
+    [Column(Position = -42)]
     public virtual long? OwnerId { get; set; }
 
     /// <summary>
     /// 拥有者部门Id
     /// </summary>
     [Description("拥有者部门Id")]
-    [Column(Position = -40)]
+    [Column(Position = -41)]
     public virtual long? OwnerOrgId { get; set; }
+
+    /// <summary>
+    /// 拥有者部门名称
+    /// </summary>
+    [Description("拥有者部门名称")]
+    [Column(Position = -40)]
+    public virtual string? OwnerOrgName { get; set; }
 }
 
 /// <summary>

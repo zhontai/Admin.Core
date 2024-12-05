@@ -2,7 +2,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { defineConfig, ConfigEnv } from 'vite'
 import compression from 'vite-plugin-compression'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { loadEnv } from '/@/utils/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
@@ -68,7 +68,8 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         },
       },
     },
-    css: { preprocessorOptions: { css: { charset: false } } },
+    //https://sass-lang.com/documentation/breaking-changes/legacy-js-api
+    css: { preprocessorOptions: { css: { charset: false }, scss: { api: 'modern' } } },
     define: {
       __VUE_I18N_LEGACY_API__: JSON.stringify(false),
       __VUE_I18N_FULL_INSTALL__: JSON.stringify(false),

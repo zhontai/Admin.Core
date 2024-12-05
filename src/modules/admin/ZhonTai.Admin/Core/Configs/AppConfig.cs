@@ -29,6 +29,11 @@ public class AppConfig
     public string[] AssemblyNames { get; set; }
 
     /// <summary>
+    /// 枚举列表程序集名称
+    /// </summary>
+    public string[] EnumListAssemblyNames { get; set; }
+
+    /// <summary>
     /// 租户类型
     /// </summary>
     public bool Tenant { get; set; } = false;

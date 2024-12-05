@@ -17,7 +17,7 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="类型" prop="name" :rules="[{ required: true, message: '请选择类型', trigger: ['change'] }]">
+            <el-form-item label="类型" prop="level" :rules="[{ required: true, message: '请选择类型', trigger: ['change'] }]">
               <el-select v-model="form.level" placeholder="请选择类型" class="w100">
                 <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
@@ -126,6 +126,7 @@ const onSure = () => {
 
     state.sureLoading = true
     let res = {} as any
+
     state.form.parentId = state.form.parentId && state.form.parentId > 0 ? state.form.parentId : undefined
     if (state.form.id != undefined && state.form.id > 0) {
       res = await new RegionApi().update(state.form, { showSuccessMessage: true }).catch(() => {

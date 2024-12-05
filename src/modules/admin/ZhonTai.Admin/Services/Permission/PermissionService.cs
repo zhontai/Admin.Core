@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using FreeSql;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.Permission.Dto;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.TenantPermission;
@@ -14,14 +16,13 @@ using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Core.Consts;
-using FreeSql;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
+using ZhonTai.Admin.Services.Permission.Dto;
 using ZhonTai.Admin.Resources;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -34,35 +35,36 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
 {
     private readonly IPermissionRepository _permissionRep;
     private readonly IPermissionApiRepository _permissionApiRep;
-    private readonly Lazy<AppConfig> _appConfig;
+    private readonly AdminLocalizer _adminLocalizer;
+    private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IRoleRepository> _roleRep;
     private readonly Lazy<IUserRepository> _userRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<ITenantPermissionRepository> _tenantPermissionRep;
     private readonly Lazy<IUserRoleRepository> _userRoleRep;
-    private readonly AdminLocalizer _adminLocalizer;
+    
 
     public PermissionService(
         IPermissionRepository permissionRep,
         IPermissionApiRepository permissionApiRep,
-        Lazy<AppConfig> appConfig,
+        AdminLocalizer adminLocalizer,
+        Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IRoleRepository> roleRep,
         Lazy<IUserRepository> userRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
         Lazy<ITenantPermissionRepository> tenantPermissionRep,
-        Lazy<IUserRoleRepository> userRoleRep,
-        AdminLocalizer adminLocalizer
+        Lazy<IUserRoleRepository> userRoleRep
     )
     {
         _permissionRep = permissionRep;
         _permissionApiRep = permissionApiRep;
+        _adminLocalizer = adminLocalizer;
         _appConfig = appConfig;
         _roleRep = roleRep;
         _userRep = userRep;
         _rolePermissionRep = rolePermissionRep;
         _tenantPermissionRep = tenantPermissionRep;
         _userRoleRep = userRoleRep;
-        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -157,7 +159,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     {
         var permissions = await _permissionRep.Select
             .Where(a => a.Enabled == true)
-            .WhereIf(_appConfig.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
+            .WhereIf(_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _tenantPermissionRep.Value
                 .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
                 .Any()
@@ -422,7 +424,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
 
         //防止租户非法授权，查询主库租户权限范围
-        if (_appConfig.Value.Tenant && User.TenantType == TenantType.Tenant)
+        if (_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
             var mainDb = cloud.Use(DbKeys.AppDb);

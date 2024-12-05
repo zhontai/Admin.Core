@@ -59,6 +59,8 @@
     "syncData": true,
     //同步更新数据
     "sysUpdateData": true,
+    ////同步数据地址
+    "SyncDataPath": "InitData/App",
     //同步所有表["ad_dict_type", "ad_dict", "ad_user",  "ad_user_staff", "ad_org", "ad_role", "ad_api", "ad_view", "ad_permission", "ad_permission_api", "ad_user_role", "ad_user_org", "ad_role_permission", "ad_tenant", "ad_tenant_permission"]
     //同步指定表["ad_api", "ad_view", "ad_permission", "ad_permission_api"]
     //同步数据包含表，指定表同步，不填同步所有表
@@ -225,10 +227,8 @@
         "syncStructure": true,
         ////同步数据
         "syncData": true,
-        ////#if (VueVersion == "Vue2")
-        ////同步数据地址，支持Vue2版本
-        //"SyncDataPath": "InitData/AdminVue2",
-        ////#endif
+        ////同步数据地址
+        "SyncDataPath": "InitData/Admin",
 
         ////项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
         ////开启生成数据前先关闭syncStructure syncData createDb

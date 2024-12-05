@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
@@ -28,30 +28,31 @@ namespace ZhonTai.Admin.Services.Pkg;
 public class PkgService : BaseService, IDynamicApi
 {
     private readonly IPkgRepository _pkgRep;
-    private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly ITenantPkgRepository _tenantPkgRep;
+    private readonly AdminLocalizer _adminLocalizer;
+    private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IPkgPermissionRepository> _pkgPermissionRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<IUserRepository> _userRep;
-    private readonly AdminLocalizer _adminLocalizer;
 
     public PkgService(
         IPkgRepository pkgRep,
-        Lazy<ITenantRepository> tenantRep,
         ITenantPkgRepository tenantPkgRep,
+        AdminLocalizer adminLocalizer,
+        Lazy<ITenantRepository> tenantRep,
         Lazy<IPkgPermissionRepository> pkgPermissionRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
-        Lazy<IUserRepository> userRep,
-        AdminLocalizer adminLocalizer
+        Lazy<IUserRepository> userRep
+        
     )
     {
         _pkgRep = pkgRep;
-        _tenantRep = tenantRep;
         _tenantPkgRep = tenantPkgRep;
+        _adminLocalizer = adminLocalizer;
+        _tenantRep = tenantRep;
         _pkgPermissionRep = pkgPermissionRep;
         _rolePermissionRep = rolePermissionRep;
         _userRep = userRep;
-        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>

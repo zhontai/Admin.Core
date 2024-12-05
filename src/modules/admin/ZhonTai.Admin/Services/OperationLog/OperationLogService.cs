@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using ZhonTai.Common.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.OperationLog.Dto;
 using ZhonTai.Admin.Domain.OperationLog;
+using ZhonTai.Admin.Services.OperationLog.Dto;
+using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Core.Consts;
-using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Core.Configs;
 using IP2Region.Net.Abstractions;
-using ZhonTai.Admin.Core;
 using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 
 namespace ZhonTai.Admin.Services.OperationLog;
@@ -25,7 +25,7 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
 {
     private readonly IHttpContextAccessor _context;
     private readonly IOperationLogRepository _operationLogRep;
-    private readonly IOptions<AppConfig> _appConfig;
+    private readonly AppConfig _appConfig;
 
     public OperationLogService(
         IHttpContextAccessor context,
@@ -35,7 +35,7 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     {
         _context = context;
         _operationLogRep = operationLogRep;
-        _appConfig = appConfig;
+        _appConfig = appConfig.Value;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     private LocationInfo GetIpLocationInfo(string ip)
     {
         var locationInfo = new LocationInfo();
-        if (_appConfig.Value.IP2Region.Enable)
+        if (_appConfig.IP2Region.Enable)
         {
             var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
             locationInfo = LocationInfo.Parse(region);

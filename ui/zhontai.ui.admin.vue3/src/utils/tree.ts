@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, merge, isEmpty, isFunction } from 'lodash-es'
 
 /**
 * @description: 列表转树形列表
@@ -9,20 +9,27 @@ listToTree(cloneDeep(list), {
   idKey: 'id',
   parentIdKey: 'parentId',
   childrenKey: 'children',
+  extraData: null
 })
 */
-export function listToTree(list: any = [], options = {}, data = null) {
-  const { idKey, parentIdKey, childrenKey } = Object.assign(
+export function listToTree(list: any = [], options = {}) {
+  const { idKey, parentIdKey, childrenKey, extraData } = Object.assign(
     {
       idKey: 'id',
       parentIdKey: 'parentId',
       childrenKey: 'children',
+      extraData: null as any,
     },
     options || {}
   )
   const idMap: { [key: string]: any } = {}
   list.forEach((item: any) => {
     idMap[item[idKey]] = cloneDeep(item)
+    if (isFunction(extraData)) {
+      extraData(idMap[item[idKey]])
+    } else if (!isEmpty(extraData)) {
+      merge(idMap[item[idKey]], extraData)
+    }
     idMap[item[idKey]][childrenKey] = []
   })
 

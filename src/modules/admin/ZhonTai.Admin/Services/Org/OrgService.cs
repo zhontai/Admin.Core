@@ -1,18 +1,18 @@
-﻿using ZhonTai.Admin.Core.Dto;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Domain.Org;
+using ZhonTai.Admin.Domain.UserOrg;
+using ZhonTai.Admin.Domain.Role;
+using ZhonTai.Admin.Domain.RoleOrg;
+using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Org.Input;
 using ZhonTai.Admin.Services.Org.Output;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Domain.Org;
-using ZhonTai.Admin.Core.Consts;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.DynamicApi;
-using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Domain.RoleOrg;
-using ZhonTai.Admin.Domain.UserOrg;
-using System.Collections.Generic;
-using System.Linq;
-using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Org;
 

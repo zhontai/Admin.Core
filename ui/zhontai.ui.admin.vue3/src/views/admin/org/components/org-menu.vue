@@ -3,7 +3,7 @@
     <template #header>
       <el-input v-model="state.filterText" placeholder="筛选部门" clearable />
     </template>
-    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:var(--el-card-padding)">
+    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
       <el-tree
         ref="orgMenuRef"
         :data="state.orgTreeData"
@@ -24,20 +24,21 @@
 </template>
 
 <script lang="ts" setup name="admin/org/menu">
-import { onMounted, reactive, ref, watch, nextTick } from 'vue'
+import { onMounted, reactive, ref, watch, nextTick, PropType } from 'vue'
 import { OrgListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
 import { ElTree } from 'element-plus'
 
-interface Props {
-  modelValue: number[] | null | undefined
-  selectFirstNode: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  modelValue: () => [],
-  selectFirstNode: false,
+const props = defineProps({
+  modelValue: {
+    type: Array as PropType<number[] | undefined | null>,
+    default: () => [],
+  },
+  selectFirstNode: {
+    type: Boolean,
+    default: () => false,
+  },
 })
 
 const orgMenuRef = ref<InstanceType<typeof ElTree>>()

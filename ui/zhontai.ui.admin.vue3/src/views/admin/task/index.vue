@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout">
-    <div class="mt8" style="position: relative">
+  <my-layout>
+    <div class="my-query-box mt8" style="position: relative">
       <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
           <el-form-item label="任务分组">
@@ -49,7 +49,7 @@
     </div>
 
     <el-card class="my-fill mt8 el-card-table" shadow="never">
-      <el-table ref="tableRef" v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%">
+      <el-table ref="tableRef" v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%" border>
         <el-table-column type="selection" width="40" />
         <el-table-column type="index" label="序号" width="60" :index="indexMethod" />
         <el-table-column prop="topic" label="任务名称" min-width="260">
@@ -93,9 +93,9 @@
 
             <div class="my-flex">
               <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onRun(row)">执行</el-button>
-              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)"
-                >复制</el-button
-              >
+              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">
+                复制
+              </el-button>
               <el-button
                 v-if="row.status === 1 || row.status === 'Paused'"
                 v-auth="'api:admin:task:pause'"
@@ -104,8 +104,9 @@
                 text
                 type="primary"
                 @click="onStart(row)"
-                >启动</el-button
               >
+                启动
+              </el-button>
               <el-button
                 v-if="row.status === 0 || row.status === 'Running'"
                 v-auth="'api:admin:task:resume'"
@@ -114,13 +115,14 @@
                 text
                 type="primary"
                 @click="onPause(row)"
-                >停止</el-button
               >
+                停止
+              </el-button>
             </div>
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
@@ -137,7 +139,7 @@
 
     <task-logs ref="taskLogsRef" :title="state.taskLogsTitle"></task-logs>
     <task-form ref="taskFormRef" :title="state.taskFormTitle"></task-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/task">

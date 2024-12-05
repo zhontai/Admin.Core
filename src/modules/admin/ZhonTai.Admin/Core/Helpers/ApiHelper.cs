@@ -5,6 +5,14 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Tools.Cache;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Consts;
+using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Services.Api.Dto;
+using ZhonTai.Common.Helpers;
+using System.Reflection;
+using ZhonTai.Common.Extensions;
+using System;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -16,19 +24,20 @@ public class ApiHelper
 {
     private readonly ICacheTool _cacheTool;
     private readonly IApiRepository _apiRepository;
-    
+    private readonly IOptions<AppConfig> _appConfig;
 
-    public ApiHelper(ICacheTool cacheTool, IApiRepository apiRepository)
+    public ApiHelper(ICacheTool cacheTool, IApiRepository apiRepository, IOptions<AppConfig> appConfig)
     {
         _cacheTool = cacheTool;
         _apiRepository = apiRepository;
+        _appConfig = appConfig;
     }
 
     public async Task<List<ApiModel>> GetApiListAsync()
     {
         return await _cacheTool.GetOrSetAsync(CacheKeys.ApiList, async () =>
         {
-            var apis = await _apiRepository.Select.ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Path, a.EnabledParams, a.EnabledResult });
+            var apis = await _apiRepository.Select.ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Path, a.EnabledLog, a.EnabledParams, a.EnabledResult });
 
             var apiList = new List<ApiModel>();
             foreach (var api in apis)
@@ -39,6 +48,7 @@ public class ApiHelper
                 {
                     Label = parentLabel.NotNull() ? $"{parentLabel} / {api.Label}" : api.Label,
                     Path = api.Path?.ToLower().Trim('/'),
+                    EnabledLog = api.EnabledLog,
                     EnabledParams = api.EnabledParams,
                     EnabledResult = api.EnabledResult,
                 });
@@ -46,6 +56,44 @@ public class ApiHelper
 
             return apiList;
         });
+    }
+
+    public List<ApiGetEnumsOutput> GetEnumList()
+    {
+        var enums = new List<ApiGetEnumsOutput>();
+
+        var appConfig = _appConfig.Value;
+        var assemblyNames = appConfig.EnumListAssemblyNames;
+        if (!(assemblyNames?.Length > 0))
+        {
+            return enums;
+        }
+
+        foreach (var assemblyName in assemblyNames)
+        {
+            var assembly = Assembly.Load(assemblyName);
+            var enumTypes = assembly.GetTypes().Where(m => m.IsEnum);
+            foreach (var enumType in enumTypes)
+            {
+                var summaryList = SummaryHelper.GetEnumSummaryList(enumType);
+
+                var enumDescriptor = new ApiGetEnumsOutput
+                {
+                    Name = enumType.Name,
+                    Desc = enumType.ToDescription() ?? (summaryList.TryGetValue("", out var comment) ? comment : ""),
+                    Options = Enum.GetValues(enumType).Cast<Enum>().Select(x => new ApiGetEnumsOutput.Models.Options
+                    {
+                        Name = x.ToString(),
+                        Desc = x.ToDescription(false) ?? (summaryList.TryGetValue(x.ToString(), out var comment) ? comment : ""),
+                        Value = x.ToInt64()
+                    }).ToList()
+                };
+
+                enums.Add(enumDescriptor);
+            }
+        }
+
+        return enums;
     }
 }
 
@@ -60,7 +108,10 @@ public class ApiModel
     /// 接口地址
     /// </summary>
     public string Path { get; set; }
-
+    /// <summary>
+    /// 启用接口日志
+    /// </summary>
+    public bool EnabledLog { get; set; }
     /// <summary>
     /// 启用请求参数
     /// </summary>

@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+  <my-layout>
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="接口名称">
           <el-input v-model="state.filter.name" placeholder="接口名称" @keyup.enter="onQuery" />
@@ -25,6 +25,7 @@
         row-key="id"
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         :expand-row-keys="state.expandRowKeys"
+        border
       >
         <el-table-column prop="label" label="接口名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip>
@@ -33,7 +34,22 @@
             {{ row.path }}
           </template>
         </el-table-column>
-        <el-table-column label="请求参数" width="80" align="center">
+        <el-table-column label="请求日志" width="85" align="center">
+          <template #default="{ row }">
+            <el-switch
+              v-if="row.httpMethods"
+              v-model="row.enabledLog"
+              :loading="row.loadingEnabledLog"
+              :active-value="true"
+              :inactive-value="false"
+              inline-prompt
+              active-text="启用"
+              inactive-text="禁用"
+              :before-change="() => onSetEnableLog(row)"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column label="请求参数" width="85" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -48,7 +64,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column label="响应结果" width="80" align="center">
+        <el-table-column label="响应结果" width="85" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -80,7 +96,7 @@
     </el-card>
 
     <api-form ref="apiFormRef" :title="state.apiFormTitle" :api-tree-data="state.formApiTreeData"></api-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/api">
@@ -140,9 +156,34 @@ const getTagTypeByHttpMethod = (httpMethods: string) => {
 
   return 'primary'
 }
-
+//启用或禁用请求日志
+const onSetEnableLog = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
+  return new Promise((resolve, reject) => {
+    proxy.$modal
+      .confirm(`确定要${row.enabledLog ? '禁用' : '启用'}【${row.label}】请求参数?`)
+      .then(async () => {
+        row.loadingEnabledLog = true
+        const res = await new ApiApi()
+          .setEnableLog({ apiId: row.id, enabledLog: !row.enabledLog }, { showSuccessMessage: true })
+          .catch(() => {
+            reject(new Error('Error'))
+          })
+          .finally(() => {
+            row.loadingEnabledLog = false
+          })
+        if (res && res.success) {
+          resolve(true)
+        } else {
+          reject(new Error('Cancel'))
+        }
+      })
+      .catch(() => {
+        reject(new Error('Cancel'))
+      })
+  })
+}
 //启用或禁用请求参数
-const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
+const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
       .confirm(`确定要${row.enabledParams ? '禁用' : '启用'}【${row.label}】请求参数?`)
@@ -169,7 +210,7 @@ const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledParams: boole
 }
 
 //启用或禁用响应结果
-const onSetEnableResult = (row: ApiGetListOutput & { loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
+const onSetEnableResult = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
       .confirm(`确定要${row.enabledResult ? '禁用' : '启用'}【${row.label}】响应结果?`)
@@ -291,7 +332,7 @@ const syncApi = async (swaggerResource: any) => {
 
 const onSync = async () => {
   state.syncLoading = true
-  const resProjects = await new ApiApi().getProjects({ showErrorMessage: false }).catch(() => {
+  const resProjects = await new ApiApi().getProjects({}, { showErrorMessage: false }).catch(() => {
     state.syncLoading = false
   })
   if (!resProjects?.success) {

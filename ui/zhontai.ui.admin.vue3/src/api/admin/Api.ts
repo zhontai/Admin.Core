@@ -12,6 +12,7 @@
 import { AxiosResponse } from 'axios'
 import {
   ApiAddInput,
+  ApiSetEnableLogInput,
   ApiSetEnableParamsInput,
   ApiSetEnableResultInput,
   ApiSyncInput,
@@ -19,7 +20,6 @@ import {
   PageInputApiGetPageDto,
   ResultOutputApiGetOutput,
   ResultOutputInt64,
-  ResultOutputListApiGetEnumsOutput,
   ResultOutputListApiGetListOutput,
   ResultOutputListProjectConfig,
   ResultOutputPageOutputApiEntity,
@@ -125,6 +125,24 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     this.request<AxiosResponse, any>({
       path: `/api/admin/api/update`,
       method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags api
+   * @name SetEnableLog
+   * @summary 设置启用接口日志
+   * @request POST:/api/admin/api/set-enable-log
+   * @secure
+   */
+  setEnableLog = (data: ApiSetEnableLogInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/api/set-enable-log`,
+      method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
@@ -275,27 +293,17 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @request GET:/api/admin/api/get-projects
    * @secure
    */
-  getProjects = (params: RequestParams = {}) =>
+  getProjects = (
+    query?: {
+      /** @default "/swagger" */
+      suffix?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputListProjectConfig, any>({
       path: `/api/admin/api/get-projects`,
       method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags api
-   * @name GetEnums
-   * @summary 获得枚举列表
-   * @request GET:/api/admin/api/get-enums
-   * @secure
-   */
-  getEnums = (params: RequestParams = {}) =>
-    this.request<ResultOutputListApiGetEnumsOutput, any>({
-      path: `/api/admin/api/get-enums`,
-      method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

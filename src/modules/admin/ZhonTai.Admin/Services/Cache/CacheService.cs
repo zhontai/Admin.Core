@@ -11,6 +11,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Common.Helpers;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -21,8 +22,10 @@ namespace ZhonTai.Admin.Services.Cache;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class CacheService : BaseService, ICacheService, IDynamicApi
 {
-    public CacheService()
+    private readonly AppConfig _appConfig;
+    public CacheService(IOptions<AppConfig> appConfig)
     {
+        _appConfig = appConfig.Value;
     }
 
     /// <summary>
@@ -33,8 +36,7 @@ public class CacheService : BaseService, ICacheService, IDynamicApi
     {
         var list = new List<dynamic>();
 
-        var appConfig = LazyGetRequiredService<AppConfig>();
-        Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
+        Assembly[] assemblies = AssemblyHelper.GetAssemblyList(_appConfig.AssemblyNames);
 
         foreach (Assembly assembly in assemblies)
         {

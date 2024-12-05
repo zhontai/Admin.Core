@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="'admin/dictType'">
+<script lang="ts" setup name="admin/dictType">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
 import { DictTypeGetPageOutput, PageInputDictTypeGetPageDto } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'

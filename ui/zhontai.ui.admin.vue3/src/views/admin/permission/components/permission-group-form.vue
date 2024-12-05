@@ -22,6 +22,7 @@
                 render-after-expand
                 fit-input-width
                 clearable
+                :empty-values="[0, null, undefined]"
                 class="w100"
               />
             </el-form-item>
@@ -108,7 +109,16 @@ const state = reactive({
 const { form } = toRefs(state)
 
 // 打开对话框
-const open = async (row: any = {}) => {
+const open = async (
+  row: PermissionUpdateGroupInput = {
+    id: 0,
+    enabled: true,
+    opened: true,
+    icon: 'ele-Memo',
+    parentId: undefined,
+  },
+  isCopy = false
+) => {
   proxy.$modal.loading()
   if (row.id > 0) {
     const res = await new PermissionApi().getGroup({ id: row.id }).catch(() => {
@@ -118,10 +128,11 @@ const open = async (row: any = {}) => {
     if (res?.success) {
       let formData = res.data as PermissionUpdateGroupInput
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+      if (isCopy) formData.id = 0
       state.form = formData
     }
   } else {
-    state.form = { enabled: true, opened: true, icon: 'ele-Memo', parentId: row.parentId } as PermissionUpdateGroupInput
+    state.form = row
   }
   proxy.$modal.closeLoading()
   state.showDialog = true

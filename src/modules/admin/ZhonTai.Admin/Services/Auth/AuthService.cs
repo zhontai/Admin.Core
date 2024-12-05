@@ -56,6 +56,9 @@ namespace ZhonTai.Admin.Services.Auth;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class AuthService : BaseService, IAuthService, IDynamicApi
 {
+    private readonly UserHelper _userHelper;
+    private readonly AdminLocalizer _adminLocalizer;
+    private readonly ILoginLogService _loginLogService;
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
     private readonly Lazy<IUserRepository> _userRep;
@@ -64,11 +67,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<ISlideCaptcha> _captcha;
     private readonly Lazy<ITenantService> _tenantService;
-    private readonly UserHelper _userHelper;
-    private readonly AdminLocalizer _adminLocalizer;
-    private readonly ILoginLogService _loginLogService;
 
     public AuthService(
+        UserHelper userHelper,
+        AdminLocalizer adminLocalizer,
+        ILoginLogService loginLogService,
         Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IOptions<JwtConfig>> jwtConfig,
         Lazy<IUserRepository> userRep,
@@ -76,10 +79,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         Lazy<IPermissionRepository> permissionRep,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<ISlideCaptcha> captcha,
-        Lazy<ITenantService> tenantService,
-        UserHelper userHelper,
-        AdminLocalizer adminLocalizer,
-        ILoginLogService loginLogService
+        Lazy<ITenantService> tenantService
     )
     {
         _appConfig = appConfig;
@@ -181,22 +181,22 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         var claims = new List<Claim>()
-       {
-            new Claim(ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
-            new Claim(ClaimAttributes.UserName, user.UserName),
-            new Claim(ClaimAttributes.Name, user.Name??""),
-            new Claim(ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
-            new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
+        {
+            new (ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
+            new (ClaimAttributes.UserName, user.UserName),
+            new (ClaimAttributes.Name, user.Name??""),
+            new (ClaimAttributes.UserType, user.Type.ToInt().ToString(), ClaimValueTypes.Integer32),
+            new (JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
         if (_appConfig.Value.Value.Tenant)
         {
-            claims.AddRange(new[]
-            {
-                new Claim(ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
-                new Claim(ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
-                new Claim(ClaimAttributes.DbKey, user.Tenant?.DbKey??"")
-            });
+            claims.AddRange(
+            [
+                new (ClaimAttributes.TenantId, user.TenantId.ToString(), ClaimValueTypes.Integer64),
+                new (ClaimAttributes.TenantType, user.Tenant?.TenantType.ToInt().ToString(), ClaimValueTypes.Integer32),
+                new (ClaimAttributes.DbKey, user.Tenant?.DbKey??"")
+            ]);
         }
 
         var token = LazyGetRequiredService<IUserToken>().Create(claims.ToArray());
@@ -488,13 +488,13 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             Province = locationInfo?.Province,
             City = locationInfo?.City,
             Isp = locationInfo?.Isp,
-        };
-        loginLogAddInput.CreatedUserName = input.AccountType switch
-        {
-            AccountType.UserName => input.UserName,
-            AccountType.Email => input.Email,
-            AccountType.Mobile => input.Mobile,
-            _ => null
+            CreatedUserName = input.AccountType switch
+            {
+                AccountType.UserName => input.UserName,
+                AccountType.Email => input.Email,
+                AccountType.Mobile => input.Mobile,
+                _ => null
+            }
         };
 
         try

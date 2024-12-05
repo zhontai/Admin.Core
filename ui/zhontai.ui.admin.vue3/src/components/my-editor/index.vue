@@ -1,20 +1,28 @@
 <template>
   <div class="editor-container">
     <Toolbar :editor="editorRef" :mode="mode" />
-    <Editor :mode="mode" :defaultConfig="state.editorConfig" :style="{ height }" v-model="state.editorVal"
-      @onCreated="handleCreated" @onChange="handleChange" />
+    <Editor
+      :mode="mode"
+      :defaultConfig="state.editorConfig"
+      :style="{ height }"
+      v-model="state.editorVal"
+      @onCreated="handleCreated"
+      @onChange="handleChange"
+      @onBlur="onBlur"
+    />
   </div>
 </template>
 
 <script setup lang="ts" name="wngEditor">
 // https://www.wangeditor.com/v5/for-frame.html#vue3
 import '@wangeditor/editor/dist/css/style.css'
-import { reactive, shallowRef, watch, onBeforeUnmount } from 'vue'
+import { reactive, shallowRef, watch, onBeforeUnmount, PropType } from 'vue'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
-import pinia from '/@/stores/index'
-import { useUserInfo } from '/@/stores/userInfo'
-const storesUserInfo = useUserInfo(pinia)
+import { FileApi } from '/@/api/admin/File'
+
+type InsertFnType = (url: string, alt: string, href: string) => void
+type InsertVideoFnType = (url: string, poster: string) => void
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -40,13 +48,13 @@ const props = defineProps({
     default: () => '310px',
   },
   // 双向绑定，用于获取 editor.getHtml()
-  modelValue: String,
+  modelValue: String as PropType<string | undefined | null>,
   // 双向绑定，用于获取 editor.getText()
-  getText: String,
+  getText: String as PropType<string | undefined | null>,
 })
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['update:modelValue', 'update:getText'])
+const emit = defineEmits(['update:modelValue', 'update:getText', 'onBlur', 'onChange'])
 
 // 定义变量内容
 const editorRef = shallowRef()
@@ -55,23 +63,46 @@ const state = reactive({
     placeholder: props.placeholder,
     MENU_CONF: {
       uploadImage: {
-        server: import.meta.env.VITE_API_URL + '/api/admin/file/upload-file',
-        allowedFileTypes: ['image/*'],
         fieldName: 'file',
-        headers: {
-          Authorization: 'Bearer ' + storesUserInfo.getToken(),
+        customUpload(file: File, insertFn: InsertFnType) {
+          new FileApi().uploadFile({ file: file }).then((res) => {
+            if (res?.success) {
+              const url = res.data?.linkUrl as string
+              insertFn(url, res.data?.fileName as string, url)
+            }
+          })
         },
-        customInsert(res: any, insertFn: any) {
-          let url = res.data.linkUrl
-          let alt = ''
-          let href = ''
-          insertFn(url, alt, href)
-        }
-      }
-    }
+      },
+      insertImage: {
+        checkImage(src: string, alt: string, href: string): boolean | string | undefined {
+          if (!src) {
+            return
+          }
+          if (src.indexOf('http') !== 0) {
+            return '图片网址必须以 http/https 开头'
+          }
+          return true
+        },
+      },
+      uploadVideo: {
+        fieldName: 'file',
+        customUpload(file: File, insertFn: InsertVideoFnType) {
+          new FileApi().uploadFile({ file: file }).then((res) => {
+            if (res?.success) {
+              const url = res.data?.linkUrl as string
+              insertFn(url, '')
+            }
+          })
+        },
+      },
+    },
   },
   editorVal: props.modelValue,
 })
+
+const onBlur = () => {
+  emit('onBlur')
+}
 
 // 编辑器回调函数
 const handleCreated = (editor: IDomEditor) => {
@@ -103,11 +134,20 @@ watch(
 // 监听双向绑定值改变，用于回显
 watch(
   () => props.modelValue,
-  (val) => {
+  (val, oVal) => {
+    if (oVal) emit('onChange')
     state.editorVal = val
   },
   {
     deep: true,
   }
 )
+
+const isEmpty = () => {
+  return editorRef.value.isEmpty()
+}
+
+defineExpose({
+  isEmpty,
+})
 </script>

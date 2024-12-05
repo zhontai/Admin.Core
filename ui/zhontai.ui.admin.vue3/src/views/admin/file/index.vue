@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+  <my-layout>
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
           <el-input v-model="state.filterModel.fileName" placeholder="文件名" @keyup.enter="onQuery" />
@@ -13,7 +13,7 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.fileListData" row-key="id" style="width: 100%">
+      <el-table v-loading="state.loading" :data="state.fileListData" row-key="id" style="width: 100%" border>
         <el-table-column prop="fileName" label="文件名" min-width="220">
           <template #default="{ row }">
             <div class="my-flex">
@@ -73,7 +73,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
@@ -89,7 +89,7 @@
     </el-card>
 
     <file-upload ref="fileUploadRef" title="上传文件"></file-upload>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/file">

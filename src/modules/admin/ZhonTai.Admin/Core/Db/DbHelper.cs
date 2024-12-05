@@ -219,6 +219,12 @@ public class DbHelper
                         e.Value = user.DataPermission?.OrgId;
                     }
                     break;
+                case "OwnerOrgName":
+                    if (e.Value == null || ((string)e.Value).IsNull())
+                    {
+                        e.Value = user.DataPermission?.OrgName;
+                    }
+                    break;
                 case "TenantId":
                     if (e.Value == null || (long)e.Value == default || (long?)e.Value == default)
                     {

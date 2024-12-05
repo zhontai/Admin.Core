@@ -55,6 +55,7 @@
                     :name="loginMethod.name"
                     @click="onLogin(loginMethod)"
                   >
+                    <el-icon v-if="loginMethod.svg"><my-icon :name="loginMethod.svg" color="var(--color)"></my-icon></el-icon>
                     {{ $t(loginMethod.title) }}
                   </el-link>
                 </div>
@@ -87,8 +88,8 @@ const loginComponents: any = {
   account: defineAsyncComponent(() => import('./component/account.vue')),
   mobile: defineAsyncComponent(() => import('./component/mobile.vue')),
   email: defineAsyncComponent(() => import('./component/email.vue')),
+  qq: defineAsyncComponent(() => import('./component/qq.vue')),
 }
-const Scan = defineAsyncComponent(() => import('./component/scan.vue'))
 
 const changePasswordComponents: any = {
   mobile: defineAsyncComponent(() => import('/@/views/admin/change-password/component/mobile.vue')),
@@ -119,6 +120,11 @@ const loginMethods = [
     icon: 'ele-Message',
     name: emailComponentName,
     title: 'message.label.two3',
+  },
+  {
+    svg: 'qq',
+    name: 'qq',
+    title: 'QQ',
   },
 ] as any
 
@@ -151,6 +157,8 @@ const isShow = (loginMethod: any) => {
       state.loginComponentName === emailComponentName ||
       (state.loginComponentName === accountComponentName && state.accountType === AccountType.Email.value)
     )
+  } else if (loginMethod.name == 'qq') {
+    return !(state.loginComponentName === 'qq')
   }
 }
 

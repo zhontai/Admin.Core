@@ -15,7 +15,7 @@
             <el-form-item label="上级部门" prop="parentId" :rules="[{ required: true, message: '请输入上级部门', trigger: ['change'] }]">
               <el-tree-select
                 v-model="form.parentId"
-                :data="orgTreeData"
+                :data="state.data"
                 node-key="id"
                 :props="{ label: 'name' }"
                 check-strictly
@@ -70,19 +70,18 @@
 </template>
 
 <script lang="ts" setup name="admin/org/form">
-import { reactive, toRefs, ref, PropType } from 'vue'
-import { OrgListOutput, OrgUpdateInput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, ref, getCurrentInstance } from 'vue'
+import { OrgUpdateInput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import eventBus from '/@/utils/mitt'
+import { listToTree } from '/@/utils/tree'
+
+const { proxy } = getCurrentInstance() as any
 
 defineProps({
   title: {
     type: String,
     default: '',
-  },
-  orgTreeData: {
-    type: Array as PropType<OrgListOutput[]>,
-    default: () => [],
   },
 })
 
@@ -93,12 +92,26 @@ const state = reactive({
   form: {
     enabled: true,
   } as OrgUpdateInput,
+  data: [],
 })
 
 const { form } = toRefs(state)
 
+const query = async () => {
+  const res = await new OrgApi().getList().catch(() => {})
+  if (res && res.data && res.data.length > 0) {
+    state.data = listToTree(res.data)
+  } else {
+    state.data = []
+  }
+}
+
 // 打开对话框
 const open = async (row: any = {}) => {
+  proxy.$modal.loading()
+  await query()
+  proxy.$modal.closeLoading()
+
   if (row.id > 0) {
     const res = await new OrgApi().get({ id: row.id }, { loading: true })
 
@@ -110,6 +123,7 @@ const open = async (row: any = {}) => {
   } else {
     state.form = {
       enabled: true,
+      parentId: row.parentId > 0 ? row.parentId : undefined,
     } as OrgUpdateInput
   }
   state.showDialog = true

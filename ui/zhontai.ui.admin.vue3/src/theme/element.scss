@@ -1,4 +1,4 @@
-@import 'mixins/index.scss';
+@use 'mixins/index.scss' as *;
 
 /* Button 按钮
 ------------------------------- */
@@ -259,9 +259,12 @@
 
 /* Card 卡片
 ------------------------------- */
-// .el-card__header {
-//   padding: 15px 20px;
-// }
+.el-card__header {
+  padding: 10px;
+}
+.el-card__body {
+  padding: 10px;
+}
 
 /* Table 表格 element plus 2.2.0 版本
 ------------------------------- */
@@ -269,6 +272,13 @@
   .el-button.is-text {
     padding: 0;
   }
+
+  th.el-table__cell {
+    font-weight: 500;
+  }
+
+  --el-table-header-bg-color: var(--el-fill-color);
+  --el-table-header-text-color: var(--el-text-color-primary);
 }
 
 /* scrollbar

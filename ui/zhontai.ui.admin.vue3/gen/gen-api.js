@@ -1,18 +1,22 @@
-const { generateApi } = require('swagger-typescript-api')
-const path = require('path')
-const fs = require('fs')
-const axios = require('axios')
-const ejs = require('ejs')
+import axios from 'axios'
+import ejs from 'ejs'
+import fs from 'node:fs'
+import path from 'node:path'
+import { generateApi } from 'swagger-typescript-api'
+
+const projectPath = process.cwd()
+const apiUrl = 'http://localhost:8000'
 
 const apis = [
   {
-    output: path.resolve(__dirname, '../src/api/admin'),
-    url: 'http://localhost:8000/admin/swagger/admin/swagger.json',
-    enumUrl: 'http://localhost:8000/api/admin/api/get-enums',
+    output: path.resolve(projectPath, './src/api/admin'),
+    url: `${apiUrl}/admin/swagger/admin/swagger.json`,
+    enumUrl: `${apiUrl}/api/system/get-enums`,
   },
   // {
-  //   output: path.resolve(__dirname, '../src/api/app'),
-  //   url: 'http://localhost:8000/admin/swagger/app/swagger.json',
+  //   output: path.resolve(projectPath, 'src/api/app'),
+  //   url: `${apiUrl}/app/swagger/app/swagger.json`,
+  //   // enumUrl: `${apiUrl}/api/system/get-enums`, // v8.6.0 可用
   // },
 ]
 
@@ -24,7 +28,7 @@ const genEnums = async (api) => {
   })
 
   if (res?.data?.data?.length > 0) {
-    ejs.renderFile(path.resolve(__dirname, './templates/enum-contracts.ejs'), res.data, {}, function (err, content) {
+    ejs.renderFile(path.resolve(projectPath, './gen/templates/enum-contracts.ejs'), res.data, {}, function (err, content) {
       fs.writeFile(path.resolve(api.output + '/enum-contracts.ts'), content, (err) => {})
       console.log(`✅   api file "enum-contracts.ts" created in ${api.output}\n`)
     })
@@ -38,7 +42,7 @@ apis?.forEach(async (api) => {
 
   await generateApi({
     output: api.output,
-    templates: path.resolve(__dirname, './templates'),
+    templates: path.resolve(projectPath, './gen/templates'),
     url: api.url,
     httpClientType: 'axios',
     modular: true,

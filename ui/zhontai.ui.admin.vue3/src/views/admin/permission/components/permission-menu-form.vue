@@ -173,7 +173,16 @@ const getViews = async () => {
 }
 
 // 打开对话框
-const open = async (row: any = {}) => {
+const open = async (
+  row: PermissionUpdateMenuInput = {
+    id: 0,
+    enabled: true,
+    isKeepAlive: true,
+    icon: 'ele-Memo',
+    parentId: undefined,
+  },
+  isCopy = false
+) => {
   proxy.$modal.loading()
 
   await getViews()
@@ -186,10 +195,12 @@ const open = async (row: any = {}) => {
     if (res?.success) {
       let formData = res.data as PermissionUpdateMenuInput
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+      if (isCopy) formData.id = 0
       state.form = formData
     }
   } else {
-    state.form = { enabled: true, isKeepAlive: true, icon: 'ele-Memo', parentId: row.parentId } as PermissionUpdateMenuInput
+    debugger
+    state.form = row
   }
 
   proxy.$modal.closeLoading()

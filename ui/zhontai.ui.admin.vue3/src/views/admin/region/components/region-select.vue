@@ -3,6 +3,7 @@
     placeholder="请选择上级地区"
     :options="state.regionList"
     :props="cascaderProps"
+    :persistent="true"
     filterable
     clearable
     class="w100"
@@ -10,7 +11,7 @@
     v-bind="$attrs"
     ><template #default="{ data }">
       <span>{{ data.name }}</span>
-      <MySvgIcon v-if="data.hot" name="hot" color="#ea322b" size="12" class="ml5"></MySvgIcon>
+      <my-icon v-if="data.hot" name="hot" color="#ea322b" size="12" class="ml5"></my-icon>
     </template>
   </el-cascader>
 </template>
@@ -20,7 +21,7 @@ import { reactive } from 'vue'
 import type { CascaderProps } from 'element-plus'
 import { RegionApi } from '/@/api/admin/Region'
 
-const emits = defineEmits(['update:parentId', 'change'])
+const parentId = defineModel('parentId', { type: Number, default: undefined })
 
 const state = reactive({
   regionList: [] as any,
@@ -45,6 +46,6 @@ const cascaderProps: CascaderProps = {
 }
 
 const onChange = (value: any) => {
-  emits('update:parentId', value && value.length > 0 ? value[value.length - 1] : '')
+  parentId.value = value && value.length > 0 ? value[value.length - 1] : undefined
 }
 </script>

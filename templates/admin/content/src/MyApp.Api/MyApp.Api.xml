@@ -129,14 +129,5 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ZhonTai.Admin.Repositories.CustomSyncData.InitModuleAsync(IFreeSql,FreeSql.IRepositoryUnitOfWork,ZhonTai.Admin.Core.Configs.DbConfig)">
-            <summary>
-            初始化模块
-            </summary>
-            <param name="db"></param>
-            <param name="unitOfWork"></param>
-            <param name="dbConfig"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

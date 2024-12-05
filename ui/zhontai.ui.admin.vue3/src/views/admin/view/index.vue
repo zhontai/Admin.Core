@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+  <my-layout>
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="视图名称">
           <el-input v-model="state.filter.name" placeholder="视图名称" @keyup.enter="onQuery" />
@@ -20,6 +20,7 @@
         row-key="id"
         default-expand-all
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        border
       >
         <el-table-column prop="label" label="视图名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="name" label="视图命名" min-width="120" show-overflow-tooltip />
@@ -32,17 +33,18 @@
             <el-tag type="danger" v-else>禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="190" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:view:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
             <el-button v-auth="'api:admin:view:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:view:add'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">复制</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
 
     <view-form ref="viewFormRef" :title="state.viewFormTitle" :view-tree-data="state.viewTreeData"></view-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/view">
@@ -117,6 +119,13 @@ const onDelete = (row: ViewListOutput) => {
       onQuery()
     })
     .catch(() => {})
+}
+
+const onCopy = (row: ViewListOutput) => {
+  state.viewFormTitle = '新增视图'
+  var view = cloneDeep(row)
+  view.id = undefined
+  viewFormRef.value.open(view)
 }
 </script>
 

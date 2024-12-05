@@ -14,4 +14,9 @@ public interface IData
     /// 拥有者部门Id
     /// </summary>
     long? OwnerOrgId { get; set; }
+
+    /// <summary>
+    /// 拥有者部门名称
+    /// </summary>
+    string OwnerOrgName { get; set; }
 }

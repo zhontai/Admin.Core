@@ -1,6 +1,6 @@
 <template>
-  <div class="my-layout">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+  <my-layout>
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="企业名称">
           <el-input v-model="state.filter.name" placeholder="企业名称" @keyup.enter="onQuery" />
@@ -13,7 +13,7 @@
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.tenantListData" row-key="id" height="'100%'" style="width: 100%; height: 100%">
+      <el-table v-loading="state.loading" :data="state.tenantListData" row-key="id" height="'100%'" style="width: 100%; height: 100%" border>
         <el-table-column prop="name" label="企业名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="企业编码" width="120" show-overflow-tooltip />
         <el-table-column prop="pkgNames" label="套餐" width="140" show-overflow-tooltip>
@@ -58,7 +58,7 @@
         </el-table-column>
       </el-table>
 
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
@@ -74,14 +74,13 @@
     </el-card>
 
     <tenant-form ref="tenantFormRef" :title="state.tenantFormTitle"></tenant-form>
-  </div>
+  </my-layout>
 </template>
 
 <script lang="ts" setup name="admin/tenant">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { TenantListOutput, PageInputTenantGetPageDto } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
-import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { Session } from '/@/utils/storage'
@@ -186,7 +185,7 @@ const onOneClickLogin = (row: TenantListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要一键登录【${row.name}】?`)
     .then(async () => {
-      const res = await new UserApi().oneClickLogin({ userName: row.userName || '' }, { loading: true })
+      const res = await new TenantApi().oneClickLogin({ tenantId: row.id }, { loading: true })
       if (res?.success) {
         proxy.$modal.msgSuccess('一键登录成功')
         window.requests = []

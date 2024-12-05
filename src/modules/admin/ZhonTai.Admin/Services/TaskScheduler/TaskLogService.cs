@@ -1,15 +1,15 @@
-﻿using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Task.Dto;
-using ZhonTai.DynamicApi;
-using ZhonTai.DynamicApi.Attributes;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Domain.Task.Dto;
+using ZhonTai.Admin.Resources;
+using ZhonTai.Admin.Repositories;
+using ZhonTai.DynamicApi;
+using ZhonTai.DynamicApi.Attributes;
 using FreeScheduler;
 using Mapster;
-using System.Collections.Generic;
-using ZhonTai.Admin.Resources;
-using System;
-using ZhonTai.Admin.Repositories;
 
 namespace ZhonTai.Admin.Services.TaskScheduler;
 
@@ -22,11 +22,11 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
 {
     private readonly Scheduler _scheduler;
     private readonly AdminLocalizer _adminLocalizer;
-    private readonly Lazy<ITaskLogRepository> _taskLogRep;
+    private readonly ITaskLogRepository _taskLogRep;
 
     public TaskLogService(Scheduler scheduler, 
         AdminLocalizer adminLocalizer,
-        Lazy<ITaskLogRepository> taskLogRep)
+        TaskLogRepository taskLogRep)
     {
         _scheduler = scheduler;
         _adminLocalizer = adminLocalizer;
@@ -65,6 +65,6 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     [NonAction]
     public void Add(TaskLog input)
     {
-        _taskLogRep.Value.InsertAsync(input);
+        _taskLogRep.InsertAsync(input);
     }
 }

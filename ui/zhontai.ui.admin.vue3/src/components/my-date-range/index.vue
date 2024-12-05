@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { reactive, watch, defineEmits, ref } from 'vue'
+import { reactive, watch, ref } from 'vue'
 
 const emit = defineEmits(['update:startDate', 'update:endDate'])
 

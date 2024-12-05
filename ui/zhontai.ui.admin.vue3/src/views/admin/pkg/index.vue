@@ -1,8 +1,8 @@
 <template>
-  <my-layout>
+  <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="套餐名">
               <el-input v-model="state.filter.pkgName" placeholder="套餐名" @keyup.enter="onQuery" />
@@ -22,6 +22,7 @@
             default-expand-all
             highlight-current-row
             style="width: 100%"
+            border
             @current-change="onTableCurrentChange"
           >
             <el-table-column prop="name" label="套餐名" min-width="120" show-overflow-tooltip />
@@ -43,7 +44,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="my-flex my-flex-end" style="margin-top: 20px">
+          <div class="my-flex my-flex-end" style="margin-top: 10px">
             <el-pagination
               v-model:currentPage="state.pageInput.currentPage"
               v-model:page-size="state.pageInput.pageSize"
@@ -61,7 +62,7 @@
     </pane>
     <pane>
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="企业名">
               <el-input v-model="state.filter.name" placeholder="企业名" @keyup.enter="onGetPkgTenantList" />
@@ -81,13 +82,14 @@
             :data="state.tenantData"
             row-key="id"
             style="width: 100%"
+            border
             @row-click="onTenantRowClick"
           >
             <el-table-column type="selection" width="55" />
             <el-table-column prop="name" label="企业名" min-width="120" show-overflow-tooltip />
             <el-table-column prop="code" label="企业编码" min-width="120" show-overflow-tooltip />
           </el-table>
-          <div class="my-flex my-flex-end" style="margin-top: 20px">
+          <div class="my-flex my-flex-end" style="margin-top: 10px">
             <el-pagination
               v-model:currentPage="state.tenantPageInput.currentPage"
               v-model:page-size="state.tenantPageInput.pageSize"
@@ -113,7 +115,7 @@
       @sure="onSureTenant"
     ></tenant-select>
     <set-pkg-menu ref="setPkgMenuRef"></set-pkg-menu>
-  </my-layout>
+  </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/pkg">
@@ -136,7 +138,7 @@ const PkgForm = defineAsyncComponent(() => import('./components/pkg-form.vue'))
 const SetPkgMenu = defineAsyncComponent(() => import('./components/set-pkg-menu.vue'))
 const TenantSelect = defineAsyncComponent(() => import('/@/views/admin/tenant/components/tenant-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MyLayout = defineAsyncComponent(() => import('/@/components/my-layout/index.vue'))
+const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

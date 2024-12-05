@@ -39,7 +39,7 @@ using ZhonTai.Admin.Domain.TenantPkg;
 using FreeSql;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
-using ZhonTai.Admin.Core.Handlers;
+using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -50,12 +50,13 @@ namespace ZhonTai.Admin.Services.User;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
+    private readonly AppConfig _appConfig;
+    private readonly UserHelper _userHelper;
+    private readonly AdminLocalizer _adminLocalizer;
     private readonly IUserRepository _userRep;
     private readonly IUserOrgRepository _userOrgRep;
     private readonly IUserRoleRepository _userRoleRep;
     private readonly IUserStaffRepository _userStaffRep;
-    private readonly AppConfig _appConfig;
-    private readonly UserHelper _userHelper;
     private readonly Lazy<IPasswordHasher<UserEntity>> _passwordHasher;
     private readonly Lazy<IRoleRepository> _roleRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
@@ -65,15 +66,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
     private readonly Lazy<IPermissionRepository> _permissionRep;
-    private readonly AdminLocalizer _adminLocalizer;
+   
 
     public UserService(
+        IOptions<AppConfig> appConfig,
+        UserHelper userHelper,
+        AdminLocalizer adminLocalizer,
         IUserRepository userRep,
         IUserOrgRepository userOrgRep,
         IUserRoleRepository userRoleRep,
         IUserStaffRepository userStaffRep,
-        AppConfig appConfig,
-        UserHelper userHelper,
         Lazy<IPasswordHasher<UserEntity>> passwordHasher,
         Lazy<IRoleRepository> roleRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
@@ -82,26 +84,25 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IOrgRepository> orgRep,
-        Lazy<IPermissionRepository> permissionRep,
-        AdminLocalizer adminLocalizer
+        Lazy<IPermissionRepository> permissionRep
     )
     {
-        _appConfig = appConfig;
+        _appConfig = appConfig.Value;
         _userHelper = userHelper;
+        _adminLocalizer = adminLocalizer;
+        _userRep = userRep;
+        _userOrgRep = userOrgRep;
+        _userRoleRep = userRoleRep;
+        _userStaffRep = userStaffRep;
         _passwordHasher = passwordHasher;
         _roleRep = roleRep;
         _rolePermissionRep = rolePermissionRep;
         _fileService = fileService;
-        _userRep = userRep;
-        _userOrgRep = userOrgRep;
         _roleOrgRep = roleOrgRep;
-        _userRoleRep = userRoleRep;
-        _userStaffRep = userStaffRep;
         _apiRep = apiRep;
         _tenantRep = tenantRep;
         _orgRep = orgRep;
         _permissionRep = permissionRep;
-        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -299,9 +300,13 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     orgIds = orgIds.Concat(customRoleOrgIds).ToList();
                 }
             }
+            var orgName = await _orgRep.Value
+                         .Where(a => a.Id == orgId)
+                         .ToOneAsync(a => a.Name);
 
             return new DataPermissionDto
             {
+                OrgName = orgName,
                 OrgId = orgId,
                 OrgIds = orgIds.Distinct().ToList(),
                 DataScope = (User.PlatformAdmin || User.TenantAdmin) ? DataScope.All : dataScope
@@ -967,17 +972,16 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         using var _ = userRep.DataFilter.DisableAll();
         using var __ = userRep.DataFilter.Enable(FilterNames.Tenant);
 
-        var user = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync();
+        var authLoginOutput = await userRep.Select.Where(a => a.UserName == userName).ToOneAsync<AuthLoginOutput>();
 
-        if (user == null)
+        if (authLoginOutput == null)
         {
             throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
         }
 
-        var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(authLoginOutput.TenantId).ToOneAsync<AuthLoginTenantDto>();
             authLoginOutput.Tenant = tenant;
         }
 
