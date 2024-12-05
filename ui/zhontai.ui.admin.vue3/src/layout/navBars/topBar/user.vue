@@ -32,25 +32,13 @@
     <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
       <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
     </div>
-    <div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
+    <div class="layout-navbars-breadcrumb-user-icon" @click="onMsgClick">
       <el-badge :is-dot="true">
         <el-icon :title="$t('message.user.title4')">
           <ele-Bell />
         </el-icon>
       </el-badge>
     </div>
-    <el-popover
-      ref="userNewsRef"
-      :virtual-ref="userNewsBadgeRef"
-      placement="bottom"
-      trigger="click"
-      transition="el-zoom-in-top"
-      virtual-triggering
-      :width="300"
-      :persistent="false"
-    >
-      <UserNews />
-    </el-popover>
     <div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
       <i
         class="iconfont"
@@ -70,18 +58,20 @@
         <el-dropdown-menu>
           <el-dropdown-item command="/platform/workbench">{{ $t('工作台') }}</el-dropdown-item>
           <el-dropdown-item command="/personal">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
+          <el-dropdown-item command="/site-msg">{{ $t('站内信') }}</el-dropdown-item>
           <el-dropdown-item divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
     <Search ref="searchRef" />
+    <Msg ref="msgRef" />
   </div>
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
 import { defineAsyncComponent, ref, unref, computed, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessageBox, ElMessage, ClickOutside as vClickOutside } from 'element-plus'
+import { ElMessageBox, ElMessage } from 'element-plus'
 import screenfull from 'screenfull'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
@@ -92,12 +82,10 @@ import mittBus from '/@/utils/mitt'
 import { Local } from '/@/utils/storage'
 
 // 引入组件
-const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'))
+const Msg = defineAsyncComponent(() => import('/@/layout/navBars/topBar/msg.vue'))
 const Search = defineAsyncComponent(() => import('/@/layout/navBars/topBar/search.vue'))
 
 // 定义变量内容
-const userNewsRef = ref()
-const userNewsBadgeRef = ref()
 const { locale, t } = useI18n()
 const router = useRouter()
 const storesUseUserInfo = useUserInfo()
@@ -105,6 +93,7 @@ const storesThemeConfig = useThemeConfig()
 const { userInfos } = storeToRefs(storesUseUserInfo)
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const searchRef = ref()
+const msgRef = ref()
 const state = <any>reactive({
   isScreenfull: false,
   disabledI18n: 'zh-cn',
@@ -138,8 +127,8 @@ const onScreenfullClick = () => {
   })
 }
 // 消息通知点击时
-const onUserNewsClick = () => {
-  unref(userNewsRef).popperRef?.delayHide?.()
+const onMsgClick = () => {
+  msgRef.value.openDrawer()
 }
 // 布局配置 icon 点击时
 const onLayoutSetingClick = () => {

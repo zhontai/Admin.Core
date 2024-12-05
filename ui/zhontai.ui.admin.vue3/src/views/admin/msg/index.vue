@@ -84,7 +84,7 @@
           >
             <el-table-column type="selection" width="55" />
             <el-table-column prop="name" label="姓名" min-width="120" show-overflow-tooltip />
-            <el-table-column label="是否已读" width="100" align="center" show-overflow-tooltip>
+            <el-table-column label="是否已读" width="100" align="center">
               <template #default="{ row }">
                 <el-tag type="success" v-if="row.isRead">已读</el-tag>
                 <el-tag type="info" v-else>未读</el-tag>

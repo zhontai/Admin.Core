@@ -25,7 +25,13 @@ import { reactive } from 'vue'
 
 // 定义变量内容
 const state = reactive({
-  newsList: [],
+  newsList: [
+    {
+      label: '关于版本发布的通知',
+      value: 'admin，基于 vue3 + CompositionAPI + typescript + vite + element plus，正式发布时间：2022年12月08日！',
+      time: '2022-12-08',
+    },
+  ],
 })
 
 // 全部已读点击

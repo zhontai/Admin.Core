@@ -1,6 +1,8 @@
 ﻿using FreeSql.DataAnnotations;
 using System;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Entities;
+using ZhonTai.Admin.Domain.MsgType;
 
 namespace ZhonTai.Admin.Domain.Msg;
 
@@ -16,9 +18,23 @@ public partial class MsgUserEntity : EntityBase
     public long MsgId { get; set; }
 
     /// <summary>
+    /// 消息
+    /// </summary>
+    [NotGen]
+    [Navigate(nameof(MsgId))]
+    public MsgEntity Msg { get; set; }
+
+    /// <summary>
     /// 用户Id
     /// </summary>
     public long UserId { get; set; }
+
+    /// <summary>
+    /// 用户
+    /// </summary>
+    [NotGen]
+    [Navigate(nameof(UserId))]
+    public MsgUserEntity User { get; set; }
 
     /// <summary>
     /// 是否已读

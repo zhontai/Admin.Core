@@ -2002,6 +2002,24 @@ export interface PageInputRoleGetPageDto {
 }
 
 /** 分页信息输入 */
+export interface PageInputSiteMsgGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  filter?: SiteMsgGetPageInput
+}
+
+/** 分页信息输入 */
 export interface PageInputTaskGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
@@ -2193,6 +2211,17 @@ export interface PageOutputRoleGetPageOutput {
   total?: number
   /** 数据 */
   list?: RoleGetPageOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputSiteMsgGetPageOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: SiteMsgGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -3830,6 +3859,18 @@ export interface ResultOutputPageOutputRoleGetPageOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputPageOutputSiteMsgGetPageOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputSiteMsgGetPageOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputPageOutputTaskListOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -4347,6 +4388,47 @@ export interface SendSmsCodeInput {
  * @format int32
  */
 export type Sex = 0 | 1 | 2
+
+export interface SiteMsgGetPageInput {
+  /** 是否已读 */
+  isRead?: boolean | null
+  /**
+   * 分类Id
+   * @format int64
+   */
+  typeId?: number | null
+  /** 标题 */
+  title?: string | null
+}
+
+export interface SiteMsgGetPageOutput {
+  /**
+   * 唯一Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 消息Id
+   * @format int64
+   */
+  msgId?: number
+  /** 标题 */
+  title?: string | null
+  /**
+   * 类型Id
+   * @format int64
+   */
+  typeId?: number
+  /** 类型名称 */
+  typeName?: string | null
+  /** 是否已读 */
+  isRead?: boolean | null
+  /**
+   * 接收时间
+   * @format date-time
+   */
+  receivedTime?: string | null
+}
 
 export interface SlideTrack {
   /** @format int32 */

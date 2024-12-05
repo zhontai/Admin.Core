@@ -125,7 +125,8 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    private async Task<List<long>> GetChildIdListAsync(long id)
+    [NonAction]
+    public async Task<List<long>> GetChildIdListAsync(long id)
     {
         return await _msgTypeRep.Select
         .Where(a => a.Id == id)
@@ -134,11 +135,12 @@ public class MsgTypeService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 获得当前级和下级Id
+    /// 获得本级和下级Id
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    private async Task<List<long>> GetChildIdListAsync(long[] ids)
+    [NonAction]
+    public async Task<List<long>> GetChildIdListAsync(long[] ids)
     {
         return await _msgTypeRep.Select
         .Where(a => ids.Contains(a.Id))
