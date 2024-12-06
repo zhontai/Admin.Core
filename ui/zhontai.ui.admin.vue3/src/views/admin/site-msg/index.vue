@@ -55,7 +55,13 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip>
+          <template #default="{ row }">
+            <el-link type="primary" :underline="false" :href="`/site-msg/detail?id=${row.id}`" @click.prevent.stop="onToDetail(row)">{{
+              row.title
+            }}</el-link>
+          </template>
+        </el-table-column>
         <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
         <el-table-column prop="receivedTime" label="接收时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
       </el-table>
@@ -85,7 +91,9 @@ import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput, MsgTypeGetListOutpu
 import { listToTree } from '/@/utils/tree'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { ElTable } from 'element-plus'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const tableRef = ref<InstanceType<typeof ElTable>>()
 const { proxy } = getCurrentInstance() as any
 
@@ -162,6 +170,13 @@ const getMsgTypes = async () => {
   } else {
     state.msgTypeTreeData = []
   }
+}
+
+const onToDetail = (row: SiteMsgGetPageOutput) => {
+  router.push({
+    path: '/site-msg/detail',
+    query: { id: row.id, tagsViewName: row.title },
+  })
 }
 
 const onQuery = async () => {

@@ -3985,6 +3985,17 @@ export interface ResultOutputRoleGetOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputSiteMsgGetContentOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  data?: SiteMsgGetContentOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputString {
   /** 是否成功标记 */
   success?: boolean
@@ -4388,6 +4399,20 @@ export interface SendSmsCodeInput {
  * @format int32
  */
 export type Sex = 0 | 1 | 2
+
+export interface SiteMsgGetContentOutput {
+  /** 标题 */
+  title?: string | null
+  /** 类型名称 */
+  typeName?: string | null
+  /** 内容 */
+  content?: string | null
+  /**
+   * 接收时间
+   * @format date-time
+   */
+  receivedTime?: string | null
+}
 
 export interface SiteMsgGetPageInput {
   /** 是否已读 */

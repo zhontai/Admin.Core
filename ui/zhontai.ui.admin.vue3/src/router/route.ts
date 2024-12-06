@@ -30,6 +30,9 @@ declare module 'vue-router' {
   }
 }
 
+/**
+ * 定义登录访问界面
+ */
 export const commonRoutes = [
   {
     path: '/personal',

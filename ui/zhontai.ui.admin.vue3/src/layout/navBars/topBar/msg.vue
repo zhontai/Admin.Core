@@ -19,7 +19,7 @@
           <div>
             <el-empty v-if="isEmpty" description="暂无消息" />
             <template v-else>
-              <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item">
+              <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item" @click="onToDetail(msg)">
                 <div :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
                 <div class="msg-item__time">{{ formatterTime(msg.receivedTime) }}</div>
                 <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click="onSetRead(msg)">标为已读</el-button>
@@ -122,6 +122,14 @@ const onSetRead = async (msg: SiteMsgGetPageOutput) => {
   if (res?.success) {
     onQuery()
   }
+}
+
+const onToDetail = (row: SiteMsgGetPageOutput) => {
+  state.visible = false
+  router.push({
+    path: '/site-msg/detail',
+    query: { id: row.id, tagsViewName: row.title },
+  })
 }
 
 const openDrawer = () => {

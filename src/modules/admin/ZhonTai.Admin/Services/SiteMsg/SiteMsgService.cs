@@ -38,6 +38,34 @@ public class SiteMsgService : BaseService, IDynamicApi
     }
 
     /// <summary>
+    /// 获得内容
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [Login]
+    public async Task<SiteMsgGetContentOutput> GetContentAsync(long id)
+    {
+        if (!(id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请选择消息"]);
+        }
+
+        var output = await _msgUserRep.Select
+        .Where(a => a.UserId == User.Id)
+        .Where(a => a.Id == id)
+        .FirstAsync(a => new SiteMsgGetContentOutput
+        {
+            Title = a.Msg.Title,
+            TypeName = a.Msg.Type.Name,
+            Content = a.Msg.Content,
+            ReceivedTime = a.CreatedTime,
+        });
+
+        return output;
+    }
+
+    /// <summary>
     /// 查询分页
     /// </summary>
     /// <param name="input"></param>
