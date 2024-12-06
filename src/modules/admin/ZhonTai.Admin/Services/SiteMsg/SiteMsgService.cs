@@ -169,6 +169,7 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// <param name="id"></param>
     /// <returns></returns>
     [AdminTransaction]
+    [Login]
     public virtual async Task SoftDeleteAsync(long id)
     {
         if (!(id > 0))

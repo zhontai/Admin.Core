@@ -49,6 +49,7 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Login]
     public async Task<List<MsgTypeGetListOutput>> GetListAsync([FromQuery]MsgTypeGetListInput input)
     {
         var list = await _msgTypeRep.Select

@@ -30,6 +30,54 @@ declare module 'vue-router' {
   }
 }
 
+export const commonRoutes = [
+  {
+    path: '/personal',
+    name: 'admin/personal',
+    component: () => import('/@/views/admin/personal/index.vue'),
+    meta: {
+      title: '个人中心',
+      isLink: '',
+      isHide: true,
+      isKeepAlive: true,
+      isAffix: false,
+      isIframe: false,
+      roles: ['admin'],
+      icon: 'ele-Message',
+    },
+  },
+  {
+    path: '/site-msg',
+    name: 'admin/site-msg',
+    component: () => import('/@/views/admin/site-msg/index.vue'),
+    meta: {
+      title: '站内信',
+      isLink: '',
+      isHide: true,
+      isKeepAlive: true,
+      isAffix: false,
+      isIframe: false,
+      roles: ['admin'],
+      icon: 'ele-Message',
+    },
+  },
+  {
+    path: '/site-msg/detail',
+    name: 'admin/site-msg/detail',
+    component: () => import('/@/views/admin/site-msg/detail.vue'),
+    meta: {
+      title: '站内信详情',
+      isLink: '',
+      isHide: true,
+      isKeepAlive: true,
+      isAffix: false,
+      isIframe: false,
+      roles: ['admin'],
+      icon: 'ele-Comment',
+    },
+  },
+]
+
 /**
  * 定义动态路由
  * 前端添加路由，请在顶级节点的 `children 数组` 里添加
