@@ -42,8 +42,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet]
     [Login]
+    [HttpGet]
     public async Task<SiteMsgGetContentOutput> GetContentAsync(long id)
     {
         if (!(id > 0))
@@ -70,8 +70,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
     [Login]
+    [HttpPost]
     public async Task<PageOutput<SiteMsgGetPageOutput>> GetPageAsync(PageInput<SiteMsgGetPageInput> input)
     {
         var title = input.Filter?.Title;
@@ -115,8 +115,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// 全部标为已读
     /// </summary>
     /// <returns></returns>
-    [HttpPost]
     [Login]
+    [HttpPost]
     public async Task SetAllReadAsync()
     {
         await _msgUserRep.UpdateDiy.Set(a => new MsgUserEntity
@@ -138,8 +138,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpPost]
     [Login]
+    [HttpPost]
     public async Task SetReadAsync(long id)
     {
         if (!(id > 0))
@@ -167,8 +167,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="idList"></param>
     /// <returns></returns>
-    [HttpPost]
     [Login]
+    [HttpPost]
     public async Task BatchSetReadAsync(long[] idList)
     {
         if (!(idList?.Length > 0))
@@ -196,7 +196,6 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AdminTransaction]
     [Login]
     public virtual async Task SoftDeleteAsync(long id)
     {
@@ -212,8 +211,8 @@ public class SiteMsgService : BaseService, IDynamicApi
     /// 批量删除
     /// </summary>
     /// <returns></returns>
-    [HttpPost]
     [Login]
+    [HttpPost]
     public async Task BatchSoftDeleteAsync(long[] ids)
     {
         if (!(ids?.Length > 0))
