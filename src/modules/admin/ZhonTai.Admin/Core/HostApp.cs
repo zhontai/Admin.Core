@@ -67,9 +67,6 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using IP2Region.Net.Abstractions;
 using IP2Region.Net.XDB;
-using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Services.Api.Dto;
-using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core;
 
