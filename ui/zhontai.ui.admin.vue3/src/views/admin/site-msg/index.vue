@@ -57,9 +57,14 @@
         <el-table-column type="selection" width="55" />
         <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
-            <el-link type="primary" :underline="false" :href="`/site-msg/detail?id=${row.id}`" @click.prevent.stop="onToDetail(row)">{{
-              row.title
-            }}</el-link>
+            <MyLink
+              :model-value="{
+                path: '/site-msg/detail',
+                query: { id: row.id, tagsViewName: row.title },
+              }"
+            >
+              {{ row.title }}
+            </MyLink>
           </template>
         </el-table-column>
         <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
@@ -83,7 +88,7 @@
 </template>
 
 <script lang="ts" setup name="admin/site-msg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, computed } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, computed, defineAsyncComponent } from 'vue'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
@@ -91,9 +96,9 @@ import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput, MsgTypeGetListOutpu
 import { listToTree } from '/@/utils/tree'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { ElTable } from 'element-plus'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+const MyLink = defineAsyncComponent(() => import('/@/components/my-link/index.vue'))
+
 const tableRef = ref<InstanceType<typeof ElTable>>()
 const { proxy } = getCurrentInstance() as any
 
@@ -170,13 +175,6 @@ const getMsgTypes = async () => {
   } else {
     state.msgTypeTreeData = []
   }
-}
-
-const onToDetail = (row: SiteMsgGetPageOutput) => {
-  router.push({
-    path: '/site-msg/detail',
-    query: { id: row.id, tagsViewName: row.title },
-  })
 }
 
 const onQuery = async () => {
