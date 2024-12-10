@@ -1,5 +1,5 @@
 <template>
-  <el-link :class="{ 'my-link--bold': bold }" type="primary" :underline="false" :href="href" @click.prevent.stop="onToPage()">
+  <el-link :class="{ 'my-link--bold': bold }" type="primary" :underline="false" :href="href" v-bind="$attrs" @click.prevent.stop="onToPage()">
     <slot> </slot>
   </el-link>
 </template>
