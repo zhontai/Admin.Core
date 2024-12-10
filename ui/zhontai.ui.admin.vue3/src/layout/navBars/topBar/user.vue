@@ -33,7 +33,7 @@
       <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onMsgClick">
-      <el-badge :is-dot="true">
+      <el-badge :is-dot="state.unread">
         <el-icon :title="$t('message.user.title4')">
           <ele-Bell />
         </el-icon>
@@ -80,6 +80,7 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 import { Local } from '/@/utils/storage'
+import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 
 // 引入组件
 const Msg = defineAsyncComponent(() => import('/@/layout/navBars/topBar/msg.vue'))
@@ -98,6 +99,7 @@ const state = <any>reactive({
   isScreenfull: false,
   disabledI18n: 'zh-cn',
   disabledSize: 'large',
+  unread: false,
 })
 
 // 头像地址
@@ -196,12 +198,20 @@ const onLanguageChange = (lang: string) => {
 const initI18nOrSize = (value: string, attr: string) => {
   state[attr] = Local.get('themeConfig')[value]
 }
+//检查是否有未读消息
+const checkUnreadMsg = async () => {
+  const res = await new SiteMsgApi().isUnread().catch(() => {})
+  if (res?.success) {
+    state.unread = res.data
+  }
+}
 // 页面加载时
 onMounted(() => {
   if (Local.get('themeConfig')) {
     initI18nOrSize('globalComponentSize', 'disabledSize')
     initI18nOrSize('globalI18n', 'disabledI18n')
   }
+  checkUnreadMsg()
 })
 </script>
 
