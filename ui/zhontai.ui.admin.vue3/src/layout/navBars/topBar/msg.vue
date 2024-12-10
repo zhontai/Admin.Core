@@ -112,6 +112,7 @@ const onSetAllRead = () => {
       if (res?.success) {
         proxy.$modal.msgSuccess('标记所有已读成功')
         eventBus.emit('refreshSiteMsg')
+        eventBus.emit('checkUnreadMsg')
         onQuery()
       }
     })
@@ -123,6 +124,7 @@ const onSetRead = async (msg: SiteMsgGetPageOutput) => {
   const res = await new SiteMsgApi().setRead({ id: msg.id }).catch(() => {})
   if (res?.success) {
     eventBus.emit('refreshSiteMsg')
+    eventBus.emit('checkUnreadMsg')
     onQuery()
   }
 }
