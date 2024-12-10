@@ -1,5 +1,5 @@
 <template>
-  <el-link type="primary" :underline="false" :href="href" @click.prevent.stop="onToPage()">
+  <el-link :class="{ 'my-link--bold': bold }" type="primary" :underline="false" :href="href" @click.prevent.stop="onToPage()">
     <slot> </slot>
   </el-link>
 </template>
@@ -10,6 +10,8 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const model = defineModel({ type: Object })
+
+const bold = defineModel('bold', { type: Boolean, default: false })
 
 const href = computed(() => {
   const { href } = router.resolve({
@@ -28,4 +30,8 @@ const onToPage = () => {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.my-link--bold {
+  font-weight: 600;
+}
+</style>
