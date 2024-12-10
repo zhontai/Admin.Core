@@ -56,10 +56,12 @@ public class SiteMsgService : BaseService, IDynamicApi
         .Where(a => a.Id == id)
         .FirstAsync(a => new SiteMsgGetContentOutput
         {
+            MsgId = a.MsgId,
             Title = a.Msg.Title,
             TypeName = a.Msg.Type.Name,
             Content = a.Msg.Content,
             ReceivedTime = a.CreatedTime,
+            IsRead = a.IsRead,
         });
 
         return output;

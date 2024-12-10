@@ -38,6 +38,7 @@ import { useRouter } from 'vue-router'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
+import eventBus from '/@/utils/mitt'
 
 const { proxy } = getCurrentInstance() as any
 const router = useRouter()
@@ -110,6 +111,7 @@ const onSetAllRead = () => {
       state.loadingSetAllRead = false
       if (res?.success) {
         proxy.$modal.msgSuccess('标记所有已读成功')
+        eventBus.emit('refreshSiteMsg')
         onQuery()
       }
     })
@@ -120,6 +122,7 @@ const onSetRead = async (msg: SiteMsgGetPageOutput) => {
   msg.isRead = true
   const res = await new SiteMsgApi().setRead({ id: msg.id }).catch(() => {})
   if (res?.success) {
+    eventBus.emit('refreshSiteMsg')
     onQuery()
   }
 }

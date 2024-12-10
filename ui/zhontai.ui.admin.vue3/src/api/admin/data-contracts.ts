@@ -4401,6 +4401,11 @@ export interface SendSmsCodeInput {
 export type Sex = 0 | 1 | 2
 
 export interface SiteMsgGetContentOutput {
+  /**
+   * 消息Id
+   * @format int64
+   */
+  msgId?: number
   /** 标题 */
   title?: string | null
   /** 类型名称 */
@@ -4412,6 +4417,8 @@ export interface SiteMsgGetContentOutput {
    * @format date-time
    */
   receivedTime?: string | null
+  /** 是否已读 */
+  isRead?: boolean | null
 }
 
 export interface SiteMsgGetPageInput {

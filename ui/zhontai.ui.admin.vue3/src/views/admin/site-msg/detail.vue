@@ -13,6 +13,7 @@ import { reactive, onMounted } from 'vue'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { SiteMsgGetContentOutput } from '/@/api/admin/data-contracts'
 import { LocationQuery, useRoute } from 'vue-router'
+import eventBus from '/@/utils/mitt'
 
 const route = useRoute()
 
@@ -22,19 +23,28 @@ const state = reactive({
   msg: {} as SiteMsgGetContentOutput,
 })
 
-onMounted(() => {
+onMounted(async () => {
   state.query = route.query
-  onQuery()
+  await getContent()
+  if (!state.msg?.isRead) await sedRead()
 })
 
-const onQuery = async () => {
+const sedRead = async () => {
+  const res = await new SiteMsgApi().setRead({ id: (state.query.id || 0) as number }).catch(() => {})
+  if (res?.success) {
+    eventBus.emit('refreshSiteMsg')
+    eventBus.emit('checkUnreadMsg')
+  }
+}
+
+const getContent = async () => {
   state.loading = true
 
   const res = await new SiteMsgApi().getContent({ id: Number(state.query.id) }).catch(() => {
     state.loading = false
   })
 
-  state.msg.content = res?.data?.content
+  state.msg = res?.data as SiteMsgGetContentOutput
 
   state.loading = false
 }

@@ -5,6 +5,11 @@ namespace ZhonTai.Admin.Services.SiteMsg.Dto;
 public class SiteMsgGetContentOutput
 {
     /// <summary>
+    /// 消息Id
+    /// </summary>
+    public long MsgId { get; set; }
+
+    /// <summary>
     /// 标题
     /// </summary>
     public string Title { get; set; }
@@ -23,4 +28,9 @@ public class SiteMsgGetContentOutput
     /// 接收时间
     /// </summary>
     public virtual DateTime? ReceivedTime { get; set; }
+
+    /// <summary>
+    /// 是否已读
+    /// </summary>
+    public bool? IsRead { get; set; }
 }

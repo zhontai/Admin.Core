@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { defineAsyncComponent, ref, unref, computed, reactive, onMounted } from 'vue'
+import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import screenfull from 'screenfull'
@@ -212,6 +212,10 @@ onMounted(() => {
     initI18nOrSize('globalI18n', 'disabledI18n')
   }
   checkUnreadMsg()
+  mittBus.off('checkUnreadMsg')
+  mittBus.on('checkUnreadMsg', () => {
+    checkUnreadMsg()
+  })
 })
 </script>
 
