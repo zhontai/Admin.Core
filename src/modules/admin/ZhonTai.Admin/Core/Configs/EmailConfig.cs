@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Core.Configs;
 
+/// <summary>
+/// 邮件配置
+/// </summary>
 public class EmailConfig
 {
     public static class Models

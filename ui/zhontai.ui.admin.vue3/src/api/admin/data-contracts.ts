@@ -551,10 +551,10 @@ export interface CaptchaData {
 export type DataScope = 1 | 2 | 3 | 4 | 5
 
 /**
- * MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25
+ * MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27
  * @format int32
  */
-export type DataType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25
+export type DataType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 11 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27
 
 /** 添加字典 */
 export interface DictAddInput {
@@ -4734,7 +4734,7 @@ export interface TenantAddInput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4813,7 +4813,7 @@ export interface TenantEntity {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4850,7 +4850,7 @@ export interface TenantGetOutput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4895,7 +4895,7 @@ export interface TenantListOutput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 数据库名称 */
   dbTypeName?: string | null
@@ -4955,7 +4955,7 @@ export interface TenantUpdateInput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -5723,4 +5723,9 @@ export interface ViewUpdateInput {
    * @format int64
    */
   id: number
+}
+
+export interface WebSocketPreConnectInput {
+  /** @format int64 */
+  websocketId?: number | null
 }

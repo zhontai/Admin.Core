@@ -5,7 +5,7 @@ import path from 'node:path'
 import { generateApi } from 'swagger-typescript-api'
 
 const projectPath = process.cwd()
-const apiUrl = 'http://localhost:8000'
+const apiUrl = 'http://localhost:8010'
 
 const apis = [
   {

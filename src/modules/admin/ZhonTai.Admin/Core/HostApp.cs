@@ -158,6 +158,8 @@ public class HostApp
                 services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
                 services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
                 services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
+                services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
+                services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
             }
             else
             {
@@ -175,6 +177,9 @@ public class HostApp
 
                 //oss上传配置
                 services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
+
+                //im配置
+                services.Configure<ImConfig>(ConfigHelper.Load("imconfig", env.EnvironmentName));
 
                 //限流配置
                 configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
@@ -821,6 +826,13 @@ public class HostApp
         if (appConfig.IP2Region.Enable)
         {
             services.AddSingleton<ISearcher>(new Searcher(CachePolicy.Content, Path.Combine(AppContext.BaseDirectory, "ip2region.xdb")));
+        }
+
+        //im即时通讯
+        var imConfig = AppInfo.GetOptions<ImConfig>();
+        if (imConfig.Enable)
+        {
+            services.AddIm();
         }
 
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);

@@ -81,6 +81,7 @@ import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 import { Local } from '/@/utils/storage'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
+import { WebSocketClient } from '/@/utils/ws'
 
 // 引入组件
 const Msg = defineAsyncComponent(() => import('/@/layout/navBars/topBar/msg.vue'))
@@ -95,6 +96,8 @@ const { userInfos } = storeToRefs(storesUseUserInfo)
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const searchRef = ref()
 const msgRef = ref()
+const wsClient = ref<WebSocketClient | null>(null)
+
 const state = <any>reactive({
   isScreenfull: false,
   disabledI18n: 'zh-cn',
@@ -205,6 +208,16 @@ const checkUnreadMsg = async () => {
     state.unread = res.data
   }
 }
+const initWebSocket = async () => {
+  wsClient.value = new WebSocketClient({
+    onMessage: (event: MessageEvent) => {
+      if (event.data) {
+        var data = JSON.parse(event.data)
+        console.log(data.evt)
+      }
+    },
+  })
+}
 // 页面加载时
 onMounted(() => {
   if (Local.get('themeConfig')) {
@@ -216,6 +229,7 @@ onMounted(() => {
   mittBus.on('checkUnreadMsg', () => {
     checkUnreadMsg()
   })
+  initWebSocket()
 })
 </script>
 

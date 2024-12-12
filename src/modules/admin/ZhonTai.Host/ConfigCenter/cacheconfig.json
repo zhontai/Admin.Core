@@ -1,15 +1,15 @@
 {
   "CacheConfig": {
     //缓存类型 Memory = 0,Redis = 1
-    "type": "Memory",
+    "type": "1",
     //限流缓存类型 Memory = 0,Redis = 1
-    "typeRateLimit": "Memory",
+    "typeRateLimit": "1",
     //Redis配置
     "redis": {
       //连接字符串
-      "connectionString": "127.0.0.1:6379,password=,defaultDatabase=1",
+      "connectionString": "127.0.0.1:6379,password=Welcome5201!,defaultDatabase=0",
       //限流连接字符串
-      "connectionStringRateLimit": "127.0.0.1:6379,password=,defaultDatabase=1"
+      "connectionStringRateLimit": "127.0.0.1:6379,password=Welcome5201!,defaultDatabase=0"
     }
   }
 }
