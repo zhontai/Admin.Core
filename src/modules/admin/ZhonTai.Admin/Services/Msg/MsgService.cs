@@ -12,6 +12,8 @@ using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Services.Msg.Dto;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core;
 
 namespace ZhonTai.Admin.Services.Msg;
 
@@ -122,6 +124,19 @@ public class MsgService : BaseService, IDynamicApi
             }).ToList();
 
             await _msgUserRep.InsertAsync(userMsgList);
+
+            //推送消息
+            var imConfig = AppInfo.GetOptions<ImConfig>();
+            if (imConfig.Enable)
+            {
+                ImHelper.SendMessage(0, insertUserIds, new
+                {
+                    evts = new[]
+                    {
+                        new { name = "checkUnreadMsg", data = new { } }
+                    }
+                });
+            }
         }
     }
 

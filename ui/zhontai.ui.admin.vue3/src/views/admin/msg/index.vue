@@ -161,10 +161,10 @@ const state = reactive({
   msgName: '' as string | null | undefined,
 })
 
-onMounted(() => {
+onMounted(async () => {
   onQuery()
   eventBus.off('refreshMsg')
-  eventBus.on('refreshMsg', async () => {
+  eventBus.on('refreshMsg', () => {
     onQuery()
   })
 })
@@ -188,9 +188,12 @@ const onQuery = async () => {
   state.total = res?.data?.total ?? 0
 
   if (state.msgData?.length > 0) {
-    nextTick(() => {
-      msgTableRef.value!.setCurrentRow(state.msgData[0])
-    })
+    window.setTimeout(() => {
+      msgTableRef.value?.setCurrentRow(state.msgData[0])
+    }, 100)
+    // nextTick(() => {
+    //   msgTableRef.value?.setCurrentRow(state.msgData[0])
+    // })
   }
 
   state.loading = false

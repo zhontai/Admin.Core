@@ -213,7 +213,12 @@ const initWebSocket = async () => {
     onMessage: (event: MessageEvent) => {
       if (event.data) {
         var data = JSON.parse(event.data)
-        console.log(data.evt)
+        console.log(data)
+        if (data.evts?.length > 0) {
+          data.evts.forEach((evt: any) => {
+            mittBus.emit(evt.name)
+          })
+        }
       }
     },
   })
