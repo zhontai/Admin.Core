@@ -27,6 +27,7 @@
  * @method refreshMsgType 刷新消息分类
  * @method refreshSiteMsg 刷新站内信
  * @method checkUnreadMsg 检查未读消息
+ * @method forceOffline 强制下线
  */
 declare type MittType<T = any> = {
   openSetingsDrawer?: string
@@ -57,6 +58,7 @@ declare type MittType<T = any> = {
   refreshMsgType?: T
   refreshSiteMsg?: T
   checkUnreadMsg?: T
+  forceOffline?: T
 }
 
 // mitt 参数类型定义

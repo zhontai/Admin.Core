@@ -111,10 +111,7 @@ export class WebSocketClient {
 
     this.reconnectTimer = window.setTimeout(async () => {
       console.log('Attempting to reconnect...')
-      const res = await new WebSocketApi().isUseIm({}).catch(() => {})
-      if (res?.success && res.data) {
-        this.connect()
-      }
+      this.connect()
     }, this.reconnectInterval)
   }
 

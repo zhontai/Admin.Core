@@ -185,6 +185,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var userList = Mapper.Map<List<UserGetPageOutput>>(list);
 
+        //用户在线离线查询
         if (_imConfig.Enable)
         {
             var clientIdList = ImHelper.GetClientListByOnline();
@@ -1006,5 +1007,28 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
 
         return new { token };
+    }
+
+    /// <summary>
+    /// 强制用户下线
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public void ForceOfflineAsync(long id)
+    {
+        if (_imConfig.Enable)
+        {
+            //推送消息
+            ImHelper.SendMessage(0, [id], new
+            {
+                evts = new[]
+                {
+                    new { name = "forceOffline", data = new { } }
+                }
+            });
+
+            //强制下线
+            ImHelper.ForceOffline(id);
+        }
     }
 }

@@ -71,6 +71,7 @@
                       <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
                       <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
                       <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </my-dropdown-more>
@@ -302,6 +303,20 @@ const onOneClickLogin = (row: UserGetPageOutput) => {
         Session.remove('tagsViewList')
         storesUseUserInfo.setToken(res.data.token)
         window.location.href = '/'
+      }
+    })
+    .catch(() => {})
+}
+
+//强制下线
+const onForceOffline = (row: UserGetPageOutput) => {
+  proxy.$modal
+    .confirmDelete(`确定要强制下线【${row.name}】?`)
+    .then(async () => {
+      const res = await new UserApi().forceOffline({ id: row.id }, { loading: true })
+      if (res?.success) {
+        proxy.$modal.msgSuccess('强制下线成功')
+        onQuery()
       }
     })
     .catch(() => {})

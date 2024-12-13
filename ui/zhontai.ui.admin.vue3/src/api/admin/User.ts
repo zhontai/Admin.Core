@@ -409,4 +409,27 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       format: 'json',
       ...params,
     })
+  /**
+   * No description
+   *
+   * @tags user
+   * @name ForceOffline
+   * @summary 强制用户下线
+   * @request POST:/api/admin/user/force-offline
+   * @secure
+   */
+  forceOffline = (
+    query?: {
+      /** @format int64 */
+      id?: number
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/user/force-offline`,
+      method: 'POST',
+      query: query,
+      secure: true,
+      ...params,
+    })
 }

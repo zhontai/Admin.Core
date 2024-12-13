@@ -234,6 +234,12 @@ onMounted(() => {
   mittBus.on('checkUnreadMsg', () => {
     checkUnreadMsg()
   })
+
+  mittBus.off('forceOffline')
+  mittBus.on('forceOffline', () => {
+    storesUseUserInfo.clear()
+  })
+
   initWebSocket()
 })
 </script>
