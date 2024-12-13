@@ -22,7 +22,7 @@
               <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item" @click="onToDetail(msg)">
                 <div :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
                 <div class="msg-item__time">{{ formatterTime(msg.receivedTime) }}</div>
-                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click="onSetRead(msg)">标为已读</el-button>
+                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click.prevent.stop="onSetRead(msg)">标为已读</el-button>
               </div>
             </template>
           </div>
