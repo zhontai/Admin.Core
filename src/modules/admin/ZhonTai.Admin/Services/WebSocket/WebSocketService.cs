@@ -29,6 +29,7 @@ public class WebSocketService : IDynamicApi
     /// <summary>
     /// 获取websocket分区
     /// </summary>
+    [Login]
     [HttpPost]
     public object PreConnect(WebSocketPreConnectInput input)
     {

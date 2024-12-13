@@ -22,7 +22,12 @@
 
         <el-card class="my-fill mt8" shadow="never">
           <el-table v-loading="state.loading" :data="state.userListData" row-key="id" border>
-            <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip />
+            <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip>
+              <template #default="{ row }">
+                <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
+                {{ row.userName }}
+              </template>
+            </el-table-column>
             <el-table-column prop="name" label="姓名" width="120" show-overflow-tooltip>
               <template #default="{ row }"> {{ row.name }} <el-tag v-if="row.isManager" type="success">主管</el-tag> </template>
             </el-table-column>

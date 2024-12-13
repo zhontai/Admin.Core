@@ -5291,6 +5291,8 @@ export interface UserGetPageOutput {
   isManager?: boolean
   /** 启用 */
   enabled?: boolean
+  /** 在线 */
+  online?: boolean
   /**
    * 创建时间
    * @format date-time

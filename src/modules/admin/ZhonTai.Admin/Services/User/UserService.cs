@@ -51,6 +51,7 @@ namespace ZhonTai.Admin.Services.User;
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
     private readonly AppConfig _appConfig;
+    private readonly ImConfig _imConfig;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
     private readonly IUserRepository _userRep;
@@ -70,6 +71,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
     public UserService(
         IOptions<AppConfig> appConfig,
+        IOptions<ImConfig> imConfig,
         UserHelper userHelper,
         AdminLocalizer adminLocalizer,
         IUserRepository userRep,
@@ -88,6 +90,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     )
     {
         _appConfig = appConfig.Value;
+        _imConfig = imConfig.Value;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
         _userRep = userRep;
@@ -180,9 +183,24 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             }
         }
 
+        var userList = Mapper.Map<List<UserGetPageOutput>>(list);
+
+        if (_imConfig.Enable)
+        {
+            var clientIdList = ImHelper.GetClientListByOnline();
+
+            foreach (var user in userList)
+            {
+                if (clientIdList.Contains(user.Id))
+                {
+                    user.Online = true;
+                }
+            }
+        }
+
         var data = new PageOutput<UserGetPageOutput>()
         {
-            List = Mapper.Map<List<UserGetPageOutput>>(list),
+            List = userList,
             Total = total
         };
 

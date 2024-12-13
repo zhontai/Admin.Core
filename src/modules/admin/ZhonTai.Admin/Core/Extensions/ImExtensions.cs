@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
 using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Tools.Cache;
-using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
@@ -24,17 +21,17 @@ public static class ImExtensions
 
         ImHelper.Instance.OnSend += (s, e) =>
         {
-            Console.WriteLine($"ImClient.SendMessage(server={e.Server},data={JsonHelper.Serialize(e.Message)})");
+            //Console.WriteLine($"ImClient.SendMessage(server={e.Server},data={JsonHelper.Serialize(e.Message)})");
         };
 
         ImHelper.EventBus(
             t =>
             {
-                Console.WriteLine(t.clientId + "上线了");
+                //Console.WriteLine(t.clientId + "上线了");
             },
             t =>
             {
-                Console.WriteLine(t.clientId + "下线了");
+                //Console.WriteLine(t.clientId + "下线了");
             }
         );
     }
