@@ -41,6 +41,10 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Db;
+using DotNetCore.CAP;
+using ZhonTai.Admin.Services.Email.Events;
+using ZhonTai.Admin.Services.User.Events;
+using Mapster;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -858,8 +862,10 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userOrgRep.InsertAsync(orgs);
         }
 
-        //发送cap消息
-
+        var capPublisher= AppInfo.GetRequiredService<ICapPublisher>();
+        //发送部门转移
+        var userOrgChangeEvent = input.Adapt<UserOrgChangeEvent>();
+        await capPublisher.PublishAsync(SubscribeNames.UserOrgChange, userOrgChangeEvent);
     }
 
     /// <summary>

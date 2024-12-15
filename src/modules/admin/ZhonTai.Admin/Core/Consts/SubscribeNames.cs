@@ -30,4 +30,10 @@ public class SubscribeNames
     /// </summary>
     [Description("邮箱验证码发送")]
     public const string EmailSendCode = "zhontai.admin.email:sendCode";
+
+    /// <summary>
+    /// 用户部门转移
+    /// </summary>
+    [Description("用户部门转移")]
+    public const string UserOrgChange = "zhontai.admin.user.orgChange";
 }
