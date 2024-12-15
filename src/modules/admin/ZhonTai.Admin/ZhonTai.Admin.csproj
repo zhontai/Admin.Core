@@ -29,8 +29,8 @@
 		<PackageReference Include="Cronos" Version="0.9.0" />
 		<PackageReference Include="DotNetCore.CAP" Version="8.3.2" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="FreeRedis" Version="1.3.4" />
-		<PackageReference Include="FreeRedis.DistributedCache" Version="1.3.4" />
+		<PackageReference Include="FreeRedis" Version="1.3.5" />
+		<PackageReference Include="FreeRedis.DistributedCache" Version="1.3.5" />
 		<PackageReference Include="FreeSql" Version="3.5.102" />
 		<PackageReference Include="FreeSql.Cloud" Version="1.9.1" />
 		<PackageReference Include="FreeSql.Repository" Version="3.5.102" />
@@ -52,7 +52,7 @@
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
 		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
