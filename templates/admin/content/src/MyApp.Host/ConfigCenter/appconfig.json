@@ -3,7 +3,7 @@
     //应用程序类型Controllers ControllersWithViews MVC
     "appType": "Controllers",
     //Api地址
-    "urls": [ "http://*:8000" ],
+    "urls": [ "http://*:8010" ],
     //跨域地址
     "corUrls": [],
     //程序集名称
@@ -54,7 +54,7 @@
         {
           "name": "MyApp",
           "code": "app",
-          "version": "v8.5.1",
+          "version": "v8.6.0",
           "description": "MyApp"
         }
         ////#if (!MicroService)
@@ -62,7 +62,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.5.1",
+          "version": "v8.6.0",
           "description": "权限管理"
         }
         ////#endif

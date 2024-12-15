@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<Description>MyApp接口契约库</Description>
-		<Version>8.5.1</Version>
+		<Version>8.6.0</Version>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
@@ -18,14 +18,14 @@
 		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>ZhonTai Admin Api Contracts;</PackageTags>
-		<NoWarn>1701;1702;1591</NoWarn>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;NU1902;NU1903;NU1904;</NoWarn>
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin" Version="8.5.1" />
+		<PackageReference Include="ZhonTai.Admin" Version="8.6.0" />
 	</ItemGroup>
 
 	<ItemGroup>

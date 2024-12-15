@@ -32,9 +32,9 @@ using Cronos;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
-using ZhonTai.Admin.Services.Msg;
+using ZhonTai.Admin.Services.Email;
 using ZhonTai.Admin.Services.TaskScheduler;
-using ZhonTai.Admin.Services.Msg.Events;
+using ZhonTai.Admin.Services.Email.Events;
 using Mapster;
 #endif
 using Autofac;
@@ -243,7 +243,7 @@ new HostApp(new HostAppOptions()
                                 var emailService = AppInfo.GetRequiredService<EmailService>();
                                 if (alarmEmail.IsNull())
                                 {
-                                    alarmEmail = taskSchedulerConfig.AlerEmail.Adress;
+                                    alarmEmail = taskSchedulerConfig.AlerEmail.Address;
                                 }
                                 var topic = task.Topic;
                                 if (alarmEmail.NotNull())
