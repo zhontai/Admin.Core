@@ -23,7 +23,14 @@
           <div class="my-tools-box mb8 my-flex my-flex-between">
             <div>
               <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-              <el-button type="primary" :disabled="!isRowSelect" :loading="state.loadingBatchSetOrg" @click="onBatchSetOrg">部门转移</el-button>
+              <el-button
+                v-auth="'api:admin:user:batch-set-org'"
+                type="primary"
+                :disabled="!isRowSelect"
+                :loading="state.loadingBatchSetOrg"
+                @click="onBatchSetOrg"
+                >部门转移</el-button
+              >
             </div>
             <div>
               <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
