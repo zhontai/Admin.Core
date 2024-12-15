@@ -1654,5 +1654,14 @@
     "createdUserName": "admin",
     "createdUserRealName": "管理员",
     "createdTime": "2024-12-13T17:53:03"
+  },
+  {
+    "id": 623007419076677,
+    "permissionId": 623007419007045,
+    "apiId": 623004581449797,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-12-15T20:43:42"
   }
 ]
