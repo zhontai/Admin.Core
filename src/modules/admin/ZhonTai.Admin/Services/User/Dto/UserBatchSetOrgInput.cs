@@ -1,10 +1,15 @@
 ﻿namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
-/// 添加
+/// 批量设置部门
 /// </summary>
-public class UserAddInput: UserFormInput
+public class UserBatchSetOrgInput
 {
+    /// <summary>
+    /// 用户Id列表
+    /// </summary>
+    public long[] UserIds { get; set; }
+
     /// <summary>
     /// 所属部门Ids
     /// </summary>
@@ -14,14 +19,4 @@ public class UserAddInput: UserFormInput
     /// 主属部门Id
     /// </summary>
     public long OrgId { get; set; }
-
-    /// <summary>
-    /// 密码
-    /// </summary>
-    public virtual string Password { get; set; }
-
-    /// <summary>
-    /// 启用
-    /// </summary>
-    public bool Enabled { get; set; } = true;
 }

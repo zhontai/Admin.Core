@@ -41,16 +41,6 @@ public class UserFormInput
     public virtual long[] RoleIds { get; set; }
 
     /// <summary>
-    /// 所属部门Ids
-    /// </summary>
-    public virtual long[] OrgIds { get; set; }
-
-    /// <summary>
-    /// 主属部门Id
-    /// </summary>
-    public long OrgId { get; set; }
-
-    /// <summary>
     /// 直属主管Id
     /// </summary>
     public long? ManagerUserId { get; set; }

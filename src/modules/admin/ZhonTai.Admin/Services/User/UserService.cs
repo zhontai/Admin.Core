@@ -40,6 +40,7 @@ using FreeSql;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
 using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Core.Db;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -594,26 +595,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userStaffRep.InsertAsync(staff);
         }
 
-        //所属部门
-        var orgIds = await _userOrgRep.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
-        var insertOrgIds = input.OrgIds.Except(orgIds);
-
-        var deleteOrgIds = orgIds.Except(input.OrgIds);
-        if (deleteOrgIds != null && deleteOrgIds.Any())
-        {
-            await _userOrgRep.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
-        }
-
-        if (insertOrgIds != null && insertOrgIds.Any())
-        {
-            var orgs = insertOrgIds.Select(orgId => new UserOrgEntity
-            {
-                UserId = userId,
-                OrgId = orgId
-            }).ToList();
-            await _userOrgRep.InsertAsync(orgs);
-        }
-
         await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
     }
 
@@ -831,6 +812,54 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
         entity.Enabled = input.Enabled;
         await _userRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 批量设置部门
+    /// </summary>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task BatchSetOrgAsync(UserBatchSetOrgInput input)
+    {
+        //主属部门
+        await _userRep.UpdateDiy.Set(a => new UserEntity
+        {
+            OrgId = input.OrgId,
+            ModifiedUserId = User.Id,
+            ModifiedUserName = User.UserName,
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime,
+        })
+       .Where(a => a.Id.In(input.UserIds))
+       .ExecuteAffrowsAsync();
+
+        //所属部门
+        var orgIds = await _userOrgRep.Select.Where(a => a.UserId.In(input.UserIds)).ToListAsync(a => a.OrgId);
+        var insertOrgIds = input.OrgIds.Except(orgIds);
+
+        var deleteOrgIds = orgIds.Except(input.OrgIds).ToArray();
+        if (deleteOrgIds != null && deleteOrgIds.Any())
+        {
+            await _userOrgRep.DeleteAsync(a => a.UserId.In(input.UserIds) && a.OrgId.In(deleteOrgIds));
+        }
+
+        if (insertOrgIds != null && insertOrgIds.Any())
+        {
+            var orgs = new List<UserOrgEntity>();
+            foreach (var userId in input.UserIds)
+            {
+                orgs.AddRange(insertOrgIds.Select(orgId => new UserOrgEntity
+                {
+                    UserId = userId,
+                    OrgId = orgId
+                }).ToList());
+            }
+          
+            await _userOrgRep.InsertAsync(orgs);
+        }
+
+        //发送cap消息
+
     }
 
     /// <summary>

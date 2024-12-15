@@ -208,7 +208,7 @@ const checkUnreadMsg = async () => {
     state.unread = res.data
   }
 }
-const initWebSocket = async () => {
+const initWebSocket = () => {
   wsClient.value = new WebSocketClient({
     onMessage: (event: MessageEvent) => {
       if (event.data) {

@@ -7,7 +7,7 @@
     </pane>
     <pane size="80">
       <div class="my-flex-column w100 h100">
-        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" label-width="auto" @submit.stop.prevent>
             <el-form-item>
               <my-select-input v-model="state.pageInput.dynamicFilter" :filters="state.filters" @search="onQuery" />
@@ -15,13 +15,25 @@
             <el-form-item>
               <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
               <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
-              <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
             </el-form-item>
           </el-form>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
-          <el-table v-loading="state.loading" :data="state.userListData" row-key="id" border>
+          <div class="my-tools-box mb8 my-flex my-flex-between">
+            <div>
+              <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+              <el-button type="primary" :disabled="!isRowSelect" :loading="state.loadingBatchSetOrg" @click="onBatchSetOrg">部门转移</el-button>
+            </div>
+            <div>
+              <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
+                <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
+              </el-tooltip>
+            </div>
+          </div>
+
+          <el-table ref="tableRef" v-loading="state.loading" :data="state.userListData" row-key="id" border>
+            <el-table-column type="selection" />
             <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip>
               <template #default="{ row }">
                 <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
@@ -94,6 +106,8 @@
         </el-card>
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
+        <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
+        <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
         <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
       </div>
@@ -102,7 +116,7 @@
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageDto, OrgListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -110,9 +124,12 @@ import { auth } from '/@/utils/authFunction'
 import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
+import { ElTable } from 'element-plus'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
+const UserUpdateForm = defineAsyncComponent(() => import('./components/user-update-form.vue'))
+const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.vue'))
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
@@ -122,7 +139,10 @@ const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filte
 
 const { proxy } = getCurrentInstance() as any
 
+const tableRef = ref<InstanceType<typeof ElTable>>()
 const userFormRef = ref()
+const userUpdateFormRef = ref()
+const userSetOrgRef = ref()
 const userRestPwdRef = ref()
 const myFilterDialogRef = ref()
 
@@ -130,6 +150,8 @@ const storesUseUserInfo = useUserInfo()
 
 const state = reactive({
   loading: false,
+  loadingBatchSetOrg: false,
+  showQuery: true,
   userFormTitle: '',
   total: 0,
   pageInput: {
@@ -182,6 +204,22 @@ const state = reactive({
   ] as Array<DynamicFilterInfo>,
 })
 
+const selectionRows = computed(() => {
+  return tableRef.value?.getSelectionRows()
+})
+
+const rowSelectCount = computed(() => {
+  return selectionRows.value?.length
+})
+
+const isRowSelect = computed(() => {
+  return rowSelectCount.value > 0
+})
+
+const selectionIds = computed(() => {
+  return selectionRows.value?.map((a: any) => a.id)
+})
+
 onMounted(() => {
   eventBus.off('refreshUser')
   eventBus.on('refreshUser', async () => {
@@ -227,7 +265,7 @@ const onAdd = () => {
 //修改
 const onEdit = (row: UserGetPageOutput) => {
   state.userFormTitle = '编辑用户'
-  userFormRef.value.open(row)
+  userUpdateFormRef.value.open(row)
 }
 
 //删除
@@ -320,6 +358,11 @@ const onForceOffline = (row: UserGetPageOutput) => {
       }
     })
     .catch(() => {})
+}
+
+//部门转移
+const onBatchSetOrg = () => {
+  userSetOrgRef.value.open()
 }
 
 const onSizeChange = (val: number) => {

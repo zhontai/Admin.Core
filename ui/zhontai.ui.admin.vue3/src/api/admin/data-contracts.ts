@@ -5002,13 +5002,6 @@ export interface UserAddInput {
   email?: string | null
   /** 角色Ids */
   roleIds?: number[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /**
    * 直属主管Id
    * @format int64
@@ -5018,6 +5011,13 @@ export interface UserAddInput {
   managerUserName?: string | null
   /** 员工添加 */
   staff: StaffAddInput
+  /** 所属部门Ids */
+  orgIds?: number[] | null
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
   /** 密码 */
   password?: string | null
   /** 启用 */
@@ -5049,6 +5049,19 @@ export interface UserAddMemberInput {
   password: string
   /** 用户状态:WaitChangePasssword=2,WaitActive=3 */
   status?: UserStatus
+}
+
+/** 批量设置部门 */
+export interface UserBatchSetOrgInput {
+  /** 用户Id列表 */
+  userIds?: number[] | null
+  /** 所属部门Ids */
+  orgIds?: number[] | null
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
 }
 
 /** 修改密码 */
@@ -5209,12 +5222,6 @@ export interface UserGetBasicOutput {
   lastLoginCity?: string | null
 }
 
-export interface UserGetOrgDto {
-  /** @format int64 */
-  id?: number
-  name?: string | null
-}
-
 export interface UserGetOutput {
   /**
    * 账号
@@ -5231,11 +5238,6 @@ export interface UserGetOutput {
   /** 邮箱 */
   email?: string | null
   /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
-  /**
    * 直属主管Id
    * @format int64
    */
@@ -5251,10 +5253,6 @@ export interface UserGetOutput {
   id: number
   /** 角色列表 */
   roles?: UserGetRoleDto[] | null
-  /** 部门列表 */
-  orgs?: UserGetOrgDto[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
   /** 角色Ids */
   roleIds?: number[] | null
 }
@@ -5464,13 +5462,6 @@ export interface UserUpdateInput {
   email?: string | null
   /** 角色Ids */
   roleIds?: number[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /**
    * 直属主管Id
    * @format int64

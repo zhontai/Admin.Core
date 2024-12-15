@@ -29,57 +29,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="部门" prop="orgIds" :rules="[{ required: true, message: '请选择部门', trigger: ['change'] }]">
-              <el-tree-select
-                ref="orgTreeSelectRef"
-                v-model="form.orgIds"
-                placeholder="请选择部门"
-                :data="state.orgTreeData"
-                node-key="id"
-                :props="{ label: 'name' }"
-                check-strictly
-                default-expand-all
-                render-after-expand
-                fit-input-width
-                clearable
-                multiple
-                collapse-tags
-                collapse-tags-tooltip
-                filterable
-                class="w100"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="主属部门" prop="orgId" :rules="[{ required: true, message: '请选择主属部门', trigger: ['change'] }]">
-              <el-select v-model="form.orgId" placeholder="请选择主属部门" class="w100">
-                <el-option v-for="item in state.orgs" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="账号" prop="userName" :rules="[{ required: true, message: '请输入账号', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.userName" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col v-if="!isUpdate" :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item prop="password" :rules="[{ validator: validatorPwd, trigger: ['blur', 'change'] }]">
-              <template #label>
-                <div class="my-flex-y-center">
-                  密码<el-tooltip effect="dark" placement="top" hide-after="0">
-                    <template #content>选填，不填则使用系统默认密码<br />字母+数字+可选特殊字符，长度在6-16之间</template>
-                    <SvgIcon name="ele-InfoFilled" class="ml5" />
-                  </el-tooltip>
-                </div>
-              </template>
-              <el-input
-                key="password"
-                v-model="form.password"
-                placeholder="选填，不填则使用系统默认密码"
-                @input="onInputPwd"
-                show-password
-                autocomplete="off"
-              />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -138,18 +89,14 @@
 </template>
 
 <script lang="ts" setup name="admin/user/form">
-import { reactive, toRefs, getCurrentInstance, ref, watch, defineAsyncComponent, computed } from 'vue'
-import { UserAddInput, UserUpdateInput, OrgListOutput, RoleGetListOutput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, getCurrentInstance, ref, defineAsyncComponent, computed } from 'vue'
+import { UserAddInput, UserUpdateInput, RoleGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
-import { OrgApi } from '/@/api/admin/Org'
 import { RoleApi } from '/@/api/admin/Role'
-import { listToTree, treeToList } from '/@/utils/tree'
-import { cloneDeep } from 'lodash-es'
+import { listToTree } from '/@/utils/tree'
 import { isMobile, testMobile, testEmail } from '/@/utils/test'
-import { validatorPwd } from '/@/utils/validators'
 import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
-import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
 
@@ -165,17 +112,13 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const orgTreeSelectRef = ref()
 const formRef = ref<FormInstance>()
 const state = reactive({
   showDialog: false,
   sureLoading: false,
   form: {
-    orgIds: [] as any,
     roleIds: [] as any,
   } as UserAddInput & UserUpdateInput,
-  orgs: [] as any,
-  orgTreeData: [] as OrgListOutput[],
   roleTreeData: [] as RoleGetListOutput[],
   sexList: toOptionsByValue(Sex),
 })
@@ -188,51 +131,6 @@ const isUpdate = computed(() => {
 const span = computed(() => {
   return isUpdate.value ? 12 : 24
 })
-
-watch(
-  () => state.form.orgIds,
-  (value) => {
-    if (value && value.length > 0) {
-      let orgs = [] as any
-      treeToList(cloneDeep(state.orgTreeData)).forEach((a: any) => {
-        if (value.some((b) => a.id === b)) {
-          orgs.push(a)
-        }
-      })
-      state.orgs = orgs
-    } else {
-      state.orgs = []
-    }
-  },
-  {
-    immediate: true,
-  }
-)
-
-watch(
-  () => state.orgs,
-  () => {
-    if (state.orgs?.some((a: any) => a.id === state.form.orgId)) {
-      return
-    }
-    state.form.orgId = state.orgs && state.orgs.length > 0 ? state.orgs[0].id : undefined
-  },
-  {
-    immediate: true,
-    deep: true,
-  }
-)
-
-const getOrgs = async () => {
-  const res = await new OrgApi().getList().catch(() => {
-    state.orgTreeData = []
-  })
-  if (res?.success && res.data && res.data.length > 0) {
-    state.orgTreeData = listToTree(res.data)
-  } else {
-    state.orgTreeData = []
-  }
-}
 
 const getRoles = async () => {
   const res = await new RoleApi().getList().catch(() => {
@@ -249,7 +147,6 @@ const getRoles = async () => {
 const open = async (row: UserUpdateInput & UserUpdateInput) => {
   proxy.$modal.loading()
 
-  await getOrgs()
   await getRoles()
 
   if (row.id > 0) {
@@ -269,11 +166,6 @@ const open = async (row: UserUpdateInput & UserUpdateInput) => {
 
   proxy.$modal.closeLoading()
   state.showDialog = true
-}
-
-// 输入密码
-const onInputPwd = (val: string) => {
-  state.form.password = verifyCnAndSpace(val)
 }
 
 //手机号失去焦点

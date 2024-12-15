@@ -21,6 +21,7 @@ import {
   ResultOutputUserGetPermissionOutput,
   UserAddInput,
   UserAddMemberInput,
+  UserBatchSetOrgInput,
   UserChangePasswordInput,
   UserResetPasswordInput,
   UserSetEnableInput,
@@ -269,6 +270,24 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     this.request<AxiosResponse, any>({
       path: `/api/admin/user/set-enable`,
       method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags user
+   * @name BatchSetOrg
+   * @summary 批量设置部门
+   * @request PUT:/api/admin/user/batch-set-org
+   * @secure
+   */
+  batchSetOrg = (data: UserBatchSetOrgInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/user/batch-set-org`,
+      method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
