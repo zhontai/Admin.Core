@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>ZhonTai.Template</id>
-    <version>8.6.0</version>
+    <id>ZhonTai.Template.IMServer</id>
+    <version>1.0.0</version>
 	<authors>xiao xue</authors>
 	<owners>zhon tai</owners>
 	<projectUrl>https://github.com/zhontai/Admin.Core</projectUrl>
@@ -11,8 +11,8 @@
 	<!-- <license type="file">license\LICENSE</license> -->
 	<releaseNotes></releaseNotes>
 	<copyright>Copyright ©2020 zhontai</copyright>
-    <description>中台接口模板</description>
-	<tags>ZhonTai MyApp MVC WebApi Api Swagger</tags>
+    <description>中台即时通讯服务端模板</description>
+	<tags>ZhonTai IM IMServer MyIMServer</tags>
 	<icon>logo.png</icon>
     <packageTypes>
       <packageType name="Template" />

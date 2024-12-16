@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Savorboard.CAP.InMemoryMessageQueue;
 using System;
 using System.Reflection;
+using Savorboard.CAP.InMemoryMessageQueue;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
@@ -56,8 +56,8 @@ new HostApp(new HostAppOptions
             config.UseInMemoryStorage();
             config.UseInMemoryMessageQueue();
 
-            //<PackageReference Include="DotNetCore.CAP.MySql" Version="7.1.1" />
-            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.1.1" />
+            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.3.2" />
+            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
 
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {

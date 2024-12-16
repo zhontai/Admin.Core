@@ -1,0 +1,9 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "ImServer": {
+      "commandName": "Project",
+      "commandLineArgs": "--urls=http://*:6010"
+    }
+  }
+}

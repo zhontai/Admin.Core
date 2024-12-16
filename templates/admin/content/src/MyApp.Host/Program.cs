@@ -122,8 +122,8 @@ new HostApp(new HostAppOptions()
 			config.UseInMemoryStorage();
 			config.UseInMemoryMessageQueue();
 
-            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.0.0" />
-            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.0.0" />
+            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.3.2" />
+            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
 
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
