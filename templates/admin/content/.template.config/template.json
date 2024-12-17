@@ -2,7 +2,7 @@
     "$schema": "http://json.schemastore.org/template",
     "author": "xiao xue", 
     "classifications": [ "ZhonTai", "Admin", "MyApp", "MVC", "WebApi", "Api", "App" ], 
-    "name": "ZhonTai.Template MyApp", 
+    "name": "ZhonTai.Template 应用项目", 
     "identity": "MyApp", 
     "shortName": "MyApp",
     "tags": {
