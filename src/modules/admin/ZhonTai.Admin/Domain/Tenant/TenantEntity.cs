@@ -13,7 +13,7 @@ namespace ZhonTai.Admin.Domain.Tenant;
 /// <summary>
 /// 租户
 /// </summary>
-[Table(Name = "ad_tenant")]
+[Table(Name = "base_tenant", OldName = "ad_tenant")]
 public partial class TenantEntity : EntityBase
 {
     /// <summary>

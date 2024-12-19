@@ -2,7 +2,6 @@
 using System;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Entities;
-using ZhonTai.Admin.Domain.MsgType;
 
 namespace ZhonTai.Admin.Domain.Msg;
 

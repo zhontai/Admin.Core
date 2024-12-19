@@ -12,7 +12,7 @@ public class DocumentAddGroupInput
     /// <summary>
     /// 类型
     /// </summary>
-    public DocumentType Type { get; set; }
+    public DocType Type { get; set; }
 
     /// <summary>
     /// 名称

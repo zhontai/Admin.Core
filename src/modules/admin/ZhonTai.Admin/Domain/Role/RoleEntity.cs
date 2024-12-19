@@ -14,7 +14,7 @@ namespace ZhonTai.Admin.Domain.Role;
 /// <summary>
 /// 角色
 /// </summary>
-[Table(Name = "ad_role")]
+[Table(Name = "base_role", OldName = "")]
 [Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class RoleEntity : EntityTenant
 {

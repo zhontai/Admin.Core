@@ -2,6 +2,6 @@
 
 namespace ZhonTai.Admin.Domain.DocumentImage;
 
-public interface IDocumentImageRepository : IRepositoryBase<DocumentImageEntity>
+public interface IDocImageRepository : IRepositoryBase<DocImageEntity>
 {
 }

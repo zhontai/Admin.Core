@@ -1,15 +1,15 @@
-﻿using ZhonTai.Admin.Core.Entities;
+﻿using System;
+using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using OnceMi.AspNetCore.OSS;
 using ZhonTai.Admin.Core.Attributes;
-using System;
 
 namespace ZhonTai.Admin.Domain;
 
 /// <summary>
 /// 文件
 /// </summary>
-[Table(Name = "ad_file")]
+[Table(Name = "base_file", OldName = "ad_file")]
 public partial class FileEntity : EntityBase
 {
     /// <summary>

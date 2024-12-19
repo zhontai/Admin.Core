@@ -5,7 +5,7 @@ namespace ZhonTai.Admin.Domain.OperationLog;
 /// <summary>
 /// 操作日志
 /// </summary>
-[Table(Name = "ad_operation_log", OldName = "ad_opration_log")]
+[Table(Name = "base_operation_log", OldName = "ad_operation_log")]
 [Index("idx_{tablename}_01", $"{nameof(ApiPath)},{nameof(CreatedTime)}", false)]
 public partial class OperationLogEntity : LogAbstract
 {

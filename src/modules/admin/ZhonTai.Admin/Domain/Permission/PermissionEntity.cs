@@ -11,7 +11,7 @@ namespace ZhonTai.Admin.Domain.Permission;
 /// <summary>
 /// 权限
 /// </summary>
-[Table(Name = "ad_permission")]
+[Table(Name = "base_permission", OldName = "ad_permission")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
 public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
 {

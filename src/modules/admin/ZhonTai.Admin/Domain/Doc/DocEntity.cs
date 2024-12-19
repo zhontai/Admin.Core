@@ -6,9 +6,9 @@ namespace ZhonTai.Admin.Domain.Document;
 /// <summary>
 /// 文档
 /// </summary>
-[Table(Name = "ad_document")]
+[Table(Name = "base_doc", OldName = "ad_document")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
-public partial class DocumentEntity : EntityTenant
+public partial class DocEntity : EntityTenant
 {
     /// <summary>
     /// 父级节点
@@ -25,7 +25,7 @@ public partial class DocumentEntity : EntityTenant
     /// 类型
     /// </summary>
     [Column(MapType = typeof(int), CanUpdate = false)]
-    public DocumentType Type { get; set; }
+    public DocType Type { get; set; }
 
     /// <summary>
     /// 命名

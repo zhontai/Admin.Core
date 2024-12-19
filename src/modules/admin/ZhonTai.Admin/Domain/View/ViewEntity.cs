@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.View;
 /// <summary>
 /// 视图管理
 /// </summary>
-[Table(Name = "ad_view")]
+[Table(Name = "base_view", OldName = "ad_view")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
 public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 {
