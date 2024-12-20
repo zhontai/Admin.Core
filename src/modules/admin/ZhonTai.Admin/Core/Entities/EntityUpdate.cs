@@ -26,7 +26,7 @@ public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate<TKey> where TKe
     /// 修改者用户名
     /// </summary>
     [Description("修改者用户名")]
-    [Column(Position = -12), MaxLength(50)]
+    [Column(Position = -12), MaxLength(60)]
     [JsonProperty(Order = 10001)]
     [JsonPropertyOrder(10001)]
     public virtual string ModifiedUserName { get; set; }
@@ -35,7 +35,7 @@ public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate<TKey> where TKe
     /// 修改者姓名
     /// </summary>
     [Description("修改者姓名")]
-    [Column(Position = -11), MaxLength(50)]
+    [Column(Position = -11), MaxLength(60)]
     [JsonProperty(Order = 10001)]
     [JsonPropertyOrder(10001)]
     public virtual string ModifiedUserRealName { get; set; }

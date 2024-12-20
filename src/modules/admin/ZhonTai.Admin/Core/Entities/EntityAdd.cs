@@ -22,14 +22,14 @@ public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd<TKey> where TKey : struc
     /// 创建者用户名
     /// </summary>
     [Description("创建者用户名")]
-    [Column(Position = -22, CanUpdate = false), MaxLength(50)]
+    [Column(Position = -22, CanUpdate = false), MaxLength(60)]
     public virtual string CreatedUserName { get; set; }
 
     /// <summary>
     /// 创建者姓名
     /// </summary>
     [Description("创建者姓名")]
-    [Column(Position = -21, CanUpdate = false), MaxLength(50)]
+    [Column(Position = -21, CanUpdate = false), MaxLength(60)]
     public virtual string CreatedUserRealName { get; set; }
 
     /// <summary>
