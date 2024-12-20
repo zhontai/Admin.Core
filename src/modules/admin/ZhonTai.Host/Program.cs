@@ -82,7 +82,7 @@ new HostApp(new HostAppOptions
                 {
                     if (task.Topic?.StartsWith("[shell]") == true)
                     {
-                        TaskSchedulerServiceExtensions.ExecutGrpc(task);
+                        TaskSchedulerServiceExtensions.ExecuteGrpc(task);
                     }
                 }
 

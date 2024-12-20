@@ -28,15 +28,15 @@ public static class TaskSchedulerServiceExtensions
         fsql.CodeFirst
         .ConfigEntity<TaskInfo>(a =>
         {
-            a.Name("app_task");
+            a.Name("base_task").OldName("app_task");
         })
         .ConfigEntity<TaskLog>(a =>
         {
-            a.Name("app_task_log");
+            a.Name("base_task_log").OldName("app_task_log");
         })
         .ConfigEntity<TaskInfoExt>(a =>
         {
-            a.Name("app_task_ext");
+            a.Name("base_task_ext").OldName("app_task_ext");
         });
     }
 
@@ -58,7 +58,7 @@ public static class TaskSchedulerServiceExtensions
     /// <param name="task"></param>
     /// <param name="grpcAddress"></param>
     /// <exception cref="Exception"></exception>
-    public static void ExecutGrpc(TaskInfo task, string grpcAddress = "")
+    public static void ExecuteGrpc(TaskInfo task, string grpcAddress = "")
     {
         var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
         var jsonArgs = JToken.Parse(task.Body);
