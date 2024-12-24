@@ -1,10 +1,24 @@
 <template>
-  <el-upload ref="uploadRef" :action="uploadAction" :headers="uploadHeaders" :limit="1" class="avatar-uploader"
-    :data="{ fileDirectory: '', fileReName: true }" drag :file-list="state.fileList" :before-upload="() => {
-      state.token = storesUserInfo.getToken()
-      state.uploadLoading = true
-    }
-      " :on-success="onSuccess" :on-error="onError" :on-remove="onRemove" :on-exceed="handleExceed">
+  <el-upload
+    ref="uploadRef"
+    :action="uploadAction"
+    :headers="uploadHeaders"
+    :limit="1"
+    class="avatar-uploader"
+    :data="{ fileDirectory: '', fileReName: true }"
+    drag
+    :file-list="state.fileList"
+    :before-upload="
+      () => {
+        state.token = storesUserInfo.getToken()
+        state.uploadLoading = true
+      }
+    "
+    :on-success="onSuccess"
+    :on-error="onError"
+    :on-remove="onRemove"
+    :on-exceed="handleExceed"
+  >
     <img :src="state.url" v-if="state.url" class="avatar" />
     <el-icon v-else class="avatar-uploader-icon">
       <Plus />
@@ -13,18 +27,14 @@
 </template>
 
 <script lang="ts" setup name="my-upload">
-import type { UploadInstance, UploadProps, UploadRawFile, UploadUserFile } from 'element-plus'
+import type { UploadRawFile, UploadUserFile } from 'element-plus'
 import { ref, reactive, computed, PropType, watch, getCurrentInstance } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
-import { auth, auths, authAll } from '/@/utils/authFunction'
-import { formatAxis } from '/@/utils/formatTime'
 import pinia from '/@/stores/index'
-import { storeToRefs } from 'pinia'
 import { AxiosResponse } from 'axios'
 import { useUserInfo } from '/@/stores/userInfo'
 import { cloneDeep } from 'lodash-es'
 const { proxy } = getCurrentInstance() as any
-
 
 const uploadRef = ref()
 
@@ -53,7 +63,6 @@ watch(
   },
   { deep: true }
 )
-
 
 // 上传请求头部
 const uploadHeaders = computed(() => {
