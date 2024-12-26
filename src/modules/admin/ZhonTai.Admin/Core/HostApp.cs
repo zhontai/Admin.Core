@@ -835,6 +835,9 @@ public class HostApp
             services.AddIm();
         }
 
+        // Api文档处理
+        services.AddSingleton<IApiDocumentHandler, ApiDocumentHandler>();
+
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
 
