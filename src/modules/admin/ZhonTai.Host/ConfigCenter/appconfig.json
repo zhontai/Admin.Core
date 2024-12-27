@@ -43,6 +43,8 @@
       "routePrefix": "admin/swagger",
       //地址
       "url": "http://localhost:8000",
+      //自动同步文档到数据库
+      "enableAutoSync": false,
       "projects": [
         {
           "name": "中台Admin",

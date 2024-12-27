@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -981,6 +982,12 @@ public class HostApp
         if (appConfig.TaskSchedulerUI.Enable)
         {
             app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
+        }
+
+        if (appConfig.Swagger.EnableAutoSync)
+        {
+            var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
+            Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
         }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);

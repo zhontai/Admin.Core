@@ -258,6 +258,11 @@ public class SwaggerConfig
     /// 项目列表
     /// </summary>
     public List<ProjectConfig> Projects { get; set; }
+
+    /// <summary>
+    /// 启用自动同步
+    /// </summary>
+    public bool EnableAutoSync { get; set; }
 }
 
 /// <summary>

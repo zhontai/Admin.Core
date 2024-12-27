@@ -148,9 +148,6 @@ new HostApp(new HostAppOptions
         }
 
         #endregion
-
-        var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
-        Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
     },
 
     ConfigureSwaggerUI = options =>
