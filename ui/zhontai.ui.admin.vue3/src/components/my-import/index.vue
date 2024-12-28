@@ -101,6 +101,7 @@ import { DictApi } from '/@/api/admin/Dict'
 import dayjs from 'dayjs'
 import { cloneDeep, merge } from 'lodash-es'
 import { plus } from '/@/utils/digit'
+import { AxiosResponse } from 'axios'
 
 const model = defineModel({ type: Object })
 
@@ -245,8 +246,7 @@ const onSuccess: UploadProps['onSuccess'] = (response) => {
 const onDownloadTemplate = async () => {
   state.download.loadingTemplate = true
 
-  await new DictApi()
-    .downloadTemplate({ format: 'blob', returnResponse: true })
+  await model.value.downloadTemplate
     .then((res: any) => {
       const contentDisposition = res.headers['content-disposition']
       const matchs = /filename="?([^;"]+)/i.exec(contentDisposition)
@@ -271,8 +271,8 @@ const onDownloadTemplate = async () => {
 const onDownloadErrorMark = async () => {
   state.download.loadingErrorMark = true
 
-  await new DictApi()
-    .downloadErrorMark({ fileId: state.data.fileId, fileName: state.fileName }, { format: 'blob', returnResponse: true, showErrorMessage: false })
+  await model.value
+    .downloadErrorMark({ fileId: state.data.fileId, fileName: state.fileName })
     .then((res: any) => {
       state.showErrorMark = false
       const contentDisposition = res.headers['content-disposition']
@@ -289,7 +289,7 @@ const onDownloadErrorMark = async () => {
       a.click()
       URL.revokeObjectURL(a.href)
     })
-    .catch((error) => {
+    .catch((error: any) => {
       if (error.response && error.response.data instanceof Blob) {
         const reader = new FileReader()
         reader.onload = function (e) {

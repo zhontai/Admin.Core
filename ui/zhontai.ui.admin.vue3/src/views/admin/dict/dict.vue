@@ -113,6 +113,8 @@ const state = reactive({
     duplicateAction: 1,
     uniqueRules: ['字典名称', '字典编码', '字典值'],
     requiredColumns: ['字典类型', '字典名称'],
+    downloadTemplate: new DictApi().downloadTemplate({ format: 'blob', returnResponse: true }),
+    downloadErrorMark: (data: any) => new DictApi().downloadErrorMark(data, { format: 'blob', returnResponse: true, showErrorMessage: false }),
   },
   export: {
     loading: false,
