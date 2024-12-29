@@ -97,11 +97,9 @@ import eventBus from '/@/utils/mitt'
 import { useUserInfo } from '/@/stores/userInfo'
 import type { UploadProps, UploadInstance, UploadUserFile, UploadRawFile, UploadProgressEvent, UploadFile } from 'element-plus'
 import { ElMessage, genFileId, ElNotification } from 'element-plus'
-import { DictApi } from '/@/api/admin/Dict'
 import dayjs from 'dayjs'
 import { cloneDeep, merge } from 'lodash-es'
 import { plus } from '/@/utils/digit'
-import { AxiosResponse } from 'axios'
 
 const model = defineModel({ type: Object })
 
