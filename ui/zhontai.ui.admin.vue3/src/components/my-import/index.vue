@@ -246,7 +246,8 @@ const onSuccess: UploadProps['onSuccess'] = (response) => {
 const onDownloadTemplate = async () => {
   state.download.loadingTemplate = true
 
-  await model.value.downloadTemplate
+  await model.value
+    .downloadTemplate({ format: 'blob', returnResponse: true })
     .then((res: any) => {
       const contentDisposition = res.headers['content-disposition']
       const matchs = /filename="?([^;"]+)/i.exec(contentDisposition)
@@ -272,7 +273,17 @@ const onDownloadErrorMark = async () => {
   state.download.loadingErrorMark = true
 
   await model.value
-    .downloadErrorMark({ fileId: state.data.fileId, fileName: state.fileName })
+    .downloadErrorMark(
+      {
+        fileId: state.data.fileId,
+        fileName: state.fileName,
+      },
+      {
+        format: 'blob',
+        returnResponse: true,
+        showErrorMessage: false,
+      }
+    )
     .then((res: any) => {
       state.showErrorMark = false
       const contentDisposition = res.headers['content-disposition']

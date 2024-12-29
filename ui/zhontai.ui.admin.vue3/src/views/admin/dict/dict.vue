@@ -70,6 +70,7 @@ import { DictGetPageOutput, PageInputDictGetPageInput, DictTypeGetPageOutput, So
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
+import { RequestParams } from '/@/api/admin/http-client'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
@@ -110,11 +111,11 @@ const state = reactive({
   import: {
     title: '',
     action: import.meta.env.VITE_API_URL + '/api/admin/dict/import-data',
+    downloadTemplate: (params: RequestParams) => new DictApi().downloadTemplate(params),
+    downloadErrorMark: (query: any, params: RequestParams) => new DictApi().downloadErrorMark(query, params),
     duplicateAction: 1,
     uniqueRules: ['字典名称', '字典编码', '字典值'],
     requiredColumns: ['字典类型', '字典名称'],
-    downloadTemplate: new DictApi().downloadTemplate({ format: 'blob', returnResponse: true }),
-    downloadErrorMark: (data: any) => new DictApi().downloadErrorMark(data, { format: 'blob', returnResponse: true, showErrorMessage: false }),
   },
   export: {
     loading: false,
