@@ -1065,5 +1065,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             //强制下线
             ImHelper.ForceOffline(id);
         }
+        else
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请开启im即时通讯"]);
+        }
     }
 }
