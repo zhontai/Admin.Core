@@ -62,6 +62,7 @@
 	<ItemGroup>
 		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
 		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
+		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>
