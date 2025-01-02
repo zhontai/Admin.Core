@@ -16,6 +16,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\MyApp.Api\MyApp.Api.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="MyApp.Tests" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<!--#if (!NoTaskScheduler) -->
 		<PackageReference Include="Cronos" Version="0.9.0" />
 		<!--#endif -->
@@ -54,20 +62,11 @@
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.102" />
 		<!--#endif -->
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\MyApp.Api\MyApp.Api.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<InternalsVisibleTo Include="MyApp.Tests" />
-	</ItemGroup>
-	<!--#if (!NoApiUI) -->
-	<ItemGroup>
+		<!--#if (!NoApiUI) -->
 		<PackageReference Include="ZhonTai.ApiUI" Version="8.6.0" />
+		<!--#endif -->
 	</ItemGroup>
-	<!--#endif -->
+	
 	<ItemGroup>
 		<Content Update="wwwroot\*\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -14,9 +14,4 @@ public partial class ModuleUpdateInput : ModuleAddInput
     [Required]
     [ValidateRequired("请选择模块")]
     public long Id { get; set; }
-
-    /// <summary>
-    /// 版本
-    /// </summary>
-    public long Version { get; set; }
 }

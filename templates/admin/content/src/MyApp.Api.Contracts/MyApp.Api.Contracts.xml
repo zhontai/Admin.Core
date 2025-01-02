@@ -39,11 +39,6 @@
             编号
             </summary>
         </member>
-        <member name="P:MyApp.Api.Contracts.Services.Module.Input.ModuleUpdateInput.Version">
-            <summary>
-            版本
-            </summary>
-        </member>
         <member name="T:MyApp.Api.Contracts.Services.Module.Output.ModuleGetOutput">
             <summary>
             模块
