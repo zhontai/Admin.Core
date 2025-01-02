@@ -19,9 +19,11 @@
 		<ProjectReference Include="..\MyApp.Api\MyApp.Api.csproj" />
 	</ItemGroup>
 
+	<!--#if (!NoTests) -->
 	<ItemGroup>
 		<InternalsVisibleTo Include="MyApp.Tests" />
 	</ItemGroup>
+	<!--#endif -->
 	
 	<ItemGroup>
 		<!--#if (!NoTaskScheduler) -->
