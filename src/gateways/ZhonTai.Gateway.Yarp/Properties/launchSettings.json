@@ -4,25 +4,25 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:18010",
+      "applicationUrl": "http://localhost:16010",
       "sslPort": 0
     }
   },
   "profiles": {
-    "ZhonTai.Host": {
+    "ZhonTai.Gateway.Yarp": {
       "commandName": "Project",
-      "launchBrowser": true,
       "dotnetRunMessages": true,
-      "launchUrl": "doc/admin",
+      "launchBrowser": true,
+      "launchUrl": "",
+      "applicationUrl": "http://localhost:16010",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:18010"
+      }
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "doc/admin",
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

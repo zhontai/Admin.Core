@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
+using Xunit;
 using ZhonTai.Admin.Domain.Api;
 
 namespace ZhonTai.Tests.Repositories;
@@ -13,7 +14,7 @@ public class ApiRepositoryTest : BaseTest
     }
 
     [Fact]
-    public async void GetAsync()
+    public async Task GetAsync()
     {
         var id = 161227167658053;
         var user = await _apiRepository.GetAsync(a => a.Id == id);

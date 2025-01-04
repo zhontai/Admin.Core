@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Threading.Tasks;
+using Xunit;
 using ZhonTai.Admin.Services.Api;
 using ZhonTai.Admin.Tools.Captcha;
 
@@ -18,13 +19,13 @@ public class ApiServiceTest : BaseTest
     }
 
     [Fact]
-    public async void SlideJigsawTest()
+    public async Task SlideJigsawTest()
     {
         var data = await _captchaTool.GetAsync("admin:captcha");
     }
 
     [Fact]
-    public async void GetAsync()
+    public async Task GetAsync()
     {
         var res = await _apiService.GetAsync(161227168079941);
         Assert.True(res?.Id > 0);

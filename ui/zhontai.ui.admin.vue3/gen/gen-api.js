@@ -5,18 +5,18 @@ import path from 'node:path'
 import { generateApi } from 'swagger-typescript-api'
 
 const projectPath = process.cwd()
-const apiUrl = 'http://localhost:8010'
+const apiUrl = 'http://localhost:16010'
 
 const apis = [
   {
     output: path.resolve(projectPath, './src/api/admin'),
-    url: `${apiUrl}/admin/swagger/admin/swagger.json`,
-    enumUrl: `${apiUrl}/api/system/get-enums`,
+    url: `${apiUrl}/doc/admin/swagger/admin/swagger.json`,
+    enumUrl: `${apiUrl}/api/admin/get-enums`,
   },
   // {
   //   output: path.resolve(projectPath, 'src/api/app'),
-  //   url: `${apiUrl}/app/swagger/app/swagger.json`,
-  //   // enumUrl: `${apiUrl}/api/system/get-enums`, // v8.6.0 可用
+  //   url: `${apiUrl}/doc/app/swagger/app/swagger.json`,
+  //   // enumUrl: `${apiUrl}/api/app/get-enums`,
   // },
 ]
 

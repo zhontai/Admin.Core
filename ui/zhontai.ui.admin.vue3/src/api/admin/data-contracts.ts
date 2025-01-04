@@ -53,12 +53,12 @@ export interface ApiEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -73,12 +73,12 @@ export interface ApiEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -788,6 +788,12 @@ export interface DictUpdateInput {
   id: number
 }
 
+/**
+ * 文档类型:Group=1,Markdown=2
+ * @format int32
+ */
+export type DocType = 1 | 2
+
 export interface DocumentAddGroupInput {
   /**
    * 父级节点
@@ -795,7 +801,7 @@ export interface DocumentAddGroupInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -821,7 +827,7 @@ export interface DocumentAddMenuInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -849,7 +855,7 @@ export interface DocumentGetGroupOutput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -870,7 +876,7 @@ export interface DocumentGetMenuOutput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -898,7 +904,7 @@ export interface DocumentListOutput {
   /** 名称 */
   label?: string | null
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 描述 */
@@ -906,12 +912,6 @@ export interface DocumentListOutput {
   /** 组打开 */
   opened?: boolean | null
 }
-
-/**
- * 文档类型:Group=1,Markdown=2
- * @format int32
- */
-export type DocumentType = 1 | 2
 
 export interface DocumentUpdateContentInput {
   /**
@@ -934,7 +934,7 @@ export interface DocumentUpdateGroupInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -955,7 +955,7 @@ export interface DocumentUpdateMenuInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -1022,12 +1022,12 @@ export interface FileEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -1042,12 +1042,12 @@ export interface FileEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -1638,12 +1638,12 @@ export interface OrgEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -1658,12 +1658,12 @@ export interface OrgEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -2427,12 +2427,12 @@ export interface PermissionEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -2447,12 +2447,12 @@ export interface PermissionEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -2852,12 +2852,12 @@ export interface PkgEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -2872,12 +2872,12 @@ export interface PkgEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -4138,12 +4138,12 @@ export interface RoleEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -4158,12 +4158,12 @@ export interface RoleEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -4758,12 +4758,12 @@ export interface TenantEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -4778,12 +4778,12 @@ export interface TenantEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5097,12 +5097,12 @@ export interface UserEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5117,12 +5117,12 @@ export interface UserEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5364,12 +5364,12 @@ export interface UserStaffEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5384,12 +5384,12 @@ export interface UserStaffEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5550,12 +5550,12 @@ export interface ViewEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5570,12 +5570,12 @@ export interface ViewEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using Yitter.IdGenerator;
 
@@ -14,12 +13,12 @@ public class AppConfig
     public AppType AppType { get; set; } = AppType.Controllers;
 
     /// <summary>
-    /// Api地址，默认 http://*:8000
+    /// Api地址
     /// </summary>
     public string[] Urls { get; set; }
 
     /// <summary>
-    /// 跨域地址，默认 http://*:9000
+    /// 跨域地址
     /// </summary>
     public string[] CorUrls { get; set; }
 

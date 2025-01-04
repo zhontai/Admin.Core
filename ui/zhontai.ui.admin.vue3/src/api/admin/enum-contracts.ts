@@ -85,7 +85,7 @@ export const MsgStatusEnum = {
 }
 
 /** 文档类型 */
-export const DocumentType = {
+export const DocType = {
   Group: { name: 'Group', value: 1, desc: '分组' },
   Markdown: { name: 'Markdown', value: 2, desc: 'Markdown文档' },
 }
