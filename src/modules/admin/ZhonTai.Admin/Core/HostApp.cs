@@ -927,7 +927,10 @@ public class HostApp
         //获取枚举列表接口
         if (env.IsDevelopment())
         {
-            app.MapGet("/api/system/get-enums", (ApiHelper apiHelper) => ResultOutput.Ok(apiHelper.GetEnumList()));
+            foreach(var project in appConfig.Swagger?.Projects)
+            {
+                app.MapGet($"/api/{project.Code.ToLower()}/get-enums", (ApiHelper apiHelper) => ResultOutput.Ok(apiHelper.GetEnumList()));
+            }
         }
 
         _hostAppOptions?.ConfigureMiddleware?.Invoke(hostAppMiddlewareContext);
