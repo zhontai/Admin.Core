@@ -110,6 +110,25 @@ Alternatively, navigate to the 'MyCompanyName.MyProjectName.Host' directory in C
 Select MyCompanyName.MyProjectName.Host, then right-click and choose Publish from the context menu.
 ```
 
+Using Tye to Run & Debug Modular Projects:
+
+1. Install Tye
+```
+dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+```
+
+2. Run & Debug
+```
+1. Install the EasyRun extension for Visual Studio.
+
+2. Open Visual Studio, navigate to View -> Other Windows -> EasyRun to open the EasyRun window.
+
+3. Click the Tye button to run the application.
+
+4. Select the microservice you want to debug and click the Debugger button to start debugging.
+```
+
+
 #### 💯 Join a QQ group for learning and communication
 
 > Zhontai Admin development group (2000-member capacity)

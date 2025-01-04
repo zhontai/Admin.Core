@@ -110,6 +110,24 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 选择 MyCompanyName.MyProjectName.Host 右键菜单点击发布
 ```
 
+使用Tye运行&调试模块项目：
+
+1、安装Tye
+```
+dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+```
+
+2、运行&调试
+```
+1、vs安装拓展EasyRun
+
+2、打开VS的 视图-> 其他窗口 -> EasyRun，点击打开EasyRun窗口
+
+3、点击Tye按钮运行
+
+4、选择要调试的微服务点击Debugger按钮开启调试
+```
+
 #### 💯 学习交流加 QQ 群
 
 > 中台 admin 开发群（2000 人群）。
