@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+锘縱ar builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
@@ -30,7 +30,7 @@ app.MapGet("/", async (HttpResponse response) =>
 {
     var serviceList = new List<Tuple<string, string>>
     {
-        new("权限接口文档","/doc/admin/index.html")
+        new("鏉冮檺鎺ュ彛鏂囨。","/doc/admin/index.html")
     };
 
     var html = $"<html><body>";
