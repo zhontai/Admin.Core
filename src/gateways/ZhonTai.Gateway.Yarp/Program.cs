@@ -1,4 +1,11 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using NLog.Web;
+
+var builder = WebApplication.CreateBuilder(args);
+
+//清空日志供应程序，避免.net自带日志输出到命令台
+builder.Logging.ClearProviders();
+//使用NLog日志
+builder.Host.UseNLog();
 
 builder.Services.AddHealthChecks();
 
