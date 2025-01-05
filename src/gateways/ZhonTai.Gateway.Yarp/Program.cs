@@ -1,5 +1,7 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyPolicy", policy =>
@@ -21,6 +23,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseCors("AllowAnyPolicy");
+
+app.MapHealthChecks("/health");
 
 app.MapReverseProxy();
 
