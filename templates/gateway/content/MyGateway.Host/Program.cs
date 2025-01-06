@@ -9,8 +9,12 @@ builder.Logging.ClearProviders();
 //使用NLog日志
 builder.Host.UseNLog();
 
+var healthChecks = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>()?.HealthChecks;
 //添加健康检查
-builder.Services.AddHealthChecks();
+if (healthChecks != null && healthChecks.Enable)
+{
+    builder.Services.AddHealthChecks();
+}
 
 //添加跨域
 builder.Services.AddCors(options =>
@@ -38,7 +42,10 @@ var app = builder.Build();
 app.UseCors("AllowAnyPolicy");
 
 //使用健康检查
-app.MapHealthChecks("/health");
+if (healthChecks != null && healthChecks.Enable)
+{
+    app.MapHealthChecks(healthChecks.Path);
+}
 
 //使用代理
 app.MapReverseProxy();

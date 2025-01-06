@@ -1,5 +1,4 @@
 ﻿namespace ZhonTai.Gateway.Yarp.Core.Configs;
-
 public class GatewayConfig
 {
     public static class Models
@@ -19,10 +18,31 @@ public class GatewayConfig
             /// </summary>
             public string Url { get; set; }
         }
+
+        /// <summary>
+        /// 健康检查配置
+        /// </summary>
+        public class HealthChecksConfig
+        {
+            /// <summary>
+            /// 启用
+            /// </summary>
+            public bool Enable { get; set; } = true;
+
+            /// <summary>
+            /// 访问路径
+            /// </summary>
+            public string Path { get; set; } = "/health";
+        }
     }
 
     /// <summary>
     /// 模块列表
     /// </summary>
     public List<Models.ModuleInfo> ModuleList { get; set; }
+
+    /// <summary>
+    /// 健康检查配置
+    /// </summary>
+    public Models.HealthChecksConfig HealthChecks { get; set; } = new Models.HealthChecksConfig();
 }
