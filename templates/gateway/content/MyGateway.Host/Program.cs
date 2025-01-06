@@ -47,8 +47,7 @@ app.MapReverseProxy();
 app.MapGet("/", async (HttpResponse response) =>
 {
     var gatewayConfig = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>();
-
-    var moduleList = gatewayConfig.ModuleList;
+    var moduleList = gatewayConfig?.ModuleList;
 
     var html = $"<html><body>";
     if (moduleList?.Count > 0)
@@ -65,7 +64,6 @@ app.MapGet("/", async (HttpResponse response) =>
     html += "</body></html>";
 
     response.ContentType = "text/html;charset=UTF-8";
-
     await response.WriteAsync(html);
 });
 
