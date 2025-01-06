@@ -1,4 +1,5 @@
 ﻿using NLog.Web;
+using ZhonTai.Gateway.Yarp.Core.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,18 +40,22 @@ app.MapReverseProxy();
 
 app.MapGet("/", async (HttpResponse response) =>
 {
-    var serviceList = new List<Tuple<string, string>>
-    {
-        new("权限接口文档","/doc/admin/index.html")
-    };
+    var gatewayConfig = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>();
+
+    var moduleList = gatewayConfig.ModuleList;
 
     var html = $"<html><body>";
-
-    serviceList.ForEach(m =>
+    if (moduleList?.Count > 0)
     {
-        html += $"""<a href='{m.Item2}' target="_blank">{m.Item1}</a></br>""";
-    });
-
+        moduleList.ForEach(m =>
+        {
+            html += $"""<a href='{m.Url}' target="_blank">{m.Name}</a></br>""";
+        });
+    }
+    else
+    {
+        html += "MyGateway.Host start!";
+    }
     html += "</body></html>";
 
     response.ContentType = "text/html;charset=UTF-8";
