@@ -12,6 +12,14 @@
   "sourceName": "MyGateway",
   "preferNameDirectory": true,
   "symbols": {
+	"Port": {
+		"type": "parameter",
+		"datatype": "int",
+		"isRequired": false,
+		"defaultValue": "16010",
+		"replaces": "16010",
+		"description": "Port settings"
+	},
   },
   "sources": [
   ]
