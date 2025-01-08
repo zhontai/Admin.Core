@@ -17,7 +17,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
-    "ace-builds": "^1.37.2",
+    "ace-builds": "^1.37.3",
     "axios": "^1.7.9",
     "countup.js": "^2.8.0",
     "cropperjs": "^1.6.2",
