@@ -15,7 +15,6 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Auth.Dto;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Enums;
-using ZhonTai.Admin.Core.Consts;
 
 namespace MyApp.Tests;
 
@@ -24,15 +23,8 @@ namespace MyApp.Tests;
 /// </summary>
 public class BaseControllerTest : BaseTest
 {
-    private readonly ICacheTool _cache;
-    private readonly ICaptchaTool _captcha;
-    private readonly AppConfig _appConfig;
-
     protected BaseControllerTest()
     {
-        _cache = GetService<ICacheTool>();
-        _captcha = GetService<ICaptchaTool>();
-        _appConfig = GetService<AppConfig>();
     }
 
     public static HttpContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8", ContentTypeEnum contentTypeEnum = ContentTypeEnum.Json)

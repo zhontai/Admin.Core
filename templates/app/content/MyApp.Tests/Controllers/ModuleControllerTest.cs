@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Xunit;
 using ZhonTai.Admin.Core.Dto;
-using MyApp.Api.Services.Module.Input;
-using MyApp.Api.Services.Module.Output;
-using MyApp.Api.Domain.Module.Dto;
+using MyApp.Api.Contracts.Services.Module.Input;
+using MyApp.Api.Contracts.Services.Module.Output;
 
 namespace MyApp.Tests.Controllers;
 

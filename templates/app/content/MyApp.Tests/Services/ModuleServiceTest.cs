@@ -1,7 +1,8 @@
 ﻿using Xunit;
-using MyApp.Api.Services.Module;
-using MyApp.Api.Domain.Module.Dto;
 using ZhonTai.Admin.Core.Dto;
+using System.Threading.Tasks;
+using MyApp.Api.Contracts.Services.Module;
+using MyApp.Api.Contracts.Services.Module.Input;
 
 namespace MyApp.Tests.Services;
 
@@ -18,7 +19,7 @@ public class ModuleServiceTest : BaseTest
     }
 
     [Fact]
-    public async void GetPageAsync()
+    public async Task GetPageAsync()
     {
         var input = new PageInput<ModuleGetPageInput>() { };
         var output = await _moduleService.GetPageAsync(input);

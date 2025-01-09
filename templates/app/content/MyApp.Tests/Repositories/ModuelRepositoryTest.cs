@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using MyApp.Api.Domain.Module;
+using System.Threading.Tasks;
 
 namespace MyApp.Tests.Repositories;
 
@@ -16,7 +17,7 @@ public class ModuelRepositoryTest : BaseTest
     }
 
     [Fact]
-    public async void GetAsync()
+    public async Task GetAsync()
     {
         var name = "module";
         var module = await _moduleRepository.Select.DisableGlobalFilter("Tenant")
