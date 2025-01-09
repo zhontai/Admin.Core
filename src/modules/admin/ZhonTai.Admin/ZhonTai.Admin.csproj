@@ -50,13 +50,22 @@
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.3.15" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
-		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
+		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.5" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="9.0.0" />
+		<PackageReference Include="Grpc.Core.Api" Version="2.67.0" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.67.0" />
+		<PackageReference Include="Grpc.AspNetCore.Server" Version="2.67.0" />
+		<PackageReference Include="protobuf-net.Grpc" Version="1.2.2" />
+		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
+		<PackageReference Include="protobuf-net.Grpc.AspNetCore.Reflection" Version="1.2.2" />
+		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
+		<PackageReference Include="System.ServiceModel.Primitives" Version="8.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

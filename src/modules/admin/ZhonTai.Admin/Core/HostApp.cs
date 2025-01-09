@@ -68,6 +68,8 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using IP2Region.Net.Abstractions;
 using IP2Region.Net.XDB;
+using ProtoBuf.Grpc.Server;
+using ZhonTai.Admin.Core.Helpers;
 
 namespace ZhonTai.Admin.Core;
 
@@ -839,6 +841,17 @@ public class HostApp
         // Api文档处理
         services.AddSingleton<IApiDocumentHandler, ApiDocumentHandler>();
 
+        //Grpc
+        services.AddCodeFirstGrpc(options =>
+        {
+            options.EnableDetailedErrors = true;
+            //options.ResponseCompressionLevel = CompressionLevel.Optimal;
+        });
+        services.AddCodeFirstGrpcReflection();
+
+        var policies = PolicyHelper.GetPolicyList();
+        services.AddMyGrpcClients(AppInfo.EffectiveAssemblies, AppInfo.GetOptions<RpcConfig>(), policies);
+
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
 
@@ -987,11 +1000,16 @@ public class HostApp
             app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
         }
 
+        //自动同步接口数据
         if (appConfig.Swagger.EnableAutoSync)
         {
             var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
             Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
         }
+
+        //Grpc
+        app.UseMyMapGrpcService(AppInfo.EffectiveAssemblies);
+        app.MapCodeFirstGrpcReflectionService();
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }
