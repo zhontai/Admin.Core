@@ -37,13 +37,13 @@
 		<PackageReference Include="FreeScheduler" Version="2.0.30" />
 		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.103" />
 		<PackageReference Include="FreeIM" Version="2.0.1" />
-		<PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 		<PackageReference Include="IP2Region.Net" Version="2.0.2" />
 		<PackageReference Include="Lazy.SlideCaptcha.Core" Version="2.0.1" />
 		<PackageReference Include="Magicodes.IE.Excel" Version="2.7.5.2" />
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.7.5.2" />
 		<PackageReference Include="MailKit" Version="4.9.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="3.4.0" />
 		<PackageReference Include="NLog" Version="5.3.4" />

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,7 +36,6 @@ using FreeScheduler;
 using FreeSql;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityServer4.AccessTokenValidation;
 using Mapster;
 using MapsterMapper;
 using Newtonsoft.Json;
@@ -70,6 +68,7 @@ using IP2Region.Net.Abstractions;
 using IP2Region.Net.XDB;
 using ProtoBuf.Grpc.Server;
 using ZhonTai.Admin.Core.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ZhonTai.Admin.Core;
 
@@ -432,7 +431,7 @@ public class HostApp
         #region 身份认证授权
         services.AddAuthentication(options =>
         {
-            options.DefaultScheme = appConfig.IdentityServer.Enable ? IdentityServerAuthenticationDefaults.AuthenticationScheme : JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
             options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
         })
