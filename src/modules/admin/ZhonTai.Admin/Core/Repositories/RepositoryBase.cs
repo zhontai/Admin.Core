@@ -8,12 +8,11 @@ using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Repositories
 {
-    public class RepositoryBase<TEntity, TKey> : DefaultRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class
+    public class RepositoryBase<TEntity, TKey> : BaseRepository<TEntity, TKey>, IRepositoryBase<TEntity, TKey> where TEntity : class
     {
         public IUser User { get; set; }
 
         public RepositoryBase(IFreeSql fsql) : base(fsql) { }
-        public RepositoryBase(IFreeSql fsql, Expression<Func<TEntity, bool>> filter) : base(fsql, filter) { }
         public RepositoryBase(IFreeSql fsql, UnitOfWorkManager uowManger) : base(uowManger?.Orm ?? fsql)
         {
             uowManger?.Binding(this);

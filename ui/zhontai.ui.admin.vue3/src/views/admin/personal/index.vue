@@ -150,7 +150,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="personal">
+<script setup lang="ts" name="admin/personal">
 import { reactive, computed, onMounted, toRefs, ref, getCurrentInstance, defineAsyncComponent } from 'vue'
 import { formatAxis } from '/@/utils/formatTime'
 import { UserApi } from '/@/api/admin/User'

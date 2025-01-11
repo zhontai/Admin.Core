@@ -30,7 +30,7 @@
 
 #### 🌈 介绍
 
-基于 .Net8.0 + FreeSql 全家桶 + Autofac + Mapster + CAP 等技术，前后端分离后台权限管理系统。想你所想的开发理念，帮助大家快速上手开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据到数据库中。启动项目使用新版 swagger 接口文档查看接口请求参数和响应数据。
+基于 .Net9.0 + FreeSql 全家桶 + Autofac + Mapster + CAP 等技术，前后端分离后台权限管理系统。想你所想的开发理念，帮助大家快速上手开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据到数据库中。启动项目使用新版 swagger 接口文档查看接口请求参数和响应数据。
 
 #### ⛱️ 线上预览
 
@@ -62,10 +62,13 @@
 14. **登录日志**：登录日志列表查询，记录用户登录成功和失败日志，支持IP归属地记录。
 15. **操作日志**：操作日志列表查询，记录用户操作正常和异常日志，支持IP归属地记录，查看操作日志详情。
 16. **个人中心**：个人信息展示和修改，查看最后登录信息，密码修改等功能。
+17. **消息分类**：管理消息分类，支持2级自定义消息分类，用于消息管理消息分类选择。
+18. **消息管理**：管理消息，支持发送指定用户消息，可查看用户是否已读和已读时间。
+19. **站内信**：站内消息管理，支持消息详细查看、删除、标为已读、全部已读功能。
 
 #### ⚡ 使用说明
 
-> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 >= 8.0+</a>
+> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 >= 9.0+</a>
 
 使用项目源码新建项目
 
@@ -105,6 +108,24 @@ dotnet new MyApp -n MyCompanyName.MyProjectName
 
 # 打包发布
 选择 MyCompanyName.MyProjectName.Host 右键菜单点击发布
+```
+
+使用Tye运行&调试模块项目：
+
+1、安装Tye
+```
+dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+```
+
+2、运行&调试
+```
+1、vs安装拓展EasyRun
+
+2、打开VS的 视图-> 其他窗口 -> EasyRun，点击打开EasyRun窗口
+
+3、点击Tye按钮运行
+
+4、选择要调试的微服务点击Debugger按钮开启调试
 ```
 
 #### 💯 学习交流加 QQ 群

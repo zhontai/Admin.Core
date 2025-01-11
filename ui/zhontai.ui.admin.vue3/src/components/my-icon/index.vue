@@ -8,10 +8,6 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  prefix: {
-    type: String,
-    default: 'icon',
-  },
   name: {
     type: String,
     required: true,
@@ -26,7 +22,7 @@ const props = defineProps({
   },
 })
 
-const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+const symbolId = computed(() => `#icon-${props.name}`)
 const style = computed(() => {
   let sizeStyle = ''
   if (typeof props.size === 'number') {

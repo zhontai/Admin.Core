@@ -1,6 +1,5 @@
 ﻿using System;
 using ZhonTai.Admin.Core.Repositories;
-using System.Linq.Expressions;
 using FreeScheduler;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain;
@@ -15,11 +14,10 @@ public static class FreeSqlDbContextExtensions
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
     /// <param name="that"></param>
-    /// <param name="filter">数据过滤 + 验证</param>
     /// <returns></returns>
-    public static IRepositoryBase<TEntity, TKey> GetRepositoryBase<TEntity, TKey>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class
+    public static IRepositoryBase<TEntity, TKey> GetRepositoryBase<TEntity, TKey>(this IFreeSql that) where TEntity : class
     {
-        return new RepositoryBase<TEntity, TKey>(that, filter);
+        return new RepositoryBase<TEntity, TKey>(that);
     }
 
     /// <summary>
@@ -27,11 +25,10 @@ public static class FreeSqlDbContextExtensions
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="that"></param>
-    /// <param name="filter">数据过滤 + 验证</param>
     /// <returns></returns>
-    public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that, Expression<Func<TEntity, bool>> filter = null) where TEntity : class
+    public static IRepositoryBase<TEntity, long> GetRepositoryBase<TEntity>(this IFreeSql that) where TEntity : class
     {
-        return new RepositoryBase<TEntity, long>(that, filter);
+        return new RepositoryBase<TEntity, long>(that);
     }
 
     /// <summary>
@@ -45,7 +42,7 @@ public static class FreeSqlDbContextExtensions
         that.CodeFirst
         .ConfigEntity<TaskInfo>(a =>
         {
-            a.Name("ad_task");
+            a.Name("base_task");
             a.Property(b => b.Id).IsPrimary(true);
             a.Property(b => b.Body).StringLength(-1);
             a.Property(b => b.Interval).MapType(typeof(int));
@@ -56,14 +53,14 @@ public static class FreeSqlDbContextExtensions
         })
         .ConfigEntity<TaskLog>(a =>
         {
-            a.Name("ad_task_log");
+            a.Name("base_task_log");
             a.Property(b => b.Exception).StringLength(-1);
             a.Property(b => b.Remark).StringLength(-1);
             a.Property(b => b.CreateTime).ServerTime(DateTimeKind.Local);
         })
         .ConfigEntity<TaskInfoExt>(a =>
         {
-            a.Name("ad_task_ext");
+            a.Name("base_task_ext");
             a.Property(b => b.TaskId).IsPrimary(true);
             a.Property(b => b.CreatedTime).CanUpdate(false).ServerTime(DateTimeKind.Local);
             a.Property(b => b.ModifiedTime).CanInsert(false).ServerTime(DateTimeKind.Local);

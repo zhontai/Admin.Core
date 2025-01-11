@@ -262,8 +262,6 @@ const open = async (row: UserUpdateInput & UserUpdateInput) => {
     }
   } else {
     state.form = {
-      orgIds: row.orgIds,
-      orgId: row.orgId,
       roleIds: [] as number[],
       staff: {},
     } as UserAddInput & UserUpdateInput

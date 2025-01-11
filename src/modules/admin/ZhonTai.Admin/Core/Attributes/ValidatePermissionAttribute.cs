@@ -1,5 +1,4 @@
-﻿using BaiduBce.Services.Bos.Model;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -40,6 +39,17 @@ public class ValidatePermissionAttribute : AuthorizeAttribute, IAuthorizationFil
         if (user.PlatformAdmin)
         {
             return;
+        }
+
+        //自定义权限验证
+        var customPermissionHandler = serviceProvider.GetService<ICustomPermissionHandler>();
+        if (customPermissionHandler != null)
+        {
+            var isValid = await customPermissionHandler.ValidateAsync(context);
+            if (!isValid)
+            {
+                return;
+            }
         }
 
         //权限验证

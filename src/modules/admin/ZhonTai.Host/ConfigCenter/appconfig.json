@@ -3,7 +3,7 @@
     //应用程序类型Controllers ControllersWithViews MVC
     "appType": "Controllers",
     //Api地址
-    "urls": [ "http://*:8000" ],
+    "urls": [ "http://*:18010" ],
     //跨域地址
     "corUrls": [],
     //程序集名称
@@ -40,14 +40,16 @@
       //程序集列表，用于启用SchemaId命名空间
       "assemblyNameList": [],
       //路由前缀，如配置微服务文档地址：doc/module/swagger
-      "routePrefix": "admin/swagger",
+      "routePrefix": "doc/admin/swagger",
       //地址
-      "url": "http://localhost:8000",
+      "url": "http://localhost:18010",
+      //自动同步文档到数据库
+      "enableAutoSync": false,
       "projects": [
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.6.0",
+          "version": "v9.0.0",
           "description": ""
         }
       ]
@@ -57,7 +59,7 @@
       //启用
       "enable": true,
       //路由前缀，如配置微服务文档地址：doc/module
-      "routePrefix": "admin",
+      "routePrefix": "doc/admin",
       //页脚
       "footer": {
         "enable": false,
@@ -119,7 +121,7 @@
       //启用
       "enable": true,
       //访问路径
-      "path": "/admin/health"
+      "path": "/health"
     },
     //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
     "PreflightMaxAge": 1800,

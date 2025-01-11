@@ -19,13 +19,13 @@ namespace ZhonTai.Admin.Services.Document;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class DocumentService : BaseService, IDocumentService, IDynamicApi
 {
-    private readonly IDocumentRepository _documentRepository;
-    private readonly IDocumentImageRepository _documentImageRepository;
+    private readonly IDocRepository _documentRepository;
+    private readonly IDocImageRepository _documentImageRepository;
     private readonly Lazy<IFileService> _fileService;
 
     public DocumentService(
-        IDocumentRepository DocumentRepository,
-        IDocumentImageRepository documentImageRepository,
+        IDocRepository DocumentRepository,
+        IDocImageRepository documentImageRepository,
         Lazy<IFileService> fileService
     )
     {
@@ -113,7 +113,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddGroupAsync(DocumentAddGroupInput input)
     {
-        var entity = Mapper.Map<DocumentEntity>(input);
+        var entity = Mapper.Map<DocEntity>(input);
         await _documentRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -126,7 +126,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddMenuAsync(DocumentAddMenuInput input)
     {
-        var entity = Mapper.Map<DocumentEntity>(input);
+        var entity = Mapper.Map<DocEntity>(input);
         await _documentRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -139,7 +139,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddImageAsync(DocumentAddImageInput input)
     {
-        var entity = Mapper.Map<DocumentImageEntity>(input);
+        var entity = Mapper.Map<DocImageEntity>(input);
         await _documentImageRepository.InsertAsync(entity);
 
         return entity.Id;
@@ -224,7 +224,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
             .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Opened });
 
         var menus = documents
-            .Where(a => (new[] { DocumentType.Group, DocumentType.Markdown }).Contains(a.Type))
+            .Where(a => (new[] { DocType.Group, DocType.Markdown }).Contains(a.Type))
             .Select(a => new
             {
                 a.Id,

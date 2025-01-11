@@ -30,7 +30,7 @@
 
 #### 🌈 Introduction
 
-A backend permission management system with frontend and backend separation, built on technologies such as .NET 8.0, FreeSql Suite, Autofac, Mapster, CAP, and more. It embraces a development philosophy that anticipates your needs, aiming to facilitate rapid development for everyone. Leveraging FreeSql ORM, it supports mainstream domestic and international databases, read-write separation, sharding, distributed transactions (TCC/SAGA), and other functionalities. Upon project initialization, the database is automatically generated. The CodeFirst mode enables automatic synchronization of table structures and permission data from entity configurations to the database. To explore the project, utilize the new version of Swagger API documentation to view interface request parameters and response data.
+A backend permission management system with frontend and backend separation, built on technologies such as .NET 9.0, FreeSql Suite, Autofac, Mapster, CAP, and more. It embraces a development philosophy that anticipates your needs, aiming to facilitate rapid development for everyone. Leveraging FreeSql ORM, it supports mainstream domestic and international databases, read-write separation, sharding, distributed transactions (TCC/SAGA), and other functionalities. Upon project initialization, the database is automatically generated. The CodeFirst mode enables automatic synchronization of table structures and permission data from entity configurations to the database. To explore the project, utilize the new version of Swagger API documentation to view interface request parameters and response data.
 
 #### ⛱️ Online preview
 
@@ -62,10 +62,13 @@ A backend permission management system with frontend and backend separation, bui
 14. **Login Logs**: Query login log lists, recording successful and failed user login logs, with IP location tracking.
 15. **Operation Logs**: Query operation log lists, recording normal and abnormal user operations, with IP location tracking and detailed operation log viewing.
 16. **Personal Center**: This feature allows users to display and modify their personal information, view their last login information, change their passwords, and more.
+17. **Message Classification**: Manage message classifications, supporting 2-level custom message classifications for message management and classification selection.
+18. **Message Management**: Manage messages, support sending messages to specified users, and be able to check whether the user has read the message and the reading time.
+19. **In-site Messages**: Manage in-site messages, supporting functions such as detailed message viewing, deletion, marking as read, and marking all as read. 
 
 #### ⚡ Usage instructions
 
-> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net version > 8.0+</a>
+> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net version > 9.0+</a>
 
 Create a new project using the source code of an existing project.
 
@@ -106,6 +109,25 @@ Alternatively, navigate to the 'MyCompanyName.MyProjectName.Host' directory in C
 # Package and Publish
 Select MyCompanyName.MyProjectName.Host, then right-click and choose Publish from the context menu.
 ```
+
+Using Tye to Run & Debug Modular Projects:
+
+1. Install Tye
+```
+dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+```
+
+2. Run & Debug
+```
+1. Install the EasyRun extension for Visual Studio.
+
+2. Open Visual Studio, navigate to View -> Other Windows -> EasyRun to open the EasyRun window.
+
+3. Click the Tye button to run the application.
+
+4. Select the microservice you want to debug and click the Debugger button to start debugging.
+```
+
 
 #### 💯 Join a QQ group for learning and communication
 

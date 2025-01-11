@@ -11,7 +11,7 @@ namespace ZhonTai.Admin.Domain.Api;
 /// <summary>
 /// 接口管理
 /// </summary>
-[Table(Name = "ad_api")]
+[Table(Name = "base_api", OldName = "ad_api")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Path), true)]
 public partial class ApiEntity : EntityBase, IChilds<ApiEntity>
 {

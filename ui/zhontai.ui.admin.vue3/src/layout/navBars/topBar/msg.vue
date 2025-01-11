@@ -19,10 +19,10 @@
           <div>
             <el-empty v-if="isEmpty" description="暂无消息" />
             <template v-else>
-              <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item">
+              <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item" @click="onToDetail(msg)">
                 <div :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
                 <div class="msg-item__time">{{ formatterTime(msg.receivedTime) }}</div>
-                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click="onSetRead(msg)">标为已读</el-button>
+                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click.prevent.stop="onSetRead(msg)">标为已读</el-button>
               </div>
             </template>
           </div>
@@ -38,6 +38,7 @@ import { useRouter } from 'vue-router'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
+import eventBus from '/@/utils/mitt'
 
 const { proxy } = getCurrentInstance() as any
 const router = useRouter()
@@ -110,6 +111,8 @@ const onSetAllRead = () => {
       state.loadingSetAllRead = false
       if (res?.success) {
         proxy.$modal.msgSuccess('标记所有已读成功')
+        eventBus.emit('refreshSiteMsg')
+        eventBus.emit('checkUnreadMsg')
         onQuery()
       }
     })
@@ -120,8 +123,18 @@ const onSetRead = async (msg: SiteMsgGetPageOutput) => {
   msg.isRead = true
   const res = await new SiteMsgApi().setRead({ id: msg.id }).catch(() => {})
   if (res?.success) {
+    eventBus.emit('refreshSiteMsg')
+    eventBus.emit('checkUnreadMsg')
     onQuery()
   }
+}
+
+const onToDetail = (row: SiteMsgGetPageOutput) => {
+  state.visible = false
+  router.push({
+    path: '/site-msg/detail',
+    query: { id: row.id, tagsViewName: row.title },
+  })
 }
 
 const openDrawer = () => {

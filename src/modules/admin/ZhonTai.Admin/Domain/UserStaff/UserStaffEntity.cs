@@ -7,7 +7,7 @@ namespace ZhonTai.Admin.Domain.UserStaff;
 /// <summary>
 /// 用户员工
 /// </summary>
-[Table(Name = "ad_user_staff")]
+[Table(Name = "base_user_staff", OldName = "ad_user_staff")]
 public partial class UserStaffEntity : EntityTenant
 {
     /// <summary>

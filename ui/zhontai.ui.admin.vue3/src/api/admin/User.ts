@@ -21,6 +21,7 @@ import {
   ResultOutputUserGetPermissionOutput,
   UserAddInput,
   UserAddMemberInput,
+  UserBatchSetOrgInput,
   UserChangePasswordInput,
   UserResetPasswordInput,
   UserSetEnableInput,
@@ -278,6 +279,24 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * No description
    *
    * @tags user
+   * @name BatchSetOrg
+   * @summary 批量设置部门
+   * @request PUT:/api/admin/user/batch-set-org
+   * @secure
+   */
+  batchSetOrg = (data: UserBatchSetOrgInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/user/batch-set-org`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags user
    * @name Delete
    * @summary 彻底删除用户
    * @request DELETE:/api/admin/user/delete
@@ -407,6 +426,29 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       query: query,
       secure: true,
       format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags user
+   * @name ForceOffline
+   * @summary 强制用户下线
+   * @request POST:/api/admin/user/force-offline
+   * @secure
+   */
+  forceOffline = (
+    query?: {
+      /** @format int64 */
+      id?: number
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/user/force-offline`,
+      method: 'POST',
+      query: query,
+      secure: true,
       ...params,
     })
 }

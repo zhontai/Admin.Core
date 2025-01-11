@@ -53,12 +53,12 @@ export interface ApiEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -73,12 +73,12 @@ export interface ApiEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -551,10 +551,10 @@ export interface CaptchaData {
 export type DataScope = 1 | 2 | 3 | 4 | 5
 
 /**
- * MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25
+ * MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27
  * @format int32
  */
-export type DataType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25
+export type DataType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 11 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27
 
 /** 添加字典 */
 export interface DictAddInput {
@@ -788,6 +788,12 @@ export interface DictUpdateInput {
   id: number
 }
 
+/**
+ * 文档类型:Group=1,Markdown=2
+ * @format int32
+ */
+export type DocType = 1 | 2
+
 export interface DocumentAddGroupInput {
   /**
    * 父级节点
@@ -795,7 +801,7 @@ export interface DocumentAddGroupInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -821,7 +827,7 @@ export interface DocumentAddMenuInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -849,7 +855,7 @@ export interface DocumentGetGroupOutput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -870,7 +876,7 @@ export interface DocumentGetMenuOutput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -898,7 +904,7 @@ export interface DocumentListOutput {
   /** 名称 */
   label?: string | null
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 描述 */
@@ -906,12 +912,6 @@ export interface DocumentListOutput {
   /** 组打开 */
   opened?: boolean | null
 }
-
-/**
- * 文档类型:Group=1,Markdown=2
- * @format int32
- */
-export type DocumentType = 1 | 2
 
 export interface DocumentUpdateContentInput {
   /**
@@ -934,7 +934,7 @@ export interface DocumentUpdateGroupInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 名称 */
   label?: string | null
   /** 命名 */
@@ -955,7 +955,7 @@ export interface DocumentUpdateMenuInput {
    */
   parentId?: number
   /** 文档类型:Group=1,Markdown=2 */
-  type?: DocumentType
+  type?: DocType
   /** 命名 */
   name?: string | null
   /** 名称 */
@@ -1022,12 +1022,12 @@ export interface FileEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -1042,12 +1042,12 @@ export interface FileEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -1638,12 +1638,12 @@ export interface OrgEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -1658,12 +1658,12 @@ export interface OrgEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -2427,12 +2427,12 @@ export interface PermissionEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -2447,12 +2447,12 @@ export interface PermissionEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -2852,12 +2852,12 @@ export interface PkgEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -2872,12 +2872,12 @@ export interface PkgEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -3985,6 +3985,17 @@ export interface ResultOutputRoleGetOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputSiteMsgGetContentOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  data?: SiteMsgGetContentOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputString {
   /** 是否成功标记 */
   success?: boolean
@@ -4127,12 +4138,12 @@ export interface RoleEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -4147,12 +4158,12 @@ export interface RoleEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -4388,6 +4399,27 @@ export interface SendSmsCodeInput {
  * @format int32
  */
 export type Sex = 0 | 1 | 2
+
+export interface SiteMsgGetContentOutput {
+  /**
+   * 消息Id
+   * @format int64
+   */
+  msgId?: number
+  /** 标题 */
+  title?: string | null
+  /** 类型名称 */
+  typeName?: string | null
+  /** 内容 */
+  content?: string | null
+  /**
+   * 接收时间
+   * @format date-time
+   */
+  receivedTime?: string | null
+  /** 是否已读 */
+  isRead?: boolean | null
+}
 
 export interface SiteMsgGetPageInput {
   /** 是否已读 */
@@ -4702,7 +4734,7 @@ export interface TenantAddInput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4726,12 +4758,12 @@ export interface TenantEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -4746,12 +4778,12 @@ export interface TenantEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -4781,7 +4813,7 @@ export interface TenantEntity {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4818,7 +4850,7 @@ export interface TenantGetOutput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4863,7 +4895,7 @@ export interface TenantListOutput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 数据库名称 */
   dbTypeName?: string | null
@@ -4923,7 +4955,7 @@ export interface TenantUpdateInput {
   domain?: string | null
   /** 数据库注册键 */
   dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,OdbcDameng=10,MsAccess=11,Dameng=12,OdbcKingbaseES=13,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25 */
+  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
   dbType?: DataType
   /** 连接字符串 */
   connectionString?: string | null
@@ -4970,13 +5002,6 @@ export interface UserAddInput {
   email?: string | null
   /** 角色Ids */
   roleIds?: number[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /**
    * 直属主管Id
    * @format int64
@@ -4986,6 +5011,13 @@ export interface UserAddInput {
   managerUserName?: string | null
   /** 员工添加 */
   staff: StaffAddInput
+  /** 所属部门Ids */
+  orgIds?: number[] | null
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
   /** 密码 */
   password?: string | null
   /** 启用 */
@@ -5017,6 +5049,19 @@ export interface UserAddMemberInput {
   password: string
   /** 用户状态:WaitChangePasssword=2,WaitActive=3 */
   status?: UserStatus
+}
+
+/** 批量设置部门 */
+export interface UserBatchSetOrgInput {
+  /** 用户Id列表 */
+  userIds?: number[] | null
+  /** 所属部门Ids */
+  orgIds?: number[] | null
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
 }
 
 /** 修改密码 */
@@ -5052,12 +5097,12 @@ export interface UserEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5072,12 +5117,12 @@ export interface UserEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5177,12 +5222,6 @@ export interface UserGetBasicOutput {
   lastLoginCity?: string | null
 }
 
-export interface UserGetOrgDto {
-  /** @format int64 */
-  id?: number
-  name?: string | null
-}
-
 export interface UserGetOutput {
   /**
    * 账号
@@ -5199,11 +5238,6 @@ export interface UserGetOutput {
   /** 邮箱 */
   email?: string | null
   /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
-  /**
    * 直属主管Id
    * @format int64
    */
@@ -5219,10 +5253,6 @@ export interface UserGetOutput {
   id: number
   /** 角色列表 */
   roles?: UserGetRoleDto[] | null
-  /** 部门列表 */
-  orgs?: UserGetOrgDto[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
   /** 角色Ids */
   roleIds?: number[] | null
 }
@@ -5259,6 +5289,8 @@ export interface UserGetPageOutput {
   isManager?: boolean
   /** 启用 */
   enabled?: boolean
+  /** 在线 */
+  online?: boolean
   /**
    * 创建时间
    * @format date-time
@@ -5332,12 +5364,12 @@ export interface UserStaffEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5352,12 +5384,12 @@ export interface UserStaffEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5430,13 +5462,6 @@ export interface UserUpdateInput {
   email?: string | null
   /** 角色Ids */
   roleIds?: number[] | null
-  /** 所属部门Ids */
-  orgIds?: number[] | null
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /**
    * 直属主管Id
    * @format int64
@@ -5525,12 +5550,12 @@ export interface ViewEntity {
   createdUserId?: number | null
   /**
    * 创建者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserName?: string | null
   /**
    * 创建者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   createdUserRealName?: string | null
   /**
@@ -5545,12 +5570,12 @@ export interface ViewEntity {
   modifiedUserId?: number | null
   /**
    * 修改者用户名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserName?: string | null
   /**
    * 修改者姓名
-   * @maxLength 50
+   * @maxLength 60
    */
   modifiedUserRealName?: string | null
   /**
@@ -5691,4 +5716,9 @@ export interface ViewUpdateInput {
    * @format int64
    */
   id: number
+}
+
+export interface WebSocketPreConnectInput {
+  /** @format int64 */
+  websocketId?: number | null
 }

@@ -57,6 +57,11 @@ public class UserGetPageOutput
     public bool Enabled { get; set; }
 
     /// <summary>
+    /// 在线
+    /// </summary>
+    public bool Online { get; set; }
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreatedTime { get; set; }

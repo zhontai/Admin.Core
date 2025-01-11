@@ -68,7 +68,10 @@ export class FileApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    */
   uploadFile = (
     data: {
-      /** @format binary */
+      /**
+       * 文件
+       * @format binary
+       */
       file: File
     },
     query?: {
@@ -106,6 +109,7 @@ export class FileApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    */
   uploadFiles = (
     data: {
+      /** 文件列表 */
       files: File[]
     },
     query?: {

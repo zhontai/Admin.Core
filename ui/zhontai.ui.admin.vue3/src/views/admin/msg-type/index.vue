@@ -20,7 +20,6 @@
         row-key="id"
         default-expand-all
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        highlight-current-row
         style="width: 100%"
         border
       >

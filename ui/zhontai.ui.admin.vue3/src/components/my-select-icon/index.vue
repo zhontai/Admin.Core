@@ -26,7 +26,7 @@ const emits = defineEmits(['update:modelValue'])
 const iconSelectRef = ref()
 
 const state = reactive({
-  value: props.modelValue,
+  value: props.modelValue || '',
 })
 
 const onOpen = () => {

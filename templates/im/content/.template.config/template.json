@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "xiao xue", 
+    "classifications": [ "ZhonTai", "IMServer", "MyIMServer" ], 
+    "name": "ZhonTai.Template IM服务端项目", 
+    "identity": "MyIMServer", 
+    "shortName": "MyIMServer",
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "MyIMServer",  
+    "preferNameDirectory": true,
+	"symbols": {
+		"Port": {
+			"type": "parameter",
+			"datatype": "int",
+			"isRequired": false,
+			"defaultValue": "17010",
+			"replaces": "17010",
+			"description": "Port settings"
+		},
+	},
+	"sources": [
+	]
+}

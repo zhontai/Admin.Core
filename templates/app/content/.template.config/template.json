@@ -1,0 +1,159 @@
+{
+	"$schema": "http://json.schemastore.org/template",
+	"author": "xiao xue",
+	"classifications": [ "ZhonTai", "WebApi", "App", "MyApp" ],
+	"name": "ZhonTai.Template.App 应用接口项目",
+	"identity": "MyApp",
+	"shortName": "MyApp",
+	"tags": {
+		"language": "C#",
+		"type": "project"
+	},
+	"sourceName": "MyApp",
+	"preferNameDirectory": true,
+	"symbols": {
+		"NoApiUI": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable api document support"
+		},
+		"NoTaskScheduler": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable task scheduler support"
+		},
+		"NoCap": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Cap for building distributed transaction and eventbus"
+		},
+		"NoTests": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No testing project library"
+		},
+		"NoSample": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No module examples"
+		},
+		"MergeDb": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Merge admindb to maindb support"
+		},
+		"MicroService": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Micro service project support"
+		},
+		"DbType": {
+			"type": "parameter",
+			"datatype": "choice",
+			"choices": [
+				{
+					"choice": "MySql",
+					"description": "MySql"
+				},
+				{
+					"choice": "PostgreSQL",
+					"description": "PostgreSQL"
+				},
+				{
+					"choice": "SqlServer",
+					"description": "SqlServer"
+				},
+				{
+					"choice": "Oracle",
+					"description": "Oracle"
+				},
+				{
+					"choice": "Sqlite",
+					"description": "Sqlite"
+				},
+				{
+					"choice": "Firebird",
+					"description": "Firebird"
+				},
+				{
+					"choice": "MsAccess",
+					"description": "MsAccess"
+				},
+				{
+					"choice": "Dameng",
+					"description": "达梦"
+				},
+				{
+					"choice": "ShenTong",
+					"description": "神通"
+				},
+				{
+					"choice": "KingbaseES",
+					"description": "人大金仓"
+				},
+				{
+					"choice": "Gbase",
+					"description": "南大通用"
+				},
+				{
+					"choice": "ClickHouse",
+					"description": "ClickHouse"
+				},
+				{
+					"choice": "QuestDb",
+					"description": "QuestDb"
+				},
+				{
+					"choice": "Xugu",
+					"description": "虚谷"
+				}
+			],
+			"defaultValue": "Sqlite",
+			"description": "The database for the project"
+		}
+	},
+	"sources": [
+		{
+			"modifiers": [
+				{
+					"condition": "(NoTaskScheduler)",
+					"exclude": [
+						"src/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
+						"src/MyApp.Api/Core/Consts/TaskNames.cs"
+					]
+				},
+				{
+					"condition": "(MicroService)",
+					"exclude": [
+						"src/MyApp.Host/InitData/Admin/**"
+					]
+				},
+				{
+					"condition": "(NoTests)",
+					"exclude": [
+						"src/MyApp.Tests/**"
+					]
+				},
+				{
+					"condition": "(NoSample)",
+					"exclude": [
+						"src/MyApp.Api.Contracts/Services/Module/**",
+						"src/MyApp.Api/Domain/Module/**",
+						"src/MyApp.Api/Repositories/Module/**",
+						"src/MyApp.Api/Repositories/CustomGenerateData.cs",
+						"src/MyApp.Api/Repositories/CustomSyncData.cs",
+						"src/MyApp.Api/Services/Module/**",
+						"src/MyApp.Host/InitData/App/**"
+					]
+				}
+			]
+		}
+	]
+}

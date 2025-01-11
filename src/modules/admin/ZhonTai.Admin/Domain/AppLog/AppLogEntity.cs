@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Domain.AppLog;
 /// <summary>
 /// 应用程序日志
 /// </summary>
-[Table(Name = "ad_app_log")]
+[Table(Name = "base_app_log", OldName = "ad_app_log")]
 public partial class AppLogEntity
 {
     /// <summary>

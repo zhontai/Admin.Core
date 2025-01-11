@@ -6,6 +6,16 @@
 public class UserAddInput: UserFormInput
 {
     /// <summary>
+    /// 所属部门Ids
+    /// </summary>
+    public virtual long[] OrgIds { get; set; }
+
+    /// <summary>
+    /// 主属部门Id
+    /// </summary>
+    public long OrgId { get; set; }
+
+    /// <summary>
     /// 密码
     /// </summary>
     public virtual string Password { get; set; }

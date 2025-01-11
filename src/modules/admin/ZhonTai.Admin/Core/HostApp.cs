@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +26,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using AspNetCoreRateLimit;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -36,7 +36,6 @@ using FreeScheduler;
 using FreeSql;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using IdentityServer4.AccessTokenValidation;
 using Mapster;
 using MapsterMapper;
 using Newtonsoft.Json;
@@ -67,9 +66,9 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using IP2Region.Net.Abstractions;
 using IP2Region.Net.XDB;
-using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Services.Api.Dto;
-using ZhonTai.Common.Extensions;
+using ProtoBuf.Grpc.Server;
+using ZhonTai.Admin.Core.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace ZhonTai.Admin.Core;
 
@@ -161,6 +160,8 @@ public class HostApp
                 services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
                 services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
                 services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
+                services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
+                services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
             }
             else
             {
@@ -178,6 +179,9 @@ public class HostApp
 
                 //oss上传配置
                 services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
+
+                //im配置
+                services.Configure<ImConfig>(ConfigHelper.Load("imconfig", env.EnvironmentName));
 
                 //限流配置
                 configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
@@ -427,7 +431,7 @@ public class HostApp
         #region 身份认证授权
         services.AddAuthentication(options =>
         {
-            options.DefaultScheme = appConfig.IdentityServer.Enable ? IdentityServerAuthenticationDefaults.AuthenticationScheme : JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
             options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
         })
@@ -826,6 +830,27 @@ public class HostApp
             services.AddSingleton<ISearcher>(new Searcher(CachePolicy.Content, Path.Combine(AppContext.BaseDirectory, "ip2region.xdb")));
         }
 
+        //im即时通讯
+        var imConfig = AppInfo.GetOptions<ImConfig>();
+        if (imConfig.Enable)
+        {
+            services.AddIm();
+        }
+
+        // Api文档处理
+        services.AddSingleton<IApiDocumentHandler, ApiDocumentHandler>();
+
+        //Grpc
+        services.AddCodeFirstGrpc(options =>
+        {
+            options.EnableDetailedErrors = true;
+            //options.ResponseCompressionLevel = CompressionLevel.Optimal;
+        });
+        services.AddCodeFirstGrpcReflection();
+
+        var policies = PolicyHelper.GetPolicyList();
+        services.AddMyGrpcClients(AppInfo.EffectiveAssemblies, AppInfo.GetOptions<RpcConfig>(), policies);
+
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
 
@@ -914,7 +939,10 @@ public class HostApp
         //获取枚举列表接口
         if (env.IsDevelopment())
         {
-            app.MapGet("/api/system/get-enums", (ApiHelper apiHelper) => ResultOutput.Ok(apiHelper.GetEnumList()));
+            foreach(var project in appConfig.Swagger?.Projects)
+            {
+                app.MapGet($"/api/{project.Code.ToLower()}/get-enums", (ApiHelper apiHelper) => ResultOutput.Ok(apiHelper.GetEnumList()));
+            }
         }
 
         _hostAppOptions?.ConfigureMiddleware?.Invoke(hostAppMiddlewareContext);
@@ -970,6 +998,17 @@ public class HostApp
         {
             app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
         }
+
+        //自动同步接口数据
+        if (appConfig.Swagger.EnableAutoSync)
+        {
+            var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
+            Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
+        }
+
+        //Grpc
+        app.UseMyMapGrpcService(AppInfo.EffectiveAssemblies);
+        app.MapCodeFirstGrpcReflectionService();
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }

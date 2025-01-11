@@ -15,7 +15,7 @@ namespace ZhonTai.Admin.Domain.User;
 /// <summary>
 /// 用户
 /// </summary>
-[Table(Name = "ad_user")]
+[Table(Name = "base_user", OldName = "ad_user")]
 [Index("idx_{tablename}_01", nameof(UserName), true)]
 [Index("idx_{tablename}_02", nameof(Mobile))]
 [Index("idx_{tablename}_03", nameof(Email))]

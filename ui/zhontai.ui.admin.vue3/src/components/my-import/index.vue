@@ -8,6 +8,7 @@
       :close-on-press-escape="false"
       width="520px"
       v-bind="$attrs"
+      @close="onClose"
     >
       <el-steps :active="state.step" simple>
         <el-step title="上传文件" icon="ele-Upload" />
@@ -54,17 +55,18 @@
               :on-success="onSuccess"
               :on-error="onError"
               :before-upload="onBeforeUpload"
+              v-model:file-list="state.fileList"
             >
               <template #trigger>
                 <el-button icon="ele-Paperclip" text bg>选择文件</el-button>
               </template>
             </el-upload>
             <!-- <div class="mt10">请选择文件编码</div>
-          <div class="mt10">
-            <el-select v-model="state.data.fileEncoding" style="width: 220px" :size="'mini'">
-              <el-option v-for="status in state.fileEncodingList" :key="status.name" :label="status.name" :value="status.value" />
-            </el-select>
-          </div> -->
+            <div class="mt10">
+              <el-select v-model="state.data.fileEncoding" style="width: 220px" :size="'mini'">
+                <el-option v-for="status in state.fileEncodingList" :key="status.name" :label="status.name" :value="status.value" />
+              </el-select>
+            </div> -->
           </div>
         </div>
       </div>
@@ -97,7 +99,6 @@ import eventBus from '/@/utils/mitt'
 import { useUserInfo } from '/@/stores/userInfo'
 import type { UploadProps, UploadInstance, UploadUserFile, UploadRawFile, UploadProgressEvent, UploadFile } from 'element-plus'
 import { ElMessage, genFileId, ElNotification } from 'element-plus'
-import { DictApi } from '/@/api/admin/Dict'
 import dayjs from 'dayjs'
 import { cloneDeep, merge } from 'lodash-es'
 import { plus } from '/@/utils/digit'
@@ -111,6 +112,7 @@ const storesUserInfo = useUserInfo()
 const initState = {
   token: storesUserInfo.getToken(),
   showDialog: false,
+  fileList: [] as UploadFile[],
   data: {
     fileId: '',
     duplicateAction: model.value.duplicateAction,
@@ -245,7 +247,7 @@ const onSuccess: UploadProps['onSuccess'] = (response) => {
 const onDownloadTemplate = async () => {
   state.download.loadingTemplate = true
 
-  await new DictApi()
+  await model.value
     .downloadTemplate({ format: 'blob', returnResponse: true })
     .then((res: any) => {
       const contentDisposition = res.headers['content-disposition']
@@ -271,8 +273,18 @@ const onDownloadTemplate = async () => {
 const onDownloadErrorMark = async () => {
   state.download.loadingErrorMark = true
 
-  await new DictApi()
-    .downloadErrorMark({ fileId: state.data.fileId, fileName: state.fileName }, { format: 'blob', returnResponse: true, showErrorMessage: false })
+  await model.value
+    .downloadErrorMark(
+      {
+        fileId: state.data.fileId,
+        fileName: state.fileName,
+      },
+      {
+        format: 'blob',
+        returnResponse: true,
+        showErrorMessage: false,
+      }
+    )
     .then((res: any) => {
       state.showErrorMark = false
       const contentDisposition = res.headers['content-disposition']
@@ -289,7 +301,7 @@ const onDownloadErrorMark = async () => {
       a.click()
       URL.revokeObjectURL(a.href)
     })
-    .catch((error) => {
+    .catch((error: any) => {
       if (error.response && error.response.data instanceof Blob) {
         const reader = new FileReader()
         reader.onload = function (e) {
@@ -326,6 +338,10 @@ const open = async (row: any = {}) => {
   state.showDialog = true
 }
 
+const onClose = () => {
+  state.fileList = []
+}
+
 // 取消
 const onCancel = () => {
   state.showDialog = false
@@ -333,6 +349,12 @@ const onCancel = () => {
 
 // 开始导入
 const onUpload = () => {
+  if (!(state.fileList?.length > 0)) {
+    ElMessage({
+      message: '请选择文件',
+      type: 'warning',
+    })
+  }
   fileUploadRef.value!.submit()
 }
 

@@ -30,7 +30,7 @@
 
 - vue3.x 版本 <a href="https://github.com/zhontai/Admin.Core/tree/master/ui/zhontai.ui.admin.vue3" target="_blank">zhontai.ui.admin.vue3</a>
 
-#### 🚧 安装 cnpm、yarn
+#### 🚧 安装 pnpm
 
 - 复制代码(桌面 cmd 运行) `npm install -g pnpm --registry=https://registry.npmmirror.com`
 

@@ -33,7 +33,7 @@
       <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onMsgClick">
-      <el-badge :is-dot="true">
+      <el-badge :is-dot="state.unread">
         <el-icon :title="$t('message.user.title4')">
           <ele-Bell />
         </el-icon>
@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { defineAsyncComponent, ref, unref, computed, reactive, onMounted } from 'vue'
+import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import screenfull from 'screenfull'
@@ -80,6 +80,8 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 import { Local } from '/@/utils/storage'
+import { SiteMsgApi } from '/@/api/admin/SiteMsg'
+import { WebSocketClient } from '/@/utils/ws'
 
 // 引入组件
 const Msg = defineAsyncComponent(() => import('/@/layout/navBars/topBar/msg.vue'))
@@ -94,10 +96,13 @@ const { userInfos } = storeToRefs(storesUseUserInfo)
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const searchRef = ref()
 const msgRef = ref()
+const wsClient = ref<WebSocketClient | null>(null)
+
 const state = <any>reactive({
   isScreenfull: false,
   disabledI18n: 'zh-cn',
   disabledSize: 'large',
+  unread: false,
 })
 
 // 头像地址
@@ -196,12 +201,46 @@ const onLanguageChange = (lang: string) => {
 const initI18nOrSize = (value: string, attr: string) => {
   state[attr] = Local.get('themeConfig')[value]
 }
+//检查是否有未读消息
+const checkUnreadMsg = async () => {
+  const res = await new SiteMsgApi().isUnread().catch(() => {})
+  if (res?.success) {
+    state.unread = res.data
+  }
+}
+const initWebSocket = () => {
+  wsClient.value = new WebSocketClient({
+    onMessage: (event: MessageEvent) => {
+      if (event.data) {
+        var data = JSON.parse(event.data)
+        console.log(data)
+        if (data.evts?.length > 0) {
+          data.evts.forEach((evt: any) => {
+            mittBus.emit(evt.name)
+          })
+        }
+      }
+    },
+  })
+}
 // 页面加载时
 onMounted(() => {
   if (Local.get('themeConfig')) {
     initI18nOrSize('globalComponentSize', 'disabledSize')
     initI18nOrSize('globalI18n', 'disabledI18n')
   }
+  checkUnreadMsg()
+  mittBus.off('checkUnreadMsg')
+  mittBus.on('checkUnreadMsg', () => {
+    checkUnreadMsg()
+  })
+
+  mittBus.off('forceOffline')
+  mittBus.on('forceOffline', () => {
+    storesUseUserInfo.clear()
+  })
+
+  initWebSocket()
 })
 </script>
 

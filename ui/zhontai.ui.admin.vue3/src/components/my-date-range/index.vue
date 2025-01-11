@@ -13,17 +13,17 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { reactive, watch, ref } from 'vue'
+import { reactive, watch, ref, PropType } from 'vue'
 
 const emit = defineEmits(['update:startDate', 'update:endDate'])
 
 const props = defineProps({
   startDate: {
-    type: String,
+    type: String as PropType<string | undefined | null>,
     default: '',
   },
   endDate: {
-    type: String,
+    type: String as PropType<string | undefined | null>,
     default: '',
   },
 })

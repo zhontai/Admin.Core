@@ -31,6 +31,34 @@ public class MsgTypeService : BaseService, IDynamicApi
     }
 
     /// <summary>
+    /// 获得本级和下级Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<List<long>> GetChildIdListAsync(long id)
+    {
+        return await _msgTypeRep.Select
+        .Where(a => a.Id == id)
+        .AsTreeCte()
+        .ToListAsync(a => a.Id);
+    }
+
+    /// <summary>
+    /// 获得本级和下级Id
+    /// </summary>
+    /// <param name="ids"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<List<long>> GetChildIdListAsync(long[] ids)
+    {
+        return await _msgTypeRep.Select
+        .Where(a => ids.Contains(a.Id))
+        .AsTreeCte()
+        .ToListAsync(a => a.Id);
+    }
+
+    /// <summary>
     /// 查询
     /// </summary>
     /// <param name="id"></param>
@@ -49,6 +77,7 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Login]
     public async Task<List<MsgTypeGetListOutput>> GetListAsync([FromQuery]MsgTypeGetListInput input)
     {
         var list = await _msgTypeRep.Select
@@ -121,39 +150,10 @@ public class MsgTypeService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 获得本级和下级Id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [NonAction]
-    public async Task<List<long>> GetChildIdListAsync(long id)
-    {
-        return await _msgTypeRep.Select
-        .Where(a => a.Id == id)
-        .AsTreeCte()
-        .ToListAsync(a => a.Id);
-    }
-
-    /// <summary>
-    /// 获得本级和下级Id
-    /// </summary>
-    /// <param name="ids"></param>
-    /// <returns></returns>
-    [NonAction]
-    public async Task<List<long>> GetChildIdListAsync(long[] ids)
-    {
-        return await _msgTypeRep.Select
-        .Where(a => ids.Contains(a.Id))
-        .AsTreeCte()
-        .ToListAsync(a => a.Id);
-    }
-
-    /// <summary>
     /// 彻底删除
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
     {
         var msgTypeIdList = await GetChildIdListAsync(id);
@@ -165,7 +165,6 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [AdminTransaction]
     public virtual async Task BatchDeleteAsync(long[] ids)
     {
         var msgTypeIdList = await GetChildIdListAsync(ids);
@@ -177,7 +176,6 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
         var msgTypeIdList = await GetChildIdListAsync(id);
@@ -189,7 +187,6 @@ public class MsgTypeService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="ids"></param>
     /// <returns></returns>
-    [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
         var msgTypeIdList = await GetChildIdListAsync(ids);

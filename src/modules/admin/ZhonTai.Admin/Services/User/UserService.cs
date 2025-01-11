@@ -40,6 +40,11 @@ using FreeSql;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Domain.Permission;
 using Microsoft.Extensions.Options;
+using ZhonTai.Admin.Core.Db;
+using DotNetCore.CAP;
+using ZhonTai.Admin.Services.Email.Events;
+using ZhonTai.Admin.Services.User.Events;
+using Mapster;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -51,6 +56,7 @@ namespace ZhonTai.Admin.Services.User;
 public partial class UserService : BaseService, IUserService, IDynamicApi
 {
     private readonly AppConfig _appConfig;
+    private readonly ImConfig _imConfig;
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
     private readonly IUserRepository _userRep;
@@ -70,6 +76,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
     public UserService(
         IOptions<AppConfig> appConfig,
+        IOptions<ImConfig> imConfig,
         UserHelper userHelper,
         AdminLocalizer adminLocalizer,
         IUserRepository userRep,
@@ -88,6 +95,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     )
     {
         _appConfig = appConfig.Value;
+        _imConfig = imConfig.Value;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
         _userRep = userRep;
@@ -180,9 +188,25 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             }
         }
 
+        var userList = Mapper.Map<List<UserGetPageOutput>>(list);
+
+        //用户在线离线查询
+        if (_imConfig.Enable)
+        {
+            var clientIdList = ImHelper.GetClientListByOnline();
+
+            foreach (var user in userList)
+            {
+                if (clientIdList.Contains(user.Id))
+                {
+                    user.Online = true;
+                }
+            }
+        }
+
         var data = new PageOutput<UserGetPageOutput>()
         {
-            List = Mapper.Map<List<UserGetPageOutput>>(list),
+            List = userList,
             Total = total
         };
 
@@ -575,26 +599,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             await _userStaffRep.InsertAsync(staff);
         }
 
-        //所属部门
-        var orgIds = await _userOrgRep.Select.Where(a => a.UserId == userId).ToListAsync(a => a.OrgId);
-        var insertOrgIds = input.OrgIds.Except(orgIds);
-
-        var deleteOrgIds = orgIds.Except(input.OrgIds);
-        if (deleteOrgIds != null && deleteOrgIds.Any())
-        {
-            await _userOrgRep.DeleteAsync(a => a.UserId == userId && deleteOrgIds.Contains(a.OrgId));
-        }
-
-        if (insertOrgIds != null && insertOrgIds.Any())
-        {
-            var orgs = insertOrgIds.Select(orgId => new UserOrgEntity
-            {
-                UserId = userId,
-                OrgId = orgId
-            }).ToList();
-            await _userOrgRep.InsertAsync(orgs);
-        }
-
         await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
     }
 
@@ -815,6 +819,56 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
+    /// 批量设置部门
+    /// </summary>
+    /// <returns></returns>
+    [AdminTransaction]
+    public virtual async Task BatchSetOrgAsync(UserBatchSetOrgInput input)
+    {
+        //主属部门
+        await _userRep.UpdateDiy.Set(a => new UserEntity
+        {
+            OrgId = input.OrgId,
+            ModifiedUserId = User.Id,
+            ModifiedUserName = User.UserName,
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime,
+        })
+       .Where(a => a.Id.In(input.UserIds))
+       .ExecuteAffrowsAsync();
+
+        //所属部门
+        var orgIds = await _userOrgRep.Select.Where(a => a.UserId.In(input.UserIds)).ToListAsync(a => a.OrgId);
+        var insertOrgIds = input.OrgIds.Except(orgIds);
+
+        var deleteOrgIds = orgIds.Except(input.OrgIds).ToArray();
+        if (deleteOrgIds != null && deleteOrgIds.Any())
+        {
+            await _userOrgRep.DeleteAsync(a => a.UserId.In(input.UserIds) && a.OrgId.In(deleteOrgIds));
+        }
+
+        if (insertOrgIds != null && insertOrgIds.Any())
+        {
+            var orgs = new List<UserOrgEntity>();
+            foreach (var userId in input.UserIds)
+            {
+                orgs.AddRange(insertOrgIds.Select(orgId => new UserOrgEntity
+                {
+                    UserId = userId,
+                    OrgId = orgId
+                }).ToList());
+            }
+          
+            await _userOrgRep.InsertAsync(orgs);
+        }
+
+        var capPublisher= AppInfo.GetRequiredService<ICapPublisher>();
+        //发送部门转移
+        var userOrgChangeEvent = input.Adapt<UserOrgChangeEvent>();
+        await capPublisher.PublishAsync(SubscribeNames.UserOrgChange, userOrgChangeEvent);
+    }
+
+    /// <summary>
     /// 彻底删除用户
     /// </summary>
     /// <param name="id"></param>
@@ -988,5 +1042,32 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
 
         return new { token };
+    }
+
+    /// <summary>
+    /// 强制用户下线
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public void ForceOfflineAsync(long id)
+    {
+        if (_imConfig.Enable)
+        {
+            //推送消息
+            ImHelper.SendMessage(0, [id], new
+            {
+                evts = new[]
+                {
+                    new { name = "forceOffline", data = new { } }
+                }
+            });
+
+            //强制下线
+            ImHelper.ForceOffline(id);
+        }
+        else
+        {
+            throw ResultOutput.Exception(_adminLocalizer["请开启im即时通讯"]);
+        }
     }
 }

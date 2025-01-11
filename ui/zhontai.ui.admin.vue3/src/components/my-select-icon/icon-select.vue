@@ -91,9 +91,9 @@ const state = reactive({
 
 // 处理 icon type 类型为 all 时，类型 ali、ele、awe 回显问题
 const initFontIconTypeEcho = () => {
-  if (props.modelValue!.indexOf('iconfont') > -1) onIconChange('ali')
-  else if (props.modelValue!.indexOf('ele-') > -1) onIconChange('ele')
-  else if (props.modelValue!.indexOf('fa') > -1) onIconChange('awe')
+  if (props.modelValue && props.modelValue.indexOf('iconfont') > -1) onIconChange('ali')
+  else if (props.modelValue && props.modelValue.indexOf('ele-') > -1) onIconChange('ele')
+  else if (props.modelValue && props.modelValue.indexOf('fa') > -1) onIconChange('awe')
   else onIconChange('ele')
 }
 

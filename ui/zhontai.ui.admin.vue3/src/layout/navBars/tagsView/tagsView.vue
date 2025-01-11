@@ -281,7 +281,7 @@ const closeCurrentTagsView = (path: string) => {
 
   addBrowserSetSession(state.tagsViewList)
 
-  router.push({ path: state.tagsViewList.length > 0 ? state.tagsViewList[state.tagsViewList.length - 1].path : '/' })
+  if (state.tagsViewList.length === 0) router.push({ path: '/' })
 }
 // 4、关闭其它 tagsView：如果是设置了固定的（isAffix），不进行关闭
 const closeOtherTagsView = (path: string) => {
@@ -310,7 +310,19 @@ const closeAllTagsView = () => {
       }
     })
     addBrowserSetSession(state.tagsViewList)
-    router.push({ path: state.tagsViewList.length > 0 ? state.tagsViewList[state.tagsViewList.length - 1].path : '/' })
+
+    if (state.tagsViewList.length > 0) {
+      var tagsView = state.tagsViewList[state.tagsViewList.length - 1]
+      if (tagsView.meta.isDynamic) {
+        // 动态路由（xxx/:id/:name"）
+        router.push({ name: tagsView.name, params: tagsView.params })
+      } else {
+        // 普通路由
+        router.push({ path: tagsView.path, query: tagsView.query })
+      }
+    } else {
+      router.push({ path: '/' })
+    }
   }
 }
 // 6、开启当前页面全屏

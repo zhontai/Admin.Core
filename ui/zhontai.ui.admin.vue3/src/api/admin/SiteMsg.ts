@@ -10,10 +10,39 @@
  */
 
 import { AxiosResponse } from 'axios'
-import { PageInputSiteMsgGetPageInput, ResultOutputPageOutputSiteMsgGetPageOutput } from './data-contracts'
+import {
+  PageInputSiteMsgGetPageInput,
+  ResultOutputBoolean,
+  ResultOutputPageOutputSiteMsgGetPageOutput,
+  ResultOutputSiteMsgGetContentOutput,
+} from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
 export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags site-msg
+   * @name GetContent
+   * @summary 获得内容
+   * @request GET:/api/admin/site-msg/get-content
+   * @secure
+   */
+  getContent = (
+    query?: {
+      /** @format int64 */
+      id?: number
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<ResultOutputSiteMsgGetContentOutput, any>({
+      path: `/api/admin/site-msg/get-content`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    })
   /**
    * No description
    *
@@ -30,6 +59,23 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags site-msg
+   * @name IsUnread
+   * @summary 是否未读
+   * @request GET:/api/admin/site-msg/is-unread
+   * @secure
+   */
+  isUnread = (params: RequestParams = {}) =>
+    this.request<ResultOutputBoolean, any>({
+      path: `/api/admin/site-msg/is-unread`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     })

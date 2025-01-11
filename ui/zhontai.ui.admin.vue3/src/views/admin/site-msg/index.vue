@@ -55,7 +55,23 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip>
+          <template #default="{ row }">
+            <div class="my-flex my-flex-items-center">
+              <MyLink
+                :model-value="{
+                  path: '/site-msg/detail',
+                  query: { id: row.id, tagsViewName: row.title },
+                }"
+                icon="ele-Message"
+                :type="row.isRead ? '' : 'primary'"
+                :bold="!row.isRead"
+              >
+                {{ row.title }}
+              </MyLink>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
         <el-table-column prop="receivedTime" label="接收时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
       </el-table>
@@ -77,7 +93,7 @@
 </template>
 
 <script lang="ts" setup name="admin/site-msg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, computed } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, computed, defineAsyncComponent } from 'vue'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
@@ -85,6 +101,8 @@ import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput, MsgTypeGetListOutpu
 import { listToTree } from '/@/utils/tree'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { ElTable } from 'element-plus'
+
+const MyLink = defineAsyncComponent(() => import('/@/components/my-link/index.vue'))
 
 const tableRef = ref<InstanceType<typeof ElTable>>()
 const { proxy } = getCurrentInstance() as any
