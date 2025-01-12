@@ -69,6 +69,7 @@ using IP2Region.Net.XDB;
 using ProtoBuf.Grpc.Server;
 using ZhonTai.Admin.Core.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ZhonTai.Admin.Core.GrpcServices;
 
 namespace ZhonTai.Admin.Core;
 
@@ -925,8 +926,8 @@ public class HostApp
                         AppInfo.CurrentDataPermissionApiPath = template.NotNull() ? $"/{template}" : null;
                     }
 
-                    var userService = ctx.RequestServices.GetRequiredService<IUserService>();
-                    await userService.GetDataPermissionAsync(AppInfo.CurrentDataPermissionApiPath);
+                    var userGrpcService = ctx.RequestServices.GetRequiredService<IUserGrpcService>();
+                    await userGrpcService.GetDataPermissionAsync(AppInfo.CurrentDataPermissionApiPath);
                 }
 
                 await next();

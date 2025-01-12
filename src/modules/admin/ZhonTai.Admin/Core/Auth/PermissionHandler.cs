@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Services.User;
+using ZhonTai.Admin.Core.GrpcServices;
 
 namespace ZhonTai.Admin.Core.Auth
 {
@@ -10,13 +10,13 @@ namespace ZhonTai.Admin.Core.Auth
     /// </summary>
     public class PermissionHandler : IPermissionHandler
     {
-        private readonly IUserService _userService;
         private readonly IUser _user;
+        private readonly IUserGrpcService _userGrpcService;
 
-        public PermissionHandler(IUserService userService, IUser user)
+        public PermissionHandler(IUser user, IUserGrpcService userGrpcService)
         {
-            _userService = userService;
             _user = user;
+            _userGrpcService = userGrpcService;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ZhonTai.Admin.Core.Auth
                 return true;
             }
 
-            var userPermission = await _userService.GetPermissionAsync();
+            var userPermission = await _userGrpcService.GetPermissionAsync();
 
             var valid = userPermission.Apis.Any(m =>
                 m.Path.NotNull() && m.Path.EqualsIgnoreCase($"/{api}")

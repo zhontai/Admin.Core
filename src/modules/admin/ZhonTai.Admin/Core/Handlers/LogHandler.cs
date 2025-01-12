@@ -12,6 +12,8 @@ using ZhonTai.Admin.Services.OperationLog.Dto;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.GrpcServices;
+using ZhonTai.Admin.Core.GrpcServices.Dtos;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -22,17 +24,17 @@ public class LogHandler : ILogHandler
 {
     private readonly ILogger _logger;
     private readonly ApiHelper _apiHelper;
-    private readonly IOperationLogService _operationLogService;
+    private readonly IOprationLogGrpcService _oprationLogGrpcService;
 
     public LogHandler(
         ILogger<LogHandler> logger,
         ApiHelper apiHelper,
-        IOperationLogService operationLogService
+        IOprationLogGrpcService oprationLogGrpcService
     )
     {
         _logger = logger;
         _apiHelper = apiHelper;
-        _operationLogService = operationLogService;
+        _oprationLogGrpcService = oprationLogGrpcService;
     }
 
     public async Task LogAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -43,7 +45,7 @@ public class LogHandler : ILogHandler
 
         try
         {
-            var input = new OperationLogAddInput
+            var input = new OperationLogAddGrpcInput
             {
                 Status = true,
                 ApiMethod = context.HttpContext.Request.Method.ToLower(),
@@ -91,11 +93,9 @@ public class LogHandler : ILogHandler
                     }.NotOk(excepton.Message));
                 }
 
-
-
                 input.ApiLabel = api?.Label;
 
-                await _operationLogService.AddAsync(input);
+                await _oprationLogGrpcService.AddAsync(input);
             }
         }
         catch (Exception ex)

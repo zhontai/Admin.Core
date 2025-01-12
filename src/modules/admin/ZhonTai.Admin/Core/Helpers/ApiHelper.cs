@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using ZhonTai.Admin.Domain.Api;
+using System.Threading.Tasks;
+using System.Reflection;
+using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Tools.Cache;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Consts;
-using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Common.Helpers;
-using System.Reflection;
 using ZhonTai.Common.Extensions;
-using System;
 
 namespace ZhonTai.Admin.Core.Helpers;
 
@@ -22,21 +22,22 @@ namespace ZhonTai.Admin.Core.Helpers;
 public class ApiHelper
 {
     private readonly ICacheTool _cacheTool;
-    private readonly IApiRepository _apiRepository;
     private readonly IOptions<AppConfig> _appConfig;
+    private readonly IApiGrpcService _apiGrpcService;
 
-    public ApiHelper(ICacheTool cacheTool, IApiRepository apiRepository, IOptions<AppConfig> appConfig)
+    public ApiHelper(ICacheTool cacheTool, IOptions<AppConfig> appConfig, IApiGrpcService apiGrpcService)
     {
         _cacheTool = cacheTool;
-        _apiRepository = apiRepository;
         _appConfig = appConfig;
+        _apiGrpcService = apiGrpcService;
     }
 
     public async Task<List<ApiModel>> GetApiListAsync()
     {
         return await _cacheTool.GetOrSetAsync(CacheKeys.ApiList, async () =>
         {
-            var apis = await _apiRepository.Select.ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Path, a.EnabledLog, a.EnabledParams, a.EnabledResult });
+            var res = await _apiGrpcService.GetApiList();
+            var apis = res?.Data;
 
             var apiList = new List<ApiModel>();
             foreach (var api in apis)
