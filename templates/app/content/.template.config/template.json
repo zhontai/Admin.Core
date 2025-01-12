@@ -117,7 +117,22 @@
 			],
 			"defaultValue": "Sqlite",
 			"description": "The database for the project"
-		}
+		},
+		"Port": {
+			"type": "parameter",
+			"datatype": "int",
+			"defaultValue": "18010",
+			"replaces": "18010",
+			"description": "Port settings"
+		},
+		"SecurityKey": {
+			"type": "parameter",
+			"datatype": "string",
+			"isRequired": false,
+			"defaultValue": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db",
+			"replaces": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db",
+			"description": "Security Key settings"
+		},
 	},
 	"sources": [
 		{

@@ -32,6 +32,14 @@
 	"MicroService": {
       "longName": "micro-service",
       "shortName": "ms"
+    },
+	"Port": {
+      "longName": "port",
+      "shortName": "p"
+    },
+	"SecurityKey": {
+      "longName": "security-key",
+      "shortName": "sk"
     }
   },
   "usageExamples": [

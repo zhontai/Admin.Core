@@ -3,7 +3,7 @@
     //应用程序类型Controllers ControllersWithViews MVC
     "appType": "Controllers",
     //Api地址
-    "urls": [ "http://*:8010" ],
+    "urls": [ "http://*:18010" ],
     //跨域地址
     "corUrls": [],
     //程序集名称
@@ -48,7 +48,7 @@
       //路由前缀，如配置微服务文档地址：doc/module/swagger
       "routePrefix": "app/swagger",
       //地址
-      "url": "http://localhost:8000",
+      "url": "http://localhost:18010",
       //项目列表
       "projects": [
         {
