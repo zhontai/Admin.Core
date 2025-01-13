@@ -14,9 +14,8 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Core.Enums;
 using System.Collections.Generic;
-using ZhonTai.Admin.Core.Consts;
 
-namespace ZhonTai.Tests;
+namespace ZhonTai.Admin.Tests;
 
 public class BaseControllerTest : BaseTest
 {

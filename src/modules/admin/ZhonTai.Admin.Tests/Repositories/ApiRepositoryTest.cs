@@ -2,7 +2,7 @@
 using Xunit;
 using ZhonTai.Admin.Domain.Api;
 
-namespace ZhonTai.Tests.Repositories;
+namespace ZhonTai.Admin.Tests.Repositories;
 
 public class ApiRepositoryTest : BaseTest
 {

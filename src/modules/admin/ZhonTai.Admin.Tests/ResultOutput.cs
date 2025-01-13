@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Tests;
+﻿namespace ZhonTai.Admin.Tests;
 
 /// <summary>
 /// 返回结果

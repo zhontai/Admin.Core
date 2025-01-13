@@ -16,7 +16,7 @@
 	</ItemGroup>
 		
 	<ItemGroup>
-	  <ProjectReference Include="..\ZhonTai.Host\ZhonTai.Host.csproj" />
+	  <ProjectReference Include="..\ZhonTai.Admin.Host\ZhonTai.Admin.Host.csproj" />
 	</ItemGroup>
 
 </Project>

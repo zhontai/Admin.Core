@@ -3,7 +3,7 @@ using Xunit;
 using ZhonTai.Admin.Services.Api;
 using ZhonTai.Admin.Tools.Captcha;
 
-namespace ZhonTai.Tests.Services;
+namespace ZhonTai.Admin.Tests.Services;
 
 public class ApiServiceTest : BaseTest
 {

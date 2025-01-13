@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Host", "modules\admin\ZhonTai.Host\ZhonTai.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin.Host", "modules\admin\ZhonTai.Admin.Host\ZhonTai.Admin.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin", "modules\admin\ZhonTai.Admin\ZhonTai.Admin.csproj", "{E725F0A1-0B03-406F-B84B-0F486C6137FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Common", "platform\ZhonTai.Common\ZhonTai.Common.csproj", "{97D32A49-994C-44C5-A167-51E71D173B6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Tests", "modules\admin\ZhonTai.Tests\ZhonTai.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin.Tests", "modules\admin\ZhonTai.Admin.Tests\ZhonTai.Admin.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.DynamicApi", "platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj", "{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}"
 EndProject

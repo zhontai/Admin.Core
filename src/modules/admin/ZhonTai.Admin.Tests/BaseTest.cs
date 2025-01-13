@@ -3,11 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Net.Http;
-using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core;
 
-namespace ZhonTai.Tests;
+namespace ZhonTai.Admin.Tests;
 
 public class BaseTest
 {

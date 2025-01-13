@@ -5,7 +5,7 @@ using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api.Dto;
 
-namespace ZhonTai.Tests.Controllers;
+namespace ZhonTai.Admin.Tests.Controllers;
 
 public class ApiControllerTest : BaseControllerTest
 {
