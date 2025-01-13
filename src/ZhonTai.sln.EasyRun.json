@@ -36,7 +36,7 @@
           "ServiceType": 0,
           "Name": "ZhonTai.Admin.Host",
           "TyeName": null,
-          "ProjectFile": "modules\\admin\\ZhonTai.Host\\ZhonTai.Admin.Host.csproj",
+          "ProjectFile": "modules\\admin\\ZhonTai.Admin.Host\\ZhonTai.Admin.Host.csproj",
           "DefaultSelected": true,
           "Bindings": "::18010",
           "Arguments": null,
