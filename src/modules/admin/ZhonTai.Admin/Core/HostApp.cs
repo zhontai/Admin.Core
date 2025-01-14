@@ -152,8 +152,8 @@ public class HostApp
 
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             var appSettings = AppInfo.GetOptions<AppSettings>();
-
-            if(appSettings.UseConfigCenter)
+            services.Configure<RpcConfig>(configuration.GetSection("RpcConfig"));
+            if (appSettings.UseConfigCenter)
             {
                 AddJsonFilesFromDirectory(configuration, env.EnvironmentName, appSettings.ConfigCenterPath);
                 services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
@@ -168,22 +168,16 @@ public class HostApp
             {
                 //app应用配置
                 services.Configure<AppConfig>(ConfigHelper.Load("appconfig", env.EnvironmentName));
-
                 //jwt配置
                 services.Configure<JwtConfig>(ConfigHelper.Load("jwtconfig", env.EnvironmentName));
-
                 //数据库配置
                 services.Configure<DbConfig>(ConfigHelper.Load("dbconfig", env.EnvironmentName));
-
                 //缓存配置
                 services.Configure<CacheConfig>(ConfigHelper.Load("cacheconfig", env.EnvironmentName));
-
                 //oss上传配置
                 services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
-
                 //im配置
                 services.Configure<ImConfig>(ConfigHelper.Load("imconfig", env.EnvironmentName));
-
                 //限流配置
                 configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
                 if (env.EnvironmentName.NotNull())
