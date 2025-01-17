@@ -5,7 +5,7 @@ using ZhonTai.Admin.Domain.Tenant;
 using MyApp.Api.Domain.Module;
 using ZhonTai.Admin.Core.Db.Data;
 
-namespace ZhonTai.Admin.Repositories;
+namespace MyApp.Api.Repositories;
 
 public class CustomGenerateData : GenerateData, IGenerateData
 {

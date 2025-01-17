@@ -6,15 +6,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 using ZhonTai;
-using ZhonTai.Admin.Tools.Cache;
-using ZhonTai.Admin.Tools.Captcha;
-using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Auth.Dto;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Enums;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Services.Auth;
 
 namespace MyApp.Tests;
 
@@ -160,19 +158,16 @@ public class BaseControllerTest : BaseTest
             input = new AuthLoginInput()
             {
                 UserName = "admin",
-                Password = "111111"
+                Password = "123asd"
             };
         }
 
         //Client.DefaultRequestHeaders.Connection.Add("keep-alive");
         Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
-        var result = await Client.PostAsync($"/api/admin/auth/login", GetHttpContent(input));
-        var content = await result.Content.ReadAsStringAsync();
-        var jObject = JsonConvert.DeserializeObject<JObject>(content);
-        var token = jObject["data"]["token"];
+        var result = await AppInfo.GetRequiredService<IAuthClientService>().LoginAsync(input);
 
-        Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {result.AccessToken}");
     }
 
     public static string ToParams(object source)

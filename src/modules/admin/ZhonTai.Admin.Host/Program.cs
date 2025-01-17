@@ -80,7 +80,7 @@ new HostApp(new HostAppOptions
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                void OnExecuting(TaskInfo task)
+                static void OnExecuting(TaskInfo task)
                 {
                     if (task.Topic?.StartsWith("[shell]") == true)
                     {

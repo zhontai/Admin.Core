@@ -64,7 +64,7 @@
             名称
             </summary>
         </member>
-        <member name="T:MyApp.Api.Repositories.ModuleRepository">
+        <member name="T:MyApp.Api.Repositories.Module.ModuleRepository">
             <summary>
             模块仓储
             </summary>

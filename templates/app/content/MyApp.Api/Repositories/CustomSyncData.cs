@@ -4,7 +4,7 @@ using MyApp.Api.Domain.Module;
 using ZhonTai.Admin.Core.Db.Data;
 using System;
 
-namespace ZhonTai.Admin.Repositories;
+namespace MyApp.Api.Repositories;
 
 public class CustomSyncData : SyncData, ISyncData
 {

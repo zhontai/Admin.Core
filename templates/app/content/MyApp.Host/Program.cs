@@ -31,6 +31,7 @@ using ZhonTai.Admin.Services.TaskScheduler;
 #endif
 using Autofac;
 using MyApp.Api.Core.Repositories;
+using ZhonTai.Admin.Repositories;
 
 new HostApp(new HostAppOptions()
 {
@@ -74,11 +75,11 @@ new HostApp(new HostAppOptions()
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                void OnExecuting(TaskInfo task)
+                static void OnExecuting(TaskInfo task)
                 {
                     if (task.Topic?.StartsWith("[shell]") == true)
                     {
-                        TaskSchedulerServiceExtensions.ExecutGrpc(task);
+                        TaskSchedulerServiceExtensions.ExecuteGrpc(task);
                     }
                 }
 
@@ -141,6 +142,7 @@ new HostApp(new HostAppOptions()
     ConfigureAutofacContainer = (builder, context) =>
     {
         builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+        builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
     },
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) =>
