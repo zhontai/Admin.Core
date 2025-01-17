@@ -38,6 +38,8 @@ Remove-Item "$nuGetOutputFolder/*" -recurse
 # 指定项目打包
 $projects = (
     "modules\admin\ZhonTai.Admin",
+    "modules\admin\ZhonTai.Admin.Contracts",
+    "modules\admin\ZhonTai.Admin.Core",
     "platform\ZhonTai.ApiUI",
     "platform\ZhonTai.Common",
     "platform\ZhonTai.DynamicApi"
