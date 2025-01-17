@@ -82,7 +82,7 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
 
         var entity = Mapper.Map<LoginLogEntity>(input);
 
-        string ua = _context.HttpContext.Request.Headers["User-Agent"];
+        string ua = _context?.HttpContext?.Request?.Headers?.UserAgent;
         if (ua.NotNull())
         {
             var client = UAParser.Parser.GetDefault().Parse(ua);

@@ -3,21 +3,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Net.Http;
-using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Core;
 
 namespace ZhonTai.Admin.Tests;
 
 public class BaseTest
 {
-    protected AppConfig AppConfig { get; }
     protected TestServer Server { get; }
     protected HttpClient Client { get; }
     protected IServiceProvider ServiceProvider { get; }
 
     protected BaseTest()
     {
-        AppConfig = AppInfo.GetRequiredService<AppConfig>(false);
         var application = new WebApplicationFactory<Program>();
         Client = application.CreateClient();
         Server = application.Server;

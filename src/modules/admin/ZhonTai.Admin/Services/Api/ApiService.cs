@@ -6,7 +6,6 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Services.Api.Dto;
-using ZhonTai.Admin.Domain.Api.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
@@ -80,7 +79,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<ApiEntity>> GetPageAsync(PageInput<ApiGetPageDto> input)
+    public async Task<PageOutput<ApiEntity>> GetPageAsync(PageInput<ApiGetPageInput> input)
     {
         var key = input.Filter?.Label;
 

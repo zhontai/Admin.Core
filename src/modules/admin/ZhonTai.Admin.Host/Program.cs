@@ -14,6 +14,8 @@ using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
+using Autofac;
+using ZhonTai.Admin.Repositories;
 
 new HostApp(new HostAppOptions
 {
@@ -114,7 +116,10 @@ new HostApp(new HostAppOptions
     },
 
     //配置Autofac容器
-    ConfigureAutofacContainer = (builder, context) => { },
+    ConfigureAutofacContainer = (builder, context) => 
+    {
+        builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+    },
 
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) => { },

@@ -244,7 +244,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="apiPath"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task<DataPermissionDto> GetDataPermissionAsync(string? apiPath)
+    public async Task<DataPermissionOutput> GetDataPermissionAsync(string? apiPath)
     {
         if (!(User?.Id > 0))
         {
@@ -328,7 +328,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                          .Where(a => a.Id == orgId)
                          .ToOneAsync(a => a.Name);
 
-            return new DataPermissionDto
+            return new DataPermissionOutput
             {
                 OrgName = orgName,
                 OrgId = orgId,
@@ -369,8 +369,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <returns></returns>
     public async Task<UserGetPermissionOutput> GetPermissionAsync()
     {
-        var key = CacheKeys.UserPermission + User.Id;
-        var result = await Cache.GetOrSetAsync(key, async () =>
+        var result = await Cache.GetOrSetAsync(CacheKeys.GetUserPermissionKey(User.Id), async () =>
         {
             var output = new UserGetPermissionOutput();
             if (User.TenantAdmin)

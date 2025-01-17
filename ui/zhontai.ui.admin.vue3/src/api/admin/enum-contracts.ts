@@ -1,9 +1,3 @@
-/** 缓存类型 */
-export const CacheType = {
-  Memory: { name: 'Memory', value: 0, desc: '内存缓存' },
-  Redis: { name: 'Redis', value: 1, desc: 'Redis缓存' },
-}
-
 /** 账号类型 */
 export const AccountType = {
   UserName: { name: 'UserName', value: 1, desc: '账号' },
@@ -23,34 +17,11 @@ export const UserStatus = {
   WaitActive: { name: 'WaitActive', value: 3, desc: '待激活' },
 }
 
-/** 用户类型 */
-export const UserType = {
-  Member: { name: 'Member', value: 0, desc: '会员' },
-  DefaultUser: { name: 'DefaultUser', value: 1, desc: '普通用户' },
-  TenantAdmin: { name: 'TenantAdmin', value: 10, desc: '租户管理员' },
-  PlatformAdmin: { name: 'PlatformAdmin', value: 100, desc: '平台管理员' },
-}
-
 /** 性别 */
 export const Sex = {
   Unknown: { name: 'Unknown', value: 0, desc: '未知' },
   Male: { name: 'Male', value: 1, desc: '男' },
   Female: { name: 'Female', value: 2, desc: '女' },
-}
-
-/** 租户类型 */
-export const TenantType = {
-  Platform: { name: 'Platform', value: 1, desc: '平台' },
-  Tenant: { name: 'Tenant', value: 2, desc: '租户' },
-}
-
-/** 数据范围 */
-export const DataScope = {
-  All: { name: 'All', value: 1, desc: '全部' },
-  DeptWithChild: { name: 'DeptWithChild', value: 2, desc: '本部门和下级部门' },
-  Dept: { name: 'Dept', value: 3, desc: '本部门' },
-  Self: { name: 'Self', value: 4, desc: '本人数据' },
-  Custom: { name: 'Custom', value: 5, desc: '指定部门' },
 }
 
 /** 角色类型 */
@@ -88,6 +59,35 @@ export const MsgStatusEnum = {
 export const DocType = {
   Group: { name: 'Group', value: 1, desc: '分组' },
   Markdown: { name: 'Markdown', value: 2, desc: 'Markdown文档' },
+}
+
+/** 缓存类型 */
+export const CacheType = {
+  Memory: { name: 'Memory', value: 0, desc: '内存缓存' },
+  Redis: { name: 'Redis', value: 1, desc: 'Redis缓存' },
+}
+
+/** 租户类型 */
+export const TenantType = {
+  Platform: { name: 'Platform', value: 1, desc: '平台' },
+  Tenant: { name: 'Tenant', value: 2, desc: '租户' },
+}
+
+/** 数据范围 */
+export const DataScope = {
+  All: { name: 'All', value: 1, desc: '全部' },
+  DeptWithChild: { name: 'DeptWithChild', value: 2, desc: '本部门和下级部门' },
+  Dept: { name: 'Dept', value: 3, desc: '本部门' },
+  Self: { name: 'Self', value: 4, desc: '本人数据' },
+  Custom: { name: 'Custom', value: 5, desc: '指定部门' },
+}
+
+/** 用户类型 */
+export const UserType = {
+  Member: { name: 'Member', value: 0, desc: '会员' },
+  DefaultUser: { name: 'DefaultUser', value: 1, desc: '普通用户' },
+  TenantAdmin: { name: 'TenantAdmin', value: 10, desc: '租户管理员' },
+  PlatformAdmin: { name: 'PlatformAdmin', value: 100, desc: '平台管理员' },
 }
 
 /** 接口版本 */

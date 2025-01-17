@@ -11,7 +11,7 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PageInputTenantGetPageDto,
+  PageInputTenantGetPageInput,
   ResultOutputInt64,
   ResultOutputObject,
   ResultOutputPageOutputTenantListOutput,
@@ -56,7 +56,7 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @request POST:/api/admin/tenant/get-page
    * @secure
    */
-  getPage = (data: PageInputTenantGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputTenantGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputTenantListOutput, any>({
       path: `/api/admin/tenant/get-page`,
       method: 'POST',

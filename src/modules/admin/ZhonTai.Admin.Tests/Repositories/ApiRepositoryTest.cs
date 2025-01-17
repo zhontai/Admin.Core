@@ -17,7 +17,7 @@ public class ApiRepositoryTest : BaseTest
     public async Task GetAsync()
     {
         var id = 161227167658053;
-        var user = await _apiRepository.GetAsync(a => a.Id == id);
-        Assert.Equal(id, user?.Id);
+        var api = await _apiRepository.GetAsync(a => a.Id == id);
+        Assert.Equal(id, api?.Id);
     }
 }

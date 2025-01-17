@@ -94,7 +94,7 @@
     //验证码
     "varifyCode": {
       //启用
-      "enable": true,
+      "enable": false,
       //字体列表
       "fonts": [ "Times New Roman", "Verdana", "Arial", "Gungsuh", "Impact" ]
     },

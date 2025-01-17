@@ -13,7 +13,7 @@ import { AxiosResponse } from 'axios'
 import {
   DictTypeAddInput,
   DictTypeUpdateInput,
-  PageInputDictTypeGetPageDto,
+  PageInputDictTypeGetPageInput,
   ResultOutputDictTypeGetOutput,
   ResultOutputInt64,
   ResultOutputPageOutputDictTypeGetPageOutput,
@@ -54,7 +54,7 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
    * @request POST:/api/admin/dict-type/get-page
    * @secure
    */
-  getPage = (data: PageInputDictTypeGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputDictTypeGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputDictTypeGetPageOutput, any>({
       path: `/api/admin/dict-type/get-page`,
       method: 'POST',

@@ -6,7 +6,6 @@ using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.DictType;
 using ZhonTai.Admin.Domain.Dict;
-using ZhonTai.Admin.Domain.DictType.Dto;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Resources;
@@ -53,7 +52,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<DictTypeGetPageOutput>> GetPageAsync(PageInput<DictTypeGetPageDto> input)
+    public async Task<PageOutput<DictTypeGetPageOutput>> GetPageAsync(PageInput<DictTypeGetPageInput> input)
     {
         var key = input.Filter?.Name;
 

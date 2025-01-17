@@ -184,7 +184,7 @@ export interface ApiGetOutput {
   id: number
 }
 
-export interface ApiGetPageDto {
+export interface ApiGetPageInput {
   /** 接口名称 */
   label?: string | null
 }
@@ -707,7 +707,7 @@ export interface DictTypeGetOutput {
   id: number
 }
 
-export interface DictTypeGetPageDto {
+export interface DictTypeGetPageInput {
   /** 字典名称 */
   name?: string | null
 }
@@ -1804,7 +1804,7 @@ export interface OrgUpdateInput {
 }
 
 /** 分页信息输入 */
-export interface PageInputApiGetPageDto {
+export interface PageInputApiGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -1818,7 +1818,7 @@ export interface PageInputApiGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: ApiGetPageDto
+  filter?: ApiGetPageInput
 }
 
 /** 分页信息输入 */
@@ -1840,7 +1840,7 @@ export interface PageInputDictGetPageInput {
 }
 
 /** 分页信息输入 */
-export interface PageInputDictTypeGetPageDto {
+export interface PageInputDictTypeGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -1854,7 +1854,7 @@ export interface PageInputDictTypeGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: DictTypeGetPageDto
+  filter?: DictTypeGetPageInput
 }
 
 /** 分页信息输入 */
@@ -1984,7 +1984,7 @@ export interface PageInputRegionGetPageInput {
 }
 
 /** 分页信息输入 */
-export interface PageInputRoleGetPageDto {
+export interface PageInputRoleGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -1998,7 +1998,7 @@ export interface PageInputRoleGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: RoleGetPageDto
+  filter?: RoleGetPageInput
 }
 
 /** 分页信息输入 */
@@ -2056,7 +2056,7 @@ export interface PageInputTaskLogGetPageDto {
 }
 
 /** 分页信息输入 */
-export interface PageInputTenantGetPageDto {
+export interface PageInputTenantGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -2070,7 +2070,7 @@ export interface PageInputTenantGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: TenantGetPageDto
+  filter?: TenantGetPageInput
 }
 
 /** 分页信息输入 */
@@ -4030,6 +4030,18 @@ export interface ResultOutputTenantGetOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputTokenInfo {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 令牌信息 */
+  data?: TokenInfo
+}
+
+/** 结果输出 */
 export interface ResultOutputUserGetBasicOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -4268,7 +4280,7 @@ export interface RoleGetOutput {
   id: number
 }
 
-export interface RoleGetPageDto {
+export interface RoleGetPageInput {
   /** 名称 */
   name?: string | null
 }
@@ -4869,7 +4881,7 @@ export interface TenantGetOutput {
   pkgIds?: number[] | null
 }
 
-export interface TenantGetPageDto {
+export interface TenantGetPageInput {
   /** 企业名称 */
   name?: string | null
 }
@@ -4968,6 +4980,41 @@ export interface TenantUpdateInput {
    * @format int64
    */
   id: number
+}
+
+/** 令牌信息 */
+export interface TokenInfo {
+  /** 访问令牌 */
+  accessToken?: string | null
+  /** 访问令牌（冗余属性，兼容旧版本） */
+  token?: string | null
+  /**
+   * 访问令牌的过期时间
+   * @format date-time
+   */
+  accessTokenExpiresAt?: string
+  /**
+   * 访问令牌的生命周期（以秒为单位）
+   * @format int32
+   */
+  accessTokenLifeTime?: number
+  /** 刷新令牌 */
+  refreshToken?: string | null
+  /**
+   * 刷新令牌的过期时间
+   * @format date-time
+   */
+  refreshTokenExpiresAt?: string
+  /**
+   * 刷新令牌的生命周期（以秒为单位）
+   * @format int32
+   */
+  refreshTokenLifeTime?: number
+  /**
+   * 创建令牌信息时间戳
+   * @format int64
+   */
+  timestamp?: number
 }
 
 export interface Track {

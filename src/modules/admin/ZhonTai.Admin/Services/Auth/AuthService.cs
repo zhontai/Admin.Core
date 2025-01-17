@@ -59,6 +59,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
     private readonly ILoginLogService _loginLogService;
+    private readonly IUserToken _userToken;
+    private readonly IUserService _userService;
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
     private readonly Lazy<IUserRepository> _userRep;
@@ -72,6 +74,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         UserHelper userHelper,
         AdminLocalizer adminLocalizer,
         ILoginLogService loginLogService,
+        IUserToken userToken,
+        IUserService userService,
         Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IOptions<JwtConfig>> jwtConfig,
         Lazy<IUserRepository> userRep,
@@ -93,6 +97,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
         _loginLogService = loginLogService;
+        _userToken = userToken;
+        _userService = userService;
     }
 
     /// <summary>
@@ -105,7 +111,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     private async Task AddLoginLogAsync(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
     {
-        await LazyGetRequiredService<ILoginLogService>().AddAsync(new LoginLogAddInput
+        await _loginLogService.AddAsync(new LoginLogAddInput
         {
             TenantId = authLoginOutput.TenantId,
             Name = authLoginOutput.Name,
@@ -130,8 +136,11 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var locationInfo = new LocationInfo();
         if (_appConfig.Value.Value.IP2Region.Enable)
         {
-            var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
-            locationInfo = LocationInfo.Parse(region);
+            if(IPHelper.IsIP(ip))
+            {
+                var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
+                locationInfo = LocationInfo.Parse(region);
+            }
         }
 
         return locationInfo;
@@ -177,7 +186,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     {
         if (user == null)
         {
-            return string.Empty;
+            return null;
         }
 
         var claims = new List<Claim>()
@@ -199,9 +208,34 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             ]);
         }
 
-        var token = LazyGetRequiredService<IUserToken>().Create(claims.ToArray());
+        var token = _userToken.Create([.. claims]);
 
-        return token;
+       return token;
+    }
+
+    /// <summary>
+    /// 获得令牌信息
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    [NonAction]
+    public TokenInfo GetTokenInfo(AuthLoginOutput user)
+    {
+        var token = GetToken(user);
+
+        var now = DateTime.Now;
+        var jwtConfig = _jwtConfig.Value.Value;
+
+        return new TokenInfo
+        {
+            AccessToken = token,
+            AccessTokenExpiresAt = now.AddMinutes(jwtConfig.Expires),
+            AccessTokenLifeTime = jwtConfig.Expires * 60,
+            RefreshToken = Guid.NewGuid().ToString("N"),
+            RefreshTokenExpiresAt = now.AddMinutes(jwtConfig.Expires + jwtConfig.RefreshExpires),
+            RefreshTokenLifeTime = jwtConfig.RefreshExpires * 60,
+            Timestamp = now.ToTimestamp()
+        };
     }
 
     /// <summary>
@@ -474,7 +508,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [HttpPost]
     [AllowAnonymous]
     [NoOperationLog]
-    public async Task<dynamic> LoginAsync(AuthLoginInput input)
+    public async Task<TokenInfo> LoginAsync(AuthLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -627,7 +661,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 authLoginOutput.Tenant = tenant;
             } 
             
-            string token = GetToken(authLoginOutput);
+            var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
             loginLogAddInput.TenantId = authLoginOutput.TenantId;
@@ -635,7 +669,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             //更新最后登录信息
             await UpdateLastLoginInfoAsync(user.Id, ip, locationInfo);
 
-            return new { token };
+            return tokenInfo;
         }
         catch (Exception ex)
         {
@@ -661,7 +695,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [HttpPost]
     [AllowAnonymous]
     [NoOperationLog]
-    public async Task<dynamic> MobileLoginAsync(AuthMobileLoginInput input)
+    public async Task<TokenInfo> MobileLoginAsync(AuthMobileLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -733,7 +767,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 }
                 authLoginOutput.Tenant = tenant;
             }
-            string token = GetToken(authLoginOutput);
+            var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
             loginLogAddInput.TenantId = authLoginOutput.TenantId;
@@ -745,7 +779,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
 
-            return new { token };
+            return tokenInfo;
         }
         catch (Exception ex)
         {
@@ -771,7 +805,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [HttpPost]
     [AllowAnonymous]
     [NoOperationLog]
-    public async Task<dynamic> EmailLoginAsync(AuthEmailLoginInput input)
+    public async Task<TokenInfo> EmailLoginAsync(AuthEmailLoginInput input)
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -843,7 +877,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 }
                 authLoginOutput.Tenant = tenant;
             }
-            string token = GetToken(authLoginOutput);
+            var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
             loginLogAddInput.TenantId = authLoginOutput.TenantId;
@@ -855,7 +889,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
 
-            return new { token };
+            return tokenInfo;
         }
         catch (Exception ex)
         {
@@ -1115,9 +1149,9 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <returns></returns>
     [HttpGet]
     [AllowAnonymous]
-    public async Task<dynamic> Refresh([BindRequired] string token)
+    public async Task<TokenInfo> Refresh([BindRequired] string token)
     {
-        var jwtSecurityToken = LazyGetRequiredService<IUserToken>().Decode(token);
+        var jwtSecurityToken = _userToken.Decode(token);
         var userClaims = jwtSecurityToken?.Claims?.ToArray();
         if (userClaims == null || userClaims.Length == 0)
         {
@@ -1145,7 +1179,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["验签失败"]);
         }
 
-        var user = await LazyGetRequiredService<IUserService>().GetLoginUserAsync(userId.ToLong());
+        var user = await _userService.GetLoginUserAsync(userId.ToLong());
         if(!(user?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
@@ -1163,8 +1197,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             }
         }
 
-        string newToken = GetToken(user);
-        return new { token = newToken };
+        var tokenInfo = GetTokenInfo(user);
+        return tokenInfo;
     }
 
     /// <summary>

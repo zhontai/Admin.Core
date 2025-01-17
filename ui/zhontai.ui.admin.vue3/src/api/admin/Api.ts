@@ -17,7 +17,7 @@ import {
   ApiSetEnableResultInput,
   ApiSyncInput,
   ApiUpdateInput,
-  PageInputApiGetPageDto,
+  PageInputApiGetPageInput,
   ResultOutputApiGetOutput,
   ResultOutputInt64,
   ResultOutputListApiGetListOutput,
@@ -83,7 +83,7 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @request POST:/api/admin/api/get-page
    * @secure
    */
-  getPage = (data: PageInputApiGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputApiGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputApiEntity, any>({
       path: `/api/admin/api/get-page`,
       method: 'POST',

@@ -1,7 +1,6 @@
 ﻿using ProtoBuf.Grpc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
 using ZhonTai.Admin.Domain.Api;
@@ -20,9 +19,10 @@ public class ApiGrpcService : IApiGrpcService
     public async Task<GrpcOutput<List<ApiGrpcOutput>>> GetApiList(CallContext context = default)
     {
         var data = await _apiRepository.Select.ToListAsync<ApiGrpcOutput>();
-        return new GrpcOutput<List<ApiGrpcOutput>>()
+        var output = new GrpcOutput<List<ApiGrpcOutput>>()
         {
             Data = data
         };
+        return output;
     }
 }

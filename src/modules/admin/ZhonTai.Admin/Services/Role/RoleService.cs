@@ -11,7 +11,6 @@ using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.RolePermission;
-using ZhonTai.Admin.Domain.Role.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Services.Role.Dto;
 using ZhonTai.Admin.Resources;
@@ -108,7 +107,7 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<RoleGetPageOutput>> GetPageAsync(PageInput<RoleGetPageDto> input)
+    public async Task<PageOutput<RoleGetPageOutput>> GetPageAsync(PageInput<RoleGetPageInput> input)
     {
         var key = input.Filter?.Name;
 

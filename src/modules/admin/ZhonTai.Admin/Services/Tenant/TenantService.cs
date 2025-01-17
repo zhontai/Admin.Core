@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Mapster;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
@@ -16,7 +18,6 @@ using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Domain.Tenant.Dto;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.UserOrg;
@@ -28,12 +29,10 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Resources;
-using Mapster;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.Auth;
 using ZhonTai.Admin.Core.Validators;
-using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -121,7 +120,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input)
+    public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageInput> input)
     {
         using var _ = _tenantRep.DataFilter.Disable(FilterNames.Tenant);
 

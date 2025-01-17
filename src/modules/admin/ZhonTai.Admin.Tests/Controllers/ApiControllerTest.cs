@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Xunit;
 using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Domain.Api.Dto;
 
 namespace ZhonTai.Admin.Tests.Controllers;
 
@@ -31,11 +30,11 @@ public class ApiControllerTest : BaseControllerTest
     public async Task GetPage()
     {
         await Login();
-        var input = new PageInput<ApiGetPageDto>
+        var input = new PageInput<ApiGetPageInput>
         {
             CurrentPage = 1,
             PageSize = 20,
-            Filter = new ApiGetPageDto
+            Filter = new ApiGetPageInput
             {
                 Label = "接口管理"
             }
