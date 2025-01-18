@@ -60,7 +60,7 @@ public class ExceptionMiddleware
         var userAgent = context.Request.Headers.UserAgent.FirstOrDefault();
         context.Items.TryGetValue("_ActionArguments", out object? actionArguments);
         _logger.LogError(exception,
-        "Error while processing request. \r\nActionArguments: {ActionArguments} \r\nAuthorization: {Authorization} \r\nUserAgent: {UserAgent}",
+        "Error while processing request. \r\nActionArguments: {ActionArguments} \r\nAuthorization: {Authorization} \r\nUserAgent: {UserAgent}\r\n",
         actionArguments != null ? JsonHelper.Serialize(actionArguments) : "",
         authorization,
         userAgent);
