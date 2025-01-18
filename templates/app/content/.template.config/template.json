@@ -140,32 +140,32 @@
 				{
 					"condition": "(NoTaskScheduler)",
 					"exclude": [
-						"src/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
-						"src/MyApp.Api/Core/Consts/TaskNames.cs"
+						"MyApp.Api/Core/Handlers/AppTaskHandler.cs",
+						"MyApp.Api/Core/Consts/TaskNames.cs"
 					]
 				},
 				{
 					"condition": "(MicroService)",
 					"exclude": [
-						"src/MyApp.Host/InitData/Admin/**"
+						"MyApp.Host/InitData/Admin/**"
 					]
 				},
 				{
 					"condition": "(NoTests)",
 					"exclude": [
-						"src/MyApp.Tests/**"
+						"MyApp.Tests/**"
 					]
 				},
 				{
 					"condition": "(NoSample)",
 					"exclude": [
-						"src/MyApp.Api.Contracts/Services/Module/**",
-						"src/MyApp.Api/Domain/Module/**",
-						"src/MyApp.Api/Repositories/Module/**",
-						"src/MyApp.Api/Repositories/CustomGenerateData.cs",
-						"src/MyApp.Api/Repositories/CustomSyncData.cs",
-						"src/MyApp.Api/Services/Module/**",
-						"src/MyApp.Host/InitData/App/**"
+						"MyApp.Api.Contracts/Services/Module/**",
+						"MyApp.Api/Domain/Module/**",
+						"MyApp.Api/Repositories/Module/**",
+						"MyApp.Api/Repositories/CustomGenerateData.cs",
+						"MyApp.Api/Repositories/CustomSyncData.cs",
+						"MyApp.Api/Services/Module/**",
+						"MyApp.Host/InitData/App/**"
 					]
 				}
 			]
