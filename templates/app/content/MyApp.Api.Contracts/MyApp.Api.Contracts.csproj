@@ -24,13 +24,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.0-preview25011701" />
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.0-preview25011701" />
 		<PackageReference Include="ZhonTai.Admin" Version="9.0.0-preview25011701" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Services\" />
 	</ItemGroup>
-
 
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">
 		<ItemGroup>
