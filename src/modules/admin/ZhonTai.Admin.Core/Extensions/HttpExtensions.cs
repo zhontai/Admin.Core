@@ -31,10 +31,10 @@ public static class HttpExtensions
 
             foreach (var interfaceType in interfaceTypes)
             {
-                var method = typeof(HttpExtensions)
-                    .GetMethod(nameof(AddMyRefitClient))
-                    ?.MakeGenericMethod(interfaceType)
-                    ?.Invoke(null, [services, rpcConfig, policies]);
+                typeof(HttpExtensions)
+                .GetMethod(nameof(AddMyRefitClient))
+                ?.MakeGenericMethod(interfaceType)
+                ?.Invoke(null, [services, rpcConfig, policies]);
             }
         }
 

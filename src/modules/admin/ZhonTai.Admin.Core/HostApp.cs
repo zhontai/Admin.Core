@@ -837,10 +837,18 @@ public class HostApp
             options.EnableDetailedErrors = true;
             //options.ResponseCompressionLevel = CompressionLevel.Optimal;
         });
+        //for postman
         services.AddCodeFirstGrpcReflection();
 
-        var policies = PolicyHelper.GetPolicyList();
-        services.AddMyGrpcClients(AppInfo.EffectiveAssemblies, AppInfo.GetOptions<RpcConfig>(), policies);
+        var rpcConfig = AppInfo.GetOptions<RpcConfig>();
+        if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
+        {
+            services.AddMyGrpcClients(AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.AssemblyNames), rpcConfig, PolicyHelper.GetPolicyList());
+        }
+        if (rpcConfig?.Http != null && rpcConfig.Http.Enable)
+        {
+            services.AddMyHttpClients(AssemblyHelper.GetAssemblyList(rpcConfig.Http.AssemblyNames), rpcConfig, PolicyHelper.GetPolicyList());
+        }
 
         _hostAppOptions?.ConfigurePostServices?.Invoke(hostAppContext);
     }
@@ -999,6 +1007,7 @@ public class HostApp
 
         //Grpc
         app.UseMyMapGrpcService(AppInfo.EffectiveAssemblies);
+        //for postman
         app.MapCodeFirstGrpcReflectionService();
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);

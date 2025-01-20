@@ -32,10 +32,10 @@ public static class GrpcExtensions
 
             foreach (var interfaceType in interfaceTypes)
             {
-                var method = typeof(GrpcExtensions)
-                    .GetMethod(nameof(AddMyCodeFirstGrpcClient))
-                    ?.MakeGenericMethod(interfaceType)
-                    ?.Invoke(null, [services, rpcConfig, policies]);
+                typeof(GrpcExtensions)
+                .GetMethod(nameof(AddMyCodeFirstGrpcClient))
+                ?.MakeGenericMethod(interfaceType)
+                ?.Invoke(null, [services, rpcConfig, policies]);
             }
         }
 
@@ -103,17 +103,17 @@ public static class GrpcExtensions
         {
             var grpcServiceTypes = assembly.GetTypes()
             .Where(type =>
-                type.GetInterfaces().Any() &&
+                type.GetInterfaces().Length != 0 &&
                 type.GetInterfaces().Any(interfaceType => interfaceType.GetCustomAttributes<ServiceContractAttribute>(true).Any())
                 && type.IsClass)
             .ToList();
 
             foreach (var grpcServiceType in grpcServiceTypes)
             {
-                var method = typeof(GrpcEndpointRouteBuilderExtensions)
-                    .GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService))
-                    ?.MakeGenericMethod(grpcServiceType)
-                    ?.Invoke(null, [endpointRouteBuilder]);
+                typeof(GrpcEndpointRouteBuilderExtensions)
+                .GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService))
+                ?.MakeGenericMethod(grpcServiceType)
+                ?.Invoke(null, [endpointRouteBuilder]);
             }
         }
 

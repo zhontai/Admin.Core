@@ -169,7 +169,7 @@ public static class AppInfo
             throw new ApplicationException("The current is not available and must wait until the WebApplication Build is completed.");
         }
 
-        ServiceProvider serviceProvider = AppInfoBase.Services.BuildServiceProvider();
+        var serviceProvider = AppInfoBase.Services.BuildServiceProvider();
 
         return serviceProvider;
     }

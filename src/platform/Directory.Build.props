@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>9.0.0-preview25011701</Version>
+		<Version>9.0.0-preview25012001</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
