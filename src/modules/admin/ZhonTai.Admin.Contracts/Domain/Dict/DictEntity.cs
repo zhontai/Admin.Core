@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.Dict;
 /// <summary>
 /// 数据字典
 /// </summary>
-[Table(Name = "base_dict", OldName = "ad_dict")]
+[Table(Name = DbConsts.TableNamePrefix + "dict", OldName = DbConsts.TableOldNamePrefix + "dict")]
 [Index("idx_{tablename}_01", nameof(DictTypeId) + "," + nameof(Name), true)]
 public partial class DictEntity : EntityBase
 {

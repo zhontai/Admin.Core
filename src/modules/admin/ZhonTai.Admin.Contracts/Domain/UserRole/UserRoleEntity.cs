@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Domain.UserRole;
 /// <summary>
 /// 用户角色
 /// </summary>
-[Table(Name = "base_user_role", OldName = "ad_user_role")]
+[Table(Name = DbConsts.TableNamePrefix + "user_role", OldName = DbConsts.TableOldNamePrefix + "user_role")]
 [Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(RoleId), true)]
 public class UserRoleEntity : EntityAdd
 {

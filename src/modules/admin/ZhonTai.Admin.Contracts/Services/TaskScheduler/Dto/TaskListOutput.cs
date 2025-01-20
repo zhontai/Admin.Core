@@ -1,5 +1,5 @@
 ﻿using FreeScheduler;
-using System;
+using TaskStatus = FreeScheduler.TaskStatus;
 
 namespace ZhonTai.Admin.Services.TaskScheduler.Dto;
 

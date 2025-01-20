@@ -1,7 +1,5 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.TenantPkg;
@@ -12,7 +10,7 @@ namespace ZhonTai.Admin.Domain.Pkg;
 /// <summary>
 /// 套餐
 /// </summary>
-[Table(Name = "base_pkg", OldName = "ad_pkg")]
+[Table(Name = DbConsts.TableNamePrefix + "pkg", OldName = DbConsts.TableOldNamePrefix + "pkg")]
 [Index("idx_{tablename}_01", $"{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class PkgEntity : EntityBase
 {

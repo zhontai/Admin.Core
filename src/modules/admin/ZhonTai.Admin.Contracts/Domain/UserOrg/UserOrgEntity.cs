@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Domain.UserOrg;
 /// <summary>
 /// 用户所属部门
 /// </summary>
-[Table(Name = "base_user_org", OldName = "ad_user_org")]
+[Table(Name = DbConsts.TableNamePrefix + "user_org", OldName = DbConsts.TableOldNamePrefix + "user_org")]
 [Index("idx_{tablename}_01", nameof(UserId) + "," + nameof(OrgId), true)]
 public partial class UserOrgEntity : EntityUpdate
 {

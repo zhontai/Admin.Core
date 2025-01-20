@@ -1,7 +1,5 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
@@ -14,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Role;
 /// <summary>
 /// 角色
 /// </summary>
-[Table(Name = "base_role", OldName = "")]
+[Table(Name = DbConsts.TableNamePrefix + "role", OldName = "")]
 [Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class RoleEntity : EntityTenant
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Repositories;
 
 namespace ZhonTai.Admin.Domain.Pkg;
 

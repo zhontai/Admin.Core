@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Domain.Document;
 /// <summary>
 /// 文档
 /// </summary>
-[Table(Name = "base_doc", OldName = "ad_document")]
+[Table(Name = DbConsts.TableNamePrefix + "doc", OldName = DbConsts.TableOldNamePrefix + "document")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label) + "," + nameof(TenantId), true)]
 public partial class DocEntity : EntityTenant
 {

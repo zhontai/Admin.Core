@@ -1,6 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Core.Entities;
@@ -11,7 +9,7 @@ namespace ZhonTai.Admin.Domain.Api;
 /// <summary>
 /// 接口管理
 /// </summary>
-[Table(Name = "base_api", OldName = "ad_api")]
+[Table(Name = DbConsts.TableNamePrefix + "api", OldName = DbConsts.TableOldNamePrefix + "api")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Path), true)]
 public partial class ApiEntity : EntityBase, IChilds<ApiEntity>
 {

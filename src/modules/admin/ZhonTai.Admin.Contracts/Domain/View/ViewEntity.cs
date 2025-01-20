@@ -1,14 +1,12 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Domain.View;
 
 /// <summary>
 /// 视图管理
 /// </summary>
-[Table(Name = "base_view", OldName = "ad_view")]
+[Table(Name = DbConsts.TableNamePrefix + "view", OldName = DbConsts.TableOldNamePrefix + "view")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
 public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 {

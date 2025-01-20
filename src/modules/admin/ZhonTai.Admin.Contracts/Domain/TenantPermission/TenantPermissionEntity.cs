@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Domain.TenantPermission;
 /// <summary>
 /// 租户权限
 /// </summary>
-[Table(Name = "base_tenant_permission", OldName = "ad_tenant_permission")]
+[Table(Name = DbConsts.TableNamePrefix + "tenant_permission", OldName = DbConsts.TableOldNamePrefix + "tenant_permission")]
 [Index("idx_{tablename}_01", nameof(TenantId) + "," + nameof(PermissionId), true)]
 public class TenantPermissionEntity : EntityAdd
 {

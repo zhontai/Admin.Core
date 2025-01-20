@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain;
 /// <summary>
 /// 角色部门
 /// </summary>
-[Table(Name = "base_role_org", OldName = "ad_role_org")]
+[Table(Name = DbConsts.TableNamePrefix + "role_org", OldName = DbConsts.TableOldNamePrefix + "role_org")]
 [Index("idx_{tablename}_01", nameof(RoleId) + "," + nameof(OrgId), true)]
 public partial class RoleOrgEntity : EntityAdd
 {

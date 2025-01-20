@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Domain.DictType;
 /// <summary>
 /// 数据字典类型
 /// </summary>
-[Table(Name = "base_dict_type", OldName = "ad_dict_type")]
+[Table(Name = DbConsts.TableNamePrefix + "dict_type", OldName = DbConsts.TableOldNamePrefix + "dict_type")]
 [Index("idx_{tablename}_01", nameof(Name), true)]
 public class DictTypeEntity : EntityBase
 {

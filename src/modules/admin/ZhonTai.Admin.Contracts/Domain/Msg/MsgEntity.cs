@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.Msg;
 /// <summary>
 /// 消息
 /// </summary>
-[Table(Name = "base_msg")]
+[Table(Name = DbConsts.TableNamePrefix + "msg")]
 public partial class MsgEntity : EntityBase
 {
     /// <summary>

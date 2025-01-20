@@ -3,7 +3,6 @@ using FreeSql;
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Org;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.Pkg;
 using ZhonTai.Admin.Core.Attributes;
@@ -13,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Tenant;
 /// <summary>
 /// 租户
 /// </summary>
-[Table(Name = "base_tenant", OldName = "ad_tenant")]
+[Table(Name = DbConsts.TableNamePrefix + "tenant", OldName = DbConsts.TableOldNamePrefix + "tenant")]
 public partial class TenantEntity : EntityBase
 {
     /// <summary>

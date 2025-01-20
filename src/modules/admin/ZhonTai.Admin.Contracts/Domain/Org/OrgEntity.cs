@@ -1,6 +1,5 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Role;
@@ -12,7 +11,7 @@ namespace ZhonTai.Admin.Domain.Org;
 /// <summary>
 /// 组织架构
 /// </summary>
-[Table(Name = "base_org", OldName = "ad_org")]
+[Table(Name = DbConsts.TableNamePrefix + "org", OldName = DbConsts.TableOldNamePrefix + "org")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
 public partial class OrgEntity : EntityTenant, IChilds<OrgEntity>
 {

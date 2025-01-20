@@ -1,14 +1,12 @@
 using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Domain.Region;
 
 /// <summary>
 /// 地区
 /// </summary>
-[Table(Name = "base_region")]
+[Table(Name = DbConsts.TableNamePrefix + "region")]
 [Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name), true)]
 [Index("idx_{tablename}_02", nameof(ParentId) + "," + nameof(Code), true)]
 public partial class RegionEntity : EntityBase, IChilds<RegionEntity>

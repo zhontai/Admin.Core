@@ -1,14 +1,12 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Domain.MsgType;
 
 /// <summary>
 /// 消息分类
 /// </summary>
-[Table(Name = "base_msg_type")]
+[Table(Name = DbConsts.TableNamePrefix + "msg_type")]
 [Index("idx_{tablename}_01", $"{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class MsgTypeEntity : EntityBase
 {

@@ -1,13 +1,12 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using System;
 
 namespace ZhonTai.Admin.Domain.UserStaff;
 
 /// <summary>
 /// 用户员工
 /// </summary>
-[Table(Name = "base_user_staff", OldName = "ad_user_staff")]
+[Table(Name = DbConsts.TableNamePrefix + "user_staff", OldName = DbConsts.TableOldNamePrefix + "user_staff")]
 public partial class UserStaffEntity : EntityTenant
 {
     /// <summary>

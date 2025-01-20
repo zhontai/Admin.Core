@@ -1,12 +1,11 @@
 ﻿using FreeSql.DataAnnotations;
-using System;
 
 namespace ZhonTai.Admin.Domain.AppLog;
 
 /// <summary>
 /// 应用程序日志
 /// </summary>
-[Table(Name = "base_app_log", OldName = "ad_app_log")]
+[Table(Name = DbConsts.TableNamePrefix + "app_log", OldName = DbConsts.TableOldNamePrefix + "app_log")]
 public partial class AppLogEntity
 {
     /// <summary>

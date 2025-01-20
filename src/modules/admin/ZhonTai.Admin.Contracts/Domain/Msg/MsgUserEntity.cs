@@ -1,5 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using System;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Entities;
 
@@ -8,7 +7,7 @@ namespace ZhonTai.Admin.Domain.Msg;
 /// <summary>
 /// 消息用户
 /// </summary>
-[Table(Name = "base_msg_user")]
+[Table(Name = DbConsts.TableNamePrefix + "msg_user")]
 public partial class MsgUserEntity : EntityBase
 {
     /// <summary>

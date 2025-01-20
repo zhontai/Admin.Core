@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.TenantPkg;
 /// <summary>
 /// 租户套餐
 /// </summary>
-[Table(Name = "base_tenant_pkg", OldName = "ad_tenant_pkg")]
+[Table(Name = DbConsts.TableNamePrefix + "tenant_pkg", OldName = DbConsts.TableOldNamePrefix + "tenant_pkg")]
 [Index("idx_{tablename}_01", nameof(TenantId) + "," + nameof(PkgId), true)]
 public class TenantPkgEntity : EntityAdd
 {
