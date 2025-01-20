@@ -11,7 +11,6 @@ using ZhonTai;
 using ZhonTai.Admin.Services.Auth.Dto;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Enums;
-using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Services.Auth;
 
 namespace MyApp.Tests;
@@ -165,7 +164,7 @@ public class BaseControllerTest : BaseTest
         //Client.DefaultRequestHeaders.Connection.Add("keep-alive");
         Client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
-        var result = await AppInfo.GetRequiredService<IAuthClientService>().LoginAsync(input);
+        var result = await GetRequiredService<IAuthClientService>().LoginAsync(input);
 
         Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {result.AccessToken}");
     }
