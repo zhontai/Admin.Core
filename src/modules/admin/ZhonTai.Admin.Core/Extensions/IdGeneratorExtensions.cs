@@ -23,12 +23,14 @@ public static class IdGeneratorExtensions
         var idGeneratorConfig = AppInfo.GetOptions<AppConfig>().IdGenerator;
 
         if (_isSet)
-            throw new InvalidOperationException("只允许添加一次Id生成器");
+            return;
+            //throw new InvalidOperationException("只允许添加一次Id生成器");
 
         lock (_locker)
         {
             if (_isSet)
-                throw new InvalidOperationException("只允许添加一次Id生成器");
+                return;
+                //throw new InvalidOperationException("只允许添加一次Id生成器");
 
             Task.Delay(new Random().Next(10, 100)).Wait();
 
