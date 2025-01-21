@@ -24,18 +24,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.0-preview25011701">
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.0-preview25012001">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.0-preview25011701">
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.0-preview25012001">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin" Version="9.0.0-preview25011701">
+		<PackageReference Include="ZhonTai.Admin" Version="9.0.0-preview25012001">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Domain\" />
 		<Folder Include="Services\" />
 	</ItemGroup>
 
@@ -47,5 +48,8 @@
 
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)Resources" />
+
+		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)" />
+		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)Resources" />
 	</Target>
 </Project>

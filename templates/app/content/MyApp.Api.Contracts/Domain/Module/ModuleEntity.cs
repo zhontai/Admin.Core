@@ -1,14 +1,14 @@
-using ZhonTai.Admin.Core.Entities;
-using FreeSql.DataAnnotations;
 using System;
-using MyApp.Api.Core.Consts;
+using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
+using MyApp.Api.Contracts.Core.Consts;
 
-namespace MyApp.Api.Domain.Module;
+namespace MyApp.Api.Contracts.Domain.Module;
 
 /// <summary>
 /// 模块
 /// </summary>
-[Table(Name = ApiConsts.AreaName + "_module")]
+[Table(Name = DbConsts.TableNamePrefix + "module")]
 [Index("idx_{tablename}_01", nameof(TenantId) + "," + nameof(Name), true)]
 public partial class ModuleEntity : EntityTenant
 {

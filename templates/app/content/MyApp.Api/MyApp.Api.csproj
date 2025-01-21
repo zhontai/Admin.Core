@@ -24,7 +24,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Domain\" />
 		<Folder Include="Repositories\" />
 		<Folder Include="Services\" />
 	</ItemGroup>

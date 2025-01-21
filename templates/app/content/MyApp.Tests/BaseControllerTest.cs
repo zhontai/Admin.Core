@@ -12,6 +12,7 @@ using ZhonTai.Admin.Services.Auth.Dto;
 using System.Collections.Generic;
 using ZhonTai.Admin.Core.Enums;
 using ZhonTai.Admin.Services.Auth;
+using ZhonTai.Admin.Core.Dto;
 
 namespace MyApp.Tests;
 

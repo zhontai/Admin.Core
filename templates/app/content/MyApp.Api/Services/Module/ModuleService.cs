@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services;
-using MyApp.Api.Domain.Module;
 using ZhonTai;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
@@ -11,6 +10,9 @@ using MyApp.Api.Core.Repositories;
 using MyApp.Api.Contracts.Services.Module.Input;
 using MyApp.Api.Contracts.Services.Module.Output;
 using MyApp.Api.Contracts.Services.Module;
+using MyApp.Api.Contracts.Domain.Module;
+
+
 #if (!NoTaskScheduler)
 using FreeScheduler;
 using Newtonsoft.Json;

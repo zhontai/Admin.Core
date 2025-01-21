@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
-using MyApp.Api.Domain.Module;
 using ZhonTai.Admin.Core.Db.Data;
-using System;
+using MyApp.Api.Contracts.Domain.Module;
 
 namespace MyApp.Api.Repositories;
 
