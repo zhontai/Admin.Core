@@ -3,7 +3,7 @@
     //数据库注册键
     "key": "appdb",
     //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
-    ////#if (MergeDb && !MicroService)
+    ////#if (MergeDb && IsSys)
     //"assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
     ////#else
     //"assemblyNames": [ "MyApp.Api" ],
@@ -175,21 +175,18 @@
     //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
     //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
     "dbs": [
-      ////#if (!MergeDb)
+      ////#if (!MergeDb  && IsSys)
       {
         ////权限库
         "key": "admindb",
-        ////#if (!MicroService)
         ////程序集名称，自动获取实体表
         "assemblyNames": [ "ZhonTai.Admin" ],
-        ////#endif
 
         ////监听所有操作
         "monitorCommand": false,
         ////监听Curd操作
         "curd": true,
 
-        ////#if (!MicroService)
         ////建库
         "createDb": false,
         ////SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
@@ -234,7 +231,6 @@
         ////开启生成数据前先关闭syncStructure syncData createDb
         ////生成数据
         "generateData": false,
-        ////#endif
 
         ////数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
         ////连接字符串语法 https://www.connectionstrings.com

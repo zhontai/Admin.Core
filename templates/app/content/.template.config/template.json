@@ -12,47 +12,69 @@
 	"sourceName": "MyApp",
 	"preferNameDirectory": true,
 	"symbols": {
-		"NoApiUI": {
+		"Type": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Disable api document support"
+			"datatype": "choice",
+			"choices": [
+				{
+					"choice": "sys"
+				},
+				{
+					"choice": "app"
+				},
+				{
+					"choice": "mem"
+				}
+			],
+			"defaultValue": "app"
 		},
-		"NoTaskScheduler": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Disable task scheduler support"
+		"IsSys": {
+			"type": "computed",
+			"value": "Type == sys"
 		},
-		"NoCap": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Cap for building distributed transaction and eventbus"
+		"IsApp": {
+			"type": "computed",
+			"value": "Type == app"
 		},
-		"NoTests": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "No testing project library"
+		"IsMem": {
+			"type": "computed",
+			"value": "Type == mem"
 		},
-		"NoSample": {
+		"Port": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "No module examples"
+			"datatype": "int",
+			"defaultValue": "",
+			"replaces": "16010",
+			"isRequired": true
 		},
-		"MergeDb": {
+		"GrpcPort": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Merge admindb to maindb support"
+			"datatype": "int",
+			"defaultValue": "",
+			"replaces": "16011",
+			"isRequired": true
 		},
-		"MicroService": {
+		"SecurityKey": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Micro service project support"
+			"datatype": "string",
+			"isEnabled": "Type == sys",
+			"defaultValue": ""
+		},
+		"SecurityKeyGuid": {
+			"type": "generated",
+			"generator": "guid",
+			"parameters": {
+			  "defaultFormat":"N"
+			}
+		},
+		"SecurityKeyReplacer": {
+			"type": "generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "SecurityKey",
+				"fallbackVariableName": "SecurityKeyGuid"
+			},
+			"replaces": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db"
 		},
 		"DbType": {
 			"type": "parameter",
@@ -118,21 +140,42 @@
 			"defaultValue": "Sqlite",
 			"description": "The database for the project"
 		},
-		"Port": {
+		"NoApiUI": {
 			"type": "parameter",
-			"datatype": "int",
-			"defaultValue": "18010",
-			"replaces": "18010",
-			"description": "Port settings"
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable api document support"
 		},
-		"SecurityKey": {
+		"NoTaskScheduler": {
 			"type": "parameter",
-			"datatype": "string",
-			"isRequired": false,
-			"defaultValue": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db",
-			"replaces": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db",
-			"description": "Security Key settings"
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable task scheduler support"
 		},
+		"NoCap": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Cap for building distributed transaction and eventbus"
+		},
+		"NoTests": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No testing project library"
+		},
+		"NoSample": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No module examples"
+		},
+		"MergeDb": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Merge admindb to maindb support"
+		}
 	},
 	"sources": [
 		{
@@ -145,7 +188,7 @@
 					]
 				},
 				{
-					"condition": "(MicroService)",
+					"condition": "(!IsSys)",
 					"exclude": [
 						"MyApp.Host/InitData/Admin/**"
 					]
@@ -160,7 +203,7 @@
 					"condition": "(NoSample)",
 					"exclude": [
 						"MyApp.Api.Contracts/Services/Module/**",
-						"MyApp.Api/Domain/Module/**",
+						"MyApp.Api.Contracts/Domain/Module/**",
 						"MyApp.Api/Repositories/Module/**",
 						"MyApp.Api/Repositories/CustomGenerateData.cs",
 						"MyApp.Api/Repositories/CustomSyncData.cs",

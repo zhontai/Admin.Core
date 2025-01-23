@@ -37,6 +37,10 @@
       "longName": "port",
       "shortName": "p"
     },
+	"GrpcPort": {
+      "longName": "grpc-port",
+      "shortName": "gp"
+    },
 	"SecurityKey": {
       "longName": "security-key",
       "shortName": "sk"

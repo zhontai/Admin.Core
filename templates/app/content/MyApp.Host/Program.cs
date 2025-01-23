@@ -31,7 +31,9 @@ using ZhonTai.Admin.Services.TaskScheduler;
 #endif
 using Autofac;
 using MyApp.Api.Core.Repositories;
+#if (IsSys)
 using ZhonTai.Admin.Repositories;
+#endif
 
 new HostApp(new HostAppOptions()
 {
@@ -58,7 +60,7 @@ new HostApp(new HostAppOptions()
 		AdminDbKeys.AppDb = DbKeys.AppDb;
 #if (!NoTaskScheduler)
         AdminDbKeys.TaskDb = DbKeys.AppDb;
-        #endif
+#endif
 #else
         AdminDbKeys.AppDb = "admindb";
 #endif
@@ -142,7 +144,9 @@ new HostApp(new HostAppOptions()
     ConfigureAutofacContainer = (builder, context) =>
     {
         builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+#if (IsSys)
         builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+#endif
     },
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) =>
