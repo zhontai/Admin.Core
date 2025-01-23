@@ -6,10 +6,16 @@
     "urls": [ "http://*:16010" ],
     //跨域地址
     "corUrls": [],
-    //程序集名称
+    ////#if (IsSys)
+    ////程序集名称
     "assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
-    //枚举列表程序集名称
-    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
+    ////枚举列表程序集名称
+    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts", "ZhonTai.Admin" ],
+    ////#else
+    //"assemblyNames": [ "MyApp.Api" ],
+    ////枚举列表程序集名称
+    //"EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
+    ////#endif
     //租户
     "tenant": true,
     //分布式事务唯一标识app，为空则不生成分布式事务表
@@ -127,17 +133,19 @@
     },
     //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
     "PreflightMaxAge": 1800,
-    //是否开启任务调度管理界面
+    ////#if (IsSys)
+    ////是否开启任务调度管理界面
     "TaskSchedulerUI": {
-      //启用
+      ////启用
       ////#if (NoTaskScheduler)
       //"enable": false,
       ////#else
       //"enable": true,
       ////#endif
-      //访问路径
+      ////访问路径
       "path": "/task"
     },
+    ////#endif
     //Id生成器
     "IdGenerator": {
       "DataCenterId": 0, // 数据中心ID（机房ID，默认0） 请确保全局唯一

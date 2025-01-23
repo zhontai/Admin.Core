@@ -30,9 +30,11 @@
 		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.0-preview25012001">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
+		<!--#if (IsSys) -->
 		<PackageReference Include="ZhonTai.Admin" Version="9.0.0-preview25012001">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
+		<!--#endif -->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,8 +50,9 @@
 
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)Resources" />
-
+		<!--#if (!NoTests) -->
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)" />
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)Resources" />
+		<!--#endif -->
 	</Target>
 </Project>

@@ -56,6 +56,7 @@ new HostApp(new HostAppOptions()
 		{
 			DbKeys.AppDb = dbConfig.Key;
 		}
+#if (IsSys)
 #if (MergeDb)
 		AdminDbKeys.AppDb = DbKeys.AppDb;
 #if (!NoTaskScheduler)
@@ -64,11 +65,12 @@ new HostApp(new HostAppOptions()
 #else
         AdminDbKeys.AppDb = "admindb";
 #endif
+#endif
     },
     //配置后置服务
     ConfigurePostServices = context =>
 	{
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
         //添加任务调度，默认使用权限库作为任务调度库
         context.Services.AddTaskScheduler(AdminDbKeys.TaskDb, options =>
         {
