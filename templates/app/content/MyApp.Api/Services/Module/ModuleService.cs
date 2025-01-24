@@ -11,8 +11,6 @@ using MyApp.Api.Contracts.Services.Module.Input;
 using MyApp.Api.Contracts.Services.Module.Output;
 using MyApp.Api.Contracts.Services.Module;
 using MyApp.Api.Contracts.Domain.Module;
-
-
 #if (!NoTaskScheduler)
 using FreeScheduler;
 using Newtonsoft.Json;

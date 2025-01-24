@@ -3,7 +3,6 @@ using Xunit;
 using ZhonTai.Admin.Core.Dto;
 using MyApp.Api.Contracts.Services.Module.Input;
 using MyApp.Api.Contracts.Services.Module.Output;
-using Google.Protobuf.WellKnownTypes;
 
 namespace MyApp.Tests.Controllers;
 

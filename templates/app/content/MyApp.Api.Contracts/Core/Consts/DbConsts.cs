@@ -8,7 +8,7 @@ public static partial class DbConsts
     /// <summary>
     /// 表名前缀
     /// </summary>
-    public const string TableNamePrefix = "app_";
+    public const string TableNamePrefix = "__app_code_";
 
     /// <summary>
     /// 旧表名前缀

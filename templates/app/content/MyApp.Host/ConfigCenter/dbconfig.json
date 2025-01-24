@@ -1,7 +1,7 @@
 {
   "DbConfig": {
     //数据库注册键
-    "key": "appdb",
+    "key": "__app_codedb",
     //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
     ////#if (MergeDb && IsSys)
     //"assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
@@ -38,15 +38,15 @@
     "createDbConnectionString": "",
     ////#endif
     //建库脚本，复杂建库脚本可放到createdbsql.txt中
-    //MySql "CREATE DATABASE `appdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
-    //SqlServer "CREATE DATABASE [appdb]"
-    //PostgreSQL "CREATE DATABASE \"appdb\" WITH ENCODING = 'UTF8'"
+    //MySql "CREATE DATABASE `__app_codedb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+    //SqlServer "CREATE DATABASE [__app_codedb]"
+    //PostgreSQL "CREATE DATABASE \"__app_codedb\" WITH ENCODING = 'UTF8'"
     ////#if (DbType == "MySql")
-    //"createDbSql": "CREATE DATABASE `appdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+    //"createDbSql": "CREATE DATABASE `__app_codedb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
     ////#elseif (DbType == "SqlServer")
-    //"createDbSql": "CREATE DATABASE [appdb]",
+    //"createDbSql": "CREATE DATABASE [__app_codedb]",
     ////#elseif (DbType == "PostgreSQL")
-    //"createDbSql": "CREATE DATABASE \"appdb\" WITH ENCODING = 'UTF8'",
+    //"createDbSql": "CREATE DATABASE \"__app_codedb\" WITH ENCODING = 'UTF8'",
     ////#else
     "createDbSql": "",
     ////#endif
@@ -115,17 +115,17 @@
     ////#endif
 
     //连接字符串
-    //MySql "Server=localhost; Port=3306; Database=appdb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=appdb;Pooling=true;Min Pool Size=1"
-    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=appdb;Pooling=true;Minimum Pool Size=1"
-    //Sqlite "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1"
+    //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Pooling=true;Min Pool Size=1"
+    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1"
+    //Sqlite "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
     //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#if (DbType == "MySql")
-    //"connectionString": "Server=localhost; Port=3306; Database=appdb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+    //"connectionString": "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
     ////#elseif (DbType == "SqlServer")
-    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=appdb;Pooling=true;Min Pool Size=1",
+    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
-    //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=appdb;Pooling=true;Minimum Pool Size=1",
+    //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1",
     ////#elseif (DbType == "Oracle")
     //"connectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "Firebird")
@@ -147,7 +147,7 @@
     ////#elseif (DbType == "Xugu")
     //"connectionString": "IP=127.0.0.1;DB=SYSTEM;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
     ////#else
-    "connectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1",
+    "connectionString": "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1",
     ////#endif
 
     //指定程序集
@@ -160,7 +160,7 @@
       //  //权重
       //  "Weight": 1,
       //  //连接字符串
-      //  "ConnectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1"
+      //  "ConnectionString": "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
       //}
     ],
 
@@ -172,8 +172,8 @@
 
     //多数据库
     //Core/Consts定义DbKeys枚举
-    //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
-    //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
+    //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.__app_codedb, muowm)
+    //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.__app_codedb);
     "dbs": [
       ////#if (!MergeDb  && IsSys)
       {
