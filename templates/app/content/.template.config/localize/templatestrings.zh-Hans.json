@@ -7,6 +7,8 @@
   "symbols/AppType/choices/sys/description": "适用于平台端开发，包含Admin接口，支持登录、数据权限和功能权限控制。",
   "symbols/AppType/choices/app/description": "适用于租户端开发，不包含Admin接口，通过远程通讯如Grpc和Http进行交互，支持登录、数据权限和功能权限控制。",
   "symbols/AppType/choices/mem/description": "适用于用户端或会员端开发，不依赖Admin接口，通过远程通讯进行交互，支持登录和数据权限控制，无功能权限限制。",
+  "symbols/AppCode/displayName": "项目编码",
+  "symbols/AppCode/description": "用于在项目中唯一地标识不同的功能模块，以便于管理和区分。",
   "symbols/Port/displayName": "Http端口",
   "symbols/Port/description": "设置接口项目启动时所监听的端口号。",
   "symbols/GrpcPort/displayName": "GRPC端口",

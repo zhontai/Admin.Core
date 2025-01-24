@@ -12,9 +12,9 @@
       "launchBrowser": true,
       "dotnetRunMessages": true,
       ////#if (NoApiUI)
-      //"launchUrl": "doc/app/swagger",
+      //"launchUrl": "doc/__app_code/swagger",
       ////#else
-      //"launchUrl": "doc/app",
+      //"launchUrl": "doc/__app_code",
       ////#endif
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -25,9 +25,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       ////#if (NoApiUI)
-      //"launchUrl": "doc/app/swagger",
+      //"launchUrl": "doc/__app_code/swagger",
       ////#else
-      //"launchUrl": "doc/app",
+      //"launchUrl": "doc/__app_code",
       ////#endif
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

@@ -7,6 +7,8 @@
   "symbols/AppType/choices/sys/description": "Suitable for platform-side development, includes Admin API, supports login, data permission, and functional permission controls.",
   "symbols/AppType/choices/app/description": "Suitable for tenant-side development, does not include Admin API, interacts through remote communications like Grpc and Http, supports login, data permission, and functional permission controls.",
   "symbols/AppType/choices/mem/description": "Suitable for user-side or member-side development, does not rely on Admin API, interacts through remote communications, supports login and data permission management without functional permission restrictions.",
+  "symbols/AppCode/displayName": "Project Code",
+  "symbols/AppCode/description": "Used to uniquely identify different functional modules within a project for easy management and differentiation.",
   "symbols/Port/displayName": "Http Port",
   "symbols/Port/description": "Set the port number to listen on when the API project is started.",
   "symbols/GrpcPort/displayName": "GRPC Port",

@@ -8,5 +8,5 @@ public static partial class ApiConsts
     /// <summary>
     /// 默认域
     /// </summary>
-    public const string AreaName = "app";
+    public const string AreaName = "__app_code";
 }

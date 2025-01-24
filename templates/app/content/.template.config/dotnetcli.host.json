@@ -5,6 +5,10 @@
       "longName": "app-type",
       "shortName": "at"
     },
+	"AppCode": {
+      "longName": "app-code",
+      "shortName": "ac"
+    },
 	"Port": {
       "longName": "port",
       "shortName": "p"

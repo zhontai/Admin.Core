@@ -9,4 +9,9 @@ public static partial class DbConsts
     /// 表名前缀
     /// </summary>
     public const string TableNamePrefix = "app_";
+
+    /// <summary>
+    /// 旧表名前缀
+    /// </summary>
+    public const string TableOldNamePrefix = "";
 }

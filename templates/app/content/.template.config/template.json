@@ -40,6 +40,20 @@
 			"type": "computed",
 			"value": "AppType == mem"
 		},
+		"AppCode": {
+			"type": "parameter",
+			"datatype": "string",
+			"defaultValue": ""
+		},
+		"AppCodeReplacer": {
+			"type": "generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "AppCode",
+				"fallbackVariableName": "AppType"
+			},
+			"replaces": "__app_code"
+		},
 		"Port": {
 			"type": "parameter",
 			"datatype": "int",
