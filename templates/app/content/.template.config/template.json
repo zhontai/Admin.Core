@@ -190,7 +190,7 @@
 				{
 					"condition": "(!IsSys)",
 					"exclude": [
-						"MyApp.Host/InitData/Admin/**"
+						"MyApp.Host/InitData/App/base_*.json"
 					]
 				},
 				{
@@ -208,7 +208,7 @@
 						"MyApp.Api/Repositories/CustomGenerateData.cs",
 						"MyApp.Api/Repositories/CustomSyncData.cs",
 						"MyApp.Api/Services/Module/**",
-						"MyApp.Host/InitData/App/**"
+						"MyApp.Host/InitData/App/app_*.json"
 					]
 				}
 			]

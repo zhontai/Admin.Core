@@ -225,7 +225,7 @@
         ////同步数据
         "syncData": true,
         ////同步数据地址
-        "SyncDataPath": "InitData/Admin",
+        "SyncDataPath": "InitData/App",
 
         ////项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
         ////开启生成数据前先关闭syncStructure syncData createDb
