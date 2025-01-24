@@ -12,7 +12,7 @@
 	"sourceName": "MyApp",
 	"preferNameDirectory": true,
 	"symbols": {
-		"Type": {
+		"AppType": {
 			"type": "parameter",
 			"datatype": "choice",
 			"choices": [
@@ -30,15 +30,15 @@
 		},
 		"IsSys": {
 			"type": "computed",
-			"value": "Type == sys"
+			"value": "AppType == sys"
 		},
 		"IsApp": {
 			"type": "computed",
-			"value": "Type == app"
+			"value": "AppType == app"
 		},
 		"IsMem": {
 			"type": "computed",
-			"value": "Type == mem"
+			"value": "AppType == mem"
 		},
 		"Port": {
 			"type": "parameter",
@@ -57,7 +57,7 @@
 		"SecurityKey": {
 			"type": "parameter",
 			"datatype": "string",
-			"isEnabled": "Type == sys",
+			"isEnabled": "AppType == sys",
 			"defaultValue": ""
 		},
 		"SecurityKeyGuid": {

@@ -44,15 +44,27 @@
 
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">
 		<ItemGroup>
+			<!--/-:msbuild-conditional:noEmit -->
 			<PackageReferenceXmlFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
+			<!--/+:msbuild-conditional:noEmit -->
+			<!--/-:msbuild-conditional:noEmit -->
 			<PackageReferenceJsonFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
+			<!--/+:msbuild-conditional:noEmit -->
 		</ItemGroup>
 
+		<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
+		<!--/+:msbuild-conditional:noEmit -->
+		<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)Resources" />
+		<!--/+:msbuild-conditional:noEmit -->
 		<!--#if (!NoTests) -->
+		<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)" />
+		<!--/+:msbuild-conditional:noEmit -->
+		<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)Resources" />
+		<!--/+:msbuild-conditional:noEmit -->
 		<!--#endif -->
 	</Target>
 </Project>

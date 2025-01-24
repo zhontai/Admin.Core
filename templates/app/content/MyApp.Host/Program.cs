@@ -6,7 +6,7 @@ using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Startup;
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
 using ZhonTai.Admin.Tools.TaskScheduler;
 #endif
 #if (!NoApiUI)
@@ -20,11 +20,13 @@ using Savorboard.CAP.InMemoryMessageQueue;
 using System.Reflection;
 using System.Linq;
 #endif
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
 using FreeScheduler;
 #endif
+#if (IsSys)
 using AdminDbKeys = ZhonTai.Admin.Core.Consts.DbKeys;
-#if (!NoTaskScheduler)
+#endif
+#if (IsSys && !NoTaskScheduler)
 using ZhonTai.Admin.Core.Db;
 using System;
 using ZhonTai.Admin.Services.TaskScheduler;
@@ -40,7 +42,7 @@ new HostApp(new HostAppOptions()
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
         if (dbConfig.Key == AdminDbKeys.TaskDb)
         {
             freeSql.SyncSchedulerStructure(dbConfig, TaskSchedulerServiceExtensions.ConfigureScheduler);
