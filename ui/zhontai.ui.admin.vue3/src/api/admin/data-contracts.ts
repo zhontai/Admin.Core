@@ -4986,7 +4986,10 @@ export interface TenantUpdateInput {
 export interface TokenInfo {
   /** 访问令牌 */
   accessToken?: string | null
-  /** 访问令牌（冗余属性，兼容旧版本） */
+  /**
+   * 访问令牌（冗余属性，兼容旧版本）
+   * @deprecated
+   */
   token?: string | null
   /**
    * 访问令牌的过期时间

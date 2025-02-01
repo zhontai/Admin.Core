@@ -154,6 +154,15 @@
       "SeqBitLength": 6, // 序列数位长，默认值6，取值范围 [3, 21]，决定每毫秒基础生成的ID个数。如果每秒请求数不超过5W，保持默认值6即可；如果超过5W，不超过50W，建议赋值10或更大，以此类推。
       "CachePrefix": "zhontai:workerid" // 缓存前缀
     },
+    ////#if (IsSys)
+    ////IP地址定位
+    "IP2Region": {
+      ////启用
+      "Enable": true,
+      ////绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
+      "DbPath": ""
+    },
+    ////#endif
     //语言配置
     "Lang": {
       //启用
@@ -164,13 +173,6 @@
       "Langs": [ "zh-CN", "en" ],
       //语言请求解析列表
       "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
-    },
-    //IP地址定位
-    "IP2Region": {
-      //启用
-      "Enable": true,
-      //绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
-      "DbPath": ""
     }
   }
 }

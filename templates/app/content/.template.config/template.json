@@ -205,7 +205,8 @@
 				{
 					"condition": "(!IsSys)",
 					"exclude": [
-						"MyApp.Host/InitData/App/base_*.json"
+						"MyApp.Host/InitData/App/base_*.json",
+						"MyApp.Host/ip2region.xdb"
 					]
 				},
 				{
