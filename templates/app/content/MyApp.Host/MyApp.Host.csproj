@@ -65,7 +65,7 @@
 		<!--#endif -->
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
 		<!--#if (!NoApiUI) -->
-		<PackageReference Include="ZhonTai.ApiUI" Version="9.0.0" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="9.0.1" />
 		<!--#endif -->
 	</ItemGroup>
 	

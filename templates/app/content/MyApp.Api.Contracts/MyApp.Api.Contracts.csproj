@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Description>MyApp接口契约库</Description>
-		<Version>9.0.0</Version>
+		<Version>1.0.0</Version>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 		<TargetFramework>net9.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -24,14 +24,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.0">
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.1">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.0">
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.1">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 		<!--#if (IsSys) -->
-		<PackageReference Include="ZhonTai.Admin" Version="9.0.0">
+		<PackageReference Include="ZhonTai.Admin" Version="9.0.1">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 		<!--#endif -->

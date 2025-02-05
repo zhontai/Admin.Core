@@ -58,7 +58,7 @@
         {
           "name": "MyApp",
           "code": "__app_code",
-          "version": "v9.0.0",
+          "version": "v9.0.1",
           "description": "MyApp"
         }
         ////#if (IsSys)
@@ -66,7 +66,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v9.0.0",
+          "version": "v9.0.1",
           "description": "权限管理"
         }
         ////#endif
