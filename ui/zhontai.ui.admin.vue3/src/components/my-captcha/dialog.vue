@@ -21,4 +21,10 @@ defineExpose({
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.my-captcha {
+  .el-dialog__body {
+    padding: 0px !important;
+  }
+}
+</style>
