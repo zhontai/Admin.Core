@@ -41,11 +41,11 @@
     "sysUpdateData": false,
     //同步数据地址
     //"SyncDataPath": "InitData/Admin",
-    //同步所有表["ad_dict_type", "ad_dict", "ad_user",  "ad_user_staff", "ad_org", "ad_role", "ad_api", "ad_view", "ad_permission", "ad_permission_api", "ad_user_role", "ad_user_org", "ad_role_permission", "ad_tenant", "ad_tenant_permission"]
-    //同步指定表["ad_api", "ad_view", "ad_permission", "ad_permission_api"]
+    //同步所有表["base_dict_type", "base_dict", "base_user",  "base_user_staff", "base_org", "base_role", "base_api", "base_view", "base_permission", "base_permission_api", "base_user_role", "base_user_org", "base_role_permission", "base_tenant", "base_tenant_permission"]
+    //同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
     //同步数据包含表，指定表同步，不填同步所有表
     "syncDataIncludeTables": [],
-    //同步排除表["ad_user"]
+    //同步排除表["base_user"]
     //同步数据排除表，指定表不同步
     "syncDataExcludeTables": [],
     //同步数据操作用户
