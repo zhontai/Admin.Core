@@ -49,7 +49,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v9.0.0",
+          "version": "v9.0.1",
           "description": ""
         }
       ]
@@ -68,17 +68,6 @@
     },
     //MiniProfiler性能分析器
     "miniProfiler": false,
-    //统一认证授权服务器
-    "identityServer": {
-      //启用
-      "enable": false,
-      //认证地址
-      "url": "https://localhost:5000",
-      //启用Https
-      "requireHttpsMetadata": true,
-      //受众
-      "audience": "admin.server.api"
-    },
     //面向切面编程
     "aop": {
       //事务
