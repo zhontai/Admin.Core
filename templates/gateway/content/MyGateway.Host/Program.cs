@@ -1,22 +1,22 @@
-using System.Reflection;
+ï»¿using System.Reflection;
 using MyGateway.Host.Core.Configs;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Çå¿ÕÈÕÖ¾¹©Ó¦³ÌĞò£¬±ÜÃâ.net×Ô´øÈÕÖ¾Êä³öµ½ÃüÁîÌ¨
+//æ¸…ç©ºæ—¥å¿—ä¾›åº”ç¨‹åºï¼Œé¿å….netè‡ªå¸¦æ—¥å¿—è¾“å‡ºåˆ°å‘½ä»¤å°
 builder.Logging.ClearProviders();
-//Ê¹ÓÃNLogÈÕÖ¾
+//ä½¿ç”¨NLogæ—¥å¿—
 builder.Host.UseNLog();
 
 var healthChecks = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>()?.HealthChecks;
-//Ìí¼Ó½¡¿µ¼ì²é
+//æ·»åŠ å¥åº·æ£€æŸ¥
 if (healthChecks != null && healthChecks.Enable)
 {
     builder.Services.AddHealthChecks();
 }
 
-//Ìí¼Ó¿çÓò
+//æ·»åŠ è·¨åŸŸ
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyPolicy", policy =>
@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-//Ìí¼Ó´úÀí
+//æ·»åŠ ä»£ç†
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
@@ -38,19 +38,19 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-//Ê¹ÓÃ¿çÓò
+//ä½¿ç”¨è·¨åŸŸ
 app.UseCors("AllowAnyPolicy");
 
-//Ê¹ÓÃ½¡¿µ¼ì²é
+//ä½¿ç”¨å¥åº·æ£€æŸ¥
 if (healthChecks != null && healthChecks.Enable)
 {
     app.MapHealthChecks(healthChecks.Path);
 }
 
-//Ê¹ÓÃ´úÀí
+//ä½¿ç”¨ä»£ç†
 app.MapReverseProxy();
 
-//Ê×Ò³
+//é¦–é¡µ
 app.MapGet("/", async (HttpResponse response) =>
 {
     var gatewayConfig = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>();
