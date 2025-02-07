@@ -1,8 +1,8 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "xiao xue",
+  "author": "中台团队",
   "classifications": [ "ZhonTai", "Gateway", "MyGateway" ],
-  "name": "ZhonTai.Template Gateway网关项目",
+  "name": "ZhonTai.Template Gateway 网关项目模板",
   "identity": "MyGateway",
   "shortName": "MyGateway",
   "tags": {

@@ -1,8 +1,8 @@
 {
 	"$schema": "http://json.schemastore.org/template",
-	"author": "xiao xue",
+	"author": "中台团队",
 	"classifications": [ "ZhonTai", "WebApi", "App", "MyApp" ],
-	"name": "ZhonTai.Template.App 应用接口项目",
+	"name": "ZhonTai.Template.App 应用接口项目模板",
 	"identity": "MyApp",
 	"shortName": "MyApp",
 	"tags": {
