@@ -1,0 +1,15 @@
+{
+  "SettingsId": "e8b7c6fa-7f61-4a85-a0a8-538503506750",
+  "Profiles": [
+    {
+      "Name": "Default",
+      "LoggingTargetType": 0,
+      "LoggingPath": "./.logs",
+      "LoggerUrl": null,
+      "UseTye": true,
+      "TyePort": 10000,
+      "Filter": ".Host",
+      "Services": []
+    }
+  ]
+}
