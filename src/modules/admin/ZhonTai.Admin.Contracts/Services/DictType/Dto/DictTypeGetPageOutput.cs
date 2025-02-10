@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.DictType.Dto;
 
+/// <summary>
+/// 字典类型分页响应
+/// </summary>
 public class DictTypeGetPageOutput
 {
     /// <summary>

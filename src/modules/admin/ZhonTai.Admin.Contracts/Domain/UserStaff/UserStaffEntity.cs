@@ -1,5 +1,5 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using FreeSql.DataAnnotations;
+﻿using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Domain.UserStaff;
 

@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.Role.Dto;
 
-namespace ZhonTai.Admin.Services.Role.Dto;
-
+/// <summary>
+/// 角色分页响应
+/// </summary>
 public class RoleGetPageOutput
 {
     /// <summary>

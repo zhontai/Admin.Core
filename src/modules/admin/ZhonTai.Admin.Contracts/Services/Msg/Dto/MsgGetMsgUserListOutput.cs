@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.Msg.Dto;
 
-namespace ZhonTai.Admin.Services.Msg.Dto;
-
+/// <summary>
+/// 消息用户列表
+/// </summary>
 public class MsgGetMsgUserListOutput
 {
     /// <summary>

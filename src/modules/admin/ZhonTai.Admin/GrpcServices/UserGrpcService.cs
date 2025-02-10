@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using ProtoBuf.Grpc;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
 using ZhonTai.Admin.Core.Protos;

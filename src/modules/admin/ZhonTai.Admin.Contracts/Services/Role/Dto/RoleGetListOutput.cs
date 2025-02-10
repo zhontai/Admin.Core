@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Role.Dto;
 
+/// <summary>
+/// 角色列表响应
+/// </summary>
 public class RoleGetListOutput
 {
     /// <summary>

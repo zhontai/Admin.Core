@@ -1,5 +1,4 @@
 ﻿using FreeSql;
-using System;
 using System.Data;
 
 namespace ZhonTai.Admin.Core.Attributes;

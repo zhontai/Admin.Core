@@ -10,13 +10,9 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Auth;
@@ -270,7 +266,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<AuthUserProfileDto> GetUserProfileAsync()
+    public async Task<AuthUserProfileOutput> GetUserProfileAsync()
     {
         if (!(User?.Id > 0))
         {
@@ -282,7 +278,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var profile = await userRep
         .Where(u => u.Id == User.Id)
-        .FirstAsync(u => new AuthUserProfileDto 
+        .FirstAsync(u => new AuthUserProfileOutput 
         {
             DeptName = u.Org.Name,
             CorpName = u.Tenant.Org.Name,
@@ -312,7 +308,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<List<AuthUserMenuDto>> GetUserMenusAsync()
+    public async Task<List<AuthUserMenuOutput>> GetUserMenusAsync()
     {
         if (!(User?.Id > 0))
         {
@@ -354,7 +350,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             var menuList = await menuSelect
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+                .ToListAsync(a => new AuthUserMenuOutput { ViewPath = a.View.Path });
 
             return menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
 
@@ -435,7 +431,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authGetUserInfoOutput = new AuthGetUserInfoOutput
             {
                 //用户信息
-                User = await userRep.GetAsync<AuthUserProfileDto>(User.Id)
+                User = await userRep.GetAsync<AuthUserProfileOutput>(User.Id)
             };
 
             var menuSelect = permissionRep.Select;
@@ -488,7 +484,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             var menuList = await menuSelect
                 .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
-                .ToListAsync(a => new AuthUserMenuDto { ViewPath = a.View.Path });
+                .ToListAsync(a => new AuthUserMenuOutput { ViewPath = a.View.Path });
 
             //用户菜单
             authGetUserInfoOutput.Menus = menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
@@ -653,7 +649,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
             if (_appConfig.Value.Value.Tenant)
             {
-                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
                 {
                     throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
@@ -760,7 +756,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
             if (_appConfig.Value.Value.Tenant)
             {
-                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
                 {
                     throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
@@ -870,7 +866,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
             if (_appConfig.Value.Value.Tenant)
             {
-                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantDto>();
+                var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
                 {
                     throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);

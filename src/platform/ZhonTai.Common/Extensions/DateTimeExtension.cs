@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Common.Extensions;
+﻿namespace ZhonTai.Common.Extensions;
 
 public static class DateTimeExtension
 {

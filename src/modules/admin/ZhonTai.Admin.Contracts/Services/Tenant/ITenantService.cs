@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services.Tenant.Dto;
 
 namespace ZhonTai.Admin.Services.Tenant;
@@ -11,7 +10,7 @@ public interface ITenantService
 {
     Task<TenantGetOutput> GetAsync(long id);
 
-    Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageInput> input);
+    Task<PageOutput<TenantGetPageOutput>> GetPageAsync(PageInput<TenantGetPageInput> input);
 
     Task<long> AddAsync(TenantAddInput input);
 

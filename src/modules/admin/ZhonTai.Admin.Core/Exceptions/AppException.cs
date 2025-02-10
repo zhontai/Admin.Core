@@ -1,9 +1,4 @@
-﻿using System;
-using System.Net;
-
-#if NET7_0
-using System.Runtime.Serialization;
-#endif
+﻿using System.Net;
 
 namespace ZhonTai.Admin.Core.Exceptions;
 
@@ -19,13 +14,6 @@ public class AppException : Exception
     public AppException()
     {
     }
-
-#if NET7_0
-    public AppException(SerializationInfo serializationInfo, StreamingContext context)
-        : base(serializationInfo, context)
-    {
-    }
-#endif
 
     public AppException(string message)
         : base(message)

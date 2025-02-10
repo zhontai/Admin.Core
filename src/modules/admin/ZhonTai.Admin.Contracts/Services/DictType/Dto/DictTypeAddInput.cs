@@ -3,7 +3,7 @@
 namespace ZhonTai.Admin.Services.DictType.Dto;
 
 /// <summary>
-/// 添加字典类型
+/// 字典类型
 /// </summary>
 public class DictTypeAddInput
 {

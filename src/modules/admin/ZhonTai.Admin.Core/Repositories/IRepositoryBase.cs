@@ -1,7 +1,5 @@
 ﻿using FreeSql;
-using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Core.Repositories;

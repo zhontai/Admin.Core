@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Linq;
 using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Extensions;

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.Permission.Dto;
 
+/// <summary>
+/// 权限分配
+/// </summary>
 public class PermissionAssignInput
 {
     [Required(ErrorMessage = "角色不能为空")]

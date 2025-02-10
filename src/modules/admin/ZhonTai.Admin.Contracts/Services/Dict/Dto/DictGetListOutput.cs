@@ -2,7 +2,10 @@
 
 namespace ZhonTai.Admin.Services.Dict.Dto;
 
-public class DictGetListDto
+/// <summary>
+/// 字典列表
+/// </summary>
+public class DictGetListOutput
 {
     /// <summary>
     /// 字典类型编码

@@ -1,7 +1,5 @@
-﻿
-using Autofac;
+﻿using Autofac;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Reflection;
 using Module = Autofac.Module;
 

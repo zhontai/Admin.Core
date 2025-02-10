@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Auth.Dto;
 
+/// <summary>
+/// 查询密钥
+/// </summary>
 public class AuthGetPasswordEncryptKeyOutput
 {
     /// <summary>

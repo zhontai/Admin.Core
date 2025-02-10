@@ -1,7 +1,8 @@
-﻿using ZhonTai.Admin.Domain.Permission;
+﻿namespace ZhonTai.Admin.Services.Permission.Dto;
 
-namespace ZhonTai.Admin.Services.Permission.Dto;
-
+/// <summary>
+/// 添加菜单
+/// </summary>
 public class PermissionAddMenuInput
 {
     /// <summary>

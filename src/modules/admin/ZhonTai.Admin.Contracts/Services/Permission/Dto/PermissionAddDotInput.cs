@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace ZhonTai.Admin.Services.Permission.Dto;
 
-namespace ZhonTai.Admin.Services.Permission.Dto;
-
+/// <summary>
+/// 添加权限点
+/// </summary>
 public class PermissionAddDotInput
 {
     /// <summary>

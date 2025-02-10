@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ZhonTai.Admin.Core.Entities;
+﻿namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
 /// 子级接口

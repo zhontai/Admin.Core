@@ -1,5 +1,4 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 

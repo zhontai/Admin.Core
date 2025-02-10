@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ZhonTai.Admin.Services.Api.Dto;
+﻿namespace ZhonTai.Admin.Services.Api.Dto;
 
 /// <summary>
 /// 枚举

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ZhonTai.Admin.Domain.Role;
+﻿using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Domain.User.Dto;
 

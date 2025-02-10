@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.Pkg.Dto;
 
-namespace ZhonTai.Admin.Services.Pkg.Dto;
-
+/// <summary>
+/// 套餐分页响应
+/// </summary>
 public class PkgGetPageOutput
 {
     /// <summary>

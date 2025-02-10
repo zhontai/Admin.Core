@@ -1,7 +1,4 @@
 ﻿using Polly;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 
 namespace ZhonTai.Admin.Core.Helpers;
 

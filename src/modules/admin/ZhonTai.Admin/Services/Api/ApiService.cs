@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api;
@@ -10,7 +7,6 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Repositories;
-using System;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Common.Extensions;
 using ZhonTai.Admin.Resources;
@@ -331,7 +327,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             string desc;
             for (int i = 0, len = parentApis.Count; i < len; i++)
             {
-                ApiSyncDto api = parentApis[i];
+                ApiSyncModel api = parentApis[i];
                 a = apis.Find(a => a.Path == api.Path);
                 if (a?.Id > 0)
                 {
@@ -357,7 +353,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
             string desc;
             for (int i = 0, len = childApis.Count; i < len; i++)
             {
-                ApiSyncDto api = childApis[i];
+                ApiSyncModel api = childApis[i];
                 a = apis.Find(a => a.Path == api.Path);
                 pa = apis.Find(a => a.Path == api.ParentPath);
                 if (a?.Id > 0)

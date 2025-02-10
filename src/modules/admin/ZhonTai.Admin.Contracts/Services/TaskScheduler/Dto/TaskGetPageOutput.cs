@@ -3,7 +3,10 @@ using TaskStatus = FreeScheduler.TaskStatus;
 
 namespace ZhonTai.Admin.Services.TaskScheduler.Dto;
 
-public class TaskListOutput
+/// <summary>
+/// 任务分页响应
+/// </summary>
+public class TaskGetPageOutput
 {
     /// <summary>
     /// 主键

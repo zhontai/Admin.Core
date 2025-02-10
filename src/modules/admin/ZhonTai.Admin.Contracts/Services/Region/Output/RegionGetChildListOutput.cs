@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Region;
 
+/// <summary>
+/// 下级列表
+/// </summary>
 public class RegionGetChildListOutput
 {
     /// <summary>

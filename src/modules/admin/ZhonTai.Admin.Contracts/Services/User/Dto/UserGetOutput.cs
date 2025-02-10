@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿namespace ZhonTai.Admin.Services.User.Dto;
 
-namespace ZhonTai.Admin.Services.User.Dto;
-
+/// <summary>
+/// 用户
+/// </summary>
 public class UserGetOutput : UserUpdateInput
 {
     /// <summary>
     /// 角色列表
     /// </summary>
-    public ICollection<UserGetRoleDto> Roles { get; set; }
+    public ICollection<UserGetRoleModel> Roles { get; set; }
 
     /// <summary>
     /// 角色Ids

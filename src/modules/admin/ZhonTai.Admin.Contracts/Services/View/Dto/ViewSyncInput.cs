@@ -4,5 +4,5 @@ namespace ZhonTai.Admin.Services.View.Dto;
 
 public class ViewSyncInput
 {
-    public List<ViewSyncDto> Views { get; set; }
+    public List<ViewSyncModel> Views { get; set; }
 }

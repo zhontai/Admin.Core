@@ -3,6 +3,9 @@ using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 更新分组
+/// </summary>
 public class DocumentUpdateGroupInput : DocumentAddGroupInput
 {
     /// <summary>

@@ -1,5 +1,4 @@
-﻿using System;
-using ZhonTai.Admin.Domain.UserStaff;
+﻿using ZhonTai.Admin.Domain.UserStaff;
 
 namespace ZhonTai.Admin.Domain.User;
 

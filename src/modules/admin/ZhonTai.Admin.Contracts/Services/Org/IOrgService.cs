@@ -1,10 +1,11 @@
 ﻿using ZhonTai.Admin.Services.Org.Input;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using ZhonTai.Admin.Services.Org.Output;
 
 namespace ZhonTai.Admin.Services.Org;
 
+/// <summary>
+/// 部门接口
+/// </summary>
 public partial interface IOrgService
 {
     Task<OrgGetOutput> GetAsync(long id);

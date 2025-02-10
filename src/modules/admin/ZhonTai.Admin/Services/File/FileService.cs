@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.IO;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using OnceMi.AspNetCore.OSS;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +53,7 @@ public class FileService : BaseService, IFileService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<FileGetPageOutput>> GetPageAsync(PageInput<FileGetPageDto> input)
+    public async Task<PageOutput<FileGetPageOutput>> GetPageAsync(PageInput<FileGetPageInput> input)
     {
         var fileName = input.Filter?.FileName;
 

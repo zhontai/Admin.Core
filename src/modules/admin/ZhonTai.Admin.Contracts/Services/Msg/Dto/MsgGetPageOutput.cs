@@ -1,6 +1,8 @@
-﻿using System;
-namespace ZhonTai.Admin.Services.Msg.Dto;
+﻿namespace ZhonTai.Admin.Services.Msg.Dto;
 
+/// <summary>
+/// 消息分页响应
+/// </summary>
 public class MsgGetPageOutput
 {
     /// <summary>

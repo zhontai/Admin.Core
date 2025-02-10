@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace ZhonTai.Admin.Tools.Cache;
+﻿namespace ZhonTai.Admin.Tools.Cache;
 
 /// <summary>
 /// 缓存接口

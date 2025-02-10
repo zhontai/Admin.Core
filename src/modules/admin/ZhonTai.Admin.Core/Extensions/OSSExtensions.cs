@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Minio;
 using OnceMi.AspNetCore.OSS;
-using System.Linq;
 using ZhonTai.Admin.Core.Configs;
 using OSSOptions = ZhonTai.Admin.Core.Configs.OSSOptions;
 

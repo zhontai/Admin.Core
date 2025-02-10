@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Attributes;
+﻿namespace ZhonTai.Admin.Core.Attributes;
 
 /// <summary>
 /// 不生成特性

@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 文档内容
+/// </summary>
 public class DocumentGetContentOutput
 {
     /// <summary>

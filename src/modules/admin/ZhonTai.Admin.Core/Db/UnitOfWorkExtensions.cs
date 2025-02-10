@@ -2,9 +2,6 @@
 using DotNetCore.CAP.Transport;
 using FreeSql;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ZhonTai.Admin.Core.Db
 {

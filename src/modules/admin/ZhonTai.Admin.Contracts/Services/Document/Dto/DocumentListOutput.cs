@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 文档列表
+/// </summary>
 public class DocumentListOutput
 {
     /// <summary>

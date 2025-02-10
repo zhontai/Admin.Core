@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ZhonTai.Common.Extensions;
+﻿namespace ZhonTai.Common.Extensions;
 
 public static class DictionaryExtension
 {

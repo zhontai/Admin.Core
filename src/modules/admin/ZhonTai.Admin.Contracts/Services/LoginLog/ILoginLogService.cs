@@ -1,5 +1,4 @@
 ﻿using ZhonTai.Admin.Core.Dto;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Services.LoginLog.Dto;
 
 namespace ZhonTai.Admin.Services.LoginLog;

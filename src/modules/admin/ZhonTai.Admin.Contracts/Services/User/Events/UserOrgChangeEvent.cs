@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ZhonTai.Admin.Services.User.Events;
+﻿namespace ZhonTai.Admin.Services.User.Events;
 
 /// <summary>
 /// 部门转移

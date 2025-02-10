@@ -14,7 +14,7 @@ namespace ZhonTai.Admin.Services;
 /// </summary>
 public interface IFileService
 {
-    Task<PageOutput<FileGetPageOutput>> GetPageAsync(PageInput<FileGetPageDto> input);
+    Task<PageOutput<FileGetPageOutput>> GetPageAsync(PageInput<FileGetPageInput> input);
 
     Task DeleteAsync(FileDeleteInput input);
 

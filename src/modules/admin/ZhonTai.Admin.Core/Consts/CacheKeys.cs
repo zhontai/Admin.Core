@@ -1,5 +1,4 @@
-﻿using SixLabors.ImageSharp.Drawing;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Consts;

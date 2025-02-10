@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Services.Auth.Dto;
@@ -16,7 +13,7 @@ public interface IUserService
 {
     Task<UserGetOutput> GetAsync(long id);
 
-    Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input);
+    Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageInput> input);
 
     Task<AuthLoginOutput> GetLoginUserAsync(long id);
 

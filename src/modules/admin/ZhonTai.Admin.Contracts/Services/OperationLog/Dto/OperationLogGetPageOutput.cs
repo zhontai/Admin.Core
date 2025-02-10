@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+﻿namespace ZhonTai.Admin.Services.OperationLog.Dto;
 
-namespace ZhonTai.Admin.Services.OperationLog.Dto;
-
+/// <summary>
+/// 查询分页响应
+/// </summary>
 public class OperationLogGetPageOutput
 {
     /// <summary>

@@ -3,6 +3,9 @@ using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
+/// <summary>
+/// 登录信息
+/// </summary>
 public class AuthLoginOutput
 {
     /// <summary>
@@ -38,7 +41,7 @@ public class AuthLoginOutput
     /// <summary>
     /// 租户信息
     /// </summary>
-    public AuthLoginTenantDto Tenant { get; set; }
+    public AuthLoginTenantModel Tenant { get; set; }
 
     /// <summary>
     /// 启用
@@ -49,7 +52,7 @@ public class AuthLoginOutput
 /// <summary>
 /// 租户信息
 /// </summary>
-public class AuthLoginTenantDto
+public class AuthLoginTenantModel
 {
     /// <summary>
     /// 租户类型

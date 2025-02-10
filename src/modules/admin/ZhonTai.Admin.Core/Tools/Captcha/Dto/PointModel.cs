@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Tools.Captcha;
 
+/// <summary>
+/// 坐标模型
+/// </summary>
 public class PointModel
 {
     /// <summary>

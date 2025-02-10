@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Configs;
+﻿using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 

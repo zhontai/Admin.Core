@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Pkg.Dto;
 
+/// <summary>
+/// 套餐租户列表请求
+/// </summary>
 public partial class PkgGetPkgTenantListInput
 {
     /// <summary>

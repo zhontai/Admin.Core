@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Services.TaskScheduler;
 /// </summary>
 public interface ITaskLogService
 {
-    PageOutput<TaskLog> GetPage(PageInput<TaskLogGetPageDto> input);
+    PageOutput<TaskLog> GetPage(PageInput<TaskLogGetPageInput> input);
 
     void Add(TaskLog input);
 }

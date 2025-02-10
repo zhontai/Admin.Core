@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Concurrent;
+using System.Reflection;
 using FreeSql;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Startup;
-using System.Collections.Concurrent;
-using System.Reflection;
 using ZhonTai.Admin.Core.Db.Transaction;
 
 namespace ZhonTai.Admin.Core.Db;

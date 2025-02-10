@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Attributes;
+﻿namespace ZhonTai.Admin.Core.Attributes;
 
 /// <summary>
 /// 接口分组

@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.SiteMsg.Dto;
 
-namespace ZhonTai.Admin.Services.SiteMsg.Dto;
-
+/// <summary>
+/// 站点消息分页响应
+/// </summary>
 public class SiteMsgGetPageOutput
 {
     /// <summary>

@@ -1,5 +1,4 @@
 ﻿using FreeSql.Internal.Model;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Core.Dto;
 

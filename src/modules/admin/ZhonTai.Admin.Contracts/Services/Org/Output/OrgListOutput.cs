@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.Org.Output;
 
-namespace ZhonTai.Admin.Services.Org.Output;
-
+/// <summary>
+/// 部门列表
+/// </summary>
 public class OrgListOutput
 {
     /// <summary>

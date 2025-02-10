@@ -1,8 +1,5 @@
-﻿using FreeSql.Internal;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Linq;
 using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Core.Filters;

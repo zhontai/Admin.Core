@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using ZhonTai.Common.Extensions;
 

@@ -1,4 +1,5 @@
-﻿using FreeScheduler;
+﻿using Autofac;
+using FreeScheduler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +15,6 @@ using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
-using Autofac;
 using ZhonTai.Admin.Repositories;
 
 new HostApp(new HostAppOptions

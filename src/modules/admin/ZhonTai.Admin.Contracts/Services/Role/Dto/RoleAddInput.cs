@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Role;
 

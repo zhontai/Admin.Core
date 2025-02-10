@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
@@ -39,7 +37,7 @@ public class TaskLogService : BaseService, ITaskLogService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public PageOutput<TaskLog> GetPage(PageInput<TaskLogGetPageDto> input)
+    public PageOutput<TaskLog> GetPage(PageInput<TaskLogGetPageInput> input)
     {
         if (!(input.Filter != null && input.Filter.TaskId.NotNull()))
         {

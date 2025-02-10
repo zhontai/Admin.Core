@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Region;
 
+/// <summary>
+/// 地区分页响应
+/// </summary>
 public class RegionGetPageOutput
 {
     /// <summary>

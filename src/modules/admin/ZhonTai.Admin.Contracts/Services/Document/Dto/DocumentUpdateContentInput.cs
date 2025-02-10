@@ -3,6 +3,9 @@ using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 更新文档内容
+/// </summary>
 public class DocumentUpdateContentInput
 {
     /// <summary>

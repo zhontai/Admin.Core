@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.OperationLog.Dto;
 
-namespace ZhonTai.Admin.Services.OperationLog.Dto;
-
+/// <summary>
+/// 查询分页请求
+/// </summary>
 public class OperationLogGetPageInput
 {
     /// <summary>

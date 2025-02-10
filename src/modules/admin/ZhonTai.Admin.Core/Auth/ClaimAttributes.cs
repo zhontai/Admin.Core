@@ -1,6 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-
-namespace ZhonTai.Admin.Core.Auth;
+﻿namespace ZhonTai.Admin.Core.Auth;
 
 /// <summary>
 /// Claim属性

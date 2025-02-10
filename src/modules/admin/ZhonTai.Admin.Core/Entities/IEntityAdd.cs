@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Entities;
+﻿namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
 /// 添加接口

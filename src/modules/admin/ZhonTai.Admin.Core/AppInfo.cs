@@ -7,12 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Threading;
 using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Core;

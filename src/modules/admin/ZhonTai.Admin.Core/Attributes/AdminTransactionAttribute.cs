@@ -1,5 +1,4 @@
-﻿using System;
-using ZhonTai.Admin.Core.Consts;
+﻿using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Core.Attributes;
 

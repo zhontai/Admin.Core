@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Mapster;
 using FreeScheduler;
@@ -88,7 +87,7 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TaskListOutput>> GetPage(PageInput<TaskGetPageInput> input)
+    public async Task<PageOutput<TaskGetPageOutput>> GetPage(PageInput<TaskGetPageInput> input)
     {
         //var result = Datafeed.GetPage(_scheduler.Value,
         //    input.Filter.ClusterId,
@@ -123,9 +122,9 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
         .Count(out var total)
         .OrderByDescending(true, c => c.Id)
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync<TaskListOutput>();
+        .ToListAsync<TaskGetPageOutput>();
 
-        var data = new PageOutput<TaskListOutput>()
+        var data = new PageOutput<TaskGetPageOutput>()
         {
             List = list,
             Total = total

@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Region;
 
+/// <summary>
+/// 地区列表请求
+/// </summary>
 public class RegionGetListInput
 {
     /// <summary>

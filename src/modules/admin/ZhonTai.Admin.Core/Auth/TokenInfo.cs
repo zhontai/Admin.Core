@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Auth;
+﻿namespace ZhonTai.Admin.Core.Auth;
 
 /// <summary>
 /// 令牌信息

@@ -1,8 +1,5 @@
 ﻿using FreeRedis;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Tools.Cache;

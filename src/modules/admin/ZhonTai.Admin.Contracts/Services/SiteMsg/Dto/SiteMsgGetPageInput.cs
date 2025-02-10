@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.SiteMsg.Dto;
 
+/// <summary>
+/// 站点消息分页请求
+/// </summary>
 public partial class SiteMsgGetPageInput
 {
     /// <summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Services.Permission.Dto;
+﻿using ZhonTai.Admin.Services.Permission.Dto;
 
 namespace ZhonTai.Admin.Services.Permission;
 

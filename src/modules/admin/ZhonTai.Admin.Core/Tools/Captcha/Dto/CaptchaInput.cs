@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Tools.Captcha;
 
+/// <summary>
+/// 验证数据请求
+/// </summary>
 public class CaptchaInput
 {
     /// <summary>

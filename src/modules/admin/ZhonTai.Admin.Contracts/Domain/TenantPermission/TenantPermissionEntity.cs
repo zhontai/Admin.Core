@@ -1,5 +1,5 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using FreeSql.DataAnnotations;
+﻿using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Core.Attributes;

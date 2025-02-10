@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,13 +10,12 @@ using Newtonsoft.Json;
 using Xunit;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Tools.Captcha;
-using ZhonTai.Admin.Core.Configs;
-using ZhonTai.Admin.Services.Auth.Dto;
-using ZhonTai.Admin.Core.Enums;
-using System.Collections.Generic;
-using ZhonTai.Admin.Services.Auth;
 using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Core.Enums;
+using ZhonTai.Admin.Services.Auth;
+using ZhonTai.Admin.Services.Auth.Dto;
 
 namespace ZhonTai.Admin.Tests;
 

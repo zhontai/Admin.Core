@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Exceptions;
 

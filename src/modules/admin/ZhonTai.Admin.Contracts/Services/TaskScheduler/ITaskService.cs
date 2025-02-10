@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Task.Dto;
 using ZhonTai.Admin.Services.TaskScheduler.Dto;
 
@@ -12,7 +11,7 @@ public interface ITaskService
 {
     Task<TaskGetOutput> GetAsync(string id);
 
-    Task<PageOutput<TaskListOutput>> GetPage(PageInput<TaskGetPageInput> input);
+    Task<PageOutput<TaskGetPageOutput>> GetPage(PageInput<TaskGetPageInput> input);
 
     Task<string> Add(TaskAddInput input);
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ZhonTai.Admin.Core.Dto;
+﻿namespace ZhonTai.Admin.Core.Dto;
 
 /// <summary>
 /// 分页信息输出

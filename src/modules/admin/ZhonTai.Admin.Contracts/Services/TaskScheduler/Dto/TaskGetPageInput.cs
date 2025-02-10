@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Domain.Task.Dto;
 
+/// <summary>
+/// 任务分页请求
+/// </summary>
 public partial class TaskGetPageInput
 {
     /// <summary>

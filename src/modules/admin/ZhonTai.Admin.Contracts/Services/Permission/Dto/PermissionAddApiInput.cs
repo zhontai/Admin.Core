@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Permission.Dto;
 
+/// <summary>
+/// 添加接口
+/// </summary>
 public class PermissionAddApiInput
 {
     /// <summary>

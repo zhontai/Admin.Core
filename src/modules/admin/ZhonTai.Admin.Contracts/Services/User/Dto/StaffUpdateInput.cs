@@ -2,7 +2,7 @@
 namespace ZhonTai.Admin.Domain.User;
 
 /// <summary>
-/// 修改
+/// 员工修改
 /// </summary>
 public class StaffUpdateInput: StaffAddInput
 {

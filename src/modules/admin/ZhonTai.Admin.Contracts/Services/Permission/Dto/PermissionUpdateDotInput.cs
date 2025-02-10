@@ -3,6 +3,9 @@ using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Permission.Dto;
 
+/// <summary>
+/// 修改权限点
+/// </summary>
 public class PermissionUpdateDotInput : PermissionAddDotInput
 {
     /// <summary>

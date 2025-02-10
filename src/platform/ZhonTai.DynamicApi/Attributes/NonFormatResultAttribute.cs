@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.DynamicApi.Attributes;
+﻿namespace ZhonTai.DynamicApi.Attributes;
 
 /// <summary>
 /// 不格式化结果数据

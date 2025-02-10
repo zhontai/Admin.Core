@@ -3,6 +3,9 @@ using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 更新菜单
+/// </summary>
 public class DocumentUpdateMenuInput : DocumentAddMenuInput
 {
     /// <summary>

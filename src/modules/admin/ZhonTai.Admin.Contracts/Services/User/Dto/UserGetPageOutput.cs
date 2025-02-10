@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
+/// <summary>
+/// 用户分页查询响应
+/// </summary>
 public class UserGetPageOutput
 {
     /// <summary>

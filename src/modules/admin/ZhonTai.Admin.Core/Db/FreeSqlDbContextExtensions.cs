@@ -1,5 +1,4 @@
-﻿using System;
-using ZhonTai.Admin.Core.Repositories;
+﻿using ZhonTai.Admin.Core.Repositories;
 using FreeScheduler;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain;

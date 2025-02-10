@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using System;
 using ZhonTai.Admin.Core.Enums;
 
 namespace ZhonTai.Admin.Core.Attributes;

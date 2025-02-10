@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Tenant.Dto;
 
+/// <summary>
+/// 租户分页请求
+/// </summary>
 public class TenantGetPageInput
 {
     /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Attributes;
+﻿namespace ZhonTai.Admin.Core.Attributes;
 
 /// <summary>
 /// Http接口客户端契约

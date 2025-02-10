@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 添加图片
+/// </summary>
 public class DocumentAddImageInput
 {
     /// <summary>

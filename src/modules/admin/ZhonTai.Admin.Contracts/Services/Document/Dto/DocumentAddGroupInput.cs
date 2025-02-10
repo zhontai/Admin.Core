@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 添加分组
+/// </summary>
 public class DocumentAddGroupInput
 {
     /// <summary>

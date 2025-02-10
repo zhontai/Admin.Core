@@ -1,5 +1,4 @@
 ﻿using ZhonTai.Admin.Core.Dto;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Services.Dict.Dto;
 using ZhonTai.Admin.Domain.Dict.Dto;
 

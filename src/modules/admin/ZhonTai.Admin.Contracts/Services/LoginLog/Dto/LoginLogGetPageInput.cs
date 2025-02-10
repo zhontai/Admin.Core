@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.LoginLog.Dto;
 
-namespace ZhonTai.Admin.Services.LoginLog.Dto;
-
+/// <summary>
+/// 分页请求
+/// </summary>
 public class LoginLogGetPageInput
 {
     /// <summary>

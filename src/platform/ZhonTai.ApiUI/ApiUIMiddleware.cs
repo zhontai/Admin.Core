@@ -1,9 +1,6 @@
 ﻿using System.Reflection;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Text;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
@@ -13,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.AspNetCore.Http.Extensions;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 
 #if NETSTANDARD2_0

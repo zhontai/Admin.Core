@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Common.Helpers;
+﻿namespace ZhonTai.Common.Helpers;
 
 public static class ConsoleHelper
 {

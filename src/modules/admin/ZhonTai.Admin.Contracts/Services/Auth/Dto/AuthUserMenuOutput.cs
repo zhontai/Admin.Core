@@ -2,7 +2,10 @@
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
-public class AuthUserMenuDto
+/// <summary>
+/// 用户菜单
+/// </summary>
+public class AuthUserMenuOutput
 {
     /// <summary>
     /// 权限Id

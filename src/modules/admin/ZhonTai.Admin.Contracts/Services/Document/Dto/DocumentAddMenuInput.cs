@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 添加菜单
+/// </summary>
 public class DocumentAddMenuInput
 {
     /// <summary>

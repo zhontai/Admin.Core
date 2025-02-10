@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +38,6 @@ using ZhonTai.Admin.Domain.Permission;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Db;
 using DotNetCore.CAP;
-using ZhonTai.Admin.Services.Email.Events;
 using ZhonTai.Admin.Services.User.Events;
 using Mapster;
 
@@ -156,7 +151,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageDto> input)
+    public async Task<PageOutput<UserGetPageOutput>> GetPageAsync(PageInput<UserGetPageInput> input)
     {
         var dataPermission = User.DataPermission;
 
@@ -231,7 +226,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             var tenant = await _tenantRep.Value.Select
                 .DisableGlobalFilter(FilterNames.Tenant)
                 .WhereDynamic(output.TenantId)
-                .ToOneAsync<AuthLoginTenantDto>();
+                .ToOneAsync<AuthLoginTenantModel>();
 
             output.Tenant = tenant;
         }
@@ -1034,7 +1029,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         if (_appConfig.Tenant)
         {
-            var tenant = await _tenantRep.Value.Select.WhereDynamic(authLoginOutput.TenantId).ToOneAsync<AuthLoginTenantDto>();
+            var tenant = await _tenantRep.Value.Select.WhereDynamic(authLoginOutput.TenantId).ToOneAsync<AuthLoginTenantModel>();
             authLoginOutput.Tenant = tenant;
         }
 

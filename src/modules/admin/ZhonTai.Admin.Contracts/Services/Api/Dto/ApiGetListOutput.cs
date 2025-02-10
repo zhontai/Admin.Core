@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Api.Dto;
 
+/// <summary>
+/// 接口列表
+/// </summary>
 public class ApiGetListOutput
 {
     /// <summary>

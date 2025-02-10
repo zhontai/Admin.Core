@@ -7,5 +7,5 @@ namespace ZhonTai.Admin.Services.Api.Dto;
 /// </summary>
 public class ApiSyncInput
 {
-    public List<ApiSyncDto> Apis { get; set; }
+    public List<ApiSyncModel> Apis { get; set; }
 }

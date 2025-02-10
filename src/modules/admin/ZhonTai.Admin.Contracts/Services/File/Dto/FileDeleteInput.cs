@@ -1,9 +1,11 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using ZhonTai.Admin.Core.Validators;
 
 namespace ZhonTai.Admin.Services.Dto;
 
+/// <summary>
+/// 删除
+/// </summary>
 public class FileDeleteInput
 {
     /// <summary>

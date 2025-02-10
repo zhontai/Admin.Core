@@ -1,6 +1,5 @@
 ﻿using ProtoBuf.Grpc;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
 using ZhonTai.Admin.Core.Protos;

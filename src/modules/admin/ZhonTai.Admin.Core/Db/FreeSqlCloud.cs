@@ -1,5 +1,4 @@
-﻿
-namespace FreeSql;
+﻿namespace FreeSql;
 
 public class FreeSqlCloud : FreeSqlCloud<string>
 {

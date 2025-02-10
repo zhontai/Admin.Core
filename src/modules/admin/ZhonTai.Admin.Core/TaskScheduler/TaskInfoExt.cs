@@ -1,5 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using System;
 
 namespace ZhonTai.Admin.Domain;
 

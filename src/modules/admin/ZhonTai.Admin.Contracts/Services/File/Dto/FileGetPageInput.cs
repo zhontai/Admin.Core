@@ -1,6 +1,9 @@
 ﻿namespace ZhonTai.Admin.Domain.Dto;
 
-public partial class FileGetPageDto
+/// <summary>
+/// 文件分页请求
+/// </summary>
+public partial class FileGetPageInput
 {
     /// <summary>
     /// 文件名

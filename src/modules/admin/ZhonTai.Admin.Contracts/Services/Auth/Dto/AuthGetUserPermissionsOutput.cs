@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace ZhonTai.Admin.Services.Auth.Dto;
 
-namespace ZhonTai.Admin.Services.Auth.Dto;
-
+/// <summary>
+/// 用户权限
+/// </summary>
 public class AuthGetUserPermissionsOutput
 {
     /// <summary>

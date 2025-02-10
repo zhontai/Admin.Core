@@ -1,8 +1,5 @@
 ﻿using FreeSql.Internal.CommonProvider;
 using FreeSql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using ZhonTai.Admin.Core.Dto;
 

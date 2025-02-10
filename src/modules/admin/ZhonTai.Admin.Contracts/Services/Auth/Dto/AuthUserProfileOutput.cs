@@ -5,7 +5,7 @@ namespace ZhonTai.Admin.Services.Auth.Dto;
 /// <summary>
 /// 用户个人信息
 /// </summary>
-public class AuthUserProfileDto
+public class AuthUserProfileOutput
 {
     /// <summary>
     /// 账号

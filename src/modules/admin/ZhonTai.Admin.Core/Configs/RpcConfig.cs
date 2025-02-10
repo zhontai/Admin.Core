@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace ZhonTai.Admin.Core.Configs;
+﻿namespace ZhonTai.Admin.Core.Configs;
 
 /// <summary>
 /// 远程过程调用配置

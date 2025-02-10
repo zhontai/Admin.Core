@@ -1,9 +1,5 @@
 ﻿using FreeRedis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Tools.Cache;

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.Permission.Dto;
 
+/// <summary>
+/// 保存租户权限
+/// </summary>
 public class PermissionSaveTenantPermissionsInput
 {
     [Required(ErrorMessage = "租户不能为空")]

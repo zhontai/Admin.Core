@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Services.Document.Dto;
 
+/// <summary>
+/// 上传图片
+/// </summary>
 public class DocumentUploadImageInput
 {
     /// <summary>

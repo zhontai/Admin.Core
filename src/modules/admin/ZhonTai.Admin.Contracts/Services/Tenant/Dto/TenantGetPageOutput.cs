@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using ZhonTai.Admin.Domain.Pkg;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;
 
-public class TenantListOutput
+/// <summary>
+/// 租户分页响应
+/// </summary>
+public class TenantGetPageOutput
 {
     /// <summary>
     /// 主键

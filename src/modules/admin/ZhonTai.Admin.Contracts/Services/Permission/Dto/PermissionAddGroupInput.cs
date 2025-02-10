@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Permission.Dto;
 
+/// <summary>
+/// 条件分组
+/// </summary>
 public class PermissionAddGroupInput
 {
     /// <summary>

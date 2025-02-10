@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿namespace ZhonTai.Admin.Services.Auth.Dto;
 
-namespace ZhonTai.Admin.Services.Auth.Dto;
-
+/// <summary>
+/// 用户信息
+/// </summary>
 public class AuthGetUserInfoOutput
 {
     /// <summary>
     /// 用户个人信息
     /// </summary>
-    public AuthUserProfileDto User { get; set; }
+    public AuthUserProfileOutput User { get; set; }
 
     /// <summary>
     /// 用户菜单列表
     /// </summary>
-    public List<AuthUserMenuDto> Menus { get; set; }
+    public List<AuthUserMenuOutput> Menus { get; set; }
 
     /// <summary>
     /// 用户权限列表

@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Auth.Dto;
 
+/// <summary>
+/// 验证码
+/// </summary>
 public class AuthGetVerifyCodeOutput
 {
     /// <summary>

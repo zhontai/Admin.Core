@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.Role.Dto;
 
+/// <summary>
+/// 角色列表请求
+/// </summary>
 public partial class RoleGetListInput
 {
     /// <summary>

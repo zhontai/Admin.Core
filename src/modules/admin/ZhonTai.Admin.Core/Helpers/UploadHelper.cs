@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Helpers;

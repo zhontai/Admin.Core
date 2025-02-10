@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Threading.Tasks;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -107,14 +103,14 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<Dictionary<string, List<DictGetListDto>>> GetListAsync(string[] codes)
+    public async Task<Dictionary<string, List<DictGetListOutput>>> GetListAsync(string[] codes)
     {
         var list = await _dictRep.Select
         .Where(a => codes.Contains(a.DictType.Code) && a.DictType.Enabled == true && a.Enabled == true)
         .OrderBy(a => a.Sort)
-        .ToListAsync(a => new DictGetListDto { DictTypeCode = a.DictType.Code });
+        .ToListAsync(a => new DictGetListOutput { DictTypeCode = a.DictType.Code });
 
-        var dicts = new Dictionary<string, List<DictGetListDto>>();
+        var dicts = new Dictionary<string, List<DictGetListOutput>>();
         foreach (var code in codes)
         {
             if (code.NotNull())
@@ -131,14 +127,14 @@ public class DictService : BaseService, IDictService, IDynamicApi
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost]
-    public async Task<Dictionary<string, List<DictGetListDto>>> GetListByNamesAsync(string[] names)
+    public async Task<Dictionary<string, List<DictGetListOutput>>> GetListByNamesAsync(string[] names)
     {
         var list = await _dictRep.Select
         .Where(a => names.Contains(a.DictType.Name) && a.DictType.Enabled == true && a.Enabled == true)
         .OrderBy(a => a.Sort)
-        .ToListAsync(a => new DictGetListDto { DictTypeName = a.DictType.Name });
+        .ToListAsync(a => new DictGetListOutput { DictTypeName = a.DictType.Name });
 
-        var dicts = new Dictionary<string, List<DictGetListDto>>();
+        var dicts = new Dictionary<string, List<DictGetListOutput>>();
         foreach (var name in names)
         {
             if (name.NotNull())

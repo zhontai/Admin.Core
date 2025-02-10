@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Attributes;
+﻿using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Handlers;
 

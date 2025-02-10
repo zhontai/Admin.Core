@@ -1,5 +1,4 @@
 ﻿using ProtoBuf;
-using System;
 
 namespace ZhonTai.Admin.Core.Protos;
 

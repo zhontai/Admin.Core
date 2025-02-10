@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.Admin.Core.Configs;
+﻿namespace ZhonTai.Admin.Core.Configs;
 
 /// <summary>
 /// Jwt配置

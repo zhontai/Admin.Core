@@ -1,6 +1,6 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using FreeSql;
+﻿using FreeSql;
 using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.TenantPkg;

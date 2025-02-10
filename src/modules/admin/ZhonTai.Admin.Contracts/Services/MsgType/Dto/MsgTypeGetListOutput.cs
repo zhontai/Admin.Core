@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.MsgType.Dto;
 
+/// <summary>
+/// 查询列表响应
+/// </summary>
 public class MsgTypeGetListOutput
 {
     /// <summary>

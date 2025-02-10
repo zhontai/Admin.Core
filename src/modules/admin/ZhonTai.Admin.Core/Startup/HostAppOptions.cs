@@ -3,7 +3,6 @@ using FreeSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.DynamicApi;

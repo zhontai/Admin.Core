@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.User.Dto;
 
-namespace ZhonTai.Admin.Services.User.Dto;
-
+/// <summary>
+/// 用户基本信息
+/// </summary>
 public class UserGetBasicOutput
 {
     /// <summary>

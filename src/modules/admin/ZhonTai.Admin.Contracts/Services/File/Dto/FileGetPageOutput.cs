@@ -1,7 +1,8 @@
-﻿using System;
+﻿namespace ZhonTai.Admin.Services.Dto;
 
-namespace ZhonTai.Admin.Services.Dto;
-
+/// <summary>
+/// 文件分页响应
+/// </summary>
 public class FileGetPageOutput
 {
     /// <summary>

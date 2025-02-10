@@ -1,5 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ZhonTai.Admin.Core.Attributes;

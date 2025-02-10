@@ -1,9 +1,9 @@
 ﻿namespace ZhonTai.Admin.Services.Api.Dto;
 
 /// <summary>
-/// 接口同步Dto
+/// 接口同步模型
 /// </summary>
-public class ApiSyncDto
+public class ApiSyncModel
 {
     /// <summary>
     /// 接口名称

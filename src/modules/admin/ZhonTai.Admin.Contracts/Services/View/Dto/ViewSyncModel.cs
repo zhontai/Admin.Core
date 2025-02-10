@@ -1,6 +1,9 @@
 ﻿namespace ZhonTai.Admin.Services.View.Dto;
 
-public class ViewSyncDto
+/// <summary>
+/// 视图同步模型
+/// </summary>
+public class ViewSyncModel
 {
     /// <summary>
     /// 视图命名

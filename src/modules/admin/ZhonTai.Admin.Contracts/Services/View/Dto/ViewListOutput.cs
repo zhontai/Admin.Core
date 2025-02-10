@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Services.View.Dto;
 
+/// <summary>
+/// 视图列表
+/// </summary>
 public class ViewListOutput
 {
     /// <summary>

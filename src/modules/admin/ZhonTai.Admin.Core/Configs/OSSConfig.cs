@@ -1,5 +1,4 @@
 ﻿using OnceMi.AspNetCore.OSS;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Core.Configs;
 

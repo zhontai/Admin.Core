@@ -1,6 +1,4 @@
 ﻿using ProtoBuf.Grpc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
 using ZhonTai.Admin.Domain.Api;

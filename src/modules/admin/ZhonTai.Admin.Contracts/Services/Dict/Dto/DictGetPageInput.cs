@@ -1,6 +1,8 @@
-﻿
-namespace ZhonTai.Admin.Domain.Dict.Dto;
+﻿namespace ZhonTai.Admin.Domain.Dict.Dto;
 
+/// <summary>
+/// 字典分页请求
+/// </summary>
 public partial class DictGetPageInput
 {
     /// <summary>
