@@ -11,7 +11,7 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PageInputPkgGetPageDto,
+  PageInputPkgGetPageInput,
   PageInputPkgGetPkgTenantListInput,
   PkgAddInput,
   PkgAddPkgTenantListInput,
@@ -85,7 +85,7 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @request POST:/api/admin/pkg/get-page
    * @secure
    */
-  getPage = (data: PageInputPkgGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputPkgGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputPkgGetPageOutput, any>({
       path: `/api/admin/pkg/get-page`,
       method: 'POST',

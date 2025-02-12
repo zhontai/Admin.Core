@@ -10,7 +10,7 @@ const apiUrl = 'http://localhost:16010'
 const apis = [
   {
     output: path.resolve(projectPath, './src/api/admin'),
-    url: `${apiUrl}/doc/sys/swagger/admin/swagger.json`,
+    url: `${apiUrl}/doc/admin/swagger/admin/swagger.json`,
     enumUrl: `${apiUrl}/api/admin/get-enums`,
   },
   // {

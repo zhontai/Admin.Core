@@ -1,9 +1,9 @@
-﻿namespace ZhonTai.Admin.Services.Document.Dto;
+﻿namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
 /// 文档内容
 /// </summary>
-public class DocumentGetContentOutput
+public class DocGetContentOutput
 {
     /// <summary>
     /// 编号

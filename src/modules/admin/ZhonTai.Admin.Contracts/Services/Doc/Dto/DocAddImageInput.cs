@@ -1,9 +1,9 @@
-﻿namespace ZhonTai.Admin.Services.Document.Dto;
+﻿namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
 /// 添加图片
 /// </summary>
-public class DocumentAddImageInput
+public class DocAddImageInput
 {
     /// <summary>
     /// 用户Id

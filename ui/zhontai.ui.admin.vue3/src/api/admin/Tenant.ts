@@ -14,7 +14,7 @@ import {
   PageInputTenantGetPageInput,
   ResultOutputInt64,
   ResultOutputObject,
-  ResultOutputPageOutputTenantListOutput,
+  ResultOutputPageOutputTenantGetPageOutput,
   ResultOutputTenantGetOutput,
   TenantAddInput,
   TenantSetEnableInput,
@@ -57,7 +57,7 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   getPage = (data: PageInputTenantGetPageInput, params: RequestParams = {}) =>
-    this.request<ResultOutputPageOutputTenantListOutput, any>({
+    this.request<ResultOutputPageOutputTenantGetPageOutput, any>({
       path: `/api/admin/tenant/get-page`,
       method: 'POST',
       body: data,

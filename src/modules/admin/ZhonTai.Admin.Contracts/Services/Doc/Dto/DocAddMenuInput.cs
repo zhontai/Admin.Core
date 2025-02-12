@@ -1,11 +1,11 @@
-﻿using ZhonTai.Admin.Domain.Document;
+﻿using ZhonTai.Admin.Domain.Doc;
 
-namespace ZhonTai.Admin.Services.Document.Dto;
+namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
-/// 添加分组
+/// 添加菜单
 /// </summary>
-public class DocumentAddGroupInput
+public class DocAddMenuInput
 {
     /// <summary>
     /// 父级节点
@@ -18,17 +18,17 @@ public class DocumentAddGroupInput
     public DocType Type { get; set; }
 
     /// <summary>
-    /// 名称
-    /// </summary>
-    public string Label { get; set; }
-
-    /// <summary>
     /// 命名
     /// </summary>
     public string Name { get; set; }
 
     /// <summary>
-    /// 打开
+    /// 名称
     /// </summary>
-    public bool? Opened { get; set; }
+    public string Label { get; set; }
+
+    /// <summary>
+    /// 说明
+    /// </summary>
+    public string Description { get; set; }
 }

@@ -120,6 +120,7 @@ export interface ApiEntity {
   permissions?: PermissionEntity[] | null
 }
 
+/** 接口列表 */
 export interface ApiGetListOutput {
   /**
    * 接口Id
@@ -156,6 +157,7 @@ export interface ApiGetListOutput {
   enabled?: boolean
 }
 
+/** 接口 */
 export interface ApiGetOutput {
   /**
    * 所属模块
@@ -184,6 +186,7 @@ export interface ApiGetOutput {
   id: number
 }
 
+/** 查询分页 */
 export interface ApiGetPageInput {
   /** 接口名称 */
   label?: string | null
@@ -230,8 +233,13 @@ export interface ApiSetEnableResultInput {
   enabledResult?: boolean
 }
 
-/** 接口同步Dto */
-export interface ApiSyncDto {
+/** 接口同步 */
+export interface ApiSyncInput {
+  apis?: ApiSyncModel[] | null
+}
+
+/** 接口同步模型 */
+export interface ApiSyncModel {
   /** 接口名称 */
   label?: string | null
   /** 接口地址 */
@@ -240,11 +248,6 @@ export interface ApiSyncDto {
   parentPath?: string | null
   /** 接口提交方法 */
   httpMethods?: string | null
-}
-
-/** 接口同步 */
-export interface ApiSyncInput {
-  apis?: ApiSyncDto[] | null
 }
 
 /** 修改 */
@@ -347,6 +350,7 @@ export interface AuthEmailLoginInput {
   codeId: string
 }
 
+/** 查询密钥 */
 export interface AuthGetPasswordEncryptKeyOutput {
   /** 缓存键 */
   key?: string | null
@@ -356,15 +360,17 @@ export interface AuthGetPasswordEncryptKeyOutput {
   iv?: string | null
 }
 
+/** 用户信息 */
 export interface AuthGetUserInfoOutput {
   /** 用户个人信息 */
-  user?: AuthUserProfileDto
+  user?: AuthUserProfileOutput
   /** 用户菜单列表 */
-  menus?: AuthUserMenuDto[] | null
+  menus?: AuthUserMenuOutput[] | null
   /** 用户权限列表 */
   permissions?: string[] | null
 }
 
+/** 用户权限 */
 export interface AuthGetUserPermissionsOutput {
   /** 用户权限列表 */
   permissions?: string[] | null
@@ -470,7 +476,8 @@ export interface AuthRegByMobileInput {
   corpName: string
 }
 
-export interface AuthUserMenuDto {
+/** 用户菜单 */
+export interface AuthUserMenuOutput {
   /**
    * 权限Id
    * @format int64
@@ -517,7 +524,7 @@ export interface AuthUserMenuDto {
 }
 
 /** 用户个人信息 */
-export interface AuthUserProfileDto {
+export interface AuthUserProfileOutput {
   /** 账号 */
   userName?: string | null
   /** 姓名 */
@@ -583,7 +590,8 @@ export interface DictAddInput {
   sort?: number | null
 }
 
-export interface DictGetListDto {
+/** 字典列表 */
+export interface DictGetListOutput {
   /** 字典类型编码 */
   dictTypeCode?: string | null
   /** 字典类型名称 */
@@ -601,6 +609,7 @@ export interface DictGetListDto {
   value?: string | null
 }
 
+/** 字典 */
 export interface DictGetOutput {
   /**
    * 字典类型Id
@@ -632,6 +641,7 @@ export interface DictGetOutput {
   id: number
 }
 
+/** 字典分页请求 */
 export interface DictGetPageInput {
   /**
    * 字典类型Id
@@ -642,6 +652,7 @@ export interface DictGetPageInput {
   name?: string | null
 }
 
+/** 字典分页响应 */
 export interface DictGetPageOutput {
   /**
    * 主键Id
@@ -663,7 +674,7 @@ export interface DictGetPageOutput {
   sort?: number
 }
 
-/** 添加字典类型 */
+/** 字典类型 */
 export interface DictTypeAddInput {
   /**
    * 字典类型名称
@@ -683,6 +694,7 @@ export interface DictTypeAddInput {
   sort?: number
 }
 
+/** 字典类型 */
 export interface DictTypeGetOutput {
   /**
    * 字典类型名称
@@ -707,11 +719,13 @@ export interface DictTypeGetOutput {
   id: number
 }
 
+/** 字典类型分页请求 */
 export interface DictTypeGetPageInput {
   /** 字典名称 */
   name?: string | null
 }
 
+/** 字典类型分页响应 */
 export interface DictTypeGetPageOutput {
   /**
    * 主键Id
@@ -788,13 +802,8 @@ export interface DictUpdateInput {
   id: number
 }
 
-/**
- * 文档类型:Group=1,Markdown=2
- * @format int32
- */
-export type DocType = 1 | 2
-
-export interface DocumentAddGroupInput {
+/** 添加分组 */
+export interface DocAddGroupInput {
   /**
    * 父级节点
    * @format int64
@@ -810,7 +819,8 @@ export interface DocumentAddGroupInput {
   opened?: boolean | null
 }
 
-export interface DocumentAddImageInput {
+/** 添加图片 */
+export interface DocAddImageInput {
   /**
    * 用户Id
    * @format int64
@@ -820,7 +830,8 @@ export interface DocumentAddImageInput {
   url?: string | null
 }
 
-export interface DocumentAddMenuInput {
+/** 添加菜单 */
+export interface DocAddMenuInput {
   /**
    * 父级节点
    * @format int64
@@ -836,7 +847,8 @@ export interface DocumentAddMenuInput {
   description?: string | null
 }
 
-export interface DocumentGetContentOutput {
+/** 文档内容 */
+export interface DocGetContentOutput {
   /**
    * 编号
    * @format int64
@@ -848,7 +860,8 @@ export interface DocumentGetContentOutput {
   content?: string | null
 }
 
-export interface DocumentGetGroupOutput {
+/** 文档分组 */
+export interface DocGetGroupOutput {
   /**
    * 父级节点
    * @format int64
@@ -869,7 +882,8 @@ export interface DocumentGetGroupOutput {
   id: number
 }
 
-export interface DocumentGetMenuOutput {
+/** 文档菜单 */
+export interface DocGetMenuOutput {
   /**
    * 父级节点
    * @format int64
@@ -890,7 +904,8 @@ export interface DocumentGetMenuOutput {
   id: number
 }
 
-export interface DocumentListOutput {
+/** 文档列表 */
+export interface DocListOutput {
   /**
    * 编号
    * @format int64
@@ -913,7 +928,14 @@ export interface DocumentListOutput {
   opened?: boolean | null
 }
 
-export interface DocumentUpdateContentInput {
+/**
+ * 文档类型:Group=1,Markdown=2
+ * @format int32
+ */
+export type DocType = 1 | 2
+
+/** 更新文档内容 */
+export interface DocUpdateContentInput {
   /**
    * 编号
    * @format int64
@@ -927,7 +949,8 @@ export interface DocumentUpdateContentInput {
   html?: string | null
 }
 
-export interface DocumentUpdateGroupInput {
+/** 更新分组 */
+export interface DocUpdateGroupInput {
   /**
    * 父级节点
    * @format int64
@@ -948,7 +971,8 @@ export interface DocumentUpdateGroupInput {
   id: number
 }
 
-export interface DocumentUpdateMenuInput {
+/** 更新菜单 */
+export interface DocUpdateMenuInput {
   /**
    * 父级节点
    * @format int64
@@ -1000,6 +1024,7 @@ export interface ExportInput {
   fileName?: string | null
 }
 
+/** 删除 */
 export interface FileDeleteInput {
   /**
    * 文件Id
@@ -1087,11 +1112,13 @@ export interface FileEntity {
   md5?: string | null
 }
 
-export interface FileGetPageDto {
+/** 文件分页请求 */
+export interface FileGetPageInput {
   /** 文件名 */
   fileName?: string | null
 }
 
+/** 文件分页响应 */
 export interface FileGetPageOutput {
   /**
    * 文件Id
@@ -1191,6 +1218,7 @@ export interface LoginLogAddInput {
   createdUserRealName?: string | null
 }
 
+/** 分页请求 */
 export interface LoginLogGetPageInput {
   /** 创建者 */
   createdUserName?: string | null
@@ -1210,6 +1238,7 @@ export interface LoginLogGetPageInput {
   addEndTime?: string | null
 }
 
+/** 分页响应 */
 export interface LoginLogGetPageOutput {
   /**
    * 编号
@@ -1278,6 +1307,7 @@ export interface MsgAddMsgUserListInput {
   userIds?: number[] | null
 }
 
+/** 消息用户列表 */
 export interface MsgGetMsgUserListOutput {
   /**
    * 主键Id
@@ -1299,6 +1329,7 @@ export interface MsgGetMsgUserListOutput {
   readTime?: string | null
 }
 
+/** 消息 */
 export interface MsgGetOutput {
   /** 标题 */
   title?: string | null
@@ -1318,11 +1349,13 @@ export interface MsgGetOutput {
   id: number
 }
 
+/** 消息分页请求 */
 export interface MsgGetPageInput {
   /** 标题 */
   title?: string | null
 }
 
+/** 消息分页响应 */
 export interface MsgGetPageOutput {
   /**
    * 消息Id
@@ -1367,6 +1400,7 @@ export interface MsgTypeAddInput {
   description?: string | null
 }
 
+/** 查询列表响应 */
 export interface MsgTypeGetListOutput {
   /**
    * 主键
@@ -1393,6 +1427,7 @@ export interface MsgTypeGetListOutput {
   description?: string | null
 }
 
+/** 消息类型 */
 export interface MsgTypeGetOutput {
   /**
    * 父级Id
@@ -1520,6 +1555,7 @@ export interface OperationLogAddInput {
   result?: string | null
 }
 
+/** 查询分页请求 */
 export interface OperationLogGetPageInput {
   /** 创建者 */
   createdUserName?: string | null
@@ -1541,6 +1577,7 @@ export interface OperationLogGetPageInput {
   addEndTime?: string | null
 }
 
+/** 查询分页响应 */
 export interface OperationLogGetPageOutput {
   /**
    * 编号
@@ -1713,6 +1750,7 @@ export interface OrgEntity {
   childs?: OrgEntity[] | null
 }
 
+/** 部门 */
 export interface OrgGetOutput {
   /**
    * 父级
@@ -1741,6 +1779,7 @@ export interface OrgGetOutput {
   id: number
 }
 
+/** 部门列表 */
 export interface OrgListOutput {
   /**
    * 主键Id
@@ -1818,6 +1857,7 @@ export interface PageInputApiGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 查询分页 */
   filter?: ApiGetPageInput
 }
 
@@ -1836,6 +1876,7 @@ export interface PageInputDictGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 字典分页请求 */
   filter?: DictGetPageInput
 }
 
@@ -1854,11 +1895,12 @@ export interface PageInputDictTypeGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 字典类型分页请求 */
   filter?: DictTypeGetPageInput
 }
 
 /** 分页信息输入 */
-export interface PageInputFileGetPageDto {
+export interface PageInputFileGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -1872,7 +1914,8 @@ export interface PageInputFileGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: FileGetPageDto
+  /** 文件分页请求 */
+  filter?: FileGetPageInput
 }
 
 /** 分页信息输入 */
@@ -1890,6 +1933,7 @@ export interface PageInputLoginLogGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 分页请求 */
   filter?: LoginLogGetPageInput
 }
 
@@ -1908,6 +1952,7 @@ export interface PageInputMsgGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 消息分页请求 */
   filter?: MsgGetPageInput
 }
 
@@ -1926,11 +1971,12 @@ export interface PageInputOperationLogGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 查询分页请求 */
   filter?: OperationLogGetPageInput
 }
 
 /** 分页信息输入 */
-export interface PageInputPkgGetPageDto {
+export interface PageInputPkgGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -1944,7 +1990,8 @@ export interface PageInputPkgGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: PkgGetPageDto
+  /** 套餐分页请求 */
+  filter?: PkgGetPageInput
 }
 
 /** 分页信息输入 */
@@ -1962,6 +2009,7 @@ export interface PageInputPkgGetPkgTenantListInput {
    * @format int32
    */
   pageSize?: number
+  /** 套餐租户列表请求 */
   filter?: PkgGetPkgTenantListInput
 }
 
@@ -1980,6 +2028,7 @@ export interface PageInputRegionGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 地区分页请求 */
   filter?: RegionGetPageInput
 }
 
@@ -1998,6 +2047,7 @@ export interface PageInputRoleGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 角色分页请求 */
   filter?: RoleGetPageInput
 }
 
@@ -2016,6 +2066,7 @@ export interface PageInputSiteMsgGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 站点消息分页请求 */
   filter?: SiteMsgGetPageInput
 }
 
@@ -2034,11 +2085,12 @@ export interface PageInputTaskGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 任务分页请求 */
   filter?: TaskGetPageInput
 }
 
 /** 分页信息输入 */
-export interface PageInputTaskLogGetPageDto {
+export interface PageInputTaskLogGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -2052,7 +2104,8 @@ export interface PageInputTaskLogGetPageDto {
    * @format int32
    */
   pageSize?: number
-  filter?: TaskLogGetPageDto
+  /** 任务日志分页请求 */
+  filter?: TaskLogGetPageInput
 }
 
 /** 分页信息输入 */
@@ -2070,11 +2123,12 @@ export interface PageInputTenantGetPageInput {
    * @format int32
    */
   pageSize?: number
+  /** 租户分页请求 */
   filter?: TenantGetPageInput
 }
 
 /** 分页信息输入 */
-export interface PageInputUserGetPageDto {
+export interface PageInputUserGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
   sortList?: SortInput[] | null
@@ -2089,7 +2143,7 @@ export interface PageInputUserGetPageDto {
    */
   pageSize?: number
   /** 用户分页查询条件 */
-  filter?: UserGetPageDto
+  filter?: UserGetPageInput
 }
 
 /** 分页信息输出 */
@@ -2225,14 +2279,14 @@ export interface PageOutputSiteMsgGetPageOutput {
 }
 
 /** 分页信息输出 */
-export interface PageOutputTaskListOutput {
+export interface PageOutputTaskGetPageOutput {
   /**
    * 数据总数
    * @format int64
    */
   total?: number
   /** 数据 */
-  list?: TaskListOutput[] | null
+  list?: TaskGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -2247,14 +2301,14 @@ export interface PageOutputTaskLog {
 }
 
 /** 分页信息输出 */
-export interface PageOutputTenantListOutput {
+export interface PageOutputTenantGetPageOutput {
   /**
    * 数据总数
    * @format int64
    */
   total?: number
   /** 数据 */
-  list?: TenantListOutput[] | null
+  list?: TenantGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -2274,6 +2328,7 @@ export interface PageOutputUserGetPageOutput {
  */
 export type PasswordEncryptType = 0 | 1
 
+/** 添加接口 */
 export interface PermissionAddApiInput {
   /**
    * 父级节点
@@ -2304,6 +2359,7 @@ export interface PermissionAddApiInput {
   enabled?: boolean
 }
 
+/** 添加权限点 */
 export interface PermissionAddDotInput {
   /**
    * 父级节点
@@ -2329,6 +2385,7 @@ export interface PermissionAddDotInput {
   enabled?: boolean
 }
 
+/** 条件分组 */
 export interface PermissionAddGroupInput {
   /**
    * 父级节点
@@ -2363,6 +2420,7 @@ export interface PermissionAddGroupInput {
   enabled?: boolean
 }
 
+/** 添加菜单 */
 export interface PermissionAddMenuInput {
   /**
    * 父级节点
@@ -2407,6 +2465,7 @@ export interface PermissionAddMenuInput {
   enabled?: boolean
 }
 
+/** 权限分配 */
 export interface PermissionAssignInput {
   /** @format int64 */
   roleId: number
@@ -2517,6 +2576,7 @@ export interface PermissionEntity {
   childs?: PermissionEntity[] | null
 }
 
+/** 权限点 */
 export interface PermissionGetDotOutput {
   /**
    * 父级节点
@@ -2547,6 +2607,7 @@ export interface PermissionGetDotOutput {
   id: number
 }
 
+/** 权限分组 */
 export interface PermissionGetGroupOutput {
   /**
    * 父级节点
@@ -2586,6 +2647,7 @@ export interface PermissionGetGroupOutput {
   id: number
 }
 
+/** 权限菜单 */
 export interface PermissionGetMenuOutput {
   /**
    * 父级节点
@@ -2635,6 +2697,7 @@ export interface PermissionGetMenuOutput {
   id: number
 }
 
+/** 权限列表 */
 export interface PermissionListOutput {
   /**
    * 权限Id
@@ -2675,6 +2738,7 @@ export interface PermissionListOutput {
   enabled?: boolean
 }
 
+/** 保存租户权限 */
 export interface PermissionSaveTenantPermissionsInput {
   /** @format int64 */
   tenantId: number
@@ -2687,6 +2751,7 @@ export interface PermissionSaveTenantPermissionsInput {
  */
 export type PermissionType = 1 | 2 | 3
 
+/** 修改权限点 */
 export interface PermissionUpdateDotInput {
   /**
    * 父级节点
@@ -2717,6 +2782,7 @@ export interface PermissionUpdateDotInput {
   id: number
 }
 
+/** 修改权限分组 */
 export interface PermissionUpdateGroupInput {
   /**
    * 父级节点
@@ -2756,6 +2822,7 @@ export interface PermissionUpdateGroupInput {
   id: number
 }
 
+/** 修改权限菜单 */
 export interface PermissionUpdateMenuInput {
   /**
    * 父级节点
@@ -2913,6 +2980,7 @@ export interface PkgEntity {
   permissions?: PermissionEntity[] | null
 }
 
+/** 套餐列表响应 */
 export interface PkgGetListOutput {
   /**
    * 主键
@@ -2944,6 +3012,7 @@ export interface PkgGetListOutput {
   createdTime?: string | null
 }
 
+/** 套餐 */
 export interface PkgGetOutput {
   /**
    * 父级Id
@@ -2970,11 +3039,13 @@ export interface PkgGetOutput {
   id: number
 }
 
-export interface PkgGetPageDto {
+/** 套餐分页请求 */
+export interface PkgGetPageInput {
   /** 名称 */
   name?: string | null
 }
 
+/** 套餐分页响应 */
 export interface PkgGetPageOutput {
   /**
    * 主键
@@ -3001,6 +3072,7 @@ export interface PkgGetPageOutput {
   createdTime?: string | null
 }
 
+/** 套餐租户列表请求 */
 export interface PkgGetPkgTenantListInput {
   /** 租户名 */
   tenantName?: string | null
@@ -3011,6 +3083,7 @@ export interface PkgGetPkgTenantListInput {
   pkgId?: number | null
 }
 
+/** 套餐租户列表响应 */
 export interface PkgGetPkgTenantListOutput {
   /**
    * 主键Id
@@ -3023,6 +3096,7 @@ export interface PkgGetPkgTenantListOutput {
   code?: string | null
 }
 
+/** 设置套餐权限 */
 export interface PkgSetPkgPermissionsInput {
   /** @format int64 */
   pkgId: number
@@ -3094,6 +3168,7 @@ export interface RegionAddInput {
   enabled?: boolean
 }
 
+/** 下级列表 */
 export interface RegionGetChildListOutput {
   /**
    * 主键Id
@@ -3116,6 +3191,7 @@ export interface RegionGetChildListOutput {
   leaf?: boolean
 }
 
+/** 地区列表请求 */
 export interface RegionGetListInput {
   /**
    * 上级Id
@@ -3128,6 +3204,7 @@ export interface RegionGetListInput {
   enabled?: boolean | null
 }
 
+/** 地区 */
 export interface RegionGetOutput {
   /**
    * 上级Id
@@ -3159,6 +3236,7 @@ export interface RegionGetOutput {
   parentIdList?: number[] | null
 }
 
+/** 地区分页请求 */
 export interface RegionGetPageInput {
   /**
    * 上级Id
@@ -3175,6 +3253,7 @@ export interface RegionGetPageInput {
   enabled?: boolean | null
 }
 
+/** 地区分页响应 */
 export interface RegionGetPageOutput {
   /**
    * 主键Id
@@ -3276,6 +3355,7 @@ export interface ResultOutputApiGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 接口 */
   data?: ApiGetOutput
 }
 
@@ -3287,6 +3367,7 @@ export interface ResultOutputAuthGetPasswordEncryptKeyOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 查询密钥 */
   data?: AuthGetPasswordEncryptKeyOutput
 }
 
@@ -3298,6 +3379,7 @@ export interface ResultOutputAuthGetUserInfoOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 用户信息 */
   data?: AuthGetUserInfoOutput
 }
 
@@ -3309,11 +3391,12 @@ export interface ResultOutputAuthGetUserPermissionsOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 用户权限 */
   data?: AuthGetUserPermissionsOutput
 }
 
 /** 结果输出 */
-export interface ResultOutputAuthUserProfileDto {
+export interface ResultOutputAuthUserProfileOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3321,7 +3404,7 @@ export interface ResultOutputAuthUserProfileDto {
   /** 消息 */
   msg?: string | null
   /** 用户个人信息 */
-  data?: AuthUserProfileDto
+  data?: AuthUserProfileOutput
 }
 
 /** 结果输出 */
@@ -3355,6 +3438,7 @@ export interface ResultOutputDictGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 字典 */
   data?: DictGetOutput
 }
 
@@ -3366,11 +3450,12 @@ export interface ResultOutputDictTypeGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 字典类型 */
   data?: DictTypeGetOutput
 }
 
 /** 结果输出 */
-export interface ResultOutputDictionaryStringListDictGetListDto {
+export interface ResultOutputDictionaryStringListDictGetListOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3378,40 +3463,43 @@ export interface ResultOutputDictionaryStringListDictGetListDto {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: Record<string, DictGetListDto[] | null>
+  data?: Record<string, DictGetListOutput[] | null>
 }
 
 /** 结果输出 */
-export interface ResultOutputDocumentGetContentOutput {
+export interface ResultOutputDocGetContentOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
   code?: string | null
   /** 消息 */
   msg?: string | null
-  data?: DocumentGetContentOutput
+  /** 文档内容 */
+  data?: DocGetContentOutput
 }
 
 /** 结果输出 */
-export interface ResultOutputDocumentGetGroupOutput {
+export interface ResultOutputDocGetGroupOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
   code?: string | null
   /** 消息 */
   msg?: string | null
-  data?: DocumentGetGroupOutput
+  /** 文档分组 */
+  data?: DocGetGroupOutput
 }
 
 /** 结果输出 */
-export interface ResultOutputDocumentGetMenuOutput {
+export interface ResultOutputDocGetMenuOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
   code?: string | null
   /** 消息 */
   msg?: string | null
-  data?: DocumentGetMenuOutput
+  /** 文档菜单 */
+  data?: DocGetMenuOutput
 }
 
 /** 结果输出 */
@@ -3478,7 +3566,7 @@ export interface ResultOutputListApiGetListOutput {
 }
 
 /** 结果输出 */
-export interface ResultOutputListAuthUserMenuDto {
+export interface ResultOutputListAuthUserMenuOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3486,11 +3574,11 @@ export interface ResultOutputListAuthUserMenuDto {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: AuthUserMenuDto[] | null
+  data?: AuthUserMenuOutput[] | null
 }
 
 /** 结果输出 */
-export interface ResultOutputListDocumentListOutput {
+export interface ResultOutputListDocListOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3498,7 +3586,7 @@ export interface ResultOutputListDocumentListOutput {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: DocumentListOutput[] | null
+  data?: DocListOutput[] | null
 }
 
 /** 结果输出 */
@@ -3689,6 +3777,7 @@ export interface ResultOutputMsgGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 消息 */
   data?: MsgGetOutput
 }
 
@@ -3700,6 +3789,7 @@ export interface ResultOutputMsgTypeGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 消息类型 */
   data?: MsgTypeGetOutput
 }
 
@@ -3723,6 +3813,7 @@ export interface ResultOutputOrgGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 部门 */
   data?: OrgGetOutput
 }
 
@@ -3871,7 +3962,7 @@ export interface ResultOutputPageOutputSiteMsgGetPageOutput {
 }
 
 /** 结果输出 */
-export interface ResultOutputPageOutputTaskListOutput {
+export interface ResultOutputPageOutputTaskGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3879,7 +3970,7 @@ export interface ResultOutputPageOutputTaskListOutput {
   /** 消息 */
   msg?: string | null
   /** 分页信息输出 */
-  data?: PageOutputTaskListOutput
+  data?: PageOutputTaskGetPageOutput
 }
 
 /** 结果输出 */
@@ -3895,7 +3986,7 @@ export interface ResultOutputPageOutputTaskLog {
 }
 
 /** 结果输出 */
-export interface ResultOutputPageOutputTenantListOutput {
+export interface ResultOutputPageOutputTenantGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3903,7 +3994,7 @@ export interface ResultOutputPageOutputTenantListOutput {
   /** 消息 */
   msg?: string | null
   /** 分页信息输出 */
-  data?: PageOutputTenantListOutput
+  data?: PageOutputTenantGetPageOutput
 }
 
 /** 结果输出 */
@@ -3926,6 +4017,7 @@ export interface ResultOutputPermissionGetDotOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 权限点 */
   data?: PermissionGetDotOutput
 }
 
@@ -3937,6 +4029,7 @@ export interface ResultOutputPermissionGetGroupOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 权限分组 */
   data?: PermissionGetGroupOutput
 }
 
@@ -3948,6 +4041,7 @@ export interface ResultOutputPermissionGetMenuOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 权限菜单 */
   data?: PermissionGetMenuOutput
 }
 
@@ -3959,6 +4053,7 @@ export interface ResultOutputPkgGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 套餐 */
   data?: PkgGetOutput
 }
 
@@ -3970,6 +4065,7 @@ export interface ResultOutputRegionGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 地区 */
   data?: RegionGetOutput
 }
 
@@ -3981,6 +4077,7 @@ export interface ResultOutputRoleGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 角色 */
   data?: RoleGetOutput
 }
 
@@ -3992,6 +4089,7 @@ export interface ResultOutputSiteMsgGetContentOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 消息内容 */
   data?: SiteMsgGetContentOutput
 }
 
@@ -4015,6 +4113,7 @@ export interface ResultOutputTaskGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 任务 */
   data?: TaskGetOutput
 }
 
@@ -4049,6 +4148,7 @@ export interface ResultOutputUserGetBasicOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 用户基本信息 */
   data?: UserGetBasicOutput
 }
 
@@ -4060,6 +4160,7 @@ export interface ResultOutputUserGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 用户 */
   data?: UserGetOutput
 }
 
@@ -4094,6 +4195,7 @@ export interface ResultOutputViewGetOutput {
   code?: string | null
   /** 消息 */
   msg?: string | null
+  /** 视图 */
   data?: ViewGetOutput
 }
 
@@ -4222,6 +4324,7 @@ export interface RoleEntity {
   permissions?: PermissionEntity[] | null
 }
 
+/** 角色列表响应 */
 export interface RoleGetListOutput {
   /**
    * 主键
@@ -4248,6 +4351,7 @@ export interface RoleGetListOutput {
   description?: string | null
 }
 
+/** 角色 */
 export interface RoleGetOutput {
   /**
    * 父级Id
@@ -4280,11 +4384,13 @@ export interface RoleGetOutput {
   id: number
 }
 
+/** 角色分页请求 */
 export interface RoleGetPageInput {
   /** 名称 */
   name?: string | null
 }
 
+/** 角色分页响应 */
 export interface RoleGetPageOutput {
   /**
    * 主键
@@ -4306,6 +4412,7 @@ export interface RoleGetPageOutput {
   createdTime?: string | null
 }
 
+/** 角色用户列表响应 */
 export interface RoleGetRoleUserListOutput {
   /**
    * 主键Id
@@ -4412,6 +4519,7 @@ export interface SendSmsCodeInput {
  */
 export type Sex = 0 | 1 | 2
 
+/** 消息内容 */
 export interface SiteMsgGetContentOutput {
   /**
    * 消息Id
@@ -4433,6 +4541,7 @@ export interface SiteMsgGetContentOutput {
   isRead?: boolean | null
 }
 
+/** 站点消息分页请求 */
 export interface SiteMsgGetPageInput {
   /** 是否已读 */
   isRead?: boolean | null
@@ -4445,6 +4554,7 @@ export interface SiteMsgGetPageInput {
   title?: string | null
 }
 
+/** 站点消息分页响应 */
 export interface SiteMsgGetPageOutput {
   /**
    * 唯一Id
@@ -4556,6 +4666,7 @@ export interface TaskAddInput {
   failRetryInterval?: number | null
 }
 
+/** 任务 */
 export interface TaskGetOutput {
   /** 任务标题 */
   topic?: string | null
@@ -4589,6 +4700,7 @@ export interface TaskGetOutput {
   id: string
 }
 
+/** 任务分页请求 */
 export interface TaskGetPageInput {
   /** 分组名称 */
   groupName?: string | null
@@ -4610,13 +4722,8 @@ export interface TaskGetPageInput {
   endAddTime?: string | null
 }
 
-/**
- * SEC=1,RunOnDay=11,RunOnWeek=12,RunOnMonth=13,Custom=21
- * @format int32
- */
-export type TaskInterval = 1 | 11 | 12 | 13 | 21
-
-export interface TaskListOutput {
+/** 任务分页响应 */
+export interface TaskGetPageOutput {
   /** 主键 */
   id?: string | null
   /** 任务标题 */
@@ -4656,6 +4763,12 @@ export interface TaskListOutput {
   errorTimes?: number
 }
 
+/**
+ * SEC=1,RunOnDay=11,RunOnWeek=12,RunOnMonth=13,Custom=21
+ * @format int32
+ */
+export type TaskInterval = 1 | 11 | 12 | 13 | 21
+
 export interface TaskLog {
   taskId?: string | null
   /** @format int32 */
@@ -4669,7 +4782,8 @@ export interface TaskLog {
   createTime?: string
 }
 
-export interface TaskLogGetPageDto {
+/** 任务日志分页请求 */
+export interface TaskLogGetPageInput {
   taskId?: string | null
 }
 
@@ -4881,12 +4995,14 @@ export interface TenantGetOutput {
   pkgIds?: number[] | null
 }
 
+/** 租户分页请求 */
 export interface TenantGetPageInput {
   /** 企业名称 */
   name?: string | null
 }
 
-export interface TenantListOutput {
+/** 租户分页响应 */
+export interface TenantGetPageOutput {
   /**
    * 主键
    * @format int64
@@ -5246,6 +5362,7 @@ export interface UserEntity {
   staff?: UserStaffEntity
 }
 
+/** 用户基本信息 */
 export interface UserGetBasicOutput {
   /** 头像 */
   avatar?: string | null
@@ -5272,6 +5389,7 @@ export interface UserGetBasicOutput {
   lastLoginCity?: string | null
 }
 
+/** 用户 */
 export interface UserGetOutput {
   /**
    * 账号
@@ -5302,13 +5420,13 @@ export interface UserGetOutput {
    */
   id: number
   /** 角色列表 */
-  roles?: UserGetRoleDto[] | null
+  roles?: UserGetRoleModel[] | null
   /** 角色Ids */
   roleIds?: number[] | null
 }
 
 /** 用户分页查询条件 */
-export interface UserGetPageDto {
+export interface UserGetPageInput {
   /**
    * 部门Id
    * @format int64
@@ -5316,6 +5434,7 @@ export interface UserGetPageDto {
   orgId?: number | null
 }
 
+/** 用户分页查询响应 */
 export interface UserGetPageOutput {
   /**
    * 主键Id
@@ -5356,7 +5475,8 @@ export interface UserGetPermissionOutput {
   codes?: string[] | null
 }
 
-export interface UserGetRoleDto {
+/** 用户角色 */
+export interface UserGetRoleModel {
   /** @format int64 */
   id?: number
   name?: string | null
@@ -5660,6 +5780,7 @@ export interface ViewEntity {
   childs?: ViewEntity[] | null
 }
 
+/** 视图 */
 export interface ViewGetOutput {
   /**
    * 所属节点
@@ -5690,6 +5811,7 @@ export interface ViewGetOutput {
   id: number
 }
 
+/** 视图列表 */
 export interface ViewListOutput {
   /**
    * 视图Id
@@ -5720,7 +5842,12 @@ export interface ViewListOutput {
   description?: string | null
 }
 
-export interface ViewSyncDto {
+export interface ViewSyncInput {
+  views?: ViewSyncModel[] | null
+}
+
+/** 视图同步模型 */
+export interface ViewSyncModel {
   /** 视图命名 */
   name?: string | null
   /** 地址 */
@@ -5731,10 +5858,6 @@ export interface ViewSyncDto {
   description?: string | null
   /** 缓存 */
   cache?: boolean
-}
-
-export interface ViewSyncInput {
-  views?: ViewSyncDto[] | null
 }
 
 /** 修改 */
@@ -5768,6 +5891,7 @@ export interface ViewUpdateInput {
   id: number
 }
 
+/** WebSocket请求 */
 export interface WebSocketPreConnectInput {
   /** @format int64 */
   websocketId?: number | null

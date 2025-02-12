@@ -1,11 +1,11 @@
-﻿using ZhonTai.Admin.Domain.Document;
+﻿using ZhonTai.Admin.Domain.Doc;
 
-namespace ZhonTai.Admin.Services.Document.Dto;
+namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
 /// 文档列表
 /// </summary>
-public class DocumentListOutput
+public class DocListOutput
 {
     /// <summary>
     /// 编号

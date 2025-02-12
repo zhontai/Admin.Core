@@ -1,6 +1,6 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
-using ZhonTai.Admin.Domain.Document;
+using ZhonTai.Admin.Domain.Doc;
 
 namespace ZhonTai.Admin.Domain.DocumentImage;
 

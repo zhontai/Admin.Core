@@ -21,9 +21,9 @@ import {
   ResultOutputAuthGetPasswordEncryptKeyOutput,
   ResultOutputAuthGetUserInfoOutput,
   ResultOutputAuthGetUserPermissionsOutput,
-  ResultOutputAuthUserProfileDto,
+  ResultOutputAuthUserProfileOutput,
   ResultOutputBoolean,
-  ResultOutputListAuthUserMenuDto,
+  ResultOutputListAuthUserMenuOutput,
   ResultOutputTokenInfo,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -56,7 +56,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getUserProfile = (params: RequestParams = {}) =>
-    this.request<ResultOutputAuthUserProfileDto, any>({
+    this.request<ResultOutputAuthUserProfileOutput, any>({
       path: `/api/admin/auth/get-user-profile`,
       method: 'GET',
       secure: true,
@@ -73,7 +73,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getUserMenus = (params: RequestParams = {}) =>
-    this.request<ResultOutputListAuthUserMenuDto, any>({
+    this.request<ResultOutputListAuthUserMenuOutput, any>({
       path: `/api/admin/auth/get-user-menus`,
       method: 'GET',
       secure: true,

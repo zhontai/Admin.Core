@@ -11,31 +11,31 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  DocumentAddGroupInput,
-  DocumentAddImageInput,
-  DocumentAddMenuInput,
-  DocumentUpdateContentInput,
-  DocumentUpdateGroupInput,
-  DocumentUpdateMenuInput,
-  ResultOutputDocumentGetContentOutput,
-  ResultOutputDocumentGetGroupOutput,
-  ResultOutputDocumentGetMenuOutput,
+  DocAddGroupInput,
+  DocAddImageInput,
+  DocAddMenuInput,
+  DocUpdateContentInput,
+  DocUpdateGroupInput,
+  DocUpdateMenuInput,
+  ResultOutputDocGetContentOutput,
+  ResultOutputDocGetGroupOutput,
+  ResultOutputDocGetMenuOutput,
   ResultOutputIEnumerableObject,
   ResultOutputInt64,
-  ResultOutputListDocumentListOutput,
+  ResultOutputListDocListOutput,
   ResultOutputListString,
   ResultOutputString,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
-export class DocumentApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetGroup
    * @summary 查询分组
-   * @request GET:/api/admin/document/get-group
+   * @request GET:/api/admin/doc/get-group
    * @secure
    */
   getGroup = (
@@ -45,8 +45,8 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputDocumentGetGroupOutput, any>({
-      path: `/api/admin/document/get-group`,
+    this.request<ResultOutputDocGetGroupOutput, any>({
+      path: `/api/admin/doc/get-group`,
       method: 'GET',
       query: query,
       secure: true,
@@ -56,10 +56,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetMenu
    * @summary 查询菜单
-   * @request GET:/api/admin/document/get-menu
+   * @request GET:/api/admin/doc/get-menu
    * @secure
    */
   getMenu = (
@@ -69,8 +69,8 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputDocumentGetMenuOutput, any>({
-      path: `/api/admin/document/get-menu`,
+    this.request<ResultOutputDocGetMenuOutput, any>({
+      path: `/api/admin/doc/get-menu`,
       method: 'GET',
       query: query,
       secure: true,
@@ -80,10 +80,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetContent
    * @summary 查询文档内容
-   * @request GET:/api/admin/document/get-content
+   * @request GET:/api/admin/doc/get-content
    * @secure
    */
   getContent = (
@@ -93,8 +93,8 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputDocumentGetContentOutput, any>({
-      path: `/api/admin/document/get-content`,
+    this.request<ResultOutputDocGetContentOutput, any>({
+      path: `/api/admin/doc/get-content`,
       method: 'GET',
       query: query,
       secure: true,
@@ -104,10 +104,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetList
    * @summary 查询文档列表
-   * @request GET:/api/admin/document/get-list
+   * @request GET:/api/admin/doc/get-list
    * @secure
    */
   getList = (
@@ -120,8 +120,8 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputListDocumentListOutput, any>({
-      path: `/api/admin/document/get-list`,
+    this.request<ResultOutputListDocListOutput, any>({
+      path: `/api/admin/doc/get-list`,
       method: 'GET',
       query: query,
       secure: true,
@@ -131,10 +131,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetImageList
    * @summary 查询图片列表
-   * @request GET:/api/admin/document/get-image-list
+   * @request GET:/api/admin/doc/get-image-list
    * @secure
    */
   getImageList = (
@@ -145,7 +145,7 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     params: RequestParams = {}
   ) =>
     this.request<ResultOutputListString, any>({
-      path: `/api/admin/document/get-image-list`,
+      path: `/api/admin/doc/get-image-list`,
       method: 'GET',
       query: query,
       secure: true,
@@ -155,15 +155,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name AddGroup
    * @summary 新增分组
-   * @request POST:/api/admin/document/add-group
+   * @request POST:/api/admin/doc/add-group
    * @secure
    */
-  addGroup = (data: DocumentAddGroupInput, params: RequestParams = {}) =>
+  addGroup = (data: DocAddGroupInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
-      path: `/api/admin/document/add-group`,
+      path: `/api/admin/doc/add-group`,
       method: 'POST',
       body: data,
       secure: true,
@@ -174,15 +174,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name AddMenu
    * @summary 新增菜单
-   * @request POST:/api/admin/document/add-menu
+   * @request POST:/api/admin/doc/add-menu
    * @secure
    */
-  addMenu = (data: DocumentAddMenuInput, params: RequestParams = {}) =>
+  addMenu = (data: DocAddMenuInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
-      path: `/api/admin/document/add-menu`,
+      path: `/api/admin/doc/add-menu`,
       method: 'POST',
       body: data,
       secure: true,
@@ -193,15 +193,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name AddImage
    * @summary 新增图片
-   * @request POST:/api/admin/document/add-image
+   * @request POST:/api/admin/doc/add-image
    * @secure
    */
-  addImage = (data: DocumentAddImageInput, params: RequestParams = {}) =>
+  addImage = (data: DocAddImageInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
-      path: `/api/admin/document/add-image`,
+      path: `/api/admin/doc/add-image`,
       method: 'POST',
       body: data,
       secure: true,
@@ -212,15 +212,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name UpdateGroup
    * @summary 修改分组
-   * @request PUT:/api/admin/document/update-group
+   * @request PUT:/api/admin/doc/update-group
    * @secure
    */
-  updateGroup = (data: DocumentUpdateGroupInput, params: RequestParams = {}) =>
+  updateGroup = (data: DocUpdateGroupInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/update-group`,
+      path: `/api/admin/doc/update-group`,
       method: 'PUT',
       body: data,
       secure: true,
@@ -230,15 +230,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name UpdateMenu
    * @summary 修改菜单
-   * @request PUT:/api/admin/document/update-menu
+   * @request PUT:/api/admin/doc/update-menu
    * @secure
    */
-  updateMenu = (data: DocumentUpdateMenuInput, params: RequestParams = {}) =>
+  updateMenu = (data: DocUpdateMenuInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/update-menu`,
+      path: `/api/admin/doc/update-menu`,
       method: 'PUT',
       body: data,
       secure: true,
@@ -248,15 +248,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name UpdateContent
    * @summary 修改文档内容
-   * @request PUT:/api/admin/document/update-content
+   * @request PUT:/api/admin/doc/update-content
    * @secure
    */
-  updateContent = (data: DocumentUpdateContentInput, params: RequestParams = {}) =>
+  updateContent = (data: DocUpdateContentInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/update-content`,
+      path: `/api/admin/doc/update-content`,
       method: 'PUT',
       body: data,
       secure: true,
@@ -266,10 +266,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name Delete
    * @summary 彻底删除文档
-   * @request DELETE:/api/admin/document/delete
+   * @request DELETE:/api/admin/doc/delete
    * @secure
    */
   delete = (
@@ -280,7 +280,7 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     params: RequestParams = {}
   ) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/delete`,
+      path: `/api/admin/doc/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
@@ -289,10 +289,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name DeleteImage
    * @summary 彻底删除图片
-   * @request DELETE:/api/admin/document/delete-image
+   * @request DELETE:/api/admin/doc/delete-image
    * @secure
    */
   deleteImage = (
@@ -304,7 +304,7 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     params: RequestParams = {}
   ) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/delete-image`,
+      path: `/api/admin/doc/delete-image`,
       method: 'DELETE',
       query: query,
       secure: true,
@@ -313,10 +313,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name SoftDelete
    * @summary 删除文档
-   * @request DELETE:/api/admin/document/soft-delete
+   * @request DELETE:/api/admin/doc/soft-delete
    * @secure
    */
   softDelete = (
@@ -327,7 +327,7 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     params: RequestParams = {}
   ) =>
     this.request<AxiosResponse, any>({
-      path: `/api/admin/document/soft-delete`,
+      path: `/api/admin/doc/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
@@ -336,15 +336,15 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name GetPlainList
    * @summary 查询精简文档列表
-   * @request GET:/api/admin/document/get-plain-list
+   * @request GET:/api/admin/doc/get-plain-list
    * @secure
    */
   getPlainList = (params: RequestParams = {}) =>
     this.request<ResultOutputIEnumerableObject, any>({
-      path: `/api/admin/document/get-plain-list`,
+      path: `/api/admin/doc/get-plain-list`,
       method: 'GET',
       secure: true,
       format: 'json',
@@ -353,10 +353,10 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
   /**
    * No description
    *
-   * @tags document
+   * @tags doc
    * @name UploadImage
    * @summary 上传文档图片
-   * @request POST:/api/admin/document/upload-image
+   * @request POST:/api/admin/doc/upload-image
    * @secure
    */
   uploadImage = (
@@ -375,7 +375,7 @@ export class DocumentApi<SecurityDataType = unknown> extends HttpClient<Security
     params: RequestParams = {}
   ) =>
     this.request<ResultOutputString, any>({
-      path: `/api/admin/document/upload-image`,
+      path: `/api/admin/doc/upload-image`,
       method: 'POST',
       body: data,
       secure: true,

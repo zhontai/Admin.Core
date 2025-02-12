@@ -16,7 +16,7 @@ import {
   ExportInput,
   PageInputDictGetPageInput,
   ResultOutputDictGetOutput,
-  ResultOutputDictionaryStringListDictGetListDto,
+  ResultOutputDictionaryStringListDictGetListOutput,
   ResultOutputImportOutput,
   ResultOutputInt64,
   ResultOutputPageOutputDictGetPageOutput,
@@ -77,7 +77,7 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getList = (data: string[], params: RequestParams = {}) =>
-    this.request<ResultOutputDictionaryStringListDictGetListDto, any>({
+    this.request<ResultOutputDictionaryStringListDictGetListOutput, any>({
       path: `/api/admin/dict/get-list`,
       method: 'POST',
       body: data,
@@ -96,7 +96,7 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getListByNames = (data: string[], params: RequestParams = {}) =>
-    this.request<ResultOutputDictionaryStringListDictGetListDto, any>({
+    this.request<ResultOutputDictionaryStringListDictGetListOutput, any>({
       path: `/api/admin/dict/get-list-by-names`,
       method: 'POST',
       body: data,

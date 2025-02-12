@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using ZhonTai.Admin.Core.Validators;
 
-namespace ZhonTai.Admin.Services.Document.Dto;
+namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
 /// 更新菜单
 /// </summary>
-public class DocumentUpdateMenuInput : DocumentAddMenuInput
+public class DocUpdateMenuInput : DocAddMenuInput
 {
     /// <summary>
     /// 编号

@@ -11,7 +11,7 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PageInputUserGetPageDto,
+  PageInputUserGetPageInput,
   ResultOutputInt64,
   ResultOutputObject,
   ResultOutputPageOutputUserGetPageOutput,
@@ -66,7 +66,7 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request POST:/api/admin/user/get-page
    * @secure
    */
-  getPage = (data: PageInputUserGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputUserGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputUserGetPageOutput, any>({
       path: `/api/admin/user/get-page`,
       method: 'POST',

@@ -12,7 +12,7 @@
 import { AxiosResponse } from 'axios'
 import {
   FileDeleteInput,
-  PageInputFileGetPageDto,
+  PageInputFileGetPageInput,
   ResultOutputFileEntity,
   ResultOutputListFileEntity,
   ResultOutputPageOutputFileGetPageOutput,
@@ -29,7 +29,7 @@ export class FileApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request POST:/api/admin/file/get-page
    * @secure
    */
-  getPage = (data: PageInputFileGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputFileGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputFileGetPageOutput, any>({
       path: `/api/admin/file/get-page`,
       method: 'POST',

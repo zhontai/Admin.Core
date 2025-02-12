@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Domain.Document;
+using ZhonTai.Admin.Domain.Doc;
 using ZhonTai.Admin.Domain.DocumentImage;
-using ZhonTai.Admin.Services.Document.Dto;
+using ZhonTai.Admin.Services.Doc.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 
-namespace ZhonTai.Admin.Services.Document;
+namespace ZhonTai.Admin.Services.Doc;
 
 /// <summary>
 /// 文档服务
 /// </summary>
 [Order(180)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class DocumentService : BaseService, IDocumentService, IDynamicApi
+public class DocService : BaseService, IDocService, IDynamicApi
 {
-    private readonly IDocRepository _documentRepository;
-    private readonly IDocImageRepository _documentImageRepository;
+    private readonly IDocRepository _docRep;
+    private readonly IDocImageRepository _docImageRep;
     private readonly Lazy<IFileService> _fileService;
 
-    public DocumentService(
-        IDocRepository DocumentRepository,
-        IDocImageRepository documentImageRepository,
+    public DocService(
+        IDocRepository docRep,
+        IDocImageRepository docImageRep,
         Lazy<IFileService> fileService
     )
     {
-        _documentRepository = DocumentRepository;
-        _documentImageRepository = documentImageRepository;
+        _docRep = docRep;
+        _docImageRep = docImageRep;
         _fileService = fileService;
     }
 
@@ -35,9 +35,9 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<DocumentGetGroupOutput> GetGroupAsync(long id)
+    public async Task<DocGetGroupOutput> GetGroupAsync(long id)
     {
-        var result = await _documentRepository.GetAsync<DocumentGetGroupOutput>(id);
+        var result = await _docRep.GetAsync<DocGetGroupOutput>(id);
         return result;
     }
 
@@ -46,9 +46,9 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<DocumentGetMenuOutput> GetMenuAsync(long id)
+    public async Task<DocGetMenuOutput> GetMenuAsync(long id)
     {
-        var result = await _documentRepository.GetAsync<DocumentGetMenuOutput>(id);
+        var result = await _docRep.GetAsync<DocGetMenuOutput>(id);
         return result;
     }
 
@@ -57,9 +57,9 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<DocumentGetContentOutput> GetContentAsync(long id)
+    public async Task<DocGetContentOutput> GetContentAsync(long id)
     {
-        var result = await _documentRepository.GetAsync<DocumentGetContentOutput>(id);
+        var result = await _docRep.GetAsync<DocGetContentOutput>(id);
         return result;
     }
 
@@ -70,19 +70,19 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <param name="start"></param>
     /// <param name="end"></param>
     /// <returns></returns>
-    public async Task<List<DocumentListOutput>> GetListAsync(string key, DateTime? start, DateTime? end)
+    public async Task<List<DocListOutput>> GetListAsync(string key, DateTime? start, DateTime? end)
     {
         if (end.HasValue)
         {
             end = end.Value.AddDays(1);
         }
 
-        var data = await _documentRepository
+        var data = await _docRep
             .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Label.Contains(key))
             .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
-            .ToListAsync<DocumentListOutput>();
+            .ToListAsync<DocListOutput>();
 
         return data;
     }
@@ -94,7 +94,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task<List<string>> GetImageListAsync(long id)
     {
-        var result = await _documentImageRepository.Select
+        var result = await _docImageRep.Select
             .Where(a => a.DocumentId == id)
             .OrderByDescending(a => a.Id)
             .ToListAsync(a => a.Url);
@@ -107,10 +107,10 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<long> AddGroupAsync(DocumentAddGroupInput input)
+    public async Task<long> AddGroupAsync(DocAddGroupInput input)
     {
         var entity = Mapper.Map<DocEntity>(input);
-        await _documentRepository.InsertAsync(entity);
+        await _docRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -120,10 +120,10 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<long> AddMenuAsync(DocumentAddMenuInput input)
+    public async Task<long> AddMenuAsync(DocAddMenuInput input)
     {
         var entity = Mapper.Map<DocEntity>(input);
-        await _documentRepository.InsertAsync(entity);
+        await _docRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -133,10 +133,10 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<long> AddImageAsync(DocumentAddImageInput input)
+    public async Task<long> AddImageAsync(DocAddImageInput input)
     {
         var entity = Mapper.Map<DocImageEntity>(input);
-        await _documentImageRepository.InsertAsync(entity);
+        await _docImageRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -146,11 +146,11 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task UpdateGroupAsync(DocumentUpdateGroupInput input)
+    public async Task UpdateGroupAsync(DocUpdateGroupInput input)
     {
-        var entity = await _documentRepository.GetAsync(input.Id);
+        var entity = await _docRep.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);
-        await _documentRepository.UpdateAsync(entity);
+        await _docRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -158,11 +158,11 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task UpdateMenuAsync(DocumentUpdateMenuInput input)
+    public async Task UpdateMenuAsync(DocUpdateMenuInput input)
     {
-        var entity = await _documentRepository.GetAsync(input.Id);
+        var entity = await _docRep.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);
-        await _documentRepository.UpdateAsync(entity);
+        await _docRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -170,11 +170,11 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task UpdateContentAsync(DocumentUpdateContentInput input)
+    public async Task UpdateContentAsync(DocUpdateContentInput input)
     {
-        var entity = await _documentRepository.GetAsync(input.Id);
+        var entity = await _docRep.GetAsync(input.Id);
         entity = Mapper.Map(input, entity);
-        await _documentRepository.UpdateAsync(entity);
+        await _docRep.UpdateAsync(entity);
     }
 
     /// <summary>
@@ -184,7 +184,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteAsync(long id)
     {
-        await _documentRepository.DeleteAsync(m => m.Id == id);
+        await _docRep.DeleteAsync(m => m.Id == id);
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task DeleteImageAsync(long documentId, string url)
     {
-        await _documentImageRepository.DeleteAsync(m => m.DocumentId == documentId && m.Url == url);
+        await _docImageRep.DeleteAsync(m => m.DocumentId == documentId && m.Url == url);
     }
 
     /// <summary>
@@ -205,7 +205,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task SoftDeleteAsync(long id)
     {
-        await _documentRepository.SoftDeleteAsync(id);
+        await _docRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <returns></returns>
     public async Task<IEnumerable<dynamic>> GetPlainListAsync()
     {
-        var documents = await _documentRepository.Select
+        var documents = await _docRep.Select
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
             .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Opened });
@@ -239,11 +239,11 @@ public class DocumentService : BaseService, IDocumentService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<string> UploadImage([FromForm] DocumentUploadImageInput input)
+    public async Task<string> UploadImage([FromForm] DocUploadImageInput input)
     {
         var fileInfo = await _fileService.Value.UploadFileAsync(input.File);
         //保存文档图片
-        await AddImageAsync(new DocumentAddImageInput
+        await AddImageAsync(new DocAddImageInput
         {
             DocumentId = input.Id,
             Url = fileInfo.LinkUrl

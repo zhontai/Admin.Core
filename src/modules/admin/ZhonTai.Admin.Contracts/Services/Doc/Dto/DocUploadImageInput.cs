@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace ZhonTai.Admin.Services.Document.Dto;
+namespace ZhonTai.Admin.Services.Doc.Dto;
 
 /// <summary>
 /// 上传图片
 /// </summary>
-public class DocumentUploadImageInput
+public class DocUploadImageInput
 {
     /// <summary>
     /// 上传文件
