@@ -37,7 +37,7 @@
       <el-collapse class="mt12" v-model="state.activeName">
         <el-collapse-item title="请求参数" name="params">
           <v-ace-editor
-            v-model:value="state.details.params"
+            v-model:value="state.details.params as string"
             @init="onJsonFormatParams"
             lang="json"
             :options="state.options"
@@ -48,7 +48,7 @@
         </el-collapse-item>
         <el-collapse-item title="响应结果" name="result">
           <v-ace-editor
-            v-model:value="state.details.result"
+            v-model:value="state.details.result as string"
             @init="onJsonFormatResult"
             lang="json"
             :options="state.options"

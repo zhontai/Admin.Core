@@ -121,7 +121,7 @@
 <script lang="ts" setup name="admin/pkg">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
 import {
-  PageInputPkgGetPageDto,
+  PageInputPkgGetPageInput,
   PkgGetPkgTenantListOutput,
   PkgGetPageOutput,
   PkgAddPkgTenantListInput,
@@ -164,7 +164,7 @@ const state = reactive({
     filter: {
       name: '',
     },
-  } as PageInputPkgGetPageDto,
+  } as PageInputPkgGetPageInput,
   pkgData: [] as any,
   tenantPageInput: {
     currentPage: 1,

@@ -94,7 +94,7 @@
 
 <script lang="ts" setup name="admin/file">
 import { ref, reactive, onMounted, onBeforeMount, defineAsyncComponent, computed, getCurrentInstance } from 'vue'
-import { PageInputFileGetPageDto, FileGetPageOutput } from '/@/api/admin/data-contracts'
+import { PageInputFileGetPageInput, FileGetPageOutput } from '/@/api/admin/data-contracts'
 import { FileApi } from '/@/api/admin/File'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
@@ -117,7 +117,7 @@ const state = reactive({
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputFileGetPageDto,
+  } as PageInputFileGetPageInput,
   fileListData: [] as Array<FileGetPageOutput>,
   fileLogsTitle: '',
 })

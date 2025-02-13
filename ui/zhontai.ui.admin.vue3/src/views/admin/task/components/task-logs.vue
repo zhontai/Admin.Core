@@ -45,7 +45,7 @@
 
 <script lang="ts" setup name="admin/taskLog">
 import { reactive, computed } from 'vue'
-import { ResultOutputPageOutputTaskLog, PageInputTaskLogGetPageDto, TaskListOutput } from '/@/api/admin/data-contracts'
+import { ResultOutputPageOutputTaskLog, PageInputTaskLogGetPageInput, TaskGetPageOutput } from '/@/api/admin/data-contracts'
 import { TaskLogApi } from '/@/api/admin/TaskLog'
 import dayjs from 'dayjs'
 
@@ -69,7 +69,7 @@ const state = reactive({
     filter: {
       taskId: null,
     },
-  } as PageInputTaskLogGetPageDto,
+  } as PageInputTaskLogGetPageInput,
   taskLogListData: [] as Array<ResultOutputPageOutputTaskLog>,
 })
 
@@ -103,7 +103,7 @@ const onCurrentChange = (val: number) => {
 }
 
 // 打开对话框
-const open = (row: TaskListOutput) => {
+const open = (row: TaskGetPageOutput) => {
   if (state.pageInput.filter) state.pageInput.filter.taskId = row.id
   onQuery()
   state.showDialog = true

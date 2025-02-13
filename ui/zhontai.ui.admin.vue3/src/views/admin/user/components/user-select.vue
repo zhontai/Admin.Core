@@ -76,7 +76,7 @@
 <script lang="ts" setup name="admin/user/components/user-select">
 import { ref, reactive, defineAsyncComponent } from 'vue'
 import { ElTable } from 'element-plus'
-import { UserGetPageOutput, PageInputUserGetPageDto, OrgListOutput } from '/@/api/admin/data-contracts'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 
 // 引入组件
@@ -114,7 +114,7 @@ const state = reactive({
     filter: {
       orgId: null,
     },
-  } as PageInputUserGetPageDto,
+  } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
 })
 

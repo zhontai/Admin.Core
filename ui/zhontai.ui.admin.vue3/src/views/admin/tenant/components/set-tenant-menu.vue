@@ -34,7 +34,7 @@
 
 <script lang="ts" setup name="admin/tenant/components/set-tenant-menu">
 import { ref, reactive, getCurrentInstance, computed } from 'vue'
-import { TenantListOutput, PermissionSaveTenantPermissionsInput } from '/@/api/admin/data-contracts'
+import { TenantGetPageOutput, PermissionSaveTenantPermissionsInput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ElTree } from 'element-plus'
 import { listToTree } from '/@/utils/tree'
@@ -70,7 +70,7 @@ const getTenantPermissionList = async () => {
 }
 
 // 打开对话框
-const open = async (tenat: TenantListOutput) => {
+const open = async (tenat: TenantGetPageOutput) => {
   state.id = tenat.id
   state.name = tenat.name
   proxy.$modal.loading()

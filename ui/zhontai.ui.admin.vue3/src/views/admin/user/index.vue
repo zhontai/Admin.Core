@@ -124,7 +124,7 @@
 
 <script lang="ts" setup name="admin/user">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
-import { UserGetPageOutput, PageInputUserGetPageDto, OrgListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -168,7 +168,7 @@ const state = reactive({
       orgId: null,
     },
     dynamicFilter: {},
-  } as PageInputUserGetPageDto,
+  } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
   filters: [
     {

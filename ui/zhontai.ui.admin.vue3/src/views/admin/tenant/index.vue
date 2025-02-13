@@ -79,7 +79,7 @@
 
 <script lang="ts" setup name="admin/tenant">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { TenantListOutput, PageInputTenantGetPageDto } from '/@/api/admin/data-contracts'
+import { TenantGetPageOutput, PageInputTenantGetPageInput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -106,8 +106,8 @@ const state = reactive({
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputTenantGetPageDto,
-  tenantListData: [] as Array<TenantListOutput>,
+  } as PageInputTenantGetPageInput,
+  tenantListData: [] as Array<TenantGetPageOutput>,
 })
 
 onMounted(() => {
@@ -139,12 +139,12 @@ const onAdd = () => {
   tenantFormRef.value.open()
 }
 
-const onEdit = (row: TenantListOutput) => {
+const onEdit = (row: TenantGetPageOutput) => {
   state.tenantFormTitle = '编辑租户'
   tenantFormRef.value.open(row)
 }
 
-const onDelete = (row: TenantListOutput) => {
+const onDelete = (row: TenantGetPageOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
@@ -154,7 +154,7 @@ const onDelete = (row: TenantListOutput) => {
     .catch(() => {})
 }
 
-const onSetEnable = (row: TenantListOutput & { loading: boolean }) => {
+const onSetEnable = (row: TenantGetPageOutput & { loading: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
       .confirm(`确定要${row.enabled ? '禁用' : '启用'}【${row.name}】?`)
@@ -181,7 +181,7 @@ const onSetEnable = (row: TenantListOutput & { loading: boolean }) => {
 }
 
 //一键登录
-const onOneClickLogin = (row: TenantListOutput) => {
+const onOneClickLogin = (row: TenantGetPageOutput) => {
   proxy.$modal
     .confirmDelete(`确定要一键登录【${row.name}】?`)
     .then(async () => {
