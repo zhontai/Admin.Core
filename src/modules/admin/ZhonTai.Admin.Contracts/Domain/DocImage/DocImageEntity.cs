@@ -2,7 +2,7 @@
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Domain.Doc;
 
-namespace ZhonTai.Admin.Domain.DocumentImage;
+namespace ZhonTai.Admin.Domain.DocImage;
 
 /// <summary>
 /// 文档图片

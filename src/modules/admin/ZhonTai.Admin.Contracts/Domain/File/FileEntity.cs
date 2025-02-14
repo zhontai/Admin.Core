@@ -1,7 +1,7 @@
-﻿using ZhonTai.Admin.Core.Entities;
-using FreeSql.DataAnnotations;
-using OnceMi.AspNetCore.OSS;
+﻿using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Entities;
 using ZhonTai.Admin.Core.Attributes;
+using OnceMi.AspNetCore.OSS;
 
 namespace ZhonTai.Admin.Domain;
 

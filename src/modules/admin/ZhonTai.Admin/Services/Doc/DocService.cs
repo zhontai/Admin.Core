@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Domain.Doc;
-using ZhonTai.Admin.Domain.DocumentImage;
+using ZhonTai.Admin.Domain.DocImage;
 using ZhonTai.Admin.Services.Doc.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
