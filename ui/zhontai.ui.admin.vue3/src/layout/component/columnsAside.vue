@@ -146,17 +146,16 @@ const setFilterRoutes = () => {
   const resData: MittMenu = setSendChildren(route.path)
   if (Object.keys(resData).length <= 0) return false
   onColumnsAsideDown(resData.item?.k)
-  // 刷新时，初始化一个路由设置自动收起菜单
-  // resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false)
-  // 刷新时，初始化无路由设置自动收起菜单
   if (!resData.children || resData.children.length < 1) {
     themeConfig.value.isCollapse = true
-    if (state.columnsAsideList?.length > 0) onColumnsAsideMenuClick(state.columnsAsideList[0])
+    setTimeout(() => {
+      if (state.columnsAsideList?.length > 0) onColumnsAsideMenuClick(state.columnsAsideList[0])
+    }, 300)
   } else {
     themeConfig.value.isCollapse = false
     setTimeout(() => {
       mittBus.emit('setSendColumnsChildren', resData)
-    }, 100)
+    }, 300)
   }
 }
 // 传送当前子级数据到菜单中
