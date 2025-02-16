@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Services.Api.Dto;
 

@@ -10,6 +10,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\Resources.AdminContractsLocalizer.en.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="../../../../logo.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 

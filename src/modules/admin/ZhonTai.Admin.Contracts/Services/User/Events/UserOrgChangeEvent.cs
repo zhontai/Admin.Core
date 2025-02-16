@@ -11,7 +11,7 @@ public class UserOrgChangeEvent
     public long[] UserIds { get; set; }
 
     /// <summary>
-    /// 所属部门Ids
+    /// 所属部门Id列表
     /// </summary>
     public virtual long[] OrgIds { get; set; }
 

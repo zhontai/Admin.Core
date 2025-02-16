@@ -1,5 +1,4 @@
 ﻿using FreeSql;
-using System.Collections.Generic;
 using System.Data;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;

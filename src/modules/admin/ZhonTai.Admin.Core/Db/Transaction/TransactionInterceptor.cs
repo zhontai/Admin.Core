@@ -2,6 +2,9 @@
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
+/// <summary>
+/// 事务拦截器
+/// </summary>
 public class TransactionInterceptor : IInterceptor
 {
     private readonly TransactionAsyncInterceptor _transactionAsyncInterceptor;

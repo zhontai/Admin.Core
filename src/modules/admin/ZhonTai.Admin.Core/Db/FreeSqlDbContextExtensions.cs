@@ -5,6 +5,9 @@ using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Core.Db;
 
+/// <summary>
+/// FreeSqlDbContext扩展类
+/// </summary>
 public static class FreeSqlDbContextExtensions
 {
     /// <summary>

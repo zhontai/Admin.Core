@@ -12,6 +12,6 @@ public class PermissionUpdateGroupInput : PermissionAddGroupInput
     /// 权限Id
     /// </summary>
     [Required]
-    [ValidateRequired("请选择分组")]
+    [ValidateRequired("请选择权限分组")]
     public long Id { get; set; }
 }

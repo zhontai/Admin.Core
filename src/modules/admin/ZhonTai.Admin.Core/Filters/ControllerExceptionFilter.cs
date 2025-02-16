@@ -57,6 +57,9 @@ public class ControllerExceptionFilter : IExceptionFilter, IAsyncExceptionFilter
     }
 }
 
+/// <summary>
+/// 服务器内部错误结果
+/// </summary>
 public class InternalServerErrorResult : ObjectResult
 {
     public InternalServerErrorResult(object value, bool appException) : base(value)

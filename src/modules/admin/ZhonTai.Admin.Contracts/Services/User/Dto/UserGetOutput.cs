@@ -11,7 +11,7 @@ public class UserGetOutput : UserUpdateInput
     public ICollection<UserGetRoleModel> Roles { get; set; }
 
     /// <summary>
-    /// 角色Ids
+    /// 角色Id列表
     /// </summary>
     public override long[] RoleIds => Roles?.Select(a => a.Id)?.ToArray();
 }

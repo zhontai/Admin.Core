@@ -7,8 +7,16 @@ using OSSOptions = ZhonTai.Admin.Core.Configs.OSSOptions;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
+/// <summary>
+/// OSS扩展
+/// </summary>
 public static class OSSExtensions
 {
+    /// <summary>
+    /// 创建存储桶
+    /// </summary>
+    /// <param name="oSSServiceFactory"></param>
+    /// <param name="oSSOptions"></param>
     private static void CreateBucketName(IOSSServiceFactory oSSServiceFactory, OSSOptions oSSOptions)
     {
         var oSSService = oSSServiceFactory.Create(oSSOptions.Provider.ToString());
@@ -40,6 +48,11 @@ public static class OSSExtensions
         }
     }
 
+    /// <summary>
+    /// 添加OSS
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
     public static IServiceCollection AddOSS(this IServiceCollection services)
     {
         var oSSConfig = services.BuildServiceProvider().GetRequiredService<IOptions<OSSConfig>>().Value;

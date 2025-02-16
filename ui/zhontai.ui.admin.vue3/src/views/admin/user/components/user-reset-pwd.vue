@@ -15,7 +15,7 @@
       </el-text>
 
       <el-form ref="formRef" :model="state.form" size="default" label-width="0px">
-        <el-form-item prop="password" :rules="[{ validator: validatorPwd, trigger: ['blur', 'change'] }]">
+        <el-form-item prop="password">
           <el-input
             key="password"
             placeholder="选填，不填则使用系统默认密码"

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Localization;
-using System.Collections.Generic;
 
 namespace ZhonTai.Admin.Resources;
 
+/// <summary>
+/// 模块本地化
+/// </summary>
 public abstract class ModuleLocalizer : IModuleLocalizer
 {
     private readonly IStringLocalizer _localizer;

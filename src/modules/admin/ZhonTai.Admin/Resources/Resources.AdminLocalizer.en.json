@@ -65,12 +65,11 @@
   "上级部门不能是下级部门": "The superior department cannot be a subordinate department",
   "当前部门有员工无法删除": "The current department has employees and cannot be deleted",
   "本部门的下级部门有员工无法删除": "The subordinate departments of this department have employees and cannot be deleted",
-  "请选择接口": "Please select an interface",
+
   "账号不能为空": "Account cannot be empty",
-  "密码不能为空": "Password cannot be empty",
-  "请输入手机号": "Please enter your mobile number",
-  "请输入验证码": "Please enter the verification code",
-  "请获取验证码": "Please request a verification code",
+
+
+
   "请选择字典类型": "Please select a dictionary type",
   "请输入字典名称": "Please enter a dictionary name",
   "请输入字典类型名称": "Please enter a dictionary type name",
@@ -97,7 +96,7 @@
   "请选择视图": "Please select a view",
   "请输入密码": "Please enter your password",
   "请输入旧密码": "Please enter your old password",
-  "请输入新密码": "Please enter your new password",
+
   "请输入确认新密码": "Please re-enter your new password for confirmation",
   "请选择会员": "Please select a member",
   "权限点编码不能为空": "The permission point code cannot be empty",

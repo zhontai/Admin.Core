@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Tools.TaskScheduler;
 
+/// <summary>
+/// Shell命令参数
+/// </summary>
 public class ShellArgs
 {
     /// <summary>

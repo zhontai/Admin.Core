@@ -11,8 +11,19 @@ using ZhonTai.Admin.Core.Configs;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>
+/// Grpc扩展
+/// </summary>
 public static class GrpcExtensions
 {
+    /// <summary>
+    /// 添加Grpc客户端
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="assemblies"></param>
+    /// <param name="rpcConfig"></param>
+    /// <param name="policies"></param>
+    /// <returns></returns>
     public static IServiceCollection AddMyGrpcClients(this IServiceCollection services, IEnumerable<Assembly> assemblies, RpcConfig rpcConfig, List<IAsyncPolicy<HttpResponseMessage>> policies)
     {
         ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));
@@ -36,6 +47,14 @@ public static class GrpcExtensions
         return services;
     }
 
+    /// <summary>
+    /// 添加CodeFirstGrpc客户端
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="rpcConfig"></param>
+    /// <param name="policies"></param>
+    /// <returns></returns>
     public static IServiceCollection AddMyCodeFirstGrpcClient<T>(this IServiceCollection services, RpcConfig rpcConfig, List<IAsyncPolicy<HttpResponseMessage>> policies) where T : class
     {
         ArgumentNullException.ThrowIfNull(rpcConfig, nameof(rpcConfig));
@@ -89,6 +108,12 @@ public static class GrpcExtensions
         return services;
     }
 
+    /// <summary>
+    /// 使用Grpc服务
+    /// </summary>
+    /// <param name="endpointRouteBuilder"></param>
+    /// <param name="assemblies"></param>
+    /// <returns></returns>
     public static IEndpointRouteBuilder UseMyMapGrpcService(this IEndpointRouteBuilder endpointRouteBuilder, IEnumerable<Assembly> assemblies)
     {
         ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));

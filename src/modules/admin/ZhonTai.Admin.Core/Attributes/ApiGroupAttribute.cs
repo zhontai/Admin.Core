@@ -6,6 +6,9 @@
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true)]
 public class ApiGroupAttribute : Attribute
 {
+    /// <summary>
+    /// 是否不分组
+    /// </summary>
     public bool NonGroup { get; set; }
 
     /// <summary>

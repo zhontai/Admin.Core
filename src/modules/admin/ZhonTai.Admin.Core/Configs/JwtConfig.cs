@@ -18,7 +18,7 @@ public class JwtConfig
     /// <summary>
     /// 密钥
     /// </summary>
-    public string SecurityKey { get; set; } = "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877ad";
+    public string SecurityKey { get; set; }
 
     /// <summary>
     /// 有效期(分钟)

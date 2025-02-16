@@ -1,7 +1,7 @@
 ﻿namespace ZhonTai.Admin.Core.Attributes;
 
 /// <summary>
-/// SchemaId
+/// SchemaId特性
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true)]
 public class SchemaIdAttribute : Attribute

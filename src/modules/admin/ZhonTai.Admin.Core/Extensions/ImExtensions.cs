@@ -3,6 +3,9 @@ using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
+/// <summary>
+/// Im扩展
+/// </summary>
 public static class ImExtensions
 {
     /// <summary>

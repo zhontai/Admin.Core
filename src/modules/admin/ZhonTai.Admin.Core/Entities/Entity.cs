@@ -6,6 +6,10 @@ using ZhonTai.Admin.Core.Attributes;
 
 namespace ZhonTai.Admin.Core.Entities;
 
+/// <summary>
+/// 实体接口
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
 public interface IEntity<TKey>
 {
     /// <summary>
@@ -14,10 +18,17 @@ public interface IEntity<TKey>
     TKey Id { get; set; }
 }
 
+/// <summary>
+/// 实体接口
+/// </summary>
 public interface IEntity : IEntity<long>
 {
 }
 
+/// <summary>
+/// 实体
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
 public class Entity<TKey> : IEntity<TKey>
 {
     /// <summary>
@@ -31,6 +42,9 @@ public class Entity<TKey> : IEntity<TKey>
     public virtual TKey Id { get; set; }
 }
 
+/// <summary>
+/// 实体
+/// </summary>
 public class Entity : Entity<long>
 {
 }

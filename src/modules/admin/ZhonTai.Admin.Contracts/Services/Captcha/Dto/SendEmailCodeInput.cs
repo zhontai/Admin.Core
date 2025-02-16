@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 namespace ZhonTai.Admin.Services.Captcha.Dto;
 
 /// <summary>
-/// 发送邮件验证码
+/// 发送邮箱验证码
 /// </summary>
 public class SendEmailCodeInput
 {
     /// <summary>
-    /// 邮件地址
+    /// 邮箱地址
     /// </summary>
-    [Required(ErrorMessage = "请输入邮件地址")]
+    [Required(ErrorMessage = "请输入邮箱地址")]
     public string Email { get; set; }
 
     /// <summary>

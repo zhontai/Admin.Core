@@ -1,12 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using Module = Autofac.Module;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Db.Transaction;
-using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Repositories;
-using Microsoft.AspNetCore.Identity;
 using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.RegisterModules;

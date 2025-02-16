@@ -6,6 +6,9 @@ using ZhonTai.Admin.Tools.Cache;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
+/// <summary>
+/// Id生成器扩展
+/// </summary>
 public static class IdGeneratorExtensions
 {
     private static bool _isSet = false;
@@ -37,6 +40,11 @@ public static class IdGeneratorExtensions
         }
     }
 
+    /// <summary>
+    /// 设置Id生成器
+    /// </summary>
+    /// <param name="idGeneratorConfig"></param>
+    /// <exception cref="Exception"></exception>
     private static void SetIdGenerator(IdGeneratorConfig idGeneratorConfig)
     {
         var redisProvider = AppInfo.GetRequiredService<IRedisClient>(false);

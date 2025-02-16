@@ -7,6 +7,9 @@ using ZhonTai.Admin.Core.Dto;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
+/// <summary>
+/// 事务拦截器
+/// </summary>
 public class TransactionAsyncInterceptor : IAsyncInterceptor
 {
     private IUnitOfWork _unitOfWork;

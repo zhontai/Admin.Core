@@ -5,5 +5,8 @@
 /// </summary>
 public class RegionGetOutput : RegionUpdateInput
 {
+    /// <summary>
+    /// 上级Id列表
+    /// </summary>
     public List<long> ParentIdList { get; set; }
 }

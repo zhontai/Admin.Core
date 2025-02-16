@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
+/// <summary>
+/// 属性解析器
+/// </summary>
 public class PropsContractResolver : CamelCasePropertyNamesContractResolver
 {
     private bool _ignore;

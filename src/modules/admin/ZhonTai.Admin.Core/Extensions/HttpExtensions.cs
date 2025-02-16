@@ -12,8 +12,19 @@ using ZhonTai.Admin.Core.Handlers;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>
+/// Http扩展
+/// </summary>
 public static class HttpExtensions
 {
+    /// <summary>
+    /// 添加Http客户端
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="assemblies"></param>
+    /// <param name="rpcConfig"></param>
+    /// <param name="policies"></param>
+    /// <returns></returns>
     public static IServiceCollection AddMyHttpClients(this IServiceCollection services, IEnumerable<Assembly> assemblies, RpcConfig rpcConfig, List<IAsyncPolicy<HttpResponseMessage>> policies)
     {
         ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));
@@ -37,6 +48,15 @@ public static class HttpExtensions
         return services;
     }
 
+    /// <summary>
+    /// 添加Refit客户端
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="rpcConfig"></param>
+    /// <param name="policies"></param>
+    /// <returns></returns>
+    /// <exception cref="NullReferenceException"></exception>
     public static IServiceCollection AddMyRefitClient<T>(this IServiceCollection services, RpcConfig rpcConfig, List<IAsyncPolicy<HttpResponseMessage>> policies) where T : class
     {
         ArgumentNullException.ThrowIfNull(rpcConfig, nameof(rpcConfig));

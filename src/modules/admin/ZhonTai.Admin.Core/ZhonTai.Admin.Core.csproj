@@ -5,6 +5,7 @@
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 	<ItemGroup>
+		
 	  <Content Include="Resources\Resources.AdminCoreLocalizer.en.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

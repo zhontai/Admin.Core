@@ -17,6 +17,9 @@ using ZhonTai.Admin.Domain.User;
 
 namespace ZhonTai.Admin.Core.Db;
 
+/// <summary>
+/// 数据库帮助类
+/// </summary>
 public class DbHelper
 {
     /// <summary>

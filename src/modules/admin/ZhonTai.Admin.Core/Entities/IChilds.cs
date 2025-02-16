@@ -5,5 +5,8 @@
 /// </summary>
 public interface IChilds<T>
 {
+    /// <summary>
+    /// 子级列表
+    /// </summary>
     List<T> Childs { get; set; }
 }

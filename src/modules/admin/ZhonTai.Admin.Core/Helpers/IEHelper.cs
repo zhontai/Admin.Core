@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Text;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Tools.Cache;
+using ZhonTai.Admin.Core.Resources;
 
 namespace ZhonTai.Admin.Core.Helpers;
 
@@ -112,26 +112,26 @@ public class IEHelper
         {
             if (importResult.Exception != null)
             {
-                errorMsg.AppendLine("错误信息：");
+                errorMsg.AppendLine(_adminCoreLocalizer["错误信息："]);
                 errorMsg.AppendLine(importResult.Exception.Message);
             }
 
             if (importResult.TemplateErrors != null && importResult.TemplateErrors.Count > 0)
             {
-                errorMsg.AppendLine("缺少数据列：" + string.Join("，", importResult.TemplateErrors.Select(m => m.RequireColumnName).ToList()));
+                errorMsg.AppendLine(_adminCoreLocalizer["缺少数据列："] + string.Join("，", importResult.TemplateErrors.Select(m => m.RequireColumnName).ToList()));
             }
         }
 
         var rowErros = importResult.RowErrors;
         if (rowErros?.Count > 0)
         {
-            errorMsg.AppendLine("数据填写有误：");
+            errorMsg.AppendLine(_adminCoreLocalizer["数据填写有误："]);
             rowErros = rowErros.OrderBy(a => a.RowIndex).ToList();
             foreach (DataRowErrorInfo drErrorInfo in rowErros)
             {
                 foreach (var item in drErrorInfo.FieldErrors)
                 {
-                    errorMsg.AppendLine($"第{drErrorInfo.RowIndex}行 - {item.Key}：{item.Value}");
+                    errorMsg.AppendLine(_adminCoreLocalizer["第{0}行 - {1}：{2}", drErrorInfo.RowIndex, item.Key, item.Value]);
                 }
             }
 

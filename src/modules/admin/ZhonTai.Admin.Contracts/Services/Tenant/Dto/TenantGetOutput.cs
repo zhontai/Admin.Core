@@ -12,7 +12,7 @@ public class TenantGetOutput : TenantUpdateInput
     public ICollection<PkgEntity> Pkgs { get; set; }
 
     /// <summary>
-    /// 套餐Ids
+    /// 套餐Id列表
     /// </summary>
     public override long[] PkgIds => Pkgs?.Select(a => a.Id)?.ToArray();
 }

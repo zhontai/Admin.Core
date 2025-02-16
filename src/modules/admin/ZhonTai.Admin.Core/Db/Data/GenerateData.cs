@@ -10,10 +10,18 @@ using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
+/// <summary>
+/// 生成数据
+/// </summary>
 public abstract class GenerateData
 {
     private readonly string _tenantName = InterfaceHelper.GetPropertyNames<ITenant>().FirstOrDefault()?.ToLower();
 
+    /// <summary>
+    /// 忽略属性名
+    /// </summary>
+    /// <param name="ti"></param>
+    /// <param name="isTenant"></param>
     protected virtual void IgnorePropName(JsonTypeInfo ti, bool isTenant)
     {
         foreach (var jsonPropertyInfo in ti.Properties)
@@ -30,6 +38,13 @@ public abstract class GenerateData
         }
     }
 
+    /// <summary>
+    /// 保存数据到Json文件
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="data"></param>
+    /// <param name="isTenant"></param>
+    /// <param name="path"></param>
     protected virtual void SaveDataToJsonFile<T>(object data, bool isTenant = false, string path = "InitData/Admin") where T : class, new()
     {
         var jsonSerializerOptions = new JsonSerializerOptions

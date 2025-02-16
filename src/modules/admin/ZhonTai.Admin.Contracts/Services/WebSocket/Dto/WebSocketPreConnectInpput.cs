@@ -5,5 +5,8 @@
 /// </summary>
 public class WebSocketPreConnectInput
 {
+    /// <summary>
+    /// WebSocketId
+    /// </summary>
     public long? WebsocketId {  get; set; }
 }

@@ -17,7 +17,7 @@ public static class ApplicationBuilderExtensions
         var langConfig = app.ApplicationServices.GetService<AppConfig>().Lang;
 
         //多语言
-        string[] cultures = langConfig!.Langs?.Length > 0 ? langConfig.Langs : ["zh"];
+        string[] cultures = langConfig!.Langs?.Length > 0 ? langConfig.Langs : ["zh-CN"];
         var options = new RequestLocalizationOptions()
             .AddSupportedCultures(cultures)
             .AddSupportedUICultures(cultures)

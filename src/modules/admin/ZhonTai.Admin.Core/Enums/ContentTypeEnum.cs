@@ -9,6 +9,7 @@ public enum ContentTypeEnum
     /// 表单数据
     /// </summary>
     FormData,
+
     /// <summary>
     /// Json格式
     /// </summary>

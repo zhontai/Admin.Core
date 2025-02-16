@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace ZhonTai.Admin.Core;
 
+/// <summary>
+/// 应用基础信息
+/// </summary>
 internal static class AppInfoBase
 {
     internal static IServiceCollection Services;

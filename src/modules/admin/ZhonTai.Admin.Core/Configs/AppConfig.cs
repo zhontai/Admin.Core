@@ -31,6 +31,15 @@ public class AppConfig
         set
         {
             _assemblyNames = value;
+
+            if (value.Contains("ZhonTai.Admin"))
+            {
+                if (!value.Contains("ZhonTai.Admin.Contracts"))
+                {
+                    _assemblyNames = [.. _assemblyNames, "ZhonTai.Admin.Contracts"];
+                }
+            }
+
             if (!value.Contains("ZhonTai.Admin.Core"))
             {
                 _assemblyNames = [.. _assemblyNames, "ZhonTai.Admin.Core"];

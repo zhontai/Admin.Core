@@ -9,6 +9,9 @@ using ZhonTai.Admin.Core.Entities;
 
 namespace ZhonTai.Admin.Core.Db.Data;
 
+/// <summary>
+/// 同步数据
+/// </summary>
 public abstract class SyncData
 {
     /// <summary>
@@ -110,6 +113,14 @@ public abstract class SyncData
         }
     }
 
+    /// <summary>
+    /// 获得数据
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="isTenant"></param>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     protected virtual T[] GetData<T>(bool isTenant = false, string path = "InitData/Admin")
     {
         var table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).FirstOrDefault() as TableAttribute;

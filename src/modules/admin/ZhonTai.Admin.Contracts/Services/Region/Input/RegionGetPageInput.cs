@@ -31,6 +31,4 @@ public class RegionGetPageInput
     /// 启用
     /// </summary>
     public bool? Enabled { get; set; }
-
-
 }

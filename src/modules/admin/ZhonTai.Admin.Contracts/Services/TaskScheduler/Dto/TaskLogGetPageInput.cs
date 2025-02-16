@@ -5,5 +5,8 @@
 /// </summary>
 public partial class TaskLogGetPageInput
 {
+    /// <summary>
+    /// 任务Id
+    /// </summary>
     public string TaskId { get; set; }
 }
