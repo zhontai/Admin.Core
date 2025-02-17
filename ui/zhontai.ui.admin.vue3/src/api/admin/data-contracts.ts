@@ -235,6 +235,7 @@ export interface ApiSetEnableResultInput {
 
 /** 接口同步 */
 export interface ApiSyncInput {
+  /** 接口同步列表 */
   apis?: ApiSyncModel[] | null
 }
 
@@ -3233,6 +3234,7 @@ export interface RegionGetOutput {
    * @format int64
    */
   id: number
+  /** 上级Id列表 */
   parentIdList?: number[] | null
 }
 
@@ -4479,10 +4481,10 @@ export interface RoleUpdateInput {
   id: number
 }
 
-/** 发送邮件验证码 */
+/** 发送邮箱验证码 */
 export interface SendEmailCodeInput {
   /**
-   * 邮件地址
+   * 邮箱地址
    * @minLength 1
    */
   email: string
@@ -4784,6 +4786,7 @@ export interface TaskLog {
 
 /** 任务日志分页请求 */
 export interface TaskLogGetPageInput {
+  /** 任务Id */
   taskId?: string | null
 }
 
@@ -4991,7 +4994,7 @@ export interface TenantGetOutput {
   id: number
   /** 套餐列表 */
   pkgs?: PkgEntity[] | null
-  /** 套餐Ids */
+  /** 套餐Id列表 */
   pkgIds?: number[] | null
 }
 
@@ -5421,7 +5424,7 @@ export interface UserGetOutput {
   id: number
   /** 角色列表 */
   roles?: UserGetRoleModel[] | null
-  /** 角色Ids */
+  /** 角色Id列表 */
   roleIds?: number[] | null
 }
 
@@ -5842,7 +5845,9 @@ export interface ViewListOutput {
   description?: string | null
 }
 
+/** 视图同步 */
 export interface ViewSyncInput {
+  /** 视图列表 */
   views?: ViewSyncModel[] | null
 }
 
@@ -5893,6 +5898,9 @@ export interface ViewUpdateInput {
 
 /** WebSocket请求 */
 export interface WebSocketPreConnectInput {
-  /** @format int64 */
+  /**
+   * WebSocketId
+   * @format int64
+   */
   websocketId?: number | null
 }
