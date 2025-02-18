@@ -99,7 +99,7 @@ public class MsgTypeService : BaseService, IDynamicApi
 
         if (input.Code.NotNull() && await _msgTypeRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception(_adminLocalizer["此{分类编码已存在"]);
+            throw ResultOutput.Exception(_adminLocalizer["此分类编码已存在"]);
         }
 
         var entity = Mapper.Map<MsgTypeEntity>(input);
@@ -139,7 +139,7 @@ public class MsgTypeService : BaseService, IDynamicApi
 
         if (input.Code.NotNull() && await _msgTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception(_adminLocalizer["此{分类编码已存在"]);
+            throw ResultOutput.Exception(_adminLocalizer["此分类编码已存在"]);
         }
 
         Mapper.Map(input, entity);

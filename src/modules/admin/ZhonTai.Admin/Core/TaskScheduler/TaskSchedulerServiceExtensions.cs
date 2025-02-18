@@ -12,6 +12,7 @@ using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Domain;
+using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Email;
 using ZhonTai.Admin.Services.Email.Events;
 using ZhonTai.Admin.Services.TaskScheduler;
@@ -142,6 +143,7 @@ public static class TaskSchedulerServiceExtensions
             var failRetryInterval = taskInfo.FailRetryInterval > 0 ? taskInfo.FailRetryInterval.Value : 10;
             var scheduler = AppInfo.GetRequiredService<Scheduler>();
             var currentRound = taskLog.Round;
+            var adminLocalizer = AppInfo.GetRequiredService<AdminLocalizer>();
             void OnFailedCallBak()
             {
                 failRetryCount--;
@@ -152,7 +154,7 @@ public static class TaskSchedulerServiceExtensions
                     CreateTime = DateTime.UtcNow.Add(scheduler.TimeOffset),
                     TaskId = task.Id,
                     Round = currentRound,
-                    Remark = $"第{retryRound}次失败重试",
+                    Remark = adminLocalizer["第{0}次失败重试", retryRound],
                     Success = true
                 };
 
@@ -207,6 +209,7 @@ public static class TaskSchedulerServiceExtensions
                 if (desc.NotNull())
                     topic = desc;
             }
+            var adminLocalizer = AppInfo.GetRequiredService<AdminLocalizer>();
             alarmEmail?.Split(',')?.ToList()?.ForEach(async address =>
             {
                 await emailService.SingleSendAsync(new EmailSingleSendEvent
@@ -216,11 +219,8 @@ public static class TaskSchedulerServiceExtensions
                         Address = address,
                         Name = address
                     },
-                    Subject = "【任务调度中心】监控报警",
-                    Body = $@"<p>任务名称：{topic}</p>
-<p>任务编号：{task.Id}</p>
-<p>告警类型：调度失败</p>
-<p>告警内容：<br/>{taskLog.Exception}</p>"
+                    Subject = adminLocalizer["【任务调度中心】监控报警"],
+                    Body = adminLocalizer["<p>任务名称：{0}</p><p>任务编号：{1}</p><p>告警类型：调度失败</p><p>告警内容：<br/>{2}</p>", topic, task.Id, taskLog.Exception]
                 });
             });
         }

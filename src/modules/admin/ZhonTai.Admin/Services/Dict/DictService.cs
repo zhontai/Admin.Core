@@ -248,7 +248,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
                                 {
                                     RowIndex = rowIndex,
                                 };
-                                errorInfo.FieldErrors.Add("字典编码", importData.Code + "已存在");
+                                errorInfo.FieldErrors.Add(_adminLocalizer["字典编码"], _adminLocalizer["{0}已存在", importData.Code]);
                                 errorList.Add(errorInfo);
                             }
 
@@ -258,7 +258,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
                                 {
                                     RowIndex = rowIndex,
                                 };
-                                errorInfo.FieldErrors.Add("字典值", importData.Value + "已存在");
+                                errorInfo.FieldErrors.Add(_adminLocalizer["字典值"], _adminLocalizer["{0}已存在", importData.Value]);
                                 errorList.Add(errorInfo);
                             }
                         }
@@ -271,7 +271,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
                             {
                                 RowIndex = rowIndex,
                             };
-                            errorInfo.FieldErrors.Add("字典编码", importData.Code + "已存在");
+                            errorInfo.FieldErrors.Add(_adminLocalizer["字典编码"], _adminLocalizer["{0}已存在", importData.Code]);
                             errorList.Add(errorInfo);
                         }
 
@@ -281,7 +281,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
                             {
                                 RowIndex = rowIndex,
                             };
-                            errorInfo.FieldErrors.Add("字典值", importData.Value + "已存在");
+                            errorInfo.FieldErrors.Add(_adminLocalizer["字典值"], _adminLocalizer["{0}已存在", importData.Value]);
                             errorList.Add(errorInfo);
                         }
                     }
@@ -292,7 +292,7 @@ public class DictService : BaseService, IDictService, IDynamicApi
                     {
                         RowIndex = rowIndex,
                     };
-                    errorInfo.FieldErrors.Add("字典分类", importData.DictTypeName + "不存在");
+                    errorInfo.FieldErrors.Add(_adminLocalizer["字典分类"], _adminLocalizer["{0}不存在", importData.DictTypeName]);
                     errorList.Add(errorInfo);
                 }
             }
