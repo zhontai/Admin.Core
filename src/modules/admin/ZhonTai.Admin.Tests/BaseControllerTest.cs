@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xunit;
 using ZhonTai.Admin.Tools.Cache;
-using ZhonTai.Admin.Tools.Captcha;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
@@ -22,13 +21,11 @@ namespace ZhonTai.Admin.Tests;
 public class BaseControllerTest : BaseTest
 {
     private readonly ICacheTool _cache;
-    private readonly ICaptchaTool _captcha;
     private readonly AppConfig _appConfig;
 
     protected BaseControllerTest()
     {
         _cache = GetService<ICacheTool>();
-        _captcha = GetService<ICaptchaTool>();
         _appConfig = GetService<AppConfig>();
     }
 
