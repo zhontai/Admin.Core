@@ -1,0 +1,38 @@
+{
+  "Profiles": [
+    {
+      "Name": "Default",
+      "Filter": "",
+      "UseTye": false,
+      "TyePort": 8000,
+      "LoggingTargetType": 0,
+      "LoggingPath": "./.logs",
+      "LoggerUrl": null,
+      "Services": [
+        {
+          "ServiceType": 0,
+          "Name": "MyApp.Host",
+          "TyeName": null,
+          "Bindings": null,
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1,
+          "ProjectFile": "MyApp.Host\\MyApp.Host.csproj",
+          "DefaultSelected": false
+        },
+        {
+          "ServiceType": 0,
+          "Name": "MyApp.Tests",
+          "TyeName": null,
+          "Bindings": null,
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1,
+          "ProjectFile": "MyApp.Tests\\MyApp.Tests.csproj",
+          "DefaultSelected": false
+        }
+      ]
+    }
+  ],
+  "SettingsId": "11ec51cc-8542-428a-9d10-170c79b55dae"
+}

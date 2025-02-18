@@ -166,7 +166,7 @@
     //语言配置
     "Lang": {
       //启用
-      "Enable": true,
+      "EnableJson": true,
       //默认语言
       "DefaultLang": "zh-CN",
       //语言列表
