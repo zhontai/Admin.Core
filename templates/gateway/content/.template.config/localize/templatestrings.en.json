@@ -1,0 +1,7 @@
+{
+  "author": "ZhonTai Team",
+  "name": "ZhonTai.Template Gateway Project Template",
+  "description": "ZhonTai Gateway Project Template",
+  "symbols/Port/displayName": "Http Port",
+  "symbols/Port/description": "Specify the port number that the gateway project will listen on during startup."
+}

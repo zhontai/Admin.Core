@@ -1,0 +1,7 @@
+{
+  "author": "中台团队",
+  "name": "ZhonTai.Template Gateway 网关项目模板",
+  "description": "中台网关项目模板",
+  "symbols/Port/displayName": "Http端口",
+  "symbols/Port/description": "设置网关项目启动时所监听的端口号。"
+}
