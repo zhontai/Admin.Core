@@ -9,13 +9,11 @@
     ////#if (IsSys)
     ////程序集名称
     "assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
-    ////枚举列表程序集名称
-    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts", "ZhonTai.Admin" ],
     ////#else
     //"assemblyNames": [ "MyApp.Api" ],
-    ////枚举列表程序集名称
-    //"EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
     ////#endif
+    //枚举列表程序集名称
+    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
     //租户
     "tenant": true,
     //分布式事务唯一标识app，为空则不生成分布式事务表
