@@ -23,13 +23,13 @@
     //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
     //建库连接字符串
     //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
     //Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
     ////#if (DbType == "MySql")
     //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
     ////#elseif (DbType == "SqlServer")
-    //"createDbConnectionString": "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1",
+    //"createDbConnectionString": "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
     //"createDbConnectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
     ////#elseif (DbType == "Oracle")
@@ -116,14 +116,14 @@
 
     //连接字符串
     //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Pooling=true;Min Pool Size=1"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1"
     //Sqlite "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
     //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#if (DbType == "MySql")
     //"connectionString": "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
     ////#elseif (DbType == "SqlServer")
-    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Pooling=true;Min Pool Size=1",
+    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
     //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1",
     ////#elseif (DbType == "Oracle")
