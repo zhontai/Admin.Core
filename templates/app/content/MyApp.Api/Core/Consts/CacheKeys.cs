@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel;
-using ZhonTai.Admin.Core.Attributes;
 
 namespace MyApp.Api.Core.Consts;
 
 /// <summary>
 /// 缓存键
 /// </summary>
-[ScanCacheKeys]
 public static partial class CacheKeys
 {
     /// <summary>
