@@ -1005,7 +1005,8 @@ public class HostApp
         var rpcConfig = AppInfo.GetOptions<RpcConfig>();
         if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
         {
-            var assemblies = AppInfo.EffectiveAssemblies;
+            IEnumerable<Assembly> assemblies = [];
+            assemblies = AppInfo.EffectiveAssemblies;
             if (rpcConfig.Grpc.ServerAssemblyNames?.Length > 0)
             {
                 var serverAssemblies = AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.ServerAssemblyNames);
