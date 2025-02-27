@@ -1005,7 +1005,13 @@ public class HostApp
         var rpcConfig = AppInfo.GetOptions<RpcConfig>();
         if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
         {
-            var assemblies = rpcConfig.Grpc.AssemblyNames?.Length > 0 ? AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.AssemblyNames) : AppInfo.EffectiveAssemblies;
+            var assemblies = AppInfo.EffectiveAssemblies;
+            if (rpcConfig.Grpc.ServerAssemblyNames?.Length > 0)
+            {
+                var serverAssemblies = AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.ServerAssemblyNames);
+                assemblies = assemblies.Union(serverAssemblies).ToList();
+            }
+
             app.UseMyMapGrpcService(assemblies);
         }
         

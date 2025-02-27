@@ -63,6 +63,11 @@ public class RpcConfig
                     }
                 }
             }
+
+            /// <summary>
+            /// 服务端程序集名称
+            /// </summary>
+            public string[] ServerAssemblyNames { get; set; }
         }
 
         /// <summary>
