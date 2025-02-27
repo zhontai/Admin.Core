@@ -1002,7 +1002,13 @@ public class HostApp
         //}
 
         //Grpc
-        app.UseMyMapGrpcService(AppInfo.EffectiveAssemblies);
+        var rpcConfig = AppInfo.GetOptions<RpcConfig>();
+        if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
+        {
+            var assemblies = rpcConfig.Grpc.AssemblyNames?.Length > 0 ? AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.AssemblyNames) : AppInfo.EffectiveAssemblies;
+            app.UseMyMapGrpcService(assemblies);
+        }
+        
         //for postman
         app.MapCodeFirstGrpcReflectionService();
 
