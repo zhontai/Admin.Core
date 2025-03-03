@@ -216,7 +216,7 @@ const initWebSocket = () => {
         console.log(data)
         if (data.evts?.length > 0) {
           data.evts.forEach((evt: any) => {
-            mittBus.emit(evt.name)
+            mittBus.emit(evt.name, evt.data)
           })
         }
       }
