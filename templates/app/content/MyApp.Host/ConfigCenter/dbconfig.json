@@ -1,9 +1,9 @@
 {
   "DbConfig": {
     //数据库注册键
-    "key": "appdb",
+    "key": "__app_codedb",
     //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
-    ////#if (MergeDb && !MicroService)
+    ////#if (MergeDb && IsSys)
     //"assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
     ////#else
     //"assemblyNames": [ "MyApp.Api" ],
@@ -23,13 +23,13 @@
     //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
     //建库连接字符串
     //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
     //Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
     ////#if (DbType == "MySql")
     //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
     ////#elseif (DbType == "SqlServer")
-    //"createDbConnectionString": "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1",
+    //"createDbConnectionString": "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
     //"createDbConnectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
     ////#elseif (DbType == "Oracle")
@@ -38,15 +38,15 @@
     "createDbConnectionString": "",
     ////#endif
     //建库脚本，复杂建库脚本可放到createdbsql.txt中
-    //MySql "CREATE DATABASE `appdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
-    //SqlServer "CREATE DATABASE [appdb]"
-    //PostgreSQL "CREATE DATABASE \"appdb\" WITH ENCODING = 'UTF8'"
+    //MySql "CREATE DATABASE `__app_codedb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+    //SqlServer "CREATE DATABASE [__app_codedb]"
+    //PostgreSQL "CREATE DATABASE \"__app_codedb\" WITH ENCODING = 'UTF8'"
     ////#if (DbType == "MySql")
-    //"createDbSql": "CREATE DATABASE `appdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+    //"createDbSql": "CREATE DATABASE `__app_codedb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
     ////#elseif (DbType == "SqlServer")
-    //"createDbSql": "CREATE DATABASE [appdb]",
+    //"createDbSql": "CREATE DATABASE [__app_codedb]",
     ////#elseif (DbType == "PostgreSQL")
-    //"createDbSql": "CREATE DATABASE \"appdb\" WITH ENCODING = 'UTF8'",
+    //"createDbSql": "CREATE DATABASE \"__app_codedb\" WITH ENCODING = 'UTF8'",
     ////#else
     "createDbSql": "",
     ////#endif
@@ -61,11 +61,11 @@
     "sysUpdateData": true,
     ////同步数据地址
     "SyncDataPath": "InitData/App",
-    //同步所有表["ad_dict_type", "ad_dict", "ad_user",  "ad_user_staff", "ad_org", "ad_role", "ad_api", "ad_view", "ad_permission", "ad_permission_api", "ad_user_role", "ad_user_org", "ad_role_permission", "ad_tenant", "ad_tenant_permission"]
-    //同步指定表["ad_api", "ad_view", "ad_permission", "ad_permission_api"]
+    //同步所有表["base_dict_type", "base_dict", "base_user",  "base_user_staff", "base_org", "base_role", "base_api", "base_view", "base_permission", "base_permission_api", "base_user_role", "base_user_org", "base_role_permission", "base_tenant", "base_tenant_permission"]
+    //同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
     //同步数据包含表，指定表同步，不填同步所有表
     "syncDataIncludeTables": [],
-    //同步排除表["ad_user"]
+    //同步排除表["base_user"]
     //同步数据排除表，指定表不同步
     "syncDataExcludeTables": [],
     //同步数据操作用户
@@ -115,17 +115,17 @@
     ////#endif
 
     //连接字符串
-    //MySql "Server=localhost; Port=3306; Database=appdb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
-    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=appdb;Pooling=true;Min Pool Size=1"
-    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=appdb;Pooling=true;Minimum Pool Size=1"
-    //Sqlite "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1"
+    //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
+    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1"
+    //Sqlite "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
     //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#if (DbType == "MySql")
-    //"connectionString": "Server=localhost; Port=3306; Database=appdb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+    //"connectionString": "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
     ////#elseif (DbType == "SqlServer")
-    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=appdb;Pooling=true;Min Pool Size=1",
+    //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
-    //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=appdb;Pooling=true;Minimum Pool Size=1",
+    //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1",
     ////#elseif (DbType == "Oracle")
     //"connectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "Firebird")
@@ -147,7 +147,7 @@
     ////#elseif (DbType == "Xugu")
     //"connectionString": "IP=127.0.0.1;DB=SYSTEM;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
     ////#else
-    "connectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1",
+    "connectionString": "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1",
     ////#endif
 
     //指定程序集
@@ -160,7 +160,7 @@
       //  //权重
       //  "Weight": 1,
       //  //连接字符串
-      //  "ConnectionString": "Data Source=|DataDirectory|\\appdb.db; Pooling=true;Min Pool Size=1"
+      //  "ConnectionString": "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
       //}
     ],
 
@@ -172,24 +172,21 @@
 
     //多数据库
     //Core/Consts定义DbKeys枚举
-    //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
-    //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.AppDb);
+    //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.__app_codedb, muowm)
+    //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.__app_codedb);
     "dbs": [
-      ////#if (!MergeDb)
+      ////#if (!MergeDb  && IsSys)
       {
         ////权限库
         "key": "admindb",
-        ////#if (!MicroService)
         ////程序集名称，自动获取实体表
         "assemblyNames": [ "ZhonTai.Admin" ],
-        ////#endif
 
         ////监听所有操作
         "monitorCommand": false,
         ////监听Curd操作
         "curd": true,
 
-        ////#if (!MicroService)
         ////建库
         "createDb": false,
         ////SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
@@ -228,13 +225,12 @@
         ////同步数据
         "syncData": true,
         ////同步数据地址
-        "SyncDataPath": "InitData/Admin",
+        "SyncDataPath": "InitData/App",
 
         ////项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
         ////开启生成数据前先关闭syncStructure syncData createDb
         ////生成数据
         "generateData": false,
-        ////#endif
 
         ////数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
         ////连接字符串语法 https://www.connectionstrings.com

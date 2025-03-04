@@ -3,11 +3,17 @@
     //应用程序类型Controllers ControllersWithViews MVC
     "appType": "Controllers",
     //Api地址
-    "urls": [ "http://*:8010" ],
+    "urls": [ "http://*:16010" ],
     //跨域地址
     "corUrls": [],
-    //程序集名称
+    ////#if (IsSys)
+    ////程序集名称
     "assemblyNames": [ "MyApp.Api", "ZhonTai.Admin" ],
+    ////#else
+    //"assemblyNames": [ "MyApp.Api" ],
+    ////#endif
+    //枚举列表程序集名称
+    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
     //租户
     "tenant": true,
     //分布式事务唯一标识app，为空则不生成分布式事务表
@@ -15,13 +21,9 @@
     //验证
     "validate": {
       //登录
-      ////#if (MicroService)
-      //"login": false,
-      ////#else
-      //"login": true,
-      ////#endif
+      "login": true,
       //权限
-      ////#if (MicroService)
+      ////#if (IsMem)
       //"permission": false,
       ////#else
       //"permission": true,
@@ -46,53 +48,44 @@
       //程序集列表，用于启用SchemaId命名空间
       "assemblyNameList": [],
       //路由前缀，如配置微服务文档地址：doc/module/swagger
-      "routePrefix": "app/swagger",
+      "routePrefix": "doc/__app_code/swagger",
       //地址
-      "url": "http://localhost:8000",
+      "url": "http://localhost:16010",
       //项目列表
       "projects": [
         {
           "name": "MyApp",
-          "code": "app",
-          "version": "v8.6.0",
+          "code": "__app_code",
+          "version": "v9.0.1",
           "description": "MyApp"
         }
-        ////#if (!MicroService)
+        ////#if (IsSys)
         ,
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v8.6.0",
+          "version": "v9.0.1",
           "description": "权限管理"
         }
         ////#endif
       ]
     },
-    //新版接口文档展示
+    ////#if (!NoApiUI)
+    ////新版接口文档展示
     "apiUI": {
-      //启用
+      ////启用
       "enable": true,
-      //路由前缀，如配置微服务文档地址：doc/module
-      "routePrefix": "app",
-      //页脚
+      ////路由前缀，如配置微服务文档地址：doc/module
+      "routePrefix": "doc/__app_code",
+      ////页脚
       "footer": {
         "enable": false,
         "content": "Copyright<a-icon type=\"copyright\" /> 2022-<a target=\"_blank\" href=\"https://www.zhontai.net\">中台Admin</a>"
       }
     },
+    ////#endif
     //MiniProfiler性能分析器
     "miniProfiler": false,
-    //统一认证授权服务器
-    "identityServer": {
-      //启用
-      "enable": false,
-      //地址，开发认证地址前往appconfig.Development.json修改
-      "url": "https://localhost:5000",
-      //启用Https
-      "requireHttpsMetadata": true,
-      //受众
-      "audience": "admin.server.api"
-    },
     //面向切面编程
     "aop": {
       //事物
@@ -100,12 +93,7 @@
     },
     //日志
     "log": {
-      //操作日志
-      ////#if (MicroService)
-      //"operation": false
-      ////#else
-      //"operation": true
-      ////#endif
+      "operation": true
     },
     //限流
     "rateLimit": false,
@@ -139,21 +127,23 @@
       //启用
       "enable": true,
       //访问路径
-      "path": "/app/health"
+      "path": "/health"
     },
     //指定跨域访问时预检等待时间，以秒为单位，默认30分钟
     "PreflightMaxAge": 1800,
-    //是否开启任务调度管理界面
+    ////#if (IsSys)
+    ////是否开启任务调度管理界面
     "TaskSchedulerUI": {
-      //启用
+      ////启用
       ////#if (NoTaskScheduler)
       //"enable": false,
       ////#else
       //"enable": true,
       ////#endif
-      //访问路径
+      ////访问路径
       "path": "/task"
     },
+    ////#endif
     //Id生成器
     "IdGenerator": {
       "DataCenterId": 0, // 数据中心ID（机房ID，默认0） 请确保全局唯一
@@ -162,23 +152,25 @@
       "SeqBitLength": 6, // 序列数位长，默认值6，取值范围 [3, 21]，决定每毫秒基础生成的ID个数。如果每秒请求数不超过5W，保持默认值6即可；如果超过5W，不超过50W，建议赋值10或更大，以此类推。
       "CachePrefix": "zhontai:workerid" // 缓存前缀
     },
+    ////#if (IsSys)
+    ////IP地址定位
+    "IP2Region": {
+      ////启用
+      "Enable": true,
+      ////绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
+      "DbPath": ""
+    },
+    ////#endif
     //语言配置
     "Lang": {
       //启用
-      "Enable": true,
+      "EnableJson": true,
       //默认语言
       "DefaultLang": "zh-CN",
       //语言列表
       "Langs": [ "zh-CN", "en" ],
       //语言请求解析列表
       "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
-    },
-    //IP地址定位
-    "IP2Region": {
-      //启用
-      "Enable": true,
-      //绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
-      "DbPath": ""
     }
   }
 }

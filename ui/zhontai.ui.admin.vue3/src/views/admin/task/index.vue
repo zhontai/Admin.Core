@@ -145,7 +145,7 @@
 <script lang="ts" setup name="admin/task">
 import { ref, reactive, onMounted, onBeforeMount, getCurrentInstance, defineAsyncComponent, computed } from 'vue'
 import { ElTable, ElMessage } from 'element-plus'
-import { TaskListOutput, PageInputTaskGetPageInput, TaskStatus } from '/@/api/admin/data-contracts'
+import { TaskGetPageOutput, PageInputTaskGetPageInput, TaskStatus } from '/@/api/admin/data-contracts'
 import { TaskApi } from '/@/api/admin/Task'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
@@ -177,7 +177,7 @@ const state = reactive({
     currentPage: 1,
     pageSize: 20,
   } as PageInputTaskGetPageInput,
-  taskListData: [] as Array<TaskListOutput>,
+  taskListData: [] as Array<TaskGetPageOutput>,
   taskLogsTitle: '',
   groupList: [{ name: '全部', value: '' }],
   statusList: [
@@ -265,12 +265,12 @@ const onAdd = () => {
   taskFormRef.value.open()
 }
 
-const onUpdate = (row: TaskListOutput) => {
+const onUpdate = (row: TaskGetPageOutput) => {
   state.taskFormTitle = '修改任务'
   taskFormRef.value.open(row)
 }
 
-const onCopy = (row: TaskListOutput) => {
+const onCopy = (row: TaskGetPageOutput) => {
   state.taskFormTitle = '新增任务'
   var task = cloneDeep(row)
   task.id = null
@@ -278,12 +278,12 @@ const onCopy = (row: TaskListOutput) => {
 }
 
 // 查看日志
-const onShowLogs = (row: TaskListOutput) => {
+const onShowLogs = (row: TaskGetPageOutput) => {
   state.taskLogsTitle = `${row.topic}${row.id}运行日志`
   taskLogsRef.value.open(row)
 }
 
-const onRun = (row: TaskListOutput) => {
+const onRun = (row: TaskGetPageOutput) => {
   proxy.$modal
     .confirm(`确定要运行【${row.topic}】任务?`)
     .then(async () => {
@@ -293,7 +293,7 @@ const onRun = (row: TaskListOutput) => {
     .catch(() => {})
 }
 
-const onPause = (row: TaskListOutput) => {
+const onPause = (row: TaskGetPageOutput) => {
   proxy.$modal
     .confirm(`确定要停止【${row.topic}】任务?`)
     .then(async () => {
@@ -303,7 +303,7 @@ const onPause = (row: TaskListOutput) => {
     .catch(() => {})
 }
 
-const onStart = (row: TaskListOutput) => {
+const onStart = (row: TaskGetPageOutput) => {
   proxy.$modal
     .confirm(`确定要启动【${row.topic}】任务?`)
     .then(async () => {
@@ -313,7 +313,7 @@ const onStart = (row: TaskListOutput) => {
     .catch(() => {})
 }
 
-const onDelete = (row: TaskListOutput) => {
+const onDelete = (row: TaskGetPageOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.topic}】任务?`)
     .then(async () => {

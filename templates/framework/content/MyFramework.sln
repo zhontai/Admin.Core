@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.SlnFiles", "01.SlnFiles", "{4A7AA178-5957-4F93-AF4C-6626C69128C3}"
+	ProjectSection(SolutionItems) = preProject
+		MyFramework.sln.EasyRun.json = MyFramework.sln.EasyRun.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Gateways", "02.Gateways", "{4BD3C9E6-FAF2-446B-8AC9-C6DBD518C274}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Modules", "03.Modules", "{213ED26C-F41C-4F4C-BC18-FECAA95669E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.Frameworks", "04.Frameworks", "{BA010760-D346-4A17-95A2-F970D303B5A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05.Plugins", "05.Plugins", "{6D2307D3-C6F0-4DDC-9FEB-D972DF35E67E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{61888B13-0C13-4E7F-8125-2FAAD96D2037}"
+	ProjectSection(SolutionItems) = preProject
+		Frameworks\Assets\nlog.config = Frameworks\Assets\nlog.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigCenter", "ConfigCenter", "{42EF4A2E-0E88-449F-8BB1-24FC5F0AEC38}"
+	ProjectSection(SolutionItems) = preProject
+		Frameworks\Assets\ConfigCenter\cacheconfig.json = Frameworks\Assets\ConfigCenter\cacheconfig.json
+		Frameworks\Assets\ConfigCenter\imconfig.json = Frameworks\Assets\ConfigCenter\imconfig.json
+		Frameworks\Assets\ConfigCenter\ratelimitconfig.json = Frameworks\Assets\ConfigCenter\ratelimitconfig.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{25192358-12AB-42D5-B9B9-E16FA2D0093F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImServer", "ImServer", "{D9436DA6-7FB5-4994-A06F-127DBC7D6C66}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61888B13-0C13-4E7F-8125-2FAAD96D2037} = {BA010760-D346-4A17-95A2-F970D303B5A4}
+		{42EF4A2E-0E88-449F-8BB1-24FC5F0AEC38} = {61888B13-0C13-4E7F-8125-2FAAD96D2037}
+		{25192358-12AB-42D5-B9B9-E16FA2D0093F} = {213ED26C-F41C-4F4C-BC18-FECAA95669E4}
+		{D9436DA6-7FB5-4994-A06F-127DBC7D6C66} = {213ED26C-F41C-4F4C-BC18-FECAA95669E4}
+	EndGlobalSection
+EndGlobal

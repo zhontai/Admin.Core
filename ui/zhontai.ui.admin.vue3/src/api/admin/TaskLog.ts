@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { PageInputTaskLogGetPageDto, ResultOutputPageOutputTaskLog } from './data-contracts'
+import { PageInputTaskLogGetPageInput, ResultOutputPageOutputTaskLog } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
 export class TaskLogApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
@@ -22,7 +22,7 @@ export class TaskLogApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @request POST:/api/admin/task-log/get-page
    * @secure
    */
-  getPage = (data: PageInputTaskLogGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputTaskLogGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputTaskLog, any>({
       path: `/api/admin/task-log/get-page`,
       method: 'POST',

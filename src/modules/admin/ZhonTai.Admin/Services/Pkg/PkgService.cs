@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
@@ -106,7 +102,7 @@ public class PkgService : BaseService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<PkgGetPageOutput>> GetPageAsync(PageInput<PkgGetPageDto> input)
+    public async Task<PageOutput<PkgGetPageOutput>> GetPageAsync(PageInput<PkgGetPageInput> input)
     {
         var key = input.Filter?.Name;
 

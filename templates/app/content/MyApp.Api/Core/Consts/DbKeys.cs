@@ -11,5 +11,5 @@ public class DbKeys
     /// 数据库注册键
     /// </summary>
     [Description("数据库注册键")]
-    public static string AppDb { get; set; } = "appdb";
+    public static string AppDb { get; set; } = "__app_codedb";
 }

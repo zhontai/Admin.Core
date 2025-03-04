@@ -66,7 +66,7 @@
 <script lang="ts" setup name="admin/tenant/components/tenant-select">
 import { ref, reactive } from 'vue'
 import { ElTable } from 'element-plus'
-import { TenantListOutput, PageInputTenantGetPageDto } from '/@/api/admin/data-contracts'
+import { TenantGetPageOutput, PageInputTenantGetPageInput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 
 const props = defineProps({
@@ -101,8 +101,8 @@ const state = reactive({
     filter: {
       name: '',
     },
-  } as PageInputTenantGetPageDto,
-  tenantListData: [] as Array<TenantListOutput>,
+  } as PageInputTenantGetPageInput,
+  tenantListData: [] as Array<TenantGetPageOutput>,
 })
 
 // 打开对话框
@@ -140,7 +140,7 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 
-const onRowClick = (row: TenantListOutput) => {
+const onRowClick = (row: TenantGetPageOutput) => {
   tenantTableRef.value!.toggleRowSelection(row, props.multiple ? undefined : true)
 }
 
@@ -157,7 +157,7 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
-  const selectionRows = tenantTableRef.value!.getSelectionRows() as TenantListOutput[]
+  const selectionRows = tenantTableRef.value!.getSelectionRows() as TenantGetPageOutput[]
   emits('sure', props.multiple ? selectionRows : selectionRows.length > 0 ? selectionRows[0] : null)
 }
 

@@ -12,7 +12,7 @@
 import { AxiosResponse } from 'axios'
 import {
   PageInputTaskGetPageInput,
-  ResultOutputPageOutputTaskListOutput,
+  ResultOutputPageOutputTaskGetPageOutput,
   ResultOutputString,
   ResultOutputTaskGetOutput,
   TaskAddInput,
@@ -77,7 +77,7 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getPage = (data: PageInputTaskGetPageInput, params: RequestParams = {}) =>
-    this.request<ResultOutputPageOutputTaskListOutput, any>({
+    this.request<ResultOutputPageOutputTaskGetPageOutput, any>({
       path: `/api/admin/task/get-page`,
       method: 'POST',
       body: data,

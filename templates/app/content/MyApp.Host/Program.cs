@@ -6,7 +6,7 @@ using ZhonTai;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Startup;
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
 using ZhonTai.Admin.Tools.TaskScheduler;
 #endif
 #if (!NoApiUI)
@@ -20,24 +20,29 @@ using Savorboard.CAP.InMemoryMessageQueue;
 using System.Reflection;
 using System.Linq;
 #endif
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
 using FreeScheduler;
 #endif
+#if (IsSys)
 using AdminDbKeys = ZhonTai.Admin.Core.Consts.DbKeys;
-#if (!NoTaskScheduler)
+#endif
+#if (IsSys && !NoTaskScheduler)
 using ZhonTai.Admin.Core.Db;
 using System;
 using ZhonTai.Admin.Services.TaskScheduler;
 #endif
 using Autofac;
 using MyApp.Api.Core.Repositories;
+#if (IsSys)
+using ZhonTai.Admin.Repositories;
+#endif
 
 new HostApp(new HostAppOptions()
 {
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
         if (dbConfig.Key == AdminDbKeys.TaskDb)
         {
             freeSql.SyncSchedulerStructure(dbConfig, TaskSchedulerServiceExtensions.ConfigureScheduler);
@@ -53,19 +58,21 @@ new HostApp(new HostAppOptions()
 		{
 			DbKeys.AppDb = dbConfig.Key;
 		}
+#if (IsSys)
 #if (MergeDb)
 		AdminDbKeys.AppDb = DbKeys.AppDb;
 #if (!NoTaskScheduler)
         AdminDbKeys.TaskDb = DbKeys.AppDb;
-        #endif
+#endif
 #else
         AdminDbKeys.AppDb = "admindb";
+#endif
 #endif
     },
     //配置后置服务
     ConfigurePostServices = context =>
 	{
-#if (!NoTaskScheduler)
+#if (IsSys && !NoTaskScheduler)
         //添加任务调度，默认使用权限库作为任务调度库
         context.Services.AddTaskScheduler(AdminDbKeys.TaskDb, options =>
         {
@@ -74,11 +81,11 @@ new HostApp(new HostAppOptions()
             //配置任务调度
             options.ConfigureFreeSchedulerBuilder = freeSchedulerBuilder =>
             {
-                void OnExecuting(TaskInfo task)
+                static void OnExecuting(TaskInfo task)
                 {
                     if (task.Topic?.StartsWith("[shell]") == true)
                     {
-                        TaskSchedulerServiceExtensions.ExecutGrpc(task);
+                        TaskSchedulerServiceExtensions.ExecuteGrpc(task);
                     }
                 }
 
@@ -141,6 +148,9 @@ new HostApp(new HostAppOptions()
     ConfigureAutofacContainer = (builder, context) =>
     {
         builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+#if (IsSys)
+        builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+#endif
     },
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) =>

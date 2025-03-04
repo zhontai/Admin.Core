@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using DotNetCore.CAP;
 using MimeKit;
@@ -7,16 +6,19 @@ using MailKit.Net.Smtp;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Services.Email.Events;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Email;
 
 public class EmailService: ICapSubscribe
 {
     private readonly EmailConfig _emailConfig;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public EmailService(IOptions<EmailConfig> emailConfig)
+    public EmailService(IOptions<EmailConfig> emailConfig, AdminLocalizer adminLocalizer)
     {
         _emailConfig = emailConfig.Value;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -67,10 +69,8 @@ public class EmailService: ICapSubscribe
             {
                 Address = @event.ToEmail.Address,
             },
-            Subject = "邮箱验证码",
-            Body = $@"<p>你正在进行邮箱登录操作</p>
-<p>邮箱验证码: {@event.Code}，有效期5分钟</p>
-<p>如非本人操作，请忽略。</p>"
+            Subject = _adminLocalizer["邮箱验证码"],
+            Body = _adminLocalizer["<p>你正在进行邮箱登录操作</p><p>邮箱验证码: {0}，有效期5分钟</p><p>如非本人操作，请忽略。</p>", @event.Code]
         });
     }
 }

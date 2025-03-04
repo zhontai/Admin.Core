@@ -118,7 +118,7 @@ const onSignIn = async () => {
       return
     }
 
-    const token = res.data?.token
+    const token = res.data?.accessToken as string
     useUserInfo().setToken(token)
     // 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
     const isNoPower = await initBackEndControlRoutes()

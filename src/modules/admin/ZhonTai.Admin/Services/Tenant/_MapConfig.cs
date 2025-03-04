@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using System.Linq;
 using ZhonTai.Admin.Services.Tenant.Dto;
 
 namespace ZhonTai.Admin.Services.Tenant;
@@ -12,7 +11,7 @@ public class MapConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config
-        .NewConfig<TenantListOutput, TenantListOutput>()
+        .NewConfig<TenantGetPageOutput, TenantGetPageOutput>()
         .Map(dest => dest.PkgNames, src => src.Pkgs.Select(a => a.Name));
     }
 }

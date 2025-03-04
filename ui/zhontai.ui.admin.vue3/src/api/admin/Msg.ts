@@ -77,8 +77,12 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    */
   getMsgUserList = (
     query?: {
-      /** @format int64 */
+      /**
+       * 消息Id
+       * @format int64
+       */
       MsgId?: number
+      /** 姓名 */
       Name?: string
     },
     params: RequestParams = {}

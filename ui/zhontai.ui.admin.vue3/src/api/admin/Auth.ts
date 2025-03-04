@@ -21,10 +21,10 @@ import {
   ResultOutputAuthGetPasswordEncryptKeyOutput,
   ResultOutputAuthGetUserInfoOutput,
   ResultOutputAuthGetUserPermissionsOutput,
-  ResultOutputAuthUserProfileDto,
+  ResultOutputAuthUserProfileOutput,
   ResultOutputBoolean,
-  ResultOutputListAuthUserMenuDto,
-  ResultOutputObject,
+  ResultOutputListAuthUserMenuOutput,
+  ResultOutputTokenInfo,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
@@ -56,7 +56,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getUserProfile = (params: RequestParams = {}) =>
-    this.request<ResultOutputAuthUserProfileDto, any>({
+    this.request<ResultOutputAuthUserProfileOutput, any>({
       path: `/api/admin/auth/get-user-profile`,
       method: 'GET',
       secure: true,
@@ -73,7 +73,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getUserMenus = (params: RequestParams = {}) =>
-    this.request<ResultOutputListAuthUserMenuDto, any>({
+    this.request<ResultOutputListAuthUserMenuOutput, any>({
       path: `/api/admin/auth/get-user-menus`,
       method: 'GET',
       secure: true,
@@ -124,7 +124,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   login = (data: AuthLoginInput, params: RequestParams = {}) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/auth/login`,
       method: 'POST',
       body: data,
@@ -143,7 +143,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   mobileLogin = (data: AuthMobileLoginInput, params: RequestParams = {}) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/auth/mobile-login`,
       method: 'POST',
       body: data,
@@ -162,7 +162,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   emailLogin = (data: AuthEmailLoginInput, params: RequestParams = {}) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/auth/email-login`,
       method: 'POST',
       body: data,
@@ -259,7 +259,7 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/auth/refresh`,
       method: 'GET',
       query: query,

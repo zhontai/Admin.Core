@@ -1210,7 +1210,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
                 component: () => import('/@/layout/routerView/link.vue'),
                 meta: {
                   title: 'message.router.layoutLinkView',
-                  isLink: 'https://element-plus.gitee.io/#/zh-CN/component/installation',
+                  isLink: 'https://element-plus.org/zh-CN/guide/design.html',
                   isHide: false,
                   isKeepAlive: false,
                   isAffix: false,

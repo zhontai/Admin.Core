@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<Description>MyApp接口契约库</Description>
-		<Version>8.6.0</Version>
+		<Version>1.0.0</Version>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 		<TargetFramework>net9.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -25,22 +24,47 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin" Version="8.6.0" />
-		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.0.3">
+			<IsBuild>true</IsBuild>
+		</PackageReference>
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.0.3">
+			<IsBuild>true</IsBuild>
+		</PackageReference>
+		<!--#if (IsSys) -->
+		<PackageReference Include="ZhonTai.Admin" Version="9.0.3">
+			<IsBuild>true</IsBuild>
+		</PackageReference>
+		<!--#endif -->
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Domain\" />
 		<Folder Include="Services\" />
 	</ItemGroup>
 
-
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">
 		<ItemGroup>
-			<PackageReferenceXmlFiles Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
-			<PackageReferenceJsonFiles Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
+<!--/-:msbuild-conditional:noEmit -->
+			<PackageReferenceXmlFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
+<!--/+:msbuild-conditional:noEmit -->
+<!--/-:msbuild-conditional:noEmit -->
+			<PackageReferenceJsonFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
+<!--/+:msbuild-conditional:noEmit -->
 		</ItemGroup>
 
+<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)" />
+<!--/+:msbuild-conditional:noEmit -->
+<!--/-:msbuild-conditional:noEmit -->
 		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Host/$(OutDir)Resources" />
+<!--/+:msbuild-conditional:noEmit -->
+		<!--#if (!NoTests) -->
+<!--/-:msbuild-conditional:noEmit -->
+		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)" />
+<!--/+:msbuild-conditional:noEmit -->
+<!--/-:msbuild-conditional:noEmit -->
+		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../MyApp.Tests/$(OutDir)Resources" />
+<!--/+:msbuild-conditional:noEmit -->
+		<!--#endif -->
 	</Target>
 </Project>

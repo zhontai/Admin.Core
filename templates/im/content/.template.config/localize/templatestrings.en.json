@@ -1,0 +1,7 @@
+{
+  "author": "ZhonTai Team",
+  "name": "ZhonTai.Template IMServer Instant Messaging Server Project Template",
+  "description": "ZhonTai Instant Messaging Server Template",
+  "symbols/Port/displayName": "Http Port",
+  "symbols/Port/description": "Specify the port number that the gateway project will listen on during startup."
+}

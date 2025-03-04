@@ -1,6 +1,6 @@
 ﻿using Xunit;
-using MyApp.Api.Domain.Module;
 using System.Threading.Tasks;
+using MyApp.Api.Contracts;
 
 namespace MyApp.Tests.Repositories;
 

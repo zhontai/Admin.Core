@@ -12,9 +12,7 @@
             </div>
           </div>
         </div>
-        <div class="right">
-          <img src="https://i.hd-r.cn/2cf0d2e192660eec23eb9d0655753e7d.png" />
-        </div>
+        <div class="right"><img :src="forbiddenSvg" /></div>
       </div>
     </div>
   </div>
@@ -23,6 +21,7 @@
 <script setup lang="ts" name="noPower">
 import { Session } from '/@/utils/storage'
 import { useUserInfo } from '/@/stores/userInfo'
+import forbiddenSvg from '/@/assets/svgs/401.svg'
 
 const onSetAuth = () => {
   // 清除缓存/token等

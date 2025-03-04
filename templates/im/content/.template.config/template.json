@@ -1,8 +1,8 @@
 {
     "$schema": "http://json.schemastore.org/template",
-    "author": "xiao xue", 
+    "author": "中台团队", 
     "classifications": [ "ZhonTai", "IMServer", "MyIMServer" ], 
-    "name": "ZhonTai.Template IM服务端项目", 
+    "name": "ZhonTai.Template IMServer 即时通讯服务端项目模板", 
     "identity": "MyIMServer", 
     "shortName": "MyIMServer",
     "tags": {

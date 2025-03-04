@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Db;
-using ZhonTai.Admin.Domain.DictType;
+﻿using ZhonTai.Admin.Domain.DictType;
 using ZhonTai.Admin.Domain.Dict;
 using ZhonTai.Admin.Domain.Api;
 using ZhonTai.Admin.Domain.Permission;
@@ -21,9 +17,6 @@ using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
 using ZhonTai.Admin.Domain.UserOrg;
-using System.Reflection;
-using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Helpers;
 using ZhonTai.Admin.Domain.Region;
 
 namespace ZhonTai.Admin.Repositories;

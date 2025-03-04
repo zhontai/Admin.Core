@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
@@ -82,7 +81,7 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
 
         var entity = Mapper.Map<LoginLogEntity>(input);
 
-        string ua = _context.HttpContext.Request.Headers["User-Agent"];
+        string ua = _context?.HttpContext?.Request?.Headers?.UserAgent;
         if (ua.NotNull())
         {
             var client = UAParser.Parser.GetDefault().Parse(ua);

@@ -1,6 +1,30 @@
 {
   "$schema": "http://json.schemastore.org/dotnetcli.host",
   "symbolInfo": {
+	"AppType": {
+      "longName": "app-type",
+      "shortName": "at"
+    },
+	"AppCode": {
+      "longName": "app-code",
+      "shortName": "ac"
+    },
+	"Port": {
+      "longName": "port",
+      "shortName": "p"
+    },
+	"GrpcPort": {
+      "longName": "grpc-port",
+      "shortName": "gp"
+    },
+	"SecurityKey": {
+      "longName": "security-key",
+      "shortName": "sk"
+    },
+	"DbType": {
+      "longName": "db-type",
+      "shortName": "db"
+    },
     "NoApiUI": {
       "longName": "no-apiui",
       "shortName": "nau"
@@ -21,17 +45,9 @@
       "longName": "no-sample",
       "shortName": "ns"
     },
-	"DbType": {
-      "longName": "db-type",
-      "shortName": "db"
-    },
 	"MergeDb": {
       "longName": "merge-db",
       "shortName": "md"
-    },
-	"MicroService": {
-      "longName": "micro-service",
-      "shortName": "ms"
     }
   },
   "usageExamples": [

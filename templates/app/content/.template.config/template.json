@@ -1,8 +1,8 @@
 {
 	"$schema": "http://json.schemastore.org/template",
-	"author": "xiao xue",
+	"author": "中台团队",
 	"classifications": [ "ZhonTai", "WebApi", "App", "MyApp" ],
-	"name": "ZhonTai.Template.App 应用接口项目",
+	"name": "ZhonTai.Template.App 应用接口项目模板",
 	"identity": "MyApp",
 	"shortName": "MyApp",
 	"tags": {
@@ -12,47 +12,84 @@
 	"sourceName": "MyApp",
 	"preferNameDirectory": true,
 	"symbols": {
-		"NoApiUI": {
+		"AppType": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Disable api document support"
+			"datatype": "choice",
+			"choices": [
+				{
+					"choice": "sys"
+				},
+				{
+					"choice": "app"
+				},
+				{
+					"choice": "mem"
+				}
+			],
+			"defaultValue": "app"
 		},
-		"NoTaskScheduler": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Disable task scheduler support"
+		"IsSys": {
+			"type": "computed",
+			"value": "AppType == sys"
 		},
-		"NoCap": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Cap for building distributed transaction and eventbus"
+		"IsApp": {
+			"type": "computed",
+			"value": "AppType == app"
 		},
-		"NoTests": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "No testing project library"
+		"IsMem": {
+			"type": "computed",
+			"value": "AppType == mem"
 		},
-		"NoSample": {
+		"AppCode": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "No module examples"
+			"datatype": "string",
+			"defaultValue": ""
 		},
-		"MergeDb": {
-			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Merge admindb to maindb support"
+		"AppCodeReplacer": {
+			"type": "generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "AppCode",
+				"fallbackVariableName": "AppType"
+			},
+			"replaces": "__app_code",
+			"fileRename": "__app_code"
 		},
-		"MicroService": {
+		"Port": {
 			"type": "parameter",
-			"datatype": "bool",
-			"defaultValue": "false",
-			"description": "Micro service project support"
+			"datatype": "int",
+			"defaultValue": "",
+			"replaces": "16010",
+			"isRequired": true
+		},
+		"GrpcPort": {
+			"type": "parameter",
+			"datatype": "int",
+			"defaultValue": "",
+			"replaces": "16011",
+			"isRequired": true
+		},
+		"SecurityKey": {
+			"type": "parameter",
+			"datatype": "string",
+			"isEnabled": "AppType == sys",
+			"defaultValue": ""
+		},
+		"SecurityKeyGuid": {
+			"type": "generated",
+			"generator": "guid",
+			"parameters": {
+			  "defaultFormat":"N"
+			}
+		},
+		"SecurityKeyReplacer": {
+			"type": "generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "SecurityKey",
+				"fallbackVariableName": "SecurityKeyGuid"
+			},
+			"replaces": "f013dd97e0e711ee8e1f8cec4b9877db022c2d2ce0e811ee8e1f8cec4b9877db"
 		},
 		"DbType": {
 			"type": "parameter",
@@ -117,6 +154,42 @@
 			],
 			"defaultValue": "Sqlite",
 			"description": "The database for the project"
+		},
+		"NoApiUI": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable api document support"
+		},
+		"NoTaskScheduler": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Disable task scheduler support"
+		},
+		"NoCap": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Cap for building distributed transaction and eventbus"
+		},
+		"NoTests": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No testing project library"
+		},
+		"NoSample": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "No module examples"
+		},
+		"MergeDb": {
+			"type": "parameter",
+			"datatype": "bool",
+			"defaultValue": "false",
+			"description": "Merge admindb to maindb support"
 		}
 	},
 	"sources": [
@@ -125,32 +198,33 @@
 				{
 					"condition": "(NoTaskScheduler)",
 					"exclude": [
-						"src/MyApp.Api/Core/Handlers/AppTaskHandler.cs",
-						"src/MyApp.Api/Core/Consts/TaskNames.cs"
+						"MyApp.Api/Core/Handlers/AppTaskHandler.cs",
+						"MyApp.Api/Core/Consts/TaskNames.cs"
 					]
 				},
 				{
-					"condition": "(MicroService)",
+					"condition": "(!IsSys)",
 					"exclude": [
-						"src/MyApp.Host/InitData/Admin/**"
+						"MyApp.Host/InitData/App/base_*.json",
+						"MyApp.Host/ip2region.xdb"
 					]
 				},
 				{
 					"condition": "(NoTests)",
 					"exclude": [
-						"src/MyApp.Tests/**"
+						"MyApp.Tests/**"
 					]
 				},
 				{
 					"condition": "(NoSample)",
 					"exclude": [
-						"src/MyApp.Api.Contracts/Services/Module/**",
-						"src/MyApp.Api/Domain/Module/**",
-						"src/MyApp.Api/Repositories/Module/**",
-						"src/MyApp.Api/Repositories/CustomGenerateData.cs",
-						"src/MyApp.Api/Repositories/CustomSyncData.cs",
-						"src/MyApp.Api/Services/Module/**",
-						"src/MyApp.Host/InitData/App/**"
+						"MyApp.Api.Contracts/Services/Module/**",
+						"MyApp.Api.Contracts/Domain/Module/**",
+						"MyApp.Api/Repositories/Module/**",
+						"MyApp.Api/Repositories/CustomGenerateData.cs",
+						"MyApp.Api/Repositories/CustomSyncData.cs",
+						"MyApp.Api/Services/Module/**",
+						"MyApp.Host/InitData/App/app_*.json"
 					]
 				}
 			]

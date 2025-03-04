@@ -213,8 +213,9 @@ onUnmounted(() => {
 }
 .layout-lock-screen-img {
   @extend .layout-lock-screen-fixed;
-  background-image: url('https://i.hd-r.cn/e4a19d84364f185266666765ac21a5db.jpg');
-  background-size: 100% 100%;
+  background-image: url('/@/assets/imgs/lockscreen.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   z-index: 9999991;
 }
 .layout-lock-screen {

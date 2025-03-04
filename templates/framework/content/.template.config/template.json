@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "中台团队", 
+    "classifications": [ "ZhonTai", "Framework", "MyFramework" ], 
+    "name": "ZhonTai.Template 框架项目模板", 
+    "identity": "MyFramework", 
+    "shortName": "MyFramework",
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "MyFramework",  
+    "preferNameDirectory": true,
+	"symbols": {
+		
+	},
+	"sources": [
+	]
+}

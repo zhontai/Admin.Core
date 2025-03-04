@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Services.Api;
@@ -29,18 +26,18 @@ public class ApiDocumentHandler : IApiDocumentHandler
     {
         try
         {
-            var apis = new List<ApiSyncDto>();
+            var apis = new List<ApiSyncModel>();
             _appConfig.Swagger.Projects?.ForEach(project =>
             {
                 var apiDocument = _swaggerProvider.GetSwagger(project.Code.ToLower());
-                apis.Add(new ApiSyncDto()
+                apis.Add(new ApiSyncModel()
                 {
                     Label = project.Name,
                     Path = project.Code.ToLower()
                 });
                 foreach (var tag in apiDocument.Tags)
                 {
-                    var apiSyncDto = new ApiSyncDto()
+                    var apiSyncDto = new ApiSyncModel()
                     {
                         Label = tag.Description,
                         ParentPath = project.Code.ToLower(),
@@ -53,7 +50,7 @@ public class ApiDocumentHandler : IApiDocumentHandler
                 {
                     foreach (var openApiOperation in path.Value.Operations)
                     {
-                        var apiSyncDto = new ApiSyncDto()
+                        var apiSyncDto = new ApiSyncModel()
                         {
                             Path = path.Key,
                             ParentPath = openApiOperation.Value.Tags[0].Name,

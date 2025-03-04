@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Core.Db.Transaction;
+﻿using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Domain.Role;
 
 namespace ZhonTai.Admin.Repositories;

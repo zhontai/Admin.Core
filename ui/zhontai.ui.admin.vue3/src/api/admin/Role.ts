@@ -11,7 +11,7 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PageInputRoleGetPageDto,
+  PageInputRoleGetPageInput,
   ResultOutputInt64,
   ResultOutputListRoleGetListOutput,
   ResultOutputListRoleGetRoleUserListOutput,
@@ -82,7 +82,7 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request POST:/api/admin/role/get-page
    * @secure
    */
-  getPage = (data: PageInputRoleGetPageDto, params: RequestParams = {}) =>
+  getPage = (data: PageInputRoleGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputRoleGetPageOutput, any>({
       path: `/api/admin/role/get-page`,
       method: 'POST',

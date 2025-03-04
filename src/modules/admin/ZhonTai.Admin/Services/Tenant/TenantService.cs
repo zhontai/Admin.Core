@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Mapster;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
@@ -16,7 +14,6 @@ using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
-using ZhonTai.Admin.Domain.Tenant.Dto;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.UserStaff;
 using ZhonTai.Admin.Domain.UserOrg;
@@ -28,12 +25,10 @@ using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Resources;
-using Mapster;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.Auth;
 using ZhonTai.Admin.Core.Validators;
-using Microsoft.Extensions.Options;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -121,7 +116,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<TenantListOutput>> GetPageAsync(PageInput<TenantGetPageDto> input)
+    public async Task<PageOutput<TenantGetPageOutput>> GetPageAsync(PageInput<TenantGetPageInput> input)
     {
         using var _ = _tenantRep.DataFilter.Disable(FilterNames.Tenant);
 
@@ -134,7 +129,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Pkgs.Select(b => new PkgEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync(a => new TenantListOutput
+        .ToListAsync(a => new TenantGetPageOutput
         {
             Name = a.Org.Name,
             Code = a.Org.Code,
@@ -145,9 +140,9 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             Pkgs = a.Pkgs,
         });
 
-        var data = new PageOutput<TenantListOutput>()
+        var data = new PageOutput<TenantGetPageOutput>()
         {
-            List = Mapper.Map<List<TenantListOutput>>(list),
+            List = Mapper.Map<List<TenantGetPageOutput>>(list),
             Total = total
         };
          
@@ -788,7 +783,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             .Where(a => a.Tenant.Id == tenantId && a.Tenant.UserId == a.Id)
             .ToOneAsync(a=> new AuthLoginOutput
             {
-                Tenant = new AuthLoginTenantDto
+                Tenant = new AuthLoginTenantModel
                 {
                     DbKey = a.Tenant.DbKey,
                     Enabled = a.Tenant.Enabled,

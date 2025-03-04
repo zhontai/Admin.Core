@@ -88,7 +88,7 @@ const size = computed(() => {
 })
 
 const onJsonShell = () => {
-  state.topic = '[system]shell'
+  state.topic = '[shell]'
   state.content = `{
   "desc": "任务描述",
   "arguments": "-plaintext -d \\"{ \\\\\\"id\\\\\\": 1 }\\" \${grpcAddress} YourNamespace.YourGrpcService/YourMethod",

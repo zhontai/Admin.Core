@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Host", "modules\admin\ZhonTai.Host\ZhonTai.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin.Host", "modules\admin\ZhonTai.Admin.Host\ZhonTai.Admin.Host.csproj", "{6F47A41A-085E-4422-BB73-5A2CBAA07D9F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin", "modules\admin\ZhonTai.Admin\ZhonTai.Admin.csproj", "{E725F0A1-0B03-406F-B84B-0F486C6137FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Common", "platform\ZhonTai.Common\ZhonTai.Common.csproj", "{97D32A49-994C-44C5-A167-51E71D173B6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Tests", "modules\admin\ZhonTai.Tests\ZhonTai.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.Admin.Tests", "modules\admin\ZhonTai.Admin.Tests\ZhonTai.Admin.Tests.csproj", "{69A9CD28-39CE-415E-8150-A4A876E708FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZhonTai.DynamicApi", "platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj", "{BDD8E9DB-896C-4340-A7E6-DFE341DE86C2}"
 EndProject
@@ -39,6 +39,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.gateways", "03.gateways", "{908FBE9E-EF24-4680-9C2F-259EC54D6AC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Gateway.Yarp", "gateways\ZhonTai.Gateway.Yarp\ZhonTai.Gateway.Yarp.csproj", "{979BE067-16EE-458F-B414-271749B0C038}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Core", "modules\admin\ZhonTai.Admin.Core\ZhonTai.Admin.Core.csproj", "{794CBF41-AF02-4B03-B1FE-C362C501F824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Contracts", "modules\admin\ZhonTai.Admin.Contracts\ZhonTai.Admin.Contracts.csproj", "{547FC35E-7642-43AF-BCFA-72EED6FC483A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +82,14 @@ Global
 		{979BE067-16EE-458F-B414-271749B0C038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{979BE067-16EE-458F-B414-271749B0C038}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{979BE067-16EE-458F-B414-271749B0C038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794CBF41-AF02-4B03-B1FE-C362C501F824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794CBF41-AF02-4B03-B1FE-C362C501F824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794CBF41-AF02-4B03-B1FE-C362C501F824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794CBF41-AF02-4B03-B1FE-C362C501F824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{547FC35E-7642-43AF-BCFA-72EED6FC483A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{547FC35E-7642-43AF-BCFA-72EED6FC483A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{547FC35E-7642-43AF-BCFA-72EED6FC483A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{547FC35E-7642-43AF-BCFA-72EED6FC483A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +105,8 @@ Global
 		{0602EECF-035B-42C2-B534-E29BC24DE646} = {626D43B7-A210-4754-BB59-357F917D5E86}
 		{8EB07596-339B-420A-BB32-1FB69D7E7BA5} = {0602EECF-035B-42C2-B534-E29BC24DE646}
 		{979BE067-16EE-458F-B414-271749B0C038} = {908FBE9E-EF24-4680-9C2F-259EC54D6AC6}
+		{794CBF41-AF02-4B03-B1FE-C362C501F824} = {65CF5483-DF86-41D7-B367-7C2E28C1672D}
+		{547FC35E-7642-43AF-BCFA-72EED6FC483A} = {65CF5483-DF86-41D7-B367-7C2E28C1672D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../../../platform/Directory.Build.props" />
+	<PropertyGroup>
+		<Description>中台Admin权限管理契约库</Description>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<NoWarn>1701;1702;1591;8632;RF001;</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Resources.AdminContractsLocalizer.en.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="../../../../logo.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ZhonTai.Admin.Core\ZhonTai.Admin.Core.csproj" />
+	</ItemGroup>
+</Project>

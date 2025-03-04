@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Domain.Tenant;
-using MyApp.Api.Domain.Module;
 using ZhonTai.Admin.Core.Db.Data;
+using MyApp.Api.Contracts.Domain.Module;
 
-namespace ZhonTai.Admin.Repositories;
+namespace MyApp.Api.Repositories;
 
 public class CustomGenerateData : GenerateData, IGenerateData
 {

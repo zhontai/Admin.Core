@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ZhonTai.Admin.Core.Configs;
-using MyApp.Api.Domain.Module;
 using ZhonTai.Admin.Core.Db.Data;
-using System;
+using MyApp.Api.Contracts.Domain.Module;
 
-namespace ZhonTai.Admin.Repositories;
+namespace MyApp.Api.Repositories;
 
 public class CustomSyncData : SyncData, ISyncData
 {

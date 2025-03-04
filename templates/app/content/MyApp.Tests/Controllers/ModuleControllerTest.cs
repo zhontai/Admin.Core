@@ -23,22 +23,22 @@ public class ModuleControllerTest : BaseControllerTest
             Name = "new-module"
         };
 
-        var res = await PostResult($"/api/app/module/add", input);
+        var res = await PostResult($"/api/__app_code/module/add", input);
         Assert.True(res.Success);
     }
 
     [Fact]
     public async Task Update()
     {
-        var output = await GetResult<ResultOutput<ModuleGetOutput>>("/api/app/module/get?id=278518195769413");
-        var res = await PutResult($"/api/app/module/update", output.Data);
+        var output = await GetResult<ResultOutput<ModuleGetOutput>>("/api/__app_code/module/get?id=278518195769413");
+        var res = await PutResult($"/api/__app_code/module/update", output.Data);
         Assert.True(res.Success);
     }
 
     [Fact]
     public async Task Get()
     {
-        var res = await GetResult<ResultOutput<ModuleGetOutput>>("/api/app/module/get?id=278518195769413");
+        var res = await GetResult<ResultOutput<ModuleGetOutput>>("/api/__app_code/module/get?id=278518195769413");
         Assert.True(res.Success);
     }
 
@@ -56,14 +56,14 @@ public class ModuleControllerTest : BaseControllerTest
             }
         };
 
-        var res = await PostResult($"/api/app/module/get-page", input);
+        var res = await PostResult($"/api/__app_code/module/get-page", input);
         Assert.True(res.Success);
     }
 
     [Fact]
     public async Task Delete()
     {
-        var res = await DeleteResult($"/api/app/module/soft-delete?{ToParams(new { id = 278551714857029 })}");
+        var res = await DeleteResult($"/api/__app_code/module/soft-delete?{ToParams(new { id = 278551714857029 })}");
         Assert.True(res.Success);
     }
 }

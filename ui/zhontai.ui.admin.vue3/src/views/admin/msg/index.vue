@@ -110,7 +110,7 @@
 </template>
 
 <script lang="ts" setup name="admin/msg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import {
   PageInputMsgGetPageInput,
   MsgGetMsgUserListOutput,

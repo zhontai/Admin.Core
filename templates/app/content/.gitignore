@@ -398,3 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 **/wwwroot/upload
+
+**/MyApp.Api/MyApp.Api.xml
+**/MyApp.Api.Contracts/MyApp.Api.Contracts.xml

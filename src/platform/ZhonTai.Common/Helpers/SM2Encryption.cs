@@ -7,7 +7,6 @@ using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Utilities.Encoders;
-using System;
 using System.Text;
 
 namespace ZhonTai.Common.Helpers;

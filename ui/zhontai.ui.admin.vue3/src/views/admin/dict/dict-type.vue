@@ -59,7 +59,7 @@
 
 <script lang="ts" setup name="admin/dictType">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
-import { DictTypeGetPageOutput, PageInputDictTypeGetPageDto } from '/@/api/admin/data-contracts'
+import { DictTypeGetPageOutput, PageInputDictTypeGetPageInput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
 
@@ -83,7 +83,7 @@ const state = reactive({
   pageInput: {
     currentPage: 1,
     pageSize: 20,
-  } as PageInputDictTypeGetPageDto,
+  } as PageInputDictTypeGetPageInput,
   dictTypeListData: [] as Array<DictTypeGetPageOutput>,
   lastCurrentRow: {} as DictTypeGetPageOutput,
 })

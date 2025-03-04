@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using DotNetCore.CAP;
 using ZhonTai.Admin.Core.Attributes;
@@ -15,6 +13,7 @@ using ZhonTai.DynamicApi.Attributes;
 using Lazy.SlideCaptcha.Core;
 using Lazy.SlideCaptcha.Core.Validator;
 using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Cache;
 
@@ -28,12 +27,17 @@ public class CaptchaService : BaseService, IDynamicApi
     private readonly ICaptcha _captcha;
     private readonly ISlideCaptcha _slideCaptcha;
     private readonly ICapPublisher _capPublisher;
+    private readonly AdminLocalizer _adminLocalizer;
 
-    public CaptchaService(ICaptcha captcha, ISlideCaptcha slideCaptcha, ICapPublisher capPublisher)
+    public CaptchaService(ICaptcha captcha, 
+        ISlideCaptcha slideCaptcha, 
+        ICapPublisher capPublisher,
+        AdminLocalizer adminLocalizer)
     {
         _captcha = captcha;
         _slideCaptcha = slideCaptcha;
         _capPublisher = capPublisher;
+        _adminLocalizer = adminLocalizer;
     }
 
     /// <summary>
@@ -60,7 +64,7 @@ public class CaptchaService : BaseService, IDynamicApi
     {
         if (captchaId.IsNull() || track == null)
         {
-            throw ResultOutput.Exception("请完成安全验证");
+            throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
         }
 
         return _slideCaptcha.Validate(captchaId, track, false);
@@ -77,18 +81,18 @@ public class CaptchaService : BaseService, IDynamicApi
     {
         if (input.Mobile.IsNull())
         {
-            throw ResultOutput.Exception("请输入手机号");
+            throw ResultOutput.Exception(_adminLocalizer["请输入手机号"]);
         }
 
         if (input.CaptchaId.IsNull() || input.Track == null)
         {
-            throw ResultOutput.Exception("请完成安全验证");
+            throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
         }
 
         var validateResult = _captcha.Validate(input.CaptchaId, input.Track);
         if (validateResult.Result != ValidateResultType.Success)
         {
-            throw ResultOutput.Exception($"安全{validateResult.Message}");
+            throw ResultOutput.Exception(_adminLocalizer["安全{0}", validateResult.Message]);
         }
 
         var codeId = input.CodeId.IsNull() ? Guid.NewGuid().ToString() : input.CodeId;
@@ -116,18 +120,18 @@ public class CaptchaService : BaseService, IDynamicApi
     {
         if (input.Email.IsNull())
         {
-            throw ResultOutput.Exception("请输入邮件地址");
+            throw ResultOutput.Exception(_adminLocalizer["请输入邮件地址"]);
         }
 
         if (input.CaptchaId.IsNull() || input.Track == null)
         {
-            throw ResultOutput.Exception("请完成安全验证");
+            throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
         }
 
         var validateResult = _captcha.Validate(input.CaptchaId, input.Track);
         if (validateResult.Result != ValidateResultType.Success)
         {
-            throw ResultOutput.Exception($"安全{validateResult.Message}");
+            throw ResultOutput.Exception(_adminLocalizer["安全{0}", validateResult.Message]);
         }
 
         var codeId = input.CodeId.IsNull() ? Guid.NewGuid().ToString() : input.CodeId;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ZhonTai.DynamicApi;
+﻿namespace ZhonTai.DynamicApi;
 
 public static class FormatResultContext
 {
