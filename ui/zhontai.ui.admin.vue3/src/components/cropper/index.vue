@@ -1,9 +1,26 @@
 <template>
   <div>
-    <el-dialog title="更换头像" v-model="state.isShowDialog" width="769px">
+    <el-dialog draggable title="更换头像" v-model="state.isShowDialog" width="769px">
       <div class="cropper-warp">
         <div class="cropper-warp-left">
-          <img :src="state.cropperImg" class="cropper-warp-left-img" />
+          <cropper-canvas background style="height: 100%">
+            <cropper-image :src="state.cropperImg" alt="Picture" rotatable scalable skewable translatable crossorigin="anonymous"></cropper-image>
+            <cropper-shade hidden></cropper-shade>
+            <cropper-handle action="select" plain></cropper-handle>
+            <cropper-selection ref="sourceRef" aspect-ratio="1" initial-aspect-ratio="1" initial-coverage="0.5" movable resizable @change="onChange">
+              <cropper-grid role="grid" covered hidden></cropper-grid>
+              <cropper-crosshair centered></cropper-crosshair>
+              <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0.35)"></cropper-handle>
+              <cropper-handle action="n-resize"></cropper-handle>
+              <cropper-handle action="e-resize"></cropper-handle>
+              <cropper-handle action="s-resize"></cropper-handle>
+              <cropper-handle action="w-resize"></cropper-handle>
+              <cropper-handle action="ne-resize"></cropper-handle>
+              <cropper-handle action="nw-resize"></cropper-handle>
+              <cropper-handle action="se-resize"></cropper-handle>
+              <cropper-handle action="sw-resize"></cropper-handle>
+            </cropper-selection>
+          </cropper-canvas>
         </div>
         <div class="cropper-warp-right">
           <div class="cropper-warp-right-title">预览</div>
@@ -32,9 +49,12 @@
 </template>
 
 <script setup lang="ts" name="cropper">
-import { reactive, nextTick } from 'vue'
-import Cropper from 'cropperjs'
-// import 'cropperjs/dist/cropper.css'
+import { reactive, ref } from 'vue'
+import 'cropperjs'
+
+const sourceRef = ref()
+
+const cropperImg = defineModel('cropperImg', { type: String })
 
 // 定义变量内容
 const state = reactive({
@@ -45,12 +65,9 @@ const state = reactive({
 })
 
 // 打开弹窗
-const openDialog = (imgs: string) => {
-  state.cropperImg = imgs
+const openDialog = (imgUrl: string) => {
+  state.cropperImg = imgUrl
   state.isShowDialog = true
-  nextTick(() => {
-    initCropper()
-  })
 }
 // 关闭弹窗
 const closeDialog = () => {
@@ -62,23 +79,13 @@ const onCancel = () => {
 }
 // 更换
 const onSubmit = () => {
-  // state.cropperImgBase64 = state.cropper.getCroppedCanvas().toDataURL('image/jpeg');
+  cropperImg.value = state.cropperImgBase64
+  closeDialog()
 }
-// 初始化cropperjs图片裁剪
-const initCropper = () => {
-  const letImg = <HTMLImageElement>document.querySelector('.cropper-warp-left-img')
-  state.cropper = new Cropper(letImg, {
-    viewMode: 1,
-    dragMode: 'none',
-    initialAspectRatio: 1,
-    aspectRatio: 1,
-    preview: '.before',
-    background: false,
-    autoCropArea: 0.6,
-    zoomOnWheel: false,
-    crop: () => {
-      state.cropperImgBase64 = state.cropper.getCroppedCanvas().toDataURL('image/jpeg')
-    },
+
+const onChange = async () => {
+  sourceRef.value.$toCanvas().then((canvas: HTMLCanvasElement) => {
+    state.cropperImgBase64 = canvas.toDataURL('image/jpeg')
   })
 }
 
