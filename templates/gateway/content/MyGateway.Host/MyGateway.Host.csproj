@@ -9,7 +9,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
+		<PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
 	</ItemGroup>
 </Project>
