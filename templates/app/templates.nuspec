@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>ZhonTai.Template.App</id>
-    <version>9.0.8</version>
+    <version>9.0.9</version>
 	<authors>xiao xue</authors>
 	<owners>zhon tai</owners>
 	<projectUrl>https://github.com/zhontai/Admin.Core</projectUrl>
