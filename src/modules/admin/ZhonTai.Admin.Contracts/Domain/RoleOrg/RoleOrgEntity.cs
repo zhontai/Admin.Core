@@ -15,7 +15,8 @@ public partial class RoleOrgEntity : EntityAdd
     /// <summary>
     /// 角色Id
     /// </summary>
-	public long RoleId { get; set; }
+	[Column(IsPrimary = true)]
+    public long RoleId { get; set; }
 
     /// <summary>
     /// 角色
@@ -25,7 +26,8 @@ public partial class RoleOrgEntity : EntityAdd
     /// <summary>
     /// 部门Id
     /// </summary>
-	public long OrgId { get; set; }
+	[Column(IsPrimary = true)]
+    public long OrgId { get; set; }
 
     /// <summary>
     /// 部门

@@ -16,7 +16,8 @@ public partial class UserOrgEntity : EntityUpdate
     /// <summary>
     /// 用户Id
     /// </summary>
-	public long UserId { get; set; }
+    [Column(IsPrimary = true)]
+    public long UserId { get; set; }
 
     /// <summary>
     /// 用户
@@ -27,7 +28,8 @@ public partial class UserOrgEntity : EntityUpdate
     /// <summary>
     /// 部门Id
     /// </summary>
-	public long OrgId { get; set; }
+    [Column(IsPrimary = true)]
+    public long OrgId { get; set; }
 
     /// <summary>
     /// 部门

@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体修改
 /// </summary>
-public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate<TKey> where TKey : struct
+public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate where TKey : struct
 {
     /// <summary>
     /// 修改者用户Id

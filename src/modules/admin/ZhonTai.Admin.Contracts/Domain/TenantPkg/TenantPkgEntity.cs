@@ -15,6 +15,7 @@ public class TenantPkgEntity : EntityAdd
     /// <summary>
     /// 租户Id
     /// </summary>
+    [Column(IsPrimary = true)]
     public long TenantId { get; set; }
 
     public TenantEntity Tenant { get; set; }
@@ -22,6 +23,7 @@ public class TenantPkgEntity : EntityAdd
     /// <summary>
     /// 套餐Id
     /// </summary>
+    [Column(IsPrimary = true)]
     public long PkgId { get; set; }
 
     public PkgEntity Pkg { get; set; }

@@ -16,7 +16,8 @@ public class RolePermissionEntity : EntityAdd
     /// <summary>
     /// 角色Id
     /// </summary>
-	public long RoleId { get; set; }
+	[Column(IsPrimary = true)]
+    public long RoleId { get; set; }
 
     /// <summary>
     /// 权限Id
@@ -27,6 +28,7 @@ public class RolePermissionEntity : EntityAdd
     /// 角色
     /// </summary>
     [NotGen]
+    [Column(IsPrimary = true)]
     public RoleEntity Role { get; set; }
 
     /// <summary>

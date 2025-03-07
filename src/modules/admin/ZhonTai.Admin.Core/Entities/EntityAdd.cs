@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Core.Entities;
 /// <summary>
 /// 实体创建
 /// </summary>
-public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd<TKey> where TKey : struct
+public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd where TKey : struct
 {
     /// <summary>
     /// 创建者用户Id

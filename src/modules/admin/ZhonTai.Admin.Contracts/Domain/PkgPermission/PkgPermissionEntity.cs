@@ -15,7 +15,8 @@ public class PkgPermissionEntity : EntityAdd
     /// <summary>
     /// 套餐Id
     /// </summary>
-	public long PkgId { get; set; }
+	[Column(IsPrimary = true)]
+    public long PkgId { get; set; }
 
     /// <summary>
     /// 套餐
@@ -25,7 +26,8 @@ public class PkgPermissionEntity : EntityAdd
     /// <summary>
     /// 权限Id
     /// </summary>
-	public long PermissionId { get; set; }
+	[Column(IsPrimary = true)]
+    public long PermissionId { get; set; }
 
     /// <summary>
     /// 权限
