@@ -8,9 +8,9 @@ using ZhonTai.Admin.Core.Attributes;
 namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
-/// 实体修改
+/// 实体修改无主键Id
 /// </summary>
-public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate where TKey : struct
+public class EntityUpdateNoId : EntityAddNoId, IEntityUpdate
 {
     /// <summary>
     /// 修改者用户Id
@@ -48,11 +48,4 @@ public class EntityUpdate<TKey> : EntityAdd<TKey>, IEntityUpdate where TKey : st
     [Column(Position = -10)]
     [ServerTime(CanInsert = false, CanUpdate = true)]
     public virtual DateTime? ModifiedTime { get; set; }
-}
-
-/// <summary>
-/// 实体修改
-/// </summary>
-public class EntityUpdate : EntityUpdate<long>
-{
 }

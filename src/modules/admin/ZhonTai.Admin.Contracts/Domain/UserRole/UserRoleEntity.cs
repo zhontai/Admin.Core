@@ -16,6 +16,7 @@ public class UserRoleEntity : EntityAdd
     /// <summary>
     /// 用户Id
     /// </summary>
+    [Column(IsPrimary = true)]
     public long UserId { get; set; }
 
     [NotGen]
@@ -24,6 +25,7 @@ public class UserRoleEntity : EntityAdd
     /// <summary>
     /// 角色Id
     /// </summary>
+    [Column(IsPrimary = true)]
     public long RoleId { get; set; }
 
     [NotGen]

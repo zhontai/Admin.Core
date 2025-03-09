@@ -16,7 +16,8 @@ public class PermissionApiEntity : EntityAdd
     /// <summary>
     /// 权限Id
     /// </summary>
-	public long PermissionId { get; set; }
+	[Column(IsPrimary = true)]
+    public long PermissionId { get; set; }
 
     /// <summary>
     /// 权限
@@ -27,7 +28,8 @@ public class PermissionApiEntity : EntityAdd
     /// <summary>
     /// 接口Id
     /// </summary>
-	public long ApiId { get; set; }
+	[Column(IsPrimary = true)]
+    public long ApiId { get; set; }
 
     /// <summary>
     /// 接口

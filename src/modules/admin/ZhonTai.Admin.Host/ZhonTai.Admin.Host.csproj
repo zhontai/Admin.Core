@@ -25,16 +25,16 @@
 
 	<ItemGroup>
 		<!--
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.5.104" />
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.5.104" />
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.5.104" />
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.5.104" />
-		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.5.104" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.104" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.5.107" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.5.107" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.5.107" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.5.107" />
+		<PackageReference Include="FreeSql.Provider.MySqlConnector" Version="3.5.107" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.107" />
 		-->
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.2" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.2" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.104" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.3.3" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.3.3" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.107" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
 	</ItemGroup>

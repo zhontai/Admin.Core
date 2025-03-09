@@ -6,9 +6,9 @@ using ZhonTai.Admin.Core.Attributes;
 namespace ZhonTai.Admin.Core.Entities;
 
 /// <summary>
-/// 实体创建
+/// 实体创建无主键Id
 /// </summary>
-public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd where TKey : struct
+public class EntityAddNoId : IEntityAdd
 {
     /// <summary>
     /// 创建者用户Id
@@ -38,11 +38,4 @@ public class EntityAdd<TKey> : Entity<TKey>, IEntityAdd where TKey : struct
     [Column(Position = -20, CanUpdate = false)]
     [ServerTime]
     public virtual DateTime? CreatedTime { get; set; }
-}
-
-/// <summary>
-/// 实体创建
-/// </summary>
-public class EntityAdd : EntityAdd<long>
-{
 }

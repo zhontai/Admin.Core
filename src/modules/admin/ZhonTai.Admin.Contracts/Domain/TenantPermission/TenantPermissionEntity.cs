@@ -16,18 +16,20 @@ public class TenantPermissionEntity : EntityAdd
     /// <summary>
     /// 租户Id
     /// </summary>
-	public long TenantId { get; set; }
-
-    /// <summary>
-    /// 权限Id
-    /// </summary>
-	public long PermissionId { get; set; }
+	[Column(IsPrimary = true)]
+    public long TenantId { get; set; }
 
     /// <summary>
     /// 租户
     /// </summary>
     [NotGen]
     public TenantEntity Tenant { get; set; }
+
+    /// <summary>
+    /// 权限Id
+    /// </summary>
+    [Column(IsPrimary = true)]
+    public long PermissionId { get; set; }
 
     /// <summary>
     /// 权限

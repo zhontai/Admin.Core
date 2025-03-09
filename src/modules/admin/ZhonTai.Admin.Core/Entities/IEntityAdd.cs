@@ -3,8 +3,7 @@
 /// <summary>
 /// 添加接口
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-public interface IEntityAdd<TKey> where TKey : struct
+public interface IEntityAdd
 {
     /// <summary>
     /// 创建者用户Id

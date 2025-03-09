@@ -3,8 +3,7 @@
 /// <summary>
 /// 修改接口
 /// </summary>
-/// <typeparam name="TKey"></typeparam>
-public interface IEntityUpdate<TKey> where TKey : struct
+public interface IEntityUpdate
 {
     /// <summary>
     /// 修改者Id
