@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AngleSharp;
-using AngleSharp.Html.Dom;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Region;
@@ -11,6 +10,11 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using Yitter.IdGenerator;
 using ToolGood.Words.Pinyin;
+using Flurl.Http;
+using System.Text;
+using AngleSharp.Dom;
+using System.Text.RegularExpressions;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Services.Region;
 
@@ -249,84 +253,23 @@ public class RegionService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 同步地区
+    /// 获得省份列表
     /// </summary>
-    /// <param name="region"></param>
-    /// <param name="selectors"></param>
-    /// <param name="regionLevel"></param>
-    /// <param name="url"></param>
-    /// <param name="splitUrl"></param>
+    /// <param name="html"></param>
     /// <returns></returns>
-    private async Task SyncRegionAsync(RegionEntity region, 
-        string selectors, 
-        RegionLevel regionLevel, 
-        string url = "", 
-        string splitUrl = "")
+    /// <exception cref="InvalidOperationException"></exception>
+    private static List<RegionInfo> GetProvinceList(string html)
     {
-        var isProvice = regionLevel == RegionLevel.Province;
+        var regex = new Regex(@"var\s+json\s*=\s*(\[.*?\])\s*;",
+                            RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
-        if (url.IsNull())
-        {
-            url = isProvice ? "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html" : "http://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/";
-        }
+        var match = regex.Match(html);
+        if (!match.Success)
+            throw new InvalidOperationException("未找到json数据");
 
-        if (splitUrl.IsNull())
-            splitUrl = "tjyqhdmhcxhfdm/2023/";
+        var jsonString = match.Groups[1].Value;
 
-        var config = Configuration.Default.WithDefaultLoader();
-        var context = BrowsingContext.New(config);
-        var document = await context.OpenAsync(url + region.Url);
-
-        var elementList = document.QuerySelectorAll(selectors);
-        var dataList = new List<RegionEntity>();
-        int increment = isProvice ? 1 : 2;
-        int index = isProvice ? 0 : 1;
-        if(regionLevel == RegionLevel.Vilage)
-        {
-            increment = 3;
-            index = 2;
-        }
-        for (var i = 0; i < elementList.Length; i += increment)
-        {
-            var element = elementList[i + index] as IHtmlAnchorElement;
-            dataList.Add(new RegionEntity()
-            {
-                Id = YitIdHelper.NextId(),
-                ParentId = region.Id,
-                Name = element.TextContent,
-                Level = regionLevel,
-                Code = isProvice ? element.Href.Split(splitUrl).Last().Replace(".html", "") : elementList[i].TextContent,
-                Url = element.Href.Split(splitUrl).Last(),
-                Pinyin = WordsHelper.GetPinyin(element.TextContent),
-                PinyinFirst = WordsHelper.GetFirstPinyin(element.TextContent),
-            });
-        }
-
-        var regionRep = _regionRep;
-        using var _ = regionRep.DataFilter.DisableAll();
-
-        var codeList = dataList.Select(a => a.Code).ToList();
-        var existsDataList = await regionRep.Where(a => a.ParentId == region.Id && codeList.Contains(a.Code)).ToListAsync();
-        var existsDataCodeList = existsDataList.Select(a => a.Code).ToList();
-        var insertDataList = dataList.Where(a => !existsDataCodeList.Contains(a.Code));
-
-        if (insertDataList.Any())
-        {
-            await regionRep.InsertAsync(insertDataList);
-        }
-
-        if (existsDataList.Any())
-        {
-            foreach (var item in existsDataList)
-            {
-                var updateItem = dataList.Where(a => a.Code == item.Code).First();
-                item.Name = updateItem.Name;
-                item.Url = updateItem.Url;
-                item.Pinyin = updateItem.Pinyin;
-            }
-
-            await regionRep.UpdateAsync(existsDataList);
-        }
+        return JsonHelper.Deserialize<List<RegionInfo>>(jsonString) ?? [];
     }
 
     /// <summary>
@@ -336,77 +279,126 @@ public class RegionService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task SyncDataAsync(RegionLevel regionLevel = RegionLevel.City)
     {
-        //同步省份
-        await SyncRegionAsync(new RegionEntity
-        {
-            Id = 0,
-            Url = "",
-        }, "table.provincetable tr.provincetr td a", RegionLevel.Province);
-        WordsHelper.ClearCache();
-
-        if(regionLevel == RegionLevel.Province)
-        {
-            return;
-        }
+        // 支持GBK编码
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        var xzqhHtml = await "http://xzqh.mca.gov.cn/map".GetStringAsync();
+        var provinceList = GetProvinceList(xzqhHtml);
 
         var regionRep = _regionRep;
         using var _ = regionRep.DataFilter.DisableAll();
 
-        var provinceList = await regionRep.Where(a => a.Level == RegionLevel.Province).ToListAsync();
         foreach (var province in provinceList)
         {
-            //同步城市
-            if (province.Url.NotNull())
-            {
-                await SyncRegionAsync(province, "table.citytable tr.citytr td a", RegionLevel.City);
-                WordsHelper.ClearCache();
-            }
+            var regionList = new List<RegionEntity>();
 
-            if (regionLevel == RegionLevel.City)
+            //转换省份数据
+            var shengJi = province.ParseShengJi();
+            var provinceRegion = new RegionEntity()
             {
-                continue;
-            }
+                Id = YitIdHelper.NextId(),
+                ParentId = 0,
+                Name = shengJi.Name,
+                ShortName = shengJi.ShortName,
+                Code = province.QuHuaDaiMa,
+                AreaCode = province.QuHao,
+                Level = RegionLevel.Province,
+                Pinyin = WordsHelper.GetPinyin(shengJi.Name),
+                PinyinFirst = WordsHelper.GetFirstPinyin(shengJi.Name),
+            };
+            regionList.Add(provinceRegion);
 
-            //同步县/区
-            var cityList = await regionRep.Where(a => a.Level == RegionLevel.City).ToListAsync();
+            var config = Configuration.Default.WithDefaultLoader();
+            var context = BrowsingContext.New(config);
+            // 使用GBK编码
+            var gbk = Encoding.GetEncoding("GBK");
+            var gbkBytes = gbk.GetBytes(province.ShengJi);
+            var shengJiEncoded = string.Join("", gbkBytes.Select(b => $"%{b:X2}"));
+            var document = await context.OpenAsync($"http://xzqh.mca.gov.cn/defaultQuery?shengji={shengJiEncoded}&diji=-1&xianji=-1");
+
+            var tableElement = document.QuerySelector("table.info_table");
+
+            //获取城市数据
+            var cityList = tableElement.QuerySelectorAll("tr[flag].shi_nub");
             foreach (var city in cityList)
             {
-                if (city.Url.NotNull())
+                var cityTdList = city.QuerySelectorAll("td");
+                var cityId = YitIdHelper.NextId();
+                var cityName = cityTdList[0].QuerySelector(".name_text").Text().Trim();
+                var population = cityTdList[2].TextContent.Trim();
+                var area = cityTdList[3].TextContent.Trim();
+                var cityCode = cityTdList[4].TextContent.Trim();
+                var cityRegion = new RegionEntity()
                 {
-                    await SyncRegionAsync(city, "table.countytable tr.countytr td a", RegionLevel.County);
-                    WordsHelper.ClearCache();
+                    Id = cityId,
+                    ParentId = provinceRegion.Id,
+                    Name = cityName,
+                    Capital = cityTdList[1].TextContent.Trim(),
+                    Population = population.NotNull() ? population.ToInt() : null,
+                    Area = area.NotNull() ? area.ToInt() : null,
+                    Code = cityCode.NotNull() ? cityCode : cityId.ToString(),
+                    AreaCode = cityTdList[5].TextContent.Trim(),
+                    ZipCode = cityTdList[6].TextContent.Trim(),
+                    Level = RegionLevel.City,
+                    Pinyin = WordsHelper.GetPinyin(cityName),
+                    PinyinFirst = WordsHelper.GetFirstPinyin(cityName),
+                };
+                regionList.Add(cityRegion);
+
+                //获取县/区数据
+                var countyList = tableElement.QuerySelectorAll($"tr[parent=\"{cityRegion.Name}\"]");
+                foreach (var county in countyList)
+                {
+                    var countyTdList = county.QuerySelectorAll("td");
+                    var countyId = YitIdHelper.NextId();
+                    var countyName = countyTdList[0].TextContent;
+                    var countyPopulation = countyTdList[2].TextContent.Trim();
+                    var countyArea = countyTdList[3].TextContent.Trim();
+                    var countyCode = countyTdList[4].TextContent.Trim();
+                    var countyRegion = new RegionEntity()
+                    {
+                        Id = countyId,
+                        ParentId = cityRegion.Id,
+                        Name = countyName,
+                        Capital = countyTdList[1].TextContent.Trim(),
+                        Population = countyPopulation.NotNull() ? countyPopulation.ToInt() : null,
+                        Area = countyArea.NotNull() ? countyArea.ToInt() : null,
+                        Code = countyCode.NotNull() ? countyCode : countyId.ToString(),
+                        AreaCode = countyTdList[5].TextContent.Trim(),
+                        ZipCode = countyTdList[6].TextContent.Trim(),
+                        Level = RegionLevel.County,
+                        Pinyin = WordsHelper.GetPinyin(countyName),
+                        PinyinFirst = WordsHelper.GetFirstPinyin(countyName),
+                    };
+                    regionList.Add(countyRegion);
                 }
 
-                if (regionLevel == RegionLevel.County)
+                var codeList = regionList.Select(a => a.Code).ToList();
+                var existsDataList = await regionRep.Where(a => codeList.Contains(a.Code)).ToListAsync();
+                var existsDataCodeList = existsDataList.Select(a => a.Code).ToList();
+                var insertDataList = regionList.Where(a => !existsDataCodeList.Contains(a.Code));
+
+                if (insertDataList.Any())
                 {
-                    continue;
+                    await regionRep.InsertAsync(insertDataList);
                 }
 
-                //同步镇/乡/街道
-                var townList = await regionRep.Where(a => a.Level == RegionLevel.Town).ToListAsync();
-                foreach (var town in townList)
+                if (existsDataList.Any())
                 {
-                    if (town.Url.NotNull())
+                    foreach (var item in existsDataList)
                     {
-                        await SyncRegionAsync(town, "table.towntable tr.towntr td a", RegionLevel.Town);
-                        WordsHelper.ClearCache();
+                        var updateItem = regionList.Where(a => a.Code == item.Code).First();
+                        item.Name = updateItem.Name;
+                        item.Capital = updateItem.Capital;
+                        item.Population = updateItem.Population;
+                        item.Area = updateItem.Area;
+                        item.Code = updateItem.Code;
+                        item.AreaCode = updateItem.AreaCode;
+                        item.ZipCode = updateItem.ZipCode;
+                        item.Pinyin = updateItem.Pinyin;
+                        item.PinyinFirst = updateItem.PinyinFirst;
                     }
 
-                    if (regionLevel == RegionLevel.Town)
-                    {
-                        continue;
-                    }
-
-                    //同步 村/社区/居委会/村委会
-                    var vilageList = await regionRep.Where(a => a.Level == RegionLevel.Vilage).ToListAsync();
-                    foreach (var vilage in vilageList)
-                    {
-                        if (vilage.Url.NotNull())
-                        {
-                            await SyncRegionAsync(vilage, "table.villagetable tr.villagetr td", RegionLevel.Vilage);
-                            WordsHelper.ClearCache();
-                        }
-                    }
+                    await regionRep.UpdateAsync(existsDataList);
                 }
             }
         }

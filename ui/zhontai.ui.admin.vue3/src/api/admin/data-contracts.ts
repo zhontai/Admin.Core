@@ -3152,12 +3152,28 @@ export interface RegionAddInput {
   parentId?: number
   /** 名称 */
   name?: string | null
+  /** 简称 */
+  shortName?: string | null
   /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
-  /** 提取Url */
-  url?: string | null
+  /** 驻地 */
+  capital?: string | null
+  /**
+   * 人口（万人）
+   * @format int32
+   */
+  population?: number | null
+  /**
+   * 面积（平方千米）
+   * @format int32
+   */
+  area?: number | null
+  /** 区号 */
+  areaCode?: string | null
+  /** 邮编 */
+  zipCode?: string | null
   /**
    * 排序
    * @format int32
@@ -3214,12 +3230,28 @@ export interface RegionGetOutput {
   parentId?: number
   /** 名称 */
   name?: string | null
+  /** 简称 */
+  shortName?: string | null
   /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
-  /** 提取Url */
-  url?: string | null
+  /** 驻地 */
+  capital?: string | null
+  /**
+   * 人口（万人）
+   * @format int32
+   */
+  population?: number | null
+  /**
+   * 面积（平方千米）
+   * @format int32
+   */
+  area?: number | null
+  /** 区号 */
+  areaCode?: string | null
+  /** 邮编 */
+  zipCode?: string | null
   /**
    * 排序
    * @format int32
@@ -3269,6 +3301,8 @@ export interface RegionGetPageOutput {
   parentId?: number
   /** 名称 */
   name?: string | null
+  /** 简称 */
+  shortName?: string | null
   /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
@@ -3277,8 +3311,22 @@ export interface RegionGetPageOutput {
   pinyin?: string | null
   /** 拼音首字母 */
   pinyinFirst?: string | null
-  /** 城乡分类代码 */
-  vilageCode?: string | null
+  /** 驻地 */
+  capital?: string | null
+  /**
+   * 人口（万人）
+   * @format int32
+   */
+  population?: number | null
+  /**
+   * 面积（平方千米）
+   * @format int32
+   */
+  area?: number | null
+  /** 区号 */
+  areaCode?: string | null
+  /** 邮编 */
+  zipCode?: string | null
   /**
    * 排序
    * @format int32
@@ -3327,12 +3375,28 @@ export interface RegionUpdateInput {
   parentId?: number
   /** 名称 */
   name?: string | null
+  /** 简称 */
+  shortName?: string | null
   /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
-  /** 提取Url */
-  url?: string | null
+  /** 驻地 */
+  capital?: string | null
+  /**
+   * 人口（万人）
+   * @format int32
+   */
+  population?: number | null
+  /**
+   * 面积（平方千米）
+   * @format int32
+   */
+  area?: number | null
+  /** 区号 */
+  areaCode?: string | null
+  /** 邮编 */
+  zipCode?: string | null
   /**
    * 排序
    * @format int32

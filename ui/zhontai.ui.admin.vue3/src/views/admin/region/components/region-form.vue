@@ -29,13 +29,42 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="地区简称">
+              <el-input v-model="form.shortName" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="地区代码" prop="code" :rules="[{ required: true, message: '请输入地区代码', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.code" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="提取地址" prop="url">
-              <el-input v-model="form.url" clearable />
+            <el-form-item label="驻地">
+              <el-input v-model="form.capital" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="人口">
+              <el-input v-model="form.population" clearable>
+                <template #append>万人</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="面积">
+              <el-input v-model="form.area" clearable>
+                <template #append>平方千米</template>
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="区号">
+              <el-input v-model="form.areaCode" clearable />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="邮编">
+              <el-input v-model="form.zipCode" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">

@@ -20,6 +20,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Flurl.Http" Version="4.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\ZhonTai.Admin.Contracts\ZhonTai.Admin.Contracts.csproj" />
 	</ItemGroup>
 </Project>

@@ -23,6 +23,11 @@ public class RegionGetPageOutput
     public string Name { get; set; }
 
     /// <summary>
+    /// 简称
+    /// </summary>
+    public string ShortName { get; set; }
+
+    /// <summary>
     /// 级别
     /// </summary>
     public RegionLevel Level { get; set; }
@@ -43,9 +48,29 @@ public class RegionGetPageOutput
     public string PinyinFirst { get; set; }
 
     /// <summary>
-    /// 城乡分类代码
+    /// 驻地
     /// </summary>
-    public string VilageCode { get; set; }
+    public string Capital { get; set; }
+
+    /// <summary>
+    /// 人口（万人）
+    /// </summary>
+    public int? Population { get; set; }
+
+    /// <summary>
+    /// 面积（平方千米）
+    /// </summary>
+    public int? Area { get; set; }
+
+    /// <summary>
+    /// 区号
+    /// </summary>
+    public string AreaCode { get; set; }
+
+    /// <summary>
+    /// 邮编
+    /// </summary>
+    public string ZipCode { get; set; }
 
     /// <summary>
     /// 排序

@@ -39,11 +39,12 @@
             :width="300"
           >
             <p class="my-flex my-flex-items-center">
-              确定要同步至
+              确定要同步数据？
+              <!-- 确定要同步至
               <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
                 <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
-              ？
+              ？ -->
             </p>
             <div class="mt10" style="text-align: right">
               <el-button size="small" text @click="onSyncCancel">取消</el-button>
