@@ -1,31 +1,32 @@
 <template>
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-      <el-form :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
-        <el-form-item label="">
-          <RegionSelect v-model:parentId="state.filter.parentId" placeholder="上级地区" />
+      <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
+        <el-form-item label="" prop="parentId">
+          <RegionSelect ref="regionSelectRef" v-model:parentId="state.filter.parentId" placeholder="上级地区" />
         </el-form-item>
-        <el-form-item label="">
+        <el-form-item label="" prop="name">
           <el-input v-model="state.filter.name" placeholder="地区名" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="类型">
+        <el-form-item label="类型" prop="level">
           <el-select v-model="state.filter.level" empty-values="[null]" style="width: 100px" @change="onQuery">
             <el-option label="全部" :value="undefined" />
             <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="状态">
+        <el-form-item label="状态" prop="enabled">
           <el-select v-model="state.filter.enabled" :empty-values="[null]" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.statusList" :key="item.name" :label="item.name" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="热门">
+        <el-form-item label="热门" prop="hot">
           <el-select v-model="state.filter.hot" :empty-values="[null]" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.hotList" :key="item.name" :label="item.name" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+          <el-button icon="ele-RefreshLeft" text bg @click="onReset"> 重置 </el-button>
           <el-button v-if="auth('api:admin:region:add')" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
           <el-button v-if="auth('api:admin:region:sync-data')" ref="syncRef" :loading="state.sync.loading" type="primary" icon="ele-Refresh">
             同步
@@ -134,6 +135,7 @@ import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { toOptionsByValue, getDescByValue } from '/@/utils/enum'
+import type { FormInstance } from 'element-plus'
 
 // 引入组件
 const RegionForm = defineAsyncComponent(() => import('./components/region-form.vue'))
@@ -141,6 +143,8 @@ const RegionSelect = defineAsyncComponent(() => import('./components/region-sele
 
 const { proxy } = getCurrentInstance() as any
 
+const regionSelectRef = ref()
+const filterFormRef = ref<FormInstance>()
 const formRef = ref()
 const syncRef = ref()
 const popoverRef = ref()
@@ -217,6 +221,13 @@ const onQuery = async () => {
   state.total = res?.data?.total ?? 0
 
   state.loading = false
+}
+
+const onReset = () => {
+  regionSelectRef.value.reset()
+  filterFormRef.value!.resetFields()
+
+  onQuery()
 }
 
 const onAdd = () => {
