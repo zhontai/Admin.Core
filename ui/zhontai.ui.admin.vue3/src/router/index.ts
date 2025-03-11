@@ -98,7 +98,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.title) NProgress.start()
   const storesUseUserInfo = useUserInfo(pinia)
   const token = storesUseUserInfo.getToken()
-  if (to.path === '/login' && !token) {
+  if (to.meta.isPublic && !token) {
     next()
     NProgress.done()
   } else {
