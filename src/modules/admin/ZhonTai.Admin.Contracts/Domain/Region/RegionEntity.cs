@@ -23,6 +23,12 @@ public partial class RegionEntity : EntityBase, IChilds<RegionEntity>
     public string Name { get; set; }
 
     /// <summary>
+    /// 简称
+    /// </summary>
+    [Column(StringLength = 100)]
+    public string ShortName { get; set; }
+
+    /// <summary>
     /// 级别
     /// </summary>
     [Column(MapType = typeof(int))]
@@ -47,16 +53,32 @@ public partial class RegionEntity : EntityBase, IChilds<RegionEntity>
     public string PinyinFirst { get; set; }
 
     /// <summary>
-    /// 提取地址
+    /// 行政中心/政府驻地
     /// </summary>
     [Column(StringLength = 100)]
-    public string Url { get; set; }
+    public string Capital { get; set; }
 
     /// <summary>
-    /// 城乡分类代码
+    /// 人口（单位：万人）
     /// </summary>
-    [Column(StringLength = 10)]
-    public string VilageCode { get; set; }
+    public int? Population { get; set; }
+
+    /// <summary>
+    /// 面积（单位：平方千米）
+    /// </summary>
+    public int? Area { get; set; }
+
+    /// <summary>
+    /// 区号
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string AreaCode { get; set; }
+
+    /// <summary>
+    /// 邮编
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string ZipCode { get; set; }
 
     /// <summary>
     /// 排序

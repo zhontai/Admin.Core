@@ -48,4 +48,12 @@ const cascaderProps: CascaderProps = {
 const onChange = (value: any) => {
   parentId.value = value && value.length > 0 ? value[value.length - 1] : undefined
 }
+
+const reset = () => {
+  state.regionList = []
+}
+
+defineExpose({
+  reset,
+})
 </script>
