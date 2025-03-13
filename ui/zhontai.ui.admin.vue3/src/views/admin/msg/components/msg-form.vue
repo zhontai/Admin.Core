@@ -11,7 +11,7 @@
     >
       <el-form :model="form" ref="formRef" label-width="auto">
         <el-row :gutter="35">
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="分类" prop="typeId" :rules="[{ required: true, message: '请选择分类', trigger: ['change'] }]">
               <el-tree-select
                 v-model="form.typeId"
@@ -25,6 +25,13 @@
                 filterable
                 class="w100"
               />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+            <el-form-item label="状态" prop="status" :rules="[{ required: true, message: '请选择状态', trigger: ['change'] }]">
+              <el-select v-model="form.status" placeholder="请选择状态" class="w100">
+                <el-option v-for="item in state.msgStatusList" :key="item.label" :label="item.label" :value="item.value" />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -64,6 +71,8 @@ import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { listToTree } from '/@/utils/tree'
+import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
+import { toOptionsByValue } from '/@/utils/enum'
 
 const MyEditor = defineAsyncComponent(() => import('/@/components/my-editor/index.vue'))
 
@@ -82,6 +91,7 @@ const state = reactive({
   form: { content: '' } as MsgUpdateInput,
   msgTypeTreeData: [] as MsgTypeGetListOutput[],
   v: null,
+  msgStatusList: toOptionsByValue(MsgStatusEnum),
 })
 
 const { proxy } = getCurrentInstance() as any

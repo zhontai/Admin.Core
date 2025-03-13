@@ -1295,6 +1295,8 @@ export interface MsgAddInput {
   typeId?: number
   /** 类型名称 */
   typeName?: string | null
+  /** 消息状态:Draft=1,Published=2,Scheduled=3,Revoked=4,Archived=5 */
+  status?: MsgStatusEnum
 }
 
 /** 添加消息用户列表 */
@@ -1343,6 +1345,8 @@ export interface MsgGetOutput {
   typeId?: number
   /** 类型名称 */
   typeName?: string | null
+  /** 消息状态:Draft=1,Published=2,Scheduled=3,Revoked=4,Archived=5 */
+  status?: MsgStatusEnum
   /**
    * 消息Id
    * @format int64
@@ -1372,12 +1376,20 @@ export interface MsgGetPageOutput {
   typeId?: number
   /** 类型名称 */
   typeName?: string | null
+  /** 消息状态:Draft=1,Published=2,Scheduled=3,Revoked=4,Archived=5 */
+  status?: MsgStatusEnum
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
 }
+
+/**
+ * 消息状态:Draft=1,Published=2,Scheduled=3,Revoked=4,Archived=5
+ * @format int32
+ */
+export type MsgStatusEnum = 1 | 2 | 3 | 4 | 5
 
 /** 添加 */
 export interface MsgTypeAddInput {
@@ -1495,6 +1507,8 @@ export interface MsgUpdateInput {
   typeId?: number
   /** 类型名称 */
   typeName?: string | null
+  /** 消息状态:Draft=1,Published=2,Scheduled=3,Revoked=4,Archived=5 */
+  status?: MsgStatusEnum
   /**
    * 消息Id
    * @format int64

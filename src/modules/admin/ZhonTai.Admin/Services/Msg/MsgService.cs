@@ -160,7 +160,6 @@ public class MsgService : BaseService, IDynamicApi
     public async Task<long> AddAsync(MsgAddInput input)
     {
         var entity = Mapper.Map<MsgEntity>(input);
-        entity.Status = MsgStatusEnum.Draft;
         await _msgRep.InsertAsync(entity);
 
         return entity.Id;

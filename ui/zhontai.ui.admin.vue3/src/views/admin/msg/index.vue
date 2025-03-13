@@ -1,6 +1,6 @@
 <template>
   <MySplitPanes>
-    <pane size="50" min-size="30" max-size="70">
+    <pane size="55" min-size="35" max-size="65">
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -27,6 +27,7 @@
           >
             <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip />
             <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="status" label="状态" min-width="90" show-overflow-tooltip :formatter="formatterMsgStatusEnum" />
             <el-table-column prop="createdTime" label="创建时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
             <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
               <template #default="{ row }">
@@ -124,6 +125,8 @@ import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { Pane } from 'splitpanes'
 import dayjs from 'dayjs'
+import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
+import { getDescByValue } from '/@/utils/enum'
 
 // 引入组件
 const MsgForm = defineAsyncComponent(() => import('./components/msg-form.vue'))
@@ -172,6 +175,10 @@ onMounted(async () => {
 onBeforeMount(() => {
   eventBus.off('refreshMsg')
 })
+
+const formatterMsgStatusEnum = (row: any, column: any, cellValue: any) => {
+  return getDescByValue(MsgStatusEnum, cellValue)
+}
 
 const formatterTime = (row: any, column: any, cellValue: any) => {
   return cellValue ? dayjs(cellValue).format('YYYY-MM-DD HH:mm:ss') : ''

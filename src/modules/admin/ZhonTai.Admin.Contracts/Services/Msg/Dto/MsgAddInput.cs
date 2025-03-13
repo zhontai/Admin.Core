@@ -1,4 +1,6 @@
-﻿namespace ZhonTai.Admin.Services.Msg.Dto;
+﻿using ZhonTai.Admin.Domain.Msg;
+
+namespace ZhonTai.Admin.Services.Msg.Dto;
 
 /// <summary>
 /// 添加
@@ -24,4 +26,9 @@ public class MsgAddInput
     /// 类型名称
     /// </summary>
     public string TypeName { get; set; }
+
+    /// <summary>
+    /// 消息状态
+    /// </summary>
+    public MsgStatusEnum Status { get; set; }
 }
