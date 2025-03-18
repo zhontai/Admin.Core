@@ -20,16 +20,16 @@ namespace ZhonTai.Admin.Services.PrintTemplate;
 [DynamicApi(Area = AdminConsts.AreaName)]
 public class PrintTemplateService : BaseService, IDynamicApi
 {
-    private readonly AdminRepositoryBase<PrintTemplateEntity> _msgRep;
+    private readonly AdminRepositoryBase<PrintTemplateEntity> _printTemplateRep;
     private readonly AdminRepositoryBase<UserEntity> _userRep;
     private readonly AdminLocalizer _adminLocalizer;
 
     public PrintTemplateService(
-        AdminRepositoryBase<PrintTemplateEntity> msgRep,
+        AdminRepositoryBase<PrintTemplateEntity> printTemplateRep,
         AdminLocalizer adminLocalizer
     )
     {
-        _msgRep = msgRep;
+        _printTemplateRep = printTemplateRep;
         _adminLocalizer = adminLocalizer;
     }
 
@@ -40,7 +40,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task<PrintTemplateGetOutput> GetAsync(long id)
     {
-        var output = await _msgRep.Select
+        var output = await _printTemplateRep.Select
         .WhereDynamic(id)
         .ToOneAsync<PrintTemplateGetOutput>();
 
@@ -55,7 +55,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<PrintTemplateGetPageOutput>> GetPageAsync(PageInput<PrintTemplateGetPageInput> input)
     {
-        var list = await _msgRep.Select
+        var list = await _printTemplateRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(input.Filter != null && input.Filter.Name.NotNull(), a => a.Name.Contains(input.Filter.Name))
         .WhereIf(input.Filter != null && input.Filter.Code.NotNull(), a => a.Code.Contains(input.Filter.Code))
@@ -81,7 +81,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     public async Task<long> AddAsync(PrintTemplateAddInput input)
     {
         var entity = Mapper.Map<PrintTemplateEntity>(input);
-        await _msgRep.InsertAsync(entity);
+        await _printTemplateRep.InsertAsync(entity);
 
         return entity.Id;
     }
@@ -93,7 +93,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(PrintTemplateUpdateInput input)
     {
-        var entity = await _msgRep.GetAsync(input.Id);
+        var entity = await _printTemplateRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["打印模板不存在"]);
@@ -105,8 +105,23 @@ public class PrintTemplateService : BaseService, IDynamicApi
         }
 
         Mapper.Map(input, entity);
-        await _msgRep.UpdateAsync(entity);
-    }    
+        await _printTemplateRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 设置启用
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task SetEnableAsync(PrintTemplateSetEnableInput input)
+    {
+        var printTemplateRep = _printTemplateRep;
+        using var _ = printTemplateRep.DataFilter.DisableAll();
+
+        var entity = await printTemplateRep.GetAsync(input.PrintTemplateId);
+        entity.Enabled = input.Enabled;
+        await printTemplateRep.UpdateAsync(entity);
+    }
 
     /// <summary>
     /// 彻底删除
@@ -116,7 +131,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     [AdminTransaction]
     public virtual async Task DeleteAsync(long id)
     {
-        await _msgRep.DeleteAsync(id);
+        await _printTemplateRep.DeleteAsync(id);
     }
 
     /// <summary>
@@ -127,7 +142,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchDeleteAsync(long[] ids)
     {
-        await _msgRep.Where(a => ids.Contains(a.Id)).ToDelete().ExecuteAffrowsAsync();
+        await _printTemplateRep.Where(a => ids.Contains(a.Id)).ToDelete().ExecuteAffrowsAsync();
     }
 
     /// <summary>
@@ -138,7 +153,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SoftDeleteAsync(long id)
     {
-        await _msgRep.SoftDeleteAsync(id);
+        await _printTemplateRep.SoftDeleteAsync(id);
     }
 
     /// <summary>
@@ -149,6 +164,6 @@ public class PrintTemplateService : BaseService, IDynamicApi
     [AdminTransaction]
     public virtual async Task BatchSoftDeleteAsync(long[] ids)
     {
-        await _msgRep.SoftDeleteAsync(a => ids.Contains(a.Id));
+        await _printTemplateRep.SoftDeleteAsync(a => ids.Contains(a.Id));
     }
 }

@@ -332,7 +332,8 @@ const syncApi = async (swaggerResource: any) => {
 
 const onSync = async () => {
   state.syncLoading = true
-  const swaggerResourcePaths = ['doc/sys']
+  const swaggerResourcePaths = ['doc/admin']
+  //const swaggerResourcePaths = ['doc/admin']
   // const swaggerResourcePaths = ['doc/app']
   const swaggerResourceUrls = swaggerResourcePaths?.map((path) => `/${path}/swagger-resources`) as string[]
   const lastSwaggerResourcesIndex = swaggerResourceUrls.length - 1

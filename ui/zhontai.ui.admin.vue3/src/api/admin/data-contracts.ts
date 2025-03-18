@@ -2029,6 +2029,25 @@ export interface PageInputPkgGetPkgTenantListInput {
 }
 
 /** 分页信息输入 */
+export interface PageInputPrintTemplateGetPageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  /** 分页请求 */
+  filter?: PrintTemplateGetPageInput
+}
+
+/** 分页信息输入 */
 export interface PageInputRegionGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
@@ -2258,6 +2277,17 @@ export interface PageOutputPkgGetPkgTenantListOutput {
   total?: number
   /** 数据 */
   list?: PkgGetPkgTenantListOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputPrintTemplateGetPageOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: PrintTemplateGetPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -3145,6 +3175,124 @@ export interface PkgUpdateInput {
   id: number
 }
 
+/** 添加 */
+export interface PrintTemplateAddInput {
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 模板 */
+  template?: string | null
+  /** 说明 */
+  description?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+}
+
+/** 表单响应 */
+export interface PrintTemplateGetOutput {
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 模板 */
+  template?: string | null
+  /** 说明 */
+  description?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /**
+   * 打印模板Id
+   * @format int64
+   */
+  id: number
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
+}
+
+/** 分页请求 */
+export interface PrintTemplateGetPageInput {
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+}
+
+/** 分页响应 */
+export interface PrintTemplateGetPageOutput {
+  /**
+   * 打印模板Id
+   * @format int64
+   */
+  id?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 说明 */
+  description?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+}
+
+/** 设置启用 */
+export interface PrintTemplateSetEnableInput {
+  /**
+   * 地区Id
+   * @format int64
+   */
+  printTemplateId?: number
+  /** 是否启用 */
+  enabled?: boolean
+}
+
+/** 修改 */
+export interface PrintTemplateUpdateInput {
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 模板 */
+  template?: string | null
+  /** 说明 */
+  description?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /**
+   * 打印模板Id
+   * @format int64
+   */
+  id: number
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
+}
+
 /** 项目配置 */
 export interface ProjectConfig {
   /** 名称 */
@@ -4006,6 +4154,18 @@ export interface ResultOutputPageOutputPkgGetPkgTenantListOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputPageOutputPrintTemplateGetPageOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputPrintTemplateGetPageOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputPageOutputRegionGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -4135,6 +4295,18 @@ export interface ResultOutputPkgGetOutput {
   msg?: string | null
   /** 套餐 */
   data?: PkgGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputPrintTemplateGetOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 表单响应 */
+  data?: PrintTemplateGetOutput
 }
 
 /** 结果输出 */
