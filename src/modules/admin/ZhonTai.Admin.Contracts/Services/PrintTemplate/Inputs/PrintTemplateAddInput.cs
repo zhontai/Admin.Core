@@ -1,36 +1,28 @@
-﻿using FreeSql.DataAnnotations;
-using ZhonTai.Admin.Core.Entities;
-namespace ZhonTai.Admin.Domain.PrintTemplate;
+﻿namespace ZhonTai.Admin.Services.PrintTemplate.Inputs;
 
 /// <summary>
-/// 打印模板
+/// 添加
 /// </summary>
-[Table(Name = DbConsts.TableNamePrefix + "print_template")]
-[Index("idx_{tablename}_01", $"{nameof(Name)}", true)]
-public partial class PrintTemplateEntity : EntityVersion
+public class PrintTemplateAddInput
 {
     /// <summary>
     /// 名称
     /// </summary>
-    [Column(StringLength = 50)]
     public string Name { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
-    [Column(StringLength = 50)]
     public string Code { get; set; }
 
     /// <summary>
     /// 模板
     /// </summary>
-    [Column(StringLength = -1)]
     public string Template { get; set; }
 
     /// <summary>
     /// 说明
     /// </summary>
-    [Column(StringLength = 200)]
     public string Description { get; set; }
 
     /// <summary>

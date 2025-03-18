@@ -155,7 +155,6 @@ public class HostApp
                 services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
                 services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
                 services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
-                services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
                 services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
             }
             else
