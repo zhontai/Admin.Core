@@ -100,14 +100,14 @@ dotnet new install ZhonTai.Template.App
 dotnet new MyApp -h
 
 # 新建项目
-dotnet new MyApp -n MyCompanyName.MyProjectName
+dotnet new MyApp -n MyCompanyName.MySys -at sys -ac sys -p 16010 -gp 16011 -db MySql
 
 # 运行项目
-设置 MyCompanyName.MyProjectName.Host 为启动项目 Ctrl + F5 直接编译运行项目
-或 在 MyCompanyName.MyProjectName.Host 目录打开 cmd 输入 dotnet run 命令运行项目
+设置 MyCompanyName.MySys.Host 为启动项目 Ctrl + F5 直接编译运行项目
+或 在 MyCompanyName.MySys.Host 目录打开 cmd 输入 dotnet run 命令运行项目
 
 # 打包发布
-选择 MyCompanyName.MyProjectName.Host 右键菜单点击发布
+选择 MyCompanyName.MySys.Host 右键菜单点击发布
 ```
 
 使用Tye运行&调试模块项目：

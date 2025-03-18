@@ -100,14 +100,14 @@ dotnet new install ZhonTai.Template.App
 dotnet new MyApp -h
 
 # New the project
-dotnet new MyApp -n MyCompanyName.MyProjectName
+dotnet new MyApp -n MyCompanyName.MySys -at sys -ac sys -p 16010 -gp 16011 -db MySql
 
 # Run the project
-Set MyCompanyName.MyProjectName.Host as the startup project, press Ctrl + F5 to compile and run the project directly (without debugging)
-Alternatively, navigate to the 'MyCompanyName.MyProjectName.Host' directory in Command Prompt (cmd) and enter the 'dotnet run' command to execute the project.
+Set MyCompanyName.MySys.Host as the startup project, press Ctrl + F5 to compile and run the project directly (without debugging)
+Alternatively, navigate to the 'MyCompanyName.MySys.Host' directory in Command Prompt (cmd) and enter the 'dotnet run' command to execute the project.
 
 # Package and Publish
-Select MyCompanyName.MyProjectName.Host, then right-click and choose Publish from the context menu.
+Select MyCompanyName.MySys.Host, then right-click and choose Publish from the context menu.
 ```
 
 Using Tye to Run & Debug Modular Projects:
