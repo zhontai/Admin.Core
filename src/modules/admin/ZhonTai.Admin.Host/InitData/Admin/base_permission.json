@@ -4280,7 +4280,7 @@
                 "id": 655846480715845,
                 "parentId": 655836777152581,
                 "label": "删除",
-                "code": "api:admin:print-template:soft-delete",
+                "code": "api:admin:print-template:delete",
                 "type": 3,
                 "viewId": null,
                 "name": null,

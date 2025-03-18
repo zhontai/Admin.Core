@@ -275,7 +275,7 @@ const onEdit = (row: ApiGetListOutput) => {
 
 const onDelete = (row: ApiGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除接口【${row.label}】?`, { type: 'info' })
+    .confirmDelete(`确定要删除接口【${row.label}】?`)
     .then(async () => {
       await new ApiApi().delete({ id: row.id }, { loading: true })
       onQuery()

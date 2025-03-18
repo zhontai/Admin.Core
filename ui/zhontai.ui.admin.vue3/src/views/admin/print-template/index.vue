@@ -42,12 +42,9 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:print-template:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)"
-              >编辑</el-button
-            >
-            <el-button v-auth="'api:admin:print-template:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)"
-              >删除</el-button
-            >
+            <el-button v-auth="'api:admin:print-template:update'" size="small" text type="primary" @click="onEdit(row)"> 编辑 </el-button>
+            <el-button size="small" text type="primary" @click="onEdit(row)"> 设计 </el-button>
+            <el-button v-auth="'api:admin:print-template:delete'" size="small" text type="danger" @click="onDelete(row)"> 删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -158,7 +155,7 @@ const onEdit = (row: PrintTemplateGetPageOutput) => {
 
 const onDelete = (row: PrintTemplateGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除打印模板【${row.name}】?`, { type: 'info' })
+    .confirmDelete(`确定要删除打印模板【${row.name}】?`)
     .then(async () => {
       await new PrintTemplateApi().delete({ id: row.id }, { loading: true })
       onQuery()
