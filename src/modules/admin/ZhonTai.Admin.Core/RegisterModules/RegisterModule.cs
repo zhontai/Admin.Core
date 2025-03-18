@@ -41,10 +41,6 @@ public class RegisterModule : Module
         {
             assemblies = AssemblyHelper.GetAssemblyList(_appConfig.AssemblyNames);
         }
-        else
-        {
-            assemblies = AppInfo.EffectiveAssemblies.ToArray();
-        }
 
         if (!(assemblies?.Length > 0))
         {

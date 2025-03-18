@@ -275,7 +275,7 @@ const onEdit = (row: ApiGetListOutput) => {
 
 const onDelete = (row: ApiGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除接口【${row.label}】?`, { type: 'info' })
+    .confirmDelete(`确定要删除接口【${row.label}】?`)
     .then(async () => {
       await new ApiApi().delete({ id: row.id }, { loading: true })
       onQuery()
@@ -332,7 +332,8 @@ const syncApi = async (swaggerResource: any) => {
 
 const onSync = async () => {
   state.syncLoading = true
-  const swaggerResourcePaths = ['doc/sys']
+  const swaggerResourcePaths = ['doc/admin']
+  //const swaggerResourcePaths = ['doc/admin']
   // const swaggerResourcePaths = ['doc/app']
   const swaggerResourceUrls = swaggerResourcePaths?.map((path) => `/${path}/swagger-resources`) as string[]
   const lastSwaggerResourcesIndex = swaggerResourceUrls.length - 1

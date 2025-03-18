@@ -178,7 +178,7 @@ const onApiFilterNode = (value: string, data: ApiGetListOutput) => {
 }
 
 const onApiCurrentChange = (data: ApiGetListOutput) => {
-  if (data) {
+  if (data?.httpMethods) {
     if (!state.form.label) {
       state.form.label = data.label
     }

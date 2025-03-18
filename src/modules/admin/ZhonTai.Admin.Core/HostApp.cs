@@ -155,7 +155,6 @@ public class HostApp
                 services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
                 services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
                 services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
-                services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
                 services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
             }
             else
@@ -1006,7 +1005,6 @@ public class HostApp
         if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
         {
             IEnumerable<Assembly> assemblies = [];
-            assemblies = AppInfo.EffectiveAssemblies;
             if (rpcConfig.Grpc.ServerAssemblyNames?.Length > 0)
             {
                 var serverAssemblies = AssemblyHelper.GetAssemblyList(rpcConfig.Grpc.ServerAssemblyNames);

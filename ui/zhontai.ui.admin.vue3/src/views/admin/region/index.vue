@@ -242,7 +242,7 @@ const onEdit = (row: RegionGetPageOutput) => {
 
 const onDelete = (row: RegionGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除地区【${row.name}】?`, { type: 'info' })
+    .confirmDelete(`确定要删除地区【${row.name}】?`)
     .then(async () => {
       await new RegionApi().delete({ id: row.id }, { loading: true })
       onQuery()

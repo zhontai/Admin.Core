@@ -20,7 +20,7 @@ public static class AppInfo
 {
     static AppInfo()
     {
-        EffectiveTypes = EffectiveAssemblies.SelectMany(GetTypes);
+        
     }
 
     private static bool _isRun;
@@ -33,16 +33,6 @@ public static class AppInfo
         get => _isRun;
         set => _isRun = value;
     }
-
-    /// <summary>
-    /// 有效程序集
-    /// </summary>
-    public static readonly IEnumerable<Assembly> EffectiveAssemblies = GetAllAssemblies();
-
-    /// <summary>
-    /// 有效程序集类型
-    /// </summary>
-    public static readonly IEnumerable<Type> EffectiveTypes;
 
     /// <summary>
     /// 服务提供程序
