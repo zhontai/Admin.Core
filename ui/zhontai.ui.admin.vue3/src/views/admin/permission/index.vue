@@ -38,7 +38,7 @@
       >
         <el-table-column prop="label" label="权限名称" width="240" show-overflow-tooltip>
           <template #default="{ row }">
-            <SvgIcon :name="row.icon" />
+            <SvgIcon :name="row.icon" style="vertical-align: -2px" />
             {{ row.label }}
           </template>
         </el-table-column>
@@ -204,15 +204,27 @@ const onAdd = (row: PermissionListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
-      permissionGroupFormRef.value.open({ parentId: row.parentId })
+      permissionGroupFormRef.value.open({
+        id: 0,
+        enabled: true,
+        opened: true,
+        icon: 'ele-Memo',
+        parentId: row.parentId,
+      })
       break
     case 2:
       state.permissionFormTitle = '新增菜单'
-      permissionMenuFormRef.value.open({ parentId: row.parentId })
+      permissionMenuFormRef.value.open({
+        id: 0,
+        enabled: true,
+        isKeepAlive: true,
+        icon: 'ele-Memo',
+        parentId: row.parentId,
+      })
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open({ parentId: row.parentId })
+      permissionDotFormRef.value.open({ id: 0, parentId: row.parentId, enabled: true })
       break
   }
 }
