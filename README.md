@@ -83,18 +83,18 @@ cd Admin.Core
 打开 ZhonTai.sln 解决方案
 
 # 运行项目
-设置 ZhonTai.Host 为启动项目 Ctrl + F5 直接编译运行项目
-或 在 ZhonTai.Host 目录打开 cmd 输入 dotnet run 命令运行项目
+设置 ZhonTai.Admin.Host 为启动项目 Ctrl + F5 直接编译运行项目
+或 在 ZhonTai.Admin.Host 目录打开 cmd 输入 dotnet run 命令运行项目
 
 # 打包发布
-选择 ZhonTai.Host 右键菜单点击发布
+选择 ZhonTai.Admin.Host 右键菜单点击发布
 ```
 
 使用项目模板新建项目
 
 ```bash
 # 安装模板
-dotnet new install ZhonTai.Template
+dotnet new install ZhonTai.Template.App
 
 # 查看帮助
 dotnet new MyApp -h

@@ -83,18 +83,18 @@ cd Admin.Core
 Open the ZhonTai.sln solution
 
 # Run the project
-Set ZhonTai.Host as the startup project, press Ctrl + F5 to build and run the project directly without debugging
-Alternatively, navigate to the ZhonTai.Host directory in Command Prompt (cmd) and enter the dotnet run command to execute the project.
+Set ZhonTai.Admin.Host as the startup project, press Ctrl + F5 to build and run the project directly without debugging
+Alternatively, navigate to the ZhonTai.Admin.Host directory in Command Prompt (cmd) and enter the dotnet run command to execute the project.
 
 # Package and Publish
-Select ZhonTai.Host, then right-click and choose Publish from the context menu.
+Select ZhonTai.Admin.Host, then right-click and choose Publish from the context menu.
 ```
 
 Create a new project using a project template.
 
 ```bash
 # Installation template
-dotnet new install ZhonTai.Template
+dotnet new install ZhonTai.Template.App
 
 # View help
 dotnet new MyApp -h
