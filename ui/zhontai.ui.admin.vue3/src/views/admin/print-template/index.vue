@@ -82,7 +82,6 @@ const PrintTemplateDesign = defineAsyncComponent(() => import('./components/prin
 
 const { proxy } = getCurrentInstance() as any
 
-const printTemplateSelectRef = ref()
 const filterFormRef = ref<FormInstance>()
 const formRef = ref()
 const designRef = ref()
@@ -141,7 +140,6 @@ const onQuery = async () => {
 }
 
 const onReset = () => {
-  printTemplateSelectRef.value.reset()
   filterFormRef.value!.resetFields()
 
   onQuery()
