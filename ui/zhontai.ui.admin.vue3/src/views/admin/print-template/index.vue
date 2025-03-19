@@ -2,10 +2,10 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
-        <el-form-item label="" prop="name">
+        <el-form-item label="模板名称" prop="name">
           <el-input v-model="state.filter.name" placeholder="模板名称" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="" prop="code">
+        <el-form-item label="模板编码" prop="code">
           <el-input v-model="state.filter.code" placeholder="模板编码" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
@@ -43,7 +43,7 @@
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:print-template:update'" size="small" text type="primary" @click="onEdit(row)"> 编辑 </el-button>
-            <el-button size="small" text type="primary" @click="onEdit(row)"> 设计 </el-button>
+            <el-button size="small" text type="primary" @click="onDesign(row)"> 设计 </el-button>
             <el-button v-auth="'api:admin:print-template:delete'" size="small" text type="danger" @click="onDelete(row)"> 删除 </el-button>
           </template>
         </el-table-column>
@@ -64,6 +64,7 @@
     </el-card>
 
     <PrintTemplateForm ref="formRef" :title="state.formTitle"></PrintTemplateForm>
+    <PrintTemplateDesign ref="designRef" :title="state.designTitle"></PrintTemplateDesign>
   </my-layout>
 </template>
 
@@ -77,16 +78,19 @@ import type { FormInstance } from 'element-plus'
 
 // 引入组件
 const PrintTemplateForm = defineAsyncComponent(() => import('./components/print-template-form.vue'))
+const PrintTemplateDesign = defineAsyncComponent(() => import('./components/print-template-design.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const printTemplateSelectRef = ref()
 const filterFormRef = ref<FormInstance>()
 const formRef = ref()
+const designRef = ref()
 
 const state = reactive({
   loading: false,
   formTitle: '',
+  designTitle: '',
   total: 0,
   filter: {
     name: '',
@@ -151,6 +155,11 @@ const onAdd = () => {
 const onEdit = (row: PrintTemplateGetPageOutput) => {
   state.formTitle = '编辑打印模板'
   formRef.value.open(row)
+}
+
+const onDesign = (row: PrintTemplateGetPageOutput) => {
+  state.designTitle = row.name ? row.name : '设计打印模板'
+  designRef.value.open(row)
 }
 
 const onDelete = (row: PrintTemplateGetPageOutput) => {
