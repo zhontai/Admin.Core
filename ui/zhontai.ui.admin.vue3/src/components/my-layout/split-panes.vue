@@ -1,6 +1,6 @@
 <template>
   <MyLayout>
-    <splitpanes :horizontal="state.isMobile" class="default-theme">
+    <splitpanes :horizontal="state.isMobile" class="default-theme" v-bind="$attrs">
       <slot></slot>
     </splitpanes>
   </MyLayout>
