@@ -1,13 +1,13 @@
 <template>
   <MyLayout>
-    <splitpanes :horizontal="state.isMobile" class="default-theme">
+    <splitpanes :horizontal="state.isMobile" class="default-theme" v-bind="$attrs">
       <slot></slot>
     </splitpanes>
   </MyLayout>
 </template>
 
 <script lang="ts" setup name="my-layout-split-panes">
-import { reactive, onBeforeMount, defineAsyncComponent } from 'vue'
+import { reactive, onBeforeMount } from 'vue'
 import { Splitpanes } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import mittBus from '/@/utils/mitt'
