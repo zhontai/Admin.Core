@@ -77,8 +77,8 @@ import { auth } from '/@/utils/authFunction'
 import type { FormInstance } from 'element-plus'
 
 // 引入组件
-const PrintTemplateForm = defineAsyncComponent(() => import('./components/print-template-form.vue'))
-const PrintTemplateDesign = defineAsyncComponent(() => import('./components/print-template-design.vue'))
+const PrintTemplateForm = defineAsyncComponent(() => import('./components/form.vue'))
+const PrintTemplateDesign = defineAsyncComponent(() => import('./components/design.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

@@ -15,6 +15,10 @@ import vue3TreeOrg from 'vue3-tree-org'
 import 'vue3-tree-org/lib/vue3-tree-org.css'
 import MyLayout from '/@/components/my-layout/index.vue'
 
+// 打印取消自动连接
+import { disAutoConnect } from 'vue-plugin-hiprint'
+disAutoConnect()
+
 const app = createApp(App)
 
 directive(app)

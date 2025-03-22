@@ -7,6 +7,7 @@ declare module '@wangeditor/editor-for-vue'
 declare module 'js-table2excel'
 declare module 'qs'
 declare module 'sortablejs'
+declare module 'vue-plugin-hiprint'
 
 // 声明一个模块，防止引入文件时报错
 declare module '*.json'
