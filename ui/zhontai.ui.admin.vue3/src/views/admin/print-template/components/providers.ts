@@ -14,7 +14,7 @@ export const comProvider = function () {
         },
         {
           tid: 'comModule.longText',
-          title: '长文',
+          title: '长文本',
           data: '',
           type: 'longText',
         },
