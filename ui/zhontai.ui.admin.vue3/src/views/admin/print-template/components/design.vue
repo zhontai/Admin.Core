@@ -7,19 +7,97 @@
     </template>
     <div class="h100 w100 my-design" style="position: relative">
       <div class="my-flex w100 h100">
-        <div style="width: 230px">
+        <div style="width: 210px; min-width: 210px; border-right: 1px solid var(--el-border-color)">
           <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
             <!-- 拖拽组件 -->
             <div id="hiprint-printEpContainer" class="rect-printElement-types hiprintEpContainer"></div>
           </el-scrollbar>
         </div>
         <div class="my-fill">
-          <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:15px">
+          <div style="padding: 10px; border-bottom: 1px solid var(--el-border-color)">
+            <el-input-number
+              v-model="state.scaleValue"
+              size="small"
+              :precision="1"
+              :step="0.1"
+              min="0.5"
+              max="5"
+              @change="onChangeScale"
+              style="width: 90px"
+            >
+              <template #decrease-icon>
+                <SvgIcon name="ele-ZoomOut" />
+              </template>
+              <template #increase-icon>
+                <SvgIcon name="ele-ZoomIn" />
+              </template>
+            </el-input-number>
+
+            <el-button-group size="small" class="ml10">
+              <el-tooltip content="左对齐" placement="bottom">
+                <el-button @click="onSetElsAlign('left')">
+                  <el-icon>
+                    <my-icon name="left" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="居中" placement="bottom">
+                <el-button @click="onSetElsAlign('vertical')">
+                  <el-icon>
+                    <my-icon name="vertical" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="右对齐" placement="bottom">
+                <el-button @click="onSetElsAlign('right')">
+                  <el-icon>
+                    <my-icon name="right" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="顶对齐" placement="bottom">
+                <el-button @click="onSetElsAlign('top')">
+                  <el-icon>
+                    <my-icon name="top" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="垂直居中" placement="bottom">
+                <el-button @click="onSetElsAlign('horizontal')">
+                  <el-icon>
+                    <my-icon name="horizontal" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="底对齐" placement="bottom">
+                <el-button @click="onSetElsAlign('bottom')">
+                  <el-icon>
+                    <my-icon name="bottom" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="横向分散" placement="bottom">
+                <el-button @click="onSetElsAlign('distributeHor')">
+                  <el-icon>
+                    <my-icon name="distributeHor" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="纵向分散" placement="bottom">
+                <el-button @click="onSetElsAlign('distributeVer')">
+                  <el-icon>
+                    <my-icon name="distributeVer" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+            </el-button-group>
+          </div>
+          <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:25px 0px 0px 25px;">
             <!-- 设计器 -->
             <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
           </el-scrollbar>
         </div>
-        <div style="width: 370px">
+        <div style="width: 370px; min-width: 370px; border-left: 1px solid var(--el-border-color)">
           <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
             <!-- 配置参数 -->
             <div id="hiprint-printElementOptionSetting"></div>
@@ -42,19 +120,17 @@ defineProps({
   },
 })
 
-const formRef = ref()
 const state = reactive({
   visible: false,
   sureLoading: false,
+  scaleValue: 1,
 })
 
 let hiprintTemplate = ref()
 
 onMounted(() => {})
 
-/**
- * 构建拖拽组件
- */
+// 构建拖拽组件
 const buildProvider = () => {
   let provider = providers[0]
   hiprint.init({ providers: [provider.f] })
@@ -66,9 +142,7 @@ const buildProvider = () => {
   hiprint.PrintElementTypeManager.build(printEpContainerEl, provider.value)
 }
 
-/**
- * 构建设计器
- */
+// 构建设计器
 const buildDesigner = () => {
   const printTemplateEl = document.getElementById('hiprint-printTemplate')
   if (printTemplateEl) {
@@ -91,6 +165,19 @@ const buildDesigner = () => {
   })
 
   hiprintTemplate.value.design('#hiprint-printTemplate')
+}
+
+//排版
+const onSetElsAlign = (e: any) => {
+  hiprintTemplate.value.setElsAlign(e)
+}
+
+// 缩放
+const onChangeScale = () => {
+  if (hiprintTemplate.value) {
+    // scaleVal: 放大缩小值, false: 不保存(不传也一样), 如果传 true, 打印时也会放大
+    hiprintTemplate.value.zoom(state.scaleValue)
+  }
 }
 
 // 打开对话框
@@ -127,7 +214,7 @@ defineExpose({
     content: '';
     background-repeat: no-repeat;
     background-size: contain;
-    transform: translate(82%);
+    margin: 0 auto;
   }
 
   .hiprint-printElement-type a.ep-draggable-item[tid='comModule.hline']:before {
