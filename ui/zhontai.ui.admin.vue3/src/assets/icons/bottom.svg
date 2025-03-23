@@ -1,1 +1,9 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1742649432954" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1700" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32"><path d="M195 131.2c-11 0-20 9-20 20v619.2c0 11 9 20 20 20s20-9 20-20V151.2c0-11-8.9-20-20-20zM513 429.9c-11 0-20 9-20 20v320.5c0 11 9 20 20 20s20-9 20-20V449.9c0-11-8.9-20-20-20zM831.1 271.1c-11 0-20 9-20 20v479.4c0 11 9 20 20 20s20-9 20-20V291.1c0-11.1-9-20-20-20z" fill="#1C1C1C" p-id="1701"></path><path d="M968 897.7H58.1c-11 0-20 9-20 20s9 20 20 20H968c11 0 20-9 20-20s-9-20-20-20z" fill="#1C1C1C" p-id="1702"></path></svg>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1742649432954"
+  class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1700"
+  xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32">
+  <path
+    d="M195 131.2c-11 0-20 9-20 20v619.2c0 11 9 20 20 20s20-9 20-20V151.2c0-11-8.9-20-20-20zM513 429.9c-11 0-20 9-20 20v320.5c0 11 9 20 20 20s20-9 20-20V449.9c0-11-8.9-20-20-20zM831.1 271.1c-11 0-20 9-20 20v479.4c0 11 9 20 20 20s20-9 20-20V291.1c0-11.1-9-20-20-20z"
+    p-id="1701"></path>
+  <path d="M968 897.7H58.1c-11 0-20 9-20 20s9 20 20 20H968c11 0 20-9 20-20s-9-20-20-20z" p-id="1702"></path>
+</svg>
