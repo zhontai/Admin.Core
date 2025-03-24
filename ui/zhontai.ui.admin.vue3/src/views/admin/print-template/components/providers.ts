@@ -18,7 +18,6 @@ export const comProvider = function () {
           data: '',
           type: 'longText',
         },
-
         {
           tid: 'comModule.table',
           field: 'table',
@@ -100,6 +99,13 @@ export const comProvider = function () {
             return '<div style="height:50pt;width:50pt;background:red;border-radius: 50%;"></div>'
           },
           type: 'html',
+        },
+        {
+          tid: 'comModule.image',
+          title: '图片',
+          data: logoImg,
+          type: 'image',
+          options: { field: 'imageUrl' },
         },
       ]),
       new hiprint.PrintElementTypeGroup('辅助组件', [
