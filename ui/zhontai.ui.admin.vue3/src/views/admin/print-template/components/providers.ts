@@ -17,6 +17,9 @@ export const comProvider = function () {
           title: '长文本',
           data: '',
           type: 'longText',
+          options: {
+            width: 500,
+          },
         },
         {
           tid: 'comModule.table',
@@ -26,6 +29,9 @@ export const comProvider = function () {
           groupFields: ['name'],
           groupFooterFormatter: function (group: any, option: any) {
             return '这里自定义统计脚信息'
+          },
+          options: {
+            width: 500,
           },
           columns: [
             [
@@ -77,6 +83,9 @@ export const comProvider = function () {
           tid: 'comModule.emptyTable',
           title: '空白表格',
           type: 'table',
+          options: {
+            width: 500,
+          },
           columns: [
             [
               {
