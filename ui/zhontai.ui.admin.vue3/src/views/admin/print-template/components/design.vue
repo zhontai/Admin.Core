@@ -303,6 +303,8 @@ const buildDesigner = () => {
   })
 
   hiprintTemplate.value.design(designRef.value)
+
+  designRef.value.querySelector('.hiprint-printPaper')?.firstChild.click()
 }
 
 /**
@@ -376,7 +378,7 @@ const onClearPaper = () => {
 }
 
 //打印
-const onPrint = () => {
+const onPrint = async () => {
   if (hiprintTemplate.value) {
     hiprintTemplate.value.print(state.printData)
   }
