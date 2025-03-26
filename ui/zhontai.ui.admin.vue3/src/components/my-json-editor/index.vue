@@ -14,15 +14,11 @@ const customOptions = defineModel('options', { type: Object })
 const editor = ref(null)
 let jsonEditor = null as any
 
-const get = () => {
-  return jsonEditor.get()
-}
-
 onMounted(() => {
   const options = merge(
     {
       mode: 'code',
-      modes: ['code', 'code', 'text'],
+      modes: ['preview', 'code', 'text'],
       onChange: () => {},
       mainMenuBar: true,
       statusBar: true,
@@ -30,8 +26,7 @@ onMounted(() => {
     customOptions.value || {}
   )
 
-  jsonEditor = new JSONEditor(editor.value, options)
-  jsonEditor.set(JSON.parse((json.value || '{}') as string))
+  jsonEditor = new JSONEditor(editor.value, options, JSON.parse((json.value || '{}') as string))
 })
 
 onBeforeUnmount(() => {
@@ -41,7 +36,7 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  get,
+  jsonEditor,
 })
 </script>
 
