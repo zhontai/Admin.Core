@@ -16,11 +16,6 @@ public class PrintTemplateAddInput
     public string Code { get; set; }
 
     /// <summary>
-    /// 模板
-    /// </summary>
-    public string Template { get; set; }
-
-    /// <summary>
     /// 说明
     /// </summary>
     public string Description { get; set; }

@@ -48,6 +48,20 @@ public class PrintTemplateService : BaseService, IDynamicApi
     }
 
     /// <summary>
+    /// 查询修改模板
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<PrintTemplateGetUpdateTemplateOutput> GetUpdateTemplateAsync(long id)
+    {
+        var output = await _printTemplateRep.Select
+        .WhereDynamic(id)
+        .ToOneAsync<PrintTemplateGetUpdateTemplateOutput>();
+
+        return output;
+    }
+
+    /// <summary>
     /// 查询分页
     /// </summary>
     /// <param name="input"></param>
@@ -105,6 +119,28 @@ public class PrintTemplateService : BaseService, IDynamicApi
         }
 
         Mapper.Map(input, entity);
+        await _printTemplateRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 修改模板
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task UpdateTemplateAsync(PrintTemplateUpdateTemplateInput input)
+    {
+        var entity = await _printTemplateRep.GetAsync(input.Id);
+        if (!(entity?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板不存在"]);
+        }
+
+        if (entity.Version != input.Version)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板已被修改，请刷新后重试"]);
+        }
+
+        entity.Template = input.Template;
         await _printTemplateRep.UpdateAsync(entity);
     }
 

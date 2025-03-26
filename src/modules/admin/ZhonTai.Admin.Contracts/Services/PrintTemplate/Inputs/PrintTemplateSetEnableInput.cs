@@ -6,7 +6,7 @@
 public class PrintTemplateSetEnableInput
 {
     /// <summary>
-    /// 地区Id
+    /// 打印模板Id
     /// </summary>
     public long PrintTemplateId { get; set; }
 

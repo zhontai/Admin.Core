@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+// @ts-nocheck
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -15,9 +16,11 @@ import {
   PrintTemplateAddInput,
   PrintTemplateSetEnableInput,
   PrintTemplateUpdateInput,
+  PrintTemplateUpdateTemplateInput,
   ResultOutputInt64,
   ResultOutputPageOutputPrintTemplateGetPageOutput,
   ResultOutputPrintTemplateGetOutput,
+  ResultOutputPrintTemplateGetUpdateTemplateOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
@@ -40,6 +43,30 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
   ) =>
     this.request<ResultOutputPrintTemplateGetOutput, any>({
       path: `/api/admin/print-template/get`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags print-template
+   * @name GetUpdateTemplate
+   * @summary 查询修改模板
+   * @request GET:/api/admin/print-template/get-update-template
+   * @secure
+   */
+  getUpdateTemplate = (
+    query?: {
+      /** @format int64 */
+      id?: number
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<ResultOutputPrintTemplateGetUpdateTemplateOutput, any>({
+      path: `/api/admin/print-template/get-update-template`,
       method: 'GET',
       query: query,
       secure: true,
@@ -96,6 +123,24 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
   update = (data: PrintTemplateUpdateInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
       path: `/api/admin/print-template/update`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags print-template
+   * @name UpdateTemplate
+   * @summary 修改模板
+   * @request PUT:/api/admin/print-template/update-template
+   * @secure
+   */
+  updateTemplate = (data: PrintTemplateUpdateTemplateInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/print-template/update-template`,
       method: 'PUT',
       body: data,
       secure: true,

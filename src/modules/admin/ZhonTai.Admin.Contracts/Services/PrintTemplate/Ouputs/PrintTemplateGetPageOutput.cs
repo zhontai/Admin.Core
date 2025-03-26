@@ -34,4 +34,9 @@ public class PrintTemplateGetPageOutput
     /// 排序
     /// </summary>
 	public int Sort { get; set; }
+
+    /// <summary>
+    /// 版本
+    /// </summary>
+    public long Version { get; set; }
 }

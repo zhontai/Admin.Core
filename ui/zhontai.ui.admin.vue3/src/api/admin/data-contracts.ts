@@ -1,5 +1,6 @@
 /* eslint-disable */
 /* tslint:disable */
+// @ts-nocheck
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -3181,8 +3182,6 @@ export interface PrintTemplateAddInput {
   name?: string | null
   /** 编码 */
   code?: string | null
-  /** 模板 */
-  template?: string | null
   /** 说明 */
   description?: string | null
   /** 启用 */
@@ -3200,8 +3199,6 @@ export interface PrintTemplateGetOutput {
   name?: string | null
   /** 编码 */
   code?: string | null
-  /** 模板 */
-  template?: string | null
   /** 说明 */
   description?: string | null
   /** 启用 */
@@ -3251,12 +3248,33 @@ export interface PrintTemplateGetPageOutput {
    * @format int32
    */
   sort?: number
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
+}
+
+/** 修改模板响应 */
+export interface PrintTemplateGetUpdateTemplateOutput {
+  /**
+   * 打印模板Id
+   * @format int64
+   */
+  id: number
+  /** 模板 */
+  template?: string | null
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
 }
 
 /** 设置启用 */
 export interface PrintTemplateSetEnableInput {
   /**
-   * 地区Id
+   * 打印模板Id
    * @format int64
    */
   printTemplateId?: number
@@ -3270,8 +3288,6 @@ export interface PrintTemplateUpdateInput {
   name?: string | null
   /** 编码 */
   code?: string | null
-  /** 模板 */
-  template?: string | null
   /** 说明 */
   description?: string | null
   /** 启用 */
@@ -3286,6 +3302,22 @@ export interface PrintTemplateUpdateInput {
    * @format int64
    */
   id: number
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
+}
+
+/** 修改模板 */
+export interface PrintTemplateUpdateTemplateInput {
+  /**
+   * 打印模板Id
+   * @format int64
+   */
+  id: number
+  /** 模板 */
+  template?: string | null
   /**
    * 版本
    * @format int64
@@ -4307,6 +4339,18 @@ export interface ResultOutputPrintTemplateGetOutput {
   msg?: string | null
   /** 表单响应 */
   data?: PrintTemplateGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputPrintTemplateGetUpdateTemplateOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 修改模板响应 */
+  data?: PrintTemplateGetUpdateTemplateOutput
 }
 
 /** 结果输出 */
