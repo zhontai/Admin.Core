@@ -13,11 +13,11 @@
             <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
           </el-scrollbar>
         </div>
-        <div class="my-fill" style="overflow: hidden; min-width: 300px">
+        <div class="my-fill" style="overflow: hidden; min-width: 355px">
           <!-- 操作栏 -->
           <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
-            <div class="my-flex my-flex-wrap">
-              <div>
+            <div class="my-flex my-flex-wrap my-flex-items-end">
+              <div class="my-flex my-flex-wrap">
                 <!-- 纸张 -->
                 <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
                   <el-option v-for="item in state.paperTypes" :key="item.type" :label="item.type" :value="item.type" />
@@ -80,7 +80,7 @@
                 </el-input-number>
 
                 <!-- 排版 -->
-                <el-button-group size="small" class="mr10 mb10">
+                <el-button-group size="small" class="my-flex mr10 mb10">
                   <el-tooltip content="左对齐" placement="top">
                     <el-button @click="onSetElsAlign('left')">
                       <el-icon>
@@ -148,7 +148,7 @@
               </div>
               <div class="my-fill my-flex my-flex-between">
                 <!-- 操作 -->
-                <el-button-group size="small" class="mr10 mb10">
+                <el-button-group size="small" class="my-flex mr10 mb10">
                   <el-tooltip content="预览" placement="top">
                     <el-button icon="ele-View" @click="onPreView"></el-button>
                   </el-tooltip>
@@ -164,6 +164,9 @@
                         <my-icon name="json" color="var(--color)"></my-icon>
                       </el-icon>
                     </el-button>
+                  </el-tooltip>
+                  <el-tooltip content="刷新" placement="top">
+                    <el-button icon="ele-Refresh" @click="onRefresh"></el-button>
                   </el-tooltip>
                 </el-button-group>
                 <el-button size="small" type="primary" plain :loading="state.saveLoading" @click="onSave">
@@ -412,6 +415,9 @@ const onViewJson = () => {
     previewJsonDialogRef.value.open(templateJson)
   }
 }
+
+//刷新
+const onRefresh = () => {}
 
 //保存
 const onSave = () => {
