@@ -10,19 +10,19 @@
         <div style="width: 210px; min-width: 210px; border-right: 1px solid var(--el-border-color)">
           <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
             <!-- 拖拽组件 -->
-            <div id="hiprint-printEpContainer" class="rect-printElement-types hiprintEpContainer"></div>
+            <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
           </el-scrollbar>
         </div>
-        <div class="my-fill" style="overflow: hidden">
+        <div class="my-fill" style="overflow: hidden; min-width: 300px">
           <!-- 操作栏 -->
-          <div style="padding: 10px; border-bottom: 1px solid var(--el-border-color)">
+          <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
             <!-- 纸张 -->
-            <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" style="width: 60px" @change="onSetPaper">
+            <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
               <el-option v-for="item in state.paperTypes" :key="item.type" :label="item.type" :value="item.type" />
             </el-select>
             <!-- 自定义纸张 -->
             <el-tooltip content="自定义纸张" placement="top">
-              <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" size="small" class="ml2">
+              <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" size="small" class="mr10 mb10">
                 <el-icon>
                   <my-icon name="customSize" color="var(--color)"></my-icon>
                 </el-icon>
@@ -65,7 +65,7 @@
               :step="0.1"
               min="0.5"
               max="5"
-              class="ml10"
+              class="mr10 mb10"
               @change="onChangeScale"
               style="width: 90px"
             >
@@ -78,7 +78,7 @@
             </el-input-number>
 
             <!-- 排版 -->
-            <el-button-group size="small" class="ml10">
+            <el-button-group size="small" class="mr10 mb10">
               <el-tooltip content="左对齐" placement="top">
                 <el-button @click="onSetElsAlign('left')">
                   <el-icon>
@@ -145,7 +145,7 @@
             </el-button-group>
 
             <!-- 操作 -->
-            <el-button-group size="small" class="ml10">
+            <el-button-group size="small" class="mr10 mb10">
               <el-tooltip content="预览" placement="top">
                 <el-button icon="ele-View" @click="onPreView"></el-button>
               </el-tooltip>
@@ -166,7 +166,7 @@
           </div>
           <el-scrollbar ref="printTemplateScrollbarRef" height="100%" max-height="100%" :always="false" wrap-style="padding:25px 0px 0px 25px;">
             <!-- 画布 -->
-            <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
+            <div ref="designRef" class="hiprint-printTemplate"></div>
           </el-scrollbar>
         </div>
         <div style="width: 350px; min-width: 350px; border-left: 1px solid var(--el-border-color)">
@@ -177,6 +177,9 @@
         </div>
       </div>
     </div>
+
+    <PrintPreview ref="previewRef" title="预览"></PrintPreview>
+    <ViewJson ref="previewJsonDialogRef" title="查看模板JSON"></ViewJson>
   </el-drawer>
 </template>
 
@@ -184,6 +187,8 @@
 import { reactive, ref, onMounted, nextTick, getCurrentInstance } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
 import providers from './providers'
+import PrintPreview from './preview.vue'
+import ViewJson from './view-json.vue'
 
 interface IPaperType {
   type: string
@@ -247,6 +252,9 @@ const state = reactive({
       height: 175.6,
     },
   ] as IPaperType[],
+  printData: {
+    name: '测试姓名',
+  },
 })
 
 const { proxy } = getCurrentInstance() as any
@@ -255,6 +263,10 @@ let hiprintTemplate = ref()
 const paperRef = ref()
 const popoverRef = ref()
 const printTemplateScrollbarRef = ref()
+const previewRef = ref()
+const previewJsonDialogRef = ref()
+const epContainerRef = ref()
+const designRef = ref()
 
 onMounted(() => {})
 
@@ -263,18 +275,16 @@ const buildProvider = () => {
   let provider = providers[0]
   hiprint.init({ providers: [provider.f] })
 
-  const printEpContainerEl = document.getElementById('hiprint-printEpContainer')
-  if (printEpContainerEl) {
-    printEpContainerEl.innerHTML = ''
+  if (epContainerRef.value) {
+    epContainerRef.value.innerHTML = ''
   }
-  hiprint.PrintElementTypeManager.build(printEpContainerEl, provider.value)
+  hiprint.PrintElementTypeManager.build(epContainerRef.value, provider.value)
 }
 
 // 构建设计器
 const buildDesigner = () => {
-  const printTemplateEl = document.getElementById('hiprint-printTemplate')
-  if (printTemplateEl) {
-    printTemplateEl.innerHTML = ''
+  if (designRef.value) {
+    designRef.value.innerHTML = ''
   }
   hiprintTemplate.value = new hiprint.PrintTemplate({
     template: {},
@@ -292,7 +302,7 @@ const buildDesigner = () => {
     history: true,
   })
 
-  hiprintTemplate.value.design('#hiprint-printTemplate')
+  hiprintTemplate.value.design(designRef.value)
 }
 
 /**
@@ -345,7 +355,11 @@ const onRotatePaper = () => {
 }
 
 //预览
-const onPreView = () => {}
+const onPreView = () => {
+  if (hiprintTemplate.value) {
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, state.printData)
+  }
+}
 
 // 清空
 const onClearPaper = () => {
@@ -364,12 +378,17 @@ const onClearPaper = () => {
 //打印
 const onPrint = () => {
   if (hiprintTemplate.value) {
-    hiprintTemplate.value.print()
+    hiprintTemplate.value.print(state.printData)
   }
 }
 
 //查看Json
-const onViewJson = () => {}
+const onViewJson = () => {
+  if (hiprintTemplate.value) {
+    let templateJson = JSON.stringify(hiprintTemplate.value.getJson() || {})
+    previewJsonDialogRef.value.open(templateJson)
+  }
+}
 
 // 打开对话框
 const open = async (row: any = {}) => {

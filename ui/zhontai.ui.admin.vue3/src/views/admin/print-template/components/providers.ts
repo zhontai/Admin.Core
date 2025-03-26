@@ -112,9 +112,8 @@ export const comProvider = function () {
         {
           tid: 'comModule.image',
           title: '图片',
-          data: logoImg,
           type: 'image',
-          options: { field: 'imageUrl' },
+          options: { field: '', src: logoImg },
         },
       ]),
       new hiprint.PrintElementTypeGroup('辅助组件', [
