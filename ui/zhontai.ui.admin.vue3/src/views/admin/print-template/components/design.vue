@@ -13,7 +13,7 @@
             <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
           </el-scrollbar>
         </div>
-        <div class="my-fill" style="overflow: hidden; min-width: 355px">
+        <div class="my-fill" style="overflow: hidden; min-width: 355px" v-loading="state.refreshLoading">
           <!-- 操作栏 -->
           <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
             <div class="my-flex my-flex-wrap my-flex-items-end">
@@ -274,6 +274,7 @@ const state = reactive({
   printData: {
     name: '测试姓名',
   },
+  refreshLoading: false,
   saveLoading: false,
   printTemplate: {
     id: 0,
@@ -417,7 +418,23 @@ const onViewJson = () => {
 }
 
 //刷新
-const onRefresh = () => {}
+const onRefresh = async () => {
+  if (state.printTemplate.id > 0) {
+    state.refreshLoading = true
+    const res = await new PrintTemplateApi().getUpdateTemplate({ id: state.printTemplate.id }).catch(() => {
+      state.refreshLoading = false
+    })
+    state.refreshLoading = false
+    if (res?.success) {
+      const template = res.data
+      state.printTemplate.id = template?.id as number
+      state.printTemplate.version = template?.version as number
+
+      buildProvider()
+      buildDesigner(JSON.parse(template?.template || '{}'))
+    }
+  }
+}
 
 //保存
 const onSave = () => {
