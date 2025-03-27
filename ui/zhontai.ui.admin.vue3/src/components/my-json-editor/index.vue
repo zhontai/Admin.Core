@@ -19,7 +19,12 @@ onMounted(() => {
     {
       mode: 'code',
       modes: ['preview', 'code', 'text'],
-      onChange: () => {},
+      onChange: () => {
+        try {
+          const newValue = jsonEditor.get()
+          json.value = typeof newValue === 'string' ? JSON.stringify(newValue) : newValue
+        } catch (error) {}
+      },
       mainMenuBar: true,
       statusBar: true,
     },

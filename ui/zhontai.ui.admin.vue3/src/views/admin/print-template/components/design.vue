@@ -16,11 +16,26 @@
     </template>
     <div class="h100 w100 my-design" style="position: relative">
       <div class="my-flex w100 h100">
-        <div style="width: 210px; min-width: 210px; border-right: 1px solid var(--el-border-color)">
-          <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
-            <!-- 拖拽组件 -->
-            <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
-          </el-scrollbar>
+        <div style="width: 220px; min-width: 220px; border-right: 1px solid var(--el-border-color)">
+          <el-tabs tab-position="top" stretch class="h100 left-box">
+            <el-tab-pane label="组件">
+              <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
+                <!-- 拖拽组件 -->
+                <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
+              </el-scrollbar>
+            </el-tab-pane>
+            <el-tab-pane label="打印数据">
+              <MyJsonEditor
+                v-model="state.printData"
+                :options="{
+                  mode: 'text',
+                  mainMenuBar: false,
+                  statusBar: false,
+                  showErrorTable: false,
+                }"
+              ></MyJsonEditor>
+            </el-tab-pane>
+          </el-tabs>
         </div>
         <div class="my-fill" style="overflow: hidden; min-width: 355px" v-loading="state.refreshLoading">
           <!-- 操作栏 -->
@@ -233,6 +248,7 @@ import ViewJson from './view-json.vue'
 import { PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
 import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
 import eventBus from '/@/utils/mitt'
+import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
 interface IPaperType {
   type: string
@@ -536,6 +552,15 @@ defineExpose({
 
 <style scoped lang="scss">
 :deep() {
+  .left-box {
+    .el-tabs__header {
+      margin-bottom: 0px;
+    }
+    .el-tab-pane {
+      height: 100%;
+    }
+  }
+
   .rect-printElement-types .hiprint-printElement-type a.ep-draggable-item {
     height: auto;
     color: #666;
