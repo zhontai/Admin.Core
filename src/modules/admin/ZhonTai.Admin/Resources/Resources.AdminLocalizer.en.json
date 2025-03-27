@@ -89,5 +89,7 @@
   "企业管理员禁止删除": "Enterprise administrator deletion is prohibited",
   "请选择用户": "Please select a user",
   "请开启im即时通讯": "Please open im instant messaging",
-  "视图不存在": "View does not exist"
+  "视图不存在": "View does not exist",
+  "打印模板不存在": "Print template does not exist",
+  "打印模板已被修改，请刷新后重试": "The print template has been modified, please refresh and try again"
 }
