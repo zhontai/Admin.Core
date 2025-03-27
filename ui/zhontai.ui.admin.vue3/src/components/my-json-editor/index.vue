@@ -3,12 +3,12 @@
 </template>
 
 <script lang="ts" setup name="my-json-editor">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import JSONEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.min.css'
 import { merge } from 'lodash-es'
 
-const json = defineModel({ type: String })
+const json = defineModel({ type: [String, Object] })
 const customOptions = defineModel('options', { type: Object })
 
 const editor = ref(null)
@@ -26,7 +26,13 @@ onMounted(() => {
     customOptions.value || {}
   )
 
-  jsonEditor = new JSONEditor(editor.value, options, JSON.parse((json.value || '{}') as string))
+  jsonEditor = new JSONEditor(editor.value, options, JSON.parse((typeof json.value === 'string' ? json.value : JSON.stringify(json.value)) || '{}'))
+})
+
+watch(json, (newValue) => {
+  if (jsonEditor) {
+    jsonEditor.set(typeof newValue === 'string' ? JSON.parse(newValue || '{}') : newValue)
+  }
 })
 
 onBeforeUnmount(() => {
