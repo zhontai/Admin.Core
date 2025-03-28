@@ -339,7 +339,7 @@ const onSetEnable = (row: UserGetPageOutput & { loading: boolean }) => {
 //一键登录
 const onOneClickLogin = (row: UserGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要一键登录【${row.name}】?`)
+    .confirm(`确定要一键登录【${row.name}】?`)
     .then(async () => {
       const res = await new UserApi().oneClickLogin({ userName: row.userName || '' }, { loading: true })
       if (res?.success) {
@@ -356,7 +356,7 @@ const onOneClickLogin = (row: UserGetPageOutput) => {
 //强制下线
 const onForceOffline = (row: UserGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要强制下线【${row.name}】?`)
+    .confirm(`确定要强制下线【${row.name}】?`)
     .then(async () => {
       const res = await new UserApi().forceOffline({ id: row.id }, { loading: true })
       if (res?.success) {

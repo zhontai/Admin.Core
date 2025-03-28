@@ -7,7 +7,7 @@
     draggable
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    width="780px"
+    width="480px"
   >
     <el-form :model="form" ref="formRef" size="default" label-width="80px" label-position="top">
       <el-row :gutter="35">

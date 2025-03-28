@@ -95,6 +95,11 @@ public class PrintTemplateService : BaseService, IDynamicApi
     public async Task<long> AddAsync(PrintTemplateAddInput input)
     {
         var entity = Mapper.Map<PrintTemplateEntity>(input);
+        if (entity.Sort == 0)
+        {
+            var sort = await _printTemplateRep.Select.MaxAsync(a => a.Sort);
+            entity.Sort = sort + 1;
+        }
         await _printTemplateRep.InsertAsync(entity);
 
         return entity.Id;
