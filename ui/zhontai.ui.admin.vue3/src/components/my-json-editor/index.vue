@@ -39,7 +39,7 @@ onMounted(() => {
     customOptions.value || {},
     customizer
   )
-  debugger
+
   jsonEditor.value = new JSONEditor(
     editor.value,
     options,
