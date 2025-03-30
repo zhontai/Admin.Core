@@ -4,13 +4,15 @@
       <div class="my-flex my-flex-between mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
-          <el-button link @click="onRefresh">
-            <template #icon>
-              <el-icon size="18px">
-                <ele-Refresh></ele-Refresh>
-              </el-icon>
-            </template>
-          </el-button>
+          <el-tooltip content="刷新" placement="bottom">
+            <el-button link @click="onRefresh">
+              <template #icon>
+                <el-icon size="18px">
+                  <ele-Refresh></ele-Refresh>
+                </el-icon>
+              </template>
+            </el-button>
+          </el-tooltip>
         </div>
       </div>
     </template>
@@ -313,9 +315,7 @@ const state = reactive({
       height: 175.6,
     },
   ] as IPaperType[],
-  printData: {
-    name: '测试姓名',
-  },
+  printData: {},
   showSaveDialog: false,
   refreshLoading: false,
   saveLoading: false,

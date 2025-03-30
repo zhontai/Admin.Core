@@ -1,21 +1,4 @@
 <template>
-  <!-- <el-dialog
-      v-model="state.showDialog"
-      destroy-on-close
-      :title="title"
-      draggable
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      width="600px"
-    >
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="onCancel" size="default">取 消</el-button>
-          <el-button type="primary" @click="onSure" size="default" :loading="state.sureLoading">确 定</el-button>
-        </span>
-      </template>
-    </el-dialog> -->
-
   <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size">
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
@@ -26,19 +9,8 @@
       <div class="mb10 my-flex my-flex-end">
         <el-button type="primary" @click="onJsonShell" size="default">Shell</el-button>
         <el-button type="primary" @click="onJsonHttp" size="default">Http</el-button>
-        <el-button type="primary" @click="onJsonFormat" size="default">格式化</el-button>
-        <el-button type="primary" @click="onJsonCompress" size="default">压 缩</el-button>
       </div>
-      <v-ace-editor
-        v-model:value="state.content"
-        @init="onJsonFormat"
-        lang="json"
-        :theme="state.theme"
-        :options="state.options"
-        :readonly="state.readOnly"
-        style="height: 100%"
-        class="ace-editor"
-      />
+      <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{}"></MyJsonEditor>
     </div>
     <template #footer>
       <div style="flex: auto; padding: 20px !important">
@@ -50,10 +22,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue'
-
-import { VAceEditor } from 'vue3-ace-editor'
-import './ace-config'
+import { reactive, computed, ref } from 'vue'
+import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
 defineProps({
   title: {
@@ -64,23 +34,14 @@ defineProps({
 
 const emits = defineEmits(['sure'])
 
+const jsonEditorRef = ref()
+
 const state = reactive({
   showDialog: false,
   isFull: false,
   isMobile: document.body.clientWidth < 1000,
   content: '',
   topic: '',
-  lang: 'json', //解析 json yaml
-  theme: 'monokai', //主题 github chrome monokai
-  readOnly: false, //是否只读
-  options: {
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true,
-    tabSize: 2,
-    showPrintMargin: false,
-    fontSize: 13,
-  },
 })
 
 const size = computed(() => {
@@ -94,6 +55,7 @@ const onJsonShell = () => {
   "arguments": "-plaintext -d \\"{ \\\\\\"id\\\\\\": 1 }\\" \${grpcAddress} YourNamespace.YourGrpcService/YourMethod",
   "moduleName": "YourModuleName"
 }`
+  jsonEditorRef.value.jsonEditor.set(JSON.parse(state.content))
 }
 
 const onJsonHttp = () => {
@@ -106,28 +68,7 @@ const onJsonHttp = () => {
   },
   "body": "{}"
 }`
-}
-
-const jsonError = (e: any) => {
-  window.console.log(`JSON字符串错误：${e.message}`)
-}
-
-// JSON格式化
-const onJsonFormat = () => {
-  try {
-    state.content = JSON.stringify(JSON.parse(state.content), null, 2)
-  } catch (e) {
-    jsonError(e)
-  }
-}
-
-// JSON压缩
-const onJsonCompress = () => {
-  try {
-    state.content = JSON.stringify(JSON.parse(state.content))
-  } catch (e) {
-    jsonError(e)
-  }
+  jsonEditorRef.value.jsonEditor.set(JSON.parse(state.content))
 }
 
 // 打开对话框
@@ -146,6 +87,7 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
+  debugger
   emits('sure', { topic: state.topic, body: state.content })
   state.showDialog = false
 }
