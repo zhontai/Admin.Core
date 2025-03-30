@@ -29,9 +29,10 @@
                 v-model="state.printData"
                 :options="{
                   mode: 'text',
-                  mainMenuBar: false,
+                  mainMenuBar: true,
                   statusBar: false,
                   showErrorTable: false,
+                  modes: [],
                 }"
               ></MyJsonEditor>
             </el-tab-pane>
