@@ -34,12 +34,6 @@ onMounted(() => {
   jsonEditor = new JSONEditor(editor.value, options, JSON.parse((typeof json.value === 'string' ? json.value : JSON.stringify(json.value)) || '{}'))
 })
 
-watch(json, (newValue) => {
-  if (jsonEditor) {
-    jsonEditor.set(typeof newValue === 'string' ? JSON.parse(newValue || '{}') : newValue)
-  }
-})
-
 onBeforeUnmount(() => {
   if (jsonEditor) {
     jsonEditor.destroy()
