@@ -259,7 +259,7 @@ interface IPaperType {
   height: number
 }
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: '',
@@ -436,7 +436,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'))
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'), props.title)
   }
 }
 

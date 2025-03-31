@@ -12,6 +12,14 @@
     >
       <template #footer>
         <span class="dialog-footer">
+          <el-button type="primary" @click="onExport">
+            <template #icon>
+              <el-icon>
+                <my-icon name="export" color="var(--color)"></my-icon>
+              </el-icon>
+            </template>
+            导出PDF
+          </el-button>
           <el-button @click="onCancel" size="default">关 闭</el-button>
         </span>
       </template>
@@ -34,6 +42,7 @@ defineProps({
 const state = reactive({
   showDialog: false,
   width: 0,
+  title: '',
   printData: {},
   template: {} as any,
 })
@@ -46,7 +55,8 @@ const hiprintTemplate = ref()
 const previewContainerRef = ref<HTMLElement | null>(null) // 引用容器
 
 // 打开对话框
-const open = async (template: any, printData: {}) => {
+const open = async (template: any, printData: {}, title = '打印模板') => {
+  state.title = title
   state.template = template
   state.printData = printData
   hiprintTemplate.value = new hiprint.PrintTemplate({
@@ -71,6 +81,12 @@ const open = async (template: any, printData: {}) => {
     })
   }
 }
+
+// 导出PDF
+const onExport = () => {
+  hiprintTemplate.value.toPdf(state.printData, state.title)
+}
+
 // 取消
 const onCancel = () => {
   state.showDialog = false
