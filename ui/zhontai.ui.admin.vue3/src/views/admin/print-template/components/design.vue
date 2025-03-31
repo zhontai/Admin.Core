@@ -28,7 +28,7 @@
             </el-tab-pane>
             <el-tab-pane label="打印数据">
               <MyJsonEditor
-                v-model="state.printData"
+                v-model="state.printTemplate.printData"
                 :options="{
                   mode: 'text',
                   mainMenuBar: true,
@@ -315,13 +315,13 @@ const state = reactive({
       height: 175.6,
     },
   ] as IPaperType[],
-  printData: {},
   showSaveDialog: false,
   refreshLoading: false,
   saveLoading: false,
   printTemplate: {
     id: 0,
     version: 0,
+    printData: '{}',
   },
 })
 
@@ -429,7 +429,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, state.printData)
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'))
   }
 }
 
@@ -450,7 +450,7 @@ const onClearPaper = () => {
 //打印
 const onPrint = async () => {
   if (hiprintTemplate.value) {
-    hiprintTemplate.value.print(state.printData)
+    hiprintTemplate.value.print(JSON.parse(state.printTemplate.printData || '{}'))
   }
 }
 
@@ -503,6 +503,7 @@ const onSave = async (close = true) => {
               id: state.printTemplate.id,
               version: state.printTemplate.version,
               template: JSON.stringify(hiprintTemplate.value.getJson() || {}),
+              printData: state.printTemplate.printData as string,
             },
             { showSuccessMessage: true }
           )
@@ -532,6 +533,7 @@ const open = async (row: PrintTemplateGetPageOutput = {}) => {
       const template = res.data
       state.printTemplate.id = template?.id as number
       state.printTemplate.version = template?.version as number
+      state.printTemplate.printData = template?.printData || ('{}' as string)
 
       state.visible = true
       nextTick(() => {

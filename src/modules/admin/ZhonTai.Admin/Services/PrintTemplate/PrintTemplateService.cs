@@ -146,6 +146,7 @@ public class PrintTemplateService : BaseService, IDynamicApi
         }
 
         entity.Template = input.Template;
+        entity.PrintData = input.PrintData;
         await _printTemplateRep.UpdateAsync(entity);
     }
 

@@ -3264,6 +3264,8 @@ export interface PrintTemplateGetUpdateTemplateOutput {
   id: number
   /** 模板 */
   template?: string | null
+  /** 打印数据 */
+  printData?: string | null
   /**
    * 版本
    * @format int64
@@ -3318,6 +3320,8 @@ export interface PrintTemplateUpdateTemplateInput {
   id: number
   /** 模板 */
   template?: string | null
+  /** 打印数据 */
+  printData?: string | null
   /**
    * 版本
    * @format int64

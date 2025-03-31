@@ -21,6 +21,11 @@ public class PrintTemplateUpdateTemplateInput
     public string Template { get; set; }
 
     /// <summary>
+    /// 打印数据
+    /// </summary>
+    public string PrintData { get; set; }
+
+    /// <summary>
     /// 版本
     /// </summary>
     public long Version { get; set; }
