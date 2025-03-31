@@ -4,13 +4,15 @@
       <div class="my-flex my-flex-between mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
-          <el-button link @click="onRefresh">
-            <template #icon>
-              <el-icon size="18px">
-                <ele-Refresh></ele-Refresh>
-              </el-icon>
-            </template>
-          </el-button>
+          <el-tooltip content="刷新" placement="bottom">
+            <el-button link @click="onRefresh">
+              <template #icon>
+                <el-icon size="18px">
+                  <ele-Refresh></ele-Refresh>
+                </el-icon>
+              </template>
+            </el-button>
+          </el-tooltip>
         </div>
       </div>
     </template>
@@ -26,12 +28,13 @@
             </el-tab-pane>
             <el-tab-pane label="打印数据">
               <MyJsonEditor
-                v-model="state.printData"
+                v-model="state.printTemplate.printData"
                 :options="{
                   mode: 'text',
-                  mainMenuBar: false,
+                  mainMenuBar: true,
                   statusBar: false,
                   showErrorTable: false,
+                  modes: [],
                 }"
               ></MyJsonEditor>
             </el-tab-pane>
@@ -256,7 +259,7 @@ interface IPaperType {
   height: number
 }
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     default: '',
@@ -312,15 +315,13 @@ const state = reactive({
       height: 175.6,
     },
   ] as IPaperType[],
-  printData: {
-    name: '测试姓名',
-  },
   showSaveDialog: false,
   refreshLoading: false,
   saveLoading: false,
   printTemplate: {
     id: 0,
     version: 0,
+    printData: '{}',
   },
 })
 
@@ -351,7 +352,14 @@ const buildProvider = () => {
 }
 
 // 构建设计器
-const buildDesigner = (template = {}) => {
+const buildDesigner = (template = {} as any) => {
+  if (template?.panels?.length > 0) {
+    const width = template.panels[0].width
+    const height = template.panels[0].height
+    const paperType = state.paperTypes.find((a) => a.width == width && a.height == height)
+    state.curPaper = { type: paperType?.type || '', width: width, height: height }
+  }
+
   if (designRef.value) {
     designRef.value.innerHTML = ''
   }
@@ -428,7 +436,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, state.printData)
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'), props.title)
   }
 }
 
@@ -449,7 +457,7 @@ const onClearPaper = () => {
 //打印
 const onPrint = async () => {
   if (hiprintTemplate.value) {
-    hiprintTemplate.value.print(state.printData)
+    hiprintTemplate.value.print(JSON.parse(state.printTemplate.printData || '{}'))
   }
 }
 
@@ -502,6 +510,7 @@ const onSave = async (close = true) => {
               id: state.printTemplate.id,
               version: state.printTemplate.version,
               template: JSON.stringify(hiprintTemplate.value.getJson() || {}),
+              printData: state.printTemplate.printData as string,
             },
             { showSuccessMessage: true }
           )
@@ -531,6 +540,7 @@ const open = async (row: PrintTemplateGetPageOutput = {}) => {
       const template = res.data
       state.printTemplate.id = template?.id as number
       state.printTemplate.version = template?.version as number
+      state.printTemplate.printData = template?.printData || ('{}' as string)
 
       state.visible = true
       nextTick(() => {

@@ -28,6 +28,12 @@ public partial class PrintTemplateEntity : EntityVersion
     public string Template { get; set; }
 
     /// <summary>
+    /// 打印数据
+    /// </summary>
+    [Column(StringLength = -1)]
+    public string PrintData { get; set; }
+
+    /// <summary>
     /// 说明
     /// </summary>
     [Column(StringLength = 200)]

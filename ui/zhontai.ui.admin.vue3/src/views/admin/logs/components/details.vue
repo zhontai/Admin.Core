@@ -36,26 +36,28 @@
 
       <el-collapse class="mt12" v-model="state.activeName">
         <el-collapse-item title="请求参数" name="params">
-          <v-ace-editor
-            v-model:value="state.details.params as string"
-            @init="onJsonFormatParams"
-            lang="json"
-            :options="state.options"
-            :readonly="true"
-            style="height: 300px"
-            class="ace-editor"
-          />
+          <MyJsonEditor
+            ref="jsonEditorRef"
+            v-model="state.details.params"
+            :options="{
+              mainMenuBar: false,
+              statusBar: false,
+              onEditable: () => false,
+            }"
+            style="height: 400px !important"
+          ></MyJsonEditor>
         </el-collapse-item>
         <el-collapse-item title="响应结果" name="result">
-          <v-ace-editor
-            v-model:value="state.details.result as string"
-            @init="onJsonFormatResult"
-            lang="json"
-            :options="state.options"
-            :readonly="true"
-            style="height: 300px"
-            class="ace-editor"
-          />
+          <MyJsonEditor
+            ref="jsonEditorRef"
+            v-model="state.details.result"
+            :options="{
+              mainMenuBar: false,
+              statusBar: false,
+              onEditable: () => false,
+            }"
+            style="height: 200px !important"
+          ></MyJsonEditor>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -66,45 +68,13 @@
 import { reactive } from 'vue'
 import { OperationLogGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
-import { VAceEditor } from 'vue3-ace-editor'
-import modeJsonUrl from 'ace-builds/src-noconflict/mode-json?url'
-import ace from 'ace-builds'
-ace.config.setModuleUrl('ace/mode/json', modeJsonUrl)
+import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
 const state = reactive({
   showDialog: false,
   details: {} as OperationLogGetPageOutput,
   activeName: ['params', 'result'],
-  options: {
-    enableBasicAutocompletion: true,
-    enableSnippets: true,
-    enableLiveAutocompletion: true,
-    tabSize: 2,
-    showPrintMargin: false,
-    fontSize: 13,
-  },
 })
-
-const jsonError = (e: any) => {
-  window.console.log(`JSON字符串错误：${e.message}`)
-}
-
-// JSON格式化
-const onJsonFormatParams = () => {
-  try {
-    state.details.params = state.details.params ? JSON.stringify(JSON.parse(state.details.params), null, 2) : ''
-  } catch (e) {
-    jsonError(e)
-  }
-}
-
-const onJsonFormatResult = () => {
-  try {
-    state.details.result = state.details.result ? JSON.stringify(JSON.parse(state.details.result), null, 2) : ''
-  } catch (e) {
-    jsonError(e)
-  }
-}
 
 // 打开对话框
 const open = (row: OperationLogGetPageOutput) => {
