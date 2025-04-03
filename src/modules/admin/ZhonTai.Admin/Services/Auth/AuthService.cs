@@ -344,12 +344,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        .Any()
                    );
                 }
-
-                menuSelect = menuSelect.AsTreeCte(up: true);
             }
 
+            menuSelect = menuSelect.Where(a => a.Enabled == true).AsTreeCte(up: true);
+
             var menuList = await menuSelect
-                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                .Where(a => a.Type == PermissionType.Group || (a.Type == PermissionType.Menu && a.View.Enabled == true))
                 .ToListAsync(a => new AuthUserMenuOutput { ViewPath = a.View.Path });
 
             return menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
