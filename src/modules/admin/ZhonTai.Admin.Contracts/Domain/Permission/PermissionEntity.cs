@@ -38,6 +38,11 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     public PermissionType Type { get; set; }
 
     /// <summary>
+    /// 菜单类型
+    /// </summary>
+    public byte? MenuType { get; set; }
+
+    /// <summary>
     /// 视图Id
     /// </summary>
     public long? ViewId { get; set; }
@@ -112,6 +117,11 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     /// 是否内嵌窗口
     /// </summary>
     public bool IsIframe { get; set; } = false;
+
+    /// <summary>
+    /// 是否系统菜单
+    /// </summary>
+    public bool IsSystem { get; set; } = false;
 
     /// <summary>
     /// 排序

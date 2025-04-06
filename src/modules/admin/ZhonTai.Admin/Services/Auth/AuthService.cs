@@ -318,7 +318,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         using (_userRep.Value.DataFilter.Disable(FilterNames.Self, FilterNames.Data))
         {
             var permissionRep = _permissionRep.Value;
-            var menuSelect = permissionRep.Select;
+            var menuSelect = permissionRep.Select.Where(a => a.Enabled == true);
 
             if (!User.PlatformAdmin)
             {
@@ -344,12 +344,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                        .Any()
                    );
                 }
-
-                menuSelect = menuSelect.AsTreeCte(up: true);
             }
 
+            menuSelect = menuSelect.AsTreeCte(up: true);
+
             var menuList = await menuSelect
-                .Where(a => new[] { PermissionType.Group, PermissionType.Menu }.Contains(a.Type))
+                .Where(a => a.Type == PermissionType.Group || (a.Type == PermissionType.Menu && a.View.Enabled == true))
                 .ToListAsync(a => new AuthUserMenuOutput { ViewPath = a.View.Path });
 
             return menuList.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList();
