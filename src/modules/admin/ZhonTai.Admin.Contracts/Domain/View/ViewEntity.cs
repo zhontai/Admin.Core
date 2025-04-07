@@ -16,6 +16,11 @@ public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 	public long ParentId { get; set; }
 
     /// <summary>
+    /// 视图类型
+    /// </summary>
+    public byte? Type { get; set; }
+
+    /// <summary>
     /// 视图命名
     /// </summary>
     [Column(StringLength = 50)]
