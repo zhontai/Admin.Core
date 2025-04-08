@@ -90,7 +90,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         var entity = Mapper.Map<DictTypeEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _dictRep.Select.MaxAsync(a => a.Sort);
+            var sort = await _dictTypeRep.Select.MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         await _dictTypeRep.InsertAsync(entity);
