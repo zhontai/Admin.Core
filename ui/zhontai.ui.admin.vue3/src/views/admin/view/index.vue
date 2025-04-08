@@ -3,7 +3,7 @@
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="视图分类">
-          <el-select v-model="state.filter.type" placeholder="视图分类" style="width: 100px">
+          <el-select v-model="state.filter.type" placeholder="视图分类" @change="onQuery" style="width: 100px">
             <el-option label="" :value="undefined" />
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
@@ -108,9 +108,13 @@ const getDictList = async () => {
 
 const onQuery = async () => {
   state.loading = true
-  const res = await new ViewApi().getList(state.filter).catch(() => {
-    state.loading = false
-  })
+  const res = await new ViewApi()
+    .getList({
+      type: state.filter?.type,
+    })
+    .catch(() => {
+      state.loading = false
+    })
   if (res && res.data && res.data.length > 0) {
     state.viewTreeData = filterTree(listToTree(cloneDeep(res.data)), state.filter.label || '', {
       filterWhere: (item: any, keyword: string) => {
