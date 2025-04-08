@@ -16,6 +16,7 @@ import {
   ResultOutputListViewListOutput,
   ResultOutputViewGetOutput,
   ViewAddInput,
+  ViewGetListInput,
   ViewSyncInput,
   ViewUpdateInput,
 } from './data-contracts'
@@ -52,20 +53,16 @@ export class ViewApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @tags view
    * @name GetList
    * @summary 查询列表
-   * @request GET:/api/admin/view/get-list
+   * @request POST:/api/admin/view/get-list
    * @secure
    */
-  getList = (
-    query?: {
-      key?: string
-    },
-    params: RequestParams = {}
-  ) =>
+  getList = (data: ViewGetListInput, params: RequestParams = {}) =>
     this.request<ResultOutputListViewListOutput, any>({
       path: `/api/admin/view/get-list`,
-      method: 'GET',
-      query: query,
+      method: 'POST',
+      body: data,
       secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     })

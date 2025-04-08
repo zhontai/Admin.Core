@@ -2,9 +2,18 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="视图名称">
-          <el-input v-model="state.filter.name" placeholder="视图名称" @keyup.enter="onQuery" />
+        <el-form-item label="视图分类">
+          <el-select v-model="state.filter.type" placeholder="视图分类" style="width: 100px">
+            <el-option label="" :value="undefined" />
+            <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+          </el-select>
         </el-form-item>
+        <el-form-item label="视图名称">
+          <el-input v-model="state.filter.label" placeholder="视图名称" @keyup.enter="onQuery" />
+        </el-form-item>
+        <!-- <el-form-item label="视图路径">
+          <el-input v-model="state.filter.path" placeholder="视图路径" @keyup.enter="onQuery" />
+        </el-form-item> -->
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
           <el-button v-auth="'api:admin:view:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
@@ -48,12 +57,13 @@
 </template>
 
 <script lang="ts" setup name="admin/view">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { ViewListOutput } from '/@/api/admin/data-contracts'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
+import { ViewListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
+import { DictApi } from '/@/api/admin/Dict'
 
 // 引入组件
 const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue'))
@@ -61,17 +71,23 @@ const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue')
 const viewFormRef = ref()
 const { proxy } = getCurrentInstance() as any
 
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
+
 const state = reactive({
   loading: false,
   viewFormTitle: '',
-  filter: {
-    name: '',
-  },
+  filter: {} as ViewGetListInput,
   viewTreeData: [] as Array<ViewListOutput>,
   formViewTreeData: [] as Array<ViewListOutput>,
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 
-onMounted(() => {
+onMounted(async () => {
+  await getDictList()
   onQuery()
   eventBus.off('refreshView')
   eventBus.on('refreshView', async () => {
@@ -83,13 +99,20 @@ onBeforeMount(() => {
   eventBus.off('refreshView')
 })
 
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
+
 const onQuery = async () => {
   state.loading = true
-  const res = await new ViewApi().getList().catch(() => {
+  const res = await new ViewApi().getList(state.filter).catch(() => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {
-    state.viewTreeData = filterTree(listToTree(cloneDeep(res.data)), state.filter.name, {
+    state.viewTreeData = filterTree(listToTree(cloneDeep(res.data)), state.filter.label || '', {
       filterWhere: (item: any, keyword: string) => {
         return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
       },

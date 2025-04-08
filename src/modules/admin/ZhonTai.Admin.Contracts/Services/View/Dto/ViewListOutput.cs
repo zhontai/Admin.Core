@@ -16,6 +16,11 @@ public class ViewListOutput
     public long? ParentId { get; set; }
 
     /// <summary>
+    /// 视图类型
+    /// </summary>
+    public string Type { get; set; }
+
+    /// <summary>
     /// 视图命名
     /// </summary>
     public string Name { get; set; }

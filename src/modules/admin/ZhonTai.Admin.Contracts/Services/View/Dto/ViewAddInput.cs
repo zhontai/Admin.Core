@@ -11,6 +11,11 @@ public class ViewAddInput
 	public long? ParentId { get; set; }
 
     /// <summary>
+    /// 视图分类
+    /// </summary>
+    public string Type { get; set; }
+
+    /// <summary>
     /// 视图命名
     /// </summary>
     public string Name { get; set; }

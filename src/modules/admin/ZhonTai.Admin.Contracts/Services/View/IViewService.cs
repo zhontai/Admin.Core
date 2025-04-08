@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ZhonTai.Admin.Services.View.Dto;
+﻿using ZhonTai.Admin.Services.View.Dto;
 
 namespace ZhonTai.Admin.Services.View;
 
@@ -11,7 +9,7 @@ public interface IViewService
 {
     Task<ViewGetOutput> GetAsync(long id);
 
-    Task<List<ViewListOutput>> GetListAsync(string key);
+    Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input);
 
     Task<long> AddAsync(ViewAddInput input);
 

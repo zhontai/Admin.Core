@@ -27,6 +27,14 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="视图分类">
+              <el-select v-model="form.type" placeholder="请选择视图分类" class="w100">
+                <el-option label="" :value="undefined" />
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="视图名称" prop="label" :rules="[{ required: true, message: '请输入视图名称', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.label" clearable />
             </el-form-item>
@@ -74,9 +82,10 @@
 </template>
 
 <script lang="ts" setup name="admin/view/form">
-import { reactive, toRefs, ref, PropType } from 'vue'
-import { ViewListOutput, ViewUpdateInput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, ref, PropType, markRaw } from 'vue'
+import { ViewListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
+import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { cloneDeep } from 'lodash-es'
 
@@ -91,6 +100,10 @@ defineProps({
   },
 })
 
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
+
 const formRef = ref()
 const state = reactive({
   showDialog: false,
@@ -99,11 +112,23 @@ const state = reactive({
     enabled: true,
     cache: true,
   } as ViewUpdateInput,
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 const { form } = toRefs(state)
 
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
+
 // 打开对话框
 const open = async (row: ViewUpdateInput = { id: 0, enabled: true, cache: true }) => {
+  await getDictList()
+
   let formData = cloneDeep(row)
   if (row.id > 0) {
     const res = await new ViewApi().get({ id: row.id }, { loading: true })
