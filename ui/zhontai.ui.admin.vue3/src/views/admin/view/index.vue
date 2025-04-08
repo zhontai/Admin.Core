@@ -3,8 +3,8 @@
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="视图分类">
-          <el-select v-model="state.filter.type" placeholder="视图分类" @change="onQuery" style="width: 100px">
-            <el-option label="" :value="undefined" />
+          <el-select v-model="state.filter.type" placeholder="视图分类" :empty-values="[null]" @change="onQuery" style="width: 100px">
+            <el-option label="全部" :value="undefined" />
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
         </el-form-item>
