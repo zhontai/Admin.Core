@@ -164,7 +164,7 @@ const state = reactive({
 const { form } = toRefs(state)
 
 const getViews = async () => {
-  const res = await new ViewApi().getList()
+  const res = await new ViewApi().getList({ type: 'pc' })
   if (res?.success && res.data && res.data.length > 0) {
     state.viewTreeData = listToTree(res.data) as ViewListOutput[]
   } else {
@@ -199,7 +199,6 @@ const open = async (
       state.form = formData
     }
   } else {
-    debugger
     state.form = row
   }
 
