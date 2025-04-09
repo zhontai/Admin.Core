@@ -2,8 +2,8 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="视图分类">
-          <el-select v-model="state.filter.type" placeholder="视图分类" :empty-values="[null]" @change="onQuery" style="width: 100px">
+        <el-form-item label="平台">
+          <el-select v-model="state.filter.platform" placeholder="平台" :empty-values="[null]" @change="onQuery" style="width: 100px">
             <el-option label="全部" :value="undefined" />
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
@@ -78,7 +78,9 @@ const DictType = {
 const state = reactive({
   loading: false,
   viewFormTitle: '',
-  filter: {} as ViewGetListInput,
+  filter: {
+    type: 'pc',
+  } as ViewGetListInput,
   viewTreeData: [] as Array<ViewListOutput>,
   formViewTreeData: [] as Array<ViewListOutput>,
   dictData: {
@@ -110,17 +112,20 @@ const onQuery = async () => {
   state.loading = true
   const res = await new ViewApi()
     .getList({
-      type: state.filter?.type,
+      platform: state.filter?.platform,
     })
     .catch(() => {
       state.loading = false
     })
   if (res && res.data && res.data.length > 0) {
-    state.viewTreeData = filterTree(listToTree(cloneDeep(res.data)), state.filter.label || '', {
-      filterWhere: (item: any, keyword: string) => {
-        return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
-      },
-    })
+    const label = state.filter.label || ''
+    state.viewTreeData = markRaw(
+      filterTree(listToTree(cloneDeep(res.data)), '', {
+        filterWhere: (item: any, keyword: string) => {
+          return item.label?.toLocaleLowerCase().indexOf(label) > -1 || item.path?.toLocaleLowerCase().indexOf(label) > -1
+        },
+      })
+    )
   } else {
     state.viewTreeData = []
     state.formViewTreeData = []

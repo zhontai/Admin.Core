@@ -69,13 +69,18 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="链接地址">
+              <el-input v-model="form.link" clearable placeholder="内嵌/外链链接地址" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="图标" prop="icon">
               <my-select-icon v-model="form.icon" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="排序">
-              <el-input-number v-model="form.sort" />
+              <el-input-number v-model="form.sort" class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -83,11 +88,7 @@
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="链接地址">
-              <el-input v-model="form.link" clearable placeholder="内嵌/外链链接地址" />
-            </el-form-item>
-          </el-col>
+
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="内嵌窗口">
               <el-switch v-model="form.isIframe" />
@@ -164,7 +165,7 @@ const state = reactive({
 const { form } = toRefs(state)
 
 const getViews = async () => {
-  const res = await new ViewApi().getList({ type: 'pc' })
+  const res = await new ViewApi().getList({ platform: 'pc' })
   if (res?.success && res.data && res.data.length > 0) {
     state.viewTreeData = listToTree(res.data) as ViewListOutput[]
   } else {

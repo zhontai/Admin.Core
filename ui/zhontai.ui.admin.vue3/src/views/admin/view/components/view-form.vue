@@ -27,8 +27,8 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图分类">
-              <el-select v-model="form.type" placeholder="请选择视图分类" class="w100">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
                 <el-option label="" :value="undefined" />
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>

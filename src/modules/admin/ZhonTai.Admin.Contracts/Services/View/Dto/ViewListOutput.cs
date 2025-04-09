@@ -16,9 +16,9 @@ public class ViewListOutput
     public long? ParentId { get; set; }
 
     /// <summary>
-    /// 视图类型
+    /// 平台
     /// </summary>
-    public string Type { get; set; }
+    public string Platform { get; set; }
 
     /// <summary>
     /// 视图命名

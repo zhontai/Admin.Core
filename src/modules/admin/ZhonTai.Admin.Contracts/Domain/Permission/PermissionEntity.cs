@@ -38,10 +38,10 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     public PermissionType Type { get; set; }
 
     /// <summary>
-    /// 菜单分类
+    /// 平台
     /// </summary>
     [Column(StringLength = 20)]
-    public string MenuType { get; set; }
+    public string Platform { get; set; }
 
     /// <summary>
     /// 视图Id

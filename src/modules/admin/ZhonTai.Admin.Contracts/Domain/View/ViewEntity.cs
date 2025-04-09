@@ -16,10 +16,10 @@ public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 	public long ParentId { get; set; }
 
     /// <summary>
-    /// 视图分类
+    /// 平台
     /// </summary>
     [Column(StringLength = 20)]
-    public string Type { get; set; }
+    public string Platform { get; set; }
 
     /// <summary>
     /// 视图命名

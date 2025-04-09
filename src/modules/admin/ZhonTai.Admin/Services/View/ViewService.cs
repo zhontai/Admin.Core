@@ -46,7 +46,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     [HttpPost]
     public async Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input)
     {
-        var type = input?.Type?.Trim();
+        var type = input?.Platform?.Trim();
         var name = input?.Name?.Trim();
         var label = input?.Label?.Trim();
         var path = input?.Path?.Trim();
@@ -55,10 +55,10 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         if (type.NotNull())
         {
             Expression<Func<ViewEntity, bool>> where = null;
-            where = where.And(a => a.Type == type);
+            where = where.And(a => a.Platform == type);
             if(type.ToLower() == "pc")
             {
-                where = where.Or(a => string.IsNullOrEmpty(a.Type));
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
             }
             select = select.Where(where);
         }
