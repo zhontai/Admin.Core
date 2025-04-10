@@ -120,7 +120,7 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     public bool IsIframe { get; set; } = false;
 
     /// <summary>
-    /// 是否系统菜单
+    /// 是否系统权限
     /// </summary>
     public bool IsSystem { get; set; } = false;
 

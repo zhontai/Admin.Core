@@ -12,7 +12,6 @@
 
 import { AxiosResponse } from 'axios'
 import {
-  PermissionAddApiInput,
   PermissionAddDotInput,
   PermissionAddGroupInput,
   PermissionAddMenuInput,
@@ -231,25 +230,6 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   addMenu = (data: PermissionAddMenuInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
       path: `/api/admin/permission/add-menu`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags permission
-   * @name AddApi
-   * @summary 新增接口
-   * @request POST:/api/admin/permission/add-api
-   * @secure
-   */
-  addApi = (data: PermissionAddApiInput, params: RequestParams = {}) =>
-    this.request<ResultOutputInt64, any>({
-      path: `/api/admin/permission/add-api`,
       method: 'POST',
       body: data,
       secure: true,
