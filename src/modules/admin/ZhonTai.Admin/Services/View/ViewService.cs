@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
+using ZhonTai.Admin.Contracts.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
@@ -46,17 +47,17 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     [HttpPost]
     public async Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input)
     {
-        var type = input?.Platform?.Trim();
+        var platform = input?.Platform?.Trim();
         var name = input?.Name?.Trim();
         var label = input?.Label?.Trim();
         var path = input?.Path?.Trim();
 
         var select = _viewRep.Select;
-        if (type.NotNull())
+        if (platform.NotNull())
         {
             Expression<Func<ViewEntity, bool>> where = null;
-            where = where.And(a => a.Platform == type);
-            if(type.ToLower() == "pc")
+            where = where.And(a => a.Platform == platform);
+            if(platform.ToLower() == SysConsts.PlatformPC)
             {
                 where = where.Or(a => string.IsNullOrEmpty(a.Platform));
             }
