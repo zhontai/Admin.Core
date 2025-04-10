@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
-using ZhonTai.Admin.Contracts.Core.Consts;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
@@ -57,7 +56,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         {
             Expression<Func<ViewEntity, bool>> where = null;
             where = where.And(a => a.Platform == platform);
-            if(platform.ToLower() == SysConsts.PlatformPC)
+            if(platform.ToLower() == AdminConsts.PCName)
             {
                 where = where.Or(a => string.IsNullOrEmpty(a.Platform));
             }
