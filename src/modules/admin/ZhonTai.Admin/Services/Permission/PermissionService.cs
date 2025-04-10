@@ -250,25 +250,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 新增接口
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    public async Task<long> AddApiAsync(PermissionAddApiInput input)
-    {
-        var entity = Mapper.Map<PermissionEntity>(input);
-        entity.Type = PermissionType.Dot;
-        if (entity.Sort == 0)
-        {
-            var sort = await _permissionRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
-            entity.Sort = sort + 1;
-        }
-        await _permissionRep.InsertAsync(entity);
-
-        return entity.Id;
-    }
-
-    /// <summary>
     /// 新增权限点
     /// </summary>
     /// <param name="input"></param>
