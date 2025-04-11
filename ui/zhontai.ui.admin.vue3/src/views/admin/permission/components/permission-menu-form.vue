@@ -27,6 +27,14 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
+                <el-option label="" :value="undefined" />
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="视图">
               <el-tree-select
                 v-model="form.viewId"
@@ -69,23 +77,28 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="链接地址">
+              <el-input v-model="form.link" clearable placeholder="内嵌/外链链接地址" />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="图标" prop="icon">
               <my-select-icon v-model="form.icon" clearable />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+          <el-col :xs="24" :sm="12" :md="24" :lg="24" :xl="24">
             <el-form-item label="排序">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用">
-              <el-switch v-model="form.enabled" />
+            <el-form-item label="系统">
+              <el-switch v-model="form.isSystem" />
             </el-form-item>
           </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="链接地址">
-              <el-input v-model="form.link" clearable placeholder="内嵌/外链链接地址" />
+          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
+            <el-form-item label="启用">
+              <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -131,15 +144,21 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-menu-form">
-import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent } from 'vue'
-import { PermissionListOutput, PermissionUpdateMenuInput, ViewListOutput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
+import { PermissionListOutput, PermissionUpdateMenuInput, ViewListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
+import { DictApi } from '/@/api/admin/Dict'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))
+
+/** 字典分类 */
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
 
 defineProps({
   title: {
@@ -160,11 +179,21 @@ const state = reactive({
   sureLoading: false,
   form: { enabled: true, isKeepAlive: true } as PermissionUpdateMenuInput,
   viewTreeData: [] as ViewListOutput[],
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 const { form } = toRefs(state)
 
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
+
 const getViews = async () => {
-  const res = await new ViewApi().getList()
+  const res = await new ViewApi().getList({ platform: 'pc' })
   if (res?.success && res.data && res.data.length > 0) {
     state.viewTreeData = listToTree(res.data) as ViewListOutput[]
   } else {
@@ -185,6 +214,7 @@ const open = async (
 ) => {
   proxy.$modal.loading()
 
+  await getDictList()
   await getViews()
 
   if (row.id > 0) {
@@ -199,7 +229,6 @@ const open = async (
       state.form = formData
     }
   } else {
-    debugger
     state.form = row
   }
 

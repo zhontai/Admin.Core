@@ -25,8 +25,6 @@ public partial interface IPermissionService
 
     Task<long> AddMenuAsync(PermissionAddMenuInput input);
 
-    Task<long> AddApiAsync(PermissionAddApiInput input);
-
     Task<long> AddDotAsync(PermissionAddDotInput input);
 
     Task UpdateGroupAsync(PermissionUpdateGroupInput input);

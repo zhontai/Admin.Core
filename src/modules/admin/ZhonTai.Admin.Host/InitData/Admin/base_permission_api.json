@@ -1717,5 +1717,23 @@
     "createdUserName": "admin",
     "createdUserRealName": "管理员",
     "createdTime": "2025-03-18T15:51:04"
+  },
+  {
+    "id": 664056357425221,
+    "permissionId": 664056357347397,
+    "apiId": 663999082807365,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-04-10T20:32:15"
+  },
+  {
+    "id": 664056357470277,
+    "permissionId": 664056357347397,
+    "apiId": 663999082860613,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-04-10T20:32:15"
   }
 ]

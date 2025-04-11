@@ -11,6 +11,11 @@ public class PermissionAddGroupInput
     public long ParentId { get; set; }
 
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 视图
     /// </summary>
     public long? ViewId { get; set; }

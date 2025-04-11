@@ -2374,37 +2374,6 @@ export interface PageOutputUserGetPageOutput {
  */
 export type PasswordEncryptType = 0 | 1
 
-/** 添加接口 */
-export interface PermissionAddApiInput {
-  /**
-   * 父级节点
-   * @format int64
-   */
-  parentId?: number
-  /**
-   * 接口
-   * @format int64
-   */
-  apiId?: number | null
-  /** 权限名称 */
-  label?: string | null
-  /** 权限编码 */
-  code?: string | null
-  /** 说明 */
-  description?: string | null
-  /** 隐藏 */
-  hidden?: boolean
-  /** 图标 */
-  icon?: string | null
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 启用 */
-  enabled?: boolean
-}
-
 /** 添加权限点 */
 export interface PermissionAddDotInput {
   /**
@@ -2412,6 +2381,8 @@ export interface PermissionAddDotInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2438,6 +2409,8 @@ export interface PermissionAddGroupInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2473,6 +2446,8 @@ export interface PermissionAddMenuInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2502,6 +2477,8 @@ export interface PermissionAddMenuInput {
   link?: string | null
   /** 是否内嵌窗口 */
   isIframe?: boolean
+  /** 是否系统权限 */
+  isSystem?: boolean
   /**
    * 排序
    * @format int32
@@ -2578,6 +2555,8 @@ export interface PermissionEntity {
   code?: string | null
   /** 权限类型:Group=1,Menu=2,Dot=3 */
   type?: PermissionType
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图Id
    * @format int64
@@ -2609,6 +2588,8 @@ export interface PermissionEntity {
   link?: string | null
   /** 是否内嵌窗口 */
   isIframe?: boolean
+  /** 是否系统权限 */
+  isSystem?: boolean
   /**
    * 排序
    * @format int32
@@ -2629,6 +2610,8 @@ export interface PermissionGetDotOutput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2660,6 +2643,8 @@ export interface PermissionGetGroupOutput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2700,6 +2685,8 @@ export interface PermissionGetMenuOutput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2729,6 +2716,8 @@ export interface PermissionGetMenuOutput {
   link?: string | null
   /** 是否内嵌窗口 */
   isIframe?: boolean
+  /** 是否系统权限 */
+  isSystem?: boolean
   /**
    * 排序
    * @format int32
@@ -2804,6 +2793,8 @@ export interface PermissionUpdateDotInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2835,6 +2826,8 @@ export interface PermissionUpdateGroupInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2875,6 +2868,8 @@ export interface PermissionUpdateMenuInput {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2904,6 +2899,8 @@ export interface PermissionUpdateMenuInput {
   link?: string | null
   /** 是否内嵌窗口 */
   isIframe?: boolean
+  /** 是否系统权限 */
+  isSystem?: boolean
   /**
    * 排序
    * @format int32
@@ -5988,6 +5985,8 @@ export interface ViewAddInput {
    * @format int64
    */
   parentId?: number | null
+  /** 平台 */
+  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */
@@ -6061,6 +6060,8 @@ export interface ViewEntity {
    * @format int64
    */
   parentId?: number
+  /** 平台 */
+  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */
@@ -6081,6 +6082,18 @@ export interface ViewEntity {
   childs?: ViewEntity[] | null
 }
 
+/** 视图查询 */
+export interface ViewGetListInput {
+  /** 平台 */
+  platform?: string | null
+  /** 视图命名 */
+  name?: string | null
+  /** 视图名称 */
+  label?: string | null
+  /** 视图路径 */
+  path?: string | null
+}
+
 /** 视图 */
 export interface ViewGetOutput {
   /**
@@ -6088,6 +6101,8 @@ export interface ViewGetOutput {
    * @format int64
    */
   parentId?: number | null
+  /** 平台 */
+  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */
@@ -6124,6 +6139,8 @@ export interface ViewListOutput {
    * @format int64
    */
   parentId?: number | null
+  /** 平台 */
+  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */
@@ -6170,6 +6187,8 @@ export interface ViewUpdateInput {
    * @format int64
    */
   parentId?: number | null
+  /** 平台 */
+  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */

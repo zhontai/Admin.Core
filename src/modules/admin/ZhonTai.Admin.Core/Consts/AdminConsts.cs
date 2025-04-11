@@ -16,4 +16,9 @@ public static partial class AdminConsts
     /// 允许所有源访问策略
     /// </summary>
     public const string AllowAnyPolicyName = "AllowAnyPolicy";
+
+    /// <summary>
+    /// PC端
+    /// </summary>
+    public const string PCName = "pc";
 }

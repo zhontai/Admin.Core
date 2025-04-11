@@ -11,6 +11,11 @@ public class PermissionAddMenuInput
     public long ParentId { get; set; }
 
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 视图
     /// </summary>
     public long? ViewId { get; set; }
@@ -74,6 +79,11 @@ public class PermissionAddMenuInput
     /// 是否内嵌窗口
     /// </summary>
     public bool IsIframe { get; set; } = false;
+
+    /// <summary>
+    /// 是否系统权限
+    /// </summary>
+    public bool IsSystem { get; set; } = false;
 
     /// <summary>
     /// 排序

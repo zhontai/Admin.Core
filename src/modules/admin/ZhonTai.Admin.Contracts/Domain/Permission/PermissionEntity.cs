@@ -11,9 +11,15 @@ namespace ZhonTai.Admin.Domain.Permission;
 /// 权限
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "permission", OldName = DbConsts.TableOldNamePrefix + "permission")]
-[Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
+[Index("idx_{tablename}_01", nameof(Platform) + "," + nameof(ParentId) + "," + nameof(Label), true)]
 public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
 {
+    /// <summary>
+    /// 平台
+    /// </summary>
+    [Column(StringLength = 20)]
+    public string Platform { get; set; }
+
     /// <summary>
     /// 父级节点
     /// </summary>
@@ -36,11 +42,6 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     /// </summary>
     [Column(MapType = typeof(int), CanUpdate = false)]
     public PermissionType Type { get; set; }
-
-    /// <summary>
-    /// 菜单类型
-    /// </summary>
-    public byte? MenuType { get; set; }
 
     /// <summary>
     /// 视图Id
@@ -119,7 +120,7 @@ public partial class PermissionEntity : EntityBase, IChilds<PermissionEntity>
     public bool IsIframe { get; set; } = false;
 
     /// <summary>
-    /// 是否系统菜单
+    /// 是否系统权限
     /// </summary>
     public bool IsSystem { get; set; } = false;
 

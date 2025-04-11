@@ -11,6 +11,11 @@ public class ViewAddInput
 	public long? ParentId { get; set; }
 
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 视图命名
     /// </summary>
     public string Name { get; set; }

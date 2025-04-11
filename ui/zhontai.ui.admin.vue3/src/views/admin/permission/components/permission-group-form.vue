@@ -28,6 +28,14 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
+                <el-option label="" :value="undefined" />
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="名称" prop="label" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.label" clearable />
             </el-form-item>
@@ -44,12 +52,12 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="图标" prop="icon">
-              <my-select-icon v-model="form.icon" clearable />
+              <my-select-icon v-model="form.icon" clearable class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="排序">
-              <el-input-number v-model="form.sort" />
+              <el-input-number v-model="form.sort" class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
@@ -80,13 +88,19 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-group-form">
-import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent } from 'vue'
-import { PermissionListOutput, PermissionUpdateGroupInput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
+import { PermissionListOutput, PermissionUpdateGroupInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import eventBus from '/@/utils/mitt'
+import { DictApi } from '/@/api/admin/Dict'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))
+
+/** 字典分类 */
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
 
 defineProps({
   title: {
@@ -98,15 +112,25 @@ defineProps({
     default: () => [],
   },
 })
-const { proxy } = getCurrentInstance() as any
 
+const { proxy } = getCurrentInstance() as any
 const formRef = ref()
 const state = reactive({
   showDialog: false,
   sureLoading: false,
   form: { enabled: true, opened: true } as PermissionUpdateGroupInput,
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 const { form } = toRefs(state)
+
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
 
 // 打开对话框
 const open = async (
@@ -120,6 +144,7 @@ const open = async (
   isCopy = false
 ) => {
   proxy.$modal.loading()
+  await getDictList()
   if (row.id > 0) {
     const res = await new PermissionApi().getGroup({ id: row.id }).catch(() => {
       proxy.$modal.closeLoading()

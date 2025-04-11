@@ -11,6 +11,11 @@ public class PermissionAddDotInput
     public long ParentId { get; set; }
 
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 关联接口
     /// </summary>
     public List<long> ApiIds { get; set; }

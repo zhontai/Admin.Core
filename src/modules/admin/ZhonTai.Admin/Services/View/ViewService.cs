@@ -1,4 +1,6 @@
-﻿using ZhonTai.Admin.Core.Attributes;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
+using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.View;
@@ -39,12 +41,32 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <summary>
     /// 查询列表
     /// </summary>
-    /// <param name="key"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<List<ViewListOutput>> GetListAsync(string key)
+    [HttpPost]
+    public async Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input)
     {
-        var data = await _viewRep
-            .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
+        var platform = input?.Platform?.Trim();
+        var name = input?.Name?.Trim();
+        var label = input?.Label?.Trim();
+        var path = input?.Path?.Trim();
+
+        var select = _viewRep.Select;
+        if (platform.NotNull())
+        {
+            Expression<Func<ViewEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if(platform.ToLower() == AdminConsts.PCName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
+        }
+
+        var data = await select
+            .WhereIf(name.NotNull(), a => a.Name.Contains(name))
+            .WhereIf(label.NotNull(), a => a.Label.Contains(label))
+            .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
             .ToListAsync<ViewListOutput>();
