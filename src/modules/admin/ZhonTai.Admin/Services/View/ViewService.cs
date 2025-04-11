@@ -56,7 +56,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         {
             Expression<Func<ViewEntity, bool>> where = null;
             where = where.And(a => a.Platform == platform);
-            if(platform.ToLower() == AdminConsts.PCName)
+            if(platform.ToLower() == AdminConsts.WebName)
             {
                 where = where.Or(a => string.IsNullOrEmpty(a.Platform));
             }

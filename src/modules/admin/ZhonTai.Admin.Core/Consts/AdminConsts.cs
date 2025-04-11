@@ -18,7 +18,7 @@ public static partial class AdminConsts
     public const string AllowAnyPolicyName = "AllowAnyPolicy";
 
     /// <summary>
-    /// PC端
+    /// Web端
     /// </summary>
-    public const string PCName = "pc";
+    public const string WebName = "web";
 }
