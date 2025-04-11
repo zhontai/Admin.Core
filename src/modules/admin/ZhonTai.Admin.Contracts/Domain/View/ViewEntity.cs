@@ -7,19 +7,19 @@ namespace ZhonTai.Admin.Domain.View;
 /// 视图管理
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "view", OldName = DbConsts.TableOldNamePrefix + "view")]
-[Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Label), true)]
+[Index("idx_{tablename}_01", nameof(Platform) + "," + nameof(ParentId) + "," + nameof(Label), true)]
 public partial class ViewEntity : EntityBase, IChilds<ViewEntity>
 {
-    /// <summary>
-    /// 所属节点
-    /// </summary>
-	public long ParentId { get; set; }
-
     /// <summary>
     /// 平台
     /// </summary>
     [Column(StringLength = 20)]
     public string Platform { get; set; }
+
+    /// <summary>
+    /// 所属节点
+    /// </summary>
+	public long ParentId { get; set; }
 
     /// <summary>
     /// 视图命名
