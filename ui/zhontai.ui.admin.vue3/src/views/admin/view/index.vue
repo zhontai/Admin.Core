@@ -64,6 +64,7 @@ import { listToTree, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue'))
@@ -79,7 +80,7 @@ const state = reactive({
   loading: false,
   viewFormTitle: '',
   filter: {
-    type: 'pc',
+    platform: PlatformType.Web.name,
   } as ViewGetListInput,
   viewTreeData: [] as Array<ViewListOutput>,
   formViewTreeData: [] as Array<ViewListOutput>,

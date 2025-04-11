@@ -151,6 +151,7 @@ import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))
@@ -193,7 +194,7 @@ const getDictList = async () => {
 }
 
 const getViews = async () => {
-  const res = await new ViewApi().getList({ platform: 'pc' })
+  const res = await new ViewApi().getList({ platform: PlatformType.Web.name })
   if (res?.success && res.data && res.data.length > 0) {
     state.viewTreeData = listToTree(res.data) as ViewListOutput[]
   } else {
