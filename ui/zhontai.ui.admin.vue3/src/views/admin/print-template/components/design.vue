@@ -353,13 +353,6 @@ const buildProvider = () => {
 
 // 构建设计器
 const buildDesigner = (template = {} as any) => {
-  if (template?.panels?.length > 0) {
-    const width = template.panels[0].width
-    const height = template.panels[0].height
-    const paperType = state.paperTypes.find((a) => a.width == width && a.height == height)
-    state.curPaper = { type: paperType?.type || '', width: width, height: height }
-  }
-
   if (designRef.value) {
     designRef.value.innerHTML = ''
   }
@@ -382,6 +375,19 @@ const buildDesigner = (template = {} as any) => {
   hiprintTemplate.value.design(designRef.value)
 
   designRef.value.querySelector('.hiprint-printPaper')?.firstChild.click()
+
+  if (template?.panels?.length > 0) {
+    const width = template.panels[0].width
+    const height = template.panels[0].height
+    const paperType = state.paperTypes.find((a) => a.width == width && a.height == height)
+    state.curPaper = { type: paperType?.type || '', width: width, height: height }
+    if (state.curPaper.type === '') {
+      state.customPaper.width = width
+      state.customPaper.height = height
+    }
+  } else {
+    onSetPaper(state.curPaper.type)
+  }
 }
 
 /**
