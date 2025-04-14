@@ -3,7 +3,7 @@
     <el-dialog
       v-model="state.showDialog"
       destroy-on-close
-      :title="title"
+      :title="state.title"
       draggable
       :close-on-click-modal="false"
       :close-on-press-escape="true"
@@ -31,13 +31,6 @@
 <script lang="ts" setup>
 import { reactive, ref, nextTick, computed } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
-
-defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-})
 
 const state = reactive({
   showDialog: false,
