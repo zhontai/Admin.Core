@@ -11,7 +11,7 @@
           </el-tab-pane>
           <el-tab-pane label="数据源">
             <MyJsonEditor
-              v-model="state.printTemplate.printData"
+              v-model="printData"
               :options="{
                 mode: 'text',
                 mainMenuBar: true,
@@ -23,10 +23,10 @@
           </el-tab-pane>
         </el-tabs>
       </div>
-      <div class="my-fill" style="overflow: hidden; min-width: 355px" v-loading="state.refreshLoading">
+      <div class="my-fill" style="overflow: hidden; min-width: 355px">
         <!-- 操作栏 -->
         <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
-          <div class="my-flex my-flex-wrap my-flex-items-end">
+          <div class="my-flex my-flex-wrap">
             <div class="my-flex my-flex-wrap">
               <!-- 纸张 -->
               <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
@@ -88,7 +88,8 @@
                   <SvgIcon name="ele-ZoomIn" />
                 </template>
               </el-input-number>
-
+            </div>
+            <div class="my-fill my-flex my-flex-between">
               <!-- 排版 -->
               <el-button-group size="small" class="my-flex mr10 mb10">
                 <el-tooltip content="左对齐" placement="top">
@@ -155,8 +156,7 @@
                   </el-button>
                 </el-tooltip>
               </el-button-group>
-            </div>
-            <div class="my-fill my-flex my-flex-between">
+
               <!-- 操作 -->
               <el-button-group size="small" class="my-flex mr10 mb10">
                 <el-tooltip content="预览" placement="top">
@@ -176,33 +176,6 @@
                   </el-button>
                 </el-tooltip>
               </el-button-group>
-              <el-button ref="saveRef" size="small" type="primary" plain :loading="state.saveLoading">
-                <template #icon>
-                  <el-icon>
-                    <my-icon name="save" color="var(--color)"></my-icon>
-                  </el-icon>
-                </template>
-                保存
-              </el-button>
-              <el-popover
-                ref="popoverSaveRef"
-                placement="bottom-end"
-                :virtual-ref="saveRef"
-                trigger="click"
-                virtual-triggering
-                :width="230"
-                title="提示"
-              >
-                <p class="my-flex my-flex-items-center">
-                  <SvgIcon name="ele-Warning" size="16" color="var(--el-color-warning)" class="mr5" />
-                  确定要保存设计模板吗？
-                </p>
-                <div class="mt10" style="text-align: right; margin: 0">
-                  <el-button size="small" text @click="onSaveCancel">取消</el-button>
-                  <el-button size="small" type="primary" @click="onSave"> 保存并关闭 </el-button>
-                  <el-button size="small" type="primary" @click="onSave(false)"> 保存 </el-button>
-                </div>
-              </el-popover>
             </div>
           </div>
         </div>
@@ -230,12 +203,10 @@ import { hiprint } from 'vue-plugin-hiprint'
 import providers from './providers'
 import PrintPreview from './preview.vue'
 import ViewJson from './view-json.vue'
-import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
-import eventBus from '/@/utils/mitt'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
-const templateId = defineModel('id', { type: Number })
 const title = defineModel('title', { type: String })
+const printData = defineModel('printData', { type: String })
 
 interface IPaperType {
   type: string
@@ -293,13 +264,6 @@ const state = reactive({
     },
   ] as IPaperType[],
   showSaveDialog: false,
-  refreshLoading: false,
-  saveLoading: false,
-  printTemplate: {
-    id: 0,
-    version: 0,
-    printData: '{}',
-  },
 })
 
 const { proxy } = getCurrentInstance() as any
@@ -312,23 +276,10 @@ const previewRef = ref()
 const previewJsonDialogRef = ref()
 const epContainerRef = ref()
 const designRef = ref()
-const saveRef = ref()
-const popoverSaveRef = ref()
 
-onMounted(async () => {
-  const res = await new PrintTemplateApi().getUpdateTemplate({ id: templateId.value }, { loading: true })
-  if (res?.success) {
-    const template = res.data
-    state.printTemplate.id = template?.id as number
-    state.printTemplate.version = template?.version as number
-    state.printTemplate.printData = template?.printData || ('{}' as string)
-
-    state.visible = true
-    nextTick(() => {
-      buildProvider()
-      buildDesigner(JSON.parse(template?.template || '{}'))
-    })
-  }
+onMounted(() => {
+  buildProvider()
+  buildDesigner()
 })
 
 // 构建拖拽组件
@@ -366,7 +317,9 @@ const buildDesigner = (template = {} as any) => {
   hiprintTemplate.value.design(designRef.value)
 
   designRef.value.querySelector('.hiprint-printPaper')?.firstChild.click()
+}
 
+const setPaper = (template = {} as any) => {
   if (template?.panels?.length > 0) {
     const width = template.panels[0].width
     const height = template.panels[0].height
@@ -433,7 +386,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'), title.value)
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(printData.value || '{}'), title.value)
   }
 }
 
@@ -454,7 +407,7 @@ const onClearPaper = () => {
 //打印
 const onPrint = async () => {
   if (hiprintTemplate.value) {
-    hiprintTemplate.value.print(JSON.parse(state.printTemplate.printData || '{}'))
+    hiprintTemplate.value.print(JSON.parse(printData.value || '{}'))
   }
 }
 
@@ -466,71 +419,9 @@ const onViewJson = () => {
   }
 }
 
-//刷新
-const refresh = async () => {
-  proxy.$modal
-    .confirm(`确定要刷新设计模板吗？`)
-    .then(async () => {
-      try {
-        if (state.printTemplate.id > 0) {
-          state.refreshLoading = true
-          const res = await new PrintTemplateApi().getUpdateTemplate({ id: state.printTemplate.id }).catch(() => {
-            state.refreshLoading = false
-          })
-          state.refreshLoading = false
-          if (res?.success) {
-            const template = res.data
-            state.printTemplate.id = template?.id as number
-            state.printTemplate.version = template?.version as number
-
-            buildDesigner(JSON.parse(template?.template || '{}'))
-          }
-        }
-      } catch (error) {}
-    })
-    .catch(() => {})
-}
-
-const onSaveCancel = () => {
-  popoverSaveRef.value?.hide?.()
-}
-
-//保存
-const onSave = async (close = true) => {
-  try {
-    if (hiprintTemplate.value) {
-      if (state.printTemplate.id != undefined && state.printTemplate.id > 0) {
-        state.saveLoading = true
-        const res = await new PrintTemplateApi()
-          .updateTemplate(
-            {
-              id: state.printTemplate.id,
-              version: state.printTemplate.version,
-              template: JSON.stringify(hiprintTemplate.value.getJson() || {}),
-              printData: state.printTemplate.printData as string,
-            },
-            { showSuccessMessage: true }
-          )
-          .catch(() => {
-            state.saveLoading = false
-          })
-
-        state.printTemplate.version = state.printTemplate.version + 1
-        state.saveLoading = false
-        onSaveCancel()
-        if (res?.success) {
-          eventBus.emit('refreshPrintTemplate')
-          if (close) state.visible = false
-        }
-      } else {
-        proxy.$modal.msgWarning('请选择打印模板')
-      }
-    }
-  } catch (error) {}
-}
-
 defineExpose({
-  refresh,
+  hiprintTemplate,
+  setPaper,
 })
 </script>
 

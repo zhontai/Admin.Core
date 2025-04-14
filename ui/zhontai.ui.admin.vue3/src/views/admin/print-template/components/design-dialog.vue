@@ -4,6 +4,25 @@
       <div class="my-flex my-flex-between mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
+          <el-button ref="saveRef" size="small" type="primary" plain :loading="state.saveLoading">
+            <template #icon>
+              <el-icon>
+                <my-icon name="save" color="var(--color)"></my-icon>
+              </el-icon>
+            </template>
+            保存
+          </el-button>
+          <el-popover ref="popoverSaveRef" placement="bottom-end" :virtual-ref="saveRef" trigger="click" virtual-triggering :width="230" title="提示">
+            <p class="my-flex my-flex-items-center">
+              <SvgIcon name="ele-Warning" size="16" color="var(--el-color-warning)" class="mr5" />
+              确定要保存设计模板吗？
+            </p>
+            <div class="mt10" style="text-align: right; margin: 0">
+              <el-button size="small" text @click="onSaveCancel">取消</el-button>
+              <el-button size="small" type="primary" @click="onSave"> 保存并关闭 </el-button>
+              <el-button size="small" type="primary" @click="onSave(false)"> 保存 </el-button>
+            </div>
+          </el-popover>
           <el-tooltip content="刷新" placement="bottom">
             <el-button link @click="onRefresh">
               <template #icon>
@@ -16,14 +35,16 @@
         </div>
       </div>
     </template>
-    <Design ref="designRef" :title="title" :id="state.id"></Design>
+    <Design ref="designRef" :title="title" v-model:printData="state.printTemplate.printData"></Design>
   </el-drawer>
 </template>
 
 <script lang="ts" setup name="admin/print-template-deisgn">
-import { reactive, ref } from 'vue'
+import { reactive, ref, getCurrentInstance, nextTick } from 'vue'
 import Design from './design.vue'
 import { PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
+import eventBus from '/@/utils/mitt'
+import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
 
 defineProps({
   title: {
@@ -32,22 +53,102 @@ defineProps({
   },
 })
 
+const { proxy } = getCurrentInstance() as any
+
 const designRef = ref()
+const saveRef = ref()
+const popoverSaveRef = ref()
 
 const state = reactive({
   visible: false,
-  id: 0,
+  saveLoading: false,
+  refreshLoading: false,
+  printTemplate: {
+    id: 0,
+    version: 0,
+    printData: '{}',
+  },
 })
+
+const loadData = async () => {
+  if (state.printTemplate.id > 0) {
+    state.refreshLoading = true
+    const res = await new PrintTemplateApi().getUpdateTemplate({ id: state.printTemplate.id }).catch(() => {
+      state.refreshLoading = false
+    })
+    state.refreshLoading = false
+    if (res?.success) {
+      const printTemplate = res.data
+      state.printTemplate.id = printTemplate?.id as number
+      state.printTemplate.version = printTemplate?.version as number
+      state.printTemplate.printData = printTemplate?.printData || ('{}' as string)
+
+      nextTick(() => {
+        designRef.value?.hiprintTemplate.clear()
+        const template = JSON.parse(printTemplate?.template || '{}')
+        designRef.value?.hiprintTemplate.update(template)
+        designRef.value?.setPaper(template)
+      })
+    }
+  }
+}
 
 //刷新
 const onRefresh = async () => {
-  designRef.value.refresh()
+  proxy.$modal
+    .confirm(`确定要刷新设计模板吗？`)
+    .then(async () => {
+      try {
+        await loadData()
+      } catch (error) {}
+    })
+    .catch(() => {})
+}
+
+const onSaveCancel = () => {
+  popoverSaveRef.value?.hide?.()
+}
+
+//保存
+const onSave = async (close = true) => {
+  try {
+    if (designRef.value?.hiprintTemplate) {
+      if (state.printTemplate.id != undefined && state.printTemplate.id > 0) {
+        state.saveLoading = true
+        const res = await new PrintTemplateApi()
+          .updateTemplate(
+            {
+              id: state.printTemplate.id,
+              version: state.printTemplate.version,
+              template: JSON.stringify(designRef.value?.hiprintTemplate.getJson() || {}),
+              printData: state.printTemplate.printData as string,
+            },
+            { showSuccessMessage: true }
+          )
+          .catch(() => {
+            state.saveLoading = false
+          })
+
+        state.printTemplate.version = state.printTemplate.version + 1
+        state.saveLoading = false
+        onSaveCancel()
+        if (res?.success) {
+          eventBus.emit('refreshPrintTemplate')
+          if (close) state.visible = false
+        }
+      } else {
+        proxy.$modal.msgWarning('请选择打印模板')
+      }
+    }
+  } catch (error) {}
 }
 
 // 打开对话框
 const open = async (row: PrintTemplateGetPageOutput = {}) => {
-  state.id = row.id as number
   state.visible = true
+
+  state.printTemplate.id = row.id as number
+  await loadData()
 }
 
 // 关闭
