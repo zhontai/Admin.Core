@@ -4,7 +4,7 @@
       <div class="my-flex my-flex-between mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
-          <el-button ref="saveRef" size="small" type="primary" plain :loading="state.saveLoading">
+          <el-button ref="saveRef" size="small" type="primary" round :loading="state.saveLoading">
             <template #icon>
               <el-icon>
                 <my-icon name="save" color="var(--color)"></my-icon>
