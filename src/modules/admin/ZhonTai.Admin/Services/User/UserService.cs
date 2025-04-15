@@ -118,7 +118,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var userEntity = await _userRep.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
-        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
         .ToOneAsync(a => new
         {
             a.Id,
@@ -127,8 +126,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             a.Mobile,
             a.Email,
             a.Roles,
-            a.Orgs,
-            a.OrgId,
             a.ManagerUserId,
             ManagerUserName = a.ManagerUser.Name,
             Staff = new
@@ -166,7 +163,11 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync(a => new UserGetPageOutput { Roles = a.Roles });
+        .ToListAsync(a => new UserGetPageOutput
+        {
+            Roles = a.Roles,
+            Sex = a.Staff.Sex
+        });
 
         if (orgId.HasValue && orgId > 0)
         {
