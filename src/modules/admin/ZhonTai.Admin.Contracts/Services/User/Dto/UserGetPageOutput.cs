@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;
+using ZhonTai.Admin.Domain.UserStaff;
 
 namespace ZhonTai.Admin.Services.User.Dto;
 
@@ -45,7 +47,7 @@ public class UserGetPageOutput
     /// <summary>
     /// 角色
     /// </summary>
-    public string[] RoleNames { get; set; }
+    public string RoleNames => string.Join("，", Roles?.Select(a => a.Name)?.ToArray());
 
     /// <summary>
     /// 是否主管
@@ -63,7 +65,65 @@ public class UserGetPageOutput
     public bool Online { get; set; }
 
     /// <summary>
+    /// 性别
+    /// </summary>
+    public Sex? Sex { get; set; }
+
+    /// <summary>
+    /// 主属部门Id
+    /// </summary>
+    [JsonIgnore]
+    public long OrgId { get; set; }
+
+    /// <summary>
+    /// 主属部门
+    /// </summary>
+    public string OrgPath { get; set; }
+
+    /// <summary>
+    /// 部门列表
+    /// </summary>
+    [JsonIgnore]
+    public ICollection<OrgEntity> Orgs { get; set; }
+
+    /// <summary>
+    /// 所属部门Id列表
+    /// </summary>
+    [JsonIgnore]
+    public long[] OrgIds => Orgs?.Select(a => a.Id)?.ToArray();
+
+    /// <summary>
+    /// 所属部门
+    /// </summary>
+    public string OrgPaths { get; set; }
+
+    /// <summary>
+    /// 创建者用户名
+    /// </summary>
+    public string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    public string CreatedUserRealName { get; set; }
+
+    /// <summary>
     /// 创建时间
     /// </summary>
     public DateTime? CreatedTime { get; set; }
+
+    /// <summary>
+    /// 修改者用户名
+    /// </summary>
+    public string ModifiedUserName { get; set; }
+
+    /// <summary>
+    /// 修改者姓名
+    /// </summary>
+    public string ModifiedUserRealName { get; set; }
+
+    /// <summary>
+    /// 修改时间
+    /// </summary>
+    public DateTime? ModifiedTime { get; set; }
 }

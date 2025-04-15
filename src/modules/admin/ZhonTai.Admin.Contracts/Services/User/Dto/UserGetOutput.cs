@@ -1,4 +1,7 @@
-﻿namespace ZhonTai.Admin.Services.User.Dto;
+﻿using System.Text.Json.Serialization;
+using ZhonTai.Admin.Domain.Role;
+
+namespace ZhonTai.Admin.Services.User.Dto;
 
 /// <summary>
 /// 用户
@@ -8,7 +11,8 @@ public class UserGetOutput : UserUpdateInput
     /// <summary>
     /// 角色列表
     /// </summary>
-    public ICollection<UserGetRoleModel> Roles { get; set; }
+    [JsonIgnore]
+    public ICollection<RoleEntity> Roles { get; set; }
 
     /// <summary>
     /// 角色Id列表

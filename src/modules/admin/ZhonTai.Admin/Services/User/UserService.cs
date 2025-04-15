@@ -162,38 +162,63 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
+        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id }))
         .Page(input.CurrentPage, input.PageSize)
         .ToListAsync(a => new UserGetPageOutput
         {
             Roles = a.Roles,
+            Orgs = a.Orgs,
             Sex = a.Staff.Sex
         });
 
+        //设置部门
+        var orgs = await _orgRep.Value.Select.Where(a => a.ParentId == 0)
+        .AsTreeCte(a => a.Name, pathSeparator: "/")
+        .ToListAsync(a => new
+        {
+            a.Id,
+            Path = "a.cte_path"
+        });
+
+        var orgDict = orgs.ToDictionary(a => a.Id, a => a.Path);
+        foreach (var user in list)
+        {
+            if (user.OrgId > 0 && orgDict.TryGetValue(user.OrgId, out var path))
+            {
+                user.OrgPath = path;
+            }
+
+            if(user.OrgIds.Length > 0)
+            {
+                var orgPathList = user.OrgIds.Select(a => orgDict.GetValueOrDefault(a)).Where(a => a != null).ToList();
+                user.OrgPaths = string.Join(" ; ", orgPathList);
+            }
+        }
+
+        //设置主管
         if (orgId.HasValue && orgId > 0)
         {
             var managerUserIds = await _userOrgRep.Select
                 .Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
 
-            if (managerUserIds.Any())
+            if (managerUserIds.Count != 0)
             {
                 var managerUsers = list.Where(a => managerUserIds.Contains(a.Id));
-                foreach (var managerUser in managerUsers)
+                foreach (var user in managerUsers)
                 {
-                    managerUser.IsManager = true;
+                    user.IsManager = true;
                 }
             }
         }
 
-        var userList = Mapper.Map<List<UserGetPageOutput>>(list);
-
-        //用户在线离线查询
+        //设置用户在线
         if (_imConfig.Enable)
         {
             var clientIdList = ImHelper.GetClientListByOnline();
-
-            foreach (var user in userList)
+            if (clientIdList.Any())
             {
-                if (clientIdList.Contains(user.Id))
+                var onlineUsers = list.Where(a => clientIdList.Contains(a.Id));
+                foreach (var user in onlineUsers)
                 {
                     user.Online = true;
                 }
@@ -202,7 +227,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var data = new PageOutput<UserGetPageOutput>()
         {
-            List = userList,
+            List = list,
             Total = total
         };
 
