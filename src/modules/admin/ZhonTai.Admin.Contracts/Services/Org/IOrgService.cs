@@ -10,7 +10,7 @@ public partial interface IOrgService
 {
     Task<OrgGetOutput> GetAsync(long id);
 
-    Task<List<OrgListOutput>> GetListAsync(string key);
+    Task<List<OrgGetListOutput>> GetListAsync(string key);
 
     Task<long> AddAsync(OrgAddInput input);
 

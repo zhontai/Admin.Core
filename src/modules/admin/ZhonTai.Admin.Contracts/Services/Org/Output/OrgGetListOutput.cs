@@ -3,7 +3,7 @@
 /// <summary>
 /// 部门列表
 /// </summary>
-public class OrgListOutput
+public class OrgGetListOutput
 {
     /// <summary>
     /// 主键Id

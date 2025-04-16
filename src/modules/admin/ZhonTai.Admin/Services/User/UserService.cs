@@ -40,6 +40,7 @@ using ZhonTai.Admin.Core.Db;
 using DotNetCore.CAP;
 using ZhonTai.Admin.Services.User.Events;
 using Mapster;
+using ZhonTai.Admin.Services.Org;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -67,7 +68,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
     private readonly Lazy<IPermissionRepository> _permissionRep;
-   
+    private readonly OrgService _orgService;
 
     public UserService(
         IOptions<AppConfig> appConfig,
@@ -86,7 +87,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IOrgRepository> orgRep,
-        Lazy<IPermissionRepository> permissionRep
+        Lazy<IPermissionRepository> permissionRep,
+        OrgService orgService
     )
     {
         _appConfig = appConfig.Value;
@@ -106,6 +108,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         _tenantRep = tenantRep;
         _orgRep = orgRep;
         _permissionRep = permissionRep;
+        _orgService = orgService;
     }
 
     /// <summary>
@@ -172,13 +175,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         });
 
         //设置部门
-        var orgs = await _orgRep.Value.Select.Where(a => a.ParentId == 0)
-        .AsTreeCte(a => a.Name, pathSeparator: "/")
-        .ToListAsync(a => new
-        {
-            a.Id,
-            Path = "a.cte_path"
-        });
+        var orgs = await _orgService.GetSimpleListWithPathAsync();
 
         var orgDict = orgs.ToDictionary(a => a.Id, a => a.Path);
         foreach (var user in list)

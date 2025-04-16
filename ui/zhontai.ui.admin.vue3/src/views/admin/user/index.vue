@@ -61,6 +61,7 @@
             </el-table-column>
             <el-table-column prop="mobile" label="手机号" width="120" show-overflow-tooltip />
             <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
+            <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
             <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
             <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
             <el-table-column label="状态" width="80" align="center" fixed="right">
