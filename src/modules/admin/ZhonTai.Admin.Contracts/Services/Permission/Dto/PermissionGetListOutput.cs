@@ -5,7 +5,7 @@ namespace ZhonTai.Admin.Services.Permission.Dto;
 /// <summary>
 /// 权限列表
 /// </summary>
-public class PermissionListOutput
+public class PermissionGetListOutput
 {
     /// <summary>
     /// 权限Id

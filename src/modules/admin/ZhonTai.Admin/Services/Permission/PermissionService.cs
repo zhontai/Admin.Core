@@ -19,6 +19,10 @@ using ZhonTai.Admin.Services.Permission.Dto;
 using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using System.Linq.Expressions;
+using ZhonTai.Admin.Domain.View;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -122,23 +126,33 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <summary>
     /// 查询权限列表
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<List<PermissionListOutput>> GetListAsync(string key, DateTime? start, DateTime? end)
+    [HttpPost]
+    public async Task<List<PermissionGetListOutput>> GetListAsync(PermissionGetListInput input)
     {
-        if (end.HasValue)
+        var platform = input?.Platform?.Trim();
+        var label = input?.Label?.Trim();
+        var path = input?.Path?.Trim();
+
+        var select = _permissionRep.Select;
+        if (platform.NotNull())
         {
-            end = end.Value.AddDays(1);
+            Expression<Func<PermissionEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
         }
 
-        var data = await _permissionRep
-            .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
-            .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
+        var data = await select
+            .WhereIf(label.NotNull(), a => a.Label.Contains(label))
+            .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .Include(a => a.View)
             .OrderBy(a => new { a.ParentId, a.Sort })
-            .ToListAsync(a=> new PermissionListOutput 
+            .ToListAsync(a=> new PermissionGetListOutput 
             {
                 ViewPath = a.View.Path,
                 ApiPaths = string.Join(";", _permissionApiRep.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) 

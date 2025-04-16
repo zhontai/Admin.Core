@@ -145,7 +145,7 @@
 
 <script lang="ts" setup name="admin/permission/permission-menu-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
-import { PermissionListOutput, PermissionUpdateMenuInput, ViewListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { PermissionGetListOutput, PermissionUpdateMenuInput, ViewListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
@@ -167,7 +167,7 @@ defineProps({
     default: '',
   },
   permissionTreeData: {
-    type: Array as PropType<PermissionListOutput[]>,
+    type: Array as PropType<PermissionGetListOutput[]>,
     default: () => [],
   },
 })

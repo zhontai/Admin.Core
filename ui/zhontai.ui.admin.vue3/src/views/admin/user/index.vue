@@ -131,7 +131,7 @@
 
 <script lang="ts" setup name="admin/user">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
-import { UserGetPageOutput, PageInputUserGetPageInput, OrgListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -390,7 +390,7 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 
-const onOrgNodeClick = (node: OrgListOutput | null) => {
+const onOrgNodeClick = (node: OrgGetListOutput | null) => {
   if (state.pageInput.filter) {
     state.pageInput.filter.orgId = node?.id
   }

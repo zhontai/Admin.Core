@@ -89,7 +89,7 @@
 
 <script lang="ts" setup name="admin/permission/permission-group-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
-import { PermissionListOutput, PermissionUpdateGroupInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { PermissionGetListOutput, PermissionUpdateGroupInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
@@ -108,7 +108,7 @@ defineProps({
     default: '',
   },
   permissionTreeData: {
-    type: Array as PropType<PermissionListOutput[]>,
+    type: Array as PropType<PermissionGetListOutput[]>,
     default: () => [],
   },
 })

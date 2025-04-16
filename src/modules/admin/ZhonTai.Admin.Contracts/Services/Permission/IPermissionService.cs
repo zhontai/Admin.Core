@@ -19,7 +19,7 @@ public partial interface IPermissionService
 
     Task<List<long>> GetTenantPermissionListAsync(long tenantId);
 
-    Task<List<PermissionListOutput>> GetListAsync(string key, DateTime? start, DateTime? end);
+    Task<List<PermissionGetListOutput>> GetListAsync(PermissionGetListInput input);
 
     Task<long> AddGroupAsync(PermissionAddGroupInput input);
 

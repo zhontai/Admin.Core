@@ -1766,37 +1766,8 @@ export interface OrgEntity {
   childs?: OrgEntity[] | null
 }
 
-/** 部门 */
-export interface OrgGetOutput {
-  /**
-   * 父级
-   * @format int64
-   */
-  parentId?: number
-  /** 名称 */
-  name?: string | null
-  /** 编码 */
-  code?: string | null
-  /** 值 */
-  value?: string | null
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 描述 */
-  description?: string | null
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id: number
-}
-
 /** 部门列表 */
-export interface OrgListOutput {
+export interface OrgGetListOutput {
   /**
    * 主键Id
    * @format int64
@@ -1827,6 +1798,46 @@ export interface OrgListOutput {
    * @format date-time
    */
   createdTime?: string | null
+}
+
+/** 部门 */
+export interface OrgGetOutput {
+  /**
+   * 父级
+   * @format int64
+   */
+  parentId?: number
+  /** 名称 */
+  name?: string | null
+  /** 编码 */
+  code?: string | null
+  /** 值 */
+  value?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+  /** 描述 */
+  description?: string | null
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id: number
+}
+
+/** 部门路径列表 */
+export interface OrgGetSimpleListWithPathOutput {
+  /**
+   * 部门Id
+   * @format int64
+   */
+  id?: number
+  /** 部门路径 */
+  path?: string | null
 }
 
 /** 修改 */
@@ -2544,6 +2555,8 @@ export interface PermissionEntity {
   modifiedTime?: string | null
   /** 是否删除 */
   isDeleted?: boolean
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
@@ -2555,8 +2568,6 @@ export interface PermissionEntity {
   code?: string | null
   /** 权限类型:Group=1,Menu=2,Dot=3 */
   type?: PermissionType
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图Id
    * @format int64
@@ -2678,6 +2689,57 @@ export interface PermissionGetGroupOutput {
   id: number
 }
 
+/** 查询列表 */
+export interface PermissionGetListInput {
+  /** 平台 */
+  platform?: string | null
+  /** 路由地址 */
+  path?: string | null
+  /** 权限名称 */
+  label?: string | null
+}
+
+/** 权限列表 */
+export interface PermissionGetListOutput {
+  /**
+   * 权限Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 父级节点
+   * @format int64
+   */
+  parentId?: number
+  /** 权限名称 */
+  label?: string | null
+  /** 权限类型:Group=1,Menu=2,Dot=3 */
+  type?: PermissionType
+  /** 路由地址 */
+  path?: string | null
+  /** 重定向地址 */
+  redirect?: string | null
+  /** 视图地址 */
+  viewPath?: string | null
+  /** 链接地址 */
+  link?: string | null
+  /** 接口路径 */
+  apiPaths?: string | null
+  /** 图标 */
+  icon?: string | null
+  /** 展开 */
+  opened?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 描述 */
+  description?: string | null
+  /** 启用 */
+  enabled?: boolean
+}
+
 /** 权限菜单 */
 export interface PermissionGetMenuOutput {
   /**
@@ -2730,47 +2792,6 @@ export interface PermissionGetMenuOutput {
    * @format int64
    */
   id: number
-}
-
-/** 权限列表 */
-export interface PermissionListOutput {
-  /**
-   * 权限Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 父级节点
-   * @format int64
-   */
-  parentId?: number
-  /** 权限名称 */
-  label?: string | null
-  /** 权限类型:Group=1,Menu=2,Dot=3 */
-  type?: PermissionType
-  /** 路由地址 */
-  path?: string | null
-  /** 重定向地址 */
-  redirect?: string | null
-  /** 视图地址 */
-  viewPath?: string | null
-  /** 链接地址 */
-  link?: string | null
-  /** 接口路径 */
-  apiPaths?: string | null
-  /** 图标 */
-  icon?: string | null
-  /** 展开 */
-  opened?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number | null
-  /** 描述 */
-  description?: string | null
-  /** 启用 */
-  enabled?: boolean
 }
 
 /** 保存租户权限 */
@@ -3911,7 +3932,7 @@ export interface ResultOutputListObject {
 }
 
 /** 结果输出 */
-export interface ResultOutputListOrgListOutput {
+export interface ResultOutputListOrgGetListOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3919,11 +3940,11 @@ export interface ResultOutputListOrgListOutput {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: OrgListOutput[] | null
+  data?: OrgGetListOutput[] | null
 }
 
 /** 结果输出 */
-export interface ResultOutputListPermissionListOutput {
+export interface ResultOutputListOrgGetSimpleListWithPathOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -3931,7 +3952,19 @@ export interface ResultOutputListPermissionListOutput {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: PermissionListOutput[] | null
+  data?: OrgGetSimpleListWithPathOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListPermissionGetListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: PermissionGetListOutput[] | null
 }
 
 /** 结果输出 */
@@ -5717,8 +5750,6 @@ export interface UserGetOutput {
    * @format int64
    */
   id: number
-  /** 角色列表 */
-  roles?: UserGetRoleModel[] | null
   /** 角色Id列表 */
   roleIds?: number[] | null
 }
@@ -5751,18 +5782,46 @@ export interface UserGetPageOutput {
   type?: UserType
   roles?: RoleEntity[] | null
   /** 角色 */
-  roleNames?: string[] | null
+  roleNames?: string | null
   /** 是否主管 */
   isManager?: boolean
   /** 启用 */
   enabled?: boolean
   /** 在线 */
   online?: boolean
+  /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
+  sex?: Sex
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
+  /** 主属部门 */
+  orgPath?: string | null
+  /** 部门列表 */
+  orgs?: OrgEntity[] | null
+  /** 所属部门Id列表 */
+  orgIds?: number[] | null
+  /** 所属部门 */
+  orgPaths?: string | null
+  /** 创建者用户名 */
+  createdUserName?: string | null
+  /** 创建者姓名 */
+  createdUserRealName?: string | null
   /**
    * 创建时间
    * @format date-time
    */
   createdTime?: string | null
+  /** 修改者用户名 */
+  modifiedUserName?: string | null
+  /** 修改者姓名 */
+  modifiedUserRealName?: string | null
+  /**
+   * 修改时间
+   * @format date-time
+   */
+  modifiedTime?: string | null
 }
 
 /** 用户权限 */
@@ -5771,13 +5830,6 @@ export interface UserGetPermissionOutput {
   apis?: ApiModel[] | null
   /** 权限点编码列表 */
   codes?: string[] | null
-}
-
-/** 用户角色 */
-export interface UserGetRoleModel {
-  /** @format int64 */
-  id?: number
-  name?: string | null
 }
 
 /** 重置密码 */
@@ -6055,13 +6107,13 @@ export interface ViewEntity {
   modifiedTime?: string | null
   /** 是否删除 */
   isDeleted?: boolean
+  /** 平台 */
+  platform?: string | null
   /**
    * 所属节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */

@@ -76,7 +76,7 @@
 <script lang="ts" setup name="admin/user/components/user-select">
 import { ref, reactive, defineAsyncComponent } from 'vue'
 import { ElTable } from 'element-plus'
-import { UserGetPageOutput, PageInputUserGetPageInput, OrgListOutput } from '/@/api/admin/data-contracts'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 
 // 引入组件
@@ -160,7 +160,7 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 
-const onOrgNodeClick = (node: OrgListOutput | null) => {
+const onOrgNodeClick = (node: OrgGetListOutput | null) => {
   if (state.pageInput.filter) {
     state.pageInput.filter.orgId = node?.id
   }

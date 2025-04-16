@@ -96,7 +96,7 @@
 
 <script lang="ts" setup name="admin/permission/permission-dot-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType } from 'vue'
-import { PermissionListOutput, PermissionUpdateDotInput, ApiGetListOutput } from '/@/api/admin/data-contracts'
+import { PermissionGetListOutput, PermissionUpdateDotInput, ApiGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ApiApi } from '/@/api/admin/Api'
 import { listToTree, treeToList } from '/@/utils/tree'
@@ -109,7 +109,7 @@ defineProps({
     default: '',
   },
   permissionTreeData: {
-    type: Array as PropType<PermissionListOutput[]>,
+    type: Array as PropType<PermissionGetListOutput[]>,
     default: () => [],
   },
 })
