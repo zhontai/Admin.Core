@@ -91,5 +91,7 @@
   "请开启im即时通讯": "Please open im instant messaging",
   "视图不存在": "View does not exist",
   "打印模板不存在": "Print template does not exist",
-  "打印模板已被修改，请刷新后重试": "The print template has been modified, please refresh and try again"
+  "打印模板已被修改，请刷新后重试": "The print template has been modified, please refresh and try again",
+  "此视图已存在": "This view already exists",
+  "上级视图不能是本视图": "The superior view cannot be the same as the current view"
 }

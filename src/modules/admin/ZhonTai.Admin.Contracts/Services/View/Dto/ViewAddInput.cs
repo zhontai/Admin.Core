@@ -8,7 +8,7 @@ public class ViewAddInput
     /// <summary>
     /// 所属节点
     /// </summary>
-	public long? ParentId { get; set; }
+	public long ParentId { get; set; }
 
     /// <summary>
     /// 平台

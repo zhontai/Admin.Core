@@ -62,6 +62,10 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             }
             select = select.Where(where);
         }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
+        }
 
         var data = await select
             .WhereIf(name.NotNull(), a => a.Name.Contains(name))
@@ -81,6 +85,11 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(ViewAddInput input)
     {
+        if (await _viewRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此视图已存在"]);
+        }
+
         var entity = Mapper.Map<ViewEntity>(input);
         if (entity.Sort == 0)
         {
@@ -103,6 +112,16 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["视图不存在"]);
+        }
+
+        if (input.Id == input.ParentId)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级视图不能是本视图"]);
+        }
+
+        if (await _viewRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此视图已存在"]);
         }
 
         Mapper.Map(input, entity);
