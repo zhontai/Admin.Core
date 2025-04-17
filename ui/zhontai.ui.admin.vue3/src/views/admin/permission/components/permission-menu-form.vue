@@ -150,7 +150,6 @@ import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
-import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))
@@ -192,8 +191,8 @@ const getDictList = async () => {
   }
 }
 
-const getViews = async () => {
-  const res = await new ViewApi().getList({ platform: state.form.platform })
+const getViews = async (platform: string) => {
+  const res = await new ViewApi().getList({ platform: platform })
   if (res?.success && res.data && res.data.length > 0) {
     state.viewTreeData = listToTree(res.data) as ViewGetListOutput[]
   } else {
@@ -215,7 +214,7 @@ const open = async (
   proxy.$modal.loading()
 
   await getDictList()
-  await getViews()
+  await getViews(row.platform as string)
 
   if (row.id > 0) {
     const res = await new PermissionApi().getMenu({ id: row.id }).catch(() => {
