@@ -82,7 +82,7 @@
 
 <script lang="ts" setup name="admin/view/form">
 import { reactive, toRefs, ref, PropType, markRaw } from 'vue'
-import { ViewListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { ViewGetListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
@@ -94,7 +94,7 @@ defineProps({
     default: '',
   },
   viewTreeData: {
-    type: Array as PropType<ViewListOutput[]>,
+    type: Array as PropType<ViewGetListOutput[]>,
     default: () => [],
   },
 })

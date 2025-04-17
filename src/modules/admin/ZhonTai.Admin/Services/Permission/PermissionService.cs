@@ -146,16 +146,20 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             }
             select = select.Where(where);
         }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
+        }
 
         var data = await select
             .WhereIf(label.NotNull(), a => a.Label.Contains(label))
             .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .Include(a => a.View)
             .OrderBy(a => new { a.ParentId, a.Sort })
-            .ToListAsync(a=> new PermissionGetListOutput 
+            .ToListAsync(a => new PermissionGetListOutput
             {
                 ViewPath = a.View.Path,
-                ApiPaths = string.Join(";", _permissionApiRep.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) 
+                ApiPaths = string.Join(";", _permissionApiRep.Where(b => b.PermissionId == a.Id).ToList(b => b.Api.Path))
             });
 
         return data;

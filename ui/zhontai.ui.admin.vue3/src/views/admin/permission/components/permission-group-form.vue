@@ -12,6 +12,13 @@
       <el-form :model="form" ref="formRef" size="default" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级分组">
               <el-tree-select
                 v-model="form.parentId"
@@ -25,14 +32,6 @@
                 :empty-values="[0, null, undefined]"
                 class="w100"
               />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
-                <el-option label="" :value="undefined" />
-                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
-              </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -152,6 +151,7 @@ const open = async (
 
     if (res?.success) {
       let formData = res.data as PermissionUpdateGroupInput
+      formData.platform = row.platform
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
       if (isCopy) formData.id = 0
       state.form = formData

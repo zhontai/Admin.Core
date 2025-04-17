@@ -13,7 +13,7 @@
 import { AxiosResponse } from 'axios'
 import {
   ResultOutputInt64,
-  ResultOutputListViewListOutput,
+  ResultOutputListViewGetListOutput,
   ResultOutputViewGetOutput,
   ViewAddInput,
   ViewGetListInput,
@@ -57,7 +57,7 @@ export class ViewApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   getList = (data: ViewGetListInput, params: RequestParams = {}) =>
-    this.request<ResultOutputListViewListOutput, any>({
+    this.request<ResultOutputListViewGetListOutput, any>({
       path: `/api/admin/view/get-list`,
       method: 'POST',
       body: data,

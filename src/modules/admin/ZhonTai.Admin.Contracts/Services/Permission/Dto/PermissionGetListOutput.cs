@@ -13,6 +13,11 @@ public class PermissionGetListOutput
     public long Id { get; set; }
 
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 父级节点
     /// </summary>
     public long ParentId { get; set; }

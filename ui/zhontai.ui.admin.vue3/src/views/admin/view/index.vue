@@ -57,7 +57,7 @@
 
 <script lang="ts" setup name="admin/view">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
-import { ViewListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
+import { ViewGetListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
@@ -81,8 +81,8 @@ const state = reactive({
   filter: {
     platform: PlatformType.Web.name,
   } as ViewGetListInput,
-  viewTreeData: [] as Array<ViewListOutput>,
-  formViewTreeData: [] as Array<ViewListOutput>,
+  viewTreeData: [] as Array<ViewGetListOutput>,
+  formViewTreeData: [] as Array<ViewGetListOutput>,
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
   },
@@ -143,13 +143,13 @@ const onAdd = () => {
   })
 }
 
-const onEdit = (row: ViewListOutput) => {
+const onEdit = (row: ViewGetListOutput) => {
   state.viewFormTitle = '编辑视图'
   row.platform = state.filter.platform
   viewFormRef.value.open(row)
 }
 
-const onDelete = (row: ViewListOutput) => {
+const onDelete = (row: ViewGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除视图【${row.label}】?`)
     .then(async () => {
@@ -159,7 +159,7 @@ const onDelete = (row: ViewListOutput) => {
     .catch(() => {})
 }
 
-const onCopy = (row: ViewListOutput) => {
+const onCopy = (row: ViewGetListOutput) => {
   state.viewFormTitle = '新增视图'
   var view = cloneDeep(row)
   view.id = undefined

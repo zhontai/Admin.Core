@@ -2387,13 +2387,13 @@ export type PasswordEncryptType = 0 | 1
 
 /** 添加权限点 */
 export interface PermissionAddDotInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2415,13 +2415,13 @@ export interface PermissionAddDotInput {
 
 /** 条件分组 */
 export interface PermissionAddGroupInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2452,13 +2452,13 @@ export interface PermissionAddGroupInput {
 
 /** 添加菜单 */
 export interface PermissionAddMenuInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2616,13 +2616,13 @@ export interface PermissionEntity {
 
 /** 权限点 */
 export interface PermissionGetDotOutput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2649,13 +2649,13 @@ export interface PermissionGetDotOutput {
 
 /** 权限分组 */
 export interface PermissionGetGroupOutput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2706,6 +2706,8 @@ export interface PermissionGetListOutput {
    * @format int64
    */
   id?: number
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
@@ -2742,13 +2744,13 @@ export interface PermissionGetListOutput {
 
 /** 权限菜单 */
 export interface PermissionGetMenuOutput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2809,13 +2811,13 @@ export type PermissionType = 1 | 2 | 3
 
 /** 修改权限点 */
 export interface PermissionUpdateDotInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /** 关联接口 */
   apiIds?: number[] | null
   /** 权限名称 */
@@ -2842,13 +2844,13 @@ export interface PermissionUpdateDotInput {
 
 /** 修改权限分组 */
 export interface PermissionUpdateGroupInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -2884,13 +2886,13 @@ export interface PermissionUpdateGroupInput {
 
 /** 修改权限菜单 */
 export interface PermissionUpdateMenuInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 父级节点
    * @format int64
    */
   parentId?: number
-  /** 平台 */
-  platform?: string | null
   /**
    * 视图
    * @format int64
@@ -4052,7 +4054,7 @@ export interface ResultOutputListString {
 }
 
 /** 结果输出 */
-export interface ResultOutputListViewListOutput {
+export interface ResultOutputListViewGetListOutput {
   /** 是否成功标记 */
   success?: boolean
   /** 编码 */
@@ -4060,7 +4062,7 @@ export interface ResultOutputListViewListOutput {
   /** 消息 */
   msg?: string | null
   /** 数据 */
-  data?: ViewListOutput[] | null
+  data?: ViewGetListOutput[] | null
 }
 
 /** 结果输出 */
@@ -6032,13 +6034,13 @@ export type ValidateResultType = 0 | 1 | 2
 
 /** 添加 */
 export interface ViewAddInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 所属节点
    * @format int64
    */
-  parentId?: number | null
-  /** 平台 */
-  platform?: string | null
+  parentId?: number
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */
@@ -6146,41 +6148,8 @@ export interface ViewGetListInput {
   path?: string | null
 }
 
-/** 视图 */
-export interface ViewGetOutput {
-  /**
-   * 所属节点
-   * @format int64
-   */
-  parentId?: number | null
-  /** 平台 */
-  platform?: string | null
-  /** 视图命名 */
-  name?: string | null
-  /** 视图名称 */
-  label?: string | null
-  /** 视图路径 */
-  path?: string | null
-  /** 说明 */
-  description?: string | null
-  /** 缓存 */
-  cache?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number | null
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 视图Id
-   * @format int64
-   */
-  id: number
-}
-
 /** 视图列表 */
-export interface ViewListOutput {
+export interface ViewGetListOutput {
   /**
    * 视图Id
    * @format int64
@@ -6212,6 +6181,39 @@ export interface ViewListOutput {
   description?: string | null
 }
 
+/** 视图 */
+export interface ViewGetOutput {
+  /** 平台 */
+  platform?: string | null
+  /**
+   * 所属节点
+   * @format int64
+   */
+  parentId?: number
+  /** 视图命名 */
+  name?: string | null
+  /** 视图名称 */
+  label?: string | null
+  /** 视图路径 */
+  path?: string | null
+  /** 说明 */
+  description?: string | null
+  /** 缓存 */
+  cache?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 视图Id
+   * @format int64
+   */
+  id: number
+}
+
 /** 视图同步 */
 export interface ViewSyncInput {
   /** 视图列表 */
@@ -6234,13 +6236,13 @@ export interface ViewSyncModel {
 
 /** 修改 */
 export interface ViewUpdateInput {
+  /** 平台 */
+  platform?: string | null
   /**
    * 所属节点
    * @format int64
    */
-  parentId?: number | null
-  /** 平台 */
-  platform?: string | null
+  parentId?: number
   /** 视图命名 */
   name?: string | null
   /** 视图名称 */

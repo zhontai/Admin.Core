@@ -12,6 +12,13 @@
       <el-form :model="form" ref="formRef" size="default" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级分组">
               <el-tree-select
                 v-model="form.parentId"
@@ -24,14 +31,6 @@
                 clearable
                 class="w100"
               />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
-                <el-option label="" :value="undefined" />
-                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
-              </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -145,7 +144,7 @@
 
 <script lang="ts" setup name="admin/permission/permission-menu-form">
 import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
-import { PermissionGetListOutput, PermissionUpdateMenuInput, ViewListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { PermissionGetListOutput, PermissionUpdateMenuInput, ViewGetListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
@@ -179,7 +178,7 @@ const state = reactive({
   showDialog: false,
   sureLoading: false,
   form: { enabled: true, isKeepAlive: true } as PermissionUpdateMenuInput,
-  viewTreeData: [] as ViewListOutput[],
+  viewTreeData: [] as ViewGetListOutput[],
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
   },
@@ -194,9 +193,9 @@ const getDictList = async () => {
 }
 
 const getViews = async () => {
-  const res = await new ViewApi().getList({ platform: PlatformType.Web.name })
+  const res = await new ViewApi().getList({ platform: state.form.platform })
   if (res?.success && res.data && res.data.length > 0) {
-    state.viewTreeData = listToTree(res.data) as ViewListOutput[]
+    state.viewTreeData = listToTree(res.data) as ViewGetListOutput[]
   } else {
     state.viewTreeData = []
   }
@@ -225,6 +224,7 @@ const open = async (
 
     if (res?.success) {
       let formData = res.data as PermissionUpdateMenuInput
+      formData.platform = row.platform
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
       if (isCopy) formData.id = 0
       state.form = formData
@@ -237,12 +237,12 @@ const open = async (
   state.showDialog = true
 }
 
-const onViewFilterNode = (value: string, data: ViewListOutput) => {
+const onViewFilterNode = (value: string, data: ViewGetListOutput) => {
   if (!value) return true
   return data.label?.indexOf(value) !== -1 || data.path?.indexOf(value) !== -1
 }
 
-const onViewCurrentChange = (data: ViewListOutput) => {
+const onViewCurrentChange = (data: ViewGetListOutput) => {
   if (data) {
     if (!state.form.label) {
       state.form.label = data.label

@@ -4,7 +4,6 @@
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="平台">
           <el-select v-model="state.filter.platform" placeholder="平台" :empty-values="[null]" @change="onQuery" style="width: 100px">
-            <el-option label="全部" :value="undefined" />
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
         </el-form-item>
@@ -235,6 +234,7 @@ const onAdd = (row: PermissionGetListOutput) => {
       state.permissionFormTitle = '新增分组'
       permissionGroupFormRef.value.open({
         id: 0,
+        platform: state.filter.platform,
         enabled: true,
         opened: true,
         icon: 'ele-Memo',
@@ -245,6 +245,7 @@ const onAdd = (row: PermissionGetListOutput) => {
       state.permissionFormTitle = '新增菜单'
       permissionMenuFormRef.value.open({
         id: 0,
+        platform: state.filter.platform,
         enabled: true,
         isKeepAlive: true,
         icon: 'ele-Memo',
@@ -253,12 +254,18 @@ const onAdd = (row: PermissionGetListOutput) => {
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open({ id: 0, parentId: row.parentId, enabled: true })
+      permissionDotFormRef.value.open({
+        id: 0,
+        platform: state.filter.platform,
+        parentId: row.parentId,
+        enabled: true,
+      })
       break
   }
 }
 
 const onEdit = (row: PermissionGetListOutput) => {
+  row.platform = state.filter.platform
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '编辑分组'

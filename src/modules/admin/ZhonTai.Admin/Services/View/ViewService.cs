@@ -44,7 +44,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input)
+    public async Task<List<ViewGetListOutput>> GetListAsync(ViewGetListInput input)
     {
         var platform = input?.Platform?.Trim();
         var name = input?.Name?.Trim();
@@ -73,7 +73,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
-            .ToListAsync<ViewListOutput>();
+            .ToListAsync<ViewGetListOutput>();
 
         return data;
     }
