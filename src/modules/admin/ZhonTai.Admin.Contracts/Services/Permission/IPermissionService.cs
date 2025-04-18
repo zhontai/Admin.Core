@@ -13,7 +13,7 @@ public partial interface IPermissionService
 
     Task<PermissionGetDotOutput> GetDotAsync(long id);
 
-    Task<IEnumerable<dynamic>> GetPermissionListAsync();
+    Task<IEnumerable<dynamic>> GetPermissionListAsync(string platform);
 
     Task<List<long>> GetRolePermissionListAsync(long roleId);
 

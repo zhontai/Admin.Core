@@ -14,6 +14,11 @@ namespace ZhonTai.Admin.Domain.RolePermission;
 public class RolePermissionEntity : EntityAdd
 {
     /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
+    /// <summary>
     /// 角色Id
     /// </summary>
 	[Column(IsPrimary = true)]

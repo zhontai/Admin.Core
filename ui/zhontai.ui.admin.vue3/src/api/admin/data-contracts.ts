@@ -2501,6 +2501,7 @@ export interface PermissionAddMenuInput {
 
 /** 权限分配 */
 export interface PermissionAssignInput {
+  platform?: string | null
   /** @format int64 */
   roleId: number
   permissionIds: number[]

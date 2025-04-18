@@ -132,10 +132,16 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @request GET:/api/admin/permission/get-permission-list
    * @secure
    */
-  getPermissionList = (params: RequestParams = {}) =>
+  getPermissionList = (
+    query?: {
+      platform?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputIEnumerableObject, any>({
       path: `/api/admin/permission/get-permission-list`,
       method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

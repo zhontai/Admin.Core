@@ -20,9 +20,8 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using System.Linq.Expressions;
-using ZhonTai.Admin.Domain.View;
-using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Domain.View;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -168,10 +167,27 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <summary>
     /// 查询授权权限列表
     /// </summary>
+    /// <param name="platform"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<dynamic>> GetPermissionListAsync()
+    public async Task<IEnumerable<dynamic>> GetPermissionListAsync(string platform)
     {
-        var permissions = await _permissionRep.Select
+        var select = _permissionRep.Select;
+        if (platform.NotNull())
+        {
+            Expression<Func<PermissionEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
+        }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
+        }
+
+        var permissions = await select
             .Where(a => a.Enabled == true)
             .WhereIf(_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _tenantPermissionRep.Value
@@ -235,6 +251,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddGroupAsync(PermissionAddGroupInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此分组已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Group;
 
@@ -255,6 +276,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddMenuAsync(PermissionAddMenuInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此菜单已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Menu;
         if (entity.Sort == 0)
@@ -275,6 +301,21 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddDotAsync(PermissionAddDotInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点编码已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Dot;
         if (entity.Sort == 0)
@@ -301,6 +342,21 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task UpdateGroupAsync(PermissionUpdateGroupInput input)
     {
         var entity = await _permissionRep.GetAsync(input.Id);
+        if (!(entity?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["分组不存在"]);
+        }
+
+        if (input.Id == input.ParentId)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级分组不能是本分组"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此分组已存在"]);
+        }
+
         entity = Mapper.Map(input, entity);
         await _permissionRep.UpdateAsync(entity);
     }
@@ -313,6 +369,16 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task UpdateMenuAsync(PermissionUpdateMenuInput input)
     {
         var entity = await _permissionRep.GetAsync(input.Id);
+        if (!(entity?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["菜单不存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此菜单已存在"]);
+        }
+
         entity = Mapper.Map(input, entity);
         await _permissionRep.UpdateAsync(entity);
     }
@@ -329,6 +395,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["权限点不存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
         }
 
         Mapper.Map(input, entity);
@@ -404,19 +475,34 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["该角色不存在或已被删除"]);
         }
 
+        var platform = input?.Platform;
+        Expression<Func<RolePermissionEntity, bool>> where = null;
+        if (platform.NotNull())
+        {
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+        }
+        else
+        {
+            where = where.And(a => string.IsNullOrEmpty(a.Platform));
+        }
+
         //查询角色权限
-        var permissionIds = await _rolePermissionRep.Value.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m => m.PermissionId);
+        var permissionIds = await _rolePermissionRep.Value.Where(where).Where(a => a.RoleId == input.RoleId).ToListAsync(a => a.PermissionId);
 
         //批量删除权限
-        var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
+        var deleteIds = permissionIds.Where(a => !input.PermissionIds.Contains(a));
         if (deleteIds.Any())
         {
-            await _rolePermissionRep.Value.DeleteAsync(m => m.RoleId == input.RoleId && deleteIds.Contains(m.PermissionId));
+            await _rolePermissionRep.Value.Where(where).Where(a => a.RoleId == input.RoleId && deleteIds.Contains(a.PermissionId)).ToDelete().ExecuteAffrowsAsync();
         }
 
         //批量插入权限
         var insertRolePermissions = new List<RolePermissionEntity>();
-        var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
+        var insertPermissionIds = input.PermissionIds.Where(a => !permissionIds.Contains(a));
 
         //防止租户非法授权，查询主库租户权限范围
         if (_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant)
@@ -434,7 +520,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
                 )
                 .ToListAsync(a => a.PermissionId);
 
-            insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d) || pkgPermissionIds.Contains(d));
+            insertPermissionIds = insertPermissionIds.Where(a => tenantPermissionIds.Contains(a) || pkgPermissionIds.Contains(a));
         }
 
         if (insertPermissionIds.Any())
@@ -443,6 +529,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             {
                 insertRolePermissions.Add(new RolePermissionEntity()
                 {
+                    Platform = platform,
                     RoleId = input.RoleId,
                     PermissionId = permissionId,
                 });

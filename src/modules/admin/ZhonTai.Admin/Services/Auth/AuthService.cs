@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Utilities.Encoders;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using ZhonTai.Admin.Core;
@@ -302,13 +303,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             
         return profile;
     }
-   
+
     /// <summary>
     /// 查询用户菜单列表
     /// </summary>
+    /// <param name="platform"></param>
     /// <returns></returns>
     [Login]
-    public async Task<List<AuthUserMenuOutput>> GetUserMenusAsync()
+    public async Task<List<AuthUserMenuOutput>> GetUserMenusAsync(string platform = AdminConsts.WebName)
     {
         if (!(User?.Id > 0))
         {
@@ -319,6 +321,21 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             var permissionRep = _permissionRep.Value;
             var menuSelect = permissionRep.Select.Where(a => a.Enabled == true);
+
+            Expression<Func<PermissionEntity, bool>> where = null;
+            if (platform.NotNull())
+            {
+                where = where.And(a => a.Platform == platform);
+                if (platform.ToLower() == AdminConsts.WebName)
+                {
+                    where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+                }
+            }
+            else
+            {
+                where = where.And(a => string.IsNullOrEmpty(a.Platform));
+            }
+            menuSelect = menuSelect.Where(where);
 
             if (!User.PlatformAdmin)
             {
@@ -362,7 +379,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<AuthGetUserPermissionsOutput> GetUserPermissionsAsync()
+    public async Task<AuthGetUserPermissionsOutput> GetUserPermissionsAsync(string platform = AdminConsts.WebName)
     {
         if (!(User?.Id > 0))
         {
@@ -377,6 +394,21 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var authGetUserPermissionsOutput = new AuthGetUserPermissionsOutput();
 
             var dotSelect = permissionRep.Select.Where(a => a.Type == PermissionType.Dot);
+
+            Expression<Func<PermissionEntity, bool>> where = null;
+            if (platform.NotNull())
+            {
+                where = where.And(a => a.Platform == platform);
+                if (platform.ToLower() == AdminConsts.WebName)
+                {
+                    where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+                }
+            }
+            else
+            {
+                where = where.And(a => string.IsNullOrEmpty(a.Platform));
+            }
+            dotSelect = dotSelect.Where(where);
 
             if (!User.PlatformAdmin)
             {

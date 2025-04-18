@@ -25,7 +25,7 @@
 
 <script lang="ts" setup name="admin/org/menu">
 import { onMounted, reactive, ref, watch, nextTick, PropType } from 'vue'
-import { OrgListOutput } from '/@/api/admin/data-contracts'
+import { OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
 import { ElTree } from 'element-plus'
@@ -45,7 +45,7 @@ const orgMenuRef = ref<InstanceType<typeof ElTree>>()
 const state = reactive({
   loading: false,
   filterText: '',
-  orgTreeData: [] as Array<OrgListOutput>,
+  orgTreeData: [] as Array<OrgGetListOutput>,
   lastKey: 0,
 })
 
@@ -61,16 +61,16 @@ onMounted(() => {
 })
 
 const emits = defineEmits<{
-  (e: 'node-click', node: OrgListOutput | null): void
+  (e: 'node-click', node: OrgGetListOutput | null): void
   (e: 'update:modelValue', node: any[] | undefined | null): void
 }>()
 
-const onFilterNode = (value: string, data: OrgListOutput) => {
+const onFilterNode = (value: string, data: OrgGetListOutput) => {
   if (!value) return true
   return data.name?.indexOf(value) !== -1
 }
 
-const onNodeClick = (node: OrgListOutput) => {
+const onNodeClick = (node: OrgGetListOutput) => {
   if (state.lastKey === node.id) {
     state.lastKey = 0
     orgMenuRef.value?.setCurrentKey(undefined)
