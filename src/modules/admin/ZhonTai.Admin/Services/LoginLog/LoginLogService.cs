@@ -37,8 +37,11 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     [HttpPost]
     public async Task<PageOutput<LoginLogGetPageOutput>> GetPageAsync(PageInput<LoginLogGetPageInput> input)
     {
-        var select = _loginLogRep.Select.DisableGlobalFilter()
-        .WhereDynamicFilter(input.DynamicFilter);
+        var select = _loginLogRep.Select.WhereDynamicFilter(input.DynamicFilter);
+        if (User.PlatformAdmin)
+        {
+            select = select.DisableGlobalFilter();
+        }
 
         if(input.Filter != null)
         {
