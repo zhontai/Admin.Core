@@ -2501,6 +2501,7 @@ export interface PermissionAddMenuInput {
 
 /** 权限分配 */
 export interface PermissionAssignInput {
+  /** 平台 */
   platform?: string | null
   /** @format int64 */
   roleId: number
@@ -2795,13 +2796,6 @@ export interface PermissionGetMenuOutput {
    * @format int64
    */
   id: number
-}
-
-/** 保存租户权限 */
-export interface PermissionSaveTenantPermissionsInput {
-  /** @format int64 */
-  tenantId: number
-  permissionIds: number[]
 }
 
 /**
@@ -3165,6 +3159,8 @@ export interface PkgGetPkgTenantListOutput {
 
 /** 设置套餐权限 */
 export interface PkgSetPkgPermissionsInput {
+  /** 平台 */
+  platform?: string | null
   /** @format int64 */
   pkgId: number
   permissionIds: number[]

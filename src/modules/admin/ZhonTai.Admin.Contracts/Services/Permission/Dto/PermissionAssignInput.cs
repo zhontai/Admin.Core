@@ -8,6 +8,9 @@ namespace ZhonTai.Admin.Services.Permission.Dto;
 /// </summary>
 public class PermissionAssignInput
 {
+    /// <summary>
+    /// 平台
+    /// </summary>
     public string Platform { get; set; } = AdminConsts.WebName;
 
     [Required(ErrorMessage = "角色不能为空")]

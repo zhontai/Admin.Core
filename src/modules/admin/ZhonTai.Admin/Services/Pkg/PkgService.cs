@@ -13,6 +13,7 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Pkg.Dto;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using System.Linq.Expressions;
 
 namespace ZhonTai.Admin.Services.Pkg;
 
@@ -194,35 +195,50 @@ public class PkgService : BaseService, IDynamicApi
     [AdminTransaction]
     public virtual async Task SetPkgPermissionsAsync(PkgSetPkgPermissionsInput input)
     {
+        var platform = input?.Platform;
+        Expression<Func<PkgPermissionEntity, bool>> where = null;
+        if (platform.NotNull())
+        {
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+        }
+        else
+        {
+            where = where.And(a => string.IsNullOrEmpty(a.Platform));
+        }
+
         //查询套餐权限
-        var permissionIds = await _pkgPermissionRep.Value.Select.Where(d => d.PkgId == input.PkgId).ToListAsync(m => m.PermissionId);
+        var permissionIds = await _pkgPermissionRep.Value.Select.Where(where).Where(a => a.PkgId == input.PkgId).ToListAsync(a => a.PermissionId);
 
         //批量删除套餐权限
         var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
         if (deleteIds.Any())
         {
             //删除套餐权限
-            await _pkgPermissionRep.Value.DeleteAsync(m => m.PkgId == input.PkgId && deleteIds.Contains(m.PermissionId));
+            await _pkgPermissionRep.Value.Where(where).Where(a => a.PkgId == input.PkgId && deleteIds.Contains(a.PermissionId)).ToDelete().ExecuteAffrowsAsync();
             //删除套餐下关联的角色权限
             await _rolePermissionRep.Value.DeleteAsync(a => deleteIds.Contains(a.PermissionId));
         }
 
         //批量插入套餐权限
         var pkgPermissions = new List<PkgPermissionEntity>();
-        var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
+        var insertPermissionIds = input.PermissionIds.Where(a => !permissionIds.Contains(a));
         if (insertPermissionIds.Any())
         {
             foreach (var permissionId in insertPermissionIds)
             {
                 pkgPermissions.Add(new PkgPermissionEntity()
                 {
+                    Platform = platform,
                     PkgId = input.PkgId,
                     PermissionId = permissionId,
                 });
             }
             await _pkgPermissionRep.Value.InsertAsync(pkgPermissions);
         }
-
         
         var tenantIds = await _tenantPkgRep.Select.Where(a => a.PkgId == input.PkgId).ToListAsync(a => a.TenantId);
         //清除租户下所有用户权限缓存

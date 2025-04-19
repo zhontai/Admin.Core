@@ -151,7 +151,11 @@ const onCancel = () => {
 const onSure = async () => {
   state.sureLoading = true
   const permissionIds = permissionTreeRef.value?.getCheckedKeys(true)
-  const input = { pkgId: state.pkgId, permissionIds: permissionIds } as PkgSetPkgPermissionsInput
+  const input = {
+    platform: state.platform,
+    pkgId: state.pkgId,
+    permissionIds: permissionIds,
+  } as PkgSetPkgPermissionsInput
   const res = await new PkgApi().setPkgPermissions(input, { showSuccessMessage: true }).catch(() => {
     state.sureLoading = false
   })
