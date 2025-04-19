@@ -26,7 +26,6 @@ using ZhonTai.Admin.Services.User.Dto;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
@@ -395,20 +394,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
                 var db = cloud.Use(DbKeys.AppDb);
 
-                //租户接口
-                var tenantApis = await db.Select<ApiEntity>()
-                .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()
-                    .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
-                    .Where((b, c) => c.ApiId == a.Id).Any())
-                .ToListAsync<UserGetPermissionOutput.Models.ApiModel>();
-
-                //租户权限点编码
-                var tenantCodes = await db.Select<PermissionEntity>()
-                .Where(p => db.Select<TenantPermissionEntity>()
-                    .InnerJoin(tp => tp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
-                    && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
-                .ToListAsync(p => p.Code);
-
                 //套餐接口
                 var pkgApis = await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPkgEntity, PkgPermissionEntity, PermissionApiEntity>()
@@ -423,9 +408,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
                 .ToListAsync(p => p.Code);
 
-                output.Apis = tenantApis.Union(pkgApis).Distinct().ToList();
+                output.Apis = pkgApis.Distinct().ToList();
 
-                output.Codes = tenantCodes.Union(pkgCodes).Distinct().ToList();
+                output.Codes = pkgCodes.Distinct().ToList();
 
                 return output;
             }

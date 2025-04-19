@@ -27,7 +27,6 @@ using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
@@ -343,10 +342,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -416,10 +411,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 if (User.TenantAdmin)
                 {
                     dotSelect = dotSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -475,20 +466,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
                    );
 
                     dotSelect = dotSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()

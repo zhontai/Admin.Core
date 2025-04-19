@@ -7,7 +7,6 @@ using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
@@ -172,12 +171,6 @@ public class CustomGenerateData : GenerateData, IGenerateData
 
         #endregion
 
-        #region 租户权限
-
-        var tenantPermissions = await db.Queryable<TenantPermissionEntity>().ToListAsync();
-
-        #endregion
-
         #region 权限接口
 
         var permissionApis = await db.Queryable<PermissionApiEntity>().ToListAsync();
@@ -227,7 +220,6 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<PermissionApiEntity>(permissionApis);
         SaveDataToJsonFile<RolePermissionEntity>(rolePermissions);
         SaveDataToJsonFile<TenantEntity>(tenants);
-        SaveDataToJsonFile<TenantPermissionEntity>(tenantPermissions);
         #endregion
     }
 }

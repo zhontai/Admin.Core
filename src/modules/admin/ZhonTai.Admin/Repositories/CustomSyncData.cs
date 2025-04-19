@@ -7,7 +7,6 @@ using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.View;
 using ZhonTai.Admin.Core.Configs;
@@ -206,56 +205,6 @@ public class CustomSyncData : SyncData, ISyncData
     record TenantPermissionRecord(long TenantId, long PermissionId);
 
     /// <summary>
-    /// 初始化租户权限
-    /// </summary>
-    /// <param name="db"></param>
-    /// <param name="unitOfWork"></param>
-    /// <param name="dbConfig"></param>
-    /// <returns></returns>
-    private async Task InitTenantPermissionAsync(IFreeSql db, IRepositoryUnitOfWork unitOfWork, DbConfig dbConfig)
-    {
-        var tableName = GetTableName<TenantPermissionEntity>();
-        try
-        {
-            if (!IsSyncData(tableName, dbConfig))
-            {
-                return;
-            }
-
-            var rep = db.GetRepository<TenantPermissionEntity>();
-            rep.UnitOfWork = unitOfWork;
-
-            //数据列表
-            var sourceDataList = GetData<TenantPermissionEntity>(path: dbConfig.SyncDataPath);
-
-            if (!(sourceDataList?.Length > 0))
-            {
-                Console.WriteLine($"table: {tableName} import data []");
-                return;
-            }
-
-            //查询
-            var tenantPermissionRecordList = sourceDataList.Adapt<List<TenantPermissionRecord>>();
-            var dataList = await rep.Where(a => rep.Orm.Select<TenantPermissionRecord>().WithMemory(tenantPermissionRecordList).Where(b => b.TenantId == a.TenantId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
-
-            //新增
-            var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.TenantId == b.TenantId && a.PermissionId == b.PermissionId).Any())).ToList();
-            if (insertDataList.Any())
-            {
-                await rep.InsertAsync(insertDataList);
-            }
-
-            Console.WriteLine($"table: {tableName} sync data succeed");
-        }
-        catch (Exception ex)
-        {
-            var msg = $"table: {tableName} sync data failed.\n{ex.Message}";
-            Console.WriteLine(msg);
-            throw new Exception(msg);
-        }
-    }
-
-    /// <summary>
     /// 权限接口记录
     /// </summary>
     /// <param name="PermissionId"></param>
@@ -343,7 +292,6 @@ public class CustomSyncData : SyncData, ISyncData
             await InitUserOrgAsync(db, unitOfWork, dbConfig);
             await InitPermissionApiAsync(db, unitOfWork, dbConfig);
             await InitRolePermissionAsync(db, unitOfWork, dbConfig);
-            await InitTenantPermissionAsync(db, unitOfWork, dbConfig);
 
             unitOfWork.Commit();
         }

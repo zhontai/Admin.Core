@@ -17,8 +17,6 @@ public partial interface IPermissionService
 
     Task<List<long>> GetRolePermissionListAsync(long roleId);
 
-    Task<List<long>> GetTenantPermissionListAsync(long tenantId);
-
     Task<List<PermissionGetListOutput>> GetListAsync(PermissionGetListInput input);
 
     Task<long> AddGroupAsync(PermissionAddGroupInput input);
@@ -38,6 +36,4 @@ public partial interface IPermissionService
     Task SoftDeleteAsync(long id);
 
     Task AssignAsync(PermissionAssignInput input);
-
-    Task SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input);
 }

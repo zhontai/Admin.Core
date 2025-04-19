@@ -12,14 +12,13 @@
       <div class="my-header">
         <div :id="titleId" :class="titleClass">
           设置{{ innerTitle }}
-          <el-select v-model="state.platform" placeholder="请选择所属平台" style="width: 100px" @change="onChange">
+          <el-select v-model="state.platform" placeholder="请选择所属平台" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
           菜单权限
         </div>
       </div>
     </template>
-    <div></div>
     <div>
       <el-tree
         ref="permissionTreeRef"
@@ -96,10 +95,6 @@ const getDictList = async () => {
 const getRolePermissionList = async () => {
   const res = await new PermissionApi().getRolePermissionList({ roleId: state.roleId })
   state.checkedKeys = res?.success ? (res.data as never[]) : []
-}
-
-const onChange = () => {
-  onQuery()
 }
 
 // 打开对话框
