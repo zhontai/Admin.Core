@@ -6,14 +6,14 @@
 public class PermissionAddMenuInput
 {
     /// <summary>
-    /// 父级节点
-    /// </summary>
-    public long ParentId { get; set; }
-
-    /// <summary>
     /// 平台
     /// </summary>
     public string Platform { get; set; }
+
+    /// <summary>
+    /// 父级节点
+    /// </summary>
+    public long ParentId { get; set; }
 
     /// <summary>
     /// 视图

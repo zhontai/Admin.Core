@@ -1,245 +1,200 @@
 <template>
-  <el-drawer v-model="state.visible" direction="ltr" destroy-on-close size="100%" @closed="onClosed">
-    <template #header="{ titleId, titleClass }">
-      <div class="my-flex my-flex-between mr10">
-        <span :id="titleId" :class="titleClass">{{ title }}</span>
-        <div>
-          <el-tooltip content="刷新" placement="bottom">
-            <el-button link @click="onRefresh">
-              <template #icon>
-                <el-icon size="18px">
-                  <ele-Refresh></ele-Refresh>
-                </el-icon>
-              </template>
-            </el-button>
-          </el-tooltip>
-        </div>
+  <div class="h100 w100 my-design" style="position: relative">
+    <div class="my-flex w100 h100">
+      <div style="width: 220px; min-width: 220px; border-right: 1px solid var(--el-border-color)">
+        <el-tabs tab-position="top" stretch class="h100 left-box">
+          <el-tab-pane label="组件">
+            <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
+              <!-- 拖拽组件 -->
+              <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
+            </el-scrollbar>
+          </el-tab-pane>
+          <el-tab-pane label="数据源">
+            <MyJsonEditor
+              v-model="printData"
+              :options="{
+                mode: 'text',
+                mainMenuBar: true,
+                statusBar: false,
+                showErrorTable: false,
+                modes: [],
+              }"
+            ></MyJsonEditor>
+          </el-tab-pane>
+        </el-tabs>
       </div>
-    </template>
-    <div class="h100 w100 my-design" style="position: relative">
-      <div class="my-flex w100 h100">
-        <div style="width: 220px; min-width: 220px; border-right: 1px solid var(--el-border-color)">
-          <el-tabs tab-position="top" stretch class="h100 left-box">
-            <el-tab-pane label="组件">
-              <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
-                <!-- 拖拽组件 -->
-                <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
-              </el-scrollbar>
-            </el-tab-pane>
-            <el-tab-pane label="打印数据">
-              <MyJsonEditor
-                v-model="state.printTemplate.printData"
-                :options="{
-                  mode: 'text',
-                  mainMenuBar: true,
-                  statusBar: false,
-                  showErrorTable: false,
-                  modes: [],
-                }"
-              ></MyJsonEditor>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-        <div class="my-fill" style="overflow: hidden; min-width: 355px" v-loading="state.refreshLoading">
-          <!-- 操作栏 -->
-          <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
-            <div class="my-flex my-flex-wrap my-flex-items-end">
-              <div class="my-flex my-flex-wrap">
-                <!-- 纸张 -->
-                <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
-                  <el-option v-for="item in state.paperTypes" :key="item.type" :label="item.type" :value="item.type" />
-                </el-select>
-                <!-- 自定义纸张 -->
-                <el-tooltip content="自定义纸张" placement="top">
-                  <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" size="small" class="mr10 mb10">
+      <div class="my-fill" style="overflow: hidden; min-width: 355px">
+        <!-- 操作栏 -->
+        <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
+          <div class="my-flex my-flex-wrap">
+            <div class="my-flex my-flex-wrap">
+              <!-- 纸张 -->
+              <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
+                <el-option v-for="item in state.paperTypes" :key="item.type" :label="item.type" :value="item.type" />
+              </el-select>
+              <!-- 自定义纸张 -->
+              <el-tooltip content="自定义纸张" placement="top">
+                <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" size="small" class="mr10 mb10">
+                  <el-icon>
+                    <my-icon name="customSize" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-popover ref="popoverRef" :virtual-ref="paperRef" trigger="click" virtual-triggering :width="300" title="设置纸张宽高(mm)">
+                <p class="my-flex my-flex-items-center my-flex-between">
+                  <el-input-number
+                    v-model="state.customPaper.width"
+                    placeholder="宽"
+                    :precision="1"
+                    :step="1"
+                    min="0"
+                    controls-position="right"
+                    style="width: 110px"
+                  >
+                  </el-input-number>
+                  ~
+                  <el-input-number
+                    v-model="state.customPaper.height"
+                    placeholder="高"
+                    :precision="1"
+                    :step="1"
+                    min="0"
+                    controls-position="right"
+                    style="width: 110px"
+                  >
+                  </el-input-number>
+                </p>
+                <div class="mt10">
+                  <el-button size="small" type="primary" class="w100" @click="onCustomPaper"> 确定 </el-button>
+                </div>
+              </el-popover>
+
+              <!-- 缩放 -->
+              <el-input-number
+                v-model="state.scaleValue"
+                size="small"
+                :precision="1"
+                :step="0.1"
+                min="0.5"
+                max="5"
+                class="mr10 mb10"
+                @change="onChangeScale"
+                style="width: 90px"
+              >
+                <template #decrease-icon>
+                  <SvgIcon name="ele-ZoomOut" />
+                </template>
+                <template #increase-icon>
+                  <SvgIcon name="ele-ZoomIn" />
+                </template>
+              </el-input-number>
+            </div>
+            <div class="my-fill my-flex my-flex-between">
+              <!-- 排版 -->
+              <el-button-group size="small" class="my-flex mr10 mb10">
+                <el-tooltip content="左对齐" placement="top">
+                  <el-button @click="onSetElsAlign('left')">
                     <el-icon>
-                      <my-icon name="customSize" color="var(--color)"></my-icon>
+                      <my-icon name="left" color="var(--color)"></my-icon>
                     </el-icon>
                   </el-button>
                 </el-tooltip>
-                <el-popover ref="popoverRef" :virtual-ref="paperRef" trigger="click" virtual-triggering :width="300" title="设置纸张宽高(mm)">
-                  <p class="my-flex my-flex-items-center my-flex-between">
-                    <el-input-number
-                      v-model="state.customPaper.width"
-                      placeholder="宽"
-                      :precision="1"
-                      :step="1"
-                      min="0"
-                      controls-position="right"
-                      style="width: 110px"
-                    >
-                    </el-input-number>
-                    ~
-                    <el-input-number
-                      v-model="state.customPaper.height"
-                      placeholder="高"
-                      :precision="1"
-                      :step="1"
-                      min="0"
-                      controls-position="right"
-                      style="width: 110px"
-                    >
-                    </el-input-number>
-                  </p>
-                  <div class="mt10">
-                    <el-button size="small" type="primary" class="w100" @click="onCustomPaper"> 确定 </el-button>
-                  </div>
-                </el-popover>
-
-                <!-- 缩放 -->
-                <el-input-number
-                  v-model="state.scaleValue"
-                  size="small"
-                  :precision="1"
-                  :step="0.1"
-                  min="0.5"
-                  max="5"
-                  class="mr10 mb10"
-                  @change="onChangeScale"
-                  style="width: 90px"
-                >
-                  <template #decrease-icon>
-                    <SvgIcon name="ele-ZoomOut" />
-                  </template>
-                  <template #increase-icon>
-                    <SvgIcon name="ele-ZoomIn" />
-                  </template>
-                </el-input-number>
-
-                <!-- 排版 -->
-                <el-button-group size="small" class="my-flex mr10 mb10">
-                  <el-tooltip content="左对齐" placement="top">
-                    <el-button @click="onSetElsAlign('left')">
-                      <el-icon>
-                        <my-icon name="left" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="居中" placement="top">
-                    <el-button @click="onSetElsAlign('vertical')">
-                      <el-icon>
-                        <my-icon name="vertical" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="右对齐" placement="top">
-                    <el-button @click="onSetElsAlign('right')">
-                      <el-icon>
-                        <my-icon name="right" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="顶对齐" placement="top">
-                    <el-button @click="onSetElsAlign('top')">
-                      <el-icon>
-                        <my-icon name="top" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="垂直居中" placement="top">
-                    <el-button @click="onSetElsAlign('horizontal')">
-                      <el-icon>
-                        <my-icon name="horizontal" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="底对齐" placement="top">
-                    <el-button @click="onSetElsAlign('bottom')">
-                      <el-icon>
-                        <my-icon name="bottom" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="横向分散" placement="top">
-                    <el-button @click="onSetElsAlign('distributeHor')">
-                      <el-icon>
-                        <my-icon name="distributeHor" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="纵向分散" placement="top">
-                    <el-button @click="onSetElsAlign('distributeVer')">
-                      <el-icon>
-                        <my-icon name="distributeVer" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="旋转" placement="top">
-                    <el-button @click="onRotatePaper">
-                      <el-icon>
-                        <my-icon name="rotate" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                </el-button-group>
-              </div>
-              <div class="my-fill my-flex my-flex-between">
-                <!-- 操作 -->
-                <el-button-group size="small" class="my-flex mr10 mb10">
-                  <el-tooltip content="预览" placement="top">
-                    <el-button icon="ele-View" @click="onPreView"></el-button>
-                  </el-tooltip>
-                  <el-tooltip content="清空" placement="top">
-                    <el-button icon="ele-Delete" @click="onClearPaper"></el-button>
-                  </el-tooltip>
-                  <el-tooltip content="打印" placement="top">
-                    <el-button icon="ele-Printer" @click="onPrint"> </el-button>
-                  </el-tooltip>
-                  <el-tooltip content="查看模板JSON" placement="top">
-                    <el-button @click="onViewJson">
-                      <el-icon>
-                        <my-icon name="json" color="var(--color)"></my-icon>
-                      </el-icon>
-                    </el-button>
-                  </el-tooltip>
-                </el-button-group>
-                <el-button ref="saveRef" size="small" type="primary" plain :loading="state.saveLoading">
-                  <template #icon>
+                <el-tooltip content="居中" placement="top">
+                  <el-button @click="onSetElsAlign('vertical')">
                     <el-icon>
-                      <my-icon name="save" color="var(--color)"></my-icon>
+                      <my-icon name="vertical" color="var(--color)"></my-icon>
                     </el-icon>
-                  </template>
-                  保存
-                </el-button>
-                <el-popover
-                  ref="popoverSaveRef"
-                  placement="bottom-end"
-                  :virtual-ref="saveRef"
-                  trigger="click"
-                  virtual-triggering
-                  :width="230"
-                  title="提示"
-                >
-                  <p class="my-flex my-flex-items-center">
-                    <SvgIcon name="ele-Warning" size="16" color="var(--el-color-warning)" class="mr5" />
-                    确定要保存设计模板吗？
-                  </p>
-                  <div class="mt10" style="text-align: right; margin: 0">
-                    <el-button size="small" text @click="onSaveCancel">取消</el-button>
-                    <el-button size="small" type="primary" @click="onSave"> 保存并关闭 </el-button>
-                    <el-button size="small" type="primary" @click="onSave(false)"> 保存 </el-button>
-                  </div>
-                </el-popover>
-              </div>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="右对齐" placement="top">
+                  <el-button @click="onSetElsAlign('right')">
+                    <el-icon>
+                      <my-icon name="right" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="顶对齐" placement="top">
+                  <el-button @click="onSetElsAlign('top')">
+                    <el-icon>
+                      <my-icon name="top" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="垂直居中" placement="top">
+                  <el-button @click="onSetElsAlign('horizontal')">
+                    <el-icon>
+                      <my-icon name="horizontal" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="底对齐" placement="top">
+                  <el-button @click="onSetElsAlign('bottom')">
+                    <el-icon>
+                      <my-icon name="bottom" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="横向分散" placement="top">
+                  <el-button @click="onSetElsAlign('distributeHor')">
+                    <el-icon>
+                      <my-icon name="distributeHor" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="纵向分散" placement="top">
+                  <el-button @click="onSetElsAlign('distributeVer')">
+                    <el-icon>
+                      <my-icon name="distributeVer" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip content="旋转" placement="top">
+                  <el-button @click="onRotatePaper">
+                    <el-icon>
+                      <my-icon name="rotate" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+              </el-button-group>
+
+              <!-- 操作 -->
+              <el-button-group size="small" class="my-flex mr10 mb10">
+                <el-tooltip content="预览" placement="top">
+                  <el-button icon="ele-View" @click="onPreView"></el-button>
+                </el-tooltip>
+                <el-tooltip content="清空" placement="top">
+                  <el-button icon="ele-Delete" @click="onClearPaper"></el-button>
+                </el-tooltip>
+                <el-tooltip content="打印" placement="top">
+                  <el-button icon="ele-Printer" @click="onPrint"> </el-button>
+                </el-tooltip>
+                <el-tooltip content="查看模板JSON" placement="top">
+                  <el-button @click="onViewJson">
+                    <el-icon>
+                      <my-icon name="json" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </el-button>
+                </el-tooltip>
+              </el-button-group>
             </div>
           </div>
-          <el-scrollbar ref="printTemplateScrollbarRef" height="100%" max-height="100%" :always="false" wrap-style="padding:25px 0px 0px 25px;">
-            <!-- 画布 -->
-            <div ref="designRef" class="hiprint-printTemplate"></div>
-          </el-scrollbar>
         </div>
-        <div style="width: 350px; min-width: 350px; border-left: 1px solid var(--el-border-color)">
-          <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
-            <!-- 配置 -->
-            <div id="hiprint-printElementOptionSetting"></div>
-          </el-scrollbar>
-        </div>
+        <el-scrollbar ref="printTemplateScrollbarRef" height="100%" max-height="100%" :always="false" wrap-style="padding:25px 0px 0px 25px;">
+          <!-- 画布 -->
+          <div ref="designRef" class="hiprint-printTemplate"></div>
+        </el-scrollbar>
+      </div>
+      <div style="width: 350px; min-width: 350px; border-left: 1px solid var(--el-border-color)">
+        <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
+          <!-- 配置 -->
+          <div id="hiprint-printElementOptionSetting"></div>
+        </el-scrollbar>
       </div>
     </div>
+  </div>
 
-    <PrintPreview ref="previewRef" title="预览"></PrintPreview>
-    <ViewJson ref="previewJsonDialogRef" title="查看模板JSON"></ViewJson>
-  </el-drawer>
+  <PrintPreview ref="previewRef"></PrintPreview>
+  <ViewJson ref="previewJsonDialogRef" title="查看模板JSON"></ViewJson>
 </template>
 
 <script lang="ts" setup name="admin/print-template-deisgn">
@@ -248,23 +203,16 @@ import { hiprint } from 'vue-plugin-hiprint'
 import providers from './providers'
 import PrintPreview from './preview.vue'
 import ViewJson from './view-json.vue'
-import { PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
-import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
-import eventBus from '/@/utils/mitt'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
+
+const title = defineModel('title', { type: String })
+const printData = defineModel('printData', { type: String })
 
 interface IPaperType {
   type: string
   width: number
   height: number
 }
-
-const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-})
 
 const state = reactive({
   visible: false,
@@ -316,13 +264,6 @@ const state = reactive({
     },
   ] as IPaperType[],
   showSaveDialog: false,
-  refreshLoading: false,
-  saveLoading: false,
-  printTemplate: {
-    id: 0,
-    version: 0,
-    printData: '{}',
-  },
 })
 
 const { proxy } = getCurrentInstance() as any
@@ -335,10 +276,11 @@ const previewRef = ref()
 const previewJsonDialogRef = ref()
 const epContainerRef = ref()
 const designRef = ref()
-const saveRef = ref()
-const popoverSaveRef = ref()
 
-onMounted(() => {})
+onMounted(() => {
+  buildProvider()
+  buildDesigner()
+})
 
 // 构建拖拽组件
 const buildProvider = () => {
@@ -353,13 +295,6 @@ const buildProvider = () => {
 
 // 构建设计器
 const buildDesigner = (template = {} as any) => {
-  if (template?.panels?.length > 0) {
-    const width = template.panels[0].width
-    const height = template.panels[0].height
-    const paperType = state.paperTypes.find((a) => a.width == width && a.height == height)
-    state.curPaper = { type: paperType?.type || '', width: width, height: height }
-  }
-
   if (designRef.value) {
     designRef.value.innerHTML = ''
   }
@@ -382,6 +317,21 @@ const buildDesigner = (template = {} as any) => {
   hiprintTemplate.value.design(designRef.value)
 
   designRef.value.querySelector('.hiprint-printPaper')?.firstChild.click()
+}
+
+const setPaper = (template = {} as any) => {
+  if (template?.panels?.length > 0) {
+    const width = template.panels[0].width
+    const height = template.panels[0].height
+    const paperType = state.paperTypes.find((a) => a.width == width && a.height == height)
+    state.curPaper = { type: paperType?.type || '', width: width, height: height }
+    if (state.curPaper.type === '') {
+      state.customPaper.width = width
+      state.customPaper.height = height
+    }
+  } else {
+    onSetPaper(state.curPaper.type)
+  }
 }
 
 /**
@@ -436,7 +386,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(state.printTemplate.printData || '{}'), props.title)
+    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(printData.value || '{}'), title.value)
   }
 }
 
@@ -457,7 +407,7 @@ const onClearPaper = () => {
 //打印
 const onPrint = async () => {
   if (hiprintTemplate.value) {
-    hiprintTemplate.value.print(JSON.parse(state.printTemplate.printData || '{}'))
+    hiprintTemplate.value.print(JSON.parse(printData.value || '{}'))
   }
 }
 
@@ -469,94 +419,9 @@ const onViewJson = () => {
   }
 }
 
-//刷新
-const onRefresh = async () => {
-  proxy.$modal
-    .confirm(`确定要刷新设计模板吗？`)
-    .then(async () => {
-      try {
-        if (state.printTemplate.id > 0) {
-          state.refreshLoading = true
-          const res = await new PrintTemplateApi().getUpdateTemplate({ id: state.printTemplate.id }).catch(() => {
-            state.refreshLoading = false
-          })
-          state.refreshLoading = false
-          if (res?.success) {
-            const template = res.data
-            state.printTemplate.id = template?.id as number
-            state.printTemplate.version = template?.version as number
-
-            buildDesigner(JSON.parse(template?.template || '{}'))
-          }
-        }
-      } catch (error) {}
-    })
-    .catch(() => {})
-}
-
-const onSaveCancel = () => {
-  popoverSaveRef.value?.hide?.()
-}
-
-//保存
-const onSave = async (close = true) => {
-  try {
-    if (hiprintTemplate.value) {
-      if (state.printTemplate.id != undefined && state.printTemplate.id > 0) {
-        state.saveLoading = true
-        const res = await new PrintTemplateApi()
-          .updateTemplate(
-            {
-              id: state.printTemplate.id,
-              version: state.printTemplate.version,
-              template: JSON.stringify(hiprintTemplate.value.getJson() || {}),
-              printData: state.printTemplate.printData as string,
-            },
-            { showSuccessMessage: true }
-          )
-          .catch(() => {
-            state.saveLoading = false
-          })
-
-        state.printTemplate.version = state.printTemplate.version + 1
-        state.saveLoading = false
-        onSaveCancel()
-        if (res?.success) {
-          eventBus.emit('refreshPrintTemplate')
-          if (close) state.visible = false
-        }
-      } else {
-        proxy.$modal.msgWarning('请选择打印模板')
-      }
-    }
-  } catch (error) {}
-}
-
-// 打开对话框
-const open = async (row: PrintTemplateGetPageOutput = {}) => {
-  if (row.id && row.id > 0) {
-    const res = await new PrintTemplateApi().getUpdateTemplate({ id: row.id }, { loading: true })
-    if (res?.success) {
-      const template = res.data
-      state.printTemplate.id = template?.id as number
-      state.printTemplate.version = template?.version as number
-      state.printTemplate.printData = template?.printData || ('{}' as string)
-
-      state.visible = true
-      nextTick(() => {
-        buildProvider()
-        buildDesigner(JSON.parse(template?.template || '{}'))
-      })
-    }
-  }
-}
-// 关闭
-const onClosed = () => {
-  state.visible = false
-}
-
 defineExpose({
-  open,
+  hiprintTemplate,
+  setPaper,
 })
 </script>
 

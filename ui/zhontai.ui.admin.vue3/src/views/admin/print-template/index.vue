@@ -64,7 +64,7 @@
     </el-card>
 
     <PrintTemplateForm ref="formRef" :title="state.formTitle"></PrintTemplateForm>
-    <PrintTemplateDesign ref="designRef" :title="state.designTitle"></PrintTemplateDesign>
+    <PrintTemplateDesignDialog ref="designDialogRef" :title="state.designTitle"></PrintTemplateDesignDialog>
   </my-layout>
 </template>
 
@@ -78,13 +78,13 @@ import type { FormInstance } from 'element-plus'
 
 // 引入组件
 const PrintTemplateForm = defineAsyncComponent(() => import('./components/form.vue'))
-const PrintTemplateDesign = defineAsyncComponent(() => import('./components/design.vue'))
+const PrintTemplateDesignDialog = defineAsyncComponent(() => import('./components/design-dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
 const filterFormRef = ref<FormInstance>()
 const formRef = ref()
-const designRef = ref()
+const designDialogRef = ref()
 
 const state = reactive({
   loading: false,
@@ -157,7 +157,7 @@ const onEdit = (row: PrintTemplateGetPageOutput) => {
 
 const onDesign = (row: PrintTemplateGetPageOutput) => {
   state.designTitle = row.name ? row.name : '设计打印模板'
-  designRef.value.open(row)
+  designDialogRef.value.open(row)
 }
 
 const onDelete = (row: PrintTemplateGetPageOutput) => {

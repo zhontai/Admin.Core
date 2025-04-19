@@ -26,7 +26,6 @@ using ZhonTai.Admin.Services.User.Dto;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Domain.RoleOrg;
 using ZhonTai.Admin.Domain.UserOrg;
@@ -40,6 +39,7 @@ using ZhonTai.Admin.Core.Db;
 using DotNetCore.CAP;
 using ZhonTai.Admin.Services.User.Events;
 using Mapster;
+using ZhonTai.Admin.Services.Org;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -67,7 +67,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     private readonly Lazy<ITenantRepository> _tenantRep;
     private readonly Lazy<IOrgRepository> _orgRep;
     private readonly Lazy<IPermissionRepository> _permissionRep;
-   
+    private readonly OrgService _orgService;
 
     public UserService(
         IOptions<AppConfig> appConfig,
@@ -86,7 +86,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         Lazy<IApiRepository> apiRep,
         Lazy<ITenantRepository> tenantRep,
         Lazy<IOrgRepository> orgRep,
-        Lazy<IPermissionRepository> permissionRep
+        Lazy<IPermissionRepository> permissionRep,
+        OrgService orgService
     )
     {
         _appConfig = appConfig.Value;
@@ -106,6 +107,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         _tenantRep = tenantRep;
         _orgRep = orgRep;
         _permissionRep = permissionRep;
+        _orgService = orgService;
     }
 
     /// <summary>
@@ -118,7 +120,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         var userEntity = await _userRep.Select
         .WhereDynamic(id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Id = b.Id, Name = b.Name }))
-        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id, Name = b.Name }))
         .ToOneAsync(a => new
         {
             a.Id,
@@ -127,8 +128,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             a.Mobile,
             a.Email,
             a.Roles,
-            a.Orgs,
-            a.OrgId,
             a.ManagerUserId,
             ManagerUserName = a.ManagerUser.Name,
             Staff = new
@@ -165,34 +164,57 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         .Count(out var total)
         .OrderByDescending(true, a => a.Id)
         .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
+        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id }))
         .Page(input.CurrentPage, input.PageSize)
-        .ToListAsync(a => new UserGetPageOutput { Roles = a.Roles });
+        .ToListAsync(a => new UserGetPageOutput
+        {
+            Roles = a.Roles,
+            Orgs = a.Orgs,
+            Sex = a.Staff.Sex
+        });
 
+        //设置部门
+        var orgs = await _orgService.GetSimpleListWithPathAsync();
+
+        var orgDict = orgs.ToDictionary(a => a.Id, a => a.Path);
+        foreach (var user in list)
+        {
+            if (user.OrgId > 0 && orgDict.TryGetValue(user.OrgId, out var path))
+            {
+                user.OrgPath = path;
+            }
+
+            if(user.OrgIds.Length > 0)
+            {
+                var orgPathList = user.OrgIds.Select(a => orgDict.GetValueOrDefault(a)).Where(a => a != null).ToList();
+                user.OrgPaths = string.Join(" ; ", orgPathList);
+            }
+        }
+
+        //设置主管
         if (orgId.HasValue && orgId > 0)
         {
             var managerUserIds = await _userOrgRep.Select
                 .Where(a => a.OrgId == orgId && a.IsManager == true).ToListAsync(a => a.UserId);
 
-            if (managerUserIds.Any())
+            if (managerUserIds.Count != 0)
             {
                 var managerUsers = list.Where(a => managerUserIds.Contains(a.Id));
-                foreach (var managerUser in managerUsers)
+                foreach (var user in managerUsers)
                 {
-                    managerUser.IsManager = true;
+                    user.IsManager = true;
                 }
             }
         }
 
-        var userList = Mapper.Map<List<UserGetPageOutput>>(list);
-
-        //用户在线离线查询
+        //设置用户在线
         if (_imConfig.Enable)
         {
             var clientIdList = ImHelper.GetClientListByOnline();
-
-            foreach (var user in userList)
+            if (clientIdList.Any())
             {
-                if (clientIdList.Contains(user.Id))
+                var onlineUsers = list.Where(a => clientIdList.Contains(a.Id));
+                foreach (var user in onlineUsers)
                 {
                     user.Online = true;
                 }
@@ -201,7 +223,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         var data = new PageOutput<UserGetPageOutput>()
         {
-            List = userList,
+            List = list,
             Total = total
         };
 
@@ -372,20 +394,6 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
                 var db = cloud.Use(DbKeys.AppDb);
 
-                //租户接口
-                var tenantApis = await db.Select<ApiEntity>()
-                .Where(a => db.Select<TenantPermissionEntity, PermissionApiEntity>()
-                    .InnerJoin((b, c) => b.PermissionId == c.PermissionId && b.TenantId == User.TenantId)
-                    .Where((b, c) => c.ApiId == a.Id).Any())
-                .ToListAsync<UserGetPermissionOutput.Models.ApiModel>();
-
-                //租户权限点编码
-                var tenantCodes = await db.Select<PermissionEntity>()
-                .Where(p => db.Select<TenantPermissionEntity>()
-                    .InnerJoin(tp => tp.PermissionId == p.Id && tp.TenantId == User.TenantId).Any()
-                    && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
-                .ToListAsync(p => p.Code);
-
                 //套餐接口
                 var pkgApis = await db.Select<ApiEntity>()
                 .Where(a => db.Select<TenantPkgEntity, PkgPermissionEntity, PermissionApiEntity>()
@@ -400,9 +408,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                     && p.Type == PermissionType.Dot && p.Code != null && p.Code != "")
                 .ToListAsync(p => p.Code);
 
-                output.Apis = tenantApis.Union(pkgApis).Distinct().ToList();
+                output.Apis = pkgApis.Distinct().ToList();
 
-                output.Codes = tenantCodes.Union(pkgCodes).Distinct().ToList();
+                output.Codes = pkgCodes.Distinct().ToList();
 
                 return output;
             }

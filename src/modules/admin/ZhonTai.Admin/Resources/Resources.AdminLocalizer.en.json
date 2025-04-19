@@ -91,5 +91,13 @@
   "请开启im即时通讯": "Please open im instant messaging",
   "视图不存在": "View does not exist",
   "打印模板不存在": "Print template does not exist",
-  "打印模板已被修改，请刷新后重试": "The print template has been modified, please refresh and try again"
+  "打印模板已被修改，请刷新后重试": "The print template has been modified, please refresh and try again",
+  "此视图已存在": "This view already exists",
+  "上级视图不能是本视图": "The superior view cannot be the same as the current view",
+  "分组不存在": "Group does not exist",
+  "上级分组不能是本分组": "The superior group cannot be the same as the current group",
+  "此分组已存在": "This group already exists",
+  "菜单不存在": "Menu does not exist",
+  "此菜单已存在": "This menu already exists",
+  "此权限点已存在": " This permission point already exists"
 }

@@ -3,7 +3,7 @@
     <el-dialog
       v-model="state.showDialog"
       destroy-on-close
-      :title="title"
+      :title="state.title"
       draggable
       :close-on-click-modal="false"
       :close-on-press-escape="true"
@@ -20,6 +20,7 @@
             </template>
             导出PDF
           </el-button>
+          <el-button type="primary" icon="ele-Printer" @click="onPrint">打 印</el-button>
           <el-button @click="onCancel" size="default">关 闭</el-button>
         </span>
       </template>
@@ -31,13 +32,6 @@
 <script lang="ts" setup>
 import { reactive, ref, nextTick, computed } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
-
-defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-})
 
 const state = reactive({
   showDialog: false,
@@ -85,6 +79,13 @@ const open = async (template: any, printData: {}, title = '打印模板') => {
 // 导出PDF
 const onExport = () => {
   hiprintTemplate.value.toPdf(state.printData, state.title)
+}
+
+//打印
+const onPrint = async () => {
+  if (hiprintTemplate.value) {
+    hiprintTemplate.value.print(state.printData)
+  }
 }
 
 // 取消

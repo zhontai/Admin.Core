@@ -3,7 +3,7 @@
 /// <summary>
 /// 视图列表
 /// </summary>
-public class ViewListOutput
+public class ViewGetListOutput
 {
     /// <summary>
     /// 视图Id

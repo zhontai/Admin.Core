@@ -13,13 +13,11 @@ public partial interface IPermissionService
 
     Task<PermissionGetDotOutput> GetDotAsync(long id);
 
-    Task<IEnumerable<dynamic>> GetPermissionListAsync();
+    Task<IEnumerable<dynamic>> GetPermissionListAsync(string platform);
 
     Task<List<long>> GetRolePermissionListAsync(long roleId);
 
-    Task<List<long>> GetTenantPermissionListAsync(long tenantId);
-
-    Task<List<PermissionListOutput>> GetListAsync(string key, DateTime? start, DateTime? end);
+    Task<List<PermissionGetListOutput>> GetListAsync(PermissionGetListInput input);
 
     Task<long> AddGroupAsync(PermissionAddGroupInput input);
 
@@ -38,6 +36,4 @@ public partial interface IPermissionService
     Task SoftDeleteAsync(long id);
 
     Task AssignAsync(PermissionAssignInput input);
-
-    Task SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input);
 }

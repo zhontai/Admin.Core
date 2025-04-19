@@ -11,7 +11,14 @@
  */
 
 import { AxiosResponse } from 'axios'
-import { OrgAddInput, OrgUpdateInput, ResultOutputInt64, ResultOutputListOrgListOutput, ResultOutputOrgGetOutput } from './data-contracts'
+import {
+  OrgAddInput,
+  OrgUpdateInput,
+  ResultOutputInt64,
+  ResultOutputListOrgGetListOutput,
+  ResultOutputListOrgGetSimpleListWithPathOutput,
+  ResultOutputOrgGetOutput,
+} from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
 export class OrgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
@@ -54,10 +61,27 @@ export class OrgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputListOrgListOutput, any>({
+    this.request<ResultOutputListOrgGetListOutput, any>({
       path: `/api/admin/org/get-list`,
       method: 'GET',
       query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags org
+   * @name GetSimpleListWithPath
+   * @summary 获取部门路径列表
+   * @request GET:/api/admin/org/get-simple-list-with-path
+   * @secure
+   */
+  getSimpleListWithPath = (params: RequestParams = {}) =>
+    this.request<ResultOutputListOrgGetSimpleListWithPathOutput, any>({
+      path: `/api/admin/org/get-simple-list-with-path`,
+      method: 'GET',
       secure: true,
       format: 'json',
       ...params,

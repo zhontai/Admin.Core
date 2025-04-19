@@ -7,7 +7,6 @@ using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.RolePermission;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
@@ -19,6 +18,9 @@ using ZhonTai.Admin.Services.Permission.Dto;
 using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Domain.View;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -36,7 +38,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     private readonly Lazy<IRoleRepository> _roleRep;
     private readonly Lazy<IUserRepository> _userRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
-    private readonly Lazy<ITenantPermissionRepository> _tenantPermissionRep;
     private readonly Lazy<IUserRoleRepository> _userRoleRep;
     
 
@@ -48,7 +49,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         Lazy<IRoleRepository> roleRep,
         Lazy<IUserRepository> userRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
-        Lazy<ITenantPermissionRepository> tenantPermissionRep,
         Lazy<IUserRoleRepository> userRoleRep
     )
     {
@@ -59,7 +59,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         _roleRep = roleRep;
         _userRep = userRep;
         _rolePermissionRep = rolePermissionRep;
-        _tenantPermissionRep = tenantPermissionRep;
         _userRoleRep = userRoleRep;
     }
 
@@ -122,26 +121,40 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <summary>
     /// 查询权限列表
     /// </summary>
-    /// <param name="key"></param>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
+    /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<List<PermissionListOutput>> GetListAsync(string key, DateTime? start, DateTime? end)
+    [HttpPost]
+    public async Task<List<PermissionGetListOutput>> GetListAsync(PermissionGetListInput input)
     {
-        if (end.HasValue)
+        var platform = input?.Platform?.Trim();
+        var label = input?.Label?.Trim();
+        var path = input?.Path?.Trim();
+
+        var select = _permissionRep.Select;
+        if (platform.NotNull())
         {
-            end = end.Value.AddDays(1);
+            Expression<Func<PermissionEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
+        }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
         }
 
-        var data = await _permissionRep
-            .WhereIf(key.NotNull(), a => a.Path.Contains(key) || a.Label.Contains(key))
-            .WhereIf(start.HasValue && end.HasValue, a => a.CreatedTime.Value.BetweenEnd(start.Value, end.Value))
+        var data = await select
+            .WhereIf(label.NotNull(), a => a.Label.Contains(label))
+            .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .Include(a => a.View)
             .OrderBy(a => new { a.ParentId, a.Sort })
-            .ToListAsync(a=> new PermissionListOutput 
+            .ToListAsync(a => new PermissionGetListOutput
             {
                 ViewPath = a.View.Path,
-                ApiPaths = string.Join(";", _permissionApiRep.Where(b=>b.PermissionId == a.Id).ToList(b => b.Api.Path)) 
+                ApiPaths = string.Join(";", _permissionApiRep.Where(b => b.PermissionId == a.Id).ToList(b => b.Api.Path))
             });
 
         return data;
@@ -150,18 +163,29 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <summary>
     /// 查询授权权限列表
     /// </summary>
+    /// <param name="platform"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<dynamic>> GetPermissionListAsync()
+    public async Task<IEnumerable<dynamic>> GetPermissionListAsync(string platform)
     {
-        var permissions = await _permissionRep.Select
+        var select = _permissionRep.Select;
+        if (platform.NotNull())
+        {
+            Expression<Func<PermissionEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
+        }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
+        }
+
+        var permissions = await select
             .Where(a => a.Enabled == true)
             .WhereIf(_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
-                _tenantPermissionRep.Value
-                .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                .Any()
-
-                ||
-
                 _permissionRep.Orm.Select<TenantPkgEntity, PkgPermissionEntity>()
                 .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                 .Any()
@@ -196,27 +220,17 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询租户权限列表
-    /// </summary>
-    /// <param name="tenantId"></param>
-    /// <returns></returns>
-    [Obsolete("请使用查询套餐权限列表PkgService.GetPkgPermissionListAsync")]
-    public async Task<List<long>> GetTenantPermissionListAsync(long tenantId)
-    {
-        var permissionIds = await _tenantPermissionRep.Value
-            .Select.Where(d => d.TenantId == tenantId)
-            .ToListAsync(a => a.PermissionId);
-
-        return permissionIds;
-    }
-
-    /// <summary>
     /// 新增分组
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     public async Task<long> AddGroupAsync(PermissionAddGroupInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此分组已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Group;
 
@@ -237,6 +251,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddMenuAsync(PermissionAddMenuInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此菜单已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Menu;
         if (entity.Sort == 0)
@@ -257,6 +276,21 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     [AdminTransaction]
     public virtual async Task<long> AddDotAsync(PermissionAddDotInput input)
     {
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点编码已存在"]);
+        }
+
         var entity = Mapper.Map<PermissionEntity>(input);
         entity.Type = PermissionType.Dot;
         if (entity.Sort == 0)
@@ -283,6 +317,21 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task UpdateGroupAsync(PermissionUpdateGroupInput input)
     {
         var entity = await _permissionRep.GetAsync(input.Id);
+        if (!(entity?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["分组不存在"]);
+        }
+
+        if (input.Id == input.ParentId)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级分组不能是本分组"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此分组已存在"]);
+        }
+
         entity = Mapper.Map(input, entity);
         await _permissionRep.UpdateAsync(entity);
     }
@@ -295,6 +344,16 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     public async Task UpdateMenuAsync(PermissionUpdateMenuInput input)
     {
         var entity = await _permissionRep.GetAsync(input.Id);
+        if (!(entity?.Id > 0))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["菜单不存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此菜单已存在"]);
+        }
+
         entity = Mapper.Map(input, entity);
         await _permissionRep.UpdateAsync(entity);
     }
@@ -311,6 +370,11 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["权限点不存在"]);
+        }
+
+        if (await _permissionRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此权限点已存在"]);
         }
 
         Mapper.Map(input, entity);
@@ -386,28 +450,40 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["该角色不存在或已被删除"]);
         }
 
+        var platform = input?.Platform;
+        Expression<Func<RolePermissionEntity, bool>> where = null;
+        if (platform.NotNull())
+        {
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+        }
+        else
+        {
+            where = where.And(a => string.IsNullOrEmpty(a.Platform));
+        }
+
         //查询角色权限
-        var permissionIds = await _rolePermissionRep.Value.Select.Where(d => d.RoleId == input.RoleId).ToListAsync(m => m.PermissionId);
+        var permissionIds = await _rolePermissionRep.Value.Where(where).Where(a => a.RoleId == input.RoleId).ToListAsync(a => a.PermissionId);
 
         //批量删除权限
-        var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
+        var deleteIds = permissionIds.Where(a => !input.PermissionIds.Contains(a));
         if (deleteIds.Any())
         {
-            await _rolePermissionRep.Value.DeleteAsync(m => m.RoleId == input.RoleId && deleteIds.Contains(m.PermissionId));
+            await _rolePermissionRep.Value.Where(where).Where(a => a.RoleId == input.RoleId && deleteIds.Contains(a.PermissionId)).ToDelete().ExecuteAffrowsAsync();
         }
 
         //批量插入权限
         var insertRolePermissions = new List<RolePermissionEntity>();
-        var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
+        var insertPermissionIds = input.PermissionIds.Where(a => !permissionIds.Contains(a));
 
         //防止租户非法授权，查询主库租户权限范围
         if (_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
             var mainDb = cloud.Use(DbKeys.AppDb);
-            var tenantPermissionIds = await mainDb.Select<TenantPermissionEntity>()
-                .Where(a => a.TenantId == User.TenantId).ToListAsync(a => a.PermissionId);
-
             var pkgPermissionIds = await mainDb.Select<PkgPermissionEntity>()
                 .Where(a => 
                     mainDb.Select<TenantPkgEntity>()
@@ -416,7 +492,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
                 )
                 .ToListAsync(a => a.PermissionId);
 
-            insertPermissionIds = insertPermissionIds.Where(d => tenantPermissionIds.Contains(d) || pkgPermissionIds.Contains(d));
+            insertPermissionIds = insertPermissionIds.Where(a => pkgPermissionIds.Contains(a));
         }
 
         if (insertPermissionIds.Any())
@@ -425,6 +501,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
             {
                 insertRolePermissions.Add(new RolePermissionEntity()
                 {
+                    Platform = platform,
                     RoleId = input.RoleId,
                     PermissionId = permissionId,
                 });
@@ -437,55 +514,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         foreach (var userId in userIds)
         {
             await Cache.DelAsync(CacheKeys.UserPermission + userId);
-        }
-    }
-
-    /// <summary>
-    /// 保存租户权限
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    [AdminTransaction]
-    [Obsolete("请使用设置套餐权限PkgService.SetPkgPermissionsAsync")]
-    public virtual async Task SaveTenantPermissionsAsync(PermissionSaveTenantPermissionsInput input)
-    {
-        //查询租户权限
-        var permissionIds = await _tenantPermissionRep.Value.Select.Where(d => d.TenantId == input.TenantId).ToListAsync(m => m.PermissionId);
-
-        //批量删除租户权限
-        var deleteIds = permissionIds.Where(d => !input.PermissionIds.Contains(d));
-        if (deleteIds.Any())
-        {
-            await _tenantPermissionRep.Value.DeleteAsync(m => m.TenantId == input.TenantId && deleteIds.Contains(m.PermissionId));
-            //删除租户下关联的角色权限
-            await _rolePermissionRep.Value.DeleteAsync(a => deleteIds.Contains(a.PermissionId));
-        }
-
-        //批量插入租户权限
-        var tenatPermissions = new List<TenantPermissionEntity>();
-        var insertPermissionIds = input.PermissionIds.Where(d => !permissionIds.Contains(d));
-        if (insertPermissionIds.Any())
-        {
-            foreach (var permissionId in insertPermissionIds)
-            {
-                tenatPermissions.Add(new TenantPermissionEntity()
-                {
-                    TenantId = input.TenantId,
-                    PermissionId = permissionId,
-                });
-            }
-            await _tenantPermissionRep.Value.InsertAsync(tenatPermissions);
-        }
-
-        //清除租户下所有用户权限缓存
-        using var _ = _userRep.Value.DataFilter.Disable(FilterNames.Tenant);
-        var userIds = await _userRep.Value.Select.Where(a => a.TenantId == input.TenantId).ToListAsync(a => a.Id);
-        if(userIds.Any())
-        {
-            foreach (var userId in userIds)
-            {
-                await Cache.DelAsync(CacheKeys.UserPermission + userId);
-            }
         }
     }
 }

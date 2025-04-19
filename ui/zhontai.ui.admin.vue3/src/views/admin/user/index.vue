@@ -47,16 +47,23 @@
                 {{ row.userName }}
               </template>
             </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120" show-overflow-tooltip>
-              <template #default="{ row }"> {{ row.name }} <el-tag v-if="row.isManager" type="success">主管</el-tag> </template>
-            </el-table-column>
-            <el-table-column prop="mobile" label="手机号" width="120" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
-            <el-table-column prop="roleNames" label="角色" min-width="140" show-overflow-tooltip>
+            <el-table-column prop="name" label="姓名" width="130" show-overflow-tooltip>
               <template #default="{ row }">
-                {{ row.roleNames ? row.roleNames.join(',') : '' }}
+                <div class="my-flex my-flex-items-center">
+                  {{ row.name }}
+                  <el-icon v-if="row.sex === 1 || row.sex === 2" class="ml4">
+                    <ele-Male v-if="row.sex === 1" color="#409EFF" />
+                    <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
+                  </el-icon>
+                  <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
+                </div>
               </template>
             </el-table-column>
+            <el-table-column prop="mobile" label="手机号" width="120" show-overflow-tooltip />
+            <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
+            <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
+            <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
+            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
             <el-table-column label="状态" width="80" align="center" fixed="right">
               <template #default="{ row }">
                 <el-switch
@@ -124,7 +131,7 @@
 
 <script lang="ts" setup name="admin/user">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
-import { UserGetPageOutput, PageInputUserGetPageInput, OrgListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -383,7 +390,7 @@ const onCurrentChange = (val: number) => {
   onQuery()
 }
 
-const onOrgNodeClick = (node: OrgListOutput | null) => {
+const onOrgNodeClick = (node: OrgGetListOutput | null) => {
   if (state.pageInput.filter) {
     state.pageInput.filter.orgId = node?.id
   }

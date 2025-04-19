@@ -9,6 +9,17 @@
     :close-on-press-escape="false"
     width="780px"
   >
+    <template #header="{ close, titleId, titleClass }">
+      <div class="my-header">
+        <div :id="titleId" :class="titleClass">
+          设置{{ innerTitle }}
+          <el-select v-model="state.platform" placeholder="请选择所属平台" style="width: 100px" @change="onQuery">
+            <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+          </el-select>
+          菜单权限
+        </div>
+      </div>
+    </template>
     <div>
       <el-tree
         ref="permissionTreeRef"
@@ -33,13 +44,20 @@
 </template>
 
 <script lang="ts" setup name="admin/pkg/components/set-pkg-menu">
-import { ref, reactive, getCurrentInstance, computed } from 'vue'
-import { PkgGetListOutput, PkgSetPkgPermissionsInput } from '/@/api/admin/data-contracts'
+import { ref, reactive, getCurrentInstance, computed, markRaw } from 'vue'
+import { PkgGetListOutput, PkgSetPkgPermissionsInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PkgApi } from '/@/api/admin/Pkg'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ElTree } from 'element-plus'
 import { listToTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
+import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+
+/** 字典分类 */
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
 
 const props = defineProps({
   title: {
@@ -60,10 +78,21 @@ const state = reactive({
   pkgId: 0 as number | undefined,
   pkgName: '' as string | undefined | null,
   checkedKeys: [],
+  platform: PlatformType.Web.name,
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 
 const { proxy } = getCurrentInstance() as any
 const permissionTreeRef = ref<InstanceType<typeof ElTree>>()
+
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
 
 const getPkgPermissionList = async () => {
   const res = await new PkgApi().getPkgPermissionList({ pkgId: state.pkgId })
@@ -72,6 +101,7 @@ const getPkgPermissionList = async () => {
 
 // 打开对话框
 const open = async (pkg: PkgGetListOutput) => {
+  await getDictList()
   state.pkgId = pkg.id
   state.pkgName = pkg.name
   proxy.$modal.loading()
@@ -89,7 +119,7 @@ const close = () => {
 const onQuery = async () => {
   state.loading = true
 
-  const res = await new PermissionApi().getPermissionList().catch(() => {
+  const res = await new PermissionApi().getPermissionList({ platform: state.platform }).catch(() => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {

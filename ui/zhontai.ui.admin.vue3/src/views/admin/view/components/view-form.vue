@@ -12,6 +12,13 @@
       <el-form :model="form" ref="formRef" size="default" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级视图">
               <el-tree-select
                 v-model="form.parentId"
@@ -24,14 +31,6 @@
                 clearable
                 class="w100"
               />
-            </el-form-item>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" placeholder="请选择所属平台" class="w100">
-                <el-option label="" :value="undefined" />
-                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
-              </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -83,7 +82,7 @@
 
 <script lang="ts" setup name="admin/view/form">
 import { reactive, toRefs, ref, PropType, markRaw } from 'vue'
-import { ViewListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { ViewGetListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
@@ -95,7 +94,7 @@ defineProps({
     default: '',
   },
   viewTreeData: {
-    type: Array as PropType<ViewListOutput[]>,
+    type: Array as PropType<ViewGetListOutput[]>,
     default: () => [],
   },
 })
@@ -132,15 +131,13 @@ const open = async (row: ViewUpdateInput = { id: 0, enabled: true, cache: true }
   let formData = cloneDeep(row)
   if (row.id > 0) {
     const res = await new ViewApi().get({ id: row.id }, { loading: true })
-
     if (res?.success) {
-      let formData = res.data as ViewUpdateInput
-      formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
-      state.form = formData
+      formData = res.data as ViewUpdateInput
+      formData.platform = row.platform
     }
-  } else {
-    state.form = formData
   }
+  formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+  state.form = formData
 
   state.showDialog = true
 }

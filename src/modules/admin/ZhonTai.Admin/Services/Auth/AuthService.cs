@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Utilities.Encoders;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using ZhonTai.Admin.Core;
@@ -26,7 +27,6 @@ using ZhonTai.Admin.Domain.Permission;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.Tenant;
-using ZhonTai.Admin.Domain.TenantPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
 using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
@@ -302,13 +302,14 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             
         return profile;
     }
-   
+
     /// <summary>
     /// 查询用户菜单列表
     /// </summary>
+    /// <param name="platform"></param>
     /// <returns></returns>
     [Login]
-    public async Task<List<AuthUserMenuOutput>> GetUserMenusAsync()
+    public async Task<List<AuthUserMenuOutput>> GetUserMenusAsync(string platform = AdminConsts.WebName)
     {
         if (!(User?.Id > 0))
         {
@@ -320,16 +321,27 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             var permissionRep = _permissionRep.Value;
             var menuSelect = permissionRep.Select.Where(a => a.Enabled == true);
 
+            Expression<Func<PermissionEntity, bool>> where = null;
+            if (platform.NotNull())
+            {
+                where = where.And(a => a.Platform == platform);
+                if (platform.ToLower() == AdminConsts.WebName)
+                {
+                    where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+                }
+            }
+            else
+            {
+                where = where.And(a => string.IsNullOrEmpty(a.Platform));
+            }
+            menuSelect = menuSelect.Where(where);
+
             if (!User.PlatformAdmin)
             {
                 var db = permissionRep.Orm;
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -362,7 +374,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [Login]
-    public async Task<AuthGetUserPermissionsOutput> GetUserPermissionsAsync()
+    public async Task<AuthGetUserPermissionsOutput> GetUserPermissionsAsync(string platform = AdminConsts.WebName)
     {
         if (!(User?.Id > 0))
         {
@@ -378,16 +390,27 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             var dotSelect = permissionRep.Select.Where(a => a.Type == PermissionType.Dot);
 
+            Expression<Func<PermissionEntity, bool>> where = null;
+            if (platform.NotNull())
+            {
+                where = where.And(a => a.Platform == platform);
+                if (platform.ToLower() == AdminConsts.WebName)
+                {
+                    where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+                }
+            }
+            else
+            {
+                where = where.And(a => string.IsNullOrEmpty(a.Platform));
+            }
+            dotSelect = dotSelect.Where(where);
+
             if (!User.PlatformAdmin)
             {
                 var db = permissionRep.Orm;
                 if (User.TenantAdmin)
                 {
                     dotSelect = dotSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
@@ -443,20 +466,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 if (User.TenantAdmin)
                 {
                     menuSelect = menuSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()
                    );
 
                     dotSelect = dotSelect.Where(a =>
-                       db.Select<TenantPermissionEntity>()
-                       .Where(b => b.PermissionId == a.Id && b.TenantId == User.TenantId)
-                       .Any()
-                       ||
                        db.Select<TenantPkgEntity, PkgPermissionEntity>()
                        .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                        .Any()

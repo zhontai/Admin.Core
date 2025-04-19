@@ -12,6 +12,13 @@
       <el-form :model="form" ref="formRef" size="default" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="所属平台">
+              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+                <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级菜单">
               <el-tree-select
                 v-model="form.parentId"
@@ -95,13 +102,19 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-dot-form">
-import { reactive, toRefs, getCurrentInstance, ref, PropType } from 'vue'
-import { PermissionListOutput, PermissionUpdateDotInput, ApiGetListOutput } from '/@/api/admin/data-contracts'
+import { reactive, toRefs, getCurrentInstance, ref, PropType, markRaw } from 'vue'
+import { PermissionGetListOutput, PermissionUpdateDotInput, ApiGetListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ApiApi } from '/@/api/admin/Api'
 import { listToTree, treeToList } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { trimStart, replace, cloneDeep } from 'lodash-es'
+import { DictApi } from '/@/api/admin/Dict'
+
+/** 字典分类 */
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
 
 defineProps({
   title: {
@@ -109,7 +122,7 @@ defineProps({
     default: '',
   },
   permissionTreeData: {
-    type: Array as PropType<PermissionListOutput[]>,
+    type: Array as PropType<PermissionGetListOutput[]>,
     default: () => [],
   },
 })
@@ -123,9 +136,19 @@ const state = reactive({
   form: { enabled: true } as PermissionUpdateDotInput,
   apiTreeData: [] as ApiGetListOutput[],
   expandRowKeys: [] as number[],
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 
 const { form } = toRefs(state)
+
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
 
 const getApis = async () => {
   const res = await new ApiApi().getList()
@@ -146,7 +169,7 @@ const open = async (
   isCopy = false
 ) => {
   proxy.$modal.loading()
-
+  await getDictList()
   await getApis()
 
   state.expandRowKeys = treeToList(cloneDeep(state.apiTreeData))
@@ -160,6 +183,7 @@ const open = async (
 
     if (res?.success) {
       let formData = res.data as PermissionUpdateDotInput
+      formData.platform = row.platform
       formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
       if (isCopy) formData.id = 0
       state.form = formData

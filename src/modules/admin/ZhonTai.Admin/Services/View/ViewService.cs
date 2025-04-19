@@ -44,7 +44,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input)
+    public async Task<List<ViewGetListOutput>> GetListAsync(ViewGetListInput input)
     {
         var platform = input?.Platform?.Trim();
         var name = input?.Name?.Trim();
@@ -56,11 +56,15 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         {
             Expression<Func<ViewEntity, bool>> where = null;
             where = where.And(a => a.Platform == platform);
-            if(platform.ToLower() == AdminConsts.PCName)
+            if(platform.ToLower() == AdminConsts.WebName)
             {
                 where = where.Or(a => string.IsNullOrEmpty(a.Platform));
             }
             select = select.Where(where);
+        }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
         }
 
         var data = await select
@@ -69,7 +73,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
             .WhereIf(path.NotNull(), a => a.Path.Contains(path))
             .OrderBy(a => a.ParentId)
             .OrderBy(a => a.Sort)
-            .ToListAsync<ViewListOutput>();
+            .ToListAsync<ViewGetListOutput>();
 
         return data;
     }
@@ -81,6 +85,11 @@ public class ViewService : BaseService, IViewService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(ViewAddInput input)
     {
+        if (await _viewRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此视图已存在"]);
+        }
+
         var entity = Mapper.Map<ViewEntity>(input);
         if (entity.Sort == 0)
         {
@@ -103,6 +112,16 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         if (!(entity?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["视图不存在"]);
+        }
+
+        if (input.Id == input.ParentId)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级视图不能是本视图"]);
+        }
+
+        if (await _viewRep.Select.AnyAsync(a => a.Platform == input.Platform && a.ParentId == input.ParentId && a.Id != input.Id && a.Label == input.Label))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["此视图已存在"]);
         }
 
         Mapper.Map(input, entity);

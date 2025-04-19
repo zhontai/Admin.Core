@@ -2,13 +2,23 @@
   <el-dialog
     v-model="state.showDialog"
     destroy-on-close
-    :title="innerTitle"
     append-to-body
     draggable
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     width="780px"
   >
+    <template #header="{ close, titleId, titleClass }">
+      <div class="my-header">
+        <div :id="titleId" :class="titleClass">
+          设置{{ innerTitle }}
+          <el-select v-model="state.platform" placeholder="请选择所属平台" style="width: 100px" @change="onQuery">
+            <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+          </el-select>
+          菜单权限
+        </div>
+      </div>
+    </template>
     <div>
       <el-tree
         ref="permissionTreeRef"
@@ -33,12 +43,19 @@
 </template>
 
 <script lang="ts" setup name="admin/role/components/set-role-menu">
-import { ref, reactive, getCurrentInstance, computed } from 'vue'
-import { RoleGetListOutput, PermissionAssignInput } from '/@/api/admin/data-contracts'
+import { ref, reactive, getCurrentInstance, computed, markRaw } from 'vue'
+import { RoleGetListOutput, PermissionAssignInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ElTree } from 'element-plus'
 import { listToTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
+import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+
+/** 字典分类 */
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
 
 const props = defineProps({
   title: {
@@ -48,7 +65,7 @@ const props = defineProps({
 })
 
 const innerTitle = computed(() => {
-  return props.title ? props.title : state.roleName ? `设置【${state.roleName}】菜单权限` : '设置菜单权限'
+  return props.title ? props.title : state.roleName ? `${state.roleName}` : ''
 })
 
 const state = reactive({
@@ -59,10 +76,21 @@ const state = reactive({
   roleId: 0 as number | undefined,
   roleName: '' as string | undefined | null,
   checkedKeys: [],
+  platform: PlatformType.Web.name,
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 
 const { proxy } = getCurrentInstance() as any
 const permissionTreeRef = ref<InstanceType<typeof ElTree>>()
+
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
 
 const getRolePermissionList = async () => {
   const res = await new PermissionApi().getRolePermissionList({ roleId: state.roleId })
@@ -71,6 +99,7 @@ const getRolePermissionList = async () => {
 
 // 打开对话框
 const open = async (role: RoleGetListOutput) => {
+  await getDictList()
   state.roleId = role.id
   state.roleName = role.name
   proxy.$modal.loading()
@@ -88,7 +117,7 @@ const close = () => {
 const onQuery = async () => {
   state.loading = true
 
-  const res = await new PermissionApi().getPermissionList().catch(() => {
+  const res = await new PermissionApi().getPermissionList({ platform: state.platform }).catch(() => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {
@@ -120,7 +149,11 @@ const onCancel = () => {
 const onSure = async () => {
   state.sureLoading = true
   const permissionIds = permissionTreeRef.value?.getCheckedKeys(true)
-  const input = { roleId: state.roleId, permissionIds: permissionIds } as PermissionAssignInput
+  const input = {
+    platform: state.platform,
+    roleId: state.roleId,
+    permissionIds: permissionIds,
+  } as PermissionAssignInput
   const res = await new PermissionApi().assign(input, { showSuccessMessage: true }).catch(() => {
     state.sureLoading = false
   })

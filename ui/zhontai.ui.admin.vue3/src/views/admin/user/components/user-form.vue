@@ -139,7 +139,7 @@
 
 <script lang="ts" setup name="admin/user/form">
 import { reactive, toRefs, getCurrentInstance, ref, watch, defineAsyncComponent, computed } from 'vue'
-import { UserAddInput, UserUpdateInput, OrgListOutput, RoleGetListOutput } from '/@/api/admin/data-contracts'
+import { UserAddInput, UserUpdateInput, OrgGetListOutput, RoleGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { OrgApi } from '/@/api/admin/Org'
 import { RoleApi } from '/@/api/admin/Role'
@@ -175,7 +175,7 @@ const state = reactive({
     roleIds: [] as any,
   } as UserAddInput & UserUpdateInput,
   orgs: [] as any,
-  orgTreeData: [] as OrgListOutput[],
+  orgTreeData: [] as OrgGetListOutput[],
   roleTreeData: [] as RoleGetListOutput[],
   sexList: toOptionsByValue(Sex),
 })

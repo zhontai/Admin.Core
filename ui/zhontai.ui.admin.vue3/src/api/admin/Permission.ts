@@ -16,6 +16,7 @@ import {
   PermissionAddGroupInput,
   PermissionAddMenuInput,
   PermissionAssignInput,
+  PermissionGetListInput,
   PermissionSaveTenantPermissionsInput,
   PermissionUpdateDotInput,
   PermissionUpdateGroupInput,
@@ -23,7 +24,7 @@ import {
   ResultOutputIEnumerableObject,
   ResultOutputInt64,
   ResultOutputListInt64,
-  ResultOutputListPermissionListOutput,
+  ResultOutputListPermissionGetListOutput,
   ResultOutputPermissionGetDotOutput,
   ResultOutputPermissionGetGroupOutput,
   ResultOutputPermissionGetMenuOutput,
@@ -109,24 +110,16 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @tags permission
    * @name GetList
    * @summary 查询权限列表
-   * @request GET:/api/admin/permission/get-list
+   * @request POST:/api/admin/permission/get-list
    * @secure
    */
-  getList = (
-    query?: {
-      key?: string
-      /** @format date-time */
-      start?: string
-      /** @format date-time */
-      end?: string
-    },
-    params: RequestParams = {}
-  ) =>
-    this.request<ResultOutputListPermissionListOutput, any>({
+  getList = (data: PermissionGetListInput, params: RequestParams = {}) =>
+    this.request<ResultOutputListPermissionGetListOutput, any>({
       path: `/api/admin/permission/get-list`,
-      method: 'GET',
-      query: query,
+      method: 'POST',
+      body: data,
       secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     })
@@ -139,10 +132,16 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @request GET:/api/admin/permission/get-permission-list
    * @secure
    */
-  getPermissionList = (params: RequestParams = {}) =>
+  getPermissionList = (
+    query?: {
+      platform?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputIEnumerableObject, any>({
       path: `/api/admin/permission/get-permission-list`,
       method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

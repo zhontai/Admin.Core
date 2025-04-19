@@ -5,12 +5,17 @@ namespace ZhonTai.Admin.Services.Permission.Dto;
 /// <summary>
 /// 权限列表
 /// </summary>
-public class PermissionListOutput
+public class PermissionGetListOutput
 {
     /// <summary>
     /// 权限Id
     /// </summary>
     public long Id { get; set; }
+
+    /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
 
     /// <summary>
     /// 父级节点

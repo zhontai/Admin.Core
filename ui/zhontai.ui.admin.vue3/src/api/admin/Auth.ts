@@ -73,10 +73,17 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request GET:/api/admin/auth/get-user-menus
    * @secure
    */
-  getUserMenus = (params: RequestParams = {}) =>
+  getUserMenus = (
+    query?: {
+      /** @default "web" */
+      platform?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputListAuthUserMenuOutput, any>({
       path: `/api/admin/auth/get-user-menus`,
       method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,
@@ -90,10 +97,17 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @request GET:/api/admin/auth/get-user-permissions
    * @secure
    */
-  getUserPermissions = (params: RequestParams = {}) =>
+  getUserPermissions = (
+    query?: {
+      /** @default "web" */
+      platform?: string
+    },
+    params: RequestParams = {}
+  ) =>
     this.request<ResultOutputAuthGetUserPermissionsOutput, any>({
       path: `/api/admin/auth/get-user-permissions`,
       method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

@@ -2,8 +2,13 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
+        <el-form-item label="平台">
+          <el-select v-model="state.filter.platform" placeholder="平台" :empty-values="[null]" @change="onQuery" style="width: 100px">
+            <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="权限名称">
-          <el-input v-model="state.filter.name" placeholder="权限名称" @keyup.enter="onQuery" />
+          <el-input v-model="state.filter.label" placeholder="权限名称" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
@@ -132,13 +137,15 @@
 </template>
 
 <script lang="ts" setup name="admin/permission">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { PermissionListOutput } from '/@/api/admin/data-contracts'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
+import { PermissionGetListOutput, PermissionGetListInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { listToTree, treeToList, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const PermissionGroupForm = defineAsyncComponent(() => import('./components/permission-group-form.vue'))
@@ -148,6 +155,10 @@ const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropd
 
 const { proxy } = getCurrentInstance() as any
 
+const DictType = {
+  PlatForm: { name: 'platform', desc: '平台' },
+}
+
 const permissionGroupFormRef = ref()
 const permissionMenuFormRef = ref()
 const permissionDotFormRef = ref()
@@ -156,19 +167,24 @@ const state = reactive({
   loading: false,
   permissionFormTitle: '',
   filter: {
+    platform: PlatformType.Web.name,
     name: '',
-  },
-  permissionTreeData: [] as Array<PermissionListOutput>,
-  formPermissionGroupTreeData: [] as Array<PermissionListOutput>,
-  formPermissionMenuTreeData: [] as Array<PermissionListOutput>,
+  } as PermissionGetListInput,
+  permissionTreeData: [] as Array<PermissionGetListOutput>,
+  formPermissionGroupTreeData: [] as Array<PermissionGetListOutput>,
+  formPermissionMenuTreeData: [] as Array<PermissionGetListOutput>,
   expandRowKeys: [] as string[],
+  dictData: {
+    [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
+  },
 })
 
 onMounted(async () => {
+  await getDictList()
   await onQuery()
   state.expandRowKeys = treeToList(cloneDeep(state.permissionTreeData))
-    .filter((a: PermissionListOutput) => a.opened === true)
-    .map((a: PermissionListOutput) => a.id + '') as string[]
+    .filter((a: PermissionGetListOutput) => a.opened === true)
+    .map((a: PermissionGetListOutput) => a.id + '') as string[]
   eventBus.off('refreshPermission')
   eventBus.on('refreshPermission', async () => {
     onQuery()
@@ -179,15 +195,27 @@ onBeforeMount(() => {
   eventBus.off('refreshPermission')
 })
 
+const getDictList = async () => {
+  const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
+  if (res?.success && res.data) {
+    state.dictData = markRaw(res.data)
+  }
+}
+
 const onQuery = async () => {
   state.loading = true
-  const res = await new PermissionApi().getList().catch(() => {
-    state.loading = false
-  })
+  const res = await new PermissionApi()
+    .getList({
+      platform: state.filter.platform,
+    })
+    .catch(() => {
+      state.loading = false
+    })
   if (res && res.data && res.data.length > 0) {
-    state.permissionTreeData = filterTree(listToTree(cloneDeep(res.data)), state.filter.name, {
+    const label = state.filter.label || ''
+    state.permissionTreeData = filterTree(listToTree(cloneDeep(res.data)), '', {
       filterWhere: (item: any, keyword: string) => {
-        return item.label?.toLocaleLowerCase().indexOf(keyword) > -1 || item.path?.toLocaleLowerCase().indexOf(keyword) > -1
+        return item.label?.toLocaleLowerCase().indexOf(label) > -1 || item.path?.toLocaleLowerCase().indexOf(label) > -1
       },
     })
     state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1))
@@ -200,12 +228,13 @@ const onQuery = async () => {
   state.loading = false
 }
 
-const onAdd = (row: PermissionListOutput) => {
+const onAdd = (row: PermissionGetListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
       permissionGroupFormRef.value.open({
         id: 0,
+        platform: state.filter.platform,
         enabled: true,
         opened: true,
         icon: 'ele-Memo',
@@ -216,6 +245,7 @@ const onAdd = (row: PermissionListOutput) => {
       state.permissionFormTitle = '新增菜单'
       permissionMenuFormRef.value.open({
         id: 0,
+        platform: state.filter.platform,
         enabled: true,
         isKeepAlive: true,
         icon: 'ele-Memo',
@@ -224,12 +254,18 @@ const onAdd = (row: PermissionListOutput) => {
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open({ id: 0, parentId: row.parentId, enabled: true })
+      permissionDotFormRef.value.open({
+        id: 0,
+        platform: state.filter.platform,
+        parentId: row.parentId,
+        enabled: true,
+      })
       break
   }
 }
 
-const onEdit = (row: PermissionListOutput) => {
+const onEdit = (row: PermissionGetListOutput) => {
+  row.platform = state.filter.platform
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '编辑分组'
@@ -246,7 +282,7 @@ const onEdit = (row: PermissionListOutput) => {
   }
 }
 
-const onCopy = (row: PermissionListOutput) => {
+const onCopy = (row: PermissionGetListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
@@ -263,7 +299,7 @@ const onCopy = (row: PermissionListOutput) => {
   }
 }
 
-const onDelete = (row: PermissionListOutput) => {
+const onDelete = (row: PermissionGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除${row.type === 1 ? '分组' : row.type === 2 ? '菜单' : row.type === 3 ? '权限点' : ''}【${row.label}】?`)
     .then(async () => {

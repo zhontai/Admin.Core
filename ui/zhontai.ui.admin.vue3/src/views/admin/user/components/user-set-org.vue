@@ -54,7 +54,7 @@
 
 <script lang="ts" setup name="admin/user/form">
 import { reactive, toRefs, getCurrentInstance, ref, watch } from 'vue'
-import { UserBatchSetOrgInput, OrgListOutput } from '/@/api/admin/data-contracts'
+import { UserBatchSetOrgInput, OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree, treeToList } from '/@/utils/tree'
@@ -82,7 +82,7 @@ const state = reactive({
     userIds: userIds.value as number[],
   } as UserBatchSetOrgInput,
   orgs: [] as any,
-  orgTreeData: [] as OrgListOutput[],
+  orgTreeData: [] as OrgGetListOutput[],
 })
 const { form } = toRefs(state)
 

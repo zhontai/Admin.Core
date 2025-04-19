@@ -10,6 +10,9 @@ using ZhonTai.Admin.Services.Org.Input;
 using ZhonTai.Admin.Services.Org.Output;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.DynamicApi;
+using ZhonTai.Admin.Tools.Cache;
+using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Contracts.Core.Consts;
 
 namespace ZhonTai.Admin.Services.Org;
 
@@ -24,18 +27,33 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     private readonly IUserOrgRepository _userOrgRep;
     private readonly IRoleOrgRepository _roleOrgRep;
     private readonly AdminLocalizer _localizer;
+    private readonly ICacheTool _cache;
+    private readonly IUser _user;
 
     public OrgService(
         IOrgRepository orgRep,
         IUserOrgRepository userOrgRep,
         IRoleOrgRepository roleOrgRep,
-        AdminLocalizer localizer
+        AdminLocalizer localizer,
+        ICacheTool cache,
+        IUser user
     )
     {
         _orgRep = orgRep;
         _userOrgRep = userOrgRep;
         _roleOrgRep = roleOrgRep;
         _localizer = localizer;
+        _cache = cache;
+        _user = user;
+    }
+
+    /// <summary>
+    /// 清除缓存
+    /// </summary>
+    private async Task ClearCacheAsync()
+    {
+        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+        await Cache.DelAsync(AdminCacheKeys.GetOrgKey(_user.TenantId.Value));
     }
 
     /// <summary>
@@ -54,7 +72,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public async Task<List<OrgListOutput>> GetListAsync(string key)
+    public async Task<List<OrgGetListOutput>> GetListAsync(string key)
     {
         var dataPermission = User.DataPermission;
 
@@ -62,9 +80,28 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
             .WhereIf(dataPermission.OrgIds.Count > 0, a => dataPermission.OrgIds.Contains(a.Id))
             .WhereIf(dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
             .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
-            .ToListAsync<OrgListOutput>();
+            .ToListAsync<OrgGetListOutput>();
 
         return data?.Count > 0 ? data.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort).ToList() : data;
+    }
+
+    /// <summary>
+    /// 获取部门路径列表
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<OrgGetSimpleListWithPathOutput>> GetSimpleListWithPathAsync()
+    {
+        return await _cache.GetOrSetAsync(AdminCacheKeys.GetOrgKey(_user.TenantId.Value), async () =>
+        {
+            return await _orgRep.Select.Where(a => a.ParentId == 0)
+            .AsTreeCte(a => a.Name, pathSeparator: "/")
+            .ToListAsync(a => new OrgGetSimpleListWithPathOutput
+            {
+                Id = a.Id,
+                Path = "a.cte_path"
+            });
+        }, TimeSpan.FromDays(365));
+        
     }
 
     /// <summary>
@@ -98,7 +135,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         }
 
         await _orgRep.InsertAsync(entity);
-        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+        await ClearCacheAsync();
 
         return entity.Id;
     }
@@ -145,7 +182,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         Mapper.Map(input, entity);
         await _orgRep.UpdateAsync(entity);
 
-        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+        await ClearCacheAsync();
     }
 
     /// <summary>
@@ -175,7 +212,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         //删除本部门和下级部门
         await _orgRep.DeleteAsync(a => orgIdList.Contains(a.Id));
 
-        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+        await ClearCacheAsync();
     }
 
     /// <summary>
@@ -205,6 +242,6 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
         //删除本部门和下级部门
         await _orgRep.SoftDeleteAsync(a => orgIdList.Contains(a.Id));
 
-        await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
+        await ClearCacheAsync();
     }
 }

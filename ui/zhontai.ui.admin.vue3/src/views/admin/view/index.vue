@@ -3,8 +3,7 @@
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
         <el-form-item label="平台">
-          <el-select v-model="state.filter.platform" placeholder="平台" :empty-values="[null]" @change="onQuery" style="width: 100px">
-            <el-option label="全部" :value="undefined" />
+          <el-select v-model="state.filter.platform" placeholder="平台" @change="onQuery" style="width: 100px">
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
         </el-form-item>
@@ -58,12 +57,13 @@
 
 <script lang="ts" setup name="admin/view">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
-import { ViewListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
+import { ViewGetListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue'))
@@ -79,10 +79,10 @@ const state = reactive({
   loading: false,
   viewFormTitle: '',
   filter: {
-    type: 'pc',
+    platform: PlatformType.Web.name,
   } as ViewGetListInput,
-  viewTreeData: [] as Array<ViewListOutput>,
-  formViewTreeData: [] as Array<ViewListOutput>,
+  viewTreeData: [] as Array<ViewGetListOutput>,
+  formViewTreeData: [] as Array<ViewGetListOutput>,
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
   },
@@ -135,15 +135,21 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.viewFormTitle = '新增视图'
-  viewFormRef.value.open()
+  viewFormRef.value.open({
+    id: 0,
+    platform: state.filter.platform,
+    enabled: true,
+    cache: true,
+  })
 }
 
-const onEdit = (row: ViewListOutput) => {
+const onEdit = (row: ViewGetListOutput) => {
   state.viewFormTitle = '编辑视图'
+  row.platform = state.filter.platform
   viewFormRef.value.open(row)
 }
 
-const onDelete = (row: ViewListOutput) => {
+const onDelete = (row: ViewGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除视图【${row.label}】?`)
     .then(async () => {
@@ -153,7 +159,7 @@ const onDelete = (row: ViewListOutput) => {
     .catch(() => {})
 }
 
-const onCopy = (row: ViewListOutput) => {
+const onCopy = (row: ViewGetListOutput) => {
   state.viewFormTitle = '新增视图'
   var view = cloneDeep(row)
   view.id = undefined

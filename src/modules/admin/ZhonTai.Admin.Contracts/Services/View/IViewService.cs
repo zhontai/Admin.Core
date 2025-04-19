@@ -9,7 +9,7 @@ public interface IViewService
 {
     Task<ViewGetOutput> GetAsync(long id);
 
-    Task<List<ViewListOutput>> GetListAsync(ViewGetListInput input);
+    Task<List<ViewGetListOutput>> GetListAsync(ViewGetListInput input);
 
     Task<long> AddAsync(ViewAddInput input);
 
