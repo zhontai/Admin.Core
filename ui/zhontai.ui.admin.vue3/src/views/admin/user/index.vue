@@ -34,7 +34,13 @@
             </div>
             <div>
               <el-tooltip effect="dark" content="回收站" placement="top">
-                <el-button icon="ele-Delete" circle />
+                <el-button circle>
+                  <template #icon>
+                    <el-icon>
+                      <my-icon name="recycle" color="var(--color)"></my-icon>
+                    </el-icon>
+                  </template>
+                </el-button>
               </el-tooltip>
               <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
                 <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
