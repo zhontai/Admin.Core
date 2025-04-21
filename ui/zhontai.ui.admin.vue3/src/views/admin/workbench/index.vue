@@ -556,7 +556,7 @@ $homeNavLengh: 8;
       transition: all ease 0.3s;
       padding: 20px;
       overflow: hidden;
-      background: var(--el-color-white);
+      background: var(--el-bg-color-overlay);
       color: var(--el-text-color-primary);
       border: 1px solid var(--next-border-color-light);
       &:hover {

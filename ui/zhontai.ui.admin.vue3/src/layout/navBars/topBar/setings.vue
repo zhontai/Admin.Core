@@ -537,13 +537,20 @@ const getThemeConfig = computed(() => {
 // 1、全局主题
 const onColorPickerChange = () => {
   if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
+  document.documentElement.style.setProperty('--el-color-primary', getThemeConfig.value.primary)
+  if (getThemeConfig.value.isIsDark) {
+    // 颜色加深
+    for (let i = 1; i <= 9; i++) {
+      document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getDarkColor(getThemeConfig.value.primary, i / 10)}`)
+    }
+  } else {
+    // 颜色变浅
+    for (let i = 1; i <= 9; i++) {
+      document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(getThemeConfig.value.primary, i / 10)}`)
+    }
+  }
   // 颜色加深
   document.documentElement.style.setProperty('--el-color-primary-dark-2', `${getDarkColor(getThemeConfig.value.primary, 0.1)}`)
-  document.documentElement.style.setProperty('--el-color-primary', getThemeConfig.value.primary)
-  // 颜色变浅
-  for (let i = 1; i <= 9; i++) {
-    document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getLightColor(getThemeConfig.value.primary, i / 10)}`)
-  }
   setDispatchThemeConfig()
 
   onBgColorPickerChange('menuBar')
@@ -666,9 +673,15 @@ const onAddFilterChange = (attr: string) => {
 }
 // 4、界面显示 --> 深色模式
 const onAddDarkChange = () => {
-  const body = document.documentElement as HTMLElement
-  if (getThemeConfig.value.isIsDark) body.setAttribute('data-theme', 'dark')
-  else body.setAttribute('data-theme', '')
+  const html = document.documentElement as HTMLElement
+  if (getThemeConfig.value.isIsDark) {
+    html.setAttribute('class', 'dark')
+    html.setAttribute('data-theme', 'dark')
+  } else {
+    html.setAttribute('class', '')
+    html.setAttribute('data-theme', '')
+  }
+  onColorPickerChange()
 }
 // 4、界面显示 --> 开启水印
 const onWatermarkChange = () => {
