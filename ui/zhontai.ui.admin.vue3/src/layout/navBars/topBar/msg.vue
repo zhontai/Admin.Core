@@ -159,14 +159,15 @@ defineExpose({
 
   .msg-tools {
     padding: 10px 15px;
-    background-color: var(--el-fill-color-blank);
     margin-bottom: 10px;
+    background-color: var(--el-bg-color);
+    border-bottom: 1px solid var(--next-border-color-light);
   }
 
   .msg-item {
     margin-bottom: 10px;
     padding: 10px 15px;
-    background-color: var(--el-fill-color-blank);
+    background-color: var(--el-bg-color);
     font-size: 14px;
     cursor: pointer;
     position: relative;
@@ -195,6 +196,7 @@ defineExpose({
       .msg-item__read {
         display: block;
       }
+      background-color: var(--el-fill-color);
     }
   }
 }
