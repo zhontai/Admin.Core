@@ -1870,6 +1870,23 @@ export interface OrgUpdateInput {
 }
 
 /** 分页信息输入 */
+export interface PageInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+}
+
+/** 分页信息输入 */
 export interface PageInputApiGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
@@ -2366,6 +2383,17 @@ export interface PageOutputTenantGetPageOutput {
   total?: number
   /** 数据 */
   list?: TenantGetPageOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputUserGetDeletedUserPageOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: UserGetDeletedUserPageOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -4303,6 +4331,18 @@ export interface ResultOutputPageOutputTenantGetPageOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputPageOutputUserGetDeletedUserPageOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputUserGetDeletedUserPageOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputPageOutputUserGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -5717,6 +5757,63 @@ export interface UserGetBasicOutput {
   lastLoginProvince?: string | null
   /** 最后登录城市 */
   lastLoginCity?: string | null
+}
+
+/** 已删除用户分页查询响应 */
+export interface UserGetDeletedUserPageOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 账号 */
+  userName?: string | null
+  /** 姓名 */
+  name?: string | null
+  /** 手机号 */
+  mobile?: string | null
+  /** 邮箱 */
+  email?: string | null
+  /** 用户类型:Member=0,DefaultUser=1,TenantAdmin=10,PlatformAdmin=100 */
+  type?: UserType
+  roles?: RoleEntity[] | null
+  /** 角色 */
+  roleNames?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
+  sex?: Sex
+  /**
+   * 主属部门Id
+   * @format int64
+   */
+  orgId?: number
+  /** 主属部门 */
+  orgPath?: string | null
+  /** 部门列表 */
+  orgs?: OrgEntity[] | null
+  /** 所属部门Id列表 */
+  orgIds?: number[] | null
+  /** 所属部门 */
+  orgPaths?: string | null
+  /** 创建者用户名 */
+  createdUserName?: string | null
+  /** 创建者姓名 */
+  createdUserRealName?: string | null
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createdTime?: string | null
+  /** 修改者用户名 */
+  modifiedUserName?: string | null
+  /** 修改者姓名 */
+  modifiedUserRealName?: string | null
+  /**
+   * 修改时间
+   * @format date-time
+   */
+  modifiedTime?: string | null
 }
 
 /** 用户 */

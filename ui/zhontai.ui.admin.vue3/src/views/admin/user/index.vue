@@ -34,7 +34,7 @@
             </div>
             <div>
               <el-tooltip effect="dark" content="回收站" placement="top">
-                <el-button circle>
+                <el-button circle @click="onRecycle">
                   <template #icon>
                     <el-icon>
                       <my-icon name="recycle" color="var(--color)"></my-icon>
@@ -129,6 +129,7 @@
         </el-card>
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
+        <UserRecycleDialog ref="userRecycleDialogRef" multiple></UserRecycleDialog>
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
@@ -151,6 +152,7 @@ import { ElTable } from 'element-plus'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
+const UserRecycleDialog = defineAsyncComponent(() => import('./components/user-recycle-dialog.vue'))
 const UserUpdateForm = defineAsyncComponent(() => import('./components/user-update-form.vue'))
 const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.vue'))
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
@@ -164,6 +166,7 @@ const { proxy } = getCurrentInstance() as any
 
 const tableRef = ref<InstanceType<typeof ElTable>>()
 const userFormRef = ref()
+const userRecycleDialogRef = ref()
 const userUpdateFormRef = ref()
 const userSetOrgRef = ref()
 const userRestPwdRef = ref()
@@ -283,6 +286,10 @@ const onAdd = () => {
     orgIds: state.pageInput.filter?.orgId && state.pageInput.filter.orgId > 0 ? [state.pageInput.filter?.orgId] : [],
     orgId: state.pageInput.filter?.orgId,
   })
+}
+
+const onRecycle = () => {
+  userRecycleDialogRef.value.open()
 }
 
 //修改

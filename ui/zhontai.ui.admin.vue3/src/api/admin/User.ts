@@ -12,9 +12,11 @@
 
 import { AxiosResponse } from 'axios'
 import {
+  PageInput,
   PageInputUserGetPageInput,
   ResultOutputInt64,
   ResultOutputObject,
+  ResultOutputPageOutputUserGetDeletedUserPageOutput,
   ResultOutputPageOutputUserGetPageOutput,
   ResultOutputString,
   ResultOutputUserGetBasicOutput,
@@ -70,6 +72,25 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
   getPage = (data: PageInputUserGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputUserGetPageOutput, any>({
       path: `/api/admin/user/get-page`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags user
+   * @name GetDeletedUserPage
+   * @summary 查询已删除用户分页列表
+   * @request POST:/api/admin/user/get-deleted-user-page
+   * @secure
+   */
+  getDeletedUserPage = (data: PageInput, params: RequestParams = {}) =>
+    this.request<ResultOutputPageOutputUserGetDeletedUserPageOutput, any>({
+      path: `/api/admin/user/get-deleted-user-page`,
       method: 'POST',
       body: data,
       secure: true,

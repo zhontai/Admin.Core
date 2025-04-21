@@ -38,6 +38,7 @@
               default-expand-all
               :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
               :highlight-current-row="!multiple"
+              border
               @row-click="onRowClick"
               @row-dblclick="onRowDbClick"
               @current-change="onTableCurrentChange"

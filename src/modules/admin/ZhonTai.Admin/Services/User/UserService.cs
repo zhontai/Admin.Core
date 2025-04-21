@@ -231,6 +231,61 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
+    /// 查询已删除用户分页列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<PageOutput<UserGetDeletedUserPageOutput>> GetDeletedUserPageAsync(PageInput input)
+    {
+        var dataPermission = User.DataPermission;
+
+        var list = await _userRep.Select.DisableGlobalFilter(FilterNames.Delete)
+        .Where(a => a.IsDeleted == true)
+        .WhereIf(dataPermission != null && dataPermission.OrgIds.Count > 0, a => _userOrgRep.Where(b => b.UserId == a.Id && dataPermission.OrgIds.Contains(b.OrgId)).Any())
+        .WhereIf(dataPermission != null && dataPermission.DataScope == DataScope.Self, a => a.CreatedUserId == User.Id)
+        .Where(a => a.Type != UserType.Member)
+        .WhereDynamicFilter(input.DynamicFilter)
+        .Count(out var total)
+        .OrderByDescending(true, a => a.Id)
+        .IncludeMany(a => a.Roles.Select(b => new RoleEntity { Name = b.Name }))
+        .IncludeMany(a => a.Orgs.Select(b => new OrgEntity { Id = b.Id }))
+        .Page(input.CurrentPage, input.PageSize)
+        .ToListAsync(a => new UserGetDeletedUserPageOutput
+        {
+            Roles = a.Roles,
+            Orgs = a.Orgs,
+            Sex = a.Staff.Sex
+        });
+
+        //设置部门
+        var orgs = await _orgService.GetSimpleListWithPathAsync();
+
+        var orgDict = orgs.ToDictionary(a => a.Id, a => a.Path);
+        foreach (var user in list)
+        {
+            if (user.OrgId > 0 && orgDict.TryGetValue(user.OrgId, out var path))
+            {
+                user.OrgPath = path;
+            }
+
+            if (user.OrgIds.Length > 0)
+            {
+                var orgPathList = user.OrgIds.Select(a => orgDict.GetValueOrDefault(a)).Where(a => a != null).ToList();
+                user.OrgPaths = string.Join(" ; ", orgPathList);
+            }
+        }
+
+        var data = new PageOutput<UserGetDeletedUserPageOutput>()
+        {
+            List = list,
+            Total = total
+        };
+
+        return data;
+    }
+
+    /// <summary>
     /// 查询登录用户信息
     /// </summary>
     /// <param name="id"></param>
