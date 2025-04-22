@@ -221,7 +221,7 @@ const onLogin = (loginMethod: any) => {
 .login-container {
   height: 100%;
   min-height: 500px;
-  background: var(--el-color-white);
+  background: var(--el-bg-color);
   .login-left {
     flex: 1;
     position: relative;
@@ -282,7 +282,7 @@ const onLogin = (loginMethod: any) => {
       height: 500px;
       position: relative;
       overflow: hidden;
-      background-color: var(--el-color-white);
+      background-color: var(--el-bg-color);
       .login-right-warp-one,
       .login-right-warp-two {
         position: absolute;
@@ -382,7 +382,7 @@ const onLogin = (loginMethod: any) => {
               z-index: 0;
               top: 3px;
               right: 27px;
-              background: var(--el-color-white);
+              background: var(--el-bg-color);
               transform: rotate(-45deg);
               cursor: default;
             }
