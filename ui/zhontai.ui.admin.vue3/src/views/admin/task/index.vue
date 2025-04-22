@@ -27,7 +27,7 @@
         <div
           v-show="rowSelectCount > 0"
           class="my-flex my-flex-items-center pl10"
-          style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: #fff"
+          style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: var(--el-bg-color)"
         >
           <el-text class="mx-1"
             >已选中 <el-text class="mx-1" type="primary">{{ rowSelectCount }}</el-text> 项</el-text
