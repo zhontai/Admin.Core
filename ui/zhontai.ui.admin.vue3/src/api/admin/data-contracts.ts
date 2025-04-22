@@ -5939,6 +5939,12 @@ export interface UserResetPasswordInput {
   password?: string | null
 }
 
+/** 恢复 */
+export interface UserRestoreInput {
+  /** 用户Id列表 */
+  userIds?: number[] | null
+}
+
 /** 设置启用 */
 export interface UserSetEnableInput {
   /**

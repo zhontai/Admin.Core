@@ -231,12 +231,12 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     }
 
     /// <summary>
-    /// 查询已删除用户分页列表
+    /// 查询已删除分页列表
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<PageOutput<UserGetDeletedUserPageOutput>> GetDeletedUserPageAsync(PageInput input)
+    public async Task<PageOutput<UserGetDeletedUserPageOutput>> GetDeletedPageAsync(PageInput input)
     {
         var dataPermission = User.DataPermission;
 
@@ -873,6 +873,25 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
         }
         entity.Enabled = input.Enabled;
         await _userRep.UpdateAsync(entity);
+    }
+
+    /// <summary>
+    /// 恢复
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task RestoreAsync(UserRestoreInput input)
+    {
+        await _userRep.UpdateDiy.DisableGlobalFilter(FilterNames.Delete).Set(a => new UserEntity
+        {
+            IsDeleted = false,
+            ModifiedUserId = User.Id,
+            ModifiedUserName = User.UserName,
+            ModifiedUserRealName = User.Name,
+            ModifiedTime = DbHelper.ServerTime
+        })
+       .WhereDynamic(input.UserIds)
+       .ExecuteAffrowsAsync();
     }
 
     /// <summary>

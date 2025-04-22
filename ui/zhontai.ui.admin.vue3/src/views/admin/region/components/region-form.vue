@@ -53,7 +53,7 @@
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item label="面积">
               <el-input v-model="form.area" clearable>
-                <template #append>平方千米</template>
+                <template #append>km²</template>
               </el-input>
             </el-form-item>
           </el-col>
