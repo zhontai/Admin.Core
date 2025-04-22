@@ -34,7 +34,7 @@
             </div>
             <div>
               <el-tooltip effect="dark" content="回收站" placement="top">
-                <el-button circle @click="onRecycle">
+                <el-button v-auth="'api:admin:user:restore'" circle @click="onRecycle">
                   <template #icon>
                     <el-icon>
                       <my-icon name="recycle" color="var(--color)"></my-icon>
