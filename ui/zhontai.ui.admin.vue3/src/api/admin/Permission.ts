@@ -17,7 +17,6 @@ import {
   PermissionAddMenuInput,
   PermissionAssignInput,
   PermissionGetListInput,
-  PermissionSaveTenantPermissionsInput,
   PermissionUpdateDotInput,
   PermissionUpdateGroupInput,
   PermissionUpdateMenuInput,
@@ -167,31 +166,6 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   ) =>
     this.request<ResultOutputListInt64, any>({
       path: `/api/admin/permission/get-role-permission-list`,
-      method: 'GET',
-      query: query,
-      secure: true,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags permission
-   * @name GetTenantPermissionList
-   * @summary 查询租户权限列表
-   * @request GET:/api/admin/permission/get-tenant-permission-list
-   * @deprecated
-   * @secure
-   */
-  getTenantPermissionList = (
-    query?: {
-      /** @format int64 */
-      tenantId?: number
-    },
-    params: RequestParams = {}
-  ) =>
-    this.request<ResultOutputListInt64, any>({
-      path: `/api/admin/permission/get-tenant-permission-list`,
       method: 'GET',
       query: query,
       secure: true,
@@ -367,25 +341,6 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   assign = (data: PermissionAssignInput, params: RequestParams = {}) =>
     this.request<AxiosResponse, any>({
       path: `/api/admin/permission/assign`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags permission
-   * @name SaveTenantPermissions
-   * @summary 保存租户权限
-   * @request POST:/api/admin/permission/save-tenant-permissions
-   * @deprecated
-   * @secure
-   */
-  saveTenantPermissions = (data: PermissionSaveTenantPermissionsInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/permission/save-tenant-permissions`,
       method: 'POST',
       body: data,
       secure: true,

@@ -1,4 +1,5 @@
 @use 'element-plus/dist/index.css' as *;
+@use 'element-plus/theme-chalk/dark/css-vars.css' as *;
 @use './app.scss' as *;
 @use './my-app.scss' as *;
 @use 'common/transition.scss' as *;

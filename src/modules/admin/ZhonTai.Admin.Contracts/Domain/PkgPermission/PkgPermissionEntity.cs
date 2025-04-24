@@ -9,9 +9,14 @@ namespace ZhonTai.Admin.Domain.PkgPermission;
 /// 套餐权限
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "pkg_permission", OldName = DbConsts.TableOldNamePrefix + "pkg_permission")]
-[Index("idx_{tablename}_01", nameof(PkgId) + "," + nameof(PermissionId), true)]
+[Index("idx_{tablename}_01", nameof(Platform) + "," + nameof(PkgId) + "," + nameof(PermissionId), true)]
 public class PkgPermissionEntity : EntityAdd
 {
+    /// <summary>
+    /// 平台
+    /// </summary>
+    public string Platform { get; set; }
+
     /// <summary>
     /// 套餐Id
     /// </summary>

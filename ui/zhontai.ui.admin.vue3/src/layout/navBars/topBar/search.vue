@@ -122,6 +122,7 @@ defineExpose({
     top: 150px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: var(--el-bg-color-overlay);
   }
 }
 </style>

@@ -1,10 +1,8 @@
 <template>
   <div class="w100 h100 my-msg-card-box">
-    <el-card class="w100 h100" shadow="never">
-      <div class="h100 my-msg-box">
-        <div class="h100 w-e-text-container my-msg-content-box" v-html="state.msg.content"></div>
-      </div>
-    </el-card>
+    <div class="h100 my-msg-box">
+      <div class="h100 w-e-text-container my-msg-content-box" v-html="state.msg.content"></div>
+    </div>
   </div>
 </template>
 
@@ -60,13 +58,13 @@ const getContent = async () => {
   }
   .my-msg-box {
     padding: 20px;
-    background-color: #fff;
 
     .my-msg-content-box {
       min-width: 320px;
       max-width: 700px;
-      border: 1px solid #f6f6f6;
-      background-color: #f7f8fa;
+      border: 1px solid var(--next-border-color-light);
+      background-color: var(--el-fill-color-blank);
+      color: var(--el-text-color-primary);
       margin: auto;
       padding: 30px;
     }

@@ -152,25 +152,6 @@
     "modifiedTime": "2025-04-08T11:41:27"
   },
   {
-    "id": 663210447855685,
-    "dictTypeId": 663210221912133,
-    "name": "App端",
-    "code": "app",
-    "value": "2",
-    "description": null,
-    "enabled": true,
-    "sort": 2,
-    "isDeleted": false,
-    "createdUserId": 161223411986501,
-    "createdUserName": "admin",
-    "createdUserRealName": "管理员",
-    "createdTime": "2025-04-08T11:10:15",
-    "modifiedUserId": 161223411986501,
-    "modifiedUserName": "admin",
-    "modifiedUserRealName": "管理员",
-    "modifiedTime": "2025-04-08T11:41:59"
-  },
-  {
     "id": 663210372075589,
     "dictTypeId": 663210221912133,
     "name": "CS端",
@@ -188,5 +169,24 @@
     "modifiedUserName": "admin",
     "modifiedUserRealName": "管理员",
     "modifiedTime": "2025-04-08T11:41:34"
+  },
+  {
+    "id": 663210447855685,
+    "dictTypeId": 663210221912133,
+    "name": "App端",
+    "code": "app",
+    "value": "2",
+    "description": null,
+    "enabled": true,
+    "sort": 2,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-04-08T11:10:15",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2025-04-08T11:41:59"
   }
 ]

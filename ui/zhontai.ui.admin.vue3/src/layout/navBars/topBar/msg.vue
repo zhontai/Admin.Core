@@ -20,7 +20,7 @@
             <el-empty v-if="isEmpty" description="暂无消息" />
             <template v-else>
               <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item" @click="onToDetail(msg)">
-                <div :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
+                <div class="msg-item__title" :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
                 <div class="msg-item__time">{{ formatterTime(msg.receivedTime) }}</div>
                 <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click.prevent.stop="onSetRead(msg)">标为已读</el-button>
               </div>
@@ -154,30 +154,33 @@ defineExpose({
 
 <style scoped lang="scss">
 .msg-box {
-  background-color: #fafafa;
+  background-color: var(--next-bg-main-color);
   height: 100%;
 
   .msg-tools {
     padding: 10px 15px;
-    background-color: #fff;
     margin-bottom: 10px;
+    background-color: var(--el-bg-color);
+    border-bottom: 1px solid var(--next-border-color-light);
   }
 
   .msg-item {
     margin-bottom: 10px;
     padding: 10px 15px;
-    background-color: #fff;
+    background-color: var(--el-bg-color);
     font-size: 14px;
-    color: #333;
     cursor: pointer;
     position: relative;
 
     .msg-item__title--unread {
       font-weight: 600;
     }
+    .msg-item__title {
+      color: var(--el-text-color-primary);
+    }
     .msg-item__time {
       font-size: 12px;
-      color: rgb(153, 153, 153);
+      color: var(--el-text-color-secondary);
       margin-top: 5px;
     }
 
@@ -193,6 +196,7 @@ defineExpose({
       .msg-item__read {
         display: block;
       }
+      background-color: var(--el-fill-color);
     }
   }
 }

@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Domain.RolePermission;
 /// 角色权限
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "role_permission", OldName = DbConsts.TableOldNamePrefix + "role_permission")]
-[Index("idx_{tablename}_01", nameof(RoleId) + "," + nameof(PermissionId), true)]
+[Index("idx_{tablename}_01", nameof(Platform) + "," + nameof(RoleId) + "," + nameof(PermissionId), true)]
 public class RolePermissionEntity : EntityAdd
 {
     /// <summary>

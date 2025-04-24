@@ -62,8 +62,11 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     [HttpPost]
     public async Task<PageOutput<OperationLogGetPageOutput>> GetPageAsync(PageInput<OperationLogGetPageInput> input)
     {
-        var select = _operationLogRep.Select.DisableGlobalFilter()
-        .WhereDynamicFilter(input.DynamicFilter);
+        var select = _operationLogRep.Select.WhereDynamicFilter(input.DynamicFilter);
+        if (User.PlatformAdmin)
+        {
+            select = select.DisableGlobalFilter();
+        }
 
         if (input.Filter != null)
         {

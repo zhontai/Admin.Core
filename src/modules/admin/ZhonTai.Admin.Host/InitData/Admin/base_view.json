@@ -1,8 +1,8 @@
 [
   {
     "id": 161227168313413,
-    "parentId": 0,
     "platform": null,
+    "parentId": 0,
     "name": null,
     "label": "平台管理",
     "path": null,
@@ -13,8 +13,8 @@
     "childs": [
       {
         "id": 161227168428101,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": "admin/workbench",
         "label": "工作台",
         "path": "admin/workbench/index",
@@ -35,8 +35,8 @@
       },
       {
         "id": 161227168432197,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": null,
         "label": "系统管理",
         "path": null,
@@ -47,8 +47,8 @@
         "childs": [
           {
             "id": 161227168440390,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/api",
             "label": "接口管理",
             "path": "admin/api/index",
@@ -69,8 +69,8 @@
           },
           {
             "id": 161227168444485,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/view",
             "label": "视图管理",
             "path": "admin/view/index",
@@ -91,8 +91,8 @@
           },
           {
             "id": 161227168448582,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/cache",
             "label": "缓存管理",
             "path": "admin/cache/index",
@@ -113,8 +113,8 @@
           },
           {
             "id": 161227168456774,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/document",
             "label": "文档管理",
             "path": "admin/document/index",
@@ -135,8 +135,8 @@
           },
           {
             "id": 187053736300613,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/dict",
             "label": "数据字典",
             "path": "admin/dict/index",
@@ -157,8 +157,8 @@
           },
           {
             "id": 336556164300869,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/task",
             "label": "任务调度",
             "path": "admin/task/index",
@@ -179,8 +179,8 @@
           },
           {
             "id": 371247502852165,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/file",
             "label": "文件管理",
             "path": "admin/file/index",
@@ -201,8 +201,8 @@
           },
           {
             "id": 541192324943941,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/region",
             "label": "地区管理",
             "path": "admin/region/index",
@@ -223,8 +223,8 @@
           },
           {
             "id": 616549084737605,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/msg",
             "label": "消息管理",
             "path": "admin/msg/index",
@@ -245,8 +245,8 @@
           },
           {
             "id": 618670689706053,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/msg-type",
             "label": "消息分类",
             "path": "admin/msg-type/index",
@@ -267,8 +267,8 @@
           },
           {
             "id": 655836164862021,
-            "parentId": 161227168432197,
             "platform": null,
+            "parentId": 161227168432197,
             "name": "admin/print-template",
             "label": "打印模板",
             "path": "admin/print-template/index",
@@ -300,8 +300,8 @@
       },
       {
         "id": 161227168436293,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": "admin/personal",
         "label": "个人中心",
         "path": "admin/personal/index",
@@ -322,8 +322,8 @@
       },
       {
         "id": 161227168436294,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": null,
         "label": "权限管理",
         "path": null,
@@ -334,8 +334,8 @@
         "childs": [
           {
             "id": 161227168436295,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/user",
             "label": "用户管理",
             "path": "admin/user/index",
@@ -356,8 +356,8 @@
           },
           {
             "id": 161227168440389,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/role",
             "label": "角色管理",
             "path": "admin/role/index",
@@ -378,8 +378,8 @@
           },
           {
             "id": 161227168444486,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/permission",
             "label": "权限管理",
             "path": "admin/permission/index",
@@ -400,8 +400,8 @@
           },
           {
             "id": 161227168448583,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/tenant",
             "label": "租户管理",
             "path": "admin/tenant/index",
@@ -422,8 +422,8 @@
           },
           {
             "id": 174312361087045,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/org",
             "label": "部门管理",
             "path": "admin/org/index",
@@ -444,8 +444,8 @@
           },
           {
             "id": 402829224460357,
-            "parentId": 161227168436294,
             "platform": null,
+            "parentId": 161227168436294,
             "name": "admin/pkg",
             "label": "套餐管理",
             "path": "admin/pkg/index",
@@ -477,8 +477,8 @@
       },
       {
         "id": 161227168452677,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": null,
         "label": "日志管理",
         "path": null,
@@ -489,8 +489,8 @@
         "childs": [
           {
             "id": 161227168452678,
-            "parentId": 161227168452677,
             "platform": null,
+            "parentId": 161227168452677,
             "name": "admin/operationLog",
             "label": "操作日志",
             "path": "admin/logs/operation-log",
@@ -511,8 +511,8 @@
           },
           {
             "id": 161227168456773,
-            "parentId": 161227168452677,
             "platform": null,
+            "parentId": 161227168452677,
             "name": "admin/loginLog",
             "label": "登录日志",
             "path": "admin/logs/login-log",
@@ -544,8 +544,8 @@
       },
       {
         "id": 619301345665093,
-        "parentId": 161227168313413,
         "platform": null,
+        "parentId": 161227168313413,
         "name": "admin/site-msg",
         "label": "站内信",
         "path": "admin/site-msg/index",
@@ -577,8 +577,8 @@
   },
   {
     "id": 361047466754117,
-    "parentId": 0,
     "platform": null,
+    "parentId": 0,
     "name": "",
     "label": "布局管理",
     "path": null,
@@ -589,8 +589,8 @@
     "childs": [
       {
         "id": 361047593013317,
-        "parentId": 361047466754117,
         "platform": null,
+        "parentId": 361047466754117,
         "name": "link",
         "label": "链接",
         "path": "layout/routerView/link",
@@ -611,8 +611,8 @@
       },
       {
         "id": 361047841796165,
-        "parentId": 361047466754117,
         "platform": null,
+        "parentId": 361047466754117,
         "name": "iframe",
         "label": "内嵌窗口",
         "path": "layout/routerView/iframes",
