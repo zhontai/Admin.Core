@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.User.Dto;
 using ZhonTai.Admin.Services.Auth.Dto;
@@ -47,5 +48,5 @@ public interface IUserService
 
     Task<string> AvatarUpload(IFormFile file, bool autoUpdate = false);
 
-    Task<dynamic> OneClickLoginAsync(string userName);
+    Task<TokenInfo> OneClickLoginAsync(string userName);
 }

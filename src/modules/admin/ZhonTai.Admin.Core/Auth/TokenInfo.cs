@@ -6,7 +6,6 @@
 public class TokenInfo
 {
     private string _accessToken;
-    private string _token;
 
     /// <summary>
     /// 访问令牌
@@ -16,21 +15,6 @@ public class TokenInfo
         get => _accessToken;
         set
         {
-            _accessToken = value;
-            _token = value;
-        }
-    }
-
-    /// <summary>
-    /// 访问令牌（冗余属性，兼容旧版本）
-    /// </summary>
-    [Obsolete("请改用 AccessToken")]
-    public string Token
-    {
-        get => _token;
-        set
-        {
-            _token = value;
             _accessToken = value;
         }
     }

@@ -751,9 +751,9 @@ const onCopyConfigClick = () => {
 // 一键恢复默认
 const onResetConfigClick = () => {
   const storesUseUserInfo = useUserInfo()
-  const token = storesUseUserInfo.getToken()
+  const tokenInfo = storesUseUserInfo.getTokenInfo()
   Local.clear()
-  storesUseUserInfo.setToken(token)
+  storesUseUserInfo.setTokenInfo(tokenInfo)
   window.location.reload()
   // @ts-ignore
   Local.set('version', __NEXT_VERSION__)

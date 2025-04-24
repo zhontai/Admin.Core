@@ -4,8 +4,10 @@ import { merge } from 'lodash-es'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import Watermark from '/@/utils/watermark'
+import { TokenInfo } from '/@/api/admin/data-contracts'
 
 export const adminTokenKey = 'admin-token'
+export const adminTokenInfoKey = 'admin-token-info'
 
 /**
  * 用户信息
@@ -37,18 +39,25 @@ export const useUserInfo = defineStore('userInfo', {
       this.userInfos.token = token
       Local.set(adminTokenKey, token)
     },
-    getToken() {
-      const token = Local.get(adminTokenKey)
-      this.userInfos.token = token
-      return token
+    setTokenInfo(tokenInfo: TokenInfo | undefined) {
+      this.userInfos.token = tokenInfo?.accessToken as string
+      Local.set(adminTokenInfoKey, tokenInfo)
     },
-    removeToken() {
+    getToken() {
+      const tokenInfo = this.getTokenInfo()
+      this.userInfos.token = tokenInfo?.accessToken as string
+      return tokenInfo?.accessToken
+    },
+    getTokenInfo() {
+      const tokenInfo = Local.get(adminTokenInfoKey) as TokenInfo
+      return tokenInfo
+    },
+    removeTokenInfo() {
       this.userInfos.token = ''
-      Local.remove(adminTokenKey)
+      Local.remove(adminTokenInfoKey)
     },
     clear() {
-      this.userInfos.token = ''
-      Local.remove(adminTokenKey)
+      this.removeTokenInfo()
       window.requests = []
       window.location.reload()
     },

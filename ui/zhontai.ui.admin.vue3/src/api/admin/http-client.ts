@@ -231,8 +231,7 @@ export class HttpClient<SecurityDataType = unknown> {
     })
       .then((res) => {
         if (res?.success) {
-          const token = res.data.token
-          storesUseUserInfo.setToken(token)
+          storesUseUserInfo.setTokenInfo(res.data)
           if (window.requests?.length > 0) {
             window.requests.forEach((apiRequest) => apiRequest())
             window.requests = []
