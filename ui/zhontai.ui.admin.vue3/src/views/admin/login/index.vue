@@ -1,7 +1,7 @@
 <template>
   <el-scrollbar>
     <div class="login-container flex">
-      <div class="login-left">
+      <div class="login-left" :class="getThemeConfig.isDark ? '' : 'login-left-light'">
         <div class="login-left-logo">
           <img :src="logoMini" />
           <div class="login-left-logo-text">
@@ -225,6 +225,9 @@ const onLogin = (loginMethod: any) => {
     flex: 1;
     position: relative;
     background-color: var(--el-bg-color-page);
+    &.login-left-light {
+      background-color: rgba(211, 239, 255, 1);
+    }
     .login-left-logo {
       display: flex;
       align-items: center;
