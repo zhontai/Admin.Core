@@ -29,6 +29,7 @@ using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Services.Auth.Dto;
 using ZhonTai.Admin.Services.Auth;
 using ZhonTai.Admin.Core.Validators;
+using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Services.Tenant;
 
@@ -769,7 +770,7 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpPost]
-    public async Task<dynamic> OneClickLoginAsync([ValidateRequired] long tenantId)
+    public async Task<TokenInfo> OneClickLoginAsync([ValidateRequired] long tenantId)
     {
         if (!(tenantId > 0))
         {
@@ -796,8 +797,8 @@ public class TenantService : BaseService, ITenantService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["超级管理员不存在"]);
         }
 
-        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+        var tokenInfo = AppInfo.GetRequiredService<IAuthService>().GetTokenInfo(authLoginOutput);
 
-        return new { token };
+        return tokenInfo;
     }
 }

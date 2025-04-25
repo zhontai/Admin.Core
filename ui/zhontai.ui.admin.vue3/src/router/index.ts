@@ -104,7 +104,7 @@ router.beforeEach(async (to, from, next) => {
   } else {
     if (!token) {
       next(`/login?redirect=${to.path}&params=${JSON.stringify(to.query ? to.query : to.params)}`)
-      storesUseUserInfo.removeToken()
+      storesUseUserInfo.removeTokenInfo()
       Session.clear()
       NProgress.done()
     } else if (token && to.path === '/login') {
@@ -121,7 +121,7 @@ router.beforeEach(async (to, from, next) => {
           const isNoPower = await initBackEndControlRoutes()
           if (isNoPower) {
             ElMessage.warning('抱歉，您没有分配权限，请联系管理员')
-            storesUseUserInfo.removeToken()
+            storesUseUserInfo.removeTokenInfo()
             Session.clear()
           }
           // 解决刷新时，一直跳 404 页面问题，关联问题 No match found for location with path 'xxx'

@@ -40,6 +40,7 @@ using DotNetCore.CAP;
 using ZhonTai.Admin.Services.User.Events;
 using Mapster;
 using ZhonTai.Admin.Services.Org;
+using ZhonTai.Admin.Core.Auth;
 
 namespace ZhonTai.Admin.Services.User;
 
@@ -1091,7 +1092,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<dynamic> OneClickLoginAsync([Required] string userName)
+    public async Task<TokenInfo> OneClickLoginAsync([Required] string userName)
     {
         if (userName.IsNull())
         {
@@ -1115,9 +1116,9 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             authLoginOutput.Tenant = tenant;
         }
 
-        string token = AppInfo.GetRequiredService<IAuthService>().GetToken(authLoginOutput);
+        var tokenInfo = AppInfo.GetRequiredService<IAuthService>().GetTokenInfo(authLoginOutput);
 
-        return new { token };
+        return tokenInfo;
     }
 
     /// <summary>

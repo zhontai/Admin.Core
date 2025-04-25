@@ -15,10 +15,10 @@ import {
   PageInput,
   PageInputUserGetPageInput,
   ResultOutputInt64,
-  ResultOutputObject,
   ResultOutputPageOutputUserGetDeletedUserPageOutput,
   ResultOutputPageOutputUserGetPageOutput,
   ResultOutputString,
+  ResultOutputTokenInfo,
   ResultOutputUserGetBasicOutput,
   ResultOutputUserGetOutput,
   ResultOutputUserGetPermissionOutput,
@@ -461,7 +461,7 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/user/one-click-login`,
       method: 'GET',
       query: query,

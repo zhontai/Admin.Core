@@ -66,9 +66,9 @@ const onUpgrade = () => {
   state.btnTxt = t('message.upgrade.btnTwoLoading')
   setTimeout(() => {
     const storesUseUserInfo = useUserInfo()
-    const token = storesUseUserInfo.getToken()
+    const tokenInfo = storesUseUserInfo.getTokenInfo()
     Local.clear()
-    storesUseUserInfo.setToken(token)
+    storesUseUserInfo.setTokenInfo(tokenInfo)
     window.location.reload()
     Local.set('version', state.version)
   }, 2000)

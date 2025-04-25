@@ -369,7 +369,7 @@ const onOneClickLogin = (row: UserGetPageOutput) => {
         proxy.$modal.msgSuccess('一键登录成功')
         window.requests = []
         Session.remove('tagsViewList')
-        storesUseUserInfo.setToken(res.data.token)
+        storesUseUserInfo.setTokenInfo(res.data)
         window.location.href = '/'
       }
     })

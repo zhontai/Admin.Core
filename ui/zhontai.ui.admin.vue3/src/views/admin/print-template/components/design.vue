@@ -158,7 +158,7 @@
               </el-button-group>
 
               <!-- 操作 -->
-              <el-button-group size="small" class="my-flex mr10 mb10">
+              <el-button-group size="small" class="my-flex mb10">
                 <el-tooltip content="预览" placement="top">
                   <el-button icon="ele-View" @click="onPreView"></el-button>
                 </el-tooltip>
@@ -179,13 +179,19 @@
             </div>
           </div>
         </div>
-        <el-scrollbar ref="printTemplateScrollbarRef" height="100%" max-height="100%" :always="false" wrap-style="padding:25px 0px 0px 25px;">
+        <el-scrollbar
+          ref="printTemplateScrollbarRef"
+          height="100%"
+          max-height="100%"
+          :always="false"
+          wrap-style="background-color: #fff;color: #333;"
+        >
           <!-- 画布 -->
           <div ref="designRef" class="hiprint-printTemplate"></div>
         </el-scrollbar>
       </div>
       <div style="width: 350px; min-width: 350px; border-left: 1px solid var(--el-border-color)">
-        <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
+        <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:0px">
           <!-- 配置 -->
           <div id="hiprint-printElementOptionSetting"></div>
         </el-scrollbar>
@@ -276,6 +282,7 @@ const previewRef = ref()
 const previewJsonDialogRef = ref()
 const epContainerRef = ref()
 const designRef = ref()
+const epDraggableItemRef = ref()
 
 onMounted(() => {
   buildProvider()
@@ -290,6 +297,7 @@ const buildProvider = () => {
   if (epContainerRef.value) {
     epContainerRef.value.innerHTML = ''
   }
+
   hiprint.PrintElementTypeManager.build(epContainerRef.value, provider.value)
 }
 
@@ -426,7 +434,88 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
+.hiprint-printTemplate {
+  padding: 15px 10px 10px 15px;
+}
 :deep() {
+  .jsoneditor {
+    border-width: 0px;
+  }
+  .jsoneditor-menu {
+    color: var(--el-text-color-primary);
+    background-color: var(--el-color-primary);
+    border-bottom: 1px solid var(--el-border-color);
+  }
+
+  textarea.jsoneditor-text {
+    background-color: var(--el-bg-color-overlay);
+    color: var(--el-text-color-primary);
+  }
+
+  .prop-tabs {
+    background-color: var(--el-bg-color);
+    border-style: none;
+    box-shadow: none;
+    border-color: var(--el-border-color);
+  }
+  .prop-tabs .prop-tab-items {
+    display: flex;
+    height: 40px;
+    padding: 0px;
+    border-bottom-color: var(--el-border-color);
+  }
+  .prop-tabs .prop-tab-items .prop-tab-item {
+    background-color: var(--el-bg-color);
+    flex: 1;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+  }
+  .prop-tabs .prop-tab-items li.active,
+  .prop-tabs .prop-tab-items li:hover {
+    border-bottom: 2px solid var(--el-color-primary);
+    color: var(--el-color-primary);
+  }
+  .prop-tabs .prop-tab-items .prop-tab-item .tab-title {
+    font-weight: normal;
+  }
+  .prop-tabs .hiprint-option-items {
+    background-color: var(--el-bg-color);
+    padding: 10px;
+  }
+  .hiprint-option-item-settingBtn {
+    width: 45%;
+    height: 30px;
+    line-height: 30px;
+  }
+  .hiprint-option-item-submitBtn {
+    background-color: var(--el-color-primary);
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+  .hiprint-option-item-deleteBtn {
+    background-color: var(--el-color-danger);
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+  .hiprint-option-items .hiprint-option-item-field input,
+  .hiprint-option-items .hiprint-option-item-field select,
+  .hiprint-option-items .hiprint-option-item-field textarea {
+    border: none;
+    background-color: var(--el-bg-color);
+    border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+    box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+    padding: 1px 11px;
+    height: calc(var(--el-component-size, 32px));
+    line-height: calc(var(--el-component-size, 32px) - 2px);
+    &:hover {
+      box-shadow: 0 0 0 1px var(--el-border-color-hover) inset;
+    }
+    &:focus {
+      box-shadow: 0 0 0 1px var(--el-color-primary) inset;
+    }
+  }
+
   .left-box {
     .el-tabs__header {
       margin-bottom: 0px;

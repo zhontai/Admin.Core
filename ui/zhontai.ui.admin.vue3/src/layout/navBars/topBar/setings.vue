@@ -21,7 +21,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsDark') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isIsDark" size="small" @change="onAddDarkChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isDark" size="small" @change="onAddDarkChange"></el-switch>
           </div>
         </div>
 
@@ -538,7 +538,7 @@ const getThemeConfig = computed(() => {
 const onColorPickerChange = () => {
   if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
   document.documentElement.style.setProperty('--el-color-primary', getThemeConfig.value.primary)
-  if (getThemeConfig.value.isIsDark) {
+  if (getThemeConfig.value.isDark) {
     // 颜色加深
     for (let i = 1; i <= 9; i++) {
       document.documentElement.style.setProperty(`--el-color-primary-light-${i}`, `${getDarkColor(getThemeConfig.value.primary, i / 10)}`)
@@ -674,7 +674,7 @@ const onAddFilterChange = (attr: string) => {
 // 4、界面显示 --> 深色模式
 const onAddDarkChange = () => {
   const html = document.documentElement as HTMLElement
-  if (getThemeConfig.value.isIsDark) {
+  if (getThemeConfig.value.isDark) {
     html.setAttribute('class', 'dark')
     html.setAttribute('data-theme', 'dark')
   } else {
@@ -751,9 +751,9 @@ const onCopyConfigClick = () => {
 // 一键恢复默认
 const onResetConfigClick = () => {
   const storesUseUserInfo = useUserInfo()
-  const token = storesUseUserInfo.getToken()
+  const tokenInfo = storesUseUserInfo.getTokenInfo()
   Local.clear()
-  storesUseUserInfo.setToken(token)
+  storesUseUserInfo.setTokenInfo(tokenInfo)
   window.location.reload()
   // @ts-ignore
   Local.set('version', __NEXT_VERSION__)
@@ -787,7 +787,7 @@ onMounted(() => {
       // 色弱模式
       if (getThemeConfig.value.isInvert) onAddFilterChange('invert')
       // 深色模式
-      if (getThemeConfig.value.isIsDark) onAddDarkChange()
+      if (getThemeConfig.value.isDark) onAddDarkChange()
       // 开启水印
       onWatermarkChange()
       // 语言国际化

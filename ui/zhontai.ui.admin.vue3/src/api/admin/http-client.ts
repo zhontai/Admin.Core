@@ -12,7 +12,6 @@
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, RawAxiosRequestHeaders, ResponseType } from 'axios'
 import { ElLoading, ElMessage, LoadingOptions } from 'element-plus'
-import { storeToRefs } from 'pinia'
 import { useUserInfo } from '/@/stores/userInfo'
 
 export type QueryParamsType = Record<string | number, any>
@@ -196,13 +195,29 @@ export class HttpClient<SecurityDataType = unknown> {
   }
 
   /**
+   * 刷新token接口
+   * @param string  refreshToken
+   */
+  protected async refreshApi(refreshToken: string) {
+    return this.request<AxiosResponse, any>({
+      path: `/api/admin/auth/refresh`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      login: false,
+      query: {
+        token: refreshToken,
+      },
+    })
+  }
+
+  /**
    * 刷新token
    * @param {*} config
    */
   protected async refreshToken(config: any) {
     const storesUseUserInfo = useUserInfo()
-    const { userInfos } = storeToRefs(storesUseUserInfo)
-    const token = userInfos.value.token
+    const token = storesUseUserInfo.getToken()
     if (!token) {
       storesUseUserInfo.clear()
       return Promise.reject(config)
@@ -219,20 +234,10 @@ export class HttpClient<SecurityDataType = unknown> {
 
     window.tokenRefreshing = true
 
-    return this.request<AxiosResponse, any>({
-      path: `/api/admin/auth/refresh`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      login: false,
-      query: {
-        token: token,
-      },
-    })
+    return refreshApi(token)
       .then((res) => {
         if (res?.success) {
-          const token = res.data.token
-          storesUseUserInfo.setToken(token)
+          storesUseUserInfo.setTokenInfo(res.data)
           if (window.requests?.length > 0) {
             window.requests.forEach((apiRequest) => apiRequest())
             window.requests = []
@@ -333,7 +338,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
     // 请求拦截
     this.instance.interceptors.request.use(
-      (config) => {
+      async (config) => {
         this.removePending(config)
         cancelRepeatRequest && this.addPending(config)
 
@@ -344,8 +349,56 @@ export class HttpClient<SecurityDataType = unknown> {
           }
         }
 
-        const { userInfos } = storeToRefs(useUserInfo())
-        const accessToken = userInfos.value.token
+        const storesUseUserInfo = useUserInfo()
+        const tokenInfo = storesUseUserInfo.getTokenInfo()
+
+        if (tokenInfo && tokenInfo.accessToken) {
+          // 判断 accessToken 是否快失效
+          const now = new Date().getTime()
+          const expiresAt = new Date(tokenInfo.accessTokenExpiresAt).getTime()
+          const maxThreshold = tokenInfo.accessTokenLifeTime * 0.5
+          // 确保阈值不超过 5 分钟且不超过 accessTokenLifeTime 的一半
+          const threshold = Math.min(5 * 60 * 1000, maxThreshold)
+          if (expiresAt - now < threshold) {
+            //加锁
+            if (!window.tokenRefreshing) {
+              window.tokenRefreshing = true
+              try {
+                const res = await this.refreshApi(tokenInfo.accessToken)
+                if (res?.success) {
+                  storesUseUserInfo.setTokenInfo(res.data)
+                  //处理等待队列中的请求
+                  if (window.requests?.length > 0) {
+                    window.requests.forEach((apiRequest) => apiRequest())
+                    window.requests = []
+                  }
+                } else {
+                  storesUseUserInfo.clear()
+                  return Promise.reject(res)
+                }
+              } catch (error) {
+                // 清空等待队列
+                window.requests = []
+                return Promise.reject(error)
+              } finally {
+                // 解锁
+                window.tokenRefreshing = false
+              }
+            } else {
+              // 如果正在刷新，则将当前请求加入等待队列
+              if (config.url !== '/api/admin/auth/refresh') {
+                window.requests = window.requests ? window.requests : []
+                return new Promise((resolve) => {
+                  window.requests.push(() => {
+                    resolve(this.instance(config))
+                  })
+                })
+              }
+            }
+          }
+        }
+
+        const accessToken = storesUseUserInfo.getToken()
         config.headers!['Authorization'] = `Bearer ${accessToken}`
         return config
       },

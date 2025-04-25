@@ -150,8 +150,6 @@ const changePasswordComponentName = defineModel('changePasswordComponentName', {
 
 // 定义变量内容
 const { t } = useI18n()
-// const storesThemeConfig = useThemeConfig()
-// const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()
 const router = useRouter()
 const formRef = ref()
@@ -221,8 +219,7 @@ const login = async () => {
     return
   }
 
-  const token = res.data?.accessToken as string
-  useUserInfo().setToken(token)
+  useUserInfo().setTokenInfo(res.data)
   // 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
   const isNoPower = await initBackEndControlRoutes()
   // 执行完 initBackEndControlRoutes，再执行 signInSuccess
@@ -256,7 +253,7 @@ const onSignIn = async () => {
 const signInSuccess = (isNoPower: boolean | undefined) => {
   if (isNoPower) {
     ElMessage.warning('抱歉，您没有分配权限，请联系管理员')
-    useUserInfo().removeToken()
+    useUserInfo().removeTokenInfo()
     Session.clear()
   } else {
     // 初始化登录成功时间问候语

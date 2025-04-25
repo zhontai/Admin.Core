@@ -14,9 +14,9 @@ import { AxiosResponse } from 'axios'
 import {
   PageInputTenantGetPageInput,
   ResultOutputInt64,
-  ResultOutputObject,
   ResultOutputPageOutputTenantGetPageOutput,
   ResultOutputTenantGetOutput,
+  ResultOutputTokenInfo,
   TenantAddInput,
   TenantSetEnableInput,
   TenantUpdateInput,
@@ -202,7 +202,7 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputObject, any>({
+    this.request<ResultOutputTokenInfo, any>({
       path: `/api/admin/tenant/one-click-login`,
       method: 'POST',
       query: query,
