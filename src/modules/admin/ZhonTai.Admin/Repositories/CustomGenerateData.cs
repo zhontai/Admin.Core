@@ -17,6 +17,7 @@ using ZhonTai.Admin.Core.Db.Data;
 using FreeSql;
 using ZhonTai.Admin.Domain.UserOrg;
 using ZhonTai.Admin.Domain.Region;
+using ZhonTai.Admin.Domain.PrintTemplate;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -28,7 +29,13 @@ public class CustomGenerateData : GenerateData, IGenerateData
     public virtual async Task GenerateDataAsync(IFreeSql db, AppConfig appConfig)
     {
         #region 读取数据
-        #region 城市字典
+        #region 用户
+
+        var printTemplates = await db.Queryable<PrintTemplateEntity>().ToListAsync();
+
+        #endregion
+
+        #region 地区
 
         var regions = await db.Queryable<RegionEntity>().ToListAsync();
         var regionTree = regions.Clone().ToTree((r, c) =>
@@ -204,6 +211,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<OrgEntity>(orgTree);
             SaveDataToJsonFile<UserStaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
+        SaveDataToJsonFile<PrintTemplateEntity>(printTemplates);
         SaveDataToJsonFile<RegionEntity>(regionTree);
         SaveDataToJsonFile<UserEntity>(users, isTenant);
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);
