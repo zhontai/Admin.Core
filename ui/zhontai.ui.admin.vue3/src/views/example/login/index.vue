@@ -11,7 +11,6 @@
       <div class="login-left-img">
         <img :src="loginMain" />
       </div>
-      <img :src="loginBg" class="login-left-waves" />
     </div>
     <div class="login-right flex">
       <div class="login-right-warp flex-margin">
@@ -49,7 +48,6 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
-import loginBg from '/@/assets/login-bg.svg'
 
 // 引入组件
 const Account = defineAsyncComponent(() => import('./component/account.vue'))

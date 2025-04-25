@@ -150,8 +150,6 @@ const changePasswordComponentName = defineModel('changePasswordComponentName', {
 
 // 定义变量内容
 const { t } = useI18n()
-// const storesThemeConfig = useThemeConfig()
-// const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()
 const router = useRouter()
 const formRef = ref()

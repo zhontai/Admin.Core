@@ -12,7 +12,6 @@
         <div class="login-left-img">
           <img :src="loginMain" />
         </div>
-        <img :src="loginBg" class="login-left-waves" />
       </div>
       <div class="login-right flex">
         <div class="login-right-warp flex-margin">
@@ -79,7 +78,6 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
-import loginBg from '/@/assets/login-bg.svg'
 import { AccountType } from '/@/api/admin/enum-contracts'
 import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 
@@ -131,6 +129,7 @@ const loginMethods = [
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
+debugger
 const state = reactive({
   loginComponentName: accountComponentName, //默认账号登录
   accountType: AccountType.UserName.value, //默认用户名账号
@@ -225,14 +224,13 @@ const onLogin = (loginMethod: any) => {
   .login-left {
     flex: 1;
     position: relative;
-    background-color: rgba(211, 239, 255, 1);
-    margin-right: 100px;
+    background-color: var(--el-bg-color-page);
     .login-left-logo {
       display: flex;
       align-items: center;
       position: absolute;
-      top: 50px;
-      left: 80px;
+      top: 20px;
+      left: 20px;
       z-index: 1;
       animation: logoAnimation 0.3s ease;
       img {
@@ -245,11 +243,11 @@ const onLogin = (loginMethod: any) => {
         span {
           margin-left: 10px;
           font-size: 28px;
-          color: var(--el-color-primary);
+          color: var(--el-text-color-primary);
         }
         .login-left-logo-text-msg {
           font-size: 12px;
-          color: var(--el-color-primary);
+          color: var(--el-text-color-secondary);
         }
       }
     }
@@ -275,6 +273,7 @@ const onLogin = (loginMethod: any) => {
   }
   .login-right {
     width: 700px;
+    background: var(--el-bg-color);
     .login-right-warp {
       border: 1px solid var(--el-color-primary-light-3);
       border-radius: 3px;
@@ -282,7 +281,6 @@ const onLogin = (loginMethod: any) => {
       height: 500px;
       position: relative;
       overflow: hidden;
-      background-color: var(--el-bg-color);
       .login-right-warp-one,
       .login-right-warp-two {
         position: absolute;
