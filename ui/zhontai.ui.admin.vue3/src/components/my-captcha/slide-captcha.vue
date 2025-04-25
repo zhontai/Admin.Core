@@ -59,7 +59,15 @@
             <path d="M7 12.5l7 7 13-13"></path>
           </g>
         </svg>
-        <svg v-else :style="handlerSvgStyle" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="819">
+        <svg
+          v-else
+          :style="handlerSvgStyle"
+          fill="var(--el-text-color-primary)"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="819"
+        >
           <path
             d="M500.864 545.728a47.744 47.744 0 0 0 6.72-48.896 24.704 24.704 0 0 0-4.48-8.384L240.256 193.088a34.24 34.24 0 0 0-28.608-17.408 34.24 34.24 0 0 0-25.856 12.864 46.592 46.592 0 0 0 0 59.52l238.08 264.512-238.08 264.512a46.592 46.592 0 0 0-1.088 59.52 32 32 0 0 0 50.56 0l265.6-290.88z"
             p-id="820"
@@ -110,7 +118,7 @@ const props = defineProps({
   },
   background: {
     type: String,
-    default: '#eee',
+    default: 'var(--el-bg-color-page)',
   },
   circle: {
     type: Boolean,
@@ -126,7 +134,7 @@ const props = defineProps({
   },
   progressBarBg: {
     type: String,
-    default: '#76c61d',
+    default: 'var(--el-color-success)',
   },
   successTip: {
     type: String,
@@ -213,7 +221,6 @@ const handlerSvgStyle = computed(() => {
 
 onMounted(() => {
   const dragEl = dragVerify.value
-  dragEl.style.setProperty('--textColor', '#333')
   let width = dragEl.clientWidth
   width = width > 0 ? width : state.width
   dragEl.style.setProperty('--width', Math.floor(width / 2) + 'px')
@@ -437,7 +444,7 @@ defineExpose({
   overflow: hidden;
   width: 100%;
   margin-top: 5px;
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--el-border-color);
 }
 .captcha_progress_bar {
   position: absolute;
@@ -460,11 +467,11 @@ defineExpose({
     linear,
     left top,
     right top,
-    color-stop(0, var(--textColor)),
-    color-stop(0.4, var(--textColor)),
-    color-stop(0.5, #fff),
-    color-stop(0.6, var(--textColor)),
-    color-stop(1, var(--textColor))
+    color-stop(0, var(--el-text-color-primary)),
+    color-stop(0.4, var(--el-text-color-primary)),
+    color-stop(0.5, var(--el-bg-color-overlay)),
+    color-stop(0.6, var(--el-text-color-primary)),
+    color-stop(1, var(--el-text-color-primary))
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -478,7 +485,7 @@ defineExpose({
   top: 0px;
   left: 0px;
   cursor: move;
-  background: rgb(255, 255, 255);
+  background: var(--el-bg-color-overlay);
   display: flex;
   align-items: center;
   justify-content: center;

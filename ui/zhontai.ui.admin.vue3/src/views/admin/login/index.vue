@@ -129,7 +129,6 @@ const loginMethods = [
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
-debugger
 const state = reactive({
   loginComponentName: accountComponentName, //默认账号登录
   accountType: AccountType.UserName.value, //默认用户名账号
