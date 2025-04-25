@@ -433,6 +433,12 @@ defineExpose({
 })
 </script>
 
+<style lang="scss">
+.hiprint-printElement {
+  color: #000;
+}
+</style>
+
 <style scoped lang="scss">
 .hiprint-printTemplate {
   padding: 15px 10px 10px 15px;
