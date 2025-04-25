@@ -158,7 +158,7 @@
               </el-button-group>
 
               <!-- 操作 -->
-              <el-button-group size="small" class="my-flex mr10 mb10">
+              <el-button-group size="small" class="my-flex mb10">
                 <el-tooltip content="预览" placement="top">
                   <el-button icon="ele-View" @click="onPreView"></el-button>
                 </el-tooltip>
