@@ -44,11 +44,9 @@
 
 <script lang="ts" setup name="admin/role/components/set-role-menu">
 import { ref, reactive, getCurrentInstance, computed, markRaw } from 'vue'
-import { RoleGetListOutput, PermissionAssignInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { RoleGetListOutput, PermissionAssignInput, DictGetListOutput, PermissionGetPermissionListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ElTree } from 'element-plus'
-import { listToTree } from '/@/utils/tree'
-import { cloneDeep } from 'lodash-es'
 import { DictApi } from '/@/api/admin/Dict'
 import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
@@ -72,7 +70,7 @@ const state = reactive({
   showDialog: false,
   loading: false,
   sureLoading: false,
-  permissionTreeData: [],
+  permissionTreeData: [] as PermissionGetPermissionListOutput[],
   roleId: 0 as number | undefined,
   roleName: '' as string | undefined | null,
   checkedKeys: [],
@@ -121,7 +119,7 @@ const onQuery = async () => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {
-    state.permissionTreeData = listToTree(cloneDeep(res.data))
+    state.permissionTreeData = res.data
   } else {
     state.permissionTreeData = []
   }

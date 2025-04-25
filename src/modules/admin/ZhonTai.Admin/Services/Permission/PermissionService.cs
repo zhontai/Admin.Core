@@ -10,7 +10,6 @@ using ZhonTai.Admin.Domain.RolePermission;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Domain.PermissionApi;
 using ZhonTai.Admin.Domain.Role;
-using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.Tenant;
 using ZhonTai.Admin.Domain.PkgPermission;
 using ZhonTai.Admin.Domain.TenantPkg;
@@ -20,7 +19,7 @@ using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
-using ZhonTai.Admin.Domain.View;
+using ZhonTai.Common.Extensions;
 
 namespace ZhonTai.Admin.Services.Permission;
 
@@ -36,7 +35,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     private readonly AdminLocalizer _adminLocalizer;
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
     private readonly Lazy<IRoleRepository> _roleRep;
-    private readonly Lazy<IUserRepository> _userRep;
     private readonly Lazy<IRolePermissionRepository> _rolePermissionRep;
     private readonly Lazy<IUserRoleRepository> _userRoleRep;
     
@@ -47,7 +45,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         AdminLocalizer adminLocalizer,
         Lazy<IOptions<AppConfig>> appConfig,
         Lazy<IRoleRepository> roleRep,
-        Lazy<IUserRepository> userRep,
         Lazy<IRolePermissionRepository> rolePermissionRep,
         Lazy<IUserRoleRepository> userRoleRep
     )
@@ -57,7 +54,6 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         _adminLocalizer = adminLocalizer;
         _appConfig = appConfig;
         _roleRep = roleRep;
-        _userRep = userRep;
         _rolePermissionRep = rolePermissionRep;
         _userRoleRep = userRoleRep;
     }
@@ -165,7 +161,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     /// </summary>
     /// <param name="platform"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<dynamic>> GetPermissionListAsync(string platform)
+    public async Task<List<PermissionGetPermissionListOutput>> GetPermissionListAsync(string platform)
     {
         var select = _permissionRep.Select;
         if (platform.NotNull())
@@ -184,23 +180,37 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         }
 
         var permissions = await select
-            .Where(a => a.Enabled == true)
+            .Where(a => a.Enabled == true && a.IsSystem == false)
+            .Where(a => a.Type != PermissionType.Menu || (a.Type == PermissionType.Menu && a.View.Enabled == true))
             .WhereIf(_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _permissionRep.Orm.Select<TenantPkgEntity, PkgPermissionEntity>()
                 .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                 .Any()
             )
-            .AsTreeCte(up: true)
             .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Sort });
 
         var menus = permissions.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort)
-            .Select(a => new
+            .Select(a => new PermissionGetPermissionListOutput
             {
-                a.Id,
-                a.ParentId,
-                a.Label,
-                Row = a.Type == PermissionType.Menu
-            });
+                Id = a.Id,
+                ParentId = a.ParentId,
+                Label = a.Label,
+                Row = a.Type == PermissionType.Menu,
+            }).ToList();
+
+        menus = menus.ToTree((r, c) =>
+        {
+            return c.ParentId == 0;
+        },
+        (r, c) =>
+        {
+            return r.Id == c.ParentId;
+        },
+        (r, datalist) =>
+        {
+            r.Children ??= [];
+            r.Children.AddRange(datalist);
+        });
 
         return menus;
     }

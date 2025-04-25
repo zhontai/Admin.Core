@@ -20,10 +20,10 @@ import {
   PermissionUpdateDotInput,
   PermissionUpdateGroupInput,
   PermissionUpdateMenuInput,
-  ResultOutputIEnumerableObject,
   ResultOutputInt64,
   ResultOutputListInt64,
   ResultOutputListPermissionGetListOutput,
+  ResultOutputListPermissionGetPermissionListOutput,
   ResultOutputPermissionGetDotOutput,
   ResultOutputPermissionGetGroupOutput,
   ResultOutputPermissionGetMenuOutput,
@@ -137,7 +137,7 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
     },
     params: RequestParams = {}
   ) =>
-    this.request<ResultOutputIEnumerableObject, any>({
+    this.request<ResultOutputListPermissionGetPermissionListOutput, any>({
       path: `/api/admin/permission/get-permission-list`,
       method: 'GET',
       query: query,
