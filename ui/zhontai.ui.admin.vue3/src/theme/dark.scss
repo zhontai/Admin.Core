@@ -84,6 +84,9 @@
         background: var(--el-bg-color) !important;
       }
     }
+    .w-e-full-screen-container {
+      z-index: 10;
+    }
   }
 
   // columns

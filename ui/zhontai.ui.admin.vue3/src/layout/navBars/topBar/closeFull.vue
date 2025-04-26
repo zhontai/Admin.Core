@@ -23,7 +23,7 @@ const onCloseFullscreen = () => {
 <style scoped lang="scss">
 .layout-navbars-close-full {
   position: fixed;
-  z-index: 9999999999;
+  z-index: 1;
   right: -30px;
   top: -30px;
   .layout-navbars-close-full-icon {
@@ -31,7 +31,7 @@ const onCloseFullscreen = () => {
     height: 60px;
     border-radius: 100%;
     cursor: pointer;
-    background: var(--el-mask-color-extra-light);
+    background: rgba(#000, 0.1);
     transition: all 0.3s ease;
     position: relative;
     :deep(i) {
@@ -46,6 +46,13 @@ const onCloseFullscreen = () => {
     :deep(i) {
       color: var(--el-color-primary);
       transition: all 0.3s ease;
+    }
+  }
+}
+html.dark {
+  .layout-navbars-close-full {
+    .layout-navbars-close-full-icon {
+      background: rgba(#fff, 0.1);
     }
   }
 }
