@@ -211,7 +211,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             SaveDataToJsonFile<OrgEntity>(orgTree);
             SaveDataToJsonFile<UserStaffEntity>(staffs.Where(a => tenantIds.Contains(a.TenantId.Value)));
         }
-        SaveDataToJsonFile<PrintTemplateEntity>(printTemplates);
+        SaveDataToJsonFile<PrintTemplateEntity>(printTemplates, isTenant);
         SaveDataToJsonFile<RegionEntity>(regionTree);
         SaveDataToJsonFile<UserEntity>(users, isTenant);
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);

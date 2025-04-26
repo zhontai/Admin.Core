@@ -94,6 +94,16 @@ public class PrintTemplateService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task<long> AddAsync(PrintTemplateAddInput input)
     {
+        if (await _printTemplateRep.Select.AnyAsync(a => a.Name == input.Name))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板名称已存在"]);
+        }
+
+        if (input.Code.NotNull() && await _printTemplateRep.Select.AnyAsync(a => a.Code == input.Code))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板编码已存在"]);
+        }
+
         var entity = Mapper.Map<PrintTemplateEntity>(input);
         if (entity.Sort == 0)
         {
@@ -112,6 +122,16 @@ public class PrintTemplateService : BaseService, IDynamicApi
     /// <returns></returns>
     public async Task UpdateAsync(PrintTemplateUpdateInput input)
     {
+        if (await _printTemplateRep.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板名称已存在"]);
+        }
+
+        if (input.Code.NotNull() && await _printTemplateRep.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["打印模板编码已存在"]);
+        }
+
         var entity = await _printTemplateRep.GetAsync(input.Id);
         if (!(entity?.Id > 0))
         {

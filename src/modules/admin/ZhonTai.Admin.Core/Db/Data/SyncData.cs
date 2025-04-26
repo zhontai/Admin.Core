@@ -170,7 +170,7 @@ public abstract class SyncData
                 return;
             }
 
-            var isTenant = appConfig.Tenant && typeof(T).IsAssignableTo(typeof(EntityTenant));
+            var isTenant = appConfig.Tenant && typeof(T).IsAssignableTo(typeof(ITenant));
             var rep = db.GetRepository<T>();
             rep.UnitOfWork = unitOfWork;
 
