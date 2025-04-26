@@ -1,6 +1,7 @@
 [
   {
     "id": 161227168313413,
+    "platform": null,
     "parentId": 0,
     "name": null,
     "label": "平台管理",
@@ -12,6 +13,7 @@
     "childs": [
       {
         "id": 161227168428101,
+        "platform": null,
         "parentId": 161227168313413,
         "name": "admin/workbench",
         "label": "工作台",
@@ -29,10 +31,11 @@
         "modifiedUserId": 161223411986501,
         "modifiedUserName": "admin",
         "modifiedUserRealName": "管理员",
-        "modifiedTime": "2024-01-31T18:09:02"
+        "modifiedTime": "2025-04-08T20:04:01"
       },
       {
         "id": 161227168432197,
+        "platform": null,
         "parentId": 161227168313413,
         "name": null,
         "label": "系统管理",
@@ -44,6 +47,7 @@
         "childs": [
           {
             "id": 161227168440390,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/api",
             "label": "接口管理",
@@ -65,6 +69,7 @@
           },
           {
             "id": 161227168444485,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/view",
             "label": "视图管理",
@@ -86,6 +91,7 @@
           },
           {
             "id": 161227168448582,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/cache",
             "label": "缓存管理",
@@ -107,6 +113,7 @@
           },
           {
             "id": 161227168456774,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/document",
             "label": "文档管理",
@@ -128,6 +135,7 @@
           },
           {
             "id": 187053736300613,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/dict",
             "label": "数据字典",
@@ -149,6 +157,7 @@
           },
           {
             "id": 336556164300869,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/task",
             "label": "任务调度",
@@ -170,6 +179,7 @@
           },
           {
             "id": 371247502852165,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/file",
             "label": "文件管理",
@@ -191,6 +201,7 @@
           },
           {
             "id": 541192324943941,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/region",
             "label": "地区管理",
@@ -212,13 +223,14 @@
           },
           {
             "id": 616549084737605,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/msg",
             "label": "消息管理",
             "path": "admin/msg/index",
             "description": "",
             "cache": true,
-            "sort": 9,
+            "sort": 10,
             "enabled": true,
             "childs": null,
             "isDeleted": false,
@@ -226,16 +238,17 @@
             "createdUserName": "admin",
             "createdUserRealName": "管理员",
             "createdTime": "2024-11-27T14:44:40",
-            "modifiedUserId": null,
-            "modifiedUserName": null,
-            "modifiedUserRealName": null,
-            "modifiedTime": null
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2025-03-18T15:04:18"
           },
           {
             "id": 618670689706053,
+            "platform": null,
             "parentId": 161227168432197,
             "name": "admin/msg-type",
-            "label": "消息分类管理",
+            "label": "消息分类",
             "path": "admin/msg-type/index",
             "description": "",
             "cache": true,
@@ -247,10 +260,32 @@
             "createdUserName": "admin",
             "createdUserRealName": "管理员",
             "createdTime": "2024-12-03T14:37:30",
-            "modifiedUserId": null,
-            "modifiedUserName": null,
-            "modifiedUserRealName": null,
-            "modifiedTime": null
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2025-03-18T15:08:43"
+          },
+          {
+            "id": 655836164862021,
+            "platform": null,
+            "parentId": 161227168432197,
+            "name": "admin/print-template",
+            "label": "打印模板",
+            "path": "admin/print-template/index",
+            "description": "",
+            "cache": true,
+            "sort": 11,
+            "enabled": true,
+            "childs": null,
+            "isDeleted": false,
+            "createdUserId": 161223411986501,
+            "createdUserName": "admin",
+            "createdUserRealName": "管理员",
+            "createdTime": "2025-03-18T15:04:12",
+            "modifiedUserId": 161223411986501,
+            "modifiedUserName": "admin",
+            "modifiedUserRealName": "管理员",
+            "modifiedTime": "2025-03-18T15:09:01"
           }
         ],
         "isDeleted": false,
@@ -265,6 +300,7 @@
       },
       {
         "id": 161227168436293,
+        "platform": null,
         "parentId": 161227168313413,
         "name": "admin/personal",
         "label": "个人中心",
@@ -286,6 +322,7 @@
       },
       {
         "id": 161227168436294,
+        "platform": null,
         "parentId": 161227168313413,
         "name": null,
         "label": "权限管理",
@@ -297,6 +334,7 @@
         "childs": [
           {
             "id": 161227168436295,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/user",
             "label": "用户管理",
@@ -318,6 +356,7 @@
           },
           {
             "id": 161227168440389,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/role",
             "label": "角色管理",
@@ -339,6 +378,7 @@
           },
           {
             "id": 161227168444486,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/permission",
             "label": "权限管理",
@@ -360,6 +400,7 @@
           },
           {
             "id": 161227168448583,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/tenant",
             "label": "租户管理",
@@ -381,6 +422,7 @@
           },
           {
             "id": 174312361087045,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/org",
             "label": "部门管理",
@@ -402,6 +444,7 @@
           },
           {
             "id": 402829224460357,
+            "platform": null,
             "parentId": 161227168436294,
             "name": "admin/pkg",
             "label": "套餐管理",
@@ -434,6 +477,7 @@
       },
       {
         "id": 161227168452677,
+        "platform": null,
         "parentId": 161227168313413,
         "name": null,
         "label": "日志管理",
@@ -445,6 +489,7 @@
         "childs": [
           {
             "id": 161227168452678,
+            "platform": null,
             "parentId": 161227168452677,
             "name": "admin/operationLog",
             "label": "操作日志",
@@ -466,6 +511,7 @@
           },
           {
             "id": 161227168456773,
+            "platform": null,
             "parentId": 161227168452677,
             "name": "admin/loginLog",
             "label": "登录日志",
@@ -498,6 +544,7 @@
       },
       {
         "id": 619301345665093,
+        "platform": null,
         "parentId": 161227168313413,
         "name": "admin/site-msg",
         "label": "站内信",
@@ -530,6 +577,7 @@
   },
   {
     "id": 361047466754117,
+    "platform": null,
     "parentId": 0,
     "name": "",
     "label": "布局管理",
@@ -541,6 +589,7 @@
     "childs": [
       {
         "id": 361047593013317,
+        "platform": null,
         "parentId": 361047466754117,
         "name": "link",
         "label": "链接",
@@ -562,6 +611,7 @@
       },
       {
         "id": 361047841796165,
+        "platform": null,
         "parentId": 361047466754117,
         "name": "iframe",
         "label": "内嵌窗口",
