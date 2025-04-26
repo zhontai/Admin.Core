@@ -181,13 +181,14 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
 
         var permissions = await select
             .Where(a => a.Enabled == true && a.IsSystem == false)
-            .Where(a => a.Type != PermissionType.Menu || (a.Type == PermissionType.Menu && a.View.Enabled == true))
             .WhereIf(_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant, a =>
                 _permissionRep.Orm.Select<TenantPkgEntity, PkgPermissionEntity>()
                 .Where((b, c) => b.PkgId == c.PkgId && b.TenantId == User.TenantId && c.PermissionId == a.Id)
                 .Any()
             )
-            .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Sort });
+           .AsTreeCte(up: true)
+           .Where(a => a.Type != PermissionType.Menu || (a.Type == PermissionType.Menu && a.View.Enabled == true))
+           .ToListAsync(a => new { a.Id, a.ParentId, a.Label, a.Type, a.Sort });
 
         var menus = permissions.DistinctBy(a => a.Id).OrderBy(a => a.ParentId).ThenBy(a => a.Sort)
             .Select(a => new PermissionGetPermissionListOutput
