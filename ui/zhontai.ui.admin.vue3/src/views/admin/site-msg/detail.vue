@@ -63,8 +63,8 @@ const getContent = async () => {
       min-width: 320px;
       max-width: 700px;
       border: 1px solid var(--next-border-color-light);
-      background-color: var(--el-fill-color-blank);
-      color: var(--el-text-color-primary);
+      background-color: var(--el-color-white);
+      color: var(--el-color-black);
       margin: auto;
       padding: 30px;
     }

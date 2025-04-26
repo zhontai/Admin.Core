@@ -458,6 +458,9 @@ defineExpose({
     color: var(--el-text-color-primary);
   }
 
+  .hiprint-option-items {
+    padding: 10px;
+  }
   .prop-tabs {
     background-color: var(--el-bg-color);
     border-style: none;
@@ -490,13 +493,17 @@ defineExpose({
     padding: 10px;
   }
   .hiprint-option-item-settingBtn {
-    width: 45%;
+    width: 100%;
     height: 30px;
     line-height: 30px;
+    background-color: var(--el-color-primary);
+  }
+  .prop-tabs .hiprint-option-item-settingBtn {
+    width: 45%;
+    margin-left: 10px;
   }
   .hiprint-option-item-submitBtn {
     background-color: var(--el-color-primary);
-    margin-left: 10px;
     margin-bottom: 20px;
   }
   .hiprint-option-item-deleteBtn {

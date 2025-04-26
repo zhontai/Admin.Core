@@ -211,7 +211,7 @@ const initSortable = () => {
 }
 // 初始化 jsPlumb
 const initJsPlumb = () => {
-  (<any>jsPlumb).ready(() => {
+  ;(<any>jsPlumb).ready(() => {
     state.jsPlumb = (<any>jsPlumb).getInstance({
       detachable: false,
       Container: 'workflow-right',
@@ -555,8 +555,8 @@ onUnmounted(() => {
         position: relative;
         overflow: hidden;
         height: 100%;
-        background-image: linear-gradient(90deg, rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%),
-          linear-gradient(rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%);
+        background-image:
+          linear-gradient(90deg, rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%), linear-gradient(rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%);
         background-size: 10px 10px;
         .workflow-right-clone {
           position: absolute;
@@ -569,7 +569,7 @@ onUnmounted(() => {
             cursor: move;
             transition: all 0.3s ease;
             min-width: 94.5px;
-            background: var(--el-color-white);
+            background: var(--el-bg-color);
             border: 1px solid var(--el-border-color-light, #ebeef5);
             .workflow-left-item-icon {
               display: flex;
@@ -596,7 +596,7 @@ onUnmounted(() => {
           padding: 4px 10px;
           border: 1px solid var(--el-border-color-light, #ebeef5) !important;
           color: var(--el-text-color-secondary) !important;
-          background: var(--el-color-white) !important;
+          background: var(--el-bg-color) !important;
           border-radius: 3px;
           font-size: 10px;
         }

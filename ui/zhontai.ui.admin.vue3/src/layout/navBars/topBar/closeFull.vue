@@ -31,14 +31,13 @@ const onCloseFullscreen = () => {
     height: 60px;
     border-radius: 100%;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--el-mask-color-extra-light);
     transition: all 0.3s ease;
     position: relative;
     :deep(i) {
       position: absolute;
       left: 10px;
       top: 35px;
-      color: #333333;
       transition: all 0.3s ease;
     }
   }
