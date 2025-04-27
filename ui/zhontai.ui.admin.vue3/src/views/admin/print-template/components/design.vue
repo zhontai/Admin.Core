@@ -89,7 +89,7 @@
                 </template>
               </el-input-number>
             </div>
-            <div class="my-fill my-flex my-flex-between">
+            <div class="my-fill my-flex my-flex-wrap my-flex-between">
               <!-- 排版 -->
               <el-button-group size="small" class="my-flex mr10 mb10">
                 <el-tooltip content="左对齐" placement="top">
