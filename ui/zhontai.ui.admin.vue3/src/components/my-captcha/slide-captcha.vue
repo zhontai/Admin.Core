@@ -425,7 +425,7 @@ defineExpose({
   background-repeat: no-repeat;
 }
 .captcha_message.loadding {
-  background-color: rgb(244 245 246);
+  background-color: var(--el-mask-color);
 }
 .captcha_message__text {
   padding: 10px;
@@ -436,7 +436,7 @@ defineExpose({
   font-size: 14px;
 }
 .captcha_message.loadding .captcha_message__text {
-  color: rgb(202, 202, 202);
+  color: var(--el-text-color-secondary);
 }
 .captcha__bar {
   position: relative;
