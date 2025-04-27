@@ -30,7 +30,7 @@
         </div>
       </template>
 
-      <div ref="previewContainerRef" style="background-color: #fff"></div>
+      <div ref="previewContainerRef"></div>
     </el-dialog>
   </div>
 </template>
@@ -111,6 +111,9 @@ defineExpose({
   }
   .preview-box {
     background-color: var(--el-bg-color-overlay);
+  }
+  .hiprint-printPaper {
+    background-color: var(--el-color-white);
   }
 }
 </style>
