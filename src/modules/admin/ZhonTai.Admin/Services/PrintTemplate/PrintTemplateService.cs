@@ -7,7 +7,6 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Repositories;
-using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Services.PrintTemplate.Ouputs;
 using ZhonTai.Admin.Services.PrintTemplate.Inputs;
 
@@ -21,7 +20,6 @@ namespace ZhonTai.Admin.Services.PrintTemplate;
 public class PrintTemplateService : BaseService, IDynamicApi
 {
     private readonly AdminRepositoryBase<PrintTemplateEntity> _printTemplateRep;
-    private readonly AdminRepositoryBase<UserEntity> _userRep;
     private readonly AdminLocalizer _adminLocalizer;
 
     public PrintTemplateService(
