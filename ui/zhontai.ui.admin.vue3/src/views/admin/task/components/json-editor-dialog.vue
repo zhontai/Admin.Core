@@ -87,7 +87,6 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
-  debugger
   emits('sure', { topic: state.topic, body: state.content })
   state.showDialog = false
 }
