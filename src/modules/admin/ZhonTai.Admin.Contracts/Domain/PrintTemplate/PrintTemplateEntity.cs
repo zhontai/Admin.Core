@@ -9,7 +9,8 @@ namespace ZhonTai.Admin.Domain.PrintTemplate;
 /// 打印模板
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "print_template")]
-[Index("idx_{tablename}_01", $"{nameof(Name)},{nameof(TenantId)}", true)]
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(Name)}", true)]
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(Code)}", true)]
 public partial class PrintTemplateEntity : EntityVersion, ITenant
 {
     /// <summary>

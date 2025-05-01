@@ -10,7 +10,7 @@
         <el-button type="primary" @click="onJsonShell" size="default">Shell</el-button>
         <el-button type="primary" @click="onJsonHttp" size="default">Http</el-button>
       </div>
-      <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{}"></MyJsonEditor>
+      <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{ modes: [] }"></MyJsonEditor>
     </div>
     <template #footer>
       <div style="flex: auto; padding: 20px !important">
