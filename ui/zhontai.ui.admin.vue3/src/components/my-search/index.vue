@@ -9,15 +9,15 @@
               :prop="val.prop"
               :rules="[{ required: val.required, message: `${val.label}不能为空`, trigger: val.type === 'input' ? 'blur' : 'change' }]"
             >
-              <el-input v-model="state.form[val.prop]" :placeholder="val.placeholder" clearable v-if="val.type === 'input'" style="width: 100%" />
+              <el-input v-if="val.type === 'input'" v-model="state.form[val.prop]" :placeholder="val.placeholder" clearable style="width: 100%" />
               <el-date-picker
+                v-else-if="val.type === 'date'"
                 v-model="state.form[val.prop]"
                 type="date"
                 :placeholder="val.placeholder"
-                v-else-if="val.type === 'date'"
                 style="width: 100%"
               />
-              <el-select v-model="state.form[val.prop]" :placeholder="val.placeholder" v-else-if="val.type === 'select'" style="width: 100%">
+              <el-select v-else-if="val.type === 'select'" v-model="state.form[val.prop]" :placeholder="val.placeholder" style="width: 100%">
                 <el-option v-for="item in val.options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
               </el-select>
             </el-form-item>
@@ -61,7 +61,7 @@ const emit = defineEmits(['search'])
 // 定义变量内容
 const tableSearchRef = ref<FormInstance>()
 const state = reactive({
-  form: {},
+  form: {} as EmptyObjectType,
   isToggle: false,
 })
 
@@ -69,11 +69,11 @@ const state = reactive({
 const onSearch = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate((valid: boolean) => {
-    if (valid) {
-      emit('search', state.form)
-    } else {
-      return false
+    if (!valid) {
+      return
     }
+
+    emit('search', state.form)
   })
 }
 // 重置
