@@ -1,4 +1,7 @@
 ﻿using FreeSql.DataAnnotations;
+using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 using ZhonTai.Admin.Core.Entities;
 namespace ZhonTai.Admin.Domain.PrintTemplate;
 
@@ -6,9 +9,19 @@ namespace ZhonTai.Admin.Domain.PrintTemplate;
 /// 打印模板
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "print_template")]
-[Index("idx_{tablename}_01", $"{nameof(Name)}", true)]
-public partial class PrintTemplateEntity : EntityVersion
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(Name)}", true)]
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(Code)}", true)]
+public partial class PrintTemplateEntity : EntityVersion, ITenant
 {
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    [Description("租户Id")]
+    [Column(Position = 2, CanUpdate = false)]
+    [JsonProperty(Order = -20)]
+    [JsonPropertyOrder(-20)]
+    public virtual long? TenantId { get; set; }
+
     /// <summary>
     /// 名称
     /// </summary>

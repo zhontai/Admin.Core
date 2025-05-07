@@ -234,7 +234,7 @@ defineExpose({
 .popup-main {
   position: relative;
   margin: 10px auto;
-  background: #fff;
+  background: var(--el-bg-color-overlay);
   border-radius: 5px;
   font-size: 12px;
   overflow: hidden;
@@ -250,7 +250,7 @@ defineExpose({
   line-height: 24px;
   margin: 25px auto;
   padding: 15px 10px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--el-border-color-light);
   position: relative;
 }
 .popup-result .title {
@@ -262,7 +262,7 @@ defineExpose({
   margin-left: -70px;
   text-align: center;
   line-height: 30px;
-  background: #fff;
+  background: var(--el-bg-color-overlay);
 }
 .popup-result table {
   text-align: center;
@@ -282,12 +282,17 @@ defineExpose({
   height: 30px;
   white-space: nowrap;
   overflow: hidden;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--el-border-color-light);
 }
-.popup-result-scroll {
-  font-size: 12px;
-  line-height: 24px;
-  height: 10em;
-  overflow-y: auto;
+:deep() {
+  .popup-result-scroll {
+    font-size: 12px;
+    line-height: 24px;
+    height: 10em;
+    overflow-y: auto;
+    li {
+      list-style: none;
+    }
+  }
 }
 </style>

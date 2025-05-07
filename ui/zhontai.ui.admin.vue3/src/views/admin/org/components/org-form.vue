@@ -155,6 +155,7 @@ const onSure = () => {
 
     if (res?.success) {
       eventBus.emit('refreshOrg')
+      eventBus.emit('refreshOrgImg')
       state.showDialog = false
     }
   })

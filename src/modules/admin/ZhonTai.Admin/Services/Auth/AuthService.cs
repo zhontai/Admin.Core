@@ -358,9 +358,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 }
             }
 
-            menuSelect = menuSelect.AsTreeCte(up: true);
-
             var menuList = await menuSelect
+                .AsTreeCte(up: true)
                 .Where(a => a.Type == PermissionType.Group || (a.Type == PermissionType.Menu && a.View.Enabled == true))
                 .ToListAsync(a => new AuthUserMenuOutput { ViewPath = a.View.Path });
 

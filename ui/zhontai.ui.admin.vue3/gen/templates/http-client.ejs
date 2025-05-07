@@ -229,7 +229,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
       window.tokenRefreshing = true
 
-      return refreshApi(token)
+      return this.refreshApi(token)
         .then((res) => {
           if (res?.success) {
             storesUseUserInfo.setTokenInfo(res.data)

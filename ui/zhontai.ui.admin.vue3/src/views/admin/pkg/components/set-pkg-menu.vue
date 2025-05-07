@@ -45,12 +45,10 @@
 
 <script lang="ts" setup name="admin/pkg/components/set-pkg-menu">
 import { ref, reactive, getCurrentInstance, computed, markRaw } from 'vue'
-import { PkgGetListOutput, PkgSetPkgPermissionsInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { PkgGetListOutput, PkgSetPkgPermissionsInput, DictGetListOutput, PermissionGetPermissionListOutput } from '/@/api/admin/data-contracts'
 import { PkgApi } from '/@/api/admin/Pkg'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ElTree } from 'element-plus'
-import { listToTree } from '/@/utils/tree'
-import { cloneDeep } from 'lodash-es'
 import { DictApi } from '/@/api/admin/Dict'
 import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
@@ -74,7 +72,7 @@ const state = reactive({
   showDialog: false,
   loading: false,
   sureLoading: false,
-  permissionTreeData: [],
+  permissionTreeData: [] as PermissionGetPermissionListOutput[],
   pkgId: 0 as number | undefined,
   pkgName: '' as string | undefined | null,
   checkedKeys: [],
@@ -123,7 +121,7 @@ const onQuery = async () => {
     state.loading = false
   })
   if (res && res.data && res.data.length > 0) {
-    state.permissionTreeData = listToTree(cloneDeep(res.data))
+    state.permissionTreeData = res.data
   } else {
     state.permissionTreeData = []
   }

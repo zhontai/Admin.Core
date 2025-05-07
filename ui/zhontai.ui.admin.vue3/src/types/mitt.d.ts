@@ -15,6 +15,7 @@
  * @method refreshDictType 刷新字典类型
  * @method refreshDict 刷新字典
  * @method refreshOrg 刷新部门
+ * @method refreshOrgImg 刷新部门图形
  * @method refreshApi 刷新接口
  * @method refreshPermission 刷新权限
  * @method refreshRole 刷新角色
@@ -45,6 +46,7 @@ declare type MittType<T = any> = {
   refreshDictType?: T
   refreshDict?: T
   refreshOrg?: T
+  refreshOrgImg?: T
   refreshApi?: T
   refreshPermission?: T
   refreshRole?: T

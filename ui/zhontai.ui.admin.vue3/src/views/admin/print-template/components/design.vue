@@ -89,7 +89,7 @@
                 </template>
               </el-input-number>
             </div>
-            <div class="my-fill my-flex my-flex-between">
+            <div class="my-fill my-flex my-flex-wrap my-flex-between">
               <!-- 排版 -->
               <el-button-group size="small" class="my-flex mr10 mb10">
                 <el-tooltip content="左对齐" placement="top">
@@ -433,6 +433,12 @@ defineExpose({
 })
 </script>
 
+<style lang="scss">
+.hiprint-printElement {
+  color: #000;
+}
+</style>
+
 <style scoped lang="scss">
 .hiprint-printTemplate {
   padding: 15px 10px 10px 15px;
@@ -452,6 +458,9 @@ defineExpose({
     color: var(--el-text-color-primary);
   }
 
+  .hiprint-option-items {
+    padding: 10px;
+  }
   .prop-tabs {
     background-color: var(--el-bg-color);
     border-style: none;
@@ -484,13 +493,17 @@ defineExpose({
     padding: 10px;
   }
   .hiprint-option-item-settingBtn {
-    width: 45%;
+    width: 100%;
     height: 30px;
     line-height: 30px;
+    background-color: var(--el-color-primary);
+  }
+  .prop-tabs .hiprint-option-item-settingBtn {
+    width: 45%;
+    margin-left: 10px;
   }
   .hiprint-option-item-submitBtn {
     background-color: var(--el-color-primary);
-    margin-left: 10px;
     margin-bottom: 20px;
   }
   .hiprint-option-item-deleteBtn {

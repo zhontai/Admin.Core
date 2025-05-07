@@ -23,8 +23,9 @@
               <el-button size="small" type="primary" @click="onSave(false)"> 保存 </el-button>
             </div>
           </el-popover>
+
           <el-tooltip content="刷新" placement="bottom">
-            <el-button link @click="onRefresh">
+            <el-button ref="refreshRef" link>
               <template #icon>
                 <el-icon size="18px">
                   <ele-Refresh></ele-Refresh>
@@ -32,6 +33,13 @@
               </template>
             </el-button>
           </el-tooltip>
+          <el-popover ref="popoverRefreshRef" placement="bottom" :virtual-ref="refreshRef" trigger="click" virtual-triggering :width="230">
+            <p class="my-flex my-flex-items-center">确定要刷新设计模板吗？</p>
+            <div class="mt10" style="text-align: right; margin: 0">
+              <el-button size="small" text @click="onRefreshCancel">取消</el-button>
+              <el-button size="small" type="primary" @click="onRefresh">确定</el-button>
+            </div>
+          </el-popover>
         </div>
       </div>
     </template>
@@ -58,6 +66,8 @@ const { proxy } = getCurrentInstance() as any
 const designRef = ref()
 const saveRef = ref()
 const popoverSaveRef = ref()
+const refreshRef = ref()
+const popoverRefreshRef = ref()
 
 const state = reactive({
   visible: false,
@@ -93,20 +103,17 @@ const loadData = async () => {
   }
 }
 
-//刷新
-const onRefresh = async () => {
-  proxy.$modal
-    .confirm(`确定要刷新设计模板吗？`)
-    .then(async () => {
-      try {
-        await loadData()
-      } catch (error) {}
-    })
-    .catch(() => {})
-}
-
 const onSaveCancel = () => {
   popoverSaveRef.value?.hide?.()
+}
+
+const onRefreshCancel = () => {
+  popoverRefreshRef.value?.hide?.()
+}
+
+const onRefresh = () => {
+  onRefreshCancel()
+  loadData()
 }
 
 //保存

@@ -129,8 +129,9 @@ public abstract class SyncData
         if (!File.Exists(filePath))
         {
             var msg = $"数据文件{filePath}不存在";
-            Console.WriteLine(msg);
-            throw new Exception(msg);
+            ConsoleHelper.WriteWarningLine(msg);
+            return null;
+            //throw new Exception(msg);
         }
         var jsonData = FileHelper.ReadFile(filePath);
         var data = JsonConvert.DeserializeObject<T[]>(jsonData);
@@ -169,7 +170,7 @@ public abstract class SyncData
                 return;
             }
 
-            var isTenant = appConfig.Tenant && typeof(T).IsAssignableTo(typeof(EntityTenant));
+            var isTenant = appConfig.Tenant && typeof(T).IsAssignableTo(typeof(ITenant));
             var rep = db.GetRepository<T>();
             rep.UnitOfWork = unitOfWork;
 

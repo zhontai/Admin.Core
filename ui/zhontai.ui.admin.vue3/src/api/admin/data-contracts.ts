@@ -2826,6 +2826,26 @@ export interface PermissionGetMenuOutput {
   id: number
 }
 
+/** 权限列表 */
+export interface PermissionGetPermissionListOutput {
+  /**
+   * 权限Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 父级节点
+   * @format int64
+   */
+  parentId?: number
+  /** 权限名称 */
+  label?: string | null
+  /** 行显示 */
+  row?: boolean
+  /** 权限列表 */
+  children?: PermissionGetPermissionListOutput[] | null
+}
+
 /**
  * 权限类型:Group=1,Menu=2,Dot=3
  * @format int32
@@ -3992,6 +4012,18 @@ export interface ResultOutputListPermissionGetListOutput {
   msg?: string | null
   /** 数据 */
   data?: PermissionGetListOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListPermissionGetPermissionListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: PermissionGetPermissionListOutput[] | null
 }
 
 /** 结果输出 */

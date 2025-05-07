@@ -18,6 +18,7 @@ using ZhonTai.Common.Extensions;
 using FreeSql;
 using Mapster;
 using ZhonTai.Admin.Domain.Region;
+using ZhonTai.Admin.Domain.PrintTemplate;
 
 namespace ZhonTai.Admin.Repositories;
 
@@ -276,6 +277,7 @@ public class CustomSyncData : SyncData, ISyncData
         {
             var isTenant = appConfig.Tenant;
 
+            await SyncEntityAsync<PrintTemplateEntity>(db, unitOfWork, dbConfig, appConfig);
             await SyncEntityAsync<RegionEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true);
             await SyncEntityAsync<DictTypeEntity>(db, unitOfWork, dbConfig, appConfig);
             await SyncEntityAsync<DictEntity>(db, unitOfWork, dbConfig, appConfig);

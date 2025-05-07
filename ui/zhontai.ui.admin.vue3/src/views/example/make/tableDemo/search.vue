@@ -2,7 +2,7 @@
   <div class="table-search-container" v-if="props.search.length > 0">
     <el-form ref="tableSearchRef" :model="state.form" size="default" label-width="100px" class="table-form">
       <el-row>
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key === 0 || state.isToggle">
+        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key <= 2 || state.isToggle">
           <template v-if="val.type !== ''">
             <el-form-item
               :label="val.label"

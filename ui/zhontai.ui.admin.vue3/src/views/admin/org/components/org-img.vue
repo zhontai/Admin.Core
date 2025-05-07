@@ -69,14 +69,14 @@ const state = reactive({
 
 onMounted(() => {
   onQuery()
-  eventBus.off('refreshOrg')
-  eventBus.on('refreshOrg', () => {
+  eventBus.off('refreshOrgImg')
+  eventBus.on('refreshOrgImg', () => {
     onQuery()
   })
 })
 
 onBeforeMount(() => {
-  eventBus.off('refreshOrg')
+  eventBus.off('refreshOrgImg')
 })
 
 const onQuery = async () => {
@@ -149,6 +149,17 @@ defineExpose({
 })
 </script>
 
+<style lang="scss">
+.zm-tree-contextmenu {
+  background-color: var(--el-bg-color-overlay);
+  border-color: var(--el-border-color);
+  li:hover {
+    background-color: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
+  }
+}
+</style>
+
 <style scoped lang="scss">
 :deep() {
   .icon-fullscreen:before {
@@ -156,6 +167,41 @@ defineExpose({
   }
   .tree-org {
     margin-top: 5px;
+  }
+  .zm-tree-org {
+    background-color: var(--el-bg-color-overlay);
+  }
+  .tree-org-node__inner {
+    background-color: var(--el-bg-color) !important;
+    color: var(--el-text-color-primary) !important;
+    border: 1px solid var(--el-border-color);
+  }
+  .tree-org-node:not(:first-child):before,
+  .tree-org-node:not(:last-child):after,
+  .tree-org-node:after,
+  .tree-org-node__children:before {
+    border-color: var(--el-border-color);
+  }
+  .zm-tree-handle .zm-tree-handle-item {
+    background-color: var(--el-bg-color-overlay);
+    color: var(--el-text-color-primary);
+    border-color: var(--el-border-color);
+    .zm-tree-restore {
+      border-color: var(--el-text-color-primary);
+    }
+    .zm-tree-restore:after {
+      border-top-color: var(--el-text-color-primary);
+      border-right-color: var(--el-text-color-primary);
+    }
+    &:hover {
+      background-color: var(--el-color-primary-light-9);
+      color: var(--el-color-primary);
+      border-color: var(--el-color-primary-light-7);
+      .zm-tree-restore,
+      .zm-tree-restore:after {
+        border-color: var(--el-color-primary);
+      }
+    }
   }
 }
 </style>

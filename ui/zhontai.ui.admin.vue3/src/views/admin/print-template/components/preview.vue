@@ -8,22 +8,28 @@
       :close-on-click-modal="false"
       :close-on-press-escape="true"
       :width="width"
+      :show-close="false"
       style="max-width: 90%"
+      body-class="preview-box"
     >
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button type="primary" @click="onExport">
-            <template #icon>
-              <el-icon>
-                <my-icon name="export" color="var(--color)"></my-icon>
-              </el-icon>
-            </template>
-            导出PDF
-          </el-button>
-          <el-button type="primary" icon="ele-Printer" @click="onPrint">打 印</el-button>
-          <el-button @click="onCancel" size="default">关 闭</el-button>
-        </span>
+      <template #header="{ titleId, titleClass }">
+        <div class="my-flex my-flex-between mr10">
+          <span :id="titleId" :class="titleClass">{{ state.title }}</span>
+          <div>
+            <el-button type="primary" @click="onExport">
+              <template #icon>
+                <el-icon>
+                  <my-icon name="export" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+              导出PDF
+            </el-button>
+            <el-button type="primary" icon="ele-Printer" @click="onPrint">打 印</el-button>
+            <el-button @click="onCancel" size="default">关 闭</el-button>
+          </div>
+        </div>
       </template>
+
       <div ref="previewContainerRef"></div>
     </el-dialog>
   </div>
@@ -102,6 +108,12 @@ defineExpose({
 :deep() {
   .el-dialog__body {
     overflow-x: auto;
+  }
+  .preview-box {
+    background-color: var(--el-bg-color-overlay);
+  }
+  .hiprint-printPaper {
+    background-color: var(--el-color-white);
   }
 }
 </style>

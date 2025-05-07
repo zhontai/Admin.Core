@@ -19,7 +19,7 @@
           .flex-warp-item-box {
             width: 100%;
             height: 100%;
-            background: var(--el-color-white);
+            background: var(--el-bg-color-overlay);
             border: 1px solid var(--el-border-color-lighter);
             border-radius: 4px;
             display: flex;
@@ -192,7 +192,7 @@
           padding: 0 7.5px 15px;
           .big-data-down-center-one-content {
             height: 100%;
-            background: var(--el-color-white);
+            background: var(--el-bg-color-overlay);
             padding: 15px;
             border: 1px solid var(--el-border-color-lighter);
             border-radius: 4px;
@@ -209,7 +209,7 @@
           .flex-warp-item-box {
             width: 100%;
             height: 100%;
-            background: var(--el-color-white);
+            background: var(--el-bg-color-overlay);
             display: flex;
             flex-direction: column;
             padding: 15px;
@@ -347,9 +347,16 @@
                     width: 200%;
                     height: 200%;
                     background-repeat: no-repeat;
-                    background-size: 50% 50%, 50% 50%;
-                    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-                    background-image: linear-gradient(#19d4ae, #19d4ae), linear-gradient(#5ab1ef, #5ab1ef), linear-gradient(#fa6e86, #fa6e86),
+                    background-size:
+                      50% 50%,
+                      50% 50%;
+                    background-position:
+                      0 0,
+                      100% 0,
+                      100% 100%,
+                      0 100%;
+                    background-image:
+                      linear-gradient(#19d4ae, #19d4ae), linear-gradient(#5ab1ef, #5ab1ef), linear-gradient(#fa6e86, #fa6e86),
                       linear-gradient(#ffb980, #ffb980);
                     animation: rotate 2s linear infinite;
                   }

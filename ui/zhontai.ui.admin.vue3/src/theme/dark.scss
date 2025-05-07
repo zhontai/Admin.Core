@@ -57,7 +57,7 @@
   // menu
   .layout-aside {
     border-right: 1px solid var(--next-border-color-light) !important;
-    @extend .layout-navbars-breadcrumb-index;
+    background: var(--el-bg-color-overlay);
   }
 
   // countup
@@ -68,10 +68,10 @@
   // editor
   .editor-container {
     .w-e-toolbar {
-      background: var(--el-color-white) !important;
+      background: var(--el-bg-color-overlay) !important;
       border: 1px solid var(--next-border-color-light) !important;
       .w-e-menu:hover {
-        background: var(--next-color-user-hover) !important;
+        background: var(--el-color-primary-light-9) !important;
         i {
           color: var(--el-text-color-primary) !important;
         }
@@ -81,8 +81,11 @@
       border: 1px solid var(--next-border-color-light) !important;
       border-top: none !important;
       .w-e-text {
-        background: var(--el-color-white) !important;
+        background: var(--el-bg-color) !important;
       }
+    }
+    .w-e-full-screen-container {
+      z-index: 10;
     }
   }
 
