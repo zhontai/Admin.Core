@@ -1,8 +1,8 @@
 <template>
-  <div class="table-search-container" v-if="props.search.length > 0">
+  <div class="table-search-container" v-if="props.searchItems.length > 0">
     <el-form ref="tableSearchRef" :model="state.form" size="default" label-width="100px" class="table-form">
       <el-row>
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key <= 2 || state.isToggle">
+        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20" v-for="(val, key) in visibleItems" :key="key">
           <template v-if="val.type !== ''">
             <el-form-item
               :label="val.label"
@@ -26,10 +26,10 @@
         <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
           <el-form-item class="table-form-btn" label-width="0px">
             <div class="my-flex my-fill my-flex-end">
-              <template v-if="search.length > 1">
-                <div class="table-form-btn-toggle mr10" @click="state.isToggle = !state.isToggle">
-                  <span>{{ state.isToggle ? '收起' : '展开' }}</span>
-                  <SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
+              <template v-if="showToggle">
+                <div class="table-form-btn-toggle mr10" @click="onToggleExpanded">
+                  <span>{{ isExpanded ? '收起' : '展开' }}</span>
+                  <SvgIcon :name="isExpanded ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
                 </div>
               </template>
               <el-button size="default" type="primary" @click="onSearch(tableSearchRef)">查询</el-button>
@@ -43,17 +43,42 @@
 </template>
 
 <script setup lang="ts" name="example/makeTableDemoSearch">
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, onMounted, computed } from 'vue'
 import type { FormInstance } from 'element-plus'
 
 // 定义父组件传过来的值
 const props = defineProps({
   // 搜索表单
-  search: {
+  searchItems: {
     type: Array<TableSearchType>,
     default: () => [],
   },
+  visibleCount: {
+    type: Number,
+    default: () => 3,
+  },
 })
+
+const isExpanded = ref(false)
+
+// 默认显示数量
+const DEFAULT_VISIBLE_COUNT = 3
+
+// 处理可见数量配置
+const visibleCount = computed(() => {
+  // 验证配置有效性
+  const count = props.visibleCount ?? DEFAULT_VISIBLE_COUNT
+  return Math.max(1, Math.min(count, props.searchItems.length))
+})
+
+// 动态计算显示项
+const visibleItems = computed(() => props.searchItems.filter((_, index) => index < visibleCount.value || isExpanded.value))
+
+// 计算剩余项数量
+const remainingCount = computed(() => props.searchItems.length - visibleCount.value)
+
+// 是否需要显示展开按钮
+const showToggle = computed(() => props.searchItems.length > visibleCount.value && remainingCount.value > 0)
 
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['search'])
@@ -62,7 +87,6 @@ const emit = defineEmits(['search'])
 const tableSearchRef = ref<FormInstance>()
 const state = reactive({
   form: {} as EmptyObjectType,
-  isToggle: false,
 })
 
 // 查询
@@ -82,10 +106,14 @@ const onReset = (formEl: FormInstance | undefined) => {
   formEl.resetFields()
   emit('search', state.form)
 }
+// 切换展开状态
+const onToggleExpanded = () => {
+  isExpanded.value = !isExpanded.value
+}
 // 初始化 form 字段，取自父组件 search.prop
 const initFormField = () => {
-  if (props.search.length <= 0) return false
-  props.search.forEach((v) => (state.form[v.prop] = ''))
+  if (props.searchItems.length <= 0) return false
+  props.searchItems.forEach((v) => (state.form[v.prop] = ''))
 }
 // 页面加载时
 onMounted(() => {
