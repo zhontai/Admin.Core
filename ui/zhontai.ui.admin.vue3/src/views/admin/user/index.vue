@@ -7,16 +7,8 @@
     </pane>
     <pane size="80">
       <div class="my-flex-column w100 h100">
-        <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-          <el-form :inline="true" label-width="auto" @submit.stop.prevent>
-            <el-form-item>
-              <my-select-input v-model="state.pageInput.dynamicFilter" :filters="state.filters" @search="onQuery" />
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-              <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
-            </el-form-item>
-          </el-form>
+        <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never">
+          <my-search :searchItems="state.searchItems" :visibleCount="3" is-dynamic-filter @search="onQuery"></my-search>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
@@ -33,6 +25,9 @@
               >
             </div>
             <div>
+              <el-tooltip effect="dark" content="高级查询" placement="top">
+                <el-button icon="ele-Filter" circle @click="onFilter"> </el-button>
+              </el-tooltip>
               <el-tooltip effect="dark" content="回收站" placement="top">
                 <el-button v-auth="'api:admin:user:restore'" circle @click="onRecycle">
                   <template #icon>
@@ -133,7 +128,7 @@
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
+        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onQuery"></MyFilterDialog>
       </div>
     </pane>
   </MySplitPanes>
@@ -158,7 +153,6 @@ const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySelectInput = defineAsyncComponent(() => import('/@/components/my-select-input/index.vue'))
 const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
 const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
 
@@ -186,9 +180,46 @@ const state = reactive({
     filter: {
       orgId: null,
     },
-    dynamicFilter: {},
   } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
+  searchItems: [
+    {
+      field: 'name',
+      operator: 'Contains',
+      label: '姓名',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入姓名',
+      },
+    },
+    {
+      field: 'mobile',
+      operator: 'Contains',
+      label: '手机号',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入手机号',
+      },
+    },
+    {
+      field: 'email',
+      operator: 'Contains',
+      label: '邮箱',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入邮箱',
+      },
+    },
+    {
+      field: 'userName',
+      operator: 'Contains',
+      label: '账号',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入账号',
+      },
+    },
+  ],
   filters: [
     {
       field: 'name',
@@ -258,11 +289,16 @@ onBeforeMount(() => {
 })
 
 //查询分页
-const onQuery = async () => {
+const onQuery = async (dynamicFilter: any = {}) => {
   state.loading = true
-  const res = await new UserApi().getPage(state.pageInput).catch(() => {
-    state.loading = false
-  })
+  const res = await new UserApi()
+    .getPage({
+      ...state.pageInput,
+      dynamicFilter: dynamicFilter,
+    })
+    .catch(() => {
+      state.loading = false
+    })
 
   state.userListData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
@@ -272,11 +308,6 @@ const onQuery = async () => {
 //高级查询
 const onFilter = () => {
   myFilterDialogRef.value.open()
-}
-
-const onFilterSure = (dynamicFilter: any) => {
-  state.pageInput.dynamicFilter = dynamicFilter
-  onQuery()
 }
 
 //新增

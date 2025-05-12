@@ -63,6 +63,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { cloneDeep } from 'lodash-es'
+import { Operator } from '/@/api/admin.extend/enum-contracts'
 
 const props = defineProps({
   // {field: '', operator: 'Contains', description: '', value: '', componentName: 'el-input', config: {type: '', format:'', valueFormat:''}}
@@ -80,46 +81,28 @@ const props = defineProps({
 
 //const emits = defineEmits(['sure'])
 
-const operators = {
-  equal: { label: '等于', value: 'Equal' },
-  notEqual: { label: '不等于', value: 'NotEqual' },
-  contains: { label: '包含', value: 'Contains' },
-  notContains: { label: '不包含', value: 'NotContains' },
-  startsWith: { label: '开始以', value: 'StartsWith' },
-  notStartsWith: { label: '开始不是以', value: 'NotStartsWith' },
-  endsWith: { label: '结束以', value: 'EndsWith' },
-  notEndsWith: { label: '结束不是以', value: 'NotEndsWith' },
-  lessThan: { label: '小于', value: 'LessThan' },
-  lessThanOrEqual: { label: '小于等于', value: 'LessThanOrEqual' },
-  greaterThan: { label: '大于', value: 'GreaterThan' },
-  greaterThanOrEqual: { label: '大于等于', value: 'GreaterThanOrEqual' },
-  dateRange: { label: '时间段', value: 'dateRange' },
-  any: { label: '在列表', value: 'Any' },
-  notAny: { label: '不在列表', value: 'NotAny' },
-}
-
 const operatorGroups = {
   string: [
-    operators.equal,
-    operators.notEqual,
-    operators.contains,
-    operators.notContains,
-    operators.startsWith,
-    operators.notStartsWith,
-    operators.endsWith,
-    operators.notEndsWith,
+    Operator.equal,
+    Operator.notEqual,
+    Operator.contains,
+    Operator.notContains,
+    Operator.startsWith,
+    Operator.notStartsWith,
+    Operator.endsWith,
+    Operator.notEndsWith,
   ],
   date: [
-    operators.equal,
-    operators.notEqual,
-    operators.lessThan,
-    operators.lessThanOrEqual,
-    operators.greaterThan,
-    operators.greaterThanOrEqual,
-    operators.dateRange,
+    Operator.equal,
+    Operator.notEqual,
+    Operator.lessThan,
+    Operator.lessThanOrEqual,
+    Operator.greaterThan,
+    Operator.greaterThanOrEqual,
+    Operator.dateRange,
   ],
-  number: [operators.equal, operators.notEqual, operators.lessThan, operators.lessThanOrEqual, operators.greaterThan, operators.greaterThanOrEqual],
-  bool: [operators.equal, operators.notEqual],
+  number: [Operator.equal, Operator.notEqual, Operator.lessThan, Operator.lessThanOrEqual, Operator.greaterThan, Operator.greaterThanOrEqual],
+  bool: [Operator.equal, Operator.notEqual],
 }
 
 let firstField = {

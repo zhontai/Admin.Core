@@ -25,8 +25,21 @@
   }
 }
 .my-query-box {
+  .el-card__body {
+    padding: 10px 0px 0px 10px;
+  }
+  .el-form .el-col {
+    margin-bottom: 0px;
+  }
   .el-form-item {
     margin-bottom: 10px !important;
+  }
+  .el-form-item__label-wrap {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .el-form--inline .el-form-item {
+    margin-right: 10px;
   }
   .el-form.el-form--inline {
     .el-form-item--default.el-form-item:last-of-type,
