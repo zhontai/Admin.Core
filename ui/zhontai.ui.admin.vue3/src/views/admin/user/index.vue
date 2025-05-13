@@ -8,7 +8,7 @@
     <pane size="80">
       <div class="my-flex-column w100 h100">
         <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never">
-          <my-search :searchItems="state.searchItems" :visibleCount="3" is-dynamic-filter @search="onQuery"></my-search>
+          <my-search :searchItems="state.searchItems" :visibleCount="3" is-dynamic-filter @search="onSearch"></my-search>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
@@ -128,14 +128,14 @@
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onQuery"></MyFilterDialog>
+        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
       </div>
     </pane>
   </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, markRaw } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -144,6 +144,7 @@ import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
+import { cloneDeep } from 'lodash-es'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -289,25 +290,29 @@ onBeforeMount(() => {
 })
 
 //查询分页
-const onQuery = async (dynamicFilter: any = {}) => {
+const onQuery = async () => {
   state.loading = true
-  const res = await new UserApi()
-    .getPage({
-      ...state.pageInput,
-      dynamicFilter: dynamicFilter,
-    })
-    .catch(() => {
-      state.loading = false
-    })
+  const res = await new UserApi().getPage(state.pageInput).catch(() => {
+    state.loading = false
+  })
 
   state.userListData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
   state.loading = false
 }
 
+const onSearch = (filter: any, dynamicFilter: any) => {
+  state.pageInput.dynamicFilter = dynamicFilter
+  onQuery()
+}
+
 //高级查询
 const onFilter = () => {
   myFilterDialogRef.value.open()
+}
+const onFilterSure = (dynamicFilter: any) => {
+  state.pageInput.dynamicFilter = dynamicFilter
+  onQuery()
 }
 
 //新增

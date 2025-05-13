@@ -3,7 +3,17 @@
     <el-form ref="formRef" :model="formState" :inline="true" label-width="auto" size="default">
       <el-row>
         <!-- 动态渲染表单项 -->
-        <el-col v-for="(item, index) in visibleItems" :key="index" :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="my-flex">
+        <el-col
+          v-for="(item, index) in searchItems"
+          v-show="index < visibleCount || isExpanded"
+          :key="index"
+          :xs="24"
+          :sm="12"
+          :md="8"
+          :lg="6"
+          :xl="4"
+          class="my-flex"
+        >
           <el-form-item :label="item.label" :prop="item.field" :rules="item.rules" class="my-flex-fill">
             <component :is="item.componentName" v-model="formState[item.field]" clearable v-bind="item.attrs" class="w100" />
           </el-form-item>
@@ -54,11 +64,6 @@ const props = defineProps({
     type: Number,
     default: () => 3,
   },
-  // 是否返回动态过滤数据结构
-  isDynamicFilter: {
-    type: Boolean,
-    default: () => false,
-  },
   // 是否过滤空值
   isFilterEmptyValue: {
     type: Boolean,
@@ -78,7 +83,12 @@ const isExpanded = ref(false)
 const formRef = ref<FormInstance>()
 
 // 表单初始值
-const formState = reactive<EmptyObjectType>({})
+const formState = reactive<EmptyObjectType>(
+  props.searchItems.reduce((acc: EmptyObjectType, item) => {
+    acc[item.field] = item.defaultValue ?? ''
+    return acc
+  }, {})
+)
 
 // 默认显示数量
 const DEFAULT_VISIBLE_COUNT = 3
@@ -89,9 +99,6 @@ const visibleCount = computed(() => {
   const count = props.visibleCount ?? DEFAULT_VISIBLE_COUNT
   return Math.max(1, Math.min(count, props.searchItems.length))
 })
-
-// 动态计算显示项
-const visibleItems = computed(() => props.searchItems.filter((_, index) => index < visibleCount.value || isExpanded.value))
 
 // 计算剩余项数量
 const remainingCount = computed(() => props.searchItems.length - visibleCount.value)
@@ -108,19 +115,16 @@ const isEmptyValue = (value: any) => {
 const onSearch = async () => {
   try {
     await formRef.value?.validate()
-    if (props.isDynamicFilter) {
-      const filters = Object.entries(formState)
-        // 根据配置过滤空值
-        .filter(([_, value]) => !props.isFilterEmptyValue || !isEmptyValue(value))
-        .map(([field, value]) => ({
-          field,
-          operator: props.searchItems.find((item) => item.field === field)?.operator || 'Equal',
-          value,
-        }))
-      emit('search', { logic: 'And', filters })
-    } else {
-      emit('search', cloneDeep(formState))
-    }
+    const filters = Object.entries(formState)
+      // 根据配置过滤空值
+      .filter(([_, value]) => !props.isFilterEmptyValue || !isEmptyValue(value))
+      .map(([field, value]) => ({
+        field,
+        operator: props.searchItems.find((item) => item.field === field)?.operator || 'Equal',
+        value,
+      }))
+
+    emit('search', cloneDeep(formState), { logic: 'And', filters })
   } catch (error) {
     console.error('表单验证失败:', error)
   }
@@ -139,25 +143,6 @@ const onReset = () => {
 const onToggleExpanded = () => {
   isExpanded.value = !isExpanded.value
 }
-
-// 初始化或更新formState字段
-const initFormState = () => {
-  const currentItems = visibleItems.value
-  // 添加新字段
-  currentItems.forEach((item) => {
-    if (!(item.field in formState)) {
-      formState[item.field] = item.defaultValue ?? ''
-    }
-  })
-  // 移除隐藏字段
-  Object.keys(formState).forEach((field) => {
-    if (!currentItems.some((item) => item.field === field)) {
-      delete formState[field]
-    }
-  })
-}
-
-watchEffect(initFormState)
 </script>
 
 <style scoped lang="scss"></style>
