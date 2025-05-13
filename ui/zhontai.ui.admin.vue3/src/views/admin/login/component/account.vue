@@ -102,7 +102,7 @@
       >
         <el-link
           v-if="state.ruleForm.accountType == AccountType.Mobile.value"
-          :underline="false"
+          underline="never"
           type="primary"
           class="f12"
           @click="loginComponentName = ComponentType.Mobile.name"
@@ -110,13 +110,13 @@
         >
         <el-link
           v-if="state.ruleForm.accountType == AccountType.Email.value"
-          :underline="false"
+          underline="never"
           type="primary"
           class="f12"
           @click="loginComponentName = ComponentType.Email.name"
           >邮箱验证码登录</el-link
         >
-        <el-link :underline="false" type="primary" class="f12" @click="onForgotPassword">忘记密码</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="onForgotPassword">忘记密码</el-link>
       </div>
     </el-form>
     <MyCaptchaDialog ref="myCaptchaDialogRef" v-model="state.showDialog" @ok="onOk" />

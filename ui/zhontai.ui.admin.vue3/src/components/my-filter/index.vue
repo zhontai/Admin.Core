@@ -15,8 +15,8 @@
               <el-radio label="And">并且</el-radio>
               <el-radio label="Or">或者</el-radio>
             </el-radio-group>
-            <el-button type="text" icon="ele-Plus" @click="onAddGroup(data)" class="ml16">分组</el-button>
-            <el-button type="text" icon="ele-Plus" @click="onAddCondition(data)">条件</el-button>
+            <el-button type="primary" link icon="ele-Plus" @click="onAddGroup(data)" class="ml16">分组</el-button>
+            <el-button type="primary" link icon="ele-Plus" @click="onAddCondition(data)">条件</el-button>
             <el-button v-if="!data.root" icon="ele-Minus" class="ml8" @click="onDelete(node, data)" />
           </div>
         </template>

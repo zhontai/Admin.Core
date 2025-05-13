@@ -50,7 +50,7 @@
               v-model:page-size="state.pageInput.pageSize"
               :total="state.total"
               :page-sizes="[10, 20, 50, 100]"
-              small
+              size="small"
               background
               @size-change="onSizeChange"
               @current-change="onCurrentChange"
@@ -95,7 +95,7 @@
               v-model:page-size="state.tenantPageInput.pageSize"
               :total="state.tenantTotal"
               :page-sizes="[10, 20, 50, 100]"
-              small
+              size="small"
               background
               @size-change="onTenantSizeChange"
               @current-change="onTenantCurrentChange"

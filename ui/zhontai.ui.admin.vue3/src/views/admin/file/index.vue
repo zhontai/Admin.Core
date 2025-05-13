@@ -65,7 +65,7 @@
               type="primary"
               icon="ele-Download"
               size="small"
-              :underline="false"
+              underline="never"
               target="_blank"
               >下载</el-link
             >
@@ -79,7 +79,7 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          small
+          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

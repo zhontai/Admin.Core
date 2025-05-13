@@ -375,3 +375,6 @@
 .el-button--default i.fa {
   margin-right: 0px;
 }
+.el-button.is-link:hover {
+  color: var(--el-color-primary-light-3);
+}

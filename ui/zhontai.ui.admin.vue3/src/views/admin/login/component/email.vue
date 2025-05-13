@@ -33,7 +33,7 @@
         </el-button>
       </el-form-item>
       <div class="login-animation4 f12 mt10">
-        <el-link :underline="false" type="primary" class="f12" @click="onLogin">邮箱密码登录</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="onLogin">邮箱密码登录</el-link>
       </div>
     </el-form>
   </div>

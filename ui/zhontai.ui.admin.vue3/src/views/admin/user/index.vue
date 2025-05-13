@@ -7,8 +7,15 @@
     </pane>
     <pane size="80">
       <div class="my-flex-column w100 h100">
-        <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never">
-          <my-search :searchItems="state.searchItems" :visibleCount="3" is-dynamic-filter @search="onSearch"></my-search>
+        <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
+          <my-search
+            :searchItems="state.searchItems"
+            :visibleCount="2"
+            :col-config="{
+              lg: 8,
+            }"
+            @search="onSearch"
+          ></my-search>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
@@ -114,7 +121,7 @@
               v-model:page-size="state.pageInput.pageSize"
               :total="state.total"
               :page-sizes="[10, 20, 50, 100]"
-              small
+              size="small"
               background
               @size-change="onSizeChange"
               @current-change="onCurrentChange"
@@ -144,7 +151,6 @@ import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
-import { cloneDeep } from 'lodash-es'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -185,39 +191,50 @@ const state = reactive({
   userListData: [] as Array<UserGetPageOutput>,
   searchItems: [
     {
+      label: '姓名',
       field: 'name',
       operator: 'Contains',
-      label: '姓名',
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入姓名',
       },
     },
     {
+      label: '手机号',
       field: 'mobile',
       operator: 'Contains',
-      label: '手机号',
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入手机号',
       },
     },
     {
+      label: '邮箱',
       field: 'email',
       operator: 'Contains',
-      label: '邮箱',
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入邮箱',
       },
     },
     {
+      label: '账号',
       field: 'userName',
       operator: 'Contains',
-      label: '账号',
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入账号',
+      },
+    },
+    {
+      label: '创建时间',
+      field: 'createdTime',
+      operator: 'daterange',
+      componentName: 'el-date-picker',
+      attrs: {
+        type: 'daterange',
+        format: 'YYYY-MM-DD',
+        valueFormat: 'YYYY-MM-DD',
       },
     },
   ],

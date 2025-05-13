@@ -1,29 +1,29 @@
 <template>
   <div v-if="props.searchItems.length > 0">
     <el-form ref="formRef" :model="formState" :inline="true" label-width="auto" size="default">
-      <el-row>
+      <el-row :gutter="16">
         <!-- 动态渲染表单项 -->
         <el-col
           v-for="(item, index) in searchItems"
           v-show="index < visibleCount || isExpanded"
           :key="index"
-          :xs="24"
-          :sm="12"
-          :md="8"
-          :lg="6"
-          :xl="4"
-          class="my-flex"
+          :xs="col.xs"
+          :sm="col.sm"
+          :md="col.md"
+          :lg="col.lg"
+          :xl="col.xl"
+          class="w100"
         >
-          <el-form-item :label="item.label" :prop="item.field" :rules="item.rules" class="my-flex-fill">
+          <el-form-item :label="item.label" :prop="item.field" :rules="item.rules" class="w100">
             <component :is="item.componentName" v-model="formState[item.field]" clearable v-bind="item.attrs" class="w100" />
           </el-form-item>
         </el-col>
 
         <!-- 操作按钮区域 -->
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="my-flex">
-          <el-form-item label-width="0px" class="my-flex-fill">
-            <div class="my-flex my-flex-fill">
-              <el-button v-if="showToggle" type="text" @click="onToggleExpanded">
+        <el-col :xs="col.xs" :sm="col.sm" :md="col.md" :lg="col.lg" :xl="col.xl">
+          <el-form-item label-width="0px">
+            <div class="my-flex">
+              <el-button v-if="showToggle" type="primary" link @click="onToggleExpanded">
                 {{ isExpanded ? '收起' : '展开' }}
                 <SvgIcon :name="isExpanded ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
               </el-button>
@@ -38,19 +38,37 @@
 </template>
 
 <script setup lang="ts" name="coms/my-search">
-import { reactive, ref, computed, watchEffect } from 'vue'
+import { reactive, ref, computed, PropType } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, isInteger, mergeWith } from 'lodash-es'
 
 interface SearchItem {
+  label: string
   field: string
   operator: OperatorEnum
-  label: string
   rules?: FormRules
   componentName: string
   attrs?: EmptyObjectType
   defaultValue?: any
 }
+
+type BreakpointKey = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
+type ColConfigType = {
+  [key in BreakpointKey]?: number
+}
+
+// 默认的 colConfig
+const defaultColConfig = {
+  xs: 24,
+  sm: 12,
+  md: 12,
+  lg: 8,
+  xl: 6,
+} as ColConfigType
+
+// 默认显示数量
+const DEFAULT_VISIBLE_COUNT = 3
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -74,6 +92,28 @@ const props = defineProps({
     type: Boolean,
     default: () => true,
   },
+  colConfig: {
+    type: Object as PropType<ColConfigType>,
+    validator: (value: ColConfigType) => {
+      const invalidEntries = Object.entries(value).filter(([k, v]) => {
+        if (!['xs', 'sm', 'md', 'lg', 'xl'].includes(k)) {
+          console.warn(`无效的断点配置: ${k}`)
+          return true
+        }
+        if (!isInteger(v)) {
+          console.warn(`非整数值: ${k}=${v} (类型: ${typeof v})`)
+          return true
+        }
+        if (v < 1 || v > 24) {
+          console.warn(`超出范围: ${k}=${v} (允许范围: 1-24)`)
+          return true
+        }
+        return false
+      })
+
+      return invalidEntries.length === 0
+    },
+  },
 })
 
 // 定义子组件向父组件传值/事件
@@ -90,8 +130,9 @@ const formState = reactive<EmptyObjectType>(
   }, {})
 )
 
-// 默认显示数量
-const DEFAULT_VISIBLE_COUNT = 3
+const col = computed(() => {
+  return mergeWith({}, defaultColConfig, props.colConfig)
+})
 
 // 处理可见数量配置
 const visibleCount = computed(() => {

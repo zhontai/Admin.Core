@@ -24,12 +24,10 @@
     flex: 1;
   }
 }
+
 .my-query-box {
   .el-card__body {
-    padding: 10px 0px 0px 10px;
-  }
-  .el-form .el-col {
-    margin-bottom: 0px;
+    padding: 10px 10px 0px 4px;
   }
   .el-form-item {
     margin-bottom: 10px !important;
@@ -40,11 +38,37 @@
   }
   .el-form--inline .el-form-item {
     margin-right: 10px;
+    margin-left: 6px;
   }
   .el-form.el-form--inline {
     .el-form-item--default.el-form-item:last-of-type,
     .el-form-item--small.el-form-item:last-of-type {
       margin-bottom: 10px !important;
+    }
+  }
+}
+
+.my-search-box {
+  .el-card__body {
+    padding: 10px 10px 0px 10px;
+  }
+  .el-form .el-col {
+    margin-bottom: 10px;
+  }
+  .el-form-item {
+    margin-bottom: 0px !important;
+  }
+  .el-form-item__label-wrap {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .el-form--inline .el-form-item {
+    margin-right: 0px;
+  }
+  .el-form.el-form--inline {
+    .el-form-item--default.el-form-item:last-of-type,
+    .el-form-item--small.el-form-item:last-of-type {
+      margin-bottom: 0px !important;
     }
   }
 }
