@@ -221,16 +221,6 @@ const state = reactive({
       },
     },
     {
-      label: '性别',
-      field: 'a.Staff.sex',
-      operator: 'Eq',
-      componentName: 'my-select',
-      attrs: {
-        placeholder: '请选择',
-        options: toOptionsByValue(Sex),
-      },
-    },
-    {
       label: '手机号',
       field: 'mobile',
       operator: 'Contains',
@@ -246,6 +236,16 @@ const state = reactive({
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入邮箱',
+      },
+    },
+    {
+      label: '性别',
+      field: 'a.Staff.sex',
+      operator: 'Eq',
+      componentName: 'my-select',
+      attrs: {
+        placeholder: '请选择',
+        options: toOptionsByValue(Sex),
       },
     },
     {
