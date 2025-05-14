@@ -1,11 +1,11 @@
 <template>
-  <div v-if="props.searchItems.length > 0">
+  <div v-if="searchItems.length > 0">
     <el-form ref="formRef" :model="formState" :inline="true" label-width="auto" size="default">
       <el-row :gutter="16">
         <!-- 动态渲染表单项 -->
         <el-col
           v-for="(item, index) in searchItems"
-          v-show="index < visibleCount || isExpanded"
+          v-show="index < displayCount || isExpanded"
           :key="index"
           :xs="col.xs"
           :sm="col.sm"
@@ -72,13 +72,13 @@ const DEFAULT_VISIBLE_COUNT = 3
 
 // 定义父组件传过来的值
 const props = defineProps({
-  // 查询条件配置项
+  // 查询条件列表
   searchItems: {
     type: Array<SearchItem>,
     default: () => [],
   },
   // 显示查询条件数量
-  visibleCount: {
+  displayCount: {
     type: Number,
     default: () => 3,
   },
@@ -135,17 +135,17 @@ const col = computed(() => {
 })
 
 // 处理可见数量配置
-const visibleCount = computed(() => {
+const displayCount = computed(() => {
   // 验证配置有效性
-  const count = props.visibleCount ?? DEFAULT_VISIBLE_COUNT
+  const count = props.displayCount ?? DEFAULT_VISIBLE_COUNT
   return Math.max(1, Math.min(count, props.searchItems.length))
 })
 
 // 计算剩余项数量
-const remainingCount = computed(() => props.searchItems.length - visibleCount.value)
+const remainingCount = computed(() => props.searchItems.length - displayCount.value)
 
 // 是否需要显示展开按钮
-const showToggle = computed(() => props.searchItems.length > visibleCount.value && remainingCount.value > 0)
+const showToggle = computed(() => props.searchItems.length > displayCount.value && remainingCount.value > 0)
 
 // 空值判断函数
 const isEmptyValue = (value: any) => {
@@ -185,5 +185,3 @@ const onToggleExpanded = () => {
   isExpanded.value = !isExpanded.value
 }
 </script>
-
-<style scoped lang="scss"></style>

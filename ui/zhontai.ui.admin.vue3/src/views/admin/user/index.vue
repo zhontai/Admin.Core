@@ -9,8 +9,8 @@
       <div class="my-flex-column w100 h100">
         <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
           <my-search
-            :searchItems="state.searchItems"
-            :visibleCount="2"
+            :search-items="state.searchItems"
+            :display-count="2"
             :col-config="{
               lg: 8,
             }"
@@ -151,6 +151,8 @@ import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
+import { Sex } from '/@/api/admin/enum-contracts'
+import { toOptionsByValue } from '/@/utils/enum'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -200,6 +202,35 @@ const state = reactive({
       },
     },
     {
+      label: '状态',
+      field: 'enabled',
+      operator: 'Eq',
+      componentName: 'my-select',
+      attrs: {
+        placeholder: '请选择',
+        options: [
+          {
+            label: '启用',
+            value: 1,
+          },
+          {
+            label: '禁用',
+            value: 0,
+          },
+        ],
+      },
+    },
+    {
+      label: '性别',
+      field: 'a.Staff.sex',
+      operator: 'Eq',
+      componentName: 'my-select',
+      attrs: {
+        placeholder: '请选择',
+        options: toOptionsByValue(Sex),
+      },
+    },
+    {
       label: '手机号',
       field: 'mobile',
       operator: 'Contains',
@@ -218,15 +249,6 @@ const state = reactive({
       },
     },
     {
-      label: '账号',
-      field: 'userName',
-      operator: 'Contains',
-      componentName: 'el-input',
-      attrs: {
-        placeholder: '请输入账号',
-      },
-    },
-    {
       label: '创建时间',
       field: 'createdTime',
       operator: 'daterange',
@@ -235,6 +257,18 @@ const state = reactive({
         type: 'daterange',
         format: 'YYYY-MM-DD',
         valueFormat: 'YYYY-MM-DD',
+        unlinkPanels: true,
+        startPlaceholder: '开始时间',
+        endPlaceholder: '结束时间',
+      },
+    },
+    {
+      label: '账号',
+      field: 'userName',
+      operator: 'Contains',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入账号',
       },
     },
   ],
@@ -284,7 +318,7 @@ const selectionRows = computed(() => {
 })
 
 const rowSelectCount = computed(() => {
-  return selectionRows.value?.length
+  return selectionRows.value?.length || 0
 })
 
 const isRowSelect = computed(() => {
