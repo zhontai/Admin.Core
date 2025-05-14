@@ -240,7 +240,7 @@ const state = reactive({
     },
     {
       label: '性别',
-      field: 'a.Staff.sex',
+      field: 'staff.sex',
       operator: 'Eq',
       componentName: 'my-select',
       attrs: {
