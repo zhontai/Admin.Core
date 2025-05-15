@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="state.loading" class="h100" style="padding-top: 10px">
+  <div v-loading="state.loading" class="h100">
     <vue3-tree-org
       ref="orgRef"
       :data="state.data"
@@ -170,6 +170,7 @@ defineExpose({
   }
   .zm-tree-org {
     background-color: var(--el-bg-color-overlay);
+    padding: 0px;
   }
   .tree-org-node__inner {
     background-color: var(--el-bg-color) !important;
