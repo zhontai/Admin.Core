@@ -260,6 +260,9 @@ const state = reactive({
         unlinkPanels: true,
         startPlaceholder: '开始时间',
         endPlaceholder: '结束时间',
+        disabledDate: (time: any) => {
+          return time.getTime() > Date.now()
+        },
       },
     },
     {

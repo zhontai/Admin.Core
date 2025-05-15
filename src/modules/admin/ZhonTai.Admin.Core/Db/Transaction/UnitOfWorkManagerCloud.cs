@@ -1,11 +1,12 @@
 ﻿using FreeSql;
+using System.Collections.Concurrent;
 using System.Data;
 
 namespace ZhonTai.Admin.Core.Db.Transaction;
 
-public class UnitOfWorkManagerCloud
+public class UnitOfWorkManagerCloud: IDisposable
 {
-    readonly Dictionary<string, UnitOfWorkManager> _managers = new Dictionary<string, UnitOfWorkManager>();
+    readonly ConcurrentDictionary<string, UnitOfWorkManager> _managers = new();
     readonly FreeSqlCloud _cloud;
     public UnitOfWorkManagerCloud(FreeSqlCloud cloud)
     {
@@ -14,18 +15,46 @@ public class UnitOfWorkManagerCloud
 
     public UnitOfWorkManager GetUnitOfWorkManager(string dbKey)
     {
-        if (_managers.TryGetValue(dbKey, out var uowm) == false)
+        try
         {
-            _managers.Add(dbKey, uowm = new UnitOfWorkManager(_cloud.Use(dbKey)));
+            return _managers.GetOrAdd(dbKey, new UnitOfWorkManager(_cloud.Use(dbKey)));
         }
-            
-        return uowm;
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Failed to get UnitOfWorkManager for database key: {dbKey}", ex);
+        }
     }
 
+    ~UnitOfWorkManagerCloud() => Dispose();
+
+    int _disposeCounter;
     public void Dispose()
     {
-        foreach (var uowm in _managers.Values) uowm.Dispose();
-        _managers.Clear();
+        if (Interlocked.Increment(ref _disposeCounter) != 1) return;
+        try
+        {
+            Exception ex = null;
+            foreach (var uowm in _managers.Values)
+            {
+                try
+                {
+                    uowm.Dispose();
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+            }
+
+            if (ex != null)
+            {
+                throw ex;
+            }
+        }
+        finally
+        {
+            _managers.Clear();
+        }
     }
 
     public IUnitOfWork Begin(string dbKey, Propagation propagation = Propagation.Required, IsolationLevel? isolationLevel = null)
