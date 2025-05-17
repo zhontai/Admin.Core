@@ -105,26 +105,28 @@ if (props.fields && props.fields.length > 0) {
   }
 }
 
+// 创建默认的过滤条件对象
+const createDefaultFilter = () => ({
+  field: '',
+  operator: '',
+  value: '',
+  type: '',
+  componentName: 'el-input',
+  attrs: {
+    placeholder: '请输入字段值',
+  },
+})
+
+// 创建默认的分组对象
+const createDefaultGroup = (isRoot = false) => ({
+  ...(isRoot ? { root: true } : {}),
+  logic: 'And',
+  filters: [createDefaultFilter()],
+})
+
 const state = reactive({
   showDialog: false,
-  dataTree: [
-    {
-      root: true,
-      logic: 'And',
-      filters: [
-        {
-          field: '',
-          operator: '',
-          value: '',
-          type: '',
-          componentName: 'el-input',
-          attrs: {
-            placeholder: '请输入字段值',
-          },
-        },
-      ],
-    },
-  ],
+  dataTree: [createDefaultGroup(true)],
   defaultProps: {
     label: '',
     children: 'filters',
@@ -193,55 +195,15 @@ const onAddGroup = (data: any) => {
     if (!data.filters) {
       data.filters = []
     }
-    data.filters.push({
-      logic: 'And',
-      filters: [
-        {
-          field: '',
-          operator: '',
-          value: '',
-          type: '',
-          componentName: 'el-input',
-          attrs: {
-            placeholder: '请输入字段值',
-          },
-        },
-      ],
-    })
+    data.filters.push(createDefaultGroup())
   } else {
-    state.dataTree = [
-      {
-        root: true,
-        logic: 'And',
-        filters: [
-          {
-            field: '',
-            operator: '',
-            value: '',
-            type: '',
-            componentName: 'el-input',
-            attrs: {
-              placeholder: '请输入字段值',
-            },
-          },
-        ],
-      },
-    ]
+    state.dataTree = [createDefaultGroup(true)]
   }
 }
 
 // 添加条件
 const onAddCondition = (data: any) => {
-  const newFilter = {
-    field: '',
-    operator: '',
-    value: '',
-    type: '',
-    componentName: 'el-input',
-    attrs: {
-      placeholder: '请输入字段值',
-    },
-  }
+  const newFilter = createDefaultFilter()
 
   if (!data.filters) {
     data.filters = []
