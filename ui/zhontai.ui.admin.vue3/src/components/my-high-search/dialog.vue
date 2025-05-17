@@ -7,6 +7,7 @@
     draggable
     :close-on-click-modal="false"
     :close-on-press-escape="false"
+    width="660px"
     v-bind="$attrs"
   >
     <MyFilter ref="myFilterRef" v-bind="$attrs"></MyFilter>
@@ -14,7 +15,7 @@
       <span class="dialog-footer">
         <el-button @click="onReset" size="default">重 置</el-button>
         <el-button @click="onCancel" size="default">取 消</el-button>
-        <el-button type="primary" @click="onSure">确定</el-button>
+        <el-button type="primary" @click="onSure">查 询</el-button>
       </span>
     </template>
   </el-dialog>

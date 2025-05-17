@@ -135,7 +135,7 @@
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
+        <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="state.searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
     </pane>
   </MySplitPanes>
@@ -163,7 +163,7 @@ const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
-const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
+const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-high-search/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
@@ -173,7 +173,7 @@ const userRecycleDialogRef = ref()
 const userUpdateFormRef = ref()
 const userSetOrgRef = ref()
 const userRestPwdRef = ref()
-const myFilterDialogRef = ref()
+const myHighSearchDialogRef = ref()
 
 const storesUseUserInfo = useUserInfo()
 
@@ -204,8 +204,9 @@ const state = reactive({
     {
       label: '状态',
       field: 'enabled',
-      operator: 'Eq',
+      operator: 'Equal',
       componentName: 'my-select',
+      type: 'select',
       attrs: {
         placeholder: '请选择',
         options: [
@@ -241,8 +242,9 @@ const state = reactive({
     {
       label: '性别',
       field: 'staff.sex',
-      operator: 'Eq',
+      operator: 'Equal',
       componentName: 'my-select',
+      type: 'select',
       attrs: {
         placeholder: '请选择',
         options: toOptionsByValue(Sex),
@@ -253,6 +255,7 @@ const state = reactive({
       field: 'createdTime',
       operator: 'daterange',
       componentName: 'el-date-picker',
+      type: 'date',
       attrs: {
         type: 'daterange',
         format: 'YYYY-MM-DD',
@@ -275,45 +278,6 @@ const state = reactive({
       },
     },
   ],
-  filters: [
-    {
-      field: 'name',
-      operator: 'Contains',
-      description: '姓名',
-      componentName: 'el-input',
-      defaultSelect: true,
-    },
-    {
-      field: 'mobile',
-      operator: 'Contains',
-      description: '手机号',
-      componentName: 'el-input',
-    },
-    {
-      field: 'email',
-      operator: 'Contains',
-      description: '邮箱',
-      componentName: 'el-input',
-    },
-    {
-      field: 'userName',
-      operator: 'Contains',
-      description: '用户名',
-      componentName: 'el-input',
-    },
-    {
-      field: 'createdTime',
-      operator: 'daterange',
-      description: '创建时间',
-      componentName: 'el-date-picker',
-      type: 'date',
-      config: {
-        type: 'daterange',
-        format: 'YYYY-MM-DD',
-        valueFormat: 'YYYY-MM-DD',
-      },
-    },
-  ] as Array<DynamicFilterInfo>,
 })
 
 const selectionRows = computed(() => {
@@ -362,7 +326,7 @@ const onSearch = (filter: any, dynamicFilter: any) => {
 
 //高级查询
 const onFilter = () => {
-  myFilterDialogRef.value.open()
+  myHighSearchDialogRef.value.open()
 }
 const onFilterSure = (dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
