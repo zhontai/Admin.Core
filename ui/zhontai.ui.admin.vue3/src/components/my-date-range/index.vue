@@ -13,25 +13,17 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { reactive, watch, ref, PropType } from 'vue'
+import { reactive, ref } from 'vue'
 
 const emit = defineEmits(['update:startDate', 'update:endDate'])
 
-const props = defineProps({
-  startDate: {
-    type: String as PropType<string | undefined | null>,
-    default: '',
-  },
-  endDate: {
-    type: String as PropType<string | undefined | null>,
-    default: '',
-  },
-})
+const startDate = defineModel('startDate', { default: '' })
+const endDate = defineModel('endDate', { default: '' })
 
 const timeFormat = ref('YYYY-MM-DD').value
 
 const state = reactive({
-  dateRange: [props.startDate, props.endDate],
+  dateRange: [startDate, endDate],
   shortcuts: [
     {
       text: '最近一年',
@@ -93,40 +85,12 @@ const state = reactive({
 })
 
 const change = (value: any) => {
-  let start = ''
-  let end = ''
-
-  if (value) {
-    end = dayjs(value[1]).endOf('day').format(timeFormat)
-    start = dayjs(value[0]).startOf('day').format(timeFormat)
-
-    state.dateRange[0] = start
-    state.dateRange[1] = end
+  if (value && value.length === 2) {
+    startDate.value = value[0]
+    endDate.value = value[1]
+  } else {
+    startDate.value = ''
+    endDate.value = ''
   }
-
-  emit('update:startDate', start)
-  emit('update:endDate', end)
 }
-
-watch(
-  () => props.startDate,
-  async (newValue) => {
-    if (newValue == '' || newValue == null) {
-      state.dateRange = ['', '']
-      emit('update:startDate', '')
-      emit('update:endDate', '')
-    } else state.dateRange = [newValue, state.dateRange[1]]
-  }
-)
-
-watch(
-  () => props.endDate,
-  async (newValue) => {
-    if (newValue == '' || newValue == null) {
-      state.dateRange = ['', '']
-      emit('update:startDate', '')
-      emit('update:endDate', '')
-    } else state.dateRange = [state.dateRange[0], newValue]
-  }
-)
 </script>
