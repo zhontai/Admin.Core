@@ -41,12 +41,19 @@
         <template v-else>
           <div class="my-flex my-flex-wrap ml8 w100">
             <el-select placeholder="请选择字段" v-model="data.field" style="width: 130px; margin-right: 5px" @change="onChangeField(data)">
-              <el-option v-for="(o, index) in props.fields" :key="index" :label="o.label" :value="o.field" />
+              <el-option v-for="(f, index) in props.fields" :key="index" :label="f.label" :value="f.field" />
             </el-select>
             <el-select placeholder="请选择操作符" v-model="data.operator" style="width: 130px; margin-right: 5px" @change="onChangeOperator(data)">
               <el-option v-for="(op, index) in getOperators(data.type)" :key="index" :label="op.label" :value="op.value" />
             </el-select>
-            <component :is="data.componentName" v-model="data.value" clearable v-bind="data.attrs" class="my-flex-fill" />
+            <component
+              :is="data.componentName"
+              v-model="data.value"
+              clearable
+              v-bind="data.attrs"
+              class="my-flex-fill"
+              @update:modelValue="onValueChange(data, $event)"
+            />
             <el-button type="danger" link icon="ele-Minus" class="ml5" @click="onDelete(node, data)" />
           </div>
         </template>
@@ -109,7 +116,7 @@ if (props.fields && props.fields.length > 0) {
 const createDefaultFilter = () => ({
   field: '',
   operator: '',
-  value: '',
+  value: null,
   type: '',
   componentName: 'el-input',
   attrs: {
@@ -143,7 +150,7 @@ const getOperators = (type: any) => {
 
 // 更改字段
 const onChangeField = (data: any) => {
-  data.value = ''
+  data.value = null
   data.type = ''
 
   const field = props.fields.find((a: any) => a.field === data.field) as any
@@ -177,7 +184,7 @@ const onChangeField = (data: any) => {
 
 // 更改操作符
 const onChangeOperator = (data: any) => {
-  data.value = ''
+  data.value = null
   if (data.type === 'date') {
     if (data.operator === Operator.dateRange.value) {
       data.attrs.type = data.attrs.type + 'range'
@@ -216,6 +223,13 @@ const onAddCondition = (data: any) => {
   }
 
   return newFilter
+}
+
+// 监听值变化
+const onValueChange = (data: any, value: any) => {
+  if (value === '') {
+    data.value = null
+  }
 }
 
 // 删除分组或条件
