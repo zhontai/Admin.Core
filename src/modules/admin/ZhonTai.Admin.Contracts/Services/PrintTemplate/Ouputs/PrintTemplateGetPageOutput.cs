@@ -1,4 +1,4 @@
-﻿namespace ZhonTai.Admin.Services.PrintTemplate.Ouputs;
+﻿namespace ZhonTai.Admin.Services.PrintTemplate.Outputs;
 
 /// <summary>
 /// 分页响应

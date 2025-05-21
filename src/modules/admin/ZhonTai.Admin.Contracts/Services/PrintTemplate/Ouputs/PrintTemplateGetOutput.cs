@@ -1,6 +1,6 @@
 ﻿using ZhonTai.Admin.Services.PrintTemplate.Inputs;
 
-namespace ZhonTai.Admin.Services.PrintTemplate.Ouputs;
+namespace ZhonTai.Admin.Services.PrintTemplate.Outputs;
 
 /// <summary>
 /// 表单响应

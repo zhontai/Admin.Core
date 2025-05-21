@@ -1,6 +1,6 @@
 ﻿using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Core.Entities;
-namespace ZhonTai.Admin.Domain.PrintTemplate;
+namespace ZhonTai.Admin.Domain.SearchTemplate;
 
 /// <summary>
 ///  查询模板
