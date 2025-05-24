@@ -16,6 +16,11 @@ public class SearchTemplateUpdateInput
     public long Id { get; set; }
 
     /// <summary>
+    /// 名称
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
     /// 模块Id
     /// </summary>
     public long ModuleId { get; set; }
