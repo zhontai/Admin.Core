@@ -96,7 +96,7 @@ declare type EmptyObjectType<T = any> = {
 
 // 申明 select option
 declare type SelectOptionType = {
-  value: string | number
+  value: string | number | boolean
   label: string | number
 }
 

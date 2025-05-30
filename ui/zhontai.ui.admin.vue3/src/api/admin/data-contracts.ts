@@ -4099,6 +4099,18 @@ export interface ResultOutputListRoleGetRoleUserListOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputListSearchTemplateGetListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: SearchTemplateGetListOutput[] | null
+}
+
+/** 结果输出 */
 export interface ResultOutputListString {
   /** 是否成功标记 */
   success?: boolean
@@ -4480,6 +4492,18 @@ export interface ResultOutputRoleGetOutput {
   msg?: string | null
   /** 角色 */
   data?: RoleGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputSearchTemplateGetUpdateOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 修改响应 */
+  data?: SearchTemplateGetUpdateOutput
 }
 
 /** 结果输出 */
@@ -4878,6 +4902,76 @@ export interface RoleUpdateInput {
    * @format int64
    */
   id: number
+}
+
+/** 添加请求 */
+export interface SearchTemplateAddInput {
+  /**
+   * 模块Id
+   * @format int64
+   */
+  moduleId?: number
+  /** 名称 */
+  name?: string | null
+  /** 模板 */
+  template?: string | null
+}
+
+/** 查询模板列表 */
+export interface SearchTemplateGetListOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 名称 */
+  name?: string | null
+}
+
+/** 修改响应 */
+export interface SearchTemplateGetUpdateOutput {
+  /**
+   * 查询模板Id
+   * @format int64
+   */
+  id: number
+  /** 名称 */
+  name?: string | null
+  /**
+   * 模块Id
+   * @format int64
+   */
+  moduleId?: number
+  /** 模板 */
+  template?: string | null
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
+}
+
+/** 修改请求 */
+export interface SearchTemplateUpdateInput {
+  /**
+   * 查询模板Id
+   * @format int64
+   */
+  id: number
+  /** 名称 */
+  name?: string | null
+  /**
+   * 模块Id
+   * @format int64
+   */
+  moduleId?: number
+  /** 模板 */
+  template?: string | null
+  /**
+   * 版本
+   * @format int64
+   */
+  version?: number
 }
 
 /** 发送邮箱验证码 */

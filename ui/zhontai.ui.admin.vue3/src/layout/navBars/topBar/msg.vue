@@ -3,7 +3,7 @@
     <template #header="{ titleId, titleClass }">
       <div class="my-flex my-flex-between mr20">
         <span :id="titleId" :class="titleClass">{{ $t('站内信') }}</span>
-        <el-link :underline="false" type="primary" class="f12" @click="onShowMore">查看更多</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="onShowMore">查看更多</el-link>
       </div>
     </template>
 

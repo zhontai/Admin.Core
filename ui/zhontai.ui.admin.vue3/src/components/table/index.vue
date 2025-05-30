@@ -172,7 +172,7 @@ const setHeader = computed(() => {
   return props.header.filter((v) => v.isCheck)
 })
 // tool 列显示全选改变时
-const onCheckAllChange = <T>(val: T) => {
+const onCheckAllChange = <T,>(val: T) => {
   if (val) props.header.forEach((v) => (v.isCheck = true))
   else props.header.forEach((v) => (v.isCheck = false))
   state.checkListIndeterminate = false

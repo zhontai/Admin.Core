@@ -2,7 +2,7 @@
   <MySplitPanes>
     <pane size="50" min-size="30" max-size="70">
       <div class="my-flex-column w100 h100">
-        <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card class="my-query-box mt8" shadow="never">
           <el-form :inline="true" @submit.stop.prevent>
             <el-form-item label="角色名称">
               <el-input v-model="state.filter.roleName" placeholder="角色名称" @keyup.enter="onQuery" />

@@ -24,16 +24,16 @@
           </template>
         </el-col>
         <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-          <el-form-item class="table-form-btn" :label-width="search.length <= 1 ? '10px' : '100px'">
-            <template #label v-if="search.length > 1">
-              <div class="table-form-btn-toggle ml10" @click="state.isToggle = !state.isToggle">
-                <span>{{ state.isToggle ? '收起' : '展开' }}</span>
-                <SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
-              </div>
-            </template>
-            <div>
-              <el-button size="default" type="primary" @click="onSearch(tableSearchRef)">查询 </el-button>
-              <el-button size="default" type="info" class="ml10" @click="onReset(tableSearchRef)"> 重置 </el-button>
+          <el-form-item class="table-form-btn" label-width="0px">
+            <div class="my-flex my-fill my-flex-end">
+              <template v-if="search.length > 1">
+                <div class="table-form-btn-toggle mr10" @click="state.isToggle = !state.isToggle">
+                  <span>{{ state.isToggle ? '收起' : '展开' }}</span>
+                  <SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
+                </div>
+              </template>
+              <el-button size="default" type="primary" @click="onSearch(tableSearchRef)">查询</el-button>
+              <el-button icon="ele-RefreshLeft" text bg class="ml10" @click="onReset(tableSearchRef)">重置</el-button>
             </div>
           </el-form-item>
         </el-col>

@@ -45,7 +45,10 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="视图地址" prop="path">
-              <el-input v-model="form.path" clearable />
+              <el-input v-model="form.path" clearable>
+                <template #prepend>{{ prependPath }}</template>
+                <template #append>.vue</template>
+              </el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
@@ -81,7 +84,7 @@
 </template>
 
 <script lang="ts" setup name="admin/view/form">
-import { reactive, toRefs, ref, PropType, markRaw } from 'vue'
+import { reactive, toRefs, ref, PropType, markRaw, computed } from 'vue'
 import { ViewGetListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { DictApi } from '/@/api/admin/Dict'
@@ -116,6 +119,10 @@ const state = reactive({
   },
 })
 const { form } = toRefs(state)
+
+const prependPath = computed(() => {
+  return form.value.path && form.value.path.indexOf('layout/') > -1 ? 'src/' : 'src/views/'
+})
 
 const getDictList = async () => {
   const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})

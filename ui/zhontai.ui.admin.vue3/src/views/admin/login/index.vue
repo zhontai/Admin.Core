@@ -50,7 +50,7 @@
                     :key="index"
                     v-show="isShow(loginMethod)"
                     :icon="loginMethod.icon"
-                    :underline="false"
+                    underline="never"
                     :name="loginMethod.name"
                     @click="onLogin(loginMethod)"
                   >

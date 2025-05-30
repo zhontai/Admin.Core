@@ -421,6 +421,10 @@ public class HostApp
             options.DefaultChallengeScheme = nameof(ResponseAuthenticationHandler); //401
             options.DefaultForbidScheme = nameof(ResponseAuthenticationHandler);    //403
         })
+        //.AddCookie(options =>
+        //{
+        //    options.Cookie.SameSite = SameSiteMode.Lax;
+        //})
         .AddJwtBearer(options =>
         {
             //ids4
@@ -889,12 +893,14 @@ public class HostApp
         //静态文件
         app.UseDefaultFiles();
         app.UseStaticFiles();
-      
+
         //路由
         app.UseRouting();
 
         //跨域
         app.UseCors();
+
+        //app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Lax });
 
         //认证
         app.UseAuthentication();

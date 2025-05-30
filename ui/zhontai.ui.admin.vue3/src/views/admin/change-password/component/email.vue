@@ -63,7 +63,7 @@
       </el-form-item>
       <div class="login-animation6 my-flex my-flex-center f12 mt10">
         <span class="login-remind">想起密码?</span>
-        <el-link :underline="false" type="primary" class="f12" @click="isChangePassword = false">去登录</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="isChangePassword = false">去登录</el-link>
       </div>
     </el-form>
   </div>

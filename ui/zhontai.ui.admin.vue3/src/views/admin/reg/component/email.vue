@@ -54,9 +54,8 @@
         <div class="my-flex my-flex-items-center f12">
           <el-checkbox v-model="form.agree" size="small">我已阅读并同意</el-checkbox>
           <div class="my-flex my-flex-items-center ml5">
-            <el-link :underline="false" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">服务协议</el-link
-            >、
-            <el-link :underline="false" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">隐私政策</el-link>
+            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">服务协议</el-link>、
+            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">隐私政策</el-link>
           </div>
         </div>
       </el-form-item>

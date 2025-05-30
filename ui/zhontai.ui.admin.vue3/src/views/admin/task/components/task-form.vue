@@ -27,7 +27,7 @@
                 </div>
               </template>
               <el-input v-model="form.body" clearable type="textarea" rows="6" />
-              <el-link icon="ele-Edit" :underline="false" style="line-height: normal; margin-top: 5px" @click="onOpenJson">Json</el-link>
+              <el-link icon="ele-Edit" underline="never" style="line-height: normal; margin-top: 5px" @click="onOpenJson">Json</el-link>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">

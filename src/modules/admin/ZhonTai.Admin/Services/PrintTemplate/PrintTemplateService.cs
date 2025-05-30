@@ -7,7 +7,7 @@ using ZhonTai.Admin.Resources;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Repositories;
-using ZhonTai.Admin.Services.PrintTemplate.Ouputs;
+using ZhonTai.Admin.Services.PrintTemplate.Outputs;
 using ZhonTai.Admin.Services.PrintTemplate.Inputs;
 
 namespace ZhonTai.Admin.Services.PrintTemplate;

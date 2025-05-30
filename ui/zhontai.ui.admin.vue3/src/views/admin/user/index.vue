@@ -7,16 +7,15 @@
     </pane>
     <pane size="80">
       <div class="my-flex-column w100 h100">
-        <el-card v-show="state.showQuery" class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
-          <el-form :inline="true" label-width="auto" @submit.stop.prevent>
-            <el-form-item>
-              <my-select-input v-model="state.pageInput.dynamicFilter" :filters="state.filters" @search="onQuery" />
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-              <el-button type="primary" icon="ele-Search" @click="onFilter"> 高级查询 </el-button>
-            </el-form-item>
-          </el-form>
+        <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
+          <my-search
+            :search-items="state.searchItems"
+            :display-count="2"
+            :col-config="{
+              lg: 8,
+            }"
+            @search="onSearch"
+          ></my-search>
         </el-card>
 
         <el-card class="my-fill mt8" shadow="never">
@@ -33,6 +32,9 @@
               >
             </div>
             <div>
+              <el-tooltip effect="dark" content="高级查询" placement="top">
+                <el-button icon="ele-Filter" circle @click="onFilter"> </el-button>
+              </el-tooltip>
               <el-tooltip effect="dark" content="回收站" placement="top">
                 <el-button v-auth="'api:admin:user:restore'" circle @click="onRecycle">
                   <template #icon>
@@ -119,7 +121,7 @@
               v-model:page-size="state.pageInput.pageSize"
               :total="state.total"
               :page-sizes="[10, 20, 50, 100]"
-              small
+              size="small"
               background
               @size-change="onSizeChange"
               @current-change="onCurrentChange"
@@ -133,14 +135,14 @@
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyFilterDialog ref="myFilterDialogRef" :fields="state.filters" @sure="onFilterSure"></MyFilterDialog>
+        <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="state.searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
     </pane>
   </MySplitPanes>
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, markRaw } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -149,6 +151,8 @@ import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
+import { Sex } from '/@/api/admin/enum-contracts'
+import { toOptionsByValue } from '/@/utils/enum'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -158,9 +162,8 @@ const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySelectInput = defineAsyncComponent(() => import('/@/components/my-select-input/index.vue'))
 const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
-const MyFilterDialog = defineAsyncComponent(() => import('/@/components/my-filter/dialog.vue'))
+const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-high-search/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
@@ -170,7 +173,7 @@ const userRecycleDialogRef = ref()
 const userUpdateFormRef = ref()
 const userSetOrgRef = ref()
 const userRestPwdRef = ref()
-const myFilterDialogRef = ref()
+const myHighSearchDialogRef = ref()
 
 const storesUseUserInfo = useUserInfo()
 
@@ -186,48 +189,95 @@ const state = reactive({
     filter: {
       orgId: null,
     },
-    dynamicFilter: {},
   } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
-  filters: [
+  searchItems: [
     {
+      label: '姓名',
       field: 'name',
       operator: 'Contains',
-      description: '姓名',
       componentName: 'el-input',
-      defaultSelect: true,
+      attrs: {
+        placeholder: '请输入姓名',
+      },
     },
     {
+      label: '状态',
+      field: 'enabled',
+      operator: 'Equal',
+      componentName: 'my-select',
+      type: 'select',
+      attrs: {
+        placeholder: '请选择',
+        options: [
+          {
+            label: '启用',
+            value: 1,
+          },
+          {
+            label: '禁用',
+            value: 0,
+          },
+        ],
+      },
+    },
+    {
+      label: '手机号',
       field: 'mobile',
       operator: 'Contains',
-      description: '手机号',
       componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入手机号',
+      },
     },
     {
+      label: '邮箱',
       field: 'email',
       operator: 'Contains',
-      description: '邮箱',
       componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入邮箱',
+      },
     },
     {
-      field: 'userName',
-      operator: 'Contains',
-      description: '用户名',
-      componentName: 'el-input',
+      label: '性别',
+      field: 'staff.sex',
+      operator: 'Equal',
+      componentName: 'my-select',
+      type: 'select',
+      attrs: {
+        placeholder: '请选择',
+        options: toOptionsByValue(Sex),
+      },
     },
     {
+      label: '创建时间',
       field: 'createdTime',
       operator: 'daterange',
-      description: '创建时间',
       componentName: 'el-date-picker',
       type: 'date',
-      config: {
+      attrs: {
         type: 'daterange',
         format: 'YYYY-MM-DD',
         valueFormat: 'YYYY-MM-DD',
+        unlinkPanels: true,
+        startPlaceholder: '开始时间',
+        endPlaceholder: '结束时间',
+        disabledDate: (time: any) => {
+          return time.getTime() > Date.now()
+        },
       },
     },
-  ] as Array<DynamicFilterInfo>,
+    {
+      label: '账号',
+      field: 'userName',
+      operator: 'Contains',
+      componentName: 'el-input',
+      attrs: {
+        placeholder: '请输入账号',
+      },
+    },
+  ],
 })
 
 const selectionRows = computed(() => {
@@ -235,7 +285,7 @@ const selectionRows = computed(() => {
 })
 
 const rowSelectCount = computed(() => {
-  return selectionRows.value?.length
+  return selectionRows.value?.length || 0
 })
 
 const isRowSelect = computed(() => {
@@ -269,11 +319,15 @@ const onQuery = async () => {
   state.loading = false
 }
 
-//高级查询
-const onFilter = () => {
-  myFilterDialogRef.value.open()
+const onSearch = (filter: any, dynamicFilter: any) => {
+  state.pageInput.dynamicFilter = dynamicFilter
+  onQuery()
 }
 
+//高级查询
+const onFilter = () => {
+  myHighSearchDialogRef.value.open()
+}
 const onFilterSure = (dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
   onQuery()

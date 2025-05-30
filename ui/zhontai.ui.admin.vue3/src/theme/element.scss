@@ -375,3 +375,12 @@
 .el-button--default i.fa {
   margin-right: 0px;
 }
+.el-button.is-link:hover {
+  color: var(--el-color-primary-light-3);
+}
+
+/* Segmented 分段控制器
+------------------------------- */
+.el-segmented {
+  padding: 0px;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="my-flex-column w100 h100">
-    <el-card class="mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+    <el-card class="my-query-box mt8" shadow="never">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
           <el-input v-model="state.filterModel.name" placeholder="名称或编码" @keyup.enter="onQuery" />
@@ -44,7 +44,7 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          small
+          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

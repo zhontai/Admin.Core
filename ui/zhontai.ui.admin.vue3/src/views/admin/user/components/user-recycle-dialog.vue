@@ -49,7 +49,7 @@
             v-model:page-size="state.pageInput.pageSize"
             :total="state.total"
             :page-sizes="[10, 20, 50, 100]"
-            small
+            size="small"
             background
             @size-change="onSizeChange"
             @current-change="onCurrentChange"

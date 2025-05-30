@@ -14,7 +14,7 @@ const apis = [
     enumUrl: `${apiUrl}/api/admin/get-enums`,
   },
   // {
-  //   output: path.resolve(projectPath, 'src/api/app'),
+  //   output: path.resolve(projectPath, './src/api/app'),
   //   url: `${apiUrl}/doc/app/swagger/app/swagger.json`,
   //   // enumUrl: `${apiUrl}/api/app/get-enums`,
   // },
