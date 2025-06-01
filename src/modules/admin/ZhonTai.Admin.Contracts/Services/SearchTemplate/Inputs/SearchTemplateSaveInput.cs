@@ -1,9 +1,9 @@
 ﻿namespace ZhonTai.Admin.Services.SearchTemplate.Inputs;
 
 /// <summary>
-/// 添加请求
+/// 保存请求
 /// </summary>
-public class SearchTemplateAddInput
+public class SearchTemplateSaveInput
 {
     /// <summary>
     /// 模块Id
@@ -19,4 +19,9 @@ public class SearchTemplateAddInput
     /// 模板
     /// </summary>
     public string Template { get; set; }
+
+    /// <summary>
+    /// 版本
+    /// </summary>
+    public long Version { get; set; }
 }

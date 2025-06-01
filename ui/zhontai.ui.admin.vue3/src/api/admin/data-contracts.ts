@@ -4904,19 +4904,6 @@ export interface RoleUpdateInput {
   id: number
 }
 
-/** 添加请求 */
-export interface SearchTemplateAddInput {
-  /**
-   * 模块Id
-   * @format int64
-   */
-  moduleId?: number
-  /** 名称 */
-  name?: string | null
-  /** 模板 */
-  template?: string | null
-}
-
 /** 查询模板列表 */
 export interface SearchTemplateGetListOutput {
   /**
@@ -4931,17 +4918,12 @@ export interface SearchTemplateGetListOutput {
 /** 修改响应 */
 export interface SearchTemplateGetUpdateOutput {
   /**
-   * 查询模板Id
-   * @format int64
-   */
-  id: number
-  /** 名称 */
-  name?: string | null
-  /**
    * 模块Id
    * @format int64
    */
   moduleId?: number
+  /** 名称 */
+  name?: string | null
   /** 模板 */
   template?: string | null
   /**
@@ -4951,20 +4933,15 @@ export interface SearchTemplateGetUpdateOutput {
   version?: number
 }
 
-/** 修改请求 */
-export interface SearchTemplateUpdateInput {
-  /**
-   * 查询模板Id
-   * @format int64
-   */
-  id: number
-  /** 名称 */
-  name?: string | null
+/** 保存请求 */
+export interface SearchTemplateSaveInput {
   /**
    * 模块Id
    * @format int64
    */
   moduleId?: number
+  /** 名称 */
+  name?: string | null
   /** 模板 */
   template?: string | null
   /**

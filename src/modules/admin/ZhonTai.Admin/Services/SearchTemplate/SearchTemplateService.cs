@@ -59,48 +59,30 @@ public class SearchTemplateService : BaseService, IDynamicApi
     }
 
     /// <summary>
-    /// 新增
+    /// 保存
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<long> AddAsync(SearchTemplateAddInput input)
+    public async Task<long> SaveAsync(SearchTemplateSaveInput input)
     {
-        if (await _searchTemplateRep.Select.AnyAsync(a => a.CreatedUserId == User.Id && a.ModuleId == input.ModuleId && a.Name == input.Name))
+        var entity = await _searchTemplateRep.Where(a => a.CreatedUserId == User.Id && a.ModuleId == input.ModuleId && a.Name == input.Name).ToOneAsync();
+        if (entity != null)
         {
-            throw ResultOutput.Exception(_adminLocalizer["查询模板名称已存在"]);
-        }
+            if (entity.Version != input.Version)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["查询模板已被修改，请刷新后重试"]);
+            }
 
-        var entity = Mapper.Map<SearchTemplateEntity>(input);
-        await _searchTemplateRep.InsertAsync(entity);
+            entity.Template = input.Template;
+            await _searchTemplateRep.UpdateAsync(entity);
+        }
+        else
+        {
+            entity = Mapper.Map<SearchTemplateEntity>(input);
+            await _searchTemplateRep.InsertAsync(entity);
+        }
 
         return entity.Id;
-    }
-
-    /// <summary>
-    /// 修改
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    public async Task UpdateTemplateAsync(SearchTemplateUpdateInput input)
-    {
-        var entity = await _searchTemplateRep.GetAsync(input.Id);
-        if (!(entity?.Id > 0))
-        {
-            throw ResultOutput.Exception(_adminLocalizer["查询模板不存在"]);
-        }
-
-        if (entity.Version != input.Version)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["查询模板已被修改，请刷新后重试"]);
-        }
-
-        if (await _searchTemplateRep.Select.AnyAsync(a => a.Id != input.Id && a.CreatedUserId == User.Id && a.ModuleId == input.ModuleId && a.Name == input.Name))
-        {
-            throw ResultOutput.Exception(_adminLocalizer["查询模板名称已存在"]);
-        }
-
-        entity.Template = input.Template;
-        await _searchTemplateRep.UpdateAsync(entity);
     }
 
     /// <summary>
