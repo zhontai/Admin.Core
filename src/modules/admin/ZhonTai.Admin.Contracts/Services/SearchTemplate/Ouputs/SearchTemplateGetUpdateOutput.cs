@@ -5,6 +5,6 @@ namespace ZhonTai.Admin.Services.SearchTemplate.Outputs;
 /// <summary>
 /// 修改响应
 /// </summary>
-public class SearchTemplateGetUpdateOutput : SearchTemplateUpdateInput
+public class SearchTemplateGetUpdateOutput : SearchTemplateSaveInput
 {
 }

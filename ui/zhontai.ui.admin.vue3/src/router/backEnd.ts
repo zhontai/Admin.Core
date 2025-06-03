@@ -118,6 +118,7 @@ export async function getBackEndControlRoutes() {
         redirect: menu.redirect,
         component: menu.viewPath ? menu.viewPath : 'Layout',
         meta: {
+          id: menu.id,
           title: menu.label as string,
           icon: menu.icon,
           isAffix: menu.isAffix,

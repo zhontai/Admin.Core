@@ -19,6 +19,7 @@ import { RouteRecordRaw } from 'vue-router'
 // 扩展 RouteMeta 接口
 declare module 'vue-router' {
   interface RouteMeta {
+    id?: number
     title?: string
     isLink?: string
     isHide?: boolean

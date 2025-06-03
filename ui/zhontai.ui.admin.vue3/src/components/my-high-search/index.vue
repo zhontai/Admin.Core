@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div class="mb10 my-flex">
+      <el-select v-model="state.currentTemplate" placeholder="请选择查询方案" style="width: 200px" clearable @change="onTemplateChange">
+        <el-option v-for="item in state.templates" :key="item.id" :label="item.name" :value="item.id">
+          <div class="my-flex my-flex-between">
+            <span>{{ item.name }}</span>
+            <el-button type="danger" link icon="ele-Delete" class="float-right" @click.stop="onDeleteTemplate(item.id as number)" />
+          </div>
+        </el-option>
+      </el-select>
+      <el-button type="primary" class="ml10" @click="onSaveTemplate">保存</el-button>
+    </div>
     <div v-if="state.dataTree.length === 0" class="empty-filter">
       <el-empty :image-size="60">
         <template #description>
@@ -63,9 +74,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { cloneDeep, mergeWith } from 'lodash-es'
 import { Operator } from '/@/api/admin.extend/enum-contracts'
+import { SearchTemplateSaveInput, SearchTemplateGetListOutput } from '/@/api/admin/data-contracts'
+import { SearchTemplateApi } from '/@/api/admin/SearchTemplate'
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const props = defineProps({
   fields: {
@@ -140,6 +157,93 @@ const state = reactive({
   },
   operatorGroups: operatorGroups as any,
   firstField: firstField,
+  templates: [] as SearchTemplateGetListOutput[], // 查询方案列表
+  currentTemplate: null, // 当前选中的查询方案ID
+})
+
+// 加载查询方案列表
+const loadTemplates = async () => {
+  try {
+    const res = await new SearchTemplateApi().getList({ moduleId: route.meta.id })
+    if (res.data) {
+      state.templates = res.data
+    }
+  } catch (error) {
+    console.error('加载查询方案失败:', error)
+  }
+}
+
+// 选择查询方案
+const onTemplateChange = async (templateId: number) => {
+  if (!templateId) {
+    state.dataTree = [createDefaultGroup(true)]
+    return
+  }
+  try {
+    const res = await new SearchTemplateApi().get({ id: templateId })
+    if (res.data && res.data.template) {
+      state.dataTree = [JSON.parse(res.data.template)]
+    }
+  } catch (error) {
+    ElMessage.error('加载查询方案失败')
+  }
+}
+
+// 保存查询方案
+const onSaveTemplate = async () => {
+  try {
+    const name = await ElMessageBox.prompt('请输入查询方案名称', '保存查询方案', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+    })
+
+    if (name.value) {
+      const content = JSON.stringify(state.dataTree[0])
+      const data: SearchTemplateSaveInput = {
+        moduleId: route.meta.id,
+        name: name.value,
+        template: content,
+      }
+
+      await new SearchTemplateApi().save(data)
+      ElMessage.success('保存成功')
+      loadTemplates() // 重新加载查询方案列表
+    }
+  } catch (error: any) {
+    if (error !== 'cancel') {
+      ElMessage.error('保存查询方案失败')
+    }
+  }
+}
+
+// 删除查询方案
+const onDeleteTemplate = async (id: number) => {
+  try {
+    await ElMessageBox.confirm('确定要删除该查询方案吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
+
+    await new SearchTemplateApi().delete({ id })
+    ElMessage.success('删除成功')
+
+    if (state.currentTemplate === id) {
+      state.currentTemplate = null
+      state.dataTree = [createDefaultGroup(true)]
+    }
+
+    loadTemplates() // 重新加载查询方案列表
+  } catch (error: any) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除查询方案失败')
+    }
+  }
+}
+
+// 组件挂载时加载查询方案列表
+onMounted(() => {
+  loadTemplates()
 })
 
 // 获得操作符列表
@@ -250,6 +354,7 @@ const onDelete = (node: any, data: any) => {
 
 // 重置
 const reset = () => {
+  state.currentTemplate = null
   state.dataTree = []
 }
 
@@ -258,7 +363,11 @@ const getDynamicFilter = () => {
   return state.dataTree.length > 0 ? cloneDeep(state.dataTree[0]) : null
 }
 
-defineExpose({ getDynamicFilter, reset })
+defineExpose({
+  getDynamicFilter,
+  reset,
+  loadTemplates,
+})
 </script>
 
 <style lang="scss" scoped>

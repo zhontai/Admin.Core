@@ -15,8 +15,7 @@ import {
   ResultOutputInt64,
   ResultOutputListSearchTemplateGetListOutput,
   ResultOutputSearchTemplateGetUpdateOutput,
-  SearchTemplateAddInput,
-  SearchTemplateUpdateInput,
+  SearchTemplateSaveInput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
@@ -73,37 +72,19 @@ export class SearchTemplateApi<SecurityDataType = unknown> extends HttpClient<Se
    * No description
    *
    * @tags search-template
-   * @name Add
-   * @summary 新增
-   * @request POST:/api/admin/search-template/add
+   * @name Save
+   * @summary 保存
+   * @request POST:/api/admin/search-template/save
    * @secure
    */
-  add = (data: SearchTemplateAddInput, params: RequestParams = {}) =>
+  save = (data: SearchTemplateSaveInput, params: RequestParams = {}) =>
     this.request<ResultOutputInt64, any>({
-      path: `/api/admin/search-template/add`,
+      path: `/api/admin/search-template/save`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
       format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags search-template
-   * @name UpdateTemplate
-   * @summary 修改
-   * @request PUT:/api/admin/search-template/update-template
-   * @secure
-   */
-  updateTemplate = (data: SearchTemplateUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/search-template/update-template`,
-      method: 'PUT',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
       ...params,
     })
   /**
