@@ -8,7 +8,7 @@
         <Auth :value="'btn.add'">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="primary" size="default">
+              <el-button type="primary">
                 <el-icon>
                   <ele-DocumentAdd />
                 </el-icon>
@@ -20,7 +20,7 @@
         <Auth :value="'btn.edit'">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="info" size="default">
+              <el-button type="info">
                 <el-icon>
                   <ele-Edit />
                 </el-icon>
@@ -32,7 +32,7 @@
         <Auth :value="'btn.del'">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="danger" size="default">
+              <el-button type="danger">
                 <el-icon>
                   <ele-Delete />
                 </el-icon>
@@ -44,7 +44,7 @@
         <Auth :value="'btn.link'">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="success" size="default">
+              <el-button type="success">
                 <el-icon>
                   <ele-Link />
                 </el-icon>
@@ -60,7 +60,7 @@
         <Auths :value="['btn.addsss', 'btn.edit', 'btn.delsss', 'btn.linksss']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="primary" size="default">
+              <el-button type="primary">
                 <el-icon>
                   <ele-DocumentAdd />
                 </el-icon>
@@ -72,7 +72,7 @@
         <Auths :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="info" size="default">
+              <el-button type="info">
                 <el-icon>
                   <ele-Edit />
                 </el-icon>
@@ -84,7 +84,7 @@
         <Auths :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="danger" size="default">
+              <el-button type="danger">
                 <el-icon>
                   <ele-Delete />
                 </el-icon>
@@ -96,7 +96,7 @@
         <Auths :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="success" size="default">
+              <el-button type="success">
                 <el-icon>
                   <ele-Link />
                 </el-icon>
@@ -112,7 +112,7 @@
         <AuthAll :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="primary" size="default">
+              <el-button type="primary">
                 <el-icon>
                   <ele-DocumentAdd />
                 </el-icon>
@@ -124,7 +124,7 @@
         <AuthAll :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="info" size="default">
+              <el-button type="info">
                 <el-icon>
                   <ele-Edit />
                 </el-icon>
@@ -136,7 +136,7 @@
         <AuthAll :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="danger" size="default">
+              <el-button type="danger">
                 <el-icon>
                   <ele-Delete />
                 </el-icon>
@@ -148,7 +148,7 @@
         <AuthAll :value="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item">
             <div class="flex-warp-item-box">
-              <el-button type="success" size="default">
+              <el-button type="success">
                 <el-icon>
                   <ele-Link />
                 </el-icon>
@@ -166,7 +166,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item" v-auth="'btn.add'">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default">
+            <el-button type="primary">
               <el-icon>
                 <ele-DocumentAdd />
               </el-icon>
@@ -176,7 +176,7 @@
         </div>
         <div class="flex-warp-item" v-auth="'btn.edit'">
           <div class="flex-warp-item-box">
-            <el-button type="info" size="default">
+            <el-button type="info">
               <el-icon>
                 <ele-Edit />
               </el-icon>
@@ -186,7 +186,7 @@
         </div>
         <div class="flex-warp-item" v-auth="'btn.del'">
           <div class="flex-warp-item-box">
-            <el-button type="danger" size="default">
+            <el-button type="danger">
               <el-icon>
                 <ele-Delete />
               </el-icon>
@@ -196,7 +196,7 @@
         </div>
         <div class="flex-warp-item" v-auth="'btn.link'">
           <div class="flex-warp-item-box">
-            <el-button type="success" size="default">
+            <el-button type="success">
               <el-icon>
                 <ele-Link />
               </el-icon>
@@ -210,7 +210,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item" v-auths="['btn.addsss', 'btn.edit', 'btn.delsss', 'btn.linksss']">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default">
+            <el-button type="primary">
               <el-icon>
                 <ele-DocumentAdd />
               </el-icon>
@@ -220,7 +220,7 @@
         </div>
         <div class="flex-warp-item" v-auths="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="info" size="default">
+            <el-button type="info">
               <el-icon>
                 <ele-Edit />
               </el-icon>
@@ -230,7 +230,7 @@
         </div>
         <div class="flex-warp-item" v-auths="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="danger" size="default">
+            <el-button type="danger">
               <el-icon>
                 <ele-Delete />
               </el-icon>
@@ -240,7 +240,7 @@
         </div>
         <div class="flex-warp-item" v-auths="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="success" size="default">
+            <el-button type="success">
               <el-icon>
                 <ele-Link />
               </el-icon>
@@ -254,7 +254,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item" v-auth-all="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default">
+            <el-button type="primary">
               <el-icon>
                 <ele-DocumentAdd />
               </el-icon>
@@ -264,7 +264,7 @@
         </div>
         <div class="flex-warp-item" v-auth-all="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="info" size="default">
+            <el-button type="info">
               <el-icon>
                 <ele-Edit />
               </el-icon>
@@ -274,7 +274,7 @@
         </div>
         <div class="flex-warp-item" v-auth-all="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="danger" size="default">
+            <el-button type="danger">
               <el-icon>
                 <ele-Delete />
               </el-icon>
@@ -284,7 +284,7 @@
         </div>
         <div class="flex-warp-item" v-auth-all="['btn.add', 'btn.edit', 'btn.del', 'btn.link']">
           <div class="flex-warp-item-box">
-            <el-button type="success" size="default">
+            <el-button type="success">
               <el-icon>
                 <ele-Link />
               </el-icon>
@@ -301,7 +301,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default" @click="onAuthClick">
+            <el-button type="primary" @click="onAuthClick">
               <el-icon>
                 <ele-DocumentAdd />
               </el-icon>
@@ -311,7 +311,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="info" size="default" @click="onAuthsClick">
+            <el-button type="info" @click="onAuthsClick">
               <el-icon>
                 <ele-Edit />
               </el-icon>
@@ -321,7 +321,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="danger" size="default" @click="onAuthAllClick">
+            <el-button type="danger" @click="onAuthAllClick">
               <el-icon>
                 <ele-Delete />
               </el-icon>

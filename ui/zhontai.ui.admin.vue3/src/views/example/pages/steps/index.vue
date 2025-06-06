@@ -21,7 +21,7 @@
       <el-result icon="success" title="成功提示" subTitle="请根据提示进行操作" v-if="stepsActive === 1"> </el-result>
       <el-result icon="warning" title="警告提示" subTitle="请根据提示进行操作" v-else-if="stepsActive === 2"> </el-result>
       <el-result icon="error" title="错误提示" subTitle="请根据提示进行操作" v-else-if="stepsActive === 3"> </el-result>
-      <el-button @click="onNextSteps" size="default" class="mt15" type="primary">
+      <el-button @click="onNextSteps" class="mt15" type="primary">
         <SvgIcon name="iconfont icon-step" />
         下一步
       </el-button>

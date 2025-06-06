@@ -42,14 +42,14 @@
             <p class="my-flex my-flex-items-center">
               确定要同步数据？
               <!-- 确定要同步至
-              <el-select v-model="state.sync.regionLevel" size="small" :teleported="false" style="width: 75px; margin: 0px 5px">
+              <el-select v-model="state.sync.regionLevel"  :teleported="false" style="width: 75px; margin: 0px 5px">
                 <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
               ？ -->
             </p>
             <div class="mt10" style="text-align: right">
-              <el-button size="small" text @click="onSyncCancel">取消</el-button>
-              <el-button size="small" type="primary" @click="onSync"> 确定 </el-button>
+              <el-button text @click="onSyncCancel">取消</el-button>
+              <el-button type="primary" @click="onSync"> 确定 </el-button>
             </div>
           </el-popover>
         </el-form-item>
@@ -62,8 +62,8 @@
         <el-table-column prop="code" label="代码" min-width="120" show-overflow-tooltip />
         <el-table-column prop="level" label="类型" min-width="140" show-overflow-tooltip :formatter="formatterEnum" />
         <el-table-column prop="pinyin" label="拼音" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" fixed="right">
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
+        <el-table-column label="状态" width="88" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
               v-if="auth('api:admin:region:set-enable')"
@@ -82,7 +82,7 @@
             </template>
           </template>
         </el-table-column>
-        <el-table-column label="热门" width="80" align="center" fixed="right">
+        <el-table-column label="热门" width="88" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
               v-if="auth('api:admin:region:set-hot')"
@@ -103,8 +103,8 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:region:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:region:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:region:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:region:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -114,7 +114,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

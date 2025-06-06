@@ -10,7 +10,7 @@
         <span>智慧农业系统平台</span>
       </div>
       <div class="up-right">
-        <el-dropdown size="small">
+        <el-dropdown>
           <span class="el-dropdown-link">
             {{ state.dropdownActive }}
             <SvgIcon name="ele-ArrowDown" class="el-icon--right" />
@@ -1287,7 +1287,8 @@ onUnmounted(() => {
                     100% 0,
                     100% 100%,
                     0 100%;
-                  background-image: linear-gradient(#19d4ae, #19d4ae), linear-gradient(#5ab1ef, #5ab1ef), linear-gradient(#fa6e86, #fa6e86),
+                  background-image:
+                    linear-gradient(#19d4ae, #19d4ae), linear-gradient(#5ab1ef, #5ab1ef), linear-gradient(#fa6e86, #fa6e86),
                     linear-gradient(#ffb980, #ffb980);
                   animation: rotate 2s linear infinite;
                 }

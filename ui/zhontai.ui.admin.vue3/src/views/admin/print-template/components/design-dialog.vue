@@ -4,7 +4,7 @@
       <div class="my-flex my-flex-between mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
-          <el-button ref="saveRef" size="small" type="primary" round :loading="state.saveLoading">
+          <el-button ref="saveRef" type="primary" round :loading="state.saveLoading">
             <template #icon>
               <el-icon>
                 <my-icon name="save" color="var(--color)"></my-icon>
@@ -12,15 +12,15 @@
             </template>
             保存
           </el-button>
-          <el-popover ref="popoverSaveRef" placement="bottom-end" :virtual-ref="saveRef" trigger="click" virtual-triggering :width="230" title="提示">
+          <el-popover ref="popoverSaveRef" placement="bottom-end" :virtual-ref="saveRef" trigger="click" virtual-triggering width="auto" title="提示">
             <p class="my-flex my-flex-items-center">
               <SvgIcon name="ele-Warning" size="16" color="var(--el-color-warning)" class="mr5" />
               确定要保存设计模板吗？
             </p>
             <div class="mt10" style="text-align: right; margin: 0">
-              <el-button size="small" text @click="onSaveCancel">取消</el-button>
-              <el-button size="small" type="primary" @click="onSave"> 保存并关闭 </el-button>
-              <el-button size="small" type="primary" @click="onSave(false)"> 保存 </el-button>
+              <el-button text @click="onSaveCancel">取消</el-button>
+              <el-button type="primary" @click="onSave"> 保存并关闭 </el-button>
+              <el-button type="primary" @click="onSave(false)"> 保存 </el-button>
             </div>
           </el-popover>
 
@@ -36,8 +36,8 @@
           <el-popover ref="popoverRefreshRef" placement="bottom" :virtual-ref="refreshRef" trigger="click" virtual-triggering :width="230">
             <p class="my-flex my-flex-items-center">确定要刷新设计模板吗？</p>
             <div class="mt10" style="text-align: right; margin: 0">
-              <el-button size="small" text @click="onRefreshCancel">取消</el-button>
-              <el-button size="small" type="primary" @click="onRefresh">确定</el-button>
+              <el-button text @click="onRefreshCancel">取消</el-button>
+              <el-button type="primary" @click="onRefresh">确定</el-button>
             </div>
           </el-popover>
         </div>

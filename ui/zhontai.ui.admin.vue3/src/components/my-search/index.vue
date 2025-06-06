@@ -1,6 +1,6 @@
 <template>
   <div v-if="searchItems.length > 0">
-    <el-form ref="formRef" :model="formState" :inline="true" label-width="auto" size="default">
+    <el-form ref="formRef" :model="formState" :inline="true" label-width="auto">
       <el-row :gutter="16">
         <!-- 动态渲染表单项 -->
         <el-col
@@ -27,7 +27,7 @@
                 {{ isExpanded ? '收起' : '展开' }}
                 <SvgIcon :name="isExpanded ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
               </el-button>
-              <el-button size="default" type="primary" @click="onSearch">查询</el-button>
+              <el-button type="primary" @click="onSearch">查询</el-button>
               <el-button icon="ele-RefreshLeft" text bg @click="onReset">重置</el-button>
             </div>
           </el-form-item>

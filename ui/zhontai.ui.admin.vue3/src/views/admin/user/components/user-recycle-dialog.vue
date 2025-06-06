@@ -36,7 +36,7 @@
         >
           <el-table-column type="selection" width="55" />
           <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip />
-          <el-table-column prop="name" label="姓名" min-width="80" show-overflow-tooltip />
+          <el-table-column prop="name" label="姓名" min-width="82" show-overflow-tooltip />
           <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
           <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
           <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
@@ -49,7 +49,6 @@
             v-model:page-size="state.pageInput.pageSize"
             :total="state.total"
             :page-sizes="[10, 20, 50, 100]"
-            size="small"
             background
             @size-change="onSizeChange"
             @current-change="onCurrentChange"
@@ -60,8 +59,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel" size="default">取 消</el-button>
-        <el-button type="primary" @click="onSure" size="default" :loading="sureLoading">恢 复</el-button>
+        <el-button @click="onCancel">取 消</el-button>
+        <el-button type="primary" @click="onSure" :loading="sureLoading">恢 复</el-button>
       </span>
     </template>
   </el-dialog>

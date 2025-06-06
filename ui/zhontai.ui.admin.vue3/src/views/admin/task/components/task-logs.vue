@@ -26,7 +26,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"
@@ -36,8 +35,8 @@
     </div>
     <template #footer>
       <div style="flex: auto; padding: 20px !important">
-        <el-button @click="onQuery" type="primary" size="default">刷 新</el-button>
-        <el-button @click="onCancel" size="default">取 消</el-button>
+        <el-button @click="onQuery" type="primary">刷 新</el-button>
+        <el-button @click="onCancel">取 消</el-button>
       </div>
     </template>
   </el-drawer>

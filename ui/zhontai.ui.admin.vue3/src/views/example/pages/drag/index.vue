@@ -1,7 +1,7 @@
 <template>
   <div class="drag-container layout-pd">
     <el-card shadow="hover" header="拖动指令效果（v-drag）作用于 Dialog 对话框">
-      <el-button type="primary" @click="state.dialogVisible = true" size="default">
+      <el-button type="primary" @click="state.dialogVisible = true">
         <el-icon>
           <ele-Pointer />
         </el-icon>
@@ -12,7 +12,7 @@
     <el-card shadow="hover" header="自定义div" class="mt15">
       <div class="drag-dom">
         <div class="drag-header">
-          <el-button type="success" size="default" v-drag="['.drag-container .drag-dom', '.drag-container .drag-header']">
+          <el-button type="success" v-drag="['.drag-container .drag-dom', '.drag-container .drag-header']">
             <el-icon>
               <ele-Pointer />
             </el-icon>
@@ -29,8 +29,8 @@
       <p>鼠标放标题头进行 Dialog 对话框拖动</p>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="state.dialogVisible = false" size="default">取 消</el-button>
-          <el-button type="primary" @click="state.dialogVisible = false" size="default">确 定</el-button>
+          <el-button @click="state.dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="state.dialogVisible = false">确 定</el-button>
         </span>
       </template>
     </el-dialog>

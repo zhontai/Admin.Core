@@ -1,7 +1,7 @@
 <template>
   <div class="layout-pd">
     <el-card shadow="hover" header="表单表格验证">
-      <el-form ref="tableRulesRef" :model="state.tableData" size="default">
+      <el-form ref="tableRulesRef" :model="state.tableData">
         <el-table ref="tableRef" :data="state.tableData.data" border class="module-table-uncollected" max-height="200">
           <el-table-column
             v-for="(item, index) in state.tableData.header"
@@ -46,8 +46,8 @@
       </el-form>
       <el-row class="flex mt15">
         <div class="flex-margin">
-          <el-button size="default" type="success" @click="onValidate(tableRulesRef)">表格验证</el-button>
-          <el-button size="default" type="primary" @click="onAddRow">新增一行</el-button>
+          <el-button type="success" @click="onValidate(tableRulesRef)">表格验证</el-button>
+          <el-button type="primary" @click="onAddRow">新增一行</el-button>
         </div>
       </el-row>
     </el-card>

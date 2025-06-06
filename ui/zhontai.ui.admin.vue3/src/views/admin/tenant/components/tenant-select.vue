@@ -35,7 +35,7 @@
           @row-dblclick="onRowDbClick"
         >
           <el-table-column v-if="multiple" type="selection" width="55" />
-          <el-table-column prop="name" label="企业名" min-width="80" show-overflow-tooltip />
+          <el-table-column prop="name" label="企业名" min-width="82" show-overflow-tooltip />
           <el-table-column prop="code" label="企业编码" min-width="120" show-overflow-tooltip />
           <!-- <el-table-column prop="email" label="邮箱" min-width="120" show-overflow-tooltip /> -->
         </el-table>
@@ -45,7 +45,6 @@
             v-model:page-size="state.pageInput.pageSize"
             :total="state.total"
             :page-sizes="[10, 20, 50, 100]"
-            size="small"
             background
             @size-change="onSizeChange"
             @current-change="onCurrentChange"
@@ -56,8 +55,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel" size="default">取 消</el-button>
-        <el-button type="primary" @click="onSure" size="default" :loading="sureLoading">确 定</el-button>
+        <el-button @click="onCancel">取 消</el-button>
+        <el-button type="primary" @click="onSure" :loading="sureLoading">确 定</el-button>
       </span>
     </template>
   </el-dialog>

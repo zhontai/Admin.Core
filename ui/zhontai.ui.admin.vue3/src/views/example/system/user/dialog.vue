@@ -1,7 +1,7 @@
 <template>
   <div class="system-user-dialog-container">
     <el-dialog :title="state.dialog.title" v-model="state.dialog.isShowDialog" width="769px">
-      <el-form ref="userDialogFormRef" :model="state.ruleForm" size="default" label-width="90px">
+      <el-form ref="userDialogFormRef" :model="state.ruleForm" label-width="90px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
             <el-form-item label="账户名称">
@@ -80,8 +80,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="default">取 消</el-button>
-          <el-button type="primary" @click="onSubmit" size="default">{{ state.dialog.submitTxt }}</el-button>
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSubmit">{{ state.dialog.submitTxt }}</el-button>
         </span>
       </template>
     </el-dialog>

@@ -25,7 +25,7 @@
               导出PDF
             </el-button>
             <el-button type="primary" icon="ele-Printer" @click="onPrint">打 印</el-button>
-            <el-button @click="onCancel" size="default">关 闭</el-button>
+            <el-button @click="onCancel">关 闭</el-button>
           </div>
         </div>
       </template>

@@ -7,15 +7,15 @@
     </template>
     <div class="my-fill h100" style="padding: 20px">
       <div class="mb10 my-flex my-flex-end">
-        <el-button type="primary" @click="onJsonShell" size="default">Shell</el-button>
-        <el-button type="primary" @click="onJsonHttp" size="default">Http</el-button>
+        <el-button type="primary" @click="onJsonShell">Shell</el-button>
+        <el-button type="primary" @click="onJsonHttp">Http</el-button>
       </div>
       <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{ modes: [] }"></MyJsonEditor>
     </div>
     <template #footer>
       <div style="flex: auto; padding: 20px !important">
-        <el-button @click="onCancel" size="default">取 消</el-button>
-        <el-button type="primary" @click="onSure" size="default">确 定</el-button>
+        <el-button @click="onCancel">取 消</el-button>
+        <el-button type="primary" @click="onSure">确 定</el-button>
       </div>
     </template>
   </el-drawer>

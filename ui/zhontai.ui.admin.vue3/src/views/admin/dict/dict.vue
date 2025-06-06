@@ -28,9 +28,9 @@
       >
         <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="value" label="值" width="80" sortable="custom" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" sortable="custom" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
+        <el-table-column prop="value" label="值" width="90" sortable="custom" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="90" align="center" sortable="custom" show-overflow-tooltip />
+        <el-table-column label="状态" width="82" align="center">
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -38,8 +38,8 @@
         </el-table-column>
         <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -49,7 +49,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

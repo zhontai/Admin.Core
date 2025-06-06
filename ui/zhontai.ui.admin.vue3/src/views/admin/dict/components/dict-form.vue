@@ -9,7 +9,7 @@
       :close-on-press-escape="false"
       width="769px"
     >
-      <el-form ref="formRef" :model="form" size="default" label-width="80px">
+      <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="名称" prop="name" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
@@ -49,8 +49,8 @@
             <el-checkbox v-if="!(state.form?.id > 0)" v-model="state.contiAdd">连续新增</el-checkbox>
           </div>
           <div>
-            <el-button @click="onCancel" size="default">取 消</el-button>
-            <el-button type="primary" @click="onSure" size="default" :loading="state.sureLoading">确 定</el-button>
+            <el-button @click="onCancel">取 消</el-button>
+            <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
           </div>
         </span>
       </template>

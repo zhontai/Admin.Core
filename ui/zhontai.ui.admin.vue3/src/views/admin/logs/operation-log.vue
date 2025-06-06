@@ -46,7 +46,7 @@
         <el-table-column prop="createdTime" label="操作时间" :formatter="formatterTime" min-width="160" />
         <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button size="small" text type="primary" @click="onShowDetails(row)">查看详情</el-button>
+            <el-button text type="primary" @click="onShowDetails(row)">查看详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,7 +56,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

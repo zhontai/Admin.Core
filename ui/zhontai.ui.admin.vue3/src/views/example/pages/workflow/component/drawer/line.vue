@@ -1,6 +1,6 @@
 <template>
   <div class="pt15 pr15 pb15 pl15">
-    <el-form :model="state.line" size="default" label-width="50px">
+    <el-form :model="state.line" label-width="50px">
       <el-form-item label="来往">
         <el-input v-model="state.line.contact" placeholder="来往" clearable disabled></el-input>
       </el-form-item>

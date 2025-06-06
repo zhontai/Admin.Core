@@ -25,8 +25,8 @@
         <div class="upgrade-content-desc mt5">{{ $t('message.upgrade.desc') }}</div>
       </div>
       <div class="upgrade-btn">
-        <el-button round size="default" type="info" text @click="onCancel">{{ $t('message.upgrade.btnOne') }}</el-button>
-        <el-button type="primary" round size="default" @click="onUpgrade" :loading="state.isLoading">{{ state.btnTxt }}</el-button>
+        <el-button round type="info" text @click="onCancel">{{ $t('message.upgrade.btnOne') }}</el-button>
+        <el-button type="primary" round @click="onUpgrade" :loading="state.isLoading">{{ state.btnTxt }}</el-button>
       </div>
     </el-dialog>
   </div>

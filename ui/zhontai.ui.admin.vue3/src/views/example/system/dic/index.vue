@@ -2,14 +2,14 @@
   <div class="system-dic-container layout-padding">
     <el-card shadow="hover" class="layout-padding-auto">
       <div class="system-user-search mb15">
-        <el-input size="default" placeholder="请输入字典名称" style="max-width: 180px"> </el-input>
-        <el-button size="default" type="primary" class="ml10">
+        <el-input placeholder="请输入字典名称" style="max-width: 180px"> </el-input>
+        <el-button type="primary" class="ml10">
           <el-icon>
             <ele-Search />
           </el-icon>
           查询
         </el-button>
-        <el-button size="default" type="success" class="ml10" @click="onOpenAddDic('add')">
+        <el-button type="success" class="ml10" @click="onOpenAddDic('add')">
           <el-icon>
             <ele-FolderAdd />
           </el-icon>
@@ -30,8 +30,8 @@
         <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="100">
           <template #default="scope">
-            <el-button size="small" text type="primary" @click="onOpenEditDic('edit', scope.row)">修改</el-button>
-            <el-button size="small" text type="primary" @click="onRowDel(scope.row)">删除</el-button>
+            <el-button text type="primary" @click="onOpenEditDic('edit', scope.row)">修改</el-button>
+            <el-button text type="primary" @click="onRowDel(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

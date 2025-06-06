@@ -24,7 +24,7 @@
         <el-table-column prop="realName" label="姓名" width="120" show-overflow-tooltip />
         <el-table-column prop="phone" label="手机号" width="120" show-overflow-tooltip />
         <!-- <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip /> -->
-        <el-table-column label="状态" width="80" align="center" fixed="right">
+        <el-table-column label="状态" width="88" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
               v-if="auth('api:admin:tenant:set-enable')"
@@ -45,7 +45,7 @@
         </el-table-column>
         <el-table-column label="操作" width="140" header-align="center" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:tenant:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:tenant:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
             <my-dropdown-more v-auths="['api:admin:tenant:delete']">
               <template #dropdown>
                 <el-dropdown-menu>
@@ -64,7 +64,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

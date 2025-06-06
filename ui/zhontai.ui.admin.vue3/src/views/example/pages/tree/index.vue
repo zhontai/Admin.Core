@@ -22,7 +22,7 @@
           </template>
         </el-tree>
       </div>
-      <el-button @click="onSelect" class="mt15" size="default" type="primary">
+      <el-button @click="onSelect" class="mt15" type="primary">
         <SvgIcon name="iconfont icon-shuxingtu" />
         选择元素
       </el-button>

@@ -1,7 +1,7 @@
 <template>
   <div class="form-adapt-container layout-pd">
     <el-card shadow="hover" header="表单自适应演示(改变窗口查看效果)">
-      <el-form :model="state.form" size="default" label-width="100px" class="mt35 mb35">
+      <el-form :model="state.form" label-width="100px" class="mt35 mb35">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
             <el-form-item label="姓名">

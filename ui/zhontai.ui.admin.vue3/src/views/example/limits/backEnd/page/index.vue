@@ -8,7 +8,7 @@
       type="warning"
       :closable="false"
     ></el-alert>
-    <el-button type="primary" size="default" class="mt15" @click="onGoToFrontEndPage">
+    <el-button type="primary" class="mt15" @click="onGoToFrontEndPage">
       <el-icon>
         <ele-Position />
       </el-icon>

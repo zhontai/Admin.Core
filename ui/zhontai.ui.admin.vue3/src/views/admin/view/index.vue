@@ -33,19 +33,19 @@
         <el-table-column prop="label" label="视图名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="name" label="视图命名" min-width="120" show-overflow-tooltip />
         <el-table-column prop="path" label="视图地址" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
         <!-- <el-table-column prop="description" label="视图描述" min-width="120" show-overflow-tooltip /> -->
-        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
+        <el-table-column label="状态" width="82" align="center" show-overflow-tooltip>
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="190" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="210" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:view:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:view:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
-            <el-button v-auth="'api:admin:view:add'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">复制</el-button>
+            <el-button v-auth="'api:admin:view:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:view:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:view:add'" icon="ele-CopyDocument" text type="primary" @click="onCopy(row)">复制</el-button>
           </template>
         </el-table-column>
       </el-table>

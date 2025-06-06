@@ -2,14 +2,14 @@
   <div class="system-dept-container layout-padding">
     <el-card shadow="hover" class="layout-padding-auto">
       <div class="system-dept-search mb15">
-        <el-input size="default" placeholder="请输入部门名称" style="max-width: 180px"> </el-input>
-        <el-button size="default" type="primary" class="ml10">
+        <el-input placeholder="请输入部门名称" style="max-width: 180px"> </el-input>
+        <el-button type="primary" class="ml10">
           <el-icon>
             <ele-Search />
           </el-icon>
           查询
         </el-button>
-        <el-button size="default" type="success" class="ml10" @click="onOpenAddDept('add')">
+        <el-button type="success" class="ml10" @click="onOpenAddDept('add')">
           <el-icon>
             <ele-FolderAdd />
           </el-icon>
@@ -25,7 +25,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column prop="deptName" label="部门名称" show-overflow-tooltip> </el-table-column>
-        <el-table-column label="排序" show-overflow-tooltip width="80">
+        <el-table-column label="排序" show-overflow-tooltip width="82">
           <template #default="scope">
             {{ scope.$index }}
           </template>
@@ -40,9 +40,9 @@
         <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" show-overflow-tooltip width="140">
           <template #default="scope">
-            <el-button size="small" text type="primary" @click="onOpenAddDept('add')">新增</el-button>
-            <el-button size="small" text type="primary" @click="onOpenEditDept('edit', scope.row)">修改</el-button>
-            <el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
+            <el-button text type="primary" @click="onOpenAddDept('add')">新增</el-button>
+            <el-button text type="primary" @click="onOpenEditDept('edit', scope.row)">修改</el-button>
+            <el-button text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

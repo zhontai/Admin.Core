@@ -20,8 +20,8 @@
       <el-table v-loading="state.loading" :data="state.dataList" default-expand-all highlight-current-row style="width: 100%" border>
         <el-table-column prop="name" label="模板名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="模板编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" fixed="right">
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
+        <el-table-column label="状态" width="88" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
               v-if="auth('api:admin:print-template:set-enable')"
@@ -42,9 +42,9 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:print-template:update'" size="small" text type="primary" @click="onEdit(row)"> 编辑 </el-button>
-            <el-button v-auth="'api:admin:print-template:design'" size="small" text type="primary" @click="onDesign(row)"> 设计 </el-button>
-            <el-button v-auth="'api:admin:print-template:delete'" size="small" text type="danger" @click="onDelete(row)"> 删除 </el-button>
+            <el-button v-auth="'api:admin:print-template:update'" text type="primary" @click="onEdit(row)"> 编辑 </el-button>
+            <el-button v-auth="'api:admin:print-template:design'" text type="primary" @click="onDesign(row)"> 设计 </el-button>
+            <el-button v-auth="'api:admin:print-template:delete'" text type="danger" @click="onDelete(row)"> 删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -54,7 +54,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

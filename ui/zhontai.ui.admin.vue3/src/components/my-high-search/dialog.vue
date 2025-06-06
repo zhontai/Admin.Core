@@ -13,8 +13,8 @@
     <MyFilter ref="myFilterRef" v-bind="$attrs"></MyFilter>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onReset" size="default">重 置</el-button>
-        <el-button @click="onCancel" size="default">取 消</el-button>
+        <el-button @click="onReset">重 置</el-button>
+        <el-button @click="onCancel">取 消</el-button>
         <el-button type="primary" @click="onSure">查 询</el-button>
       </span>
     </template>
