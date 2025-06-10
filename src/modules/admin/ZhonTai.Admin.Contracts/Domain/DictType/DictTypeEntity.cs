@@ -11,6 +11,11 @@ namespace ZhonTai.Admin.Domain.DictType;
 public class DictTypeEntity : EntityBase
 {
     /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long ParentId { get; set; }
+
+    /// <summary>
     /// 名称
     /// </summary>
     [Column(StringLength = 50)]
@@ -32,6 +37,11 @@ public class DictTypeEntity : EntityBase
     /// 启用
     /// </summary>
 	public bool Enabled { get; set; } = true;
+
+    /// <summary>
+    /// 是否树形
+    /// </summary>
+    public bool IsTree { get; set; } = true;
 
     /// <summary>
     /// 排序
