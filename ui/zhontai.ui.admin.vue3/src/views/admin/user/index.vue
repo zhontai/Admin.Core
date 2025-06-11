@@ -152,6 +152,7 @@ import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { Operator } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -194,7 +195,7 @@ const state = reactive({
     {
       label: '姓名',
       field: 'name',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入姓名',
@@ -203,7 +204,7 @@ const state = reactive({
     {
       label: '状态',
       field: 'enabled',
-      operator: 'Equal',
+      operator: Operator.equal.value,
       componentName: 'my-select',
       type: 'select',
       attrs: {
@@ -223,7 +224,7 @@ const state = reactive({
     {
       label: '手机号',
       field: 'mobile',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入手机号',
@@ -232,7 +233,7 @@ const state = reactive({
     {
       label: '邮箱',
       field: 'email',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入邮箱',
@@ -241,7 +242,7 @@ const state = reactive({
     {
       label: '性别',
       field: 'staff.sex',
-      operator: 'Equal',
+      operator: Operator.equal.value,
       componentName: 'my-select',
       type: 'select',
       attrs: {
@@ -252,7 +253,7 @@ const state = reactive({
     {
       label: '创建时间',
       field: 'createdTime',
-      operator: 'daterange',
+      operator: Operator.dateRange.value,
       componentName: 'el-date-picker',
       type: 'date',
       attrs: {
@@ -270,7 +271,7 @@ const state = reactive({
     {
       label: '账号',
       field: 'userName',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入账号',
