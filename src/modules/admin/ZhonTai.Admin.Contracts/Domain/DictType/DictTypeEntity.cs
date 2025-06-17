@@ -41,7 +41,7 @@ public class DictTypeEntity : EntityBase
     /// <summary>
     /// 是否树形
     /// </summary>
-    public bool IsTree { get; set; } = true;
+    public bool IsTree { get; set; }
 
     /// <summary>
     /// 排序

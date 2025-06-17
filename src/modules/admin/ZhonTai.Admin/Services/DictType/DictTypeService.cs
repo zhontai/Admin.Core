@@ -110,6 +110,11 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["字典类型不存在"]);
         }
 
+        if (input.Id == input.ParentId)
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级字典类型不能是本字典类型"]);
+        }
+
         if (await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Name == input.Name))
         {
             throw ResultOutput.Exception(_adminLocalizer["字典类型已存在"]);
@@ -118,6 +123,15 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         if (input.Code.NotNull() && await _dictTypeRep.Select.AnyAsync(a => a.Id != input.Id && a.Code == input.Code))
         {
             throw ResultOutput.Exception(_adminLocalizer["字典类型编码已存在"]);
+        }
+
+        var childIdList = await _dictTypeRep.Select
+        .Where(a => a.Id == input.Id)
+        .AsTreeCte()
+        .ToListAsync(a => a.Id);
+        if (childIdList.Contains(input.ParentId))
+        {
+            throw ResultOutput.Exception(_adminLocalizer["上级字典类型不能是下级字典类型"]);
         }
 
         Mapper.Map(input, entity);

@@ -8,6 +8,11 @@ namespace ZhonTai.Admin.Services.DictType.Dto;
 public class DictTypeAddInput
 {
     /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long ParentId { get; set; }
+
+    /// <summary>
     /// 字典类型名称
     /// </summary>
     [Required(ErrorMessage = "请输入字典类型名称")]
@@ -27,6 +32,11 @@ public class DictTypeAddInput
     /// 启用
     /// </summary>
 	public bool Enabled { get; set; }
+
+    /// <summary>
+    /// 是否树形
+    /// </summary>
+    public bool IsTree { get; set; }
 
     /// <summary>
     /// 排序
