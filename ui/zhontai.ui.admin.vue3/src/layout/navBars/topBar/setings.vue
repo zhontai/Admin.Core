@@ -14,14 +14,13 @@
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.primary') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-color-picker v-model="getThemeConfig.primary" :predefine="predefinePrimaryColors" size="default" @change="onColorPickerChange">
-            </el-color-picker>
+            <el-color-picker v-model="getThemeConfig.primary" :predefine="predefinePrimaryColors" @change="onColorPickerChange"> </el-color-picker>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsDark') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isDark" size="small" @change="onAddDarkChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isDark" @change="onAddDarkChange"></el-switch>
           </div>
         </div>
 
@@ -30,31 +29,21 @@
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoTopBar') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-color-picker
-              v-model="getThemeConfig.topBar"
-              :predefine="predefineTopBarBgColors"
-              size="default"
-              @change="onBgColorPickerChange('topBar')"
-            >
+            <el-color-picker v-model="getThemeConfig.topBar" :predefine="predefineTopBarBgColors" @change="onBgColorPickerChange('topBar')">
             </el-color-picker>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoTopBarColor') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-color-picker
-              v-model="getThemeConfig.topBarColor"
-              :predefine="predefineFontColors"
-              size="default"
-              @change="onBgColorPickerChange('topBarColor')"
-            >
+            <el-color-picker v-model="getThemeConfig.topBarColor" :predefine="predefineFontColors" @change="onBgColorPickerChange('topBarColor')">
             </el-color-picker>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt10">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoIsTopBarColorGradual') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isTopBarColorGradual" size="small" @change="onTopBarGradualChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isTopBarColorGradual" @change="onTopBarGradualChange"></el-switch>
           </div>
         </div>
 
@@ -63,24 +52,14 @@
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoMenuBar') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-color-picker
-              v-model="getThemeConfig.menuBar"
-              :predefine="predefineMenuBarBgColors"
-              size="default"
-              @change="onBgColorPickerChange('menuBar')"
-            >
+            <el-color-picker v-model="getThemeConfig.menuBar" :predefine="predefineMenuBarBgColors" @change="onBgColorPickerChange('menuBar')">
             </el-color-picker>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoMenuBarColor') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-color-picker
-              v-model="getThemeConfig.menuBarColor"
-              :predefine="predefineFontColors"
-              size="default"
-              @change="onBgColorPickerChange('menuBarColor')"
-            >
+            <el-color-picker v-model="getThemeConfig.menuBarColor" :predefine="predefineFontColors" @change="onBgColorPickerChange('menuBarColor')">
             </el-color-picker>
           </div>
         </div>
@@ -89,7 +68,6 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-color-picker
               v-model="getThemeConfig.menuBarActiveColor"
-              size="default"
               show-alpha
               :predefine="predefineActiveBgColors"
               @change="onBgColorPickerChange('menuBarActiveColor')"
@@ -99,7 +77,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt14">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.twoIsMenuBarColorGradual') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isMenuBarColorGradual" size="small" @change="onMenuBarGradualChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isMenuBarColorGradual" @change="onMenuBarGradualChange"></el-switch>
           </div>
         </div>
 
@@ -113,7 +91,6 @@
             <el-color-picker
               v-model="getThemeConfig.columnsMenuBar"
               :predefine="predefineColumnsMenuBarBgColors"
-              size="default"
               @change="onBgColorPickerChange('columnsMenuBar')"
               :disabled="getThemeConfig.layout !== 'columns'"
             >
@@ -126,7 +103,6 @@
             <el-color-picker
               v-model="getThemeConfig.columnsMenuBarColor"
               :predefine="predefineFontColors"
-              size="default"
               @change="onBgColorPickerChange('columnsMenuBarColor')"
               :disabled="getThemeConfig.layout !== 'columns'"
             >
@@ -138,7 +114,6 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-switch
               v-model="getThemeConfig.isColumnsMenuBarColorGradual"
-              size="small"
               @change="onColumnsMenuBarGradualChange"
               :disabled="getThemeConfig.layout !== 'columns'"
             ></el-switch>
@@ -149,7 +124,6 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-switch
               v-model="getThemeConfig.isColumnsMenuHoverPreload"
-              size="small"
               @change="onColumnsMenuHoverPreloadChange"
               :disabled="getThemeConfig.layout !== 'columns'"
             ></el-switch>
@@ -164,7 +138,6 @@
             <el-switch
               v-model="getThemeConfig.isCollapse"
               :disabled="getThemeConfig.layout === 'transverse'"
-              size="small"
               @change="onThemeConfigChange"
             ></el-switch>
           </div>
@@ -175,7 +148,6 @@
             <el-switch
               v-model="getThemeConfig.isUniqueOpened"
               :disabled="getThemeConfig.layout === 'transverse'"
-              size="small"
               @change="setLocalThemeConfig"
             ></el-switch>
           </div>
@@ -183,25 +155,20 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.threeIsFixedHeader') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isFixedHeader" size="small" @change="onIsFixedHeaderChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isFixedHeader" @change="onIsFixedHeaderChange"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: getThemeConfig.layout !== 'classic' ? 0.5 : 1 }">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.threeIsClassicSplitMenu') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch
-              v-model="getThemeConfig.isClassicSplitMenu"
-              :disabled="getThemeConfig.layout !== 'classic'"
-              size="small"
-              @change="onClassicSplitMenuChange"
-            >
+            <el-switch v-model="getThemeConfig.isClassicSplitMenu" :disabled="getThemeConfig.layout !== 'classic'" @change="onClassicSplitMenuChange">
             </el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.threeIsLockScreen') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isLockScreen" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isLockScreen" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt11">
@@ -213,7 +180,6 @@
               :min="1"
               :max="9999"
               @change="setLocalThemeConfig"
-              size="default"
               style="width: 110px"
             >
             </el-input-number>
@@ -225,7 +191,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsShowLogo') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isShowLogo" size="small" @change="onIsShowLogoChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isShowLogo" @change="onIsShowLogoChange"></el-switch>
           </div>
         </div>
         <div
@@ -237,7 +203,6 @@
             <el-switch
               v-model="getThemeConfig.isBreadcrumb"
               :disabled="getThemeConfig.layout === 'classic' || getThemeConfig.layout === 'transverse'"
-              size="small"
               @change="onIsBreadcrumbChange"
             ></el-switch>
           </div>
@@ -245,25 +210,25 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsBreadcrumbIcon') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isBreadcrumbIcon" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isBreadcrumbIcon" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsTagsview') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isTagsview" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isTagsview" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsTagsviewIcon') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isTagsviewIcon" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isTagsviewIcon" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsCacheTagsView') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isCacheTagsView" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isCacheTagsView" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15" :style="{ opacity: state.isMobile ? 0.5 : 1 }">
@@ -272,7 +237,6 @@
             <el-switch
               v-model="getThemeConfig.isSortableTagsView"
               :disabled="state.isMobile ? true : false"
-              size="small"
               @change="onSortableTagsViewChange"
             ></el-switch>
           </div>
@@ -280,37 +244,37 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsShareTagsView') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isShareTagsView" size="small" @change="onShareTagsViewChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isShareTagsView" @change="onShareTagsViewChange"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsFooter') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isFooter" size="small" @change="setLocalThemeConfig"></el-switch>
+            <el-switch v-model="getThemeConfig.isFooter" @change="setLocalThemeConfig"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsGrayscale') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isGrayscale" size="small" @change="onAddFilterChange('grayscale')"></el-switch>
+            <el-switch v-model="getThemeConfig.isGrayscale" @change="onAddFilterChange('grayscale')"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsInvert') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isInvert" size="small" @change="onAddFilterChange('invert')"></el-switch>
+            <el-switch v-model="getThemeConfig.isInvert" @change="onAddFilterChange('invert')"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourIsWatermark') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-switch v-model="getThemeConfig.isWatermark" size="small" @change="onWatermarkChange"></el-switch>
+            <el-switch v-model="getThemeConfig.isWatermark" @change="onWatermarkChange"></el-switch>
           </div>
         </div>
         <div class="layout-breadcrumb-seting-bar-flex mt14">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourWatermarkText') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-input v-model="getThemeConfig.watermarkText" size="default" style="width: 110px" @input="onWatermarkTextInput"></el-input>
+            <el-input v-model="getThemeConfig.watermarkText" style="width: 110px" @input="onWatermarkTextInput"></el-input>
           </div>
         </div>
 
@@ -319,7 +283,7 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveTagsStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" size="default" style="width: 110px" @change="setLocalThemeConfig">
+            <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" style="width: 110px" @change="setLocalThemeConfig">
               <el-option label="卡片" value="tags-style-one"></el-option>
               <el-option label="简约" value="tags-style-four"></el-option>
               <el-option label="圆滑" value="tags-style-five"></el-option>
@@ -333,7 +297,6 @@
               v-model="getThemeConfig.animation"
               placeholder="请选择"
               placement="bottom-end"
-              size="default"
               style="width: 110px"
               @change="setLocalThemeConfig"
             >
@@ -349,7 +312,6 @@
             <el-select
               v-model="getThemeConfig.columnsAsideStyle"
               placeholder="请选择"
-              size="default"
               style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
@@ -365,7 +327,6 @@
             <el-select
               v-model="getThemeConfig.columnsAsideLayout"
               placeholder="请选择"
-              size="default"
               style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
@@ -446,13 +407,13 @@
         </div>
         <div class="copy-config">
           <el-alert :title="$t('message.layout.tipText')" type="warning" :closable="false"> </el-alert>
-          <el-button size="default" class="copy-config-btn" type="primary" ref="copyConfigBtnRef" @click="onCopyConfigClick">
+          <el-button class="copy-config-btn" type="primary" ref="copyConfigBtnRef" @click="onCopyConfigClick">
             <el-icon class="mr5">
               <ele-CopyDocument />
             </el-icon>
             {{ $t('message.layout.copyText') }}
           </el-button>
-          <el-button size="default" class="copy-config-btn-reset" type="info" @click="onResetConfigClick">
+          <el-button class="copy-config-btn-reset" type="info" @click="onResetConfigClick">
             <el-icon class="mr5">
               <ele-RefreshRight />
             </el-icon>

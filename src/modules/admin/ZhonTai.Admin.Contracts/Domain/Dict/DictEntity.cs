@@ -13,6 +13,11 @@ namespace ZhonTai.Admin.Domain.Dict;
 public partial class DictEntity : EntityBase
 {
     /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long? ParentId { get; set; }
+
+    /// <summary>
     /// 字典类型Id
     /// </summary>
     [Column(OldName = "DictionaryTypeId")]

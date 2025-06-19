@@ -16,11 +16,11 @@
             </el-alert>
             <el-input v-model="state.tagsViewName" placeholder="请输入tagsView 名称" clearable class="mb15" style="width: 400px"></el-input>
             <el-input v-model="state.value" placeholder="请输入路由参数id值" clearable style="width: 400px"></el-input>
-            <el-button type="primary" size="default" class="mt15" @click="onGoDetailsClick">
+            <el-button type="primary" class="mt15" @click="onGoDetailsClick">
               <SvgIcon name="iconfont icon-dongtai" />
               动态路由传参
             </el-button>
-            <el-button type="primary" size="default" class="mt15" @click="onChangeI18n">
+            <el-button type="primary" class="mt15" @click="onChangeI18n">
               <SvgIcon name="iconfont icon-fuhao-zhongwen" />
               {{ state.tagsViewNameIsI18n ? '普通的演示' : '国际化演示' }}
             </el-button>

@@ -2,14 +2,14 @@
   <div class="system-menu-container layout-pd">
     <el-card shadow="hover">
       <div class="system-menu-search mb15">
-        <el-input size="default" placeholder="请输入菜单名称" style="max-width: 180px"> </el-input>
-        <el-button size="default" type="primary" class="ml10">
+        <el-input placeholder="请输入菜单名称" style="max-width: 180px"> </el-input>
+        <el-button type="primary" class="ml10">
           <el-icon>
             <ele-Search />
           </el-icon>
           查询
         </el-button>
-        <el-button size="default" type="success" class="ml10" @click="onOpenAddMenu">
+        <el-button type="success" class="ml10" @click="onOpenAddMenu">
           <el-icon>
             <ele-FolderAdd />
           </el-icon>
@@ -40,21 +40,21 @@
             <span>{{ scope.row.meta.roles }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="排序" show-overflow-tooltip width="80">
+        <el-table-column label="排序" show-overflow-tooltip width="82">
           <template #default="scope">
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column label="类型" show-overflow-tooltip width="80">
+        <el-table-column label="类型" show-overflow-tooltip width="82">
           <template #default="scope">
-            <el-tag type="success" size="small">{{ scope.row.xx }}菜单</el-tag>
+            <el-tag type="success">{{ scope.row.xx }}菜单</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作" show-overflow-tooltip width="140">
           <template #default="scope">
-            <el-button size="small" text type="primary" @click="onOpenAddMenu('add')">新增</el-button>
-            <el-button size="small" text type="primary" @click="onOpenEditMenu('edit', scope.row)">修改</el-button>
-            <el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
+            <el-button text type="primary" @click="onOpenAddMenu('add')">新增</el-button>
+            <el-button text type="primary" @click="onOpenEditMenu('edit', scope.row)">修改</el-button>
+            <el-button text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

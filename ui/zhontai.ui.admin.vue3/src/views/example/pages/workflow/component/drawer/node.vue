@@ -4,7 +4,7 @@
       <!-- 节点编辑 -->
       <el-tab-pane label="节点编辑" name="1">
         <el-scrollbar>
-          <el-form :model="state.node" :rules="state.nodeRules" ref="nodeFormRef" size="default" label-width="80px" class="pt15 pr15 pb15 pl15">
+          <el-form :model="state.node" :rules="state.nodeRules" ref="nodeFormRef" label-width="80px" class="pt15 pr15 pb15 pl15">
             <el-form-item label="数据id" prop="id">
               <el-input v-model="state.node.id" placeholder="请输入数据id" clearable disabled></el-input>
             </el-form-item>
@@ -43,7 +43,7 @@
       <!-- 扩展表单 -->
       <el-tab-pane label="扩展表单" name="2">
         <el-scrollbar>
-          <el-form :model="state.form" ref="extendFormRef" size="default" label-width="80px" class="pt15 pr15 pb15 pl15">
+          <el-form :model="state.form" ref="extendFormRef" label-width="80px" class="pt15 pr15 pb15 pl15">
             <el-form-item
               :label="val.label"
               :prop="val.prop"

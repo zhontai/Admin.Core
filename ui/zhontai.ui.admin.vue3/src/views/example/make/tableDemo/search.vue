@@ -1,6 +1,6 @@
 <template>
   <div class="table-search-container" v-if="props.search.length > 0">
-    <el-form ref="tableSearchRef" :model="state.form" size="default" label-width="100px" class="table-form">
+    <el-form ref="tableSearchRef" :model="state.form" label-width="100px" class="table-form">
       <el-row>
         <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key <= 2 || state.isToggle">
           <template v-if="val.type !== ''">
@@ -32,7 +32,7 @@
                   <SvgIcon :name="state.isToggle ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
                 </div>
               </template>
-              <el-button size="default" type="primary" @click="onSearch(tableSearchRef)">查询</el-button>
+              <el-button type="primary" @click="onSearch(tableSearchRef)">查询</el-button>
               <el-button icon="ele-RefreshLeft" text bg class="ml10" @click="onReset(tableSearchRef)">重置</el-button>
             </div>
           </el-form-item>

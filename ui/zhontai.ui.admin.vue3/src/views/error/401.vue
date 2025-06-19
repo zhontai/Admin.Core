@@ -8,7 +8,7 @@
             <div class="left-item-animation left-item-title">{{ $t('message.noAccess.accessTitle') }}</div>
             <div class="left-item-animation left-item-msg">{{ $t('message.noAccess.accessMsg') }}</div>
             <div class="left-item-animation left-item-btn">
-              <el-button type="primary" size="default" round @click="onSetAuth">{{ $t('message.noAccess.accessBtn') }}</el-button>
+              <el-button type="primary" round @click="onSetAuth">{{ $t('message.noAccess.accessBtn') }}</el-button>
             </div>
           </div>
         </div>

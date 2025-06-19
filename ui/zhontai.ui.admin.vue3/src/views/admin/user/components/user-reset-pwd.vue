@@ -14,7 +14,7 @@
         确定要给【{{ state.name }}】重置密码?
       </el-text>
 
-      <el-form ref="formRef" :model="state.form" size="default" label-width="0px">
+      <el-form ref="formRef" :model="state.form" label-width="0px">
         <el-form-item prop="password">
           <el-input
             key="password"
@@ -29,8 +29,8 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="default">取 消</el-button>
-          <el-button type="primary" @click="onSure" size="default" :loading="state.sureLoading">确 定</el-button>
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
         </span>
       </template>
     </el-dialog>

@@ -23,7 +23,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default" @click="refreshCurrent">
+            <el-button type="primary" @click="refreshCurrent">
               <el-icon>
                 <ele-RefreshRight />
               </el-icon>

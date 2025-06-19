@@ -11,7 +11,7 @@
         <div class="mb30 mt30 qrcode-img">
           <div class="qrcode" ref="qrcodeRef"></div>
         </div>
-        <el-button type="primary" size="default" @click="onInitQrcode">
+        <el-button type="primary" @click="onInitQrcode">
           <el-icon>
             <ele-Refresh />
           </el-icon>

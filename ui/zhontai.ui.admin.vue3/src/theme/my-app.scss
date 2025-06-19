@@ -41,6 +41,7 @@
     margin-left: 6px;
   }
   .el-form.el-form--inline {
+    .el-form-item--large.el-form-item:last-of-type,
     .el-form-item--default.el-form-item:last-of-type,
     .el-form-item--small.el-form-item:last-of-type {
       margin-bottom: 10px !important;
@@ -66,6 +67,7 @@
     margin-right: 0px;
   }
   .el-form.el-form--inline {
+    .el-form-item--large.el-form-item:last-of-type,
     .el-form-item--default.el-form-item:last-of-type,
     .el-form-item--small.el-form-item:last-of-type {
       margin-bottom: 0px !important;

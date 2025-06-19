@@ -25,21 +25,14 @@
       >
         <el-table-column prop="name" label="分类名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="分类编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="right">
           <template #default="{ row }">
-            <el-button
-              v-if="row.parentId === 0"
-              v-auth="'api:admin:msg-type:add'"
-              icon="ele-Plus"
-              size="small"
-              text
-              type="primary"
-              @click="onAdd(row)"
+            <el-button v-if="row.parentId === 0" v-auth="'api:admin:msg-type:add'" icon="ele-Plus" text type="primary" @click="onAdd(row)"
               >添加</el-button
             >
-            <el-button v-auth="'api:admin:msg-type:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:msg-type:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:msg-type:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:msg-type:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

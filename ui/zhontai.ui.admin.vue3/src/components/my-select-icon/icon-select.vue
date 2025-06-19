@@ -40,8 +40,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel" size="default">取 消</el-button>
-        <el-button type="primary" @click="onSure" size="default" :loading="sureLoading">确 定</el-button>
+        <el-button @click="onCancel">取 消</el-button>
+        <el-button type="primary" @click="onSure" :loading="sureLoading">确 定</el-button>
       </span>
     </template>
   </el-dialog>

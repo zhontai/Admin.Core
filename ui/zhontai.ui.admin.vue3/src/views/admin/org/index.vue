@@ -38,9 +38,9 @@
       >
         <el-table-column prop="name" label="部门名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="部门编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="value" label="部门值" min-width="80" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
+        <el-table-column prop="value" label="部门值" min-width="82" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
+        <el-table-column label="状态" width="82" align="center">
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -48,23 +48,11 @@
         </el-table-column>
         <el-table-column label="操作" width="200" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-if="auth('api:admin:org:add')" icon="ele-Plus" size="small" text type="primary" @click="onAdd(row)"> 新增 </el-button>
-            <el-button
-              v-if="auth('api:admin:org:update') && row.parentId > 0"
-              icon="ele-EditPen"
-              size="small"
-              text
-              type="primary"
-              @click="onEdit(row)"
+            <el-button v-if="auth('api:admin:org:add')" icon="ele-Plus" text type="primary" @click="onAdd(row)"> 新增 </el-button>
+            <el-button v-if="auth('api:admin:org:update') && row.parentId > 0" icon="ele-EditPen" text type="primary" @click="onEdit(row)"
               >编辑</el-button
             >
-            <el-button
-              v-if="auth('api:admin:org:delete') && row.parentId > 0"
-              icon="ele-Delete"
-              size="small"
-              text
-              type="danger"
-              @click="onDelete(row)"
+            <el-button v-if="auth('api:admin:org:delete') && row.parentId > 0" icon="ele-Delete" text type="danger" @click="onDelete(row)"
               >删除</el-button
             >
           </template>

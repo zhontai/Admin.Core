@@ -679,6 +679,11 @@ export interface DictGetPageOutput {
 /** 字典类型 */
 export interface DictTypeAddInput {
   /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /**
    * 字典类型名称
    * @minLength 1
    */
@@ -689,6 +694,8 @@ export interface DictTypeAddInput {
   description?: string | null
   /** 启用 */
   enabled?: boolean
+  /** 是否树形 */
+  isTree?: boolean
   /**
    * 排序
    * @format int32
@@ -699,6 +706,11 @@ export interface DictTypeAddInput {
 /** 字典类型 */
 export interface DictTypeGetOutput {
   /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /**
    * 字典类型名称
    * @minLength 1
    */
@@ -709,6 +721,8 @@ export interface DictTypeGetOutput {
   description?: string | null
   /** 启用 */
   enabled?: boolean
+  /** 是否树形 */
+  isTree?: boolean
   /**
    * 排序
    * @format int32
@@ -750,6 +764,11 @@ export interface DictTypeGetPageOutput {
 /** 修改 */
 export interface DictTypeUpdateInput {
   /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /**
    * 字典类型名称
    * @minLength 1
    */
@@ -760,6 +779,8 @@ export interface DictTypeUpdateInput {
   description?: string | null
   /** 启用 */
   enabled?: boolean
+  /** 是否树形 */
+  isTree?: boolean
   /**
    * 排序
    * @format int32

@@ -5,7 +5,7 @@
       <div class="flex-warp">
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button size="default" v-waves>
+            <el-button v-waves>
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               默认效果
             </el-button>
@@ -13,7 +13,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default" v-waves="'light'">
+            <el-button type="primary" v-waves="'light'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               light 效果
             </el-button>
@@ -21,7 +21,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="success" size="default" v-waves="'red'">
+            <el-button type="success" v-waves="'red'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               red 效果
             </el-button>
@@ -29,7 +29,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="info" size="default" v-waves="'orange'">
+            <el-button type="info" v-waves="'orange'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               orange 效果
             </el-button>
@@ -37,7 +37,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="warning" size="default" v-waves="'purple'">
+            <el-button type="warning" v-waves="'purple'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               purple 效果
             </el-button>
@@ -45,7 +45,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="danger" size="default" v-waves="'green'">
+            <el-button type="danger" v-waves="'green'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               green 效果
             </el-button>
@@ -53,7 +53,7 @@
         </div>
         <div class="flex-warp-item">
           <div class="flex-warp-item-box">
-            <el-button type="primary" size="default" v-waves="'teal'">
+            <el-button type="primary" v-waves="'teal'">
               <SvgIcon name="iconfont icon-bolangnengshiyanchang" />
               teal 效果
             </el-button>

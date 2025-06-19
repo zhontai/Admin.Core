@@ -9,7 +9,7 @@
       :close-on-press-escape="false"
       width="600px"
     >
-      <el-form :model="form" ref="formRef" size="default" label-width="80px">
+      <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col v-if="form.type === 2" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级分组" prop="parentId" :rules="[{ required: true, message: '请选择上级分组', trigger: ['change'] }]">
@@ -51,8 +51,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="default">取 消</el-button>
-          <el-button type="primary" @click="onSure" size="default" :loading="state.sureLoading">确 定</el-button>
+          <el-button @click="onCancel">取 消</el-button>
+          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
         </span>
       </template>
     </el-dialog>

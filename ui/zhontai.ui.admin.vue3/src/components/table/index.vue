@@ -97,7 +97,7 @@
               <div ref="toolSetRef" class="tool-sortable">
                 <div class="tool-sortable-item" v-for="v in header" :key="v.key" :data-key="v.key">
                   <i class="fa fa-arrows-alt handle cursor-pointer"></i>
-                  <el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.title" @change="onCheckChange" />
+                  <el-checkbox v-model="v.isCheck" class="ml12 mr8" :label="v.title" @change="onCheckChange" />
                 </div>
               </div>
             </el-scrollbar>

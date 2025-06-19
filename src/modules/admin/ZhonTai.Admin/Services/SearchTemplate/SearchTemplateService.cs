@@ -35,10 +35,11 @@ public class SearchTemplateService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [Login]
     public async Task<SearchTemplateGetUpdateOutput> GetAsync(long id)
     {
         var output = await _searchTemplateRep.Select
-        .WhereDynamic(id)
+        .Where(a=>a.CreatedUserId == User.Id && a.Id == id)
         .ToOneAsync<SearchTemplateGetUpdateOutput>();
 
         return output;
@@ -49,6 +50,7 @@ public class SearchTemplateService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="moduleId"></param>
     /// <returns></returns>
+    [Login]
     public async Task<List<SearchTemplateGetListOutput>> GetListAsync(long moduleId)
     {
         var dataList = await _searchTemplateRep.Select
@@ -63,6 +65,7 @@ public class SearchTemplateService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Login]
     public async Task<long> SaveAsync(SearchTemplateSaveInput input)
     {
         var entity = await _searchTemplateRep.Where(a => a.CreatedUserId == User.Id && a.ModuleId == input.ModuleId && a.Name == input.Name).ToOneAsync();
@@ -90,9 +93,9 @@ public class SearchTemplateService : BaseService, IDynamicApi
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [AdminTransaction]
+    [Login]
     public virtual async Task DeleteAsync(long id)
     {
-        await _searchTemplateRep.DeleteAsync(id);
+        await _searchTemplateRep.DeleteAsync(a => a.CreatedUserId == User.Id && a.Id == id);
     }
 }

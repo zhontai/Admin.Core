@@ -33,13 +33,13 @@
             >已选中 <el-text class="mx-1" type="primary">{{ rowSelectCount }}</el-text> 项</el-text
           >
           <el-divider direction="vertical" />
-          <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onBatchRun">执行</el-button>
+          <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" text type="primary" @click="onBatchRun">执行</el-button>
           <el-divider direction="vertical" />
-          <el-button v-auth="'api:admin:task:pause'" icon="ele-CaretRight" size="small" text type="primary" @click="onBatchStart">启动</el-button>
+          <el-button v-auth="'api:admin:task:pause'" icon="ele-CaretRight" text type="primary" @click="onBatchStart">启动</el-button>
           <el-divider direction="vertical" />
-          <el-button v-auth="'api:admin:task:resume'" icon="ele-VideoPause" size="small" text type="primary" @click="onBatchPause">停止</el-button>
+          <el-button v-auth="'api:admin:task:resume'" icon="ele-VideoPause" text type="primary" @click="onBatchPause">停止</el-button>
           <el-divider direction="vertical" />
-          <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" size="small" text type="danger" @click="onBatchDelete">删除</el-button>
+          <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" text type="danger" @click="onBatchDelete">删除</el-button>
 
           <el-button size="large" link @click="onClear" style="position: absolute; right: 6px; top: 6px">
             <svgIcon name="ele-Close" size="18"></svgIcon>
@@ -58,7 +58,7 @@
             <div>{{ row.topic }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="任务状态" width="90">
+        <el-table-column prop="status" label="任务状态" width="95">
           <template #default="{ row }">
             <el-tag v-if="row.status === 0 || row.status === 'Running'" disable-transitions>运行中</el-tag>
             <el-tag v-if="row.status === 1 || row.status === 'Paused'" type="info" disable-transitions>停止</el-tag>
@@ -81,26 +81,21 @@
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="100" />
         <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="120" />
-        <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="210" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <div class="my-flex">
-              <el-button v-auth="'api:admin:task-log:get-page'" icon="ele-Tickets" size="small" text type="primary" @click="onShowLogs(row)"
-                >日志</el-button
-              >
-              <el-button v-auth="'api:admin:task:update'" icon="ele-Edit" size="small" text type="primary" @click="onUpdate(row)">修改</el-button>
-              <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+              <el-button v-auth="'api:admin:task-log:get-page'" icon="ele-Tickets" text type="primary" @click="onShowLogs(row)">日志</el-button>
+              <el-button v-auth="'api:admin:task:update'" icon="ele-Edit" text type="primary" @click="onUpdate(row)">修改</el-button>
+              <el-button v-auth="'api:admin:task:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
             </div>
 
             <div class="my-flex">
-              <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" size="small" text type="primary" @click="onRun(row)">执行</el-button>
-              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" size="small" text type="primary" @click="onCopy(row)">
-                复制
-              </el-button>
+              <el-button v-auth="'api:admin:task:run'" icon="ele-Promotion" text type="primary" @click="onRun(row)">执行</el-button>
+              <el-button v-auth="'api:admin:task:update'" icon="ele-CopyDocument" text type="primary" @click="onCopy(row)"> 复制 </el-button>
               <el-button
                 v-if="row.status === 1 || row.status === 'Paused'"
                 v-auth="'api:admin:task:pause'"
                 icon="ele-CaretRight"
-                size="small"
                 text
                 type="primary"
                 @click="onStart(row)"
@@ -111,7 +106,6 @@
                 v-if="row.status === 0 || row.status === 'Running'"
                 v-auth="'api:admin:task:resume'"
                 icon="ele-VideoPause"
-                size="small"
                 text
                 type="primary"
                 @click="onPause(row)"
@@ -128,7 +122,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

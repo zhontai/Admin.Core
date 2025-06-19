@@ -35,7 +35,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="sizeFormat" label="大小" width="120" />
-        <el-table-column prop="createdUserName" label="上传者" width="80">
+        <el-table-column prop="createdUserName" label="上传者" width="82">
           <template #default="{ row }">
             {{ row.modifiedUserName || row.createdUserName || '' }}
           </template>
@@ -45,7 +45,7 @@
             {{ formatterTime(row.modifiedTime || row.createdTime || '') }}
           </template>
         </el-table-column>
-        <el-table-column prop="providerName" label="供应商" width="80" />
+        <el-table-column prop="providerName" label="供应商" width="82" />
         <el-table-column prop="bucketName" label="存储桶" min-width="120" />
         <el-table-column prop="fileDirectory" label="目录" min-width="120" />
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
@@ -53,23 +53,16 @@
             <el-popover :width="220">
               <p>{{ row.linkUrl }}</p>
               <div class="mt10" style="text-align: right; margin: 0">
-                <el-button icon="ele-CopyDocument" size="small" type="primary" @click="copyText(row.linkUrl)">复制地址</el-button>
+                <el-button icon="ele-CopyDocument" type="primary" @click="copyText(row.linkUrl)">复制地址</el-button>
               </div>
               <template #reference>
-                <el-button size="small" text type="primary">地址</el-button>
+                <el-button text type="primary">地址</el-button>
               </template>
             </el-popover>
-            <el-link
-              class="my-el-link mr12 ml12"
-              :href="row.linkUrl"
-              type="primary"
-              icon="ele-Download"
-              size="small"
-              underline="never"
-              target="_blank"
+            <el-link class="my-el-link mr12 ml12" :href="row.linkUrl" type="primary" icon="ele-Download" underline="never" target="_blank"
               >下载</el-link
             >
-            <el-button v-auth="'api:admin:file:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:file:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -79,7 +72,6 @@
           v-model:page-size="state.pageInput.pageSize"
           :total="state.total"
           :page-sizes="[10, 20, 50, 100]"
-          size="small"
           background
           @size-change="onSizeChange"
           @current-change="onCurrentChange"

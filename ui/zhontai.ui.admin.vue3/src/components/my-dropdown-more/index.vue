@@ -1,6 +1,6 @@
 <template>
   <el-dropdown style="margin-left: 10px" v-bind="$attrs">
-    <el-button size="small" text type="primary"
+    <el-button text type="primary"
       >{{ innerButtonText }}<el-icon class="el-icon--right"><component :is="innerIcon" /></el-icon
     ></el-button>
     <template #dropdown>

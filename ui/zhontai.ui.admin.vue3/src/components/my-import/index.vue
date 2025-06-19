@@ -34,7 +34,7 @@
         <div class="my-import__step">
           <div class="my-import__title">二、请选择数据重复时的操作方式</div>
           <div class="my-import__content mt10">
-            <el-select v-model="state.data.duplicateAction" style="width: 220px" :size="'mini'">
+            <el-select v-model="state.data.duplicateAction" style="width: 220px">
               <el-option v-for="status in state.duplicateActionList" :key="status.name" :label="status.name" :value="status.value" />
             </el-select>
             <div class="mt6" style="font-size: 12px" v-if="uniqueRules">查重规则: {{ uniqueRules }}</div>
@@ -63,7 +63,7 @@
             </el-upload>
             <!-- <div class="mt10">请选择文件编码</div>
             <div class="mt10">
-              <el-select v-model="state.data.fileEncoding" style="width: 220px" :size="'mini'">
+              <el-select v-model="state.data.fileEncoding" style="width: 220px">
                 <el-option v-for="status in state.fileEncodingList" :key="status.name" :label="status.name" :value="status.value" />
               </el-select>
             </div> -->
@@ -85,8 +85,8 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel" size="default">{{ state.step === 1 ? '取 消' : '关闭' }}</el-button>
-          <el-button v-if="state.step === 1" type="primary" @click="onUpload" size="default" :loading="state.uploading">开始导入</el-button>
+          <el-button @click="onCancel">{{ state.step === 1 ? '取 消' : '关闭' }}</el-button>
+          <el-button v-if="state.step === 1" type="primary" @click="onUpload" :loading="state.uploading">开始导入</el-button>
         </span>
       </template>
     </el-dialog>

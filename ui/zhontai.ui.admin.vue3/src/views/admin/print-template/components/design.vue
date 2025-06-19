@@ -23,24 +23,24 @@
           </el-tab-pane>
         </el-tabs>
       </div>
-      <div class="my-fill" style="overflow: hidden; min-width: 355px">
+      <div class="my-fill" style="overflow: hidden; min-width: 520px">
         <!-- 操作栏 -->
         <div style="padding: 10px 10px 0px 10px; border-bottom: 1px solid var(--el-border-color)">
           <div class="my-flex my-flex-wrap">
-            <div class="my-flex my-flex-wrap">
+            <div>
               <!-- 纸张 -->
-              <el-select v-model="state.curPaper.type" size="small" placeholder="纸张" class="mr2 mb10" style="width: 60px" @change="onSetPaper">
+              <el-select v-model="state.curPaper.type" placeholder="纸张" class="mr2 mb10" style="width: 70px" @change="onSetPaper">
                 <el-option v-for="item in state.paperTypes" :key="item.type" :label="item.type" :value="item.type" />
               </el-select>
               <!-- 自定义纸张 -->
               <el-tooltip content="自定义纸张" placement="top">
-                <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" size="small" class="mr10 mb10">
+                <el-button ref="paperRef" :type="state.curPaper.type === '' ? 'primary' : ''" class="mr10 mb10">
                   <el-icon>
                     <my-icon name="customSize" color="var(--color)"></my-icon>
                   </el-icon>
                 </el-button>
               </el-tooltip>
-              <el-popover ref="popoverRef" :virtual-ref="paperRef" trigger="click" virtual-triggering :width="300" title="设置纸张宽高(mm)">
+              <el-popover ref="popoverRef" :virtual-ref="paperRef" trigger="click" virtual-triggering width="auto" title="设置纸张宽高(mm)">
                 <p class="my-flex my-flex-items-center my-flex-between">
                   <el-input-number
                     v-model="state.customPaper.width"
@@ -50,6 +50,7 @@
                     min="0"
                     controls-position="right"
                     style="width: 110px"
+                    class="mr6"
                   >
                   </el-input-number>
                   ~
@@ -61,25 +62,25 @@
                     min="0"
                     controls-position="right"
                     style="width: 110px"
+                    class="ml6"
                   >
                   </el-input-number>
                 </p>
                 <div class="mt10">
-                  <el-button size="small" type="primary" class="w100" @click="onCustomPaper"> 确定 </el-button>
+                  <el-button type="primary" class="w100" @click="onCustomPaper"> 确定 </el-button>
                 </div>
               </el-popover>
 
               <!-- 缩放 -->
               <el-input-number
                 v-model="state.scaleValue"
-                size="small"
                 :precision="1"
                 :step="0.1"
                 min="0.5"
                 max="5"
                 class="mr10 mb10"
                 @change="onChangeScale"
-                style="width: 90px"
+                style="width: 120px"
               >
                 <template #decrease-icon>
                   <SvgIcon name="ele-ZoomOut" />
@@ -89,94 +90,93 @@
                 </template>
               </el-input-number>
             </div>
-            <div class="my-fill my-flex my-flex-wrap my-flex-between">
-              <!-- 排版 -->
-              <el-button-group size="small" class="my-flex mr10 mb10">
-                <el-tooltip content="左对齐" placement="top">
-                  <el-button @click="onSetElsAlign('left')">
-                    <el-icon>
-                      <my-icon name="left" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="居中" placement="top">
-                  <el-button @click="onSetElsAlign('vertical')">
-                    <el-icon>
-                      <my-icon name="vertical" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="右对齐" placement="top">
-                  <el-button @click="onSetElsAlign('right')">
-                    <el-icon>
-                      <my-icon name="right" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="顶对齐" placement="top">
-                  <el-button @click="onSetElsAlign('top')">
-                    <el-icon>
-                      <my-icon name="top" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="垂直居中" placement="top">
-                  <el-button @click="onSetElsAlign('horizontal')">
-                    <el-icon>
-                      <my-icon name="horizontal" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="底对齐" placement="top">
-                  <el-button @click="onSetElsAlign('bottom')">
-                    <el-icon>
-                      <my-icon name="bottom" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="横向分散" placement="top">
-                  <el-button @click="onSetElsAlign('distributeHor')">
-                    <el-icon>
-                      <my-icon name="distributeHor" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="纵向分散" placement="top">
-                  <el-button @click="onSetElsAlign('distributeVer')">
-                    <el-icon>
-                      <my-icon name="distributeVer" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip content="旋转" placement="top">
-                  <el-button @click="onRotatePaper">
-                    <el-icon>
-                      <my-icon name="rotate" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-              </el-button-group>
 
-              <!-- 操作 -->
-              <el-button-group size="small" class="my-flex mb10">
-                <el-tooltip content="预览" placement="top">
-                  <el-button icon="ele-View" @click="onPreView"></el-button>
-                </el-tooltip>
-                <el-tooltip content="清空" placement="top">
-                  <el-button icon="ele-Delete" @click="onClearPaper"></el-button>
-                </el-tooltip>
-                <el-tooltip content="打印" placement="top">
-                  <el-button icon="ele-Printer" @click="onPrint"> </el-button>
-                </el-tooltip>
-                <el-tooltip content="查看模板JSON" placement="top">
-                  <el-button @click="onViewJson">
-                    <el-icon>
-                      <my-icon name="json" color="var(--color)"></my-icon>
-                    </el-icon>
-                  </el-button>
-                </el-tooltip>
-              </el-button-group>
-            </div>
+            <!-- 排版 -->
+            <el-button-group class="my-flex mr10 mb10">
+              <el-tooltip content="左对齐" placement="top">
+                <el-button @click="onSetElsAlign('left')">
+                  <el-icon>
+                    <my-icon name="left" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="居中" placement="top">
+                <el-button @click="onSetElsAlign('vertical')">
+                  <el-icon>
+                    <my-icon name="vertical" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="右对齐" placement="top">
+                <el-button @click="onSetElsAlign('right')">
+                  <el-icon>
+                    <my-icon name="right" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="顶对齐" placement="top">
+                <el-button @click="onSetElsAlign('top')">
+                  <el-icon>
+                    <my-icon name="top" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="垂直居中" placement="top">
+                <el-button @click="onSetElsAlign('horizontal')">
+                  <el-icon>
+                    <my-icon name="horizontal" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="底对齐" placement="top">
+                <el-button @click="onSetElsAlign('bottom')">
+                  <el-icon>
+                    <my-icon name="bottom" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="横向分散" placement="top">
+                <el-button @click="onSetElsAlign('distributeHor')">
+                  <el-icon>
+                    <my-icon name="distributeHor" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="纵向分散" placement="top">
+                <el-button @click="onSetElsAlign('distributeVer')">
+                  <el-icon>
+                    <my-icon name="distributeVer" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+              <el-tooltip content="旋转" placement="top">
+                <el-button @click="onRotatePaper">
+                  <el-icon>
+                    <my-icon name="rotate" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+            </el-button-group>
+
+            <!-- 操作 -->
+            <el-button-group class="my-flex mb10">
+              <el-tooltip content="预览" placement="top">
+                <el-button icon="ele-View" @click="onPreView"></el-button>
+              </el-tooltip>
+              <el-tooltip content="清空" placement="top">
+                <el-button icon="ele-Delete" @click="onClearPaper"></el-button>
+              </el-tooltip>
+              <el-tooltip content="打印" placement="top">
+                <el-button icon="ele-Printer" @click="onPrint"> </el-button>
+              </el-tooltip>
+              <el-tooltip content="查看模板JSON" placement="top">
+                <el-button @click="onViewJson">
+                  <el-icon>
+                    <my-icon name="json" color="var(--color)"></my-icon>
+                  </el-icon>
+                </el-button>
+              </el-tooltip>
+            </el-button-group>
           </div>
         </div>
         <el-scrollbar
@@ -480,8 +480,7 @@ defineExpose({
     line-height: 40px;
     text-align: center;
   }
-  .prop-tabs .prop-tab-items li.active,
-  .prop-tabs .prop-tab-items li:hover {
+  .prop-tabs .prop-tab-items li.active {
     border-bottom: 2px solid var(--el-color-primary);
     color: var(--el-color-primary);
   }

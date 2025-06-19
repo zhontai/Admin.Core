@@ -26,7 +26,7 @@
             @current-change="onTableCurrentChange"
           >
             <el-table-column prop="name" label="套餐名" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
+            <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
             <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
               <template #default="{ row }">
                 <my-dropdown-more
@@ -50,7 +50,6 @@
               v-model:page-size="state.pageInput.pageSize"
               :total="state.total"
               :page-sizes="[10, 20, 50, 100]"
-              size="small"
               background
               @size-change="onSizeChange"
               @current-change="onCurrentChange"
@@ -95,7 +94,6 @@
               v-model:page-size="state.tenantPageInput.pageSize"
               :total="state.tenantTotal"
               :page-sizes="[10, 20, 50, 100]"
-              size="small"
               background
               @size-change="onTenantSizeChange"
               @current-change="onTenantCurrentChange"

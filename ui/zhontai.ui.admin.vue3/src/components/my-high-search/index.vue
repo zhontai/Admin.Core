@@ -32,7 +32,6 @@
           <div class="my-flex">
             <el-segmented
               v-model="data.logic"
-              size="small"
               :options="[
                 {
                   label: '并且',

@@ -1,6 +1,6 @@
 <template>
   <div class="form-rules-three-container">
-    <el-form :model="state.form" :rules="state.rules" ref="formRulesThreeRef" size="default" label-width="100px" class="mt35">
+    <el-form :model="state.form" :rules="state.rules" ref="formRulesThreeRef" label-width="100px" class="mt35">
       <el-row :gutter="35">
         <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
           <el-form-item label="创建用户" prop="createUser">

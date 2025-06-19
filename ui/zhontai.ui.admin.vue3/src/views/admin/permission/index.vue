@@ -47,7 +47,7 @@
             {{ row.label }}
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="类型" width="80" show-overflow-tooltip>
+        <el-table-column prop="type" label="类型" width="82" show-overflow-tooltip>
           <template #default="{ row }">
             {{ row.type === 1 ? '分组' : row.type === 2 ? '菜单' : row.type === 3 ? '权限点' : '' }}
           </template>
@@ -63,8 +63,8 @@
             <div v-if="row.type === 3">接口地址：{{ row.apiPaths }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
+        <el-table-column label="状态" width="82" align="center">
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -79,7 +79,6 @@
                 (row.type === 3 && auth('api:admin:permission:updatedot'))
               "
               icon="ele-EditPen"
-              size="small"
               text
               type="primary"
               @click="onEdit(row)"

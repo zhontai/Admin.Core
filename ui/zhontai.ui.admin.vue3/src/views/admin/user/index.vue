@@ -75,7 +75,7 @@
             <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
             <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
             <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
-            <el-table-column label="状态" width="80" align="center" fixed="right">
+            <el-table-column label="状态" width="88" align="center" fixed="right">
               <template #default="{ row }">
                 <el-switch
                   v-if="auth('api:admin:user:set-enable')"
@@ -96,7 +96,7 @@
             </el-table-column>
             <el-table-column label="操作" width="140" header-align="center" align="center" fixed="right">
               <template #default="{ row }">
-                <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
+                <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
                 <my-dropdown-more
                   v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
                 >
@@ -121,7 +121,6 @@
               v-model:page-size="state.pageInput.pageSize"
               :total="state.total"
               :page-sizes="[10, 20, 50, 100]"
-              size="small"
               background
               @size-change="onSizeChange"
               @current-change="onCurrentChange"
@@ -142,7 +141,7 @@
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, markRaw } from 'vue'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -153,6 +152,7 @@ import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { Operator } from '/@/api/admin.extend/enum-contracts'
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -195,7 +195,7 @@ const state = reactive({
     {
       label: '姓名',
       field: 'name',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入姓名',
@@ -204,7 +204,7 @@ const state = reactive({
     {
       label: '状态',
       field: 'enabled',
-      operator: 'Equal',
+      operator: Operator.equal.value,
       componentName: 'my-select',
       type: 'select',
       attrs: {
@@ -224,7 +224,7 @@ const state = reactive({
     {
       label: '手机号',
       field: 'mobile',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入手机号',
@@ -233,7 +233,7 @@ const state = reactive({
     {
       label: '邮箱',
       field: 'email',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入邮箱',
@@ -242,7 +242,7 @@ const state = reactive({
     {
       label: '性别',
       field: 'staff.sex',
-      operator: 'Equal',
+      operator: Operator.equal.value,
       componentName: 'my-select',
       type: 'select',
       attrs: {
@@ -253,7 +253,7 @@ const state = reactive({
     {
       label: '创建时间',
       field: 'createdTime',
-      operator: 'daterange',
+      operator: Operator.dateRange.value,
       componentName: 'el-date-picker',
       type: 'date',
       attrs: {
@@ -271,7 +271,7 @@ const state = reactive({
     {
       label: '账号',
       field: 'userName',
-      operator: 'Contains',
+      operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
         placeholder: '请输入账号',

@@ -34,7 +34,7 @@
             {{ row.path }}
           </template>
         </el-table-column>
-        <el-table-column label="请求日志" width="85" align="center">
+        <el-table-column label="请求日志" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -49,7 +49,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column label="请求参数" width="85" align="center">
+        <el-table-column label="请求参数" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -64,7 +64,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column label="响应结果" width="85" align="center">
+        <el-table-column label="响应结果" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -79,8 +79,8 @@
             />
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="80" align="center" show-overflow-tooltip>
+        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
+        <el-table-column label="状态" width="82" align="center">
           <template #default="{ row }">
             <el-tag type="success" v-if="row.enabled">启用</el-tag>
             <el-tag type="danger" v-else>禁用</el-tag>
@@ -88,8 +88,8 @@
         </el-table-column>
         <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:api:update'" icon="ele-EditPen" size="small" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:api:delete'" icon="ele-Delete" size="small" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button v-auth="'api:admin:api:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button v-auth="'api:admin:api:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

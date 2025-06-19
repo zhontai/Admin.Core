@@ -38,18 +38,10 @@
             @current-change="onCurrentChange"
           >
             <el-table-column prop="name" label="角色名称" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="sort" label="排序" width="80" align="center" show-overflow-tooltip />
+            <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
             <el-table-column label="操作" width="100" fixed="right" header-align="center" align="right">
               <template #default="{ row }">
-                <el-button
-                  v-if="row.type === 1"
-                  v-auth="'api:admin:role:add'"
-                  icon="ele-Plus"
-                  size="small"
-                  text
-                  type="primary"
-                  @click="onAdd(2, row)"
-                ></el-button>
+                <el-button v-if="row.type === 1" v-auth="'api:admin:role:add'" icon="ele-Plus" text type="primary" @click="onAdd(2, row)"></el-button>
                 <my-dropdown-more icon-only v-auths="['api:admin:permission:assign', 'api:admin:role:update', 'api:admin:role:delete']">
                   <template #dropdown>
                     <el-dropdown-menu>
