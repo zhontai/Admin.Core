@@ -480,9 +480,14 @@ defineExpose({
     line-height: 40px;
     text-align: center;
   }
-  .prop-tabs .prop-tab-items li.active {
-    border-bottom: 2px solid var(--el-color-primary);
-    color: var(--el-color-primary);
+  .prop-tabs .prop-tab-items li {
+    &.active {
+      border-bottom: 2px solid var(--el-color-primary);
+      color: var(--el-color-primary);
+    }
+    &:hover {
+      color: var(--el-color-primary);
+    }
   }
   .prop-tabs .prop-tab-items .prop-tab-item .tab-title {
     font-weight: normal;
