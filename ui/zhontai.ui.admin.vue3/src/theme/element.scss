@@ -387,3 +387,16 @@
 .el-segmented--small {
   font-size: 12px;
 }
+
+/* Collapse 折叠面板
+------------------------------- */
+.el-collapse {
+  border-bottom: 0px;
+  border-top: 0px;
+}
+.el-collapse-item__wrap {
+  border-bottom: 0px;
+}
+.el-collapse-item__header {
+  border-bottom: 0px;
+}
