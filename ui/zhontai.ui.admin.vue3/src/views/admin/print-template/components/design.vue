@@ -1,12 +1,28 @@
 <template>
   <div class="h100 w100 my-design" style="position: relative">
     <div class="my-flex w100 h100">
-      <div style="width: 220px; min-width: 220px; border-right: 1px solid var(--el-border-color)">
+      <div style="width: 230px; min-width: 230px; border-right: 1px solid var(--el-border-color)">
         <el-tabs tab-position="top" stretch class="h100 left-box">
           <el-tab-pane label="组件">
             <el-scrollbar height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
               <!-- 拖拽组件 -->
-              <div ref="epContainerRef" class="rect-printElement-types hiprintEpContainer"></div>
+              <div ref="epContainerRef">
+                <el-collapse v-for="item in state.dragElementGroups" :key="item.name" v-model="state.activeName">
+                  <el-collapse-item :title="item.title" :name="item.name">
+                    <div class="my-flex my-flex-wrap my-flex-between">
+                      <div
+                        v-for="element in item.elements"
+                        :key="element.tid"
+                        class="my-flex my-flex-items-center ep-draggable-item"
+                        :tid="element.tid"
+                      >
+                        <my-icon :name="element.icon" color="var(--color)" class="mr5"></my-icon>
+                        <span class="my-line-1">{{ element.title }}</span>
+                      </div>
+                    </div>
+                  </el-collapse-item>
+                </el-collapse>
+              </div>
             </el-scrollbar>
           </el-tab-pane>
           <el-tab-pane label="数据源">
@@ -206,10 +222,11 @@
 <script lang="ts" setup name="admin/print-template-deisgn">
 import { reactive, ref, onMounted, nextTick, getCurrentInstance } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
-import providers from './providers'
+import comProvider, { dragElementGroups } from './providers'
 import PrintPreview from './preview.vue'
 import ViewJson from './view-json.vue'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
+import $ from 'jquery'
 
 const title = defineModel('title', { type: String })
 const printData = defineModel('printData', { type: String })
@@ -223,6 +240,8 @@ interface IPaperType {
 const state = reactive({
   visible: false,
   sureLoading: false,
+  dragElementGroups: dragElementGroups,
+  activeName: dragElementGroups.map((item) => item.name),
   scaleValue: 1,
   // 当前纸张
   curPaper: {
@@ -282,7 +301,6 @@ const previewRef = ref()
 const previewJsonDialogRef = ref()
 const epContainerRef = ref()
 const designRef = ref()
-const epDraggableItemRef = ref()
 
 onMounted(() => {
   buildProvider()
@@ -291,14 +309,9 @@ onMounted(() => {
 
 // 构建拖拽组件
 const buildProvider = () => {
-  let provider = providers[0]
-  hiprint.init({ providers: [provider.f] })
+  hiprint.init({ providers: [comProvider()] })
 
-  if (epContainerRef.value) {
-    epContainerRef.value.innerHTML = ''
-  }
-
-  hiprint.PrintElementTypeManager.build(epContainerRef.value, provider.value)
+  hiprint.PrintElementTypeManager.buildByHtml($('.ep-draggable-item'))
 }
 
 // 构建设计器
@@ -542,58 +555,17 @@ defineExpose({
     }
   }
 
-  .rect-printElement-types .hiprint-printElement-type a.ep-draggable-item {
-    height: auto;
-    color: #666;
-    box-shadow: none !important;
-    text-overflow: ellipsis;
-  }
-
-  .hiprint-printElement-type a.ep-draggable-item:before {
-    display: block;
-    width: 30px;
-    height: 30px;
-    content: '';
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin: 0 auto;
-  }
-
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.hline']:before {
-    background-image: url('/@/assets/svgs/hiprint/hline.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.vline']:before {
-    background-image: url('/@/assets/svgs/hiprint/vline.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.rect']:before {
-    background-image: url('/@/assets/svgs/hiprint/rect.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.oval']:before {
-    background-image: url('/@/assets/svgs/hiprint/oval.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.barcode']:before {
-    background-image: url('/@/assets/svgs/hiprint/barcode.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.qrcode']:before {
-    background-image: url('/@/assets/svgs/hiprint/qrcode.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.text']:before {
-    background-image: url('/@/assets/svgs/hiprint/text.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.longText']:before {
-    background-image: url('/@/assets/svgs/hiprint/longText.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.table']:before {
-    background-image: url('/@/assets/svgs/hiprint/table.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.emptyTable']:before {
-    background-image: url('/@/assets/svgs/hiprint/emptyTable.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.html']:before {
-    background-image: url('/@/assets/svgs/hiprint/html.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.image']:before {
-    background-image: url('/@/assets/svgs/hiprint/image.svg');
+  .ep-draggable-item {
+    width: 100px;
+    border: var(--el-border);
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    &:hover {
+      background-color: var(--el-color-primary-light-9);
+      border-color: var(--el-color-primary);
+      color: var(--el-color-primary);
+      --color: var(--el-color-primary);
+    }
   }
 }
 </style>

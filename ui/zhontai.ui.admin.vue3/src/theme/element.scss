@@ -393,10 +393,14 @@
 .el-collapse {
   border-bottom: 0px;
   border-top: 0px;
+  --el-collapse-header-height: 36px;
 }
 .el-collapse-item__wrap {
   border-bottom: 0px;
 }
 .el-collapse-item__header {
   border-bottom: 0px;
+}
+.el-collapse-item__content {
+  padding-bottom: 10px;
 }
