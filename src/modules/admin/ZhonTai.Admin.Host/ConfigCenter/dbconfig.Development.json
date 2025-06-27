@@ -1,5 +1,6 @@
 {
   "DbConfig": {
-
+    "type": "SqlServer",
+    "connectionString": "Data Source=47.96.66.214,1433;Initial Catalog=admindb;User ID=sa;Password=mouzhong2020;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
   }
 }
