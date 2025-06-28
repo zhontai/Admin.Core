@@ -65,7 +65,7 @@ public class CustomSyncData : SyncData, ISyncData
 
             //查询
             var userRoleRecordList = sourceDataList.Adapt<List<UserRoleRecord>>();
-            var dataList = await rep.Where(a => rep.Orm.Select<UserRoleRecord>().WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
+            var dataList = await rep.Where(a => rep.Select.WithMemory(userRoleRecordList).Where(b => b.UserId == a.UserId && b.RoleId == a.RoleId).Any()).ToListAsync();
 
             //新增
             var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.UserId == b.UserId && a.RoleId == b.RoleId).Any())).ToList();
@@ -122,7 +122,7 @@ public class CustomSyncData : SyncData, ISyncData
 
             //查询
             var userOrgRecordList = sourceDataList.Adapt<List<UserOrgRecord>>();
-            var dataList = await rep.Where(a => rep.Orm.Select<UserOrgRecord>().WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
+            var dataList = await rep.Where(a => rep.Select.WithMemory(userOrgRecordList).Where(b => b.UserId == a.UserId && b.OrgId == a.OrgId).Any()).ToListAsync();
 
             //新增
             var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.UserId == b.UserId && a.OrgId == b.OrgId).Any())).ToList();
@@ -179,7 +179,7 @@ public class CustomSyncData : SyncData, ISyncData
 
             //查询
             var rolePermissionRecordList = sourceDataList.Adapt<List<RolePermissionRecord>>();
-            var dataList = await rep.Where(a => rep.Orm.Select<RolePermissionRecord>().WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
+            var dataList = await rep.Where(a => rep.Select.WithMemory(rolePermissionRecordList).Where(b => b.RoleId == a.RoleId && b.PermissionId == a.PermissionId).Any()).ToListAsync();
 
             //新增
             var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.RoleId == b.RoleId && a.PermissionId == b.PermissionId).Any())).ToList();
@@ -243,7 +243,7 @@ public class CustomSyncData : SyncData, ISyncData
 
             //查询
             var dataRecordList = sourceDataList.Adapt<List<PermissionApiRecord>>();
-            var dataList = await rep.Where(a => rep.Orm.Select<PermissionApiRecord>().WithMemory(dataRecordList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
+            var dataList = await rep.Where(a => rep.Select.WithMemory(dataRecordList).Where(b => b.PermissionId == a.PermissionId && b.ApiId == a.ApiId).Any()).ToListAsync();
 
             //新增
             var insertDataList = sourceDataList.Where(a => !(dataList.Where(b => a.PermissionId == b.PermissionId && a.ApiId == b.ApiId).Any())).ToList();

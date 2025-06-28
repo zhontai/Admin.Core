@@ -188,28 +188,36 @@ public abstract class SyncData
                 dataList = dataList.ToList().ToPlainList((a) => ((IChilds<T>)a).Childs).ToArray();
             }
 
-            //查询
-            var dataIds = dataList.Select(e => e.Id).ToList();
-            var dbDataList = await rep.Where(a => dataIds.Contains(a.Id)).ToListAsync();
-
-            //新增
-            var dbDataIds = dbDataList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !dbDataIds.Contains(a.Id));
-            if (insertDataList.Any())
+            // 分批处理
+            int batchSize = dbConfig.SyncDataBatchSize;
+            int total = dataList.Length;
+            for (int i = 0; i < total; i += batchSize)
             {
-                await rep.InsertAsync(insertDataList);
-            }
+                var batchDataList = dataList.Skip(i).Take(batchSize).ToArray();
 
-            //修改
-            if (dbConfig.SyncUpdateData && dbDataList?.Count > 0)
-            {
-                foreach (var dbData in dbDataList)
+                // 查询
+                var batchIds = batchDataList.Select(e => e.Id).ToList();
+                var dbDataList = await rep.Where(a => batchIds.Contains(a.Id)).ToListAsync();
+
+                // 新增
+                var dbDataIds = dbDataList.Select(a => a.Id).ToList();
+                var insertDataList = batchDataList.Where(a => !dbDataIds.Contains(a.Id));
+                if (insertDataList.Any())
                 {
-                    var data = dataList.Where(a => a.Id == dbData.Id).First();
-                    data.Adapt(dbData);
+                    await rep.InsertAsync(insertDataList);
                 }
 
-                await rep.UpdateAsync(dbDataList);
+                // 修改
+                if (dbConfig.SyncUpdateData && dbDataList?.Count > 0)
+                {
+                    foreach (var dbData in dbDataList)
+                    {
+                        var data = batchDataList.First(a => a.Id == dbData.Id);
+                        data.Adapt(dbData);
+                    }
+
+                    await rep.UpdateAsync(dbDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");

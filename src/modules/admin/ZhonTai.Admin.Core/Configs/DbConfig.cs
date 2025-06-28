@@ -88,6 +88,11 @@ public class DbConfig
     }
 
     /// <summary>
+    /// 同步数据分批处理大小
+    /// </summary>
+    public int SyncDataBatchSize { get; set; } = 500;
+
+    /// <summary>
     /// 同步数据
     /// </summary>
     public bool SyncData { get; set; } = false;
