@@ -100,7 +100,13 @@ public class DbConfig
     /// <summary>
     /// 同步更新数据
     /// </summary>
+    [Obsolete("请改用DbConfig.SyncUpdateData属性")]
     public bool SysUpdateData { get; set; } = false;
+
+    /// <summary>
+    /// 同步更新数据
+    /// </summary>
+    public bool SyncUpdateData { get; set; } = false;
 
     /// <summary>
     /// 同步数据地址

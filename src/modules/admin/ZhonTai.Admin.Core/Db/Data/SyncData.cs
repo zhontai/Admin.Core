@@ -97,7 +97,7 @@ public abstract class SyncData
             {
                 insertOrUpdate = insertOrUpdate.WithTransaction(tran);
             }
-            if (!dbConfig.SysUpdateData)
+            if (!dbConfig.SyncUpdateData)
             {
                 insertOrUpdate.IfExistsDoNothing();
             }
@@ -201,7 +201,7 @@ public abstract class SyncData
             }
 
             //修改
-            if (dbConfig.SysUpdateData && dbDataList?.Count > 0)
+            if (dbConfig.SyncUpdateData && dbDataList?.Count > 0)
             {
                 foreach (var dbData in dbDataList)
                 {
