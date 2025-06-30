@@ -148,13 +148,17 @@ public abstract class SyncData
     /// <param name="appConfig">应用配置</param>
     /// <param name="readPath">读取数据路径 InitData/xxx </param>
     /// <param name="processChilds">处理子级列表</param>
+    /// <param name="whereFunc">查询条件函数</param>
+    ///  <param name="insertDataFunc">插入数据函数</param>
     /// <returns></returns>
     protected virtual async Task SyncEntityAsync<T>(IFreeSql db, 
         IRepositoryUnitOfWork unitOfWork, 
         DbConfig dbConfig, 
         AppConfig appConfig, 
         string readPath = null, 
-        bool processChilds = false) 
+        bool processChilds = false,
+        Func<ISelect<T>, T[], ISelect<T>> whereFunc = null,
+        Func<T[], List<T>, IEnumerable<T>> insertDataFunc = null)
         where T : Entity<long>, new()
     {
         if (processChilds && !typeof(T).IsAssignableTo(typeof(IChilds<T>)))
@@ -196,12 +200,28 @@ public abstract class SyncData
                 var batchDataList = dataList.Skip(i).Take(batchSize).ToArray();
 
                 // 查询
-                var batchIds = batchDataList.Select(e => e.Id).ToList();
-                var dbDataList = await rep.Where(a => batchIds.Contains(a.Id)).ToListAsync();
+                List<T> dbDataList;
+                if (whereFunc != null)
+                {
+                    dbDataList = await whereFunc(rep.Select, batchDataList).ToListAsync();
+                }
+                else
+                {
+                    var batchIds = batchDataList.Select(e => e.Id).ToList();
+                    dbDataList = await rep.Where(a => batchDataList.Any(b => a.Id == b.Id)).ToListAsync();
+                }
 
                 // 新增
-                var dbDataIds = dbDataList.Select(a => a.Id).ToList();
-                var insertDataList = batchDataList.Where(a => !dbDataIds.Contains(a.Id));
+                IEnumerable<T> insertDataList = null;
+                if(insertDataFunc != null)
+                {
+                    insertDataList = insertDataFunc(batchDataList, dbDataList);
+                }
+                else
+                {
+                    insertDataList = batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id));
+                }
+
                 if (insertDataList.Any())
                 {
                     await rep.InsertAsync(insertDataList);
