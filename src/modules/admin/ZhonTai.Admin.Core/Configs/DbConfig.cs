@@ -12,7 +12,7 @@ public class DbConfig
     /// <summary>
     /// 数据库注册键
     /// </summary>
-    public string Key { get; set; } = DbKeys.AppDb;
+    public string Key { get; set; } = DbKeys.AdminDb;
 
     private string[] _assemblyNames;
     
@@ -151,7 +151,7 @@ public class DbConfig
     /// <summary>
     /// 建库脚本文件
     /// </summary>
-    public string CreateDbSqlFile { get; set; } = "Configs/createdbsql.txt";
+    public string CreateDbSqlFile { get; set; } = "ConfigCenter/createdbsql.txt";
 
     /// <summary>
     /// 监听所有操作

@@ -10,7 +10,7 @@ namespace ZhonTai.Admin.Repositories
     /// <typeparam name="TEntity"></typeparam>
     public class AdminRepositoryBase<TEntity> : RepositoryBase<TEntity> where TEntity : class
     {
-        public AdminRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm) 
+        public AdminRepositoryBase(UnitOfWorkManagerCloud uowm) : base(DbKeys.AdminDb, uowm) 
         {
             
         }

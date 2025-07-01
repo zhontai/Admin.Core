@@ -28,8 +28,8 @@ public class TaskService : BaseService, ITaskService, IDynamicApi
     private readonly AdminLocalizer _adminLocalizer;
 
     public TaskService(Scheduler scheduler, 
-        ITaskRepository taskRepository, 
-        ITaskExtRepository taskExtRepository,
+        TaskRepository taskRepository, 
+        TaskExtRepository taskExtRepository,
         AdminLocalizer adminLocalizer
     )
     {
