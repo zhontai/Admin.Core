@@ -1,5 +1,8 @@
 ﻿namespace ZhonTai.Admin.Core.Consts;
 
+/// <summary>
+/// admin常量
+/// </summary>
 public static partial class AdminConsts
 {
     /// <summary>

@@ -3,7 +3,7 @@
 namespace ZhonTai.Admin.Core.Consts;
 
 /// <summary>
-/// 订阅命名
+/// 订阅名
 /// </summary>
 public class SubscribeNames
 {

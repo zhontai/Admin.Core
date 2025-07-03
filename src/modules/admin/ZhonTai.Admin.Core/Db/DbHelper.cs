@@ -75,40 +75,61 @@ public class DbHelper
     /// <summary>
     /// 获得指定程序集表实体
     /// </summary>
-    /// <param name="assemblyNames"></param>
+    /// <param name="dbConfig"></param>
     /// <returns></returns>
-    public static Type[] GetEntityTypes(string[] assemblyNames)
+    public static List<Type> GetEntityTypes(DbConfig dbConfig)
     {
-        if (!(assemblyNames?.Length > 0))
-        {
-            return null;
-        }
-
         var entityTypes = new List<Type>();
 
-        foreach (var assemblyName in assemblyNames)
+        if (!(dbConfig.AssemblyNames?.Length > 0))
         {
-            var assembly = AssemblyHelper.GetAssembly(assemblyName);
-
-            if (assembly != null)
-            {
-                foreach (Type type in assembly.GetExportedTypes())
-                {
-                    foreach (Attribute attribute in type.GetCustomAttributes())
-                    {
-                        if (attribute is TableAttribute tableAttribute)
-                        {
-                            if (tableAttribute.DisableSyncStructure == false)
-                            {
-                                entityTypes.Add(type);
-                            }
-                        }
-                    }
-                }
-            }
+            return entityTypes;
         }
 
-        return entityTypes.ToArray();
+        foreach (var assemblyName in dbConfig.AssemblyNames)
+        {
+            var assembly = AssemblyHelper.GetAssembly(assemblyName);
+            if (assembly == null) continue;
+
+            //entityTypes.AddRange(
+            //    assembly.GetExportedTypes().Where(type => 
+            //        type.GetCustomAttribute<TableAttribute>() is { DisableSyncStructure: false })
+            //);
+
+            var types = assembly.GetExportedTypes()
+           .Where(type => type.GetCustomAttribute<TableAttribute>() is { DisableSyncStructure: false });
+
+            // 应用数据库筛选逻辑（排除优先）
+            if (dbConfig.ExcludeEntityDbs?.Length > 0 || dbConfig.IncludeEntityDbs?.Length > 0)
+            {
+                types = types.Where(type =>
+                {
+                    var dbAttr = type.GetCustomAttribute<DatabaseAttribute>();
+                    var dbName = dbAttr?.Name;
+
+                    // 1. 先执行排除检查
+                    if (dbConfig.ExcludeEntityDbs?.Length > 0 && dbName != null)
+                    {
+                        if (dbConfig.ExcludeEntityDbs.Contains(dbName))
+                        {
+                            return false; // 被排除的实体直接过滤掉
+                        }
+                    }
+
+                    // 2. 再执行包含检查
+                    if (dbConfig.IncludeEntityDbs?.Length > 0)
+                    {
+                        return dbName != null && dbConfig.IncludeEntityDbs.Contains(dbName);
+                    }
+
+                    return true; // 既没有排除也不需包含的实体保留
+                });
+            }
+
+            entityTypes.AddRange(types);
+        }
+
+        return entityTypes;
     }
 
     /// <summary>
@@ -126,16 +147,17 @@ public class DbHelper
             var tenantId = nameof(ITenant.TenantId);
 
             //获得指定程序集表实体
-            var entityTypes = GetEntityTypes(dbConfig.AssemblyNames);
+            var entityTypes = GetEntityTypes(dbConfig);
 
-            foreach (var entityType in entityTypes)
+            var tenantEntities = entityTypes?
+            .Where(type => type.GetInterfaces().Any(a => a.Name == iTenant))
+            .ToList();
+
+            if(tenantEntities?.Count > 0)
             {
-                if (entityType.GetInterfaces().Any(a => a.Name == iTenant))
+                foreach (var entityType in tenantEntities)
                 {
-                    db.CodeFirst.Entity(entityType, a =>
-                    {
-                        a.Ignore(tenantId);
-                    });
+                    db.CodeFirst.Entity(entityType, a => a.Ignore(tenantId));
                 }
             }
         }
@@ -268,7 +290,9 @@ public class DbHelper
     /// <param name="msg"></param>
     /// <param name="dbConfig"></param>
     /// <param name="configureFreeSqlSyncStructure"></param>
-    public static void SyncStructure(IFreeSql db, string msg = null, DbConfig dbConfig = null, Action<IFreeSql, DbConfig> configureFreeSqlSyncStructure = null)
+    public static void SyncStructure(IFreeSql db, string msg = null, 
+        DbConfig dbConfig = null, 
+        Action<IFreeSql, DbConfig> configureFreeSqlSyncStructure = null)
     {
         //打印结构比对脚本
         //var dDL = db.CodeFirst.GetComparisonDDLStatements<PermissionEntity>();
@@ -285,12 +309,12 @@ public class DbHelper
         Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
 
         //获得指定程序集表实体
-        var entityTypes = GetEntityTypes(dbConfig.AssemblyNames)?.ToList();
+        var entityTypes = GetEntityTypes(dbConfig);
 
         var batchSize = dbConfig.SyncStructureEntityBatchSize;
         batchSize = batchSize <= 1 ? 1 : batchSize;
 
-        if(entityTypes != null && entityTypes.Count > 0)
+        if(entityTypes?.Count > 0)
         {
             if (batchSize == 1)
             {

@@ -1,10 +1,13 @@
 ﻿using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Consts;
 
 namespace ZhonTai.Admin.Domain.OperationLog;
 
 /// <summary>
 /// 操作日志
 /// </summary>
+[Database(DbNames.Log)]
 [Table(Name = DbConsts.TableNamePrefix + "operation_log", OldName = DbConsts.TableOldNamePrefix + "operation_log")]
 [Index("idx_{tablename}_01", $"{nameof(ApiPath)},{nameof(CreatedTime)}", false)]
 public partial class OperationLogEntity : LogAbstract

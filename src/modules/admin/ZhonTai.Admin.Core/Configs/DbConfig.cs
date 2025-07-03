@@ -47,6 +47,16 @@ public class DbConfig
     }
 
     /// <summary>
+    /// 指定实体数据库列表
+    /// </summary>
+    public string[] IncludeEntityDbs { get; set; }
+
+    /// <summary>
+    /// 排除实体数据库列表
+    /// </summary>
+    public string[] ExcludeEntityDbs { get; set; }
+
+    /// <summary>
     /// 数据库类型
     /// </summary>
     public DataType Type { get; set; } = DataType.Sqlite;

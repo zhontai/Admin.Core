@@ -36,6 +36,8 @@ new HostApp(new HostAppOptions
 
     ConfigurePreServices = context =>
     {
+        DbKeys.LogDb = "logdb";
+
         context.Services.Configure<TaskSchedulerConfig>(context.Configuration.GetSection("TaskScheduler"));
     },
 
@@ -119,6 +121,7 @@ new HostApp(new HostAppOptions
     ConfigureAutofacContainer = (builder, context) => 
     {
         builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+        builder.RegisterGeneric(typeof(LogRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
     },
 
     //配置Mvc
