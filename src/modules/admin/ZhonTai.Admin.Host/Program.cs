@@ -59,6 +59,8 @@ new HostApp(new HostAppOptions
 
             config.UseInMemoryStorage();
             config.UseInMemoryMessageQueue();
+            config.FailedRetryCount = 5;
+            config.FailedRetryInterval = 15;
 
             //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.3.2" />
             //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
