@@ -1,7 +1,9 @@
-﻿using FreeSql;
+﻿using DotNetCore.CAP;
+using FreeSql;
 using IP2Region.Net.Abstractions;
 using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -32,7 +34,6 @@ using ZhonTai.Admin.Domain.User;
 using ZhonTai.Admin.Domain.UserRole;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Services.Auth.Dto;
-using ZhonTai.Admin.Services.LoginLog;
 using ZhonTai.Admin.Services.LoginLog.Dto;
 using ZhonTai.Admin.Services.Tenant;
 using ZhonTai.Admin.Services.Tenant.Dto;
@@ -54,7 +55,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 {
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
-    private readonly ILoginLogService _loginLogService;
+    private readonly ICapPublisher _capPublisher;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserToken _userToken;
     private readonly IUserService _userService;
     private readonly Lazy<IOptions<AppConfig>> _appConfig;
@@ -69,7 +71,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     public AuthService(
         UserHelper userHelper,
         AdminLocalizer adminLocalizer,
-        ILoginLogService loginLogService,
+        ICapPublisher capPublisher,
+        IHttpContextAccessor httpContextAccessor,
         IUserToken userToken,
         IUserService userService,
         Lazy<IOptions<AppConfig>> appConfig,
@@ -92,7 +95,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
-        _loginLogService = loginLogService;
+        _capPublisher = capPublisher;
+        _httpContextAccessor = httpContextAccessor;
         _userToken = userToken;
         _userService = userService;
     }
@@ -100,14 +104,49 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     /// <summary>
     /// 添加登录日志
     /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    private async Task AddLoginLogAsync(LoginLogAddInput input)
+    {
+        if (input.IP.IsNull())
+        {
+            input.IP = IPHelper.GetIP(_httpContextAccessor?.HttpContext?.Request);
+            var locationInfo = GetIpLocationInfo(input.IP);
+            input.Country = locationInfo?.Country;
+            input.Province = locationInfo?.Province;
+            input.City = locationInfo?.City;
+            input.Isp = locationInfo?.Isp;
+        }
+
+        string ua = _httpContextAccessor?.HttpContext?.Request?.Headers?.UserAgent;
+        if (ua.NotNull())
+        {
+            var client = UAParser.Parser.GetDefault().Parse(ua);
+            var device = client.Device.Family;
+            device = device.ToLower() == "other" ? "" : device;
+            input.Browser = client.UA.Family;
+            input.Os = client.OS.Family;
+            input.Device = device;
+            input.BrowserInfo = ua;
+        }
+
+        await _capPublisher.PublishAsync(
+            SubscribeNames.LoginLogAdd,
+            input
+        );
+    }
+
+    /// <summary>
+    /// 获得登录日志请求信息
+    /// </summary>
     /// <param name="authLoginOutput"></param>
     /// <param name="locationInfo"></param>
     /// <param name="user"></param>
     /// <param name="stopwatch"></param>
     /// <returns></returns>
-    private async Task AddLoginLogAsync(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
+    private LoginLogAddInput GetLoginLogAddInput(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
     {
-        await _loginLogService.AddAsync(new LoginLogAddInput
+        return new LoginLogAddInput
         {
             TenantId = authLoginOutput.TenantId,
             Name = authLoginOutput.Name,
@@ -119,7 +158,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             Province = locationInfo?.Province,
             City = locationInfo?.City,
             Isp = locationInfo?.Isp,
-        });
+        };
     }
 
     /// <summary>
@@ -693,7 +732,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 
@@ -787,7 +826,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             stopwatch.Stop();
 
-            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+            await AddLoginLogAsync(GetLoginLogAddInput(authLoginOutput, locationInfo, user, stopwatch));
 
             return tokenInfo;
         }
@@ -803,7 +842,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 
@@ -897,7 +936,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             stopwatch.Stop();
 
-            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+            await AddLoginLogAsync(GetLoginLogAddInput(authLoginOutput, locationInfo, user, stopwatch));
 
             return tokenInfo;
         }
@@ -913,7 +952,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 

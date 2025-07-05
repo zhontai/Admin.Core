@@ -1,10 +1,15 @@
-﻿namespace ZhonTai.Admin.Services.OperationLog.Dto;
+﻿namespace ZhonTai.Admin.Services.Api.Dto;
 
 /// <summary>
 /// 添加
 /// </summary>
 public class OperationLogAddInput
 {
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    public long? TenantId { get; set; }
+
     /// <summary>
     /// 姓名
     /// </summary>
@@ -48,7 +53,7 @@ public class OperationLogAddInput
     /// <summary>
     /// 网络服务商
     /// </summary>
-    public string Isp { get; init; }
+    public string Isp { get; set; }
 
     /// <summary>
     /// 浏览器
@@ -99,4 +104,19 @@ public class OperationLogAddInput
     /// 操作结果
     /// </summary>
     public string Result { get; set; }
+
+    /// <summary>
+    /// 创建者用户Id
+    /// </summary>
+    public long? CreatedUserId { get; set; }
+
+    /// <summary>
+    /// 创建者用户名
+    /// </summary>
+    public string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    public string CreatedUserRealName { get; set; }
 }

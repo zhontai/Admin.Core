@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.LoginLog;
 using ZhonTai.Admin.Services.LoginLog.Dto;
-using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 
@@ -15,17 +14,12 @@ namespace ZhonTai.Admin.Services.LoginLog;
 /// </summary>
 [Order(190)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
+public class LoginLogService : BaseService, ILoginLogService, IDynamicApi, ICapSubscribe
 {
-    private readonly IHttpContextAccessor _context;
     private readonly ILoginLogRepository _loginLogRep;
 
-    public LoginLogService(
-        IHttpContextAccessor context,
-        ILoginLogRepository loginLogRep
-    )
+    public LoginLogService(ILoginLogRepository loginLogRep)
     {
-        _context = context;
         _loginLogRep = loginLogRep;
     }
 
@@ -77,25 +71,11 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [NonAction]
+    [CapSubscribe(SubscribeNames.LoginLogAdd)]
     public async Task<long> AddAsync(LoginLogAddInput input)
     {
-        if(input.IP.IsNull())
-            input.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
-
         var entity = Mapper.Map<LoginLogEntity>(input);
-
-        string ua = _context?.HttpContext?.Request?.Headers?.UserAgent;
-        if (ua.NotNull())
-        {
-            var client = UAParser.Parser.GetDefault().Parse(ua);
-            var device = client.Device.Family;
-            device = device.ToLower() == "other" ? "" : device;
-            entity.Browser = client.UA.Family;
-            entity.Os = client.OS.Family;
-            entity.Device = device;
-            entity.BrowserInfo = ua;
-        }
-       
         await _loginLogRep.InsertAsync(entity);
 
         return entity.Id;
