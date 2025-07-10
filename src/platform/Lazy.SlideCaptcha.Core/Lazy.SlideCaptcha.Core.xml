@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lazy.SlideCaptcha.Core</name>
+    </assembly>
+    <members>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaData.Id">
+            <summary>
+            id
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaData.BackgroundImage">
+            <summary>
+            背景图(含凹槽)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaData.SliderImage">
+            <summary>
+            滑动块图
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.ExpirySeconds">
+            <summary>
+            过期时长
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.StoreageKeyPrefix">
+            <summary>
+            存储键前缀
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.Tolerant">
+            <summary>
+            容错值(校验时用，缺口位置与实际滑动位置匹配容错范围)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.InterferenceCount">
+            <summary>
+            干扰块数量
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.Backgrounds">
+            <summary>
+            背景图
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.CaptchaOptions.Templates">
+            <summary>
+            模板图(必须是slider,hole的顺序依次出现)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.X">
+            <summary>
+            凹槽x坐标
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.Y">
+            <summary>
+            凹槽y坐标
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.BackgroundImageWidth">
+            <summary>
+            背景图宽
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.BackgroundImageHeight">
+            <summary>
+            背景图高
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.BackgroundImageBase64">
+            <summary>
+            背景图
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.SliderImageWidth">
+            <summary>
+            滑动块图宽
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.SliderImageHeight">
+            <summary>
+            滑动块图高
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.SliderImageBase64">
+            <summary>
+            滑动块图
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.Percent">
+            <summary>
+            凹槽位置百分比
+            </summary>
+        </member>
+        <member name="M:Lazy.SlideCaptcha.Core.Generator.DefaultCaptchaImageGenerator.CalcHoleShape(SkiaSharp.SKBitmap)">
+            <summary>
+            计算凹槽轮廓
+            原理： 一行一行扫描，每行不透明小方块连接形成数个小长方形
+            </summary>
+            <param name="holeTemplateImage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Lazy.SlideCaptcha.Core.Generator.DefaultCaptchaImageGenerator.DrawInterferences(SkiaSharp.SKBitmap,SkiaSharp.SKBitmap,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            生成干扰块
+            要求: 所有缺块不能重叠, 
+            </summary>
+            <param name="backgroundImage"></param>
+            <param name="holeTemplateImage"></param>
+            <param name="holeX"></param>
+            <param name="holeY"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:Lazy.SlideCaptcha.Core.Generator.DefaultCaptchaImageGenerator.GenerateInterferencePosition(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{SkiaSharp.SKRect})">
+            <summary>
+            生成干扰块位置
+            </summary>
+            <param name="minX">限定范围最小x</param>
+            <param name="maxX">限定范围最大x</param>
+            <param name="minY">限定范围最小y</param>
+            <param name="maxY">限定范围最大y</param>
+            <param name="holeWidth">缺块X</param>
+            <param name="holeHeight">缺块Y</param>
+            <param name="holeWidth">缺块宽度</param>
+            <param name="holeHeight">缺块高度</param>
+            <param name="excludeRegions">排除的范围</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lazy.SlideCaptcha.Core.ICaptcha.Generate(System.String)">
+            <summary>
+            生成验证码
+            </summary>
+            <param name="captchaId">验证码id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lazy.SlideCaptcha.Core.ICaptcha.Validate(System.String,Lazy.SlideCaptcha.Core.Validator.SlideTrack)">
+            <summary>
+            校验
+            </summary>
+            <param name="captchaId">验证码id</param>
+            <param name="slideTrack">滑动轨迹</param>
+            <returns></returns>
+        </member>
+        <member name="T:Lazy.SlideCaptcha.Core.Validator.SimpleValidator">
+            <summary>
+            仅使用BaseValidator的位置校验
+            </summary>
+        </member>
+        <member name="T:Lazy.SlideCaptcha.Core.Validator.SlideTrack">
+            <summary>
+            滑动轨迹
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.BackgroundImageWidth">
+            <summary>
+            背景图片宽度(可能经过缩放，不是原始图片宽高)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.BackgroundImageHeight">
+            <summary>
+            背景图片高度(可能经过缩放，不是原始图片宽高)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.SliderImageWidth">
+            <summary>
+            滑块图片宽度(可能经过缩放，不是原始图片宽高)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.SliderImageHeight">
+            <summary>
+            滑块图片高度(可能经过缩放，不是原始图片宽高)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.StartTime">
+            <summary>
+            滑动开始时间(可能经过缩放，不是原始图片宽高)
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.EndTime">
+            <summary>
+            滑动结束时间
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.Tracks">
+            <summary>
+            轨迹
+            </summary>
+        </member>
+        <member name="P:Lazy.SlideCaptcha.Core.Validator.SlideTrack.Percent">
+            <summary>
+            滑动比例
+            </summary>
+        </member>
+    </members>
+</doc>
