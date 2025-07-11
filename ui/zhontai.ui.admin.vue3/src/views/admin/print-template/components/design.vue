@@ -560,6 +560,9 @@ defineExpose({
     border: var(--el-border);
     padding: 4px 6px;
     margin-bottom: 10px;
+    color: var(--el-text-color-regular);
+    --color: var(--el-text-color-regular);
+
     &:hover {
       background-color: var(--el-color-primary-light-9);
       border-color: var(--el-color-primary);
