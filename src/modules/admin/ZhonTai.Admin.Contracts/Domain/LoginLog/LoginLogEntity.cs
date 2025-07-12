@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.LoginLog;
 /// 登录日志
 /// </summary>
 [Database(DbNames.Log)]
-[Table(Name = DbConsts.TableNamePrefix + "login_log", OldName = DbConsts.TableOldNamePrefix + "login_log")]
+[Table(Name = DbConsts.TableNamePrefix + "login_log")]
 public partial class LoginLogEntity : LogAbstract
 {
 }

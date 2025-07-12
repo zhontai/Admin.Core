@@ -167,7 +167,8 @@
         //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
-        //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+        //Sqlite "Data Source=|DataDirectory|\\logdb.db; Pooling=true;Min Pool Size=1"
+        //QuestDb "host=localhost;port=8812;username=admin;password=quest;database=qdb;ServerCompatibilityMode=NoTypeLoading;"
         "connectionString": "Data Source=|DataDirectory|\\logdb.db; Pooling=true;Min Pool Size=1",
 
         //指定程序集

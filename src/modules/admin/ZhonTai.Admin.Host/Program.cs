@@ -16,6 +16,10 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 using ZhonTai.ApiUI;
 using ZhonTai.Common.Helpers;
 using ZhonTai.Admin.Repositories;
+using ZhonTai.Admin.Core.Extensions;
+using DotNetCore.CAP.Messages;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 new HostApp(new HostAppOptions
 {
@@ -23,8 +27,16 @@ new HostApp(new HostAppOptions
     ConfigurePreFreeSql = (freeSql, dbConfig) =>
     {
         freeSql.UseJsonMap(); //启用JsonMap功能
+        freeSql.UseLogDb(dbConfig); //使用日志数据库
     },
-
+    //配置FreeSql构建器
+    ConfigureFreeSqlBuilder = (freeSqlBuilder, dbConfig) =>
+    {
+        if (dbConfig.Type == FreeSql.DataType.QuestDb)
+        {
+            freeSqlBuilder.UseQuestDbRestAPI("http://localhost:9000", "admin", "quest");
+        }
+    },
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
@@ -34,13 +46,13 @@ new HostApp(new HostAppOptions
         }
     },
 
+    //配置前置服务
     ConfigurePreServices = context =>
     {
         DbKeys.LogDb = "logdb";
 
         context.Services.Configure<TaskSchedulerConfig>(context.Configuration.GetSection("TaskScheduler"));
     },
-
     //配置后置服务
     ConfigurePostServices = context =>
     {
@@ -54,6 +66,7 @@ new HostApp(new HostAppOptions
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
         {
+            config.DefaultGroupName = "zhontai.admin";
             //开发阶段不同开发人员的消息区分，可以通过配置版本号实现
             config.Version = "v1";
 
@@ -61,9 +74,9 @@ new HostApp(new HostAppOptions
             config.UseInMemoryMessageQueue();
             config.FailedRetryCount = 5;
             config.FailedRetryInterval = 15;
-
-            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.3.2" />
-            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
+            config.EnablePublishParallelSend = true;
+            config.UseStorageLock = true;
+            config.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
 
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
@@ -73,6 +86,13 @@ new HostApp(new HostAppOptions
             //    mqConfig.Password = rabbitMQ.Password;
             //    mqConfig.ExchangeName = rabbitMQ.ExchangeName;
             //});
+
+            config.FailedThresholdCallback = failed =>
+            {
+                AppInfo.Log.Error($@"消息处理失败！类型: {failed.MessageType}, 
+已重试 {config.FailedRetryCount} 次仍失败，需人工处理。消息名称: {failed.Message.GetName()}");
+            };
+
             config.UseDashboard();
         }).AddSubscriberAssembly(assemblies);
 

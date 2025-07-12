@@ -8,8 +8,7 @@ namespace ZhonTai.Admin.Domain.OperationLog;
 /// 操作日志
 /// </summary>
 [Database(DbNames.Log)]
-[Table(Name = DbConsts.TableNamePrefix + "operation_log", OldName = DbConsts.TableOldNamePrefix + "operation_log")]
-[Index("idx_{tablename}_01", $"{nameof(ApiPath)},{nameof(CreatedTime)}", false)]
+[Table(Name = DbConsts.TableNamePrefix + "operation_log")]
 public partial class OperationLogEntity : LogAbstract
 {
     /// <summary>
