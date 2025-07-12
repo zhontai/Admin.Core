@@ -9,8 +9,8 @@
     :close-on-press-escape="false"
     width="880px"
   >
-    <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
-      <el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-top: 8px">
+    <div style="background-color: var(--ba-bg-color)">
+      <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
           <el-form-item label="姓名" prop="name">
             <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
