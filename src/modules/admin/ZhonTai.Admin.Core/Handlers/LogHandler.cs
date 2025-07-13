@@ -16,6 +16,9 @@ using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 using Microsoft.Extensions.Options;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.GrpcServices;
+using Mapster;
+using ZhonTai.Admin.Core.GrpcServices.Dtos;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -28,6 +31,7 @@ public class LogHandler : ILogHandler
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger _logger;
     private readonly IOptions<AppConfig> _appConfig;
+    private readonly IOprationLogGrpcService _oprationLogGrpcService;
     private readonly IUser _user;
     private readonly ApiHelper _apiHelper;
 
@@ -36,6 +40,7 @@ public class LogHandler : ILogHandler
         IHttpContextAccessor httpContextAccessor,
         ILogger<LogHandler> logger,
         IOptions<AppConfig> appConfig,
+        IOprationLogGrpcService oprationLogGrpcService,
         IUser user,
         ApiHelper apiHelper
     )
@@ -44,6 +49,7 @@ public class LogHandler : ILogHandler
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _appConfig = appConfig;
+        _oprationLogGrpcService = oprationLogGrpcService;
         _user = user;
         _apiHelper = apiHelper;
     }
@@ -154,7 +160,14 @@ public class LogHandler : ILogHandler
                 input.CreatedUserRealName = _user.Name;
                 input.TenantId = _user.TenantId;
 
-                await _capPublisher.PublishAsync(SubscribeNames.OperationLogAdd, input);
+                if(_appConfig.Value.Log.Method == LogMethod.Cap)
+                {
+                    await _capPublisher.PublishAsync(SubscribeNames.OperationLogAdd, input);
+                }
+                else
+                {
+                    await _oprationLogGrpcService.AddAsync(input.Adapt<OperationLogAddGrpcInput>());
+                }
             }
         }
         catch (Exception ex)

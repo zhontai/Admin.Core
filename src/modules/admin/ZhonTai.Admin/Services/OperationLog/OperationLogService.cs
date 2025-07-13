@@ -80,7 +80,6 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [NonAction]
     [CapSubscribe(SubscribeNames.OperationLogAdd)]
     public async Task<long> AddAsync(OperationLogAddInput input)
     {

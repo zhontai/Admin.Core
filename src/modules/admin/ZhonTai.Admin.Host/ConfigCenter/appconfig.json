@@ -76,7 +76,9 @@
     //数据库日志
     "log": {
       //操作日志
-      "operation": true
+      "operation": true,
+      // 记录日志方式 Grpc | Cap
+      "method": "Cap"
     },
     //限流
     "rateLimit": false,

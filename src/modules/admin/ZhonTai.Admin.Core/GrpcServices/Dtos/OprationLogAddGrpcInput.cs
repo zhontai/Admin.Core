@@ -121,4 +121,28 @@ public class OperationLogAddGrpcInput
     /// </summary>
     [ProtoMember(19)]
     public string Result { get; set; }
+
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    [ProtoMember(20)]
+    public long? TenantId { get; set; }
+
+    /// <summary>
+    /// 创建者用户Id
+    /// </summary>
+    [ProtoMember(21)]
+    public long? CreatedUserId { get; set; }
+
+    /// <summary>
+    /// 创建者用户名
+    /// </summary>
+    [ProtoMember(22)]
+    public string CreatedUserName { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    [ProtoMember(23)]
+    public string CreatedUserRealName { get; set; }
 }

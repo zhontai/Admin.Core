@@ -71,7 +71,6 @@ public class LoginLogService : BaseService, ILoginLogService, IDynamicApi, ICapS
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [NonAction]
     [CapSubscribe(SubscribeNames.LoginLogAdd)]
     public async Task<long> AddAsync(LoginLogAddInput input)
     {

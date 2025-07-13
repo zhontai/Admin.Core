@@ -19,7 +19,6 @@ using ZhonTai.Admin.Repositories;
 using ZhonTai.Admin.Core.Extensions;
 using DotNetCore.CAP.Messages;
 using System.Text.Encodings.Web;
-using System.Text.Json;
 
 new HostApp(new HostAppOptions
 {
@@ -69,15 +68,14 @@ new HostApp(new HostAppOptions
             config.DefaultGroupName = "zhontai.admin";
             //开发阶段不同开发人员的消息区分，可以通过配置版本号实现
             config.Version = "v1";
-
-            config.UseInMemoryStorage();
-            config.UseInMemoryMessageQueue();
             config.FailedRetryCount = 5;
             config.FailedRetryInterval = 15;
             config.EnablePublishParallelSend = true;
             config.UseStorageLock = true;
             config.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
 
+            config.UseInMemoryStorage();
+            config.UseInMemoryMessageQueue();
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
             //    mqConfig.HostName = rabbitMQ.HostName;
