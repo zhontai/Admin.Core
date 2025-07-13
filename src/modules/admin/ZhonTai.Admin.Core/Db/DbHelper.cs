@@ -611,6 +611,9 @@ public class DbHelper
                 fsql.CodeFirst.IsSyncStructureToUpper = true;
             }
 
+            //配置实体
+            ConfigEntity(fsql, appConfig, dbConfig);
+
             //同步结构
             if (dbConfig.SyncStructure)
             {
@@ -681,8 +684,7 @@ public class DbHelper
 
             #endregion
 
-            //配置实体
-            ConfigEntity(fsql, appConfig, dbConfig);
+            
 
             #region 监听Curd操作
 

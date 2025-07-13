@@ -18,5 +18,5 @@ public static partial class AdminCacheKeys
     /// </summary>
     /// <param name="tenantId">租户Id</param>
     /// <returns></returns>
-    public static string GetOrgKey(long tenantId) => $"{Org}{tenantId}";
+    public static string GetOrgKey(long? tenantId) => $"{Org}{tenantId}";
 }

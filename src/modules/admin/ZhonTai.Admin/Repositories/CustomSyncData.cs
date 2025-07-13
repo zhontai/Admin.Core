@@ -433,10 +433,16 @@ public class CustomSyncData : SyncData, ISyncData
             whereFunc: (select, batchDataList) =>
             {
                 var recordList = batchDataList.Adapt<List<OrgRecord>>();
-                return select.Where(a =>
-                    db.Select<OrgRecord>().WithMemory(recordList)
-                    .Any(b => a.Id == b.Id || (a.TenantId == b.TenantId && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
-                );
+                if (appConfig.Tenant)
+                    return select.Where(a =>
+                        db.Select<OrgRecord>().WithMemory(recordList)
+                        .Any(b => a.Id == b.Id || (a.TenantId == b.TenantId && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                    );
+                else
+                    return select.Where(a =>
+                        db.Select<OrgRecord>().WithMemory(recordList)
+                        .Any(b => a.Id == b.Id || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                    );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
             {
@@ -446,10 +452,16 @@ public class CustomSyncData : SyncData, ISyncData
             whereFunc: (select, batchDataList) =>
             {
                 var recordList = batchDataList.Adapt<List<RoleRecord>>();
-                return select.Where(a =>
-                    db.Select<RoleRecord>().WithMemory(recordList)
-                    .Any(b => a.Id == b.Id || (a.TenantId == b.TenantId && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
-                );
+                if (appConfig.Tenant)
+                    return select.Where(a =>
+                        db.Select<RoleRecord>().WithMemory(recordList)
+                        .Any(b => a.Id == b.Id || (a.TenantId == b.TenantId && a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                    );
+                else
+                    return select.Where(a =>
+                       db.Select<RoleRecord>().WithMemory(recordList)
+                       .Any(b => a.Id == b.Id || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                   );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
             {
