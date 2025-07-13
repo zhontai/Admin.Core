@@ -78,7 +78,7 @@
       //操作日志
       "operation": true,
       // 记录日志方式 Grpc | Cap
-      "method": "Cap"
+      "method": "Grpc"
     },
     //限流
     "rateLimit": false,
