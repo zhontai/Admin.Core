@@ -6,7 +6,7 @@
     //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
     "assemblyNames": [ "ZhonTai.Admin" ],
     //指定实体数据库列表，不填同步所有数据库表实体
-    "includeEntityDbs": [ ],
+    "includeEntityDbs": [],
     //排除实体数据库列表，指定不同步数据库表实体
     "excludeEntityDbs": [ "Log" ],
 
@@ -23,6 +23,9 @@
     "createDb": false,
     //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
     //建库连接字符串
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
     //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
     //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
@@ -129,6 +132,9 @@
         "createDb": false,
         //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
         //建库连接字符串
+        //default_authentication_plugin = caching_sha2_password 
+        //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        //default_authentication_plugin = mysql_native_password
         //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
