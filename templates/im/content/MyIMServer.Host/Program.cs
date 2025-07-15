@@ -1,22 +1,36 @@
+using MyIMServer.Host.Core.Configs;
+using NLog.Web;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//清空日志供应程序，避免.net自带日志输出到命令台
+builder.Logging.ClearProviders();
+//使用NLog日志
+builder.Host.UseNLog();
+
+var imServerConfig = builder.Configuration.GetSection("ImServerConfig").Get<ImServerConfig>();
+var healthChecks = imServerConfig.HealthChecks;
+//添加健康检查
+if (healthChecks != null && healthChecks.Enable)
+{
+    builder.Services.AddHealthChecks();
+}
+
 // Add services to the container.
 
 var app = builder.Build();
-var configuration = app.Configuration;
 
 // Configure the HTTP request pipeline.
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-Console.OutputEncoding = Encoding.GetEncoding("GB2312");
-Console.InputEncoding = Encoding.GetEncoding("GB2312");
+Console.InputEncoding = Encoding.GetEncoding(imServerConfig.InputEncodingName);
+Console.OutputEncoding = Encoding.GetEncoding(imServerConfig.OutputEncodingName);
 
 app.UseFreeImServer(new ImServerOptions
 {
-    Redis = new FreeRedis.RedisClient(configuration["ImServerOptions:RedisClient"]),
-    Servers = configuration["ImServerOptions:Servers"]?.Split(";"),
-    Server = configuration["ImServerOptions:Server"],
+    Redis = new FreeRedis.RedisClient(imServerConfig.RedisClientConnectionString),
+    Servers = imServerConfig.Servers,
+    Server = imServerConfig.Server,
 });
 
 app.Run();

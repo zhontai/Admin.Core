@@ -1,7 +1,7 @@
 {
   "ImConfig": {
     //启用
-    "Enable": false,
+    "Enable": true,
     //im服务器集群地址
     "Servers": [ "127.0.0.1:17010" ],
     //ws业务端地址
