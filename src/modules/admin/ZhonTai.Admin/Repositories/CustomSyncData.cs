@@ -297,8 +297,8 @@ public class CustomSyncData : SyncData, ISyncData
             {
                 return select.Where(a =>
                     batchDataList.Any(b => a.Id == b.Id
-                    || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)
-                    || (!string.IsNullOrWhiteSpace(a.Code) && a.Code == b.Code))
+                    || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)
+                    || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Code) && a.Code == b.Code))
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>

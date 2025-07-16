@@ -203,11 +203,10 @@ public abstract class SyncData
                 List<T> dbDataList;
                 if (whereFunc != null)
                 {
-                    dbDataList = await whereFunc(rep.Select, batchDataList).ToListAsync();
+                    dbDataList = await whereFunc(rep.Select, batchDataList).Distinct().ToListAsync();
                 }
                 else
                 {
-                    var batchIds = batchDataList.Select(e => e.Id).ToList();
                     dbDataList = await rep.Where(a => batchDataList.Any(b => a.Id == b.Id)).ToListAsync();
                 }
 
@@ -233,7 +232,7 @@ public abstract class SyncData
                     foreach (var dbData in dbDataList)
                     {
                         var data = batchDataList.First(a => a.Id == dbData.Id);
-                        data.Adapt(dbData);
+                        data?.Adapt(dbData);
                     }
 
                     await rep.UpdateAsync(dbDataList);

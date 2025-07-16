@@ -125,3 +125,9 @@ export const AppType = {
   MVC: { name: 'MVC', value: 2, desc: '' },
 }
 
+/** 记录日志方式 */
+export const LogMethod = {
+  Grpc: { name: 'Grpc', value: 0, desc: '' },
+  Cap: { name: 'Cap', value: 1, desc: '' },
+}
+

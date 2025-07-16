@@ -12,9 +12,9 @@
       "Services": [
         {
           "ServiceType": 0,
-          "Name": "ZhonTai.Gateway.Yarp",
+          "Name": "ZhonTai.Gateway.Yarp.Host",
           "TyeName": null,
-          "ProjectFile": "gateways\\ZhonTai.Gateway.Yarp\\ZhonTai.Gateway.Yarp.csproj",
+          "ProjectFile": "gateways\\ZhonTai.Gateway.Yarp\\ZhonTai.Gateway.Yarp.Host.csproj",
           "DefaultSelected": true,
           "Bindings": "::16010",
           "Arguments": null,
@@ -23,9 +23,9 @@
         },
         {
           "ServiceType": 0,
-          "Name": "ZhonTai.IMServer",
+          "Name": "ZhonTai.IMServer.Host",
           "TyeName": null,
-          "ProjectFile": "modules\\im\\ZhonTai.IMServer\\ZhonTai.IMServer.csproj",
+          "ProjectFile": "modules\\im\\ZhonTai.IMServer\\ZhonTai.IMServer.Host.csproj",
           "DefaultSelected": true,
           "Bindings": "::17010",
           "Arguments": null,
@@ -39,6 +39,17 @@
           "ProjectFile": "modules\\admin\\ZhonTai.Admin.Host\\ZhonTai.Admin.Host.csproj",
           "DefaultSelected": true,
           "Bindings": "::18010",
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1
+        },
+        {
+          "ServiceType": 0,
+          "Name": "ZhonTai.Admin.Tests",
+          "TyeName": null,
+          "ProjectFile": "modules\\admin\\ZhonTai.Admin.Tests\\ZhonTai.Admin.Tests.csproj",
+          "DefaultSelected": false,
+          "Bindings": null,
           "Arguments": null,
           "EnvVariables": null,
           "Replicas": 1

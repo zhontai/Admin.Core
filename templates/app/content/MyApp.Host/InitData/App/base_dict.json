@@ -1,6 +1,7 @@
 [
   {
     "id": 187395320303685,
+    "parentId": null,
     "dictTypeId": 187395320434757,
     "name": "男",
     "code": "male",
@@ -20,6 +21,7 @@
   },
   {
     "id": 187395320369221,
+    "parentId": null,
     "dictTypeId": 187395320434757,
     "name": "女",
     "code": "female",
@@ -39,6 +41,7 @@
   },
   {
     "id": 590371582722117,
+    "parentId": null,
     "dictTypeId": 590369253568581,
     "name": "图片",
     "code": "image",
@@ -58,6 +61,7 @@
   },
   {
     "id": 590371764596805,
+    "parentId": null,
     "dictTypeId": 590369253568581,
     "name": "文档",
     "code": "doc",
@@ -77,6 +81,7 @@
   },
   {
     "id": 590372695543877,
+    "parentId": null,
     "dictTypeId": 590369253568581,
     "name": "视频",
     "code": "video",
@@ -96,6 +101,7 @@
   },
   {
     "id": 590372960862277,
+    "parentId": null,
     "dictTypeId": 590369253568581,
     "name": "音频",
     "code": "audio",
@@ -115,6 +121,7 @@
   },
   {
     "id": 590373057781829,
+    "parentId": null,
     "dictTypeId": 590369253568581,
     "name": "其他",
     "code": "other",
@@ -134,6 +141,7 @@
   },
   {
     "id": 663210333147205,
+    "parentId": null,
     "dictTypeId": 663210221912133,
     "name": "Web端",
     "code": "web",
@@ -153,6 +161,7 @@
   },
   {
     "id": 663210372075589,
+    "parentId": null,
     "dictTypeId": 663210221912133,
     "name": "CS端",
     "code": "cs",
@@ -172,6 +181,7 @@
   },
   {
     "id": 663210447855685,
+    "parentId": null,
     "dictTypeId": 663210221912133,
     "name": "App端",
     "code": "app",

@@ -548,8 +548,11 @@ export interface AuthUserProfileOutput {
 }
 
 export interface CaptchaData {
+  /** id */
   id?: string | null
+  /** 背景图(含凹槽) */
   backgroundImage?: string | null
+  /** 滑动块图 */
   sliderImage?: string | null
 }
 
@@ -1221,6 +1224,14 @@ export interface LoginLogAddInput {
   city?: string | null
   /** 网络服务商 */
   isp?: string | null
+  /** 浏览器 */
+  browser?: string | null
+  /** 操作系统 */
+  os?: string | null
+  /** 设备 */
+  device?: string | null
+  /** 浏览器信息 */
+  browserInfo?: string | null
   /**
    * 耗时（毫秒）
    * @format int64
@@ -1546,6 +1557,11 @@ export type OSSProvider = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
 
 /** 添加 */
 export interface OperationLogAddInput {
+  /**
+   * 租户Id
+   * @format int64
+   */
+  tenantId?: number | null
   /** 姓名 */
   name?: string | null
   /** 接口名称 */
@@ -1590,6 +1606,15 @@ export interface OperationLogAddInput {
   statusCode?: number | null
   /** 操作结果 */
   result?: string | null
+  /**
+   * 创建者用户Id
+   * @format int64
+   */
+  createdUserId?: number | null
+  /** 创建者用户名 */
+  createdUserName?: string | null
+  /** 创建者姓名 */
+  createdUserRealName?: string | null
 }
 
 /** 查询分页请求 */
@@ -4986,6 +5011,7 @@ export interface SendEmailCodeInput {
    * @minLength 1
    */
   captchaId: string
+  /** 滑动轨迹 */
   track: SlideTrack
 }
 
@@ -5003,6 +5029,7 @@ export interface SendSmsCodeInput {
    * @minLength 1
    */
   captchaId: string
+  /** 滑动轨迹 */
   track: SlideTrack
 }
 
@@ -5077,21 +5104,44 @@ export interface SiteMsgGetPageOutput {
   receivedTime?: string | null
 }
 
+/** 滑动轨迹 */
 export interface SlideTrack {
-  /** @format int32 */
+  /**
+   * 背景图片宽度(可能经过缩放，不是原始图片宽高)
+   * @format int32
+   */
   backgroundImageWidth?: number
-  /** @format int32 */
+  /**
+   * 背景图片高度(可能经过缩放，不是原始图片宽高)
+   * @format int32
+   */
   backgroundImageHeight?: number
-  /** @format int32 */
+  /**
+   * 滑块图片宽度(可能经过缩放，不是原始图片宽高)
+   * @format int32
+   */
   sliderImageWidth?: number
-  /** @format int32 */
+  /**
+   * 滑块图片高度(可能经过缩放，不是原始图片宽高)
+   * @format int32
+   */
   sliderImageHeight?: number
-  /** @format date-time */
+  /**
+   * 滑动开始时间(可能经过缩放，不是原始图片宽高)
+   * @format date-time
+   */
   startTime?: string
-  /** @format date-time */
+  /**
+   * 滑动结束时间
+   * @format date-time
+   */
   endTime?: string
+  /** 轨迹 */
   tracks?: Track[] | null
-  /** @format float */
+  /**
+   * 滑动比例
+   * @format float
+   */
   percent?: number
 }
 

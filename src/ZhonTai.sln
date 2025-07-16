@@ -34,11 +34,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{65CF5483
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "im", "im", "{0602EECF-035B-42C2-B534-E29BC24DE646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.IMServer", "modules\im\ZhonTai.IMServer\ZhonTai.IMServer.csproj", "{8EB07596-339B-420A-BB32-1FB69D7E7BA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.IMServer.Host", "modules\im\ZhonTai.IMServer.Host\ZhonTai.IMServer.Host.csproj", "{8EB07596-339B-420A-BB32-1FB69D7E7BA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.gateways", "03.gateways", "{908FBE9E-EF24-4680-9C2F-259EC54D6AC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Gateway.Yarp", "gateways\ZhonTai.Gateway.Yarp\ZhonTai.Gateway.Yarp.csproj", "{979BE067-16EE-458F-B414-271749B0C038}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Gateway.Yarp.Host", "gateways\ZhonTai.Gateway.Yarp.Host\ZhonTai.Gateway.Yarp.Host.csproj", "{979BE067-16EE-458F-B414-271749B0C038}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Core", "modules\admin\ZhonTai.Admin.Core\ZhonTai.Admin.Core.csproj", "{794CBF41-AF02-4B03-B1FE-C362C501F824}"
 EndProject

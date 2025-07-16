@@ -77,6 +77,9 @@
     //2、首先在管理Nuget程序包浏览选项卡中搜索FreeSql.Provider，选择对应包安装。其次在已安装选项卡中卸载FreeSql.Provider.Sqlite包
     "type": "Sqlite",
     //连接字符串
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
     //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
     //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
@@ -170,6 +173,9 @@
         //2、首先在管理Nuget程序包浏览选项卡中搜索FreeSql.Provider，选择对应包安装。其次在已安装选项卡中卸载FreeSql.Provider.Sqlite包
         "type": "Sqlite",
         //连接字符串
+        //default_authentication_plugin = caching_sha2_password 
+        //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        //default_authentication_plugin = mysql_native_password
         //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"

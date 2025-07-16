@@ -1,28 +1,12 @@
-﻿namespace MyGateway.Host.Core.Configs;
+﻿namespace ZhonTai.IMServer.Host.Core.Configs;
 
 /// <summary>
-/// 网关配置
+/// im服务端配置
 /// </summary>
-public class GatewayConfig
+public class ImServerConfig
 {
     public static class Models
     {
-        /// <summary>
-        /// 模块信息
-        /// </summary>
-        public class ModuleInfo
-        {
-            /// <summary>
-            /// 名称
-            /// </summary>
-            public string Name { get; set; }
-
-            /// <summary>
-            /// 路径
-            /// </summary>
-            public string Url { get; set; }
-        }
-
         /// <summary>
         /// 健康检查配置
         /// </summary>
@@ -41,9 +25,29 @@ public class GatewayConfig
     }
 
     /// <summary>
-    /// 模块列表
+    /// Redis客户端连接字符串
     /// </summary>
-    public List<Models.ModuleInfo> ModuleList { get; set; }
+    public string RedisClientConnectionString { get; set; }
+
+    /// <summary>
+    /// 服务端列表
+    /// </summary>
+    public string[] Servers { get; set; }
+
+    /// <summary>
+    /// 服务端
+    /// </summary>
+    public string Server { get; set; }
+
+    /// <summary>
+    /// 输入编码名称，默认GB2312
+    /// </summary>
+    public string InputEncodingName { get; set; } = "GB2312";
+
+    /// <summary>
+    /// 输出编码名称，默认GB2312
+    /// </summary>
+    public string OutputEncodingName { get; set; } = "GB2312";
 
     /// <summary>
     /// 健康检查配置

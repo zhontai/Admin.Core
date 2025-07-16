@@ -121,8 +121,8 @@
             <param name="maxX">限定范围最大x</param>
             <param name="minY">限定范围最小y</param>
             <param name="maxY">限定范围最大y</param>
-            <param name="holeWidth">缺块X</param>
-            <param name="holeHeight">缺块Y</param>
+            <param name="holeX">缺块X</param>
+            <param name="holeY">缺块Y</param>
             <param name="holeWidth">缺块宽度</param>
             <param name="holeHeight">缺块高度</param>
             <param name="excludeRegions">排除的范围</param>

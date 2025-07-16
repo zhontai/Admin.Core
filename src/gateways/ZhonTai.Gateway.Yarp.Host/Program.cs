@@ -1,6 +1,6 @@
 ﻿using NLog.Web;
 using System.Reflection;
-using ZhonTai.Gateway.Yarp.Core.Configs;
+using ZhonTai.Gateway.Yarp.Host.Core.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
 

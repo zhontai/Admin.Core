@@ -1,4 +1,8 @@
-﻿namespace ZhonTai.Gateway.Yarp.Core.Configs;
+﻿namespace ZhonTai.Gateway.Yarp.Host.Core.Configs;
+
+/// <summary>
+/// 网关配置
+/// </summary>
 public class GatewayConfig
 {
     public static class Models

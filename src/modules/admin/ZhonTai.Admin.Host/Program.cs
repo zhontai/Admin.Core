@@ -44,7 +44,6 @@ new HostApp(new HostAppOptions
             freeSql.SyncSchedulerStructure(dbConfig, TaskSchedulerServiceExtensions.ConfigureScheduler);
         }
     },
-
     //配置前置服务
     ConfigurePreServices = context =>
     {
@@ -136,17 +135,14 @@ new HostApp(new HostAppOptions
             };
         });
     },
-
     //配置Autofac容器
     ConfigureAutofacContainer = (builder, context) => 
     {
         builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
         builder.RegisterGeneric(typeof(LogRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
     },
-
     //配置Mvc
     ConfigureMvcBuilder = (builder, context) => { },
-
     //配置后置中间件
     ConfigurePostMiddleware = context =>
     {
@@ -171,7 +167,6 @@ new HostApp(new HostAppOptions
 
         #endregion
     },
-
     ConfigureSwaggerUI = options =>
     {
         //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.Full);
