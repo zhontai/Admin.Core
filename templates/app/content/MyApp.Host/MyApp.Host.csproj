@@ -61,7 +61,7 @@
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.210" />
 		<!--#endif -->
 		<!--#if (!NoApiUI) -->
-		<PackageReference Include="ZhonTai.ApiUI" Version="9.1.2-preview25071501" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="9.1.2-preview25071601" />
 		<!--#endif -->
 	</ItemGroup>
 	

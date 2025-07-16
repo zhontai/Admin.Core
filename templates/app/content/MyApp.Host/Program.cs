@@ -12,7 +12,6 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 #if (!NoApiUI)
 using ZhonTai.ApiUI;
 #endif
-using MyApp.Api.Core.Consts;
 using Microsoft.AspNetCore.Builder;
 #if (!NoCap)
 using Microsoft.Extensions.DependencyModel;

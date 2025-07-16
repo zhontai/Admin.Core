@@ -66,8 +66,10 @@
     "syncDataBatchSize": 500,
     //同步数据
     "syncData": true,
+    //注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。
+    //如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
     //同步更新数据
-    "syncUpdateData": true,
+    "syncUpdateData": false,
     ////同步数据地址
     "SyncDataPath": "InitData/App",
     ////#if (MergeDb && IsSys)
