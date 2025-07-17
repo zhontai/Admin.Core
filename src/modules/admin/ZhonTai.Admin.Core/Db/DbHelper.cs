@@ -52,7 +52,7 @@ public class DbHelper
 
         try
         {
-            Console.WriteLine($"{Environment.NewLine}create database started");
+            Console.WriteLine($"{Environment.NewLine}create database {dbConfig.Key} started");
             var filePath = Path.Combine(AppContext.BaseDirectory, dbConfig.CreateDbSqlFile).ToPath();
             if (File.Exists(filePath))
             {
@@ -64,11 +64,11 @@ public class DbHelper
             }
 
             await db.Ado.ExecuteNonQueryAsync(dbConfig.CreateDbSql);
-            Console.WriteLine("create database succeed");
+            Console.WriteLine($"create {dbConfig.Key} database succeed");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"create database failed.\n {e.Message}");
+            Console.WriteLine($"create {dbConfig.Key} database failed.\n {e.Message}");
         }
     }
 
@@ -306,7 +306,7 @@ public class DbHelper
 
         // 同步结构
         var dbType = dbConfig.Type.ToString();
-        Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbType} structure")} started");
+        Console.WriteLine($"{Environment.NewLine}{(msg.NotNull() ? msg : $"sync {dbConfig.Key} {dbType} structure")} started");
 
         //获得指定程序集表实体
         var entityTypes = GetEntityTypes(dbConfig);
@@ -341,7 +341,7 @@ public class DbHelper
             db.Aop.SyncStructureAfter -= SyncStructureAfter;
         }
 
-        Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbType} structure")} succeed");
+        Console.WriteLine($"{(msg.NotNull() ? msg : $"sync {dbConfig.Key} {dbType} structure")} succeed");
     }
 
     private static void SyncDataCurdBefore(object? s, CurdBeforeEventArgs e)
@@ -368,7 +368,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine($"{Environment.NewLine}sync data started");
+            Console.WriteLine($"{Environment.NewLine}sync {dbConfig.Key} data started");
 
             if (dbConfig.AssemblyNames?.Length > 0)
             {
@@ -492,11 +492,11 @@ public class DbHelper
                 db.Aop.AuditValue -= SyncDataAuditValue;
             }
 
-            Console.WriteLine($"sync data succeed{Environment.NewLine}");
+            Console.WriteLine($"sync {dbConfig.Key} data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
-            throw new Exception($"sync data failed.\n{ex.Message}");
+            throw new Exception($"sync {dbConfig.Key} data failed.\n{ex.Message}");
         }
     }
 
@@ -512,7 +512,7 @@ public class DbHelper
     {
         try
         {
-            Console.WriteLine($"{Environment.NewLine}generate data started");
+            Console.WriteLine($"{Environment.NewLine}generate {dbConfig.Key} data started");
 
             if (dbConfig.AssemblyNames?.Length > 0)
             {
@@ -528,11 +528,11 @@ public class DbHelper
                 }
             }
 
-            Console.WriteLine($"generate data succeed{Environment.NewLine}");
+            Console.WriteLine($"generate {dbConfig.Key} data succeed{Environment.NewLine}");
         }
         catch (Exception ex)
         {
-            throw new Exception($"generate data failed。\n{ex.Message}{Environment.NewLine}");
+            throw new Exception($"generate {dbConfig.Key} data failed。\n{ex.Message}{Environment.NewLine}");
         }
     }
 
@@ -683,8 +683,6 @@ public class DbHelper
             );
 
             #endregion
-
-            
 
             #region 监听Curd操作
 

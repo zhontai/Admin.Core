@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Description>基于.Net Standard 2.1的滑动验证码模块。从2.0.0起绘图由ImageSharp调整为SkiaSharp。</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="templates\1\hole.png" />
+	  <None Remove="templates\1\slider.png" />
+	  <None Remove="templates\2\hole.png" />
+	  <None Remove="templates\2\slider.png" />
+	  <None Remove="templates\3\hole.png" />
+	  <None Remove="templates\3\slider.png" />
+	  <None Remove="templates\4\hole.png" />
+	  <None Remove="templates\4\slider.png" />
+	  <None Remove="templates\5\hole.png" />
+	  <None Remove="templates\5\slider.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="templates\1\slider.png" />
+	  <EmbeddedResource Include="templates\1\hole.png" />
+	  <EmbeddedResource Include="templates\2\slider.png" />
+	  <EmbeddedResource Include="templates\2\hole.png" />
+	  <EmbeddedResource Include="templates\3\slider.png" />
+	  <EmbeddedResource Include="templates\3\hole.png" />
+	  <EmbeddedResource Include="templates\4\slider.png" />
+	  <EmbeddedResource Include="templates\4\hole.png" />
+	  <EmbeddedResource Include="templates\5\slider.png" />
+	  <EmbeddedResource Include="templates\5\hole.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="../../../logo.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.7" />
+	  <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="SkiaSharp" Version="3.119.0" />
+	  <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.0" />
+	</ItemGroup>
+</Project>

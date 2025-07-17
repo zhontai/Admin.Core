@@ -54,8 +54,6 @@ new HostApp(new HostAppOptions
     //配置后置服务
     ConfigurePostServices = context =>
     {
-        //context.Services.AddTiDb(context);
-
         //添加cap事件总线
         var appConfig = AppInfo.GetRequiredService<AppConfig>(false);
         Assembly[] assemblies = AssemblyHelper.GetAssemblyList(appConfig.AssemblyNames);
@@ -134,6 +132,9 @@ new HostApp(new HostAppOptions
                     });
             };
         });
+
+        //添加滑块验证
+        context.Services.AddSlideCaptcha();
     },
     //配置Autofac容器
     ConfigureAutofacContainer = (builder, context) => 

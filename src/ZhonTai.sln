@@ -44,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Core", "modul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Contracts", "modules\admin\ZhonTai.Admin.Contracts\ZhonTai.Admin.Contracts.csproj", "{547FC35E-7642-43AF-BCFA-72EED6FC483A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lazy.SlideCaptcha.Core", "platform\Lazy.SlideCaptcha.Core\Lazy.SlideCaptcha.Core.csproj", "{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Plugin.Lazy.SlideCaptcha.Core", "platform\ZhonTai.Plugin.Lazy.SlideCaptcha.Core\ZhonTai.Plugin.Lazy.SlideCaptcha.Core.csproj", "{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

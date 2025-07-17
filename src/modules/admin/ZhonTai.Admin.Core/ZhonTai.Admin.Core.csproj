@@ -74,7 +74,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\platform\Lazy.SlideCaptcha.Core\Lazy.SlideCaptcha.Core.csproj" />
 		<ProjectReference Include="..\..\..\platform\ZhonTai.Common\ZhonTai.Common.csproj" />
 		<ProjectReference Include="..\..\..\platform\ZhonTai.DynamicApi\ZhonTai.DynamicApi.csproj" />
 	</ItemGroup>

@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;</TargetFrameworks>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<Description>中台接口文档库</Description>
 		<PackageTags>Api UI;Swagger UI;</PackageTags>
 	</PropertyGroup>

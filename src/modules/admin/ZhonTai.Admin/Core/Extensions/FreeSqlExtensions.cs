@@ -5,7 +5,7 @@ using ZhonTai.Admin.Domain.OperationLog;
 namespace ZhonTai.Admin.Core.Extensions;
 
 /// <summary>
-/// FreeSqlExtensions扩展类
+/// FreeSql扩展
 /// </summary>
 public static class FreeSqlExtensions
 {

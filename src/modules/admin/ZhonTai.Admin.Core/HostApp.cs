@@ -41,7 +41,6 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Yitter.IdGenerator;
 using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Core.Captcha;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Conventions;
@@ -806,13 +805,6 @@ public class HostApp
 
         //oss文件上传
         services.AddOSS();
-
-        //滑块验证码
-        services.AddSlideCaptcha(configuration, options =>
-        {
-            options.StoreageKeyPrefix = CacheKeys.Captcha;
-        });
-        services.AddScoped<ISlideCaptcha, SlideCaptcha>();
 
         //IP地址定位库
         if (appConfig.IP2Region.Enable)

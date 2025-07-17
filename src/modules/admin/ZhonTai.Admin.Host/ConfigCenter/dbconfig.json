@@ -20,7 +20,7 @@
     "syncDataCurd": false,
 
     //建库，Sqlite数据库不用配置建库，连接语句自动建库
-    "createDb": false,
+    "createDb": true,
     //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
     //建库连接字符串
     //default_authentication_plugin = caching_sha2_password 

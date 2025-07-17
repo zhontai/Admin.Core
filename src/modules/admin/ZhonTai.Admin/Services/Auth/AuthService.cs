@@ -1,7 +1,6 @@
 ﻿using DotNetCore.CAP;
 using FreeSql;
 using IP2Region.Net.Abstractions;
-using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +42,8 @@ using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator;
+using static ZhonTai.Plugin.Lazy.SlideCaptcha.Core.ValidateResult;
 using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 
 namespace ZhonTai.Admin.Services.Auth;
