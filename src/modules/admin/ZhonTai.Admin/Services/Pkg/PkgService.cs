@@ -66,6 +66,7 @@ public class PkgService : BaseService, IDynamicApi
             foreach (var userId in userIds)
             {
                 await Cache.DelAsync(CacheKeys.UserPermission + userId);
+                await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
             }
         }
     }

@@ -73,6 +73,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         foreach (var userId in userIds)
         {
             await Cache.DelAsync(CacheKeys.UserPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 
