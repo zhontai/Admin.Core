@@ -10,7 +10,7 @@
     width="880px"
   >
     <div style="background-color: var(--ba-bg-color)">
-      <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
+      <el-card class="my-query-box" shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
           <el-form-item label="姓名" prop="name">
             <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
