@@ -1,6 +1,6 @@
 <template>
-  <MySplitPanes>
-    <pane size="50" min-size="30" max-size="70">
+  <MySplitter>
+    <el-splitter-panel size="45%" min="30%" max="60%">
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never">
           <el-form :inline="true" @submit.stop.prevent>
@@ -63,8 +63,8 @@
           </el-table>
         </el-card>
       </div>
-    </pane>
-    <pane>
+    </el-splitter-panel>
+    <el-splitter-panel>
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -96,7 +96,7 @@
           </el-table>
         </el-card>
       </div>
-    </pane>
+    </el-splitter-panel>
 
     <role-form ref="roleFormRef" :title="state.roleFormTitle" :role-tree-data="state.roleFormTreeData"></role-form>
     <user-select
@@ -108,7 +108,7 @@
     ></user-select>
     <set-role-menu ref="setRoleMenuRef"></set-role-menu>
     <set-role-data-scope ref="setRoleDataScopeRef"></set-role-data-scope>
-  </MySplitPanes>
+  </MySplitter>
 </template>
 
 <script lang="ts" setup name="admin/role">
@@ -120,7 +120,6 @@ import { ElTable } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
-import { Pane } from 'splitpanes'
 
 // 引入组件
 const RoleForm = defineAsyncComponent(() => import('./components/role-form.vue'))
@@ -128,7 +127,7 @@ const SetRoleMenu = defineAsyncComponent(() => import('./components/set-role-men
 const SetRoleDataScope = defineAsyncComponent(() => import('./components/set-role-data-scope.vue'))
 const UserSelect = defineAsyncComponent(() => import('/@/views/admin/user/components/user-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
+const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 
 const { proxy } = getCurrentInstance() as any
 

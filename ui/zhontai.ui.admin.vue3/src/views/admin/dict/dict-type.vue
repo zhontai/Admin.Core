@@ -22,15 +22,14 @@
         style="width: 100%"
         @current-change="onTableCurrentChange"
       >
-        <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="82" align="center">
+        <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
-            <el-tag type="success" v-if="row.enabled">启用</el-tag>
-            <el-tag type="danger" v-else>禁用</el-tag>
+            <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
+            {{ row.name }}
           </template>
         </el-table-column>
+        <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
         <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>

@@ -20,6 +20,7 @@ using ZhonTai.Admin.Core.Extensions;
 using DotNetCore.CAP.Messages;
 using System.Text.Encodings.Web;
 
+// 宿主应用实例
 new HostApp(new HostAppOptions
 {
     //前置配置FreeSql

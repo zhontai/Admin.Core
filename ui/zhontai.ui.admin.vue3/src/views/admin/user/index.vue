@@ -1,11 +1,11 @@
 <template>
-  <MySplitPanes>
-    <pane size="20" min-size="20" max-size="35">
+  <MySplitter>
+    <el-splitter-panel size="20%" min="200" max="40%">
       <div class="my-flex-column w100 h100">
         <org-menu @node-click="onOrgNodeClick" select-first-node></org-menu>
       </div>
-    </pane>
-    <pane size="80">
+    </el-splitter-panel>
+    <el-splitter-panel>
       <div class="my-flex-column w100 h100">
         <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
           <my-search
@@ -136,8 +136,8 @@
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
         <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="state.searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
-    </pane>
-  </MySplitPanes>
+    </el-splitter-panel>
+  </MySplitter>
 </template>
 
 <script lang="ts" setup name="admin/user">
@@ -146,7 +146,6 @@ import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSet
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
-import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
@@ -162,7 +161,7 @@ const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
+const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-high-search/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any

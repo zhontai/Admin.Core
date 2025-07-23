@@ -368,7 +368,7 @@
         ]
       },
       {
-        ////权限库
+        ////日志库
         "key": "logdb",
         ////程序集名称，自动获取实体表
         "assemblyNames": [ "ZhonTai.Admin" ],

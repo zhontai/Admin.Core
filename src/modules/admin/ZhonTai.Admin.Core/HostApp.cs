@@ -101,10 +101,17 @@ public class HostApp
         }
     }
 
+    /// <summary>
+    /// 宿主应用
+    /// </summary>
     public HostApp()
     {
     }
 
+    /// <summary>
+    /// 宿主应用
+    /// </summary>
+    /// <param name="hostAppOptions"></param>
     public HostApp(HostAppOptions hostAppOptions)
     {
         _hostAppOptions = hostAppOptions;

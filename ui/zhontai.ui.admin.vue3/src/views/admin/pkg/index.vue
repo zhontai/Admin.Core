@@ -1,6 +1,6 @@
 <template>
-  <MySplitPanes>
-    <pane size="50" min-size="30" max-size="70">
+  <MySplitter>
+    <el-splitter-panel size="45%" min="30%" max="60%">
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -58,8 +58,8 @@
           </div>
         </el-card>
       </div>
-    </pane>
-    <pane>
+    </el-splitter-panel>
+    <el-splitter-panel>
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -102,7 +102,7 @@
           </div>
         </el-card>
       </div>
-    </pane>
+    </el-splitter-panel>
 
     <pkg-form ref="pkgFormRef" :title="state.pkgFormTitle"></pkg-form>
     <tenant-select
@@ -113,7 +113,7 @@
       @sure="onSureTenant"
     ></tenant-select>
     <set-pkg-menu ref="setPkgMenuRef"></set-pkg-menu>
-  </MySplitPanes>
+  </MySplitter>
 </template>
 
 <script lang="ts" setup name="admin/pkg">
@@ -129,14 +129,13 @@ import { PkgApi } from '/@/api/admin/Pkg'
 import { ElTable } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
-import { Pane } from 'splitpanes'
 
 // 引入组件
 const PkgForm = defineAsyncComponent(() => import('./components/pkg-form.vue'))
 const SetPkgMenu = defineAsyncComponent(() => import('./components/set-pkg-menu.vue'))
 const TenantSelect = defineAsyncComponent(() => import('/@/views/admin/tenant/components/tenant-select.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
+const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
