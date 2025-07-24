@@ -65,16 +65,18 @@ public static class TaskSchedulerServiceExtensions
         var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
         var jsonArgs = JToken.Parse(task.Body);
         var shellArgs = jsonArgs.Adapt<ShellArgs>();
-
         var arguments = shellArgs.Arguments;
-        var modeulName = jsonArgs["moduleName"]?.ToString();
-        if (modeulName.NotNull())
+        if (grpcAddress.IsNull())
         {
-            if (grpcAddress.NotNull())
+            var modeulName = jsonArgs["moduleName"]?.ToString();
+            if (modeulName.NotNull())
             {
-                arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
+                grpcAddress = taskSchedulerConfig.Modules?
+                    .Where(m => m.Name.Equals(modeulName, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault()?.GrpcUrl;
             }
         }
+        arguments = arguments.Replace("${grpcAddress}", grpcAddress, StringComparison.OrdinalIgnoreCase);
 
         var fileName = shellArgs.FileName;
         if (fileName.IsNull())

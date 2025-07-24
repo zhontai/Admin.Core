@@ -1,7 +1,7 @@
 ﻿namespace MyApp.Api.Contracts.Services.Module.Output;
 
 /// <summary>
-/// 模块列表
+/// 模块分页响应
 /// </summary>
 public class ModuleGetPageOutput
 {
