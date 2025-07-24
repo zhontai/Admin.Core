@@ -63,39 +63,42 @@ export const useUserInfo = defineStore('userInfo', {
     },
     //查询用户信息
     async getUserInfo() {
-      return new Promise((resolve, reject) => {
-        Promise.all([new AuthApi().getUserProfile(), new AuthApi().getUserPermissions()])
-          .then((res) => {
-            if (res[0]?.success && res[1]?.success) {
-              const user = res[0].data
-              const userInfos = {
-                userName: user?.nickName || user?.name,
-                photo: user?.avatar ? user?.avatar : '',
-                time: new Date().getTime(),
-                roles: [],
-                authBtnList: res[1].data?.permissions,
-              }
+      try {
+        const [profileResponse, permissionsResponse] = await Promise.allSettled([new AuthApi().getUserProfile(), new AuthApi().getUserPermissions()])
 
-              // 水印文案
-              const storesThemeConfig = useThemeConfig()
-              if (storesThemeConfig.themeConfig.isWatermark) {
-                storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || '中台Admin'
-                Watermark.set(storesThemeConfig.themeConfig.watermarkText)
-                Local.remove('themeConfig')
-                Local.set('themeConfig', storesThemeConfig.themeConfig)
-              } else {
-                Watermark.del()
-              }
+        const profile = profileResponse.status === 'fulfilled' ? profileResponse.value : null
+        const permissions = permissionsResponse.status === 'fulfilled' ? permissionsResponse.value : null
 
-              resolve(userInfos)
-            } else {
-              this.clear()
-            }
-          })
-          .catch((err) => {
-            reject(err)
-          })
-      })
+        if (!profile?.success || !permissions?.success) {
+          this.clear()
+          return {}
+        }
+
+        const user = profile.data
+        const userInfos = {
+          userName: user?.nickName || user?.name,
+          photo: user?.avatar ? user?.avatar : '',
+          time: new Date().getTime(),
+          roles: [],
+          authBtnList: permissions.data?.permissions,
+        }
+
+        // 水印文案
+        const storesThemeConfig = useThemeConfig()
+        if (storesThemeConfig.themeConfig.isWatermark) {
+          storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || '中台Admin'
+          Watermark.set(storesThemeConfig.themeConfig.watermarkText)
+          Local.remove('themeConfig')
+          Local.set('themeConfig', storesThemeConfig.themeConfig)
+        } else {
+          Watermark.del()
+        }
+
+        return userInfos
+      } catch (err) {
+        console.error('获取用户信息失败:', err)
+        throw err
+      }
     },
   },
 })
