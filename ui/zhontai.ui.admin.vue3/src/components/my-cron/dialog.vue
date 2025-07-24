@@ -1,6 +1,6 @@
 <template>
   <el-drawer v-model="state.showDialog" :title="title" direction="rtl" destroy-on-close size="620">
-    <div class="my-fill h100" style="padding: 20px">
+    <div class="my-fill h100" style="padding: 10px">
       <MyCron ref="crontabRef" :expression="expression" :hide-component="['year']"></MyCron>
     </div>
     <template #footer>
