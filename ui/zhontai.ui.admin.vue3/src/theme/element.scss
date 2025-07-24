@@ -350,6 +350,11 @@
     height: 100%;
     overflow: auto;
   }
+
+  .el-drawer__footer {
+    padding: 16px;
+    border-top: 1px solid var(--el-border-color);
+  }
 }
 
 /* Form 表单
