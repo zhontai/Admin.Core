@@ -33,7 +33,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="说明">
-              <el-input v-model="form.description" clearable type="textarea" />
+              <el-input v-model="form.description" clearable type="textarea" rows="3" />
             </el-form-item>
           </el-col>
         </el-row>

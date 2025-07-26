@@ -215,7 +215,8 @@ public static class TaskSchedulerServiceExtensions
                     topic = desc;
             }
             var adminLocalizer = AppInfo.GetRequiredService<AdminLocalizer>();
-            alarmEmail?.Split(',')?.ToList()?.ForEach(async address =>
+            alarmEmail?.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries)
+            ?.ToList()?.ForEach(async address =>
             {
                 await emailService.SingleSendAsync(new EmailSingleSendEvent
                 {

@@ -26,13 +26,13 @@
         @sort-change="onSortChange"
         border
       >
-        <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip>
+        <el-table-column prop="name" label="名称" min-width="120" sortable="custom" ` show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.name }}
           </template>
         </el-table-column>
-        <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="code" label="编码" min-width="120" sortable="custom" show-overflow-tooltip />
         <el-table-column prop="value" label="值" width="90" sortable="custom" show-overflow-tooltip />
         <el-table-column prop="sort" label="排序" width="90" align="center" sortable="custom" show-overflow-tooltip />
         <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">

@@ -66,23 +66,20 @@ export const useUserInfo = defineStore('userInfo', {
     //查询用户信息
     async getUserInfo() {
       try {
-        const [profileResponse, permissionsResponse] = await Promise.allSettled([new AuthApi().getUserProfile(), new AuthApi().getUserPermissions()])
+        const profile = await new AuthApi().getUserProfile().catch(() => {})
+        const permissions = await new AuthApi().getUserPermissions().catch(() => {})
 
-        const profile = profileResponse.status === 'fulfilled' ? profileResponse.value : null
-        const permissions = permissionsResponse.status === 'fulfilled' ? permissionsResponse.value : null
-
-        if (!profile?.success || !permissions?.success) {
-          this.clear()
-          return {}
+        const userInfos = {} as any
+        const user = profile?.data
+        if (profile?.success) {
+          userInfos.userName = user?.nickName || user?.name
+          userInfos.photo = user?.avatar ? user?.avatar : ''
+          userInfos.time = new Date().getTime()
+          userInfos.roles = []
         }
 
-        const user = profile.data
-        const userInfos = {
-          userName: user?.nickName || user?.name,
-          photo: user?.avatar ? user?.avatar : '',
-          time: new Date().getTime(),
-          roles: [],
-          authBtnList: permissions.data?.permissions,
+        if (permissions?.success) {
+          userInfos.authBtnList = permissions.data?.permissions
         }
 
         // 水印文案
