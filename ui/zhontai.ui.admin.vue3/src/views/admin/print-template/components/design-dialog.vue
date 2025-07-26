@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="state.visible" direction="ltr" destroy-on-close size="100%" @closed="onClosed">
     <template #header="{ titleId, titleClass }">
-      <div class="my-flex my-flex-between mr10">
+      <div class="my-flex my-flex-between my-flex-items-center mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
           <el-button ref="saveRef" type="primary" round :loading="state.saveLoading">

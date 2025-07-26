@@ -13,7 +13,7 @@
       body-class="preview-box"
     >
       <template #header="{ titleId, titleClass }">
-        <div class="my-flex my-flex-between mr10">
+        <div class="my-flex my-flex-between my-flex-items-center mr10">
           <span :id="titleId" :class="titleClass">{{ state.title }}</span>
           <div>
             <el-button type="primary" @click="onExport">
