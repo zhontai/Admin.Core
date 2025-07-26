@@ -13,10 +13,12 @@
 import { AxiosResponse } from 'axios'
 import {
   DictTypeAddInput,
+  DictTypeGetListInput,
   DictTypeUpdateInput,
   PageInputDictTypeGetPageInput,
   ResultOutputDictTypeGetOutput,
   ResultOutputInt64,
+  ResultOutputListDictTypeGetListOutput,
   ResultOutputPageOutputDictTypeGetPageOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -58,6 +60,25 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
   getPage = (data: PageInputDictTypeGetPageInput, params: RequestParams = {}) =>
     this.request<ResultOutputPageOutputDictTypeGetPageOutput, any>({
       path: `/api/admin/dict-type/get-page`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict-type
+   * @name GetList
+   * @summary 查询列表
+   * @request POST:/api/admin/dict-type/get-list
+   * @secure
+   */
+  getList = (data: DictTypeGetListInput, params: RequestParams = {}) =>
+    this.request<ResultOutputListDictTypeGetListOutput, any>({
+      path: `/api/admin/dict-type/get-list`,
       method: 'POST',
       body: data,
       secure: true,

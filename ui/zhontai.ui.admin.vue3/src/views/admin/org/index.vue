@@ -33,8 +33,8 @@
         v-loading="state.loading"
         row-key="id"
         default-expand-all
-        border
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        border
       >
         <el-table-column prop="name" label="部门名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="部门编码" min-width="120" show-overflow-tooltip />

@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Domain.DictType;
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "dict_type", OldName = DbConsts.TableOldNamePrefix + "dict_type")]
 [Index("idx_{tablename}_01", nameof(Name), true)]
-public class DictTypeEntity : EntityBase
+public class DictTypeEntity : EntityBase, IChilds<DictTypeEntity>
 {
     /// <summary>
     /// 上级Id
@@ -47,4 +47,10 @@ public class DictTypeEntity : EntityBase
     /// 排序
     /// </summary>
 	public int Sort { get; set; }
+
+    /// <summary>
+    /// 子级列表
+    /// </summary>
+    [Navigate(nameof(ParentId))]
+    public List<DictTypeEntity> Childs { get; set; }
 }

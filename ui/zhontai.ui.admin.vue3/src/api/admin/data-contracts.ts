@@ -706,6 +706,40 @@ export interface DictTypeAddInput {
   sort?: number
 }
 
+/** 字典类型列表请求 */
+export interface DictTypeGetListInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /** 字典名称 */
+  name?: string | null
+}
+
+/** 字典类型列表响应 */
+export interface DictTypeGetListOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 字典名称 */
+  name?: string | null
+  /** 字典编码 */
+  code?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+}
+
 /** 字典类型 */
 export interface DictTypeGetOutput {
   /**
@@ -3953,6 +3987,18 @@ export interface ResultOutputListAuthUserMenuOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputListDictTypeGetListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: DictTypeGetListOutput[] | null
+}
+
+/** 结果输出 */
 export interface ResultOutputListDocListOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -5195,7 +5241,7 @@ export interface TaskAddInput {
   interval?: TaskInterval
   /** 定时参数 60,60,60,120,120,1200,1200 */
   intervalArgument?: string | null
-  /** 报警邮件，多个邮件地址则逗号分隔 */
+  /** 报警邮件，多个邮件地址用逗号分隔 */
   alarmEmail?: string | null
   /**
    * 失败重试次数
@@ -5224,7 +5270,7 @@ export interface TaskGetOutput {
   interval?: TaskInterval
   /** 定时参数 60,60,60,120,120,1200,1200 */
   intervalArgument?: string | null
-  /** 报警邮件，多个邮件地址则逗号分隔 */
+  /** 报警邮件，多个邮件地址用逗号分隔 */
   alarmEmail?: string | null
   /**
    * 失败重试次数
@@ -5352,7 +5398,7 @@ export interface TaskUpdateInput {
   interval?: TaskInterval
   /** 定时参数 60,60,60,120,120,1200,1200 */
   intervalArgument?: string | null
-  /** 报警邮件，多个邮件地址则逗号分隔 */
+  /** 报警邮件，多个邮件地址用逗号分隔 */
   alarmEmail?: string | null
   /**
    * 失败重试次数

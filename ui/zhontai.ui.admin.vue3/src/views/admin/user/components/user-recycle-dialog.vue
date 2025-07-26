@@ -43,7 +43,7 @@
           <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
           <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
         </el-table>
-        <div class="my-flex my-flex-end" style="margin-top: 20px">
+        <div class="my-flex my-flex-end" style="margin-top: 10px">
           <el-pagination
             v-model:currentPage="state.pageInput.currentPage"
             v-model:page-size="state.pageInput.pageSize"

@@ -3,7 +3,7 @@
     <el-card class="my-query-box mt8" shadow="never">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.filterModel.name" placeholder="名称或编码" @keyup.enter="onQuery" />
+          <el-input v-model="state.filterModel.name" placeholder="字典名称或编码" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
@@ -23,8 +23,8 @@
         row-key="id"
         style="width: 100%"
         :default-sort="state.defalutSort"
-        @sort-change="onSortChange"
         border
+        @sort-change="onSortChange"
       >
         <el-table-column prop="name" label="名称" min-width="120" sortable="custom" show-overflow-tooltip>
           <template #default="{ row }">

@@ -3,7 +3,7 @@
     <el-card class="my-query-box mt8" shadow="never">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.filterModel.name" placeholder="名称或编码" @keyup.enter="onQuery" />
+          <el-input v-model="state.filterModel.name" placeholder="字典分类名称或编码" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
@@ -19,6 +19,9 @@
         :data="state.dictTypeListData"
         row-key="id"
         highlight-current-row
+        default-expand-all
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        border
         style="width: 100%"
         @current-change="onTableCurrentChange"
       >
@@ -37,18 +40,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
-        <el-pagination
-          v-model:currentPage="state.pageInput.currentPage"
-          v-model:page-size="state.pageInput.pageSize"
-          :total="state.total"
-          :page-sizes="[10, 20, 50, 100]"
-          background
-          @size-change="onSizeChange"
-          @current-change="onCurrentChange"
-          layout="total, sizes, prev, pager, next, jumper"
-        />
-      </div>
     </el-card>
 
     <dict-type-form ref="dictTypeFormRef" :title="state.dictTypeFormTitle"></dict-type-form>
@@ -57,9 +48,10 @@
 
 <script lang="ts" setup name="admin/dictType">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
-import { DictTypeGetPageOutput, PageInputDictTypeGetPageInput } from '/@/api/admin/data-contracts'
+import { DictGetListOutput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
+import { listToTree, filterList } from '/@/utils/tree'
 
 // 引入组件
 const DictTypeForm = defineAsyncComponent(() => import('./components/dict-type-form.vue'))
@@ -77,13 +69,8 @@ const state = reactive({
   filterModel: {
     name: '',
   },
-  total: 0,
-  pageInput: {
-    currentPage: 1,
-    pageSize: 20,
-  } as PageInputDictTypeGetPageInput,
-  dictTypeListData: [] as Array<DictTypeGetPageOutput>,
-  lastCurrentRow: {} as DictTypeGetPageOutput,
+  dictTypeListData: [] as Array<DictGetListOutput>,
+  lastCurrentRow: {} as DictGetListOutput,
 })
 
 onMounted(() => {
@@ -100,16 +87,21 @@ onBeforeMount(() => {
 
 const onQuery = async () => {
   state.loading = true
-  state.pageInput.filter = state.filterModel
-  const res = await new DictTypeApi().getPage(state.pageInput).catch(() => {
+  const res = await new DictTypeApi().getList({ ...state.filterModel }).catch(() => {
     state.loading = false
   })
-  state.dictTypeListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
-  if (state.dictTypeListData.length > 0) {
-    nextTick(() => {
-      tableRef.value!.setCurrentRow(state.dictTypeListData[0])
-    })
+  if (res && res.data && res.data.length > 0) {
+    state.dictTypeListData = listToTree(
+      state.filterModel.name
+        ? filterList(res.data, state.filterModel.name, {
+            filterWhere: (item: any, filterword: string) => {
+              return item.name?.toLocaleLowerCase().indexOf(filterword) > -1
+            },
+          })
+        : res.data
+    )
+  } else {
+    state.dictTypeListData = []
   }
   state.loading = false
 }
@@ -119,12 +111,12 @@ const onAdd = () => {
   dictTypeFormRef.value.open()
 }
 
-const onEdit = (row: DictTypeGetPageOutput) => {
+const onEdit = (row: DictGetListOutput) => {
   state.dictTypeFormTitle = '编辑字典分类'
   dictTypeFormRef.value.open(row)
 }
 
-const onDelete = (row: DictTypeGetPageOutput) => {
+const onDelete = (row: DictGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
@@ -134,18 +126,7 @@ const onDelete = (row: DictTypeGetPageOutput) => {
     .catch(() => {})
 }
 
-const onSizeChange = (val: number) => {
-  state.pageInput.currentPage = 1
-  state.pageInput.pageSize = val
-  onQuery()
-}
-
-const onCurrentChange = (val: number) => {
-  state.pageInput.currentPage = val
-  onQuery()
-}
-
-const onTableCurrentChange = (currentRow: DictTypeGetPageOutput) => {
+const onTableCurrentChange = (currentRow: DictGetListOutput) => {
   if (state.lastCurrentRow?.id != currentRow?.id) {
     state.lastCurrentRow = currentRow
     emits('change', currentRow)
