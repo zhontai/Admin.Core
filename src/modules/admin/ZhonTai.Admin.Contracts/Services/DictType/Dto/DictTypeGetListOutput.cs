@@ -31,6 +31,11 @@ public class DictTypeGetListOutput
 	public bool Enabled { get; set; }
 
     /// <summary>
+    /// 是否树形
+    /// </summary>
+    public bool IsTree { get; set; }
+
+    /// <summary>
     /// 排序
     /// </summary>
     public int Sort { get; set; }

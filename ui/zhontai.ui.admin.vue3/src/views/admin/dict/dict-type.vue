@@ -25,13 +25,19 @@
         style="width: 100%"
         @current-change="onTableCurrentChange"
       >
-        <el-table-column prop="name" label="名称" min-width="120" show-overflow-tooltip>
+        <el-table-column prop="name" label="名称" min-width="140" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.name }}
           </template>
         </el-table-column>
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="sort" label="树形" width="60" align="center">
+          <template #default="{ row }">
+            <el-tag v-if="row.isTree" type="success">是</el-tag>
+            <el-tag v-else type="info">否</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
         <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">
           <template #default="{ row }">

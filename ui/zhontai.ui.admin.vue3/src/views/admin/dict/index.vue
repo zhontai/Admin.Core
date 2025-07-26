@@ -1,6 +1,6 @@
 <template>
   <MySplitter>
-    <el-splitter-panel size="42%" min="30%" max="60%">
+    <el-splitter-panel size="45%" min="30%" max="60%">
       <dict-type @change="onChange"></dict-type>
     </el-splitter-panel>
     <el-splitter-panel>
