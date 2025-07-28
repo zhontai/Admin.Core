@@ -32,7 +32,7 @@ using ZhonTai.Admin.Services.TaskScheduler;
 #endif
 using Autofac;
 using MyApp.Api.Core.Repositories;
-#if (IsSys && !MergeDb)
+#if (IsSys)
 using ZhonTai.Admin.Core.Extensions;
 #endif
 using DotNetCore.CAP.Messages;
@@ -165,6 +165,10 @@ new HostApp(new HostAppOptions()
 
             config.UseDashboard();
         }).AddSubscriberAssembly(assemblies);
+#endif
+#if (IsSys)
+        //添加滑块验证
+        context.Services.AddSlideCaptcha();
 #endif
     },
     //配置Autofac容器
