@@ -1,9 +1,9 @@
 <template>
   <div class="my-flex-column w100 h100">
     <el-card class="my-query-box mt8" shadow="never">
-      <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
+      <el-form :model="state.input" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.filterModel.name" placeholder="字典名称或编码" @keyup.enter="onQuery" />
+          <el-input v-model="state.input.name" placeholder="字典名称或编码" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
@@ -21,9 +21,11 @@
         v-loading="state.loading"
         :data="state.dictListData"
         row-key="id"
-        style="width: 100%"
         :default-sort="state.defalutSort"
+        default-expand-all
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         border
+        style="width: 100%"
         @sort-change="onSortChange"
       >
         <el-table-column prop="name" label="名称" min-width="120" sortable="custom" show-overflow-tooltip>
@@ -42,18 +44,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 10px">
-        <el-pagination
-          v-model:currentPage="state.pageInput.currentPage"
-          v-model:page-size="state.pageInput.pageSize"
-          :total="state.total"
-          :page-sizes="[10, 20, 50, 100]"
-          background
-          @size-change="onSizeChange"
-          @current-change="onCurrentChange"
-          layout="total, sizes, prev, pager, next, jumper"
-        />
-      </div>
     </el-card>
 
     <dict-form ref="dictFormRef" :title="state.dictFormTitle"></dict-form>
@@ -64,11 +54,12 @@
 
 <script lang="ts" setup name="admin/dictData">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { DictGetPageOutput, PageInputDictGetPageInput, DictTypeGetPageOutput, SortInput } from '/@/api/admin/data-contracts'
+import { DictGetAllOutput, DictGetAllInput, SortInput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { RequestParams } from '/@/api/admin/http-client'
+import { listToTree, filterList } from '/@/utils/tree'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
@@ -93,18 +84,14 @@ const getSortList = (data: { prop: string; order: any }) => {
 const state = reactive({
   loading: false,
   dictFormTitle: '',
-  filterModel: {
-    name: '',
-    dictTypeId: 0,
-  },
   defalutSort: defalutSort,
   total: 0,
-  pageInput: {
-    currentPage: 1,
-    pageSize: 20,
+  input: {
+    name: '',
+    dictTypeId: 0,
     sortList: getSortList(defalutSort),
-  } as PageInputDictGetPageInput,
-  dictListData: [] as Array<DictGetPageOutput>,
+  } as DictGetAllInput,
+  dictListData: [] as Array<DictGetAllOutput>,
   dictTypeName: '',
   import: {
     title: '',
@@ -132,36 +119,46 @@ onBeforeMount(() => {
 })
 
 const onSortChange = (data: { column: any; prop: string; order: any }) => {
-  state.pageInput.sortList = getSortList(data)
+  state.input.sortList = getSortList(data)
   onQuery()
 }
 
 const onQuery = async () => {
   state.loading = true
-  state.pageInput.filter = state.filterModel
-  const res = await new DictApi().getPage(state.pageInput).catch(() => {
+  const res = await new DictApi().getAll(state.input).catch(() => {
     state.loading = false
   })
-  state.dictListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
+  if (res && res.data && res.data.length > 0) {
+    state.dictListData = listToTree(
+      state.input.name
+        ? filterList(res.data, state.input.name, {
+            filterWhere: (item: any, filterword: string) => {
+              return item.name?.toLocaleLowerCase().indexOf(filterword) > -1
+            },
+          })
+        : res.data
+    )
+  } else {
+    state.dictListData = []
+  }
   state.loading = false
 }
 
 const onAdd = () => {
-  if (!(state.filterModel.dictTypeId > 0)) {
+  if (!((state.input.dictTypeId as number) > 0)) {
     proxy.$modal.msgWarning('请选择字典类型')
     return
   }
   state.dictFormTitle = `新增【${state.dictTypeName}】字典数据`
-  dictFormRef.value.open({ dictTypeId: state.filterModel.dictTypeId })
+  dictFormRef.value.open({ dictTypeId: state.input.dictTypeId })
 }
 
-const onEdit = (row: DictGetPageOutput) => {
+const onEdit = (row: DictGetAllOutput) => {
   state.dictFormTitle = `编辑【${state.dictTypeName}】字典数据`
   dictFormRef.value.open(row)
 }
 
-const onDelete = (row: DictGetPageOutput) => {
+const onDelete = (row: DictGetAllOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
@@ -183,9 +180,9 @@ const onExport = async () => {
     .exportData(
       {
         dynamicFilter: {
-          filters: [{ field: 'dictTypeId', operator: 6, value: state.pageInput.filter?.dictTypeId }],
+          filters: [{ field: 'dictTypeId', operator: 6, value: state.input.dictTypeId }],
         },
-        sortList: state.pageInput.sortList,
+        sortList: state.input.sortList,
       },
       { format: 'blob', returnResponse: true }
     )
@@ -209,20 +206,9 @@ const onExport = async () => {
     })
 }
 
-const onSizeChange = (val: number) => {
-  state.pageInput.currentPage = 1
-  state.pageInput.pageSize = val
-  onQuery()
-}
-
-const onCurrentChange = (val: number) => {
-  state.pageInput.currentPage = val
-  onQuery()
-}
-
-const refresh = (data: DictTypeGetPageOutput) => {
+const refresh = (data: DictGetAllOutput) => {
   if ((data?.id as number) > 0) {
-    state.filterModel.dictTypeId = data.id as number
+    state.input.dictTypeId = data.id as number
     state.dictTypeName = data.name as string
     onQuery()
   }

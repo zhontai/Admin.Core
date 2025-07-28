@@ -107,12 +107,8 @@ const query = async () => {
 const open = async (row: any = {}) => {
   proxy.$modal.loading()
   await query()
-  proxy.$modal.closeLoading()
-
   if (row.id > 0) {
-    const res = await new DictTypeApi().get({ id: row.id }, { loading: true }).catch(() => {
-      proxy.$modal.closeLoading()
-    })
+    const res = await new DictTypeApi().get({ id: row.id }).catch(() => {})
 
     if (res?.success) {
       let formData = res.data as DictTypeAddInput & DictTypeUpdateInput
@@ -122,6 +118,7 @@ const open = async (row: any = {}) => {
   } else {
     state.form = { enabled: true, parentId: row.parentId > 0 ? row.parentId : undefined } as DictTypeAddInput & DictTypeUpdateInput
   }
+  proxy.$modal.closeLoading()
   state.showDialog = true
 }
 

@@ -53,8 +53,8 @@
 </template>
 
 <script lang="ts" setup name="admin/dictType">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
-import { DictGetListOutput } from '/@/api/admin/data-contracts'
+import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
+import { DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
 import { listToTree, filterList } from '/@/utils/tree'
@@ -75,8 +75,8 @@ const state = reactive({
   filterModel: {
     name: '',
   },
-  dictTypeListData: [] as Array<DictGetListOutput>,
-  lastCurrentRow: {} as DictGetListOutput,
+  dictTypeListData: [] as Array<DictTypeGetListOutput>,
+  lastCurrentRow: {} as DictTypeGetListOutput,
 })
 
 onMounted(() => {
@@ -117,12 +117,12 @@ const onAdd = () => {
   dictTypeFormRef.value.open()
 }
 
-const onEdit = (row: DictGetListOutput) => {
+const onEdit = (row: DictTypeGetListOutput) => {
   state.dictTypeFormTitle = '编辑字典分类'
   dictTypeFormRef.value.open(row)
 }
 
-const onDelete = (row: DictGetListOutput) => {
+const onDelete = (row: DictTypeGetListOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${row.name}】?`)
     .then(async () => {
@@ -132,7 +132,7 @@ const onDelete = (row: DictGetListOutput) => {
     .catch(() => {})
 }
 
-const onTableCurrentChange = (currentRow: DictGetListOutput) => {
+const onTableCurrentChange = (currentRow: DictTypeGetListOutput) => {
   if (state.lastCurrentRow?.id != currentRow?.id) {
     state.lastCurrentRow = currentRow
     emits('change', currentRow)

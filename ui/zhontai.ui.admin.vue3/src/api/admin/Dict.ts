@@ -13,6 +13,7 @@
 import { AxiosResponse } from 'axios'
 import {
   DictAddInput,
+  DictGetAllInput,
   DictUpdateInput,
   ExportInput,
   PageInputDictGetPageInput,
@@ -20,6 +21,7 @@ import {
   ResultOutputDictionaryStringListDictGetListOutput,
   ResultOutputImportOutput,
   ResultOutputInt64,
+  ResultOutputListDictGetAllOutput,
   ResultOutputPageOutputDictGetPageOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -72,6 +74,25 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * No description
    *
    * @tags dict
+   * @name GetAll
+   * @summary 查询列表
+   * @request POST:/api/admin/dict/get-all
+   * @secure
+   */
+  getAll = (data: DictGetAllInput, params: RequestParams = {}) =>
+    this.request<ResultOutputListDictGetAllOutput, any>({
+      path: `/api/admin/dict/get-all`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
    * @name GetList
    * @summary 通过类型编码查询列表
    * @request POST:/api/admin/dict/get-list
@@ -103,94 +124,6 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags dict
-   * @name DownloadTemplate
-   * @summary 下载导入模板
-   * @request POST:/api/admin/dict/download-template
-   * @secure
-   */
-  downloadTemplate = (params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/dict/download-template`,
-      method: 'POST',
-      secure: true,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags dict
-   * @name DownloadErrorMark
-   * @summary 下载错误标记文件
-   * @request POST:/api/admin/dict/download-error-mark
-   * @secure
-   */
-  downloadErrorMark = (
-    query?: {
-      fileId?: string
-      fileName?: string
-    },
-    params: RequestParams = {}
-  ) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/dict/download-error-mark`,
-      method: 'POST',
-      query: query,
-      secure: true,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags dict
-   * @name ExportData
-   * @summary 导出数据
-   * @request POST:/api/admin/dict/export-data
-   * @secure
-   */
-  exportData = (data: ExportInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
-      path: `/api/admin/dict/export-data`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags dict
-   * @name ImportData
-   * @summary 导入数据
-   * @request POST:/api/admin/dict/import-data
-   * @secure
-   */
-  importData = (
-    data: {
-      /** @format binary */
-      file: File
-    },
-    query?: {
-      /** @format int32 */
-      duplicateAction?: number
-      fileId?: string
-    },
-    params: RequestParams = {}
-  ) =>
-    this.request<ResultOutputImportOutput, any>({
-      path: `/api/admin/dict/import-data`,
-      method: 'POST',
-      query: query,
-      body: data,
-      secure: true,
-      type: ContentType.FormData,
       format: 'json',
       ...params,
     })
@@ -311,6 +244,94 @@ export class DictApi<SecurityDataType = unknown> extends HttpClient<SecurityData
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name DownloadTemplate
+   * @summary 下载导入模板
+   * @request POST:/api/admin/dict/download-template
+   * @secure
+   */
+  downloadTemplate = (params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/download-template`,
+      method: 'POST',
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name DownloadErrorMark
+   * @summary 下载错误标记文件
+   * @request POST:/api/admin/dict/download-error-mark
+   * @secure
+   */
+  downloadErrorMark = (
+    query?: {
+      fileId?: string
+      fileName?: string
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/download-error-mark`,
+      method: 'POST',
+      query: query,
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name ExportData
+   * @summary 导出数据
+   * @request POST:/api/admin/dict/export-data
+   * @secure
+   */
+  exportData = (data: ExportInput, params: RequestParams = {}) =>
+    this.request<AxiosResponse, any>({
+      path: `/api/admin/dict/export-data`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags dict
+   * @name ImportData
+   * @summary 导入数据
+   * @request POST:/api/admin/dict/import-data
+   * @secure
+   */
+  importData = (
+    data: {
+      /** @format binary */
+      file: File
+    },
+    query?: {
+      /** @format int32 */
+      duplicateAction?: number
+      fileId?: string
+    },
+    params: RequestParams = {}
+  ) =>
+    this.request<ResultOutputImportOutput, any>({
+      path: `/api/admin/dict/import-data`,
+      method: 'POST',
+      query: query,
+      body: data,
+      secure: true,
+      type: ContentType.FormData,
+      format: 'json',
       ...params,
     })
 }

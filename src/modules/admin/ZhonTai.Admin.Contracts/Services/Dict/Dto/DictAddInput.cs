@@ -9,6 +9,11 @@ namespace ZhonTai.Admin.Services.Dict.Dto;
 public class DictAddInput
 {
     /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long ParentId { get; set; }
+
+    /// <summary>
     /// 字典类型Id
     /// </summary>
     [ValidateRequired(ErrorMessage = "请选择字典类型")]

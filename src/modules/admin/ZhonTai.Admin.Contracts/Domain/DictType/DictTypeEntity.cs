@@ -1,5 +1,7 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
+using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Domain.Dict;
 
 namespace ZhonTai.Admin.Domain.DictType;
 
@@ -14,6 +16,18 @@ public class DictTypeEntity : EntityBase, IChilds<DictTypeEntity>
     /// 上级Id
     /// </summary>
     public long ParentId { get; set; }
+
+    /// <summary>
+    /// 上级分类
+    /// </summary>
+    [NotGen]
+    public DictEntity Parent { get; set; }
+
+    /// <summary>
+    /// 子级列表
+    /// </summary>
+    [Navigate(nameof(ParentId))]
+    public List<DictTypeEntity> Childs { get; set; }
 
     /// <summary>
     /// 名称
@@ -47,10 +61,4 @@ public class DictTypeEntity : EntityBase, IChilds<DictTypeEntity>
     /// 排序
     /// </summary>
 	public int Sort { get; set; }
-
-    /// <summary>
-    /// 子级列表
-    /// </summary>
-    [Navigate(nameof(ParentId))]
-    public List<DictTypeEntity> Childs { get; set; }
 }

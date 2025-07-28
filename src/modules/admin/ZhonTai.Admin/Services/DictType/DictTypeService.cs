@@ -48,6 +48,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Obsolete($"请使用{nameof(GetListAsync)}方法替代")]
     [HttpPost]
     public async Task<PageOutput<DictTypeGetPageOutput>> GetPageAsync(PageInput<DictTypeGetPageInput> input)
     {
@@ -83,7 +84,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         var select = _dictTypeRep.Select
         .WhereDynamicFilter(input.DynamicFilter)
         .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
-        .OrderByDescending(a => a.Sort);
+        .OrderBy(a => a.ParentId);
 
         if (input.SortList != null && input.SortList.Count > 0)
         {

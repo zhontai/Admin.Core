@@ -20,7 +20,7 @@
   "验签失败": "Signature verification failed",
   "安全{0}": "Security {0}",
   "字典不存在": "Dictionary does not exist",
-  "字典已存在": "Dictionary already exists",
+  "字典名称已存在": "Dictionary name already exists",
   "字典编码已存在": "Dictionary code already exists",
   "字典值已存在": "Dictionary value already exists",
   "数据字典模板{0}.xlsx": "Data dictionary template {0}.xlsx",

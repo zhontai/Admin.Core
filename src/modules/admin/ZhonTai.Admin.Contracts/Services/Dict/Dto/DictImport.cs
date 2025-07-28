@@ -41,6 +41,12 @@ public class DictImport
     public long Id { get; set; }
 
     /// <summary>
+    /// 上级字典Id
+    /// </summary>
+    [ImporterHeader(Name = "上级字典Id", IsIgnore = true)]
+    public long ParentId { get; set; }
+
+    /// <summary>
     /// 字典类型Id
     /// </summary>
     [ImporterHeader(Name = "字典类型Id", IsIgnore = true)]
@@ -53,6 +59,9 @@ public class DictImport
     [ImporterHeader(Name = "字典名称", IsAllowRepeat = false)]
     [Required(ErrorMessage = "不能为空")]
     public string Name { get; set; }
+
+    [ImporterHeader(Name = "上级字典名称")]
+    public string ParentName { get; set; }
 
     [ImporterHeader(Name = "字典编码", IsAllowRepeat = false)]
     public string Code { get; set; }

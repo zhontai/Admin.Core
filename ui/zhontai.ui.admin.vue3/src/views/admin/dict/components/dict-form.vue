@@ -12,6 +12,22 @@
       <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+            <el-form-item label="上级分类" prop="parentId">
+              <el-tree-select
+                v-model="form.parentId"
+                :data="state.data"
+                node-key="id"
+                :props="{ label: 'name' }"
+                check-strictly
+                default-expand-all
+                render-after-expand
+                fit-input-width
+                clearable
+                class="w100"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="名称" prop="name" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" autocomplete="off" />
             </el-form-item>
@@ -64,6 +80,7 @@ import { DictAddInput, DictUpdateInput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
+import { listToTree } from '/@/utils/tree'
 
 defineProps({
   title: {
@@ -80,23 +97,38 @@ const state = reactive({
   sureLoading: false,
   form: {} as DictAddInput & DictUpdateInput,
   contiAdd: false,
+  data: [],
 })
 const { form } = toRefs(state)
 
+const query = async (dictTypeId: number) => {
+  const res = await new DictApi().getAll({ dictTypeId: dictTypeId }).catch(() => {})
+  if (res && res.data && res.data.length > 0) {
+    state.data = listToTree(res.data)
+  } else {
+    state.data = []
+  }
+}
+
 // 打开对话框
 const open = async (row: any = {}) => {
+  proxy.$modal.loading()
   if (row.id > 0) {
     state.contiAdd = false
-    const res = await new DictApi().get({ id: row.id }, { loading: true }).catch(() => {
-      proxy.$modal.closeLoading()
-    })
+    const res = await new DictApi().get({ id: row.id }).catch(() => {})
 
     if (res?.success) {
-      state.form = res.data as DictAddInput & DictUpdateInput
+      let formData = res.data as DictAddInput & DictUpdateInput
+      formData.parentId = formData.parentId && formData.parentId > 0 ? formData.parentId : undefined
+      state.form = formData
     }
   } else {
     state.form = { dictTypeId: row.dictTypeId, enabled: true } as DictAddInput & DictUpdateInput
   }
+
+  await query(state.form.dictTypeId as number)
+  proxy.$modal.closeLoading()
+
   state.showDialog = true
 }
 

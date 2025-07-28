@@ -10,12 +10,24 @@ namespace ZhonTai.Admin.Domain.Dict;
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "dict", OldName = DbConsts.TableOldNamePrefix + "dict")]
 [Index("idx_{tablename}_01", nameof(DictTypeId) + "," + nameof(Name), true)]
-public partial class DictEntity : EntityBase
+public partial class DictEntity : EntityBase, IChilds<DictEntity>
 {
     /// <summary>
     /// 上级Id
     /// </summary>
     public long? ParentId { get; set; }
+
+    /// <summary>
+    /// 上级字典
+    /// </summary>
+    [NotGen]
+    public DictEntity Parent { get; set; }
+
+    /// <summary>
+    /// 子级列表
+    /// </summary>
+    [Navigate(nameof(ParentId))]
+    public List<DictEntity> Childs { get; set; }
 
     /// <summary>
     /// 字典类型Id

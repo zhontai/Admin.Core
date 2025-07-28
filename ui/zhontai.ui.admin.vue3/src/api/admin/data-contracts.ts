@@ -571,6 +571,11 @@ export type DataType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 11 | 12 | 14 | 15
 /** 添加字典 */
 export interface DictAddInput {
   /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /**
    * 字典类型Id
    * @format int64
    */
@@ -595,6 +600,47 @@ export interface DictAddInput {
   sort?: number | null
 }
 
+/** 字典列表请求 */
+export interface DictGetAllInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 字典类型Id
+   * @format int64
+   */
+  dictTypeId?: number
+  /** 字典名称 */
+  name?: string | null
+}
+
+/** 字典列表响应 */
+export interface DictGetAllOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
+  /** 字典名称 */
+  name?: string | null
+  /** 字典编码 */
+  code?: string | null
+  /** 字典值 */
+  value?: string | null
+  /** 启用 */
+  enabled?: boolean
+  /**
+   * 排序
+   * @format int32
+   */
+  sort?: number
+}
+
 /** 字典列表 */
 export interface DictGetListOutput {
   /** 字典类型编码 */
@@ -616,6 +662,11 @@ export interface DictGetListOutput {
 
 /** 字典 */
 export interface DictGetOutput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
   /**
    * 字典类型Id
    * @format int64
@@ -733,6 +784,8 @@ export interface DictTypeGetListOutput {
   code?: string | null
   /** 启用 */
   enabled?: boolean
+  /** 是否树形 */
+  isTree?: boolean
   /**
    * 排序
    * @format int32
@@ -832,6 +885,11 @@ export interface DictTypeUpdateInput {
 
 /** 修改 */
 export interface DictUpdateInput {
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number
   /**
    * 字典类型Id
    * @format int64
@@ -3984,6 +4042,18 @@ export interface ResultOutputListAuthUserMenuOutput {
   msg?: string | null
   /** 数据 */
   data?: AuthUserMenuOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListDictGetAllOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: DictGetAllOutput[] | null
 }
 
 /** 结果输出 */
