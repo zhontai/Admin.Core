@@ -36,6 +36,8 @@
 
 - Admin.Core v3 版本预览 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
 
+账号：user 密码：123asd
+
 #### 📚 开发文档
 
 - 查看开发文档：<a href="https://www.zhontai.net" target="_blank">https://zhontai.net</a>
