@@ -55,6 +55,7 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
    * @name GetPage
    * @summary 查询分页
    * @request POST:/api/admin/dict-type/get-page
+   * @deprecated
    * @secure
    */
   getPage = (data: PageInputDictTypeGetPageInput, params: RequestParams = {}) =>

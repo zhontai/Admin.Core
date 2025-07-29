@@ -11,7 +11,7 @@
     >
       <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
-          <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <el-col v-if="state.isTree" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item label="上级分类" prop="parentId">
               <el-tree-select
                 v-model="form.parentId"
@@ -76,7 +76,7 @@
 
 <script lang="ts" setup name="admin/dict/form">
 import { reactive, toRefs, getCurrentInstance, ref } from 'vue'
-import { DictAddInput, DictUpdateInput } from '/@/api/admin/data-contracts'
+import { DictAddInput, DictUpdateInput, DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
@@ -98,6 +98,7 @@ const state = reactive({
   form: {} as DictAddInput & DictUpdateInput,
   contiAdd: false,
   data: [],
+  isTree: false,
 })
 const { form } = toRefs(state)
 
@@ -111,8 +112,9 @@ const query = async (dictTypeId: number) => {
 }
 
 // 打开对话框
-const open = async (row: any = {}) => {
+const open = async (row: any = {}, dictType: DictTypeGetListOutput) => {
   proxy.$modal.loading()
+  state.isTree = dictType.isTree as boolean
   if (row.id > 0) {
     state.contiAdd = false
     const res = await new DictApi().get({ id: row.id }).catch(() => {})
@@ -126,7 +128,10 @@ const open = async (row: any = {}) => {
     state.form = { dictTypeId: row.dictTypeId, enabled: true } as DictAddInput & DictUpdateInput
   }
 
-  await query(state.form.dictTypeId as number)
+  if (state.isTree) {
+    await query(state.form.dictTypeId as number)
+  }
+
   proxy.$modal.closeLoading()
 
   state.showDialog = true

@@ -54,7 +54,7 @@
 
 <script lang="ts" setup name="admin/dictData">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
-import { DictGetAllOutput, DictGetAllInput, SortInput } from '/@/api/admin/data-contracts'
+import { DictGetAllOutput, DictGetAllInput, SortInput, DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
@@ -92,7 +92,7 @@ const state = reactive({
     sortList: getSortList(defalutSort),
   } as DictGetAllInput,
   dictListData: [] as Array<DictGetAllOutput>,
-  dictTypeName: '',
+  dictType: {} as DictTypeGetListOutput,
   import: {
     title: '',
     action: import.meta.env.VITE_API_URL + '/api/admin/dict/import-data',
@@ -149,13 +149,13 @@ const onAdd = () => {
     proxy.$modal.msgWarning('请选择字典类型')
     return
   }
-  state.dictFormTitle = `新增【${state.dictTypeName}】字典数据`
-  dictFormRef.value.open({ dictTypeId: state.input.dictTypeId })
+  state.dictFormTitle = `新增【${state.dictType.name}】字典数据`
+  dictFormRef.value.open({ dictTypeId: state.input.dictTypeId }, { isTree: state.dictType.isTree })
 }
 
 const onEdit = (row: DictGetAllOutput) => {
-  state.dictFormTitle = `编辑【${state.dictTypeName}】字典数据`
-  dictFormRef.value.open(row)
+  state.dictFormTitle = `编辑【${state.dictType.name}】字典数据`
+  dictFormRef.value.open(row, { isTree: state.dictType.isTree })
 }
 
 const onDelete = (row: DictGetAllOutput) => {
@@ -169,7 +169,7 @@ const onDelete = (row: DictGetAllOutput) => {
 }
 
 const onImport = () => {
-  state.import.title = `导入【${state.dictTypeName}】字典数据`
+  state.import.title = `导入【${state.dictType.name}】字典数据`
   dictImportRef.value.open()
 }
 
@@ -206,10 +206,10 @@ const onExport = async () => {
     })
 }
 
-const refresh = (data: DictGetAllOutput) => {
+const refresh = (data: DictTypeGetListOutput) => {
   if ((data?.id as number) > 0) {
     state.input.dictTypeId = data.id as number
-    state.dictTypeName = data.name as string
+    state.dictType = data
     onQuery()
   }
 }

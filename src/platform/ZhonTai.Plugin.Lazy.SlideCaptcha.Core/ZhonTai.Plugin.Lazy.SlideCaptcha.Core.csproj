@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
-		<Description>基于.Net Standard 2.1的滑动验证码模块。从2.0.0起绘图由ImageSharp调整为SkiaSharp。</Description>
+		<Description>中台滑动验证码库</Description>
+		<PackageTags>Slide captcha;Verification code;</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

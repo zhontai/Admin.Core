@@ -11,7 +11,7 @@
 
 <script lang="ts" setup name="admin/dict">
 import { defineAsyncComponent, ref } from 'vue'
-import { DictTypeGetPageOutput } from '/@/api/admin/data-contracts'
+import { DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 
 // 引入组件
 const DictType = defineAsyncComponent(() => import('./dict-type.vue'))
@@ -20,7 +20,7 @@ const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/sp
 
 const dictRef = ref()
 
-const onChange = (data: DictTypeGetPageOutput) => {
+const onChange = (data: DictTypeGetListOutput) => {
   dictRef.value?.refresh(data)
 }
 </script>
