@@ -34,9 +34,8 @@ A backend permission management system with frontend and backend separation, bui
 
 #### ⛱️ Online preview
 
-- Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
-
-account：user password：123asd
+- Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
+  account：user password：123asd
 
 #### 📚 Development documentation
 
