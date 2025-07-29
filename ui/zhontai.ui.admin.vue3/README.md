@@ -26,6 +26,8 @@
 
 - vue3.x 版本预览（admin.ui.plus）<a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
 
+账号：user 密码：123asd
+
 #### 💒 代码仓库
 
 - vue3.x 版本 <a href="https://github.com/zhontai/Admin.Core/tree/master/ui/zhontai.ui.admin.vue3" target="_blank">zhontai.ui.admin.vue3</a>
