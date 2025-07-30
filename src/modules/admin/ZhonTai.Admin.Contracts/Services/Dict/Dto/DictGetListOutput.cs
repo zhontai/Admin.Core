@@ -25,6 +25,16 @@ public class DictGetListOutput
     public long Id { get; set; }
 
     /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long? ParentId { get; set; }
+
+    public bool ShouldSerializeParentId()
+    {
+        return ParentId.HasValue && ParentId > 0;
+    }
+
+    /// <summary>
     /// 字典名称
     /// </summary>
     public string Name { get; set; }

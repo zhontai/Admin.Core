@@ -76,7 +76,6 @@ const state = reactive({
     name: '',
   },
   dictTypeListData: [] as Array<DictTypeGetListOutput>,
-  lastCurrentRow: {} as DictTypeGetListOutput,
 })
 
 onMounted(() => {
@@ -133,10 +132,7 @@ const onDelete = (row: DictTypeGetListOutput) => {
 }
 
 const onTableCurrentChange = (currentRow: DictTypeGetListOutput) => {
-  if (state.lastCurrentRow?.id != currentRow?.id) {
-    state.lastCurrentRow = currentRow
-    emits('change', currentRow)
-  }
+  emits('change', currentRow)
 }
 </script>
 
