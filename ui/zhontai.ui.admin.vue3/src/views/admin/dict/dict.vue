@@ -209,8 +209,10 @@ const onExport = async () => {
 const refresh = (data: DictTypeGetListOutput) => {
   if ((data?.id as number) > 0) {
     state.input.dictTypeId = data.id as number
+    if (state.dictType.id !== data.id) {
+      onQuery()
+    }
     state.dictType = data
-    onQuery()
   }
 }
 
