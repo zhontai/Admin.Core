@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Xunit;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Admin.Core;
@@ -15,6 +14,7 @@ using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Enums;
 using ZhonTai.Admin.Services.Auth;
 using ZhonTai.Admin.Services.Auth.Dto;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Tests;
 
@@ -31,12 +31,12 @@ public class BaseControllerTest : BaseTest
 
     public static HttpContent GetHttpContent(object input, string contentType = "application/json;charset=UTF-8", ContentTypeEnum contentTypeEnum = ContentTypeEnum.Json)
     {
-        // HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(input));
-        var content = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(input));
+        // HttpContent httpContent = new StringContent(JsonHelper.Serialize(input));
+        var content = Encoding.UTF8.GetBytes(JsonHelper.Serialize(input));
         HttpContent httpContent;
         if (contentTypeEnum == ContentTypeEnum.FormData)
         {
-            httpContent = new FormUrlEncodedContent(JsonConvert.DeserializeObject<Dictionary<string, string>>(JsonConvert.SerializeObject(input)));
+            httpContent = new FormUrlEncodedContent(JsonHelper.Deserialize<Dictionary<string, string>>(JsonHelper.Serialize(input)));
         }
         else
         {
@@ -71,7 +71,7 @@ public class BaseControllerTest : BaseTest
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
         var content = await res.Content.ReadAsStringAsync();
-        return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
+        return content.NotNull() ? JsonHelper.Deserialize<T>(content) : default;
     }
 
     public async Task<T> PostResult<T>(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
@@ -83,7 +83,7 @@ public class BaseControllerTest : BaseTest
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
         var content = await res.Content.ReadAsStringAsync();
-        return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
+        return content.NotNull() ? JsonHelper.Deserialize<T>(content) : default;
     }
 
     public async Task<string> PostResultAndGetContent(string apiPath, object input = null, bool checkStatus = true, string contentType = "application/json;charset=UTF-8")
@@ -109,7 +109,7 @@ public class BaseControllerTest : BaseTest
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
         var content = await res.Content.ReadAsStringAsync();
-        return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
+        return content.NotNull() ? JsonHelper.Deserialize<T>(content) : default;
     }
 
     public async Task<T> DeleteResult<T>(string apiPath, object input = null, bool checkStatus = true)
@@ -126,7 +126,7 @@ public class BaseControllerTest : BaseTest
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
         var content = await res.Content.ReadAsStringAsync();
-        return content.NotNull() ? JsonConvert.DeserializeObject<T>(content) : default;
+        return content.NotNull() ? JsonHelper.Deserialize<T>(content) : default;
     }
 
     public async Task<ResultOutput<dynamic>> GetResult(string apiPath, object input = null, bool checkStatus = true)

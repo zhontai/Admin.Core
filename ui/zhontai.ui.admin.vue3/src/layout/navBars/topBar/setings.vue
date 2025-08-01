@@ -5,7 +5,7 @@
       v-model="getThemeConfig.isDrawer"
       direction="rtl"
       destroy-on-close
-      size="280px"
+      size="285px"
       @close="onDrawerClose"
     >
       <el-scrollbar class="layout-breadcrumb-seting-bar">

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Common.Extensions;
 
@@ -106,6 +106,6 @@ public static class ListExtension
     /// <returns></returns>
     public static List<T> Clone<T>(this List<T> list)
     {
-        return JsonConvert.DeserializeObject<List<T>>(JsonConvert.SerializeObject(list));
+        return JsonHelper.Deserialize<List<T>>(JsonHelper.Serialize(list));
     }
 }

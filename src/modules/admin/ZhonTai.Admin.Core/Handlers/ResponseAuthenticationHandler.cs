@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Text.Encodings.Web;
 using ZhonTai.Common.Extensions;
+using ZhonTai.Common.Helpers;
 using StatusCodes = ZhonTai.Admin.Core.Enums.StatusCodes;
 
 namespace ZhonTai.Admin.Core.Handlers;
@@ -41,16 +40,12 @@ public class ResponseAuthenticationHandler : AuthenticationHandler<Authenticatio
     {
         Response.ContentType = "application/json";
         Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status401Unauthorized;
-        await Response.WriteAsync(JsonConvert.SerializeObject(
+        await Response.WriteAsync(JsonHelper.Serialize(
             new ResponseStatusData
             {
                 Code = StatusCodes.Status401Unauthorized,
                 Msg = StatusCodes.Status401Unauthorized.ToDescription(),
                 Success = false
-            },
-            new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
             }
         ));
     }
@@ -59,16 +54,12 @@ public class ResponseAuthenticationHandler : AuthenticationHandler<Authenticatio
     {
         Response.ContentType = "application/json";
         Response.StatusCode = Microsoft.AspNetCore.Http.StatusCodes.Status403Forbidden;
-        await Response.WriteAsync(JsonConvert.SerializeObject(
+        await Response.WriteAsync(JsonHelper.Serialize(
             new ResponseStatusData
             {
                 Code = StatusCodes.Status403Forbidden,
                 Msg = StatusCodes.Status403Forbidden.ToDescription(),
                 Success = false
-            },
-            new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
             }
         ));
     }

@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Resources.Handler;
 
-namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Resources.Handler
+public class FileResourceHandler : IResourceHandler
 {
-    public class FileResourceHandler : IResourceHandler
+    public const string TYPE = "file";
+
+    public bool CanHandle(string handlerType)
     {
-        public const string TYPE = "file";
+        return handlerType == TYPE;
+    }
 
-        public bool CanHandle(string handlerType)
-        {
-            return handlerType == TYPE;
-        }
-
-        public byte[] Handle(Resource resource)
-        {
-            if (resource == null) throw new ArgumentNullException(nameof(resource));
-            return File.ReadAllBytes(resource.Data);
-        }
+    public byte[] Handle(Resource resource)
+    {
+        if (resource == null) throw new ArgumentNullException(nameof(resource));
+        return File.ReadAllBytes(resource.Data);
     }
 }

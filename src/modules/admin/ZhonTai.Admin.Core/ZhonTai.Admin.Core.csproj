@@ -41,13 +41,11 @@
 		<PackageReference Include="Grpc.AspNetCore.Server" Version="2.71.0" />
 		<PackageReference Include="IP2Region.Net" Version="2.0.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
-		<PackageReference Include="Refit.Newtonsoft.Json" Version="8.0.0" />
 		<PackageReference Include="Magicodes.IE.Excel" Version="2.7.6" />
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.7.6" />
 		<PackageReference Include="MailKit" Version="4.13.0" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.7" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="3.4.0" />

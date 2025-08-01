@@ -49,6 +49,16 @@
             模板图(必须是slider,hole的顺序依次出现)
             </summary>
         </member>
+        <member name="T:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Converters.DateTimeConverter">
+            <summary>
+            日期时间转换器
+            </summary>
+        </member>
+        <member name="T:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Converters.FlexibleEnumConverter">
+            <summary>
+            弹性枚举转换器，支持字符串和数字两种方式
+            </summary>
+        </member>
         <member name="P:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Generator.CaptchaImageData.X">
             <summary>
             凹槽x坐标
@@ -126,6 +136,78 @@
             <param name="holeWidth">缺块宽度</param>
             <param name="holeHeight">缺块高度</param>
             <param name="excludeRegions">排除的范围</param>
+            <returns></returns>
+        </member>
+        <member name="T:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper">
+            <summary>
+            Json帮助类
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.CreateDefaultOptions">
+            <summary>
+            创建默认的JSON序列化选项
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.GetCurrentOptions">
+            <summary>
+            获取当前JSON序列化选项的副本（线程安全）
+            </summary>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.ConfigureOptions(System.Action{System.Text.Json.JsonSerializerOptions})">
+            <summary>
+            配置默认的JSON序列化选项（线程安全）
+            </summary>
+            <param name="configure">配置委托</param>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Serialize``1(``0)">
+            <summary>
+            序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Serialize``1(``0,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Deserialize``1(System.String)">
+            <summary>
+            反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Deserialize``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="json"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Deserialize(System.String,System.Type)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="json">json文本</param>
+            <param name="type">类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers.JsonHelper.Deserialize(System.String,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="json">json文本</param>
+            <param name="type">类型</param>
+            <param name="options"></param>
             <returns></returns>
         </member>
         <member name="M:ZhonTai.Plugin.Lazy.SlideCaptcha.Core.ICaptcha.Generate(System.String)">

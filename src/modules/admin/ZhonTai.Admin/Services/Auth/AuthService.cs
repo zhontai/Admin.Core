@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Org.BouncyCastle.Utilities.Encoders;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -601,7 +600,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                 {
                     throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
                 }
-                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonHelper.Deserialize<SlideTrack>(input.CaptchaData));
                 if (validateResult.Result != ValidateResultType.Success)
                 {
                     throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);

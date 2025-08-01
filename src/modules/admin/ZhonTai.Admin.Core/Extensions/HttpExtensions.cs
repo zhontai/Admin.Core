@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
 using System.Reflection;
 using Refit;
 using Polly;
@@ -9,6 +7,7 @@ using ZhonTai;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Handlers;
+using ZhonTai.Common.Helpers;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -61,12 +60,7 @@ public static class HttpExtensions
     {
         ArgumentNullException.ThrowIfNull(rpcConfig, nameof(rpcConfig));
 
-        var refitSettings = new RefitSettings(new NewtonsoftJsonContentSerializer(new JsonSerializerSettings
-        {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK"
-        }));
+        var refitSettings = new RefitSettings(new SystemTextJsonContentSerializer(JsonHelper.GetCurrentOptions()));
 
         services.TryAddScoped<ResponseDelegatingHandler>();
 

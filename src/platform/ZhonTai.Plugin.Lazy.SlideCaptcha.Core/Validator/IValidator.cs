@@ -1,12 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator;
 
-namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator
+public interface IValidator
 {
-    public interface IValidator
-    {
-        bool Validate(SlideTrack slideTrack, CaptchaValidateData captchaValidateData);
-    }
+    bool Validate(SlideTrack slideTrack, CaptchaValidateData captchaValidateData);
 }

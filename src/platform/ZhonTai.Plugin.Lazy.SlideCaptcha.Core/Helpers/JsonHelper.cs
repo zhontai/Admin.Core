@@ -1,9 +1,9 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ZhonTai.Common.Converters;
+using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Converters;
 
-namespace ZhonTai.Common.Helpers;
+namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Helpers;
 
 /// <summary>
 /// Json帮助类
@@ -11,7 +11,7 @@ namespace ZhonTai.Common.Helpers;
 public class JsonHelper
 {
     // 线程安全的配置锁
-    private static readonly Lock _configLock = new();
+    private static readonly object _configLock = new();
     private static readonly JsonSerializerOptions _jsonSerializerOptions = CreateDefaultOptions();
 
     /// <summary>
@@ -49,23 +49,23 @@ public class JsonHelper
     }
 
     /// <summary>
-    /// 获取当前JSON序列化选项的副本
+    /// 获取当前JSON序列化选项的副本（线程安全）
     /// </summary>
     public static JsonSerializerOptions GetCurrentOptions()
     {
-        using (_configLock.EnterScope())
+        lock (_configLock)
         {
             return new JsonSerializerOptions(_jsonSerializerOptions);
         }
     }
 
     /// <summary>
-    /// 配置默认的JSON序列化选项
+    /// 配置默认的JSON序列化选项（线程安全）
     /// </summary>
     /// <param name="configure">配置委托</param>
     public static void ConfigureOptions(Action<JsonSerializerOptions> configure)
     {
-        using (_configLock.EnterScope())
+        lock (_configLock)
         {
             configure?.Invoke(_jsonSerializerOptions);
         }

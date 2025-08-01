@@ -1,8 +1,8 @@
 ﻿using FreeSql.DataAnnotations;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 using ZhonTai.Admin.Core.Entities;
+
 namespace ZhonTai.Admin.Domain.PrintTemplate;
 
 /// <summary>
@@ -18,7 +18,6 @@ public partial class PrintTemplateEntity : EntityVersion, ITenant
     /// </summary>
     [Description("租户Id")]
     [Column(Position = 2, CanUpdate = false)]
-    [JsonProperty(Order = -20)]
     [JsonPropertyOrder(-20)]
     public virtual long? TenantId { get; set; }
 

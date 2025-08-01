@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using Newtonsoft.Json;
 using FreeSql;
 using FreeSql.DataAnnotations;
 using ZhonTai.Common.Extensions;
@@ -134,7 +133,7 @@ public abstract class SyncData
             //throw new Exception(msg);
         }
         var jsonData = FileHelper.ReadFile(filePath);
-        var data = JsonConvert.DeserializeObject<T[]>(jsonData);
+        var data = JsonHelper.Deserialize<T[]>(jsonData);
 
         return data;
     }
@@ -231,7 +230,7 @@ public abstract class SyncData
                 {
                     foreach (var dbData in dbDataList)
                     {
-                        var data = batchDataList.First(a => a.Id == dbData.Id);
+                        var data = batchDataList.FirstOrDefault(a => a.Id == dbData.Id);
                         data?.Adapt(dbData);
                     }
 

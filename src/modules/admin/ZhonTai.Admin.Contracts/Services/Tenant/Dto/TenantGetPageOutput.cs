@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using ZhonTai.Admin.Domain.Pkg;
 
 namespace ZhonTai.Admin.Services.Tenant.Dto;

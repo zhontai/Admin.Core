@@ -42,8 +42,8 @@
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.7" />
 	  <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.7" />
 	  <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.7" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	  <PackageReference Include="SkiaSharp" Version="3.119.0" />
 	  <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.0" />
+	  <PackageReference Include="System.Text.Json" Version="9.0.7" />
 	</ItemGroup>
 </Project>

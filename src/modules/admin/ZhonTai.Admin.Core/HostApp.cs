@@ -33,8 +33,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Mapster;
 using MapsterMapper;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using NLog;
 using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -318,8 +316,8 @@ public class HostApp
             //FreeRedis客户端
             var redis = new RedisClient(cacheConfig.Redis.ConnectionString)
             {
-                Serialize = JsonConvert.SerializeObject,
-                Deserialize = JsonConvert.DeserializeObject
+                Serialize = JsonHelper.Serialize,
+                Deserialize = JsonHelper.Deserialize
             };
             services.AddSingleton(redis);
             services.AddSingleton<IRedisClient>(redis);
@@ -511,16 +509,16 @@ public class HostApp
         }
         services.AddFluentValidationAutoValidation();
 
-        mvcBuilder.AddNewtonsoftJson(options =>
+        mvcBuilder.AddJsonOptions(options =>
         {
-            //忽略循环引用
-            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            //使用驼峰 首字母小写
-            options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //设置时间格式
-            options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss.FFFFFFFK";
-        })
-        .AddControllersAsServices();
+            var jsonSerializerOptions = options.JsonSerializerOptions;
+            var currentJsonSerializerOptions = JsonHelper.GetCurrentOptions();
+            currentJsonSerializerOptions.Adapt(jsonSerializerOptions);
+            foreach(var converter in currentJsonSerializerOptions.Converters)
+            {
+                jsonSerializerOptions.Converters.Add(converter);
+            }
+        }).AddControllersAsServices();
 
         if (appConfig.Lang.EnableJson)
         {

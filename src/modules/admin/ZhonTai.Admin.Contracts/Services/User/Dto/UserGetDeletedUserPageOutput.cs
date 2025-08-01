@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using ZhonTai.Admin.Domain.Org;
 using ZhonTai.Admin.Domain.Role;
 using ZhonTai.Admin.Domain.User;

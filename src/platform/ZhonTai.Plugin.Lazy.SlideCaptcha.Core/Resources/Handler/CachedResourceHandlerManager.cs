@@ -1,42 +1,36 @@
 ﻿using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Resources.Handler
+namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Resources.Handler;
+
+public class CachedResourceHandlerManager : IResourceHandlerManager
 {
-    public class CachedResourceHandlerManager : IResourceHandlerManager
+    private IEnumerable<IResourceHandler> _resourceHandlers;
+    private Dictionary<Resource, byte[]> _cache = new Dictionary<Resource, byte[]>();
+
+    public CachedResourceHandlerManager(IEnumerable<IResourceHandler> resourceHandlers)
     {
-        private IEnumerable<IResourceHandler> _resourceHandlers;
-        private Dictionary<Resource, byte[]> _cache = new Dictionary<Resource, byte[]>();
+        _resourceHandlers = resourceHandlers;
+    }
 
-        public CachedResourceHandlerManager(IEnumerable<IResourceHandler> resourceHandlers)
+    public byte[] Handle(Resource resource)
+    {
+        if (resource == null) throw new ArgumentNullException(nameof(resource));
+
+        if (_cache.ContainsKey(resource))
         {
-            _resourceHandlers = resourceHandlers;
+            return _cache[resource];
         }
 
-        public byte[] Handle(Resource resource)
+        foreach (var provider in _resourceHandlers)
         {
-            if (resource == null) throw new ArgumentNullException(nameof(resource));
-
-            if (_cache.ContainsKey(resource))
+            if (provider.CanHandle(resource.Type))
             {
-                return _cache[resource];
+                var bytes = provider.Handle(resource);
+                _cache.Add(resource, bytes);
+                return bytes;
             }
-
-            foreach (var provider in _resourceHandlers)
-            {
-                if (provider.CanHandle(resource.Type))
-                {
-                    var bytes = provider.Handle(resource);
-                    _cache.Add(resource, bytes);
-                    return bytes;
-                }
-            }
-
-            throw new SlideCaptchaException("没有可用的资源提供者!");
         }
+
+        throw new SlideCaptchaException("没有可用的资源提供者!");
     }
 }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Storage;
 
-namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Storage
+public interface IStorage
 {
-    public interface IStorage
-    {
-        void Set<T>(string key, T value, DateTimeOffset absoluteExpiration);
+    void Set<T>(string key, T value, DateTimeOffset absoluteExpiration);
 
-        T Get<T>(string key);
+    T Get<T>(string key);
 
-        void Remove(string key);
-    }
+    void Remove(string key);
 }

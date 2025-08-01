@@ -4,9 +4,9 @@ using FreeSql;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Text;
+using System.Text.Json.Nodes;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Db;
@@ -63,7 +63,7 @@ public static class TaskSchedulerServiceExtensions
     public static void ExecuteGrpc(TaskInfo task, string grpcAddress = "")
     {
         var taskSchedulerConfig = AppInfo.GetRequiredService<IOptions<TaskSchedulerConfig>>().Value;
-        var jsonArgs = JToken.Parse(task.Body);
+        var jsonArgs = JsonObject.Parse(task.Body);
         var shellArgs = jsonArgs.Adapt<ShellArgs>();
         var arguments = shellArgs.Arguments;
         if (grpcAddress.IsNull())
@@ -209,7 +209,7 @@ public static class TaskSchedulerServiceExtensions
             var topic = task.Topic;
             if (alarmEmail.NotNull())
             {
-                var jsonArgs = JToken.Parse(task.Body);
+                var jsonArgs = JsonObject.Parse(task.Body);
                 var desc = jsonArgs["desc"]?.ToString();
                 if (desc.NotNull())
                     topic = desc;

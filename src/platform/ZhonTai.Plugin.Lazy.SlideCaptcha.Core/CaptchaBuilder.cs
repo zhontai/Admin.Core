@@ -1,17 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core
+namespace ZhonTai.Plugin.Lazy.SlideCaptcha.Core;
+
+public class CaptchaBuilder
 {
-    public class CaptchaBuilder
-    {
-        public IServiceCollection Services { get; set; }
+    public IServiceCollection Services { get; set; }
 
-        public CaptchaBuilder(IServiceCollection serviceCollection)
-        {
-            Services = serviceCollection;
-        }
+    public CaptchaBuilder(IServiceCollection serviceCollection)
+    {
+        Services = serviceCollection;
     }
 }
