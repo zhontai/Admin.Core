@@ -32,14 +32,14 @@
           </template>
         </el-table-column>
         <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="树形" width="60" align="center">
+        <el-table-column prop="sort" label="树形" width="70" align="center">
           <template #default="{ row }">
             <el-tag v-if="row.isTree" type="success">是</el-tag>
             <el-tag v-else type="info">否</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="60" align="center" show-overflow-tooltip />
-        <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">
+        <el-table-column prop="sort" label="排序" width="70" align="center" show-overflow-tooltip />
+        <el-table-column label="操作" width="145" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
             <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>

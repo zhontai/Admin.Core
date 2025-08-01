@@ -518,11 +518,6 @@ export interface AuthUserMenuOutput {
   link?: string | null
   /** 是否内嵌窗口 */
   isIframe?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number | null
 }
 
 /** 用户个人信息 */
@@ -531,8 +526,6 @@ export interface AuthUserProfileOutput {
   userName?: string | null
   /** 姓名 */
   name?: string | null
-  /** 手机号 */
-  mobile?: string | null
   /** 昵称 */
   nickName?: string | null
   /** 头像 */
@@ -643,15 +636,16 @@ export interface DictGetAllOutput {
 
 /** 字典列表 */
 export interface DictGetListOutput {
-  /** 字典类型编码 */
-  dictTypeCode?: string | null
-  /** 字典类型名称 */
-  dictTypeName?: string | null
   /**
    * 主键Id
    * @format int64
    */
   id?: number
+  /**
+   * 上级Id
+   * @format int64
+   */
+  parentId?: number | null
   /** 字典名称 */
   name?: string | null
   /** 字典编码 */
@@ -1815,95 +1809,6 @@ export interface OrgAddInput {
   description?: string | null
 }
 
-/** 组织架构 */
-export interface OrgEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 租户Id
-   * @format int64
-   */
-  tenantId?: number | null
-  /**
-   * 父级
-   * @format int64
-   */
-  parentId?: number
-  /** 名称 */
-  name?: string | null
-  /** 编码 */
-  code?: string | null
-  /** 值 */
-  value?: string | null
-  /**
-   * 成员数
-   * @format int32
-   */
-  memberCount?: number
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 描述 */
-  description?: string | null
-  /** 员工列表 */
-  staffs?: UserStaffEntity[] | null
-  /** 用户列表 */
-  users?: UserEntity[] | null
-  /** 角色列表 */
-  roles?: RoleEntity[] | null
-  /** 子级列表 */
-  childs?: OrgEntity[] | null
-}
-
 /** 部门列表 */
 export interface OrgGetListOutput {
   /**
@@ -2545,12 +2450,6 @@ export interface PageOutputUserGetPageOutput {
   list?: UserGetPageOutput[] | null
 }
 
-/**
- * 密码加密类型:MD5Encrypt32=0,PasswordHasher=1
- * @format int32
- */
-export type PasswordEncryptType = 0 | 1
-
 /** 添加权限点 */
 export interface PermissionAddDotInput {
   /** 平台 */
@@ -3150,81 +3049,6 @@ export interface PkgAddPkgTenantListInput {
   pkgId: number
   /** 租户列表 */
   tenantIds?: number[] | null
-}
-
-/** 套餐 */
-export interface PkgEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 父级Id
-   * @format int64
-   */
-  parentId?: number
-  /** 子级列表 */
-  childs?: PkgEntity[] | null
-  /** 名称 */
-  name?: string | null
-  /** 编码 */
-  code?: string | null
-  /** 说明 */
-  description?: string | null
-  /** 启用 */
-  enabled?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 租户列表 */
-  tenants?: TenantEntity[] | null
-  /** 权限列表 */
-  permissions?: PermissionEntity[] | null
 }
 
 /** 套餐列表响应 */
@@ -4803,8 +4627,6 @@ export interface RoleAddInput {
   dataScope?: DataScope
   /** 指定部门 */
   orgIds?: number[] | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
   /** 说明 */
   description?: string | null
   /**
@@ -4823,92 +4645,6 @@ export interface RoleAddRoleUserListInput {
   roleId: number
   /** 用户 */
   userIds?: number[] | null
-}
-
-/** 角色 */
-export interface RoleEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 租户Id
-   * @format int64
-   */
-  tenantId?: number | null
-  /**
-   * 父级Id
-   * @format int64
-   */
-  parentId?: number
-  /** 子级列表 */
-  childs?: RoleEntity[] | null
-  /** 名称 */
-  name?: string | null
-  /** 编码 */
-  code?: string | null
-  /** 角色类型:Group=1,Role=2 */
-  type?: RoleType
-  /** 数据范围:All=1,DeptWithChild=2,Dept=3,Self=4,Custom=5 */
-  dataScope?: DataScope
-  /** 说明 */
-  description?: string | null
-  /** 隐藏 */
-  hidden?: boolean
-  /**
-   * 排序
-   * @format int32
-   */
-  sort?: number
-  /** 用户列表 */
-  users?: UserEntity[] | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
-  /** 权限列表 */
-  permissions?: PermissionEntity[] | null
 }
 
 /** 角色列表响应 */
@@ -4955,8 +4691,6 @@ export interface RoleGetOutput {
   dataScope?: DataScope
   /** 指定部门 */
   orgIds?: number[] | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
   /** 说明 */
   description?: string | null
   /**
@@ -5050,8 +4784,6 @@ export interface RoleUpdateInput {
   dataScope?: DataScope
   /** 指定部门 */
   orgIds?: number[] | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
   /** 说明 */
   description?: string | null
   /**
@@ -5530,87 +5262,6 @@ export interface TenantAddInput {
   description?: string | null
 }
 
-/** 租户 */
-export interface TenantEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 授权用户
-   * @format int64
-   */
-  userId?: number
-  /** 用户 */
-  user?: UserEntity
-  /**
-   * 授权部门
-   * @format int64
-   */
-  orgId?: number
-  /** 组织架构 */
-  org?: OrgEntity
-  /** 租户类型:Platform=1,Tenant=2 */
-  tenantType?: TenantType
-  /** 域名 */
-  domain?: string | null
-  /** 数据库注册键 */
-  dbKey?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
-  dbType?: DataType
-  /** 连接字符串 */
-  connectionString?: string | null
-  /** 启用 */
-  enabled?: boolean
-  /** 说明 */
-  description?: string | null
-  /** 套餐列表 */
-  pkgs?: PkgEntity[] | null
-}
-
 export interface TenantGetOutput {
   /**
    * 企业名称
@@ -5649,8 +5300,6 @@ export interface TenantGetOutput {
    * @format int64
    */
   id: number
-  /** 套餐列表 */
-  pkgs?: PkgEntity[] | null
   /** 套餐Id列表 */
   pkgIds?: number[] | null
 }
@@ -5672,7 +5321,6 @@ export interface TenantGetPageOutput {
   name?: string | null
   /** 企业编码 */
   code?: string | null
-  pkgs?: PkgEntity[] | null
   /** 套餐 */
   pkgNames?: string[] | null
   /** 姓名 */
@@ -5683,8 +5331,6 @@ export interface TenantGetPageOutput {
   phone?: string | null
   /** 邮箱地址 */
   email?: string | null
-  /** MySql=0,SqlServer=1,PostgreSQL=2,Oracle=3,Sqlite=4,OdbcOracle=5,OdbcSqlServer=6,OdbcMySql=7,OdbcPostgreSQL=8,Odbc=9,MsAccess=11,Dameng=12,ShenTong=14,KingbaseES=15,Firebird=16,Custom=17,ClickHouse=18,GBase=19,QuestDb=20,Xugu=21,CustomOracle=22,CustomSqlServer=23,CustomMySql=24,CustomPostgreSQL=25,DuckDB=26,TDengine=27 */
-  dbType?: DataType
   /** 数据库名称 */
   dbTypeName?: string | null
   /** 启用 */
@@ -5708,12 +5354,6 @@ export interface TenantSetEnableInput {
   /** 是否启用 */
   enabled?: boolean
 }
-
-/**
- * 租户类型:Platform=1,Tenant=2
- * @format int32
- */
-export type TenantType = 1 | 2
 
 /** 修改 */
 export interface TenantUpdateInput {
@@ -5904,119 +5544,6 @@ export interface UserChangePasswordInput {
   confirmPassword: string
 }
 
-/** 用户 */
-export interface UserEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 租户Id
-   * @format int64
-   */
-  tenantId?: number | null
-  /** 租户 */
-  tenant?: TenantEntity
-  /** 账号 */
-  userName?: string | null
-  /** 密码 */
-  password?: string | null
-  /** 密码加密类型:MD5Encrypt32=0,PasswordHasher=1 */
-  passwordEncryptType?: PasswordEncryptType
-  /** 姓名 */
-  name?: string | null
-  /** 手机号 */
-  mobile?: string | null
-  /** 邮箱 */
-  email?: string | null
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
-  /** 组织架构 */
-  org?: OrgEntity
-  /**
-   * 直属主管Id
-   * @format int64
-   */
-  managerUserId?: number | null
-  /** 用户 */
-  managerUser?: UserEntity
-  /** 昵称 */
-  nickName?: string | null
-  /** 头像 */
-  avatar?: string | null
-  /** 用户状态:WaitChangePasssword=2,WaitActive=3 */
-  status?: UserStatus
-  /** 用户类型:Member=0,DefaultUser=1,TenantAdmin=10,PlatformAdmin=100 */
-  type?: UserType
-  /**
-   * 最后登录时间
-   * @format date-time
-   */
-  lastLoginTime?: string | null
-  /** 最后登录IP */
-  lastLoginIP?: string | null
-  /** 最后登录国家 */
-  lastLoginCountry?: string | null
-  /** 最后登录省份 */
-  lastLoginProvince?: string | null
-  /** 最后登录城市 */
-  lastLoginCity?: string | null
-  /** 启用 */
-  enabled?: boolean
-  /** 角色列表 */
-  roles?: RoleEntity[] | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
-  /** 用户员工 */
-  staff?: UserStaffEntity
-}
-
 /** 用户基本信息 */
 export interface UserGetBasicOutput {
   /** 头像 */
@@ -6061,24 +5588,14 @@ export interface UserGetDeletedUserPageOutput {
   email?: string | null
   /** 用户类型:Member=0,DefaultUser=1,TenantAdmin=10,PlatformAdmin=100 */
   type?: UserType
-  roles?: RoleEntity[] | null
   /** 角色 */
   roleNames?: string | null
   /** 启用 */
   enabled?: boolean
   /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
   sex?: Sex
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /** 主属部门 */
   orgPath?: string | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
-  /** 所属部门Id列表 */
-  orgIds?: number[] | null
   /** 所属部门 */
   orgPaths?: string | null
   /** 创建者用户名 */
@@ -6161,7 +5678,6 @@ export interface UserGetPageOutput {
   email?: string | null
   /** 用户类型:Member=0,DefaultUser=1,TenantAdmin=10,PlatformAdmin=100 */
   type?: UserType
-  roles?: RoleEntity[] | null
   /** 角色 */
   roleNames?: string | null
   /** 是否主管 */
@@ -6172,17 +5688,8 @@ export interface UserGetPageOutput {
   online?: boolean
   /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
   sex?: Sex
-  /**
-   * 主属部门Id
-   * @format int64
-   */
-  orgId?: number
   /** 主属部门 */
   orgPath?: string | null
-  /** 部门列表 */
-  orgs?: OrgEntity[] | null
-  /** 所属部门Id列表 */
-  orgIds?: number[] | null
   /** 所属部门 */
   orgPaths?: string | null
   /** 创建者用户名 */
@@ -6255,77 +5762,6 @@ export interface UserSetManagerInput {
   orgId?: number
   /** 是否主管 */
   isManager?: boolean
-}
-
-/** 用户员工 */
-export interface UserStaffEntity {
-  /**
-   * 主键Id
-   * @format int64
-   */
-  id?: number
-  /**
-   * 创建者用户Id
-   * @format int64
-   */
-  createdUserId?: number | null
-  /**
-   * 创建者用户名
-   * @maxLength 60
-   */
-  createdUserName?: string | null
-  /**
-   * 创建者姓名
-   * @maxLength 60
-   */
-  createdUserRealName?: string | null
-  /**
-   * 创建时间
-   * @format date-time
-   */
-  createdTime?: string | null
-  /**
-   * 修改者用户Id
-   * @format int64
-   */
-  modifiedUserId?: number | null
-  /**
-   * 修改者用户名
-   * @maxLength 60
-   */
-  modifiedUserName?: string | null
-  /**
-   * 修改者姓名
-   * @maxLength 60
-   */
-  modifiedUserRealName?: string | null
-  /**
-   * 修改时间
-   * @format date-time
-   */
-  modifiedTime?: string | null
-  /** 是否删除 */
-  isDeleted?: boolean
-  /**
-   * 租户Id
-   * @format int64
-   */
-  tenantId?: number | null
-  /** 职位 */
-  position?: string | null
-  /** 工号 */
-  jobNumber?: string | null
-  /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
-  sex?: Sex
-  /**
-   * 入职时间
-   * @format date-time
-   */
-  entryTime?: string | null
-  /** 企业微信名片 */
-  workWeChatCard?: string | null
-  /** 个人简介 */
-  introduce?: string | null
 }
 
 /**

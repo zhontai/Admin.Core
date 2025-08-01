@@ -37,7 +37,7 @@
         <el-table-column prop="code" label="编码" min-width="120" sortable="custom" show-overflow-tooltip />
         <el-table-column prop="value" label="值" width="90" sortable="custom" show-overflow-tooltip />
         <el-table-column prop="sort" label="排序" width="90" align="center" sortable="custom" show-overflow-tooltip />
-        <el-table-column label="操作" width="140" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="145" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
             <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>

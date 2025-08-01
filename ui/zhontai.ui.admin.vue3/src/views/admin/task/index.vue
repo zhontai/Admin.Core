@@ -51,7 +51,7 @@
     <el-card class="my-fill mt8 el-card-table" shadow="never">
       <el-table ref="tableRef" v-loading="state.loading" :data="state.taskListData" row-key="id" style="width: 100%" border>
         <el-table-column type="selection" width="40" />
-        <el-table-column type="index" label="序号" width="60" :index="indexMethod" />
+        <el-table-column type="index" label="序号" width="62" :index="indexMethod" />
         <el-table-column prop="topic" label="任务名称" min-width="260">
           <template #default="{ row }">
             <div>{{ row.id }}</div>
@@ -79,7 +79,7 @@
             <div>{{ row.intervalArgument }}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="100" />
+        <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="110" />
         <el-table-column prop="lastRunTime" label="最后运行时间" :formatter="formatterTime" width="120" />
         <el-table-column label="操作" width="210" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
@@ -194,11 +194,11 @@ onBeforeMount(() => {
 })
 
 const rowSelectCount = computed(() => {
-  return tableRef.value?.getSelectionRows().length
+  return tableRef.value?.getSelectionRows().length as number
 })
 
 const taskIds = computed(() => {
-  return tableRef.value?.getSelectionRows().map((a: any) => a.id)
+  return tableRef.value?.getSelectionRows().map((a: any) => a.id) as string[]
 })
 
 const indexMethod = (index: number) => {
