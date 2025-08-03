@@ -204,7 +204,7 @@ const state = reactive({
       label: '状态',
       field: 'enabled',
       operator: Operator.equal.value,
-      componentName: 'my-select',
+      componentName: 'el-select',
       type: 'select',
       attrs: {
         placeholder: '请选择',
@@ -242,7 +242,7 @@ const state = reactive({
       label: '性别',
       field: 'staff.sex',
       operator: Operator.equal.value,
-      componentName: 'my-select',
+      componentName: 'el-select',
       type: 'select',
       attrs: {
         placeholder: '请选择',
