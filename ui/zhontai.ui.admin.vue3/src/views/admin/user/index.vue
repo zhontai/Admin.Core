@@ -49,84 +49,64 @@
               </el-tooltip>
             </div>
           </div>
+          <MyTable ref="tableRef" v-model="state.tableModel" @size-change="onQuery" @current-change="onQuery">
+            <!-- 账号列自定义插槽 -->
+            <template #userName="{ row }">
+              <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
+              {{ row.userName }}
+            </template>
 
-          <el-table ref="tableRef" v-loading="state.loading" :data="state.userListData" row-key="id" border>
-            <el-table-column type="selection" />
-            <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip>
-              <template #default="{ row }">
-                <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
-                {{ row.userName }}
+            <!-- 姓名列自定义插槽 -->
+            <template #name="{ row }">
+              <div class="my-flex my-flex-items-center">
+                {{ row.name }}
+                <el-icon v-if="row.sex === 1 || row.sex === 2" class="ml4">
+                  <ele-Male v-if="row.sex === 1" color="#409EFF" />
+                  <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
+                </el-icon>
+                <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
+              </div>
+            </template>
+
+            <!-- 状态列自定义插槽 -->
+            <template #enabled="{ row }">
+              <el-switch
+                v-if="auth('api:admin:user:set-enable')"
+                v-model="row.enabled"
+                :loading="row.loading"
+                :active-value="true"
+                :inactive-value="false"
+                inline-prompt
+                active-text="启用"
+                inactive-text="禁用"
+                :before-change="() => onSetEnable(row)"
+              />
+              <template v-else>
+                <el-tag type="success" v-if="row.enabled">启用</el-tag>
+                <el-tag type="danger" v-else>禁用</el-tag>
               </template>
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="130" show-overflow-tooltip>
-              <template #default="{ row }">
-                <div class="my-flex my-flex-items-center">
-                  {{ row.name }}
-                  <el-icon v-if="row.sex === 1 || row.sex === 2" class="ml4">
-                    <ele-Male v-if="row.sex === 1" color="#409EFF" />
-                    <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
-                  </el-icon>
-                  <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column prop="mobile" label="手机号" width="120" show-overflow-tooltip />
-            <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
-            <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
-            <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
-            <el-table-column label="状态" width="88" align="center" fixed="right">
-              <template #default="{ row }">
-                <el-switch
-                  v-if="auth('api:admin:user:set-enable')"
-                  v-model="row.enabled"
-                  :loading="row.loading"
-                  :active-value="true"
-                  :inactive-value="false"
-                  inline-prompt
-                  active-text="启用"
-                  inactive-text="禁用"
-                  :before-change="() => onSetEnable(row)"
-                />
-                <template v-else>
-                  <el-tag type="success" v-if="row.enabled">启用</el-tag>
-                  <el-tag type="danger" v-else>禁用</el-tag>
+            </template>
+
+            <!-- 操作列自定义插槽 -->
+            <template #actions="{ row }">
+              <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+              <my-dropdown-more
+                v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
+              >
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)"
+                      >{{ row.isManager ? '取消' : '设置' }}主管</el-dropdown-item
+                    >
+                    <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
+                  </el-dropdown-menu>
                 </template>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="140" header-align="center" align="center" fixed="right">
-              <template #default="{ row }">
-                <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-                <my-dropdown-more
-                  v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
-                >
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)"
-                        >{{ row.isManager ? '取消' : '设置' }}主管</el-dropdown-item
-                      >
-                      <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </my-dropdown-more>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="my-flex my-flex-end" style="margin-top: 10px">
-            <el-pagination
-              v-model:currentPage="state.pageInput.currentPage"
-              v-model:page-size="state.pageInput.pageSize"
-              :total="state.total"
-              :page-sizes="[10, 20, 50, 100]"
-              background
-              @size-change="onSizeChange"
-              @current-change="onCurrentChange"
-              layout="total, sizes, prev, pager, next, jumper"
-            />
-          </div>
+              </my-dropdown-more>
+            </template>
+          </MyTable>
         </el-card>
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
@@ -181,7 +161,6 @@ const state = reactive({
   loadingBatchSetOrg: false,
   showQuery: true,
   userFormTitle: '',
-  total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
@@ -190,6 +169,61 @@ const state = reactive({
     },
   } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
+  // 表格模型
+  tableModel: {
+    columns: [
+      { attrs: { type: 'selection' } },
+      {
+        attrs: {
+          prop: 'userName',
+          label: '账号',
+          minWidth: 180,
+          showOverflowTooltip: true,
+        },
+        slot: 'userName',
+      },
+      {
+        attrs: {
+          prop: 'name',
+          label: '姓名',
+          width: 130,
+          showOverflowTooltip: true,
+        },
+        slot: 'name',
+      },
+      { attrs: { prop: 'mobile', label: '手机号', width: 120, showOverflowTooltip: true } },
+      { attrs: { prop: 'orgPaths', label: '部门', minWidth: 200, showOverflowTooltip: true } },
+      { attrs: { prop: 'orgPath', label: '主属部门', minWidth: 180, showOverflowTooltip: true } },
+      { attrs: { prop: 'roleNames', label: '角色', minWidth: 180, showOverflowTooltip: true } },
+      { attrs: { prop: 'email', label: '邮箱', minWidth: 180, showOverflowTooltip: true } },
+      {
+        attrs: {
+          label: '状态',
+          width: 88,
+          align: 'center',
+          fixed: 'right',
+        },
+        slot: 'enabled',
+      },
+      {
+        attrs: {
+          label: '操作',
+          width: 140,
+          headerAlign: 'center',
+          align: 'center',
+          fixed: 'right',
+        },
+        slot: 'actions',
+      },
+    ] as Array<{ attrs: Record<string, any>; slot?: string }>,
+    data: [] as Array<UserGetPageOutput>,
+    loading: false,
+    pagination: {
+      currentPage: 1,
+      pageSize: 20,
+      total: 0,
+    },
+  },
   searchItems: [
     {
       label: '姓名',
@@ -308,14 +342,19 @@ onBeforeMount(() => {
 
 //查询分页
 const onQuery = async () => {
-  state.loading = true
+  state.tableModel.loading = true
+
+  // 直接从表格模型中获取分页参数
+  state.pageInput.currentPage = state.tableModel.pagination.currentPage
+  state.pageInput.pageSize = state.tableModel.pagination.pageSize
+
   const res = await new UserApi().getPage(state.pageInput).catch(() => {
-    state.loading = false
+    state.tableModel.loading = false
   })
 
-  state.userListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
-  state.loading = false
+  state.tableModel.data = res?.data?.list ?? []
+  state.tableModel.pagination.total = res?.data?.total ?? 0
+  state.tableModel.loading = false
 }
 
 const onSearch = (filter: any, dynamicFilter: any) => {
