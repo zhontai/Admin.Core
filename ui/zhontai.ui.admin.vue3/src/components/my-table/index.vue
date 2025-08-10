@@ -37,9 +37,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import type { ElTable } from 'element-plus'
 import { mergeWith, cloneDeep, isObject, isArray } from 'lodash-es'
+
+// 使用 defineModel 定义整个表格模型
+const propsModel = defineModel({
+  type: Object,
+  required: true,
+})
 
 // 默认表格配置
 const defaultTableConfig = {
@@ -66,12 +72,6 @@ const defaultTableConfig = {
 
 // 创建响应式模型
 const model = ref(cloneDeep(defaultTableConfig))
-
-// 使用 defineModel 定义整个表格模型
-const propsModel = defineModel({
-  type: Object,
-  required: true,
-})
 
 const emit = defineEmits(['size-change', 'current-change'])
 
@@ -106,18 +106,14 @@ const handleCurrentChange = (page: number) => {
 }
 
 // 监听父组件传入的 model 变化，深度合并
-watch(
-  propsModel,
-  (newVal) => {
-    model.value = mergeWith(cloneDeep(defaultTableConfig), newVal, (objValue, srcValue) => {
-      // 特殊处理数组：直接替换而非合并
-      if (isArray(objValue)) return srcValue
-      // 对象类型继续递归合并
-      if (isObject(objValue)) return undefined // 触发默认合并行为
-    })
-  },
-  { immediate: true, deep: true }
-)
+watchEffect(() => {
+  model.value = mergeWith(cloneDeep(defaultTableConfig), propsModel.value, (objValue, srcValue) => {
+    // 特殊处理数组：直接替换而非合并
+    if (isArray(objValue)) return srcValue
+    // 对象类型继续递归合并
+    if (isObject(objValue)) return undefined // 触发默认合并行为
+  })
+})
 
 // 暴露表格方法
 defineExpose({
