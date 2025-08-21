@@ -11,7 +11,7 @@
     virtual-triggering
     :width="300"
     popper-class="my-col-set-popper"
-    @show="onSetTable"
+    @show="onColSet"
   >
     <div class="my-col-set-tool-box">
       <el-tooltip content="拖动进行排序" placement="top-start">
@@ -66,8 +66,8 @@ const onCheckAllChange = <T,>(val: T) => {
   else colsModel.value.forEach((v) => (v.isShow = false))
 }
 
-// 设置
-const onSetTable = () => {
+// 列设置
+const onColSet = () => {
   nextTick(() => {
     const sortable = Sortable.create(sortableRef.value, {
       handle: '.handle',
@@ -99,6 +99,7 @@ const onSetTable = () => {
 }
 .my-col-set-sortable-box {
   padding: 4px 10px;
+  max-height: 303px;
   .handle {
     cursor: grab;
   }
