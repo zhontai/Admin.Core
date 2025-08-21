@@ -1,12 +1,10 @@
 <template>
   <el-table ref="tableRef" v-loading="model.loading" :data="showPagination ? paginatedData : model.data" class="my-table-box" v-bind="model.attrs">
-    <template v-for="(item, index) in model.columns" :key="index">
-      <el-table-column v-bind="item.attrs">
-        <template v-if="item.slot" #default="scope">
-          <slot :name="item.slot" v-bind="scope"></slot>
-        </template>
-      </el-table-column>
-    </template>
+    <el-table-column v-for="(item, index) in columns" :key="item.attrs.prop" v-bind="item.attrs">
+      <template v-if="item.slot" #default="scope">
+        <slot :name="item.slot" v-bind="scope"></slot>
+      </template>
+    </el-table-column>
   </el-table>
 
   <div
@@ -52,6 +50,7 @@ const defaultTableConfig = {
   columns: [] as Array<{
     attrs: Record<string, any>
     slot?: string
+    isShow?: boolean
   }>,
   data: [] as any[],
   loading: false,
@@ -80,6 +79,10 @@ const tableRef = ref<InstanceType<typeof ElTable>>()
 // 计算是否显示分页
 const showPagination = computed(() => {
   return model.value.pagination.enabled
+})
+
+const columns = computed(() => {
+  return model.value.columns.filter((v) => v.isShow)
 })
 
 // 计算分页后的数据

@@ -44,6 +44,7 @@
                   </template>
                 </el-button>
               </el-tooltip>
+              <MyColSet v-model="state.tableModel.columns" />
               <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
                 <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
               </el-tooltip>
@@ -121,7 +122,7 @@
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
+import { ref, useTemplateRef, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, nextTick } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -146,8 +147,9 @@ const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-h
 
 const { proxy } = getCurrentInstance() as any
 
-const tableRef = ref<InstanceType<typeof ElTable>>()
-const userFormRef = ref()
+const tableRef = useTemplateRef<InstanceType<typeof ElTable>>('tableRef')
+const userFormRef = useTemplateRef('userFormRef')
+
 const userRecycleDialogRef = ref()
 const userUpdateFormRef = ref()
 const userSetOrgRef = ref()
@@ -169,10 +171,12 @@ const state = reactive({
     },
   } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
+  checkAll: false,
+  checkIndeterminate: false,
   // 表格模型
   tableModel: {
     columns: [
-      { attrs: { type: 'selection' } },
+      { attrs: { type: 'selection', prop: '_multiCheck', label: '多选' }, isShow: true },
       {
         attrs: {
           prop: 'userName',
@@ -181,6 +185,7 @@ const state = reactive({
           showOverflowTooltip: true,
         },
         slot: 'userName',
+        isShow: true,
       },
       {
         attrs: {
@@ -190,23 +195,27 @@ const state = reactive({
           showOverflowTooltip: true,
         },
         slot: 'name',
+        isShow: true,
       },
-      { attrs: { prop: 'mobile', label: '手机号', width: 120, showOverflowTooltip: true } },
-      { attrs: { prop: 'orgPaths', label: '部门', minWidth: 200, showOverflowTooltip: true } },
-      { attrs: { prop: 'orgPath', label: '主属部门', minWidth: 180, showOverflowTooltip: true } },
-      { attrs: { prop: 'roleNames', label: '角色', minWidth: 180, showOverflowTooltip: true } },
-      { attrs: { prop: 'email', label: '邮箱', minWidth: 180, showOverflowTooltip: true } },
+      { attrs: { prop: 'mobile', label: '手机号', width: 120, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'orgPaths', label: '部门', minWidth: 200, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'orgPath', label: '主属部门', minWidth: 180, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'roleNames', label: '角色', minWidth: 180, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'email', label: '邮箱', minWidth: 180, showOverflowTooltip: true }, isShow: true },
       {
         attrs: {
+          prop: 'enabled',
           label: '状态',
           width: 88,
           align: 'center',
           fixed: 'right',
         },
         slot: 'enabled',
+        isShow: true,
       },
       {
         attrs: {
+          prop: '_actions',
           label: '操作',
           width: 140,
           headerAlign: 'center',
@@ -214,8 +223,9 @@ const state = reactive({
           fixed: 'right',
         },
         slot: 'actions',
+        isShow: true,
       },
-    ] as Array<{ attrs: Record<string, any>; slot?: string }>,
+    ] as Array<{ attrs: Record<string, any>; slot?: string; isShow?: boolean }>,
     data: [] as Array<UserGetPageOutput>,
     loading: false,
     pagination: {
@@ -357,6 +367,7 @@ const onQuery = async () => {
   state.tableModel.loading = false
 }
 
+//查询
 const onSearch = (filter: any, dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
   onQuery()
@@ -366,6 +377,7 @@ const onSearch = (filter: any, dynamicFilter: any) => {
 const onFilter = () => {
   myHighSearchDialogRef.value.open()
 }
+//高级查询确定
 const onFilterSure = (dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
   onQuery()
@@ -374,12 +386,10 @@ const onFilterSure = (dynamicFilter: any) => {
 //新增
 const onAdd = () => {
   state.userFormTitle = '新增用户'
-  userFormRef.value.open({
-    orgIds: state.pageInput.filter?.orgId && state.pageInput.filter.orgId > 0 ? [state.pageInput.filter?.orgId] : [],
-    orgId: state.pageInput.filter?.orgId,
-  })
+  userFormRef.value?.open({} as any)
 }
 
+//回收站
 const onRecycle = () => {
   userRecycleDialogRef.value.open()
 }
@@ -487,17 +497,7 @@ const onBatchSetOrg = () => {
   userSetOrgRef.value.open()
 }
 
-const onSizeChange = (val: number) => {
-  state.pageInput.currentPage = 1
-  state.pageInput.pageSize = val
-  onQuery()
-}
-
-const onCurrentChange = (val: number) => {
-  state.pageInput.currentPage = val
-  onQuery()
-}
-
+//选择部门
 const onOrgNodeClick = (node: OrgGetListOutput | null) => {
   if (state.pageInput.filter) {
     state.pageInput.filter.orgId = node?.id
