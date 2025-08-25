@@ -1,4 +1,4 @@
-﻿using Lazy.SlideCaptcha.Core.Validator;
+﻿using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator;
 using System.ComponentModel.DataAnnotations;
 
 namespace ZhonTai.Admin.Services.Captcha.Dto;

@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Domain.OperationLog;
 using ZhonTai.Admin.Services.OperationLog.Dto;
-using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using IP2Region.Net.Abstractions;
-using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
+using DotNetCore.CAP;
+using ZhonTai.Admin.Services.Api.Dto;
 
 namespace ZhonTai.Admin.Services.OperationLog;
 
@@ -20,38 +17,18 @@ namespace ZhonTai.Admin.Services.OperationLog;
 /// </summary>
 [Order(200)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class OperationLogService : BaseService, IOperationLogService, IDynamicApi
+public class OperationLogService : BaseService, IOperationLogService, IDynamicApi, ICapSubscribe
 {
-    private readonly IHttpContextAccessor _context;
     private readonly IOperationLogRepository _operationLogRep;
     private readonly AppConfig _appConfig;
 
     public OperationLogService(
-        IHttpContextAccessor context,
         IOperationLogRepository operationLogRep,
         IOptions<AppConfig> appConfig
     )
     {
-        _context = context;
         _operationLogRep = operationLogRep;
         _appConfig = appConfig.Value;
-    }
-
-    /// <summary>
-    /// 获得IP地址
-    /// </summary>
-    /// <param name="ip"></param>
-    /// <returns></returns>
-    private LocationInfo GetIpLocationInfo(string ip)
-    {
-        var locationInfo = new LocationInfo();
-        if (_appConfig.IP2Region.Enable)
-        {
-            var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
-            locationInfo = LocationInfo.Parse(region);
-        }
-
-        return locationInfo;
     }
 
     /// <summary>
@@ -103,33 +80,10 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [CapSubscribe(SubscribeNames.OperationLogAdd)]
     public async Task<long> AddAsync(OperationLogAddInput input)
     {
-        string ua = _context.HttpContext.Request.Headers["User-Agent"];
-        if (ua.NotNull())
-        {
-            var client = UAParser.Parser.GetDefault().Parse(ua);
-            var device = client.Device.Family;
-            device = device.ToLower() == "other" ? "" : device;
-            input.Browser = client.UA.Family;
-            input.Os = client.OS.Family;
-            input.Device = device;
-            input.BrowserInfo = ua;
-        }
-        input.Name = User.Name;
-
         var entity = Mapper.Map<OperationLogEntity>(input);
-
-        if (entity.IP.IsNull())
-        {
-            entity.IP = IPHelper.GetIP(_context?.HttpContext?.Request);
-            var locationInfo = GetIpLocationInfo(entity.IP);
-            entity.Country = locationInfo?.Country;
-            entity.Province = locationInfo?.Province;
-            entity.City = locationInfo?.City;
-            entity.Isp = locationInfo?.Isp;
-        }
-
         await _operationLogRep.InsertAsync(entity);
 
         return entity.Id;

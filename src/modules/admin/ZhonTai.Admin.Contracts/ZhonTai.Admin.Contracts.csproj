@@ -20,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\..\platform\ZhonTai.Plugin.Lazy.SlideCaptcha.Core\ZhonTai.Plugin.Lazy.SlideCaptcha.Core.csproj" />
 	  <ProjectReference Include="..\ZhonTai.Admin.Core\ZhonTai.Admin.Core.csproj" />
 	</ItemGroup>
 </Project>

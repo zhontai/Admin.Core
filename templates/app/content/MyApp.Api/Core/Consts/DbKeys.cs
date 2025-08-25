@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using ZhonTai.Admin.Core;
+using ZhonTai.Admin.Core.Configs;
 
 namespace MyApp.Api.Core.Consts;
 
@@ -7,9 +10,20 @@ namespace MyApp.Api.Core.Consts;
 /// </summary>
 public class DbKeys
 {
+    private static readonly string _defaultDbKey = AppInfo.GetOptions<DbConfig>()?.Key ?? "__app_codedb";
+
+    static DbKeys()
+    {
+        if (string.IsNullOrWhiteSpace(_defaultDbKey))
+        {
+            throw new InvalidOperationException("数据库配置键不能为空");
+        }
+    }
+
+
     /// <summary>
     /// 数据库注册键
     /// </summary>
     [Description("数据库注册键")]
-    public static string AppDb { get; set; } = "__app_codedb";
+    public static string AppDb { get; set; } = _defaultDbKey;
 }

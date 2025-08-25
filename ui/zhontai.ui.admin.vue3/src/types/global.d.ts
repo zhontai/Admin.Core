@@ -9,6 +9,7 @@ declare module 'qs'
 declare module 'sortablejs'
 declare module 'vue-plugin-hiprint'
 declare module 'jsoneditor'
+declare module 'jquery'
 
 // 声明一个模块，防止引入文件时报错
 declare module '*.json'

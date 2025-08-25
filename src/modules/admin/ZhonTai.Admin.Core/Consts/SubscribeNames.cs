@@ -3,7 +3,7 @@
 namespace ZhonTai.Admin.Core.Consts;
 
 /// <summary>
-/// 订阅命名
+/// 订阅名
 /// </summary>
 public class SubscribeNames
 {
@@ -36,4 +36,16 @@ public class SubscribeNames
     /// </summary>
     [Description("用户部门转移")]
     public const string UserOrgChange = "zhontai.admin.user.orgChange";
+
+    /// <summary>
+    /// 登录日志添加
+    /// </summary>
+    [Description("登录日志添加")]
+    public const string LoginLogAdd = "zhontai.admin.loginLog.add";
+
+    /// <summary>
+    /// 操作日志添加
+    /// </summary>
+    [Description("操作日志添加")]
+    public const string OperationLogAdd = "zhontai.admin.operationLog.add";
 }

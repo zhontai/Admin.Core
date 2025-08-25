@@ -33,8 +33,8 @@
         v-loading="state.loading"
         row-key="id"
         default-expand-all
-        border
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        border
       >
         <el-table-column prop="name" label="部门名称" min-width="120" show-overflow-tooltip />
         <el-table-column prop="code" label="部门编码" min-width="120" show-overflow-tooltip />
@@ -46,7 +46,7 @@
             <el-tag type="danger" v-else>禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right" header-align="center" align="center">
+        <el-table-column label="操作" width="210" fixed="right" header-align="center" align="left">
           <template #default="{ row }">
             <el-button v-if="auth('api:admin:org:add')" icon="ele-Plus" text type="primary" @click="onAdd(row)"> 新增 </el-button>
             <el-button v-if="auth('api:admin:org:update') && row.parentId > 0" icon="ele-EditPen" text type="primary" @click="onEdit(row)"

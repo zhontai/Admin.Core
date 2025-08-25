@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using ZhonTai.Common.Extensions;
 
@@ -105,9 +106,9 @@ public static class StringExtension
             return str;
         }
         string s = str;
-        if (obj.GetType().Name == "JObject")
+        if (obj.GetType().Name == "JsonObject")
         {
-            foreach (var item in (Newtonsoft.Json.Linq.JObject)obj)
+            foreach (var item in (JsonObject)obj)
             {
                 var k = item.Key.ToString();
                 var v = item.Value.ToString();

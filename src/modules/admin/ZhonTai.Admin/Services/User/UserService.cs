@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Attributes;
 using ZhonTai.Admin.Core.Configs;
@@ -448,7 +447,7 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
             if (User.TenantAdmin)
             {
                 var cloud = LazyGetRequiredService<FreeSqlCloud>();
-                var db = cloud.Use(DbKeys.AppDb);
+                var db = cloud.Use(DbKeys.AdminDb);
 
                 //套餐接口
                 var pkgApis = await db.Select<ApiEntity>()

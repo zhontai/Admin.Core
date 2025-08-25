@@ -3,8 +3,8 @@ using ProtoBuf.Grpc;
 using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
 using ZhonTai.Admin.Core.Protos;
+using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Services.OperationLog;
-using ZhonTai.Admin.Services.OperationLog.Dto;
 
 namespace ZhonTai.Admin.GrpcServices;
 

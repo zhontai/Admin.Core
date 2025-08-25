@@ -24,14 +24,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin.Core" Version="9.1.1">
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.1.3">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.1.1">
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.1.3">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 		<!--#if (IsSys) -->
-		<PackageReference Include="ZhonTai.Admin" Version="9.1.1">
+		<PackageReference Include="ZhonTai.Admin" Version="9.1.3">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 		<!--#endif -->

@@ -378,6 +378,8 @@ public class AopConfig
     public bool Transaction { get; set; } = true;
 }
 
+
+
 /// <summary>
 /// 日志配置
 /// </summary>
@@ -387,6 +389,11 @@ public class LogConfig
     /// 操作日志
     /// </summary>
     public bool Operation { get; set; } = true;
+
+    /// <summary>
+    /// 记录日志方式
+    /// </summary>
+    public LogMethod Method { get; set; } = LogMethod.Grpc;
 }
 
 /// <summary>
@@ -513,4 +520,13 @@ public enum AppType
     Controllers,
     ControllersWithViews,
     MVC
+}
+
+/// <summary>
+/// 记录日志方式
+/// </summary>
+public enum LogMethod
+{
+    Grpc,
+    Cap
 }

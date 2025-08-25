@@ -9,8 +9,8 @@
     :close-on-press-escape="false"
     width="880px"
   >
-    <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
-      <el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-top: 8px">
+    <div style="background-color: var(--ba-bg-color)">
+      <el-card class="my-query-box" shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
           <el-form-item label="姓名" prop="name">
             <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
@@ -43,7 +43,7 @@
           <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
           <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
         </el-table>
-        <div class="my-flex my-flex-end" style="margin-top: 20px">
+        <div class="my-flex my-flex-end" style="margin-top: 10px">
           <el-pagination
             v-model:currentPage="state.pageInput.currentPage"
             v-model:page-size="state.pageInput.pageSize"

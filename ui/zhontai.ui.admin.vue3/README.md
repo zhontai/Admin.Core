@@ -24,7 +24,8 @@
 
 #### ⛱️ 线上预览
 
-- vue3.x 版本预览（admin.ui.plus）<a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
+- vue3.x 版本预览（admin.ui.plus）<a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
+  账号：user 密码：123asd
 
 #### 💒 代码仓库
 

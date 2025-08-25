@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;</TargetFrameworks>
-	</PropertyGroup>
-	<PropertyGroup>
 		<Description>中台动态WebApi库</Description>
 		<PackageTags>DynamicApi;WebApi;</PackageTags>
 	</PropertyGroup>

@@ -11,7 +11,7 @@ public class TaskSchedulerOptions
     /// <summary>
     /// 数据库键
     /// </summary>
-    public string DbKey { get; set; } = DbKeys.AppDb;
+    public string DbKey { get; set; } = DbKeys.AdminDb;
 
     /// <summary>
     /// 数据库实例

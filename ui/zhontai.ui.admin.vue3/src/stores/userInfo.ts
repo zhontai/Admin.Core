@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { AuthApi } from '/@/api/admin/Auth'
-import { merge } from 'lodash-es'
+import { merge, isObject } from 'lodash-es'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import Watermark from '/@/utils/watermark'
@@ -27,7 +27,9 @@ export const useUserInfo = defineStore('userInfo', {
   actions: {
     async setUserInfos() {
       const userInfos = <UserInfos>await this.getUserInfo().catch(() => {})
-      merge(this.userInfos, userInfos)
+      if (userInfos && Object.keys(userInfos).length > 0) {
+        merge(this.userInfos, userInfos)
+      }
     },
     setUserName(userName: string) {
       this.userInfos.userName = userName
@@ -63,39 +65,39 @@ export const useUserInfo = defineStore('userInfo', {
     },
     //查询用户信息
     async getUserInfo() {
-      return new Promise((resolve, reject) => {
-        Promise.all([new AuthApi().getUserProfile(), new AuthApi().getUserPermissions()])
-          .then((res) => {
-            if (res[0]?.success && res[1]?.success) {
-              const user = res[0].data
-              const userInfos = {
-                userName: user?.nickName || user?.name,
-                photo: user?.avatar ? user?.avatar : '',
-                time: new Date().getTime(),
-                roles: [],
-                authBtnList: res[1].data?.permissions,
-              }
+      try {
+        const profile = await new AuthApi().getUserProfile().catch(() => {})
+        const permissions = await new AuthApi().getUserPermissions().catch(() => {})
 
-              // 水印文案
-              const storesThemeConfig = useThemeConfig()
-              if (storesThemeConfig.themeConfig.isWatermark) {
-                storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || '中台Admin'
-                Watermark.set(storesThemeConfig.themeConfig.watermarkText)
-                Local.remove('themeConfig')
-                Local.set('themeConfig', storesThemeConfig.themeConfig)
-              } else {
-                Watermark.del()
-              }
+        const userInfos = {} as any
+        const user = profile?.data
+        if (profile?.success) {
+          userInfos.userName = user?.nickName || user?.name
+          userInfos.photo = user?.avatar ? user?.avatar : ''
+          userInfos.time = new Date().getTime()
+          userInfos.roles = []
+        }
 
-              resolve(userInfos)
-            } else {
-              this.clear()
-            }
-          })
-          .catch((err) => {
-            reject(err)
-          })
-      })
+        if (permissions?.success) {
+          userInfos.authBtnList = permissions.data?.permissions
+        }
+
+        // 水印文案
+        const storesThemeConfig = useThemeConfig()
+        if (storesThemeConfig.themeConfig.isWatermark) {
+          storesThemeConfig.themeConfig.watermarkText = user?.watermarkText || '中台Admin'
+          Watermark.set(storesThemeConfig.themeConfig.watermarkText)
+          Local.remove('themeConfig')
+          Local.set('themeConfig', storesThemeConfig.themeConfig)
+        } else {
+          Watermark.del()
+        }
+
+        return userInfos
+      } catch (err) {
+        console.error('获取用户信息失败:', err)
+        throw err
+      }
     },
   },
 })

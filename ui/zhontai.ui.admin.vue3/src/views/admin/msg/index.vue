@@ -1,6 +1,6 @@
 <template>
-  <MySplitPanes>
-    <pane size="55" min-size="35" max-size="65">
+  <MySplitter>
+    <el-splitter-panel size="42%" min="30%" max="60%">
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -56,8 +56,8 @@
           </div>
         </el-card>
       </div>
-    </pane>
-    <pane>
+    </el-splitter-panel>
+    <el-splitter-panel>
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
@@ -96,7 +96,7 @@
           </el-table>
         </el-card>
       </div>
-    </pane>
+    </el-splitter-panel>
 
     <msg-form ref="msgFormRef" :title="state.msgFormTitle"></msg-form>
     <user-select
@@ -106,7 +106,7 @@
       :sure-loading="state.sureLoading"
       @sure="onSureUser"
     ></user-select>
-  </MySplitPanes>
+  </MySplitter>
 </template>
 
 <script lang="ts" setup name="admin/msg">
@@ -122,7 +122,6 @@ import { MsgApi } from '/@/api/admin/Msg'
 import { ElTable } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
-import { Pane } from 'splitpanes'
 import dayjs from 'dayjs'
 import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
 import { getDescByValue } from '/@/utils/enum'
@@ -130,7 +129,7 @@ import { getDescByValue } from '/@/utils/enum'
 // 引入组件
 const MsgForm = defineAsyncComponent(() => import('./components/msg-form.vue'))
 const UserSelect = defineAsyncComponent(() => import('/@/views/admin/user/components/user-select.vue'))
-const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
+const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
 
 const { proxy } = getCurrentInstance() as any

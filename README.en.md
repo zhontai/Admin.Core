@@ -34,7 +34,8 @@ A backend permission management system with frontend and backend separation, bui
 
 #### ⛱️ Online preview
 
-- Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>
+- Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
+  account：user password：123asd
 
 #### 📚 Development documentation
 
@@ -46,25 +47,28 @@ A backend permission management system with frontend and backend separation, bui
 
 #### 🚀 Feature introduction
 
-1. **User Management**: Manage and query users, supporting advanced search and user linkage by department. Users can be disabled/enabled, supervisors can be set/removed, passwords can be reset, multiple roles and departments can be configured, superior supervisors can be assigned, and one-click login to specified users is supported.
-2. **Role Management**: Manage roles and role groups, supporting user linkage by role, setting menu and data permissions, and bulk adding and removing employees.
-3. **Department Management**: Manage departments, supporting tree-list display.
-4. **Permission Management**: Manage permission groups, menus, and permission points, supporting tree-list display.
-5. **Tenant Packages**: Manage tenant packages, supporting menu permission settings for tenant packages and bulk adding and removing enterprises.
-6. **Tenant Management**: Manage tenants, automatically initializing tenant departments, default roles, and administrators upon adding a new tenant. Supports configuring packages, disabling/enabling, and one-click login to tenant administrators.
-7. **Dictionary Management**: Manage data dictionary categories and subcategories, supporting subcategory linkage by dictionary category, multi-column sorting on the server, data import and export.
-8. **Task Scheduling**: Manage and view tasks and their run logs, supporting task creation, modification, deletion, starting, pausing, immediate execution, retry on failure, and sending alert emails.
-9. **Cache Management**: Query cache lists and clear cache based on cache keys.
-10. **API Management**: Manage APIs, supporting API synchronization functionality, primarily used for selecting APIs when adding permission points. Supports tree-list display, operation log request parameters, and response result configuration.
-11. **View Management**: Manage views, used for selecting view components when adding menus. Supports tree-list display.
-12. **File Management**: Manage file uploads, supporting file querying, uploading to OSS or locally, downloading, copying file addresses, deleting files, and viewing large images for image files.
-13. **Region Management**: Manage and query regions, supporting disabling/enabling, setting/removing popular regions, and one-click synchronization of statistical bureau region data.
-14. **Login Logs**: Query login log lists, recording successful and failed user login logs, with IP location tracking.
-15. **Operation Logs**: Query operation log lists, recording normal and abnormal user operations, with IP location tracking and detailed operation log viewing.
-16. **Personal Center**: This feature allows users to display and modify their personal information, view their last login information, change their passwords, and more.
-17. **Message Classification**: Manage message classifications, supporting 2-level custom message classifications for message management and classification selection.
-18. **Message Management**: Manage messages, support sending messages to specified users, and be able to check whether the user has read the message and the reading time.
-19. **In-site Messages**: Manage in-site messages, supporting functions such as detailed message viewing, deletion, marking as read, and marking all as read. 
+Here is the translated document with numbered items:
+
+1. **User Management**: Manage and query users, supporting advanced query schemes and department-linked user retrieval. Users can be enabled/disabled, set/unset as supervisors, have passwords reset, be configured with multiple roles and departments, allow one-click login for specified users, view online/offline status, be forced offline, transferred between departments, and managed via recycle bin.  
+2. **Role Management**: Manage roles and role groups, supporting role-based user linkage, menu and data permission settings, and batch addition/removal of employees.  
+3. **Department Management**: Manage departments, supporting tree-structured lists and graphical displays.  
+4. **Permission Management**: Manage permission groups, menus, and permission points across multiple platforms. Permission points can be configured with multiple interface addresses and displayed in a tree-structured list.  
+5. **Tenant Plans**: Manage tenant plans, supporting menu permission settings and batch addition/removal of plan-associated enterprises.  
+6. **Tenant Management**: Manage tenants. New tenants are automatically initialized with default departments, roles, and administrators. Supports plan configuration, enabling/disabling, and one-click login for tenant administrators.  
+7. **Dictionary Management**: Manage data dictionary categories and subcategories, supporting category-linked subcategory retrieval. Subcategories feature server-side multi-column sorting, data import, and export functions.  
+8. **Task Scheduling**: Manage and view tasks along with their execution logs. Supports task creation, modification, deletion, starting, pausing, immediate execution, failure retries, and alert email notifications.  
+9. **Cache Management**: Query cache lists and clear caches based on cache keys.  
+10. **Interface Management**: Manage interfaces, supporting synchronization functions. Primarily used for selecting interfaces when adding permission points. Features tree-structured lists, operation log toggles, and configuration of request parameters and response results in log details.  
+11. **View Management**: Manage views across multiple platforms, used for selecting view components when adding menus. Supports tree-structured list display.  
+12. **File Management**: Manage file uploads, supporting file queries, uploading to OSS or local storage, downloading, copying file addresses, deleting files, and enlarged image previews for pictures.  
+13. **Region Management**: Manage and query regions, supporting enabling/disabling, setting/unsetting popular regions, and one-click synchronization of national administrative division data.  
+14. **Login Logs**: Query login logs, recording successful and failed login attempts with IP location tracking.  
+15. **Operation Logs**: Query operation logs, recording normal and abnormal user operations with IP location tracking and detailed log viewing.  
+16. **Personal Center**: Display and modify personal information, including password, phone number, and email updates.  
+17. **Message Categories**: Manage message categories, supporting 2-level custom classifications for message management selection.  
+18. **Message Management**: Manage messages, supporting targeted user messaging with read status and timestamp tracking.  
+19. **Inbox**: Manage internal messages, supporting detailed viewing, deletion, marking as read, and marking all as read.  
+20. **Print Templates**: Manage print templates, supporting component drag-and-drop, JSON data source configuration, designer tools, parameter initialization, paper selection/customization, scaling, layout adjustments, printing, previewing, template JSON viewing, and saving/refreshing templates.
 
 #### ⚡ Usage instructions
 
@@ -128,6 +132,38 @@ dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://p
 4. Select the microservice you want to debug and click the Debugger button to start debugging.
 ```
 
+Running the Frontend Project  
+
+1. Clone the Code  
+   The frontend project is located in the `ui/zhontai.ui.admin.vue3` directory.  
+
+2. Set Up Registry (Optional - Faster Chinese Mirror)  
+   ```bash
+   # Install nrm (NPM registry manager)
+   npm install -g nrm --registry https://registry.npmmirror.com
+   
+   # List available registries
+   nrm ls
+   
+   # Switch to npm mirror
+   nrm use npm
+   ```
+
+3. Install pnpm  
+   ```bash
+   npm install -g pnpm
+   ```
+
+4. Install Dependencies  
+   ```bash
+   pnpm install
+   ```
+
+5. Run the Development Server  
+   ```bash
+   pnpm dev
+   ```
+
 
 #### 💯 Join a QQ group for learning and communication
 
@@ -145,25 +181,6 @@ dotnet tool install -g Microsoft.Tye --version "0.12.0-*" --add-source https://p
 - <a href="https://github.com/2881099/FreeRedis" target="_blank">FreeRedis</a>
 - <a href="https://github.com/2881099/FreeSql.Cloud" target="_blank">FreeSql.Cloud</a>
 - <a href="https://github.com/2881099/FreeScheduler" target="_blank">FreeScheduler</a>
-
-#### ❤️ Acknowledgments list
-
-- <a href="https://github.com/dotnet/core" target="_blank">.Net</a>
-- <a href="https://github.com/autofac/Autofac" target="_blank">Autofac</a>
-- <a href="https://github.com/MapsterMapper/Mapster" target="_blank">Mapster</a>
-- <a href="https://github.com/dotnetcore/CAP" target="_blank">DotNetCore.CAP</a>
-- <a href="https://github.com/NLog/NLog" target="_blank">NLog</a>
-- <a href="https://github.com/yitter/idgenerator" target="_blank">Yitter.IdGenerator</a>
-- <a href="https://github.com/JamesNK/Newtonsoft.Json" target="_blank">Newtonsoft.Json</a>
-- <a href="https://github.com/domaindrivendev/Swashbuckle.AspNetCore" target="_blank">Swashbuckle.AspNetCore</a>
-- <a href="https://github.com/FluentValidation/FluentValidations" target="_blank">FluentValidation.AspNetCore</a>
-- <a href="https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks" target="_blank">AspNetCore.Diagnostics.HealthChecks</a>
-- <a href="https://github.com/MiniProfiler/dotnet" target="_blank">MiniProfiler</a>
-- <a href="https://github.com/IdentityServer/IdentityServer4" target="_blank">IdentityServer4</a>
-- <a href="https://github.com/stefanprodan/AspNetCoreRateLimit" target="_blank">AspNetCoreRateLimit</a>
-- <a href="https://github.com/oncemi/OnceMi.AspNetCore.OSS" target="_blank">OnceMi.AspNetCore.OSS</a>
-- <a href="https://gitee.com/pojianbing/lazy-slide-captcha" target="_blank">Lazy.SlideCaptcha.Core</a>
-- <a href="https://github.com/ua-parser/uap-csharp" target="_blank">UAParser</a>
 
 #### 💌 Support the author
 

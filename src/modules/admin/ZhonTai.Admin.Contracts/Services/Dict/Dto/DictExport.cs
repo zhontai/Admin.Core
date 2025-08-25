@@ -26,28 +26,31 @@ public class BoolValueMappingAttribute : ValueMappingsBaseAttribute
 [ExcelExporter(Name = "字典列表")]
 public class DictExportHeader
 {
-    [ExporterHeader(DisplayName = "字典分类", ColumnIndex = 2)]
+    [ExporterHeader(DisplayName = "字典分类", ColumnIndex = 3)]
     public string DictTypeName { get; set; }
 
-    [ExporterHeader(DisplayName = "字典名称", ColumnIndex = 3)]
+    [ExporterHeader(DisplayName = "字典名称", ColumnIndex = 4)]
     public string Name { get; set; }
 
-    [ExporterHeader(DisplayName = "字典编码", ColumnIndex = 4)]
+    [ExporterHeader(DisplayName = "上级字典", ColumnIndex = 5)]
+    public string ParentName { get; set; }
+
+    [ExporterHeader(DisplayName = "字典编码", ColumnIndex = 6)]
     public string Code { get; set; }
 
-    [ExporterHeader(DisplayName = "字典值", ColumnIndex = 5)]
+    [ExporterHeader(DisplayName = "字典值", ColumnIndex = 7)]
     public string Value { get; set; }
 
     //[BoolValueMapping]
     //[ValueMapping(text: "是", true)]
     //[ValueMapping(text: "否", false)]
-    [ExporterHeader(DisplayName = "启用", ColumnIndex = 6)]
+    [ExporterHeader(DisplayName = "启用", ColumnIndex = 8)]
     public bool Enabled { get; set; }
 
-    [ExporterHeader(DisplayName = "排序", ColumnIndex = 7)]
+    [ExporterHeader(DisplayName = "排序", ColumnIndex = 9)]
     public int Sort { get; set; }
 
-    [ExporterHeader(DisplayName = "说明", ColumnIndex = 8)]
+    [ExporterHeader(DisplayName = "说明", ColumnIndex = 10)]
     public string Description { get; set; }
 }
 
@@ -57,15 +60,18 @@ public class DictExport: DictExportHeader
     [ExporterHeader(DisplayName = "字典编号", Format = "0", ColumnIndex = 1)]
     public long Id { get; set; }
 
-    [ExporterHeader(DisplayName = "创建人员", ColumnIndex = 10)]
+    [ExporterHeader(DisplayName = "上级字典编号", Format = "0", ColumnIndex = 2)]
+    public long ParentId { get; set; }
+
+    [ExporterHeader(DisplayName = "创建人员", ColumnIndex = 11)]
     public string CreatedUserRealName { get; set; }
 
-    [ExporterHeader(DisplayName = "创建时间", Format = "yyyy-MM-dd HH:mm:ss", Width = 20, ColumnIndex = 11)]
+    [ExporterHeader(DisplayName = "创建时间", Format = "yyyy-MM-dd HH:mm:ss", Width = 20, ColumnIndex = 12)]
     public DateTime? CreatedTime { get; set; }
 
-    [ExporterHeader(DisplayName = "修改人员", ColumnIndex = 12)]
+    [ExporterHeader(DisplayName = "修改人员", ColumnIndex = 13)]
     public string ModifiedUserRealName { get; set; }
 
-    [ExporterHeader(DisplayName = "修改时间", Format = "yyyy-MM-dd HH:mm:ss", Width = 20, ColumnIndex = 13)]
+    [ExporterHeader(DisplayName = "修改时间", Format = "yyyy-MM-dd HH:mm:ss", Width = 20, ColumnIndex = 14)]
     public virtual DateTime? ModifiedTime { get; set; }
 }

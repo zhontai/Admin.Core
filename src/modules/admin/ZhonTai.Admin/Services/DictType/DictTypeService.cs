@@ -48,6 +48,7 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Obsolete($"请使用{nameof(GetListAsync)}方法替代")]
     [HttpPost]
     public async Task<PageOutput<DictTypeGetPageOutput>> GetPageAsync(PageInput<DictTypeGetPageInput> input)
     {
@@ -68,6 +69,36 @@ public class DictTypeService : BaseService, IDictTypeService, IDynamicApi
         };
 
         return data;
+    }
+
+    /// <summary>
+    /// 查询列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<DictTypeGetListOutput>> GetListAsync(DictTypeGetListInput input)
+    {
+        var key = input?.Name;
+
+        var select = _dictTypeRep.Select
+        .WhereDynamicFilter(input.DynamicFilter)
+        .WhereIf(key.NotNull(), a => a.Name.Contains(key) || a.Code.Contains(key))
+        .OrderBy(a => a.ParentId);
+
+        if (input.SortList != null && input.SortList.Count > 0)
+        {
+            input.SortList.ForEach(sort =>
+            {
+                select = select.OrderByPropertyNameIf(sort.Order.HasValue, sort.PropName, sort.IsAscending.Value);
+            });
+        }
+        else
+        {
+            select = select.OrderBy(a => a.Sort);
+        }
+
+        return await select.ToListAsync<DictTypeGetListOutput>();
     }
 
     /// <summary>

@@ -12,7 +12,6 @@ using ZhonTai.Admin.Tools.TaskScheduler;
 #if (!NoApiUI)
 using ZhonTai.ApiUI;
 #endif
-using MyApp.Api.Core.Consts;
 using Microsoft.AspNetCore.Builder;
 #if (!NoCap)
 using Microsoft.Extensions.DependencyModel;
@@ -34,11 +33,32 @@ using ZhonTai.Admin.Services.TaskScheduler;
 using Autofac;
 using MyApp.Api.Core.Repositories;
 #if (IsSys)
+using ZhonTai.Admin.Core.Extensions;
+#endif
+using DotNetCore.CAP.Messages;
+using System.Text.Encodings.Web;
+#if (IsSys)
 using ZhonTai.Admin.Repositories;
 #endif
 
 new HostApp(new HostAppOptions()
 {
+    //前置配置FreeSql
+    ConfigurePreFreeSql = (freeSql, dbConfig) =>
+    {
+        freeSql.UseJsonMap(); //启用JsonMap功能
+#if (IsSys && !MergeDb)
+        freeSql.UseLogDb(dbConfig); //使用日志数据库
+#endif
+    },
+    //配置FreeSql构建器
+    ConfigureFreeSqlBuilder = (freeSqlBuilder, dbConfig) =>
+    {
+        //if (dbConfig.Type == FreeSql.DataType.QuestDb)
+        //{
+        //    freeSqlBuilder.UseQuestDbRestAPI("http://localhost:9000", "admin", "quest");
+        //}
+    },
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
@@ -49,24 +69,15 @@ new HostApp(new HostAppOptions()
         }
 #endif
     },
-
     //配置前置服务
     ConfigurePreServices = context =>
 	{
-        var dbConfig = AppInfo.GetOptions<DbConfig>();
-		if (dbConfig.Key.NotNull())
-		{
-			DbKeys.AppDb = dbConfig.Key;
-		}
-#if (IsSys)
-#if (MergeDb)
-		AdminDbKeys.AppDb = DbKeys.AppDb;
-#if (!NoTaskScheduler)
-        AdminDbKeys.TaskDb = DbKeys.AppDb;
+#if (IsSys && !NoTaskScheduler)
+        context.Services.Configure<TaskSchedulerConfig>(context.Configuration.GetSection("TaskScheduler"));
 #endif
-#else
-        AdminDbKeys.AppDb = "admindb";
-#endif
+#if (IsSys && !MergeDb)
+        AdminDbKeys.AdminDb = "admindb";
+        AdminDbKeys.LogDb = "logdb";
 #endif
     },
     //配置后置服务
@@ -126,12 +137,17 @@ new HostApp(new HostAppOptions()
         //var rabbitMQ = context.Configuration.GetSection("CAP:RabbitMq").Get<RabbitMQOptions>();
         context.Services.AddCap(config =>
 		{
-			config.UseInMemoryStorage();
-			config.UseInMemoryMessageQueue();
+            config.DefaultGroupName = "MyApp";
+            //开发阶段不同开发人员的消息区分，可以通过配置版本号实现
+            config.Version = "v1";
+            config.FailedRetryCount = 5;
+            config.FailedRetryInterval = 15;
+            config.EnablePublishParallelSend = true;
+            config.UseStorageLock = true;
+            config.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
 
-            //<PackageReference Include="DotNetCore.CAP.MySql" Version="8.3.2" />
-            //<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="8.3.2" />
-
+            config.UseInMemoryStorage();
+            config.UseInMemoryMessageQueue();
             //config.UseMySql(dbConfig.ConnectionString);
             //config.UseRabbitMQ(mqConfig => {
             //    mqConfig.HostName = rabbitMQ.HostName;
@@ -140,8 +156,19 @@ new HostApp(new HostAppOptions()
             //    mqConfig.Password = rabbitMQ.Password;
             //    mqConfig.ExchangeName = rabbitMQ.ExchangeName;
             //});
+
+            config.FailedThresholdCallback = failed =>
+            {
+                AppInfo.Log.Error($@"消息处理失败！类型: {failed.MessageType}, 
+已重试 {config.FailedRetryCount} 次仍失败，需人工处理。消息名称: {failed.Message.GetName()}");
+            };
+
             config.UseDashboard();
-		}).AddSubscriberAssembly(assemblies);
+        }).AddSubscriberAssembly(assemblies);
+#endif
+#if (IsSys)
+        //添加滑块验证
+        context.Services.AddSlideCaptcha();
 #endif
     },
     //配置Autofac容器
@@ -150,6 +177,7 @@ new HostApp(new HostAppOptions()
         builder.RegisterGeneric(typeof(AppRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
 #if (IsSys)
         builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
+        builder.RegisterGeneric(typeof(LogRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
 #endif
     },
     //配置Mvc

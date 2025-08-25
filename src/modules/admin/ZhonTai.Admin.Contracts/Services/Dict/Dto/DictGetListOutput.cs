@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ZhonTai.Admin.Services.Dict.Dto;
 
@@ -23,6 +23,16 @@ public class DictGetListOutput
     /// 主键Id
     /// </summary>
     public long Id { get; set; }
+
+    /// <summary>
+    /// 上级Id
+    /// </summary>
+    public long? ParentId { get; set; }
+
+    public bool ShouldSerializeParentId()
+    {
+        return ParentId.HasValue && ParentId > 0;
+    }
 
     /// <summary>
     /// 字典名称

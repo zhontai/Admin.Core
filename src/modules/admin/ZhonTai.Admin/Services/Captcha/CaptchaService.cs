@@ -10,9 +10,9 @@ using ZhonTai.Admin.Services.Email.Events;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using Lazy.SlideCaptcha.Core;
-using Lazy.SlideCaptcha.Core.Validator;
-using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Plugin.Lazy.SlideCaptcha.Core;
+using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator;
+using static ZhonTai.Plugin.Lazy.SlideCaptcha.Core.ValidateResult;
 using ZhonTai.Admin.Resources;
 
 namespace ZhonTai.Admin.Services.Cache;

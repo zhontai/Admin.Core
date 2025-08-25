@@ -49,7 +49,12 @@ public class EmailService: ICapSubscribe
 
         using var client = new SmtpClient();
         await client.ConnectAsync(emailConfig.Host, emailConfig.Port, emailConfig.UseSsl);
-        await client.AuthenticateAsync(emailConfig.UserName, emailConfig.Password);
+        // 检查是否需要身份验证
+        var hasAuthentication = client.Capabilities.HasFlag(SmtpCapabilities.Authentication);
+        if (hasAuthentication)
+        {
+            await client.AuthenticateAsync(emailConfig.UserName, emailConfig.Password);
+        }
         await client.SendAsync(message);
         await client.DisconnectAsync(true);
     }

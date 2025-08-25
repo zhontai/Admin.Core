@@ -1,11 +1,11 @@
 <template>
-  <MySplitPanes>
-    <pane size="20" min-size="20" max-size="35">
+  <MySplitter>
+    <el-splitter-panel size="20%" min="200" max="40%">
       <div class="my-flex-column w100 h100">
         <org-menu @node-click="onOrgNodeClick" select-first-node></org-menu>
       </div>
-    </pane>
-    <pane size="80">
+    </el-splitter-panel>
+    <el-splitter-panel>
       <div class="my-flex-column w100 h100">
         <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
           <my-search
@@ -44,89 +44,70 @@
                   </template>
                 </el-button>
               </el-tooltip>
+              <MyColSet v-model="state.tableModel.columns" />
               <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
                 <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
               </el-tooltip>
             </div>
           </div>
+          <MyTable ref="tableRef" v-model="state.tableModel" @size-change="onQuery" @current-change="onQuery">
+            <!-- 账号列自定义插槽 -->
+            <template #userName="{ row }">
+              <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
+              {{ row.userName }}
+            </template>
 
-          <el-table ref="tableRef" v-loading="state.loading" :data="state.userListData" row-key="id" border>
-            <el-table-column type="selection" />
-            <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip>
-              <template #default="{ row }">
-                <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
-                {{ row.userName }}
+            <!-- 姓名列自定义插槽 -->
+            <template #name="{ row }">
+              <div class="my-flex my-flex-items-center">
+                {{ row.name }}
+                <el-icon v-if="row.sex === 1 || row.sex === 2" class="ml4">
+                  <ele-Male v-if="row.sex === 1" color="#409EFF" />
+                  <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
+                </el-icon>
+                <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
+              </div>
+            </template>
+
+            <!-- 状态列自定义插槽 -->
+            <template #enabled="{ row }">
+              <el-switch
+                v-if="auth('api:admin:user:set-enable')"
+                v-model="row.enabled"
+                :loading="row.loading"
+                :active-value="true"
+                :inactive-value="false"
+                inline-prompt
+                active-text="启用"
+                inactive-text="禁用"
+                :before-change="() => onSetEnable(row)"
+              />
+              <template v-else>
+                <el-tag type="success" v-if="row.enabled">启用</el-tag>
+                <el-tag type="danger" v-else>禁用</el-tag>
               </template>
-            </el-table-column>
-            <el-table-column prop="name" label="姓名" width="130" show-overflow-tooltip>
-              <template #default="{ row }">
-                <div class="my-flex my-flex-items-center">
-                  {{ row.name }}
-                  <el-icon v-if="row.sex === 1 || row.sex === 2" class="ml4">
-                    <ele-Male v-if="row.sex === 1" color="#409EFF" />
-                    <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
-                  </el-icon>
-                  <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column prop="mobile" label="手机号" width="120" show-overflow-tooltip />
-            <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
-            <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
-            <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
-            <el-table-column label="状态" width="88" align="center" fixed="right">
-              <template #default="{ row }">
-                <el-switch
-                  v-if="auth('api:admin:user:set-enable')"
-                  v-model="row.enabled"
-                  :loading="row.loading"
-                  :active-value="true"
-                  :inactive-value="false"
-                  inline-prompt
-                  active-text="启用"
-                  inactive-text="禁用"
-                  :before-change="() => onSetEnable(row)"
-                />
-                <template v-else>
-                  <el-tag type="success" v-if="row.enabled">启用</el-tag>
-                  <el-tag type="danger" v-else>禁用</el-tag>
+            </template>
+
+            <!-- 操作列自定义插槽 -->
+            <template #actions="{ row }">
+              <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+              <my-dropdown-more
+                v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
+              >
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)"
+                      >{{ row.isManager ? '取消' : '设置' }}主管</el-dropdown-item
+                    >
+                    <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
+                  </el-dropdown-menu>
                 </template>
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="140" header-align="center" align="center" fixed="right">
-              <template #default="{ row }">
-                <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-                <my-dropdown-more
-                  v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
-                >
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)"
-                        >{{ row.isManager ? '取消' : '设置' }}主管</el-dropdown-item
-                      >
-                      <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </my-dropdown-more>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="my-flex my-flex-end" style="margin-top: 10px">
-            <el-pagination
-              v-model:currentPage="state.pageInput.currentPage"
-              v-model:page-size="state.pageInput.pageSize"
-              :total="state.total"
-              :page-sizes="[10, 20, 50, 100]"
-              background
-              @size-change="onSizeChange"
-              @current-change="onCurrentChange"
-              layout="total, sizes, prev, pager, next, jumper"
-            />
-          </div>
+              </my-dropdown-more>
+            </template>
+          </MyTable>
         </el-card>
 
         <user-form ref="userFormRef" :title="state.userFormTitle"></user-form>
@@ -136,17 +117,16 @@
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
         <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="state.searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
-    </pane>
-  </MySplitPanes>
+    </el-splitter-panel>
+  </MySplitter>
 </template>
 
 <script lang="ts" setup name="admin/user">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
+import { ref, useTemplateRef, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, nextTick } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
-import { Pane } from 'splitpanes'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
 import { ElTable } from 'element-plus'
@@ -162,13 +142,14 @@ const UserSetOrg = defineAsyncComponent(() => import('./components/user-set-org.
 const UserResetPwd = defineAsyncComponent(() => import('./components/user-reset-pwd.vue'))
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropdown-more/index.vue'))
-const MySplitPanes = defineAsyncComponent(() => import('/@/components/my-layout/split-panes.vue'))
+const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-high-search/dialog.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
-const tableRef = ref<InstanceType<typeof ElTable>>()
-const userFormRef = ref()
+const tableRef = useTemplateRef<InstanceType<typeof ElTable>>('tableRef')
+const userFormRef = useTemplateRef('userFormRef')
+
 const userRecycleDialogRef = ref()
 const userUpdateFormRef = ref()
 const userSetOrgRef = ref()
@@ -182,7 +163,6 @@ const state = reactive({
   loadingBatchSetOrg: false,
   showQuery: true,
   userFormTitle: '',
-  total: 0,
   pageInput: {
     currentPage: 1,
     pageSize: 20,
@@ -191,6 +171,69 @@ const state = reactive({
     },
   } as PageInputUserGetPageInput,
   userListData: [] as Array<UserGetPageOutput>,
+  checkAll: false,
+  checkIndeterminate: false,
+  // 表格模型
+  tableModel: {
+    columns: [
+      { attrs: { type: 'selection', prop: '_multiCheck', label: '多选' }, isShow: true },
+      {
+        attrs: {
+          prop: 'userName',
+          label: '账号',
+          minWidth: 180,
+          showOverflowTooltip: true,
+        },
+        slot: 'userName',
+        isShow: true,
+      },
+      {
+        attrs: {
+          prop: 'name',
+          label: '姓名',
+          width: 130,
+          showOverflowTooltip: true,
+        },
+        slot: 'name',
+        isShow: true,
+      },
+      { attrs: { prop: 'mobile', label: '手机号', width: 120, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'orgPaths', label: '部门', minWidth: 200, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'orgPath', label: '主属部门', minWidth: 180, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'roleNames', label: '角色', minWidth: 180, showOverflowTooltip: true }, isShow: true },
+      { attrs: { prop: 'email', label: '邮箱', minWidth: 180, showOverflowTooltip: true }, isShow: true },
+      {
+        attrs: {
+          prop: 'enabled',
+          label: '状态',
+          width: 88,
+          align: 'center',
+          fixed: 'right',
+        },
+        slot: 'enabled',
+        isShow: true,
+      },
+      {
+        attrs: {
+          prop: '_actions',
+          label: '操作',
+          width: 140,
+          headerAlign: 'center',
+          align: 'center',
+          fixed: 'right',
+        },
+        slot: 'actions',
+        isShow: true,
+      },
+    ] as Array<{ attrs: Record<string, any>; slot?: string; isShow?: boolean }>,
+    data: [] as Array<UserGetPageOutput>,
+    loading: false,
+    pagination: {
+      currentPage: 1,
+      pageSize: 20,
+      total: 0,
+    },
+  },
   searchItems: [
     {
       label: '姓名',
@@ -205,7 +248,7 @@ const state = reactive({
       label: '状态',
       field: 'enabled',
       operator: Operator.equal.value,
-      componentName: 'my-select',
+      componentName: 'el-select',
       type: 'select',
       attrs: {
         placeholder: '请选择',
@@ -243,7 +286,7 @@ const state = reactive({
       label: '性别',
       field: 'staff.sex',
       operator: Operator.equal.value,
-      componentName: 'my-select',
+      componentName: 'el-select',
       type: 'select',
       attrs: {
         placeholder: '请选择',
@@ -309,16 +352,22 @@ onBeforeMount(() => {
 
 //查询分页
 const onQuery = async () => {
-  state.loading = true
+  state.tableModel.loading = true
+
+  // 直接从表格模型中获取分页参数
+  state.pageInput.currentPage = state.tableModel.pagination.currentPage
+  state.pageInput.pageSize = state.tableModel.pagination.pageSize
+
   const res = await new UserApi().getPage(state.pageInput).catch(() => {
-    state.loading = false
+    state.tableModel.loading = false
   })
 
-  state.userListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
-  state.loading = false
+  state.tableModel.data = res?.data?.list ?? []
+  state.tableModel.pagination.total = res?.data?.total ?? 0
+  state.tableModel.loading = false
 }
 
+//查询
 const onSearch = (filter: any, dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
   onQuery()
@@ -328,6 +377,7 @@ const onSearch = (filter: any, dynamicFilter: any) => {
 const onFilter = () => {
   myHighSearchDialogRef.value.open()
 }
+//高级查询确定
 const onFilterSure = (dynamicFilter: any) => {
   state.pageInput.dynamicFilter = dynamicFilter
   onQuery()
@@ -336,12 +386,10 @@ const onFilterSure = (dynamicFilter: any) => {
 //新增
 const onAdd = () => {
   state.userFormTitle = '新增用户'
-  userFormRef.value.open({
-    orgIds: state.pageInput.filter?.orgId && state.pageInput.filter.orgId > 0 ? [state.pageInput.filter?.orgId] : [],
-    orgId: state.pageInput.filter?.orgId,
-  })
+  userFormRef.value?.open({} as any)
 }
 
+//回收站
 const onRecycle = () => {
   userRecycleDialogRef.value.open()
 }
@@ -449,17 +497,7 @@ const onBatchSetOrg = () => {
   userSetOrgRef.value.open()
 }
 
-const onSizeChange = (val: number) => {
-  state.pageInput.currentPage = 1
-  state.pageInput.pageSize = val
-  onQuery()
-}
-
-const onCurrentChange = (val: number) => {
-  state.pageInput.currentPage = val
-  onQuery()
-}
-
+//选择部门
 const onOrgNodeClick = (node: OrgGetListOutput | null) => {
   if (state.pageInput.filter) {
     state.pageInput.filter.orgId = node?.id

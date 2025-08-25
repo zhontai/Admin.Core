@@ -8,7 +8,7 @@ namespace ZhonTai.Admin.Core.Attributes;
 [AttributeUsage(AttributeTargets.Method, Inherited = true)]
 public class AdminTransactionAttribute : TransactionAttribute
 {
-    public AdminTransactionAttribute():base(DbKeys.AppDb)
+    public AdminTransactionAttribute():base(DbKeys.AdminDb)
     {
     }
 }

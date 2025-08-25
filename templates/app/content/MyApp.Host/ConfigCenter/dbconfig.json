@@ -8,6 +8,10 @@
     ////#else
     //"assemblyNames": [ "MyApp.Api" ],
     ////#endif
+    //指定实体数据库列表，不填同步所有数据库表实体
+    "includeEntityDbs": [],
+    //排除实体数据库列表，指定不同步数据库表实体
+    "excludeEntityDbs": [],
 
     //监听所有操作
     "monitorCommand": false,
@@ -19,15 +23,18 @@
     "syncDataCurd": false,
 
     //建库
-    "createDb": false,
+    "createDb": true,
     //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
     //建库连接字符串
-    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
+    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
     //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
     //Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
     ////#if (DbType == "MySql")
-    //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+    //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
     ////#elseif (DbType == "SqlServer")
     //"createDbConnectionString": "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
@@ -55,17 +62,25 @@
     "syncStructure": true,
     //同步结构批次实体数
     "syncStructureEntityBatchSize": 1,
+    //同步数据分批处理大小，默认每次处理500条，过大可能会导致内存溢出
+    "syncDataBatchSize": 500,
     //同步数据
     "syncData": true,
+    //注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。
+    //如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
     //同步更新数据
-    "sysUpdateData": true,
+    "syncUpdateData": false,
     ////同步数据地址
     "SyncDataPath": "InitData/App",
-    //同步所有表["base_dict_type", "base_dict", "base_user",  "base_user_staff", "base_org", "base_role", "base_api", "base_view", "base_permission", "base_permission_api", "base_user_role", "base_user_org", "base_role_permission", "base_tenant", "base_tenant_permission"]
-    //同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
+    ////#if (MergeDb && IsSys)
+    ////同步所有表["base_dict_type", "base_dict", "base_user",  "base_user_staff", "base_org", "base_role", "base_api", "base_view", "base_permission", "base_permission_api", "base_user_role", "base_user_org", "base_role_permission", "base_tenant", "base_tenant_permission"]
+    ////同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
+    ////#endif
     //同步数据包含表，指定表同步，不填同步所有表
     "syncDataIncludeTables": [],
-    //同步排除表["base_user"]
+    ////#if (MergeDb && IsSys)
+    ////同步排除表["base_user"]
+    ////#endif
     //同步数据排除表，指定表不同步
     "syncDataExcludeTables": [],
     //同步数据操作用户
@@ -115,13 +130,16 @@
     ////#endif
 
     //连接字符串
-    //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
+    //MySql "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
     //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=__app_codedb;Pooling=true;Minimum Pool Size=1"
     //Sqlite "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1"
     //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#if (DbType == "MySql")
-    //"connectionString": "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+    //"connectionString": "Server=localhost; Port=3306; Database=__app_codedb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
     ////#elseif (DbType == "SqlServer")
     //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=__app_codedb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "PostgreSQL")
@@ -129,23 +147,23 @@
     ////#elseif (DbType == "Oracle")
     //"connectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
     ////#elseif (DbType == "Firebird")
-    //"connectionString": "database=localhost:D:\fbdata\EXAMPLES.fdb;user=sysdba;password=123456",
+    //"connectionString": "database=localhost:D:\fbdata\__app_codedb.fdb;user=sysdba;password=123456",
     ////#elseif (DbType == "MsAccess")
-    //"connectionString": "Provider=Microsoft.Jet.OleDb.4.0;Data Source=d:/accdb/2003.mdb",
+    //"connectionString": "Provider=Microsoft.Jet.OleDb.4.0;Data Source=d:/accdb/__app_codedb.mdb",
     ////#elseif (DbType == "Dameng")
-    //"connectionString": "server=127.0.0.1;port=5236;user id=2user;password=123456789;database=2user;poolsize=5",
+    //"connectionString": "server=127.0.0.1;port=5236;user id=2user;password=123456789;database=__app_codedb;poolsize=5",
     ////#elseif (DbType == "ShenTong")
-    //"connectionString": "HOST=192.168.164.10;PORT=2003;DATABASE=OSRDB;USERNAME=SYSDBA;PASSWORD=szoscar55;MAXPOOLSIZE=2",
+    //"connectionString": "HOST=192.168.164.10;PORT=2003;DATABASE=__app_codedb;USERNAME=SYSDBA;PASSWORD=szoscar55;MAXPOOLSIZE=2",
     ////#elseif (DbType == "KingbaseES")
-    //"connectionString": "Server=127.0.0.1;Port=54321;UID=USER2;PWD=123456789;database=TEST;MAXPOOLSIZE=2",
+    //"connectionString": "Server=127.0.0.1;Port=54321;UID=USER2;PWD=123456789;database=__app_codedb;MAXPOOLSIZE=2",
     ////#elseif (DbType == "Gbase")
-    //"connectionString": "Driver={GBase ODBC DRIVER (64-Bit)};Host=192.168.164.134;Service=9088;Server=gbase01;Database=testdb;Protocol=onsoctcp;Uid=gbasedbt;Pwd=GBase123;Db_locale=zh_CN.utf8;Client_locale=zh_CN.utf8",
+    //"connectionString": "Driver={GBase ODBC DRIVER (64-Bit)};Host=192.168.164.134;Service=9088;Server=gbase01;Database=__app_codedb;Protocol=onsoctcp;Uid=gbasedbt;Pwd=GBase123;Db_locale=zh_CN.utf8;Client_locale=zh_CN.utf8",
     ////#elseif (DbType == "ClickHouse")
     //"connectionString": "DataCompress=False;BufferSize=32768;SocketTimeout=10000;CheckCompressedHash=False;Encrypt=False;Compressor=lz4;Host=192.168.0.121;Port=8125;Database=PersonnelLocation;Username=root;Password=123",
     ////#elseif (DbType == "QuestDb")
     //"connectionString": "host=localhost;port=8812;username=admin;password=quest;database=qdb;ServerCompatibilityMode=NoTypeLoading;",
     ////#elseif (DbType == "Xugu")
-    //"connectionString": "IP=127.0.0.1;DB=SYSTEM;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
+    //"connectionString": "IP=127.0.0.1;DB=__app_codedb;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
     ////#else
     "connectionString": "Data Source=|DataDirectory|\\__app_codedb.db; Pooling=true;Min Pool Size=1",
     ////#endif
@@ -181,22 +199,33 @@
         "key": "admindb",
         ////程序集名称，自动获取实体表
         "assemblyNames": [ "ZhonTai.Admin" ],
+        ////指定实体数据库列表，不填同步所有数据库表实体
+        "includeEntityDbs": [],
+        ////排除实体数据库列表，指定不同步数据库表实体
+        "excludeEntityDbs": [ "Log" ],
 
         ////监听所有操作
         "monitorCommand": false,
         ////监听Curd操作
         "curd": true,
+        ////监听同步结构脚本
+        "syncStructureSql": false,
+        ////监听同步数据Curd操作
+        "syncDataCurd": false,
 
         ////建库
-        "createDb": false,
+        "createDb": true,
         ////SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
         ////建库连接字符串
-        ////MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+        ////default_authentication_plugin = caching_sha2_password 
+        ////MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        ////default_authentication_plugin = mysql_native_password
+        ////MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         ////SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
         ////PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
         ////Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
         ////#if (DbType == "MySql")
-        //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+        //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
         ////#elseif (DbType == "SqlServer")
         //"createDbConnectionString": "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1",
         ////#elseif (DbType == "PostgreSQL")
@@ -222,10 +251,30 @@
 
         ////同步结构
         "syncStructure": true,
+        ////同步结构批次实体数
+        "syncStructureEntityBatchSize": 1,
+        ////同步数据分批处理大小，默认每次处理500条，过大可能会导致内存溢出
+        "syncDataBatchSize": 500,
         ////同步数据
         "syncData": true,
+        ////同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
+        "syncUpdateData": false,
         ////同步数据地址
         "SyncDataPath": "InitData/App",
+        ////同步所有表["base_dict_type", "base_dict", "base_user",  "base_user_staff", "base_org", "base_role", "base_api", "base_view", "base_permission", "base_permission_api", "base_user_role", "base_user_org", "base_role_permission", "base_tenant", "base_tenant_permission"]
+        ////同步指定表["base_api", "base_view", "base_permission", "base_permission_api"]
+        ////同步数据包含表，指定表同步，不填同步所有表
+        "syncDataIncludeTables": [],
+        ////同步排除表["base_user"]
+        ////同步数据排除表，指定表不同步
+        "syncDataExcludeTables": [],
+        ////同步数据操作用户
+        "syncDataUser": {
+          "id": 161223411986501,
+          "userName": "admin",
+          "name": "管理员",
+          "tenantId": 161223412138053
+        },
 
         ////项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
         ////开启生成数据前先关闭syncStructure syncData createDb
@@ -266,13 +315,16 @@
         ////#endif
 
         ////连接字符串
-        ////MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;"
+        ////default_authentication_plugin = caching_sha2_password 
+        ////MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        ////default_authentication_plugin = mysql_native_password
+        ////MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         ////SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1"
         ////PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
         ////Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
         ////"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
         ////#if (DbType == "MySql")
-        //"connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;",
+        //"connectionString": "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
         ////#elseif (DbType == "SqlServer")
         //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Pooling=true;Min Pool Size=1",
         ////#elseif (DbType == "PostgreSQL")
@@ -280,25 +332,181 @@
         ////#elseif (DbType == "Oracle")
         //"connectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
         ////#elseif (DbType == "Firebird")
-        //"connectionString": "database=localhost:D:\fbdata\EXAMPLES.fdb;user=sysdba;password=123456",
+        //"connectionString": "database=localhost:D:\fbdata\admindb.fdb;user=sysdba;password=123456",
         ////#elseif (DbType == "MsAccess")
-        //"connectionString": "Provider=Microsoft.Jet.OleDb.4.0;Data Source=d:/accdb/2003.mdb",
+        //"connectionString": "Provider=Microsoft.Jet.OleDb.4.0;Data Source=d:/accdb/admindb.mdb",
         ////#elseif (DbType == "Dameng")
-        //"connectionString": "server=127.0.0.1;port=5236;user id=2user;password=123456789;database=2user;poolsize=5",
+        //"connectionString": "server=127.0.0.1;port=5236;user id=2user;password=123456789;database=admindb;poolsize=5",
         ////#elseif (DbType == "ShenTong")
-        //"connectionString": "HOST=192.168.164.10;PORT=2003;DATABASE=OSRDB;USERNAME=SYSDBA;PASSWORD=szoscar55;MAXPOOLSIZE=2",
+        //"connectionString": "HOST=192.168.164.10;PORT=2003;DATABASE=admindb;USERNAME=SYSDBA;PASSWORD=szoscar55;MAXPOOLSIZE=2",
         ////#elseif (DbType == "KingbaseES")
-        //"connectionString": "Server=127.0.0.1;Port=54321;UID=USER2;PWD=123456789;database=TEST;MAXPOOLSIZE=2",
+        //"connectionString": "Server=127.0.0.1;Port=54321;UID=USER2;PWD=123456789;database=admindb;MAXPOOLSIZE=2",
         ////#elseif (DbType == "Gbase")
-        //"connectionString": "Driver={GBase ODBC DRIVER (64-Bit)};Host=192.168.164.134;Service=9088;Server=gbase01;Database=testdb;Protocol=onsoctcp;Uid=gbasedbt;Pwd=GBase123;Db_locale=zh_CN.utf8;Client_locale=zh_CN.utf8",
+        //"connectionString": "Driver={GBase ODBC DRIVER (64-Bit)};Host=192.168.164.134;Service=9088;Server=gbase01;Database=admindb;Protocol=onsoctcp;Uid=gbasedbt;Pwd=GBase123;Db_locale=zh_CN.utf8;Client_locale=zh_CN.utf8",
         ////#elseif (DbType == "ClickHouse")
         //"connectionString": "DataCompress=False;BufferSize=32768;SocketTimeout=10000;CheckCompressedHash=False;Encrypt=False;Compressor=lz4;Host=192.168.0.121;Port=8125;Database=PersonnelLocation;Username=root;Password=123",
         ////#elseif (DbType == "QuestDb")
         //"connectionString": "host=localhost;port=8812;username=admin;password=quest;database=qdb;ServerCompatibilityMode=NoTypeLoading;",
         ////#elseif (DbType == "Xugu")
-        //"connectionString": "IP=127.0.0.1;DB=SYSTEM;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
+        //"connectionString": "IP=127.0.0.1;DB=admindb;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
         ////#else
         "connectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1",
+        ////#endif
+
+        ////指定程序集
+        ////FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
+        "providerType": "",
+
+        ////读写分离从库列表
+        "slaveList": [
+          ////{
+          ////  //权重
+          ////  "Weight": 1,
+          ////  //连接字符串
+          ////  "ConnectionString": "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+          ////}
+        ]
+      },
+      {
+        ////日志库
+        "key": "logdb",
+        ////程序集名称，自动获取实体表
+        "assemblyNames": [ "ZhonTai.Admin" ],
+        ////指定实体数据库列表，不填同步所有数据库表实体
+        "includeEntityDbs": [ "Log" ],
+        ////排除实体数据库列表，指定不同步数据库表实体
+        "excludeEntityDbs": [],
+
+        ////监听所有操作
+        "monitorCommand": false,
+        ////监听Curd操作
+        "curd": true,
+        ////监听同步结构脚本
+        "syncStructureSql": false,
+        ////监听同步数据Curd操作
+        "syncDataCurd": false,
+
+        ////建库
+        "createDb": true,
+        ////SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
+        ////建库连接字符串
+        ////default_authentication_plugin = caching_sha2_password 
+        ////MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        ////default_authentication_plugin = mysql_native_password
+        ////MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
+        ////SqlServer "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1"
+        ////PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
+        ////Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
+        ////#if (DbType == "MySql")
+        //"createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
+        ////#elseif (DbType == "SqlServer")
+        //"createDbConnectionString": "Data Source=.;User Id=sa;Password=pwd;Initial Catalog=master;TrustServerCertificate=true;Pooling=true;Min Pool Size=1",
+        ////#elseif (DbType == "PostgreSQL")
+        //"createDbConnectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
+        ////#elseif (DbType == "Oracle")
+        //"createDbConnectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
+        ////#else
+        "createDbConnectionString": "",
+        ////#endif
+        ////建库脚本，复杂建库脚本可放到createdbsql.txt中
+        ////MySql "CREATE DATABASE `logdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+        ////SqlServer "CREATE DATABASE [logdb]"
+        ////PostgreSQL "CREATE DATABASE \"logdb\" WITH ENCODING = 'UTF8'"
+        ////#if (DbType == "MySql")
+        //"createDbSql": "CREATE DATABASE `logdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+        ////#elseif (DbType == "SqlServer")
+        //"createDbSql": "CREATE DATABASE [logdb]",
+        ////#elseif (DbType == "PostgreSQL")
+        //"createDbSql": "CREATE DATABASE \"logdb\" WITH ENCODING = 'UTF8'",
+        ////#else
+        "createDbSql": "",
+        ////#endif
+
+        ////同步结构
+        "syncStructure": true,
+        ////同步结构批次实体数
+        "syncStructureEntityBatchSize": 1,
+        ////同步数据分批处理大小，默认每次处理500条，过大可能会导致内存溢出
+        "syncDataBatchSize": 500,
+        ////同步数据
+        "syncData": false,
+        ////同步更新数据，注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
+        "syncUpdateData": false,
+
+        ////项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
+        ////开启生成数据前先关闭syncStructure syncData createDb
+        ////生成数据
+        "generateData": false,
+
+        ////数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
+        ////连接字符串语法 https://www.connectionstrings.com
+        ////数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
+        ////#if (DbType == "MySql")
+        //"type": "MySql",
+        ////#elseif (DbType == "SqlServer")
+        //"type": "SqlServer",
+        ////#elseif (DbType == "PostgreSQL")
+        //"type": "PostgreSQL",
+        ////#elseif (DbType == "Oracle")
+        //"type": "Oracle",
+        ////#elseif (DbType == "Firebird")
+        //"type": "Firebird",
+        ////#elseif (DbType == "MsAccess")
+        //"type": "MsAccess",
+        ////#elseif (DbType == "Dameng")
+        //"type": "Dameng",
+        ////#elseif (DbType == "ShenTong")
+        //"type": "ShenTong",
+        ////#elseif (DbType == "KingbaseES")
+        //"type": "KingbaseES",
+        ////#elseif (DbType == "Gbase")
+        //"type": "Gbase",
+        ////#elseif (DbType == "ClickHouse")
+        //"type": "ClickHouse",
+        ////#elseif (DbType == "QuestDb")
+        //"type": "QuestDb",
+        ////#elseif (DbType == "Xugu")
+        //"type": "Xugu",
+        ////#else
+        "type": "Sqlite",
+        ////#endif
+
+        ////连接字符串
+        ////MySql "Server=localhost; Port=3306; Database=logdb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        ////default_authentication_plugin = mysql_native_password
+        ////MySql "Server=localhost; Port=3306; Database=logdb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
+        ////SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=logdb;Pooling=true;Min Pool Size=1"
+        ////PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=logdb;Pooling=true;Minimum Pool Size=1"
+        ////Sqlite "Data Source=|DataDirectory|\\logdb.db; Pooling=true;Min Pool Size=1"
+        ////"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
+        ////#if (DbType == "MySql")
+        //"connectionString": "Server=localhost; Port=3306; Database=logdb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True",
+        ////#elseif (DbType == "SqlServer")
+        //"connectionString": "Data Source=.;Integrated Security=True;Initial Catalog=logdb;Pooling=true;Min Pool Size=1",
+        ////#elseif (DbType == "PostgreSQL")
+        //"connectionString": "Host=localhost;Port=5432;Username=postgres;Password=; Database=logdb;Pooling=true;Minimum Pool Size=1",
+        ////#elseif (DbType == "Oracle")
+        //"connectionString": "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
+        ////#elseif (DbType == "Firebird")
+        //"connectionString": "database=localhost:D:\fbdata\logdb.fdb;user=sysdba;password=123456",
+        ////#elseif (DbType == "MsAccess")
+        //"connectionString": "Provider=Microsoft.Jet.OleDb.4.0;Data Source=d:/accdb/logdb.mdb",
+        ////#elseif (DbType == "Dameng")
+        //"connectionString": "server=127.0.0.1;port=5236;user id=2user;password=123456789;database=logdb;poolsize=5",
+        ////#elseif (DbType == "ShenTong")
+        //"connectionString": "HOST=192.168.164.10;PORT=2003;DATABASE=logdb;USERNAME=SYSDBA;PASSWORD=szoscar55;MAXPOOLSIZE=2",
+        ////#elseif (DbType == "KingbaseES")
+        //"connectionString": "Server=127.0.0.1;Port=54321;UID=USER2;PWD=123456789;database=logdb;MAXPOOLSIZE=2",
+        ////#elseif (DbType == "Gbase")
+        //"connectionString": "Driver={GBase ODBC DRIVER (64-Bit)};Host=192.168.164.134;Service=9088;Server=gbase01;Database=logdb;Protocol=onsoctcp;Uid=gbasedbt;Pwd=GBase123;Db_locale=zh_CN.utf8;Client_locale=zh_CN.utf8",
+        ////#elseif (DbType == "ClickHouse")
+        //"connectionString": "DataCompress=False;BufferSize=32768;SocketTimeout=10000;CheckCompressedHash=False;Encrypt=False;Compressor=lz4;Host=192.168.0.121;Port=8125;Database=PersonnelLocation;Username=root;Password=123",
+        ////#elseif (DbType == "QuestDb")
+        //"connectionString": "host=localhost;port=8812;username=admin;password=quest;database=qdb;ServerCompatibilityMode=NoTypeLoading;",
+        ////#elseif (DbType == "Xugu")
+        //"connectionString": "IP=127.0.0.1;DB=logdb;User=SYSDBA;PWD=SYSDBA;Port=5138;AUTO_COMMIT=on;CHAR_SET=UTF8",
+        ////#else
+        "connectionString": "Data Source=|DataDirectory|\\logdb.db; Pooling=true;Min Pool Size=1",
         ////#endif
 
         ////指定程序集

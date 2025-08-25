@@ -81,7 +81,7 @@
           <template #default>
             <div class="tool-box">
               <el-tooltip content="拖动进行排序" placement="top-start">
-                <SvgIcon name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
+                <SvgIcon name="ele-Rank" :size="17" class="ml11" />
               </el-tooltip>
               <el-checkbox
                 v-model="state.checkListAll"
@@ -96,7 +96,8 @@
             <el-scrollbar>
               <div ref="toolSetRef" class="tool-sortable">
                 <div class="tool-sortable-item" v-for="v in header" :key="v.key" :data-key="v.key">
-                  <i class="fa fa-arrows-alt handle cursor-pointer"></i>
+                  <!-- <i class="fa fa-arrows-alt handle cursor-pointer"></i> -->
+                  <SvgIcon name="ele-Rank" class="handle cursor-pointer" />
                   <el-checkbox v-model="v.isCheck" class="ml12 mr8" :label="v.title" @change="onCheckChange" />
                 </div>
               </div>

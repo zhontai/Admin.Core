@@ -12,7 +12,7 @@ public class DbConfig
     /// <summary>
     /// 数据库注册键
     /// </summary>
-    public string Key { get; set; } = DbKeys.AppDb;
+    public string Key { get; set; } = DbKeys.AdminDb;
 
     private string[] _assemblyNames;
     
@@ -45,6 +45,16 @@ public class DbConfig
             _assemblyNames = [.. expandedNames];
         }
     }
+
+    /// <summary>
+    /// 指定实体数据库列表
+    /// </summary>
+    public string[] IncludeEntityDbs { get; set; }
+
+    /// <summary>
+    /// 排除实体数据库列表
+    /// </summary>
+    public string[] ExcludeEntityDbs { get; set; }
 
     /// <summary>
     /// 数据库类型
@@ -88,6 +98,11 @@ public class DbConfig
     }
 
     /// <summary>
+    /// 同步数据分批处理大小
+    /// </summary>
+    public int SyncDataBatchSize { get; set; } = 500;
+
+    /// <summary>
     /// 同步数据
     /// </summary>
     public bool SyncData { get; set; } = false;
@@ -100,7 +115,13 @@ public class DbConfig
     /// <summary>
     /// 同步更新数据
     /// </summary>
+    [Obsolete("请改用DbConfig.SyncUpdateData属性")]
     public bool SysUpdateData { get; set; } = false;
+
+    /// <summary>
+    /// 同步更新数据
+    /// </summary>
+    public bool SyncUpdateData { get; set; } = false;
 
     /// <summary>
     /// 同步数据地址
@@ -140,7 +161,7 @@ public class DbConfig
     /// <summary>
     /// 建库脚本文件
     /// </summary>
-    public string CreateDbSqlFile { get; set; } = "Configs/createdbsql.txt";
+    public string CreateDbSqlFile { get; set; } = "ConfigCenter/createdbsql.txt";
 
     /// <summary>
     /// 监听所有操作

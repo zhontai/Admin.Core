@@ -1,14 +1,12 @@
 <template>
   <el-drawer v-model="state.showDialog" :title="title" direction="rtl" destroy-on-close size="620">
-    <div class="my-fill h100" style="padding: 20px">
+    <div class="my-fill h100" style="padding: 10px">
       <MyCron ref="crontabRef" :expression="expression" :hide-component="['year']"></MyCron>
     </div>
     <template #footer>
-      <div style="flex: auto; padding: 20px !important">
-        <el-button @click="onReset">重 置</el-button>
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure">确 定</el-button>
-      </div>
+      <el-button @click="onReset">重 置</el-button>
+      <el-button @click="onCancel">取 消</el-button>
+      <el-button type="primary" @click="onSure">确 定</el-button>
     </template>
   </el-drawer>
 </template>

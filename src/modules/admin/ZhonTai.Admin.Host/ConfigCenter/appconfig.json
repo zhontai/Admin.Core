@@ -49,7 +49,7 @@
         {
           "name": "中台Admin",
           "code": "admin",
-          "version": "v9.1.2",
+          "version": "v9.2.0",
           "description": ""
         }
       ]
@@ -76,7 +76,9 @@
     //数据库日志
     "log": {
       //操作日志
-      "operation": true
+      "operation": true,
+      // 记录日志方式 Grpc | Cap
+      "method": "Grpc"
     },
     //限流
     "rateLimit": false,

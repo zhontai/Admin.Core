@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="state.visible" direction="ltr" destroy-on-close size="100%" @closed="onClosed">
     <template #header="{ titleId, titleClass }">
-      <div class="my-flex my-flex-between mr10">
+      <div class="my-flex my-flex-between my-flex-items-center mr10">
         <span :id="titleId" :class="titleClass">{{ title }}</span>
         <div>
           <el-button ref="saveRef" type="primary" round :loading="state.saveLoading">
@@ -194,43 +194,6 @@ defineExpose({
     background-repeat: no-repeat;
     background-size: contain;
     margin: 0 auto;
-  }
-
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.hline']:before {
-    background-image: url('/@/assets/svgs/hiprint/hline.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.vline']:before {
-    background-image: url('/@/assets/svgs/hiprint/vline.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.rect']:before {
-    background-image: url('/@/assets/svgs/hiprint/rect.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.oval']:before {
-    background-image: url('/@/assets/svgs/hiprint/oval.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.barcode']:before {
-    background-image: url('/@/assets/svgs/hiprint/barcode.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.qrcode']:before {
-    background-image: url('/@/assets/svgs/hiprint/qrcode.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.text']:before {
-    background-image: url('/@/assets/svgs/hiprint/text.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.longText']:before {
-    background-image: url('/@/assets/svgs/hiprint/longText.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.table']:before {
-    background-image: url('/@/assets/svgs/hiprint/table.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.emptyTable']:before {
-    background-image: url('/@/assets/svgs/hiprint/emptyTable.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.html']:before {
-    background-image: url('/@/assets/svgs/hiprint/html.svg');
-  }
-  .hiprint-printElement-type a.ep-draggable-item[tid='comModule.image']:before {
-    background-image: url('/@/assets/svgs/hiprint/image.svg');
   }
 }
 </style>

@@ -53,7 +53,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     private async Task ClearCacheAsync()
     {
         await Cache.DelByPatternAsync(CacheKeys.DataPermission + "*");
-        await Cache.DelAsync(AdminCacheKeys.GetOrgKey(_user.TenantId.Value));
+        await Cache.DelAsync(AdminCacheKeys.GetOrgKey(_user.TenantId));
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class OrgService : BaseService, IOrgService, IDynamicApi
     /// <returns></returns>
     public async Task<List<OrgGetSimpleListWithPathOutput>> GetSimpleListWithPathAsync()
     {
-        return await _cache.GetOrSetAsync(AdminCacheKeys.GetOrgKey(_user.TenantId.Value), async () =>
+        return await _cache.GetOrSetAsync(AdminCacheKeys.GetOrgKey(_user.TenantId), async () =>
         {
             return await _orgRep.Select.Where(a => a.ParentId == 0)
             .AsTreeCte(a => a.Name, pathSeparator: "/")

@@ -1,14 +1,14 @@
-﻿using FreeSql;
+﻿using DotNetCore.CAP;
+using FreeSql;
 using IP2Region.Net.Abstractions;
-using Lazy.SlideCaptcha.Core.Validator;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Org.BouncyCastle.Utilities.Encoders;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -41,7 +41,8 @@ using ZhonTai.Common.Extensions;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using static Lazy.SlideCaptcha.Core.ValidateResult;
+using ZhonTai.Plugin.Lazy.SlideCaptcha.Core.Validator;
+using static ZhonTai.Plugin.Lazy.SlideCaptcha.Core.ValidateResult;
 using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 
 namespace ZhonTai.Admin.Services.Auth;
@@ -54,10 +55,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 {
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
-    private readonly ILoginLogService _loginLogService;
+    private readonly ICapPublisher _capPublisher;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserToken _userToken;
     private readonly IUserService _userService;
-    private readonly Lazy<IOptions<AppConfig>> _appConfig;
+    private readonly ILoginLogService _loginLogService;
+    private readonly IOptions<AppConfig> _appConfig;
     private readonly Lazy<IOptions<JwtConfig>> _jwtConfig;
     private readonly Lazy<IUserRepository> _userRep;
     private readonly Lazy<ITenantRepository> _tenantRep;
@@ -69,10 +72,12 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     public AuthService(
         UserHelper userHelper,
         AdminLocalizer adminLocalizer,
-        ILoginLogService loginLogService,
+        ICapPublisher capPublisher,
+        IHttpContextAccessor httpContextAccessor,
         IUserToken userToken,
         IUserService userService,
-        Lazy<IOptions<AppConfig>> appConfig,
+        ILoginLogService loginLogService,
+        IOptions<AppConfig> appConfig,
         Lazy<IOptions<JwtConfig>> jwtConfig,
         Lazy<IUserRepository> userRep,
         Lazy<ITenantRepository> tenantRep,
@@ -92,22 +97,66 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         _tenantService = tenantService;
         _userHelper = userHelper;
         _adminLocalizer = adminLocalizer;
-        _loginLogService = loginLogService;
+        _capPublisher = capPublisher;
+        _httpContextAccessor = httpContextAccessor;
         _userToken = userToken;
         _userService = userService;
+        _loginLogService = loginLogService;
     }
 
     /// <summary>
     /// 添加登录日志
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    private async Task AddLoginLogAsync(LoginLogAddInput input)
+    {
+        if (input.IP.IsNull())
+        {
+            input.IP = IPHelper.GetIP(_httpContextAccessor?.HttpContext?.Request);
+            var locationInfo = GetIpLocationInfo(input.IP);
+            input.Country = locationInfo?.Country;
+            input.Province = locationInfo?.Province;
+            input.City = locationInfo?.City;
+            input.Isp = locationInfo?.Isp;
+        }
+
+        string ua = _httpContextAccessor?.HttpContext?.Request?.Headers?.UserAgent;
+        if (ua.NotNull())
+        {
+            var client = UAParser.Parser.GetDefault().Parse(ua);
+            var device = client.Device.Family;
+            device = device.ToLower() == "other" ? "" : device;
+            input.Browser = client.UA.Family;
+            input.Os = client.OS.Family;
+            input.Device = device;
+            input.BrowserInfo = ua;
+        }
+
+        if (_appConfig.Value.Log.Method == LogMethod.Cap)
+        {
+            await _capPublisher.PublishAsync(
+                SubscribeNames.LoginLogAdd,
+                input
+            );
+        }
+        else
+        {
+            await _loginLogService.AddAsync(input);
+        }
+    }
+
+    /// <summary>
+    /// 获得登录日志请求信息
     /// </summary>
     /// <param name="authLoginOutput"></param>
     /// <param name="locationInfo"></param>
     /// <param name="user"></param>
     /// <param name="stopwatch"></param>
     /// <returns></returns>
-    private async Task AddLoginLogAsync(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
+    private LoginLogAddInput GetLoginLogAddInput(AuthLoginOutput authLoginOutput, LocationInfo locationInfo, UserEntity user, Stopwatch stopwatch)
     {
-        await _loginLogService.AddAsync(new LoginLogAddInput
+        return new LoginLogAddInput
         {
             TenantId = authLoginOutput.TenantId,
             Name = authLoginOutput.Name,
@@ -119,7 +168,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             Province = locationInfo?.Province,
             City = locationInfo?.City,
             Isp = locationInfo?.Isp,
-        });
+        };
     }
 
     /// <summary>
@@ -130,7 +179,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     private LocationInfo GetIpLocationInfo(string ip)
     {
         var locationInfo = new LocationInfo();
-        if (_appConfig.Value.Value.IP2Region.Enable)
+        if (_appConfig.Value.IP2Region.Enable)
         {
             if(IPHelper.IsIP(ip))
             {
@@ -158,7 +207,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             LastLoginTime = DbHelper.ServerTime,
         });
 
-        if (_appConfig.Value.Value.IP2Region.Enable)
+        if (_appConfig.Value.IP2Region.Enable)
         {
             update = update.Set(a => new UserEntity
             {
@@ -194,7 +243,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             new (JwtRegisteredClaimNames.Iat, DateTime.Now.ToTimestamp().ToString(), ClaimValueTypes.Integer64),
         };
 
-        if (_appConfig.Value.Value.Tenant)
+        if (_appConfig.Value.Tenant)
         {
             claims.AddRange(
             [
@@ -545,13 +594,13 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         {
             #region 验证码校验
 
-            if (_appConfig.Value.Value.VarifyCode.Enable)
+            if (_appConfig.Value.VarifyCode.Enable)
             {
                 if (input.CaptchaId.IsNull() || input.CaptchaData.IsNull())
                 {
                     throw ResultOutput.Exception(_adminLocalizer["请完成安全验证"]);
                 }
-                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonConvert.DeserializeObject<SlideTrack>(input.CaptchaData));
+                var validateResult = _captcha.Value.Validate(input.CaptchaId, JsonHelper.Deserialize<SlideTrack>(input.CaptchaData));
                 if (validateResult.Result != ValidateResultType.Success)
                 {
                     throw ResultOutput.Exception(_adminLocalizer["安全{0}，请重新登录", validateResult.Message]);
@@ -661,7 +710,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Value.Tenant)
+            if (_appConfig.Value.Tenant)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -693,7 +742,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 
@@ -768,7 +817,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Value.Tenant)
+            if (_appConfig.Value.Tenant)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -787,7 +836,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             stopwatch.Stop();
 
-            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+            await AddLoginLogAsync(GetLoginLogAddInput(authLoginOutput, locationInfo, user, stopwatch));
 
             return tokenInfo;
         }
@@ -803,7 +852,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 
@@ -878,7 +927,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             #region 获得token
             var authLoginOutput = Mapper.Map<AuthLoginOutput>(user);
-            if (_appConfig.Value.Value.Tenant)
+            if (_appConfig.Value.Tenant)
             {
                 var tenant = await _tenantRep.Value.Select.WhereDynamic(user.TenantId).ToOneAsync<AuthLoginTenantModel>();
                 if (!(tenant != null && tenant.Enabled))
@@ -897,7 +946,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
             stopwatch.Stop();
 
-            await AddLoginLogAsync(authLoginOutput, locationInfo, user, stopwatch);
+            await AddLoginLogAsync(GetLoginLogAddInput(authLoginOutput, locationInfo, user, stopwatch));
 
             return tokenInfo;
         }
@@ -913,7 +962,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             stopwatch.Stop();
             loginLogAddInput.ElapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
-            await _loginLogService.AddAsync(loginLogAddInput);
+            await AddLoginLogAsync(loginLogAddInput);
         }
     }
 
@@ -1199,7 +1248,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
             throw ResultOutput.Exception(_adminLocalizer["账号已停用，禁止登录"]);
         }
 
-        if (_appConfig.Value.Value.Tenant)
+        if (_appConfig.Value.Tenant)
         {
             if (!(user.Tenant != null && user.Tenant.Enabled))
             {
@@ -1220,6 +1269,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [NoOperationLog]
     public bool IsCaptcha()
     {
-        return _appConfig.Value.Value.VarifyCode.Enable;
+        return _appConfig.Value.VarifyCode.Enable;
     }
 }

@@ -42,7 +42,8 @@ $projects = (
     "modules\admin\ZhonTai.Admin.Core",
     "platform\ZhonTai.ApiUI",
     "platform\ZhonTai.Common",
-    "platform\ZhonTai.DynamicApi"
+    "platform\ZhonTai.DynamicApi",
+    "platform\ZhonTai.Plugin.Lazy.SlideCaptcha.Core"
 )
 
 Write-Host "dotnet pack -- start"

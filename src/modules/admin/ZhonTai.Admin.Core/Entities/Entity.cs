@@ -1,5 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 using ZhonTai.Admin.Core.Attributes;
@@ -37,7 +36,6 @@ public class Entity<TKey> : IEntity<TKey>
     [Description("主键Id")]
     [Snowflake]
     [Column(Position = 1, IsIdentity = false, IsPrimary = true)]
-    [JsonProperty(Order = -30)]
     [JsonPropertyOrder(-30)]
     public virtual TKey Id { get; set; }
 }

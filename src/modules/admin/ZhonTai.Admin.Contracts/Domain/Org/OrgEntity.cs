@@ -12,7 +12,7 @@ namespace ZhonTai.Admin.Domain.Org;
 /// 组织架构
 /// </summary>
 [Table(Name = DbConsts.TableNamePrefix + "org", OldName = DbConsts.TableOldNamePrefix + "org")]
-[Index("idx_{tablename}_01", nameof(ParentId) + "," + nameof(Name) + "," + nameof(TenantId), true)]
+[Index("idx_{tablename}_01", $"{nameof(TenantId)},{nameof(ParentId)},{nameof(Name)}", true)]
 public partial class OrgEntity : EntityTenant, IChilds<OrgEntity>
 {
     /// <summary>

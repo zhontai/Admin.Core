@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using ZhonTai.Admin.Core.Dto;
+﻿using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Exceptions;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -16,13 +16,13 @@ public class ResponseDelegatingHandler : DelegatingHandler
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
-            var res = JsonConvert.DeserializeObject<ResultOutput<object>>(content);
+            var res = JsonHelper.Deserialize<ResultOutput<object>>(content);
             if (!res.Success && res.Msg.NotNull())
             {
                 throw new AppException(res.Msg);
             }
 
-            response.Content = new StringContent(JsonConvert.SerializeObject(res.Data));
+            response.Content = new StringContent(JsonHelper.Serialize(res.Data));
         }
 
         return response;

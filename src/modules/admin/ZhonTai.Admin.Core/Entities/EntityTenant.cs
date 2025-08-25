@@ -1,5 +1,4 @@
 ﻿using FreeSql.DataAnnotations;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -15,7 +14,6 @@ public class EntityTenant<TKey> : EntityBase<TKey>, ITenant where TKey : struct
     /// </summary>
     [Description("租户Id")]
     [Column(Position = 2, CanUpdate = false)]
-    [JsonProperty(Order = -20)]
     [JsonPropertyOrder(-20)]
     public virtual long? TenantId { get; set; }
 }

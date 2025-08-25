@@ -1,19 +1,22 @@
 import { hiprint } from 'vue-plugin-hiprint'
 import logoImg from '/@/assets/logo-mini.svg'
 
-export const comProvider = function () {
+// 定义全局常量
+export const COM_MODULE = 'comModule'
+
+const comProvider = function () {
   var addElementTypes = function (context: any) {
-    context.removePrintElementTypes('comModule')
-    context.addPrintElementTypes('comModule', [
+    context.removePrintElementTypes(COM_MODULE)
+    context.addPrintElementTypes(COM_MODULE, [
       new hiprint.PrintElementTypeGroup('常用组件', [
         {
-          tid: 'comModule.text',
+          tid: `${COM_MODULE}.text`,
           title: '文本',
           data: '',
           type: 'text',
         },
         {
-          tid: 'comModule.longText',
+          tid: `${COM_MODULE}.longText`,
           title: '长文本',
           data: '',
           type: 'longText',
@@ -22,7 +25,7 @@ export const comProvider = function () {
           },
         },
         {
-          tid: 'comModule.table',
+          tid: `${COM_MODULE}.table`,
           field: 'table',
           title: '表格',
           type: 'table',
@@ -80,7 +83,7 @@ export const comProvider = function () {
           isEnableMergeCell: true, //合并单元格
         },
         {
-          tid: 'comModule.emptyTable',
+          tid: `${COM_MODULE}.emptyTable`,
           title: '空白表格',
           type: 'table',
           options: {
@@ -102,7 +105,7 @@ export const comProvider = function () {
           ],
         },
         {
-          tid: 'comModule.html',
+          tid: `${COM_MODULE}.html`,
           title: 'html',
           formatter: function (data: any, options: any) {
             return '<div style="height:50pt;width:50pt;background:red;border-radius: 50%;"></div>'
@@ -110,7 +113,7 @@ export const comProvider = function () {
           type: 'html',
         },
         {
-          tid: 'comModule.image',
+          tid: `${COM_MODULE}.image`,
           title: '图片',
           type: 'image',
           options: { field: '', src: logoImg },
@@ -118,32 +121,32 @@ export const comProvider = function () {
       ]),
       new hiprint.PrintElementTypeGroup('辅助组件', [
         {
-          tid: 'comModule.hline',
+          tid: `${COM_MODULE}.hline`,
           title: '横线',
           type: 'hline',
         },
         {
-          tid: 'comModule.vline',
+          tid: `${COM_MODULE}.vline`,
           title: '竖线',
           type: 'vline',
         },
         {
-          tid: 'comModule.rect',
+          tid: `${COM_MODULE}.rect`,
           title: '矩形',
           type: 'rect',
         },
         {
-          tid: 'comModule.oval',
+          tid: `${COM_MODULE}.oval`,
           title: '椭圆',
           type: 'oval',
         },
         {
-          tid: 'comModule.barcode',
+          tid: `${COM_MODULE}.barcode`,
           title: '条形码',
           type: 'barcode',
         },
         {
-          tid: 'comModule.qrcode',
+          tid: `${COM_MODULE}.qrcode`,
           title: '二维码',
           type: 'qrcode',
         },
@@ -151,15 +154,83 @@ export const comProvider = function () {
     ])
   }
   return {
-    addElementTypes: addElementTypes,
+    addElementTypes,
   }
 }
 
-export default [
+export const dragElementGroups = [
   {
-    name: '常用组件',
-    value: 'comModule',
-    type: 1,
-    f: comProvider(),
+    name: 'common',
+    title: '常用组件',
+    elements: [
+      {
+        tid: `${COM_MODULE}.text`,
+        title: '文本',
+        icon: 'hiprint-text',
+      },
+      {
+        tid: `${COM_MODULE}.longText`,
+        title: '长文本',
+        icon: 'hiprint-longText',
+      },
+      {
+        tid: `${COM_MODULE}.table`,
+        title: '表格',
+        icon: 'hiprint-table',
+      },
+      {
+        tid: `${COM_MODULE}.emptyTable`,
+        title: '空白表格',
+        icon: 'hiprint-emptyTable',
+      },
+      {
+        tid: `${COM_MODULE}.html`,
+        title: 'html',
+        icon: 'hiprint-html',
+      },
+      {
+        tid: `${COM_MODULE}.image`,
+        title: '图片',
+        icon: 'hiprint-image',
+      },
+    ],
+  },
+  {
+    name: 'help',
+    title: '辅助组件',
+    elements: [
+      {
+        tid: `${COM_MODULE}.hline`,
+        title: '横线',
+        icon: 'hiprint-hline',
+      },
+      {
+        tid: `${COM_MODULE}.vline`,
+        title: '竖线',
+        icon: 'hiprint-vline',
+      },
+      {
+        tid: `${COM_MODULE}.rect`,
+        title: '矩形',
+        icon: 'hiprint-rect',
+      },
+      {
+        tid: `${COM_MODULE}.oval`,
+        title: '椭圆',
+        icon: 'hiprint-oval',
+      },
+      {
+        tid: `${COM_MODULE}.barcode`,
+        title: '条形码',
+        icon: 'hiprint-barcode',
+      },
+      {
+        tid: `${COM_MODULE}.qrcode`,
+        title: '二维码',
+        icon: 'hiprint-qrcode',
+      },
+    ],
   },
 ]
+
+export default comProvider

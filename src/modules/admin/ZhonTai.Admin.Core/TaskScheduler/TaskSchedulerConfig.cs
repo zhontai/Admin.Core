@@ -38,7 +38,33 @@ public class TaskSchedulerConfig
             /// </summary>
             public string WorkingDirectory { get; set; }
         }
+
+        /// <summary>
+        /// 模块信息
+        /// </summary>
+        public class Modules
+        {
+            /// <summary>
+            /// 模块名称
+            /// </summary>
+            public string Name { get; set; }
+
+            /// <summary>
+            /// Http请求地址
+            /// </summary>
+            public string HttpUrl { get; set; }
+
+            /// <summary>
+            /// Grpc请求地址
+            /// </summary>
+            public string GrpcUrl { get; set; }
+        }
     }
+
+    /// <summary>
+    /// 模块信息列表
+    /// </summary>
+    public List<Models.Modules> Modules { get; set; } = [];
 
     /// <summary>
     /// 进程启动信息

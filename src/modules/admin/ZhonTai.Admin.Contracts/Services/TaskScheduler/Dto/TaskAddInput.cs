@@ -33,7 +33,7 @@ public class TaskAddInput
     public string IntervalArgument { get; set; }
 
     /// <summary>
-    /// 报警邮件，多个邮件地址则逗号分隔
+    /// 报警邮件，多个邮件地址用逗号分隔
     /// </summary>
     public string AlarmEmail { get; set; }
 

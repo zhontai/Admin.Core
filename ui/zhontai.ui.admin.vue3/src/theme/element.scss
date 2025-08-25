@@ -350,6 +350,11 @@
     height: 100%;
     overflow: auto;
   }
+
+  .el-drawer__footer {
+    padding: 16px;
+    border-top: 1px solid var(--el-border-color);
+  }
 }
 
 /* Form 表单
@@ -386,4 +391,21 @@
 }
 .el-segmented--small {
   font-size: 12px;
+}
+
+/* Collapse 折叠面板
+------------------------------- */
+.el-collapse {
+  border-bottom: 0px;
+  border-top: 0px;
+  --el-collapse-header-height: 36px;
+}
+.el-collapse-item__wrap {
+  border-bottom: 0px;
+}
+.el-collapse-item__header {
+  border-bottom: 0px;
+}
+.el-collapse-item__content {
+  padding-bottom: 10px;
 }

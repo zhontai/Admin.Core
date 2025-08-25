@@ -38,7 +38,27 @@ public class LoginLogAddInput
     /// <summary>
     /// 网络服务商
     /// </summary>
-    public string Isp { get; init; }
+    public string Isp { get; set; }
+
+    /// <summary>
+    /// 浏览器
+    /// </summary>
+    public string Browser { get; set; }
+
+    /// <summary>
+    /// 操作系统
+    /// </summary>
+    public string Os { get; set; }
+
+    /// <summary>
+    /// 设备
+    /// </summary>
+    public string Device { get; set; }
+
+    /// <summary>
+    /// 浏览器信息
+    /// </summary>
+    public string BrowserInfo { get; set; }
 
     /// <summary>
     /// 耗时（毫秒）

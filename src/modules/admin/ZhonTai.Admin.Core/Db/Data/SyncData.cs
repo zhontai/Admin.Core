@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using Newtonsoft.Json;
 using FreeSql;
 using FreeSql.DataAnnotations;
 using ZhonTai.Common.Extensions;
@@ -97,7 +96,7 @@ public abstract class SyncData
             {
                 insertOrUpdate = insertOrUpdate.WithTransaction(tran);
             }
-            if (!dbConfig.SysUpdateData)
+            if (!dbConfig.SyncUpdateData)
             {
                 insertOrUpdate.IfExistsDoNothing();
             }
@@ -134,7 +133,7 @@ public abstract class SyncData
             //throw new Exception(msg);
         }
         var jsonData = FileHelper.ReadFile(filePath);
-        var data = JsonConvert.DeserializeObject<T[]>(jsonData);
+        var data = JsonHelper.Deserialize<T[]>(jsonData);
 
         return data;
     }
@@ -148,13 +147,17 @@ public abstract class SyncData
     /// <param name="appConfig">应用配置</param>
     /// <param name="readPath">读取数据路径 InitData/xxx </param>
     /// <param name="processChilds">处理子级列表</param>
+    /// <param name="whereFunc">查询条件函数</param>
+    ///  <param name="insertDataFunc">插入数据函数</param>
     /// <returns></returns>
     protected virtual async Task SyncEntityAsync<T>(IFreeSql db, 
         IRepositoryUnitOfWork unitOfWork, 
         DbConfig dbConfig, 
         AppConfig appConfig, 
         string readPath = null, 
-        bool processChilds = false) 
+        bool processChilds = false,
+        Func<ISelect<T>, T[], ISelect<T>> whereFunc = null,
+        Func<T[], List<T>, IEnumerable<T>> insertDataFunc = null)
         where T : Entity<long>, new()
     {
         if (processChilds && !typeof(T).IsAssignableTo(typeof(IChilds<T>)))
@@ -188,28 +191,51 @@ public abstract class SyncData
                 dataList = dataList.ToList().ToPlainList((a) => ((IChilds<T>)a).Childs).ToArray();
             }
 
-            //查询
-            var dataIds = dataList.Select(e => e.Id).ToList();
-            var dbDataList = await rep.Where(a => dataIds.Contains(a.Id)).ToListAsync();
-
-            //新增
-            var dbDataIds = dbDataList.Select(a => a.Id).ToList();
-            var insertDataList = dataList.Where(a => !dbDataIds.Contains(a.Id));
-            if (insertDataList.Any())
+            // 分批处理
+            int batchSize = dbConfig.SyncDataBatchSize;
+            int total = dataList.Length;
+            for (int i = 0; i < total; i += batchSize)
             {
-                await rep.InsertAsync(insertDataList);
-            }
+                var batchDataList = dataList.Skip(i).Take(batchSize).ToArray();
 
-            //修改
-            if (dbConfig.SysUpdateData && dbDataList?.Count > 0)
-            {
-                foreach (var dbData in dbDataList)
+                // 查询
+                List<T> dbDataList;
+                if (whereFunc != null)
                 {
-                    var data = dataList.Where(a => a.Id == dbData.Id).First();
-                    data.Adapt(dbData);
+                    dbDataList = await whereFunc(rep.Select, batchDataList).Distinct().ToListAsync();
+                }
+                else
+                {
+                    dbDataList = await rep.Where(a => batchDataList.Any(b => a.Id == b.Id)).ToListAsync();
                 }
 
-                await rep.UpdateAsync(dbDataList);
+                // 新增
+                IEnumerable<T> insertDataList = null;
+                if(insertDataFunc != null)
+                {
+                    insertDataList = insertDataFunc(batchDataList, dbDataList);
+                }
+                else
+                {
+                    insertDataList = batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id));
+                }
+
+                if (insertDataList.Any())
+                {
+                    await rep.InsertAsync(insertDataList);
+                }
+
+                // 修改
+                if (dbConfig.SyncUpdateData && dbDataList?.Count > 0)
+                {
+                    foreach (var dbData in dbDataList)
+                    {
+                        var data = batchDataList.FirstOrDefault(a => a.Id == dbData.Id);
+                        data?.Adapt(dbData);
+                    }
+
+                    await rep.UpdateAsync(dbDataList);
+                }
             }
 
             Console.WriteLine($"table: {tableName} sync data succeed");

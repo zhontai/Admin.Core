@@ -73,6 +73,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         foreach (var userId in userIds)
         {
             await Cache.DelAsync(CacheKeys.UserPermission + userId);
+            await Cache.DelByPatternAsync(CacheKeys.GetDataPermissionPattern(userId));
         }
     }
 
@@ -494,7 +495,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         if (_appConfig.Value.Value.Tenant && User.TenantType == TenantType.Tenant)
         {
             var cloud = ServiceProvider.GetRequiredService<FreeSqlCloud>();
-            var mainDb = cloud.Use(DbKeys.AppDb);
+            var mainDb = cloud.Use(DbKeys.AdminDb);
             var pkgPermissionIds = await mainDb.Select<PkgPermissionEntity>()
                 .Where(a => 
                     mainDb.Select<TenantPkgEntity>()
