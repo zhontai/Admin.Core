@@ -1,6 +1,6 @@
 <template>
   <MyLayout>
-    <el-splitter :layout="layout" v-bind="$attrs">
+    <el-splitter :layout="layout" lazy v-bind="$attrs">
       <slot></slot>
     </el-splitter>
   </MyLayout>
