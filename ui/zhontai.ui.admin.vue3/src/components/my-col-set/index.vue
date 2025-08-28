@@ -19,7 +19,7 @@
           <SvgIcon name="ele-Rank" title="拖动进行排序" />
           <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
         </div>
-        <el-button type="primary" link>恢复默认</el-button>
+        <el-button type="primary" link @click="onResetDefault">恢复默认</el-button>
       </div>
     </div>
     <el-scrollbar>
@@ -34,24 +34,37 @@
             <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="item.attrs.label" />
           </div>
           <div class="my-flex">
-            <el-button link title="置顶">
+            <el-button link title="置顶" @click="onMoveToTop(item)">
               <template #icon>
                 <el-icon size="18px">
                   <my-icon name="toTop" color="var(--color)"></my-icon>
                 </el-icon>
               </template>
             </el-button>
-            <el-button link title="固定在左侧">
+            <el-button
+              link
+              :title="item.attrs.fixed === true || item.attrs.fixed === 'left' ? '取消固定在左侧' : '固定在左侧'"
+              :class="item.attrs.fixed === true || item.attrs.fixed === 'left' ? 'selected' : ''"
+              @click="onFixedLeft(item)"
+            >
               <template #icon>
                 <el-icon size="18px">
-                  <my-icon name="fixedLeft" color="var(--color)"></my-icon>
+                  <my-icon
+                    :name="item.attrs.fixed === true || item.attrs.fixed === 'left' ? 'fixedLeftFill' : 'fixedLeft'"
+                    color="var(--color)"
+                  ></my-icon>
                 </el-icon>
               </template>
             </el-button>
-            <el-button link title="固定在右侧">
+            <el-button
+              link
+              :title="item.attrs.fixed === 'right' ? '取消固定在右侧' : '固定在右侧'"
+              :class="item.attrs.fixed === 'right' ? 'selected' : ''"
+              @click="onFixedRight(item)"
+            >
               <template #icon>
                 <el-icon size="18px">
-                  <my-icon name="fixedRight" color="var(--color)"></my-icon>
+                  <my-icon :name="item.attrs.fixed === 'right' ? 'fixedRightFill' : 'fixedRight'" color="var(--color)"></my-icon>
                 </el-icon>
               </template>
             </el-button>
@@ -65,6 +78,7 @@
 <script lang="ts" setup>
 import { useTemplateRef, computed, nextTick } from 'vue'
 import Sortable from 'sortablejs'
+import { cloneDeep } from 'lodash-es'
 
 // 定义父组件传过来的列数组模型
 const colsModel = defineModel({
@@ -75,6 +89,8 @@ const colsModel = defineModel({
   }>,
   required: true,
 })
+
+const colsModelOrg = cloneDeep(colsModel.value)
 
 const colSetRef = useTemplateRef('colSetRef')
 useTemplateRef('colSetPopoverRef')
@@ -117,6 +133,32 @@ const onColSet = () => {
     })
   })
 }
+
+// 恢复默认
+const onResetDefault = () => {
+  colsModel.value = cloneDeep(colsModelOrg)
+}
+
+// 置顶
+const onMoveToTop = (item: any) => {
+  const index = colsModel.value.findIndex((v) => v.attrs.prop === item.attrs.prop)
+  if (index > 0) {
+    const [removed] = colsModel.value.splice(index, 1)
+    colsModel.value.unshift(removed)
+  }
+}
+
+// 固定在左侧
+const onFixedLeft = (item: any) => {
+  if (item.attrs.fixed === true || item.attrs.fixed === 'left') item.attrs.fixed = false
+  else item.attrs.fixed = 'left'
+}
+
+// 固定在右侧
+const onFixedRight = (item: any) => {
+  if (item.attrs.fixed === true || item.attrs.fixed === 'right') item.attrs.fixed = false
+  else item.attrs.fixed = 'right'
+}
 </script>
 
 <style lang="scss">
@@ -142,6 +184,10 @@ const onColSet = () => {
     :deep() {
       .el-button + .el-button {
         margin-left: 6px;
+      }
+
+      .el-button.is-link.selected {
+        color: var(--el-color-primary-light-3);
       }
     }
   }
