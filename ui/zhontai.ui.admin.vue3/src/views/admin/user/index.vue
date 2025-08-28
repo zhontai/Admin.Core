@@ -121,9 +121,9 @@
   </MySplitter>
 </template>
 
-<script lang="ts" setup name="admin/user">
-import { ref, useTemplateRef, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, nextTick } from 'vue'
-import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput } from '/@/api/admin/data-contracts'
+<script lang="ts" setup>
+import { useTemplateRef, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, nextTick } from 'vue'
+import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput, UserUpdateInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -133,6 +133,10 @@ import { ElTable } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
 import { Operator } from '/@/api/admin.extend/enum-contracts'
+
+defineOptions({
+  name: 'admin/user',
+})
 
 // 引入组件
 const UserForm = defineAsyncComponent(() => import('./components/user-form.vue'))
@@ -149,12 +153,11 @@ const { proxy } = getCurrentInstance() as any
 
 const tableRef = useTemplateRef<InstanceType<typeof ElTable>>('tableRef')
 const userFormRef = useTemplateRef('userFormRef')
-
-const userRecycleDialogRef = ref()
-const userUpdateFormRef = ref()
-const userSetOrgRef = ref()
-const userRestPwdRef = ref()
-const myHighSearchDialogRef = ref()
+const userRecycleDialogRef = useTemplateRef('userRecycleDialogRef')
+const userUpdateFormRef = useTemplateRef('userUpdateFormRef')
+const userSetOrgRef = useTemplateRef('userSetOrgRef')
+const userRestPwdRef = useTemplateRef('userRestPwdRef')
+const myHighSearchDialogRef = useTemplateRef('myHighSearchDialogRef')
 
 const storesUseUserInfo = useUserInfo()
 
@@ -375,7 +378,7 @@ const onSearch = (filter: any, dynamicFilter: any) => {
 
 //高级查询
 const onFilter = () => {
-  myHighSearchDialogRef.value.open()
+  myHighSearchDialogRef.value?.open()
 }
 //高级查询确定
 const onFilterSure = (dynamicFilter: any) => {
@@ -391,13 +394,13 @@ const onAdd = () => {
 
 //回收站
 const onRecycle = () => {
-  userRecycleDialogRef.value.open()
+  userRecycleDialogRef.value?.open()
 }
 
 //修改
 const onEdit = (row: UserGetPageOutput) => {
   state.userFormTitle = '编辑用户'
-  userUpdateFormRef.value.open(row)
+  userUpdateFormRef.value?.open(row as UserUpdateInput)
 }
 
 //删除
@@ -413,7 +416,7 @@ const onDelete = (row: UserGetPageOutput) => {
 
 //重置密码
 const onResetPwd = (row: UserGetPageOutput) => {
-  userRestPwdRef.value.open(row)
+  userRestPwdRef.value?.open(row)
 }
 
 //设置或取消主管
@@ -494,7 +497,7 @@ const onForceOffline = (row: UserGetPageOutput) => {
 
 //部门转移
 const onBatchSetOrg = () => {
-  userSetOrgRef.value.open()
+  userSetOrgRef.value?.open()
 }
 
 //选择部门

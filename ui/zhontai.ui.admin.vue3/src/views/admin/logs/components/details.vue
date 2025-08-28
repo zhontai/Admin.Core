@@ -7,6 +7,7 @@
     size="600"
     :append-to-body="true"
     :lock-scroll="false"
+    resizable
   >
     <div class="my-fill h100" style="padding: 12px">
       <el-descriptions class="margin-top" :column="1" border>

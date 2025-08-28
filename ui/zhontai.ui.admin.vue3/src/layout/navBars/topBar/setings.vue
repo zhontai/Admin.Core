@@ -6,6 +6,7 @@
       direction="rtl"
       destroy-on-close
       size="285px"
+      resizable
       @close="onDrawerClose"
     >
       <el-scrollbar class="layout-breadcrumb-seting-bar">
