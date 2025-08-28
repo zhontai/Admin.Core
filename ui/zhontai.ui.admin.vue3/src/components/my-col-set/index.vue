@@ -43,14 +43,14 @@
             </el-button>
             <el-button
               link
-              :title="item.attrs.fixed === true || item.attrs.fixed === 'left' ? '取消固定在左侧' : '固定在左侧'"
-              :class="item.attrs.fixed === true || item.attrs.fixed === 'left' ? 'selected' : ''"
+              :title="isFixedLeft(item) ? '取消固定在左侧' : '固定在左侧'"
+              :class="isFixedLeft(item) ? 'selected' : ''"
               @click="onFixedLeft(item)"
             >
               <template #icon>
                 <el-icon size="18px">
                   <my-icon
-                    :name="item.attrs.fixed === true || item.attrs.fixed === 'left' ? 'fixedLeftFill' : 'fixedLeft'"
+                    :name="isFixedLeft(item) ? 'fixedLeftFill' : 'fixedLeft'"
                     color="var(--color)"
                   ></my-icon>
                 </el-icon>
@@ -58,13 +58,13 @@
             </el-button>
             <el-button
               link
-              :title="item.attrs.fixed === 'right' ? '取消固定在右侧' : '固定在右侧'"
-              :class="item.attrs.fixed === 'right' ? 'selected' : ''"
+              :title="isFixedRight(item) ? '取消固定在右侧' : '固定在右侧'"
+              :class="isFixedRight(item) ? 'selected' : ''"
               @click="onFixedRight(item)"
             >
               <template #icon>
                 <el-icon size="18px">
-                  <my-icon :name="item.attrs.fixed === 'right' ? 'fixedRightFill' : 'fixedRight'" color="var(--color)"></my-icon>
+                  <my-icon :name="isFixedRight(item) ? 'fixedRightFill' : 'fixedRight'" color="var(--color)"></my-icon>
                 </el-icon>
               </template>
             </el-button>
@@ -148,15 +148,25 @@ const onMoveToTop = (item: any) => {
   }
 }
 
+// 判断是否固定在左侧
+const isFixedLeft = (item: any): boolean => {
+  return item.attrs.fixed === true || item.attrs.fixed === 'left'
+}
+
+// 判断是否固定在右侧
+const isFixedRight = (item: any): boolean => {
+  return item.attrs.fixed === 'right'
+}
+
 // 固定在左侧
 const onFixedLeft = (item: any) => {
-  if (item.attrs.fixed === true || item.attrs.fixed === 'left') item.attrs.fixed = false
+  if (isFixedLeft(item)) item.attrs.fixed = false
   else item.attrs.fixed = 'left'
 }
 
 // 固定在右侧
 const onFixedRight = (item: any) => {
-  if (item.attrs.fixed === true || item.attrs.fixed === 'right') item.attrs.fixed = false
+  if (isFixedRight(item)) item.attrs.fixed = false
   else item.attrs.fixed = 'right'
 }
 </script>
