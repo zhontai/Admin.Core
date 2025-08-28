@@ -13,17 +13,49 @@
     popper-class="my-col-set-popper"
     @show="onColSet"
   >
-    <div class="my-col-set-tool-box">
-      <el-tooltip content="拖动进行排序" placement="top-start">
-        <SvgIcon name="ele-Rank" />
-      </el-tooltip>
-      <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
+    <div class="my-col-set-header-box">
+      <div class="my-flex my-flex-between">
+        <div class="my-flex my-flex-items-center">
+          <SvgIcon name="ele-Rank" title="拖动进行排序" />
+          <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
+        </div>
+        <el-button type="primary" link>恢复默认</el-button>
+      </div>
     </div>
     <el-scrollbar>
-      <div ref="sortableRef" class="my-col-set-sortable-box">
-        <div v-for="(item, index) in colsModel" :key="item.attrs.prop" :data-id="item.attrs.prop">
-          <SvgIcon name="ele-Rank" class="handle" />
-          <el-checkbox v-model="item.isShow" class="ml12 mr8" :label="item.attrs.label" />
+      <div ref="sortableRef" class="my-col-set-body-box">
+        <div v-for="(item, index) in colsModel" :key="item.attrs.prop" :data-id="item.attrs.prop" class="my-flex my-flex-between my-col-set-item-box">
+          <div class="my-flex my-flex-fill">
+            <el-button link class="handle">
+              <template #icon>
+                <SvgIcon name="ele-Rank" />
+              </template>
+            </el-button>
+            <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="item.attrs.label" />
+          </div>
+          <div class="my-flex">
+            <el-button link title="置顶">
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon name="toTop" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+            <el-button link title="固定在左侧">
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon name="fixedLeft" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+            <el-button link title="固定在右侧">
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon name="fixedRight" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+          </div>
         </div>
       </div>
     </el-scrollbar>
@@ -93,15 +125,25 @@ const onColSet = () => {
 }
 </style>
 <style scoped lang="scss">
-.my-col-set-tool-box {
+.my-col-set-header-box {
   border-bottom: 1px solid var(--el-border-color-lighter);
-  padding: 4px 10px;
+  padding: 4px 12px;
 }
-.my-col-set-sortable-box {
-  padding: 4px 10px;
+.my-col-set-body-box {
+  margin: 0px;
+  padding: 0px;
   max-height: 303px;
   .handle {
     cursor: grab;
+  }
+
+  .my-col-set-item-box {
+    padding: 0px 12px 0px 10px;
+    :deep() {
+      .el-button + .el-button {
+        margin-left: 6px;
+      }
+    }
   }
 }
 </style>
