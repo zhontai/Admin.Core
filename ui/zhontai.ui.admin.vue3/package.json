@@ -20,7 +20,7 @@
     "axios": "^1.11.0",
     "countup.js": "^2.9.0",
     "cropperjs": "^2.0.1",
-    "dayjs": "^1.11.15",
+    "dayjs": "^1.11.18",
     "echarts": "^6.0.0",
     "echarts-gl": "^2.0.9",
     "echarts-wordcloud": "^2.1.0",
@@ -71,7 +71,8 @@
     "vite-plugin-compression": "0.5.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vue-eslint-parser": "^10.2.0"
+    "vue-eslint-parser": "^10.2.0",
+    "unplugin-auto-import": "20.1.0"
   },
   "browserslist": [
     "> 1%",
@@ -79,7 +80,7 @@
     "not dead"
   ],
   "bugs": {
-    "url": "https://github.com/zhontai/admin.ui.plus/issues"
+    "url": "https://github.com/zhontai/Admin.Core/issues"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -93,6 +94,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zhontai/admin.ui.plus/git"
+    "url": "https://github.com/zhontai/Admin.Core.git"
   }
 }

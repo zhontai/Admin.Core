@@ -7,6 +7,6 @@ echo.
 cd %~dp0
 
 cd ..
-pnpm install --registry=https://registry.npmmirror.com
+pnpm run install:pkg
 
 pause

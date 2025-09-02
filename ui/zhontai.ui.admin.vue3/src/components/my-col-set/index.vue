@@ -16,7 +16,7 @@
     <div class="my-col-set-header-box">
       <div class="my-flex my-flex-between">
         <div class="my-flex my-flex-items-center">
-          <SvgIcon name="ele-Rank" title="拖动进行排序" />
+          <SvgIcon name="ele-Rank" title="点击并拖动进行排序" />
           <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
         </div>
         <el-button type="primary" link @click="onResetDefault">恢复默认</el-button>
@@ -49,10 +49,7 @@
             >
               <template #icon>
                 <el-icon size="18px">
-                  <my-icon
-                    :name="isFixedLeft(item) ? 'fixedLeftFill' : 'fixedLeft'"
-                    color="var(--color)"
-                  ></my-icon>
+                  <my-icon :name="isFixedLeft(item) ? 'fixedLeftFill' : 'fixedLeft'" color="var(--color)"></my-icon>
                 </el-icon>
               </template>
             </el-button>
