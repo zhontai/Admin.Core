@@ -28,13 +28,13 @@
 		<PackageReference Include="Cronos" Version="0.11.1" />
 		<PackageReference Include="DotNetCore.CAP" Version="8.3.5" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
-		<PackageReference Include="FreeRedis" Version="1.4.0" />
-		<PackageReference Include="FreeRedis.DistributedCache" Version="1.4.0" />
-		<PackageReference Include="FreeSql" Version="3.5.212" />
+		<PackageReference Include="FreeRedis" Version="1.4.1" />
+		<PackageReference Include="FreeRedis.DistributedCache" Version="1.4.1" />
+		<PackageReference Include="FreeSql" Version="3.5.213" />
 		<PackageReference Include="FreeSql.Cloud" Version="2.0.1" />
-		<PackageReference Include="FreeSql.Repository" Version="3.5.212" />
+		<PackageReference Include="FreeSql.Repository" Version="3.5.213" />
 		<PackageReference Include="FreeScheduler" Version="2.0.36" />
-		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.212" />
+		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.213" />
 		<PackageReference Include="FreeIM" Version="2.0.4" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.71.0" />
@@ -56,9 +56,9 @@
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore.Reflection" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.1" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
 		<PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.4" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0.3" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
