@@ -1,3 +1,5 @@
+import { ViteEnv } from '../utils/vite'
+
 // 申明外部 npm 插件模块
 declare module 'vue-grid-layout'
 declare module 'qrcodejs2-fixes'
@@ -28,10 +30,13 @@ declare module '*.vue' {
 
 // 声明文件，定义全局变量
 /* eslint-disable */
-declare interface Window {
-  nextLoading: boolean
-  BMAP_SATELLITE_MAP: any
-  BMap: any
+declare global {
+  interface Window {
+    nextLoading: boolean
+    BMAP_SATELLITE_MAP: any
+    BMap: any
+    __ENV_CONFIG__: ViteEnv
+  }
 }
 
 // 声明路由当前项类型

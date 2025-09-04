@@ -95,7 +95,7 @@ const state = reactive({
   dictType: {} as DictTypeGetListOutput,
   import: {
     title: '',
-    action: import.meta.env.VITE_API_URL + '/api/admin/dict/import-data',
+    action: window.__ENV_CONFIG__.VITE_API_URL + '/api/admin/dict/import-data',
     downloadTemplate: (params: RequestParams) => new DictApi().downloadTemplate(params),
     downloadErrorMark: (query: any, params: RequestParams) => new DictApi().downloadErrorMark(query, params),
     duplicateAction: 1,

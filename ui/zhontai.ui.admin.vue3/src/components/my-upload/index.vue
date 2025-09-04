@@ -71,7 +71,7 @@ const uploadHeaders = computed(() => {
 
 // 上传请求url
 const uploadAction = computed(() => {
-  return import.meta.env.VITE_API_URL + '/api/admin/file/upload-file'
+  return window.__ENV_CONFIG__.VITE_API_URL + '/api/admin/file/upload-file'
 })
 
 // 上传成功

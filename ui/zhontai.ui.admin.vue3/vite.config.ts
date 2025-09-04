@@ -6,6 +6,7 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { loadEnv } from '/@/utils/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
+import fs from 'node:fs'
 
 const pathResolve = (dir: string): any => {
   return resolve(__dirname, '.', dir)
@@ -18,6 +19,7 @@ const alias: Record<string, string> = {
 
 const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
   const env = loadEnv(mode)
+  fs.writeFileSync('./public/env.config.js', `window.__ENV_CONFIG__ = ${JSON.stringify(env, null, 2)} `)
   return {
     plugins: [
       vue(),
@@ -39,6 +41,12 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         dts: './src/auto-imports.d.ts',
         exclude: ['**/node_modules/**', '**/dist/**', '**/src/auto-imports.d.ts'],
       }),
+      {
+        name: 'html-version',
+        transformIndexHtml(html) {
+          return html.replace(/<script src="(\/env\.config\.js)"><\/script>/, `<script src="$1?v=${process.env.npm_package_version}"></script>`)
+        },
+      },
     ],
     root: process.cwd(),
     resolve: { alias },
