@@ -124,8 +124,6 @@
 </template>
 
 <script setup lang="ts" name="loginAccount">
-import { reactive, computed, ref, defineAsyncComponent, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { sm4 } from 'sm-crypto-v2'
@@ -152,8 +150,8 @@ const changePasswordComponentName = defineModel('changePasswordComponentName', {
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
-const formRef = ref()
-const myCaptchaDialogRef = ref()
+const formRef = useTemplateRef('formRef')
+const myCaptchaDialogRef = useTemplateRef('myCaptchaDialogRef')
 
 const state = reactive({
   showDialog: false,

@@ -70,11 +70,11 @@
 </template>
 
 <script lang="ts" setup name="admin/dictType/form">
-import { reactive, toRefs, getCurrentInstance, ref } from 'vue'
 import { DictTypeAddInput, DictTypeUpdateInput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
 import { listToTree } from '/@/utils/tree'
+import { FormInstance } from 'element-plus'
 
 defineProps({
   title: {
@@ -85,7 +85,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref()
+const formRef = useTemplateRef<FormInstance>('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,
@@ -129,7 +130,7 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
-  formRef.value.validate(async (valid: boolean) => {
+  formRef.value?.validate(async (valid: boolean) => {
     if (!valid) return
 
     state.sureLoading = true

@@ -14,7 +14,6 @@
 
     <el-card class="my-fill mt8" shadow="never">
       <el-table
-        ref="tableRef"
         v-loading="state.loading"
         :data="state.dictTypeListData"
         row-key="id"
@@ -53,7 +52,6 @@
 </template>
 
 <script lang="ts" setup name="admin/dictType">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
@@ -64,8 +62,7 @@ const DictTypeForm = defineAsyncComponent(() => import('./components/dict-type-f
 
 const { proxy } = getCurrentInstance() as any
 
-const tableRef = ref()
-const dictTypeFormRef = ref()
+const dictTypeFormRef = useTemplateRef('dictTypeFormRef')
 
 const emits = defineEmits(['change'])
 
@@ -113,12 +110,12 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.dictTypeFormTitle = '新增字典分类'
-  dictTypeFormRef.value.open()
+  dictTypeFormRef.value?.open()
 }
 
 const onEdit = (row: DictTypeGetListOutput) => {
   state.dictTypeFormTitle = '编辑字典分类'
-  dictTypeFormRef.value.open(row)
+  dictTypeFormRef.value?.open(row)
 }
 
 const onDelete = (row: DictTypeGetListOutput) => {

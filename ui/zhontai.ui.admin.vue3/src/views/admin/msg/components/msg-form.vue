@@ -64,7 +64,6 @@
 </template>
 
 <script lang="ts" setup name="admin/msg/form">
-import { reactive, toRefs, ref, defineAsyncComponent, getCurrentInstance } from 'vue'
 import { MsgUpdateInput, MsgTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { MsgApi } from '/@/api/admin/Msg'
 import { cloneDeep } from 'lodash-es'
@@ -83,8 +82,9 @@ defineProps({
   },
 })
 
-const formRef = ref()
-const editorRef = ref()
+const formRef = useTemplateRef('formRef')
+const editorRef = useTemplateRef('editorRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,
@@ -102,7 +102,7 @@ const testEditorContent = (rule: any, value: any, callback: any) => {
   if (!value) {
     callback()
   }
-  if (editorRef.value.isEmpty()) {
+  if (editorRef.value?.isEmpty()) {
     callback(new Error('请输入内容'))
   } else {
     callback()

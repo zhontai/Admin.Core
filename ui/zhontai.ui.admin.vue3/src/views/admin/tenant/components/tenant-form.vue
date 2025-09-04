@@ -100,7 +100,6 @@
 </template>
 
 <script lang="ts" setup name="admin/tenant/form">
-import { reactive, toRefs, getCurrentInstance, ref, computed } from 'vue'
 import { TenantAddInput, TenantUpdateInput, PkgGetListOutput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 import { PkgApi } from '/@/api/admin/Pkg'
@@ -118,7 +117,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

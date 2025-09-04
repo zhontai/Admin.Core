@@ -66,7 +66,6 @@
 </template>
 
 <script lang="ts" setup name="operation-log-details">
-import { reactive } from 'vue'
 import { OperationLogGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'

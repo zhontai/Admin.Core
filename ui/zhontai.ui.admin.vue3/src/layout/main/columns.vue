@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts" name="layoutColumns">
-import { defineAsyncComponent, watch, onMounted, nextTick, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
@@ -25,7 +24,7 @@ const ColumnsAside = defineAsyncComponent(() => import('/@/layout/component/colu
 
 // 定义变量内容
 const layoutScrollbarRef = ref<RefType>('')
-const layoutMainRef = ref<InstanceType<typeof LayoutMain>>()
+const layoutMainRef = useTemplateRef('layoutMainRef')
 const route = useRoute()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)

@@ -136,9 +136,8 @@
 </template>
 
 <script lang="ts" setup name="admin/task">
-import { ref, reactive, onMounted, onBeforeMount, getCurrentInstance, defineAsyncComponent, computed } from 'vue'
-import { ElTable, ElMessage } from 'element-plus'
-import { TaskGetPageOutput, PageInputTaskGetPageInput, TaskStatus } from '/@/api/admin/data-contracts'
+import { TableInstance, ElMessage } from 'element-plus'
+import { TaskGetPageOutput, PageInputTaskGetPageInput, TaskStatus, TaskUpdateInput } from '/@/api/admin/data-contracts'
 import { TaskApi } from '/@/api/admin/Task'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
@@ -151,9 +150,9 @@ const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-ran
 
 const { proxy } = getCurrentInstance() as any
 
-const taskLogsRef = ref()
-const taskFormRef = ref()
-const tableRef = ref<InstanceType<typeof ElTable>>()
+const taskLogsRef = useTemplateRef('taskLogsRef')
+const taskFormRef = useTemplateRef('taskFormRef')
+const tableRef = useTemplateRef<TableInstance>('tableRef')
 
 const state = reactive({
   loading: false,
@@ -255,25 +254,25 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.taskFormTitle = '新增任务'
-  taskFormRef.value.open()
+  taskFormRef.value?.open()
 }
 
 const onUpdate = (row: TaskGetPageOutput) => {
   state.taskFormTitle = '修改任务'
-  taskFormRef.value.open(row)
+  taskFormRef.value?.open(row as TaskUpdateInput)
 }
 
 const onCopy = (row: TaskGetPageOutput) => {
   state.taskFormTitle = '新增任务'
   var task = cloneDeep(row)
   task.id = null
-  taskFormRef.value.open(task)
+  taskFormRef.value?.open(task as TaskUpdateInput)
 }
 
 // 查看日志
 const onShowLogs = (row: TaskGetPageOutput) => {
   state.taskLogsTitle = `${row.topic}${row.id}运行日志`
-  taskLogsRef.value.open(row)
+  taskLogsRef.value?.open(row)
 }
 
 const onRun = (row: TaskGetPageOutput) => {

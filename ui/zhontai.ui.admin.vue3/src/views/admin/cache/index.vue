@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts" setup name="admin/cache">
-import { reactive, onMounted, getCurrentInstance } from 'vue'
 import { CacheApi } from '/@/api/admin/Cache'
+
 const { proxy } = getCurrentInstance() as any
 
 defineProps({

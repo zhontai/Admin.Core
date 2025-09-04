@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts" setup name="admin/user/components/my-select-user">
-import { ref, reactive, PropType, defineAsyncComponent } from 'vue'
 import { UserGetPageOutput } from '/@/api/admin/data-contracts'
 
 // 引入组件
@@ -29,7 +28,7 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
-const userSelectRef = ref()
+const userSelectRef = useTemplateRef('userSelectRef')
 
 const state = reactive({
   label: props.name,
@@ -44,7 +43,7 @@ const onClear = () => {
 }
 
 const onSureUser = async (user: UserGetPageOutput) => {
-  userSelectRef.value.close()
+  userSelectRef.value?.close()
   if ((user?.id as number) > 0) {
     state.label = user.name as string
 

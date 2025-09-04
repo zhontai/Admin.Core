@@ -44,7 +44,6 @@
 </template>
 
 <script lang="ts" setup name="admin/print-template-form">
-import { reactive, toRefs, ref } from 'vue'
 import { PrintTemplateUpdateInput, PrintTemplateGetOutput } from '/@/api/admin/data-contracts'
 import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
 import eventBus from '/@/utils/mitt'
@@ -56,7 +55,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

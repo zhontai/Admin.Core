@@ -92,18 +92,17 @@
 </template>
 
 <script lang="ts" setup name="admin/site-msg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, computed, defineAsyncComponent } from 'vue'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput, MsgTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { listToTree } from '/@/utils/tree'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 
 const MyLink = defineAsyncComponent(() => import('/@/components/my-link/index.vue'))
 
-const tableRef = ref<InstanceType<typeof ElTable>>()
+const tableRef = useTemplateRef<TableInstance>('tableRef')
 const { proxy } = getCurrentInstance() as any
 
 const state = reactive({
@@ -146,7 +145,7 @@ const rowSelectCount = computed(() => {
 })
 
 const isRowSelect = computed(() => {
-  return rowSelectCount.value > 0
+  return rowSelectCount.value! > 0
 })
 
 const selectionIds = computed(() => {
@@ -231,7 +230,7 @@ const onBatchDelete = () => {
     .confirmDelete(`确定要删除消息?`)
     .then(async () => {
       state.loadingBatchDelete = true
-      const res = await new SiteMsgApi().batchSoftDelete(selectionIds.value).catch(() => {
+      const res = await new SiteMsgApi().batchSoftDelete(selectionIds.value!).catch(() => {
         state.loadingBatchDelete = false
       })
       state.loadingBatchDelete = false
@@ -248,7 +247,7 @@ const onBatchSetRead = () => {
     .confirmDelete(`确定要标记消息为已读?`)
     .then(async () => {
       state.loadingBatchSetRead = true
-      const res = await new SiteMsgApi().batchSetRead(selectionIds.value).catch(() => {
+      const res = await new SiteMsgApi().batchSetRead(selectionIds.value!).catch(() => {
         state.loadingBatchSetRead = false
       })
       state.loadingBatchSetRead = false

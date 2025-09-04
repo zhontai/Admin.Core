@@ -136,8 +136,14 @@
 </template>
 
 <script lang="ts" setup name="admin/permission">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
-import { PermissionGetListOutput, PermissionGetListInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import {
+  PermissionGetListOutput,
+  PermissionGetListInput,
+  DictGetListOutput,
+  PermissionUpdateGroupInput,
+  PermissionUpdateMenuInput,
+  PermissionUpdateDotInput,
+} from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { listToTree, treeToList, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
@@ -158,9 +164,9 @@ const DictType = {
   PlatForm: { name: 'platform', desc: '平台' },
 }
 
-const permissionGroupFormRef = ref()
-const permissionMenuFormRef = ref()
-const permissionDotFormRef = ref()
+const permissionGroupFormRef = useTemplateRef('permissionGroupFormRef')
+const permissionMenuFormRef = useTemplateRef('permissionMenuFormRef')
+const permissionDotFormRef = useTemplateRef('permissionDotFormRef')
 
 const state = reactive({
   loading: false,
@@ -231,7 +237,7 @@ const onAdd = (row: PermissionGetListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
-      permissionGroupFormRef.value.open({
+      permissionGroupFormRef.value?.open({
         id: 0,
         platform: state.filter.platform,
         enabled: true,
@@ -242,7 +248,7 @@ const onAdd = (row: PermissionGetListOutput) => {
       break
     case 2:
       state.permissionFormTitle = '新增菜单'
-      permissionMenuFormRef.value.open({
+      permissionMenuFormRef.value?.open({
         id: 0,
         platform: state.filter.platform,
         enabled: true,
@@ -253,7 +259,7 @@ const onAdd = (row: PermissionGetListOutput) => {
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open({
+      permissionDotFormRef.value?.open({
         id: 0,
         platform: state.filter.platform,
         parentId: row.parentId,
@@ -268,15 +274,15 @@ const onEdit = (row: PermissionGetListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '编辑分组'
-      permissionGroupFormRef.value.open(row)
+      permissionGroupFormRef.value?.open(row as PermissionUpdateGroupInput)
       break
     case 2:
       state.permissionFormTitle = '编辑菜单'
-      permissionMenuFormRef.value.open(row)
+      permissionMenuFormRef.value?.open(row as PermissionUpdateMenuInput)
       break
     case 3:
       state.permissionFormTitle = '编辑权限点'
-      permissionDotFormRef.value.open(row)
+      permissionDotFormRef.value?.open(row as PermissionUpdateDotInput)
       break
   }
 }
@@ -285,15 +291,15 @@ const onCopy = (row: PermissionGetListOutput) => {
   switch (row.type) {
     case 1:
       state.permissionFormTitle = '新增分组'
-      permissionGroupFormRef.value.open(row, true)
+      permissionGroupFormRef.value?.open(row as PermissionUpdateGroupInput, true)
       break
     case 2:
       state.permissionFormTitle = '新增菜单'
-      permissionMenuFormRef.value.open(row, true)
+      permissionMenuFormRef.value?.open(row as PermissionUpdateMenuInput, true)
       break
     case 3:
       state.permissionFormTitle = '新增权限点'
-      permissionDotFormRef.value.open(row, true)
+      permissionDotFormRef.value?.open(row as PermissionUpdateDotInput, true)
       break
   }
 }

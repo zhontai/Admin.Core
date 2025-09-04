@@ -67,8 +67,7 @@
 </template>
 
 <script lang="ts" setup name="admin/user/components/user-select">
-import { ref, reactive, getCurrentInstance } from 'vue'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { UserGetDeletedUserPageOutput, PageInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
@@ -88,7 +87,7 @@ const { proxy } = getCurrentInstance() as any
 
 const emits = defineEmits(['sure'])
 
-const userTableRef = ref<InstanceType<typeof ElTable>>()
+const userTableRef = useTemplateRef<TableInstance>('userTableRef')
 
 const state = reactive({
   showDialog: false,

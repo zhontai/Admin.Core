@@ -117,16 +117,16 @@
 </template>
 
 <script lang="ts" setup name="admin/pkg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
 import {
   PageInputPkgGetPageInput,
   PkgGetPkgTenantListOutput,
   PkgGetPageOutput,
   PkgAddPkgTenantListInput,
   PageInputPkgGetPkgTenantListInput,
+  PkgUpdateInput,
 } from '/@/api/admin/data-contracts'
 import { PkgApi } from '/@/api/admin/Pkg'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 
@@ -139,11 +139,11 @@ const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/sp
 
 const { proxy } = getCurrentInstance() as any
 
-const pkgTableRef = ref()
-const pkgFormRef = ref()
-const tenantTableRef = ref<InstanceType<typeof ElTable>>()
-const tenantSelectRef = ref()
-const setPkgMenuRef = ref()
+const pkgTableRef = useTemplateRef('pkgTableRef')
+const pkgFormRef = useTemplateRef('pkgFormRef')
+const tenantTableRef = useTemplateRef<TableInstance>('tenantTableRef')
+const tenantSelectRef = useTemplateRef('tenantSelectRef')
+const setPkgMenuRef = useTemplateRef('setPkgMenuRef')
 
 const state = reactive({
   loading: false,
@@ -231,12 +231,12 @@ const onTableCurrentChange = (currentRow: PkgGetPageOutput) => {
 
 const onAdd = () => {
   state.pkgFormTitle = '新增套餐'
-  pkgFormRef.value.open({ enabled: true })
+  pkgFormRef.value?.open({ id: 0, enabled: true })
 }
 
 const onEdit = (row: PkgGetPageOutput) => {
   state.pkgFormTitle = '编辑套餐'
-  pkgFormRef.value.open(row)
+  pkgFormRef.value?.open(row as PkgUpdateInput)
 }
 
 const onDelete = (row: PkgGetPageOutput) => {
@@ -281,7 +281,8 @@ const onAddTenant = () => {
     proxy.$modal.msgWarning('请选择套餐')
     return
   }
-  tenantSelectRef.value.open({ pkgId: state.pkgId })
+
+  tenantSelectRef.value?.open()
 }
 
 const onRemoveTenant = () => {
@@ -310,7 +311,7 @@ const onRemoveTenant = () => {
 
 const onSureTenant = async (tenants: PkgGetPageOutput[]) => {
   if (!(tenants?.length > 0)) {
-    tenantSelectRef.value.close()
+    tenantSelectRef.value?.close()
     return
   }
 
@@ -321,7 +322,7 @@ const onSureTenant = async (tenants: PkgGetPageOutput[]) => {
     state.sureLoading = false
   })
   state.sureLoading = false
-  tenantSelectRef.value.close()
+  tenantSelectRef.value?.close()
   onGetPkgTenantList()
 }
 
@@ -330,7 +331,7 @@ const onSetPkgMenu = (pkg: PkgGetPageOutput) => {
     proxy.$modal.msgWarning('请选择套餐')
     return
   }
-  setPkgMenuRef.value.open(pkg)
+  setPkgMenuRef.value?.open(pkg)
 }
 </script>
 

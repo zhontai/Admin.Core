@@ -89,7 +89,6 @@
 </template>
 
 <script lang="ts" setup name="admin/user/form">
-import { reactive, toRefs, getCurrentInstance, ref, defineAsyncComponent, computed } from 'vue'
 import { UserAddInput, UserUpdateInput, RoleGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { RoleApi } from '/@/api/admin/Role'
@@ -112,7 +111,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref<FormInstance>()
+const formRef = useTemplateRef<FormInstance>('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

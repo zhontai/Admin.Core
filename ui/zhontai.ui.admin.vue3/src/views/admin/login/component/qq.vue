@@ -13,11 +13,10 @@
 </template>
 
 <script setup lang="ts" name="loginScan">
-import { ref, onMounted, nextTick } from 'vue'
 import QRCode from 'qrcodejs2-fixes'
 
 // 定义变量内容
-const qrcodeRef = ref<HTMLElement | null>(null)
+const qrcodeRef = useTemplateRef<HTMLElement | null>('qrcodeRef')
 
 // 初始化生成二维码
 const initQrcode = () => {

@@ -60,7 +60,6 @@
 </template>
 
 <script lang="ts" setup name="admin/role/form">
-import { reactive, toRefs, ref, PropType } from 'vue'
 import { RoleGetListOutput, RoleUpdateInput } from '/@/api/admin/data-contracts'
 import { RoleApi } from '/@/api/admin/Role'
 import { cloneDeep } from 'lodash-es'
@@ -77,7 +76,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

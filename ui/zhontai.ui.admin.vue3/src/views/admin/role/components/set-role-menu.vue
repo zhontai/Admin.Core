@@ -43,10 +43,9 @@
 </template>
 
 <script lang="ts" setup name="admin/role/components/set-role-menu">
-import { ref, reactive, getCurrentInstance, computed, markRaw } from 'vue'
 import { RoleGetListOutput, PermissionAssignInput, DictGetListOutput, PermissionGetPermissionListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
-import { ElTree } from 'element-plus'
+import { TreeInstance } from 'element-plus'
 import { DictApi } from '/@/api/admin/Dict'
 import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
@@ -81,7 +80,7 @@ const state = reactive({
 })
 
 const { proxy } = getCurrentInstance() as any
-const permissionTreeRef = ref<InstanceType<typeof ElTree>>()
+const permissionTreeRef = useTemplateRef<TreeInstance>('permissionTreeRef')
 
 const getDictList = async () => {
   const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})

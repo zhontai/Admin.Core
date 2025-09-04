@@ -55,7 +55,6 @@
 </template>
 
 <script lang="ts" setup name="admin/msg-type/form">
-import { reactive, toRefs, ref, PropType } from 'vue'
 import { MsgTypeGetListOutput, MsgTypeUpdateInput } from '/@/api/admin/data-contracts'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { cloneDeep } from 'lodash-es'
@@ -72,7 +71,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

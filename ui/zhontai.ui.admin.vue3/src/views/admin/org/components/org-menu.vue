@@ -37,11 +37,10 @@
 </template>
 
 <script lang="ts" setup name="admin/org/menu">
-import { onMounted, reactive, ref, watch, nextTick, PropType } from 'vue'
 import { OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
-import { ElTree } from 'element-plus'
+import { TreeInstance } from 'element-plus'
 
 const props = defineProps({
   modelValue: {
@@ -54,7 +53,8 @@ const props = defineProps({
   },
 })
 
-const orgMenuRef = ref<InstanceType<typeof ElTree>>()
+const orgMenuRef = useTemplateRef<TreeInstance>('orgMenuRef')
+
 const state = reactive({
   loading: false,
   filterText: '',

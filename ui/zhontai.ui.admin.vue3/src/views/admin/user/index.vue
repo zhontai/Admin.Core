@@ -122,14 +122,13 @@
 </template>
 
 <script lang="ts" setup>
-// import { useTemplateRef, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed, nextTick } from 'vue'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput, UserSetManagerInput, UserUpdateInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
 import { Operator } from '/@/api/admin.extend/enum-contracts'
@@ -151,7 +150,7 @@ const MyHighSearchDialog = defineAsyncComponent(() => import('/@/components/my-h
 
 const { proxy } = getCurrentInstance() as any
 
-const tableRef = useTemplateRef<InstanceType<typeof ElTable>>('tableRef')
+const tableRef = useTemplateRef<TableInstance>('tableRef')
 const userFormRef = useTemplateRef('userFormRef')
 const userRecycleDialogRef = useTemplateRef('userRecycleDialogRef')
 const userUpdateFormRef = useTemplateRef('userUpdateFormRef')

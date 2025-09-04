@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts" name="notFound">
-import { useRouter } from 'vue-router'
 import notFoundSvg from '/@/assets/svgs/404.svg'
 
 // 定义变量内容

@@ -54,7 +54,6 @@
 </template>
 
 <script lang="ts" setup name="admin/personal/change-password-form">
-import { reactive, toRefs, ref } from 'vue'
 import { UserChangePasswordInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
@@ -67,7 +66,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

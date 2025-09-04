@@ -100,7 +100,6 @@
 </template>
 
 <script lang="ts" setup name="admin/api">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { ApiGetListOutput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import { ApiApi as ApiExtApi } from '/@/api/admin.extend/Api'
@@ -113,7 +112,7 @@ const ApiForm = defineAsyncComponent(() => import('./components/api-form.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
-const apiFormRef = ref()
+const apiFormRef = useTemplateRef('apiFormRef')
 
 const state = reactive({
   loading: false,
@@ -265,12 +264,12 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.apiFormTitle = '新增接口'
-  apiFormRef.value.open()
+  apiFormRef.value?.open()
 }
 
 const onEdit = (row: ApiGetListOutput) => {
   state.apiFormTitle = '编辑接口'
-  apiFormRef.value.open(row)
+  apiFormRef.value?.open(row)
 }
 
 const onDelete = (row: ApiGetListOutput) => {

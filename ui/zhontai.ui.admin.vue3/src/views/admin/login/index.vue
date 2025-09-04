@@ -72,8 +72,6 @@
 </template>
 
 <script setup lang="ts" name="loginIndex">
-import { defineAsyncComponent, onMounted, reactive, computed } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
@@ -129,6 +127,7 @@ const loginMethods = [
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
+
 const state = reactive({
   loginComponentName: accountComponentName, //默认账号登录
   accountType: AccountType.UserName.value, //默认用户名账号

@@ -48,7 +48,6 @@
 </template>
 
 <script lang="ts" setup name="admin/print-template-deisgn">
-import { reactive, ref, getCurrentInstance, nextTick } from 'vue'
 import Design from './design.vue'
 import { PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
 import eventBus from '/@/utils/mitt'
@@ -63,11 +62,11 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const designRef = ref()
-const saveRef = ref()
-const popoverSaveRef = ref()
-const refreshRef = ref()
-const popoverRefreshRef = ref()
+const designRef = useTemplateRef('designRef')
+const saveRef = useTemplateRef('saveRef')
+const popoverSaveRef = useTemplateRef('popoverSaveRef')
+const refreshRef = useTemplateRef('refreshRef')
+const popoverRefreshRef = useTemplateRef('popoverRefreshRef')
 
 const state = reactive({
   visible: false,

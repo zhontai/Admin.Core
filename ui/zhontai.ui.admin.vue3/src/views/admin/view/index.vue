@@ -56,8 +56,7 @@
 </template>
 
 <script lang="ts" setup name="admin/view">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, markRaw } from 'vue'
-import { ViewGetListOutput, DictGetListOutput, ViewGetListInput } from '/@/api/admin/data-contracts'
+import { ViewGetListOutput, DictGetListOutput, ViewGetListInput, ViewUpdateInput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { listToTree, filterTree } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
@@ -68,7 +67,8 @@ import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 // 引入组件
 const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue'))
 
-const viewFormRef = ref()
+const viewFormRef = useTemplateRef('viewFormRef')
+
 const { proxy } = getCurrentInstance() as any
 
 const DictType = {
@@ -135,7 +135,7 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.viewFormTitle = '新增视图'
-  viewFormRef.value.open({
+  viewFormRef.value?.open({
     id: 0,
     platform: state.filter.platform,
     enabled: true,
@@ -146,7 +146,7 @@ const onAdd = () => {
 const onEdit = (row: ViewGetListOutput) => {
   state.viewFormTitle = '编辑视图'
   row.platform = state.filter.platform
-  viewFormRef.value.open(row)
+  viewFormRef.value?.open(row as ViewUpdateInput)
 }
 
 const onDelete = (row: ViewGetListOutput) => {
@@ -163,7 +163,7 @@ const onCopy = (row: ViewGetListOutput) => {
   state.viewFormTitle = '新增视图'
   var view = cloneDeep(row)
   view.id = undefined
-  viewFormRef.value.open(view)
+  viewFormRef.value?.open(view as ViewUpdateInput)
 }
 </script>
 

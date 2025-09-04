@@ -21,7 +21,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef)"> 重置 </el-button>
+          <el-button icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef!)"> 重置 </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -69,15 +69,14 @@
 </template>
 
 <script lang="ts" setup name="admin/operation-log">
-import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
 import { OperationLogGetPageOutput, PageInputOperationLogGetPageInput, OperationLogGetPageInput } from '/@/api/admin/data-contracts'
 import { OperationLogApi } from '/@/api/admin/OperationLog'
 import dayjs from 'dayjs'
 import type { FormInstance, TableInstance } from 'element-plus'
 
-const filterFormRef = ref<FormInstance>()
-const tableRef = ref<TableInstance>()
-const detailsRef = ref()
+const filterFormRef = useTemplateRef<FormInstance>('filterFormRef')
+const tableRef = useTemplateRef<TableInstance>('tableRef')
+const detailsRef = useTemplateRef('detailsRef')
 
 const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
 const Details = defineAsyncComponent(() => import('./components/details.vue'))

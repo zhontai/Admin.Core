@@ -70,7 +70,6 @@
 </template>
 
 <script lang="ts" setup name="admin/org/form">
-import { reactive, toRefs, ref, getCurrentInstance } from 'vue'
 import { OrgUpdateInput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import eventBus from '/@/utils/mitt'
@@ -85,7 +84,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

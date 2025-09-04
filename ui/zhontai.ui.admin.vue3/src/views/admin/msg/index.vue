@@ -110,7 +110,6 @@
 </template>
 
 <script lang="ts" setup name="admin/msg">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import {
   PageInputMsgGetPageInput,
   MsgGetMsgUserListOutput,
@@ -119,12 +118,13 @@ import {
   MsgGetPageOutput,
 } from '/@/api/admin/data-contracts'
 import { MsgApi } from '/@/api/admin/Msg'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import dayjs from 'dayjs'
 import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
 import { getDescByValue } from '/@/utils/enum'
+import { MsgUpdateInput } from '/@/api/admin/data-contracts'
 
 // 引入组件
 const MsgForm = defineAsyncComponent(() => import('./components/msg-form.vue'))
@@ -134,10 +134,10 @@ const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropd
 
 const { proxy } = getCurrentInstance() as any
 
-const msgTableRef = ref()
-const msgFormRef = ref()
-const userTableRef = ref<InstanceType<typeof ElTable>>()
-const userSelectRef = ref()
+const msgTableRef = useTemplateRef('msgTableRef')
+const msgFormRef = useTemplateRef('msgFormRef')
+const userTableRef = useTemplateRef<TableInstance>('userTableRef')
+const userSelectRef = useTemplateRef('userSelectRef')
 
 const state = reactive({
   loading: false,
@@ -217,12 +217,12 @@ const onCurrentChange = (val: number) => {
 
 const onAdd = () => {
   state.msgFormTitle = '新增消息'
-  msgFormRef.value.open({ enabled: true })
+  msgFormRef.value?.open({ id: 0, enabled: true } as MsgUpdateInput)
 }
 
 const onEdit = (row: MsgGetPageOutput) => {
   state.msgFormTitle = '编辑消息'
-  msgFormRef.value.open(row)
+  msgFormRef.value?.open(row as MsgUpdateInput)
 }
 
 const onDelete = (row: MsgGetPageOutput) => {
@@ -269,7 +269,7 @@ const onAddUser = () => {
     proxy.$modal.msgWarning('请选择消息')
     return
   }
-  userSelectRef.value.open({ msgId: state.msgId })
+  userSelectRef.value?.open()
 }
 
 const onRemoveUser = () => {
@@ -298,7 +298,7 @@ const onRemoveUser = () => {
 
 const onSureUser = async (users: UserGetPageOutput[]) => {
   if (!(users?.length > 0)) {
-    userSelectRef.value.close()
+    userSelectRef.value?.close()
     return
   }
 
@@ -309,7 +309,7 @@ const onSureUser = async (users: UserGetPageOutput[]) => {
     state.sureLoading = false
   })
   state.sureLoading = false
-  userSelectRef.value.close()
+  userSelectRef.value?.close()
   onGetMsgUserList()
 }
 </script>
