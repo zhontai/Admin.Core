@@ -13,17 +13,59 @@
     popper-class="my-col-set-popper"
     @show="onColSet"
   >
-    <div class="my-col-set-tool-box">
-      <el-tooltip content="拖动进行排序" placement="top-start">
-        <SvgIcon name="ele-Rank" />
-      </el-tooltip>
-      <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
+    <div class="my-col-set-header-box">
+      <div class="my-flex my-flex-between">
+        <div class="my-flex my-flex-items-center">
+          <SvgIcon name="ele-Rank" title="点击并拖动进行排序" />
+          <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
+        </div>
+        <el-button type="primary" link @click="onResetDefault">恢复默认</el-button>
+      </div>
     </div>
     <el-scrollbar>
-      <div ref="sortableRef" class="my-col-set-sortable-box">
-        <div v-for="(item, index) in colsModel" :key="item.attrs.prop" :data-id="item.attrs.prop">
-          <SvgIcon name="ele-Rank" class="handle" />
-          <el-checkbox v-model="item.isShow" class="ml12 mr8" :label="item.attrs.label" />
+      <div ref="sortableRef" class="my-col-set-body-box">
+        <div v-for="(item, index) in colsModel" :key="item.attrs.prop" :data-id="item.attrs.prop" class="my-flex my-flex-between my-col-set-item-box">
+          <div class="my-flex my-flex-fill">
+            <el-button link class="handle">
+              <template #icon>
+                <SvgIcon name="ele-Rank" />
+              </template>
+            </el-button>
+            <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="item.attrs.label" />
+          </div>
+          <div class="my-flex">
+            <el-button link title="置顶" @click="onMoveToTop(item)">
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon name="toTop" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+            <el-button
+              link
+              :title="isFixedLeft(item) ? '取消固定在左侧' : '固定在左侧'"
+              :class="isFixedLeft(item) ? 'selected' : ''"
+              @click="onFixedLeft(item)"
+            >
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon :name="isFixedLeft(item) ? 'fixedLeftFill' : 'fixedLeft'" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+            <el-button
+              link
+              :title="isFixedRight(item) ? '取消固定在右侧' : '固定在右侧'"
+              :class="isFixedRight(item) ? 'selected' : ''"
+              @click="onFixedRight(item)"
+            >
+              <template #icon>
+                <el-icon size="18px">
+                  <my-icon :name="isFixedRight(item) ? 'fixedRightFill' : 'fixedRight'" color="var(--color)"></my-icon>
+                </el-icon>
+              </template>
+            </el-button>
+          </div>
         </div>
       </div>
     </el-scrollbar>
@@ -33,6 +75,7 @@
 <script lang="ts" setup>
 import { useTemplateRef, computed, nextTick } from 'vue'
 import Sortable from 'sortablejs'
+import { cloneDeep } from 'lodash-es'
 
 // 定义父组件传过来的列数组模型
 const colsModel = defineModel({
@@ -43,6 +86,8 @@ const colsModel = defineModel({
   }>,
   required: true,
 })
+
+const colsModelOrg = cloneDeep(colsModel.value)
 
 const colSetRef = useTemplateRef('colSetRef')
 useTemplateRef('colSetPopoverRef')
@@ -85,6 +130,42 @@ const onColSet = () => {
     })
   })
 }
+
+// 恢复默认
+const onResetDefault = () => {
+  colsModel.value = cloneDeep(colsModelOrg)
+}
+
+// 置顶
+const onMoveToTop = (item: any) => {
+  const index = colsModel.value.findIndex((v) => v.attrs.prop === item.attrs.prop)
+  if (index > 0) {
+    const [removed] = colsModel.value.splice(index, 1)
+    colsModel.value.unshift(removed)
+  }
+}
+
+// 判断是否固定在左侧
+const isFixedLeft = (item: any): boolean => {
+  return item.attrs.fixed === true || item.attrs.fixed === 'left'
+}
+
+// 判断是否固定在右侧
+const isFixedRight = (item: any): boolean => {
+  return item.attrs.fixed === 'right'
+}
+
+// 固定在左侧
+const onFixedLeft = (item: any) => {
+  if (isFixedLeft(item)) item.attrs.fixed = false
+  else item.attrs.fixed = 'left'
+}
+
+// 固定在右侧
+const onFixedRight = (item: any) => {
+  if (isFixedRight(item)) item.attrs.fixed = false
+  else item.attrs.fixed = 'right'
+}
 </script>
 
 <style lang="scss">
@@ -93,15 +174,29 @@ const onColSet = () => {
 }
 </style>
 <style scoped lang="scss">
-.my-col-set-tool-box {
+.my-col-set-header-box {
   border-bottom: 1px solid var(--el-border-color-lighter);
-  padding: 4px 10px;
+  padding: 4px 12px;
 }
-.my-col-set-sortable-box {
-  padding: 4px 10px;
+.my-col-set-body-box {
+  margin: 0px;
+  padding: 0px;
   max-height: 303px;
   .handle {
     cursor: grab;
+  }
+
+  .my-col-set-item-box {
+    padding: 0px 12px 0px 10px;
+    :deep() {
+      .el-button + .el-button {
+        margin-left: 6px;
+      }
+
+      .el-button.is-link.selected {
+        color: var(--el-color-primary-light-3);
+      }
+    }
   }
 }
 </style>

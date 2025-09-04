@@ -38,8 +38,6 @@
 </template>
 
 <script lang="ts" setup name="admin/user/reset-pwd">
-import { reactive, getCurrentInstance, ref } from 'vue'
-import { validatorPwd } from '/@/utils/validators'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { UserApi } from '/@/api/admin/User'
 import { UserGetPageOutput, UserResetPasswordInput } from '/@/api/admin/data-contracts'
@@ -54,7 +52,7 @@ defineProps({
 })
 
 const { proxy } = getCurrentInstance() as any
-const formRef = ref<FormInstance>()
+const formRef = useTemplateRef<FormInstance>('formRef')
 
 const state = reactive({
   showDialog: false,

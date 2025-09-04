@@ -43,8 +43,7 @@
 </template>
 
 <script lang="ts" setup name="admin/msg-type">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
-import { MsgTypeGetListOutput } from '/@/api/admin/data-contracts'
+import { MsgTypeGetListOutput, MsgTypeUpdateInput } from '/@/api/admin/data-contracts'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { listToTree, filterTree } from '/@/utils/tree'
 import { ElTable } from 'element-plus'
@@ -56,8 +55,8 @@ const MsgTypeForm = defineAsyncComponent(() => import('./components/msg-type-for
 
 const { proxy } = getCurrentInstance() as any
 
-const msgTypeTableRef = ref()
-const msgTypeFormRef = ref()
+const msgTypeTableRef = useTemplateRef('msgTypeTableRef')
+const msgTypeFormRef = useTemplateRef('msgTypeFormRef')
 
 const state = reactive({
   loading: false,
@@ -109,12 +108,12 @@ const onQuery = async () => {
 
 const onAdd = (row: MsgTypeGetListOutput | undefined = undefined) => {
   state.msgTypeFormTitle = '新增消息分类'
-  msgTypeFormRef.value.open({ id: 0, parentId: row?.id })
+  msgTypeFormRef.value?.open({ id: 0, parentId: row?.id })
 }
 
 const onEdit = (row: MsgTypeGetListOutput) => {
   state.msgTypeFormTitle = '编辑消息分类'
-  msgTypeFormRef.value.open(row)
+  msgTypeFormRef.value?.open(row as MsgTypeUpdateInput)
 }
 
 const onDelete = (row: MsgTypeGetListOutput) => {

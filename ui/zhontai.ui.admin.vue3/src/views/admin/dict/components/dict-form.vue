@@ -75,7 +75,6 @@
 </template>
 
 <script lang="ts" setup name="admin/dict/form">
-import { reactive, toRefs, getCurrentInstance, ref } from 'vue'
 import { DictAddInput, DictUpdateInput, DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
@@ -91,7 +90,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref<FormInstance>()
+const formRef = useTemplateRef<FormInstance>('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

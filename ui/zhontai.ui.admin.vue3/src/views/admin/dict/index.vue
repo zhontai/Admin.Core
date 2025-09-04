@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup name="admin/dict">
-import { defineAsyncComponent, ref } from 'vue'
 import { DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 
 // 引入组件
@@ -18,7 +17,7 @@ const DictType = defineAsyncComponent(() => import('./dict-type.vue'))
 const Dict = defineAsyncComponent(() => import('./dict.vue'))
 const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 
-const dictRef = ref()
+const dictRef = useTemplateRef('dictRef')
 
 const onChange = (data: DictTypeGetListOutput) => {
   dictRef.value?.refresh(data)

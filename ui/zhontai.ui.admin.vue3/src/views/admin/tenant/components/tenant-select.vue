@@ -63,8 +63,7 @@
 </template>
 
 <script lang="ts" setup name="admin/tenant/components/tenant-select">
-import { ref, reactive } from 'vue'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { TenantGetPageOutput, PageInputTenantGetPageInput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 
@@ -85,7 +84,7 @@ const props = defineProps({
 
 const emits = defineEmits(['sure'])
 
-const tenantTableRef = ref<InstanceType<typeof ElTable>>()
+const tenantTableRef = useTemplateRef<TableInstance>('tenantTableRef')
 
 const state = reactive({
   showDialog: false,

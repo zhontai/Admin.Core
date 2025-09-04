@@ -7,6 +7,7 @@
       draggable
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      overflow
       width="769px"
     >
       <el-form ref="formRef" :model="form" label-width="80px">
@@ -138,7 +139,6 @@
 </template>
 
 <script lang="ts" setup name="admin/user/form">
-import { reactive, toRefs, getCurrentInstance, ref, watch, defineAsyncComponent, computed } from 'vue'
 import { UserAddInput, UserUpdateInput, OrgGetListOutput, RoleGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { OrgApi } from '/@/api/admin/Org'
@@ -165,7 +165,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const orgTreeSelectRef = ref()
+useTemplateRef('orgTreeSelectRef')
+
 const formRef = ref<FormInstance>()
 const state = reactive({
   showDialog: false,

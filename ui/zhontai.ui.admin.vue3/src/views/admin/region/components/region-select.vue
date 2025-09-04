@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
 import type { CascaderProps } from 'element-plus'
 import { RegionApi } from '/@/api/admin/Region'
 

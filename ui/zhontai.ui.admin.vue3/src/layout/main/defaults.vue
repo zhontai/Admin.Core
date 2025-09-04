@@ -24,7 +24,7 @@ const LayoutMain = defineAsyncComponent(() => import('/@/layout/component/main.v
 
 // 定义变量内容
 const layoutScrollbarRef = ref<RefType>('')
-const layoutMainRef = ref<InstanceType<typeof LayoutMain>>()
+const layoutMainRef = useTemplateRef('layoutMainRef')
 const route = useRoute()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)

@@ -64,7 +64,6 @@
 </template>
 
 <script lang="ts" setup name="admin/reg-email">
-import { reactive, toRefs, ref, defineAsyncComponent } from 'vue'
 import { AuthRegByEmailInput } from '/@/api/admin/data-contracts'
 import { AuthApi } from '/@/api/admin/Auth'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
@@ -76,8 +75,9 @@ const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-co
 const isReg = defineModel('isReg', { type: Boolean, default: false })
 const hasPassword = defineModel('hasPassword', { type: Boolean, default: false })
 
-const formRef = ref()
-const emailRef = ref()
+const formRef = useTemplateRef('formRef')
+const emailRef = useTemplateRef('emailRef')
+
 const state = reactive({
   showDialog: false,
   loading: false,

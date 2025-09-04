@@ -38,7 +38,6 @@
 </template>
 
 <script lang="ts" setup name="admin/org-tree-img">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
@@ -49,8 +48,8 @@ const OrgForm = defineAsyncComponent(() => import('./org-form.vue'))
 
 const { proxy } = getCurrentInstance() as any
 
-const orgRef = ref()
-const orgFormRef = ref()
+const orgRef = useTemplateRef('orgRef')
+const orgFormRef = useTemplateRef('orgFormRef')
 
 const state = reactive({
   loading: false,
@@ -101,12 +100,12 @@ const onQuery = async () => {
 
 const onAdd = (row: OrgGetListOutput) => {
   state.orgFormTitle = '新增部门'
-  orgFormRef.value.open({ parentId: row?.id })
+  orgFormRef.value?.open({ parentId: row?.id })
 }
 
 const onEdit = (row: OrgGetListOutput) => {
   state.orgFormTitle = '编辑部门'
-  orgFormRef.value.open(row)
+  orgFormRef.value?.open(row)
 }
 
 const onDelete = (row: OrgGetListOutput) => {

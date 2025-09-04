@@ -143,7 +143,6 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-menu-form">
-import { reactive, toRefs, getCurrentInstance, ref, PropType, defineAsyncComponent, markRaw } from 'vue'
 import { PermissionGetListOutput, PermissionUpdateMenuInput, ViewGetListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ViewApi } from '/@/api/admin/View'
@@ -172,7 +171,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

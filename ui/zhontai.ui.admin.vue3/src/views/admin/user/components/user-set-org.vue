@@ -53,7 +53,6 @@
 </template>
 
 <script lang="ts" setup name="admin/user/form">
-import { reactive, toRefs, getCurrentInstance, ref, watch } from 'vue'
 import { UserBatchSetOrgInput, OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { OrgApi } from '/@/api/admin/Org'
@@ -73,8 +72,9 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const orgTreeSelectRef = ref()
-const formRef = ref<FormInstance>()
+useTemplateRef('orgTreeSelectRef')
+const formRef = useTemplateRef<FormInstance>('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

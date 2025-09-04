@@ -112,11 +112,17 @@
 </template>
 
 <script lang="ts" setup name="admin/role">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, nextTick, defineAsyncComponent } from 'vue'
-import { RoleGetListOutput, RoleGetRoleUserListOutput, UserGetPageOutput, RoleAddRoleUserListInput, RoleType } from '/@/api/admin/data-contracts'
+import {
+  RoleGetListOutput,
+  RoleGetRoleUserListOutput,
+  UserGetPageOutput,
+  RoleAddRoleUserListInput,
+  RoleType,
+  RoleUpdateInput,
+} from '/@/api/admin/data-contracts'
 import { RoleApi } from '/@/api/admin/Role'
 import { listToTree, filterTree } from '/@/utils/tree'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
@@ -131,12 +137,12 @@ const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/sp
 
 const { proxy } = getCurrentInstance() as any
 
-const roleTableRef = ref()
-const roleFormRef = ref()
-const userTableRef = ref<InstanceType<typeof ElTable>>()
-const userSelectRef = ref()
-const setRoleMenuRef = ref()
-const setRoleDataScopeRef = ref()
+const roleTableRef = useTemplateRef('roleTableRef')
+const roleFormRef = useTemplateRef('roleFormRef')
+const userTableRef = useTemplateRef<TableInstance>('userTableRef')
+const userSelectRef = useTemplateRef('userSelectRef')
+const setRoleMenuRef = useTemplateRef('setRoleMenuRef')
+const setRoleDataScopeRef = useTemplateRef('setRoleDataScopeRef')
 
 const state = reactive({
   loading: false,
@@ -191,11 +197,11 @@ const onAdd = (type: RoleType, row: RoleGetListOutput | undefined = undefined) =
   switch (type) {
     case 1:
       state.roleFormTitle = '新增分组'
-      roleFormRef.value.open({ type: 1 })
+      roleFormRef.value?.open({ id: 0, type: 1 })
       break
     case 2:
       state.roleFormTitle = '新增角色'
-      roleFormRef.value.open({ type: 2, parentId: row?.id, dataScope: 1 })
+      roleFormRef.value?.open({ id: 0, type: 2, parentId: row?.id })
       break
   }
 }
@@ -209,7 +215,7 @@ const onEdit = (row: RoleGetListOutput) => {
       state.roleFormTitle = '编辑角色'
       break
   }
-  roleFormRef.value.open(row)
+  roleFormRef.value?.open(row as RoleUpdateInput)
 }
 
 const onDelete = (row: RoleGetListOutput) => {
@@ -248,7 +254,7 @@ const onCurrentChange = (currentRow: RoleGetListOutput, oldCurrentRow: RoleGetLi
     }
   } else {
     if ((currentRow?.parentId as number) === 0) {
-      roleTableRef.value!.setCurrentRow()
+      roleTableRef.value!.setCurrentRow(null)
     }
   }
 
@@ -268,7 +274,7 @@ const onAddUser = () => {
     proxy.$modal.msgWarning('请选择角色')
     return
   }
-  userSelectRef.value.open({ roleId: state.roleId })
+  userSelectRef.value?.open()
 }
 
 const onRemoveUser = () => {
@@ -297,7 +303,7 @@ const onRemoveUser = () => {
 
 const onSureUser = async (users: UserGetPageOutput[]) => {
   if (!(users?.length > 0)) {
-    userSelectRef.value.close()
+    userSelectRef.value?.close()
     return
   }
 
@@ -308,7 +314,7 @@ const onSureUser = async (users: UserGetPageOutput[]) => {
     state.sureLoading = false
   })
   state.sureLoading = false
-  userSelectRef.value.close()
+  userSelectRef.value?.close()
   onGetRoleUserList()
 }
 
@@ -317,7 +323,7 @@ const onSetRoleMenu = (role: RoleGetListOutput) => {
     proxy.$modal.msgWarning('请选择角色')
     return
   }
-  setRoleMenuRef.value.open(role)
+  setRoleMenuRef.value?.open(role)
 }
 
 const onSetRoleDataScope = (role: RoleGetListOutput) => {
@@ -325,7 +331,7 @@ const onSetRoleDataScope = (role: RoleGetListOutput) => {
     proxy.$modal.msgWarning('请选择角色')
     return
   }
-  setRoleDataScopeRef.value.open(role)
+  setRoleDataScopeRef.value?.open(role)
 }
 </script>
 

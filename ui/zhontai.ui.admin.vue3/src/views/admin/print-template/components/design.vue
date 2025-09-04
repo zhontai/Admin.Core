@@ -220,7 +220,6 @@
 </template>
 
 <script lang="ts" setup name="admin/print-template-deisgn">
-import { reactive, ref, onMounted, nextTick, getCurrentInstance } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
 import comProvider, { dragElementGroups } from './providers'
 import PrintPreview from './preview.vue'
@@ -294,12 +293,12 @@ const state = reactive({
 const { proxy } = getCurrentInstance() as any
 
 let hiprintTemplate = ref()
-const paperRef = ref()
-const popoverRef = ref()
-const printTemplateScrollbarRef = ref()
-const previewRef = ref()
-const previewJsonDialogRef = ref()
-const epContainerRef = ref()
+const paperRef = useTemplateRef('paperRef')
+const popoverRef = useTemplateRef('popoverRef')
+const printTemplateScrollbarRef = useTemplateRef('printTemplateScrollbarRef')
+const previewRef = useTemplateRef('previewRef')
+const previewJsonDialogRef = useTemplateRef('previewJsonDialogRef')
+useTemplateRef('epContainerRef')
 const designRef = ref()
 
 onMounted(() => {
@@ -337,7 +336,7 @@ const buildDesigner = (template = {} as any) => {
 
   hiprintTemplate.value.design(designRef.value)
 
-  designRef.value.querySelector('.hiprint-printPaper')?.firstChild.click()
+  designRef.value?.querySelector('.hiprint-printPaper')?.firstChild?.click()
 }
 
 const setPaper = (template = {} as any) => {
@@ -407,7 +406,7 @@ const onRotatePaper = () => {
 //预览
 const onPreView = () => {
   if (hiprintTemplate.value) {
-    previewRef.value.open(hiprintTemplate.value.getJson() || {}, JSON.parse(printData.value || '{}'), title.value)
+    previewRef.value?.open(hiprintTemplate.value.getJson() || {}, JSON.parse(printData.value || '{}'), title.value)
   }
 }
 
@@ -436,7 +435,7 @@ const onPrint = async () => {
 const onViewJson = () => {
   if (hiprintTemplate.value) {
     let templateJson = JSON.stringify(hiprintTemplate.value.getJson() || {})
-    previewJsonDialogRef.value.open(templateJson)
+    previewJsonDialogRef.value?.open(templateJson)
   }
 }
 

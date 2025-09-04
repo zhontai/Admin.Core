@@ -19,7 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed } from 'vue'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
 defineProps({

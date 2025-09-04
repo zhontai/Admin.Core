@@ -97,7 +97,7 @@ const { proxy } = getCurrentInstance() as any
 
 const FileUpload = defineAsyncComponent(() => import('./components/file-upload.vue'))
 
-const fileUploadRef = ref()
+const fileUploadRef = useTemplateRef('fileUploadRef')
 
 const state = reactive({
   loading: false,
@@ -169,7 +169,7 @@ const onCurrentChange = (val: number) => {
 }
 
 const onUpload = () => {
-  fileUploadRef.value.open()
+  fileUploadRef.value?.open()
 }
 
 const onDelete = (row: FileGetPageOutput) => {

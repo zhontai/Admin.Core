@@ -40,8 +40,6 @@
 </template>
 
 <script lang="ts" setup name="loginEmail">
-import { reactive, defineAsyncComponent, ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { testEmail } from '/@/utils/test'
 import { AuthApi } from '/@/api/admin/Auth'
@@ -63,8 +61,9 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const formRef = ref()
-const emailRef = ref()
+const formRef = useTemplateRef('formRef')
+const emailRef = useTemplateRef('emailRef')
+
 // 定义变量内容
 const state = reactive({
   ruleForm: {

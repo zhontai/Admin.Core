@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts" name="layoutTransverse">
-import { defineAsyncComponent, ref, watch, nextTick, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
@@ -16,7 +15,7 @@ const LayoutHeader = defineAsyncComponent(() => import('/@/layout/component/head
 const LayoutMain = defineAsyncComponent(() => import('/@/layout/component/main.vue'))
 
 // 定义变量内容
-const layoutMainRef = ref<InstanceType<typeof LayoutMain>>()
+const layoutMainRef = useTemplateRef('layoutMainRef')
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()

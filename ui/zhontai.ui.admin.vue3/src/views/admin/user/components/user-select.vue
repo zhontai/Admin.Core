@@ -74,8 +74,7 @@
 </template>
 
 <script lang="ts" setup name="admin/user/components/user-select">
-import { ref, reactive, defineAsyncComponent } from 'vue'
-import { ElTable } from 'element-plus'
+import { TableInstance } from 'element-plus'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 
@@ -99,7 +98,7 @@ const props = defineProps({
 
 const emits = defineEmits(['sure'])
 
-const userTableRef = ref<InstanceType<typeof ElTable>>()
+const userTableRef = useTemplateRef<TableInstance>('userTableRef')
 
 const state = reactive({
   showDialog: false,

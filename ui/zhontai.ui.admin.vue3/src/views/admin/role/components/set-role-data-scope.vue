@@ -40,13 +40,13 @@
 </template>
 
 <script lang="ts" setup name="admin/role/components/set-role-data-scope">
-import { ref, toRefs, reactive, computed, defineAsyncComponent } from 'vue'
 import { RoleGetListOutput, RoleSetDataScopeInput } from '/@/api/admin/data-contracts'
 import { RoleApi } from '/@/api/admin/Role'
 
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 
-const orgRef = ref()
+const orgRef = useTemplateRef('orgRef')
+
 const props = defineProps({
   title: {
     type: String,

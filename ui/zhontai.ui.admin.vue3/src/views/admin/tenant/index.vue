@@ -77,7 +77,6 @@
 </template>
 
 <script lang="ts" setup name="admin/tenant">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { TenantGetPageOutput, PageInputTenantGetPageInput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
 import eventBus from '/@/utils/mitt'
@@ -93,7 +92,7 @@ const MyDropdownMore = defineAsyncComponent(() => import('/@/components/my-dropd
 
 const { proxy } = getCurrentInstance() as any
 
-const tenantFormRef = ref()
+const tenantFormRef = useTemplateRef('tenantFormRef')
 
 const state = reactive({
   loading: false,
@@ -135,12 +134,12 @@ const onQuery = async () => {
 
 const onAdd = () => {
   state.tenantFormTitle = '新增租户'
-  tenantFormRef.value.open()
+  tenantFormRef.value?.open()
 }
 
 const onEdit = (row: TenantGetPageOutput) => {
   state.tenantFormTitle = '编辑租户'
-  tenantFormRef.value.open(row)
+  tenantFormRef.value?.open(row)
 }
 
 const onDelete = (row: TenantGetPageOutput) => {

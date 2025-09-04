@@ -151,7 +151,6 @@
 </template>
 
 <script setup lang="ts" name="admin/personal">
-import { reactive, computed, onMounted, toRefs, ref, getCurrentInstance, defineAsyncComponent } from 'vue'
 import { formatAxis } from '/@/utils/formatTime'
 import { UserApi } from '/@/api/admin/User'
 import { UserGetBasicOutput } from '/@/api/admin/data-contracts'
@@ -164,8 +163,10 @@ import { AxiosResponse } from 'axios'
 const ChangePasswordForm = defineAsyncComponent(() => import('./components/change-password-form.vue'))
 
 const { proxy } = getCurrentInstance() as any
-const changePasswordFormRef = ref()
-const formRef = ref()
+
+const changePasswordFormRef = useTemplateRef('changePasswordFormRef')
+const formRef = useTemplateRef('formRef')
+
 const storesUserInfo = useUserInfo(pinia)
 const { userInfos } = storeToRefs(storesUserInfo)
 
@@ -278,7 +279,7 @@ const onUpdateBasic = async () => {
 
 // 修改密码
 const onChangePassword = () => {
-  changePasswordFormRef.value.open()
+  changePasswordFormRef.value?.open()
 }
 </script>
 

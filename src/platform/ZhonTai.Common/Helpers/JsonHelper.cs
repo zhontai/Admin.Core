@@ -40,8 +40,9 @@ public class JsonHelper
             //自定义转换器
             Converters =
             {
-                // 日期时间转换器
                 new DateTimeConverter(),
+                // 日期时间转换器
+                new NullableDateTimeConverter(),
                 // 弹性枚举转换器，支持字符串和数字两种方式
                 new FlexibleEnumConverter(),
             },

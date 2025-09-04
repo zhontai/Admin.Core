@@ -143,7 +143,6 @@ new FreeSchedulerBuilder()
 </template>
 
 <script lang="ts" setup name="admin/task/form">
-import { reactive, toRefs, ref, defineAsyncComponent } from 'vue'
 import { TaskUpdateInput } from '/@/api/admin/data-contracts'
 import { TaskApi } from '/@/api/admin/Task'
 import { cloneDeep } from 'lodash-es'
@@ -160,9 +159,10 @@ defineProps({
   },
 })
 
-const formRef = ref()
-const myCronDialogRef = ref()
-const jsonEditorDialogRef = ref()
+const formRef = useTemplateRef('formRef')
+const myCronDialogRef = useTemplateRef('myCronDialogRef')
+const jsonEditorDialogRef = useTemplateRef('jsonEditorDialogRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,
@@ -206,12 +206,12 @@ const open = async (row: TaskUpdateInput = { id: '' }) => {
 
 //打开Cron对话框
 const onOpenCronDialog = () => {
-  myCronDialogRef.value.open(state.form.intervalArgument)
+  myCronDialogRef.value?.open(state.form.intervalArgument as string)
 }
 
 //打开Json对话框
 const onOpenJson = () => {
-  jsonEditorDialogRef.value.open(state.form)
+  jsonEditorDialogRef.value?.open(state.form)
 }
 
 // 取消

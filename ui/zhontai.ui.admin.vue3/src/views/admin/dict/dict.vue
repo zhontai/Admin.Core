@@ -53,13 +53,13 @@
 </template>
 
 <script lang="ts" setup name="admin/dictData">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { DictGetAllOutput, DictGetAllInput, SortInput, DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { RequestParams } from '/@/api/admin/http-client'
 import { listToTree, filterList } from '/@/utils/tree'
+import { use } from 'echarts'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
@@ -67,8 +67,8 @@ const MyImport = defineAsyncComponent(() => import('/@/components/my-import/inde
 
 const { proxy } = getCurrentInstance() as any
 
-const dictFormRef = ref()
-const dictImportRef = ref()
+const dictFormRef = useTemplateRef('dictFormRef')
+const dictImportRef = useTemplateRef('dictImportRef')
 
 const defalutSort = { prop: 'sort', order: 'ascending' }
 
@@ -150,12 +150,12 @@ const onAdd = () => {
     return
   }
   state.dictFormTitle = `新增【${state.dictType.name}】字典数据`
-  dictFormRef.value.open({ dictTypeId: state.input.dictTypeId }, { isTree: state.dictType.isTree })
+  dictFormRef.value?.open({ dictTypeId: state.input.dictTypeId }, { isTree: state.dictType.isTree })
 }
 
 const onEdit = (row: DictGetAllOutput) => {
   state.dictFormTitle = `编辑【${state.dictType.name}】字典数据`
-  dictFormRef.value.open(row, { isTree: state.dictType.isTree })
+  dictFormRef.value?.open(row, { isTree: state.dictType.isTree })
 }
 
 const onDelete = (row: DictGetAllOutput) => {
@@ -170,7 +170,7 @@ const onDelete = (row: DictGetAllOutput) => {
 
 const onImport = () => {
   state.import.title = `导入【${state.dictType.name}】字典数据`
-  dictImportRef.value.open()
+  dictImportRef.value?.open()
 }
 
 const onExport = async () => {

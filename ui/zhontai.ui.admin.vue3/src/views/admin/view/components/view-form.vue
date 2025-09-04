@@ -84,12 +84,12 @@
 </template>
 
 <script lang="ts" setup name="admin/view/form">
-import { reactive, toRefs, ref, PropType, markRaw, computed } from 'vue'
 import { ViewGetListOutput, ViewUpdateInput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { ViewApi } from '/@/api/admin/View'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { cloneDeep } from 'lodash-es'
+import { FormInstance } from 'element-plus'
 
 defineProps({
   title: {
@@ -106,7 +106,8 @@ const DictType = {
   PlatForm: { name: 'platform', desc: '平台' },
 }
 
-const formRef = ref()
+const formRef = useTemplateRef<FormInstance>('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,
@@ -155,7 +156,7 @@ const onCancel = () => {
 
 // 确定
 const onSure = () => {
-  formRef.value.validate(async (valid: boolean) => {
+  formRef.value?.validate(async (valid: boolean) => {
     if (!valid) return
 
     state.sureLoading = true

@@ -22,7 +22,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, computed, ref } from 'vue'
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 
 defineProps({
@@ -34,7 +33,7 @@ defineProps({
 
 const emits = defineEmits(['sure'])
 
-const jsonEditorRef = ref()
+const jsonEditorRef = useTemplateRef('jsonEditorRef')
 
 const state = reactive({
   showDialog: false,
@@ -55,7 +54,7 @@ const onJsonShell = () => {
   "arguments": "-plaintext -d \\"{ \\\\\\"id\\\\\\": 1 }\\" \${grpcAddress} YourNamespace.YourGrpcService/YourMethod",
   "moduleName": "YourModuleName"
 }`
-  jsonEditorRef.value.jsonEditor.set(JSON.parse(state.content))
+  jsonEditorRef.value?.jsonEditor.set(JSON.parse(state.content))
 }
 
 const onJsonHttp = () => {
@@ -68,7 +67,7 @@ const onJsonHttp = () => {
   },
   "body": "{}"
 }`
-  jsonEditorRef.value.jsonEditor.set(JSON.parse(state.content))
+  jsonEditorRef.value?.jsonEditor.set(JSON.parse(state.content))
 }
 
 // 打开对话框

@@ -49,7 +49,6 @@
 </template>
 
 <script lang="ts" setup name="admin/pkg/form">
-import { reactive, toRefs, ref } from 'vue'
 import { PkgUpdateInput } from '/@/api/admin/data-contracts'
 import { PkgApi } from '/@/api/admin/Pkg'
 import { cloneDeep } from 'lodash-es'
@@ -62,7 +61,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

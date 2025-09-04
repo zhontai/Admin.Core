@@ -9,10 +9,7 @@
 </template>
 
 <script setup lang="ts" name="app">
-import { defineAsyncComponent, computed, ref, onBeforeMount, onMounted, onUnmounted, nextTick, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
@@ -27,8 +24,8 @@ const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/cl
 const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
 
 // 定义变量内容
+const setingsRef = useTemplateRef('setingsRef')
 const { messages, locale } = useI18n()
-const setingsRef = ref()
 const route = useRoute()
 const stores = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()
@@ -75,7 +72,7 @@ onMounted(() => {
   nextTick(() => {
     // 监听布局配'置弹窗点击打开
     mittBus.on('openSetingsDrawer', () => {
-      setingsRef.value.openDrawer()
+      setingsRef.value?.openDrawer()
     })
     // 获取缓存中的布局配置
     if (Local.get('themeConfig')) {

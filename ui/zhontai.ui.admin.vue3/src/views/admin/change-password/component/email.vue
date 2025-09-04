@@ -70,7 +70,6 @@
 </template>
 
 <script lang="ts" setup name="admin/change-password-email">
-import { reactive, toRefs, ref, defineAsyncComponent } from 'vue'
 import { AuthChangePasswordByEmailInput } from '/@/api/admin/data-contracts'
 import { AuthApi } from '/@/api/admin/Auth'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
@@ -82,8 +81,9 @@ const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-co
 const isChangePassword = defineModel('isChangePassword', { type: Boolean, default: false })
 const hasConfirmPassword = defineModel('hasConfirmPassword', { type: Boolean, default: false })
 
-const formRef = ref()
-const emailRef = ref()
+const formRef = useTemplateRef('formRef')
+const emailRef = useTemplateRef('emailRef')
+
 const state = reactive({
   showDialog: false,
   loading: false,

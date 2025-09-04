@@ -96,7 +96,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, ref, defineAsyncComponent } from 'vue'
 import { RegionUpdateInput, RegionGetOutput } from '/@/api/admin/data-contracts'
 import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
@@ -112,7 +111,8 @@ defineProps({
   },
 })
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

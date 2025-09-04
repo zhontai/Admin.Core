@@ -23,7 +23,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef)"> 重置 </el-button>
+          <el-button icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef!)"> 重置 </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -65,7 +65,6 @@
 </template>
 
 <script lang="ts" setup name="admin/loginLog">
-import { reactive, onMounted, ref, defineAsyncComponent } from 'vue'
 import { PageInputLoginLogGetPageInput, LoginLogGetPageInput, LoginLogGetPageOutput } from '/@/api/admin/data-contracts'
 import { LoginLogApi } from '/@/api/admin/LoginLog'
 import dayjs from 'dayjs'
@@ -73,7 +72,7 @@ import type { FormInstance } from 'element-plus'
 
 const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
 
-const filterFormRef = ref<FormInstance>()
+const filterFormRef = useTemplateRef<FormInstance>('filterFormRef')
 
 const state = reactive({
   loading: false,

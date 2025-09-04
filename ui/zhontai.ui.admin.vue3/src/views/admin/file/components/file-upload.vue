@@ -51,7 +51,6 @@
 </template>
 
 <script lang="ts" setup name="admin/file/upload">
-import { ref, reactive, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { UploadInstance, UploadProps, UploadFile } from 'element-plus'
 import eventBus from '/@/utils/mitt'
@@ -59,7 +58,7 @@ import { useUserInfo } from '/@/stores/userInfo'
 
 const storesUserInfo = useUserInfo()
 
-const uploadRef = ref<UploadInstance>()
+const uploadRef = useTemplateRef<UploadInstance>('uploadRef')
 
 defineProps({
   title: {

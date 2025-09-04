@@ -43,8 +43,6 @@
 </template>
 
 <script lang="ts" setup name="loginMobile">
-import { reactive, defineAsyncComponent, ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { testMobile } from '/@/utils/test'
 import { AuthApi } from '/@/api/admin/Auth'
@@ -66,8 +64,9 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const formRef = ref()
-const phoneRef = ref()
+const formRef = useTemplateRef('formRef')
+const phoneRef = useTemplateRef('phoneRef')
+
 // 定义变量内容
 const state = reactive({
   ruleForm: {

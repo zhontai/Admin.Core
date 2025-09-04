@@ -102,7 +102,6 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-dot-form">
-import { reactive, toRefs, getCurrentInstance, ref, PropType, markRaw } from 'vue'
 import { PermissionGetListOutput, PermissionUpdateDotInput, ApiGetListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ApiApi } from '/@/api/admin/Api'
@@ -129,7 +128,8 @@ defineProps({
 
 const { proxy } = getCurrentInstance() as any
 
-const formRef = ref()
+const formRef = useTemplateRef('formRef')
+
 const state = reactive({
   showDialog: false,
   sureLoading: false,

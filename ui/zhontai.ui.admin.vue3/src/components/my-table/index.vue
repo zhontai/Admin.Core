@@ -35,8 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watchEffect } from 'vue'
-import type { ElTable } from 'element-plus'
+import type { TableInstance } from 'element-plus'
 import { mergeWith, cloneDeep, isObject, isArray } from 'lodash-es'
 
 // 使用 defineModel 定义整个表格模型
@@ -74,7 +73,7 @@ const model = ref(cloneDeep(defaultTableConfig))
 
 const emit = defineEmits(['size-change', 'current-change'])
 
-const tableRef = ref<InstanceType<typeof ElTable>>()
+const tableRef = useTemplateRef<TableInstance>('tableRef')
 
 // 计算是否显示分页
 const showPagination = computed(() => {

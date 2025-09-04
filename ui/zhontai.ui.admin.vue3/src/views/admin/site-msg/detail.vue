@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts" setup name="admin/site-msg/detail">
-import { reactive, onMounted } from 'vue'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { SiteMsgGetContentOutput } from '/@/api/admin/data-contracts'
 import { LocationQuery, useRoute } from 'vue-router'

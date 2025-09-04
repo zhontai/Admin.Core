@@ -68,7 +68,6 @@
 </template>
 
 <script lang="ts" setup name="admin/print-template">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { PageInputPrintTemplateGetPageInput, PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
 import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
 import eventBus from '/@/utils/mitt'
@@ -81,9 +80,9 @@ const PrintTemplateDesignDialog = defineAsyncComponent(() => import('./component
 
 const { proxy } = getCurrentInstance() as any
 
-const filterFormRef = ref<FormInstance>()
-const formRef = ref()
-const designDialogRef = ref()
+const filterFormRef = useTemplateRef<FormInstance>('filterFormRef')
+const formRef = useTemplateRef('formRef')
+const designDialogRef = useTemplateRef('designDialogRef')
 
 const state = reactive({
   loading: false,
@@ -146,17 +145,17 @@ const onReset = () => {
 
 const onAdd = () => {
   state.formTitle = '新增打印模板'
-  formRef.value.open()
+  formRef.value?.open()
 }
 
 const onEdit = (row: PrintTemplateGetPageOutput) => {
   state.formTitle = '编辑打印模板'
-  formRef.value.open(row)
+  formRef.value?.open(row)
 }
 
 const onDesign = (row: PrintTemplateGetPageOutput) => {
   state.designTitle = row.name ? row.name : '设计打印模板'
-  designDialogRef.value.open(row)
+  designDialogRef.value?.open(row)
 }
 
 const onDelete = (row: PrintTemplateGetPageOutput) => {

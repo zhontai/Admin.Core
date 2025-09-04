@@ -1,10 +1,11 @@
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import { defineConfig, ConfigEnv } from 'vite'
+import { defineConfig, ConfigEnv, UserConfig } from 'vite'
 import compression from 'vite-plugin-compression'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { loadEnv } from '/@/utils/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
 
 const pathResolve = (dir: string): any => {
   return resolve(__dirname, '.', dir)
@@ -31,6 +32,12 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         symbolId: 'icon-[dir]-[name]',
         inject: 'body-last',
         customDomId: '__svg__icons__dom__',
+      }),
+      AutoImport({
+        imports: ['vue', 'vue-router', 'pinia'],
+        vueTemplate: true,
+        dts: './src/auto-imports.d.ts',
+        exclude: ['**/node_modules/**', '**/dist/**', '**/src/auto-imports.d.ts'],
       }),
     ],
     root: process.cwd(),
@@ -77,7 +84,7 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
       __NEXT_VERSION__: JSON.stringify(process.env.npm_package_version),
       __NEXT_NAME__: JSON.stringify(process.env.npm_package_name),
     },
-  }
+  } as UserConfig
 })
 
 export default viteConfig

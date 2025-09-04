@@ -127,7 +127,6 @@
 </template>
 
 <script lang="ts" setup name="admin/region">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent } from 'vue'
 import { PageInputRegionGetPageInput, RegionGetPageOutput, RegionLevel } from '/@/api/admin/data-contracts'
 import { RegionLevel as RegionLevelEnum } from '/@/api/admin/enum-contracts'
 import { RegionApi } from '/@/api/admin/Region'
@@ -142,11 +141,11 @@ const RegionSelect = defineAsyncComponent(() => import('./components/region-sele
 
 const { proxy } = getCurrentInstance() as any
 
-const regionSelectRef = ref()
-const filterFormRef = ref<FormInstance>()
-const formRef = ref()
-const syncRef = ref()
-const popoverRef = ref()
+const regionSelectRef = useTemplateRef('regionSelectRef')
+const filterFormRef = useTemplateRef<FormInstance>('filterFormRef')
+const formRef = useTemplateRef('formRef')
+const syncRef = useTemplateRef('syncRef')
+const popoverRef = useTemplateRef('popoverRef')
 
 const state = reactive({
   loading: false,
@@ -223,7 +222,7 @@ const onQuery = async () => {
 }
 
 const onReset = () => {
-  regionSelectRef.value.reset()
+  regionSelectRef.value?.reset()
   filterFormRef.value!.resetFields()
 
   onQuery()
@@ -231,12 +230,12 @@ const onReset = () => {
 
 const onAdd = () => {
   state.formTitle = '新增地区'
-  formRef.value.open()
+  formRef.value?.open()
 }
 
 const onEdit = (row: RegionGetPageOutput) => {
   state.formTitle = '编辑地区'
-  formRef.value.open(row)
+  formRef.value?.open(row)
 }
 
 const onDelete = (row: RegionGetPageOutput) => {

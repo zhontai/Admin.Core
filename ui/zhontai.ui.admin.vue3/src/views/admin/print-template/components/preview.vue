@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, nextTick, computed } from 'vue'
 import { hiprint } from 'vue-plugin-hiprint'
 
 const state = reactive({
@@ -52,7 +51,7 @@ const width = computed(() => {
 })
 
 const hiprintTemplate = ref()
-const previewContainerRef = ref<HTMLElement | null>(null) // 引用容器
+const previewContainerRef = useTemplateRef<HTMLElement | null>('previewContainerRef') // 引用容器
 
 // 打开对话框
 const open = async (template: any, printData: {}, title = '打印模板') => {
