@@ -69,12 +69,9 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
-import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import screenfull from 'screenfull'
 import { useI18n } from 'vue-i18n'
-import { storeToRefs } from 'pinia'
 import { useUserInfo } from '/@/stores/userInfo'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
@@ -94,8 +91,8 @@ const storesUseUserInfo = useUserInfo()
 const storesThemeConfig = useThemeConfig()
 const { userInfos } = storeToRefs(storesUseUserInfo)
 const { themeConfig } = storeToRefs(storesThemeConfig)
-const searchRef = ref()
-const msgRef = ref()
+const searchRef = useTemplateRef('searchRef')
+const msgRef = useTemplateRef('msgRef')
 const wsClient = ref<WebSocketClient | null>(null)
 
 const state = <any>reactive({
@@ -133,7 +130,7 @@ const onScreenfullClick = () => {
 }
 // 消息通知点击时
 const onMsgClick = () => {
-  msgRef.value.openDrawer()
+  msgRef.value!.openDrawer()
 }
 // 布局配置 icon 点击时
 const onLayoutSetingClick = () => {
@@ -178,7 +175,7 @@ const onHandleCommandClick = (path: string) => {
 }
 // 菜单搜索点击
 const onSearchClick = () => {
-  searchRef.value.openSearch()
+  searchRef.value!.openSearch()
 }
 // 组件大小改变
 const onComponentSizeChange = (size: string) => {

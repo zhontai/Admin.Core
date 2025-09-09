@@ -19,16 +19,14 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumb">
-import { reactive, computed, onMounted, watch, ref, onBeforeMount } from 'vue'
-import { onBeforeRouteUpdate, useRoute, useRouter, RouteLocationNormalized } from 'vue-router'
 import { Local } from '/@/utils/storage'
 import other from '/@/utils/other'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useRoutesList } from '/@/stores/routesList'
 import { treeToList, listToTree, filterList } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
 import mittBus from '/@/utils/mitt'
+import { RouteLocationNormalized } from 'vue-router'
 
 // 定义变量内容
 const stores = useRoutesList()

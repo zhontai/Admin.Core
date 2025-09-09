@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 /**
  * 路由列表
  * @methods setRoutesList 设置路由数据

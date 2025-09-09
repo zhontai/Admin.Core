@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 /**
  * 路由信息
  * @methods to 设置路由to数据

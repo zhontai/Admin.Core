@@ -6,8 +6,6 @@
 </template>
 
 <script setup lang="ts" name="layoutTransverse">
-import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 
 // 引入组件

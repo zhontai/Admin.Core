@@ -33,8 +33,6 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbMsg">
-import { reactive, getCurrentInstance, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'

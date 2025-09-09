@@ -30,8 +30,6 @@
 </template>
 
 <script setup lang="ts" name="layoutTagsViewContextmenu">
-import { computed, reactive, onMounted, onUnmounted, watch } from 'vue'
-
 // 定义父组件传过来的值
 const props = defineProps({
   dropdown: {

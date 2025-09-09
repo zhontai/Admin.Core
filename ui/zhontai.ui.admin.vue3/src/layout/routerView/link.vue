@@ -14,10 +14,7 @@
 </template>
 
 <script setup lang="ts" name="layoutLinkView">
-import { reactive, watch } from 'vue'
-import { useRoute } from 'vue-router'
 import { verifyUrl } from '/@/utils/toolsValidate'
-import { storeToRefs } from 'pinia'
 import pinia from '/@/stores/index'
 import { useThemeConfig } from '/@/stores/themeConfig'
 

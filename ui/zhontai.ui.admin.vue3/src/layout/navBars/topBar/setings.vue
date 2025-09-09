@@ -427,10 +427,8 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbSeting">
-import { ref, nextTick, onUnmounted, onMounted, computed, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useChangeColor } from '/@/utils/theme'
 import { verifyAndSpace } from '/@/utils/toolsValidate'
@@ -518,7 +516,9 @@ const onColorPickerChange = () => {
   onBgColorPickerChange('menuBar')
 }
 // 2、菜单 / 顶栏
-const onBgColorPickerChange = (bg: string) => {
+const onBgColorPickerChange = (
+  bg: 'menuBar' | 'topBar' | 'columnsMenuBar' | 'menuBarActiveColor' | 'menuBarColor' | 'topBarColor' | 'columnsMenuBarColor'
+) => {
   const bgColor = themeConfig.value[bg]
   document.documentElement.style.setProperty(`--next-bg-${bg}`, bgColor)
   if (bg === 'menuBar') {
@@ -531,17 +531,17 @@ const onBgColorPickerChange = (bg: string) => {
 
   if (bg === 'topBar' || bg === 'menuBar' || bg === 'columnsMenuBar') {
     const whiteTheme = ['#FFFFFF', '#FFF', '#fff', '#ffffff']
-    const colorName = bg + 'Color'
+    const colorName = (bg + 'Color') as 'topBarColor' | 'menuBarColor' | 'columnsMenuBarColor'
     if (whiteTheme.includes(bgColor)) {
       if (bg === 'menuBar') {
-        const activeColorName = bg + 'ActiveColor'
+        const activeColorName = (bg + 'ActiveColor') as 'menuBarActiveColor'
         getThemeConfig.value[activeColorName] = getLightColor(getThemeConfig.value.primary, 9 / 10)
         onBgColorPickerChange(activeColorName)
       }
       getThemeConfig.value[colorName] = grayBlackColor
     } else {
       if (bg === 'menuBar') {
-        const activeColorName = bg + 'ActiveColor'
+        const activeColorName = (bg + 'ActiveColor') as 'menuBarActiveColor'
         getThemeConfig.value[activeColorName] = GrayWhiteBgColor
         onBgColorPickerChange(activeColorName)
       }
@@ -551,7 +551,7 @@ const onBgColorPickerChange = (bg: string) => {
   }
 }
 // 设置激活颜色
-const onActiveColorPickerChange = (name: string) => {
+const onActiveColorPickerChange = (name: 'columnsMenuBarActiveColor') => {
   document.documentElement.style.setProperty(`--next-color-${name}`, themeConfig.value[name])
 }
 // 2、菜单 / 顶栏 --> 顶栏背景渐变
