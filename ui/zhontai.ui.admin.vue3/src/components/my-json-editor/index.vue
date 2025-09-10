@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts" setup name="my-json-editor">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
 import JSONEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.min.css'
 import { mergeWith, isObject } from 'lodash-es'

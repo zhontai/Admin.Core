@@ -73,13 +73,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted } from 'vue'
 import { cloneDeep, mergeWith } from 'lodash-es'
 import { Operator } from '/@/api/admin.extend/enum-contracts'
 import { SearchTemplateSaveInput, SearchTemplateGetListOutput } from '/@/api/admin/data-contracts'
 import { SearchTemplateApi } from '/@/api/admin/SearchTemplate'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { useRoute } from 'vue-router'
 
 const route = useRoute()
 

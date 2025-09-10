@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts" setup name="my-layout">
-import { reactive, onBeforeMount } from 'vue'
 import mittBus from '/@/utils/mitt'
 
 const state = reactive({

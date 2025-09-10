@@ -110,12 +110,10 @@
 </template>
 
 <script setup lang="ts" name="netxTable">
-import { reactive, computed, nextTick, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import printJs from 'print-js'
 import table2excel from 'js-table2excel'
 import Sortable from 'sortablejs'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import '/@/theme/tableTool.scss'
 
@@ -147,7 +145,8 @@ const props = defineProps({
 const emit = defineEmits(['delRow', 'pageChange', 'sortHeader'])
 
 // 定义变量内容
-const toolSetRef = ref()
+const toolSetRef = useTemplateRef('toolSetRef')
+
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({
@@ -251,7 +250,7 @@ const onRefreshTable = () => {
 // 设置
 const onSetTable = () => {
   nextTick(() => {
-    const sortable = Sortable.create(toolSetRef.value, {
+    const sortable = Sortable.create(toolSetRef.value!, {
       handle: '.handle',
       dataIdAttr: 'data-key',
       animation: 150,

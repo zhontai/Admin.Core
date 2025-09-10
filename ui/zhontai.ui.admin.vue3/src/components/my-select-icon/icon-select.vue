@@ -48,7 +48,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, onMounted, computed, PropType } from 'vue'
 import initIconfont from '/@/utils/getStyleSheets'
 
 // 定义父组件传过来的值

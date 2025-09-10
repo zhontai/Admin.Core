@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts" name="authAll">
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useUserInfo } from '/@/stores/userInfo'
 import { judementSameArr } from '/@/utils/arrayOperation'
 

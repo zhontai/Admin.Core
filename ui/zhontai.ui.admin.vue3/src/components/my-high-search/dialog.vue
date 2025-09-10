@@ -22,8 +22,6 @@
 </template>
 
 <script lang="ts" setup name="my-filter-dialog">
-import { ref, reactive, defineAsyncComponent, PropType } from 'vue'
-
 defineProps({
   modelValue: Object as PropType<any | undefined | null>,
 })
@@ -32,7 +30,7 @@ const MyFilter = defineAsyncComponent(() => import('./index.vue'))
 
 const emits = defineEmits(['sure'])
 
-const myFilterRef = ref()
+const myFilterRef = useTemplateRef('myFilterRef')
 
 const state = reactive({
   showDialog: false,
@@ -45,7 +43,7 @@ const open = () => {
 
 // 确定
 const onSure = () => {
-  const dynamicFilter = myFilterRef.value.getDynamicFilter()
+  const dynamicFilter = myFilterRef.value!.getDynamicFilter()
   emits('sure', dynamicFilter)
   onCancel()
 }
@@ -57,7 +55,7 @@ const onCancel = () => {
 
 //重置
 const onReset = () => {
-  myFilterRef.value.reset()
+  myFilterRef.value!.reset()
 }
 
 defineExpose({

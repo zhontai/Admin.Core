@@ -15,7 +15,6 @@
 <script setup lang="ts" name="wngEditor">
 // https://www.wangeditor.com/v5/for-frame.html#vue3
 import '@wangeditor/editor/dist/css/style.css'
-import { reactive, shallowRef, watch, onBeforeUnmount } from 'vue'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import { FileApi } from '/@/api/admin/File'

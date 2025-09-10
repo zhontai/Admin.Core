@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, nextTick } from 'vue'
 const emit = defineEmits(['update'])
 const props = defineProps({
   cron: {

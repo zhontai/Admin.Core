@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang="ts" name="iconSelector">
-import { defineAsyncComponent, ref, reactive, onMounted, nextTick, computed, watch } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
 import initIconfont from '/@/utils/getStyleSheets'
 import '/@/theme/iconSelector.scss'
@@ -105,7 +104,7 @@ const emit = defineEmits(['update:modelValue', 'get', 'clear'])
 const IconList = defineAsyncComponent(() => import('/@/components/iconSelector/list.vue'))
 
 // 定义变量内容
-const inputWidthRef = ref()
+const inputWidthRef = useTemplateRef('inputWidthRef')
 const state = reactive({
   fontIconPrefix: '',
   fontIconWidth: 0,

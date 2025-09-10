@@ -28,7 +28,6 @@
 
 <script lang="ts" setup name="my-upload">
 import type { UploadRawFile, UploadUserFile } from 'element-plus'
-import { ref, reactive, computed, PropType, watch, getCurrentInstance } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import pinia from '/@/stores/index'
 import { AxiosResponse } from 'axios'
@@ -36,7 +35,7 @@ import { useUserInfo } from '/@/stores/userInfo'
 import { cloneDeep } from 'lodash-es'
 const { proxy } = getCurrentInstance() as any
 
-const uploadRef = ref()
+const uploadRef = useTemplateRef('uploadRef')
 
 const storesUserInfo = useUserInfo(pinia)
 const props = defineProps({
@@ -47,7 +46,6 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['update:modelValue', 'input'])
-console.log(props)
 const state = reactive({
   url: props.modelValue,
   fileList: props.modelValue ? [{ url: props.modelValue, name: props.modelValue } as UploadUserFile] : [],
@@ -102,7 +100,6 @@ const onError = (error: any) => {
   if (message) proxy.$modal.msgError(message)
 }
 const handleExceed = (files: any) => {
-  console.log(files)
   uploadRef.value?.clearFiles()
   const file = files[0] as UploadRawFile
   // file.uid = genFileId()

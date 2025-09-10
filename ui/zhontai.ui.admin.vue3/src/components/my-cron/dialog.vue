@@ -12,8 +12,6 @@
 </template>
 
 <script lang="ts" setup name="my-captcha-dialog">
-import { defineAsyncComponent, ref, reactive } from 'vue'
-
 defineProps({
   title: {
     type: String,
@@ -25,7 +23,7 @@ const MyCron = defineAsyncComponent(() => import('./index.vue'))
 const emits = defineEmits(['fill'])
 
 const expression = ref('')
-const crontabRef = ref()
+const crontabRef = useTemplateRef('crontabRef')
 
 const state = reactive({
   showDialog: false,
@@ -39,13 +37,13 @@ const open = (intervalArgument: string) => {
 
 // 确定
 const onSure = () => {
-  emits('fill', crontabRef.value.getCron())
+  emits('fill', crontabRef.value!.getCron())
   onCancel()
 }
 
 // 重置
 const onReset = () => {
-  crontabRef.value.clearCron()
+  crontabRef.value!.clearCron()
 }
 
 // 取消

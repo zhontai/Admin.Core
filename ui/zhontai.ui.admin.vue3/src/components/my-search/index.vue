@@ -38,7 +38,6 @@
 </template>
 
 <script setup lang="ts" name="coms/my-search">
-import { reactive, ref, computed, PropType } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { cloneDeep, isInteger, mergeWith } from 'lodash-es'
 
@@ -120,7 +119,7 @@ const props = defineProps({
 const emit = defineEmits(['search'])
 
 const isExpanded = ref(false)
-const formRef = ref<FormInstance>()
+const formRef = useTemplateRef<FormInstance>('formRef')
 
 // 表单初始值
 const formState = reactive<EmptyObjectType>(

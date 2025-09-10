@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, PropType, watch } from 'vue'
 import iconSelect from './icon-select.vue'
 
 // const iconSelect = defineAsyncComponent(() => import('./icon-select.vue'))
@@ -23,7 +22,7 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue'])
 
-const iconSelectRef = ref()
+const iconSelectRef = useTemplateRef('iconSelectRef')
 
 const state = reactive({
   value: props.modelValue || '',
@@ -38,7 +37,7 @@ const onClear = () => {
 }
 
 const onSure = async (value: string) => {
-  iconSelectRef.value.close()
+  iconSelectRef.value!.close()
   if (value) {
     state.value = value
     emits('update:modelValue', value)

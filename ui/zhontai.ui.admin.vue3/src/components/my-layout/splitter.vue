@@ -7,7 +7,6 @@
 </template>
 
 <script lang="ts" setup name="my-layout-split-panes">
-import { reactive, onBeforeMount, computed } from 'vue'
 import mittBus from '/@/utils/mitt'
 import MyLayout from './index.vue'
 

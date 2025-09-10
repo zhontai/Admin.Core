@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts" name="auth">
-import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useUserInfo } from '/@/stores/userInfo'
 
 // 定义父组件传过来的值
