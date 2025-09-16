@@ -39,6 +39,12 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         dts: './src/auto-imports.d.ts',
         exclude: ['**/node_modules/**', '**/dist/**', '**/src/auto-imports.d.ts'],
       }),
+      {
+        name: 'html-version',
+        transformIndexHtml(html) {
+          return html.replace(/<script src="(\/env\.config\.js)"><\/script>/, `<script src="$1?v=${process.env.npm_package_version}"></script>`)
+        },
+      },
     ],
     root: process.cwd(),
     resolve: { alias },

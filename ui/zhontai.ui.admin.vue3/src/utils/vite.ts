@@ -23,29 +23,27 @@ export function isProd(mode: string | undefined): boolean {
 
 // Read all environment variable configuration files to process.env
 export function loadEnv(mode: string): ViteEnv {
-  const ret: any = {}
+  const ret: Partial<ViteEnv> = {}
   const envList = [`.env.${mode}.local`, `.env.${mode}`, '.env.local', '.env']
   envList.forEach((e) => {
     dotenv.config({ path: e })
   })
-  for (const envName of Object.keys(process.env)) {
+
+  const envKeys = Object.keys(process.env) as (keyof ViteEnv)[]
+
+  for (const envName of envKeys) {
     let realName = (process.env as any)[envName].replace(/\\n/g, '\n')
     realName = realName === 'true' ? true : realName === 'false' ? false : realName
     if (envName === 'VITE_PORT') realName = Number(realName)
     if (envName === 'VITE_OPEN' || envName === 'VITE_COMPRESSION') realName = Boolean(realName)
-    if (envName === 'VITE_PROXY') {
-      try {
-        realName = JSON.parse(realName)
-      } catch (error) {
-        realName = ''
-      }
-    }
-    ret[envName] = realName
+
     if (typeof realName === 'string') {
       process.env[envName] = realName
     } else if (typeof realName === 'object') {
       process.env[envName] = JSON.stringify(realName)
     }
+
+    if (envName.indexOf('VITE_') === 0) ret[envName] = realName
   }
-  return ret
+  return ret as ViteEnv
 }

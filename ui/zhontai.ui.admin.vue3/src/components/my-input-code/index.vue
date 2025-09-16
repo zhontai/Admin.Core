@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts" setup name="my-input-code">
-import { reactive, defineAsyncComponent, ref, computed } from 'vue'
 import { isMobile } from '/@/utils/test'
 import { verifyEmail } from '/@/utils/toolsValidate'
 import { ElMessage } from 'element-plus'
@@ -73,7 +72,7 @@ const props = defineProps({
   },
 })
 
-const myCaptchaDialogRef = ref()
+const myCaptchaDialogRef = useTemplateRef('myCaptchaDialogRef')
 const countdown = Date.now()
 
 const state = reactive({

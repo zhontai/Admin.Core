@@ -31,8 +31,7 @@
 </template>
 
 <script setup lang="ts" name="navMenuVertical">
-import { defineAsyncComponent, reactive, computed, onMounted, watch } from 'vue'
-import { useRoute, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'

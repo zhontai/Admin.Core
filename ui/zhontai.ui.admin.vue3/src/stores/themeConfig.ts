@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 /**
  * 布局配置
  * 修改配置时：

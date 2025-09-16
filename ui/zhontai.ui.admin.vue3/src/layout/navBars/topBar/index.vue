@@ -8,9 +8,6 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbIndex">
-import { defineAsyncComponent, computed, reactive, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import mittBus from '/@/utils/mitt'

@@ -14,9 +14,6 @@
 </template>
 
 <script setup lang="ts" name="layoutParentView">
-import { defineAsyncComponent, computed, reactive, onBeforeMount, onUnmounted, nextTick, watch, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useKeepALiveNames } from '/@/stores/keepAliveNames'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { Session } from '/@/utils/storage'

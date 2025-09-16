@@ -9,7 +9,6 @@
 </template>
 
 <script lang="ts" setup name="my-select-input">
-import { reactive, PropType, watch } from 'vue'
 import { cloneDeep } from 'lodash-es'
 
 const props = defineProps({

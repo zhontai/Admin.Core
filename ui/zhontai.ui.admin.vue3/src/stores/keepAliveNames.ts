@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 /**
  * 路由缓存列表
  * @methods setCacheKeepAlive 设置要缓存的路由 names（开启 Tagsview）

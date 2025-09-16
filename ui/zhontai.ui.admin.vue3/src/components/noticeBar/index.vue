@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts" name="noticeBar">
-import { reactive, ref, onMounted, nextTick } from 'vue'
-
 // 定义父组件传过来的值
 const props = defineProps({
   // 通知栏模式，可选值为 closeable link
@@ -77,8 +75,8 @@ const props = defineProps({
 const emit = defineEmits(['close', 'link'])
 
 // 定义变量内容
-const noticeBarWarpRef = ref()
-const noticeBarTextRef = ref()
+const noticeBarWarpRef = useTemplateRef('noticeBarWarpRef')
+const noticeBarTextRef = useTemplateRef('noticeBarTextRef')
 const state = reactive({
   order: 1,
   oneTime: 0,
@@ -91,8 +89,8 @@ const state = reactive({
 // 初始化 animation 各项参数
 const initAnimation = () => {
   nextTick(() => {
-    state.warpOWidth = noticeBarWarpRef.value.offsetWidth
-    state.textOWidth = noticeBarTextRef.value.offsetWidth
+    state.warpOWidth = noticeBarWarpRef.value!.offsetWidth
+    state.textOWidth = noticeBarTextRef.value!.offsetWidth
     document.styleSheets[0].insertRule(`@keyframes oneAnimation {0% {left: 0px;} 100% {left: -${state.textOWidth}px;}}`)
     document.styleSheets[0].insertRule(`@keyframes twoAnimation {0% {left: ${state.warpOWidth}px;} 100% {left: -${state.textOWidth}px;}}`)
     computeAnimationTime()
@@ -109,15 +107,15 @@ const computeAnimationTime = () => {
 // 改变 animation 动画调用
 const changeAnimation = () => {
   if (state.order === 1) {
-    noticeBarTextRef.value.style.cssText = `animation: oneAnimation ${state.oneTime}s linear; opactity: 1;}`
+    noticeBarTextRef.value!.style.cssText = `animation: oneAnimation ${state.oneTime}s linear; opactity: 1;}`
     state.order = 2
   } else {
-    noticeBarTextRef.value.style.cssText = `animation: twoAnimation ${state.twoTime}s linear infinite; opacity: 1;`
+    noticeBarTextRef.value!.style.cssText = `animation: twoAnimation ${state.twoTime}s linear infinite; opacity: 1;`
   }
 }
 // 监听 animation 动画的结束
 const listenerAnimationend = () => {
-  noticeBarTextRef.value.addEventListener(
+  noticeBarTextRef.value!.addEventListener(
     'animationend',
     () => {
       changeAnimation()

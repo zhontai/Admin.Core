@@ -12,12 +12,11 @@
 </template>
 
 <script lang="ts" setup name="my-captcha">
-import { defineAsyncComponent, ref, reactive } from 'vue'
 import { CaptchaApi } from '/@/api/admin/Captcha'
 
 const SlideCaptcha = defineAsyncComponent(() => import('./slide-captcha.vue'))
 
-const slideCaptchaRef = ref()
+const slideCaptchaRef = useTemplateRef('slideCaptchaRef')
 const emits = defineEmits(['ok'])
 
 const state = reactive({
@@ -28,28 +27,28 @@ const state = reactive({
 
 //生成滑块验证码
 const onGenerate = async () => {
-  slideCaptchaRef.value.startRequestGenerate()
+  slideCaptchaRef.value!.startRequestGenerate()
   const res = await new CaptchaApi().generate({ captchaId: state.requestId }).catch(() => {
-    slideCaptchaRef.value.endRequestGenerate(null, null)
+    slideCaptchaRef.value!.endRequestGenerate('', '')
   })
   if (res?.success && res.data) {
     state.requestId = res.data.id || ''
-    slideCaptchaRef.value.endRequestGenerate(res.data.backgroundImage, res.data.sliderImage)
+    slideCaptchaRef.value!.endRequestGenerate(res.data.backgroundImage as string, res.data.sliderImage as string)
   }
 }
 
 //验证滑块验证码
 const onFinish = async (data: any) => {
-  slideCaptchaRef.value.startRequestVerify()
+  slideCaptchaRef.value!.startRequestVerify()
   const res = await new CaptchaApi().check(data, { captchaId: state.requestId }).catch(() => {
     state.failTip = '服务异常，请稍后重试'
-    slideCaptchaRef.value.endRequestVerify(false)
+    slideCaptchaRef.value!.endRequestVerify(false)
   })
   if (res?.success && res.data) {
     let success = res.data.result === 0
     state.failTip = res.data.result == 1 ? '验证未通过，拖动滑块将悬浮图像正确合并' : '验证超时, 请重新操作'
     state.successTip = '验证通过'
-    slideCaptchaRef.value.endRequestVerify(success)
+    slideCaptchaRef.value!.endRequestVerify(success)
     if (success) {
       //验证成功
       emits('ok', { captchaId: state.requestId, track: data })

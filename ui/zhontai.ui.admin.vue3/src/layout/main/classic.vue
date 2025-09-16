@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts" name="layoutClassic">
-import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 
 // 引入组件

@@ -73,7 +73,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useTemplateRef, computed, nextTick } from 'vue'
 import Sortable from 'sortablejs'
 import { cloneDeep } from 'lodash-es'
 
@@ -114,7 +113,7 @@ const onCheckAllChange = <T,>(val: T) => {
 // 列设置
 const onColSet = () => {
   nextTick(() => {
-    const sortable = Sortable.create(sortableRef.value, {
+    const sortable = Sortable.create(sortableRef.value!, {
       handle: '.handle',
       dataIdAttr: 'data-id',
       animation: 150,

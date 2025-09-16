@@ -14,9 +14,6 @@
 </template>
 
 <script setup lang="ts" name="layoutMain">
-import { defineAsyncComponent, onMounted, computed, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
@@ -26,7 +23,7 @@ const LayoutParentView = defineAsyncComponent(() => import('/@/layout/routerView
 const LayoutFooter = defineAsyncComponent(() => import('/@/layout/footer/index.vue'))
 
 // 定义变量内容
-const layoutMainScrollbarRef = ref()
+const layoutMainScrollbarRef = useTemplateRef('layoutMainScrollbarRef')
 const route = useRoute()
 const storesTagsViewRoutes = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()

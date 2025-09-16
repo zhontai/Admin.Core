@@ -29,15 +29,13 @@
 </template>
 
 <script setup lang="ts" name="navMenuHorizontal">
-import { defineAsyncComponent, reactive, computed, onBeforeMount } from 'vue'
-import { useRoute, onBeforeRouteUpdate, RouteRecordRaw, useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
 import { treeToList, listToTree, filterList } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
+import { RouteRecordRaw } from 'vue-router'
 
 const router = useRouter()
 

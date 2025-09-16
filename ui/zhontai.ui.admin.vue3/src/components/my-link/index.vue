@@ -5,9 +5,6 @@
 </template>
 
 <script lang="ts" setup name="my-link">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
 const router = useRouter()
 const model = defineModel({ type: Object })
 

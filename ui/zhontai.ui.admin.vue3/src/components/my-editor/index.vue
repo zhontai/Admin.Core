@@ -16,7 +16,6 @@
 <script setup lang="ts" name="wngEditor">
 // https://www.wangeditor.com/v5/for-frame.html#vue3
 import '@wangeditor/editor/dist/css/style.css'
-import { reactive, shallowRef, watch, onBeforeUnmount, PropType } from 'vue'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import { FileApi } from '/@/api/admin/File'
@@ -97,7 +96,7 @@ const state = reactive({
       },
     },
   },
-  editorVal: props.modelValue,
+  editorVal: props.modelValue as string,
 })
 
 const onBlur = () => {
@@ -136,7 +135,7 @@ watch(
   () => props.modelValue,
   (val, oVal) => {
     if (oVal) emit('onChange')
-    state.editorVal = val
+    state.editorVal = val as string
   },
   {
     deep: true,

@@ -13,9 +13,6 @@
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { reactive, ref } from 'vue'
-
-const emit = defineEmits(['update:startDate', 'update:endDate'])
 
 const startDate = defineModel<string | null | undefined>('startDate', { default: '' })
 const endDate = defineModel<string | null | undefined>('endDate', { default: '' })

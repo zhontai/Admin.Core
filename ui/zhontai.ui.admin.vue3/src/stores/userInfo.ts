@@ -1,6 +1,5 @@
-import { defineStore } from 'pinia'
 import { AuthApi } from '/@/api/admin/Auth'
-import { merge, isObject } from 'lodash-es'
+import { merge } from 'lodash-es'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import Watermark from '/@/utils/watermark'

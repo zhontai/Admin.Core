@@ -5,11 +5,9 @@
 </template>
 
 <script lang="ts" setup name="my-captcha-dialog">
-import { defineAsyncComponent, ref } from 'vue'
-
 const MyCaptcha = defineAsyncComponent(() => import('./index.vue'))
 
-const myCaptchaRef = ref()
+const myCaptchaRef = useTemplateRef('myCaptchaRef')
 
 //刷新滑块验证码
 const refresh = () => {

@@ -47,15 +47,11 @@
 </template>
 
 <script setup lang="ts" name="layoutTagsView">
-import { defineAsyncComponent, reactive, onMounted, computed, ref, nextTick, onBeforeUpdate, onBeforeMount, onUnmounted, watch } from 'vue'
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import Sortable from 'sortablejs'
 import { ElMessage } from 'element-plus'
-import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useKeepALiveNames } from '/@/stores/keepAliveNames'
-import { useRoutesList } from '/@/stores/routesList'
 import { Session } from '/@/utils/storage'
 import { isObjectValueEqual } from '/@/utils/arrayOperation'
 import other from '/@/utils/other'
@@ -66,16 +62,14 @@ const Contextmenu = defineAsyncComponent(() => import('/@/layout/navBars/tagsVie
 
 // 定义变量内容
 const tagsRefs = ref<RefType>([])
-const scrollbarRef = ref()
-const contextmenuRef = ref()
-const tagsUlRef = ref()
+const scrollbarRef = useTemplateRef('scrollbarRef')
+const contextmenuRef = useTemplateRef('contextmenuRef')
+useTemplateRef('tagsUlRef')
 const stores = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()
 const storesTagsViewRoutes = useTagsViewRoutes()
-const storesRoutesList = useRoutesList()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const { tagsViewRoutes } = storeToRefs(storesTagsViewRoutes)
-const { routesList } = storeToRefs(storesRoutesList)
 const storesKeepALiveNames = useKeepALiveNames()
 const route = useRoute()
 const router = useRouter()
@@ -386,7 +380,7 @@ const onContextmenu = (v: RouteItem, e: MouseEvent) => {
   const { clientX, clientY } = e
   state.dropdown.x = clientX
   state.dropdown.y = clientY
-  contextmenuRef.value.openContextmenu(v)
+  contextmenuRef.value!.openContextmenu(v)
 }
 // 鼠标按下时，判断是鼠标中键就关闭当前 tasgview
 const onMousedownMenu = (v: RouteItem, e: MouseEvent) => {

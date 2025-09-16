@@ -11,7 +11,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue'
 const props = defineProps({
   ex: {
     type: String,

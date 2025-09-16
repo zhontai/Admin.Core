@@ -210,7 +210,7 @@ const avatar = computed(() => {
 
 // 上传头像请求url
 const avatarAction = computed(() => {
-  return import.meta.env.VITE_API_URL + '/api/admin/user/avatar-upload'
+  return window.__ENV_CONFIG__.VITE_API_URL + '/api/admin/user/avatar-upload'
 })
 
 onMounted(() => {

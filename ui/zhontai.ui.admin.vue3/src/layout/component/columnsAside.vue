@@ -48,8 +48,6 @@
 </template>
 
 <script setup lang="ts" name="layoutColumnsAside">
-import { reactive, ref, onMounted, nextTick, watch, onUnmounted, computed } from 'vue'
-import { useRoute, useRouter, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useRoutesList } from '/@/stores/routesList'
 import { useThemeConfig } from '/@/stores/themeConfig'
@@ -58,10 +56,11 @@ import mittBus from '/@/utils/mitt'
 import logoMini from '/@/assets/logo-mini.svg'
 import { treeToList, listToTree, filterList } from '/@/utils/tree'
 import { cloneDeep } from 'lodash-es'
+import { RouteRecordRaw } from 'vue-router'
 
 // 定义变量内容
 const columnsAsideOffsetTopRefs = ref<RefType>([])
-const columnsAsideActiveRef = ref()
+const columnsAsideActiveRef = useTemplateRef('columnsAsideActiveRef')
 const stores = useRoutesList()
 const storesThemeConfig = useThemeConfig()
 const storesTagsViewRoutes = useTagsViewRoutes()
@@ -90,7 +89,7 @@ const setShowLogo = computed(() => {
 const setColumnsAsideMove = (k: number) => {
   if (k === undefined) return false
   state.liIndex = k
-  columnsAsideActiveRef.value.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
+  columnsAsideActiveRef.value!.style.top = `${columnsAsideOffsetTopRefs.value[k].offsetTop + state.difference}px`
 }
 // 菜单高亮点击事件
 const onColumnsAsideMenuClick = async (v: RouteItem) => {

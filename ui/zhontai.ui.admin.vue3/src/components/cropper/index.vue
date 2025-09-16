@@ -49,10 +49,9 @@
 </template>
 
 <script setup lang="ts" name="cropper">
-import { reactive, ref } from 'vue'
 import 'cropperjs'
 
-const sourceRef = ref()
+const sourceRef = useTemplateRef('sourceRef')
 
 const cropperImg = defineModel('cropperImg', { type: String })
 

@@ -103,8 +103,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, defineAsyncComponent, onMounted } from 'vue'
-
 const CrontabSecond = defineAsyncComponent(() => import('./second.vue'))
 const CrontabMin = defineAsyncComponent(() => import('./min.vue'))
 const CrontabHour = defineAsyncComponent(() => import('./hour.vue'))

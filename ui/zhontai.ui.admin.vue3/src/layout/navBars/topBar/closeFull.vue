@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts" name="layoutCloseFull">
-import { storeToRefs } from 'pinia'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 
 // 定义变量内容

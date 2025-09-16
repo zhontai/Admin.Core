@@ -94,7 +94,6 @@
 </template>
 
 <script lang="ts" setup name="my-import">
-import { reactive, computed, ref } from 'vue'
 import eventBus from '/@/utils/mitt'
 import { useUserInfo } from '/@/stores/userInfo'
 import type { UploadProps, UploadInstance, UploadUserFile, UploadRawFile, UploadProgressEvent, UploadFile } from 'element-plus'
@@ -105,7 +104,7 @@ import { plus } from '/@/utils/digit'
 
 const model = defineModel({ type: Object })
 
-const fileUploadRef = ref<UploadInstance>()
+const fileUploadRef = useTemplateRef<UploadInstance>('fileUploadRef')
 
 const storesUserInfo = useUserInfo()
 
