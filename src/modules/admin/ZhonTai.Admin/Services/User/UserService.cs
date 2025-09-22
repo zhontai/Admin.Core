@@ -375,10 +375,18 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
                 //本部门和下级部门
                 else if (dataScope == DataScope.DeptWithChild)
                 {
+                    // 主属部门，往下递归
                     orgIds = await _orgRep.Value
                     .Where(a => a.Id == orgId)
                     .AsTreeCte()
                     .ToListAsync(a => a.Id);
+
+                    // 处理一个用户有多个部门，只能授权当级部门，不往下递归
+                    var userOrgIds = await _userOrgRep
+                    .Where(x => x.UserId == User.Id)
+                    .ToListAsync(x => x.OrgId);
+
+                    orgIds.AddRange(userOrgIds);
                 }
 
                 //指定部门
