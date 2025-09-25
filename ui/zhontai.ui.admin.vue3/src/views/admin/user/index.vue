@@ -50,7 +50,7 @@
               </el-tooltip>
             </div>
           </div>
-          <MyTable ref="tableRef" v-model="state.tableModel" @size-change="onQuery" @current-change="onQuery">
+          <MyTable ref="tableRef" v-model="state.tableModel" @size-change="onSizeChange" @current-change="onCurrentChange">
             <!-- 账号列自定义插槽 -->
             <template #userName="{ row }">
               <el-badge :type="row.online ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
@@ -367,6 +367,17 @@ const onQuery = async () => {
   state.tableModel.data = res?.data?.list ?? []
   state.tableModel.pagination.total = res?.data?.total ?? 0
   state.tableModel.loading = false
+}
+
+const onSizeChange = (val: number) => {
+  state.tableModel.pagination.pageSize = val
+  state.tableModel.pagination.currentPage = 1
+  onQuery()
+}
+
+const onCurrentChange = (val: number) => {
+  state.tableModel.pagination.currentPage = val
+  onQuery()
 }
 
 //查询
