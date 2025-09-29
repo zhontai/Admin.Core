@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="state.showDialog" direction="ltr" :size="size">
+  <el-drawer v-model="state.showDialog" direction="ltr" :size="size" resizable>
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
       <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
@@ -20,7 +20,7 @@
         <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="160" />
         <el-table-column prop="remark" label="备注" min-width="180" />
       </el-table>
-      <div class="my-flex my-flex-end" style="margin-top: 20px; padding: 0px 10px">
+      <div class="my-flex my-flex-end" style="padding: 10px 10px">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
@@ -34,10 +34,8 @@
       </div>
     </div>
     <template #footer>
-      <div style="flex: auto; padding: 20px !important">
-        <el-button @click="onQuery" type="primary">刷 新</el-button>
-        <el-button @click="onCancel">取 消</el-button>
-      </div>
+      <el-button @click="onQuery" type="primary">刷 新</el-button>
+      <el-button @click="onCancel">取 消</el-button>
     </template>
   </el-drawer>
 </template>

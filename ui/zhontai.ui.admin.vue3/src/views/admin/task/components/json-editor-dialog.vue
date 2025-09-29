@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size">
+  <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size" resizable>
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
       <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
@@ -13,10 +13,8 @@
       <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{ modes: [] }"></MyJsonEditor>
     </div>
     <template #footer>
-      <div style="flex: auto; padding: 20px !important">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure">确 定</el-button>
-      </div>
+      <el-button @click="onCancel">取 消</el-button>
+      <el-button type="primary" @click="onSure">确 定</el-button>
     </template>
   </el-drawer>
 </template>
