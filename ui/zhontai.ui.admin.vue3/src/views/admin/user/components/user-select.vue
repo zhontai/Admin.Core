@@ -17,7 +17,7 @@
           </div>
         </el-col>
         <el-col :xs="24" :sm="15">
-          <el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-top: 8px">
+          <el-card shadow="never" class="my-query-box mt8">
             <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
               <el-form-item label="姓名" prop="name">
                 <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
@@ -48,12 +48,12 @@
               <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
               <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
             </el-table>
-            <div class="my-flex my-flex-end" style="margin-top: 20px">
+            <div class="my-flex my-flex-end" style="margin-top: 10px">
               <el-pagination
                 v-model:currentPage="state.pageInput.currentPage"
                 v-model:page-size="state.pageInput.pageSize"
                 :total="state.total"
-                :page-sizes="[10, 20, 50, 100]"
+                :page-sizes="[2, 20, 50, 100]"
                 background
                 @size-change="onSizeChange"
                 @current-change="onCurrentChange"
@@ -109,7 +109,7 @@ const state = reactive({
   total: 0,
   pageInput: {
     currentPage: 1,
-    pageSize: 20,
+    pageSize: 2,
     filter: {
       orgId: null,
     },
