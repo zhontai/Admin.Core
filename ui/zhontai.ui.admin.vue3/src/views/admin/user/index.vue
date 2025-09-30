@@ -232,9 +232,8 @@ const state = reactive({
     loading: false,
     pagination: {
       currentPage: 1,
-      pageSize: 2,
+      pageSize: 10,
       total: 0,
-      pageSizes: [2, 10, 20, 50, 100],
     },
   },
   searchItems: [
