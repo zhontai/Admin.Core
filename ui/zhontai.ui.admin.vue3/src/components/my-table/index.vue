@@ -1,5 +1,5 @@
 <template>
-  <el-table ref="tableRef" v-loading="model.loading" :data="showPagination ? paginatedData : model.data" class="my-table-box" v-bind="model.attrs">
+  <el-table ref="tableRef" v-loading="model.loading" :data="paginatedData" class="my-table-box" v-bind="model.attrs">
     <el-table-column v-for="(item, index) in columns" :key="item.attrs.prop" v-bind="item.attrs">
       <template v-if="item.slot" #default="scope">
         <slot :name="item.slot" v-bind="scope"></slot>
@@ -59,6 +59,7 @@ const defaultTableConfig = {
   },
   pagination: {
     enabled: true,
+    server: true,
     position: 'right',
     currentPage: 1,
     pageSize: 10,
@@ -75,18 +76,19 @@ const emit = defineEmits(['size-change', 'current-change'])
 
 const tableRef = useTemplateRef<TableInstance>('tableRef')
 
-// 计算是否显示分页
-const showPagination = computed(() => {
-  return model.value.pagination.enabled
+// 是否服务端分页
+const isServerPagination = computed(() => {
+  return model.value.pagination.server
 })
 
+// 显示列
 const columns = computed(() => {
   return model.value.columns.filter((v) => v.isShow)
 })
 
 // 计算分页后的数据
 const paginatedData = computed(() => {
-  if (!showPagination.value) return model.value.data
+  if (isServerPagination.value) return model.value.data
 
   const pagination = model.value.pagination
   const start = (pagination.currentPage - 1) * pagination.pageSize
@@ -98,12 +100,15 @@ const paginatedData = computed(() => {
 const handleSizeChange = (size: number) => {
   model.value.pagination.pageSize = size
   model.value.pagination.currentPage = 1 // 重置到第一页
+  propsModel.value.pagination.pageSize = size
+  propsModel.value.pagination.currentPage = 1
   emit('size-change', size)
 }
 
 // 处理当前页码变化
 const handleCurrentChange = (page: number) => {
   model.value.pagination.currentPage = page
+  propsModel.value.pagination.currentPage = page
   emit('current-change', page)
 }
 
