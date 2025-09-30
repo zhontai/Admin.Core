@@ -27,17 +27,21 @@ onBeforeMount(() => {
   })
 })
 </script>
-
 <style scoped lang="scss">
 :deep() {
   .el-splitter-bar {
     width: 6px !important;
   }
+  .el-splitter__vertical {
+    display: unset;
+  }
+  .el-splitter-bar__dragger-horizontal:after,
   .el-splitter-bar__dragger-horizontal:before {
     background-color: transparent;
   }
-  .el-splitter__vertical {
-    display: unset;
+  .el-splitter-bar__dragger-active:after,
+  .el-splitter-bar__dragger-active:before {
+    background-color: var(--el-color-primary-light-3);
   }
 }
 </style>
