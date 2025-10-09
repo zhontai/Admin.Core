@@ -5,6 +5,9 @@ using ZhonTai.Admin.Domain.Api;
 
 namespace ZhonTai.Admin.GrpcServices;
 
+/// <summary>
+/// 接口Grpc服务
+/// </summary>
 public class ApiGrpcService : IApiGrpcService
 {
     private readonly IApiRepository _apiRepository;
@@ -14,6 +17,11 @@ public class ApiGrpcService : IApiGrpcService
         _apiRepository = apiRepository;
     }
 
+    /// <summary>
+    /// 获取Api列表
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public async Task<GrpcOutput<List<ApiGrpcOutput>>> GetApiList(CallContext context = default)
     {
         var data = await _apiRepository.Select.ToListAsync<ApiGrpcOutput>();

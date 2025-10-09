@@ -7,6 +7,7 @@
     draggable
     :close-on-click-modal="false"
     :close-on-press-escape="false"
+    class="my-dialog"
     width="880px"
   >
     <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
@@ -202,8 +203,10 @@ defineExpose({
 })
 </script>
 
-<style scoped lang="scss">
-:deep(.el-dialog__body) {
-  padding: 5px 10px;
+<style lang="scss">
+.my-dialog {
+  .el-dialog__body {
+    padding: 0px !important;
+  }
 }
 </style>
