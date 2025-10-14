@@ -224,7 +224,7 @@
 						"MyApp.Api/Repositories/CustomGenerateData.cs",
 						"MyApp.Api/Repositories/CustomSyncData.cs",
 						"MyApp.Api/Services/Module/**",
-						"MyApp.Host/InitData/App/app_*.json"
+						"MyApp.Host/InitData/App/__app_code_*.json"
 					]
 				}
 			]

@@ -14,10 +14,12 @@ using ZhonTai.ApiUI;
 #endif
 using Microsoft.AspNetCore.Builder;
 #if (!NoCap)
+using DotNetCore.CAP.Messages;
 using Microsoft.Extensions.DependencyModel;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System.Reflection;
 using System.Linq;
+using System.Text.Encodings.Web;
 #endif
 #if (IsSys && !NoTaskScheduler)
 using FreeScheduler;
@@ -35,8 +37,7 @@ using MyApp.Api.Core.Repositories;
 #if (IsSys)
 using ZhonTai.Admin.Core.Extensions;
 #endif
-using DotNetCore.CAP.Messages;
-using System.Text.Encodings.Web;
+
 #if (IsSys)
 using ZhonTai.Admin.Repositories;
 #endif
