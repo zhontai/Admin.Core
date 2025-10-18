@@ -27,7 +27,6 @@ namespace ZhonTai.Admin.Core.Handlers;
 /// </summary>
 public class LogHandler : ILogHandler
 {
-    private readonly ICapPublisher _capPublisher;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger _logger;
     private readonly IOptions<AppConfig> _appConfig;
@@ -36,7 +35,6 @@ public class LogHandler : ILogHandler
     private readonly ApiHelper _apiHelper;
 
     public LogHandler(
-        ICapPublisher capPublisher,
         IHttpContextAccessor httpContextAccessor,
         ILogger<LogHandler> logger,
         IOptions<AppConfig> appConfig,
@@ -45,7 +43,6 @@ public class LogHandler : ILogHandler
         ApiHelper apiHelper
     )
     {
-        _capPublisher = capPublisher;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _appConfig = appConfig;
@@ -162,7 +159,7 @@ public class LogHandler : ILogHandler
 
                 if(_appConfig.Value.Log.Method == LogMethod.Cap)
                 {
-                    await _capPublisher.PublishAsync(SubscribeNames.OperationLogAdd, input);
+                    await AppInfo.GetRequiredService<ICapPublisher>().PublishAsync(SubscribeNames.OperationLogAdd, input);
                 }
                 else
                 {
