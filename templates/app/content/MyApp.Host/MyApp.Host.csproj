@@ -76,12 +76,15 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	<!--#if (IsSys) -->
+	
 	<ItemGroup>
 	  <None Update="ip2region.xdb">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
-
+	<!--#endif -->
+	
 	<Target Name="AfterTargetsPublish" AfterTargets="Publish">
 		<ItemGroup>
 			<PackageReferenceXmlFiles Include="*\*\*\*.xml" />
