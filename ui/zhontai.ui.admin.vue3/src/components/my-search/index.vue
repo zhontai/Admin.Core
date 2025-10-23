@@ -124,7 +124,7 @@ const formRef = useTemplateRef<FormInstance>('formRef')
 // 表单初始值
 const formState = reactive<EmptyObjectType>(
   props.searchItems.reduce((acc: EmptyObjectType, item) => {
-    acc[item.field] = item.defaultValue ?? ''
+    acc[item.field] = item.defaultValue ?? null
     return acc
   }, {})
 )
@@ -174,7 +174,7 @@ const onSearch = async () => {
 const onReset = () => {
   formRef.value?.resetFields()
   props.searchItems.forEach((item) => {
-    formState[item.field] = item.defaultValue ?? ''
+    formState[item.field] = item.defaultValue ?? null
   })
   if (props.isResetSearch) onSearch()
 }
