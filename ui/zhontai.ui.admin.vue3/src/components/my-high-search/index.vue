@@ -126,10 +126,30 @@ if (props.fields && props.fields.length > 0) {
   }
 }
 
+// 获得操作符列表
+const getOperators = (type: any = 'string') => {
+  const ops = operatorGroups[type as keyof typeof operatorGroups]
+  return ops && ops.length > 0 ? ops : operatorGroups['string']
+}
+
+// 获取默认操作符
+const getDefalutOperator = (field: any) => {
+  const operators = getOperators(field.type)
+  let defaultOprator = ''
+  if (field.operator) {
+    const operatorIndex = operators.findIndex((a: any) => a.value === field.operator)
+    defaultOprator = operatorIndex >= 0 ? field.operator : ''
+  }
+  if (!defaultOprator) {
+    defaultOprator = operators[0].value
+  }
+  return defaultOprator
+}
+
 // 创建默认的过滤条件对象
 const createDefaultFilter = () => ({
-  field: '',
-  operator: '',
+  field: firstField.field,
+  operator: getDefalutOperator(firstField),
   value: null,
   type: '',
   componentName: 'el-input',
@@ -152,7 +172,7 @@ const state = reactive({
     label: '',
     children: 'filters',
   },
-  operatorGroups: operatorGroups as any,
+  operatorGroups: operatorGroups,
   firstField: firstField,
   templates: [] as SearchTemplateGetListOutput[], // 查询方案列表
   currentTemplate: null, // 当前选中的查询方案ID
@@ -243,12 +263,6 @@ onMounted(() => {
   loadTemplates()
 })
 
-// 获得操作符列表
-const getOperators = (type: any) => {
-  const ops = state.operatorGroups[type || 'string']
-  return ops && ops.length > 0 ? ops : ops['string']
-}
-
 // 更改字段
 const onChangeField = (data: any) => {
   data.value = null
@@ -259,17 +273,7 @@ const onChangeField = (data: any) => {
 
   data.componentName = data.componentName || 'el-input'
 
-  const operators = getOperators(data.type)
-  let defaultOprator = ''
-  if (field.operator) {
-    const operatorIndex = operators.findIndex((a: any) => a.value === field.operator)
-    defaultOprator = operatorIndex >= 0 ? field.operator : ''
-  }
-  if (!defaultOprator) {
-    defaultOprator = operators[0].value
-  }
-
-  data.operator = defaultOprator
+  data.operator = getDefalutOperator(field)
 
   if (data.type === 'date') {
     let dateType = 'date'
@@ -380,8 +384,7 @@ defineExpose({
   }
   .el-tree-node__content {
     height: auto;
-    line-height: 40px;
-    min-height: 40px;
+    padding-bottom: 8px;
     &:hover {
       background-color: unset;
       cursor: unset;
