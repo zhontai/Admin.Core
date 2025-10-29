@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>中台Admin权限管理开发接口库</Description>
+		<Version>1.0.0</Version>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+		<TargetFramework>net9.0</TargetFramework>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<Authors>xiaoxue</Authors>
+		<Company>zhontai</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ZhonTai Admin Api;MVC;WebApi;HttpApi;Api;</PackageTags>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;NU1902;NU1903;NU1904;</NoWarn>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Repositories\**" />
+	  <EmbeddedResource Remove="Repositories\**" />
+	  <None Remove="Repositories\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="RazorEngine.NetCore" Version="3.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ZhonTai.Module.Dev.Api.Contracts\ZhonTai.Module.Dev.Api.Contracts.csproj" />
+	</ItemGroup>
+</Project>

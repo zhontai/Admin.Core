@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>中台开发接口契约库</Description>
+		<Version>1.0.0</Version>
+		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+		<TargetFramework>net9.0</TargetFramework>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
+		<IsPackable>true</IsPackable>
+		<Authors>xiaoxue</Authors>
+		<Company>zhontai</Company>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://admin.zhontai.net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/zhontai/Admin.Core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ZhonTai Admin Api Contracts;</PackageTags>
+		<NoWarn>1701;1702;1591;8632;SYSLIB0020;CS8002;NU1902;NU1903;NU1904;</NoWarn>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.2.0-preview25081301">
+			<IsBuild>true</IsBuild>
+		</PackageReference>
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.2.0-preview25081301">
+			<IsBuild>true</IsBuild>
+		</PackageReference>
+	</ItemGroup>
+
+	<Target Name="AfterTargetsBuild" AfterTargets="Build">
+		<ItemGroup>
+			<PackageReferenceXmlFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
+			<PackageReferenceJsonFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
+		</ItemGroup>
+
+		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../ZhonTai.Module.Dev.Host/$(OutDir)" />
+		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../ZhonTai.Module.Dev.Host/$(OutDir)Resources" />
+	</Target>
+</Project>

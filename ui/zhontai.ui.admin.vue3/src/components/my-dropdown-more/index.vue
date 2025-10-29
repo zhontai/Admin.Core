@@ -1,8 +1,10 @@
 <template>
   <el-dropdown style="margin-left: 10px" v-bind="$attrs">
-    <el-button text type="primary"
-      >{{ innerButtonText }}<el-icon class="el-icon--right"><component :is="innerIcon" /></el-icon
-    ></el-button>
+    <slot>
+      <el-button text type="primary"
+        >{{ innerButtonText }}<el-icon class="el-icon--right" v-bind="$attrs"><component :is="innerIcon" /></el-icon
+      ></el-button>
+    </slot>
     <template #dropdown>
       <slot name="dropdown" />
     </template>

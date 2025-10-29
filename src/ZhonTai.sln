@@ -46,6 +46,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Admin.Contracts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Plugin.Lazy.SlideCaptcha.Core", "platform\ZhonTai.Plugin.Lazy.SlideCaptcha.Core\ZhonTai.Plugin.Lazy.SlideCaptcha.Core.csproj", "{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dev", "dev", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Module.Dev.Api", "modules\dev\ZhonTai.Module.Dev\ZhonTai.Module.Dev.Api\ZhonTai.Module.Dev.Api.csproj", "{2162BA6C-5794-48D5-9938-82DC64CD0F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Module.Dev.Api.Contracts", "modules\dev\ZhonTai.Module.Dev\ZhonTai.Module.Dev.Api.Contracts\ZhonTai.Module.Dev.Api.Contracts.csproj", "{7EF6771C-20AE-4B33-A026-561D984FC2DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZhonTai.Module.Dev.Host", "modules\dev\ZhonTai.Module.Dev\ZhonTai.Module.Dev.Host\ZhonTai.Module.Dev.Host.csproj", "{AB306342-97B8-4F0B-976F-4D7F5B0EF279}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +104,18 @@ Global
 		{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2162BA6C-5794-48D5-9938-82DC64CD0F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2162BA6C-5794-48D5-9938-82DC64CD0F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2162BA6C-5794-48D5-9938-82DC64CD0F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2162BA6C-5794-48D5-9938-82DC64CD0F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF6771C-20AE-4B33-A026-561D984FC2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF6771C-20AE-4B33-A026-561D984FC2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF6771C-20AE-4B33-A026-561D984FC2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF6771C-20AE-4B33-A026-561D984FC2DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB306342-97B8-4F0B-976F-4D7F5B0EF279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB306342-97B8-4F0B-976F-4D7F5B0EF279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB306342-97B8-4F0B-976F-4D7F5B0EF279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB306342-97B8-4F0B-976F-4D7F5B0EF279}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +134,10 @@ Global
 		{794CBF41-AF02-4B03-B1FE-C362C501F824} = {65CF5483-DF86-41D7-B367-7C2E28C1672D}
 		{547FC35E-7642-43AF-BCFA-72EED6FC483A} = {65CF5483-DF86-41D7-B367-7C2E28C1672D}
 		{9FF5B4D8-0DA0-E794-E335-5EF5F29A1CAA} = {7D22DC19-78FC-4277-9768-06B5AF60FD14}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {626D43B7-A210-4754-BB59-357F917D5E86}
+		{2162BA6C-5794-48D5-9938-82DC64CD0F97} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7EF6771C-20AE-4B33-A026-561D984FC2DC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AB306342-97B8-4F0B-976F-4D7F5B0EF279} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AB40D0C5-E3EA-4A9B-86C2-38F0BB33FC04}

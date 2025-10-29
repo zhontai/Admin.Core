@@ -40,6 +40,7 @@ public class JsonHelper
             //自定义转换器
             Converters =
             {
+                //new StringNumberConverter(),
                 new DateTimeConverter(),
                 // 日期时间转换器
                 new NullableDateTimeConverter(),

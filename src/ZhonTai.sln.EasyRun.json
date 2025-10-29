@@ -42,6 +42,17 @@
           "Arguments": null,
           "EnvVariables": null,
           "Replicas": 1
+        },
+        {
+          "ServiceType": 0,
+          "Name": "ZhonTai.Module.Dev.Host",
+          "TyeName": null,
+          "ProjectFile": "modules\\dev\\ZhonTai.Module.Dev\\ZhonTai.Module.Dev.Host\\ZhonTai.Module.Dev.Host.csproj",
+          "DefaultSelected": false,
+          "Bindings": null,
+          "Arguments": null,
+          "EnvVariables": null,
+          "Replicas": 1
         }
       ]
     }

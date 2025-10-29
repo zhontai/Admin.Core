@@ -63,6 +63,14 @@ declare type MittType<T = any> = {
   checkUnreadMsg?: T
   forceOffline?: T
   refreshPrintTemplate?: T
+
+  onConfigEditSure?: T
+  refreshDevGroup?: T
+  refreshDevProject?: T
+  refreshDevTemplate?: T
+  refreshDevProjectGen?: T
+  refreshDevProjectModel?: T
+  refreshDevProjectModelField?: T
 }
 
 // mitt 参数类型定义

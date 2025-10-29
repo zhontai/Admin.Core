@@ -1,0 +1,29 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:18020"
+    }
+  },
+  "profiles": {
+    "ZhonTai.Module.Dev.Host": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "dotnetRunMessages": true,
+      "launchUrl": "doc/dev",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:18020"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "doc/dev",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

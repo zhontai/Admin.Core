@@ -24,3 +24,17 @@ export const validatorAgree = (rule: any, value: any, callback: any) => {
     callback(new Error('请勾选同意协议'))
   }
 }
+
+/**
+ * 下拉框
+ * @param rule
+ * @param value
+ * @param callback
+ */
+export const validatorSelect = (rule: any, value: any, callback: any) => {
+  if (!(value > 0)) {
+    callback(new Error(rule.message))
+  } else {
+    callback()
+  }
+}

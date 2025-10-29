@@ -1,0 +1,104 @@
+{
+  "CodeGenConfig": {
+    //代码生成器选项配置
+    //namingConvention 0 CamelCase camelCase, 1 PascalCase PascalCase, 2 SnakeCase snake_case, 3 KebabCase kebab-case, 4 ExtensionCase extension.case
+    //生成的默认参数项
+    "defaultOption": {
+      "authorName": "coder",
+      "backendOut": "E:\\CodeGenOutput",
+      "frontendOut": "E:\\CodeGenOutput",
+      "dbMigrateSqlOut": "E:\\CodeGenOutput",
+      "namespace": "ZhonTai.Module.Dev",
+      // Api 分组名称
+      "apiAreaName": "dev",
+      // 默认导入命名空间，多个之间用;分隔
+      "usings": "",
+      //后缀：列表/管理
+      "menuAfterText": "管理"
+    },
+    //模板参数配置
+    "templateOptions": [
+      {
+        //路径、文件名的转义符及其对应实体属性值和名称转换规则定义
+        "nameReplaces": [
+          {
+            "flag": "_EN_",
+            "propName": "EntityName",
+            "namingConvention": "PascalCase"
+          },
+          {
+            "flag": "_BO_",
+            "propName": "BackendOut"
+          },
+          {
+            "flag": "_NP_",
+            "propName": "Namespace"
+          }
+        ],
+        //模板列表
+        "templates": [
+          {
+            "source": "_EN_Entity.cs.tpl",
+            "outTo": "_BO_\\Domain\\_EN_"
+          },
+          {
+            "source": "I_EN_Repository.cs.tpl",
+            "outTo": "_BO_\\Domain\\_EN_"
+          },
+          {
+            "source": "_EN_Repository.cs.tpl",
+            "outTo": "_BO_\\Repositories\\_EN_"
+          },
+          {
+            "source": "I_EN_Service.cs.tpl",
+            "outTo": "_BO_\\Services\\_EN_"
+          },
+          {
+            "source": "_EN_Service.cs.tpl",
+            "outTo": "_BO_\\Services\\_EN_"
+          },
+          {
+            "source": "Default_Consts.cs.tpl",
+            "outTo": "_BO_\\Core\\Consts",
+            "IsExistSkip": true
+          },
+          {
+            "source": "_NP_.csproj.tpl",
+            "outTo": "_BO_\\",
+            "IsExistSkip": true
+          }
+        ]
+      },
+      {
+        "isDisabled": false,
+        "nameReplaces": [
+          {
+            "flag": "_EN_",
+            "propName": "EntityName",
+            "namingConvention": "KebabCase"
+          },
+          {
+            "flag": "_AAN_",
+            "propName": "ApiAreaName",
+            "namingConvention": "KebabCase"
+          },
+          {
+            "flag": "_FO_",
+            "propName": "FrontendOut"
+          }
+        ],
+        //模板列表
+        "templates": [
+          {
+            "source": "index.vue.tpl",
+            "outTo": "_FO_\\views\\_AAN_\\_EN_"
+          },
+          {
+            "source": "_EN_-form.vue.tpl",
+            "outTo": "_FO_\\views\\_AAN_\\_EN_\\components"
+          }
+        ]
+      }
+    ]
+  }
+}

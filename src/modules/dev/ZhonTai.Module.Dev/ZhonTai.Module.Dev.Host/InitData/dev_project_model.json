@@ -1,0 +1,53 @@
+[
+  {
+    "id": 564651097157701,
+    "projectId": 564644154150981,
+    "name": "物品",
+    "code": "Thing",
+    "isEnable": true,
+    "remark": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:11:13",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2024-07-03T23:11:39"
+  },
+  {
+    "id": 564651174273093,
+    "projectId": 564644154150981,
+    "name": "物品分类",
+    "code": "ThingCategory",
+    "isEnable": true,
+    "remark": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:11:31",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2024-07-07T22:37:24"
+  },
+  {
+    "id": 564651272355909,
+    "projectId": 564644154150981,
+    "name": "物品标签",
+    "code": "ThingTag",
+    "isEnable": true,
+    "remark": null,
+    "isDeleted": false,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:11:55",
+    "modifiedUserId": 161223411986501,
+    "modifiedUserName": "admin",
+    "modifiedUserRealName": "管理员",
+    "modifiedTime": "2024-07-07T13:16:15"
+  }
+]

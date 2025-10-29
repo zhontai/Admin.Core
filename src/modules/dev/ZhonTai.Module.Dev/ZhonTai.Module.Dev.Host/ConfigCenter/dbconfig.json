@@ -1,0 +1,134 @@
+{
+  "DbConfig": {
+    //数据库注册键
+    "key": "devdb",
+    //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
+    "assemblyNames": [ "ZhonTai.Module.Dev.Api" ],
+    //指定实体数据库列表，不填同步所有数据库表实体
+    "includeEntityDbs": [],
+    //排除实体数据库列表，指定不同步数据库表实体
+    "excludeEntityDbs": [],
+
+    //监听所有操作
+    "monitorCommand": false,
+    //监听Curd操作
+    "curd": true,
+    //监听同步结构脚本
+    "syncStructureSql": false,
+    //监听同步数据Curd操作
+    "syncDataCurd": false,
+
+    //建库
+    "createDb": true,
+    //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
+    //建库连接字符串
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
+    //MySql "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=master;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
+    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1"
+    //Oracle "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1"
+    "createDbConnectionString": "",
+    //建库脚本，复杂建库脚本可放到createdbsql.txt中
+    //MySql "CREATE DATABASE `devdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+    //SqlServer "CREATE DATABASE [devdb]"
+    //PostgreSQL "CREATE DATABASE \"devdb\" WITH ENCODING = 'UTF8'"
+    "createDbSql": "",
+
+    //同步结构
+    "syncStructure": true,
+    //同步结构批次实体数
+    "syncStructureEntityBatchSize": 1,
+    //同步数据分批处理大小，默认每次处理500条，过大可能会导致内存溢出
+    "syncDataBatchSize": 500,
+    //同步数据
+    "syncData": true,
+    //注意生产环境谨慎开启，确定要修改表数据是最新数据再开启。
+    //如不想更新某些表的数据，可以先配置同步数据排除表syncDataExcludeTables，再执行数据更新操作
+    //同步更新数据
+    "syncUpdateData": false,
+    ////同步数据地址
+    "SyncDataPath": "InitData",
+    //同步数据包含表，指定表同步，不填同步所有表
+    "syncDataIncludeTables": [],
+    //同步数据排除表，指定表不同步
+    "syncDataExcludeTables": [],
+    //同步数据操作用户
+    "syncDataUser": {
+      "id": 161223411986501,
+      "userName": "admin",
+      "name": "管理员",
+      "tenantId": 161223412138053
+    },
+
+    //项目初始化不开启生成数据，发布生产环境前，如果开发环境有配置数据需要更新数据包，可以开启生成数据包，使用完记得关闭
+    //开启生成数据前先关闭syncStructure syncData createDb
+    //生成数据
+    "generateData": false,
+
+    //数据库配置 https://github.com/dotnetcore/FreeSql/wiki/入门
+    //连接字符串语法 https://www.connectionstrings.com
+    //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
+    "type": "Sqlite",
+
+    //连接字符串
+    //default_authentication_plugin = caching_sha2_password 
+    //MySql "Server=localhost; Port=3306; Database=devdb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+    //default_authentication_plugin = mysql_native_password
+    //MySql "Server=localhost; Port=3306; Database=devdb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
+    //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=devdb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
+    //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=devdb;Pooling=true;Minimum Pool Size=1"
+    //Sqlite "Data Source=|DataDirectory|\\devdb.db; Pooling=true;Min Pool Size=1"
+    //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
+    "connectionString": "Data Source=|DataDirectory|\\devdb.db; Pooling=true;Min Pool Size=1",
+
+    //指定程序集
+    //FreeSql.MySql.MySqlProvider`1,FreeSql.Provider.MySqlConnector
+    "providerType": "",
+
+    //读写分离从库列表
+    "slaveList": [
+      //{
+      //  //权重
+      //  "Weight": 1,
+      //  //连接字符串
+      //  "ConnectionString": "Data Source=|DataDirectory|\\devdb.db; Pooling=true;Min Pool Size=1"
+      //}
+    ],
+
+    //空闲时间（分），设置idleTime=0则不自动回收, 设置1天不使用则自动回收
+    "idleTime": 1440,
+
+    //新增时强制更新EntityUpdate数据
+    "forceUpdate": false,
+
+    //多数据库
+    //Core/Consts定义DbKeys枚举
+    //使用仓储访问 public ModuleRepository(UnitOfWorkManagerCloud muowm) : base(DbKeys.devdb, muowm)
+    //使用FreeSqlCloud访问  freeSqlCloud.Use(DbKeys.devdb);
+    "dbs": [
+      {
+        //数据库注册键
+        "key": "admindb",
+        //程序集名称，自动获取实体表，为空则通过ConfigureFreeSql自定义配置
+        "assemblyNames": [ "ZhonTai.Admin.Contracts" ],
+        //监听所有操作
+        "monitorCommand": false,
+        //监听Curd操作
+        "curd": true,
+        //数据库类型 MySql = 0, SqlServer = 1, PostgreSQL = 2, Oracle = 3, Sqlite = 4, OdbcOracle = 5, OdbcSqlServer = 6, OdbcMySql = 7, OdbcPostgreSQL = 8, Odbc = 9, OdbcDameng = 10, MsAccess = 11, Dameng = 12, OdbcKingbaseES = 13, ShenTong = 14, KingbaseES = 15, Firebird = 16
+        "type": "Sqlite",
+        //连接字符串
+        //default_authentication_plugin = caching_sha2_password 
+        //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;Min pool size=1;Allow User Variables=True"
+        //default_authentication_plugin = mysql_native_password
+        //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
+        //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
+        //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
+        //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+        "connectionString": "Data Source=E:\\zhontai\\Admin.Core\\src\\modules\\admin\\ZhonTai.Admin.Host\\bin\\Debug\\net9.0\\admindb.db; Pooling=true;Min Pool Size=1"
+      }
+    ]
+  }
+}

@@ -13,11 +13,11 @@ const apis = [
     url: `${apiUrl}/doc/admin/swagger/admin/swagger.json`,
     enumUrl: `${apiUrl}/api/admin/get-enums`,
   },
-  // {
-  //   output: path.resolve(projectPath, './src/api/app'),
-  //   url: `${apiUrl}/doc/app/swagger/app/swagger.json`,
-  //   // enumUrl: `${apiUrl}/api/app/get-enums`,
-  // },
+  {
+    output: path.resolve(projectPath, './src/api/dev'),
+    url: `${apiUrl}/doc/dev/swagger/dev/swagger.json`,
+    enumUrl: `${apiUrl}/api/dev/get-enums`,
+  },
 ]
 
 const genEnums = async (api) => {

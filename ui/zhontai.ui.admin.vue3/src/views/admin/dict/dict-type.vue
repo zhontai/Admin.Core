@@ -24,7 +24,7 @@
         style="width: 100%"
         @current-change="onTableCurrentChange"
       >
-        <el-table-column prop="name" label="名称" min-width="140" show-overflow-tooltip>
+        <el-table-column prop="name" label="名称" min-width="160" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.name }}

@@ -16,6 +16,7 @@ import MyLayout from '/@/components/my-layout/index.vue'
 import MySearch from '/@/components/my-search/index.vue'
 import MyTable from '/@/components/my-table/index.vue'
 import MyColSet from '/@/components/my-col-set/index.vue'
+import MyDropdownMore from '/@/components/my-dropdown-more/index.vue'
 
 // 打印取消自动连接
 import { disAutoConnect } from 'vue-plugin-hiprint'
@@ -30,5 +31,6 @@ app.component('MyLayout', MyLayout)
 app.component('MySearch', MySearch)
 app.component('MyTable', MyTable)
 app.component('MyColSet', MyColSet)
+app.component('MyDropdownMore', MyDropdownMore)
 app.use(vue3TreeOrg)
 app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).use(globalProperties).mount('#app')
