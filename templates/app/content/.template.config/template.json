@@ -206,7 +206,8 @@
 					"condition": "(!IsSys)",
 					"exclude": [
 						"MyApp.Host/InitData/App/base_*.json",
-						"MyApp.Host/ip2region.xdb"
+						"MyApp.Host/ip2region.xdb",
+						"MyApp.Host/wwwroot/captcha/**"
 					]
 				},
 				{
