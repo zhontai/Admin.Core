@@ -48,16 +48,42 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<RegionEntity>();
+            r.Childs ??= [];
             r.Childs.AddRange(datalist);
         });
         #endregion
         //admin
         #region 数据字典
 
-        var dictionaryTypes = await db.Queryable<DictTypeEntity>().ToListAsync();
+        var dictTypes = await db.Queryable<DictTypeEntity>().ToListAsync();
+        var dictTypeTree = dictTypes.Clone().ToTree((r, c) =>
+        {
+            return c.ParentId == 0;
+        },
+        (r, c) =>
+        {
+            return r.Id == c.ParentId;
+        },
+        (r, datalist) =>
+        {
+            r.Childs ??= [];
+            r.Childs.AddRange(datalist);
+        });
 
-        var dictionaries = await db.Queryable<DictEntity>().ToListAsync();
+        var dicts = await db.Queryable<DictEntity>().ToListAsync();
+        var dictTree = dicts.Clone().ToTree((r, c) =>
+        {
+            return !(c.ParentId.HasValue && c.ParentId.Value > 0);
+        },
+        (r, c) =>
+        {
+            return r.Id == c.ParentId;
+        },
+        (r, datalist) =>
+        {
+            r.Childs ??= [];
+            r.Childs.AddRange(datalist);
+        });
         #endregion
 
         #region 接口
@@ -73,7 +99,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<ApiEntity>();
+            r.Childs ??= [];
             r.Childs.AddRange(datalist);
         });
 
@@ -92,7 +118,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
        },
        (r, datalist) =>
        {
-           r.Childs ??= new List<ViewEntity>();
+           r.Childs ??= [];
            r.Childs.AddRange(datalist);
        });
 
@@ -111,7 +137,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
        },
        (r, datalist) =>
        {
-           r.Childs ??= new List<PermissionEntity>();
+           r.Childs ??= [];
            r.Childs.AddRange(datalist);
        });
 
@@ -142,7 +168,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
         },
         (r, datalist) =>
         {
-            r.Childs ??= new List<OrgEntity>();
+            r.Childs ??= [];
             r.Childs.AddRange(datalist);
         });
 
@@ -205,7 +231,7 @@ public class CustomGenerateData : GenerateData, IGenerateData
             },
             (r, datalist) =>
             {
-                r.Childs ??= new List<OrgEntity>();
+                r.Childs ??= [];
                 r.Childs.AddRange(datalist);
             });
             SaveDataToJsonFile<OrgEntity>(orgTree);
@@ -217,9 +243,9 @@ public class CustomGenerateData : GenerateData, IGenerateData
         SaveDataToJsonFile<RoleEntity>(roles, isTenant);
         SaveDataToJsonFile<OrgEntity>(orgTree, isTenant);
         SaveDataToJsonFile<UserStaffEntity>(staffs, isTenant);
-        
-        SaveDataToJsonFile<DictEntity>(dictionaries);
-        SaveDataToJsonFile<DictTypeEntity>(dictionaryTypes);
+
+        SaveDataToJsonFile<DictTypeEntity>(dictTypeTree);
+        SaveDataToJsonFile<DictEntity>(dictTree);
         SaveDataToJsonFile<UserRoleEntity>(userRoles);
         SaveDataToJsonFile<UserOrgEntity>(userOrgs);
         SaveDataToJsonFile<ApiEntity>(apiTree);

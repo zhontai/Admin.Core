@@ -307,12 +307,12 @@ public class CustomSyncData : SyncData, ISyncData
                     || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)
                     || (!string.IsNullOrWhiteSpace(a.Code) && a.Code == b.Code)));
             });
-            await SyncEntityAsync<DictTypeEntity>(db, unitOfWork, dbConfig, appConfig, 
+            await SyncEntityAsync<DictTypeEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
                     batchDataList.Any(b => a.Id == b.Id 
-                    || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                    || (a.ParentId == b.ParentId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
@@ -320,12 +320,12 @@ public class CustomSyncData : SyncData, ISyncData
                 return batchDataList.Where(a => !dbDataList.Any(b => a.Id == b.Id 
                 || (!string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name)));
             });
-            await SyncEntityAsync<DictEntity>(db, unitOfWork, dbConfig, appConfig, 
+            await SyncEntityAsync<DictEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 return select.Where(a =>
                     batchDataList.Any(b => a.Id == b.Id 
-                    || (a.DictTypeId == b.DictTypeId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
+                    || (a.ParentId == b.ParentId && a.DictTypeId == b.DictTypeId && !string.IsNullOrWhiteSpace(a.Name) && a.Name == b.Name))
                 );
             },
             insertDataFunc: (batchDataList, dbDataList) =>
@@ -342,7 +342,7 @@ public class CustomSyncData : SyncData, ISyncData
                 );
             });
             await SyncEntityAsync<UserStaffEntity>(db, unitOfWork, dbConfig, appConfig);
-            await SyncEntityAsync<OrgEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true, 
+            await SyncEntityAsync<OrgEntity>(db, unitOfWork, dbConfig, appConfig, processChilds: true,
             whereFunc: (select, batchDataList) =>
             {
                 if (appConfig.Tenant)
