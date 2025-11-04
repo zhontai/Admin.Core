@@ -74,7 +74,7 @@
         >
           <el-row>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
-              <el-form-item label="数据库" prop="dbKey">
+              <el-form-item label="数据库" prop="dbKey" :rules="[{ required: true, message: '请选择数据库', trigger: ['change'] }]">
                 <el-select v-model="state.config.dbKey" clearable>
                   <el-option v-for="item in state.dbKeys" :key="item.dbKey" :value="item.dbKey" :label="item.dbKey"></el-option>
                 </el-select>
@@ -191,7 +191,7 @@
                 <el-button type="danger" link icon="ele-Minus" @click="removeField(scope.row, scope.$index)" />
               </template>
             </el-table-column>
-            <el-table-column prop="columnName" label="列名" fixed width="150">
+            <el-table-column prop="columnName" label="列名" label-class-name="my-col--required" fixed width="150">
               <template #default="scope">
                 <el-input v-if="!showMode" v-model="scope.row.columnName"></el-input>
                 <div v-else>{{ scope.row.columnName }}</div>
@@ -219,7 +219,7 @@
               </template>
             </el-table-column>
 
-            <el-table-column prop="editor" label="组件类型" width="140">
+            <el-table-column prop="editor" label="组件类型" label-class-name="my-col--required" width="140">
               <template #default="scope">
                 <el-select v-if="!showMode" v-model="scope.row.editor">
                   <el-option v-for="item in editors" :key="item.value" :value="item.value" :label="item.label"></el-option>
@@ -787,6 +787,14 @@ defineExpose({
     margin-right: 20px;
     &:last-of-type {
       margin-right: 0;
+    }
+  }
+
+  .my-col--required {
+    .cell:after {
+      color: var(--el-color-danger);
+      content: '*';
+      margin-left: 4px;
     }
   }
 }
