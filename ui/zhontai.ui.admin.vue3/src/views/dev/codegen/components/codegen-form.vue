@@ -17,9 +17,13 @@
         <div class="my-flex my-flex-between my-flex-items-center">
           <h4 :id="titleId" :class="titleClass">{{ state.title }}</h4>
           <div class="my-flex">
-            <el-icon v-if="state.isFull" class="el-dialog__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
-            <el-icon v-else class="el-dialog__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
-            <el-icon class="el-dialog__btn" @click="close" title="关闭"><ele-Close /></el-icon>
+            <div class="el-dialog__btn">
+              <el-icon v-if="state.isFull" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
+              <el-icon v-else @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+            </div>
+            <div class="el-dialog__btn">
+              <el-icon @click="close" title="关闭"><ele-Close /></el-icon>
+            </div>
           </div>
         </div>
       </template>
@@ -754,9 +758,13 @@ defineExpose({
 <style scoped lang="scss">
 .el-dialog__btn {
   cursor: pointer;
-  margin-right: 8px;
   color: var(--el-color-info);
-
+  font-size: var(--el-message-close-size, 16px);
+  width: 1em;
+  height: 1em;
+  & + & {
+    margin-left: 8px;
+  }
   &:hover {
     color: var(--el-color-primary);
   }
