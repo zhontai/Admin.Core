@@ -32,26 +32,26 @@
         @check-change="onCheckChange"
       >
         <template #default="{ node, data }">
-          <div style="width: 100%; display: flex; justify-content: space-between">
-            <span title="点击图标可编辑模板">
-              <el-icon class="color-primary">
-                <ele-CircleCheck v-if="data.isEnable" />
+          <div class="my-flex my-flex-between my-flex-items-center w100 pr5">
+            <div class="my-flex my-flex-items-center" itle="点击图标可编辑模板">
+              <el-icon class="color-primary mr5" v-if="data.isEnable">
+                <ele-CircleCheck />
               </el-icon>
-              {{ node.label }}</span
-            >
-            <span v-if="!data.isGroup">
+              {{ node.label }}
+            </div>
+            <template v-if="!data.isGroup">
               <el-icon @click.stop="editTemplate(node, data)" title="编辑模板">
                 <ele-Edit />
               </el-icon>
-            </span>
-            <span v-if="data.isGroup">
-              <el-icon @click.stop="addTemplate(node, data)" title="添加模板">
+            </template>
+            <div class="my-flex my-flex-items-center" v-if="data.isGroup">
+              <el-icon @click.stop="addTemplate(node, data)" title="添加模板" class="mr5">
                 <ele-Plus />
               </el-icon>
               <el-icon @click.stop="editGroup(node, data)" title="编辑分组">
                 <ele-Edit />
               </el-icon>
-            </span>
+            </div>
           </div>
         </template>
       </el-tree>
@@ -62,6 +62,7 @@
 </template>
 
 <script lang="ts" setup name="dev/project/gen/grouptemplatemenu">
+import { template } from 'lodash-es'
 import { DevProjectGenApi } from '/@/api/dev/DevProjectGen'
 import { DevProjectGenPreviewMenuOutput } from '/@/api/dev/data-contracts'
 import eventBus from '/@/utils/mitt'

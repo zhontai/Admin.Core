@@ -20,7 +20,7 @@
               :rules="[{ required: true, validator: validatorSelect, message: '请选择所属项目', trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
-              <el-select v-model="state.form.projectId" :empty-values="['', null, undefined, 0]" placeholder="">
+              <el-select v-model="state.form.projectId" :empty-values="['', null, undefined, 0]">
                 <el-option v-for="item in state.selectDevProjectListData" :key="item.id" :value="item.id" :label="item.name" />
               </el-select>
             </el-form-item>
@@ -32,7 +32,7 @@
               :rules="[{ required: true, message: '请选择模板组', trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
-              <el-select multiple v-model="state.form.groupIds_Values" placeholder="">
+              <el-select multiple v-model="state.form.groupIds_Values">
                 <el-option v-for="item in state.selectDevGroupListData" :key="item.id" :value="String(item.id)" :label="item.name" />
               </el-select>
             </el-form-item>
