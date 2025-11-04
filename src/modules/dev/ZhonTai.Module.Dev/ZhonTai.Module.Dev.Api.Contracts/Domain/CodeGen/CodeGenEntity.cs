@@ -8,7 +8,7 @@ namespace ZhonTai.Module.Dev.Api.Contracts.Domain.CodeGen;
 /// <summary>
 /// 代码生成
 /// </summary>
-[Table(Name = "dev_config")]
+[Table(Name = "dev_code_gen")]
 public class CodeGenEntity : EntityBase
 {
     /// <summary>

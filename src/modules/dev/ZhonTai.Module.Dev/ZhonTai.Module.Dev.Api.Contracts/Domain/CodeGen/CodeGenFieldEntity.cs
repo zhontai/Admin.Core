@@ -7,7 +7,7 @@ namespace ZhonTai.Module.Dev.Api.Contracts.Domain.CodeGen;
 /// <summary>
 /// 代码生成字段
 /// </summary>
-[Table(Name = "dev_config_field")]
+[Table(Name = "dev_code_gen_field")]
 public partial class CodeGenFieldEntity : EntityBase
 {
     /// <summary>

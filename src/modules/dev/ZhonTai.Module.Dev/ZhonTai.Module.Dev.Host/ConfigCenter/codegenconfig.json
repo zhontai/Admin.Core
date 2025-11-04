@@ -8,7 +8,7 @@
       "backendOut": "E:\\CodeGenOutput",
       "frontendOut": "E:\\CodeGenOutput",
       "dbMigrateSqlOut": "E:\\CodeGenOutput",
-      "namespace": "ZhonTai.Module.Dev",
+      "namespace": "ZhonTai.Module.Dev.Api.Contracts",
       // Api 分组名称
       "apiAreaName": "dev",
       // 默认导入命名空间，多个之间用;分隔
