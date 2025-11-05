@@ -7,6 +7,8 @@
 export const useThemeConfig = defineStore('themeConfig', {
   state: (): ThemeConfigState => ({
     themeConfig: {
+      //是否移动端
+      isMobile: false,
       // 是否开启布局配置抽屉
       isDrawer: false,
       // 是否创建一个h5历史，否则创建一个 hash 历史记录

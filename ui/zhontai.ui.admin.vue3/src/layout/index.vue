@@ -25,11 +25,13 @@ const onLayoutResize = () => {
   const clientWidth = document.body.clientWidth
   if (clientWidth < 1000) {
     themeConfig.value.isCollapse = false
+    themeConfig.value.isMobile = true
     mittBus.emit('layoutMobileResize', {
       layout: 'defaults',
       clientWidth,
     })
   } else {
+    themeConfig.value.isMobile = false
     mittBus.emit('layoutMobileResize', {
       layout: Local.get('oldLayout') ? Local.get('oldLayout') : themeConfig.value.layout,
       clientWidth,

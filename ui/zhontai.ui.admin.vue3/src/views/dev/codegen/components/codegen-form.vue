@@ -34,12 +34,12 @@
         </span>
       </template>
       <div>
-        <div style="margin-bottom: 20px; text-align: center; position: relative">
-          <el-radio-group v-model="state.editor">
+        <div style="text-align: center; position: relative">
+          <el-radio-group class="mb20" v-model="state.editor">
             <el-radio-button label="infor">基础配置</el-radio-button>
             <el-radio-button label="field">字段配置</el-radio-button>
           </el-radio-group>
-          <div style="position: absolute; top: 0; right: 0">
+          <div class="mb20" :style="{ position: themeConfig.isMobile ? 'relative' : 'absolute' }" style="top: 0; right: 0">
             <el-row v-show="state.editor == 'field'">
               <el-col style="text-align: right">
                 <el-space wrap :size="12">
@@ -475,6 +475,10 @@ import { DatabaseGetOutput, CodeGenFieldGetOutput, CodeGenGetOutput, CodeGenUpda
 import { AxiosResponse } from 'axios'
 import { FormRules } from 'element-plus'
 import { CodeGenApi } from '/@/api/dev/CodeGen'
+import { useThemeConfig } from '/@/stores/themeConfig'
+
+const storesThemeConfig = useThemeConfig()
+const { themeConfig } = storeToRefs(storesThemeConfig)
 
 const { proxy } = getCurrentInstance() as any
 
