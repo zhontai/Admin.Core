@@ -77,7 +77,14 @@
     </el-card>
     <codegen-form ref="codegenFormRef" @sure="onConfigEditSure"></codegen-form>
     <el-drawer ref="tablesDrawerRef" v-model="state.dbStructShow" :title="state.filter.dbKey + ' 数据库结构'" direction="rtl">
-      <el-tree :data="state.dbTree" @node-click="tableNodeSelect" />
+      <el-tree
+        :data="state.dbTree"
+        node-key="key"
+        :expand-on-click-node="false"
+        highlight-current
+        :current-node-key="state.filter.dbTree?.key"
+        @node-click="tableNodeSelect"
+      />
       <template #footer>
         <span style="margin: 8px">
           <el-button @click="state.dbStructShow = false">取消</el-button>

@@ -14,7 +14,7 @@
       width="80%"
     >
       <template #header="{ close, titleId, titleClass }">
-        <div class="my-flex my-flex-between my-flex-items-center">
+        <div class="my-flex my-flex-between my-flex-items-center my-dialog-header" @dblclick="state.isFull = !state.isFull">
           <h4 :id="titleId" :class="titleClass">{{ state.title }}</h4>
           <div class="my-flex">
             <div class="el-dialog__btn">
@@ -842,7 +842,7 @@ const onSure = () => {
   tableInfoFromRef.value.validate(async (valid: boolean) => {
     if (!valid) {
       if (state.editor === 'field') {
-        proxy.$modal.msgError('请检查基础配置中的必填项')
+        proxy.$modal.msgWarning('请检查基础配置中的必填项')
       }
       return
     }
@@ -850,7 +850,7 @@ const onSure = () => {
     const isFieldsValid = validateAllFields()
     if (!isFieldsValid) {
       if (state.editor === 'infor') {
-        proxy.$modal.msgError('请检查字段配置中的必填项')
+        proxy.$modal.msgWarning('请检查字段配置中的必填项')
       }
       return
     }
@@ -918,7 +918,13 @@ defineExpose({
 }
 
 :deep() {
+  .el-overlay .el-overlay-dialog .el-dialog .el-dialog__header {
+    padding: 0px;
+  }
   .el-dialog {
+    .my-dialog-header {
+      padding: 16px;
+    }
     .my-dialog-table {
       height: calc(90vh - 203px);
     }
