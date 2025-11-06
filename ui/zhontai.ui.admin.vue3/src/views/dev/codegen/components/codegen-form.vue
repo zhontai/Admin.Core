@@ -835,39 +835,34 @@ const onCancel = () => {
   state.showDialog = false
 }
 
-const onSure = () => {
-  if (state.editor === 'field') {
-    const isFieldsValid = validateAllFields()
-    if (!isFieldsValid) {
-      return
+const onSure = async () => {
+  const isFieldsValid = validateAllFields()
+
+  const isTableInfoValid = await tableInfoFromRef.value.validate((valid: boolean) => {})
+
+  if (!isFieldsValid) {
+    if (state.editor === 'infor') {
+      state.editor = 'field'
+      proxy.$modal.msgWarning('请检查字段配置中的必填项')
     }
+    return
   }
 
-  tableInfoFromRef.value.validate(async (valid: boolean) => {
-    if (!valid) {
-      if (state.editor === 'field') {
-        proxy.$modal.msgWarning('请检查基础配置中的必填项')
-      }
-      return
+  if (!isTableInfoValid) {
+    if (state.editor === 'field') {
+      state.editor = 'infor'
+      proxy.$modal.msgWarning('请检查基础配置中的必填项')
     }
+    return
+  }
 
-    const isFieldsValid = validateAllFields()
-    if (!isFieldsValid) {
-      if (state.editor === 'infor') {
-        proxy.$modal.msgWarning('请检查字段配置中的必填项')
-      }
-      return
-    }
-
-    state.sureLoading = true
-
-    eventBus.emit('onConfigEditSure', {
-      data: state.config,
-      callback: function (res: AxiosResponse) {
-        state.sureLoading = false
-        if (res?.success) state.showDialog = false
-      },
-    })
+  state.sureLoading = true
+  eventBus.emit('onConfigEditSure', {
+    data: state.config,
+    callback: function (res: AxiosResponse) {
+      state.sureLoading = false
+      if (res?.success) state.showDialog = false
+    },
   })
 }
 
