@@ -209,9 +209,9 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
     void _ThrowIfNotValid(CodeGenUpdateInput input)
     {
-        if (String.IsNullOrWhiteSpace(input.ApiAreaName)) { input.ApiAreaName = "admin"; }
-        if (String.IsNullOrWhiteSpace(input.Namespace)) { input.Namespace = "sirhq.app"; }
-        if (String.IsNullOrWhiteSpace(input.AuthorName)) { input.AuthorName = "admin"; }
+        if (string.IsNullOrWhiteSpace(input.ApiAreaName)) { input.ApiAreaName = "admin"; }
+        if (string.IsNullOrWhiteSpace(input.Namespace)) { input.Namespace = "sirhq.app"; }
+        if (string.IsNullOrWhiteSpace(input.AuthorName)) { input.AuthorName = "admin"; }
         try
         {
             //if (string.IsNullOrEmpty(input.DbKey))
@@ -246,6 +246,13 @@ public partial class CodeGenService : BaseService, IDynamicApi
     public async Task UpdateAsync(CodeGenUpdateInput input)
     {
         _ThrowIfNotValid(input);
+
+        // 实体名称为空时，使用表名转换
+        if (input.EntityName.IsNull())
+        {
+            input.EntityName = input.TableName?.NamingPascalCase();
+        }
+
         //不指定数据源
         if (!string.IsNullOrEmpty(input.DbKey))
         {
@@ -379,7 +386,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
         var gen = await _codeGenRep
             .Where(w => w.Id == id)
-            .IncludeMany<CodeGenFieldEntity>(c => c.Fields.Where(w => w.CodeGenId == c.Id), then => then.OrderBy(o => new { o.Position, o.Id }))
+            .IncludeMany(c => c.Fields.Where(w => w.CodeGenId == c.Id), then => then.OrderBy(o => new { o.Position, o.Id }))
             .FirstAsync();
 
         if (gen == null)
@@ -402,7 +409,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
             throw ResultOutput.Exception(msg: "初始化编译器失败：" + ex.Message);
         }
 
-        if (String.IsNullOrWhiteSpace(gen.ApiAreaName))
+        if (string.IsNullOrWhiteSpace(gen.ApiAreaName))
             gen.ApiAreaName = "admin";
 
         var errors = new List<string>();
@@ -410,8 +417,8 @@ public partial class CodeGenService : BaseService, IDynamicApi
         try
         {
             var genType = gen.GetType();
-            var dicProps = new Dictionary<String, String>();
-            var getPropValue = new Func<String, String>((propName) =>
+            var dicProps = new Dictionary<string, string>();
+            var getPropValue = new Func<string, string>((propName) =>
             {
                 if (dicProps.ContainsKey(propName)) return dicProps[propName];
                 var value = "" + genType.GetPropertyValue<string>(gen, propName);// "" + gen.GetType().GetProperty(propName)?.GetValue(gen);
@@ -439,7 +446,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
                     if (!Directory.Exists(outPath))
                         Directory.CreateDirectory(outPath);
 
-                    var codeText = System.IO.File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Templates", tpl.Source), Encoding.UTF8);
+                    var codeText = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Templates", tpl.Source), Encoding.UTF8);
 
                     try
                     {
