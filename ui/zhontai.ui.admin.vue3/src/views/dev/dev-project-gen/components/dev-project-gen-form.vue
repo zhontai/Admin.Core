@@ -9,7 +9,7 @@
       :close-on-press-escape="false"
       class="my-dialog-model"
       :overflow="true"
-      width="600px"
+      width="500px"
     >
       <el-form ref="formRef" :model="form" label-width="auto" @submit="onSure" v-zoom="'.my-dialog-model'">
         <el-row :gutter="20">

@@ -8,12 +8,11 @@ using @(gen.Namespace).Core.Consts;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Repositories;
 
-namespace @(gen.Namespace).Repositories.@(entityNamePC)
+namespace @(gen.Namespace).Repositories.@(entityNamePC);
+
+public class @(entityNamePC)Repository : RepositoryBase<@(entityNamePC)Entity>, I@(entityNamePC)Repository
 {
-    public class @(entityNamePC)Repository : RepositoryBase<@(entityNamePC)Entity>, I@(entityNamePC)Repository
+    public @(entityNamePC)Repository(UnitOfWorkManagerCloud uowm) : base(DbKeys.AppDb, uowm)
     {
-        public @(entityNamePC)Repository(UnitOfWorkManagerCloud muowm) : base(DbKeys.AppDb, muowm)
-        {
-        }
     }
 }

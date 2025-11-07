@@ -137,21 +137,21 @@ public static class CodeGenFieldEntityExtension
         var preLen = -1;
         var scaleLen = -1;
 
-        if (!String.IsNullOrWhiteSpace(col.Length))
+        if (!string.IsNullOrWhiteSpace(col.Length))
         {
             var lens = col.Length.Split(',');
             if (lens.Length > 0)
             {
-                Int32.TryParse(lens[0], out preLen);
-                Int32.TryParse(lens[0], out strLen);
+                int.TryParse(lens[0], out preLen);
+                int.TryParse(lens[0], out strLen);
             }
             if (lens.Length > 1)
-                Int32.TryParse(lens[1], out scaleLen);
+                int.TryParse(lens[1], out scaleLen);
         }
 
-        var attrs = new List<String>() { };
+        var attrs = new List<string>() { };
 
-        if (!String.IsNullOrWhiteSpace(col.ColumnRawName) && col.ColumnRawName.Trim() == col.ColumnName)
+        if (!string.IsNullOrWhiteSpace(col.ColumnRawName) && col.ColumnRawName.Trim() == col.ColumnName)
             attrs.Add("Name=\"" + col.ColumnName + "\"");
 
         //if (col.IsPrimary)
@@ -215,6 +215,8 @@ public static class CodeGenFieldEntityExtension
     /// </summary>
     /// <param name="col"></param>
     /// <param name="isNullable"></param>
+    /// <param name="isInput"></param>
+    /// <param name="isOutput"></param>
     /// <returns></returns>
     public static string PropCs(this CodeGenFieldEntity col, bool isNullable = false, bool isInput = false, bool isOutput = false)
     {
