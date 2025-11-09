@@ -40,10 +40,10 @@ public partial class CodeGenFieldEntity : EntityBase
     public string NetType { get; set; } = "string";
     
     /// <summary>
-    /// 数据库中类型（物理类型）
+    /// 数据类型
     /// </summary>
     [Column(StringLength = 64)]
-    public string? DbType { get; set; }
+    public string? DataType { get; set; }
 
     /// <summary>
     /// 字段描述
@@ -65,23 +65,23 @@ public partial class CodeGenFieldEntity : EntityBase
     /// <summary>
     /// 主键
     /// </summary>
-    public Boolean IsPrimary { get; set; }
+    public bool IsPrimary { get; set; }
 
     /// <summary>
     /// 可空
     /// </summary>
-    public Boolean IsNullable { get; set; }
+    public bool IsNullable { get; set; }
 
     /// <summary>
     /// 长度
     /// </summary>
-    public String? Length { get; set; }
+    public string? Length { get; set; }
 
     /// <summary>
     /// 编辑器
     /// </summary>
     [Column(StringLength = 32)]
-    public String Editor { get; set; } = "el-input";
+    public string Editor { get; set; } = "el-input";
 
     /// <summary>
     /// 同步表结构时的列排序
@@ -91,48 +91,48 @@ public partial class CodeGenFieldEntity : EntityBase
     /// <summary>
     /// 是否通用字段
     /// </summary>
-    public Boolean WhetherCommon { get; set; }
+    public bool WhetherCommon { get; set; }
 
     /// <summary>
     /// 列表是否缩进（字典）
     /// </summary>
     [Column(StringLength = 8)]
-    public Boolean WhetherRetract { get; set; }
+    public bool WhetherRetract { get; set; }
 
     /// <summary>
     /// 是否是查询条件
     /// </summary>
-    public Boolean WhetherQuery { get; set; }
+    public bool WhetherQuery { get; set; }
 
     /// <summary>
     /// 增
     /// </summary>
-    public Boolean WhetherAdd { get; set; }
+    public bool WhetherAdd { get; set; }
 
     /// <summary>
     /// 改
     /// </summary>
-    public Boolean WhetherUpdate { get; set; }
+    public bool WhetherUpdate { get; set; }
 
     /// <summary>
     /// 分布显示
     /// </summary>
-    public Boolean WhetherTable { get; set; }
+    public bool WhetherTable { get; set; }
 
     /// <summary>
     /// 列表
     /// </summary>
-    public Boolean WhetherList { get; set; }
+    public bool WhetherList { get; set; }
 
     /// <summary>
     /// 索引方式
     /// </summary>
-    public String? IndexMode { get; set; }
+    public string? IndexMode { get; set; }
 
     /// <summary>
     /// 唯一键
     /// </summary>
-    public Boolean IsUnique { get; set; }
+    public bool IsUnique { get; set; }
 
     /// <summary>
     /// 查询方式

@@ -139,9 +139,11 @@
           </el-col> -->
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item label="服务接口" :disabled="!state.config.genService">
+                <el-checkbox v-model="state.config.genGet">查询单条记录</el-checkbox>
+                <el-checkbox v-model="state.config.genGetPage">分页查询</el-checkbox>
+                <el-checkbox v-model="state.config.genGetList">列表查询</el-checkbox>
                 <el-checkbox v-model="state.config.genAdd">新增</el-checkbox>
                 <el-checkbox v-model="state.config.genUpdate">更新</el-checkbox>
-                <el-checkbox v-model="state.config.genGetList">列表查询</el-checkbox>
                 <el-checkbox v-model="state.config.genSoftDelete">软删除</el-checkbox>
                 <el-checkbox v-model="state.config.genBatchSoftDelete">批量软删除</el-checkbox>
                 <el-checkbox v-model="state.config.genDelete">删除</el-checkbox>
@@ -191,7 +193,7 @@
                 <el-button type="danger" link icon="ele-Minus" @click="removeField(scope.row, scope.$index)" />
               </template>
             </el-table-column>
-            <el-table-column prop="columnName" label="列名" label-class-name="my-col--required" fixed width="150">
+            <el-table-column prop="columnName" label="属性名" label-class-name="my-col--required" fixed width="150">
               <template #default="scope">
                 <el-input
                   v-if="!showMode"
@@ -202,13 +204,13 @@
                 <div v-else>{{ scope.row.columnName }}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="title" label="标题" width="140" fixed>
+            <el-table-column prop="title" label="属性说明" width="140" fixed>
               <template #default="scope">
                 <el-input v-if="!showMode" v-model="scope.row.title"></el-input>
                 <div v-else>{{ scope.row.title }}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="netType" label="类型" width="130">
+            <el-table-column prop="netType" label="属性类型" width="130">
               <template #default="scope">
                 <el-select v-if="!showMode" v-model="scope.row.netType">
                   <el-option v-for="item in netTypes" :key="item" :value="item" :label="item"></el-option>
@@ -438,13 +440,13 @@
                 <el-checkbox v-model="scope.row.isUnique" :disabled="showMode"></el-checkbox>
               </template>
             </el-table-column>
-            <el-table-column prop="length" label="数据库类型" width="150">
+            <el-table-column prop="dataType" label="数据类型" width="150">
               <template #default="scope">
-                <el-input v-if="!showMode" v-model="scope.row.dbType"></el-input>
-                <div v-else>{{ scope.row.dbType }}</div>
+                <el-input v-if="!showMode" v-model="scope.row.dataType"></el-input>
+                <div v-else>{{ scope.row.dataType }}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="columnRawName" label="数据库列名" width="150">
+            <el-table-column prop="columnRawName" label="列名" width="150">
               <template #default="scope"
                 ><!-- :disabled="editMode != 'add'"-->
                 <el-input v-if="!showMode" v-model="scope.row.columnRawName"></el-input>
@@ -633,7 +635,7 @@ function _newCol(name: string, title: string, netType: string, options: CodeGenU
     netType: netType,
     title: title,
     comment: '',
-    dbType: '',
+    dataType: '',
     isPrimary: false,
     isNullable: false,
     defaultValue: '',
@@ -840,19 +842,23 @@ const onSure = async () => {
 
   const isTableInfoValid = await tableInfoFromRef.value.validate((valid: boolean) => {})
 
-  if (!isFieldsValid) {
+  if (!isFieldsValid || !isTableInfoValid) {
     if (state.editor === 'infor') {
-      state.editor = 'field'
-      proxy.$modal.msgWarning('请检查字段配置中的必填项')
+      if (isTableInfoValid) {
+        state.editor = 'field'
+        proxy.$modal.msgWarning('请检查字段配置中的必填项')
+      } else {
+        proxy.$modal.msgWarning('请检查基础配置中的必填项')
+      }
+    } else if (state.editor === 'field') {
+      if (isFieldsValid) {
+        state.editor = 'infor'
+        proxy.$modal.msgWarning('请检查基础配置中的必填项')
+      } else {
+        proxy.$modal.msgWarning('请检查字段配置中的必填项')
+      }
     }
-    return
-  }
 
-  if (!isTableInfoValid) {
-    if (state.editor === 'field') {
-      state.editor = 'infor'
-      proxy.$modal.msgWarning('请检查基础配置中的必填项')
-    }
     return
   }
 
@@ -868,6 +874,7 @@ const onSure = async () => {
 
 // 显示数据
 const open = async (config: CodeGenGetOutput & CodeGenUpdateInput & any) => {
+  fieldErrors.value = {}
   state.showDialog = true
   state.title = config.id == 0 ? '创建表' : '编辑表：' + config.tableName
   if (config.importStatus == '等待导入') {

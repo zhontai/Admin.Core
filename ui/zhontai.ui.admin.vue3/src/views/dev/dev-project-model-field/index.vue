@@ -2,12 +2,12 @@
   <MyLayout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" label-width="auto" @submit.stop.prevent>
-        <el-form-item class="my-search-box-item" label="所属模型">
+        <el-form-item label="所属模型">
           <el-select clearable v-model="state.filter.modelId" style="width: 160px" @keyup.enter="onQuery">
             <el-option v-for="item in state.selectDevProjectModelListData" :key="item.id" :value="item.id" :label="item.name" />
           </el-select>
         </el-form-item>
-        <el-form-item class="my-search-box-item" label="字段名称">
+        <el-form-item label="字段名称">
           <el-input clearable v-model="state.filter.name" placeholder="" @keyup.enter="onQuery"> </el-input>
         </el-form-item>
         <el-form-item>
@@ -90,7 +90,7 @@
         </el-table-column>
       </el-table>
 
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end mt10">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"

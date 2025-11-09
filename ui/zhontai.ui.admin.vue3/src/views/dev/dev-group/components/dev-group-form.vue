@@ -43,7 +43,6 @@
 <script lang="ts" setup name="dev/dev-group/form">
 import { DevGroupAddInput, DevGroupUpdateInput } from '/@/api/dev/data-contracts'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
-
 import eventBus from '/@/utils/mitt'
 
 defineProps({

@@ -5,10 +5,10 @@
     //生成的默认参数项
     "defaultOption": {
       "authorName": "coder",
-      "backendOut": "E:\\CodeGenOutput",
-      "frontendOut": "E:\\CodeGenOutput",
-      "dbMigrateSqlOut": "E:\\CodeGenOutput",
-      "namespace": "ZhonTai.Module.Dev.Api.Contracts",
+      "backendOut": "E:\\my-code-gen\\backend",
+      "frontendOut": "E:\\my-code-gen\\frontend",
+      "dbMigrateSqlOut": "E:\\my-code-gen\\sql",
+      "namespace": "ZhonTai.Module.Dev",
       // Api 分组名称
       "apiAreaName": "dev",
       // 默认导入命名空间，多个之间用;分隔
@@ -39,34 +39,34 @@
         "templates": [
           {
             "source": "_EN_Entity.cs.tpl",
-            "outTo": "_BO_\\Domain\\_EN_"
+            "outTo": "_BO_\\_NP_.Api.Contracts\\Domain\\_EN_"
           },
           {
             "source": "I_EN_Repository.cs.tpl",
-            "outTo": "_BO_\\Domain\\_EN_"
+            "outTo": "_BO_\\_NP_.Api.Contracts\\Domain\\_EN_"
           },
           {
             "source": "_EN_Repository.cs.tpl",
-            "outTo": "_BO_\\Repositories\\_EN_"
+            "outTo": "_BO_\\_NP_.Api\\Repositories\\_EN_"
           },
           {
             "source": "I_EN_Service.cs.tpl",
-            "outTo": "_BO_\\Services\\_EN_"
+            "outTo": "_BO_\\_NP_.Api.Contracts\\Services\\_EN_"
           },
           {
             "source": "_EN_Service.cs.tpl",
-            "outTo": "_BO_\\Services\\_EN_"
-          },
-          {
-            "source": "Default_Consts.cs.tpl",
-            "outTo": "_BO_\\Core\\Consts",
-            "IsExistSkip": true
-          },
-          {
-            "source": "_NP_.csproj.tpl",
-            "outTo": "_BO_\\",
-            "IsExistSkip": true
+            "outTo": "_BO_\\_NP_.Api\\Services\\_EN_"
           }
+          //,{
+          //  "source": "Default_Consts.cs.tpl",
+          //  "outTo": "_BO_\\_NP_.Api\\Core\\Consts",
+          //  "IsExistSkip": true
+          //}
+          //,{
+          //  "source": "_NP_.Api.csproj.tpl",
+          //  "outTo": "_BO_\\_NP_.Api\\",
+          //  "IsExistSkip": true
+          //}
         ]
       },
       {
@@ -91,11 +91,11 @@
         "templates": [
           {
             "source": "index.vue.tpl",
-            "outTo": "_FO_\\views\\_AAN_\\_EN_"
+            "outTo": "_FO_\\zhontai.ui.admin.vue3\\views\\_AAN_\\_EN_"
           },
           {
             "source": "_EN_-form.vue.tpl",
-            "outTo": "_FO_\\views\\_AAN_\\_EN_\\components"
+            "outTo": "_FO_\\zhontai.ui.admin.vue3\\views\\_AAN_\\_EN_\\components"
           }
         ]
       }

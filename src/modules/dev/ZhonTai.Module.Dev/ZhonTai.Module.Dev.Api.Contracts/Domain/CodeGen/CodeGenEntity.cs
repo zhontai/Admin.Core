@@ -20,7 +20,7 @@ public class CodeGenEntity : EntityBase
     /// <summary>
     /// 是否移除表前缀
     /// </summary>
-    public Boolean TablePrefix { get; set; } = true;
+    public bool TablePrefix { get; set; } = true;
 
     /// <summary>
     /// 生成方式 1 CodeFirst 2 DbFirst
@@ -41,10 +41,10 @@ public class CodeGenEntity : EntityBase
     public string? DbName { get; set; }
 
     /// <summary>
-    /// 数据库类型
+    /// 数据类型
     /// </summary>
     [Column(StringLength = 64)]
-    public string? DbType { get; set; }
+    public string? DataType { get; set; }
 
     /// <summary>
     /// 数据库表名
@@ -74,12 +74,12 @@ public class CodeGenEntity : EntityBase
     /// Api分区名称
     /// </summary>
     [Column(StringLength = 128)]
-    public String? ApiAreaName { get; set; }
+    public string? ApiAreaName { get; set; }
     /// <summary>
     /// 基类名称
     /// </summary>
     [Column(StringLength = 32)]
-    public String? BaseEntity { get; set; }
+    public string? BaseEntity { get; set; }
 
     /// <summary>
     /// 菜单编码
@@ -97,81 +97,91 @@ public class CodeGenEntity : EntityBase
     /// 后端输出目录
     /// </summary>
     [Column(StringLength = 256)]
-    public String BackendOut { get; set; }
+    public string BackendOut { get; set; }
 
     /// <summary>
     /// 前端输出目录
     /// </summary>
     [Column(StringLength = 256)]
-    public String? FrontendOut { get; set; }
+    public string? FrontendOut { get; set; }
 
     /// <summary>
     /// 数据迁移输出目录
     /// </summary>
     [Column(StringLength = 256)]
-    public String DbMigrateSqlOut { get; set; }
+    public string DbMigrateSqlOut { get; set; }
 
     /// <summary>
     /// 备注说明
     /// </summary>
     [Column(StringLength = 256)]
-    public String? Comment { get; set; }
+    public string? Comment { get; set; }
 
     /// <summary>
     /// 实体导入的命令空间
     /// </summary>
     [Column(StringLength = 256)]
-    public String? Usings { get; set; }
+    public string? Usings { get; set; }
 
     /// <summary>
     /// 生成Entity实体类
     /// </summary>
-    public Boolean GenEntity { get; set; }
+    public bool GenEntity { get; set; }
 
     /// <summary>
     /// 生成Repository仓储类
     /// </summary>
-    public Boolean GenRepository { get; set; }
+    public bool GenRepository { get; set; }
 
     /// <summary>
     /// 生成Service服务类
     /// </summary>
-    public Boolean GenService { get; set; }
+    public bool GenService { get; set; }
 
     /// <summary>
-    /// 生成新增服务
+    /// 生成查询单条记录
     /// </summary>
-    public Boolean GenAdd { get; set; } = true;
+    public bool GenGet { get; set; } = true;
 
     /// <summary>
-    /// 生成更新服务
+    /// 生成分页查询
     /// </summary>
-    public Boolean GenUpdate { get; set; } = true;
-
-    /// <summary>
-    /// 新增删除服务
-    /// </summary>
-    public Boolean GenDelete { get; set; } = true;
+    public bool GenGetPage { get; set; } = true;
 
     /// <summary>
     /// 生成列表查询服务
     /// </summary>
-    public Boolean GenGetList { get; set; }
+    public bool GenGetList { get; set; }
+
+    /// <summary>
+    /// 生成新增服务
+    /// </summary>
+    public bool GenAdd { get; set; } = true;
+
+    /// <summary>
+    /// 生成更新服务
+    /// </summary>
+    public bool GenUpdate { get; set; } = true;
+
+    /// <summary>
+    /// 新增删除服务
+    /// </summary>
+    public bool GenDelete { get; set; } = true;
 
     /// <summary>
     /// 生成软删除服务
     /// </summary>
-    public Boolean GenSoftDelete { get; set; }
+    public bool GenSoftDelete { get; set; }
 
     /// <summary>
     /// 生成批量删除服务
     /// </summary>
-    public Boolean GenBatchDelete { get; set; }
+    public bool GenBatchDelete { get; set; }
 
     /// <summary>
     /// 生成批量软删除服务
     /// </summary>
-    public Boolean GenBatchSoftDelete { get; set; }
+    public bool GenBatchSoftDelete { get; set; }
 
     /// <summary>
     /// 字段列表

@@ -149,8 +149,16 @@
 }
 <template>
   <div>
-    <el-dialog v-model="state.showDialog" :title="title" draggable destroy-on-close :close-on-click-modal="false"
-      :close-on-press-escape="false" class="my-dialog-model" :overflow="true">
+    <el-dialog 
+      v-model="state.showDialog" 
+      :title="title" 
+      draggable 
+      destroy-on-close 
+      :close-on-click-modal="false"
+      :close-on-press-escape="false" 
+      class="my-dialog-model" 
+      :overflow="true"
+    >
       <el-form ref="formRef" :model="form" label-width="auto" @(at)submit="onSure" v-zoom="'.my-dialog-model'">
         <el-row :gutter="20">
       @foreach(var col in gen.Fields.Where(w=>!w.IsIgnoreColumn() && ( w.WhetherAdd || w.WhetherUpdate )))
@@ -180,7 +188,9 @@
 
 <script lang="ts" setup name="@(areaNameCc)/@(entityNameKc)/form">
 import { reactive, toRefs, getCurrentInstance, ref, defineAsyncComponent} from 'vue'
-import { @(entityNamePc)AddInput, @(entityNamePc)UpdateInput,
+import { 
+  @(entityNamePc)AddInput, 
+  @(entityNamePc)UpdateInput,
 @if(gen.GenGetList){
 @:  @(entityNamePc)GetListInput, @(entityNamePc)GetListOutput,
 }
@@ -204,7 +214,6 @@ import { @(apiName) } from '/@(at)/api/@(areaNameKc)/@(entityNamePc)'
     }
 }
 import { auth, auths, authAll } from '/@(at)/utils/authFunction'
-
     @if (hasDict)
     {
 @:import { DictApi } from '/@(at)/api/admin/Dict'
@@ -221,7 +230,6 @@ import { auth, auths, authAll } from '/@(at)/utils/authFunction'
     {
  @:const MyEditor = defineAsyncComponent(() => import('/@(at)/components/my-editor/index.vue'))      
     }
-
 import eventBus from '/@(at)/utils/mitt'
 
 defineProps({
@@ -255,16 +263,13 @@ const { form } = toRefs(state)
 
 // 打开对话框
 const open = async (row: any = {}) => {
-    
 @foreach(var incField in includeFieldEntitys){
 @:  get@(incField)List();
 }
-
     @if (hasDict)
     {
 @:  getDictsTree()      
     }
-
   if (row.id > 0) {
     const res = await new @(apiName)().get({ id: row.id }, { loading: true }).catch(() => {
       proxy.$modal.closeLoading()
@@ -278,8 +283,8 @@ const open = async (row: any = {}) => {
   }
   state.showDialog = true
 }
-
 @foreach(var incField in includeFieldEntitys){
+@:
 @:const get@(incField)List = async () => {
 @:  const res = await new @(incField)Api().getList({}).catch(() => {
 @:    state.select@(incField)ListData = []
@@ -287,9 +292,9 @@ const open = async (row: any = {}) => {
 @:  state.select@(incField)ListData = res?.data || []
 @:}
 }
-
 @if (hasDict)
 {
+@:
 @://获取需要使用的字典树
 @:const getDictsTree = async () => {
 @:  let res = await new DictApi().getList(['@(string.Join("','", dictCodes))'])
@@ -343,7 +348,6 @@ const editItemIsShow = (add: Boolean, edit: Boolean): Boolean => {
     if(edit && isEdit)return true;
     return false;
 }
-
 
 defineExpose({
   open,

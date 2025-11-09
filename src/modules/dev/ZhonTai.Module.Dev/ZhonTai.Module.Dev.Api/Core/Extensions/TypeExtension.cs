@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class TypeExtension
 {
-    public static T? GetPropertyValue<T>(this Type type, Object obj, String name)
+    public static T? GetPropertyValue<T>(this Type type, object obj, string name)
     {
         var pi = type.GetProperty(name);
         if (pi != null)
@@ -20,7 +20,7 @@ public static class TypeExtension
 }
 public static class ICollectionExtension
 {
-    public static ICollection<T> AddIf<T>(this ICollection<T> collection, Boolean exp, T val)
+    public static ICollection<T> AddIf<T>(this ICollection<T> collection, bool exp, T val)
     {
         if (exp)
             collection.Add(val);
@@ -28,7 +28,7 @@ public static class ICollectionExtension
         return collection;
     }
 
-    public static ICollection<T> AddIf<T>(this ICollection<T> collection, Boolean exp, T[] vals)
+    public static ICollection<T> AddIf<T>(this ICollection<T> collection, bool exp, T[] vals)
     {
         if (exp)
             foreach (var v in vals)

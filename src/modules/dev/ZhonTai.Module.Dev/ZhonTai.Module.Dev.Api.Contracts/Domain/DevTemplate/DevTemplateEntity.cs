@@ -42,6 +42,6 @@ public partial class DevTemplateEntity: EntityBase
     /// 模板内容
     /// </summary>
     /// <remarks></remarks>
-    [Column(Position=5, DbType="text")]
+    [Column(Position=5, StringLength = -1)]
     public string Content { get; set; }
 }

@@ -73,16 +73,16 @@ public static class CodeGenFieldEntityExtension
     /// 字符串："默认值"
     /// </remarks>
     /// <returns> 默认值按字段类型的表示形式 </returns>
-    public static String GetDefautlValueStringCS(this CodeGenFieldEntity col)
+    public static string GetDefautlValueStringCS(this CodeGenFieldEntity col)
     {
         if (col.IsNumColumn())
         {
-            if (String.IsNullOrWhiteSpace(col.DefaultValue)) return "0";
+            if (string.IsNullOrWhiteSpace(col.DefaultValue)) return "0";
             return "" + col.DefaultValue;
         }
         if (col.NetType == "bool")
         {
-            if (String.IsNullOrWhiteSpace(col.DefaultValue)) return "false";
+            if (string.IsNullOrWhiteSpace(col.DefaultValue)) return "false";
             var val = col.DefaultValue.ToLower();
             if (val == "1") return "true";
             if (val != "true" && val != "false") { return "false"; }
@@ -90,32 +90,32 @@ public static class CodeGenFieldEntityExtension
         }
         if (col.NetType == "DateTime")
         {
-            if (String.IsNullOrWhiteSpace(col.DefaultValue)) return "DateTime.MinValue";
+            if (string.IsNullOrWhiteSpace(col.DefaultValue)) return "DateTime.MinValue";
             if (DateTime.TryParse(col.DefaultValue, out DateTime res))
             {
-                return "new DateTime(" + String.Join(", ", res.Year, res.Month, res.Day, res.Hour, res.Minute, res.Second) + ")";
+                return "new DateTime(" + string.Join(", ", res.Year, res.Month, res.Day, res.Hour, res.Minute, res.Second) + ")";
             }
         }
         if (col.NetType == "char")
         {
-            if (String.IsNullOrWhiteSpace(col.DefaultValue)) return "'\0'";
+            if (string.IsNullOrWhiteSpace(col.DefaultValue)) return "'\0'";
             return "'" + col.DefaultValue[0] + "'";
         }
         return "\"" + col.DefaultValue + "\"";
     }
 
-    public static String GetDefaultValueStringScript(this CodeGenFieldEntity col)
+    public static string GetDefaultValueStringScript(this CodeGenFieldEntity col)
     {
         if (col.IsNullable) return "null";
         if (col.NetType == "DateTime")
         {
-            if (String.IsNullOrWhiteSpace(col.DefaultValue))
+            if (string.IsNullOrWhiteSpace(col.DefaultValue))
             {
                 return "new Date()";
             }
             if (DateTime.TryParse(col.DefaultValue, out DateTime res))
             {
-                return "new Date(" + String.Join(", ", res.Year, res.Month, res.Day, res.Hour, res.Minute, res.Second) + ")";
+                return "new Date(" + string.Join(", ", res.Year, res.Month, res.Day, res.Hour, res.Minute, res.Second) + ")";
             }
             return "new Date()";
         }
@@ -166,8 +166,8 @@ public static class CodeGenFieldEntityExtension
         if (!col.WhetherUpdate)
             attrs.Add("CanUpdate = false");
 
-        if (!string.IsNullOrWhiteSpace(col.DbType))
-            attrs.Add("DbType=\"" + col.DbType + "\"");
+        //if (!string.IsNullOrWhiteSpace(col.DataType))
+        //    attrs.Add("DataType=\"" + col.DataType + "\"");
 
         if (isStrField && strLen > -1)
             attrs.Add("StringLength=" + strLen);
@@ -227,7 +227,7 @@ public static class CodeGenFieldEntityExtension
         var propType = col.NetType.PadEndIfNot(col.IsNullable || isNullable, "?");
         var propName = col.ColumnName.NamingPascalCase();
 
-        var defaultValueStr = (!String.IsNullOrWhiteSpace(col.DefaultValue) ? (" = " + col.GetDefautlValueStringCS() + ";") : "");
+        var defaultValueStr = (!string.IsNullOrWhiteSpace(col.DefaultValue) ? (" = " + col.GetDefautlValueStringCS() + ";") : "");
         if (isInput && col.Editor == "my-bussiness-select" && col.IncludeMode == 1)
         {
             //输入模型

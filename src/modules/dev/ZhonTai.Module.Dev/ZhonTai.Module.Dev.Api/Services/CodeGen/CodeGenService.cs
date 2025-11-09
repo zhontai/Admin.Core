@@ -106,7 +106,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
                         Comment = c.Comment,
                         Title = c.Comment,
                         NetType = fSql.DbFirst.GetCsType(c).TrimEnd('?'),
-                        DbType = c.DbTypeText,
+                        DataType = c.DbTypeText,
                         IsNullable = c.IsNullable,
                         IsPrimary = c.IsPrimary,
                         Length = c.MaxLength
@@ -391,7 +391,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
         if (gen == null)
             throw ResultOutput.Exception(msg: "配置数据不存在。");
-        if (String.IsNullOrWhiteSpace(gen.BackendOut)/* || String.IsNullOrWhiteSpace(gen.FrontendOut)*/)
+        if (string.IsNullOrWhiteSpace(gen.BackendOut)/* || string.IsNullOrWhiteSpace(gen.FrontendOut)*/)
             throw ResultOutput.Exception("未指定输出目录。");
 
         gen.Fields = gen.Fields.OrderBy(o => o.Position).ThenBy(t => t.Id);

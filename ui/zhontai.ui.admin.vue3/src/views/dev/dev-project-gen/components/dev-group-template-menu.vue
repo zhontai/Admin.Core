@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts" setup name="dev/project/gen/grouptemplatemenu">
-import { template } from 'lodash-es'
 import { DevProjectGenApi } from '/@/api/dev/DevProjectGen'
 import { DevProjectGenPreviewMenuOutput } from '/@/api/dev/data-contracts'
 import eventBus from '/@/utils/mitt'

@@ -4,7 +4,6 @@ namespace ZhonTai.Module.Dev.Api.Contracts.Services.CodeGen.Dtos;
 
 public class CodeGenGetOutput
 {
-
     public long Id { get; set; }
     /// <summary>
     /// 作者姓名
@@ -89,6 +88,7 @@ public class CodeGenGetOutput
     /// 数据库迁移目录
     /// </summary>
     public string DbMigrateSqlOut { get; set; }
+
     /// <summary>
     /// 备注说明
     /// </summary>
@@ -103,40 +103,57 @@ public class CodeGenGetOutput
     /// 生成Entity实体类
     /// </summary>
     public bool GenEntity { get; set; }
+
     /// <summary>
     /// 生成Repository仓储类
     /// </summary>
     public bool GenRepository { get; set; }
+
     /// <summary>
     /// 生成Service服务类
     /// </summary>
     public bool GenService { get; set; }
 
     /// <summary>
-    /// 生成新增服务
+    /// 生成查询单条记录
     /// </summary>
-    public bool GenAdd { get; set; } = true;
+    public bool GenGet { get; set; } = true;
+
     /// <summary>
-    /// 生成更新服务
+    /// 生成分页查询
     /// </summary>
-    public bool GenUpdate { get; set; } = true;
-    /// <summary>
-    /// 新增删除服务
-    /// </summary>
-    public bool GenDelete { get; set; } = true;
+    public bool GenGetPage { get; set; } = true;
 
     /// <summary>
     /// 生成列表查询服务
     /// </summary>
     public bool GenGetList { get; set; }
+
+    /// <summary>
+    /// 生成新增服务
+    /// </summary>
+    public bool GenAdd { get; set; } = true;
+
+    /// <summary>
+    /// 生成更新服务
+    /// </summary>
+    public bool GenUpdate { get; set; } = true;
+
+    /// <summary>
+    /// 新增删除服务
+    /// </summary>
+    public bool GenDelete { get; set; }
+
     /// <summary>
     /// 生成软删除服务
     /// </summary>
-    public bool GenSoftDelete { get; set; }
+    public bool GenSoftDelete { get; set; } = true;
+
     /// <summary>
     /// 生成批量删除服务
     /// </summary>
     public bool GenBatchDelete { get; set; }
+
     /// <summary>
     /// 生成批量软删除服务
     /// </summary>

@@ -12,15 +12,15 @@ public static class CodeGenEntityExtension
     }
     public static IEnumerable<string> GetUsings(this CodeGenEntity config)
     {
-        if (String.IsNullOrWhiteSpace(config.Usings))
+        if (string.IsNullOrWhiteSpace(config.Usings))
             return new string[] { };
 
         var ns = config.Usings.Split(';')
             .ConcatIfNotNull(config.Fields?
-                .Where(w => !String.IsNullOrWhiteSpace(w.IncludeEntity))
+                .Where(w => !string.IsNullOrWhiteSpace(w.IncludeEntity))
                 .Select(s => s.IncludeEntity)
                 .Select(s => "" + Type.GetType(s)?.Namespace)
-                .Where(w => !String.IsNullOrWhiteSpace(w))
+                .Where(w => !string.IsNullOrWhiteSpace(w))
             ).Distinct();
 
         return ns;
@@ -30,14 +30,14 @@ public static class CodeGenEntityExtension
     {
         public string Code;
         public string Label;
-        public PermInfo(String code, String label)
+        public PermInfo(string code, string label)
         {
             Code = code;
             Label = label;
         }
     }
 
-    public static IEnumerable<PermInfo> GetPermissionsToGen(this CodeGenEntity table, String spillter = ":")
+    public static IEnumerable<PermInfo> GetPermissionsToGen(this CodeGenEntity table, string spillter = ":")
     {
         return new List<PermInfo>
         {
@@ -50,28 +50,28 @@ public static class CodeGenEntityExtension
         .AddIf(table.GenBatchSoftDelete, new PermInfo("batch-soft-delete", "批量软删除"))
         .Select(s =>
              new PermInfo(
-                String.Join(spillter, "api", table.ApiAreaName?.NamingKebabCase(),
+                string.Join(spillter, "api", table.ApiAreaName?.NamingKebabCase(),
                     table.EntityName.NamingKebabCase(), s.Code), s.Label)
         );
     }
 
-    public static String GetTableIndexAttributes(this CodeGenEntity config)
+    public static string GetTableIndexAttributes(this CodeGenEntity config)
     {
-        var attrs = new List<String> { { "Table(Name=\"" + config.TableName + "\")" } };
+        var attrs = new List<string> { { "Table(Name=\"" + config.TableName + "\")" } };
 
         if (config.Fields != null)
         {
-            var indexFields = config.Fields.Where(w => w.IsUnique || !String.IsNullOrWhiteSpace(w.IndexMode));
+            var indexFields = config.Fields.Where(w => w.IsUnique || !string.IsNullOrWhiteSpace(w.IndexMode));
 
             if (indexFields != null && indexFields.Count() > 0)
             {
                 attrs.AddRange(indexFields.Select(w => "Index(\"Index_{TableName}_" +
-                    (String.IsNullOrWhiteSpace(w.ColumnRawName) ? w.ColumnName : w.ColumnRawName)
-                    + "\", \"" + w.ColumnName + (!String.IsNullOrWhiteSpace(w.IndexMode) ? " " + w.IndexMode : "") + "\", "
+                    (string.IsNullOrWhiteSpace(w.ColumnRawName) ? w.ColumnName : w.ColumnRawName)
+                    + "\", \"" + w.ColumnName + (!string.IsNullOrWhiteSpace(w.IndexMode) ? " " + w.IndexMode : "") + "\", "
                     + (w.IsUnique ? "true" : "false") + ")"));
             }
         }
 
-        return "[" + String.Join(",", attrs) + "]";
+        return "[" + string.Join(",", attrs) + "]";
     }
 }

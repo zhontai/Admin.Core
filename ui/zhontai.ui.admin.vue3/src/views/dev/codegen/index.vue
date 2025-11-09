@@ -2,12 +2,12 @@
   <MyLayout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="数据库" class="my-search-box-item">
+        <el-form-item label="数据库">
           <el-select v-model="state.filter.dbKey" clearable placeholder="请选择数据库" style="width: 160px">
             <el-option v-for="item in state.dbKeys" :key="item.dbKey" :value="item.dbKey" :label="item.dbKey"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="表名" class="my-search-box-item">
+        <el-form-item label="表名">
           <el-input clearable v-model="state.filter.tableName" placeholder="请输入表名" @keyup.enter="getConfigs"> </el-input>
         </el-form-item>
         <el-form-item>
@@ -216,9 +216,11 @@ const genDefaultConfig = (): CodeGenUpdateInput => {
     genRepository: true,
     genService: true,
 
+    genGet: true,
+    genGetPage: true,
     genAdd: true,
     genUpdate: true,
-    genDelete: true,
+    genSoftDelete: true,
 
     fields: [],
   }
@@ -255,7 +257,7 @@ const getTables = async () => {
     config.fields?.forEach((col: CodeGenFieldGetOutput) => {
       tree.children?.push({
         key: col.columnName,
-        label: col.columnName + (' [' + col.dbType + (col.length != -1 ? '(' + col.length + ')' : '') + ']'),
+        label: col.columnName + (' [' + col.dataType + (col.length != -1 ? '(' + col.length + ')' : '') + ']'),
         type: 'col',
       })
     })
@@ -287,6 +289,7 @@ const showEditData = async (data: CodeGenGetOutput & any) => {
 const createTable = async () => {
   showEditData(genDefaultConfig())
 }
+
 const removeConfig = async (config: CodeGenGetOutput) => {
   if (!config) {
     proxy.$modal.msgWarning('请选择表。')
@@ -296,6 +299,7 @@ const removeConfig = async (config: CodeGenGetOutput) => {
     onDelRow(config)
   })
 }
+
 const onDelRow = async (config: CodeGenGetOutput) => {
   proxy.$modal
     .confirmDelete(`确定要删除【${config.busName}】?`)
@@ -314,9 +318,11 @@ const modifyConfig = async (config: CodeGenGetOutput) => {
   }
   showEditData(JSON.parse(JSON.stringify(config)))
 }
+
 const dialogTalbeToggleSelection = async (row: CodeGenGetOutput) => {
   importDialogTableRef.value!.toggleRowSelection(row)
 }
+
 const generate = async (config: CodeGenGetOutput) => {
   if (!config) {
     return
@@ -352,6 +358,7 @@ const genMenu = async (config: CodeGenGetOutput) => {
   if (!config) return
   await new CodeGenApi().genMenu({ id: config.id }, { loading: true, showSuccessMessage: true })
 }
+
 // 确定
 const onConfigEditSure = async (data: any) => {
   if (!data?.data) return
@@ -426,6 +433,7 @@ const genType = (t: number) => {
   if (t == 2) return 'DbFirst'
   return t
 }
+
 onMounted(() => {
   getBaseData()
   getConfigs()
@@ -454,6 +462,7 @@ const exportConfig = () => {
   toClipboard(JSON.stringify(state.sels))
   return proxy.$modal.msgSuccess('已经配置复制到剪切板，保存成json即可')
 }
+
 const importConfig = () => {
   state.importSuccess = false
   navigator.clipboard
@@ -479,9 +488,11 @@ const importConfig = () => {
       proxy.$modal.msgError('请先复制正确的配置')
     })
 }
+
 const importSelsChange = (vals: CodeGenGetOutput[]) => {
   state.importSels = vals
 }
+
 const onSureImport = () => {
   if (state.importSels.length == 0) return proxy.$modal.msgWarning('选择要导入的数据')
   state.importSels.forEach(async (data) => {
@@ -505,9 +516,11 @@ const onSureImport = () => {
   })
   state.importSuccess = state.importConfigs.filter((s2) => s2.importStatus === '导入成功').length == state.importConfigs.length
 }
+
 const onCancelImport = () => {
   state.importBoxyShow = false
 }
+
 const onCompleteImport = () => {
   onCancelImport()
   getConfigs()

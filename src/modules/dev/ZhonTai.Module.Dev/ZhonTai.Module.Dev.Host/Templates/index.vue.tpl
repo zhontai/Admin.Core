@@ -149,32 +149,33 @@
     string attributes, inner, subfix,colWidth;
 }
 <template>
-<div class="my-layout">
-    <el-card class="my-search-box" shadow="never">
-      <el-row>
-        <el-col :span="18" :xs="24" class="my-search-box-inputs">
-          <el-form :inline="true" label-width="auto" @(at)submit.stop.prevent>
-            @foreach (var col in queryColumns.Where(w=>!w.IsIgnoreColumn()))
-            {
-                var editor = editorName(col, out attributes, out inner,out subfix,out colWidth);
-            @:<el-form-item class="my-search-box-item"  label="@(col.Title)">
-            @:  <@(editor)  @if(!attributes.Contains("clearable"))@("clearable") @(attributes) v-model="state.filter.@(col.ColumnName.NamingCamelCase())@(subfix)" placeholder="" @(at)keyup.enter="onQuery" >
-            if(!string.IsNullOrWhiteSpace(inner)){
-            @:    @(inner)
-            }
-            @:  </@(editor)>
-            @:</el-form-item>
-            }
-            @if (queryColumns.Count() > 0)
-            {
-            @:<el-form-item>
-            @:  <el-button type="primary" icon="ele-Search" @(at)click="onQuery">查询</el-button>
-            @:</el-form-item>
-            }
-          </el-form>
-        </el-col>
-        <el-col :span="6" :xs="24" class="my-search-box-btns">
-          <el-space>
+  <MyLayout>
+    <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
+      <el-form :inline="true" label-width="auto" @(at)submit.stop.prevent>
+        @foreach (var col in queryColumns.Where(w=>!w.IsIgnoreColumn()))
+        {
+            var editor = editorName(col, out attributes, out inner,out subfix,out colWidth);
+        @:<el-form-item label="@(col.Title)">
+        @:  <@(editor) @if(!attributes.Contains("clearable"))@("clearable") @(attributes) v-model="state.filter.@(col.ColumnName.NamingCamelCase())@(subfix)" placeholder="" @(at)keyup.enter="onQuery">
+        if(!string.IsNullOrWhiteSpace(inner)){
+        @:    @(inner)
+        }
+        @:  </@(editor)>
+        @:</el-form-item>
+        }
+        @if (queryColumns.Count() > 0)
+        {
+        @:<el-form-item>
+        @:  <el-button type="primary" icon="ele-Search" @(at)click="onQuery">查询</el-button>
+        @:</el-form-item>
+        }
+      </el-form>
+    </el-card>
+
+    <el-card class="my-fill mt8" shadow="never">
+      <div class="my-tools-box mb8 my-flex my-flex-between">
+        <div>
+          <el-space wrap :size="12">
           @if (gen.GenAdd){
           @:<el-button type="primary" v-auth="perms.add" icon="ele-Plus" @(at)click="onAdd">新增</el-button>
             }
@@ -194,13 +195,10 @@
             @:</el-dropdown>
              }
           </el-space>
-        </el-col>
-      </el-row>
-    </el-card>
-
-    <el-card class="my-fill mt8" shadow="never">
-      <el-table v-loading="state.loading" :data="state.@(entityNameCc)ListData" row-key="id"  ref="listTableRef" @(at)row-click="listTableToggleSelection"  @(at)selection-change="selsChange">
-        
+        </div>
+        <div></div>
+      </div>
+      <el-table v-loading="state.loading" :data="state.@(entityNameCc)ListData" row-key="id"  ref="listTableRef" border @(at)selection-change="selsChange">
         @if(gen.GenBatchDelete||gen.GenBatchSoftDelete){
           @:<el-table-column type="selection" width="50" />
           }
@@ -261,7 +259,7 @@
           </el-table-column>
       </el-table>
 
-      <div class="my-flex my-flex-end" style="margin-top: 20px">
+      <div class="my-flex my-flex-end mt10">
         <el-pagination
           v-model:currentPage="state.pageInput.currentPage"
           v-model:page-size="state.pageInput.pageSize"
@@ -276,14 +274,21 @@
     </el-card>
 
     <@(entityNameKc)-form ref="@(entityNameCc)FormRef" :title="state.@(entityNameCc)FormTitle"></@(entityNameKc)-form>
-  </div>
+  </MyLayout>
 </template>
 
 <script lang="ts" setup name="@(areaNameCc)/@(entityNameKc)">
 import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
-import { PageInput@(entityNamePc)GetPageInput, @(entityNamePc)GetPageInput, @(entityNamePc)GetPageOutput, @(entityNamePc)GetOutput, @(entityNamePc)AddInput, @(entityNamePc)UpdateInput,
+import { 
+  PageInput@(entityNamePc)GetPageInput, 
+  @(entityNamePc)GetPageInput, 
+  @(entityNamePc)GetPageOutput, 
+  @(entityNamePc)GetOutput, 
+  @(entityNamePc)AddInput, 
+  @(entityNamePc)UpdateInput,
 @if(gen.GenGetList){
-@:  @(entityNamePc)GetListInput, @(entityNamePc)GetListOutput,
+@:  @(entityNamePc)GetListInput, 
+@:  @(entityNamePc)GetListOutput,
 }
 @{
     if (includeFieldEntitys.Any())
@@ -367,7 +372,6 @@ const state = reactive({
 })
 
 onMounted(() => {
-
 @foreach(var incField in includeFieldEntitys){
 @:  get@(incField)List();
 }
@@ -385,8 +389,8 @@ onMounted(() => {
 onBeforeMount(() => {
   eventBus.off('refresh@(entityNamePc)')
 })
-
 @foreach(var incField in includeFieldEntitys){
+@:
 @:const get@(incField)List = async () => {
 @:  const res = await new @(incField)Api().getList({}).catch(() => {
 @:    state.select@(incField)ListData = []
@@ -394,9 +398,9 @@ onBeforeMount(() => {
 @:  state.select@(incField)ListData = res?.data || []
 @:}
 }
-
 @if (hasDict)
 {
+@:
 @://获取需要使用的字典树
 @:const getDictsTree = async () => {
 @:  let res = await new DictApi().getList(['@(string.Join("','", dictCodes))'])
@@ -415,14 +419,11 @@ const onQuery = async () => {
   state.@(entityNameCc)ListData = res?.data?.list ?? []
   state.total = res?.data?.total ?? 0
   state.loading = false
-
   @foreach (var col in gen.Fields.Where(s=>s.Editor=="my-upload")){
 @:  state.file@(col.ColumnName)ListData = res?.data?.list?.map(s => {
 @:    return { linkUrl: s.@(col.ColumnName.NamingCamelCase()) }
 @:  }) ?? []
 }
-
-
 }
 
 const onAdd = () => {
@@ -446,6 +447,7 @@ const onDelete = (row: @(entityNamePc)GetOutput) => {
 }
 
 const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
   state.pageInput.pageSize = val
   onQuery()
 }
@@ -454,11 +456,12 @@ const onCurrentChange = (val: number) => {
   state.pageInput.currentPage = val
   onQuery()
 }
+
 const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
   state.sels = vals
 }
-
 @if(gen.GenBatchDelete){
+@:
 @:const onBatchDelete = async () => {
 @:  proxy.$modal?.confirmDelete(`确定要删除选择的${state.sels.length}条记录？`).then(async () =>{
 @:    const rst = await new @(apiName)().batchDelete(state.sels?.map(item=>item.id) as number[], { loading: true, showSuccessMessage: true })
@@ -468,8 +471,8 @@ const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
 @:  })
 @:}
 }
-
 @if(gen.GenSoftDelete){
+@:
 @:const onSoftDelete = async (row: @(entityNamePc)GetOutput) => {
 @:  proxy.$modal?.confirmDelete(`确定要移入回收站？`).then(async () =>{
 @:    const rst = await new @(apiName)().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
@@ -479,8 +482,8 @@ const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
 @:  })
 @:}
 }
-
 @if(gen.GenBatchSoftDelete){
+@:
 @:const onBatchSoftDelete = async () => {
 @:  proxy.$modal?.confirmDelete(`确定要将选择的${state.sels.length}条记录移入回收站？`).then(async () =>{
 @:    const rst = await new @(apiName)().batchSoftDelete(state.sels?.map(item => item.id) as number[], { loading: true, showSuccessMessage: true })
@@ -491,6 +494,7 @@ const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
 @:}
 }
 @foreach (var col in gen.Fields.Where(s=>s.Editor=="my-upload")){
+@:
 @:const preview@(col.ColumnName)list = computed(() => {
 @:  let imgList = [] as string[]
 @:  state.file@(col.ColumnName)ListData.forEach((a) => {
@@ -500,11 +504,9 @@ const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
 @:  })
 @:  return imgList
 @:})
+@:
 @:const get@(col.ColumnName)InitialIndex = (imgUrl: string) => {
 @:  return preview@(col.ColumnName)list.value.indexOf(imgUrl)
 @:}
-}
-const listTableToggleSelection = async (row: any) => {
-  listTableRef.value!.toggleRowSelection(row)
 }
 </script>

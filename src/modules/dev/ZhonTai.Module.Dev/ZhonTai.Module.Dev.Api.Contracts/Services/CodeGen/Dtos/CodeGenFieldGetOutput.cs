@@ -27,9 +27,9 @@ public class CodeGenFieldGetOutput
     public string NetType { get; set; } = "string";
 
     /// <summary>
-    /// 数据库中类型（物理类型）
+    /// 数据类型
     /// </summary>
-    public string DbType { get; set; }
+    public string DataType { get; set; }
 
     /// <summary>
     /// 字段描述
@@ -40,6 +40,7 @@ public class CodeGenFieldGetOutput
     /// 默认值
     /// </summary>
     public string DefaultValue { get; set; }
+
     /// <summary>
     /// 字段标题
     /// </summary>
@@ -69,6 +70,7 @@ public class CodeGenFieldGetOutput
     /// 同步表结构时的列排序
     /// </summary>
     public int Position { get; set; }
+
     /// <summary>
     /// 是否通用字段
     /// </summary>
@@ -79,23 +81,26 @@ public class CodeGenFieldGetOutput
     /// </summary>
     public bool WhetherRetract { get; set; }
 
-
     /// <summary>
     /// 是否是查询条件
     /// </summary>
     public bool WhetherQuery { get; set; }
+
     /// <summary>
     /// 增
     /// </summary>
     public bool WhetherAdd { get; set; }
+
     /// <summary>
     /// 改
     /// </summary>
     public bool WhetherUpdate { get; set; }
+
     /// <summary>
     /// 分布显示
     /// </summary>
     public bool WhetherTable { get; set; }
+
     /// <summary>
     /// 列表
     /// </summary>
@@ -115,7 +120,6 @@ public class CodeGenFieldGetOutput
     /// 查询方式
     /// </summary>
     public string QueryType { get; set; }
-
 
     /// <summary>
     /// 字典编码
@@ -141,6 +145,7 @@ public class CodeGenFieldGetOutput
     /// 显示文本字段
     /// </summary>
     public string DisplayColumn { get; set; }
+
     /// <summary>
     /// 选中值字段
     /// </summary>

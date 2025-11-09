@@ -37,8 +37,8 @@ export interface CodeGenFieldGetOutput {
   columnRawName?: string | null
   /** .NET数据类型 */
   netType?: string | null
-  /** 数据库中类型（物理类型） */
-  dbType?: string | null
+  /** 数据类型 */
+  dataType?: string | null
   /** 字段描述 */
   comment?: string | null
   /** 默认值 */
@@ -149,14 +149,18 @@ export interface CodeGenGetOutput {
   genRepository?: boolean
   /** 生成Service服务类 */
   genService?: boolean
+  /** 生成查询单条记录 */
+  genGet?: boolean
+  /** 生成分页查询 */
+  genGetPage?: boolean
+  /** 生成列表查询服务 */
+  genGetList?: boolean
   /** 生成新增服务 */
   genAdd?: boolean
   /** 生成更新服务 */
   genUpdate?: boolean
   /** 新增删除服务 */
   genDelete?: boolean
-  /** 生成列表查询服务 */
-  genGetList?: boolean
   /** 生成软删除服务 */
   genSoftDelete?: boolean
   /** 生成批量删除服务 */
@@ -212,14 +216,18 @@ export interface CodeGenUpdateInput {
   genRepository?: boolean
   /** 生成Service服务类 */
   genService?: boolean
+  /** 生成查询单条记录 */
+  genGet?: boolean
+  /** 生成分页查询 */
+  genGetPage?: boolean
+  /** 生成列表查询服务 */
+  genGetList?: boolean
   /** 生成新增服务 */
   genAdd?: boolean
   /** 生成更新服务 */
   genUpdate?: boolean
   /** 新增删除服务 */
   genDelete?: boolean
-  /** 生成列表查询服务 */
-  genGetList?: boolean
   /** 生成软删除服务 */
   genSoftDelete?: boolean
   /** 生成批量删除服务 */
