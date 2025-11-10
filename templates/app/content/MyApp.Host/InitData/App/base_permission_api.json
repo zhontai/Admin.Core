@@ -1744,5 +1744,473 @@
     "createdUserName": "admin",
     "createdUserRealName": "管理员",
     "createdTime": "2025-04-22T14:59:57"
+  },
+  {
+    "id": 564649905377349,
+    "permissionId": 564649905352773,
+    "apiId": 563549634478152,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:06:22"
+  },
+  {
+    "id": 564655124017221,
+    "permissionId": 564655123996741,
+    "apiId": 563549634478160,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-03T23:27:36"
+  },
+  {
+    "id": 565920654667845,
+    "permissionId": 565920654643269,
+    "apiId": 563574190649426,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-07T13:17:03"
+  },
+  {
+    "id": 565920660324421,
+    "permissionId": 565920660295749,
+    "apiId": 563549634474065,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-07T13:17:05"
+  },
+  {
+    "id": 565920666812485,
+    "permissionId": 565920666796101,
+    "apiId": 563549634474057,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-07T13:17:06"
+  },
+  {
+    "id": 565920666861637,
+    "permissionId": 565920666841157,
+    "apiId": 563549634474059,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-07T13:17:06"
+  },
+  {
+    "id": 565920666902597,
+    "permissionId": 565920666882117,
+    "apiId": 563549634474058,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2024-07-07T13:17:06"
+  },
+  {
+    "id": 735529083859013,
+    "permissionId": 565920654377029,
+    "apiId": 563549634478161,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:35:31"
+  },
+  {
+    "id": 735529567166533,
+    "permissionId": 563563366891589,
+    "apiId": 563549634474060,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:37:29"
+  },
+  {
+    "id": 735529605591109,
+    "permissionId": 563563250114629,
+    "apiId": 563549634474061,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:37:38"
+  },
+  {
+    "id": 735529746530373,
+    "permissionId": 563572258492485,
+    "apiId": 563549634474064,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:38:13"
+  },
+  {
+    "id": 735529746530374,
+    "permissionId": 563572258492485,
+    "apiId": 563549634474063,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:38:13"
+  },
+  {
+    "id": 735529764503621,
+    "permissionId": 565920666968133,
+    "apiId": 563549634474063,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:38:17"
+  },
+  {
+    "id": 735529792409669,
+    "permissionId": 565920666923077,
+    "apiId": 563574190649421,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:38:24"
+  },
+  {
+    "id": 735529818394693,
+    "permissionId": 563573596930117,
+    "apiId": 563549634474064,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:38:30"
+  },
+  {
+    "id": 735530042953797,
+    "permissionId": 563567197765701,
+    "apiId": 563549634474068,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:39:25"
+  },
+  {
+    "id": 735530096304197,
+    "permissionId": 565920660377669,
+    "apiId": 563549634474067,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:39:38"
+  },
+  {
+    "id": 735530120044613,
+    "permissionId": 565920660418629,
+    "apiId": 563549634474066,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:39:44"
+  },
+  {
+    "id": 735530203807813,
+    "permissionId": 563567232782405,
+    "apiId": 563549634474069,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:40:04"
+  },
+  {
+    "id": 735530237325381,
+    "permissionId": 565920660344901,
+    "apiId": 563549634474070,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:40:13"
+  },
+  {
+    "id": 735530334048325,
+    "permissionId": 565920660496453,
+    "apiId": 563549634474071,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:40:36"
+  },
+  {
+    "id": 735530395435077,
+    "permissionId": 565920660459589,
+    "apiId": 563574190649422,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:40:51"
+  },
+  {
+    "id": 735530414862405,
+    "permissionId": 563573551169605,
+    "apiId": 563549634474072,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:40:56"
+  },
+  {
+    "id": 735530513338437,
+    "permissionId": 564649905049669,
+    "apiId": 563549634474073,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:20"
+  },
+  {
+    "id": 735530556649541,
+    "permissionId": 564649905168453,
+    "apiId": 563549634474075,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:31"
+  },
+  {
+    "id": 735530609184837,
+    "permissionId": 564649905213509,
+    "apiId": 563549634474074,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:43"
+  },
+  {
+    "id": 735530632388677,
+    "permissionId": 564649904971845,
+    "apiId": 563549634474076,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:49"
+  },
+  {
+    "id": 735530651861061,
+    "permissionId": 564649905086533,
+    "apiId": 563549634478149,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:54"
+  },
+  {
+    "id": 735530674651205,
+    "permissionId": 564649905123397,
+    "apiId": 563549634478150,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:41:59"
+  },
+  {
+    "id": 735530697531461,
+    "permissionId": 564649905307717,
+    "apiId": 563549634478151,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:42:05"
+  },
+  {
+    "id": 735530716930117,
+    "permissionId": 564649905270853,
+    "apiId": 563574190649423,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:42:10"
+  },
+  {
+    "id": 735530865934405,
+    "permissionId": 565920654483525,
+    "apiId": 563549634478163,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:42:46"
+  },
+  {
+    "id": 735530888568901,
+    "permissionId": 565920654516293,
+    "apiId": 563549634478162,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:42:52"
+  },
+  {
+    "id": 735530923429957,
+    "permissionId": 565920654303301,
+    "apiId": 563549634478164,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:43:00"
+  },
+  {
+    "id": 735530964697157,
+    "permissionId": 565920654413893,
+    "apiId": 563549634478165,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:43:10"
+  },
+  {
+    "id": 735531004584005,
+    "permissionId": 565920654446661,
+    "apiId": 563549634478166,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:43:20"
+  },
+  {
+    "id": 735531049324613,
+    "permissionId": 565920654606405,
+    "apiId": 563549634478167,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:43:31"
+  },
+  {
+    "id": 735531076931653,
+    "permissionId": 565920654561349,
+    "apiId": 563574190649425,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:43:38"
+  },
+  {
+    "id": 735531390300229,
+    "permissionId": 564655123755077,
+    "apiId": 563549634478153,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:44:54"
+  },
+  {
+    "id": 735531410366533,
+    "permissionId": 564655123865669,
+    "apiId": 563549634478155,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:44:59"
+  },
+  {
+    "id": 735531456499781,
+    "permissionId": 564655123898437,
+    "apiId": 563549634478154,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:10"
+  },
+  {
+    "id": 735531479109701,
+    "permissionId": 564655123685445,
+    "apiId": 563549634478156,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:16"
+  },
+  {
+    "id": 735531504898117,
+    "permissionId": 564655123787845,
+    "apiId": 563549634478157,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:22"
+  },
+  {
+    "id": 735531539124293,
+    "permissionId": 564655123828805,
+    "apiId": 563549634478158,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:30"
+  },
+  {
+    "id": 735531568181317,
+    "permissionId": 564655123968069,
+    "apiId": 563549634478159,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:38"
+  },
+  {
+    "id": 735531589111877,
+    "permissionId": 564655123931205,
+    "apiId": 563574190649424,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:43"
+  },
+  {
+    "id": 735531623964741,
+    "permissionId": 565958522744901,
+    "apiId": 565957951336519,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:51"
+  },
+  {
+    "id": 735531643584581,
+    "permissionId": 565958522855493,
+    "apiId": 565957951336521,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:45:56"
+  },
+  {
+    "id": 735531664879685,
+    "permissionId": 565958522896453,
+    "apiId": 565957951336520,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:46:01"
+  },
+  {
+    "id": 735531724394565,
+    "permissionId": 565958522662981,
+    "apiId": 565957951336522,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:46:16"
+  },
+  {
+    "id": 735531796553797,
+    "permissionId": 565958522785861,
+    "apiId": 565957951336523,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:46:33"
+  },
+  {
+    "id": 735531820662853,
+    "permissionId": 565958522822725,
+    "apiId": 565957951336524,
+    "createdUserId": 161223411986501,
+    "createdUserName": "admin",
+    "createdUserRealName": "管理员",
+    "createdTime": "2025-10-29T19:46:39"
   }
 ]

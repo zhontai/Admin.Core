@@ -24,10 +24,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin.Core" Version="9.2.0-preview25081301">
+		<PackageReference Include="ZhonTai.Admin.Core" Version="9.2.0">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.2.0-preview25081301">
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="9.2.0">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 	</ItemGroup>
