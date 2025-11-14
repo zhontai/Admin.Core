@@ -49,7 +49,7 @@
           "TyeName": null,
           "ProjectFile": "modules\\dev\\ZhonTai.Module.Dev\\ZhonTai.Module.Dev.Host\\ZhonTai.Module.Dev.Host.csproj",
           "DefaultSelected": true,
-          "Bindings": 18020,
+          "Bindings": "::18020",
           "Arguments": null,
           "EnvVariables": null,
           "Replicas": 1
