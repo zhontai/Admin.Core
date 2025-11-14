@@ -1,7 +1,20 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AspNetCoreRateLimit;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using FluentValidation;
+using FreeRedis;
+using FreeScheduler;
+using FreeSql;
+using HealthChecks.UI.Client;
+using IP2Region.Net.Abstractions;
+using IP2Region.Net.XDB;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,32 +26,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using NLog;
+using NLog.Web;
+using ProtoBuf.Grpc.Server;
+using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using AspNetCoreRateLimit;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using HealthChecks.UI.Client;
-using FreeRedis;
-using FreeScheduler;
-using FreeSql;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Mapster;
-using MapsterMapper;
-using NLog;
-using NLog.Web;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.RegularExpressions;
 using Yitter.IdGenerator;
-using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Attributes;
+using ZhonTai.Admin.Core.Auth;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Conventions;
@@ -46,21 +50,17 @@ using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Core.Extensions;
 using ZhonTai.Admin.Core.Filters;
+using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.Handlers;
+using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Core.RegisterModules;
 using ZhonTai.Admin.Core.Startup;
-using ZhonTai.Admin.Core.Middlewares;
 using ZhonTai.Admin.Resources;
 using ZhonTai.Admin.Tools.Cache;
 using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using IP2Region.Net.Abstractions;
-using IP2Region.Net.XDB;
-using ProtoBuf.Grpc.Server;
-using ZhonTai.Admin.Core.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using ZhonTai.Admin.Core.GrpcServices;
 
 namespace ZhonTai.Admin.Core;
 
@@ -678,10 +678,15 @@ public class HostApp
                 };
                 if (appConfig.ApiUI.Footer.Enable)
                 {
-                    server.Extensions.Add("extensions", new OpenApiObject
-                    {
-                        ["copyright"] = new OpenApiString(appConfig.ApiUI.Footer.Content)
-                    });
+                    server.Extensions.Add(
+                        "extensions", 
+                        new JsonNodeExtension(
+                            new JsonObject
+                            {
+                                ["copyright"] = appConfig.ApiUI.Footer.Content
+                            }
+                        )
+                    );
                 }
                 options.AddServer(server);
 
@@ -710,19 +715,9 @@ public class HostApp
                 if (appConfig.IdentityServer.Enable)
                 {
                     //添加Jwt验证设置
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
                     {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Id = "oauth2",
-                                    Type = ReferenceType.SecurityScheme
-                                }
-                            },
-                            new List<string>()
-                        }
+                        [new OpenApiSecuritySchemeReference("bearer", document)] = []
                     });
 
                     //统一认证
@@ -747,19 +742,9 @@ public class HostApp
                 else
                 {
                     //添加Jwt验证设置
-                    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
                     {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Id = "Bearer",
-                                    Type = ReferenceType.SecurityScheme
-                                }
-                            },
-                            new List<string>()
-                        }
+                        [new OpenApiSecuritySchemeReference("bearer", document)] = []
                     });
 
                     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

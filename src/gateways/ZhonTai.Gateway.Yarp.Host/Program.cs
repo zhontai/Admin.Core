@@ -55,8 +55,13 @@ app.MapGet("/", async (HttpResponse response) =>
 {
     var gatewayConfig = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>();
     var moduleList = gatewayConfig?.ModuleList;
-
-    var html = $"<html><body>";
+    var html = $"""
+    <html>
+    <head>
+        <title>中台网关</title>
+    </head>
+    <body>
+    """;
     if (moduleList?.Count > 0)
     {
         moduleList.ForEach(m =>

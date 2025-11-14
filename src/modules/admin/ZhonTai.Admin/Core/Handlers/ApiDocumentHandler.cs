@@ -53,8 +53,8 @@ public class ApiDocumentHandler : IApiDocumentHandler
                         var apiSyncDto = new ApiSyncModel()
                         {
                             Path = path.Key,
-                            ParentPath = openApiOperation.Value.Tags[0].Name,
-                            HttpMethods = openApiOperation.Key.ToDescriptionOrString().ToLower(),
+                            ParentPath = openApiOperation.Value.Tags.First().Name,
+                            HttpMethods = openApiOperation.Key.Method.ToLower(),
                             Label = openApiOperation.Value.Summary
                         };
                         apis.Add(apiSyncDto);

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Concurrent;
 using ZhonTai.DynamicApi.Attributes;
@@ -30,6 +30,6 @@ public class OrderTagsDocumentFilter : IDocumentFilter
         swaggerDoc.Tags = swaggerDoc.Tags
                                     .OrderBy(u => orderTagList.TryGetValue(u.Name, out int order) ? order : 0)
                                     .ThenBy(u => u.Name)
-                                    .ToArray();
+                                    .ToHashSet();
     }
 }

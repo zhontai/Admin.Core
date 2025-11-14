@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using ZhonTai.Common.Extensions;
 
@@ -9,7 +9,7 @@ namespace ZhonTai.Admin.Core.Filters;
 /// </summary>
 public class EnumSchemaFilter : ISchemaFilter
 {
-    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    public void Apply(IOpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;
         if (type.IsEnum)

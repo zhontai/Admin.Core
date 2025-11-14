@@ -47,9 +47,9 @@
       "enableAutoSync": false,
       "projects": [
         {
-          "name": "中台Admin",
+          "name": "中台Admin权限管理",
           "code": "admin",
-          "version": "v9.2.0",
+          "version": "v10.0.0",
           "description": ""
         }
       ]

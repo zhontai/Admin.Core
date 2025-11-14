@@ -27,14 +27,15 @@
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="Cronos" Version="0.11.1" />
 		<PackageReference Include="DotNetCore.CAP" Version="8.4.1" />
-		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
-		<PackageReference Include="FreeRedis" Version="1.5.1" />
-		<PackageReference Include="FreeRedis.DistributedCache" Version="1.5.1" />
-		<PackageReference Include="FreeSql" Version="3.5.215" />
+		<PackageReference Include="FluentValidation" Version="12.1.0" />
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
+		<PackageReference Include="FreeRedis" Version="1.5.2" />
+		<PackageReference Include="FreeRedis.DistributedCache" Version="1.5.2" />
+		<PackageReference Include="FreeSql" Version="3.5.303" />
 		<PackageReference Include="FreeSql.Cloud" Version="2.0.1" />
-		<PackageReference Include="FreeSql.Repository" Version="3.5.215" />
-		<PackageReference Include="FreeScheduler" Version="2.0.37" />
-		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Repository" Version="3.5.303" />
+		<PackageReference Include="FreeScheduler" Version="2.1.2" />
+		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.303" />
 		<PackageReference Include="FreeIM" Version="2.0.4" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.71.0" />
@@ -45,29 +46,24 @@
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.7.6" />
 		<PackageReference Include="MailKit" Version="4.14.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.0" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="3.4.0" />
-		<PackageReference Include="NLog" Version="6.0.5" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="6.0.5" />
+		<PackageReference Include="NLog" Version="6.0.6" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="6.1.0" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore.Reflection" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
+		<PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Endpoints" Version="1.5.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
-		<PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+		<PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0.3" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
-		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
 	</ItemGroup>
 
 	<ItemGroup>

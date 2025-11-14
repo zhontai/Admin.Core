@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
 		<Description>中台开发接口宿主</Description>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,7 +24,7 @@
 		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="8.4.1" />
 		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.4.1" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.303" />
 		<PackageReference Include="ZhonTai.ApiUI" Version="9.2.0" />
 	</ItemGroup>
 	
