@@ -127,7 +127,7 @@
         //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
         //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
-        "connectionString": "Data Source=E:\\zhontai\\Admin.Core\\src\\modules\\admin\\ZhonTai.Admin.Host\\bin\\Debug\\net9.0\\admindb.db; Pooling=true;Min Pool Size=1"
+        "connectionString": "Data Source=E:\\zhontai\\Admin.Core\\src\\modules\\admin\\ZhonTai.Admin.Host\\bin\\Debug\\net10.0\\admindb.db; Pooling=true;Min Pool Size=1"
       }
     ]
   }
