@@ -25,7 +25,7 @@
 		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="8.4.1" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
 		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.303" />
-		<PackageReference Include="ZhonTai.ApiUI" Version="10.0.0-preview25111401" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="10.0.0" />
 	</ItemGroup>
 	
 	<ItemGroup>

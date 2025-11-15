@@ -3,7 +3,7 @@
 		<Description>MyApp接口库</Description>
 		<Version>1.0.0</Version>
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>

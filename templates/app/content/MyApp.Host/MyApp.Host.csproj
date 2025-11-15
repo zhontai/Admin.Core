@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
 		<Description>MyApp接口宿主</Description>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,36 +32,36 @@
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="8.2.1" />
 		<!--#endif -->
 		<!--#if (DbType == "MySql") -->
-		<PackageReference Include="FreeSql.Provider.MySql" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.MySql" Version="3.5.303" />
 		<!--#elseif (DbType == "SqlServer") -->
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.5.303" />
 		<!--#elseif (DbType == "PostgreSQL") -->
-		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.PostgreSQL" Version="3.5.303" />
 		<!--#elseif (DbType == "Oracle") -->
-		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Oracle" Version="3.5.303" />
 		<!--#elseif (DbType == "Firebird") -->
-		<PackageReference Include="FreeSql.Provider.Firebird" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Firebird" Version="3.5.303" />
 		<!--#elseif (DbType == "MsAccess") -->
-		<PackageReference Include="FreeSql.Provider.MsAccess" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.MsAccess" Version="3.5.303" />
 		<!--#elseif (DbType == "Dameng") -->
-		<PackageReference Include="FreeSql.Provider.Dameng" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Dameng" Version="3.5.303" />
 		<!--#elseif (DbType == "ShenTong") -->
-		<PackageReference Include="FreeSql.Provider.ShenTong" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.ShenTong" Version="3.5.303" />
 		<!--#elseif (DbType == "KingbaseES") -->
-		<PackageReference Include="FreeSql.Provider.KingbaseES" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.KingbaseES" Version="3.5.303" />
 		<!--#elseif (DbType == "GBase") -->
-		<PackageReference Include="FreeSql.Provider.GBase" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.GBase" Version="3.5.303" />
 		<!--#elseif (DbType == "ClickHouse") -->
-		<PackageReference Include="FreeSql.Provider.ClickHouse" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.ClickHouse" Version="3.5.303" />
 		<!--#elseif (DbType == "QuestDb") -->
-		<PackageReference Include="FreeSql.Provider.QuestDb" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.QuestDb" Version="3.5.303" />
 		<!--#elseif (DbType == "Xugu") -->
-		<PackageReference Include="FreeSql.Provider.Xugu" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Xugu" Version="3.5.303" />
 		<!--#else -->
-		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.215" />
+		<PackageReference Include="FreeSql.Provider.Sqlite" Version="3.5.303" />
 		<!--#endif -->
 		<!--#if (!NoApiUI) -->
-		<PackageReference Include="ZhonTai.ApiUI" Version="9.2.0" />
+		<PackageReference Include="ZhonTai.ApiUI" Version="10.0.0" />
 		<!--#endif -->
 	</ItemGroup>
 	
