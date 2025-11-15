@@ -36,6 +36,9 @@ builder.Services.AddReverseProxy()
 
 var app = builder.Build();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 
 //使用跨域
@@ -59,6 +62,7 @@ app.MapGet("/", async (HttpResponse response) =>
     <html>
     <head>
         <title>中台网关</title>
+        <link rel="icon" href="favicon.ico">
     </head>
     <body>
     """;

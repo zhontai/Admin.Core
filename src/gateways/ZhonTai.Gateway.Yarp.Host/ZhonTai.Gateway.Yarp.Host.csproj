@@ -12,4 +12,10 @@
 		<PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="6.0.5" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\favicon.ico">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 </Project>
