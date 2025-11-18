@@ -1210,7 +1210,6 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
     [AllowAnonymous]
     public async Task<TokenInfo> Refresh([BindRequired] string token)
     {
-        Thread.Sleep(3000);
         var jwtSecurityToken = _userToken.Decode(token);
         var userClaims = jwtSecurityToken?.Claims?.ToArray();
         if (userClaims == null || userClaims.Length == 0)
