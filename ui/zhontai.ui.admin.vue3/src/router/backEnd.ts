@@ -3,7 +3,7 @@ import pinia from '/@/stores/index'
 import { useUserInfo } from '/@/stores/userInfo'
 import { useRequestOldRoutes } from '/@/stores/requestOldRoutes'
 import { NextLoading } from '/@/utils/loading'
-import { dynamicRoutes, notFoundAndNoPower, commonRoutes } from '/@/router/route'
+import { dynamicRoutes, notFoundAndNoPower, commonRoutes, exampleRoutes } from '/@/router/route'
 import { formatTwoStageRoutes, formatFlatteningRoutes, router } from '/@/router/index'
 import { useRoutesList } from '/@/stores/routesList'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
@@ -47,7 +47,8 @@ export async function initBackEndControlRoutes() {
   useRequestOldRoutes().setRequestOldRoutes(JSON.parse(JSON.stringify(menus)))
   // 处理路由（component），替换 dynamicRoutes（/@/router/route）第一个顶级 children 的路由
   const routes = await backEndComponent(menus)
-  dynamicRoutes[0].children?.unshift(...routes, ...commonRoutes)
+
+  dynamicRoutes[0].children = import.meta.env.PROD ? [...routes, ...commonRoutes] : [...routes, ...commonRoutes, ...exampleRoutes]
 
   // 添加动态路由
   await setAddRoute()

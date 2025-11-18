@@ -101,7 +101,7 @@ const initMenuFixed = (clientWidth: number) => {
   state.clientWidth = clientWidth
 }
 // 鼠标移入、移出
-const onAsideEnterLeave = (bool: Boolean) => {
+const onAsideEnterLeave = (bool: boolean) => {
   let { layout } = themeConfig.value
   if (layout !== 'columns') return false
   if (!bool) mittBus.emit('restoreDefault')

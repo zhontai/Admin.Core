@@ -5,6 +5,7 @@
     <Setings ref="setingsRef" v-show="getLockScreen" />
     <CloseFull v-if="!themeConfig.isLockScreen" />
     <Upgrade v-if="getVersion" />
+    <!-- <LoginDialog /> -->
   </el-config-provider>
 </template>
 
@@ -22,6 +23,7 @@ const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index
 const Setings = defineAsyncComponent(() => import('/@/layout/navBars/topBar/setings.vue'))
 const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/closeFull.vue'))
 const Upgrade = defineAsyncComponent(() => import('/@/layout/upgrade/index.vue'))
+// const LoginDialog = defineAsyncComponent(() => import('/@/views/admin/login/dialog.vue'))
 
 // 定义变量内容
 const setingsRef = useTemplateRef('setingsRef')

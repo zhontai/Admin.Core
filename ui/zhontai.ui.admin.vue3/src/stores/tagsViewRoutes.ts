@@ -14,7 +14,7 @@ export const useTagsViewRoutes = defineStore('tagsViewRoutes', {
     async setTagsViewRoutes(data: Array<string>) {
       this.tagsViewRoutes = data
     },
-    setCurrenFullscreen(bool: Boolean) {
+    setCurrenFullscreen(bool: boolean) {
       Session.set('isTagsViewCurrenFull', bool)
       this.isTagsViewCurrenFull = bool
     },

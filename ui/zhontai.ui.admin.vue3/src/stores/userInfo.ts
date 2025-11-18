@@ -1,9 +1,11 @@
 import { AuthApi } from '/@/api/admin/Auth'
-import { merge } from 'lodash-es'
+import { merge, debounce } from 'lodash-es'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import Watermark from '/@/utils/watermark'
 import { TokenInfo } from '/@/api/admin/data-contracts'
+import router from '/@/router'
+import modal from '/@/globalProperties/modal'
 
 export const adminTokenKey = 'admin-token'
 export const adminTokenInfoKey = 'admin-token-info'
@@ -21,6 +23,7 @@ export const useUserInfo = defineStore('userInfo', {
       time: 0,
       roles: [],
       authBtnList: [],
+      showLoginDialog: false, // 控制登录弹窗的显示
     },
   }),
   actions: {
@@ -57,10 +60,31 @@ export const useUserInfo = defineStore('userInfo', {
       this.userInfos.token = ''
       Local.remove(adminTokenInfoKey)
     },
-    clear() {
-      this.removeTokenInfo()
-      window.requests = []
-      window.location.reload()
+    // 使用 debounce 包装 clear 方法，防止重复调用
+    clear: debounce(
+      function (this: any) {
+        this.removeTokenInfo()
+        window.requests = []
+        modal.closeLoading()
+        const route = router.currentRoute.value
+        if (route.path === '/login') {
+          return
+        }
+        router.replace({
+          path: `/login`,
+          query: { redirect: route.path, params: JSON.stringify(route.query ? route.query : route.params) },
+        })
+      },
+      300,
+      { leading: true, trailing: false }
+    ),
+    // 显示登录弹窗
+    showLogin() {
+      this.userInfos.showLoginDialog = true
+    },
+    // 隐藏登录弹窗
+    hideLogin() {
+      this.userInfos.showLoginDialog = false
     },
     //查询用户信息
     async getUserInfo() {

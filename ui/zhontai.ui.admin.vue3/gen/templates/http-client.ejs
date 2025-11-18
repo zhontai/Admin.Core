@@ -5,6 +5,7 @@ const { apiConfig, generateResponses, config } = it;
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType, RawAxiosRequestHeaders } from 'axios'
 import { ElLoading, ElMessage, LoadingOptions } from 'element-plus'
 import { useUserInfo } from '/@/stores/userInfo'
+import { AuthApi } from '/@/api/admin/Auth'
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -63,6 +64,8 @@ const loadingInstance: LoadingInstance = {
   target: null,
   count: 0,
 }
+
+const apiWhiteList = ['/api/admin/auth/refresh']
 
 export class HttpClient<SecurityDataType = unknown> {
     public instance: AxiosInstance;
@@ -188,69 +191,6 @@ export class HttpClient<SecurityDataType = unknown> {
        ElMessage.error({ message, grouping: true })
      }
    }
- 
-    /**
-    * 刷新token接口
-    * @param string  refreshToken
-    */
-    protected async refreshApi(refreshToken: string) {
-      return this.request<AxiosResponse, any>({
-        path: `/api/admin/auth/refresh`,
-        method: 'GET',
-        secure: true,
-        format: 'json',
-        login: false,
-        query: {
-          token: refreshToken,
-        },
-      })
-    }
-
-    /**
-    * 刷新token
-    * @param {*} config
-    */
-    protected async refreshToken(config: any) {
-      const storesUseUserInfo = useUserInfo()
-      const token = storesUseUserInfo.getToken()
-      if (!token) {
-        storesUseUserInfo.clear()
-        return Promise.reject(config)
-      }
-
-      if (window.tokenRefreshing) {
-        window.requests = window.requests ? window.requests : []
-        return new Promise((resolve) => {
-          window.requests.push(() => {
-            resolve(this.instance(config))
-          })
-        })
-      }
-
-      window.tokenRefreshing = true
-
-      return this.refreshApi(token)
-        .then((res) => {
-          if (res?.success) {
-            storesUseUserInfo.setTokenInfo(res.data)
-            if (window.requests?.length > 0) {
-              window.requests.forEach((apiRequest) => apiRequest())
-              window.requests = []
-            }
-            return this.instance(config)
-          } else {
-            storesUseUserInfo.clear()
-            return Promise.reject(res)
-          }
-        })
-        .catch((error) => {
-          storesUseUserInfo.clear()
-          return Promise.reject(error)
-        })
-        .finally(() => {
-          window.tokenRefreshing = false
-        })
-    }
 
     /**
     * 储存每个请求的唯一cancel回调, 以此为标识
@@ -336,7 +276,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
         // 请求拦截
         this.instance.interceptors.request.use(
-          async (config) => {
+          (config) => {
             this.removePending(config)
             cancelRepeatRequest && this.addPending(config)
 
@@ -350,54 +290,62 @@ export class HttpClient<SecurityDataType = unknown> {
             const storesUseUserInfo = useUserInfo()
             const tokenInfo = storesUseUserInfo.getTokenInfo()
 
+            const isApiWhite = apiWhiteList.some((item) => config.url.includes(item))
+            if (isApiWhite) {
+              return config
+            }
+
             if (tokenInfo && tokenInfo.accessToken) {
               // 判断 accessToken 是否快失效
               const now = new Date().getTime()
               const expiresAt = new Date(tokenInfo.accessTokenExpiresAt).getTime()
-              const maxThreshold = tokenInfo.accessTokenLifeTime * 0.5
+              const maxThreshold = tokenInfo.accessTokenLifeTime * 1000 * 0.5
               // 确保阈值不超过 5 分钟且不超过 accessTokenLifeTime 的一半
               const threshold = Math.min(5 * 60 * 1000, maxThreshold)
               if (expiresAt - now < threshold) {
-                //加锁
+                // 如果正在刷新，则将当前请求加入等待队列
                 if (!window.tokenRefreshing) {
+                  //加锁
                   window.tokenRefreshing = true
-                  try {
-                    const res = await this.refreshApi(tokenInfo.accessToken)
-                    if (res?.success) {
-                      storesUseUserInfo.setTokenInfo(res.data)
-                      //处理等待队列中的请求
-                      if (window.requests?.length > 0) {
-                        window.requests.forEach((apiRequest) => apiRequest())
-                        window.requests = []
+
+                  new AuthApi()
+                    .refresh({ token: tokenInfo.accessToken }, { login: false })
+                    .then((res) => {
+                      if (res?.success) {
+                        storesUseUserInfo.setTokenInfo(res.data)
+                        //处理等待队列中的请求
+                        if (window.requests?.length > 0) {
+                          window.requests.forEach((apiRequest) => apiRequest(res.data.accessToken))
+                          window.requests = []
+                        }
+                      } else {
+                        storesUseUserInfo.clear()
                       }
-                    } else {
-                      storesUseUserInfo.clear()
-                      return Promise.reject(res)
-                    }
-                  } catch (error) {
-                    // 清空等待队列
-                    window.requests = []
-                    return Promise.reject(error)
-                  } finally {
-                    // 解锁
-                    window.tokenRefreshing = false
-                  }
-                } else {
-                  // 如果正在刷新，则将当前请求加入等待队列
-                  if (config.url !== '/api/admin/auth/refresh') {
-                    window.requests = window.requests ? window.requests : []
-                    return new Promise((resolve) => {
-                      window.requests.push(() => {
-                        resolve(this.instance(config))
-                      })
                     })
-                  }
+                    .catch((error) => {})
+                    .finally(() => {
+                      // 清空等待队列
+                      window.requests = []
+                      // 解锁
+                      window.tokenRefreshing = false
+                    })
                 }
+
+                window.requests = window.requests ? window.requests : []
+                return new Promise((resolve) => {
+                  window.requests.push((token) => {
+                    config.headers!['Authorization'] = `Bearer ${token}`
+                    resolve(config)
+                  })
+                })
               }
             }
 
-            const accessToken = storesUseUserInfo.getToken()
-            config.headers!['Authorization'] = `Bearer ${accessToken}`
+            if (login && !isApiWhite) {
+              const accessToken = storesUseUserInfo.getToken()
+              config.headers!['Authorization'] = `Bearer ${accessToken}`
+            }
+
             return config
           },
           (error) => {
@@ -407,7 +355,7 @@ export class HttpClient<SecurityDataType = unknown> {
         // 响应拦截
         this.instance.interceptors.response.use(
           (res) => {
-            this.removePending(res.config)
+            cancelRepeatRequest && res.config && this.removePending(res.config)
             loading && this.closeLoading(loading)
 
             if (res.config?.responseType == 'blob') {
@@ -423,18 +371,17 @@ export class HttpClient<SecurityDataType = unknown> {
               if (showErrorMessage) {
                 ElMessage.error({ message: data.msg ? data.msg : '操作失败', grouping: true })
               }
-              // return Promise.reject(res)
             }
 
             return res
           },
-          async (error) => {
-            error.config && this.removePending(error.config)
+          (error) => {
+            cancelRepeatRequest && error.config && this.removePending(error.config)
             loading && this.closeLoading(loading)
 
-            //刷新token
             if (login && error?.response?.status === 401) {
-              return this.refreshToken(error.config)
+              const storesUseUserInfo = useUserInfo()
+              storesUseUserInfo.clear()
             }
 
             //错误处理

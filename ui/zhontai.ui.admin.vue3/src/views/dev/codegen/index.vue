@@ -269,7 +269,7 @@ const getTables = async () => {
 const getConfigs = async () => {
   // state.filter.config = null
   state.dataLoading = true
-  const res = await new CodeGenApi().getList({ dbkey: state.filter.dbKey, tableName: state.filter.tableName })
+  const res = await new CodeGenApi().getList({ dbkey: state.filter.dbKey, tableName: state.filter.tableName }).catch(() => {})
   state.configs = res?.data ?? []
   state.dataLoading = false
 }

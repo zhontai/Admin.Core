@@ -56,6 +56,9 @@ import { ComponentType } from '/@/api/admin.extend/enum-contracts'
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const loginComponentName = defineModel('loginComponentName', { type: String })
 const accountType = defineModel('accountType', { type: Number })
+const isPopup = defineModel('isPopup', { type: Boolean, default: false })
+
+const emits = defineEmits(['ok'])
 
 const { t } = useI18n()
 const route = useRoute()
@@ -132,23 +135,27 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
     useUserInfo().removeTokenInfo()
     Session.clear()
   } else {
-    // 初始化登录成功时间问候语
-    let currentTimeInfo = currentTime.value
-    // 登录成功，跳到转首页
-    // 如果是复制粘贴的路径，非首页/登录页，那么登录成功后重定向到对应的路径中
-    if (route.query?.redirect) {
-      router.push({
-        path: <string>route.query?.redirect,
-        query: Object.keys(<string>route.query?.params).length > 0 ? JSON.parse(<string>route.query?.params) : '',
-      })
+    if (isPopup.value) {
+      emits('ok')
     } else {
-      router.push('/')
+      // 初始化登录成功时间问候语
+      let currentTimeInfo = currentTime.value
+      // 登录成功，跳到转首页
+      // 如果是复制粘贴的路径，非首页/登录页，那么登录成功后重定向到对应的路径中
+      if (route.query?.redirect) {
+        router.push({
+          path: <string>route.query?.redirect,
+          query: Object.keys(<string>route.query?.params).length > 0 ? JSON.parse(<string>route.query?.params) : '',
+        })
+      } else {
+        router.push('/')
+      }
+      // 登录成功提示
+      const signInText = t('message.signInText')
+      ElMessage.success(`${currentTimeInfo}，${signInText}`)
+      // 添加 loading，防止第一次进入界面时出现短暂空白
+      NextLoading.start()
     }
-    // 登录成功提示
-    const signInText = t('message.signInText')
-    ElMessage.success(`${currentTimeInfo}，${signInText}`)
-    // 添加 loading，防止第一次进入界面时出现短暂空白
-    NextLoading.start()
   }
   state.loading.signIn = false
 }
