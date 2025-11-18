@@ -38,7 +38,15 @@
         </div>
         <div></div>
       </div>
-      <el-table :data="state.configs" highlight-current-row ref="listTableRef" @row-dblclick="modifyConfig" @selection-change="selsChange" border>
+      <el-table
+        v-loading="state.loading"
+        :data="state.configs"
+        highlight-current-row
+        ref="listTableRef"
+        @row-dblclick="modifyConfig"
+        @selection-change="selsChange"
+        border
+      >
         <el-table-column type="selection" width="50" align="center" header-align="center" />
         <el-table-column prop="tableName" label="表名称" width="200" fixed show-overflow-tooltip></el-table-column>
         <el-table-column prop="entityName" label="实体名" width="180" fixed show-overflow-tooltip></el-table-column>
@@ -185,7 +193,7 @@ const state = reactive({
 
   dbTree: [] as Array<DbTree>,
   // 状态器定义
-  dataLoading: false,
+  loading: false,
   dbStructShow: false,
   sels: [] as Array<CodeGenGetOutput>,
   importConfigs: [] as Array<any>,
@@ -226,19 +234,17 @@ const genDefaultConfig = (): CodeGenUpdateInput => {
   }
 }
 const getBaseData = async () => {
-  state.dataLoading = true
   const res = await new CodeGenApi().getBaseData()
   state.dbKeys = res?.data?.databases ?? []
   delete res?.data?.databases
   state.defaultOption = res?.data
-  state.dataLoading = false
 }
 const getTables = async () => {
   if (!state.filter.dbKey) {
     proxy.$modal.msgWarning('请选择数据库')
     return
   }
-  const res = await new CodeGenApi().getTables({ dbkey: state.filter.dbKey })
+  const res = await new CodeGenApi().getTables({ dbkey: state.filter.dbKey }, { loading: true })
   state.dbStructShow = true
 
   let dbTree: DbTree[] = []
@@ -267,11 +273,10 @@ const getTables = async () => {
   state.dbTree = dbTree
 }
 const getConfigs = async () => {
-  // state.filter.config = null
-  state.dataLoading = true
+  state.loading = true
   const res = await new CodeGenApi().getList({ dbkey: state.filter.dbKey, tableName: state.filter.tableName }).catch(() => {})
   state.configs = res?.data ?? []
-  state.dataLoading = false
+  state.loading = false
 }
 
 const configSelect = async (row: CodeGenGetOutput, column: any, event: any) => {
@@ -434,9 +439,9 @@ const genType = (t: number) => {
   return t
 }
 
-onMounted(() => {
-  getBaseData()
-  getConfigs()
+onMounted(async () => {
+  await getBaseData()
+  await getConfigs()
   eventBus.on('onConfigEditSure', async (config: CodeGenUpdateInput) => {
     onConfigEditSure(config)
   })
