@@ -13,7 +13,7 @@
     </el-splitter-panel>
     <el-splitter-panel>
       <div class="my-flex-column w100 h100">
-        <el-card class="mt8 my-fill" shadow="never" :body-style="{ paddingBottom: '0' }">
+        <el-card v-loading="state.loading" class="mt8 my-fill" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form label-position="top">
             <el-form-item label="生成路径">
               <el-input type="text" v-model="state.previewData.path"></el-input>
