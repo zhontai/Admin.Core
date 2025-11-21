@@ -8,7 +8,7 @@ public class AppSettings
     /// <summary>
     /// 使用配置中心
     /// </summary>
-    public bool UseConfigCenter { get; set; } = false;
+    public bool UseConfigCenter { get; set; } = true;
 
     /// <summary>
     /// 配置中心路径
