@@ -1,6 +1,7 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using ZhonTai.Common.Converters;
 
 namespace ZhonTai.Common.Helpers;
@@ -37,6 +38,7 @@ public class JsonHelper
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             //格式化输出
             WriteIndented = true,
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
             //自定义转换器
             Converters =
             {
