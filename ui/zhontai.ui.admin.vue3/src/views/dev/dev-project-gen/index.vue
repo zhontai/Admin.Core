@@ -249,8 +249,8 @@ const genCode = async (row: DevProjectGenGetOutput) => {
     .down(
       { projectId: row.projectId, groupIds: row.groupIds_Values?.map((s) => Number(s)) },
       {
-        loading: false,
-        showErrorMessage: false,
+        loading: true,
+        showErrorMessage: true,
         format: 'blob',
       }
     )
@@ -260,5 +260,6 @@ const genCode = async (row: DevProjectGenGetOutput) => {
       a.download = '源码.zip'
       a.click()
     })
+    .catch(() => {})
 }
 </script>

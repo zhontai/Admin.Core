@@ -38,6 +38,7 @@ public class JsonHelper
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             //格式化输出
             WriteIndented = true,
+            //元数据处理器
             TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
             //自定义转换器
             Converters =
