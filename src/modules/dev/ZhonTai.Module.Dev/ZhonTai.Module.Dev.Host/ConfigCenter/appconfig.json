@@ -47,7 +47,7 @@
         {
           "name": "中台开发管理",
           "code": "dev",
-          "version": "v10.0.0",
+          "version": "v10.0.1",
           "description": "ZhonTai.Module.Dev"
         }
       ]

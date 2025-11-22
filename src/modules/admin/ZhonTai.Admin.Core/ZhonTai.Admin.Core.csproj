@@ -34,7 +34,7 @@
 		<PackageReference Include="FreeSql" Version="3.5.303" />
 		<PackageReference Include="FreeSql.Cloud" Version="2.0.1" />
 		<PackageReference Include="FreeSql.Repository" Version="3.5.303" />
-		<PackageReference Include="FreeScheduler" Version="2.1.2" />
+		<PackageReference Include="FreeScheduler" Version="2.1.3" />
 		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.303" />
 		<PackageReference Include="FreeIM" Version="2.0.4" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
@@ -58,7 +58,7 @@
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore.Reflection" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
 		<PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Endpoints" Version="1.5.0" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
 		<PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.0.1" />
 		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0.3" />
