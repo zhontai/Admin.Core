@@ -36,7 +36,6 @@
 
 - Admin.Core 在线体验地址 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
   账号：user
-  
   密码：123asd
 
 #### 📚 开发文档
