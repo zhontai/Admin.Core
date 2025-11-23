@@ -3,7 +3,7 @@
 	<h3>前后端分离后台权限管理系统</h3>
 	<p align="center">
 		<a href="https://learn.microsoft.com/zh-cn/aspnet/core/introduction-to-aspnet-core" target="_blank">
-			<img src="https://img.shields.io/badge/.Net-8.x-green" alt=".Net">
+			<img src="https://img.shields.io/badge/.NET-10.x-green" alt=".Net">
 		</a>
 		<a href="https://freesql.net" target="_blank">
 			<img src="https://img.shields.io/nuget/v/FreeSql?label=FreeSql&color=blue" alt="FreeSql">
@@ -30,12 +30,14 @@
 
 #### 🌈 介绍
 
-基于 .Net9.0 + FreeSql 全家桶 + Autofac + Mapster + CAP 等技术，前后端分离后台权限管理系统。想你所想的开发理念，帮助大家快速上手开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据到数据库中。启动项目使用新版 swagger 接口文档查看接口请求参数和响应数据。
+基于 .NET 10.0 + FreeSql 全家桶 + Autofac + Mapster + CAP 等技术，前后端分离后台权限管理系统。想你所想的开发理念，帮助大家快速上手开发。基于 FreeSql Orm 开发，支持国内外主流数据库、读写分离、分表分库、分布式事务 TCC/ SAGA 等功能。启动项目即自动生成数据库，CodeFirst 模式支持从实体配置自动同步表结构和权限数据到数据库中。启动项目使用新版 swagger 接口文档查看接口请求参数和响应数据。
 
 #### ⛱️ 线上预览
 
-- Admin.Core v3 版本预览 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
-  账号：user 密码：123asd
+- Admin.Core 在线体验地址 <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
+  账号：user
+  
+  密码：123asd
 
 #### 📚 开发文档
 
@@ -70,7 +72,7 @@
 
 #### ⚡ 使用说明
 
-> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net 版本 >= 9.0+</a>
+> 使用 .Net 最新版本 <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.NET 版本 >= 10.0+</a>
 
 - 使用项目源码新建项目
 

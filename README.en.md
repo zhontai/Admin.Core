@@ -3,7 +3,7 @@
 	<h3>Front-End and Back-End Separated Backend Permission Management System</h3>
 	<p align="center">
 		<a href="https://learn.microsoft.com/zh-cn/aspnet/core/introduction-to-aspnet-core" target="_blank">
-			<img src="https://img.shields.io/badge/.Net-8.x-green" alt=".Net">
+			<img src="https://img.shields.io/badge/.NET-10.x-green" alt=".Net">
 		</a>
 		<a href="https://freesql.net" target="_blank">
 			<img src="https://img.shields.io/nuget/v/FreeSql?label=FreeSql&color=blue" alt="FreeSql">
@@ -30,12 +30,14 @@
 
 #### 🌈 Introduction
 
-A backend permission management system with frontend and backend separation, built on technologies such as .NET 9.0, FreeSql Suite, Autofac, Mapster, CAP, and more. It embraces a development philosophy that anticipates your needs, aiming to facilitate rapid development for everyone. Leveraging FreeSql ORM, it supports mainstream domestic and international databases, read-write separation, sharding, distributed transactions (TCC/SAGA), and other functionalities. Upon project initialization, the database is automatically generated. The CodeFirst mode enables automatic synchronization of table structures and permission data from entity configurations to the database. To explore the project, utilize the new version of Swagger API documentation to view interface request parameters and response data.
+A backend permission management system with frontend and backend separation, built on technologies such as .NET 10.0, FreeSql Suite, Autofac, Mapster, CAP, and more. It embraces a development philosophy that anticipates your needs, aiming to facilitate rapid development for everyone. Leveraging FreeSql ORM, it supports mainstream domestic and international databases, read-write separation, sharding, distributed transactions (TCC/SAGA), and other functionalities. Upon project initialization, the database is automatically generated. The CodeFirst mode enables automatic synchronization of table structures and permission data from entity configurations to the database. To explore the project, utilize the new version of Swagger API documentation to view interface request parameters and response data.
 
 #### ⛱️ Online preview
 
-- Admin.Core v3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
-  account：user password：123asd
+- Admin.Core vue3 version preview <a href="https://admin.zhontai.net/login" target="_blank">https://admin.zhontai.net</a>  
+  account：user
+  
+  password：123asd
 
 #### 📚 Development documentation
 
@@ -72,7 +74,7 @@ Here is the translated document with numbered items:
 
 #### ⚡ Usage instructions
 
-> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.Net version > 9.0+</a>
+> Using the latest version of .NET <a href="https://dotnet.microsoft.com/download/dotnet-core" target="_blank">.NET version > 10.0+</a>
 
 Create a new project using the source code of an existing project.
 
