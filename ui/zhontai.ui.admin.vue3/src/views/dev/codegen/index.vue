@@ -49,7 +49,7 @@
       >
         <el-table-column type="selection" width="50" align="center" header-align="center" />
         <el-table-column prop="tableName" label="表名称" width="200" fixed show-overflow-tooltip></el-table-column>
-        <el-table-column prop="entityName" label="实体名" width="180" fixed show-overflow-tooltip></el-table-column>
+        <el-table-column prop="entityName" label="实体名" width="180" show-overflow-tooltip></el-table-column>
         <el-table-column prop="namespace" label="命名空间" width="180" show-overflow-tooltip></el-table-column>
         <el-table-column prop="dbKey" label="数据库" width="100" show-overflow-tooltip></el-table-column>
         <el-table-column prop="busName" label="业务名" width="120" show-overflow-tooltip></el-table-column>
@@ -491,7 +491,7 @@ const importConfig = () => {
       })
     })
     .catch((v) => {
-      proxy.$modal.msgError('请先复制正确的配置')
+      proxy.$modal.msgWarning('请先复制正确的配置')
     })
 }
 

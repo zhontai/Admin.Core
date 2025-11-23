@@ -1,21 +1,15 @@
 <template>
   <el-card shadow="never" style="margin-top: 8px" body-style="padding:0px;" class="my-fill">
     <template #header>
-      <el-row justify="space-between" align="middle" :gutter="10">
-        <el-col :span="18">
-          <el-input v-model="state.filterText" placeholder="筛选模板" clearable />
-        </el-col>
-        <el-col :span="6">
-          <div @click.stop="displayTemplateStatus" :title="state.templateStatus ? '显示所有模板' : '隐藏未启用模板'" class="cursor-pointer">
-            <el-icon>
-              <ele-Hide v-if="state.templateStatus == null" />
-              <ele-View v-else />
-            </el-icon>
-          </div>
-        </el-col>
-      </el-row>
+      <div class="my-flex my-flex-items-center">
+        <el-input v-model="state.filterText" placeholder="筛选模板" clearable />
+        <el-icon class="cursor-pointer ml10" :title="state.templateStatus ? '显示所有模板' : '隐藏未启用模板'" @click.stop="displayTemplateStatus">
+          <ele-Hide v-if="state.templateStatus == null" />
+          <ele-View v-else />
+        </el-icon>
+      </div>
     </template>
-    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:var(--el-card-padding)">
+    <el-scrollbar v-loading="state.loading" height="100%" max-height="100%" :always="false" wrap-style="padding:10px">
       <el-tree
         ref="menuRef"
         :data="state.treeData"
