@@ -100,6 +100,7 @@ import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
 import { auth, auths, authAll } from '/@/utils/authFunction'
 import { useRoute, useRouter } from 'vue-router'
+import dayjs from 'dayjs'
 
 const route = useRoute()
 const router = useRouter()
@@ -257,7 +258,7 @@ const genCode = async (row: DevProjectGenGetOutput) => {
     .then((res) => {
       const a = document.createElement('a')
       a.href = URL.createObjectURL(res as Blob)
-      a.download = '源码.zip'
+      a.download = `${row.projectId_Text}源码${dayjs().format('YYYYMMDDHHmmss')}.zip`
       a.click()
     })
     .catch(() => {})
