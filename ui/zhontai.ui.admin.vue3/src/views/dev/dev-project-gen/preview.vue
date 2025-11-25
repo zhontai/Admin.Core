@@ -36,16 +36,6 @@ const GroupTemplateMenu = defineAsyncComponent(() => import('./components/dev-gr
 
 const route = useRoute()
 
-//权限配置
-const perms = {
-  add: 'api:dev:dev-template:add',
-  update: 'api:dev:dev-template:update',
-  delete: 'api:dev:dev-template:delete',
-  batDelete: 'api:dev:dev-template:batch-delete',
-  softDelete: 'api:dev:dev-template:soft-delete',
-  batSoftDelete: 'api:dev:dev-template:batch-soft-delete',
-}
-
 const state = reactive({
   loading: false,
   filter: {

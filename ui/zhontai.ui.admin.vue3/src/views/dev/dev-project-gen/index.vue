@@ -17,7 +17,7 @@
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-space wrap :size="12">
-            <el-button type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">新增</el-button>
+            <el-button v-if="auth(perms.add)" type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">新增</el-button>
             <el-dropdown :placement="'bottom-end'" v-if="auths([perms.batSoftDelete, perms.batDelete])">
               <el-button type="primary"
                 >批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon
@@ -59,8 +59,8 @@
         >
           <template #default="{ row }">
             <el-button v-auth="perms.update" icon="ele-EditPen" text type="primary" @click.stop="onEdit(row)">编辑</el-button>
-            <el-button v-auth="perms.update" icon="ele-View" text type="primary" @click.stop="onPreview(row)">预览</el-button>
-            <el-button v-auth="perms.update" icon="ele-Position" text type="primary" @click.stop="genCode(row)">生成</el-button>
+            <el-button v-auth="perms.preview" icon="ele-View" text type="primary" @click.stop="onPreview(row)">预览</el-button>
+            <el-button v-auth="perms.down" icon="ele-Download" text type="primary" @click.stop="genCode(row)">下载</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -98,11 +98,10 @@ import { DevProjectGenApi } from '/@/api/dev/DevProjectGen'
 import { DevProjectApi } from '/@/api/dev/DevProject'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
-import { auth, auths, authAll } from '/@/utils/authFunction'
-import { useRoute, useRouter } from 'vue-router'
+import { auth, auths } from '/@/utils/authFunction'
+import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 
-const route = useRoute()
 const router = useRouter()
 // 引入组件
 const DevProjectGenForm = defineAsyncComponent(() => import('./components/dev-project-gen-form.vue'))
@@ -120,9 +119,9 @@ const perms = {
   batDelete: 'api:dev:dev-project-gen:batch-delete',
   softDelete: 'api:dev:dev-project-gen:soft-delete',
   batSoftDelete: 'api:dev:dev-project-gen:batch-soft-delete',
+  preview: 'api:dev:dev-project-gen:preview',
+  down: 'api:dev:dev-project-gen:down',
 }
-
-const actionColWidth = authAll([perms.update, perms.softDelete]) || authAll([perms.update, perms.delete]) ? 140 : 75
 
 const state = reactive({
   loading: false,

@@ -21,7 +21,7 @@
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-space wrap :size="12">
-            <el-button type="primary" icon="ele-Plus" @click="createTable">创建表</el-button>
+            <el-button v-if="auth(perms.update)" type="primary" icon="ele-Plus" @click="createTable">创建表</el-button>
             <el-dropdown :placement="'bottom-end'">
               <el-button type="primary">
                 批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon>
@@ -30,7 +30,7 @@
                 <el-dropdown-menu>
                   <el-dropdown-item @click="exportConfig">复制选中配置到剪切板</el-dropdown-item>
                   <el-dropdown-item @click="importConfig">从剪切板导入配置</el-dropdown-item>
-                  <el-dropdown-item @click="batchGenCode">批量生成代码</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.batchGen)" @click="batchGenCode">批量生成代码</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -68,14 +68,14 @@
         <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
           <template #default="scope">
             <el-button icon="ele-EditPen" text type="primary" @click.stop="modifyConfig(scope.row)">编辑</el-button>
-            <my-dropdown-more @click.stop>
+            <my-dropdown-more v-if="auths([perms.gen, perms.compile, perms.genCompile, perms.genMenu, perms.delete])" @click.stop>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click.stop="generate(scope.row)">生成代码</el-dropdown-item>
-                  <el-dropdown-item @click.stop="compile(scope.row)">生成迁移SQL</el-dropdown-item>
-                  <el-dropdown-item @click.stop="genCompile(scope.row)">执行迁移到数据库</el-dropdown-item>
-                  <el-dropdown-item @click.stop="genMenu(scope.row)">生成菜单数据</el-dropdown-item>
-                  <el-dropdown-item @click.stop="onDelRow(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.gen)" @click.stop="generate(scope.row)">生成代码</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.compile)" @click.stop="compile(scope.row)">生成迁移SQL</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.genCompile)" @click.stop="genCompile(scope.row)">执行迁移到数据库</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.genMenu)" @click.stop="genMenu(scope.row)">生成菜单数据</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelRow(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -157,6 +157,7 @@ import { BaseDataGetOutput, DatabaseGetOutput, CodeGenGetOutput, CodeGenUpdateIn
 import { CodeGenApi } from '/@/api/dev/CodeGen'
 import eventBus from '/@/utils/mitt'
 import useClipboard from 'vue-clipboard3'
+import { auth, auths, authAll } from '/@/utils/authFunction'
 
 const { toClipboard } = useClipboard()
 // 引入组件
@@ -174,6 +175,17 @@ interface DbTree {
   children?: DbTree[] | null
 }
 const codegenFormRef = ref()
+
+//权限配置
+const perms = {
+  update: 'api:dev:code-gen:update',
+  delete: 'api:dev:code-gen:delete',
+  gen: 'api:dev:code-gen:generate',
+  batchGen: 'api:dev:code-gen:batch-generate',
+  compile: 'api:dev:code-gen:compile',
+  genCompile: 'api:dev:code-gen:gen-compile',
+  genMenu: 'api:dev:code-gen:gen-menu',
+}
 
 const state = reactive({
   filter: {
