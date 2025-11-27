@@ -1,14 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS publish
-WORKDIR /src
-COPY ["/MyApp.Host/MyApp.Host.csproj", "/MyApp.Host/MyApp.Host.csproj"]
-RUN dotnet restore "/MyApp.Host/MyApp.Host.csproj" -nowarn:NETSDK1138
-COPY . .
-WORKDIR "/src/MyApp.Host"
-ENV NUGET_XMLDOC_MODE none
-RUN dotnet publish "MyApp.Host.csproj" -nowarn:NETSDK1138 -c Release -o /app
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# 使用官方 ASP.NET Core 10.0 运行时镜像
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS publish
+# 设置工作目录为 /app
 WORKDIR /app
-COPY --from=publish /app .
-EXPOSE 8000
+# 暴露容器端口 16010
+EXPOSE 16010
+# 将构建上下文（通常是项目目录）中的所有文件复制到容器的 /app 目录
+COPY . .
+# 设置容器时区为亚洲/上海（UTC+8）
+ENV TZ=Asia/Shanghai
+# 设置容器启动时执行的命令：运行 MyApp.Host.dll 文件
 ENTRYPOINT ["dotnet", "MyApp.Host.dll"]
