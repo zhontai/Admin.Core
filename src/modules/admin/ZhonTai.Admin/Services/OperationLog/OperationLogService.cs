@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DotNetCore.CAP;
+using IP2Region.Net.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
 using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Core.Records;
 using ZhonTai.Admin.Domain.OperationLog;
+using ZhonTai.Admin.Services.Api.Dto;
 using ZhonTai.Admin.Services.OperationLog.Dto;
+using ZhonTai.Common.Helpers;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
-using DotNetCore.CAP;
-using ZhonTai.Admin.Services.Api.Dto;
 
 namespace ZhonTai.Admin.Services.OperationLog;
 
@@ -76,6 +80,26 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     }
 
     /// <summary>
+    /// 获得IP地址
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    private LocationInfo GetIpLocationInfo(string ip)
+    {
+        var locationInfo = new LocationInfo();
+        if (_appConfig.IP2Region.Enable)
+        {
+            if (IPHelper.IsIP(ip))
+            {
+                var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
+                locationInfo = LocationInfo.Parse(region);
+            }
+        }
+
+        return locationInfo;
+    }
+
+    /// <summary>
     /// 新增
     /// </summary>
     /// <param name="input"></param>
@@ -83,6 +107,27 @@ public class OperationLogService : BaseService, IOperationLogService, IDynamicAp
     [CapSubscribe(SubscribeNames.OperationLogAdd)]
     public async Task<long> AddAsync(OperationLogAddInput input)
     {
+        // 获取IP地址信息
+        if (input.IP.NotNull())
+        {
+            var locationInfo = GetIpLocationInfo(input.IP);
+            input.Country = locationInfo?.Country;
+            input.Province = locationInfo?.Province;
+            input.City = locationInfo?.City;
+            input.Isp = locationInfo?.Isp;
+        }
+
+        // 解析浏览器信息
+        if (input.BrowserInfo.NotNull())
+        {
+            var client = UAParser.Parser.GetDefault().Parse(input.BrowserInfo);
+            var device = client.Device.Family;
+            device = device.ToLower() == "other" ? "" : device;
+            input.Browser = client.UA.Family;
+            input.Os = client.OS.Family;
+            input.Device = device;
+        }
+
         var entity = Mapper.Map<OperationLogEntity>(input);
         await _operationLogRep.InsertAsync(entity);
 

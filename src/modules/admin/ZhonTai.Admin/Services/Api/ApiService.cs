@@ -171,6 +171,7 @@ public class ApiService : BaseService, IApiService, IDynamicApi
 
         await ClearCacheAsync();
     }
+
     /// <summary>
     /// 设置启用请求参数
     /// </summary>

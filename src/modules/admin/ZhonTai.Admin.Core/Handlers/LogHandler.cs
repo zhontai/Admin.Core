@@ -1,24 +1,22 @@
-﻿using System.Diagnostics;
-using System.Net;
+﻿using DotNetCore.CAP;
+using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using ZhonTai.Admin.Core.Exceptions;
-using ZhonTai.Common.Helpers;
-using ZhonTai.Admin.Core.Dto;
-using ZhonTai.Admin.Core.Helpers;
-using DotNetCore.CAP;
-using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Services.Api.Dto;
-using Microsoft.AspNetCore.Http;
-using IP2Region.Net.Abstractions;
-using LocationInfo = ZhonTai.Admin.Core.Records.LocationInfo;
 using Microsoft.Extensions.Options;
-using ZhonTai.Admin.Core.Configs;
+using System.Diagnostics;
+using System.Net;
 using ZhonTai.Admin.Core.Auth;
+using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Consts;
+using ZhonTai.Admin.Core.Dto;
+using ZhonTai.Admin.Core.Exceptions;
 using ZhonTai.Admin.Core.GrpcServices;
-using Mapster;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
+using ZhonTai.Admin.Core.Helpers;
+using ZhonTai.Admin.Services.Api.Dto;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
@@ -49,26 +47,6 @@ public class LogHandler : ILogHandler
         _oprationLogGrpcService = oprationLogGrpcService;
         _user = user;
         _apiHelper = apiHelper;
-    }
-
-    /// <summary>
-    /// 获得IP地址
-    /// </summary>
-    /// <param name="ip"></param>
-    /// <returns></returns>
-    private LocationInfo GetIpLocationInfo(string ip)
-    {
-        var locationInfo = new LocationInfo();
-        if (_appConfig.Value.IP2Region.Enable)
-        {
-            if (IPHelper.IsIP(ip))
-            {
-                var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
-                locationInfo = LocationInfo.Parse(region);
-            }
-        }
-
-        return locationInfo;
     }
 
     public async Task LogAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -132,22 +110,11 @@ public class LogHandler : ILogHandler
                 if (input.IP.IsNull())
                 {
                     input.IP = IPHelper.GetIP(_httpContextAccessor?.HttpContext?.Request);
-                    var locationInfo = GetIpLocationInfo(input.IP);
-                    input.Country = locationInfo?.Country;
-                    input.Province = locationInfo?.Province;
-                    input.City = locationInfo?.City;
-                    input.Isp = locationInfo?.Isp;
                 }
 
                 string ua = _httpContextAccessor?.HttpContext?.Request?.Headers?.UserAgent;
                 if (ua.NotNull())
                 {
-                    var client = UAParser.Parser.GetDefault().Parse(ua);
-                    var device = client.Device.Family;
-                    device = device.ToLower() == "other" ? "" : device;
-                    input.Browser = client.UA.Family;
-                    input.Os = client.OS.Family;
-                    input.Device = device;
                     input.BrowserInfo = ua;
                 }
 
