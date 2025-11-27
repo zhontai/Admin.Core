@@ -1,14 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS publish
-WORKDIR /src
-COPY ["/src/modules/admin/ZhonTai.Admin.Host/ZhonTai.Admin.Host.csproj", "/src/modules/admin/ZhonTai.Admin.Host/ZhonTai.Admin.Host.csproj"]
-RUN dotnet restore "/src/modules/admin/ZhonTai.Admin.Host/ZhonTai.Admin.Host.csproj" -nowarn:NETSDK1138
-COPY . .
-WORKDIR "/src/src/modules/admin/ZhonTai.Admin.Host"
-ENV NUGET_XMLDOC_MODE none
-RUN dotnet publish "ZhonTai.Admin.Host.csproj" -nowarn:NETSDK1138 -c Release -o /app
-
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+# 使用官方 ASP.NET Core 10.0 运行时镜像
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS publish
+# 设置工作目录为 /app
 WORKDIR /app
-COPY --from=publish /app .
+# 暴露容器端口 18010
 EXPOSE 18010
+# 将构建上下文（通常是项目目录）中的所有文件复制到容器的 /app 目录
+COPY . .
+# 设置容器时区为亚洲/上海（UTC+8）
+ENV TZ=Asia/Shanghai
+# 设置容器启动时执行的命令：运行 *.Host.dll 文件
 ENTRYPOINT ["dotnet", "ZhonTai.Admin.Host.dll"]
