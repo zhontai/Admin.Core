@@ -9,7 +9,10 @@
     "RealIpHeader": "X-Real-IP",
     "ClientIdHeader": "X-ClientId",
     "IpWhitelist": [], // "127.0.0.1"
-    "EndpointWhitelist": [ "get:/api/admin/auth/refresh" ], // "get:/api/a", "*:/api/b"
+    "EndpointWhitelist": [
+      "get:/api/admin/auth/refresh",
+      "*:/*.*GrpcService/*"
+    ], // "get:/api/a", "*:/api/b"
     "ClientWhitelist": [],
     "HttpStatusCode": 429,
     "QuotaExceededResponse": {
