@@ -1,5 +1,3 @@
-import { ViteEnv } from '../utils/vite'
-
 // 申明外部 npm 插件模块
 declare module 'vue-grid-layout'
 declare module 'qrcodejs2-fixes'
@@ -12,6 +10,8 @@ declare module 'sortablejs'
 declare module 'vue-plugin-hiprint'
 declare module 'jsoneditor'
 declare module 'jquery'
+declare module '@vitejs/plugin-vue'
+declare module 'unplugin-auto-import/vite'
 
 // 声明一个模块，防止引入文件时报错
 declare module '*.json'
@@ -31,6 +31,7 @@ declare module '*.vue' {
 // 声明文件，定义全局变量
 /* eslint-disable */
 declare global {
+  import { ViteEnv } from '../utils/vite'
   interface Window {
     nextLoading: boolean
     BMAP_SATELLITE_MAP: any
