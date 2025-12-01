@@ -22,12 +22,12 @@
     },
     "GeneralRules": [
       {
-        "Endpoint": "*",
+        "Endpoint": "*:/api/*",
         "Period": "1s",
         "Limit": 3
       },
       {
-        "Endpoint": "*",
+        "Endpoint": "*:/api/*",
         "Period": "10m",
         "Limit": 200
       }
