@@ -80,8 +80,6 @@
       // 记录日志方式 Grpc | Cap
       "method": "Grpc"
     },
-    //限流
-    "rateLimit": false,
     //验证码
     "varifyCode": {
       //启用

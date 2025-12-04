@@ -3,34 +3,73 @@
   https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware
   https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/Using-Redis-as-a-distributed-counter-store
   */
-  "IpRateLimiting": {
-    "EnableEndpointRateLimiting": true,
-    "StackBlockedRequests": false,
-    "RealIpHeader": "X-Real-IP",
-    "ClientIdHeader": "X-ClientId",
-    "IpWhitelist": [], // "127.0.0.1"
-    "EndpointWhitelist": [
-      "get:/api/admin/auth/refresh",
-      "*:/*.*GrpcService/*"
-    ], // "get:/api/a", "*:/api/b"
-    "ClientWhitelist": [],
-    "HttpStatusCode": 429,
-    "QuotaExceededResponse": {
-      "Content": "{{\"code\":429,\"msg\":\"访问过于频繁！\",\"success\": false}}",
-      "ContentType": "application/json; charset=utf-8",
-      "StatusCode": 429
-    },
-    "GeneralRules": [
-      {
-        "Endpoint": "*:/api/*",
-        "Period": "1s",
-        "Limit": 3
+  "RateLimitConfig": {
+    //启用
+    "Enable": false,
+    //限流方式 Client:客户端限流 Ip:Ip限流，默认客户端限流
+    "Method": "Client",
+    //客户端Id类型 Token UserId ClientIdHeader，默认Token
+    "ClientIdType": "Token",
+    //缓存前缀
+    "CachePrefix": "zhontai:ratelimit", // 缓存前缀
+    //Ip限流配置
+    "IpRateLimiting": {
+      "EnableEndpointRateLimiting": true,
+      "StackBlockedRequests": false,
+      "RealIpHeader": "X-Real-IP",
+      "IpWhitelist": [], // "127.0.0.1"
+      "EndpointWhitelist": [
+        "get:/api/admin/auth/refresh",
+        "*:/*.*GrpcService/*"
+      ], // "get:/api/a", "*:/api/b"
+      "ClientWhitelist": [],
+      "HttpStatusCode": 429,
+      "QuotaExceededResponse": {
+        "Content": "{{\"code\":429,\"msg\":\"访问过于频繁！\",\"success\": false}}",
+        "ContentType": "application/json; charset=utf-8",
+        "StatusCode": 429
       },
-      {
-        "Endpoint": "*:/api/*",
-        "Period": "10m",
-        "Limit": 200
-      }
-    ]
+      "GeneralRules": [
+        {
+          "Endpoint": "*:/api/*",
+          "Period": "1s",
+          "Limit": 3
+        },
+        {
+          "Endpoint": "*:/api/*",
+          "Period": "10m",
+          "Limit": 200
+        }
+      ]
+    },
+    //客户端限流配置
+    "ClientRateLimiting": {
+      "EnableEndpointRateLimiting": true,
+      "ClientIdHeader": "X-ClientId",
+      "IpWhitelist": [], // "127.0.0.1"
+      "EndpointWhitelist": [
+        "get:/api/admin/auth/refresh",
+        "*:/*.*GrpcService/*"
+      ], // "get:/api/a", "*:/api/b"
+      "ClientWhitelist": [],
+      "HttpStatusCode": 429,
+      "QuotaExceededResponse": {
+        "Content": "{{\"code\":429,\"msg\":\"访问过于频繁！\",\"success\": false}}",
+        "ContentType": "application/json; charset=utf-8",
+        "StatusCode": 429
+      },
+      "GeneralRules": [
+        {
+          "Endpoint": "*:/api/*",
+          "Period": "1s",
+          "Limit": 3
+        },
+        {
+          "Endpoint": "*:/api/*",
+          "Period": "10m",
+          "Limit": 200
+        }
+      ]
+    }
   }
 }

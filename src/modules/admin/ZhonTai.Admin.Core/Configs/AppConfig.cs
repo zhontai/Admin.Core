@@ -119,11 +119,6 @@ public class AppConfig
     public ValidateConfig Validate { get; set; } = new ValidateConfig();
 
     /// <summary>
-    /// 限流
-    /// </summary>
-    public bool RateLimit { get; set; } = false;
-
-    /// <summary>
     /// 验证码配置
     /// </summary>
     public VarifyCodeConfig VarifyCode { get; set; } = new VarifyCodeConfig();

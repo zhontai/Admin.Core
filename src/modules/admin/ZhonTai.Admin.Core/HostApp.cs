@@ -151,38 +151,15 @@ public class HostApp
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             var appSettings = AppInfo.GetOptions<AppSettings>();
             services.Configure<RpcConfig>(configuration.GetSection("RpcConfig"));
-            if (appSettings.UseConfigCenter)
-            {
-                AddJsonFilesFromDirectory(configuration, env.EnvironmentName, appSettings.ConfigCenterPath);
-                services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
-                services.Configure<JwtConfig>(configuration.GetSection("JwtConfig"));
-                services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
-                services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
-                services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
-                services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
-            }
-            else
-            {
-                //app应用配置
-                services.Configure<AppConfig>(ConfigHelper.Load("appconfig", env.EnvironmentName));
-                //jwt配置
-                services.Configure<JwtConfig>(ConfigHelper.Load("jwtconfig", env.EnvironmentName));
-                //数据库配置
-                services.Configure<DbConfig>(ConfigHelper.Load("dbconfig", env.EnvironmentName));
-                //缓存配置
-                services.Configure<CacheConfig>(ConfigHelper.Load("cacheconfig", env.EnvironmentName));
-                //oss上传配置
-                services.Configure<OSSConfig>(ConfigHelper.Load("ossconfig", env.EnvironmentName));
-                //im配置
-                services.Configure<ImConfig>(ConfigHelper.Load("imconfig", env.EnvironmentName));
-                //限流配置
-                configuration.AddJsonFile("./Configs/ratelimitconfig.json", optional: true, reloadOnChange: true);
-                if (env.EnvironmentName.NotNull())
-                {
-                    configuration.AddJsonFile($"./Configs/ratelimitconfig.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-                }
-            }
-
+           
+            AddJsonFilesFromDirectory(configuration, env.EnvironmentName, appSettings.ConfigCenterPath);
+            services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
+            services.Configure<JwtConfig>(configuration.GetSection("JwtConfig"));
+            services.Configure<DbConfig>(configuration.GetSection("DbConfig"));
+            services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
+            services.Configure<OSSConfig>(configuration.GetSection("OssConfig"));
+            services.Configure<ImConfig>(configuration.GetSection("ImConfig"));
+            services.Configure<RateLimitConfig>(configuration.GetSection("RateLimitConfig"));
             services.Configure<EmailConfig>(configuration.GetSection("Email"));
 
             //app应用配置
@@ -766,13 +743,16 @@ public class HostApp
 
         _hostAppOptions?.ConfigureServices?.Invoke(hostAppContext);
 
+
         #region IP限流
-
-        if (appConfig.RateLimit)
+        var rateLimitConfig = AppInfo.GetOptions<RateLimitConfig>();
+        if (rateLimitConfig.Enable)
         {
-            services.AddIpRateLimit(configuration, cacheConfig);
+            if(rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Ip)
+                services.AddIpRateLimit(configuration, cacheConfig);
+            else if(rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Client)
+                services.AddClientRateLimit(configuration, cacheConfig);
         }
-
         #endregion IP限流
 
         //阻止NLog接收状态消息
@@ -859,12 +839,6 @@ public class HostApp
 
         //多语言
         app.UseMyLocalization();
-
-        //IP限流
-        if (appConfig.RateLimit)
-        {
-            app.UseIpRateLimiting();
-        }
 
         //性能分析
         if (appConfig.MiniProfiler)
@@ -1004,6 +978,16 @@ public class HostApp
         
         //for postman
         app.MapCodeFirstGrpcReflectionService();
+
+        //IP限流
+        var rateLimitConfig = AppInfo.GetOptions<RateLimitConfig>();
+        if (rateLimitConfig.Enable)
+        {
+            if (rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Ip)
+                app.UseIpRateLimiting();
+            else if (rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Client)
+                app.UseClientRateLimiting();
+        }
 
         _hostAppOptions?.ConfigurePostMiddleware?.Invoke(hostAppMiddlewareContext);
     }
