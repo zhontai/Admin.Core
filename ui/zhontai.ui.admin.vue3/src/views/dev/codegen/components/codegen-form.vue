@@ -519,6 +519,7 @@ const props = defineProps({
   editors: {
     type: [] as PropType<Array<SelectOptionType>>,
     default: [
+      { label: '无组件', value: 'none' },
       { label: '文本框', value: 'el-input' },
       { label: '数值框', value: 'el-input-number' },
       { label: '文本域', value: 'my-input-textarea' },
