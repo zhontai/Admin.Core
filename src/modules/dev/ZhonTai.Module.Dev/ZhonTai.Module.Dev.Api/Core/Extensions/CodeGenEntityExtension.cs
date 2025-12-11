@@ -57,7 +57,7 @@ public static class CodeGenEntityExtension
 
     public static string GetTableIndexAttributes(this CodeGenEntity config)
     {
-        var attrs = new List<string> { { "Table(Name=\"" + config.TableName + "\")" } };
+        var attrs = new List<string> { { "[Table(Name=\"" + config.TableName + "\")]" } };
 
         if (config.Fields != null)
         {
@@ -65,13 +65,13 @@ public static class CodeGenEntityExtension
 
             if (indexFields != null && indexFields.Count() > 0)
             {
-                attrs.AddRange(indexFields.Select(w => "Index(\"Index_{TableName}_" +
+                attrs.AddRange(indexFields.Select(w => "[Index(\"Index_{TableName}_" +
                     (string.IsNullOrWhiteSpace(w.ColumnRawName) ? w.ColumnName : w.ColumnRawName)
                     + "\", \"" + w.ColumnName + (!string.IsNullOrWhiteSpace(w.IndexMode) ? " " + w.IndexMode : "") + "\", "
-                    + (w.IsUnique ? "true" : "false") + ")"));
+                    + (w.IsUnique ? "true" : "false") + ")]"));
             }
         }
 
-        return "[" + string.Join(",", attrs) + "]";
+        return string.Join(Environment.NewLine, attrs);
     }
 }
