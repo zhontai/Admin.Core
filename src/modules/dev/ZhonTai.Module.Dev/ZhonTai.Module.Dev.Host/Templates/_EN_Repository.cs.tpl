@@ -8,7 +8,7 @@ using @(gen.Namespace).Core.Consts;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Repositories;
 
-namespace @(gen.Namespace).Repositories.@(entityNamePC);
+namespace @(gen.Namespace).Api.Repositories.@(entityNamePC);
 
 public class @(entityNamePC)Repository : RepositoryBase<@(entityNamePC)Entity>, I@(entityNamePC)Repository
 {

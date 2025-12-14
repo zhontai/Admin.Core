@@ -15,7 +15,7 @@ using ZhonTai.Admin.Core.Entities;
 {
 @:using @ns;    
 }
-using @(gen.Namespace).Services.@(entityNamePc).Dtos;
+using @(gen.Namespace).Api.Contracts.Services.@(entityNamePc).Dtos;
 
 namespace @(gen.Namespace).Services.@(entityNamePc)
 {

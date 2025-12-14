@@ -528,7 +528,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
             if (assembly != null)
             {
-                var entity = assembly.GetType($"{gen.Namespace}.Domain.{gen.EntityName}.{gen.EntityName}Entity");
+                var entity = assembly.GetType($"{gen.Namespace}.Api.Contracts.Domain.{gen.EntityName}.{gen.EntityName}Entity");
                 if (entity != null)
                 {
                     var fsql = _cloud.Use(gen.DbKey);
@@ -576,7 +576,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
             if (assembly != null)
             {
-                var entity = assembly.GetType($"{gen.Namespace}.Domain.{gen.EntityName}.{gen.EntityName}Entity");
+                var entity = assembly.GetType($"{gen.Namespace}.Api.Contracts.Domain.{gen.EntityName}.{gen.EntityName}Entity");
                 if (entity != null)
                 {
                     var fsql = _cloud.Use(gen.DbKey);

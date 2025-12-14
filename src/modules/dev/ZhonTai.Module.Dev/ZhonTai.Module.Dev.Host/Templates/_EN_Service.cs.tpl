@@ -24,7 +24,7 @@ using @(gen.Namespace).Domain.@(entityNamePc);
 using @(gen.Namespace).Services.@(entityNamePc).Dtos;
 using @(gen.Namespace).Consts;
 
-namespace @(gen.Namespace).Services.@(entityNamePc);
+namespace @(gen.Namespace).Api.Services.@(entityNamePc);
 
 /// <summary>
 /// @(gen.BusName)服务

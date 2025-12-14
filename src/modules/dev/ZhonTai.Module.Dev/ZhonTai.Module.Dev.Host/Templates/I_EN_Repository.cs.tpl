@@ -5,7 +5,7 @@
 }
 using ZhonTai.Admin.Core.Repositories;
 
-namespace @(gen.Namespace).Domain.@(entityNamePc);
+namespace @(gen.Namespace).Api.Contracts.Domain.@(entityNamePc);
 
 public interface I@(entityNamePc)Repository : IRepositoryBase<@(entityNamePc)Entity>
 {

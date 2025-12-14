@@ -20,15 +20,15 @@
         .Where(col => !col.IsIgnoreColumn())
         .ToList();
 }
-using System;
 using FreeSql.DataAnnotations;
+using System;
 using ZhonTai.Admin.Core.Entities;
 @foreach(var ns in gen.GetUsings())
 {
 @:using @ns;    
 }
 
-namespace @(gen.Namespace).Domain.@(entityNamePc);
+namespace @(gen.Namespace).Api.Contracts.Domain.@(entityNamePc);
 
 /// <summary>
 /// @(gen.BusName)实体
