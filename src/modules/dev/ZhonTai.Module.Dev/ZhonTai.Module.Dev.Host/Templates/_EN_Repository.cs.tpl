@@ -3,8 +3,8 @@
     if (gen == null) return;
     var entityNamePC = gen.EntityName.NamingPascalCase();
 }
-using @(gen.Namespace).Domain.@(entityNamePC);
-using @(gen.Namespace).Core.Consts;
+using @(gen.Namespace).Api.Contracts.Domain.@(entityNamePC);
+using @(gen.Namespace).Api.Core.Consts;
 using ZhonTai.Admin.Core.Db.Transaction;
 using ZhonTai.Admin.Core.Repositories;
 

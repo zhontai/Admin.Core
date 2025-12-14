@@ -602,7 +602,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
     {
         var gen = _codeGenRep.Get(id);
         if (gen == null)
-            throw ResultOutput.Exception("未找到生成配置。");
+            throw ResultOutput.Exception("未找到生成配置");
 
         await UpdateMenuAsync(gen, await UpdateViewAsync(gen));
     }
@@ -649,7 +649,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
             .FirstAsync();
 
         if (apis == null)
-            throw ResultOutput.Exception("请先进行API同步。");
+            throw ResultOutput.Exception("请先进行API同步");
 
         var perRepo = adminDb.GetRepositoryBase<PermissionEntity>();
 

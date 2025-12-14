@@ -20,9 +20,11 @@ using ZhonTai.Admin.Services;
 using ZhonTai.DynamicApi;
 using ZhonTai.DynamicApi.Attributes;
 using ZhonTai.Admin.Domain.Dict;
-using @(gen.Namespace).Domain.@(entityNamePc);
-using @(gen.Namespace).Services.@(entityNamePc).Dtos;
-using @(gen.Namespace).Consts;
+using @(gen.Namespace).Api.Contracts.Services.@(entityNamePc);
+using @(gen.Namespace).Api.Core.Consts;
+using @(gen.Namespace).Api.Core.Repositories;
+using @(gen.Namespace).Api.Contracts.Domain.@(entityNamePc);
+using @(gen.Namespace).Api.Contracts.Services.@(entityNamePc).Dtos;
 
 namespace @(gen.Namespace).Api.Services.@(entityNamePc);
 
