@@ -60,7 +60,7 @@
         if (!string.IsNullOrWhiteSpace(col.DictTypeCode))
         {
             editorName = "el-select";
-            if( col.IsNullable)attrs += " clearable ";
+            if( col.IsNullable)attrs += " clearable";
             innerBody = string.Concat("<el-option v-for=", "\"item in state.dicts['", col.DictTypeCode, "']\" :key=\"item.value\" :value=\"item.value\" :label=\"item.name\" />");
         }
         else if (col.Editor == "el-date-picker"){
@@ -71,7 +71,7 @@
         else if (col.Editor == "el-select")
         {
             editorName = col.Editor;
-            if (col.IsNullable) attrs += " clearable ";
+            if (col.IsNullable) attrs += " clearable";
             if(!String.IsNullOrWhiteSpace(col.DisplayColumn) || !String.IsNullOrWhiteSpace(col.ValueColumn))
             {
                 var labels = (""+col.DisplayColumn).Split(',');
@@ -86,32 +86,32 @@
         }
         else if(defineUiComponentsImportPath.Keys.Any(a => a == col.Editor))
         {
-            attrs = attrs + " class=\"input-with-select\" ";
+            attrs = attrs + " class=\"input-with-select\"";
             innerBody = "<el-button slot=\"append\" icon=\"el-icon-more\" @click=\"" + uiComponentsMethodName[col.Editor] + "('editForm','" + col.DictTypeCode + "','" + col.Title + "')\" />";
         }
         else if (col.Editor == "my-upload")
         {
             editorName = "my-upload";
-            attrs += " v-if='state.showDialog' ";
+            attrs += " v-if='state.showDialog'";
         }
         else if (col.Editor == "my-editor")
         {
             editorName = "my-editor";
-            attrs += " v-if='state.showDialog' ";
+            attrs += " v-if='state.showDialog'";
         }
         else if (col.Editor == "my-input-textarea"){
             editorName= "el-input";
-            attrs += " type=\"textarea\" ";
+            attrs += " type=\"textarea\"";
         }
         else if (col.Editor == "my-input-number"){
             editorName= "el-input";
-            attrs += " type=\"number\" ";
+            attrs += " type=\"number\"";
         }
         else if (col.Editor == "my-bussiness-select"){
             editorName= "el-select";
-            if (col.IsNullable) attrs += " clearable ";
+            if (col.IsNullable) attrs += " clearable";
             if (col.IncludeMode == 1){
-                attrs += " multiple ";
+                attrs += " multiple";
                 subfix="_Values";
             }
             if(!String.IsNullOrWhiteSpace(col.IncludeEntity)){
@@ -156,11 +156,15 @@
         {
             var editor = editorName(col, out attributes, out inner,out subfix,out colWidth);
         @:<el-form-item label="@(col.Title)">
-        @:  <@(editor) @if(!attributes.Contains("clearable"))@("clearable") @(attributes) v-model="state.filter.@(col.ColumnName.NamingCamelCase())@(subfix)" placeholder="" @(at)keyup.enter="onQuery">
         if(!string.IsNullOrWhiteSpace(inner)){
+        @:  <@(editor)@if(!attributes.Contains("clearable"))@(" clearable")@(attributes) v-model="state.filter.@(col.ColumnName.NamingCamelCase())@(subfix)" placeholder="" @(at)keyup.enter="onQuery">
         @:    @(inner)
-        }
         @:  </@(editor)>
+        }
+        else
+        {
+        @:  <@(editor)@if(!attributes.Contains("clearable"))@(" clearable")@(attributes) v-model="state.filter.@(col.ColumnName.NamingCamelCase())@(subfix)" placeholder="" @(at)keyup.enter="onQuery" />
+        }
         @:</el-form-item>
         }
         @if (queryColumns.Count() > 0)
@@ -177,86 +181,93 @@
         <div>
           <el-space wrap :size="12">
           @if (gen.GenAdd){
-          @:<el-button type="primary" v-auth="perms.add" icon="ele-Plus" @(at)click="onAdd">新增</el-button>
-            }
-            @if(gen.GenBatchDelete || gen.GenBatchSoftDelete){
+            @:<el-button type="primary" v-auth="perms.add" icon="ele-Plus" @(at)click="onAdd">新增</el-button>
+          }
+          @if(gen.GenBatchDelete || gen.GenBatchSoftDelete){
             @:<el-dropdown :placement="'bottom-end'" v-if="auths([perms.batSoftDelete, perms.batDelete])">
             @:  <el-button type="warning">批量操作 <el-icon><ele-ArrowDown /></el-icon></el-button>
             @:  <template #dropdown>
             @:    <el-dropdown-menu>
                 if(gen.GenBatchSoftDelete){
-                  @:  <el-dropdown-item v-if="auth(perms.batSoftDelete)" :disabled="state.sels.length==0" @(at)click="onBatchSoftDelete" icon="ele-DeleteFilled">批量软删除</el-dropdown-item>
+                  @:  <el-dropdown-item v-if="auth(perms.batSoftDelete)" :disabled="state.sels.length==0" @(at)click="onBatchSoftDelete" icon="ele-DeleteFilled">批量删除</el-dropdown-item>
                   }
                   if(gen.GenBatchDelete){
-                  @:  <el-dropdown-item v-if="auth(perms.batDelete)"  :disabled="state.sels.length==0" @(at)click="onBatchDelete" icon="ele-Delete">批量删除</el-dropdown-item>
+                  @:  <el-dropdown-item v-if="auth(perms.batDelete)"  :disabled="state.sels.length==0" @(at)click="onBatchDelete" icon="ele-Delete">批量彻底删除</el-dropdown-item>
                   }
             @:    </el-dropdown-menu>
             @:  </template>
             @:</el-dropdown>
-             }
+          }
           </el-space>
         </div>
         <div></div>
       </div>
-      <el-table v-loading="state.loading" :data="state.@(entityNameCc)ListData" row-key="id"  ref="listTableRef" border @(at)selection-change="selsChange">
+      <el-table v-loading="state.loading" :data="state.data" row-key="id" border @(at)selection-change="selsChange">
         @if(gen.GenBatchDelete||gen.GenBatchSoftDelete){
-          @:<el-table-column type="selection" width="50" />
-          }
-              @foreach (var col in gen.Fields.Where(w => w.WhetherTable && !w.IsIgnoreColumn()))
-              {
-                  if(col.IsIncludeColumn()&&!string.IsNullOrWhiteSpace(col.IncludeEntityKey)){
-                      if(col.IncludeMode==0){
-          @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())_Text" label="@(col.Title)" show-overflow-tooltip width />
-                      }else if(col.IncludeMode==1){
+        @:<el-table-column type="selection" width="50" />
+        }
+            @foreach (var col in gen.Fields.Where(w => w.WhetherTable && !w.IsIgnoreColumn()))
+            {
+                if(col.IsIncludeColumn()&&!string.IsNullOrWhiteSpace(col.IncludeEntityKey)){
+                    if(col.IncludeMode==0){
+        @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())_Text" label="@(col.Title)" show-overflow-tooltip width />
+                    }else if(col.IncludeMode==1){
                           
-          @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())_Texts" label="@(col.Title)" show-overflow-tooltip width >
-          @:  <template #default="{ row }">
-          @:    {{ row.@(col.ColumnName.NamingCamelCase())_Texts ? row.@(col.ColumnName.NamingCamelCase())_Texts.join(',') : '' }}
-          @:  </template>
-          @:</el-table-column>
-                      }
-                  }else if(col.Editor=="my-upload"){
-          @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())" label="@(col.Title)" show-overflow-tooltip width >
-          @:  <template #default="{ row }">
-          @:   <div class="my-flex">
-          @:     <el-image :src="row.@(col.ColumnName.NamingCamelCase())" :preview-src-list="preview@(col.ColumnName)list"
-          @:       :initial-index="get@(col.ColumnName)InitialIndex(row.@(col.ColumnName.NamingCamelCase()))" :lazy="true" :hide-on-click-modal="true" fit="scale-down"
-          @:       preview-teleported style="width: 80px; height: 80px" />
-          @:     <div class="ml10 my-flex-fill my-flex-y-center">
-          @:     </div>
-          @:   </div>
-          @: </template>
-          @:</el-table-column>
-                  }else{
-          @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())@if(!string.IsNullOrWhiteSpace(col.DictTypeCode))@("DictName")" label="@(col.Title)" show-overflow-tooltip width />
-                  }
-              }
-          <el-table-column v-auths="[perms.update,perms.softDelete,perms.delete]" label="操作" :width="actionColWidth" fixed="right">
-            <template #default="{ row }">
-              <el-button v-auth="perms.update" icon="ele-EditPen"  text type="primary" @(at)click.stop="onEdit(row)">编辑</el-button>
-              @if(gen.GenDelete&&gen.GenSoftDelete){
-              @:<el-dropdown v-if="authAll([perms.delete,perms.softDelete])">
-              @:  <el-button icon="el-icon--right" text type="danger" >操作 <el-icon class="el-icon--right"><component :is="'ele-ArrowDown'" /></el-icon></el-button>
-              @:  <template #dropdown>
-              @:    <el-dropdown-menu>
-              @:      <el-dropdown-item v-if="auth(perms.softDelete)" @(at)click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">软删除</el-dropdown-item>
-              @:      <el-dropdown-item v-if="auth(perms.delete)" @(at)click.stop="onDelete(row)" icon="ele-Delete">删除</el-dropdown-item>
-              @:    </el-dropdown-menu>
-              @:  </template>            
-              @:</el-dropdown>
-              @:<span v-else style="margin-left:5px;height:inherit">
-              @:  <el-button text type="warning" v-if="auth(perms.softDelete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-DeleteFilled">软删除</el-button>
-              @:  <el-button text type="danger" v-if="auth(perms.delete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-Delete">删除</el-button>
-              @:</span>
-              }
-              @if(gen.GenSoftDelete&&!gen.GenDelete){
-              @:<el-button text type="warning" v-if="auth(perms.softDelete)" @(at)click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">软删除</el-button>
-              }
-              @if(gen.GenDelete&&!gen.GenSoftDelete){
-              @:<el-button text type="danger" v-if="auth(perms.delete)" @(at)click.stop="onDelete(row)" icon="ele-Delete">删除</el-button>
-              }
-            </template>
-          </el-table-column>
+        @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())_Texts" label="@(col.Title)" show-overflow-tooltip width >
+        @:  <template #default="{ row }">
+        @:    {{ row.@(col.ColumnName.NamingCamelCase())_Texts ? row.@(col.ColumnName.NamingCamelCase())_Texts.join(',') : '' }}
+        @:  </template>
+        @:</el-table-column>
+                    }
+                }else if(col.Editor=="my-upload"){
+        @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())" label="@(col.Title)" show-overflow-tooltip width >
+        @:  <template #default="{ row }">
+        @:   <div class="my-flex">
+        @:     <el-image :src="row.@(col.ColumnName.NamingCamelCase())" :preview-src-list="preview@(col.ColumnName)list"
+        @:       :initial-index="get@(col.ColumnName)InitialIndex(row.@(col.ColumnName.NamingCamelCase()))" :lazy="true" :hide-on-click-modal="true" fit="scale-down"
+        @:       preview-teleported style="width: 80px; height: 80px" />
+        @:     <div class="ml10 my-flex-fill my-flex-y-center">
+        @:     </div>
+        @:   </div>
+        @: </template>
+        @:</el-table-column>
+                }else{
+        @:<el-table-column prop="@(col.ColumnName.NamingCamelCase())@if(!string.IsNullOrWhiteSpace(col.DictTypeCode))@("DictName")" label="@(col.Title)" show-overflow-tooltip width />
+                }
+            }
+        <el-table-column 
+          v-auths="[perms.update@(gen.GenSoftDelete?", perms.softDelete":"")@(gen.GenDelete?", perms.delete":"")]"
+          label="操作"
+          :width="actionColWidth"
+          align="center"
+          header-align="center"
+          fixed="right"
+        >
+          <template #default="{ row }">
+            <el-button v-auth="perms.update" icon="ele-EditPen" text type="primary" @(at)click.stop="onEdit(row)">编辑</el-button>
+            @if(gen.GenDelete&&gen.GenSoftDelete){
+            @:<el-dropdown v-if="authAll([perms.delete,perms.softDelete])">
+            @:  <el-button icon="el-icon--right" text type="danger" >操作 <el-icon class="el-icon--right"><component :is="'ele-ArrowDown'" /></el-icon></el-button>
+            @:  <template #dropdown>
+            @:    <el-dropdown-menu>
+            @:      <el-dropdown-item v-if="auth(perms.softDelete)" @(at)click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">删除</el-dropdown-item>
+            @:      <el-dropdown-item v-if="auth(perms.delete)" @(at)click.stop="onDelete(row)" icon="ele-Delete">彻底删除</el-dropdown-item>
+            @:    </el-dropdown-menu>
+            @:  </template>            
+            @:</el-dropdown>
+            @:<span v-else style="margin-left:5px;height:inherit">
+            @:  <el-button text type="danger" v-if="auth(perms.softDelete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-DeleteFilled">删除</el-button>
+            @:  <el-button text type="danger" v-if="auth(perms.delete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-Delete">彻底删除</el-button>
+            @:</span>
+            }
+            @if(gen.GenSoftDelete&&!gen.GenDelete){
+            @:<el-button text type="danger" v-if="auth(perms.softDelete)" @(at)click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">删除</el-button>
+            }
+            @if(gen.GenDelete&&!gen.GenSoftDelete){
+            @:<el-button text type="danger" v-if="auth(perms.delete)" @(at)click.stop="onDelete(row)" icon="ele-Delete">彻底删除</el-button>
+            }
+          </template>
+        </el-table-column>
       </el-table>
 
       <div class="my-flex my-flex-end mt10">
@@ -278,14 +289,10 @@
 </template>
 
 <script lang="ts" setup name="@(areaNameCc)/@(entityNameKc)">
-import { ref, reactive, onMounted, getCurrentInstance, onBeforeMount, defineAsyncComponent, computed } from 'vue'
 import { 
-  PageInput@(entityNamePc)GetPageInput, 
-  @(entityNamePc)GetPageInput, 
-  @(entityNamePc)GetPageOutput, 
-  @(entityNamePc)GetOutput, 
-  @(entityNamePc)AddInput, 
-  @(entityNamePc)UpdateInput,
+  PageInput@(entityNamePc)GetPageInput,
+  @(entityNamePc)GetPageInput,
+  @(entityNamePc)GetPageOutput,
 @if(gen.GenGetList){
 @:  @(entityNamePc)GetListInput, 
 @:  @(entityNamePc)GetListOutput,
@@ -324,21 +331,23 @@ const @(entityNamePc)Form = defineAsyncComponent(() => import('./components/@(en
 
 const { proxy } = getCurrentInstance() as any
 
+// 表单组件引用
 const @(entityNameCc)FormRef = ref()
-const listTableRef = ref()
 
-//权限配置
+// 权限标识
 const perms = {
-  add:'api:@(permissionArea):add',
-  update:'api:@(permissionArea):update',
-  delete:'api:@(permissionArea):delete',
-  batDelete:'api:@(permissionArea):batch-delete',
-  softDelete:'api:@(permissionArea):soft-delete',
-  batSoftDelete:'api:@(permissionArea):batch-soft-delete',
+  add: 'api:@(permissionArea):add',
+  update: 'api:@(permissionArea):update',
+  delete: 'api:@(permissionArea):delete',
+  batDelete: 'api:@(permissionArea):batch-delete',
+  softDelete: 'api:@(permissionArea):soft-delete',
+  batSoftDelete: 'api:@(permissionArea):batch-soft-delete',
 }
 
-const actionColWidth = authAll([perms.update, perms.softDelete]) || authAll([perms.update, perms.delete]) ? 140 : 75
+// 操作列宽度
+const actionColWidth = authAll([perms.update, perms.softDelete]) || authAll([perms.update, perms.delete]) ? 180 : 120
 
+// 组件状态
 const state = reactive({
   loading: false,
   @(entityNameCc)FormTitle: '',
@@ -353,7 +362,7 @@ const state = reactive({
     currentPage: 1,
     pageSize: 20,
   } as PageInput@(entityNamePc)GetPageInput,
-  @(entityNameCc)ListData: [] as Array<@(entityNamePc)GetListOutput>,
+  data: [] as Array<@if(gen.GenGetList)@(entityNamePc+"GetListOutput")else@(entityNamePc+"GetPageOutput")>,
   @foreach(var incField in includeFieldEntitys){
 @:  select@(incField)ListData: [] as @(incField)GetListOutput[],
 }
@@ -371,6 +380,7 @@ const state = reactive({
     }
 })
 
+// 组件挂载后初始化数据
 onMounted(() => {
 @foreach(var incField in includeFieldEntitys){
 @:  get@(incField)List();
@@ -386,11 +396,13 @@ onMounted(() => {
   })
 })
 
+// 组件卸载前移除事件监听
 onBeforeMount(() => {
   eventBus.off('refresh@(entityNamePc)')
 })
 @foreach(var incField in includeFieldEntitys){
 @:
+@:// 获取关联@(incField)列表
 @:const get@(incField)List = async () => {
 @:  const res = await new @(incField)Api().getList({}).catch(() => {
 @:    state.select@(incField)ListData = []
@@ -398,103 +410,9 @@ onBeforeMount(() => {
 @:  state.select@(incField)ListData = res?.data || []
 @:}
 }
-@if (hasDict)
-{
-@:
-@://获取需要使用的字典树
-@:const getDictsTree = async () => {
-@:  let res = await new DictApi().getList(['@(string.Join("','", dictCodes))'])
-@:  if(!res?.success)return;
-@:    state.dicts = res.data
-@:}
-}
-
-const onQuery = async () => {
-  state.loading = true
-  state.pageInput.filter = state.filter
-  const res = await new @(apiName)().getPage(state.pageInput).catch(() => {
-    state.loading = false
-  })
-
-  state.@(entityNameCc)ListData = res?.data?.list ?? []
-  state.total = res?.data?.total ?? 0
-  state.loading = false
-  @foreach (var col in gen.Fields.Where(s=>s.Editor=="my-upload")){
-@:  state.file@(col.ColumnName)ListData = res?.data?.list?.map(s => {
-@:    return { linkUrl: s.@(col.ColumnName.NamingCamelCase()) }
-@:  }) ?? []
-}
-}
-
-const onAdd = () => {
-  state.@(entityNameCc)FormTitle = '新增@(gen.BusName)'
-  @(entityNameCc)FormRef.value.open()
-}
-
-const onEdit = (row: @(entityNamePc)GetOutput) => {
-  state.@(entityNameCc)FormTitle = '编辑@(gen.BusName)'
-  @(entityNameCc)FormRef.value.open(row)
-}
-
-const onDelete = (row: @(entityNamePc)GetOutput) => {
-  proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
-    .then(async () => {
-      await new @(apiName)().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
-      onQuery()
-    })
-    .catch(() => {})
-}
-
-const onSizeChange = (val: number) => {
-  state.pageInput.currentPage = 1
-  state.pageInput.pageSize = val
-  onQuery()
-}
-
-const onCurrentChange = (val: number) => {
-  state.pageInput.currentPage = val
-  onQuery()
-}
-
-const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
-  state.sels = vals
-}
-@if(gen.GenBatchDelete){
-@:
-@:const onBatchDelete = async () => {
-@:  proxy.$modal?.confirmDelete(`确定要删除选择的${state.sels.length}条记录？`).then(async () =>{
-@:    const rst = await new @(apiName)().batchDelete(state.sels?.map(item=>item.id) as number[], { loading: true, showSuccessMessage: true })
-@:    if(rst?.success){
-@:      onQuery()
-@:    }
-@:  })
-@:}
-}
-@if(gen.GenSoftDelete){
-@:
-@:const onSoftDelete = async (row: @(entityNamePc)GetOutput) => {
-@:  proxy.$modal?.confirmDelete(`确定要移入回收站？`).then(async () =>{
-@:    const rst = await new @(apiName)().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
-@:    if(rst?.success){
-@:      onQuery()
-@:    }
-@:  })
-@:}
-}
-@if(gen.GenBatchSoftDelete){
-@:
-@:const onBatchSoftDelete = async () => {
-@:  proxy.$modal?.confirmDelete(`确定要将选择的${state.sels.length}条记录移入回收站？`).then(async () =>{
-@:    const rst = await new @(apiName)().batchSoftDelete(state.sels?.map(item => item.id) as number[], { loading: true, showSuccessMessage: true })
-@:    if(rst?.success){
-@:      onQuery()
-@:    }
-@:  })
-@:}
-}
 @foreach (var col in gen.Fields.Where(s=>s.Editor=="my-upload")){
 @:
+@:// 获取@(col.ColumnName)预览列表
 @:const preview@(col.ColumnName)list = computed(() => {
 @:  let imgList = [] as string[]
 @:  state.file@(col.ColumnName)ListData.forEach((a) => {
@@ -505,8 +423,120 @@ const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
 @:  return imgList
 @:})
 @:
+@:// 获取@(col.ColumnName)初始预览索引
 @:const get@(col.ColumnName)InitialIndex = (imgUrl: string) => {
 @:  return preview@(col.ColumnName)list.value.indexOf(imgUrl)
 @:}
+@if (hasDict)
+{
+@:
+@:// 获取字典树
+@:const getDictsTree = async () => {
+@:  let res = await new DictApi().getList(['@(string.Join("','", dictCodes))'])
+@:  if(!res?.success)return;
+@:    state.dicts = res.data
+@:}
+}
+
+// 查询
+const onQuery = async () => {
+  state.loading = true
+  state.pageInput.filter = state.filter
+  const res = await new @(apiName)().getPage(state.pageInput).catch(() => {
+    state.loading = false
+  })
+
+  state.data = res?.data?.list ?? []
+  state.total = res?.data?.total ?? 0
+  state.loading = false
+  @foreach (var col in gen.Fields.Where(s=>s.Editor=="my-upload")){
+@:  state.file@(col.ColumnName)ListData = res?.data?.list?.map(s => {
+@:    return { linkUrl: s.@(col.ColumnName.NamingCamelCase()) }
+@:  }) ?? []
+}
+}
+@if(gen.GenAdd){
+@:
+@:// 新增
+@:const onAdd = () => {
+@:  state.@(entityNameCc)FormTitle = '新增@(gen.BusName)'
+@:  @(entityNameCc)FormRef.value.open()
+@:}
+}
+@if(gen.GenUpdate){
+@:
+@:// 编辑
+@:const onEdit = (row: @(entityNamePc)GetPageOutput) => {
+@:  state.@(entityNameCc)FormTitle = '编辑@(gen.BusName)'
+@:  @(entityNameCc)FormRef.value.open(row)
+@:}
+}
+@if(gen.GenDelete){
+@:
+@:// 彻底删除
+@:const onDelete = (row: @(entityNamePc)GetPageOutput) => {
+@:  proxy.$modal
+@:    .confirmDelete(`确定要彻底删除?`)
+@:    .then(async () => {
+@:      await new @(apiName)().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
+@:      onQuery()
+@:    })
+@:    .catch(() => {})
+@:}
+}
+@if(gen.GenBatchDelete){
+@:
+@:// 批量彻底删除
+@:const onBatchDelete = async () => {
+@:  proxy.$modal?.confirmDelete(`确定要彻底删除选择的${state.sels.length}条记录？`).then(async () =>{
+@:    const rst = await new @(apiName)().batchDelete(state.sels?.map(item=>item.id) as number[], { loading: true, showSuccessMessage: true })
+@:    if(rst?.success){
+@:      onQuery()
+@:    }
+@:  })
+@:}
+}
+@if(gen.GenSoftDelete){
+@:
+@:// 删除
+@:const onSoftDelete = async (row: @(entityNamePc)GetPageOutput) => {
+@:  proxy.$modal?.confirmDelete(`确定要删除？`).then(async () =>{
+@:    const rst = await new @(apiName)().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
+@:    if(rst?.success){
+@:      onQuery()
+@:    }
+@:  })
+@:}
+}
+@if(gen.GenBatchSoftDelete){
+@:
+@:// 批量删除
+@:const onBatchSoftDelete = async () => {
+@:  proxy.$modal?.confirmDelete(`确定要将选择的${state.sels.length}条记录删除？`).then(async () =>{
+@:    const rst = await new @(apiName)().batchSoftDelete(state.sels?.map(item => item.id) as number[], { loading: true, showSuccessMessage: true })
+@:    if(rst?.success){
+@:      onQuery()
+@:    }
+@:  })
+@:}
+}
+
+// 页大小变化
+const onSizeChange = (val: number) => {
+  state.pageInput.currentPage = 1
+  state.pageInput.pageSize = val
+  onQuery()
+}
+
+// 当前页变化
+const onCurrentChange = (val: number) => {
+  state.pageInput.currentPage = val
+  onQuery()
+}
+
+// 选择项变化
+const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
+  state.sels = vals
+}
 }
 </script>
