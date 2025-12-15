@@ -82,17 +82,17 @@
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="表名" prop="tableName">
-                <el-input v-model="state.config.tableName" required placeholder="模块_子模块 eg:homely_thing"></el-input>
+                <el-input v-model="state.config.tableName" required placeholder="表名 eg:sys_lang"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
               <el-form-item label="业务名" prop="busName">
-                <el-input v-model="state.config.busName" required placeholder="子模块名称 eg:物品"></el-input>
+                <el-input v-model="state.config.busName" required placeholder="业务名 eg:国际化"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item label="命名空间" prop="namespace">
-                <el-input v-model="state.config.namespace" required placeholder="eg:ZhonTai.Module.Homely"></el-input>
+                <el-input v-model="state.config.namespace" required placeholder="命名空间 eg:MyCompanyName.Module.MySys"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
@@ -108,13 +108,13 @@
               </el-form-item>
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
-              <el-form-item label="第一级路径名" prop="apiAreaName">
-                <el-input v-model="state.config.apiAreaName" placeholder="第一级路径名 eg:homely"></el-input>
+              <el-form-item label="项目编码" prop="apiAreaName">
+                <el-input v-model="state.config.apiAreaName" placeholder="项目编码 eg:sys"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
-              <el-form-item label="父菜单" prop="menuPid">
-                <el-input v-model="state.config.menuPid" placeholder="eg:家常管理"></el-input>
+              <el-form-item label="上级菜单" prop="menuPid">
+                <el-input v-model="state.config.menuPid" placeholder="eg:国际化管理"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="8" :lg="8" :md="12" :sm="12" :xs="24">
@@ -153,17 +153,17 @@
 
             <el-col :xl="12" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="后端输出目录" prop="backendOut">
-                <el-input v-model="state.config.backendOut" required placeholder="后端实体，仓储，服务代码目录"></el-input>
+                <el-input v-model="state.config.backendOut" required placeholder="后端输出目录 eg:E:\my-code-gen\backend"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="12" :lg="12" :md="24" :sm="24" :xs="24">
               <el-form-item label="前端输出目录" prop="frontendOut">
-                <el-input v-model="state.config.frontendOut" required placeholder="前端视图目录"></el-input>
+                <el-input v-model="state.config.frontendOut" required placeholder="前端输出目录 eg:E:\my-code-gen\frontend"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
               <el-form-item label="脚本输出目录" prop="dbMigrateSqlOut">
-                <el-input v-model="state.config.dbMigrateSqlOut" placeholder="数据库迁移脚本.sql"></el-input>
+                <el-input v-model="state.config.dbMigrateSqlOut" placeholder="脚本输出目录 eg:E:\my-code-gen\sql"></el-input>
               </el-form-item>
             </el-col>
             <el-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
