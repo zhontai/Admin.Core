@@ -633,6 +633,8 @@ public partial class CodeGenService : BaseService, IDynamicApi
                 Label = vLabel,
                 Path = vPath,
             };
+            var sort = await viewRepo.Select.Where(a => a.ParentId == pView.Id).MaxAsync(a => a.Sort);
+            genView.Sort = sort + 1;
             await viewRepo.InsertAsync(genView);
         }
 
@@ -655,15 +657,13 @@ public partial class CodeGenService : BaseService, IDynamicApi
 
         var pMenu = await perRepo.Where(w => w.Name == gen.MenuPid
         || w.Label == gen.MenuPid || w.Path == gen.MenuPid)
-            .IncludeMany(inc => inc.Childs).
-            FirstAsync();
+            .FirstAsync();
 
         if (pMenu == null)
             throw ResultOutput.Exception("未找到父菜单：" + gen.MenuPid);
 
         string mName, mPath, mLabel = gen.BusName + gen.MenuAfterText;
-        //多个单词组成的时候，文件夹&视图地址有横杠 路由的路径去掉横杠 
-        mName = mPath = gen.ApiAreaName?.ToLower() + "/" + gen.EntityName.ToLower() + "/list";
+        mName = mPath = gen.ApiAreaName?.ToLower() + "/" + gen.EntityName.NamingKebabCase();
         mPath = "/" + mPath;
 
         var menu = await perRepo.Where(w => w.ParentId == pMenu.Id && (w.Label == mLabel || w.Path == mPath)).FirstAsync();
@@ -681,6 +681,8 @@ public partial class CodeGenService : BaseService, IDynamicApi
                 Icon = "ele-Memo",
                 Sort = pMenu.Childs.Count > 0 ? pMenu.Childs.Max(m => m.Sort) + 1 : 1
             };
+            var sort = await perRepo.Select.Where(a => a.ParentId == pMenu.Id).MaxAsync(a => a.Sort);
+            menu.Sort = sort + 1;
             await perRepo.InsertAsync(menu);
         }
 
@@ -708,7 +710,6 @@ public partial class CodeGenService : BaseService, IDynamicApi
             }
         }
 
-        var order = 1;
         foreach (var m in permsToInsert)
         {
             var permNew = new PermissionEntity
@@ -717,11 +718,11 @@ public partial class CodeGenService : BaseService, IDynamicApi
                 Label = m.Label,
                 Type = PermissionType.Dot,
                 Code = m.Code,
-                Sort = order,
             };
+            var sort = await perRepo.Select.Where(a => a.ParentId == menu.Id).MaxAsync(a => a.Sort);
+            permNew.Sort = sort + 1;
 
             await perRepo.InsertAsync(permNew);
-            order++;
 
             var api = apis.Childs.FirstOrDefault(f => f.Path == "/" + m.Code.Replace(":", "/"));
             if (api != null)

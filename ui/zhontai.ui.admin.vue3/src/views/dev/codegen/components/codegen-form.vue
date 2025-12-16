@@ -453,7 +453,7 @@
                 <div v-else>{{ scope.row.columnRawName }}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="comment" label="备注" width="200">
+            <el-table-column prop="comment" label="列名说明" width="200">
               <template #default="scope">
                 <el-input v-if="!showMode" v-model="scope.row.comment"></el-input>
                 <div v-else>{{ scope.row.comment }}</div>

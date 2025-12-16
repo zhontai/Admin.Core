@@ -39,12 +39,13 @@ public static class CodeGenEntityExtension
 
     public static IEnumerable<PermInfo> GetPermissionsToGen(this CodeGenEntity table, string spillter = ":")
     {
-        return new List<PermInfo>
-        {
-            new PermInfo("add","新增"),new PermInfo("get","查询"),new PermInfo("update","更新"),
-            new PermInfo("delete","删除"),new PermInfo("get-page","分页查询")
-        }
+        return new List<PermInfo>()
+        .AddIf(table.GenGet, new PermInfo("get", "查询"))
+        .AddIf(table.GenGetPage, new PermInfo("get-page", "分页查询"))
         .AddIf(table.GenGetList, new PermInfo("get-list", "列表查询"))
+        .AddIf(table.GenAdd, new PermInfo("add", "新增"))
+        .AddIf(table.GenUpdate, new PermInfo("update", "更新"))
+        .AddIf(table.GenDelete, new PermInfo("delete", "删除"))
         .AddIf(table.GenBatchDelete, new PermInfo("batch-delete", "批量删除"))
         .AddIf(table.GenSoftDelete, new PermInfo("soft-delete", "软删除"))
         .AddIf(table.GenBatchSoftDelete, new PermInfo("batch-soft-delete", "批量软删除"))
