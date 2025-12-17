@@ -3,7 +3,6 @@
     <el-button ref="colSetRef" icon="ele-Setting" circle v-bind="$attrs" />
   </el-tooltip>
   <el-popover
-    ref="colSetPopoverRef"
     placement="bottom-end"
     transition="el-zoom-in-top"
     :virtual-ref="colSetRef"
@@ -89,7 +88,6 @@ const colsModel = defineModel({
 const colsModelOrg = cloneDeep(colsModel.value)
 
 const colSetRef = useTemplateRef('colSetRef')
-useTemplateRef('colSetPopoverRef')
 const sortableRef = useTemplateRef('sortableRef')
 
 // 全选
