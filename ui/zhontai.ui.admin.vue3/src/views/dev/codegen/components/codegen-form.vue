@@ -144,10 +144,10 @@
                 <el-checkbox v-model="state.config.genGetList">列表查询</el-checkbox>
                 <el-checkbox v-model="state.config.genAdd">新增</el-checkbox>
                 <el-checkbox v-model="state.config.genUpdate">修改</el-checkbox>
-                <el-checkbox v-model="state.config.genSoftDelete">软删除</el-checkbox>
-                <el-checkbox v-model="state.config.genBatchSoftDelete">批量软删除</el-checkbox>
-                <el-checkbox v-model="state.config.genDelete">删除</el-checkbox>
-                <el-checkbox v-model="state.config.genBatchDelete">批量删除</el-checkbox>
+                <el-checkbox v-model="state.config.genSoftDelete">删除</el-checkbox>
+                <el-checkbox v-model="state.config.genBatchSoftDelete">批量删除</el-checkbox>
+                <el-checkbox v-model="state.config.genDelete">彻底删除</el-checkbox>
+                <el-checkbox v-model="state.config.genBatchDelete">批量彻底删除</el-checkbox>
               </el-form-item>
             </el-col>
 
