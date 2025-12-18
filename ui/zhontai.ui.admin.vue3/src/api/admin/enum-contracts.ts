@@ -36,7 +36,7 @@ export const RegionLevel = {
   City: { name: 'City', value: 2, desc: '城市' },
   County: { name: 'County', value: 3, desc: '县/区' },
   Town: { name: 'Town', value: 4, desc: '镇/乡' },
-  Vilage: { name: 'Vilage', value: 5, desc: '村/社区' },
+  Village: { name: 'Village', value: 5, desc: '村/社区' },
 }
 
 /** 权限类型 */
@@ -130,4 +130,3 @@ export const LogMethod = {
   Grpc: { name: 'Grpc', value: 0, desc: '' },
   Cap: { name: 'Cap', value: 1, desc: '' },
 }
-

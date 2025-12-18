@@ -32,5 +32,5 @@ public enum RegionLevel
     /// 村/村委会/社区/居委会
     /// </summary>
     [Description("村/社区")]
-    Vilage = 5
+    Village = 5
 }

@@ -45,5 +45,5 @@ public class RegionGetChildListOutput
     /// <summary>
     /// 叶子节点
     /// </summary>
-    public bool Leaf { get => Level >= RegionLevel.Vilage; }
+    public bool Leaf { get => Level >= RegionLevel.Village; }
 }

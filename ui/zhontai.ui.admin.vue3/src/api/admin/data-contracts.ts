@@ -3379,7 +3379,7 @@ export interface RegionAddInput {
   name?: string | null
   /** 简称 */
   shortName?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
@@ -3419,7 +3419,7 @@ export interface RegionGetChildListOutput {
   id?: number
   /** 名称 */
   name?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 拼音 */
   pinyin?: string | null
@@ -3457,7 +3457,7 @@ export interface RegionGetOutput {
   name?: string | null
   /** 简称 */
   shortName?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
@@ -3504,7 +3504,7 @@ export interface RegionGetPageInput {
   parentId?: number | null
   /** 名称 */
   name?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 热门 */
   hot?: boolean | null
@@ -3528,7 +3528,7 @@ export interface RegionGetPageOutput {
   name?: string | null
   /** 简称 */
   shortName?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
@@ -3564,7 +3564,7 @@ export interface RegionGetPageOutput {
 }
 
 /**
- * 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5
+ * 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5
  * @format int32
  */
 export type RegionLevel = 1 | 2 | 3 | 4 | 5
@@ -3602,7 +3602,7 @@ export interface RegionUpdateInput {
   name?: string | null
   /** 简称 */
   shortName?: string | null
-  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Vilage(村/社区)=5 */
+  /** 地区级别:Province=1,City=2,County=3,Town(镇/乡)=4,Village(村/社区)=5 */
   level?: RegionLevel
   /** 代码 */
   code?: string | null
