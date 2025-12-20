@@ -27,14 +27,16 @@ public class WebSocketService : IDynamicApi
     }
 
     /// <summary>
-    /// 获取websocket分区
+    /// 预连接
     /// </summary>
-    [Login]
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [AllowAnonymous]
     [HttpPost]
     public object PreConnect(WebSocketPreConnectInput input)
     {
         var websocketId = input.WebsocketId ?? AppInfo.User?.Id;
-        if (websocketId == null) websocketId = YitIdHelper.NextId();
+        if (websocketId == null || websocketId == 0) websocketId = YitIdHelper.NextId();
         var wsServer = ImHelper.PrevConnectServer(websocketId.Value, IPHelper.GetIP(AppInfo.HttpContext.Request));
 
         var bizServer = _imConfig.Value.Server;

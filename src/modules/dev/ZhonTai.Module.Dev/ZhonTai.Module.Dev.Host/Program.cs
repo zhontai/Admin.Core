@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using Savorboard.CAP.InMemoryMessageQueue;
 using System;
-using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
