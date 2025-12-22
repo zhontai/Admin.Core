@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RazorEngine.Templating;
 using System;
@@ -470,6 +471,7 @@ public partial class CodeGenService : BaseService, IDynamicApi
         }
         catch (Exception ex)
         {
+            Logger.LogError(ex, "代码生成失败");
             throw ResultOutput.Exception(ex.Message);
         }
         finally

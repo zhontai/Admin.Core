@@ -427,6 +427,7 @@ onBeforeMount(() => {
 @:const get@(col.ColumnName)InitialIndex = (imgUrl: string) => {
 @:  return preview@(col.ColumnName)list.value.indexOf(imgUrl)
 @:}
+}
 @if (hasDict)
 {
 @:
@@ -537,6 +538,5 @@ const onCurrentChange = (val: number) => {
 // 选择项变化
 const selsChange = (vals: @(entityNamePc)GetPageOutput[]) => {
   state.sels = vals
-}
 }
 </script>
