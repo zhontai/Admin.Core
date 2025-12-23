@@ -681,7 +681,6 @@ public partial class CodeGenService : BaseService, IDynamicApi
                 Path = mPath,
                 Name = mName,
                 Icon = "ele-Memo",
-                Sort = pMenu.Childs.Count > 0 ? pMenu.Childs.Max(m => m.Sort) + 1 : 1
             };
             var sort = await perRepo.Select.Where(a => a.ParentId == pMenu.Id).MaxAsync(a => a.Sort);
             menu.Sort = sort + 1;
