@@ -151,7 +151,7 @@ public class HostApp
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             var appSettings = AppInfo.GetOptions<AppSettings>();
             services.Configure<RpcConfig>(configuration.GetSection("RpcConfig"));
-           
+
             AddJsonFilesFromDirectory(configuration, env.EnvironmentName, appSettings.ConfigCenterPath);
             services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
             services.Configure<JwtConfig>(configuration.GetSection("JwtConfig"));
@@ -302,7 +302,7 @@ public class HostApp
             services.AddSingleton<ICacheTool, RedisCacheTool>();
             //分布式Redis缓存
             services.AddSingleton<IDistributedCache>(new DistributedCache(redis));
-            if(_hostAppOptions?.ConfigureIdGenerator != null)
+            if (_hostAppOptions?.ConfigureIdGenerator != null)
             {
                 _hostAppOptions?.ConfigureIdGenerator?.Invoke(appConfig.IdGenerator);
                 YitIdHelper.SetIdGenerator(appConfig.IdGenerator);
@@ -491,7 +491,7 @@ public class HostApp
             var jsonSerializerOptions = options.JsonSerializerOptions;
             var currentJsonSerializerOptions = JsonHelper.GetCurrentOptions();
             currentJsonSerializerOptions.Adapt(jsonSerializerOptions);
-            foreach(var converter in currentJsonSerializerOptions.Converters)
+            foreach (var converter in currentJsonSerializerOptions.Converters)
             {
                 jsonSerializerOptions.Converters.Add(converter);
             }
@@ -656,7 +656,7 @@ public class HostApp
                 if (appConfig.ApiUI.Footer.Enable)
                 {
                     server.Extensions.Add(
-                        "extensions", 
+                        "extensions",
                         new JsonNodeExtension(
                             new JsonObject
                             {
@@ -748,9 +748,9 @@ public class HostApp
         var rateLimitConfig = AppInfo.GetOptions<RateLimitConfig>();
         if (rateLimitConfig.Enable)
         {
-            if(rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Ip)
+            if (rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Ip)
                 services.AddIpRateLimit(configuration, cacheConfig);
-            else if(rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Client)
+            else if (rateLimitConfig.Method == RateLimitConfig.Enums.RateLimitMethod.Client)
                 services.AddClientRateLimit(configuration, cacheConfig);
         }
         #endregion IP限流
@@ -893,7 +893,7 @@ public class HostApp
         app.MapControllers();
 
         //获取枚举列表接口
-        if (env.IsDevelopment())
+        if (env.IsDevelopment() || appConfig.EnableEnumListApi)
         {
             foreach (var project in appConfig.Swagger?.Projects)
             {
@@ -911,7 +911,7 @@ public class HostApp
             {
                 routePrefix = appConfig.Swagger.RoutePrefix;
             }
-            
+
             app.UseSwagger(optoins =>
             {
                 optoins.RouteTemplate = routePrefix + (optoins.RouteTemplate.StartsWith("/") ? "" : "/") + optoins.RouteTemplate;
@@ -975,7 +975,7 @@ public class HostApp
 
             app.UseMyMapGrpcService(assemblies);
         }
-        
+
         //for postman
         app.MapCodeFirstGrpcReflectionService();
 
