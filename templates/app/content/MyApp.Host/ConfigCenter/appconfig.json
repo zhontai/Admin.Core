@@ -13,7 +13,7 @@
     //"assemblyNames": [ "MyApp.Api" ],
     ////#endif
     //枚举列表程序集名称
-    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ],
+    "EnumListAssemblyNames": [ "MyApp.Api", "MyApp.Api.Contracts" ,
     //租户
     "tenant": true,
     //分布式事务唯一标识app，为空则不生成分布式事务表
