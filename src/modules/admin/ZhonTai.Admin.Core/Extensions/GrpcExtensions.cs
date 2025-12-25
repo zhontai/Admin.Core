@@ -29,6 +29,15 @@ public static class GrpcExtensions
         ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));
         ArgumentNullException.ThrowIfNull(rpcConfig, nameof(rpcConfig));
 
+        // 获取泛型方法
+        var addMyCodeFirstGrpcClientMethod = typeof(GrpcExtensions)
+                .GetMethod(
+                    name: nameof(AddMyCodeFirstGrpcClient),
+                    bindingAttr: BindingFlags.Public | BindingFlags.Static,
+                    binder: null,
+                    types: [typeof(IServiceCollection), typeof(RpcConfig), typeof(List<IAsyncPolicy<HttpResponseMessage>>)],
+                    modifiers: null);
+
         foreach (var assembly in assemblies)
         {
             var interfaceTypes = assembly.GetTypes()
@@ -37,10 +46,7 @@ public static class GrpcExtensions
 
             foreach (var interfaceType in interfaceTypes)
             {
-                typeof(GrpcExtensions)
-                .GetMethod(nameof(AddMyCodeFirstGrpcClient))
-                ?.MakeGenericMethod(interfaceType)
-                ?.Invoke(null, [services, rpcConfig, policies]);
+                addMyCodeFirstGrpcClientMethod?.MakeGenericMethod(interfaceType)?.Invoke(null, [services, rpcConfig, policies]);
             }
         }
 
@@ -118,6 +124,15 @@ public static class GrpcExtensions
     {
         ArgumentNullException.ThrowIfNull(assemblies, nameof(assemblies));
 
+        // 获取泛型方法
+        var mapGrpcServiceMethod = typeof(GrpcEndpointRouteBuilderExtensions)
+                .GetMethod(
+                    name: nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService),
+                    bindingAttr: BindingFlags.Public | BindingFlags.Static,
+                    binder: null,
+                    types: [typeof(IEndpointRouteBuilder)],
+                    modifiers: null);
+
         foreach (var assembly in assemblies)
         {
             var grpcServiceTypes = assembly.GetTypes()
@@ -129,10 +144,7 @@ public static class GrpcExtensions
 
             foreach (var grpcServiceType in grpcServiceTypes)
             {
-                typeof(GrpcEndpointRouteBuilderExtensions)
-                .GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService))
-                ?.MakeGenericMethod(grpcServiceType)
-                ?.Invoke(null, [endpointRouteBuilder]);
+                mapGrpcServiceMethod?.MakeGenericMethod(grpcServiceType)?.Invoke(null, [endpointRouteBuilder]);
             }
         }
 

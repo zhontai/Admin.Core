@@ -683,7 +683,7 @@ const appendField = async (fieldType: number) => {
   } else if (fieldType == 2) {
     //主键
     fields.push(
-      _newCol('id', '序号', 'long', {
+      _newCol('Id', '主键Id', 'long', {
         comment: '主键',
         isPrimary: true,
         isNullable: false,
@@ -695,7 +695,7 @@ const appendField = async (fieldType: number) => {
   } else if (fieldType == 3) {
     //租户
     fields.push(
-      _newCol('TenantId', '租户', 'long', {
+      _newCol('TenantId', '租户Id', 'long', {
         comment: '租户',
         isPrimary: false,
         whetherCommon: true,

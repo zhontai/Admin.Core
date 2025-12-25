@@ -420,6 +420,7 @@ const createConfigFromTable = async (table: DbTree) => {
   state.dbStructShow = false
   var newConfig = Object.assign(JSON.parse(JSON.stringify(table)), state.defaultOption)
   var baseFields = [
+    'Id',
     'CreatedUserId',
     'CreatedUserName',
     'CreatedUserRealName',
@@ -429,7 +430,6 @@ const createConfigFromTable = async (table: DbTree) => {
     'ModifiedUserRealName',
     'ModifiedTime',
     'IsDeleted',
-    'Id',
   ]
 
   newConfig.fields = newConfig.fields.filter((item: any) => {

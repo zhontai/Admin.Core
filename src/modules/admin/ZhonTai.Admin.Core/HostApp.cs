@@ -271,7 +271,7 @@ public class HostApp
         //多语言
         if (appConfig.Lang.EnableJson)
         {
-            services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
+            services.AddJsonLocalization(options => options.ResourcesPath = [ "Resources" ]);
         }
         else
         {

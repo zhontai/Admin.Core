@@ -16,7 +16,7 @@
     "distributeKey": "",
     //验证
     "validate": {
-      //登录
+      //登录权限
       "login": true,
       //接口权限
       "permission": true,
