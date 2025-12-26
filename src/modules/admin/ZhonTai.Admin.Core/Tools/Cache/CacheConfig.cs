@@ -8,7 +8,7 @@ public class CacheConfig
     /// <summary>
     /// 缓存类型
     /// </summary>
-    public CacheType Type { get; set; } = CacheType.Memory;
+    public CacheType Type { get; set; } 
 
     /// <summary>
     /// Redis配置
