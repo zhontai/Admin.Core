@@ -184,7 +184,7 @@ foreach (var col in includeCols)
         @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName) > 0).ToList();
         @:if (@(col.ColumnName.NamingCamelCase())Rows.Any())
         @:{
-            @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repo>();
+            @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Contracts.Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repository>();
             @:var @(col.ColumnName.NamingCamelCase())Ids = @(col.ColumnName.NamingCamelCase())Rows.Select(s => s.@(col.ColumnName)).Distinct().ToList();
             @:var @(col.ColumnName.NamingCamelCase())Data = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())Ids.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
         @:
@@ -200,7 +200,7 @@ foreach (var col in includeCols)
         @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName)_Values != null && s.@(col.ColumnName)_Values.Any()).ToList();
         @:if (@(col.ColumnName.NamingCamelCase())Rows.Any())
         @:{
-            @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repo>();
+            @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Contracts.Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repository>();
             @:var @(col.ColumnName.NamingCamelCase())Ids = @(col.ColumnName.NamingCamelCase())Rows.SelectMany(s => s.@(col.ColumnName)_Values).Select(s => long.TryParse(s, out long result) ? result : 0).Where(id => id > 0).Distinct().ToList();
         @:
             @:var @(col.ColumnName.NamingCamelCase())Data = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())Ids.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
