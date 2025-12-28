@@ -2,19 +2,22 @@
 using System.Text.RegularExpressions;
 using ZhonTai.DynamicApi.Enums;
 
+/// <summary>
+/// 命名规范扩展
+/// </summary>
 public static class NamingConvention
 {
-
     static string _Sp(string name, string separator)
     {
         return Regex.Replace(
-           name,
-           "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
-           $"{separator}$1",
-           RegexOptions.Compiled)
-           .Trim();
+        name,
+        "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
+        $"{separator}$1",
+        RegexOptions.Compiled)
+        .Trim();
     }
-/// <summary>
+
+    /// <summary>
     /// camelCase
     /// </summary>
     /// <param name="name"></param>
@@ -55,8 +58,9 @@ public static class NamingConvention
     {
         return _Sp(NamingPascalCase(name), "_").ToLower();
     }
+
     /// <summary>
-    /// 
+    /// Extension.Case
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -64,11 +68,24 @@ public static class NamingConvention
     {
         return _Sp(NamingPascalCase(name), ".");
     }
+
+    /// <summary>
+    /// 自定义分隔符命名规范
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="separator"></param>
+    /// <returns></returns>
     public static string NamingCustom(this string name, string separator)
     {
         return _Sp(NamingPascalCase(name), separator);
     }
 
+    /// <summary>
+    /// 命名规范转换
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="convention"></param>
+    /// <returns></returns>
     public static string Naming(this string name, NamingConventionEnum convention)
     {
         return convention switch

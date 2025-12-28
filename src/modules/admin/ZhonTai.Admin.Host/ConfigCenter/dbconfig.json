@@ -134,7 +134,7 @@
         "syncDataCurd": false,
 
         //建库，Sqlite数据库不用配置建库，连接语句自动建库
-        "createDb": false,
+        "createDb": true,
         //SqlServer,PostgreSQL,Oracle,OdbcOracle,OdbcSqlServer,OdbcMySql,OdbcPostgreSQL,Odbc,OdbcDameng,MsAccess
         //建库连接字符串
         //default_authentication_plugin = caching_sha2_password 
@@ -145,10 +145,10 @@
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=postgres;Pooling=true;Minimum Pool Size=1",
         "createDbConnectionString": "Server=localhost; Port=3306; Database=mysql; Uid=root; Pwd=pwd; Charset=utf8mb4;",
         //建库脚本，复杂建库脚本可放到createdbsql.txt中
-        //MySql "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
-        //SqlServer "CREATE DATABASE [admindb]"
-        //PostgreSQL "CREATE DATABASE \"admindb\" WITH ENCODING = 'UTF8'"
-        "createDbSql": "CREATE DATABASE `admindb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
+        //MySql "CREATE DATABASE `logdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'"
+        //SqlServer "CREATE DATABASE [logdb]"
+        //PostgreSQL "CREATE DATABASE \"logdb\" WITH ENCODING = 'UTF8'"
+        "createDbSql": "CREATE DATABASE `logdb` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci'",
         //建库脚本文件
         "createDbSqlFile": "ConfigCenter/createdbsql.txt",
 

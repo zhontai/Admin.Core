@@ -181,33 +181,33 @@ foreach (var col in includeCols)
     {
 @:
         @:// 处理单个关联字段: @col.ColumnName
-        @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName) > 0).ToList();
+        @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName.NamingPascalCase()) > 0).ToList();
         @:if (@(col.ColumnName.NamingCamelCase())Rows.Any())
         @:{
             @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Contracts.Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repository>();
-            @:var @(col.ColumnName.NamingCamelCase())Ids = @(col.ColumnName.NamingCamelCase())Rows.Select(s => s.@(col.ColumnName)).Distinct().ToList();
+            @:var @(col.ColumnName.NamingCamelCase())Ids = @(col.ColumnName.NamingCamelCase())Rows.Select(s => s.@(col.ColumnName.NamingPascalCase())).Distinct().ToList();
             @:var @(col.ColumnName.NamingCamelCase())Data = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())Ids.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
         @:
             @:@(col.ColumnName.NamingCamelCase())Rows.ForEach(s =>
             @:{
-                @:s.@(col.ColumnName)_Text = @(col.ColumnName.NamingCamelCase())Data.FirstOrDefault(s2 => s2.Id == s.@(col.ColumnName))?.@(col.IncludeEntityKey);
+                @:s.@(col.ColumnName.NamingPascalCase())_Text = @(col.ColumnName.NamingCamelCase())Data.FirstOrDefault(s2 => s2.Id == s.@(col.ColumnName.NamingPascalCase()))?.@(col.IncludeEntityKey);
             @:});
         @:}
     }
     else if (col.IncludeMode == 1)
     {
         @:// 处理多个关联字段: @col.ColumnName
-        @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName)_Values != null && s.@(col.ColumnName)_Values.Any()).ToList();
+        @:var @(col.ColumnName.NamingCamelCase())Rows = list.Where(s => s.@(col.ColumnName.NamingPascalCase())_Values != null && s.@(col.ColumnName.NamingPascalCase())_Values.Any()).ToList();
         @:if (@(col.ColumnName.NamingCamelCase())Rows.Any())
         @:{
             @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Contracts.Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repository>();
-            @:var @(col.ColumnName.NamingCamelCase())Ids = @(col.ColumnName.NamingCamelCase())Rows.SelectMany(s => s.@(col.ColumnName)_Values).Select(s => long.TryParse(s, out long result) ? result : 0).Where(id => id > 0).Distinct().ToList();
+            @:var @(col.ColumnName.NamingCamelCase())List = @(col.ColumnName.NamingCamelCase())Rows.SelectMany(s => s.@(col.ColumnName)_Values).Select(s => long.TryParse(s, out long result) ? result : 0).Where(id => id > 0).Distinct().ToList();
         @:
-            @:var @(col.ColumnName.NamingCamelCase())Data = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())Ids.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
+            @:var @(col.ColumnName.NamingCamelCase())DataList = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())List.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
         @:
             @:@(col.ColumnName.NamingCamelCase())Rows.ForEach(s =>
             @:{
-                @:s.@(col.ColumnName)_Texts = @(col.ColumnName.NamingCamelCase())Data.Where(s2 => s.@(col.ColumnName)_Values.Contains(s2.Id.ToString())).OrderBy(s2 => s.@(col.ColumnName)_Values.IndexOf(s2.Id.ToString())).Select(s2 => s2.@(col.IncludeEntityKey)).ToList();
+                @:s.@(col.ColumnName.NamingPascalCase())_Texts = @(col.ColumnName.NamingCamelCase())DataList.Where(s2 => s.@(col.ColumnName.NamingPascalCase())_Values.Contains(s2.Id.ToString())).OrderBy(s2 => s.@(col.ColumnName.NamingPascalCase())_Values.IndexOf(s2.Id.ToString())).Select(s2 => s2.@(col.IncludeEntityKey)).ToList();
             @:});
         @:}
     }
