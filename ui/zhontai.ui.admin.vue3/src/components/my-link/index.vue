@@ -1,5 +1,13 @@
 <template>
-  <el-link :class="{ 'my-link--bold': bold }" type="primary" underline="never" :href="href" v-bind="$attrs" @click.prevent.stop="onToPage()">
+  <el-link
+    class="my-link"
+    :class="{ 'my-link--bold': bold }"
+    type="primary"
+    underline="never"
+    :href="href"
+    v-bind="$attrs"
+    @click.prevent.stop="onToPage()"
+  >
     <slot> </slot>
   </el-link>
 </template>
@@ -28,6 +36,13 @@ const onToPage = () => {
 </script>
 
 <style scoped lang="scss">
+.my-link {
+  :deep() {
+    > .el-icon {
+      margin-right: 2px;
+    }
+  }
+}
 .my-link--bold {
   font-weight: 600;
 }

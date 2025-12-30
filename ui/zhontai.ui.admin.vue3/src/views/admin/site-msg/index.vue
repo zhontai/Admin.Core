@@ -57,19 +57,17 @@
         <el-table-column type="selection" width="55" />
         <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
-            <div class="my-flex my-flex-items-center">
-              <MyLink
-                :model-value="{
-                  path: '/site-msg/detail',
-                  query: { id: row.id, tagsViewName: row.title },
-                }"
-                icon="ele-Message"
-                :type="row.isRead ? '' : 'primary'"
-                :bold="!row.isRead"
-              >
-                {{ row.title }}
-              </MyLink>
-            </div>
+            <MyLink
+              :model-value="{
+                path: '/site-msg/detail',
+                query: { id: row.id, tagsViewName: row.title },
+              }"
+              icon="ele-Message"
+              :type="row.isRead ? '' : 'primary'"
+              :bold="!row.isRead"
+            >
+              {{ row.title }}
+            </MyLink>
           </template>
         </el-table-column>
         <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
