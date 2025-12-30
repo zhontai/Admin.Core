@@ -185,7 +185,7 @@
           }
           @if(gen.GenBatchDelete || gen.GenBatchSoftDelete){
             @:<el-dropdown :placement="'bottom-end'" v-if="auths([perms.batSoftDelete, perms.batDelete])">
-            @:  <el-button type="warning">批量操作 <el-icon><ele-ArrowDown /></el-icon></el-button>
+            @:  <el-button type="primary">批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon></el-button>
             @:  <template #dropdown>
             @:    <el-dropdown-menu>
                 if(gen.GenBatchSoftDelete){
@@ -246,15 +246,14 @@
           <template #default="{ row }">
             <el-button v-auth="perms.update" icon="ele-EditPen" text type="primary" @(at)click.stop="onEdit(row)">编辑</el-button>
             @if(gen.GenDelete&&gen.GenSoftDelete){
-            @:<el-dropdown v-if="authAll([perms.delete,perms.softDelete])">
-            @:  <el-button icon="el-icon--right" text type="danger" >操作 <el-icon class="el-icon--right"><component :is="'ele-ArrowDown'" /></el-icon></el-button>
+            @:<my-dropdown-more v-if="authAll([perms.delete,perms.softDelete])">
             @:  <template #dropdown>
             @:    <el-dropdown-menu>
             @:      <el-dropdown-item v-if="auth(perms.softDelete)" @(at)click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">删除</el-dropdown-item>
             @:      <el-dropdown-item v-if="auth(perms.delete)" @(at)click.stop="onDelete(row)" icon="ele-Delete">彻底删除</el-dropdown-item>
             @:    </el-dropdown-menu>
             @:  </template>            
-            @:</el-dropdown>
+            @:</my-dropdown-more>
             @:<span v-else style="margin-left:5px;height:inherit">
             @:  <el-button text type="danger" v-if="auth(perms.softDelete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-DeleteFilled">删除</el-button>
             @:  <el-button text type="danger" v-if="auth(perms.delete)" style="height:inherit" @(at)click.stop="onDelete(row)" icon="ele-Delete">彻底删除</el-button>
