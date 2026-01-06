@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>10.1.0</Version>
+		<Version>10.0.2</Version>
 		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>

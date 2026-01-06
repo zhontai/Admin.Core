@@ -31,11 +31,11 @@
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
 		<PackageReference Include="FreeRedis" Version="1.5.5" />
 		<PackageReference Include="FreeRedis.DistributedCache" Version="1.5.2" />
-		<PackageReference Include="FreeSql" Version="3.5.304" />
+		<PackageReference Include="FreeSql" Version="3.5.305" />
 		<PackageReference Include="FreeSql.Cloud" Version="2.0.1" />
-		<PackageReference Include="FreeSql.Repository" Version="3.5.304" />
+		<PackageReference Include="FreeSql.Repository" Version="3.5.305" />
 		<PackageReference Include="FreeScheduler" Version="2.1.4" />
-		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.304" />
+		<PackageReference Include="FreeSql.Extensions.JsonMap" Version="3.5.305" />
 		<PackageReference Include="FreeIM" Version="2.0.4" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.76.0" />
 		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.76.0" />
