@@ -74,6 +74,11 @@ public class AppConfig
     }
 
     /// <summary>
+    /// 是否启用枚举列表接口
+    /// </summary>
+    public bool EnableEnumListApi { get; set; } = false;
+
+    /// <summary>
     /// 租户类型
     /// </summary>
     public bool Tenant { get; set; } = false;
