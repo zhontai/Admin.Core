@@ -1,4 +1,6 @@
-﻿namespace MyGateway.Host.Core.Configs;
+﻿using static MyGateway.Host.Core.Configs.GatewayConfig.Models;
+
+namespace MyGateway.Host.Core.Configs;
 
 /// <summary>
 /// 网关配置
@@ -38,6 +40,27 @@ public class GatewayConfig
             /// </summary>
             public string Path { get; set; } = "/health";
         }
+
+        /// <summary>
+        /// Kestrel服务器配置
+        /// </summary>
+        public class KestrelConfig
+        {
+            /// <summary>
+            /// HTTP连接保活最长时间，单位秒
+            /// </summary>
+            public double KeepAliveTimeout { get; set; } = 130;
+
+            /// <summary>
+            /// 发送请求头最长时间，单位秒
+            /// </summary>
+            public double RequestHeadersTimeout { get; set; } = 30;
+
+            /// <summary>
+            /// 最大请求大小，单位bytes
+            /// </summary>
+            public long? MaxRequestBodySize { get; set; } = 30000000;
+        }
     }
 
     /// <summary>
@@ -48,5 +71,10 @@ public class GatewayConfig
     /// <summary>
     /// 健康检查配置
     /// </summary>
-    public Models.HealthChecksConfig HealthChecks { get; set; } = new Models.HealthChecksConfig();
+    public Models.HealthChecksConfig HealthChecks { get; set; } = new HealthChecksConfig();
+
+    /// <summary>
+    /// Kestrel服务器
+    /// </summary>
+    public KestrelConfig Kestrel { get; set; } = new KestrelConfig();
 }

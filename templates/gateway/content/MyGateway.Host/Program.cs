@@ -9,7 +9,10 @@ builder.Logging.ClearProviders();
 //使用NLog日志
 builder.Host.UseNLog();
 
-var healthChecks = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>()?.HealthChecks;
+// 网关配置
+var gatewayConfig = builder.Configuration.GetSection("GatewayConfig").Get<GatewayConfig>();
+// 健康检查配置
+var healthChecks = gatewayConfig?.HealthChecks;
 //添加健康检查
 if (healthChecks != null && healthChecks.Enable)
 {
@@ -26,6 +29,16 @@ builder.Services.AddCors(options =>
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
+});
+
+//配置Kestrel服务器
+//Kestrel配置
+var kestrel = gatewayConfig?.Kestrel;
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.KeepAliveTimeout = TimeSpan.FromSeconds(kestrel.KeepAliveTimeout);
+    options.Limits.RequestHeadersTimeout = TimeSpan.FromSeconds(kestrel.RequestHeadersTimeout);
+    options.Limits.MaxRequestBodySize = kestrel.MaxRequestBodySize;
 });
 
 //添加代理
