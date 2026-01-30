@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Dto;
 using ZhonTai.Admin.Services;
 using ZhonTai.DynamicApi;
@@ -91,7 +92,7 @@ if (gen.Fields.Any(a => !string.IsNullOrWhiteSpace(a.DictTypeCode)))
         @:{
             @:var cloud = LazyGetRequiredService<FreeSqlCloud>();
             @:var adminDb = cloud.Use(AdminDbKeys.AdminDb);
-            @:var dictRepo = adminDb.GetRepoBase<DictEntity>();
+            @:var dictRepo = adminDb.GetRepositoryBase<DictEntity>();
             @:var dictTypeCodes = new[] { @string.Join(", ", dictCols.Select(s => $"\"{s.DictTypeCode}\"")) };
             @:var dictList = await dictRepo.Where(w => dictTypeCodes.Contains(w.DictType.Code)).ToListAsync();
 @:
@@ -158,7 +159,7 @@ else if (col.IsNumColumn())
       @:{
         @:var cloud = LazyGetRequiredService<FreeSqlCloud>();
         @:var adminDb = cloud.Use(AdminDbKeys.AdminDb);
-        @:var dictRepo = adminDb.GetRepoBase<DictEntity>();
+        @:var dictRepo = adminDb.GetRepositoryBase<DictEntity>();
         @:var dictTypeCodes = new[] { @string.Join(", ", dictCols.Select(s => $"\"{s.DictTypeCode}\"")) };
         @:var dictList = await dictRepo.Where(w => dictTypeCodes.Contains(w.DictType.Code)).ToListAsync();
 @:
