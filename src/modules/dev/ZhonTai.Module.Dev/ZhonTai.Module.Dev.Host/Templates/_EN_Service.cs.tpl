@@ -102,7 +102,7 @@ if (gen.Fields.Any(a => !string.IsNullOrWhiteSpace(a.DictTypeCode)))
             @:{
     foreach (var col in dictCols)
     {
-                @:s.@(col.ColumnName.NamingPascalCase())DictName = dictList.FirstOrDefault(f => f.DictType.Code == "@col.DictTypeCode" && f.Value == @(col.IsNumColumn() ? "\"\" + " : "")s.@(col.ColumnName.NamingPascalCase()))?.Name;
+                @:s.@(col.ColumnName)DictName = dictList.FirstOrDefault(f => f.DictType.Code == "@col.DictTypeCode" && f.Value == @(col.IsNumColumn() ? "\"\" + " : "")s.@(col.ColumnName.NamingPascalCase()))?.Name;
     }
                 @:return s;
             @:}).ToList();
@@ -169,7 +169,7 @@ else if (col.IsNumColumn())
             @:{
 foreach (var col in dictCols)
 {
-                @:s.@(col.ColumnName.NamingPascalCase())DictName = dictList.FirstOrDefault(f => f.DictType.Code == "@col.DictTypeCode" && f.Value == @(col.IsNumColumn() ? "\"\" + " : "")s.@(col.ColumnName.NamingPascalCase()))?.Name;
+                @:s.@(col.ColumnName)DictName = dictList.FirstOrDefault(f => f.DictType.Code == "@col.DictTypeCode" && f.Value == @(col.IsNumColumn() ? "\"\" + " : "")s.@(col.ColumnName.NamingPascalCase()))?.Name;
 }
                 @:return s;
             @:}).ToList();
