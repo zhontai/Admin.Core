@@ -6,6 +6,7 @@
     var entityNameCc = gen.EntityName?.NamingCamelCase();
     var moduleNamePc = gen.ApiAreaName?.NamingPascalCase();
 }
+using FreeSql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ using @(gen.Namespace).Api.Core.Consts;
 using @(gen.Namespace).Api.Core.Repositories;
 using @(gen.Namespace).Api.Contracts.Domain.@(entityNamePc);
 using @(gen.Namespace).Api.Contracts.Services.@(entityNamePc).Dtos;
+using AdminDbKeys = ZhonTai.Admin.Core.Consts.DbKeys;
 
 namespace @(gen.Namespace).Api.Services.@(entityNamePc);
 
@@ -202,7 +204,7 @@ foreach (var col in includeCols)
         @:if (@(col.ColumnName.NamingCamelCase())Rows.Any())
         @:{
             @:var @(col.ColumnName.NamingCamelCase())Repo = LazyGetRequiredService<Contracts.Domain.@(col.IncludeEntity.Replace("Entity", "")).I@(col.IncludeEntity.Replace("Entity", ""))Repository>();
-            @:var @(col.ColumnName.NamingCamelCase())List = @(col.ColumnName.NamingCamelCase())Rows.SelectMany(s => s.@(col.ColumnName)_Values).Select(s => long.TryParse(s, out long result) ? result : 0).Where(id => id > 0).Distinct().ToList();
+            @:var @(col.ColumnName.NamingCamelCase())List = @(col.ColumnName.NamingCamelCase())Rows.SelectMany(s => s.@(col.ColumnName.NamingPascalCase())_Values).Select(s => long.TryParse(s, out long result) ? result : 0).Where(id => id > 0).Distinct().ToList();
         @:
             @:var @(col.ColumnName.NamingCamelCase())DataList = await @(col.ColumnName.NamingCamelCase())Repo.Where(s => @(col.ColumnName.NamingCamelCase())List.Contains(s.Id)).ToListAsync(s => new { s.Id, s.@(col.IncludeEntityKey) });
         @:
