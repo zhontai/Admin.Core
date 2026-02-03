@@ -21,8 +21,8 @@
 
 	
 	<ItemGroup>
-		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="10.0.0" />
-		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="10.0.0" />
+		<PackageReference Include="DotNetCore.CAP.Dashboard" Version="10.0.1" />
+		<PackageReference Include="DotNetCore.CAP.InMemoryStorage" Version="10.0.1" />
 		<PackageReference Include="Savorboard.CAP.InMemoryMessageQueue" Version="10.0.0" />
 		
 		<!--

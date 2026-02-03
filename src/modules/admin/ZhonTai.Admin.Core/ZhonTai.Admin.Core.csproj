@@ -26,7 +26,7 @@
 		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
 		<PackageReference Include="Castle.Core.AsyncInterceptor" Version="2.1.0" />
 		<PackageReference Include="Cronos" Version="0.11.1" />
-		<PackageReference Include="DotNetCore.CAP" Version="10.0.0" />
+		<PackageReference Include="DotNetCore.CAP" Version="10.0.1" />
 		<PackageReference Include="FluentValidation" Version="12.1.1" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
 		<PackageReference Include="FreeRedis" Version="1.5.5" />
@@ -46,12 +46,12 @@
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.8.2" />
 		<PackageReference Include="MailKit" Version="4.14.1" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.2" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="4.0.0" />
-		<PackageReference Include="NLog" Version="6.0.7" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="NLog" Version="6.1.0" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="6.1.1" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.2.2" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
@@ -60,8 +60,8 @@
 		<PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Endpoints" Version="1.5.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
 		<PackageReference Include="System.ServiceModel.Primitives" Version="10.0.652802" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
-		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.1" />
+		<PackageReference Include="ToolGood.Words.Pinyin" Version="3.1.0.4" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 	</ItemGroup>
