@@ -11,8 +11,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="10.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" Version="10.0.3" />
 	</ItemGroup>
 		
 	<ItemGroup>

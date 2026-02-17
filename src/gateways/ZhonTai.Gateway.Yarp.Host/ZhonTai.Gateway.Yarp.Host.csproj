@@ -10,7 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
-		<PackageReference Include="NLog.Web.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="6.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
