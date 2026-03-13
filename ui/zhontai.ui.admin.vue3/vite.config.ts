@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { defineConfig, ConfigEnv, UserConfig } from 'vite'
 import compression from 'vite-plugin-compression'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
-import { loadEnv } from '/@/utils/vite'
+import { loadEnv } from './src/utils/vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
 import fs from 'node:fs'
@@ -79,7 +79,7 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
       }),
       {
         name: 'html-version',
-        transformIndexHtml(html) {
+        transformIndexHtml(html: string) {
           return html.replace(/<script src="(\/env\.config\.js)"><\/script>/, `<script src="$1?v=${process.env.npm_package_version}"></script>`)
         },
       },
@@ -98,7 +98,7 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
           target: 'https://gitee.com',
           ws: true,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/gitee/, ''),
+          rewrite: (path: string) => path.replace(/^\/gitee/, ''),
         },
       },
     },
@@ -111,7 +111,7 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
           chunkFileNames: 'assets/js/[name]-[hash].js',
           entryFileNames: 'assets/js/[name]-[hash].js',
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
-          manualChunks(id) {
+          manualChunks(id: string) {
             if (id.includes('node_modules')) {
               return id.toString().match(/\/node_modules\/(?!.pnpm)(?<moduleName>[^\/]*)\//)?.groups!.moduleName ?? 'vender'
             }
