@@ -19,7 +19,7 @@ export class WebSocketApi<SecurityDataType = unknown> extends HttpClient<Securit
    *
    * @tags web-socket
    * @name PreConnect
-   * @summary 获取websocket分区
+   * @summary 预连接
    * @request POST:/api/admin/web-socket/pre-connect
    * @secure
    */

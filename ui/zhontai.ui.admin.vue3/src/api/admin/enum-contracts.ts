@@ -130,3 +130,19 @@ export const LogMethod = {
   Grpc: { name: 'Grpc', value: 0, desc: '' },
   Cap: { name: 'Cap', value: 1, desc: '' },
 }
+
+/** 限流方式 */
+export const RateLimitMethod = {
+  None: { name: 'None', value: 0, desc: '无' },
+  Ip: { name: 'Ip', value: 1, desc: 'Ip限流' },
+  Client: { name: 'Client', value: 2, desc: '客户端限流' },
+}
+
+/** 客户端Id类型 */
+export const ClientIdType = {
+  None: { name: 'None', value: 0, desc: '无' },
+  Token: { name: 'Token', value: 1, desc: '令牌限流' },
+  UserId: { name: 'UserId', value: 2, desc: '用户Id限流' },
+  ClientIdHeader: { name: 'ClientIdHeader', value: 3, desc: '请求头限流' },
+}
+
