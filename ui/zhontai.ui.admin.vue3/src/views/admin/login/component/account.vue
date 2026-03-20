@@ -79,7 +79,13 @@
           @keyup.enter="onSignIn"
         >
           <template #prefix>
-            <el-icon class="el-input__icon"><ele-Unlock /></el-icon>
+            <el-icon class="el-input__icon"><ele-Key /></el-icon>
+          </template>
+          <template #password-icon="{ visible }">
+            <el-icon :size="16">
+              <ele-Unlock v-if="visible" />
+              <ele-Lock v-else />
+            </el-icon>
           </template>
         </el-input>
       </el-form-item>
