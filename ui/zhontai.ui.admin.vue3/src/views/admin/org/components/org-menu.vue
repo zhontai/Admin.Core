@@ -5,7 +5,7 @@
         <el-input v-model="state.filterText" placeholder="筛选部门" clearable />
         <el-dropdown trigger="hover">
           <div class="my-flex my-flex-items-center my-icon-more">
-            <my-icon name="more" color="var(--color)" size="22"></my-icon>
+            <my-icon name="more" color="var(--color)" size="18"></my-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>

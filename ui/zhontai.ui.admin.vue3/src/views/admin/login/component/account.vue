@@ -131,7 +131,6 @@
 
 <script setup lang="ts" name="loginAccount">
 import { ElMessage } from 'element-plus'
-import { useI18n } from 'vue-i18n'
 import { sm4 } from 'sm-crypto-v2'
 import { initBackEndControlRoutes } from '/@/router/backEnd'
 import { Session } from '/@/utils/storage'

@@ -20,7 +20,6 @@
 
 <script lang="ts" setup name="login/dialog">
 import { ElMessage } from 'element-plus'
-import { useI18n } from 'vue-i18n'
 import { useUserInfo } from '/@/stores/userInfo'
 
 const LoginForm = defineAsyncComponent(() => import('./form.vue'))
