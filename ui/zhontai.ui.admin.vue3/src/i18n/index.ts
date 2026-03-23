@@ -65,6 +65,7 @@ for (const locale of supportedLocales) {
     el: elementLocales[locale].el,
     // 合并所有翻译片段
     message: mergeObjects(fragments),
+    ...mergeObjects(fragments),
   }
 }
 
@@ -81,6 +82,7 @@ export const i18n = createI18n({
   locale: themeConfig.value.globalI18n,
   fallbackLocale: zhcnLocale.name,
   messages,
+  fallbackFormat: true,
   missing: (locale, key) => {
     // 只返回最后一段
     return key?.split('.')?.pop()
