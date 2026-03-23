@@ -33,7 +33,6 @@
 
 <script setup lang="ts" name="example/pagesFormI18n">
 import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
 
 // 定义变量内容
 const { locale } = useI18n()

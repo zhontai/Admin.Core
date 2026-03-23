@@ -72,7 +72,7 @@ const viteConfig = defineConfig(({ mode, command }: ConfigEnv) => {
         customDomId: '__svg__icons__dom__',
       }),
       AutoImport({
-        imports: ['vue', 'vue-router', 'pinia'],
+        imports: ['vue', 'vue-router', 'pinia', 'vue-i18n'],
         vueTemplate: true,
         dts: './src/auto-imports.d.ts',
         exclude: ['**/node_modules/**', '**/dist/**', '**/src/auto-imports.d.ts'],

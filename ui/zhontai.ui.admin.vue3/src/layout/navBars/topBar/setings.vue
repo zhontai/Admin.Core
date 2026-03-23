@@ -428,7 +428,6 @@
 
 <script setup lang="ts" name="layoutBreadcrumbSeting">
 import { ElMessage } from 'element-plus'
-import { useI18n } from 'vue-i18n'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useChangeColor } from '/@/utils/theme'
 import { verifyAndSpace } from '/@/utils/toolsValidate'

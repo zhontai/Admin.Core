@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumbSearch">
-import { useI18n } from 'vue-i18n'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 
 // 定义变量内容

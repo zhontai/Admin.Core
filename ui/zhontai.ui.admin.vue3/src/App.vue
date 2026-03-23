@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts" name="app">
-import { useI18n } from 'vue-i18n'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'

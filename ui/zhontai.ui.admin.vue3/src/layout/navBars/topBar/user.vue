@@ -71,7 +71,6 @@
 <script setup lang="ts" name="layoutBreadcrumbUser">
 import { ElMessageBox, ElMessage } from 'element-plus'
 import screenfull from 'screenfull'
-import { useI18n } from 'vue-i18n'
 import { useUserInfo } from '/@/stores/userInfo'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import other from '/@/utils/other'

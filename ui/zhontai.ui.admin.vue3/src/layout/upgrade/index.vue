@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts" name="layoutUpgrade">
-import { useI18n } from 'vue-i18n'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { Local } from '/@/utils/storage'
 import { useUserInfo } from '/@/stores/userInfo'

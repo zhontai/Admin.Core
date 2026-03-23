@@ -78,7 +78,11 @@ export const i18n = createI18n({
   missingWarn: false,
   silentFallbackWarn: true,
   fallbackWarn: false,
-  locale: themeConfig.value.globalI18n, // 初始化时读取一次，后续需通过 i18n.global.locale.value 动态修改
+  locale: themeConfig.value.globalI18n,
   fallbackLocale: zhcnLocale.name,
   messages,
+  missing: (locale, key) => {
+    // 只返回最后一段
+    return key?.split('.')?.pop()
+  },
 })
