@@ -9,7 +9,7 @@
       <div class="my-flex-column w100 h100">
         <el-card v-show="state.showQuery" class="my-search-box mt8" shadow="never">
           <my-search
-            :search-items="state.searchItems"
+            :search-items="searchItems"
             :display-count="2"
             :col-config="{
               lg: 8,
@@ -115,7 +115,7 @@
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
         <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
-        <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="state.searchItems" @sure="onFilterSure"></MyHighSearchDialog>
+        <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
     </el-splitter-panel>
   </MySplitter>
@@ -237,7 +237,10 @@ const state = reactive({
       pageSizes: [20, 50, 100, 200],
     },
   },
-  searchItems: [
+})
+
+const searchItems = computed(() => {
+  return [
     {
       label: '姓名',
       field: 'name',
@@ -323,7 +326,7 @@ const state = reactive({
         placeholder: '请输入账号',
       },
     },
-  ],
+  ]
 })
 
 const selectionRows = computed(() => {
