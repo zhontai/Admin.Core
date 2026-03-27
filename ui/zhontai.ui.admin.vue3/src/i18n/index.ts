@@ -30,8 +30,6 @@ function mergeObjects(objects: Record<string, any>[]): Record<string, any> {
 // 动态导入国际化文件
 // 框架本身的国际化文件（src/i18n/**/*.ts）
 const frameworkModules: Record<string, any> = import.meta.glob('./**/*.ts', { eager: true })
-// 视图层的国际化文件（src/views/**/**/lang/*.ts）
-const viewModules: Record<string, any> = import.meta.glob('./../views/**/**/i18n/*.ts', { eager: true })
 
 // 按语言分类存储所有翻译片段
 const messagesByLocale: Record<string, Record<string, any>[]> = {}
@@ -43,15 +41,6 @@ for (const path in frameworkModules) {
   const locale = match[1]
   if (!messagesByLocale[locale]) messagesByLocale[locale] = []
   messagesByLocale[locale].push(frameworkModules[path].default)
-}
-
-// 处理视图模块
-for (const path in viewModules) {
-  const match = path.match(/([^/]+)\.ts$/)
-  if (!match) continue
-  const locale = match[1]
-  if (!messagesByLocale[locale]) messagesByLocale[locale] = []
-  messagesByLocale[locale].push(viewModules[path].default)
 }
 
 // 构建最终的 messages 对象

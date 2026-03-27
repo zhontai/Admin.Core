@@ -1,6 +1,6 @@
 <template>
   <el-table ref="tableRef" v-loading="model.loading" :data="paginatedData" class="my-table-box" v-bind="model.attrs">
-    <el-table-column v-for="(item, index) in columns" :key="item.attrs.prop" v-bind="item.attrs">
+    <el-table-column v-for="(item, index) in columns" :key="item.attrs.prop" v-bind="item.attrs" :label="$t(item.attrs.label)">
       <template v-if="item.slot" #default="scope">
         <slot :name="item.slot" v-bind="scope"></slot>
       </template>

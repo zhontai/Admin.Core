@@ -30,7 +30,7 @@
                 <SvgIcon name="ele-Rank" />
               </template>
             </el-button>
-            <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="item.attrs.label" />
+            <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="$t(item.attrs.label)" />
           </div>
           <div class="my-flex">
             <el-button link title="置顶" @click="onMoveToTop(item)">
