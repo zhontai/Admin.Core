@@ -70,7 +70,7 @@ import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
-import { t } from '/@/i18n'
+import { t, locale } from '/@/i18n'
 
 // 定义变量内容
 const homeLineRef = useTemplateRef('homeLineRef')
@@ -547,6 +547,17 @@ watch(
   {
     deep: true,
     immediate: true,
+  }
+)
+
+watch(
+  () => locale.value,
+  () => {
+    nextTick(() => {
+      initLineChart()
+      initPieChart()
+      initBarChart()
+    })
   }
 )
 </script>
