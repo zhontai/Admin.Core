@@ -11,37 +11,37 @@
       @close="onClose"
     >
       <el-steps :active="state.step" simple>
-        <el-step title="上传文件" icon="ele-Upload" />
-        <el-step title="导入数据" icon="ele-Download" />
-        <el-step title="完成导入" icon="ele-CircleCheck" />
+        <el-step :title="t('上传文件')" icon="ele-Upload" />
+        <el-step :title="t('导入数据')" icon="ele-Download" />
+        <el-step :title="t('完成导入')" icon="ele-CircleCheck" />
       </el-steps>
       <div v-show="state.step === 1">
         <div class="my-import__step">
-          <div class="my-import__title mt20">一、请按照模板的格式准备要导入的数据</div>
+          <div class="my-import__title mt20">{{ t('一、请按照模板的格式准备要导入的数据') }}</div>
           <div class="my-import__content">
             <div class="my-import__download">
-              <el-button type="primary" link :loading="state.download.loadingTemplate" @click="onDownloadTemplate">下载模板</el-button>
+              <el-button type="primary" link :loading="state.download.loadingTemplate" @click="onDownloadTemplate">{{ t('下载模板') }}</el-button>
             </div>
             <div class="my-import__notice">
-              <div>注意事项:</div>
-              <div>1、表头名称不可更改，表头行不能删除</div>
-              <div>2、表头列顺序可以调整，不需要的列可以删减</div>
-              <div v-if="requiredColumns">3、其中{{ requiredColumns }}为必埴项，必须保留</div>
-              <div>{{ requiredColumns ? 4 : 3 }}、导入文件请不要超过 1 MB</div>
+              <div>{{ t('注意事项:') }}</div>
+              <div>{{ t('1、表头名称不可更改，表头行不能删除') }}</div>
+              <div>{{ t('2、表头列顺序可以调整，不需要的列可以删减') }}</div>
+              <div v-if="requiredColumns">{{ t('3、其中{cols}为必埴项，必须保留', { cols: requiredColumns }) }}</div>
+              <div>{{ requiredColumns ? 4 : 3 }}、{{ t('导入文件请不要超过 1 MB') }}</div>
             </div>
           </div>
         </div>
         <div class="my-import__step">
-          <div class="my-import__title">二、请选择数据重复时的操作方式</div>
+          <div class="my-import__title">{{ t('二、请选择数据重复时的操作方式') }}</div>
           <div class="my-import__content mt10">
             <el-select v-model="state.data.duplicateAction" style="width: 220px">
               <el-option v-for="status in state.duplicateActionList" :key="status.name" :label="status.name" :value="status.value" />
             </el-select>
-            <div class="mt6" style="font-size: 12px" v-if="uniqueRules">查重规则: {{ uniqueRules }}</div>
+            <div class="mt6" style="font-size: 12px" v-if="uniqueRules">{{ t('查重规则: {rules}', { rules: uniqueRules }) }}</div>
           </div>
         </div>
         <div class="my-import__step">
-          <div class="my-import__title">三、请选择需要导入的 excel.xlsx 文件</div>
+          <div class="my-import__title">{{ t('三、请选择需要导入的 excel.xlsx 文件') }}</div>
           <div class="my-import__content mt10">
             <el-upload
               ref="fileUploadRef"
@@ -58,7 +58,7 @@
               v-model:file-list="state.fileList"
             >
               <template #trigger>
-                <el-button icon="ele-Paperclip" text bg>选择文件</el-button>
+                <el-button icon="ele-Paperclip" text bg>{{ t('选择文件') }}</el-button>
               </template>
             </el-upload>
             <!-- <div class="mt10">请选择文件编码</div>
@@ -75,18 +75,20 @@
         <el-progress :text-inside="true" :stroke-width="26" :percentage="state.percent" :stroke-linecap="'square'" status="success" />
 
         <div v-if="state.step === 3 && state.uploadSuccess" class="mt10">
-          导入完成，共 {{ state.importResult.total }} 条 <el-text type="warning">{{ result }}</el-text>
+          {{ t('导入完成，共 {total} 条', { total: state.importResult.total }) }} <el-text type="warning">{{ result }}</el-text>
         </div>
 
         <div class="mt10" v-if="state.showErrorMark">
-          <el-button type="danger" link :loading="state.download.loadingErrorMark" @click="onDownloadErrorMark">下载错误标记文件</el-button>
+          <el-button type="danger" link :loading="state.download.loadingErrorMark" @click="onDownloadErrorMark">{{
+            t('下载错误标记文件')
+          }}</el-button>
         </div>
       </div>
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">{{ state.step === 1 ? '取 消' : '关闭' }}</el-button>
-          <el-button v-if="state.step === 1" type="primary" @click="onUpload" :loading="state.uploading">开始导入</el-button>
+          <el-button @click="onCancel">{{ state.step === 1 ? t('取消') : t('关闭') }}</el-button>
+          <el-button v-if="state.step === 1" type="primary" @click="onUpload" :loading="state.uploading">{{ t('开始导入') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -101,6 +103,7 @@ import { ElMessage, genFileId, ElNotification } from 'element-plus'
 import dayjs from 'dayjs'
 import { cloneDeep, merge } from 'lodash-es'
 import { plus } from '/@/utils/digit'
+import { t } from '/@/i18n'
 
 const model = defineModel({ type: Object })
 
@@ -118,8 +121,8 @@ const initState = {
     //fileEncoding: model.value.fileEncoding,
   },
   duplicateActionList: [
-    { name: '不导入', value: 0 },
-    { name: '直接覆盖', value: 1 },
+    { name: t('不导入'), value: 0 },
+    { name: t('直接覆盖'), value: 1 },
   ],
   download: {
     loadingTemplate: false,
@@ -152,14 +155,14 @@ const result = computed(() => {
   const total = plus(state.importResult.insertCount, state.importResult.updateCount)
 
   if (state.importResult.total === 0 || total === 0) {
-    return '无一成功'
+    return t('无一成功')
   }
 
   if (state.importResult.total === total) {
-    return '全部成功'
+    return t('全部成功')
   }
 
-  return `成功 ${total} 条`
+  return t('成功 {total} 条', { total })
 })
 
 const requiredColumns = computed(() => {
@@ -220,7 +223,7 @@ const onSuccess: UploadProps['onSuccess'] = (response) => {
     state.uploadSuccess = true
     state.importResult = response.data
     ElMessage({
-      message: '导入成功',
+      message: t('导入成功'),
       type: 'success',
     })
     eventBus.emit('refreshDict')
@@ -228,7 +231,7 @@ const onSuccess: UploadProps['onSuccess'] = (response) => {
     state.showErrorMark = true
     if (response?.msg) {
       ElNotification({
-        title: '提示',
+        title: t('提示'),
         message: response?.msg?.replace(/[\r\n]+/g, '<br/>'),
         type: 'error',
         duration: 0,
@@ -255,7 +258,7 @@ const onDownloadTemplate = async () => {
       if (matchs && matchs.length > 1) {
         fileName = decodeURIComponent(matchs[1])
       } else {
-        fileName = `模板文件${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
+        fileName = `${t('模板文件')}${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
       }
       const a = document.createElement('a')
       a.download = fileName
@@ -292,7 +295,7 @@ const onDownloadErrorMark = async () => {
       if (matchs && matchs.length > 1) {
         fileName = decodeURIComponent(matchs[1])
       } else {
-        fileName = `错误标记文件${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
+        fileName = `${t('错误标记文件')}${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
       }
       const a = document.createElement('a')
       a.download = fileName
@@ -321,7 +324,7 @@ const onDownloadErrorMark = async () => {
         reader.readAsText(error.response.data)
       } else {
         ElMessage({
-          message: '请重新导入数据，再下载错误标记文件',
+          message: t('请重新导入数据，再下载错误标记文件'),
           type: 'error',
         })
       }
@@ -350,7 +353,7 @@ const onCancel = () => {
 const onUpload = () => {
   if (!(state.fileList?.length > 0)) {
     ElMessage({
-      message: '请选择文件',
+      message: t('请选择文件'),
       type: 'warning',
     })
   }

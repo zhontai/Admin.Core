@@ -12,11 +12,11 @@
     <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
       <el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-top: 8px">
         <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
-          <el-form-item label="企业名" prop="name">
-            <el-input v-model="state.filter.name" placeholder="企业名" @keyup.enter="onQuery" />
+          <el-form-item :label="t('企业名')" prop="name">
+            <el-input v-model="state.filter.name" :placeholder="t('企业名')" @keyup.enter="onQuery" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+            <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -35,9 +35,9 @@
           @row-dblclick="onRowDbClick"
         >
           <el-table-column v-if="multiple" type="selection" width="55" />
-          <el-table-column prop="name" label="企业名" min-width="82" show-overflow-tooltip />
-          <el-table-column prop="code" label="企业编码" min-width="120" show-overflow-tooltip />
-          <!-- <el-table-column prop="email" label="邮箱" min-width="120" show-overflow-tooltip /> -->
+          <el-table-column prop="name" :label="t('企业名')" min-width="82" show-overflow-tooltip />
+          <el-table-column prop="code" :label="t('企业编码')" min-width="120" show-overflow-tooltip />
+          <!-- <el-table-column prop="email" :label="t('邮箱')" min-width="120" show-overflow-tooltip /> -->
         </el-table>
         <div class="my-flex my-flex-end" style="margin-top: 20px">
           <el-pagination
@@ -55,8 +55,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="sureLoading">确 定</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="sureLoading">{{ t('确定') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -66,6 +66,7 @@
 import { TableInstance } from 'element-plus'
 import { TenantGetPageOutput, PageInputTenantGetPageInput } from '/@/api/admin/data-contracts'
 import { TenantApi } from '/@/api/admin/Tenant'
+import { t } from '/@/i18n'
 
 const props = defineProps({
   title: {

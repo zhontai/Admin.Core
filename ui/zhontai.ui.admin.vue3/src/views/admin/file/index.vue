@@ -3,18 +3,20 @@
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.filterModel.fileName" placeholder="文件名" @keyup.enter="onQuery" />
+          <el-input v-model="state.filterModel.fileName" :placeholder="t('文件名')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:file:upload-file'" type="primary" icon="ele-Upload" @click="onUpload"> 上传 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:file:upload-file'" type="primary" icon="ele-Upload" @click="onUpload">
+            {{ t('上传') }}
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.fileListData" row-key="id" style="width: 100%" border>
-        <el-table-column prop="fileName" label="文件名" min-width="220">
+        <el-table-column prop="fileName" :label="t('文件名')" min-width="220">
           <template #default="{ row }">
             <div class="my-flex">
               <el-image
@@ -34,35 +36,37 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="sizeFormat" label="大小" width="120" />
-        <el-table-column prop="createdUserName" label="上传者" width="82">
+        <el-table-column prop="sizeFormat" :label="t('大小')" width="120" />
+        <el-table-column prop="createdUserName" :label="t('上传者')" width="82">
           <template #default="{ row }">
             {{ row.modifiedUserName || row.createdUserName || '' }}
           </template>
         </el-table-column>
-        <el-table-column prop="createdTime" label="更新时间" width="100">
+        <el-table-column prop="createdTime" :label="t('更新时间')" width="100">
           <template #default="{ row }">
             {{ formatterTime(row.modifiedTime || row.createdTime || '') }}
           </template>
         </el-table-column>
-        <el-table-column prop="providerName" label="供应商" width="82" />
-        <el-table-column prop="bucketName" label="存储桶" min-width="120" />
-        <el-table-column prop="fileDirectory" label="目录" min-width="120" />
-        <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
+        <el-table-column prop="providerName" :label="t('供应商')" width="82" />
+        <el-table-column prop="bucketName" :label="t('存储桶')" min-width="120" />
+        <el-table-column prop="fileDirectory" :label="t('目录')" min-width="120" />
+        <el-table-column :label="t('操作')" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
             <el-popover :width="220">
               <p>{{ row.linkUrl }}</p>
               <div class="mt10" style="text-align: right; margin: 0">
-                <el-button icon="ele-CopyDocument" type="primary" @click="copyText(row.linkUrl)">复制地址</el-button>
+                <el-button icon="ele-CopyDocument" type="primary" @click="copyText(row.linkUrl)">{{ t('复制地址') }}</el-button>
               </div>
               <template #reference>
-                <el-button text type="primary">地址</el-button>
+                <el-button auto-insert-space text type="primary">{{ t('地址') }}</el-button>
               </template>
             </el-popover>
-            <el-link class="my-el-link mr12 ml12" :href="row.linkUrl" type="primary" icon="ele-Download" underline="never" target="_blank"
-              >下载</el-link
-            >
-            <el-button v-auth="'api:admin:file:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-link class="my-el-link mr12 ml12" :href="row.linkUrl" type="primary" icon="ele-Download" underline="never" target="_blank">{{
+              t('下载')
+            }}</el-link>
+            <el-button auto-insert-space v-auth="'api:admin:file:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">{{
+              t('删除')
+            }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -80,7 +84,7 @@
       </div>
     </el-card>
 
-    <file-upload ref="fileUploadRef" title="上传文件"></file-upload>
+    <file-upload ref="fileUploadRef" :title="t('上传文件')"></file-upload>
   </my-layout>
 </template>
 
@@ -92,6 +96,7 @@ import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
 import { isImage } from '/@/utils/test'
 import commonFunction from '/@/utils/commonFunction'
+import { t } from '/@/i18n'
 
 const { proxy } = getCurrentInstance() as any
 
@@ -174,7 +179,7 @@ const onUpload = () => {
 
 const onDelete = (row: FileGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除文件【${row.fileName}${row.extension}】?`)
+    .confirmDelete(t('确定要删除文件【{name}{extension}】?', { name: row.fileName, extension: row.extension }))
     .then(async () => {
       await new FileApi().delete({ id: row.id as number }, { loading: true, showSuccessMessage: true })
       onQuery()

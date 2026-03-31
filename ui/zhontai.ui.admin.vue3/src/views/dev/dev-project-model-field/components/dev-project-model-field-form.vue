@@ -14,9 +14,9 @@
         <el-row :gutter="20">
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="所属模型"
+              :label="t('所属模型')"
               prop="modelId"
-              :rules="[{ required: true, validator: validatorSelect, message: '请选择所属模型', trigger: ['change'] }]"
+              :rules="[{ required: true, validator: validatorSelect, message: t('请选择所属模型'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select clearable v-model="state.form.modelId" empty-values="['', null, undefined, 0]">
@@ -26,9 +26,9 @@
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="字段属性"
+              :label="t('字段属性')"
               prop="properties"
-              :rules="[{ required: true, message: '请选择所属模型', trigger: ['change'] }]"
+              :rules="[{ required: true, message: t('请选择所属模型'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select v-model="state.form.properties">
@@ -38,9 +38,9 @@
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="字段名称"
+              :label="t('字段名称')"
               prop="name"
-              :rules="[{ required: true, message: '请输入字段名称', trigger: ['blur', 'change'] }]"
+              :rules="[{ required: true, message: t('请输入字段名称'), trigger: ['blur', 'change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-input v-model="state.form.name"> </el-input>
@@ -48,9 +48,9 @@
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="字段编码"
+              :label="t('字段编码')"
               prop="code"
-              :rules="[{ required: true, message: '请输入字段编码', trigger: ['blur', 'change'] }]"
+              :rules="[{ required: true, message: t('请输入字段编码'), trigger: ['blur', 'change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-input v-model="state.form.code"> </el-input>
@@ -58,9 +58,9 @@
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="字段类型"
+              :label="t('字段类型')"
               prop="dataType"
-              :rules="[{ required: true, message: '请选择字段类型', trigger: ['change'] }]"
+              :rules="[{ required: true, message: t('请选择字段类型'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select clearable v-model="state.form.dataType">
@@ -69,28 +69,28 @@
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
-            <el-form-item label="是否必填" prop="isRequired" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('是否必填')" prop="isRequired" v-show="editItemIsShow(true, true)">
               <el-switch v-model="state.form.isRequired" />
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
-            <el-form-item label="最小长度" prop="minLength" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('最小长度')" prop="minLength" v-show="editItemIsShow(true, true)">
               <el-input-number v-model="state.form.minLength" placeholder=""> </el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
-            <el-form-item label="最大长度" prop="maxLength" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('最大长度')" prop="maxLength" v-show="editItemIsShow(true, true)">
               <el-input-number v-model="state.form.maxLength" placeholder=""> </el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
-            <el-form-item label="字段顺序" prop="sort" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('字段顺序')" prop="sort" v-show="editItemIsShow(true, true)">
               <el-input-number v-model="state.form.sort" placeholder=""> </el-input-number>
             </el-form-item>
           </el-col>
 
           <el-col :span="24" :xs="24">
-            <el-form-item label="字段描述" prop="description" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('字段描述')" prop="description" v-show="editItemIsShow(true, true)">
               <el-input v-model="state.form.description" placeholder=""> </el-input>
             </el-form-item>
           </el-col>
@@ -98,8 +98,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -113,6 +113,7 @@ import { DevProjectModelApi } from '/@/api/dev/DevProjectModel'
 import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { validatorSelect } from '/@/utils/validators'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

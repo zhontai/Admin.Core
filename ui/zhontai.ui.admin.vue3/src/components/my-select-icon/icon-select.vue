@@ -2,20 +2,20 @@
   <el-dialog v-model="state.showDialog" destroy-on-close :title="title" append-to-body draggable width="780px">
     <div style="padding: 0px 0px 8px 8px; background-color: var(--ba-bg-color)">
       <div>
-        <el-input v-model="state.fontIconSearch" placeholder="筛选图标" clearable />
+        <el-input v-model="state.fontIconSearch" :placeholder="t('筛选图标')" clearable />
       </div>
       <div class="icon-selector-popper">
         <div class="icon-selector-warp">
           <div class="icon-selector-warp-title flex">
             <div class="flex-auto">{{ title }}</div>
             <div class="icon-selector-warp-title-tab" v-if="type === 'all'">
-              <span :class="{ 'span-active': state.fontIconType === 'ali' }" @click="onIconChange('ali')" class="ml10" title="iconfont 图标">
+              <span :class="{ 'span-active': state.fontIconType === 'ali' }" @click="onIconChange('ali')" class="ml10" :title="t('iconfont 图标')">
                 ali
               </span>
-              <span :class="{ 'span-active': state.fontIconType === 'ele' }" @click="onIconChange('ele')" class="ml10" title="elementPlus 图标">
+              <span :class="{ 'span-active': state.fontIconType === 'ele' }" @click="onIconChange('ele')" class="ml10" :title="t('elementPlus 图标')">
                 ele
               </span>
-              <span :class="{ 'span-active': state.fontIconType === 'awe' }" @click="onIconChange('awe')" class="ml10" title="fontawesome 图标">
+              <span :class="{ 'span-active': state.fontIconType === 'awe' }" @click="onIconChange('awe')" class="ml10" :title="t('fontawesome 图标')">
                 awe
               </span>
             </div>
@@ -40,8 +40,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="sureLoading">确 定</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="sureLoading">{{ t('确定') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -49,6 +49,7 @@
 
 <script lang="ts" setup>
 import initIconfont from '/@/utils/getStyleSheets'
+import { t } from '/@/i18n'
 
 // 定义父组件传过来的值
 const props = defineProps({

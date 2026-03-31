@@ -2,29 +2,29 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="企业名称">
-          <el-input v-model="state.filter.name" placeholder="企业名称" @keyup.enter="onQuery" />
+        <el-form-item :label="t('企业名称')">
+          <el-input v-model="state.filter.name" :placeholder="t('企业名称')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:tenant:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:tenant:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.tenantListData" row-key="id" height="'100%'" style="width: 100%; height: 100%" border>
-        <el-table-column prop="name" label="企业名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="code" label="企业编码" width="120" show-overflow-tooltip />
-        <el-table-column prop="pkgNames" label="套餐" width="140" show-overflow-tooltip>
+        <el-table-column prop="name" :label="t('企业名称')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="code" :label="t('企业编码')" width="120" show-overflow-tooltip />
+        <el-table-column prop="pkgNames" :label="t('套餐')" width="140" show-overflow-tooltip>
           <template #default="{ row }">
             {{ row.pkgNames ? row.pkgNames.join(',') : '' }}
           </template>
         </el-table-column>
-        <el-table-column prop="realName" label="姓名" width="120" show-overflow-tooltip />
-        <el-table-column prop="phone" label="手机号" width="120" show-overflow-tooltip />
+        <el-table-column prop="realName" :label="t('姓名')" width="120" show-overflow-tooltip />
+        <el-table-column prop="phone" :label="t('手机号')" width="120" show-overflow-tooltip />
         <!-- <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip /> -->
-        <el-table-column label="状态" width="88" align="center" fixed="right">
+        <el-table-column :label="t('状态')" width="88" align="center" fixed="right">
           <template #default="{ row }">
             <el-switch
               v-if="auth('api:admin:tenant:set-enable')"
@@ -33,24 +33,28 @@
               :active-value="true"
               :inactive-value="false"
               inline-prompt
-              active-text="启用"
-              inactive-text="禁用"
+              :active-text="t('启用')"
+              :inactive-text="t('禁用')"
               :before-change="() => onSetEnable(row)"
             />
             <template v-else>
-              <el-tag type="success" v-if="row.enabled">启用</el-tag>
-              <el-tag type="danger" v-else>禁用</el-tag>
+              <el-tag type="success" v-if="row.enabled">{{ t('启用') }}</el-tag>
+              <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
             </template>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="140" header-align="center" align="center" fixed="right">
+        <el-table-column :label="t('操作')" width="140" header-align="center" align="center" fixed="right">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:tenant:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:tenant:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">
+              {{ t('编辑') }}
+            </el-button>
             <my-dropdown-more v-auths="['api:admin:tenant:delete']">
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item v-if="auth('api:admin:tenant:delete')" @click="onDelete(row)">删除租户</el-dropdown-item>
-                  <el-dropdown-item v-if="auth('api:admin:tenant:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
+                  <el-dropdown-item v-if="auth('api:admin:tenant:delete')" @click="onDelete(row)">{{ t('删除租户') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth('api:admin:tenant:one-click-login')" @click="onOneClickLogin(row)">
+                    {{ t('一键登录') }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -83,6 +87,7 @@ import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
 import { Session } from '/@/utils/storage'
 import { useUserInfo } from '/@/stores/userInfo'
+import { t } from '/@/i18n'
 
 const storesUseUserInfo = useUserInfo()
 
@@ -133,18 +138,18 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.tenantFormTitle = '新增租户'
+  state.tenantFormTitle = t('新增租户')
   tenantFormRef.value?.open()
 }
 
 const onEdit = (row: TenantGetPageOutput) => {
-  state.tenantFormTitle = '编辑租户'
+  state.tenantFormTitle = t('编辑租户')
   tenantFormRef.value?.open(row)
 }
 
 const onDelete = (row: TenantGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new TenantApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -155,7 +160,7 @@ const onDelete = (row: TenantGetPageOutput) => {
 const onSetEnable = (row: TenantGetPageOutput & { loading: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabled ? '禁用' : '启用'}【${row.name}】?`)
+      .confirm(t('确定要{action}【{name}】?', { action: row.enabled ? t('禁用') : t('启用'), name: row.name }))
       .then(async () => {
         row.loading = true
         const res = await new TenantApi()
@@ -181,11 +186,11 @@ const onSetEnable = (row: TenantGetPageOutput & { loading: boolean }) => {
 //一键登录
 const onOneClickLogin = (row: TenantGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要一键登录【${row.name}】?`)
+    .confirmDelete(t('确定要一键登录【{name}】?', { name: row.name }))
     .then(async () => {
       const res = await new TenantApi().oneClickLogin({ tenantId: row.id }, { loading: true })
       if (res?.success) {
-        proxy.$modal.msgSuccess('一键登录成功')
+        proxy.$modal.msgSuccess(t('一键登录成功'))
         window.requests = []
         Session.remove('tagsViewList')
         storesUseUserInfo.setTokenInfo(res.data)

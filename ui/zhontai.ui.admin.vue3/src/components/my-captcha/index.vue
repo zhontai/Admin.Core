@@ -13,6 +13,7 @@
 
 <script lang="ts" setup name="my-captcha">
 import { CaptchaApi } from '/@/api/admin/Captcha'
+import { t } from '/@/i18n'
 
 const SlideCaptcha = defineAsyncComponent(() => import('./slide-captcha.vue'))
 
@@ -41,13 +42,13 @@ const onGenerate = async () => {
 const onFinish = async (data: any) => {
   slideCaptchaRef.value!.startRequestVerify()
   const res = await new CaptchaApi().check(data, { captchaId: state.requestId }).catch(() => {
-    state.failTip = '服务异常，请稍后重试'
+    state.failTip = t('服务异常，请稍后重试')
     slideCaptchaRef.value!.endRequestVerify(false)
   })
   if (res?.success && res.data) {
     let success = res.data.result === 0
-    state.failTip = res.data.result == 1 ? '验证未通过，拖动滑块将悬浮图像正确合并' : '验证超时, 请重新操作'
-    state.successTip = '验证通过'
+    state.failTip = res.data.result == 1 ? t('验证未通过，拖动滑块将悬浮图像正确合并') : t('验证超时, 请重新操作')
+    state.successTip = t('验证通过')
     slideCaptchaRef.value!.endRequestVerify(success)
     if (success) {
       //验证成功

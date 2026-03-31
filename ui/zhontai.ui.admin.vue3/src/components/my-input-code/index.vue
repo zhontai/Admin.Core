@@ -1,6 +1,6 @@
 <template>
   <div class="w100">
-    <el-input text :maxlength="props.maxlength" placeholder="请输入验证码" autocomplete="off" v-bind="$attrs">
+    <el-input text :maxlength="props.maxlength" :placeholder="t('请输入验证码')" autocomplete="off" v-bind="$attrs">
       <template #prefix>
         <el-icon class="el-input__icon"><ele-Message /></el-icon>
       </template>
@@ -12,11 +12,11 @@
           link
           :disabled="state.status === 'countdown'"
           @click.prevent.stop="onGetCode"
-          >{{ text }}</el-button
+          >{{ t(text) }}</el-button
         >
         <el-countdown
           v-show="state.status === 'countdown'"
-          :format="state.changeText"
+          :format="$t(state.changeText)"
           :value="state.countdown"
           value-style="font-size:var(--el-font-size-base);color:var(--el-color-primary)"
           @change="onChange"
@@ -32,6 +32,7 @@ import { isMobile } from '/@/utils/test'
 import { verifyEmail } from '/@/utils/toolsValidate'
 import { ElMessage } from 'element-plus'
 import { CaptchaApi } from '/@/api/admin/Captcha'
+import { t } from '/@/i18n'
 
 const MyCaptchaDialog = defineAsyncComponent(() => import('/@/components/my-captcha/dialog.vue'))
 
@@ -154,13 +155,13 @@ const getCode = () => {
   if (props.mobile) {
     //验证手机号
     if (!isMobile(props.mobile)) {
-      ElMessage.warning({ message: '请输入正确的手机号码', grouping: true })
+      ElMessage.warning({ message: t('请输入正确的手机号码'), grouping: true })
       return
     }
   } else {
     //验证邮箱
     if (!verifyEmail(props.email)) {
-      ElMessage.warning({ message: '请输入正确的邮件地址', grouping: true })
+      ElMessage.warning({ message: t('请输入正确的邮件地址'), grouping: true })
       return
     }
   }

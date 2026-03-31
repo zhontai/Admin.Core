@@ -36,9 +36,9 @@
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { Local } from '/@/utils/storage'
 import { useUserInfo } from '/@/stores/userInfo'
+import { t } from '/@/i18n'
 
 // 定义变量内容
-const { t } = useI18n()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const state = reactive({

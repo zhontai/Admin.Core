@@ -4,12 +4,12 @@
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="标题">
-              <el-input v-model="state.filter.msgName" placeholder="标题" @keyup.enter="onQuery" />
+            <el-form-item :label="t('标题')">
+              <el-input v-model="state.filter.msgName" :placeholder="t('标题')" @keyup.enter="onQuery" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-              <el-button v-auth="'api:admin:msg:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+              <el-button auto-insert-space v-auth="'api:admin:msg:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -25,17 +25,17 @@
             @current-change="onTableCurrentChange"
             border
           >
-            <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="status" label="状态" min-width="90" show-overflow-tooltip :formatter="formatterMsgStatusEnum" />
-            <el-table-column prop="createdTime" label="创建时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
-            <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
+            <el-table-column prop="title" :label="t('标题')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="typeName" :label="t('消息分类')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="status" :label="t('状态')" min-width="90" show-overflow-tooltip :formatter="formatterMsgStatusEnum" />
+            <el-table-column prop="createdTime" :label="t('创建时间')" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
+            <el-table-column :label="t('操作')" width="100" fixed="right" header-align="center" align="center">
               <template #default="{ row }">
                 <my-dropdown-more v-auths="['api:admin:msg:update', 'api:admin:msg:delete']" style="margin-left: 0px">
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item v-if="auth('api:admin:msg:update')" @click="onEdit(row)">编辑</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:msg:delete')" @click="onDelete(row)">删除</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:msg:update')" @click="onEdit(row)">{{ t('编辑') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:msg:delete')" @click="onDelete(row)">{{ t('删除') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </my-dropdown-more>
@@ -61,13 +61,17 @@
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="姓名">
-              <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onGetMsgUserList" />
+            <el-form-item :label="t('姓名')">
+              <el-input v-model="state.filter.name" :placeholder="t('姓名')" @keyup.enter="onGetMsgUserList" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onGetMsgUserList"> 查询 </el-button>
-              <el-button v-auth="'api:admin:msg:add-msg-user'" type="primary" icon="ele-Plus" @click="onAddUser"> 添加 </el-button>
-              <el-button v-auth="'api:admin:msg:remove-msg-user'" type="danger" icon="ele-Delete" @click="onRemoveUser"> 移除 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onGetMsgUserList">{{ t('查询') }}</el-button>
+              <el-button auto-insert-space v-auth="'api:admin:msg:add-msg-user'" type="primary" icon="ele-Plus" @click="onAddUser">{{
+                t('添加')
+              }}</el-button>
+              <el-button auto-insert-space v-auth="'api:admin:msg:remove-msg-user'" type="danger" icon="ele-Delete" @click="onRemoveUser">{{
+                t('移除')
+              }}</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -83,16 +87,16 @@
             border
           >
             <el-table-column type="selection" width="55" />
-            <el-table-column prop="name" label="姓名" min-width="120" show-overflow-tooltip />
-            <el-table-column label="是否已读" width="100" align="center">
+            <el-table-column prop="name" :label="t('姓名')" min-width="120" show-overflow-tooltip />
+            <el-table-column :label="t('是否已读')" width="100" align="center">
               <template #default="{ row }">
-                <el-tag type="success" v-if="row.isRead">已读</el-tag>
-                <el-tag type="info" v-else>未读</el-tag>
+                <el-tag type="success" v-if="row.isRead">{{ t('已读') }}</el-tag>
+                <el-tag type="info" v-else>{{ t('未读') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column prop="readTime" label="已读时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
+            <el-table-column prop="readTime" :label="t('已读时间')" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
             <!-- <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip /> -->
+            <el-table-column prop="email" :label="t('邮箱')" min-width="180" show-overflow-tooltip /> -->
           </el-table>
         </el-card>
       </div>
@@ -101,7 +105,7 @@
     <msg-form ref="msgFormRef" :title="state.msgFormTitle"></msg-form>
     <user-select
       ref="userSelectRef"
-      :title="`添加【${state.msgName}】员工`"
+      :title="t('添加【{name}】员工', { name: state.msgName })"
       multiple
       :sure-loading="state.sureLoading"
       @sure="onSureUser"
@@ -125,6 +129,7 @@ import dayjs from 'dayjs'
 import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
 import { getDescByValue } from '/@/utils/enum'
 import { MsgUpdateInput } from '/@/api/admin/data-contracts'
+import { t } from '/@/i18n'
 
 // 引入组件
 const MsgForm = defineAsyncComponent(() => import('./components/msg-form.vue'))
@@ -216,18 +221,18 @@ const onCurrentChange = (val: number) => {
 }
 
 const onAdd = () => {
-  state.msgFormTitle = '新增消息'
+  state.msgFormTitle = t('新增消息')
   msgFormRef.value?.open({ id: 0, enabled: true } as MsgUpdateInput)
 }
 
 const onEdit = (row: MsgGetPageOutput) => {
-  state.msgFormTitle = '编辑消息'
+  state.msgFormTitle = t('编辑消息')
   msgFormRef.value?.open(row as MsgUpdateInput)
 }
 
 const onDelete = (row: MsgGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除消息【${row.title}】?`)
+    .confirmDelete(t('确定要删除消息【{title}】?', { title: row.title }))
     .then(async () => {
       await new MsgApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -266,7 +271,7 @@ const onUserRowClick = (row: MsgGetMsgUserListOutput) => {
 
 const onAddUser = () => {
   if (!((state.msgId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择消息')
+    proxy.$modal.msgWarning(t('请选择消息'))
     return
   }
   userSelectRef.value?.open()
@@ -274,19 +279,19 @@ const onAddUser = () => {
 
 const onRemoveUser = () => {
   if (!((state.msgId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择消息')
+    proxy.$modal.msgWarning(t('请选择消息'))
     return
   }
 
   const selectionRows = userTableRef.value!.getSelectionRows() as UserGetPageOutput[]
 
   if (!((selectionRows.length as number) > 0)) {
-    proxy.$modal.msgWarning('请选择员工')
+    proxy.$modal.msgWarning(t('请选择员工'))
     return
   }
 
   proxy.$modal
-    .confirm(`确定要移除吗?`)
+    .confirm(t('确定要移除吗?'))
     .then(async () => {
       const userIds = selectionRows?.map((a) => a.id)
       const input = { msgId: state.msgId, userIds } as MsgAddMsgUserListInput

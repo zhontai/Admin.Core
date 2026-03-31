@@ -4,19 +4,22 @@
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="角色名称">
-              <el-input v-model="state.filter.roleName" placeholder="角色名称" @keyup.enter="onQuery" />
+            <el-form-item :label="t('角色名称')">
+              <el-input v-model="state.filter.roleName" :placeholder="t('角色名称')" @keyup.enter="onQuery" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
               <el-dropdown v-auth="'api:admin:role:add'" style="margin-left: 12px">
-                <el-button type="primary"
-                  >新增<el-icon class="el-icon--right"><ele-ArrowDown /></el-icon
-                ></el-button>
+                <el-button auto-insert-space type="primary">
+                  {{ t('新增') }}
+                  <el-icon class="el-icon--right">
+                    <ele-ArrowDown />
+                  </el-icon>
+                </el-button>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item @click="onAdd(1)">新增分组</el-dropdown-item>
-                    <el-dropdown-item @click="onAdd(2)">新增角色</el-dropdown-item>
+                    <el-dropdown-item @click="onAdd(1)">{{ t('新增分组') }}</el-dropdown-item>
+                    <el-dropdown-item @click="onAdd(2)">{{ t('新增角色') }}</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -37,24 +40,24 @@
             border
             @current-change="onCurrentChange"
           >
-            <el-table-column prop="name" label="角色名称" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
-            <el-table-column label="操作" width="100" fixed="right" header-align="center" align="right">
+            <el-table-column prop="name" :label="t('角色名称')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="sort" :label="t('排序')" width="82" align="center" show-overflow-tooltip />
+            <el-table-column :label="t('操作')" width="100" fixed="right" header-align="center" align="right">
               <template #default="{ row }">
                 <el-button v-if="row.type === 1" v-auth="'api:admin:role:add'" icon="ele-Plus" text type="primary" @click="onAdd(2, row)"></el-button>
                 <my-dropdown-more icon-only v-auths="['api:admin:permission:assign', 'api:admin:role:update', 'api:admin:role:delete']">
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:assign')" @click="onSetRoleMenu(row)"
-                        >菜单权限</el-dropdown-item
-                      >
-                      <el-dropdown-item v-if="row.type === 2" @click="onSetRoleDataScope(row)">数据权限</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:role:update')" @click="onEdit(row)"
-                        >编辑{{ row.type === 1 ? '分组' : '角色' }}</el-dropdown-item
-                      >
-                      <el-dropdown-item v-if="auth('api:admin:role:delete')" @click="onDelete(row)"
-                        >删除{{ row.type === 1 ? '分组' : '角色' }}</el-dropdown-item
-                      >
+                      <el-dropdown-item v-if="row.type === 2 && auth('api:admin:permission:assign')" @click="onSetRoleMenu(row)">
+                        {{ t('菜单权限') }}
+                      </el-dropdown-item>
+                      <el-dropdown-item v-if="row.type === 2" @click="onSetRoleDataScope(row)">{{ t('数据权限') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:role:update')" @click="onEdit(row)">
+                        {{ row.type === 1 ? t('编辑分组') : t('编辑角色') }}
+                      </el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:role:delete')" @click="onDelete(row)">
+                        {{ row.type === 1 ? t('删除分组') : t('删除角色') }}
+                      </el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </my-dropdown-more>
@@ -68,13 +71,19 @@
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="姓名">
-              <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onGetRoleUserList" />
+            <el-form-item :label="t('姓名')">
+              <el-input v-model="state.filter.name" :placeholder="t('姓名')" @keyup.enter="onGetRoleUserList" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onGetRoleUserList"> 查询 </el-button>
-              <el-button v-auth="'api:admin:role:add-role-user'" type="primary" icon="ele-Plus" @click="onAddUser"> 添加员工 </el-button>
-              <el-button v-auth="'api:admin:role:remove-role-user'" type="danger" icon="ele-Delete" @click="onRemoveUser"> 移除员工 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onGetRoleUserList">
+                {{ t('查询') }}
+              </el-button>
+              <el-button v-auth="'api:admin:role:add-role-user'" type="primary" icon="ele-Plus" @click="onAddUser">
+                {{ t('添加员工') }}
+              </el-button>
+              <el-button v-auth="'api:admin:role:remove-role-user'" type="danger" icon="ele-Delete" @click="onRemoveUser">
+                {{ t('移除员工') }}
+              </el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -90,9 +99,9 @@
             @row-click="onUserRowClick"
           >
             <el-table-column type="selection" width="55" />
-            <el-table-column prop="name" label="姓名" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
+            <el-table-column prop="name" :label="t('姓名')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="mobile" :label="t('手机号')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="email" :label="t('邮箱')" min-width="180" show-overflow-tooltip />
           </el-table>
         </el-card>
       </div>
@@ -101,7 +110,7 @@
     <role-form ref="roleFormRef" :title="state.roleFormTitle" :role-tree-data="state.roleFormTreeData"></role-form>
     <user-select
       ref="userSelectRef"
-      :title="`添加【${state.roleName}】员工`"
+      :title="t('添加【{name}】员工', { name: state.roleName })"
       multiple
       :sure-loading="state.sureLoading"
       @sure="onSureUser"
@@ -126,6 +135,7 @@ import { TableInstance } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import { t } from '/@/i18n'
 
 // 引入组件
 const RoleForm = defineAsyncComponent(() => import('./components/role-form.vue'))
@@ -196,11 +206,11 @@ const onQuery = async () => {
 const onAdd = (type: RoleType, row: RoleGetListOutput | undefined = undefined) => {
   switch (type) {
     case 1:
-      state.roleFormTitle = '新增分组'
+      state.roleFormTitle = t('新增分组')
       roleFormRef.value?.open({ id: 0, type: 1 })
       break
     case 2:
-      state.roleFormTitle = '新增角色'
+      state.roleFormTitle = t('新增角色')
       roleFormRef.value?.open({ id: 0, type: 2, parentId: row?.id })
       break
   }
@@ -209,10 +219,10 @@ const onAdd = (type: RoleType, row: RoleGetListOutput | undefined = undefined) =
 const onEdit = (row: RoleGetListOutput) => {
   switch (row.type) {
     case 1:
-      state.roleFormTitle = '编辑分组'
+      state.roleFormTitle = t('编辑分组')
       break
     case 2:
-      state.roleFormTitle = '编辑角色'
+      state.roleFormTitle = t('编辑角色')
       break
   }
   roleFormRef.value?.open(row as RoleUpdateInput)
@@ -220,7 +230,7 @@ const onEdit = (row: RoleGetListOutput) => {
 
 const onDelete = (row: RoleGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除角色【${row.name}】?`)
+    .confirmDelete(t('确定要删除角色【{name}】?', { name: row.name }))
     .then(async () => {
       await new RoleApi().delete({ id: row.id }, { loading: true })
       onQuery()
@@ -271,7 +281,7 @@ const onUserRowClick = (row: RoleGetRoleUserListOutput) => {
 
 const onAddUser = () => {
   if (!((state.roleId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择角色')
+    proxy.$modal.msgWarning(t('请选择角色'))
     return
   }
   userSelectRef.value?.open()
@@ -279,19 +289,19 @@ const onAddUser = () => {
 
 const onRemoveUser = () => {
   if (!((state.roleId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择角色')
+    proxy.$modal.msgWarning(t('请选择角色'))
     return
   }
 
   const selectionRows = userTableRef.value!.getSelectionRows() as UserGetPageOutput[]
 
   if (!((selectionRows.length as number) > 0)) {
-    proxy.$modal.msgWarning('请选择员工')
+    proxy.$modal.msgWarning(t('请选择员工'))
     return
   }
 
   proxy.$modal
-    .confirm(`确定要移除吗?`)
+    .confirm(t('确定要移除吗?'))
     .then(async () => {
       const userIds = selectionRows?.map((a) => a.id)
       const input = { roleId: state.roleId, userIds } as RoleAddRoleUserListInput
@@ -320,7 +330,7 @@ const onSureUser = async (users: UserGetPageOutput[]) => {
 
 const onSetRoleMenu = (role: RoleGetListOutput) => {
   if (!((role?.id as number) > 0)) {
-    proxy.$modal.msgWarning('请选择角色')
+    proxy.$modal.msgWarning(t('请选择角色'))
     return
   }
   setRoleMenuRef.value?.open(role)
@@ -328,7 +338,7 @@ const onSetRoleMenu = (role: RoleGetListOutput) => {
 
 const onSetRoleDataScope = (role: RoleGetListOutput) => {
   if (!((role?.id as number) > 0)) {
-    proxy.$modal.msgWarning('请选择角色')
+    proxy.$modal.msgWarning(t('请选择角色'))
     return
   }
   setRoleDataScopeRef.value?.open(role)

@@ -1,14 +1,15 @@
 <template>
   <div class="layout-footer pb15">
     <div class="layout-footer-warp">
-      <div>中台Admin</div>
-      <div class="mt5">Copyright © 2022 中台Admin All rights reserved.</div>
+      <div>{{ t('中台Admin') }}</div>
+      <div class="mt5">{{ t('Copyright © 2022 中台Admin All rights reserved.') }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="layoutFooter">
 // 此处需有内容（注释也得），否则缓存将失败
+import { t } from '/@/i18n'
 </script>
 
 <style scoped lang="scss">

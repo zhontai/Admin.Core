@@ -1,5 +1,5 @@
 <template>
-  <el-tooltip effect="dark" content="列设置" placement="top">
+  <el-tooltip effect="dark" :content="t('列设置')" placement="top">
     <el-button ref="colSetRef" icon="ele-Setting" circle v-bind="$attrs" />
   </el-tooltip>
   <el-popover
@@ -15,10 +15,10 @@
     <div class="my-col-set-header-box">
       <div class="my-flex my-flex-between">
         <div class="my-flex my-flex-items-center">
-          <SvgIcon name="ele-Rank" title="点击并拖动进行排序" />
-          <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" label="全部" @change="onCheckAllChange" />
+          <SvgIcon name="ele-Rank" :title="t('点击并拖动进行排序')" />
+          <el-checkbox v-model="checkAll" :indeterminate="checkIndeterminate" class="ml12" :label="t('全部')" @change="onCheckAllChange" />
         </div>
-        <el-button type="primary" link @click="onResetDefault">恢复默认</el-button>
+        <el-button type="primary" link @click="onResetDefault">{{ t('恢复默认') }}</el-button>
       </div>
     </div>
     <el-scrollbar>
@@ -33,7 +33,7 @@
             <el-checkbox v-model="item.isShow" class="ml8 mr8" :label="$t(item.attrs.label)" />
           </div>
           <div class="my-flex">
-            <el-button link title="置顶" @click="onMoveToTop(item)">
+            <el-button link :title="t('置顶')" @click="onMoveToTop(item)">
               <template #icon>
                 <el-icon size="18px">
                   <my-icon name="toTop" color="var(--color)"></my-icon>
@@ -42,7 +42,7 @@
             </el-button>
             <el-button
               link
-              :title="isFixedLeft(item) ? '取消固定在左侧' : '固定在左侧'"
+              :title="isFixedLeft(item) ? t('取消固定在左侧') : t('固定在左侧')"
               :class="isFixedLeft(item) ? 'selected' : ''"
               @click="onFixedLeft(item)"
             >
@@ -54,7 +54,7 @@
             </el-button>
             <el-button
               link
-              :title="isFixedRight(item) ? '取消固定在右侧' : '固定在右侧'"
+              :title="isFixedRight(item) ? t('取消固定在右侧') : t('固定在右侧')"
               :class="isFixedRight(item) ? 'selected' : ''"
               @click="onFixedRight(item)"
             >
@@ -74,6 +74,8 @@
 <script lang="ts" setup>
 import Sortable from 'sortablejs'
 import { cloneDeep } from 'lodash-es'
+
+import { t } from '/@/i18n'
 
 // 定义父组件传过来的列数组模型
 const colsModel = defineModel({

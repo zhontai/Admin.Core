@@ -2,23 +2,23 @@
   <el-drawer v-model="state.showDialog" direction="ltr" :size="size" resizable>
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
-      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
-      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('还原')"><ele-CopyDocument /></el-icon>
+      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('最大化')"><ele-FullScreen /></el-icon>
     </template>
     <div class="my-fill h100">
       <el-table v-loading="state.loading" :data="state.taskLogListData" row-key="id" style="width: 100%">
-        <el-table-column prop="round" label="当前次数" width="90" />
-        <el-table-column prop="success" label="状态" width="90">
+        <el-table-column prop="round" :label="t('当前次数')" width="90" />
+        <el-table-column prop="success" :label="t('状态')" width="90">
           <template #default="{ row }">
-            <el-tag v-if="!row.success" type="danger" disable-transitions>失败</el-tag>
-            <el-tag v-else type="success" disable-transitions>成功</el-tag>
+            <el-tag v-if="!row.success" type="danger" disable-transitions>{{ t('失败') }}</el-tag>
+            <el-tag v-else type="success" disable-transitions>{{ t('成功') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="elapsedMilliseconds" label="耗时(ms)" width="100" />
-        <el-table-column prop="exception" label="异常" min-width="180" />
+        <el-table-column prop="elapsedMilliseconds" :label="t('耗时(ms)')" width="100" />
+        <el-table-column prop="exception" :label="t('异常')" min-width="180" />
 
-        <el-table-column prop="createTime" label="创建时间" :formatter="formatterTime" width="160" />
-        <el-table-column prop="remark" label="备注" min-width="180" />
+        <el-table-column prop="createTime" :label="t('创建时间')" :formatter="formatterTime" width="160" />
+        <el-table-column prop="remark" :label="t('备注')" min-width="180" />
       </el-table>
       <div class="my-flex my-flex-end" style="padding: 10px 10px">
         <el-pagination
@@ -34,8 +34,8 @@
       </div>
     </div>
     <template #footer>
-      <el-button @click="onQuery" type="primary">刷 新</el-button>
-      <el-button @click="onCancel">取 消</el-button>
+      <el-button auto-insert-space @click="onQuery" type="primary">{{ t('刷新') }}</el-button>
+      <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
     </template>
   </el-drawer>
 </template>
@@ -44,6 +44,7 @@
 import { ResultOutputPageOutputTaskLog, PageInputTaskLogGetPageInput, TaskGetPageOutput } from '/@/api/admin/data-contracts'
 import { TaskLogApi } from '/@/api/admin/TaskLog'
 import dayjs from 'dayjs'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

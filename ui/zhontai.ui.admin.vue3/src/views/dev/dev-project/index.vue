@@ -2,14 +2,14 @@
   <MyLayout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" label-width="auto" @submit.stop.prevent>
-        <el-form-item label="项目名称">
+        <el-form-item :label="t('项目名称')">
           <el-input clearable v-model="state.filter.name" placeholder="" @keyup.enter="onQuery"> </el-input>
         </el-form-item>
-        <el-form-item label="项目编码">
+        <el-form-item :label="t('项目编码')">
           <el-input clearable v-model="state.filter.code" placeholder="" @keyup.enter="onQuery"> </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery">查询</el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -18,24 +18,28 @@
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-space wrap :size="12">
-            <el-button type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">新增</el-button>
+            <el-button auto-insert-space type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
             <el-dropdown :placement="'bottom-end'" v-if="auths([perms.batSoftDelete, perms.batDelete])">
-              <el-button type="primary"
-                >批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon
-              ></el-button>
+              <el-button type="primary">
+                {{ t('批量操作') }}
+                <el-icon class="el-icon--right"><ele-ArrowDown /> </el-icon>
+              </el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item :disabled="state.sels.length == 0" @click.stop="batchGenCode" icon="ele-Position">批量生成代码</el-dropdown-item>
+                  <el-dropdown-item :disabled="state.sels.length == 0" @click.stop="batchGenCode" icon="ele-Position">
+                    {{ t('批量生成代码') }}
+                  </el-dropdown-item>
                   <el-dropdown-item
                     v-if="auth(perms.batSoftDelete)"
                     :disabled="state.sels.length == 0"
                     @click="onBatchSoftDelete"
                     icon="ele-DeleteFilled"
-                    >批量软删除</el-dropdown-item
                   >
-                  <el-dropdown-item v-if="auth(perms.batDelete)" :disabled="state.sels.length == 0" @click="onBatchDelete" icon="ele-Delete"
-                    >批量删除</el-dropdown-item
-                  >
+                    {{ t('批量软删除') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.batDelete)" :disabled="state.sels.length == 0" @click="onBatchDelete" icon="ele-Delete">
+                    {{ t('批量删除') }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -45,25 +49,33 @@
       </div>
       <el-table v-loading="state.loading" :data="state.devProjectListData" row-key="id" ref="listTableRef" border @selection-change="selsChange">
         <el-table-column type="selection" width="50" align="center" header-align="center" />
-        <el-table-column prop="name" label="项目名称" show-overflow-tooltip min-width="160" />
-        <el-table-column prop="code" label="项目编码" show-overflow-tooltip min-width="160" />
-        <el-table-column prop="groupId_Text" label="模板分组" show-overflow-tooltip min-width="180" />
-        <el-table-column label="状态" width="82" align="center">
+        <el-table-column prop="name" :label="t('项目名称')" show-overflow-tooltip min-width="160" />
+        <el-table-column prop="code" :label="t('项目编码')" show-overflow-tooltip min-width="160" />
+        <el-table-column prop="groupId_Text" :label="t('模板分组')" show-overflow-tooltip min-width="180" />
+        <el-table-column :label="t('状态')" width="82" align="center">
           <template #default="{ row }">
-            <el-tag type="success" v-if="row.isEnable">启用</el-tag>
-            <el-tag type="danger" v-else>禁用</el-tag>
+            <el-tag type="success" v-if="row.isEnable">{{ t('启用') }}</el-tag>
+            <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="remark" label="备注" show-overflow-tooltip min-width="180" />
-        <el-table-column v-auths="[perms.update, perms.softDelete, perms.delete]" label="操作" :width="actionColWidth" fixed="right">
+        <el-table-column prop="remark" :label="t('备注')" show-overflow-tooltip min-width="180" />
+        <el-table-column v-auths="[perms.update, perms.softDelete, perms.delete]" :label="t('操作')" :width="actionColWidth" fixed="right">
           <template #default="{ row }">
-            <el-button v-auth="perms.update" icon="ele-EditPen" text type="primary" @click.stop="onEdit(row)">编辑</el-button>
+            <el-button auto-insert-space v-auth="perms.update" icon="ele-EditPen" text type="primary" @click.stop="onEdit(row)">{{
+              t('编辑')
+            }}</el-button>
             <my-dropdown-more v-if="auths([perms.delete, perms.softDelete])">
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click.stop="genCode(row)" icon="ele-Position">生成代码</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.softDelete)" @click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">软删除</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelete(row)" icon="ele-Delete">删除</el-dropdown-item>
+                  <el-dropdown-item @click.stop="genCode(row)" icon="ele-Position">
+                    {{ t('生成代码') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.softDelete)" @click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">
+                    {{ t('软删除') }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelete(row)" icon="ele-Delete">
+                    {{ t('删除') }}
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -103,6 +115,7 @@ import { DevProjectApi } from '/@/api/dev/DevProject'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
 import { auth, auths, authAll } from '/@/utils/authFunction'
+import { t } from '/@/i18n'
 
 // 引入组件
 const DevProjectForm = defineAsyncComponent(() => import('./components/dev-project-form.vue'))
@@ -174,18 +187,18 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.devProjectFormTitle = '新增项目'
+  state.devProjectFormTitle = t('新增项目')
   devProjectFormRef.value.open()
 }
 
 const onEdit = (row: DevProjectGetOutput) => {
-  state.devProjectFormTitle = '编辑项目'
+  state.devProjectFormTitle = t('编辑项目')
   devProjectFormRef.value.open(row)
 }
 
 const onDelete = (row: DevProjectGetOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new DevProjectApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -207,7 +220,7 @@ const selsChange = (vals: DevProjectGetPageOutput[]) => {
 }
 
 const onBatchDelete = async () => {
-  proxy.$modal?.confirmDelete(`确定要删除选择的${state.sels.length}条记录？`).then(async () => {
+  proxy.$modal?.confirmDelete(t('确定要删除选择的{length}条记录？', { length: state.sels.length })).then(async () => {
     const rst = await new DevProjectApi().batchDelete(state.sels?.map((item) => item.id) as number[], { loading: true, showSuccessMessage: true })
     if (rst?.success) {
       onQuery()
@@ -216,7 +229,7 @@ const onBatchDelete = async () => {
 }
 
 const onSoftDelete = async (row: DevProjectGetOutput) => {
-  proxy.$modal?.confirmDelete(`确定要移入回收站？`).then(async () => {
+  proxy.$modal?.confirmDelete(t(t('确定要移入回收站？'))).then(async () => {
     const rst = await new DevProjectApi().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
     if (rst?.success) {
       onQuery()
@@ -225,7 +238,7 @@ const onSoftDelete = async (row: DevProjectGetOutput) => {
 }
 
 const onBatchSoftDelete = async () => {
-  proxy.$modal?.confirmDelete(`确定要将选择的${state.sels.length}条记录移入回收站？`).then(async () => {
+  proxy.$modal?.confirmDelete(t('确定要将选择的{length}条记录移入回收站？', { length: state.sels.length })).then(async () => {
     const rst = await new DevProjectApi().batchSoftDelete(state.sels?.map((item) => item.id) as number[], { loading: true, showSuccessMessage: true })
     if (rst?.success) {
       onQuery()
@@ -237,7 +250,7 @@ const genCode = async (row: DevProjectGetOutput) => {
 }
 
 const batchGenCode = async () => {
-  if (state.sels.length == 0) return proxy.$modal.msgWarning('请选择要生成的项目')
+  if (state.sels.length == 0) return proxy.$modal.msgWarning(t('请选择要生成的项目'))
 
   await new DevProjectApi().batchGenerate(
     state.sels.map((s) => s.id) as number[],

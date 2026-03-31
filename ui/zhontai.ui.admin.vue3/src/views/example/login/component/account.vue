@@ -68,9 +68,9 @@ import { formatAxis } from '/@/utils/formatTime'
 import { NextLoading } from '/@/utils/loading'
 import { useUserInfo } from '/@/stores/userInfo'
 import { Session } from '/@/utils/storage'
+import { t } from '/@/i18n'
 
 // 定义变量内容
-const { t } = useI18n()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()
@@ -113,7 +113,7 @@ const onSignIn = async () => {
 // 登录成功后的跳转
 const signInSuccess = (isNoPower: boolean | undefined) => {
   if (isNoPower) {
-    ElMessage.warning('抱歉，您没有登录权限')
+    ElMessage.warning(t('抱歉，您没有登录权限'))
     Session.clear()
   } else {
     // 初始化登录成功时间问候语

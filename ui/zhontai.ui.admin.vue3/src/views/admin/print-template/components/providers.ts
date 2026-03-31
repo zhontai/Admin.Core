@@ -1,23 +1,24 @@
 import { hiprint } from 'vue-plugin-hiprint'
 import logoImg from '/@/assets/logo-mini.svg'
+import { t } from '/@/i18n'
 
 // 定义全局常量
 export const COM_MODULE = 'comModule'
 
-const comProvider = function () {
-  var addElementTypes = function (context: any) {
+const comProvider = () => {
+  const addElementTypes = (context: any) => {
     context.removePrintElementTypes(COM_MODULE)
     context.addPrintElementTypes(COM_MODULE, [
-      new hiprint.PrintElementTypeGroup('常用组件', [
+      new hiprint.PrintElementTypeGroup(t('常用组件'), [
         {
           tid: `${COM_MODULE}.text`,
-          title: '文本',
+          title: t('文本'),
           data: '',
           type: 'text',
         },
         {
           tid: `${COM_MODULE}.longText`,
-          title: '长文本',
+          title: t('长文本'),
           data: '',
           type: 'longText',
           options: {
@@ -27,42 +28,40 @@ const comProvider = function () {
         {
           tid: `${COM_MODULE}.table`,
           field: 'table',
-          title: '表格',
+          title: t('表格'),
           type: 'table',
           groupFields: ['name'],
-          groupFooterFormatter: function (group: any, option: any) {
-            return '这里自定义统计脚信息'
-          },
+          groupFooterFormatter: (group: any, option: any) => '', //'这里自定义统计脚信息',
           options: {
             width: 500,
           },
           columns: [
             [
               {
-                title: '行号',
+                title: t('行号'),
                 fixed: true,
                 rowspan: 2,
                 field: 'id',
                 width: 70,
               },
-              { title: '人员信息', colspan: 2 },
-              { title: '销售统计', colspan: 2 },
+              { title: t('人员信息'), colspan: 2 },
+              { title: t('销售统计'), colspan: 2 },
             ],
             [
               {
-                title: '姓名',
+                title: t('姓名'),
                 align: 'left',
                 field: 'name',
                 width: 100,
               },
-              { title: '性别', field: 'gender', width: 100 },
+              { title: t('性别'), field: 'gender', width: 100 },
               {
-                title: '销售数量',
+                title: t('销售数量'),
                 field: 'count',
                 width: 100,
               },
               {
-                title: '销售金额',
+                title: t('销售金额'),
                 field: 'amount',
                 width: 100,
               },
@@ -84,7 +83,7 @@ const comProvider = function () {
         },
         {
           tid: `${COM_MODULE}.emptyTable`,
-          title: '空白表格',
+          title: t('空白表格'),
           type: 'table',
           options: {
             width: 500,
@@ -114,40 +113,40 @@ const comProvider = function () {
         },
         {
           tid: `${COM_MODULE}.image`,
-          title: '图片',
+          title: t('图片'),
           type: 'image',
           options: { field: '', src: logoImg },
         },
       ]),
-      new hiprint.PrintElementTypeGroup('辅助组件', [
+      new hiprint.PrintElementTypeGroup(t('辅助组件'), [
         {
           tid: `${COM_MODULE}.hline`,
-          title: '横线',
+          title: t('横线'),
           type: 'hline',
         },
         {
           tid: `${COM_MODULE}.vline`,
-          title: '竖线',
+          title: t('竖线'),
           type: 'vline',
         },
         {
           tid: `${COM_MODULE}.rect`,
-          title: '矩形',
+          title: t('矩形'),
           type: 'rect',
         },
         {
           tid: `${COM_MODULE}.oval`,
-          title: '椭圆',
+          title: t('椭圆'),
           type: 'oval',
         },
         {
           tid: `${COM_MODULE}.barcode`,
-          title: '条形码',
+          title: t('条形码'),
           type: 'barcode',
         },
         {
           tid: `${COM_MODULE}.qrcode`,
-          title: '二维码',
+          title: t('二维码'),
           type: 'qrcode',
         },
       ]),

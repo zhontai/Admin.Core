@@ -1,16 +1,17 @@
 <template>
   <div class="popup-result">
-    <p class="title">最近5次运行时间</p>
+    <p class="title">{{ t('最近5次运行时间') }}</p>
     <ul class="popup-result-scroll">
       <template v-if="isShow">
         <li v-for="item in resultList" :key="item">{{ item }}</li>
       </template>
-      <li v-else>计算结果中...</li>
+      <li v-else>{{ t('计算结果中...') }}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { t } from '/@/i18n'
 const props = defineProps({
   ex: {
     type: String,
@@ -326,11 +327,11 @@ const expressionChange = () => {
   }
   // 判断100年内的结果条数
   if (resultArr.length === 0) {
-    resultList.value = ['没有达到条件的结果！']
+    resultList.value = [t('没有达到条件的结果！')]
   } else {
     resultList.value = resultArr
     if (resultArr.length !== 5) {
-      resultList.value.push('最近100年内只有上面' + resultArr.length + '条结果！')
+      resultList.value.push(t('最近100年内只有上面 {count} 条结果！', { count: resultArr.length }))
     }
   }
   // 计算完成-显示结果

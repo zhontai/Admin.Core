@@ -3,7 +3,7 @@
     <template #header="{ titleId, titleClass }">
       <div class="my-flex my-flex-between mr20">
         <span :id="titleId" :class="titleClass">{{ $t('站内信') }}</span>
-        <el-link underline="never" type="primary" class="f12" @click="onShowMore">查看更多</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="onShowMore">{{ t('查看更多') }}</el-link>
       </div>
     </template>
 
@@ -11,18 +11,20 @@
       <div class="my-flex my-flex-between msg-tools">
         <el-segmented v-model="state.isRead" :options="state.segmentedOptions" @change="onQuery" />
         <el-button v-if="!isEmpty" icon="ele-CircleCheck" link type="primary" :loading="state.loadingSetAllRead" @click="onSetAllRead">
-          全部已读
+          {{ t('全部已读') }}
         </el-button>
       </div>
       <div class="my-flex-fill" style="overflow: hidden" v-loading="state.loading">
         <el-scrollbar>
           <div>
-            <el-empty v-if="isEmpty" description="暂无消息" />
+            <el-empty v-if="isEmpty" :description="t('暂无消息')" />
             <template v-else>
               <div v-for="(msg, index) in state.msgList" :key="msg.msgId" class="msg-item" @click="onToDetail(msg)">
                 <div class="msg-item__title" :class="{ 'msg-item__title--unread': !msg.isRead }">{{ msg.title }}</div>
                 <div class="msg-item__time">{{ formatterTime(msg.receivedTime) }}</div>
-                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click.prevent.stop="onSetRead(msg)">标为已读</el-button>
+                <el-button v-if="!msg.isRead" class="msg-item__read" link type="primary" @click.prevent.stop="onSetRead(msg)">{{
+                  t('标为已读')
+                }}</el-button>
               </div>
             </template>
           </div>
@@ -37,6 +39,7 @@ import { SiteMsgApi } from '/@/api/admin/SiteMsg'
 import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput } from '/@/api/admin/data-contracts'
 import dayjs from 'dayjs'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 const { proxy } = getCurrentInstance() as any
 const router = useRouter()
@@ -48,11 +51,11 @@ const state = reactive({
   loadingSetAllRead: false,
   segmentedOptions: [
     {
-      label: '全部',
+      label: t('全部'),
       value: null,
     },
     {
-      label: '未读',
+      label: t('未读'),
       value: false,
     },
   ],
@@ -99,7 +102,7 @@ const onQuery = async () => {
 
 const onSetAllRead = () => {
   proxy.$modal
-    .confirm(`确认标记所有消息为已读吗？`)
+    .confirm(t('确认标记所有消息为已读吗？'))
     .then(async () => {
       state.loadingSetAllRead = true
       const res = await new SiteMsgApi().setAllRead().catch(() => {
@@ -108,7 +111,7 @@ const onSetAllRead = () => {
 
       state.loadingSetAllRead = false
       if (res?.success) {
-        proxy.$modal.msgSuccess('标记所有已读成功')
+        proxy.$modal.msgSuccess(t('标记所有已读成功'))
         eventBus.emit('refreshSiteMsg')
         eventBus.emit('checkUnreadMsg')
         onQuery()

@@ -3,11 +3,11 @@
     <el-card class="my-query-box mt8" shadow="never">
       <el-form :model="state.filterModel" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.filterModel.name" placeholder="字典分类名称或编码" @keyup.enter="onQuery" />
+          <el-input v-model="state.filterModel.name" :placeholder="t('字典分类名称或编码')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -24,24 +24,28 @@
         style="width: 100%"
         @current-change="onTableCurrentChange"
       >
-        <el-table-column prop="name" label="名称" min-width="160" show-overflow-tooltip>
+        <el-table-column prop="name" :label="t('名称')" min-width="160" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.name }}
           </template>
         </el-table-column>
-        <el-table-column prop="code" label="编码" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="树形" width="70" align="center">
+        <el-table-column prop="code" :label="t('编码')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="sort" :label="t('树形')" width="70" align="center">
           <template #default="{ row }">
-            <el-tag v-if="row.isTree" type="success">是</el-tag>
-            <el-tag v-else type="info">否</el-tag>
+            <el-tag v-if="row.isTree" type="success">{{ t('是') }}</el-tag>
+            <el-tag v-else type="info">{{ t('否') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="70" align="center" show-overflow-tooltip />
-        <el-table-column label="操作" width="145" fixed="right" header-align="center" align="center">
+        <el-table-column prop="sort" :label="t('排序')" width="70" align="center" show-overflow-tooltip />
+        <el-table-column :label="t('操作')" width="145" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">{{
+              t('编辑')
+            }}</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">{{
+              t('删除')
+            }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,6 +60,7 @@ import { DictTypeGetListOutput } from '/@/api/admin/data-contracts'
 import { DictTypeApi } from '/@/api/admin/DictType'
 import eventBus from '/@/utils/mitt'
 import { listToTree, filterList } from '/@/utils/tree'
+import { t } from '/@/i18n'
 
 // 引入组件
 const DictTypeForm = defineAsyncComponent(() => import('./components/dict-type-form.vue'))
@@ -109,18 +114,18 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.dictTypeFormTitle = '新增字典分类'
+  state.dictTypeFormTitle = t('新增字典分类')
   dictTypeFormRef.value?.open()
 }
 
 const onEdit = (row: DictTypeGetListOutput) => {
-  state.dictTypeFormTitle = '编辑字典分类'
+  state.dictTypeFormTitle = t('编辑字典分类')
   dictTypeFormRef.value?.open(row)
 }
 
 const onDelete = (row: DictTypeGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new DictTypeApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()

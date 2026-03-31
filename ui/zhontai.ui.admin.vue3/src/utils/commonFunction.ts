@@ -2,9 +2,9 @@
 import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 import { formatDate } from '/@/utils/formatTime'
+import { t } from '/@/i18n'
 
 export default function () {
-  const { t } = useI18n()
   const { toClipboard } = useClipboard()
 
   // 百分比格式化

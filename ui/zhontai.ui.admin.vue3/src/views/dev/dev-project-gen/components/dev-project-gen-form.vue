@@ -15,9 +15,9 @@
         <el-row :gutter="20">
           <el-col :span="24" :xs="24">
             <el-form-item
-              label="所属项目"
+              :label="t('所属项目')"
               prop="projectId"
-              :rules="[{ required: true, validator: validatorSelect, message: '请选择所属项目', trigger: ['change'] }]"
+              :rules="[{ required: true, validator: validatorSelect, message: t('请选择所属项目'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select v-model="state.form.projectId" :empty-values="['', null, undefined, 0]">
@@ -27,9 +27,9 @@
           </el-col>
           <el-col :span="24" :xs="24">
             <el-form-item
-              label="模板组"
+              :label="t('模板组')"
               prop="groupIds_Values"
-              :rules="[{ required: true, message: '请选择模板组', trigger: ['change'] }]"
+              :rules="[{ required: true, message: t('请选择模板组'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select multiple v-model="state.form.groupIds_Values">
@@ -41,8 +41,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -56,6 +56,7 @@ import { DevProjectApi } from '/@/api/dev/DevProject'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
 import { validatorSelect } from '/@/utils/validators'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

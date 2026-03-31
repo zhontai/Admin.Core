@@ -30,11 +30,11 @@
                 <el-col :span="24">
                   <el-row>
                     <el-col v-if="personalForm.nickName" :xs="24" :sm="8" class="personal-item mb6">
-                      <div class="personal-item-label">昵称：</div>
+                      <div class="personal-item-label">{{ t('昵称：') }}</div>
                       <div class="personal-item-value">{{ personalInfo.nickName }}</div>
                     </el-col>
                     <el-col :xs="24" :sm="16" class="personal-item mb6">
-                      <div class="personal-item-label">登录地区：</div>
+                      <div class="personal-item-label">{{ t('登录地区：') }}</div>
                       <div class="personal-item-value">
                         {{ personalInfo.lastLoginCountry }} {{ personalInfo.lastLoginProvince }} {{ personalInfo.lastLoginCity }}
                       </div>
@@ -44,11 +44,11 @@
                 <el-col :span="24">
                   <el-row>
                     <el-col :xs="24" :sm="8" class="personal-item mb6">
-                      <div class="personal-item-label">登录IP：</div>
+                      <div class="personal-item-label">{{ t('登录IP：') }}</div>
                       <div class="personal-item-value">{{ personalInfo.lastLoginIP }}</div>
                     </el-col>
                     <el-col :xs="24" :sm="16" class="personal-item mb6">
-                      <div class="personal-item-label">登录时间：</div>
+                      <div class="personal-item-label">{{ t('登录时间：') }}</div>
                       <div class="personal-item-value">{{ personalInfo.lastLoginTime }}</div>
                     </el-col>
                   </el-row>
@@ -63,8 +63,8 @@
       <el-col :xs="24" :sm="8" class="pl15 personal-info">
         <el-card shadow="hover">
           <template #header>
-            <span>消息通知</span>
-            <span class="personal-info-more">更多</span>
+            <span>{{ t('消息通知') }}</span>
+            <span class="personal-info-more">{{ t('更多') }}</span>
           </template>
           <div class="personal-info-box">
             <ul class="personal-info-ul">
@@ -79,22 +79,22 @@
       <!-- 更新信息 -->
       <el-col :span="24">
         <el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
-          <div class="personal-edit-title">基本信息</div>
+          <div class="personal-edit-title">{{ t('基本信息') }}</div>
           <el-form ref="formRef" :model="personalForm" label-width="60px" class="mt35 mb35">
             <el-row :gutter="35">
               <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-                <el-form-item label="姓名" prop="name" :rules="[{ required: true, message: '请输入姓名', trigger: ['blur', 'change'] }]">
-                  <el-input v-model="personalForm.name" placeholder="请输入姓名" clearable></el-input>
+                <el-form-item :label="t('姓名')" prop="name" :rules="[{ required: true, message: t('请输入姓名'), trigger: ['blur', 'change'] }]">
+                  <el-input v-model="personalForm.name" :placeholder="t('请输入姓名')" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4">
-                <el-form-item label="昵称">
-                  <el-input v-model="personalForm.nickName" placeholder="请输入昵称" clearable></el-input>
+                <el-form-item :label="t('昵称')">
+                  <el-input v-model="personalForm.nickName" :placeholder="t('请输入昵称')" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                 <el-form-item>
-                  <el-popconfirm title="确定要更新个人信息吗？" hide-icon hide-after="0" width="180" @confirm="onUpdateBasic">
+                  <el-popconfirm :title="t('确定要更新个人信息吗？')" hide-icon hide-after="0" width="180" @confirm="onUpdateBasic">
                     <template #reference>
                       <el-button :loading="state.updateLoading" type="primary">
                         <el-icon>
@@ -108,37 +108,37 @@
               </el-col>
             </el-row>
           </el-form>
-          <div class="personal-edit-title mb15">账号安全</div>
+          <div class="personal-edit-title mb15">{{ t('账号安全') }}</div>
           <div class="personal-edit-safe-box">
             <div class="personal-edit-safe-item">
               <div class="personal-edit-safe-item-left">
-                <div class="personal-edit-safe-item-left-label">账户密码</div>
-                <div class="personal-edit-safe-item-left-value">当前密码强度：强</div>
+                <div class="personal-edit-safe-item-left-label">{{ t('账户密码') }}</div>
+                <div class="personal-edit-safe-item-left-value">{{ t('当前密码强度：强') }}</div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button text type="primary" @click="onChangePassword">立即修改</el-button>
+                <el-button text type="primary" @click="onChangePassword">{{ t('立即修改') }}</el-button>
               </div>
             </div>
           </div>
           <div class="personal-edit-safe-box">
             <div class="personal-edit-safe-item">
               <div class="personal-edit-safe-item-left">
-                <div class="personal-edit-safe-item-left-label">密保手机</div>
+                <div class="personal-edit-safe-item-left-label">{{ t('密保手机') }}</div>
                 <div class="personal-edit-safe-item-left-value">已绑定手机：{{ personalInfo.mobile }}</div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button text type="primary">立即修改</el-button>
+                <el-button text type="primary">{{ t('立即修改') }}</el-button>
               </div>
             </div>
           </div>
           <div class="personal-edit-safe-box">
             <div class="personal-edit-safe-item">
               <div class="personal-edit-safe-item-left">
-                <div class="personal-edit-safe-item-left-label">密保邮箱</div>
+                <div class="personal-edit-safe-item-left-label">{{ t('密保邮箱') }}</div>
                 <div class="personal-edit-safe-item-left-value">已绑定邮箱：{{ personalInfo.email }}</div>
               </div>
               <div class="personal-edit-safe-item-right">
-                <el-button text type="primary">立即修改</el-button>
+                <el-button text type="primary">{{ t('立即修改') }}</el-button>
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@
       </el-col>
     </el-row>
 
-    <change-password-form ref="changePasswordFormRef" title="修改密码"></change-password-form>
+    <change-password-form ref="changePasswordFormRef" :title="t('修改密码')"></change-password-form>
   </div>
 </template>
 
@@ -158,6 +158,7 @@ import { useUserInfo } from '/@/stores/userInfo'
 import pinia from '/@/stores/index'
 import { storeToRefs } from 'pinia'
 import { AxiosResponse } from 'axios'
+import { t } from '/@/i18n'
 
 // 引入组件
 const ChangePasswordForm = defineAsyncComponent(() => import('./components/change-password-form.vue'))

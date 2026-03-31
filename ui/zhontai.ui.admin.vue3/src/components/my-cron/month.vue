@@ -1,27 +1,26 @@
 <template>
   <el-form>
     <el-form-item>
-      <el-radio v-model="radioValue" :label="1"> 月，允许的通配符[, - * /] </el-radio>
+      <el-radio v-model="radioValue" :label="1">{{ t('月，允许的通配符[, - * /]') }}</el-radio>
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="2">
-        周期从
-        <el-input-number v-model="cycle01" :min="1" :max="11" /> - <el-input-number v-model="cycle02" :min="cycle01 + 1" :max="12" /> 月
-      </el-radio>
+      <el-radio v-model="radioValue" :label="2"
+        >{{ t('周期从') }}<el-input-number v-model="cycle01" :min="1" :max="11" /> -
+        <el-input-number v-model="cycle02" :min="cycle01 + 1" :max="12" />{{ t('月') }}</el-radio
+      >
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="3">
-        从
-        <el-input-number v-model="average01" :min="1" :max="11" /> 月开始，每
-        <el-input-number v-model="average02" :min="1" :max="12 - average01" /> 月月执行一次
-      </el-radio>
+      <el-radio v-model="radioValue" :label="3"
+        >{{ t('从') }}<el-input-number v-model="average01" :min="1" :max="11" />{{ t('月开始，每')
+        }}<el-input-number v-model="average02" :min="1" :max="12 - average01" />{{ t('月月执行一次') }}</el-radio
+      >
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="4"> 指定 </el-radio>
-      <el-select clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="8">
+      <el-radio v-model="radioValue" :label="4">{{ t('指定') }}</el-radio>
+      <el-select clearable v-model="checkboxList" :placeholder="t('可多选')" multiple :multiple-limit="8">
         <el-option v-for="item in monthList" :key="item.key" :label="item.value" :value="item.key" />
       </el-select>
     </el-form-item>
@@ -29,6 +28,7 @@
 </template>
 
 <script lang="ts" setup>
+import { t } from '/@/i18n'
 const emit = defineEmits(['update'])
 const props = defineProps({
   cron: {
@@ -58,18 +58,18 @@ const average02 = ref(1)
 const checkboxList = ref([])
 const checkCopy = ref([1])
 const monthList = ref([
-  { key: 1, value: '一月' },
-  { key: 2, value: '二月' },
-  { key: 3, value: '三月' },
-  { key: 4, value: '四月' },
-  { key: 5, value: '五月' },
-  { key: 6, value: '六月' },
-  { key: 7, value: '七月' },
-  { key: 8, value: '八月' },
-  { key: 9, value: '九月' },
-  { key: 10, value: '十月' },
-  { key: 11, value: '十一月' },
-  { key: 12, value: '十二月' },
+  { key: 1, value: t('一月') },
+  { key: 2, value: t('二月') },
+  { key: 3, value: t('三月') },
+  { key: 4, value: t('四月') },
+  { key: 5, value: t('五月') },
+  { key: 6, value: t('六月') },
+  { key: 7, value: t('七月') },
+  { key: 8, value: t('八月') },
+  { key: 9, value: t('九月') },
+  { key: 10, value: t('十月') },
+  { key: 11, value: t('十一月') },
+  { key: 12, value: t('十二月') },
 ])
 const cycleTotal = computed(() => {
   return cycle01.value + '-' + cycle02.value

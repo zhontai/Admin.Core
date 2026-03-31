@@ -2,17 +2,17 @@
   <MyLayout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="数据库">
-          <el-select v-model="state.filter.dbKey" clearable placeholder="请选择数据库" style="width: 160px">
+        <el-form-item :label="t('数据库')">
+          <el-select v-model="state.filter.dbKey" clearable :placeholder="t('请选择数据库')" style="width: 160px">
             <el-option v-for="item in state.dbKeys" :key="item.dbKey" :value="item.dbKey" :label="item.dbKey"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="表名">
-          <el-input clearable v-model="state.filter.tableName" placeholder="请输入表名" @keyup.enter="getCodeGenData"> </el-input>
+        <el-form-item :label="t('表名')">
+          <el-input clearable v-model="state.filter.tableName" :placeholder="t('请输入表名')" @keyup.enter="getCodeGenData"> </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="getCodeGenData">查询</el-button>
-          <el-button type="primary" @click="getTables">查看数据库结构</el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="getCodeGenData">{{ t('查询') }}</el-button>
+          <el-button type="primary" @click="getTables">{{ t('查看数据库结构') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -21,16 +21,16 @@
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-space wrap :size="12">
-            <el-button v-if="auth(perms.update)" type="primary" icon="ele-Plus" @click="createTable">创建表</el-button>
-            <el-dropdown :placement="'bottom-end'">
-              <el-button type="primary">
-                批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon>
+            <el-button v-if="auth(perms.update)" type="primary" icon="ele-Plus" @click="createTable">{{ t('创建表') }}</el-button>
+            <el-dropdown :placement="'bottom-start'">
+              <el-button type="primary"
+                >{{ t('批量操作') }}<el-icon class="el-icon--right"><ele-ArrowDown /></el-icon>
               </el-button>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="exportConfig">复制选中配置到剪切板</el-dropdown-item>
-                  <el-dropdown-item @click="importConfig">从剪切板导入配置</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.batchGen)" @click="batchGenCode">批量生成代码</el-dropdown-item>
+                  <el-dropdown-item @click="exportConfig">{{ t('复制选中配置到剪切板') }}</el-dropdown-item>
+                  <el-dropdown-item @click="importConfig">{{ t('从剪切板导入配置') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.batchGen)" @click="batchGenCode">{{ t('批量生成代码') }}</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -48,34 +48,34 @@
         border
       >
         <el-table-column type="selection" width="50" align="center" header-align="center" />
-        <el-table-column prop="tableName" label="表名" width="200" fixed show-overflow-tooltip></el-table-column>
-        <el-table-column prop="busName" label="业务名" width="120" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="entityName" label="实体名" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="dbKey" label="数据库" width="100" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="baseEntity" label="基类" width="120" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="apiAreaName" label="项目编码" width="100" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="namespace" label="命名空间" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="backendOut" label="后端输出位置" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="frontendOut" label="前端输出位置" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="dbMigrateSqlOut" label="数据库迁移文件输出位置" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="generateType" label="生成方式" width="100" show-overflow-tooltip>
+        <el-table-column prop="tableName" :label="t('表名')" width="200" fixed show-overflow-tooltip></el-table-column>
+        <el-table-column prop="busName" :label="t('业务名')" width="120" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="entityName" :label="t('实体名')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="dbKey" :label="t('数据库')" width="100" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="baseEntity" :label="t('基类')" width="120" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="apiAreaName" :label="t('项目编码')" width="100" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="namespace" :label="t('命名空间')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="backendOut" :label="t('后端输出位置')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="frontendOut" :label="t('前端输出位置')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="dbMigrateSqlOut" :label="t('数据库迁移文件输出位置')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="generateType" :label="t('生成方式')" width="100" show-overflow-tooltip>
           <template #default="scope">
             {{ genType(scope.row.generateType) }}
           </template>
         </el-table-column>
-        <el-table-column prop="authorName" label="作者" width="100" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="comment" label="备注" width="180" show-overflow-tooltip></el-table-column>
-        <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
+        <el-table-column prop="authorName" :label="t('作者')" width="100" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="comment" :label="t('备注')" width="180" show-overflow-tooltip></el-table-column>
+        <el-table-column :label="t('操作')" width="180" fixed="right" header-align="center" align="center">
           <template #default="scope">
-            <el-button icon="ele-EditPen" text type="primary" @click.stop="modifyConfig(scope.row)">编辑</el-button>
+            <el-button auto-insert-space icon="ele-EditPen" text type="primary" @click.stop="modifyConfig(scope.row)">{{ t('编辑') }}</el-button>
             <my-dropdown-more v-if="auths([perms.gen, perms.compile, perms.genCompile, perms.genMenu, perms.delete])" @click.stop>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item v-if="auth(perms.gen)" @click.stop="generate(scope.row)">生成代码</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.compile)" @click.stop="compile(scope.row)">生成迁移SQL</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.genCompile)" @click.stop="genCompile(scope.row)">执行迁移到数据库</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.genMenu)" @click.stop="genMenu(scope.row)">生成菜单数据</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelRow(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.gen)" @click.stop="generate(scope.row)">{{ t('生成代码') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.compile)" @click.stop="compile(scope.row)">{{ t('生成迁移SQL') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.genCompile)" @click.stop="genCompile(scope.row)">{{ t('执行迁移到数据库') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.genMenu)" @click.stop="genMenu(scope.row)">{{ t('生成菜单数据') }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelRow(scope.row)">{{ t('删除') }}</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -84,7 +84,7 @@
       </el-table>
     </el-card>
     <codegen-form ref="codegenFormRef" @sure="onConfigEditSure"></codegen-form>
-    <el-drawer ref="tablesDrawerRef" v-model="state.dbStructShow" :title="state.filter.dbKey + ' 数据库结构'" direction="rtl">
+    <el-drawer ref="tablesDrawerRef" v-model="state.dbStructShow" :title="state.filter.dbKey + t('数据库结构')" direction="rtl">
       <el-tree
         :data="state.dbTree"
         node-key="key"
@@ -95,19 +95,19 @@
       />
       <template #footer>
         <span style="margin: 8px">
-          <el-button @click="state.dbStructShow = false">取消</el-button>
+          <el-button auto-insert-space @click="state.dbStructShow = false">{{ t('取消') }}</el-button>
           <el-button
             @click="createConfigFromTable(state.filter.dbTree)"
             type="primary"
             :disabled="!state.filter.dbTree || (state.filter.dbTree != null && state.filter.dbTree.type != 'table')"
           >
-            按表结构创建生成配置
+            {{ t('按表结构创建生成配置') }}
           </el-button>
         </span>
       </template>
     </el-drawer>
     <el-dialog
-      title="导入确认(双击可编辑直接提交)"
+      :title="t('导入确认(双击可编辑直接提交)')"
       destroy-on-close
       draggable
       width="80%"
@@ -125,27 +125,27 @@
         ref="importDialogTableRef"
       >
         <el-table-column type="selection" width="50" />
-        <el-table-column prop="importStatus" label="导入状态" width="120" fixed show-overflow-tooltip></el-table-column>
-        <el-table-column prop="tableName" label="表名" width="200"></el-table-column>
-        <el-table-column prop="entityName" label="实体名" width="180"></el-table-column>
-        <el-table-column prop="dbKey" label="数据库" width="100"></el-table-column>
-        <el-table-column prop="namespace" label="命名空间" width="180"></el-table-column>
-        <el-table-column prop="busName" label="业务名" width="120"></el-table-column>
-        <el-table-column prop="baseEntity" label="基类" width="120"></el-table-column>
-        <el-table-column prop="apiAreaName" label="Api分区" width="100"></el-table-column>
-        <el-table-column prop="generateType" label="生成方式" width="100">
+        <el-table-column prop="importStatus" :label="t('导入状态')" width="120" fixed show-overflow-tooltip></el-table-column>
+        <el-table-column prop="tableName" :label="t('表名')" width="200"></el-table-column>
+        <el-table-column prop="entityName" :label="t('实体名')" width="180"></el-table-column>
+        <el-table-column prop="dbKey" :label="t('数据库')" width="100"></el-table-column>
+        <el-table-column prop="namespace" :label="t('命名空间')" width="180"></el-table-column>
+        <el-table-column prop="busName" :label="t('业务名')" width="120"></el-table-column>
+        <el-table-column prop="baseEntity" :label="t('基类')" width="120"></el-table-column>
+        <el-table-column prop="apiAreaName" :label="t('Api分区')" width="100"></el-table-column>
+        <el-table-column prop="generateType" :label="t('生成方式')" width="100">
           <template #default="scope">
             {{ genType(scope.row.generateType) }}
           </template>
         </el-table-column>
-        <el-table-column prop="authorName" label="作者" width="100"></el-table-column>
-        <el-table-column prop="comment" label="备注" width></el-table-column>
+        <el-table-column prop="authorName" :label="t('作者')" width="100"></el-table-column>
+        <el-table-column prop="comment" :label="t('备注')" width></el-table-column>
       </el-table>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancelImport"> 取消 </el-button>
-          <el-button type="primary" @click="onCompleteImport" v-if="state.importSuccess">导入完成</el-button>
-          <el-button type="primary" @click="onSureImport" v-else> 确定</el-button>
+          <el-button auto-insert-space @click="onCancelImport">{{ t('取消') }}</el-button>
+          <el-button type="primary" @click="onCompleteImport" v-if="state.importSuccess">{{ t('导入完成') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSureImport" v-else>{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -158,6 +158,7 @@ import { CodeGenApi } from '/@/api/dev/CodeGen'
 import eventBus from '/@/utils/mitt'
 import useClipboard from 'vue-clipboard3'
 import { auth, auths, authAll } from '/@/utils/authFunction'
+import { t } from '/@/i18n'
 
 const { toClipboard } = useClipboard()
 // 引入组件
@@ -258,7 +259,7 @@ const getBaseData = async () => {
 // 获取数据库结构
 const getTables = async () => {
   if (!state.filter.dbKey) {
-    proxy.$modal.msgWarning('请选择数据库')
+    proxy.$modal.msgWarning(t('请选择数据库'))
     return
   }
   const res = await new CodeGenApi().getTables({ dbkey: state.filter.dbKey }, { loading: true })
@@ -301,7 +302,7 @@ const getCodeGenData = async () => {
 // 显示编辑数据
 const showEditData = async (data: CodeGenGetOutput & any) => {
   if (data.importStatus == '导入成功') {
-    proxy.$modal.msgWarning('导入成功后不能再编辑')
+    proxy.$modal.msgWarning(t('导入成功后不能再编辑'))
     return
   }
   codegenFormRef?.value?.open(data)
@@ -315,7 +316,7 @@ const createTable = () => {
 // 删除数据
 const onDelRow = async (config: CodeGenGetOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${config.busName}】?`)
+    .confirmDelete(t('确定要删除【{busName}】?', { busName: config.busName }))
     .then(async () => {
       var res = await new CodeGenApi().delete({ id: config.id }, { loading: true, showSuccessMessage: true })
       if (res?.success) {
@@ -358,7 +359,7 @@ const compile = async (config: CodeGenGetOutput) => {
     toClipboard(res.data)
     proxy.$modal.msgWarning('已将sql复制到剪切板&' + config.backendOut)
   } else {
-    proxy.$modal.msgWarning('无迁移SQL')
+    proxy.$modal.msgWarning(t('无迁移SQL'))
   }
 }
 
@@ -470,15 +471,15 @@ const selsChange = (vals: CodeGenGetOutput[]) => {
 }
 
 const batchGenCode = async () => {
-  if (state.sels.length == 0) return proxy.$modal.msgWarning('请选择要生成的表')
+  if (state.sels.length == 0) return proxy.$modal.msgWarning(t('请选择要生成的表'))
   await new CodeGenApi().batchGenerate(state.sels.map((s) => s.id) as number[], { loading: true, showSuccessMessage: true })
 }
 
 const exportConfig = () => {
-  if (state.sels.length == 0) return proxy.$modal.msgWarning('请选择要复制的配置')
+  if (state.sels.length == 0) return proxy.$modal.msgWarning(t('请选择要复制的配置'))
   // console.log(JSON.stringify(state.sels))
   toClipboard(JSON.stringify(state.sels))
-  return proxy.$modal.msgSuccess('已经配置复制到剪切板，保存成json即可')
+  return proxy.$modal.msgSuccess(t('已经配置复制到剪切板，保存成json即可'))
 }
 
 const importConfig = () => {
@@ -503,7 +504,7 @@ const importConfig = () => {
       })
     })
     .catch((v) => {
-      proxy.$modal.msgWarning('请先复制正确的配置')
+      proxy.$modal.msgWarning(t('请先复制正确的配置'))
     })
 }
 
@@ -512,7 +513,7 @@ const importSelsChange = (vals: CodeGenGetOutput[]) => {
 }
 
 const onSureImport = () => {
-  if (state.importSels.length == 0) return proxy.$modal.msgWarning('选择要导入的数据')
+  if (state.importSels.length == 0) return proxy.$modal.msgWarning(t('选择要导入的数据'))
   state.importSels.forEach(async (data) => {
     if (data.importStatus == '导入成功' || data.importStatus == '导入中') return
     let editorForm = data as CodeGenUpdateInput

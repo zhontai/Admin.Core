@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-form ref="formRef" :model="form" size="large" class="login-content-form">
-      <div class="login-title">注册账号</div>
+      <div class="login-title">{{ t('注册账号') }}</div>
       <el-form-item
         class="login-animation1"
         prop="email"
         :rules="[
-          { required: true, message: '请输入邮箱地址', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入邮箱地址'), trigger: ['blur', 'change'] },
           { validator: testEmail, trigger: ['blur', 'change'] },
         ]"
       >
@@ -16,7 +16,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入邮箱验证码', trigger: ['blur', 'change'] }]">
+      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: t('请输入邮箱验证码'), trigger: ['blur', 'change'] }]">
         <MyInputCode v-model="form.code" :email="form.email" :validate="validatorEmail" @send="onSend" />
       </el-form-item>
       <el-form-item
@@ -24,11 +24,11 @@
         class="login-animation3"
         prop="password"
         :rules="[
-          { required: true, message: '请输入密码', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入密码'), trigger: ['blur', 'change'] },
           { validator: validatorPwd, trigger: ['blur', 'change'] },
         ]"
       >
-        <el-input v-model="form.password" :placeholder="'输入密码'" show-password autocomplete="off" clearable @input="onInputPassword">
+        <el-input v-model="form.password" :placeholder="t('输入密码')" show-password autocomplete="off" clearable @input="onInputPassword">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Unlock /></el-icon>
           </template>
@@ -37,7 +37,7 @@
       <el-form-item
         class="login-animation3 mb10"
         prop="corpName"
-        :rules="[{ required: true, message: '请填写完整企业名称', trigger: ['blur', 'change'] }]"
+        :rules="[{ required: true, message: t('请填写完整企业名称'), trigger: ['blur', 'change'] }]"
       >
         <el-input ref="emailRef" text :placeholder="$t('请填写完整企业名称')" v-model="form.corpName" clearable autocomplete="off">
           <template #prefix>
@@ -52,10 +52,15 @@
       </el-form-item>
       <el-form-item class="login-animation5 mb5 login-agree" prop="agree" :rules="[{ validator: validatorAgree, trigger: ['change'] }]">
         <div class="my-flex my-flex-items-center f12">
-          <el-checkbox v-model="form.agree">我已阅读并同意</el-checkbox>
+          <el-checkbox v-model="form.agree">{{ t('我已阅读并同意') }}</el-checkbox>
           <div class="my-flex my-flex-items-center ml5">
-            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">服务协议</el-link>、
-            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">隐私政策</el-link>
+            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">{{
+              t('服务协议')
+            }}</el-link
+            >、
+            <el-link underline="never" type="primary" class="f12" target="_blank" href="https://zhontai.net/admin/introduce.html">{{
+              t('隐私政策')
+            }}</el-link>
           </div>
         </div>
       </el-form-item>
@@ -70,6 +75,7 @@ import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { validatorPwd, validatorAgree } from '/@/utils/validators'
 import { testEmail } from '/@/utils/test'
 import { ElMessage } from 'element-plus'
+import { t } from '/@/i18n'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const isReg = defineModel('isReg', { type: Boolean, default: false })
@@ -87,7 +93,7 @@ const state = reactive({
     code: '',
     codeId: '',
     password: '',
-    corpName: '中台',
+    corpName: t('中台'),
   } as AuthRegByEmailInput & { agree: false },
 })
 const { form } = toRefs(state)
@@ -131,7 +137,7 @@ const onReg = () => {
     state.loading = false
 
     if (res?.success) {
-      ElMessage.success('注册成功')
+      ElMessage.success(t('注册成功'))
       isReg.value = false
     }
   })

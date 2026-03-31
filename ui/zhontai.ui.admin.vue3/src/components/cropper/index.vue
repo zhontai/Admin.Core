@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog draggable title="更换头像" v-model="state.isShowDialog" width="769px">
+    <el-dialog draggable :title="t('更换头像')" v-model="state.isShowDialog" width="769px">
       <div class="cropper-warp">
         <div class="cropper-warp-left">
           <cropper-canvas background style="height: 100%">
@@ -23,7 +23,7 @@
           </cropper-canvas>
         </div>
         <div class="cropper-warp-right">
-          <div class="cropper-warp-right-title">预览</div>
+          <div class="cropper-warp-right-title">{{ t('预览') }}</div>
           <div class="cropper-warp-right-item">
             <div class="cropper-warp-right-value">
               <img :src="state.cropperImgBase64" class="cropper-warp-right-value-img" />
@@ -40,8 +40,8 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSubmit">更 换</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSubmit">{{ t('更换') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -50,6 +50,8 @@
 
 <script setup lang="ts" name="cropper">
 import 'cropperjs'
+
+import { t } from '/@/i18n'
 
 const sourceRef = useTemplateRef('sourceRef')
 

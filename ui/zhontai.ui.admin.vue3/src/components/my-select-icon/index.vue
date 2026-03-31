@@ -1,5 +1,5 @@
 <template>
-  <el-input v-model="state.value" placeholder="请选择图标" class="w100" @clear="onClear" v-bind="$attrs">
+  <el-input v-model="state.value" :placeholder="t('请选择图标')" class="w100" @clear="onClear" v-bind="$attrs">
     <template #prepend>
       <SvgIcon :name="state.value" />
     </template>
@@ -8,11 +8,12 @@
     </template>
   </el-input>
 
-  <icon-select ref="iconSelectRef" title="选择图标" :modal="true" @sure="onSure" v-model="state.value" v-bind="$attrs"></icon-select>
+  <icon-select ref="iconSelectRef" :title="t('选择图标')" :modal="true" @sure="onSure" v-model="state.value" v-bind="$attrs"></icon-select>
 </template>
 
 <script lang="ts" setup>
 import iconSelect from './icon-select.vue'
+import { t } from '/@/i18n'
 
 // const iconSelect = defineAsyncComponent(() => import('./icon-select.vue'))
 

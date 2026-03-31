@@ -12,9 +12,9 @@
     <el-form :model="form" ref="formRef" label-width="80px" label-position="top">
       <el-row :gutter="35">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-          <el-form-item label="数据范围">
-            <el-select key="dataScope" v-model="form.dataScope" placeholder="请选择" class="w100">
-              <el-option v-for="item in state.dataScopeList" :key="item.value" :label="item.label" :value="item.value" />
+          <el-form-item :label="t('数据范围')">
+            <el-select key="dataScope" v-model="form.dataScope" :placeholder="t('请选择')" class="w100">
+              <el-option v-for="item in dataScopeList" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
 
             <org-menu
@@ -32,8 +32,8 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -42,6 +42,7 @@
 <script lang="ts" setup name="admin/role/components/set-role-data-scope">
 import { RoleGetListOutput, RoleSetDataScopeInput } from '/@/api/admin/data-contracts'
 import { RoleApi } from '/@/api/admin/Role'
+import { t } from '/@/i18n'
 
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))
 
@@ -67,13 +68,16 @@ const state = reactive({
   roleName: '' as string | undefined | null,
   checkedKeys: [] as number[] | undefined | null,
   form: {} as RoleSetDataScopeInput,
-  dataScopeList: [
-    { label: '全部', value: 1 },
-    { label: '本部门和下级部门', value: 2 },
-    { label: '本部门', value: 3 },
-    { label: '本人数据', value: 4 },
-    { label: '指定部门', value: 5 },
-  ],
+})
+
+const dataScopeList = computed(() => {
+  return [
+    { label: t('全部'), value: 1 },
+    { label: t('本部门和下级部门'), value: 2 },
+    { label: t('本部门'), value: 3 },
+    { label: t('本人数据'), value: 4 },
+    { label: t('指定部门'), value: 5 },
+  ]
 })
 
 const { form } = toRefs(state)

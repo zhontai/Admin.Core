@@ -2,15 +2,17 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="接口名称">
-          <el-input v-model="state.filter.name" placeholder="接口名称" @keyup.enter="onQuery" />
+        <el-form-item :label="t('接口名称')">
+          <el-input v-model="state.filter.name" :placeholder="t('接口名称')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:api:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-popconfirm title="确定要同步接口" hide-icon width="180" hide-after="0" @confirm="onSync">
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:api:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
+          <el-popconfirm :title="t('确定要同步接口')" hide-icon width="180" hide-after="0" @confirm="onSync">
             <template #reference>
-              <el-button v-auth="'api:admin:api:sync'" :loading="state.syncLoading" type="primary" icon="ele-Refresh"> 同步 </el-button>
+              <el-button auto-insert-space v-auth="'api:admin:api:sync'" :loading="state.syncLoading" type="primary" icon="ele-Refresh">{{
+                t('同步')
+              }}</el-button>
             </template>
           </el-popconfirm>
         </el-form-item>
@@ -27,14 +29,14 @@
         :expand-row-keys="state.expandRowKeys"
         border
       >
-        <el-table-column prop="label" label="接口名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="path" label="接口地址" min-width="120" show-overflow-tooltip>
+        <el-table-column prop="label" :label="t('接口名称')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="path" :label="t('接口地址')" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
             <el-tag v-if="row.httpMethods" :type="getTagTypeByHttpMethod(row.httpMethods)" style="width: 54px">{{ row.httpMethods }}</el-tag>
             {{ row.path }}
           </template>
         </el-table-column>
-        <el-table-column label="请求日志" width="90" align="center">
+        <el-table-column :label="t('请求日志')" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -43,13 +45,13 @@
               :active-value="true"
               :inactive-value="false"
               inline-prompt
-              active-text="启用"
-              inactive-text="禁用"
+              :active-text="t('启用')"
+              in:active-text="t('禁用')"
               :before-change="() => onSetEnableLog(row)"
             />
           </template>
         </el-table-column>
-        <el-table-column label="请求参数" width="90" align="center">
+        <el-table-column :label="t('请求参数')" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -58,13 +60,13 @@
               :active-value="true"
               :inactive-value="false"
               inline-prompt
-              active-text="启用"
-              inactive-text="禁用"
+              :active-text="t('启用')"
+              in:active-text="t('禁用')"
               :before-change="() => onSetEnableParams(row)"
             />
           </template>
         </el-table-column>
-        <el-table-column label="响应结果" width="90" align="center">
+        <el-table-column :label="t('响应结果')" width="90" align="center">
           <template #default="{ row }">
             <el-switch
               v-if="row.httpMethods"
@@ -73,23 +75,27 @@
               :active-value="true"
               :inactive-value="false"
               inline-prompt
-              active-text="启用"
-              inactive-text="禁用"
+              :active-text="t('启用')"
+              in:active-text="t('禁用')"
               :before-change="() => onSetEnableResult(row)"
             />
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
-        <el-table-column label="状态" width="82" align="center">
+        <el-table-column prop="sort" :label="t('排序')" width="82" align="center" show-overflow-tooltip />
+        <el-table-column :label="t('状态')" width="82" align="center">
           <template #default="{ row }">
-            <el-tag type="success" v-if="row.enabled">启用</el-tag>
-            <el-tag type="danger" v-else>禁用</el-tag>
+            <el-tag type="success" v-if="row.enabled">{{ t('启用') }}</el-tag>
+            <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="160" fixed="right" header-align="center" align="center">
+        <el-table-column :label="t('操作')" width="160" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:api:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:api:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:api:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">{{
+              t('编辑')
+            }}</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:api:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">{{
+              t('删除')
+            }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -106,6 +112,7 @@ import { ApiApi as ApiExtApi } from '/@/api/admin.extend/Api'
 import { listToTree, treeToList, filterTree, filterList } from '/@/utils/tree'
 import { cloneDeep, isArray } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 // 引入组件
 const ApiForm = defineAsyncComponent(() => import('./components/api-form.vue'))
@@ -159,7 +166,7 @@ const getTagTypeByHttpMethod = (httpMethods: string) => {
 const onSetEnableLog = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabledLog ? '禁用' : '启用'}【${row.label}】请求参数?`)
+      .confirm(t('确定要{action}【{name}】请求参数?', { action: row.enabledLog ? t('禁用') : t('启用'), name: row.label }))
       .then(async () => {
         row.loadingEnabledLog = true
         const res = await new ApiApi()
@@ -185,7 +192,7 @@ const onSetEnableLog = (row: ApiGetListOutput & { loadingEnabledLog: boolean; lo
 const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabledParams ? '禁用' : '启用'}【${row.label}】请求参数?`)
+      .confirm(t('确定要{action}【{name}】请求参数?', { action: row.enabledParams ? t('禁用') : t('启用'), name: row.label }))
       .then(async () => {
         row.loadingEnabledParams = true
         const res = await new ApiApi()
@@ -212,7 +219,8 @@ const onSetEnableParams = (row: ApiGetListOutput & { loadingEnabledLog: boolean;
 const onSetEnableResult = (row: ApiGetListOutput & { loadingEnabledLog: boolean; loadingEnabledParams: boolean; loadingEnabledResult: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabledResult ? '禁用' : '启用'}【${row.label}】响应结果?`)
+      .confirm(t('确定要{action}【{name}】响应结果?', { action: row.enabledResult ? t('禁用') : t('启用'), name: row.label }))
+
       .then(async () => {
         row.loadingEnabledResult = true
         const res = await new ApiApi()
@@ -263,18 +271,18 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.apiFormTitle = '新增接口'
+  state.apiFormTitle = t('新增接口')
   apiFormRef.value?.open()
 }
 
 const onEdit = (row: ApiGetListOutput) => {
-  state.apiFormTitle = '编辑接口'
+  state.apiFormTitle = t('编辑接口')
   apiFormRef.value?.open(row)
 }
 
 const onDelete = (row: ApiGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除接口【${row.label}】?`)
+    .confirmDelete(t('确定要删除接口【{label}】?', { label: row.label }))
     .then(async () => {
       await new ApiApi().delete({ id: row.id }, { loading: true })
       onQuery()
@@ -344,14 +352,14 @@ const onSync = async () => {
       for (let index = 0, len = resSwaggerResources.length; index < len; index++) {
         const swaggerResource = resSwaggerResources[index]
         await syncApi(swaggerResource).catch(() => {
-          proxy.$modal.msgSuccess(`同步${swaggerResource.name}失败`)
+          proxy.$modal.msgSuccess(t('同步{name}失败', { name: swaggerResource.name }))
         })
       }
     }
 
     if (swaggerResourcesIndex === lastSwaggerResourcesIndex) {
       state.syncLoading = false
-      proxy.$modal.msgSuccess(`同步完成`)
+      proxy.$modal.msgSuccess(t('同步完成'))
       onQuery()
     }
   })

@@ -2,16 +2,16 @@
   <MyLayout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" label-width="auto" @submit.stop.prevent>
-        <el-form-item label="模板分组">
+        <el-form-item :label="t('模板分组')">
           <el-select clearable v-model="state.filter.groupId" style="width: 160px" @keyup.enter="onQuery">
             <el-option v-for="item in state.selectDevGroupListData" :key="item.id" :value="item.id" :label="item.name" />
           </el-select>
         </el-form-item>
-        <el-form-item label="模板名称">
+        <el-form-item :label="t('模板名称')">
           <el-input clearable v-model="state.filter.name" placeholder="" @keyup.enter="onQuery"> </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery">查询</el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -20,10 +20,10 @@
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
           <el-space wrap :size="12">
-            <el-button type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">新增</el-button>
+            <el-button auto-insert-space type="primary" v-auth="perms.add" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
             <el-dropdown :placement="'bottom-end'" v-if="auths([perms.batSoftDelete, perms.batDelete])">
               <el-button type="primary"
-                >批量操作 <el-icon class="el-icon--right"><ele-ArrowDown /></el-icon
+                >{{ t('批量操作') }}<el-icon class="el-icon--right"><ele-ArrowDown /></el-icon
               ></el-button>
               <template #dropdown>
                 <el-dropdown-menu>
@@ -32,11 +32,11 @@
                     :disabled="state.sels.length == 0"
                     @click="onBatchSoftDelete"
                     icon="ele-DeleteFilled"
-                    >批量软删除</el-dropdown-item
+                    >{{ t('批量软删除') }}</el-dropdown-item
                   >
-                  <el-dropdown-item v-if="auth(perms.batDelete)" :disabled="state.sels.length == 0" @click="onBatchDelete" icon="ele-Delete"
-                    >批量删除</el-dropdown-item
-                  >
+                  <el-dropdown-item v-if="auth(perms.batDelete)" :disabled="state.sels.length == 0" @click="onBatchDelete" icon="ele-Delete">{{
+                    t('批量删除')
+                  }}</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -46,30 +46,34 @@
       </div>
       <el-table v-loading="state.loading" :data="state.devTemplateListData" row-key="id" ref="listTableRef" border @selection-change="selsChange">
         <el-table-column type="selection" width="50" align="center" header-align="center" />
-        <el-table-column prop="groupId_Text" label="模板分组" show-overflow-tooltip min-width="160" />
-        <el-table-column prop="name" label="模板名称" show-overflow-tooltip min-width="160" />
-        <el-table-column prop="outTo" label="生成路径" show-overflow-tooltip min-width="240" />
-        <el-table-column label="状态" width="82" align="center">
+        <el-table-column prop="groupId_Text" :label="t('模板分组')" show-overflow-tooltip min-width="160" />
+        <el-table-column prop="name" :label="t('模板名称')" show-overflow-tooltip min-width="160" />
+        <el-table-column prop="outTo" :label="t('生成路径')" show-overflow-tooltip min-width="240" />
+        <el-table-column :label="t('状态')" width="82" align="center">
           <template #default="{ row }">
-            <el-tag type="success" v-if="row.isEnable">启用</el-tag>
-            <el-tag type="danger" v-else>禁用</el-tag>
+            <el-tag type="success" v-if="row.isEnable">{{ t('启用') }}</el-tag>
+            <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column
           v-auths="[perms.update, perms.softDelete, perms.delete]"
-          label="操作"
+          :label="t('操作')"
           :width="actionColWidth"
           fixed="right"
           header-align="center"
           align="center"
         >
           <template #default="{ row }">
-            <el-button v-auth="perms.update" icon="ele-EditPen" text type="primary" @click.stop="onEdit(row)">编辑</el-button>
+            <el-button auto-insert-space v-auth="perms.update" icon="ele-EditPen" text type="primary" @click.stop="onEdit(row)">{{
+              t('编辑')
+            }}</el-button>
             <my-dropdown-more v-if="auths([perms.delete, perms.softDelete])">
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item v-if="auth(perms.softDelete)" @click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">软删除</el-dropdown-item>
-                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelete(row)" icon="ele-Delete">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.softDelete)" @click.stop="onSoftDelete(row)" icon="ele-DeleteFilled">{{
+                    t('软删除')
+                  }}</el-dropdown-item>
+                  <el-dropdown-item v-if="auth(perms.delete)" @click.stop="onDelete(row)" icon="ele-Delete">{{ t('删除') }}</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </my-dropdown-more>
@@ -109,6 +113,7 @@ import { DevTemplateApi } from '/@/api/dev/DevTemplate'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
 import { auth, auths, authAll } from '/@/utils/authFunction'
+import { t } from '/@/i18n'
 
 // 引入组件
 const DevTemplateForm = defineAsyncComponent(() => import('./components/dev-template-form.vue'))
@@ -180,18 +185,18 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.devTemplateFormTitle = '新增模板'
+  state.devTemplateFormTitle = t('新增模板')
   devTemplateFormRef.value.open()
 }
 
 const onEdit = (row: DevTemplateGetOutput) => {
-  state.devTemplateFormTitle = '编辑模板'
+  state.devTemplateFormTitle = t('编辑模板')
   devTemplateFormRef.value.open(row)
 }
 
 const onDelete = (row: DevTemplateGetOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new DevTemplateApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -213,7 +218,7 @@ const selsChange = (vals: DevTemplateGetPageOutput[]) => {
 }
 
 const onBatchDelete = async () => {
-  proxy.$modal?.confirmDelete(`确定要删除选择的${state.sels.length}条记录？`).then(async () => {
+  proxy.$modal?.confirmDelete(t('确定要删除选择的{length}条记录？', { length: state.sels.length })).then(async () => {
     const rst = await new DevTemplateApi().batchDelete(state.sels?.map((item) => item.id) as number[], { loading: true, showSuccessMessage: true })
     if (rst?.success) {
       onQuery()
@@ -222,7 +227,7 @@ const onBatchDelete = async () => {
 }
 
 const onSoftDelete = async (row: DevTemplateGetOutput) => {
-  proxy.$modal?.confirmDelete(`确定要移入回收站？`).then(async () => {
+  proxy.$modal?.confirmDelete(t(t('确定要移入回收站？'))).then(async () => {
     const rst = await new DevTemplateApi().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
     if (rst?.success) {
       onQuery()
@@ -231,7 +236,7 @@ const onSoftDelete = async (row: DevTemplateGetOutput) => {
 }
 
 const onBatchSoftDelete = async () => {
-  proxy.$modal?.confirmDelete(`确定要将选择的${state.sels.length}条记录移入回收站？`).then(async () => {
+  proxy.$modal?.confirmDelete(t('确定要将选择的{length}条记录移入回收站？', { length: state.sels.length })).then(async () => {
     const rst = await new DevTemplateApi().batchSoftDelete(state.sels?.map((item) => item.id) as number[], {
       loading: true,
       showSuccessMessage: true,

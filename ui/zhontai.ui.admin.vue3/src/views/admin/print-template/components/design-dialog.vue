@@ -10,21 +10,29 @@
                 <my-icon name="save" color="var(--color)"></my-icon>
               </el-icon>
             </template>
-            保存
+            {{ t('保存') }}
           </el-button>
-          <el-popover ref="popoverSaveRef" placement="bottom-end" :virtual-ref="saveRef" trigger="click" virtual-triggering width="auto" title="提示">
+          <el-popover
+            ref="popoverSaveRef"
+            placement="bottom-end"
+            :virtual-ref="saveRef"
+            trigger="click"
+            virtual-triggering
+            width="auto"
+            :title="t('提示')"
+          >
             <p class="my-flex my-flex-items-center">
               <SvgIcon name="ele-Warning" size="16" color="var(--el-color-warning)" class="mr5" />
-              确定要保存设计模板吗？
+              {{ t('确定要保存设计模板吗？') }}
             </p>
             <div class="mt10" style="text-align: right; margin: 0">
-              <el-button text @click="onSaveCancel">取消</el-button>
-              <el-button type="primary" @click="onSave"> 保存并关闭 </el-button>
-              <el-button type="primary" @click="onSave(false)"> 保存 </el-button>
+              <el-button auto-insert-space text @click="onSaveCancel">{{ t('取消') }}</el-button>
+              <el-button type="primary" @click="onSave">{{ t('保存并关闭') }}</el-button>
+              <el-button auto-insert-space type="primary" @click="onSave(false)">{{ t('保存') }}</el-button>
             </div>
           </el-popover>
 
-          <el-tooltip content="刷新" placement="bottom">
+          <el-tooltip :content="t('刷新')" placement="bottom">
             <el-button ref="refreshRef" link>
               <template #icon>
                 <el-icon size="18px">
@@ -34,10 +42,10 @@
             </el-button>
           </el-tooltip>
           <el-popover ref="popoverRefreshRef" placement="bottom" :virtual-ref="refreshRef" trigger="click" virtual-triggering :width="230">
-            <p class="my-flex my-flex-items-center">确定要刷新设计模板吗？</p>
+            <p class="my-flex my-flex-items-center">{{ t('确定要刷新设计模板吗？') }}</p>
             <div class="mt10" style="text-align: right; margin: 0">
-              <el-button text @click="onRefreshCancel">取消</el-button>
-              <el-button type="primary" @click="onRefresh">确定</el-button>
+              <el-button auto-insert-space text @click="onRefreshCancel">{{ t('取消') }}</el-button>
+              <el-button auto-insert-space type="primary" @click="onRefresh">{{ t('确定') }}</el-button>
             </div>
           </el-popover>
         </div>
@@ -52,6 +60,7 @@ import Design from './design.vue'
 import { PrintTemplateGetPageOutput } from '/@/api/admin/data-contracts'
 import eventBus from '/@/utils/mitt'
 import { PrintTemplateApi } from '/@/api/admin/PrintTemplate'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {
@@ -143,7 +152,7 @@ const onSave = async (close = true) => {
           if (close) state.visible = false
         }
       } else {
-        proxy.$modal.msgWarning('请选择打印模板')
+        proxy.$modal.msgWarning(t('请选择打印模板'))
       }
     }
   } catch (error) {}

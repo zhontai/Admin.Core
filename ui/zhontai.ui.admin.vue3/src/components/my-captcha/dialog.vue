@@ -1,10 +1,11 @@
 <template>
-  <el-dialog class="my-captcha" title="请完成安全验证" draggable append-to-body width="380px" v-bind="$attrs">
+  <el-dialog class="my-captcha" :title="t('请完成安全验证')" draggable append-to-body width="380px" v-bind="$attrs">
     <MyCaptcha ref="myCaptchaRef" v-bind="$attrs" />
   </el-dialog>
 </template>
 
 <script lang="ts" setup name="my-captcha-dialog">
+import { t } from '/@/i18n'
 const MyCaptcha = defineAsyncComponent(() => import('./index.vue'))
 
 const myCaptchaRef = useTemplateRef('myCaptchaRef')

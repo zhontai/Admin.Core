@@ -12,7 +12,7 @@
       <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
           <el-col v-if="state.isTree" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级分类" prop="parentId">
+            <el-form-item :label="t('上级分类')" prop="parentId">
               <el-tree-select
                 v-model="form.parentId"
                 :data="state.data"
@@ -28,32 +28,32 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="名称" prop="name" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('名称')" prop="name" :rules="[{ required: true, message: t('请输入名称'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="编码" prop="code">
+            <el-form-item :label="t('编码')" prop="code">
               <el-input v-model="form.code" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="字典值" prop="value">
+            <el-form-item :label="t('字典值')" prop="value">
               <el-input v-model="form.value" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="排序" prop="sort">
+            <el-form-item :label="t('排序')" prop="sort">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用" prop="enabled">
+            <el-form-item :label="t('启用')" prop="enabled">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="说明" prop="description">
+            <el-form-item :label="t('说明')" prop="description">
               <el-input v-model="form.description" clearable type="textarea" />
             </el-form-item>
           </el-col>
@@ -62,11 +62,11 @@
       <template #footer>
         <span class="dialog-footer my-flex my-flex-y-center my-flex-between">
           <div>
-            <el-checkbox v-if="!(state.form?.id > 0)" v-model="state.contiAdd">连续新增</el-checkbox>
+            <el-checkbox v-if="!(state.form?.id > 0)" v-model="state.contiAdd">{{ t('连续新增') }}</el-checkbox>
           </div>
           <div>
-            <el-button @click="onCancel">取 消</el-button>
-            <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+            <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+            <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
           </div>
         </span>
       </template>
@@ -80,6 +80,7 @@ import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
 import { listToTree } from '/@/utils/tree'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

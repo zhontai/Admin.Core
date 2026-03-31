@@ -14,9 +14,9 @@
         <el-row :gutter="20">
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="模板分组"
+              :label="t('模板分组')"
               prop="groupId"
-              :rules="[{ required: true, validator: validatorSelect, message: '请选择模板分组', trigger: ['change'] }]"
+              :rules="[{ required: true, validator: validatorSelect, message: t('请选择模板分组'), trigger: ['change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-select v-model="state.form.groupId" empty-values="['', null, undefined, 0]">
@@ -25,15 +25,15 @@
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
-            <el-form-item label="是否启用" prop="isEnable" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('是否启用')" prop="isEnable" v-show="editItemIsShow(true, true)">
               <el-switch v-model="state.form.isEnable" />
             </el-form-item>
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="项目名称"
+              :label="t('项目名称')"
               prop="name"
-              :rules="[{ required: true, message: '请输入项目名称', trigger: ['blur', 'change'] }]"
+              :rules="[{ required: true, message: t('请输入项目名称'), trigger: ['blur', 'change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-input v-model="state.form.name" placeholder=""> </el-input>
@@ -41,9 +41,9 @@
           </el-col>
           <el-col :span="12" :xs="24">
             <el-form-item
-              label="项目编码"
+              :label="t('项目编码')"
               prop="code"
-              :rules="[{ required: true, message: '请输入项目编码', trigger: ['blur', 'change'] }]"
+              :rules="[{ required: true, message: t('请输入项目编码'), trigger: ['blur', 'change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-input v-model="state.form.code" placeholder=""> </el-input>
@@ -51,7 +51,7 @@
           </el-col>
 
           <el-col :span="24" :xs="24">
-            <el-form-item label="备注" prop="remark" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('备注')" prop="remark" v-show="editItemIsShow(true, true)">
               <el-input type="textarea" v-model="state.form.remark" placeholder=""> </el-input>
             </el-form-item>
           </el-col>
@@ -59,8 +59,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -73,6 +73,7 @@ import { DevProjectApi } from '/@/api/dev/DevProject'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
 import { validatorSelect } from '/@/utils/validators'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

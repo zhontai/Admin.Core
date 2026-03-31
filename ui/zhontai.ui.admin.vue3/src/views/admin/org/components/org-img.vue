@@ -16,12 +16,7 @@
       :only-one-node="false"
       :clone-node-drag="false"
       :node-draggable="false"
-      :define-menus="[
-        { name: '复制文本', command: 'copy' },
-        { name: '新增部门', command: 'onAdd' },
-        { name: '编辑部门', command: 'onEdit' },
-        { name: '删除部门', command: 'onDelete' },
-      ]"
+      :define-menus="defineMenus"
       :label-style="state.style"
       :filter-node-method="filterNodeMethod"
       @on-node-dblclick="onNodeDblclick"
@@ -42,6 +37,7 @@ import { OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 // 引入组件
 const OrgForm = defineAsyncComponent(() => import('./org-form.vue'))
@@ -64,6 +60,15 @@ const state = reactive({
   showOrgCount: true,
   data: [] as any,
   orgTreeData: [] as Array<OrgGetListOutput>,
+})
+
+const defineMenus = computed(() => {
+  return [
+    { name: t('复制文本'), command: 'copy' },
+    { name: t('新增部门'), command: 'onAdd' },
+    { name: t('编辑部门'), command: 'onEdit' },
+    { name: t('删除部门'), command: 'onDelete' },
+  ]
 })
 
 onMounted(() => {
@@ -99,18 +104,18 @@ const onQuery = async () => {
 }
 
 const onAdd = (row: OrgGetListOutput) => {
-  state.orgFormTitle = '新增部门'
+  state.orgFormTitle = t('新增部门')
   orgFormRef.value?.open({ parentId: row?.id })
 }
 
 const onEdit = (row: OrgGetListOutput) => {
-  state.orgFormTitle = '编辑部门'
+  state.orgFormTitle = t('编辑部门')
   orgFormRef.value?.open(row)
 }
 
 const onDelete = (row: OrgGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除部门【${row.name}】?`)
+    .confirmDelete(t('确定要删除部门【{name}】?', { name: row.name }))
     .then(async () => {
       await new OrgApi().delete({ id: row.id }, { loading: true })
       onQuery()

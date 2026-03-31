@@ -33,7 +33,7 @@
       </div>
       <div class="captcha_message loadding" v-if="state.showGenerateLoadding">
         <div class="captcha_message__icon captcha_message__icon--loadding"></div>
-        <div class="captcha_message__text">加载中...</div>
+        <div class="captcha_message__text">{{ t('加载中...') }}</div>
       </div>
       <div class="captcha_message" v-if="state.showVerifyLoadding">
         <div class="captcha_message__icon captcha_message__icon--loadding"></div>
@@ -94,6 +94,7 @@
 
 <script lang="ts" setup name="my-slide-captcha">
 import { reactive, computed, ref, onMounted, onBeforeMount, onUnmounted } from 'vue'
+import { t } from '/@/i18n'
 
 const props = defineProps({
   width: {

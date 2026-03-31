@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb10 my-flex">
-      <el-select v-model="state.currentTemplate" placeholder="请选择查询方案" style="width: 200px" clearable @change="onTemplateChange">
+      <el-select v-model="state.currentTemplate" :placeholder="t('请选择查询方案')" style="width: 200px" clearable @change="onTemplateChange">
         <el-option v-for="item in state.templates" :key="item.id" :label="item.name" :value="item.id">
           <div class="my-flex my-flex-between">
             <span>{{ item.name }}</span>
@@ -9,12 +9,12 @@
           </div>
         </el-option>
       </el-select>
-      <el-button type="primary" class="ml10" @click="onSaveTemplate">保存</el-button>
+      <el-button auto-insert-space type="primary" class="ml10" @click="onSaveTemplate">{{ t('保存') }}</el-button>
     </div>
     <div v-if="state.dataTree.length === 0" class="empty-filter">
       <el-empty :image-size="60">
         <template #description>
-          <el-button type="primary" link @click="onAddGroup('')">新增查询条件</el-button>
+          <el-button type="primary" link @click="onAddGroup('')">{{ t('新增查询条件') }}</el-button>
         </template>
       </el-empty>
     </div>
@@ -34,26 +34,31 @@
               v-model="data.logic"
               :options="[
                 {
-                  label: '并且',
+                  label: t('并且'),
                   value: 'And',
                 },
                 {
-                  label: '或者',
+                  label: t('或者'),
                   value: 'Or',
                 },
               ]"
             />
-            <el-button type="primary" link icon="ele-Plus" @click="onAddGroup(data)" class="ml16">分组</el-button>
-            <el-button type="primary" link icon="ele-Plus" @click="onAddCondition(data)">条件</el-button>
+            <el-button auto-insert-space type="primary" link icon="ele-Plus" @click="onAddGroup(data)" class="ml16">{{ t('分组') }}</el-button>
+            <el-button auto-insert-space type="primary" link icon="ele-Plus" @click="onAddCondition(data)">{{ t('条件') }}</el-button>
             <el-button type="danger" link icon="ele-Minus" class="ml8" @click="onDelete(node, data)" />
           </div>
         </template>
         <template v-else>
           <div class="my-flex my-flex-wrap ml8 w100">
-            <el-select placeholder="请选择字段" v-model="data.field" style="width: 130px; margin-right: 5px" @change="onChangeField(data)">
+            <el-select :placeholder="t('请选择字段')" v-model="data.field" style="width: 130px; margin-right: 5px" @change="onChangeField(data)">
               <el-option v-for="(f, index) in props.fields" :key="index" :label="f.label" :value="f.field" />
             </el-select>
-            <el-select placeholder="请选择操作符" v-model="data.operator" style="width: 130px; margin-right: 5px" @change="onChangeOperator(data)">
+            <el-select
+              :placeholder="t('请选择操作符')"
+              v-model="data.operator"
+              style="width: 130px; margin-right: 5px"
+              @change="onChangeOperator(data)"
+            >
               <el-option v-for="(op, index) in getOperators(data.type)" :key="index" :label="op.label" :value="op.value" />
             </el-select>
             <component
@@ -78,6 +83,7 @@ import { Operator } from '/@/api/admin.extend/enum-contracts'
 import { SearchTemplateSaveInput, SearchTemplateGetListOutput } from '/@/api/admin/data-contracts'
 import { SearchTemplateApi } from '/@/api/admin/SearchTemplate'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { t } from '/@/i18n'
 
 const route = useRoute()
 
@@ -154,7 +160,7 @@ const createDefaultFilter = () => ({
   type: '',
   componentName: 'el-input',
   attrs: {
-    placeholder: '请输入字段值',
+    placeholder: t('请输入字段值'),
   },
 })
 
@@ -202,16 +208,16 @@ const onTemplateChange = async (templateId: number) => {
       state.dataTree = [JSON.parse(res.data.template)]
     }
   } catch (error) {
-    ElMessage.error('加载查询方案失败')
+    ElMessage.error(t('加载查询方案失败'))
   }
 }
 
 // 保存查询方案
 const onSaveTemplate = async () => {
   try {
-    const name = await ElMessageBox.prompt('请输入查询方案名称', '保存查询方案', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    const name = await ElMessageBox.prompt(t('请输入查询方案名称'), t('保存查询方案'), {
+      confirmButtonText: t('确定'),
+      cancelButtonText: t('取消'),
     })
 
     if (name.value) {
@@ -223,12 +229,12 @@ const onSaveTemplate = async () => {
       }
 
       await new SearchTemplateApi().save(data)
-      ElMessage.success('保存成功')
+      ElMessage.success(t('保存成功'))
       loadTemplates() // 重新加载查询方案列表
     }
   } catch (error: any) {
     if (error !== 'cancel') {
-      ElMessage.error('保存查询方案失败')
+      ElMessage.error(t('保存查询方案失败'))
     }
   }
 }
@@ -236,14 +242,14 @@ const onSaveTemplate = async () => {
 // 删除查询方案
 const onDeleteTemplate = async (id: number) => {
   try {
-    await ElMessageBox.confirm('确定要删除该查询方案吗？', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
+    await ElMessageBox.confirm(t('确定要删除该查询方案吗？'), t('提示'), {
+      confirmButtonText: t('确定'),
+      cancelButtonText: t('取消'),
       type: 'warning',
     })
 
     await new SearchTemplateApi().delete({ id })
-    ElMessage.success('删除成功')
+    ElMessage.success(t('删除成功'))
 
     if (state.currentTemplate === id) {
       state.currentTemplate = null
@@ -253,7 +259,7 @@ const onDeleteTemplate = async (id: number) => {
     loadTemplates() // 重新加载查询方案列表
   } catch (error: any) {
     if (error !== 'cancel') {
-      ElMessage.error('删除查询方案失败')
+      ElMessage.error(t('删除查询方案失败'))
     }
   }
 }

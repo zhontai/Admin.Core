@@ -2,8 +2,8 @@
   <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size">
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
-      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
-      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('还原')"><ele-CopyDocument /></el-icon>
+      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('最大化')"><ele-FullScreen /></el-icon>
     </template>
     <div class="my-fill h100">
       <MyJsonEditor
@@ -20,6 +20,7 @@
 
 <script lang="ts" setup>
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

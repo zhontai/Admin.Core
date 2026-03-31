@@ -3,15 +3,23 @@
     <el-card class="my-query-box mt8" shadow="never">
       <el-form :model="state.input" :inline="true" @submit.stop.prevent>
         <el-form-item prop="name">
-          <el-input v-model="state.input.name" placeholder="字典名称或编码" @keyup.enter="onQuery" />
+          <el-input v-model="state.input.name" :placeholder="t('字典名称或编码')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
-          <el-button v-auth="'api:admin:dict:import-data'" icon="ele-Download" type="primary" @click="onImport"> 导入 </el-button>
-          <el-button v-auth="'api:admin:dict:export-data'" icon="ele-Upload" type="primary" :loading="state.export.loading" @click="onExport">
-            导出
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:dict:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:dict:import-data'" icon="ele-Download" type="primary" @click="onImport">
+            {{ t('导入') }}
           </el-button>
+          <el-button
+            auto-insert-space
+            v-auth="'api:admin:dict:export-data'"
+            icon="ele-Upload"
+            type="primary"
+            :loading="state.export.loading"
+            @click="onExport"
+            >{{ t('导出') }}</el-button
+          >
         </el-form-item>
       </el-form>
     </el-card>
@@ -28,19 +36,23 @@
         style="width: 100%"
         @sort-change="onSortChange"
       >
-        <el-table-column prop="name" label="名称" min-width="120" sortable="custom" show-overflow-tooltip>
+        <el-table-column prop="name" :label="t('名称')" min-width="120" sortable="custom" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.enabled ? 'success' : 'info'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.name }}
           </template>
         </el-table-column>
-        <el-table-column prop="code" label="编码" min-width="120" sortable="custom" show-overflow-tooltip />
-        <el-table-column prop="value" label="值" width="90" sortable="custom" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="90" align="center" sortable="custom" show-overflow-tooltip />
-        <el-table-column label="操作" width="145" fixed="right" header-align="center" align="center">
+        <el-table-column prop="code" :label="t('编码')" min-width="120" sortable="custom" show-overflow-tooltip />
+        <el-table-column prop="value" :label="t('值')" width="90" sortable="custom" show-overflow-tooltip />
+        <el-table-column prop="sort" :label="t('排序')" width="90" align="center" sortable="custom" show-overflow-tooltip />
+        <el-table-column :label="t('操作')" width="145" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:dict:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">{{
+              t('编辑')
+            }}</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:dict:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">{{
+              t('删除')
+            }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -59,7 +71,7 @@ import eventBus from '/@/utils/mitt'
 import dayjs from 'dayjs'
 import { RequestParams } from '/@/api/admin/http-client'
 import { listToTree, filterList } from '/@/utils/tree'
-import { use } from 'echarts'
+import { t } from '/@/i18n'
 
 // 引入组件
 const DictForm = defineAsyncComponent(() => import('./components/dict-form.vue'))
@@ -99,8 +111,8 @@ const state = reactive({
     downloadTemplate: (params: RequestParams) => new DictApi().downloadTemplate(params),
     downloadErrorMark: (query: any, params: RequestParams) => new DictApi().downloadErrorMark(query, params),
     duplicateAction: 1,
-    uniqueRules: ['字典名称', '字典编码', '字典值'],
-    requiredColumns: ['字典类型', '字典名称'],
+    uniqueRules: [t('字典名称'), t('字典编码'), t('字典值')],
+    requiredColumns: [t('字典类型'), t('字典名称')],
   },
   export: {
     loading: false,
@@ -146,21 +158,21 @@ const onQuery = async () => {
 
 const onAdd = () => {
   if (!((state.input.dictTypeId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择字典类型')
+    proxy.$modal.msgWarning(t('请选择字典类型'))
     return
   }
-  state.dictFormTitle = `新增【${state.dictType.name}】字典数据`
+  state.dictFormTitle = t('新增【{name}】字典数据', { name: state.dictType.name })
   dictFormRef.value?.open({ dictTypeId: state.input.dictTypeId }, { isTree: state.dictType.isTree })
 }
 
 const onEdit = (row: DictGetAllOutput) => {
-  state.dictFormTitle = `编辑【${state.dictType.name}】字典数据`
+  state.dictFormTitle = t('编辑【{name}】字典数据', { name: state.dictType.name })
   dictFormRef.value?.open(row, { isTree: state.dictType.isTree })
 }
 
 const onDelete = (row: DictGetAllOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new DictApi().delete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -169,7 +181,7 @@ const onDelete = (row: DictGetAllOutput) => {
 }
 
 const onImport = () => {
-  state.import.title = `导入【${state.dictType.name}】字典数据`
+  state.import.title = t('导入【{name}】字典数据', { name: state.dictType.name })
   dictImportRef.value?.open()
 }
 
@@ -193,7 +205,7 @@ const onExport = async () => {
       if (matchs && matchs.length > 1) {
         fileName = decodeURIComponent(matchs[1])
       } else {
-        fileName = `数据字典列表${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
+        fileName = `${t('数据字典列表')}${dayjs().format('YYYYMMDDHHmmss')}.xlsx`
       }
       const a = document.createElement('a')
       a.download = fileName

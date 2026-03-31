@@ -12,10 +12,10 @@
       <el-form :model="form" ref="formRef" label-width="auto">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="分类" prop="typeId" :rules="[{ required: true, message: '请选择分类', trigger: ['change'] }]">
+            <el-form-item :label="t('分类')" prop="typeId" :rules="[{ required: true, message: t('请选择分类'), trigger: ['change'] }]">
               <el-tree-select
                 v-model="form.typeId"
-                placeholder="请选择分类"
+                :placeholder="t('请选择分类')"
                 :data="state.msgTypeTreeData"
                 node-key="id"
                 :props="{ label: 'name' }"
@@ -28,23 +28,23 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-            <el-form-item label="状态" prop="status" :rules="[{ required: true, message: '请选择状态', trigger: ['change'] }]">
-              <el-select v-model="form.status" placeholder="请选择状态" class="w100">
+            <el-form-item :label="t('状态')" prop="status" :rules="[{ required: true, message: t('请选择状态'), trigger: ['change'] }]">
+              <el-select v-model="form.status" :placeholder="t('请选择状态')" class="w100">
                 <el-option v-for="item in state.msgStatusList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="标题" prop="title" :rules="[{ required: true, message: '请输入标题', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('标题')" prop="title" :rules="[{ required: true, message: t('请输入标题'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.title" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item
-              label="内容"
+              :label="t('内容')"
               prop="content"
               :rules="[
-                { required: true, message: '请输入内容', trigger: ['blur', 'change'] },
+                { required: true, message: t('请输入内容'), trigger: ['blur', 'change'] },
                 { validator: testEditorContent, trigger: ['blur', 'change'] },
               ]"
             >
@@ -55,8 +55,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -72,6 +72,7 @@ import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { listToTree } from '/@/utils/tree'
 import { MsgStatusEnum } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { t } from '/@/i18n'
 
 const MyEditor = defineAsyncComponent(() => import('/@/components/my-editor/index.vue'))
 
@@ -103,7 +104,7 @@ const testEditorContent = (rule: any, value: any, callback: any) => {
     callback()
   }
   if (editorRef.value?.isEmpty()) {
-    callback(new Error('请输入内容'))
+    callback(new Error(t('请输入内容')))
   } else {
     callback()
   }

@@ -15,16 +15,16 @@
         <el-row :gutter="20">
           <el-col>
             <el-form-item
-              label="名称"
+              :label="t('名称')"
               prop="name"
-              :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]"
+              :rules="[{ required: true, message: t('请输入名称'), trigger: ['blur', 'change'] }]"
               v-show="editItemIsShow(true, true)"
             >
               <el-input v-model="state.form.name" placeholder=""> </el-input>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="备注" prop="remark" v-show="editItemIsShow(true, true)">
+            <el-form-item :label="t('备注')" prop="remark" v-show="editItemIsShow(true, true)">
               <el-input type="textarea" v-model="state.form.remark" placeholder="" rows="4"> </el-input>
             </el-form-item>
           </el-col>
@@ -32,8 +32,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -44,6 +44,7 @@
 import { DevGroupAddInput, DevGroupUpdateInput } from '/@/api/dev/data-contracts'
 import { DevGroupApi } from '/@/api/dev/DevGroup'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

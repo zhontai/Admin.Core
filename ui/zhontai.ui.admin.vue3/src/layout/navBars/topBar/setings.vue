@@ -284,10 +284,10 @@
         <div class="layout-breadcrumb-seting-bar-flex mt15">
           <div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fiveTagsStyle') }}</div>
           <div class="layout-breadcrumb-seting-bar-flex-value">
-            <el-select v-model="getThemeConfig.tagsStyle" placeholder="请选择" style="width: 110px" @change="setLocalThemeConfig">
-              <el-option label="卡片" value="tags-style-one"></el-option>
-              <el-option label="简约" value="tags-style-four"></el-option>
-              <el-option label="圆滑" value="tags-style-five"></el-option>
+            <el-select v-model="getThemeConfig.tagsStyle" :placeholder="t('请选择')" style="width: 110px" @change="setLocalThemeConfig">
+              <el-option :label="t('卡片')" value="tags-style-one"></el-option>
+              <el-option :label="t('简约')" value="tags-style-four"></el-option>
+              <el-option :label="t('圆滑')" value="tags-style-five"></el-option>
             </el-select>
           </div>
         </div>
@@ -296,14 +296,14 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-select
               v-model="getThemeConfig.animation"
-              placeholder="请选择"
+              :placeholder="t('请选择')"
               placement="bottom-end"
               style="width: 110px"
               @change="setLocalThemeConfig"
             >
-              <el-option label="右滑动" value="slide-right"></el-option>
-              <el-option label="左滑动" value="slide-left"></el-option>
-              <el-option label="淡入淡出" value="opacitys"></el-option>
+              <el-option :label="t('右滑动')" value="slide-right"></el-option>
+              <el-option :label="t('左滑动')" value="slide-left"></el-option>
+              <el-option :label="t('淡入淡出')" value="opacitys"></el-option>
             </el-select>
           </div>
         </div>
@@ -312,13 +312,13 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-select
               v-model="getThemeConfig.columnsAsideStyle"
-              placeholder="请选择"
+              :placeholder="t('请选择')"
               style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
             >
-              <el-option label="圆角" value="columns-round"></el-option>
-              <el-option label="卡片" value="columns-card"></el-option>
+              <el-option :label="t('圆角')" value="columns-round"></el-option>
+              <el-option :label="t('卡片')" value="columns-card"></el-option>
             </el-select>
           </div>
         </div>
@@ -327,13 +327,13 @@
           <div class="layout-breadcrumb-seting-bar-flex-value">
             <el-select
               v-model="getThemeConfig.columnsAsideLayout"
-              placeholder="请选择"
+              :placeholder="t('请选择')"
               style="width: 110px"
               :disabled="getThemeConfig.layout !== 'columns' ? true : false"
               @change="setLocalThemeConfig"
             >
-              <el-option label="水平" value="columns-horizontal"></el-option>
-              <el-option label="垂直" value="columns-vertical"></el-option>
+              <el-option :label="t('水平')" value="columns-horizontal"></el-option>
+              <el-option :label="t('垂直')" value="columns-vertical"></el-option>
             </el-select>
           </div>
         </div>
@@ -470,7 +470,7 @@ const predefineFontColors = ref([
   grayBlackColor, //灰黑色
 ])
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
 const { copyText } = commonFunction()
@@ -495,7 +495,7 @@ const getThemeConfig = computed(() => {
 })
 // 1、全局主题
 const onColorPickerChange = () => {
-  if (!getThemeConfig.value.primary) return ElMessage.warning('全局主题 primary 颜色值不能为空')
+  if (!getThemeConfig.value.primary) return ElMessage.warning(t('全局主题 primary 颜色值不能为空'))
   document.documentElement.style.setProperty('--el-color-primary', getThemeConfig.value.primary)
   if (getThemeConfig.value.isDark) {
     // 颜色加深

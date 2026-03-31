@@ -1,6 +1,6 @@
 <template>
   <el-cascader
-    placeholder="请选择上级地区"
+    :placeholder="t('请选择上级地区')"
     :options="state.regionList"
     :props="cascaderProps"
     :persistent="true"
@@ -19,6 +19,7 @@
 <script lang="ts" setup>
 import type { CascaderProps } from 'element-plus'
 import { RegionApi } from '/@/api/admin/Region'
+import { t } from '/@/i18n'
 
 const parentId = defineModel('parentId', { type: Number, default: undefined })
 

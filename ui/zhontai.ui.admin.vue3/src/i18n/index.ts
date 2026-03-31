@@ -61,6 +61,7 @@ for (const locale of supportedLocales) {
 // 从 Pinia 获取当前语言设置
 const stores = useThemeConfig(pinia)
 const { themeConfig } = storeToRefs(stores)
+
 // 创建 i18n 实例
 export const i18n = createI18n({
   legacy: false,
@@ -77,3 +78,7 @@ export const i18n = createI18n({
     return key?.split('.')?.pop()
   },
 })
+
+export const t = i18n.global.t
+
+export const locale = i18n.global.locale

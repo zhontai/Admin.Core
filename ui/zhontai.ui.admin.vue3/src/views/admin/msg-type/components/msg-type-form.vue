@@ -12,7 +12,7 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col v-if="!(form.id > 0 && !((form.parentId as number) > 0))" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级分组" prop="parentId">
+            <el-form-item :label="t('上级分组')" prop="parentId">
               <el-tree-select
                 v-model="form.parentId"
                 :data="treeData"
@@ -28,17 +28,17 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="名称" prop="name" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('名称')" prop="name" :rules="[{ required: true, message: t('请输入名称'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="编码" prop="code">
+            <el-form-item :label="t('编码')" prop="code">
               <el-input v-model="form.code" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
@@ -46,8 +46,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -59,6 +59,7 @@ import { MsgTypeGetListOutput, MsgTypeUpdateInput } from '/@/api/admin/data-cont
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

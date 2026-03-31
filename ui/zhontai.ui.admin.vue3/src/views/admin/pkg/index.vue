@@ -1,15 +1,15 @@
 <template>
   <MySplitter>
-    <el-splitter-panel size="45%" min="30%" max="60%">
+    <el-splitter-panel size="40%" min="30%" max="60%">
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="套餐名">
-              <el-input v-model="state.filter.pkgName" placeholder="套餐名" @keyup.enter="onQuery" />
+            <el-form-item :label="t('套餐名')">
+              <el-input v-model="state.filter.pkgName" :placeholder="t('套餐名')" @keyup.enter="onQuery" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-              <el-button v-auth="'api:admin:pkg:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+              <el-button auto-insert-space v-auth="'api:admin:pkg:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -25,9 +25,9 @@
             border
             @current-change="onTableCurrentChange"
           >
-            <el-table-column prop="name" label="套餐名" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
-            <el-table-column label="操作" width="100" fixed="right" header-align="center" align="center">
+            <el-table-column prop="name" :label="t('套餐名')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="sort" :label="t('排序')" width="82" align="center" show-overflow-tooltip />
+            <el-table-column :label="t('操作')" width="100" fixed="right" header-align="center" align="center">
               <template #default="{ row }">
                 <my-dropdown-more
                   v-auths="['api:admin:pkg:set-pkg-permissions', 'api:admin:pkg:update', 'api:admin:pkg:delete']"
@@ -35,9 +35,11 @@
                 >
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item v-if="auth('api:admin:pkg:set-pkg-permissions')" @click="onSetPkgMenu(row)">菜单权限</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:pkg:update')" @click="onEdit(row)">编辑套餐</el-dropdown-item>
-                      <el-dropdown-item v-if="auth('api:admin:pkg:delete')" @click="onDelete(row)">删除套餐</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:pkg:set-pkg-permissions')" @click="onSetPkgMenu(row)">{{
+                        t('菜单权限')
+                      }}</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:pkg:update')" @click="onEdit(row)">{{ t('编辑套餐') }}</el-dropdown-item>
+                      <el-dropdown-item v-if="auth('api:admin:pkg:delete')" @click="onDelete(row)">{{ t('删除套餐') }}</el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </my-dropdown-more>
@@ -63,13 +65,15 @@
       <div class="my-flex-column w100 h100">
         <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form :inline="true" @submit.stop.prevent>
-            <el-form-item label="企业名">
-              <el-input v-model="state.filter.name" placeholder="企业名" @keyup.enter="onGetPkgTenantList" />
+            <el-form-item :label="t('企业名')">
+              <el-input v-model="state.filter.name" :placeholder="t('企业名')" @keyup.enter="onGetPkgTenantList" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" icon="ele-Search" @click="onGetPkgTenantList"> 查询 </el-button>
-              <el-button v-auth="'api:admin:pkg:add-pkg-tenant'" type="primary" icon="ele-Plus" @click="onAddTenant"> 添加企业 </el-button>
-              <el-button v-auth="'api:admin:pkg:remove-pkg-tenant'" type="danger" icon="ele-Delete" @click="onRemoveTenant"> 移除企业 </el-button>
+              <el-button auto-insert-space type="primary" icon="ele-Search" @click="onGetPkgTenantList">{{ t('查询') }}</el-button>
+              <el-button v-auth="'api:admin:pkg:add-pkg-tenant'" type="primary" icon="ele-Plus" @click="onAddTenant">{{ t('添加企业') }}</el-button>
+              <el-button v-auth="'api:admin:pkg:remove-pkg-tenant'" type="danger" icon="ele-Delete" @click="onRemoveTenant">{{
+                t('移除企业')
+              }}</el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -85,8 +89,8 @@
             @row-click="onTenantRowClick"
           >
             <el-table-column type="selection" width="55" />
-            <el-table-column prop="name" label="企业名" min-width="120" show-overflow-tooltip />
-            <el-table-column prop="code" label="企业编码" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="name" :label="t('企业名')" min-width="120" show-overflow-tooltip />
+            <el-table-column prop="code" :label="t('企业编码')" min-width="120" show-overflow-tooltip />
           </el-table>
           <div class="my-flex my-flex-end" style="margin-top: 10px">
             <el-pagination
@@ -107,7 +111,7 @@
     <pkg-form ref="pkgFormRef" :title="state.pkgFormTitle"></pkg-form>
     <tenant-select
       ref="tenantSelectRef"
-      :title="`添加【${state.pkgName}】企业`"
+      :title="t('添加【{name}】企业', { name: state.pkgName })"
       multiple
       :sure-loading="state.sureLoading"
       @sure="onSureTenant"
@@ -129,6 +133,7 @@ import { PkgApi } from '/@/api/admin/Pkg'
 import { TableInstance } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { auth } from '/@/utils/authFunction'
+import { t } from '/@/i18n'
 
 // 引入组件
 const PkgForm = defineAsyncComponent(() => import('./components/pkg-form.vue'))
@@ -230,18 +235,18 @@ const onTableCurrentChange = (currentRow: PkgGetPageOutput) => {
 }
 
 const onAdd = () => {
-  state.pkgFormTitle = '新增套餐'
+  state.pkgFormTitle = t('新增套餐')
   pkgFormRef.value?.open({ id: 0, enabled: true })
 }
 
 const onEdit = (row: PkgGetPageOutput) => {
-  state.pkgFormTitle = '编辑套餐'
+  state.pkgFormTitle = t('编辑套餐')
   pkgFormRef.value?.open(row as PkgUpdateInput)
 }
 
 const onDelete = (row: PkgGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除套餐【${row.name}】?`)
+    .confirmDelete(t('确定要删除套餐【{name}】?', { name: row.name }))
     .then(async () => {
       await new PkgApi().delete({ id: row.id }, { loading: true })
       onQuery()
@@ -278,7 +283,7 @@ const onTenantRowClick = (row: PkgGetPkgTenantListOutput) => {
 
 const onAddTenant = () => {
   if (!((state.pkgId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择套餐')
+    proxy.$modal.msgWarning(t('请选择套餐'))
     return
   }
 
@@ -287,19 +292,19 @@ const onAddTenant = () => {
 
 const onRemoveTenant = () => {
   if (!((state.pkgId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择套餐')
+    proxy.$modal.msgWarning(t('请选择套餐'))
     return
   }
 
   const selectionRows = tenantTableRef.value!.getSelectionRows() as PkgGetPageOutput[]
 
   if (!((selectionRows.length as number) > 0)) {
-    proxy.$modal.msgWarning('请选择租户')
+    proxy.$modal.msgWarning(t('请选择租户'))
     return
   }
 
   proxy.$modal
-    .confirm(`确定要移除吗?`)
+    .confirm(t('确定要移除吗?'))
     .then(async () => {
       const tenantIds = selectionRows?.map((a) => a.id)
       const input = { pkgId: state.pkgId, tenantIds } as PkgAddPkgTenantListInput
@@ -328,7 +333,7 @@ const onSureTenant = async (tenants: PkgGetPageOutput[]) => {
 
 const onSetPkgMenu = (pkg: PkgGetPageOutput) => {
   if (!((pkg?.id as number) > 0)) {
-    proxy.$modal.msgWarning('请选择套餐')
+    proxy.$modal.msgWarning(t('请选择套餐'))
     return
   }
   setPkgMenuRef.value?.open(pkg)

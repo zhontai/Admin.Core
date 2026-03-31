@@ -4,6 +4,7 @@
 
 <script setup lang="ts" name="auths">
 import { useUserInfo } from '/@/stores/userInfo'
+import { t } from '/@/i18n'
 
 // 定义父组件传过来的值
 const props = defineProps({

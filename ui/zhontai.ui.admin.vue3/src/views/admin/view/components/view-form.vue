@@ -12,14 +12,14 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+            <el-form-item :label="t('所属平台')">
+              <el-select v-model="form.platform" disabled :placeholder="t('请选择所属平台')" class="w100">
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级视图">
+            <el-form-item :label="t('上级视图')">
               <el-tree-select
                 v-model="form.parentId"
                 :data="viewTreeData"
@@ -34,17 +34,21 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图名称" prop="label" :rules="[{ required: true, message: '请输入视图名称', trigger: ['blur', 'change'] }]">
+            <el-form-item
+              :label="t('视图名称')"
+              prop="label"
+              :rules="[{ required: true, message: t('请输入视图名称'), trigger: ['blur', 'change'] }]"
+            >
               <el-input v-model="form.label" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图命名" prop="path">
+            <el-form-item :label="t('视图命名')" prop="path">
               <el-input v-model="form.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图地址" prop="path">
+            <el-form-item :label="t('视图地址')" prop="path">
               <el-input v-model="form.path" clearable>
                 <template #prepend>{{ prependPath }}</template>
                 <template #append>.vue</template>
@@ -52,22 +56,22 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
-            <el-form-item label="缓存">
+            <el-form-item :label="t('缓存')">
               <el-switch v-model="form.cache" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7">
-            <el-form-item label="启用">
+            <el-form-item :label="t('启用')">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图描述" prop="description">
+            <el-form-item :label="t('视图描述')" prop="description">
               <el-input v-model="form.description" clearable type="textarea" />
             </el-form-item>
           </el-col>
@@ -75,8 +79,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -90,6 +94,7 @@ import { DictApi } from '/@/api/admin/Dict'
 import eventBus from '/@/utils/mitt'
 import { cloneDeep } from 'lodash-es'
 import { FormInstance } from 'element-plus'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

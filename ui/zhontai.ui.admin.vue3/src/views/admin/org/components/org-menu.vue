@@ -2,15 +2,15 @@
   <el-card shadow="never" style="margin-top: 8px" body-style="padding:0px;" class="my-fill">
     <template #header>
       <div class="my-flex">
-        <el-input v-model="state.filterText" placeholder="筛选部门" clearable />
+        <el-input v-model="state.filterText" :placeholder="t('筛选部门')" clearable />
         <el-dropdown trigger="hover">
           <div class="my-flex my-flex-items-center my-icon-more">
             <my-icon name="more" color="var(--color)" size="18"></my-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="expandAllNodes(true)">展开全部</el-dropdown-item>
-              <el-dropdown-item @click="expandAllNodes(false)">收缩全部</el-dropdown-item>
+              <el-dropdown-item @click="expandAllNodes(true)">{{ t('展开全部') }}</el-dropdown-item>
+              <el-dropdown-item @click="expandAllNodes(false)">{{ t('收缩全部') }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -41,6 +41,7 @@ import { OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { OrgApi } from '/@/api/admin/Org'
 import { listToTree } from '/@/utils/tree'
 import { TreeInstance } from 'element-plus'
+import { t } from '/@/i18n'
 
 const props = defineProps({
   modelValue: {

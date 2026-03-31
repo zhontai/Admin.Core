@@ -1,5 +1,5 @@
 <template>
-  <el-dropdown style="margin-left: 10px" v-bind="$attrs">
+  <el-dropdown placement="bottom-end" style="margin-left: 10px" v-bind="$attrs">
     <slot>
       <el-button text type="primary"
         >{{ innerButtonText }}<el-icon class="el-icon--right" v-bind="$attrs"><component :is="innerIcon" /></el-icon
@@ -12,6 +12,8 @@
 </template>
 
 <script lang="ts">
+import { t } from '/@/i18n'
+
 export default defineComponent({
   name: 'MyDropdownMore',
   props: {
@@ -34,7 +36,7 @@ export default defineComponent({
     })
 
     const innerButtonText = computed(() => {
-      return props.iconOnly ? '' : props.buttonText ? props.buttonText : '更多'
+      return props.iconOnly ? '' : props.buttonText ? props.buttonText : t('更多')
     })
 
     return {

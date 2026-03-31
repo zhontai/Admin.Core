@@ -3,10 +3,10 @@
     <div class="layout-padding-auto layout-padding-view">
       <div class="layout-link-warp">
         <i class="layout-link-icon iconfont icon-xingqiu"></i>
-        <div class="layout-link-msg">页面 "{{ $t(state.title) }}" 已在新窗口中打开</div>
+        <div class="layout-link-msg">{{ t('页面 "{title}" 已在新窗口中打开', { title: $t(state.title) }) }}</div>
         <el-button class="mt30" round @click="onGotoFullPage">
           <i class="iconfont icon-lianjie"></i>
-          <span>立即前往体验</span>
+          <span>{{ t('立即前往体验') }}</span>
         </el-button>
       </div>
     </div>
@@ -19,6 +19,7 @@ import pinia from '/@/stores/index'
 import { useThemeConfig } from '/@/stores/themeConfig'
 
 // 定义变量内容
+import { t } from '/@/i18n'
 const route = useRoute()
 const state = reactive<LinkViewState>({
   title: '',

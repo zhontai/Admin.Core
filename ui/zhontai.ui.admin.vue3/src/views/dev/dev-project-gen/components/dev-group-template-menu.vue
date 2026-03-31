@@ -2,8 +2,12 @@
   <el-card shadow="never" style="margin-top: 8px" body-style="padding:0px;" class="my-fill">
     <template #header>
       <div class="my-flex my-flex-items-center">
-        <el-input v-model="state.filterText" placeholder="筛选模板" clearable />
-        <el-icon class="cursor-pointer ml10" :title="state.templateStatus ? '显示所有模板' : '隐藏未启用模板'" @click.stop="displayTemplateStatus">
+        <el-input v-model="state.filterText" :placeholder="t('筛选模板')" clearable />
+        <el-icon
+          class="cursor-pointer ml10"
+          :title="state.templateStatus ? t('显示所有模板') : t('隐藏未启用模板')"
+          @click.stop="displayTemplateStatus"
+        >
           <ele-Hide v-if="state.templateStatus == null" />
           <ele-View v-else />
         </el-icon>
@@ -34,15 +38,15 @@
               {{ node.label }}
             </div>
             <template v-if="!data.isGroup">
-              <el-icon @click.stop="editTemplate(node, data)" title="编辑模板">
+              <el-icon @click.stop="editTemplate(node, data)" :title="t('编辑模板')">
                 <ele-Edit />
               </el-icon>
             </template>
             <div class="my-flex my-flex-items-center" v-if="data.isGroup">
-              <el-icon @click.stop="addTemplate(node, data)" title="添加模板" class="mr5">
+              <el-icon @click.stop="addTemplate(node, data)" :title="t('添加模板')" class="mr5">
                 <ele-Plus />
               </el-icon>
-              <el-icon @click.stop="editGroup(node, data)" title="编辑分组">
+              <el-icon @click.stop="editGroup(node, data)" :title="t('编辑分组')">
                 <ele-Edit />
               </el-icon>
             </div>
@@ -60,6 +64,7 @@ import { DevProjectGenApi } from '/@/api/dev/DevProjectGen'
 import { DevProjectGenPreviewMenuOutput } from '/@/api/dev/data-contracts'
 import eventBus from '/@/utils/mitt'
 import { ElTree } from 'element-plus'
+import { t } from '/@/i18n'
 // 引入组件
 const DevTemplateForm = defineAsyncComponent(() => import('../../dev-template/components/dev-template-form.vue'))
 const DevGroupForm = defineAsyncComponent(() => import('../../dev-group/components/dev-group-form.vue'))
@@ -179,7 +184,7 @@ const editTemplate = (node: any, data: any) => {
       id: data.id,
     },
     {
-      title: '编辑模板:' + data.name,
+      title: t('编辑模板:') + data.name,
     }
   )
 }
@@ -200,7 +205,7 @@ const editGroup = (node: any, data: any) => {
       id: data.id,
     },
     {
-      title: '编辑分组:' + data.name,
+      title: t('编辑分组:') + data.name,
     }
   )
 }

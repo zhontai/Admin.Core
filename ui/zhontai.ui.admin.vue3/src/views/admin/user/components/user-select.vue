@@ -20,11 +20,11 @@
         <el-col :xs="24" :sm="15">
           <el-card shadow="never" class="my-query-box mt8">
             <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
-              <el-form-item label="姓名" prop="name">
-                <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
+              <el-form-item :label="t('姓名')" prop="name">
+                <el-input v-model="state.filter.name" :placeholder="t('姓名')" @keyup.enter="onQuery" />
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+                <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
               </el-form-item>
             </el-form>
           </el-card>
@@ -45,9 +45,9 @@
               @current-change="onTableCurrentChange"
             >
               <el-table-column v-if="multiple" type="selection" width="55" />
-              <el-table-column prop="name" label="姓名" min-width="82" show-overflow-tooltip />
-              <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-              <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
+              <el-table-column prop="name" :label="t('姓名')" min-width="82" show-overflow-tooltip />
+              <el-table-column prop="mobile" :label="t('手机号')" min-width="120" show-overflow-tooltip />
+              <el-table-column prop="email" :label="t('邮箱')" min-width="180" show-overflow-tooltip />
             </el-table>
             <div class="my-flex my-flex-end" style="margin-top: 10px">
               <el-pagination
@@ -67,8 +67,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="sureLoading">确 定</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="sureLoading">{{ t('确定') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -78,6 +78,7 @@
 import { TableInstance } from 'element-plus'
 import { UserGetPageOutput, PageInputUserGetPageInput, OrgGetListOutput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
+import { t } from '/@/i18n'
 
 // 引入组件
 const OrgMenu = defineAsyncComponent(() => import('/@/views/admin/org/components/org-menu.vue'))

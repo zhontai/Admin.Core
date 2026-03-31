@@ -6,6 +6,7 @@
 
 <script lang="ts" setup name="my-layout">
 import mittBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 const state = reactive({
   isMobile: document.body.clientWidth < 1000,

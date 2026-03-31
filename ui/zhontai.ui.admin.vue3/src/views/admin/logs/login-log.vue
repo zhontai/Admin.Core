@@ -2,18 +2,18 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form ref="filterFormRef" :model="state.filter" :inline="true" label-width="auto" :label-position="'left'" @submit.stop.prevent>
-        <el-form-item label="登录账号" prop="createdUserName">
-          <el-input v-model="state.filter.createdUserName" placeholder="登录账号" @keyup.enter="onQuery" />
+        <el-form-item :label="t('登录账号')" prop="createdUserName">
+          <el-input v-model="state.filter.createdUserName" :placeholder="t('登录账号')" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="登录状态" prop="status">
+        <el-form-item :label="t('登录状态')" prop="status">
           <el-select v-model="state.filter.status" :empty-values="[null]" style="width: 120px" @change="onQuery">
-            <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
+            <el-option v-for="status in statusList" :key="status.name" :label="status.name" :value="status.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="登录IP" prop="ip">
-          <el-input v-model="state.filter.ip" placeholder="登录IP" @keyup.enter="onQuery" />
+        <el-form-item :label="t('登录IP')" prop="ip">
+          <el-input v-model="state.filter.ip" :placeholder="t('登录IP')" @keyup.enter="onQuery" />
         </el-form-item>
-        <el-form-item label="登录时间">
+        <el-form-item :label="t('登录时间')">
           <MyDateRange
             v-model:startDate="state.filter.addStartTime as string"
             v-model:endDate="state.filter.addEndTime as string"
@@ -22,31 +22,31 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef!)"> 重置 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space icon="ele-RefreshLeft" text bg @click="onReset(filterFormRef!)">{{ t('重置') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.loginLogListData" row-key="id" style="width: 100%" border>
-        <el-table-column prop="createdUserName" label="登录账号" min-width="150" show-overflow-tooltip>
+        <el-table-column prop="createdUserName" :label="t('登录账号')" min-width="150" show-overflow-tooltip>
           <template #default="{ row }">
             <el-badge :type="row.status ? 'success' : 'danger'" is-dot :offset="[0, 12]"></el-badge>
             {{ row.createdUserName }}<br />{{ row.nickName }}
           </template>
         </el-table-column>
-        <el-table-column prop="ip" label="登录IP" min-width="150">
+        <el-table-column prop="ip" :label="t('登录IP')" min-width="150">
           <template #default="{ row }"> {{ row.ip }} {{ row.isp }} </template>
         </el-table-column>
-        <el-table-column prop="country" label="登录地区" min-width="150" show-overflow-tooltip>
+        <el-table-column prop="country" :label="t('登录地区')" min-width="150" show-overflow-tooltip>
           <template #default="{ row }"> {{ row.country }} {{ row.province }} {{ row.city }} </template>
         </el-table-column>
-        <el-table-column prop="os" label="操作系统" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="browser" label="浏览器" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="elapsedMilliseconds" label="耗时 ms" min-width="120" />
-        <el-table-column prop="msg" label="登录信息" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="createdTime" label="登录时间" :formatter="formatterTime" min-width="160" />
+        <el-table-column prop="os" :label="t('操作系统')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="browser" :label="t('浏览器')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="elapsedMilliseconds" :label="t('耗时 ms')" min-width="120" />
+        <el-table-column prop="msg" :label="t('登录信息')" min-width="150" show-overflow-tooltip />
+        <el-table-column prop="createdTime" :label="t('登录时间')" :formatter="formatterTime" min-width="160" />
       </el-table>
       <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
@@ -69,6 +69,7 @@ import { PageInputLoginLogGetPageInput, LoginLogGetPageInput, LoginLogGetPageOut
 import { LoginLogApi } from '/@/api/admin/LoginLog'
 import dayjs from 'dayjs'
 import type { FormInstance } from 'element-plus'
+import { t } from '/@/i18n'
 
 const MyDateRange = defineAsyncComponent(() => import('/@/components/my-date-range/index.vue'))
 
@@ -85,12 +86,13 @@ const state = reactive({
   } as PageInputLoginLogGetPageInput,
   loginLogListData: [] as Array<LoginLogGetPageOutput>,
   loginLogLogsTitle: '',
-  statusList: [
-    { name: '全部', value: undefined },
-    { name: '成功', value: true },
-    { name: '失败', value: false },
-  ],
 })
+
+const statusList = computed(() => [
+  { name: t('全部'), value: undefined },
+  { name: t('成功'), value: true },
+  { name: t('失败'), value: false },
+])
 
 onMounted(() => {
   onQuery()

@@ -19,6 +19,7 @@ import '@wangeditor/editor/dist/css/style.css'
 import { IDomEditor } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import { FileApi } from '/@/api/admin/File'
+import { t } from '/@/i18n'
 
 type InsertFnType = (url: string, alt: string, href: string) => void
 type InsertVideoFnType = (url: string, poster: string) => void
@@ -78,7 +79,7 @@ const state = reactive({
             return
           }
           if (src.indexOf('http') !== 0) {
-            return '图片网址必须以 http/https 开头'
+            return t('图片网址必须以 http/https 开头')
           }
           return true
         },

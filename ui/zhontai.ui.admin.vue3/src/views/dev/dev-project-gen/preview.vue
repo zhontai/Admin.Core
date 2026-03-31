@@ -15,10 +15,10 @@
       <div class="my-flex-column w100 h100">
         <el-card v-loading="state.loading" class="mt8 my-fill" shadow="never" :body-style="{ paddingBottom: '0' }">
           <el-form label-position="top">
-            <el-form-item label="生成路径">
+            <el-form-item :label="t('生成路径')">
               <el-input type="text" v-model="state.previewData.path"></el-input>
             </el-form-item>
-            <el-form-item label="生成内容">
+            <el-form-item :label="t('生成内容')">
               <el-input type="textarea" v-model="state.previewData.content" autosize></el-input>
             </el-form-item>
           </el-form>
@@ -30,6 +30,7 @@
 
 <script lang="ts" setup name="dev/dev-project-gen/preview">
 import { DevProjectGenApi } from '/@/api/dev/DevProjectGen'
+import { t } from '/@/i18n'
 
 const MySplitter = defineAsyncComponent(() => import('/@/components/my-layout/splitter.vue'))
 const GroupTemplateMenu = defineAsyncComponent(() => import('./components/dev-group-template-menu.vue'))

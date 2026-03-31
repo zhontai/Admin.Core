@@ -12,74 +12,74 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级地区">
+            <el-form-item :label="t('上级地区')">
               <RegionSelect v-model="form.parentIdList" v-model:parentId="form.parentId" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="类型" prop="level" :rules="[{ required: true, message: '请选择类型', trigger: ['change'] }]">
-              <el-select v-model="form.level" placeholder="请选择类型" class="w100">
+            <el-form-item :label="t('类型')" prop="level" :rules="[{ required: true, message: t('请选择类型'), trigger: ['change'] }]">
+              <el-select v-model="form.level" :placeholder="t('请选择类型')" class="w100">
                 <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="地区名称" prop="name" :rules="[{ required: true, message: '请输入地区名称', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('地区名称')" prop="name" :rules="[{ required: true, message: t('请输入地区名称'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="地区简称">
+            <el-form-item :label="t('地区简称')">
               <el-input v-model="form.shortName" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="地区代码" prop="code" :rules="[{ required: true, message: '请输入地区代码', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('地区代码')" prop="code" :rules="[{ required: true, message: t('请输入地区代码'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.code" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="驻地">
+            <el-form-item :label="t('驻地')">
               <el-input v-model="form.capital" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="人口">
+            <el-form-item :label="t('人口')">
               <el-input v-model="form.population" clearable>
-                <template #append>万人</template>
+                <template #append>{{ t('万人') }}</template>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="面积">
+            <el-form-item :label="t('面积')">
               <el-input v-model="form.area" clearable>
                 <template #append>km²</template>
               </el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="区号">
+            <el-form-item :label="t('区号')">
               <el-input v-model="form.areaCode" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="邮编">
+            <el-form-item :label="t('邮编')">
               <el-input v-model="form.zipCode" clearable />
             </el-form-item>
           </el-col>
 
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="热门">
+            <el-form-item :label="t('热门')">
               <el-switch v-model="form.hot" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用">
+            <el-form-item :label="t('启用')">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
@@ -87,8 +87,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -101,6 +101,7 @@ import { RegionApi } from '/@/api/admin/Region'
 import eventBus from '/@/utils/mitt'
 import { RegionLevel as RegionLevelEnum } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { t } from '/@/i18n'
 
 const RegionSelect = defineAsyncComponent(() => import('./region-select.vue'))
 

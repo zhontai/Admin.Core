@@ -12,14 +12,14 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+            <el-form-item :label="t('所属平台')">
+              <el-select v-model="form.platform" disabled :placeholder="t('请选择所属平台')" class="w100">
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级分组">
+            <el-form-item :label="t('上级分组')">
               <el-tree-select
                 v-model="form.parentId"
                 :data="permissionTreeData"
@@ -35,42 +35,42 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="名称" prop="label" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('名称')" prop="label" :rules="[{ required: true, message: t('请输入名称'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.label" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="路由地址" prop="path" :rules="[{ required: true, message: '请输入路由地址', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('路由地址')" prop="path" :rules="[{ required: true, message: t('请输入路由地址'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.path" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="重定向">
-              <el-input v-model="form.redirect" clearable placeholder="重定向地址" />
+            <el-form-item :label="t('重定向')">
+              <el-input v-model="form.redirect" clearable :placeholder="t('重定向地址')" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="图标" prop="icon">
+            <el-form-item :label="t('图标')" prop="icon">
               <my-select-icon v-model="form.icon" clearable class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" class="w100" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用">
+            <el-form-item :label="t('启用')">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="展开">
+            <el-form-item :label="t('展开')">
               <el-switch v-model="form.opened" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="隐藏">
+            <el-form-item :label="t('隐藏')">
               <el-switch v-model="form.hidden" />
             </el-form-item>
           </el-col>
@@ -78,8 +78,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -91,6 +91,7 @@ import { PermissionGetListOutput, PermissionUpdateGroupInput, DictGetListOutput 
 import { PermissionApi } from '/@/api/admin/Permission'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
+import { t } from '/@/i18n'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))

@@ -4,14 +4,15 @@
       <MyCron ref="crontabRef" :expression="expression" :hide-component="['year']"></MyCron>
     </div>
     <template #footer>
-      <el-button @click="onReset">重 置</el-button>
-      <el-button @click="onCancel">取 消</el-button>
-      <el-button type="primary" @click="onSure">确 定</el-button>
+      <el-button auto-insert-space @click="onReset">{{ t('重置') }}</el-button>
+      <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+      <el-button auto-insert-space type="primary" @click="onSure">{{ t('确定') }}</el-button>
     </template>
   </el-drawer>
 </template>
 
 <script lang="ts" setup name="my-captcha-dialog">
+import { t } from '/@/i18n'
 defineProps({
   title: {
     type: String,

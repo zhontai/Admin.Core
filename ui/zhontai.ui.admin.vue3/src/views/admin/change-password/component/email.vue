@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-form ref="formRef" :model="form" size="large" class="login-content-form">
-      <div class="login-title">更改密码</div>
+      <div class="login-title">{{ t('更改密码') }}</div>
       <el-form-item
         class="login-animation1"
         prop="email"
         :rules="[
-          { required: true, message: '请输入邮箱地址', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入邮箱地址'), trigger: ['blur', 'change'] },
           { validator: testEmail, trigger: ['blur', 'change'] },
         ]"
       >
@@ -16,19 +16,19 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入邮箱验证码', trigger: ['blur', 'change'] }]">
+      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: t('请输入邮箱验证码'), trigger: ['blur', 'change'] }]">
         <MyInputCode v-model="form.code" :email="form.email" :validate="validateEmail" @send="onSend" />
       </el-form-item>
       <el-form-item
         class="login-animation3"
         prop="newPassword"
         :rules="[
-          { required: true, message: '请输入新密码', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入新密码'), trigger: ['blur', 'change'] },
           { validator: testNewPassword, trigger: ['blur', 'change'] },
           { validator: validatorPwd, trigger: ['blur', 'change'] },
         ]"
       >
-        <el-input v-model="form.newPassword" :placeholder="'输入新密码'" show-password autocomplete="off" clearable @input="onInputNewPassword">
+        <el-input v-model="form.newPassword" :placeholder="t('输入新密码')" show-password autocomplete="off" clearable @input="onInputNewPassword">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Unlock /></el-icon>
           </template>
@@ -39,13 +39,13 @@
         class="login-animation4"
         prop="confirmPassword"
         :rules="[
-          { required: true, message: '请输入确认密码', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入确认密码'), trigger: ['blur', 'change'] },
           { validator: testConfirmPassword, trigger: ['blur', 'change'] },
         ]"
       >
         <el-input
           v-model="form.confirmPassword"
-          :placeholder="'输入确认密码'"
+          :placeholder="t('输入确认密码')"
           show-password
           autocomplete="off"
           clearable
@@ -62,8 +62,8 @@
         </el-button>
       </el-form-item>
       <div class="login-animation6 my-flex my-flex-center f12 mt10">
-        <span class="login-remind">想起密码?</span>
-        <el-link underline="never" type="primary" class="f12" @click="isChangePassword = false">去登录</el-link>
+        <span class="login-remind">{{ t('想起密码?') }}</span>
+        <el-link underline="never" type="primary" class="f12" @click="isChangePassword = false">{{ t('去登录') }}</el-link>
       </div>
     </el-form>
   </div>
@@ -76,6 +76,7 @@ import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { validatorPwd } from '/@/utils/validators'
 import { testEmail } from '/@/utils/test'
 import { ElMessage } from 'element-plus'
+import { t } from '/@/i18n'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const isChangePassword = defineModel('isChangePassword', { type: Boolean, default: false })
@@ -127,7 +128,7 @@ const testNewPassword = (rule: any, value: any, callback: any) => {
 const testConfirmPassword = (rule: any, value: any, callback: any) => {
   if (value) {
     if (value !== state.form.newPassword) {
-      callback(new Error('确认密码和新密码不一致'))
+      callback(new Error(t('确认密码和新密码不一致')))
     } else {
       callback()
     }
@@ -162,7 +163,7 @@ const onChangePwd = () => {
     state.loading = false
 
     if (res?.success) {
-      ElMessage.success('更新成功')
+      ElMessage.success(t('更新成功'))
       isChangePassword.value = false
     }
   })

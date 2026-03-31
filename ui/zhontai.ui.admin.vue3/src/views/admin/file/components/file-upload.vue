@@ -4,14 +4,14 @@
       <div class="mb15">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-input v-model="state.fileDirectory" placeholder="文件目录" clearable />
+            <el-input v-model="state.fileDirectory" :placeholder="t('文件目录')" clearable />
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-switch v-model="state.fileReName" active-text="文件自动重命名" />
+            <el-switch v-model="state.fileReName" :active-text="t('文件自动重命名')" />
           </el-col>
         </el-row>
         <div class="mt5">
-          <el-alert class="my-el-alert" title="文件目录不填则默认使用本地上传格式：upload/yyyy/MM/dd" type="info" :closable="false" />
+          <el-alert class="my-el-alert" :title="t('文件目录不填则默认使用本地上传格式：upload/yyyy/MM/dd')" type="info" :closable="false" />
         </div>
       </div>
       <div>
@@ -33,7 +33,9 @@
           :on-error="onError"
         >
           <el-icon class="el-icon--upload"><ele-UploadFilled /></el-icon>
-          <div class="el-upload__text">拖拽上传或<em>点击上传</em></div>
+          <div class="el-upload__text">
+            {{ t('拖拽上传或') }}<em>{{ t('点击上传') }}</em>
+          </div>
           <!-- <template #tip>
             <div class="el-upload__tip"></div>
           </template> -->
@@ -41,9 +43,9 @@
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onClear">清空已上传</el-button>
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button @click="onClear">{{ t('清空已上传') }}</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -55,6 +57,7 @@ import { ElMessage } from 'element-plus'
 import type { UploadInstance, UploadProps, UploadFile } from 'element-plus'
 import eventBus from '/@/utils/mitt'
 import { useUserInfo } from '/@/stores/userInfo'
+import { t } from '/@/i18n'
 
 const storesUserInfo = useUserInfo()
 

@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-form ref="formRef" :model="state.ruleForm" size="large" class="login-content-form">
-      <div class="login-title"><span class="login-title-showy">邮箱验证码</span>登录</div>
+      <div class="login-title">{{ t('邮箱验证码登录') }}</div>
       <el-form-item
         class="login-animation1"
         prop="email"
         :rules="[
-          { required: true, message: '请输入邮箱地址', trigger: ['blur', 'change'] },
+          { required: true, message: t('请输入邮箱地址'), trigger: ['blur', 'change'] },
           { validator: testEmail, trigger: ['blur', 'change'] },
         ]"
       >
@@ -24,7 +24,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: '请输入邮箱验证码', trigger: ['blur', 'change'] }]">
+      <el-form-item class="login-animation2" prop="code" :rules="[{ required: true, message: t('请输入邮箱验证码'), trigger: ['blur', 'change'] }]">
         <MyInputCode v-model="state.ruleForm.code" @keyup.enter="onSignIn" :email="state.ruleForm.email" :validate="validate" @send="onSend" />
       </el-form-item>
       <el-form-item class="login-animation3 mb12">
@@ -33,7 +33,7 @@
         </el-button>
       </el-form-item>
       <div class="login-animation4 f12 mt10">
-        <el-link underline="never" type="primary" class="f12" @click="onLogin">邮箱密码登录</el-link>
+        <el-link underline="never" type="primary" class="f12" @click="onLogin">{{ t('邮箱密码登录') }}</el-link>
       </div>
     </el-form>
   </div>
@@ -51,6 +51,7 @@ import { NextLoading } from '/@/utils/loading'
 import { formatAxis } from '/@/utils/formatTime'
 import { AccountType } from '/@/api/admin/enum-contracts'
 import { ComponentType } from '/@/api/admin.extend/enum-contracts'
+import { t } from '/@/i18n'
 
 const MyInputCode = defineAsyncComponent(() => import('/@/components/my-input-code/index.vue'))
 const loginComponentName = defineModel('loginComponentName', { type: String })
@@ -58,8 +59,6 @@ const accountType = defineModel('accountType', { type: Number })
 const isPopup = defineModel('isPopup', { type: Boolean, default: false })
 
 const emits = defineEmits(['ok'])
-
-const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
@@ -130,7 +129,7 @@ const onSignIn = async () => {
 // 登录成功后的跳转
 const signInSuccess = (isNoPower: boolean | undefined) => {
   if (isNoPower) {
-    ElMessage.warning('抱歉，您没有分配权限，请联系管理员')
+    ElMessage.warning(t('抱歉，您没有分配权限，请联系管理员'))
     useUserInfo().removeTokenInfo()
     Session.clear()
   } else {

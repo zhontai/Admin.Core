@@ -6,7 +6,7 @@
   </MyLayout>
 </template>
 
-<script lang="ts" setup name="my-layout-split-panes">
+<script lang="ts" setup name="my-layout-splitter">
 import mittBus from '/@/utils/mitt'
 import MyLayout from './index.vue'
 

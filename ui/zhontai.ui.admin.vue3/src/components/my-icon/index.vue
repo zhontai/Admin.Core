@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup name="my-icon">
+import { t } from '/@/i18n'
 const props = defineProps({
   name: {
     type: String,

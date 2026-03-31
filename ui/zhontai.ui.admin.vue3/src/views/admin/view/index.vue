@@ -2,20 +2,20 @@
   <my-layout>
     <el-card class="my-query-box mt8" shadow="never" :body-style="{ paddingBottom: '0' }">
       <el-form :inline="true" @submit.stop.prevent>
-        <el-form-item label="平台">
-          <el-select v-model="state.filter.platform" placeholder="平台" @change="onQuery" style="width: 100px">
+        <el-form-item :label="t('平台')">
+          <el-select v-model="state.filter.platform" :placeholder="t('平台')" @change="onQuery" style="width: 100px">
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
         </el-form-item>
-        <el-form-item label="视图名称">
-          <el-input v-model="state.filter.label" placeholder="视图名称" @keyup.enter="onQuery" />
+        <el-form-item :label="t('视图名称')">
+          <el-input v-model="state.filter.label" :placeholder="t('视图名称')" @keyup.enter="onQuery" />
         </el-form-item>
-        <!-- <el-form-item label="视图路径">
-          <el-input v-model="state.filter.path" placeholder="视图路径" @keyup.enter="onQuery" />
+        <!-- <el-form-item :label="t('视图路径')">
+          <el-input v-model="state.filter.path" :placeholder="t('视图路径')" @keyup.enter="onQuery" />
         </el-form-item> -->
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
-          <el-button v-auth="'api:admin:view:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
+          <el-button auto-insert-space v-auth="'api:admin:view:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -30,22 +30,28 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         border
       >
-        <el-table-column prop="label" label="视图名称" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="name" label="视图命名" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="path" label="视图地址" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="sort" label="排序" width="82" align="center" show-overflow-tooltip />
-        <!-- <el-table-column prop="description" label="视图描述" min-width="120" show-overflow-tooltip /> -->
-        <el-table-column label="状态" width="82" align="center" show-overflow-tooltip>
+        <el-table-column prop="label" :label="t('视图名称')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="name" :label="t('视图命名')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="path" :label="t('视图地址')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="sort" :label="t('排序')" width="82" align="center" show-overflow-tooltip />
+        <!-- <el-table-column prop="description" :label="t('视图描述')" min-width="120" show-overflow-tooltip /> -->
+        <el-table-column :label="t('状态')" width="82" align="center" show-overflow-tooltip>
           <template #default="{ row }">
-            <el-tag type="success" v-if="row.enabled">启用</el-tag>
-            <el-tag type="danger" v-else>禁用</el-tag>
+            <el-tag type="success" v-if="row.enabled">{{ t('启用') }}</el-tag>
+            <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="210" fixed="right" header-align="center" align="center">
+        <el-table-column :label="t('操作')" width="210" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:view:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button v-auth="'api:admin:view:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">删除</el-button>
-            <el-button v-auth="'api:admin:view:add'" icon="ele-CopyDocument" text type="primary" @click="onCopy(row)">复制</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:view:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">
+              {{ t('编辑') }}
+            </el-button>
+            <el-button auto-insert-space v-auth="'api:admin:view:delete'" icon="ele-Delete" text type="danger" @click="onDelete(row)">
+              {{ t('删除') }}
+            </el-button>
+            <el-button auto-insert-space v-auth="'api:admin:view:add'" icon="ele-CopyDocument" text type="primary" @click="onCopy(row)">
+              {{ t('复制') }}
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -63,6 +69,7 @@ import { cloneDeep } from 'lodash-es'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
 import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+import { t } from '/@/i18n'
 
 // 引入组件
 const ViewForm = defineAsyncComponent(() => import('./components/view-form.vue'))
@@ -134,7 +141,7 @@ const onQuery = async () => {
 }
 
 const onAdd = () => {
-  state.viewFormTitle = '新增视图'
+  state.viewFormTitle = t('新增视图')
   viewFormRef.value?.open({
     id: 0,
     platform: state.filter.platform,
@@ -144,14 +151,14 @@ const onAdd = () => {
 }
 
 const onEdit = (row: ViewGetListOutput) => {
-  state.viewFormTitle = '编辑视图'
+  state.viewFormTitle = t('编辑视图')
   row.platform = state.filter.platform
   viewFormRef.value?.open(row as ViewUpdateInput)
 }
 
 const onDelete = (row: ViewGetListOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除视图【${row.label}】?`)
+    .confirmDelete(t('确定要删除视图【{label}】?', { label: row.label }))
     .then(async () => {
       await new ViewApi().delete({ id: row.id }, { loading: true })
       onQuery()
@@ -160,7 +167,7 @@ const onDelete = (row: ViewGetListOutput) => {
 }
 
 const onCopy = (row: ViewGetListOutput) => {
-  state.viewFormTitle = '新增视图'
+  state.viewFormTitle = t('新增视图')
   var view = cloneDeep(row)
   view.id = undefined
   viewFormRef.value?.open(view as ViewUpdateInput)

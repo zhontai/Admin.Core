@@ -12,14 +12,14 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="所属平台">
-              <el-select v-model="form.platform" disabled placeholder="请选择所属平台" class="w100">
+            <el-form-item :label="t('所属平台')">
+              <el-select v-model="form.platform" disabled :placeholder="t('请选择所属平台')" class="w100">
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级分组">
+            <el-form-item :label="t('上级分组')">
               <el-tree-select
                 v-model="form.parentId"
                 :data="permissionTreeData"
@@ -34,7 +34,7 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="视图">
+            <el-form-item :label="t('视图')">
               <el-tree-select
                 v-model="form.viewId"
                 :data="state.viewTreeData"
@@ -61,72 +61,72 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="名称" prop="label" :rules="[{ required: true, message: '请输入名称', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('名称')" prop="label" :rules="[{ required: true, message: t('请输入名称'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.label" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="路由地址" prop="path" :rules="[{ required: true, message: '请输入路由地址', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('路由地址')" prop="path" :rules="[{ required: true, message: t('请输入路由地址'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.path" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="路由命名">
+            <el-form-item :label="t('路由命名')">
               <el-input v-model="form.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="链接地址">
-              <el-input v-model="form.link" clearable placeholder="内嵌/外链链接地址" />
+            <el-form-item :label="t('链接地址')">
+              <el-input v-model="form.link" clearable :placeholder="t('内嵌/外链链接地址')" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="图标" prop="icon">
+            <el-form-item :label="t('图标')" prop="icon">
               <my-select-icon v-model="form.icon" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="24" :lg="24" :xl="24">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="系统">
+            <el-form-item :label="t('系统')">
               <el-switch v-model="form.isSystem" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用">
+            <el-form-item :label="t('启用')">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="内嵌窗口">
+            <el-form-item :label="t('内嵌窗口')">
               <el-switch v-model="form.isIframe" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="缓存">
+            <el-form-item :label="t('缓存')">
               <el-switch v-model="form.isKeepAlive" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="固定">
+            <el-form-item :label="t('固定')">
               <el-switch v-model="form.isAffix" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="隐藏">
+            <el-form-item :label="t('隐藏')">
               <el-switch v-model="form.hidden" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="新窗口">
+            <el-form-item :label="t('新窗口')">
               <el-switch v-model="form.newWindow" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="链接外显">
+            <el-form-item :label="t('链接外显')">
               <el-switch v-model="form.external" />
             </el-form-item>
           </el-col>
@@ -134,8 +134,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -149,6 +149,7 @@ import { ViewApi } from '/@/api/admin/View'
 import { listToTree } from '/@/utils/tree'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
+import { t } from '/@/i18n'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))

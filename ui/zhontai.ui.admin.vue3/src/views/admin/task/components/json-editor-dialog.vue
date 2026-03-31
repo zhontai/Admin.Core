@@ -2,8 +2,8 @@
   <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size" resizable>
     <template #header="{ titleId, titleClass }">
       <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
-      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" title="还原"><ele-CopyDocument /></el-icon>
-      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" title="最大化"><ele-FullScreen /></el-icon>
+      <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('还原')"><ele-CopyDocument /></el-icon>
+      <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('最大化')"><ele-FullScreen /></el-icon>
     </template>
     <div class="my-fill h100" style="padding: 20px">
       <div class="mb10 my-flex my-flex-end">
@@ -13,14 +13,15 @@
       <MyJsonEditor ref="jsonEditorRef" v-model="state.content" :options="{ modes: [] }"></MyJsonEditor>
     </div>
     <template #footer>
-      <el-button @click="onCancel">取 消</el-button>
-      <el-button type="primary" @click="onSure">确 定</el-button>
+      <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+      <el-button auto-insert-space type="primary" @click="onSure">{{ t('确定') }}</el-button>
     </template>
   </el-drawer>
 </template>
 
 <script lang="ts" setup>
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {
@@ -56,7 +57,7 @@ const onJsonShell = () => {
 }
 
 const onJsonHttp = () => {
-  state.topic = '[系统预留]Http请求'
+  state.topic = t('[系统预留]Http请求')
   state.content = `{
   "method": "get",
   "url": "",

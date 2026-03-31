@@ -11,6 +11,7 @@ import { Splitpanes } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 import mittBus from '/@/utils/mitt'
 import MyLayout from './index.vue'
+import { t } from '/@/i18n'
 
 const state = reactive({
   isMobile: document.body.clientWidth < 1000,

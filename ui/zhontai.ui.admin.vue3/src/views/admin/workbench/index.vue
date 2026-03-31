@@ -7,7 +7,7 @@
         :md="12"
         :lg="6"
         :xl="6"
-        v-for="(v, k) in state.homeOne"
+        v-for="(v, k) in homeOne"
         :key="k"
         :class="{ 'home-media home-media-lg': k > 1, 'home-media-sm': k === 1 }"
       >
@@ -40,10 +40,10 @@
     <el-row :gutter="15" class="home-card-three">
       <el-col :xs="24" :sm="10" :md="10" :lg="8" :xl="8">
         <div class="home-card-item">
-          <div class="home-card-item-title">快捷导航工具</div>
+          <div class="home-card-item-title">{{ t('快捷导航工具') }}</div>
           <div class="home-monitor">
             <div class="flex-warp">
-              <div class="flex-warp-item" v-for="(v, k) in state.homeThree" :key="k">
+              <div class="flex-warp-item" v-for="(v, k) in homeThree" :key="k">
                 <div class="flex-warp-item-box" :class="`home-animation${k}`">
                   <div class="flex-margin">
                     <i :class="v.icon" :style="{ color: v.iconColor }"></i>
@@ -70,6 +70,7 @@ import * as echarts from 'echarts'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'
+import { t } from '/@/i18n'
 
 // 定义变量内容
 const homeLineRef = useTemplateRef('homeLineRef')
@@ -88,11 +89,21 @@ const state = reactive({
     homeCharThree: null,
     dispose: [null, '', undefined],
   } as any,
-  homeOne: [
+
+  myCharts: [] as EmptyArrayType,
+  charts: {
+    theme: '',
+    bgColor: '',
+    color: '#303133',
+  },
+})
+
+const homeOne = computed(() => {
+  return [
     {
       num1: '125,12',
       num2: '-12.32',
-      num3: '订单统计信息',
+      num3: t('订单统计信息'),
       num4: 'fa fa-meetup',
       color1: '#FF6462',
       color2: '--next-color-primary-lighter',
@@ -101,7 +112,7 @@ const state = reactive({
     {
       num1: '653,33',
       num2: '+42.32',
-      num3: '月度计划信息',
+      num3: t('月度计划信息'),
       num4: 'iconfont icon-ditu',
       color1: '#6690F9',
       color2: '--next-color-success-lighter',
@@ -110,7 +121,7 @@ const state = reactive({
     {
       num1: '125,65',
       num2: '+17.32',
-      num3: '年度计划信息',
+      num3: t('年度计划信息'),
       num4: 'iconfont icon-zaosheng',
       color1: '#6690F9',
       color2: '--next-color-warning-lighter',
@@ -119,75 +130,72 @@ const state = reactive({
     {
       num1: '520,43',
       num2: '-10.01',
-      num3: '访问统计信息',
+      num3: t('访问统计信息'),
       num4: 'fa fa-github-alt',
       color1: '#FF6462',
       color2: '--next-color-danger-lighter',
       color3: '--el-color-danger',
     },
-  ],
-  homeThree: [
+  ]
+})
+
+const homeThree = computed(() => {
+  return [
     {
       icon: 'iconfont icon-yangan',
-      label: '浅粉红',
+      label: t('浅粉红'),
       value: '2.1%OBS/M',
       iconColor: '#F72B3F',
     },
     {
       icon: 'iconfont icon-wendu',
-      label: '深红(猩红)',
+      label: t('深红(猩红)'),
       value: '30℃',
       iconColor: '#91BFF8',
     },
     {
       icon: 'iconfont icon-shidu',
-      label: '淡紫红',
+      label: t('淡紫红'),
       value: '57%RH',
       iconColor: '#88D565',
     },
     {
       icon: 'iconfont icon-shidu',
-      label: '弱紫罗兰红',
+      label: t('弱紫罗兰红'),
       value: '107w',
       iconColor: '#88D565',
     },
     {
       icon: 'iconfont icon-zaosheng',
-      label: '中紫罗兰红',
+      label: t('中紫罗兰红'),
       value: '57DB',
       iconColor: '#FBD4A0',
     },
     {
       icon: 'iconfont icon-zaosheng',
-      label: '紫罗兰',
+      label: t('紫罗兰'),
       value: '57PV',
       iconColor: '#FBD4A0',
     },
     {
       icon: 'iconfont icon-zaosheng',
-      label: '暗紫罗兰',
+      label: t('暗紫罗兰'),
       value: '517Cpd',
       iconColor: '#FBD4A0',
     },
     {
       icon: 'iconfont icon-zaosheng',
-      label: '幽灵白',
+      label: t('幽灵白'),
       value: '12kg',
       iconColor: '#FBD4A0',
     },
     {
       icon: 'iconfont icon-zaosheng',
-      label: '海军蓝',
+      label: t('海军蓝'),
       value: '64fm',
       iconColor: '#FBD4A0',
     },
-  ],
-  myCharts: [] as EmptyArrayType,
-  charts: {
-    theme: '',
-    bgColor: '',
-    color: '#303133',
-  },
+  ]
 })
 
 // 折线图
@@ -197,26 +205,26 @@ const initLineChart = () => {
   const option = {
     backgroundColor: state.charts.bgColor,
     title: {
-      text: '政策补贴额度',
+      text: t('政策补贴额度'),
       x: 'left',
       textStyle: { fontSize: '15', color: state.charts.color },
     },
     grid: { top: 70, right: 20, bottom: 30, left: 30 },
     tooltip: { trigger: 'axis' },
-    legend: { data: ['预购队列', '最新成交价'], right: 0 },
+    legend: { data: [t('预购队列'), t('最新成交价')], right: 0 },
     xAxis: {
-      data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      data: [t('1月'), t('2月'), t('3月'), t('4月'), t('5月'), t('6月'), t('7月'), t('8月'), t('9月'), t('10月'), t('11月'), t('12月')],
     },
     yAxis: [
       {
         type: 'value',
-        name: '价格',
+        name: t('价格'),
         splitLine: { show: true, lineStyle: { type: 'dashed', color: '#f5f5f5' } },
       },
     ],
     series: [
       {
-        name: '预购队列',
+        name: t('预购队列'),
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
@@ -232,7 +240,7 @@ const initLineChart = () => {
         },
       },
       {
-        name: '最新成交价',
+        name: t('最新成交价'),
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
@@ -276,7 +284,7 @@ const initLineChart = () => {
 const initPieChart = () => {
   if (!state.global.dispose.some((b: any) => b === state.global.homeChartTwo)) state.global.homeChartTwo.dispose()
   state.global.homeChartTwo = markRaw(echarts.init(homePieRef.value, state.charts.theme))
-  var getname = ['房屋及结构物', '专用设备', '通用设备', '文物和陈列品', '图书、档案']
+  var getname = [t('房屋及结构物'), t('专用设备'), t('通用设备'), t('文物和陈列品'), t('图书、档案')]
   var getvalue = [34.2, 38.87, 17.88, 9.05, 2.05]
   var data = []
   for (var i = 0; i < getname.length; i++) {
@@ -286,7 +294,7 @@ const initPieChart = () => {
   const option = {
     backgroundColor: state.charts.bgColor,
     title: {
-      text: '房屋建筑工程',
+      text: t('房屋建筑工程'),
       x: 'left',
       textStyle: { fontSize: '15', color: state.charts.color },
     },
@@ -364,12 +372,12 @@ const initBarChart = () => {
   const option = {
     backgroundColor: state.charts.bgColor,
     title: {
-      text: '地热开发利用',
+      text: t('地热开发利用'),
       x: 'left',
       textStyle: { fontSize: '15', color: state.charts.color },
     },
     tooltip: { trigger: 'axis' },
-    legend: { data: ['供温', '回温', '压力值(Mpa)'], right: 0 },
+    legend: { data: [t('供温'), t('回温'), t('压力值(Mpa)')], right: 0 },
     grid: { top: 70, right: 80, bottom: 30, left: 80 },
     xAxis: [
       {
@@ -381,7 +389,7 @@ const initBarChart = () => {
     ],
     yAxis: [
       {
-        name: '供回温度(℃）',
+        name: t('供回温度(℃）'),
         nameLocation: 'middle',
         nameTextStyle: { padding: [3, 4, 50, 6] },
         splitLine: { show: true, lineStyle: { type: 'dashed', color: '#f5f5f5' } },
@@ -390,7 +398,7 @@ const initBarChart = () => {
         axisLabel: { color: state.charts.color, formatter: '{value} ' },
       },
       {
-        name: '压力值(Mpa)',
+        name: t('压力值(Mpa)'),
         nameLocation: 'middle',
         nameTextStyle: { padding: [50, 4, 5, 6] },
         splitLine: { show: false },
@@ -401,7 +409,7 @@ const initBarChart = () => {
     ],
     series: [
       {
-        name: '供温',
+        name: t('供温'),
         type: 'line',
         smooth: true,
         showSymbol: true,
@@ -429,7 +437,7 @@ const initBarChart = () => {
         ],
       },
       {
-        name: '回温',
+        name: t('回温'),
         type: 'line',
         smooth: true,
         showSymbol: true,
@@ -462,7 +470,7 @@ const initBarChart = () => {
         ],
       },
       {
-        name: '压力值(Mpa)',
+        name: t('压力值(Mpa)'),
         type: 'bar',
         barWidth: 30,
         yAxisIndex: 1,

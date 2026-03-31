@@ -1,7 +1,7 @@
 <template>
   <el-select
     v-model="state.label"
-    placeholder="请选择直属主管"
+    :placeholder="t('请选择直属主管')"
     remote
     :suffix-transition="false"
     suffix-icon="ele-MoreFilled"
@@ -12,11 +12,12 @@
   >
   </el-select>
 
-  <user-select ref="userSelectRef" title="选择直属主管" :modal="true" @sure="onSureUser" v-bind="$attrs"></user-select>
+  <user-select ref="userSelectRef" :title="t('选择直属主管')" :modal="true" @sure="onSureUser" v-bind="$attrs"></user-select>
 </template>
 
 <script lang="ts" setup name="admin/user/components/my-select-user">
 import { UserGetPageOutput } from '/@/api/admin/data-contracts'
+import { t } from '/@/i18n'
 
 // 引入组件
 const UserSelect = defineAsyncComponent(() => import('./user-select.vue'))

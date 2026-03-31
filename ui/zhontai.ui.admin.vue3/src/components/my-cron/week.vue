@@ -1,17 +1,17 @@
 <template>
   <el-form>
     <el-form-item>
-      <el-radio v-model="radioValue" :label="1"> 周，允许的通配符[, - * ? / L #] </el-radio>
+      <el-radio v-model="radioValue" :label="1">{{ t('周，允许的通配符[, - * ? / L #]') }}</el-radio>
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="2"> 不指定 </el-radio>
+      <el-radio v-model="radioValue" :label="2">{{ t('不指定') }}</el-radio>
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="3">
-        周期从
-        <el-select clearable v-model="cycle01">
+      <el-radio v-model="radioValue" :label="3"
+        >{{ t('周期从')
+        }}<el-select clearable v-model="cycle01">
           <el-option v-for="(item, index) of weekList" :key="index" :label="item.value" :value="item.key" :disabled="item.key === 7">{{
             item.value
           }}</el-option>
@@ -26,27 +26,26 @@
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="4">
-        第
-        <el-input-number v-model="average01" :min="1" :max="4" /> 周的
-        <el-select clearable v-model="average02">
+      <el-radio v-model="radioValue" :label="4"
+        >{{ t('第') }}<el-input-number v-model="average01" :min="1" :max="4" />{{ t('周的')
+        }}<el-select clearable v-model="average02">
           <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
       </el-radio>
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="5">
-        本月最后一个
-        <el-select clearable v-model="weekday">
+      <el-radio v-model="radioValue" :label="5"
+        >{{ t('本月最后一个')
+        }}<el-select clearable v-model="weekday">
           <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
         </el-select>
       </el-radio>
     </el-form-item>
 
     <el-form-item>
-      <el-radio v-model="radioValue" :label="6"> 指定 </el-radio>
-      <el-select class="multiselect" clearable v-model="checkboxList" placeholder="可多选" multiple :multiple-limit="6">
+      <el-radio v-model="radioValue" :label="6">{{ t('指定') }}</el-radio>
+      <el-select class="multiselect" clearable v-model="checkboxList" :placeholder="t('可多选')" multiple :multiple-limit="6">
         <el-option v-for="item in weekList" :key="item.key" :label="item.value" :value="item.key" />
       </el-select>
     </el-form-item>
@@ -54,6 +53,7 @@
 </template>
 
 <script lang="ts" setup>
+import { t } from '/@/i18n'
 const emit = defineEmits(['update'])
 const props = defineProps({
   cron: {
@@ -84,13 +84,13 @@ const weekday = ref(2)
 const checkboxList = ref([])
 const checkCopy = ref([2])
 const weekList = ref([
-  { key: 1, value: '星期日' },
-  { key: 2, value: '星期一' },
-  { key: 3, value: '星期二' },
-  { key: 4, value: '星期三' },
-  { key: 5, value: '星期四' },
-  { key: 6, value: '星期五' },
-  { key: 7, value: '星期六' },
+  { key: 1, value: t('星期日') },
+  { key: 2, value: t('星期一') },
+  { key: 3, value: t('星期二') },
+  { key: 4, value: t('星期三') },
+  { key: 5, value: t('星期四') },
+  { key: 6, value: t('星期五') },
+  { key: 7, value: t('星期六') },
 ])
 const cycleTotal = computed(() => {
   return cycle01.value + '-' + cycle02.value

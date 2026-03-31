@@ -21,7 +21,7 @@
         </div>
         <div class="layout-lock-screen-date-top">
           <SvgIcon name="ele-Top" />
-          <div class="layout-lock-screen-date-top-text">上滑解锁</div>
+          <div class="layout-lock-screen-date-top-text">{{ t('上滑解锁') }}</div>
         </div>
       </div>
       <transition name="el-zoom-in-center">
@@ -33,7 +33,7 @@
             <div class="layout-lock-screen-login-box-name">Administrator</div>
             <div class="layout-lock-screen-login-box-value">
               <el-input
-                placeholder="请输入密码"
+                :placeholder="t('请输入密码')"
                 ref="layoutLockScreenInputRef"
                 v-model="state.lockScreenPassword"
                 @keyup.enter.native.stop="onLockScreenSubmit()"
@@ -63,6 +63,7 @@
 import { formatDate } from '/@/utils/formatTime'
 import { Local } from '/@/utils/storage'
 import { useThemeConfig } from '/@/stores/themeConfig'
+import { t } from '/@/i18n'
 
 // 定义变量内容
 const layoutLockScreenDateRef = ref<HtmlType>()
@@ -145,7 +146,7 @@ const initGetElement = () => {
 const initTime = () => {
   state.time.hm = formatDate(new Date(), 'HH:MM')
   state.time.s = formatDate(new Date(), 'SS')
-  state.time.mdq = formatDate(new Date(), 'mm月dd日，WWW')
+  state.time.mdq = formatDate(new Date(), 'MM/DD, ddd')
 }
 // 时间初始化定时器
 const initSetTime = () => {

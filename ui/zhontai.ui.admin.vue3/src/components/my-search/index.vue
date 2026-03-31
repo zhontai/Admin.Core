@@ -24,11 +24,11 @@
           <el-form-item label-width="0px">
             <div class="my-flex">
               <el-button v-if="showToggle" type="primary" link @click="onToggleExpanded">
-                {{ isExpanded ? '收起' : '展开' }}
+                {{ isExpanded ? t('收起') : t('展开') }}
                 <SvgIcon :name="isExpanded ? 'ele-ArrowUp' : 'ele-ArrowDown'" />
               </el-button>
-              <el-button type="primary" @click="onSearch">查询</el-button>
-              <el-button icon="ele-RefreshLeft" text bg @click="onReset">重置</el-button>
+              <el-button auto-insert-space type="primary" @click="onSearch">{{ t('查询') }}</el-button>
+              <el-button auto-insert-space icon="ele-RefreshLeft" text bg @click="onReset">{{ t('重置') }}</el-button>
             </div>
           </el-form-item>
         </el-col>
@@ -40,6 +40,7 @@
 <script setup lang="ts" name="coms/my-search">
 import type { FormInstance, FormRules } from 'element-plus'
 import { cloneDeep, isInteger, mergeWith } from 'lodash-es'
+import { t } from '/@/i18n'
 
 interface SearchItem {
   label: string

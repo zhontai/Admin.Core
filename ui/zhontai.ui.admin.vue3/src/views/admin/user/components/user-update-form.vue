@@ -12,16 +12,16 @@
       <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="姓名" prop="name" :rules="[{ required: true, message: '请输入姓名', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('姓名')" prop="name" :rules="[{ required: true, message: t('请输入姓名'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item
-              label="手机号"
+              :label="t('手机号')"
               prop="mobile"
               :rules="[
-                { required: true, message: '请输入手机号', trigger: ['blur', 'change'] },
+                { required: true, message: t('请输入手机号'), trigger: ['blur', 'change'] },
                 { validator: testMobile, trigger: ['blur', 'change'] },
               ]"
             >
@@ -29,20 +29,20 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="账号" prop="userName" :rules="[{ required: true, message: '请输入账号', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('账号')" prop="userName" :rules="[{ required: true, message: t('请输入账号'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.userName" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="直属主管" prop="managerUserId">
+            <el-form-item :label="t('直属主管')" prop="managerUserId">
               <my-select-user v-model="form.managerUserId" :name="form.managerUserName" clearable></my-select-user>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="角色" prop="roles">
+            <el-form-item :label="t('角色')" prop="roles">
               <el-tree-select
                 v-model="form.roleIds"
-                placeholder="请选择角色"
+                :placeholder="t('请选择角色')"
                 :data="state.roleTreeData"
                 node-key="id"
                 :props="{ label: 'name' }"
@@ -59,18 +59,18 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="span" :md="span" :lg="span" :xl="span">
-            <el-form-item label="邮箱" prop="email" :rules="[{ validator: testEmail, trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('邮箱')" prop="email" :rules="[{ validator: testEmail, trigger: ['blur', 'change'] }]">
               <el-input v-model="form.email" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="职位">
+            <el-form-item :label="t('职位')">
               <el-input v-model="form.staff.position" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="性别">
-              <el-select v-model="form.staff.sex" placeholder="请选择性别" class="w100">
+            <el-form-item :label="t('性别')">
+              <el-select v-model="form.staff.sex" :placeholder="t('请选择性别')" class="w100">
                 <el-option label="" :value="undefined" />
                 <el-option v-for="item in state.sexList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
@@ -80,8 +80,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -98,6 +98,7 @@ import eventBus from '/@/utils/mitt'
 import { FormInstance } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { t } from '/@/i18n'
 
 // 引入组件
 const MySelectUser = defineAsyncComponent(() => import('./my-select-user.vue'))

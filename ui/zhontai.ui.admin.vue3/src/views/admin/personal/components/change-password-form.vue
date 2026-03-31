@@ -12,16 +12,20 @@
       <el-form ref="formRef" :model="form" label-width="80px" label-position="left">
         <el-row :gutter="35">
           <el-col :span="24">
-            <el-form-item label="旧密码" prop="oldPassword" :rules="[{ required: true, message: '请输入旧密码', trigger: ['blur', 'change'] }]">
+            <el-form-item
+              :label="t('旧密码')"
+              prop="oldPassword"
+              :rules="[{ required: true, message: t('请输入旧密码'), trigger: ['blur', 'change'] }]"
+            >
               <el-input v-model="form.oldPassword" show-password autocomplete="off" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item
-              label="新密码"
+              :label="t('新密码')"
               prop="newPassword"
               :rules="[
-                { required: true, message: '请输入新密码', trigger: ['blur', 'change'] },
+                { required: true, message: t('请输入新密码'), trigger: ['blur', 'change'] },
                 { validator: testNewPassword, trigger: ['blur', 'change'] },
                 { validator: validatorPwd, trigger: ['blur', 'change'] },
               ]"
@@ -31,10 +35,10 @@
           </el-col>
           <el-col :span="24">
             <el-form-item
-              label="确认密码"
+              :label="t('确认密码')"
               prop="confirmPassword"
               :rules="[
-                { required: true, message: '请输入确认密码', trigger: ['blur', 'change'] },
+                { required: true, message: t('请输入确认密码'), trigger: ['blur', 'change'] },
                 { validator: testConfirmPassword, trigger: ['blur', 'change'] },
               ]"
             >
@@ -45,8 +49,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -58,6 +62,7 @@ import { UserChangePasswordInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { validatorPwd } from '/@/utils/validators'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {
@@ -89,7 +94,7 @@ const testNewPassword = (rule: any, value: any, callback: any) => {
 const testConfirmPassword = (rule: any, value: any, callback: any) => {
   if (value) {
     if (value !== state.form.newPassword) {
-      callback(new Error('确认密码和新密码不一致'))
+      callback(new Error(t('确认密码和新密码不一致')))
     } else {
       callback()
     }

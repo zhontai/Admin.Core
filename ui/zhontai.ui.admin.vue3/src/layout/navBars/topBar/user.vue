@@ -18,9 +18,9 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item command="zh-cn" :disabled="state.disabledI18n === 'zh-cn'">简体中文</el-dropdown-item>
+          <el-dropdown-item command="zh-cn" :disabled="state.disabledI18n === 'zh-cn'">{{ t('简体中文') }}</el-dropdown-item>
           <el-dropdown-item command="en" :disabled="state.disabledI18n === 'en'">English</el-dropdown-item>
-          <el-dropdown-item command="zh-tw" :disabled="state.disabledI18n === 'zh-tw'">繁體中文</el-dropdown-item>
+          <el-dropdown-item command="zh-tw" :disabled="state.disabledI18n === 'zh-tw'">{{ t('繁体中文') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -118,7 +118,7 @@ const layoutUserFlexNum = computed(() => {
 // 全屏点击时
 const onScreenfullClick = () => {
   if (!screenfull.isEnabled) {
-    ElMessage.warning('暂不不支持全屏')
+    ElMessage.warning(t('暂不不支持全屏'))
     return false
   }
   screenfull.toggle()

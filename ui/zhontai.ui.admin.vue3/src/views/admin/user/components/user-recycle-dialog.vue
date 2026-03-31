@@ -12,11 +12,11 @@
     <div style="background-color: var(--ba-bg-color)">
       <el-card class="my-query-box" shadow="never" :body-style="{ paddingBottom: '0' }">
         <el-form :model="state.filter" :inline="true" @submit.stop.prevent>
-          <el-form-item label="姓名" prop="name">
-            <el-input v-model="state.filter.name" placeholder="姓名" @keyup.enter="onQuery" />
+          <el-form-item :label="t('姓名')" prop="name">
+            <el-input v-model="state.filter.name" :placeholder="t('姓名')" @keyup.enter="onQuery" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+            <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -35,13 +35,13 @@
           @current-change="onTableCurrentChange"
         >
           <el-table-column type="selection" width="55" />
-          <el-table-column prop="userName" label="账号" min-width="180" show-overflow-tooltip />
-          <el-table-column prop="name" label="姓名" min-width="82" show-overflow-tooltip />
-          <el-table-column prop="mobile" label="手机号" min-width="120" show-overflow-tooltip />
-          <el-table-column prop="orgPaths" label="部门" min-width="200" show-overflow-tooltip />
-          <el-table-column prop="orgPath" label="主属部门" min-width="180" show-overflow-tooltip />
-          <el-table-column prop="roleNames" label="角色" min-width="180" show-overflow-tooltip />
-          <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
+          <el-table-column prop="userName" :label="t('账号')" min-width="180" show-overflow-tooltip />
+          <el-table-column prop="name" :label="t('姓名')" min-width="82" show-overflow-tooltip />
+          <el-table-column prop="mobile" :label="t('手机号')" min-width="120" show-overflow-tooltip />
+          <el-table-column prop="orgPaths" :label="t('部门')" min-width="200" show-overflow-tooltip />
+          <el-table-column prop="orgPath" :label="t('主属部门')" min-width="180" show-overflow-tooltip />
+          <el-table-column prop="roleNames" :label="t('角色')" min-width="180" show-overflow-tooltip />
+          <el-table-column prop="email" :label="t('邮箱')" min-width="180" show-overflow-tooltip />
         </el-table>
         <div class="my-flex my-flex-end" style="margin-top: 10px">
           <el-pagination
@@ -59,8 +59,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="sureLoading">恢 复</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="sureLoading">{{ t('恢复') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -71,6 +71,7 @@ import { TableInstance } from 'element-plus'
 import { UserGetDeletedUserPageOutput, PageInput } from '/@/api/admin/data-contracts'
 import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {
@@ -160,12 +161,12 @@ const onCancel = () => {
 const onSure = () => {
   const selectionRows = userTableRef.value!.getSelectionRows() as UserGetDeletedUserPageOutput[]
   if (!(selectionRows?.length > 0)) {
-    proxy.$modal.msgWarning('请勾选用户')
+    proxy.$modal.msgWarning(t('请勾选用户'))
     return
   }
 
   proxy.$modal
-    .confirm(`确定要恢复?`)
+    .confirm(t('确定要恢复?'))
     .then(async () => {
       const userIds = selectionRows.map((a) => a.id) as number[]
       await new UserApi().restore({ userIds: userIds }, { loading: true, showSuccessMessage: true })

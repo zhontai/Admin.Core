@@ -11,11 +11,10 @@
     <template #header="{ close, titleId, titleClass }">
       <div class="my-header">
         <div :id="titleId" :class="titleClass">
-          设置{{ innerTitle }}
-          <el-select v-model="state.platform" placeholder="请选择所属平台" style="width: 100px" @change="onQuery">
+          {{ innerTitle }}
+          <el-select v-model="state.platform" :placeholder="t('请选择所属平台')" style="width: 100px" @change="onQuery">
             <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
           </el-select>
-          菜单权限
         </div>
       </div>
     </template>
@@ -35,8 +34,8 @@
     </div>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
       </span>
     </template>
   </el-dialog>
@@ -48,6 +47,7 @@ import { PermissionApi } from '/@/api/admin/Permission'
 import { TreeInstance } from 'element-plus'
 import { DictApi } from '/@/api/admin/Dict'
 import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+import { t } from '/@/i18n'
 
 /** 字典分类 */
 const DictType = {
@@ -62,7 +62,7 @@ const props = defineProps({
 })
 
 const innerTitle = computed(() => {
-  return props.title ? props.title : state.roleName ? `${state.roleName}` : ''
+  return props.title ? props.title : state.roleName ? t('设置【{name}】菜单权限', { name: state.roleName }) : t('设置菜单权限')
 })
 
 const state = reactive({

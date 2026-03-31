@@ -4,13 +4,13 @@
       <el-form class="my-form-inline" :inline="true" label-width="auto" @submit.stop.prevent>
         <el-form-item label="">
           <el-select v-model="state.filter.isRead" :empty-values="[undefined]" style="width: 90px" @change="onQuery">
-            <el-option v-for="status in state.statusList" :key="status.name" :label="status.name" :value="status.value" />
+            <el-option v-for="status in statusList" :key="status.name" :label="status.name" :value="status.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="分类">
+        <el-form-item :label="t('分类')">
           <el-tree-select
             v-model="state.filter.typeId"
-            placeholder="请选择分类"
+            :placeholder="t('请选择分类')"
             :data="state.msgTypeTreeData"
             node-key="id"
             :props="{ label: 'name' }"
@@ -22,11 +22,13 @@
             @change="onQuery"
           />
         </el-form-item>
-        <el-form-item label="标题">
-          <el-input v-model="state.filter.title" placeholder="标题" @keyup.enter="onQuery" />
+        <el-form-item :label="t('标题')">
+          <el-input v-model="state.filter.title" :placeholder="t('标题')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" icon="ele-Search" @click="onQuery"> 查询 </el-button>
+          <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">
+            {{ t('查询') }}
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -34,12 +36,18 @@
     <el-card class="my-fill mt8" shadow="never">
       <div class="my-tools-box mb8 my-flex my-flex-between">
         <div>
-          <el-button type="danger" :disabled="!isRowSelect" :loading="state.loadingBatchDelete" @click="onBatchDelete">删除</el-button>
-          <el-button type="primary" :disabled="!isRowSelect" :loading="state.loadingBatchSetRead" @click="onBatchSetRead">标为已读</el-button>
-          <el-button type="primary" :loading="state.loadingSetAllRead" @click="onSetAllRead">全部已读</el-button>
+          <el-button auto-insert-space type="danger" :disabled="!isRowSelect" :loading="state.loadingBatchDelete" @click="onBatchDelete">
+            {{ t('删除') }}
+          </el-button>
+          <el-button type="primary" :disabled="!isRowSelect" :loading="state.loadingBatchSetRead" @click="onBatchSetRead">
+            {{ t('标为已读') }}
+          </el-button>
+          <el-button type="primary" :loading="state.loadingSetAllRead" @click="onSetAllRead">
+            {{ t('全部已读') }}
+          </el-button>
         </div>
         <div>
-          <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
+          <el-tooltip effect="dark" :content="state.showQuery ? t('隐藏查询') : t('显示查询')" placement="top">
             <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
           </el-tooltip>
         </div>
@@ -55,7 +63,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="title" label="标题" min-width="120" show-overflow-tooltip>
+        <el-table-column prop="title" :label="t('标题')" min-width="120" show-overflow-tooltip>
           <template #default="{ row }">
             <MyLink
               :model-value="{
@@ -70,8 +78,8 @@
             </MyLink>
           </template>
         </el-table-column>
-        <el-table-column prop="typeName" label="消息分类" min-width="120" show-overflow-tooltip />
-        <el-table-column prop="receivedTime" label="接收时间" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
+        <el-table-column prop="typeName" :label="t('消息分类')" min-width="120" show-overflow-tooltip />
+        <el-table-column prop="receivedTime" :label="t('接收时间')" :formatter="formatterTime" min-width="160" show-overflow-tooltip />
       </el-table>
       <div class="my-flex my-flex-end" style="margin-top: 10px">
         <el-pagination
@@ -97,6 +105,7 @@ import { PageInputSiteMsgGetPageInput, SiteMsgGetPageOutput, MsgTypeGetListOutpu
 import { listToTree } from '/@/utils/tree'
 import { MsgTypeApi } from '/@/api/admin/MsgType'
 import { TableInstance } from 'element-plus'
+import { t } from '/@/i18n'
 
 const MyLink = defineAsyncComponent(() => import('/@/components/my-link/index.vue'))
 
@@ -110,11 +119,6 @@ const state = reactive({
   loadingBatchDelete: false,
   loadingBatchSetRead: false,
   orgFormTitle: '',
-  statusList: [
-    { name: '全部', value: null },
-    { name: '已读', value: true },
-    { name: '未读', value: false },
-  ],
   filter: {
     isRead: null,
     typeId: null,
@@ -132,6 +136,14 @@ const state = reactive({
   total: 0,
   msgList: [] as SiteMsgGetPageOutput[],
   msgTypeTreeData: [] as MsgTypeGetListOutput[],
+})
+
+const statusList = computed(() => {
+  return [
+    { name: t('全部'), value: null },
+    { name: t('已读'), value: true },
+    { name: t('未读'), value: false },
+  ]
 })
 
 const selectionRows = computed(() => {
@@ -207,7 +219,7 @@ const onCurrentChange = (val: number) => {
 
 const onSetAllRead = () => {
   proxy.$modal
-    .confirm(`确认标记所有消息为已读吗？`)
+    .confirm(t('确认标记所有消息为已读吗？'))
     .then(async () => {
       state.loadingSetAllRead = true
       const res = await new SiteMsgApi().setAllRead().catch(() => {
@@ -216,7 +228,7 @@ const onSetAllRead = () => {
 
       state.loadingSetAllRead = false
       if (res?.success) {
-        proxy.$modal.msgSuccess('标记所有已读成功')
+        proxy.$modal.msgSuccess(t('标记所有已读成功'))
         onQuery()
       }
     })
@@ -225,7 +237,7 @@ const onSetAllRead = () => {
 
 const onBatchDelete = () => {
   proxy.$modal
-    .confirmDelete(`确定要删除消息?`)
+    .confirmDelete(t(t('确定要删除消息?')))
     .then(async () => {
       state.loadingBatchDelete = true
       const res = await new SiteMsgApi().batchSoftDelete(selectionIds.value!).catch(() => {
@@ -233,7 +245,7 @@ const onBatchDelete = () => {
       })
       state.loadingBatchDelete = false
       if (res?.success) {
-        proxy.$modal.msgSuccess('删除成功')
+        proxy.$modal.msgSuccess(t('删除成功'))
         onQuery()
       }
     })
@@ -242,7 +254,7 @@ const onBatchDelete = () => {
 
 const onBatchSetRead = () => {
   proxy.$modal
-    .confirmDelete(`确定要标记消息为已读?`)
+    .confirmDelete(t(t('确定要标记消息为已读?')))
     .then(async () => {
       state.loadingBatchSetRead = true
       const res = await new SiteMsgApi().batchSetRead(selectionIds.value!).catch(() => {
@@ -250,7 +262,7 @@ const onBatchSetRead = () => {
       })
       state.loadingBatchSetRead = false
       if (res?.success) {
-        proxy.$modal.msgSuccess('标记已读成功')
+        proxy.$modal.msgSuccess(t('标记已读成功'))
         onQuery()
       }
     })

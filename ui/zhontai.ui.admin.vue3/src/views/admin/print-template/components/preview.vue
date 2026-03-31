@@ -22,10 +22,10 @@
                   <my-icon name="export" color="var(--color)"></my-icon>
                 </el-icon>
               </template>
-              导出PDF
+              {{ t('导出PDF') }}
             </el-button>
-            <el-button type="primary" icon="ele-Printer" @click="onPrint">打 印</el-button>
-            <el-button @click="onCancel">关 闭</el-button>
+            <el-button auto-insert-space type="primary" icon="ele-Printer" @click="onPrint">{{ t('打印') }}</el-button>
+            <el-button auto-insert-space @click="onCancel">{{ t('关闭') }}</el-button>
           </div>
         </div>
       </template>
@@ -37,6 +37,7 @@
 
 <script lang="ts" setup>
 import { hiprint } from 'vue-plugin-hiprint'
+import { t } from '/@/i18n'
 
 const state = reactive({
   showDialog: false,

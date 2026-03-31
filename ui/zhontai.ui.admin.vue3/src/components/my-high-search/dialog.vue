@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="高级查询"
+    :title="t('高级查询')"
     v-model="state.showDialog"
     append-to-body
     :destroy-on-close="false"
@@ -13,15 +13,16 @@
     <MyFilter ref="myFilterRef" v-bind="$attrs"></MyFilter>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="onReset">重 置</el-button>
-        <el-button @click="onCancel">取 消</el-button>
-        <el-button type="primary" @click="onSure">查 询</el-button>
+        <el-button auto-insert-space @click="onReset">{{ t('重置') }}</el-button>
+        <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+        <el-button auto-insert-space type="primary" @click="onSure">{{ t('查询') }}</el-button>
       </span>
     </template>
   </el-dialog>
 </template>
 
 <script lang="ts" setup name="my-filter-dialog">
+import { t } from '/@/i18n'
 defineProps({
   modelValue: Object as PropType<any | undefined | null>,
 })

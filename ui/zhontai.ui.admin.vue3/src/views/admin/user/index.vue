@@ -21,21 +21,21 @@
         <el-card class="my-fill mt8" shadow="never">
           <div class="my-tools-box mb8 my-flex my-flex-between">
             <div>
-              <el-button v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd"> 新增 </el-button>
+              <el-button auto-insert-space v-auth="'api:admin:user:add'" type="primary" icon="ele-Plus" @click="onAdd">{{ t('新增') }}</el-button>
               <el-button
                 v-auth="'api:admin:user:batch-set-org'"
                 type="primary"
                 :disabled="!isRowSelect"
                 :loading="state.loadingBatchSetOrg"
                 @click="onBatchSetOrg"
-                >部门转移</el-button
+                >{{ t('部门转移') }}</el-button
               >
             </div>
             <div>
-              <el-tooltip effect="dark" content="高级查询" placement="top">
+              <el-tooltip effect="dark" :content="t('高级查询')" placement="top">
                 <el-button icon="ele-Filter" circle @click="onFilter"> </el-button>
               </el-tooltip>
-              <el-tooltip effect="dark" content="回收站" placement="top">
+              <el-tooltip effect="dark" :content="t('回收站')" placement="top">
                 <el-button v-auth="'api:admin:user:restore'" circle @click="onRecycle">
                   <template #icon>
                     <el-icon>
@@ -45,7 +45,7 @@
                 </el-button>
               </el-tooltip>
               <MyColSet v-model="state.tableModel.columns" />
-              <el-tooltip effect="dark" :content="state.showQuery ? '隐藏查询' : '显示查询'" placement="top">
+              <el-tooltip effect="dark" :content="state.showQuery ? t('隐藏查询') : t('显示查询')" placement="top">
                 <el-button :icon="state.showQuery ? 'ele-ArrowUp' : 'ele-ArrowDown'" circle @click="state.showQuery = !state.showQuery" />
               </el-tooltip>
             </div>
@@ -65,7 +65,7 @@
                   <ele-Male v-if="row.sex === 1" color="#409EFF" />
                   <ele-Female v-else-if="row.sex === 2" color="#F34D37" />
                 </el-icon>
-                <el-tag v-if="row.isManager" type="success" class="ml4">主管</el-tag>
+                <el-tag v-if="row.isManager" type="success" class="ml4">{{ t('主管') }}</el-tag>
               </div>
             </template>
 
@@ -78,31 +78,41 @@
                 :active-value="true"
                 :inactive-value="false"
                 inline-prompt
-                active-text="启用"
-                inactive-text="禁用"
+                :active-text="t('启用')"
+                :inactive-text="t('禁用')"
                 :before-change="() => onSetEnable(row)"
               />
               <template v-else>
-                <el-tag type="success" v-if="row.enabled">启用</el-tag>
-                <el-tag type="danger" v-else>禁用</el-tag>
+                <el-tag type="success" v-if="row.enabled">{{ t('启用') }}</el-tag>
+                <el-tag type="danger" v-else>{{ t('禁用') }}</el-tag>
               </template>
             </template>
 
             <!-- 操作列自定义插槽 -->
             <template #actions="{ row }">
-              <el-button v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">编辑</el-button>
+              <el-button auto-insert-space v-auth="'api:admin:user:update'" icon="ele-EditPen" text type="primary" @click="onEdit(row)">{{
+                t('编辑')
+              }}</el-button>
               <my-dropdown-more
                 v-auths="['api:admin:user:set-manager', 'api:admin:user:reset-password', 'api:admin:user:delete', 'api:admin:user:one-click-login']"
               >
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)"
-                      >{{ row.isManager ? '取消' : '设置' }}主管</el-dropdown-item
-                    >
-                    <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">重置密码</el-dropdown-item>
-                    <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">删除用户</el-dropdown-item>
-                    <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">一键登录</el-dropdown-item>
-                    <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">强制下线</el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:set-manager')" @click="onSetManager(row)">
+                      {{ row.isManager ? t('取消主管') : t('设置主管') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:reset-password')" @click="onResetPwd(row)">
+                      {{ t('重置密码') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:delete')" @click="onDelete(row)">
+                      {{ t('删除用户') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:one-click-login')" @click="onOneClickLogin(row)">
+                      {{ t('一键登录') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item v-if="auth('api:admin:user:force-offline')" @click="onForceOffline(row)">
+                      {{ t('强制下线') }}
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </my-dropdown-more>
@@ -114,7 +124,7 @@
         <UserRecycleDialog ref="userRecycleDialogRef" multiple></UserRecycleDialog>
         <user-update-form ref="userUpdateFormRef" :title="state.userFormTitle"></user-update-form>
         <user-set-org ref="userSetOrgRef" v-model:user-ids="selectionIds"></user-set-org>
-        <user-reset-pwd ref="userRestPwdRef" title="提示"></user-reset-pwd>
+        <user-reset-pwd ref="userRestPwdRef" :title="t('提示')"></user-reset-pwd>
         <MyHighSearchDialog ref="myHighSearchDialogRef" :fields="searchItems" @sure="onFilterSure"></MyHighSearchDialog>
       </div>
     </el-splitter-panel>
@@ -132,6 +142,7 @@ import { TableInstance } from 'element-plus'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
 import { Operator } from '/@/api/admin.extend/enum-contracts'
+import { t } from '/@/i18n'
 
 defineOptions({
   name: 'admin/user',
@@ -242,65 +253,65 @@ const state = reactive({
 const searchItems = computed(() => {
   return [
     {
-      label: '姓名',
+      label: t('姓名'),
       field: 'name',
       operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
-        placeholder: '请输入姓名',
+        placeholder: t('请输入姓名'),
       },
     },
     {
-      label: '状态',
+      label: t('状态'),
       field: 'enabled',
       operator: Operator.equal.value,
       componentName: 'el-select',
       type: 'select',
       attrs: {
-        placeholder: '请选择',
+        placeholder: t('请选择'),
         options: [
           {
-            label: '启用',
+            label: t('启用'),
             value: 1,
           },
           {
-            label: '禁用',
+            label: t('禁用'),
             value: 0,
           },
         ],
       },
     },
     {
-      label: '手机号',
+      label: t('手机号'),
       field: 'mobile',
       operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
-        placeholder: '请输入手机号',
+        placeholder: t('请输入手机号'),
       },
     },
     {
-      label: '邮箱',
+      label: t('邮箱'),
       field: 'email',
       operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
-        placeholder: '请输入邮箱',
+        placeholder: t('请输入邮箱'),
       },
     },
     {
-      label: '性别',
+      label: t('性别'),
       field: 'staff.sex',
       operator: Operator.equal.value,
       componentName: 'el-select',
       type: 'select',
       attrs: {
-        placeholder: '请选择',
+        placeholder: t('请选择'),
         options: toOptionsByValue(Sex),
       },
     },
     {
-      label: '创建时间',
+      label: t('创建时间'),
       field: 'createdTime',
       operator: Operator.dateRange.value,
       componentName: 'el-date-picker',
@@ -310,20 +321,20 @@ const searchItems = computed(() => {
         format: 'YYYY-MM-DD',
         valueFormat: 'YYYY-MM-DD',
         unlinkPanels: true,
-        startPlaceholder: '开始时间',
-        endPlaceholder: '结束时间',
+        startPlaceholder: t('开始时间'),
+        endPlaceholder: t('结束时间'),
         disabledDate: (time: any) => {
           return time.getTime() > Date.now()
         },
       },
     },
     {
-      label: '账号',
+      label: t('账号'),
       field: 'userName',
       operator: Operator.contains.value,
       componentName: 'el-input',
       attrs: {
-        placeholder: '请输入账号',
+        placeholder: t('请输入账号'),
       },
     },
   ]
@@ -391,7 +402,7 @@ const onFilterSure = (dynamicFilter: any) => {
 
 //新增
 const onAdd = () => {
-  state.userFormTitle = '新增用户'
+  state.userFormTitle = t('新增用户')
   userFormRef.value?.open({} as any)
 }
 
@@ -402,14 +413,14 @@ const onRecycle = () => {
 
 //修改
 const onEdit = (row: UserGetPageOutput) => {
-  state.userFormTitle = '编辑用户'
+  state.userFormTitle = t('编辑用户')
   userUpdateFormRef.value?.open(row as UserUpdateInput)
 }
 
 //删除
 const onDelete = (row: UserGetPageOutput) => {
   proxy.$modal
-    .confirmDelete(`确定要删除【${row.name}】?`)
+    .confirmDelete(t('确定要删除【{name}】?', { name: row.name }))
     .then(async () => {
       await new UserApi().softDelete({ id: row.id }, { loading: true, showSuccessMessage: true })
       onQuery()
@@ -425,11 +436,11 @@ const onResetPwd = (row: UserGetPageOutput) => {
 //设置或取消主管
 const onSetManager = (row: UserGetPageOutput) => {
   if (!((state.pageInput.filter?.orgId as number) > 0)) {
-    proxy.$modal.msgWarning('请选择部门')
+    proxy.$modal.msgWarning(t('请选择部门'))
     return
   }
 
-  const title = row.isManager ? `确定要取消【${row.name}】的主管?` : `确定要设置【${row.name}】为主管?`
+  const title = row.isManager ? t('确定要取消【{name}】的主管?', { name: row.name }) : t('确定要设置【{name}】为主管?', { name: row.name })
   proxy.$modal
     .confirm(title)
     .then(async () => {
@@ -444,7 +455,7 @@ const onSetManager = (row: UserGetPageOutput) => {
 const onSetEnable = (row: UserGetPageOutput & { loading: boolean }) => {
   return new Promise((resolve, reject) => {
     proxy.$modal
-      .confirm(`确定要${row.enabled ? '禁用' : '启用'}【${row.name}】?`)
+      .confirm(t('确定要{action}【{name}】?', { action: row.enabled ? t('禁用') : t('启用'), name: row.name }))
       .then(async () => {
         row.loading = true
         const res = await new UserApi()
@@ -470,11 +481,11 @@ const onSetEnable = (row: UserGetPageOutput & { loading: boolean }) => {
 //一键登录
 const onOneClickLogin = (row: UserGetPageOutput) => {
   proxy.$modal
-    .confirm(`确定要一键登录【${row.name}】?`)
+    .confirm(t('确定要一键登录【{name}】?', { name: row.name }))
     .then(async () => {
       const res = await new UserApi().oneClickLogin({ userName: row.userName || '' }, { loading: true })
       if (res?.success) {
-        proxy.$modal.msgSuccess('一键登录成功')
+        proxy.$modal.msgSuccess(t('一键登录成功'))
         window.requests = []
         Session.remove('tagsViewList')
         storesUseUserInfo.setTokenInfo(res.data)
@@ -487,11 +498,11 @@ const onOneClickLogin = (row: UserGetPageOutput) => {
 //强制下线
 const onForceOffline = (row: UserGetPageOutput) => {
   proxy.$modal
-    .confirm(`确定要强制下线【${row.name}】?`)
+    .confirm(t('确定要强制下线【{name}】?', { name: row.name }))
     .then(async () => {
       const res = await new UserApi().forceOffline({ id: row.id }, { loading: true })
       if (res?.success) {
-        proxy.$modal.msgSuccess('强制下线成功')
+        proxy.$modal.msgSuccess(t('强制下线成功'))
         onQuery()
       }
     })

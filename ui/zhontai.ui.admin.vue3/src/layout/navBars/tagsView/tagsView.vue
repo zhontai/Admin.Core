@@ -1,7 +1,7 @@
 <template>
   <div class="layout-navbars-tagsview" :class="{ 'layout-navbars-tagsview-shadow': getThemeConfig.layout === 'classic' }">
     <el-scrollbar ref="scrollbarRef" @wheel.prevent="onHandleScroll">
-      <ul class="layout-navbars-tagsview-ul" :class="setTagsStyle" ref="tagsUlRef">
+      <ul class="layout-navbars-tagsview-ul" :class="setTagsStyle">
         <li
           v-for="(v, k) in state.tagsViewList"
           :key="k"
@@ -56,6 +56,7 @@ import { Session } from '/@/utils/storage'
 import { isObjectValueEqual } from '/@/utils/arrayOperation'
 import other from '/@/utils/other'
 import mittBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 // 引入组件
 const Contextmenu = defineAsyncComponent(() => import('/@/layout/navBars/tagsView/contextmenu.vue'))
@@ -64,7 +65,6 @@ const Contextmenu = defineAsyncComponent(() => import('/@/layout/navBars/tagsVie
 const tagsRefs = ref<RefType>([])
 const scrollbarRef = useTemplateRef('scrollbarRef')
 const contextmenuRef = useTemplateRef('contextmenuRef')
-useTemplateRef('tagsUlRef')
 const stores = useTagsViewRoutes()
 const storesThemeConfig = useThemeConfig()
 const storesTagsViewRoutes = useTagsViewRoutes()
@@ -346,7 +346,7 @@ const getCurrentRouteItem = (item: RouteItem): any => {
 // 当前项右键菜单点击
 const onCurrentContextmenuClick = async (item: RouteItem) => {
   item.commonUrl = transUrlParams(item)
-  if (!getCurrentRouteItem(item)) return ElMessage({ type: 'warning', message: '请正确输入路径及完整参数（query、params）' })
+  if (!getCurrentRouteItem(item)) return ElMessage({ type: 'warning', message: t('请正确输入路径及完整参数（query、params）') })
   const { path, name, params, query, meta, url } = getCurrentRouteItem(item)
   switch (item.contextMenuClickId) {
     case 0:

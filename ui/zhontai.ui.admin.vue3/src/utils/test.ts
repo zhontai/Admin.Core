@@ -1,4 +1,6 @@
 import { verifyEmail } from '/@/utils/toolsValidate'
+import { t } from '/@/i18n'
+
 /**
  * 是否手机号
  */
@@ -14,7 +16,7 @@ export const testMobile = (rule: any, value: any, callback: any) => {
     callback()
   }
   if (!isMobile(value)) {
-    callback(new Error('请输入正确的手机号码'))
+    callback(new Error(t('请输入正确的手机号码')))
   } else {
     callback()
   }
@@ -28,7 +30,7 @@ export const testEmail = (rule: any, value: any, callback: any) => {
     callback()
   }
   if (!verifyEmail(value)) {
-    callback(new Error('请输入正确的邮箱'))
+    callback(new Error(t('请输入正确的邮箱')))
   } else {
     callback()
   }

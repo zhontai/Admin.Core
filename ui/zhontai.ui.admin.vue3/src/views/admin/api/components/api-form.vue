@@ -12,7 +12,7 @@
       <el-form :model="form" ref="formRef" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="上级接口">
+            <el-form-item :label="t('上级接口')">
               <el-tree-select
                 v-model="form.parentId"
                 :data="apiTreeData"
@@ -27,17 +27,21 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="接口名称" prop="label" :rules="[{ required: true, message: '请输入接口名称', trigger: ['blur', 'change'] }]">
+            <el-form-item
+              :label="t('接口名称')"
+              prop="label"
+              :rules="[{ required: true, message: t('请输入接口名称'), trigger: ['blur', 'change'] }]"
+            >
               <el-input v-model="form.label" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="接口地址" prop="path" :rules="[{ required: true, message: '请输入接口地址', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('接口地址')" prop="path" :rules="[{ required: true, message: t('请输入接口地址'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.path" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="接口方法" prop="httpMethods">
+            <el-form-item :label="t('接口方法')" prop="httpMethods">
               <el-radio-group v-model="form.httpMethods">
                 <el-radio-button label="get" />
                 <el-radio-button label="put" />
@@ -48,17 +52,17 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="接口描述" prop="description">
+            <el-form-item :label="t('接口描述')" prop="description">
               <el-input v-model="form.description" clearable />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="排序">
+            <el-form-item :label="t('排序')">
               <el-input-number v-model="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="启用">
+            <el-form-item :label="t('启用')">
               <el-switch v-model="form.enabled" />
             </el-form-item>
           </el-col>
@@ -66,8 +70,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -78,6 +82,7 @@
 import { ApiGetListOutput, ApiUpdateInput } from '/@/api/admin/data-contracts'
 import { ApiApi } from '/@/api/admin/Api'
 import eventBus from '/@/utils/mitt'
+import { t } from '/@/i18n'
 
 defineProps({
   title: {

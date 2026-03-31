@@ -3,12 +3,14 @@
     <el-card class="my-fill mt8" shadow="never">
       <el-table v-loading="state.loading" :data="state.cacheListData" row-key="id" style="width: 100%" border>
         <el-table-column type="index" width="82" label="#" />
-        <el-table-column prop="description" label="缓存名" />
-        <el-table-column prop="name" label="键名" />
-        <el-table-column prop="value" label="键值" />
-        <el-table-column label="操作" width="180" fixed="right" header-align="center" align="center">
+        <el-table-column prop="description" :label="t('缓存名')" />
+        <el-table-column prop="name" :label="t('键名')" />
+        <el-table-column prop="value" :label="t('键值')" />
+        <el-table-column :label="t('操作')" width="180" fixed="right" header-align="center" align="center">
           <template #default="{ row }">
-            <el-button v-auth="'api:admin:cache:clear'" icon="ele-Brush" text type="danger" @click="onClear(row)">清除</el-button>
+            <el-button auto-insert-space v-auth="'api:admin:cache:clear'" icon="ele-Brush" text type="danger" @click="onClear(row)">{{
+              t('清除')
+            }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -18,6 +20,7 @@
 
 <script lang="ts" setup name="admin/cache">
 import { CacheApi } from '/@/api/admin/Cache'
+import { t } from '/@/i18n'
 
 const { proxy } = getCurrentInstance() as any
 
@@ -48,7 +51,7 @@ const onQuery = async () => {
 
 const onClear = (row: any) => {
   proxy.$modal
-    .confirmDelete(`确定要清除【${row.description}】缓存?`, { icon: 'ele-Brush' })
+    .confirmDelete(t('确定要清除【{name}】缓存?', { name: row.description }), { icon: 'ele-Brush' })
     .then(async () => {
       await new CacheApi().clear({ cacheKey: row.value }, { loading: true, showSuccessMessage: true })
       onQuery()

@@ -13,16 +13,16 @@
       <el-form ref="formRef" :model="form" label-width="80px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="姓名" prop="name" :rules="[{ required: true, message: '请输入姓名', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('姓名')" prop="name" :rules="[{ required: true, message: t('请输入姓名'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.name" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item
-              label="手机号"
+              :label="t('手机号')"
               prop="mobile"
               :rules="[
-                { required: true, message: '请输入手机号', trigger: ['blur', 'change'] },
+                { required: true, message: t('请输入手机号'), trigger: ['blur', 'change'] },
                 { validator: testMobile, trigger: ['blur', 'change'] },
               ]"
             >
@@ -30,11 +30,11 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="部门" prop="orgIds" :rules="[{ required: true, message: '请选择部门', trigger: ['change'] }]">
+            <el-form-item :label="t('部门')" prop="orgIds" :rules="[{ required: true, message: t('请选择部门'), trigger: ['change'] }]">
               <el-tree-select
                 ref="orgTreeSelectRef"
                 v-model="form.orgIds"
-                placeholder="请选择部门"
+                :placeholder="t('请选择部门')"
                 :data="state.orgTreeData"
                 node-key="id"
                 :props="{ label: 'name' }"
@@ -52,14 +52,14 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="主属部门" prop="orgId" :rules="[{ required: true, message: '请选择主属部门', trigger: ['change'] }]">
-              <el-select v-model="form.orgId" placeholder="请选择主属部门" class="w100">
+            <el-form-item :label="t('主属部门')" prop="orgId" :rules="[{ required: true, message: t('请选择主属部门'), trigger: ['change'] }]">
+              <el-select v-model="form.orgId" :placeholder="t('请选择主属部门')" class="w100">
                 <el-option v-for="item in state.orgs" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="账号" prop="userName" :rules="[{ required: true, message: '请输入账号', trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('账号')" prop="userName" :rules="[{ required: true, message: t('请输入账号'), trigger: ['blur', 'change'] }]">
               <el-input v-model="form.userName" autocomplete="off" />
             </el-form-item>
           </el-col>
@@ -67,8 +67,9 @@
             <el-form-item prop="password" :rules="[{ validator: validatorPwd, trigger: ['blur', 'change'] }]">
               <template #label>
                 <div class="my-flex-y-center">
-                  密码<el-tooltip effect="dark" placement="top" hide-after="0">
-                    <template #content>选填，不填则使用系统默认密码<br />字母+数字+可选特殊字符，长度在6-16之间</template>
+                  {{ t('密码') }}
+                  <el-tooltip effect="dark" placement="top" hide-after="0">
+                    <template #content>{{ t('选填，不填则使用系统默认密码') }}<br />{{ t('字母+数字+可选特殊字符，长度在6-16之间') }}</template>
                     <SvgIcon name="ele-InfoFilled" class="ml5" />
                   </el-tooltip>
                 </div>
@@ -76,7 +77,7 @@
               <el-input
                 key="password"
                 v-model="form.password"
-                placeholder="选填，不填则使用系统默认密码"
+                :placeholder="t('选填，不填则使用系统默认密码')"
                 @input="onInputPwd"
                 show-password
                 autocomplete="off"
@@ -84,15 +85,15 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="直属主管" prop="managerUserId">
+            <el-form-item :label="t('直属主管')" prop="managerUserId">
               <my-select-user v-model="form.managerUserId" :name="form.managerUserName" clearable></my-select-user>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="角色" prop="roles">
+            <el-form-item :label="t('角色')" prop="roles">
               <el-tree-select
                 v-model="form.roleIds"
-                placeholder="请选择角色"
+                :placeholder="t('请选择角色')"
                 :data="state.roleTreeData"
                 node-key="id"
                 :props="{ label: 'name' }"
@@ -109,18 +110,18 @@
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="span" :md="span" :lg="span" :xl="span">
-            <el-form-item label="邮箱" prop="email" :rules="[{ validator: testEmail, trigger: ['blur', 'change'] }]">
+            <el-form-item :label="t('邮箱')" prop="email" :rules="[{ validator: testEmail, trigger: ['blur', 'change'] }]">
               <el-input v-model="form.email" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="职位">
+            <el-form-item :label="t('职位')">
               <el-input v-model="form.staff.position" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
-            <el-form-item label="性别">
-              <el-select v-model="form.staff.sex" placeholder="请选择性别" class="w100">
+            <el-form-item :label="t('性别')">
+              <el-select v-model="form.staff.sex" :placeholder="t('请选择性别')" class="w100">
                 <el-option label="" :value="undefined" />
                 <el-option v-for="item in state.sexList" :key="item.label" :label="item.label" :value="item.value" />
               </el-select>
@@ -130,8 +131,8 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="onCancel">取 消</el-button>
-          <el-button type="primary" @click="onSure" :loading="state.sureLoading">确 定</el-button>
+          <el-button auto-insert-space @click="onCancel">{{ t('取消') }}</el-button>
+          <el-button auto-insert-space type="primary" @click="onSure" :loading="state.sureLoading">{{ t('确定') }}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -152,6 +153,7 @@ import { FormInstance } from 'element-plus'
 import { verifyCnAndSpace } from '/@/utils/toolsValidate'
 import { Sex } from '/@/api/admin/enum-contracts'
 import { toOptionsByValue } from '/@/utils/enum'
+import { t } from '/@/i18n'
 
 // 引入组件
 const MySelectUser = defineAsyncComponent(() => import('./my-select-user.vue'))
