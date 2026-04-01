@@ -325,8 +325,8 @@ watch(
       position: absolute;
       left: 50%;
       top: 2px;
-      height: 44px;
-      width: 65px;
+      height: 50px;
+      width: 90%;
       transform: translateX(-50%);
       z-index: 0;
       transition: 0.3s ease-in-out;
@@ -335,7 +335,6 @@ watch(
     .columns-card {
       @extend .columns-round;
       top: 0;
-      height: 50px;
       width: 100%;
       border-radius: 0;
     }
