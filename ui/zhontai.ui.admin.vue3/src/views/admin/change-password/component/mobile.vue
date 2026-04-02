@@ -13,7 +13,7 @@
         <el-input
           ref="phoneRef"
           text
-          :placeholder="$t('message.mobile.placeholder1')"
+          :placeholder="$t('请输入手机号')"
           maxlength="11"
           v-model="form.mobile"
           clearable

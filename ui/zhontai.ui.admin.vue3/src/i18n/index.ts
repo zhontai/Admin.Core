@@ -73,10 +73,9 @@ export const i18n = createI18n({
   fallbackLocale: zhcnLocale.name,
   messages,
   fallbackFormat: true,
-  missing: (locale, key) => {
-    // 只返回最后一段
-    return key?.split('.')?.pop()
-  },
+  // missing: (locale, key) => {
+  //   return key
+  // },
 })
 
 export const t = i18n.global.t

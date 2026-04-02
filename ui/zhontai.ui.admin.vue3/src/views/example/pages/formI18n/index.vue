@@ -11,18 +11,18 @@
       <el-form :model="state.form" label-width="100px" class="mt35 mb35">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="mb20">
-            <el-form-item :label="$t('message.formI18nLabel.name')">
-              <el-input v-model="state.form.name" :placeholder="$t('message.formI18nPlaceholder.name')" clearable></el-input>
+            <el-form-item :label="$t('姓名')">
+              <el-input v-model="state.form.name" :placeholder="$t('请输入姓名')" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="mb20">
-            <el-form-item :label="$t('message.formI18nLabel.email')">
-              <el-input v-model="state.form.email" :placeholder="$t('message.formI18nPlaceholder.email')" clearable></el-input>
+            <el-form-item :label="$t('用户归属部门')">
+              <el-input v-model="state.form.email" :placeholder="$t('请输入用户归属部门')" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" class="mb20">
-            <el-form-item :label="$t('message.formI18nLabel.autograph')">
-              <el-input v-model="state.form.autograph" :placeholder="$t('message.formI18nPlaceholder.autograph')" clearable></el-input>
+            <el-form-item :label="$t('登陆账户名')">
+              <el-input v-model="state.form.autograph" :placeholder="$t('请输入登陆账户名')" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>

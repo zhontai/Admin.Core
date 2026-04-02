@@ -7,7 +7,7 @@
     <div class="font12 mt20 login-msg">
       <i class="iconfont icon-saoyisao mr5"></i>
       <span>{{ $t('打开 QQ 扫一扫，加入Admin开发交流群') }}</span>
-      <!-- <span>{{ $t('message.scan.text') }}</span> -->
+      <!-- <span>{{ $t('打开手机扫一扫，快速登录/注册') }}</span> -->
     </div>
   </div>
 </template>

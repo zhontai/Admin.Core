@@ -1,11 +1,11 @@
 <template>
   <div class="el-menu-horizontal-warp">
-    <el-menu router :default-active="state.defaultActive" background-color="transparent" mode="horizontal">
+    <el-menu :class="menuSize" router :default-active="state.defaultActive" background-color="transparent" mode="horizontal">
       <template v-for="val in menuLists">
         <el-sub-menu :index="val.path" v-if="val.children && val.children.length > 0" :key="val.path">
           <template #title>
             <SvgIcon :name="val.meta.icon" />
-            <span>{{ $t(val.meta.title) }}</span>
+            <span class="my-line-1">{{ $t(val.meta.title) }}</span>
           </template>
           <SubItem :chil="val.children" />
         </el-sub-menu>
@@ -59,6 +59,10 @@ const { themeConfig } = storeToRefs(storesThemeConfig)
 const route = useRoute()
 const state = reactive({
   defaultActive: '' as string | undefined,
+})
+
+const menuSize = computed(() => {
+  return 'el-menu--' + themeConfig.value.globalComponentSize
 })
 
 // 获取父级菜单数据

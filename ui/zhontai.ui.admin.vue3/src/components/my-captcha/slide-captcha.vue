@@ -131,7 +131,7 @@ const props = defineProps({
   },
   text: {
     type: String,
-    default: '按住滑块拖动',
+    default: () => t('按住滑块拖动'),
   },
   progressBarBg: {
     type: String,
@@ -139,11 +139,11 @@ const props = defineProps({
   },
   successTip: {
     type: String,
-    default: '验证通过',
+    default: () => t('验证通过'),
   },
   failTip: {
     type: String,
-    default: '验证未通过，拖动滑块将悬浮图像正确合并',
+    default: () => t('验证未通过，拖动滑块将悬浮图像正确合并'),
   },
   showRefresh: {
     type: Boolean,

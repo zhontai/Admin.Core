@@ -75,8 +75,36 @@
   width: 220px;
 }
 .el-menu-item {
-  height: 56px !important;
-  line-height: 56px !important;
+  --el-menu-item-height: 48px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+}
+.el-menu--large {
+  .el-menu-item {
+    height: 56px !important;
+    line-height: 56px !important;
+  }
+  .el-sub-menu__title {
+    --el-menu-item-height: 56px !important;
+  }
+}
+.el-menu--default {
+  .el-menu-item {
+    height: 48px !important;
+    line-height: 48px !important;
+  }
+  .el-sub-menu__title {
+    --el-menu-item-height: 48px !important;
+  }
+}
+.el-menu--small {
+  .el-menu-item {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
+  .el-sub-menu__title {
+    --el-menu-item-height: 40px !important;
+  }
 }
 .el-menu-item,
 .el-sub-menu__title {

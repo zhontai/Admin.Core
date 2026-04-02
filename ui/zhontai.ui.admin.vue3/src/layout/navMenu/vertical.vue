@@ -6,12 +6,13 @@
     :collapse="state.isCollapse"
     :unique-opened="getThemeConfig.isUniqueOpened"
     :collapse-transition="false"
+    :class="menuSize"
   >
     <template v-for="val in menuLists">
       <el-sub-menu :index="val.path" v-if="val.children && val.children.length > 0" :key="val.path">
         <template #title>
           <SvgIcon :name="val.meta.icon" />
-          <span>{{ $t(val.meta.title) }}</span>
+          <span class="my-line-1">{{ $t(val.meta.title) }}</span>
         </template>
         <SubItem :chil="val.children" />
       </el-sub-menu>
@@ -19,7 +20,7 @@
         <el-menu-item :index="val.path" :key="val.path">
           <SvgIcon :name="val.meta.icon" />
           <template #title v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)">
-            <span>{{ $t(val.meta.title) }}</span>
+            <span class="my-line-1">{{ $t(val.meta.title) }}</span>
           </template>
           <template #title v-else>
             <a class="w100" @click.prevent="onALinkClick(val)">{{ $t(val.meta.title) }}</a>
@@ -55,6 +56,10 @@ const route = useRoute()
 const state = reactive({
   defaultActive: route.meta.isDynamic ? route.meta.isDynamicPath : route.path,
   isCollapse: false,
+})
+
+const menuSize = computed(() => {
+  return 'el-menu--' + themeConfig.value.globalComponentSize
 })
 
 // 获取父级菜单数据

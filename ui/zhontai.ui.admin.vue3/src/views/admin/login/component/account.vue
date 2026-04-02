@@ -8,14 +8,7 @@
         prop="userName"
         :rules="[{ required: true, message: t('请输入账号'), trigger: ['blur', 'change'] }]"
       >
-        <el-input
-          text
-          :placeholder="$t('message.account.accountPlaceholder1')"
-          v-model="state.ruleForm.userName"
-          clearable
-          autocomplete="off"
-          @keyup.enter="onSignIn"
-        >
+        <el-input text :placeholder="$t('请输入账号')" v-model="state.ruleForm.userName" clearable autocomplete="off" @keyup.enter="onSignIn">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-User /></el-icon>
           </template>
@@ -33,7 +26,7 @@
         <el-input
           ref="phoneRef"
           text
-          :placeholder="$t('message.mobile.placeholder1')"
+          :placeholder="$t('请输入手机号')"
           maxlength="11"
           v-model="state.ruleForm.mobile"
           clearable
@@ -57,7 +50,7 @@
         <el-input
           ref="phoneRef"
           text
-          :placeholder="$t('message.email.placeholder1')"
+          :placeholder="$t('请输入邮箱地址')"
           v-model="state.ruleForm.email"
           clearable
           autocomplete="off"
@@ -69,13 +62,7 @@
         </el-input>
       </el-form-item>
       <el-form-item class="login-animation2" prop="password" :rules="[{ required: true, message: t('请输入密码'), trigger: ['blur', 'change'] }]">
-        <el-input
-          :placeholder="$t('message.account.accountPlaceholder2')"
-          v-model="state.ruleForm.password"
-          show-password
-          autocomplete="off"
-          @keyup.enter="onSignIn"
-        >
+        <el-input :placeholder="$t('请输入密码')" v-model="state.ruleForm.password" show-password autocomplete="off" @keyup.enter="onSignIn">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Key /></el-icon>
           </template>
@@ -97,7 +84,7 @@
           :disabled="state.disabled.signIn"
           :loading="state.loading.signIn"
         >
-          <span>{{ $t('message.account.accountBtnText') }}</span>
+          <span>{{ $t('登 录') }}</span>
         </el-button>
       </el-form-item>
       <div
@@ -281,7 +268,7 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
       // 添加 loading，防止第一次进入界面时出现短暂空白
       NextLoading.start()
       // 登录成功提示
-      const signInText = t('message.signInText')
+      const signInText = t('欢迎回来！')
       ElMessage.success(`${currentTimeInfo}，${signInText}`)
     }
   }

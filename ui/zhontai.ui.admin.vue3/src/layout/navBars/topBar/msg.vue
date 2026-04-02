@@ -9,7 +9,7 @@
 
     <div class="my-flex-column msg-box">
       <div class="my-flex my-flex-between msg-tools">
-        <el-segmented v-model="state.isRead" :options="state.segmentedOptions" @change="onQuery" />
+        <el-segmented v-model="state.isRead" :options="segmentedOptions" @change="onQuery" />
         <el-button v-if="!isEmpty" icon="ele-CircleCheck" link type="primary" :loading="state.loadingSetAllRead" @click="onSetAllRead">
           {{ t('全部已读') }}
         </el-button>
@@ -49,16 +49,6 @@ const state = reactive({
   loading: false,
   isRead: null,
   loadingSetAllRead: false,
-  segmentedOptions: [
-    {
-      label: t('全部'),
-      value: null,
-    },
-    {
-      label: t('未读'),
-      value: false,
-    },
-  ],
   pageInput: {
     currentPage: 1,
     pageSize: 20,
@@ -70,6 +60,19 @@ const state = reactive({
   } as PageInputSiteMsgGetPageInput,
   total: 0,
   msgList: [] as SiteMsgGetPageOutput[],
+})
+
+const segmentedOptions = computed(() => {
+  return [
+    {
+      label: t('全部'),
+      value: null,
+    },
+    {
+      label: t('未读'),
+      value: false,
+    },
+  ]
 })
 
 const isEmpty = computed(() => {

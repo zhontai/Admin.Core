@@ -5,7 +5,7 @@
         <el-autocomplete
           v-model="state.menuQuery"
           :fetch-suggestions="menuSearch"
-          :placeholder="$t('message.user.searchPlaceholder')"
+          :placeholder="$t('菜单搜索：支持中文、路由路径')"
           ref="layoutMenuAutocompleteRef"
           @select="onHandleSelect"
           :fit-input-width="true"

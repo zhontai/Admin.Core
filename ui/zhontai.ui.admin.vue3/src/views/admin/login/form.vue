@@ -87,17 +87,17 @@ const loginMethods = [
   {
     icon: 'ele-User',
     name: accountComponentName,
-    title: 'message.label.one1',
+    title: '账号登录',
   },
   {
     icon: 'ele-Iphone',
     name: mobileComponentName,
-    title: 'message.label.two2',
+    title: '手机登录',
   },
   {
     icon: 'ele-Message',
     name: emailComponentName,
-    title: 'message.label.two3',
+    title: '邮箱登录',
   },
   {
     svg: 'qq',

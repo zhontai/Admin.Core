@@ -13,7 +13,7 @@
         <el-input
           ref="phoneRef"
           text
-          :placeholder="$t('message.mobile.placeholder1')"
+          :placeholder="$t('请输入手机号')"
           maxlength="11"
           v-model="state.ruleForm.mobile"
           clearable
@@ -31,7 +31,7 @@
 
       <el-form-item class="login-animation3 mb12">
         <el-button round type="primary" v-waves class="login-content-submit" @click="onSignIn" :loading="state.loading.signIn">
-          <span>{{ $t('message.mobile.btnText') }}</span>
+          <span>{{ $t('登 录') }}</span>
         </el-button>
       </el-form-item>
       <div class="login-animation4 f12 mt10">
@@ -152,7 +152,7 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
         router.push('/')
       }
       // 登录成功提示
-      const signInText = t('message.signInText')
+      const signInText = t('欢迎回来！')
       ElMessage.success(`${currentTimeInfo}，${signInText}`)
       // 添加 loading，防止第一次进入界面时出现短暂空白
       NextLoading.start()

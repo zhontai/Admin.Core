@@ -2,19 +2,19 @@
   <div class="layout-navbars-breadcrumb-user pr15" :style="{ flex: layoutUserFlexNum }">
     <el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
       <div class="layout-navbars-breadcrumb-user-icon">
-        <i class="iconfont icon-ziti" :title="$t('message.user.title0')"></i>
+        <i class="iconfont icon-ziti" :title="$t('组件大小')"></i>
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{ $t('message.user.dropdownLarge') }}</el-dropdown-item>
-          <el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{ $t('message.user.dropdownDefault') }}</el-dropdown-item>
-          <el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{ $t('message.user.dropdownSmall') }}</el-dropdown-item>
+          <el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{ $t('大型') }}</el-dropdown-item>
+          <el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{ $t('默认') }}</el-dropdown-item>
+          <el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{ $t('小型') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
     <el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
       <div class="layout-navbars-breadcrumb-user-icon">
-        <i class="iconfont icon-diqiu" :title="$t('message.user.title1')"></i>
+        <i class="iconfont icon-diqiu" :title="$t('语言切换')"></i>
       </div>
       <template #dropdown>
         <el-dropdown-menu>
@@ -25,16 +25,16 @@
       </template>
     </el-dropdown>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
-      <el-icon :title="$t('message.user.title2')">
+      <el-icon :title="$t('菜单搜索')">
         <ele-Search />
       </el-icon>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-      <i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
+      <i class="icon-skin iconfont" :title="$t('布局配置')"></i>
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onMsgClick">
       <el-badge :is-dot="state.unread">
-        <el-icon :title="$t('message.user.title4')">
+          <el-icon :title="$t('消息')">
           <ele-Bell />
         </el-icon>
       </el-badge>
@@ -42,7 +42,7 @@
     <div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
       <i
         class="iconfont"
-        :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+        :title="state.isScreenfull ? $t('关全屏') : $t('开全屏')"
         :class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"
       ></i>
     </div>
@@ -57,9 +57,9 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item command="/platform/workbench">{{ $t('工作台') }}</el-dropdown-item>
-          <el-dropdown-item command="/personal">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
+          <el-dropdown-item command="/personal">{{ $t('个人中心') }}</el-dropdown-item>
           <el-dropdown-item command="/site-msg">{{ $t('站内信') }}</el-dropdown-item>
-          <el-dropdown-item divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
+          <el-dropdown-item divided command="logOut">{{ $t('退出登录') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -141,16 +141,16 @@ const onHandleCommandClick = (path: string) => {
     ElMessageBox({
       closeOnClickModal: false,
       closeOnPressEscape: false,
-      title: t('message.user.logOutTitle'),
-      message: t('message.user.logOutMessage'),
+      title: t('提示'),
+      message: t('此操作将退出登录, 是否继续?'),
       showCancelButton: true,
-      confirmButtonText: t('message.user.logOutConfirm'),
-      cancelButtonText: t('message.user.logOutCancel'),
+      confirmButtonText: t('确定'),
+      cancelButtonText: t('取消'),
       buttonSize: 'default',
       beforeClose: (action, instance, done) => {
         if (action === 'confirm') {
           instance.confirmButtonLoading = true
-          instance.confirmButtonText = t('message.user.logOutExit')
+          instance.confirmButtonText = t('退出中')
           setTimeout(() => {
             done()
             setTimeout(() => {

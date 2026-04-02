@@ -10,7 +10,7 @@
           { validator: testEmail, trigger: ['blur', 'change'] },
         ]"
       >
-        <el-input ref="emailRef" text :placeholder="$t('message.email.placeholder1')" v-model="form.email" clearable autocomplete="off">
+        <el-input ref="emailRef" text :placeholder="$t('请输入邮箱地址')" v-model="form.email" clearable autocomplete="off">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Promotion /></el-icon>
           </template>

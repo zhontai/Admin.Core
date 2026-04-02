@@ -11,21 +11,21 @@
     >
       <div class="upgrade-title">
         <div class="upgrade-title-warp">
-          <span class="upgrade-title-warp-txt">{{ $t('message.upgrade.title') }}</span>
+          <span class="upgrade-title-warp-txt">{{ $t('新版本升级') }}</span>
           <span class="upgrade-title-warp-version">v{{ state.version }}</span>
         </div>
       </div>
       <div class="upgrade-content">
-        {{ getThemeConfig.globalTitle }} {{ $t('message.upgrade.msg') }}
+        {{ getThemeConfig.globalTitle }} {{ $t('新版本来啦，马上更新尝鲜吧！不用担心，更新很快的哦！') }}
         <!-- <div class="mt5">
           <el-link type="primary" class="font12" href="" target="_black">
             CHANGELOG.md
           </el-link>
         </div> -->
-        <div class="upgrade-content-desc mt5">{{ $t('message.upgrade.desc') }}</div>
+        <div class="upgrade-content-desc mt5">{{ $t('提示：更新会还原默认配置') }}</div>
       </div>
       <div class="upgrade-btn">
-        <el-button round type="info" text @click="onCancel">{{ $t('message.upgrade.btnOne') }}</el-button>
+        <el-button round type="info" text @click="onCancel">{{ $t('残忍拒绝') }}</el-button>
         <el-button type="primary" round @click="onUpgrade" :loading="state.isLoading">{{ state.btnTxt }}</el-button>
       </div>
     </el-dialog>
@@ -60,7 +60,7 @@ const onCancel = () => {
 // 马上更新
 const onUpgrade = () => {
   state.isLoading = true
-  state.btnTxt = t('message.upgrade.btnTwoLoading')
+  state.btnTxt = t('更新中')
   setTimeout(() => {
     const storesUseUserInfo = useUserInfo()
     const tokenInfo = storesUseUserInfo.getTokenInfo()
@@ -80,7 +80,7 @@ const delayShow = () => {
 onMounted(() => {
   delayShow()
   setTimeout(() => {
-    state.btnTxt = t('message.upgrade.btnTwo')
+    state.btnTxt = t('马上更新')
   }, 200)
 })
 </script>

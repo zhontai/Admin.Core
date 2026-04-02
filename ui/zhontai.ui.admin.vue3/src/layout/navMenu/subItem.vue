@@ -1,9 +1,9 @@
 <template>
   <template v-for="val in chils">
-    <el-sub-menu :index="val.path" :key="val.path" v-if="val.children && val.children.length > 0">
+    <el-sub-menu :class="menuSize" :index="val.path" :key="val.path" v-if="val.children && val.children.length > 0">
       <template #title>
         <SvgIcon :name="val.meta.icon" />
-        <span>{{ $t(val.meta.title) }}</span>
+        <span class="my-line-1">{{ $t(val.meta.title) }}</span>
       </template>
       <sub-item :chil="val.children" />
     </el-sub-menu>
@@ -11,7 +11,7 @@
       <el-menu-item :index="val.path" :key="val.path">
         <template v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)">
           <SvgIcon :name="val.meta.icon" />
-          <span>{{ $t(val.meta.title) }}</span>
+          <span class="my-line-1">{{ $t(val.meta.title) }}</span>
         </template>
         <template v-else>
           <a class="w100" @click.prevent="onALinkClick(val)">
@@ -27,6 +27,10 @@
 <script setup lang="ts" name="navMenuSubItem">
 import { RouteRecordRaw } from 'vue-router'
 import other from '/@/utils/other'
+import { useThemeConfig } from '/@/stores/themeConfig'
+
+const storesThemeConfig = useThemeConfig()
+const { themeConfig } = storeToRefs(storesThemeConfig)
 
 // 定义父组件传过来的值
 const props = defineProps({
@@ -35,6 +39,10 @@ const props = defineProps({
     type: Array<RouteRecordRaw>,
     default: () => [],
   },
+})
+
+const menuSize = computed(() => {
+  return 'el-menu--' + themeConfig.value.globalComponentSize
 })
 
 // 获取父级菜单数据

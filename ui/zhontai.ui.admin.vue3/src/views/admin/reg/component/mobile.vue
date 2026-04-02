@@ -10,15 +10,7 @@
           { validator: testMobile, trigger: ['blur', 'change'] },
         ]"
       >
-        <el-input
-          ref="phoneRef"
-          text
-          :placeholder="$t('message.mobile.placeholder1')"
-          maxlength="11"
-          v-model="form.mobile"
-          clearable
-          autocomplete="off"
-        >
+        <el-input ref="phoneRef" text :placeholder="$t('请输入手机号')" maxlength="11" v-model="form.mobile" clearable autocomplete="off">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Iphone /></el-icon>
           </template>
@@ -36,7 +28,7 @@
           { validator: validatorPwd, trigger: ['blur', 'change'] },
         ]"
       >
-        <el-input v-model="form.password" :placeholder="t('输入密码')" show-password autocomplete="off" clearable @input="onInputPassword">
+        <el-input v-model="form.password" :placeholder="t('请输入密码')" show-password autocomplete="off" clearable @input="onInputPassword">
           <template #prefix>
             <el-icon class="el-input__icon"><ele-Unlock /></el-icon>
           </template>
