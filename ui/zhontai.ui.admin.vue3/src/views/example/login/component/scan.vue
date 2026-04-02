@@ -1,7 +1,7 @@
 <template>
   <div class="login-scan-container">
     <div ref="qrcodeRef"></div>
-      <div class="font12 mt20 login-msg">
+    <div class="font12 mt20 login-msg">
       <i class="iconfont icon-saoyisao mr5"></i>
       <span>{{ $t('打开手机扫一扫，快速登录/注册') }}</span>
     </div>
@@ -18,7 +18,7 @@ const qrcodeRef = ref<HTMLElement | null>(null)
 // 初始化生成二维码
 const initQrcode = () => {
   nextTick(() => {
-    (<HTMLElement>qrcodeRef.value).innerHTML = ''
+    ;(<HTMLElement>qrcodeRef.value).innerHTML = ''
     new QRCode(qrcodeRef.value, {
       text: `https://qm.qq.com/cgi-bin/qm/qr?k=RdUY97Vx0T0vZ_1OOu-X1yFNkWgDwbjC&jump_from=webapi`,
       width: 260,

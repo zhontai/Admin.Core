@@ -34,7 +34,7 @@
     </div>
     <div class="layout-navbars-breadcrumb-user-icon" @click="onMsgClick">
       <el-badge :is-dot="state.unread">
-          <el-icon :title="$t('消息')">
+        <el-icon :title="$t('消息')">
           <ele-Bell />
         </el-icon>
       </el-badge>
