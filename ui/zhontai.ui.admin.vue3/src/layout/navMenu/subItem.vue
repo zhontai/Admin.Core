@@ -11,7 +11,8 @@
       <el-menu-item :index="val.path" :key="val.path">
         <template v-if="!val.meta.isLink || (val.meta.isLink && val.meta.isIframe)">
           <SvgIcon :name="val.meta.icon" />
-          <span class="my-line-1">{{ $t(val.meta.title) }}</span>
+          <!-- <span class="my-line-1">{{ $t(val.meta.title) }}</span> -->
+          <el-text truncated>{{ $t(val.meta.title) }}</el-text>
         </template>
         <template v-else>
           <a class="w100" @click.prevent="onALinkClick(val)">

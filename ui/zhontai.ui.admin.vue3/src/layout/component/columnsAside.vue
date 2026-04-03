@@ -16,19 +16,18 @@
             }
           "
           :class="{ 'layout-columns-active': state.liIndex === k, 'layout-columns-hover': state.liHoverIndex === k }"
-          :title="$t(v.meta.title)"
         >
           <div :class="themeConfig.columnsAsideLayout" v-if="!v.meta.isLink || (v.meta.isLink && v.meta.isIframe)">
             <SvgIcon :name="v.meta.icon" />
-            <div class="columns-vertical-title font12 my-line-1">
-              {{ $t(v.meta.title) }}
+            <div class="columns-vertical-title">
+              <el-text truncated>{{ $t(v.meta.title) }}</el-text>
             </div>
           </div>
           <div :class="themeConfig.columnsAsideLayout" v-else>
             <a :href="v.meta.isLink" target="_blank">
               <SvgIcon :name="v.meta.icon" />
-              <div class="columns-vertical-title font12 my-line-1">
-                {{ $t(v.meta.title) }}
+              <div class="columns-vertical-title">
+                <el-text truncated>{{ $t(v.meta.title) }}</el-text>
               </div>
             </a>
           </div>
@@ -283,13 +282,18 @@ watch(
       z-index: 1;
       &:hover {
         @extend .layout-columns-hover;
+        .el-text {
+          color: var(--el-color-primary);
+        }
       }
       .columns-vertical {
         margin: auto;
+        width: 100%;
         .columns-vertical-title {
           padding-top: 1px;
           padding-left: 5px;
           padding-right: 5px;
+          width: 100%;
         }
       }
       .columns-horizontal {
