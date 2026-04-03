@@ -264,6 +264,9 @@ watch(
     .layout-columns-active a {
       color: var(--next-color-columnsMenuBarActiveColor) !important;
       transition: 0.3s ease-in-out;
+      .el-text {
+        color: var(--next-color-columnsMenuBarActiveColor) !important;
+      }
     }
     .layout-columns-hover {
       color: var(--el-color-primary);

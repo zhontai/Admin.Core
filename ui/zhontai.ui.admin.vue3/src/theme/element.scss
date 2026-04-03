@@ -142,6 +142,11 @@
 .el-sub-menu.is-active.is-opened .el-sub-menu__title {
   background-color: unset !important;
 }
+.el-menu-item.is-active {
+  .el-text {
+    color: var(--el-menu-active-color);
+  }
+}
 // 子级菜单背景颜色
 // .el-menu--inline {
 // 	background: var(--next-bg-menuBar-light-1);

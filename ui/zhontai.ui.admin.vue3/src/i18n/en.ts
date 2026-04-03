@@ -1,4 +1,4 @@
-// i18n translation file (Chinese Key → English Value)
+// 中文作为 key 的英文翻译
 export default {
   '10月': 'October',
   '11月': 'November',
