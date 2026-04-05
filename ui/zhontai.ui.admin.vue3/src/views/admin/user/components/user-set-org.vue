@@ -67,7 +67,7 @@ const userIds = defineModel('userIds', { type: Array, default: [] })
 defineProps({
   title: {
     type: String,
-    default: '部门转移',
+    default: () => t('部门转移'),
   },
 })
 

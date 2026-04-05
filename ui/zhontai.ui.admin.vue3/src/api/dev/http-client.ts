@@ -14,6 +14,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults, RawAxiosRequ
 import { ElLoading, ElMessage, LoadingOptions } from 'element-plus'
 import { AuthApi } from '/@/api/admin/Auth'
 import { useUserInfo } from '/@/stores/userInfo'
+import { t } from '/@/i18n'
 
 export type QueryParamsType = Record<string | number, any>
 
@@ -367,11 +368,11 @@ export class HttpClient<SecurityDataType = unknown> {
         const data = res.data
         if (data.success) {
           if (showSuccessMessage) {
-            ElMessage.success({ message: data.msg ? data.msg : '操作成功', grouping: true })
+            ElMessage.success({ message: data.msg ? data.msg : t('操作成功'), grouping: true })
           }
         } else {
           if (showErrorMessage) {
-            ElMessage.error({ message: data.msg ? data.msg : '操作失败', grouping: true })
+            ElMessage.error({ message: data.msg ? data.msg : t('操作失败'), grouping: true })
           }
         }
 
