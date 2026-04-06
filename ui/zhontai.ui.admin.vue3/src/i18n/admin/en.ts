@@ -1043,4 +1043,6 @@ export default {
   参考样例: 'Reference Examples',
   操作成功: 'Operation successful',
   操作失败: 'Operation failed',
+  后台权限管理框架: 'Backend Permission Management Framework',
+  Cron表达式生成器: 'Cron Expression Generator',
 }

@@ -5,8 +5,8 @@
         <div class="login-left-logo">
           <img :src="logoMini" />
           <div class="login-left-logo-text">
-            <span>{{ getThemeConfig.globalViceTitle }}</span>
-            <span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span>
+            <span>{{ t(getThemeConfig.globalViceTitle) }}</span>
+            <span class="login-left-logo-text-msg">{{ t(getThemeConfig.globalViceTitleMsg) }}</span>
           </div>
         </div>
         <div class="login-left-img">
@@ -34,6 +34,7 @@ import { useThemeConfig } from '/@/stores/themeConfig'
 import { NextLoading } from '/@/utils/loading'
 import logoMini from '/@/assets/logo-mini.svg'
 import loginMain from '/@/assets/login-main.svg'
+import { t } from '/@/i18n'
 
 const LoginForm = defineAsyncComponent(() => import('./form.vue'))
 

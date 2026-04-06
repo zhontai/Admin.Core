@@ -16,7 +16,7 @@ import { t } from '/@/i18n'
 defineProps({
   title: {
     type: String,
-    default: 'Cron表达式生成器',
+    default: () => t('Cron表达式生成器'),
   },
 })
 

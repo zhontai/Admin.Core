@@ -1,7 +1,7 @@
 <template>
   <div class="layout-logo" v-if="setShowLogo" @click="onThemeConfigChange">
     <img v-if="showLogoMini" :src="logoMini" class="layout-logo-medium-img" />
-    <span class="my-line-1">{{ themeConfig.globalTitle }}</span>
+    <span class="my-line-1">{{ t(themeConfig.globalTitle) }}</span>
   </div>
   <div class="layout-logo-size" v-else @click="onThemeConfigChange">
     <img v-if="showLogoMini" :src="logoMini" class="layout-logo-size-img" />
@@ -11,6 +11,7 @@
 <script setup lang="ts" name="layoutLogo">
 import { useThemeConfig } from '/@/stores/themeConfig'
 import logoMini from '/@/assets/logo-mini.svg'
+import { t } from '/@/i18n'
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig()
