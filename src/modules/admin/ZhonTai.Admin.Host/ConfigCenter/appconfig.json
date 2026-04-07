@@ -133,14 +133,14 @@
     },
     //语言配置
     "Lang": {
-      //启用Json配置
+      //启用
       "EnableJson": true,
       //默认语言
       "DefaultLang": "zh-CN",
       //语言列表
       "Langs": [ "zh-CN", "en" ],
       //语言请求解析列表
-      "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
+      "RequestCultureProviders": [ "AcceptLanguageHeader" ] //["QueryString","Cookie","AcceptLanguageHeader"]
     },
     //IP地址定位
     "IP2Region": {
