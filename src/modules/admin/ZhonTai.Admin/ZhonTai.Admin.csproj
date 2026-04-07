@@ -6,6 +6,9 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <Content Include="Resources\Resources.AdminLocalizer.zh-TW.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\Resources.AdminLocalizer.en.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>

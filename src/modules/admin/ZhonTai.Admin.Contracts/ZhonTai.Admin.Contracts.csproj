@@ -10,6 +10,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Include="Resources\Resources.AdminContractsLocalizer.zh-TW.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Resources\Resources.AdminContractsLocalizer.en.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
