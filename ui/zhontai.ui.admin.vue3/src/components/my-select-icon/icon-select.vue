@@ -69,7 +69,7 @@ const props = defineProps({
   // 自定义空状态描述文字
   emptyDescription: {
     type: String,
-    default: () => '无相关图标',
+    default: () => t('无相关图标'),
   },
   modelValue: {
     type: String as PropType<string | undefined | null>,

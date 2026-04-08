@@ -2,7 +2,7 @@
   <el-dialog
     v-model="state.showDialog"
     destroy-on-close
-    :title="title"
+    :title="title || t('用户回收站')"
     append-to-body
     draggable
     :close-on-click-modal="false"
@@ -73,10 +73,10 @@ import { UserApi } from '/@/api/admin/User'
 import eventBus from '/@/utils/mitt'
 import { t } from '/@/i18n'
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
-    default: '用户回收站',
+    default: '',
   },
   sureLoading: {
     type: Boolean,

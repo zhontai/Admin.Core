@@ -29,9 +29,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
             <el-form-item :label="t('状态')" prop="status" :rules="[{ required: true, message: t('请选择状态'), trigger: ['change'] }]">
-              <el-select v-model="form.status" :placeholder="t('请选择状态')" class="w100">
-                <el-option v-for="item in state.msgStatusList" :key="item.label" :label="item.label" :value="item.value" />
-              </el-select>
+              <el-select v-model="form.status" :options="msgStatusList" :placeholder="t('请选择状态')" class="w100"> </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -92,8 +90,9 @@ const state = reactive({
   form: { content: '' } as MsgUpdateInput,
   msgTypeTreeData: [] as MsgTypeGetListOutput[],
   v: null,
-  msgStatusList: toOptionsByValue(MsgStatusEnum),
 })
+
+const msgStatusList = computed(() => toOptionsByValue(MsgStatusEnum))
 
 const { proxy } = getCurrentInstance() as any
 

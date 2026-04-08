@@ -134,8 +134,15 @@ if (props.fields && props.fields.length > 0) {
 
 // 获得操作符列表
 const getOperators = (type: any = 'string') => {
-  const ops = operatorGroups[type as keyof typeof operatorGroups]
-  return ops && ops.length > 0 ? ops : operatorGroups['string']
+  let ops = operatorGroups[type as keyof typeof operatorGroups]
+  ops = ops && ops.length > 0 ? ops : operatorGroups['string']
+  ops = ops.map((op: any) => {
+    return {
+      label: t(op.label),
+      value: op.value,
+    }
+  })
+  return ops
 }
 
 // 获取默认操作符

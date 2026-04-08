@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="state.showDialog" direction="rtl" destroy-on-close :size="size" resizable>
     <template #header="{ titleId, titleClass }">
-      <h4 :id="titleId" :class="titleClass">{{ title }}</h4>
+      <h4 :id="titleId" :class="titleClass">{{ title || t('Json编辑器') }}</h4>
       <el-icon v-if="state.isFull" class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('还原')"><ele-CopyDocument /></el-icon>
       <el-icon v-else class="el-drawer__btn" @click="state.isFull = !state.isFull" :title="t('最大化')"><ele-FullScreen /></el-icon>
     </template>
@@ -23,10 +23,10 @@
 import MyJsonEditor from '/@/components/my-json-editor/index.vue'
 import { t } from '/@/i18n'
 
-defineProps({
+const props = defineProps({
   title: {
     type: String,
-    default: 'Json编辑器',
+    default: '',
   },
 })
 
@@ -49,7 +49,7 @@ const size = computed(() => {
 const onJsonShell = () => {
   state.topic = '[shell]'
   state.content = `{
-  "desc": "任务描述",
+  "desc": "${t('任务描述')}",
   "arguments": "-plaintext -d \\"{ \\\\\\"id\\\\\\": 1 }\\" \${grpcAddress} YourNamespace.YourGrpcService/YourMethod",
   "moduleName": "YourModuleName"
 }`

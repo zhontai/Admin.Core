@@ -81,3 +81,5 @@ export const i18n = createI18n({
 export const t = i18n.global.t
 
 export const locale = i18n.global.locale
+
+export const lang = computed(() => (locale.value === 'zh-cn' ? 'zh-CN' : locale.value === 'zh-tw' ? 'zh-TW' : locale.value))

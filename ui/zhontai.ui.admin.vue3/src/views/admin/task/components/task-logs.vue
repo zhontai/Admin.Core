@@ -71,7 +71,7 @@ const state = reactive({
 })
 
 const size = computed(() => {
-  return state.isMobile ? '100%' : state.isFull ? '100%' : '50%'
+  return state.isMobile ? '100%' : state.isFull ? '100%' : '80%'
 })
 
 const formatterTime = (row: any, column: any, cellValue: any) => {

@@ -9,20 +9,13 @@
           <el-input v-model="state.filter.name" :placeholder="t('地区名')" @keyup.enter="onQuery" />
         </el-form-item>
         <el-form-item :label="t('类型')" prop="level">
-          <el-select v-model="state.filter.level" empty-values="[null]" style="width: 100px" @change="onQuery">
-            <el-option :label="t('全部')" :value="undefined" />
-            <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
-          </el-select>
+          <el-select v-model="state.filter.level" :options="regionLevelList" style="width: 100px" @change="onQuery"> </el-select>
         </el-form-item>
         <el-form-item :label="t('状态')" prop="enabled">
-          <el-select v-model="state.filter.enabled" :empty-values="[null]" style="width: 100px" @change="onQuery">
-            <el-option v-for="item in statusList" :key="item.name" :label="item.name" :value="item.value" />
-          </el-select>
+          <el-select v-model="state.filter.enabled" :options="statusList" style="width: 100px" @change="onQuery"> </el-select>
         </el-form-item>
         <el-form-item :label="t('热门')" prop="hot">
-          <el-select v-model="state.filter.hot" :empty-values="[null]" style="width: 100px" @change="onQuery">
-            <el-option v-for="item in hotList" :key="item.name" :label="item.name" :value="item.value" />
-          </el-select>
+          <el-select v-model="state.filter.hot" :options="hotList" style="width: 100px" @change="onQuery"> </el-select>
         </el-form-item>
         <el-form-item>
           <el-button auto-insert-space type="primary" icon="ele-Search" @click="onQuery">{{ t('查询') }}</el-button>
@@ -167,7 +160,6 @@ const state = reactive({
   },
   formTitle: '',
   total: 0,
-  regionLevelList: toOptionsByValue(RegionLevelEnum),
   filter: {
     parentId: undefined as number | undefined,
     name: '',
@@ -182,16 +174,18 @@ const state = reactive({
   dataList: [] as Array<RegionGetPageOutput>,
 })
 
+const regionLevelList = computed(() => toOptionsByValue(RegionLevelEnum, { includeAll: true }))
+
 const statusList = computed(() => [
-  { name: t('全部'), value: undefined },
-  { name: t('启用'), value: true },
-  { name: t('禁用'), value: false },
+  { label: t('全部'), value: undefined },
+  { label: t('启用'), value: true },
+  { label: t('禁用'), value: false },
 ])
 
 const hotList = computed(() => [
-  { name: t('全部'), value: undefined },
-  { name: t('是'), value: true },
-  { name: t('否'), value: false },
+  { label: t('全部'), value: undefined },
+  { label: t('是'), value: true },
+  { label: t('否'), value: false },
 ])
 
 onMounted(async () => {

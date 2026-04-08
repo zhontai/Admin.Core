@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider :size="getGlobalComponentSize" :locale="getGlobalI18n">
+  <el-config-provider :size="getGlobalComponentSize" :locale="getGlobalI18n" :value-on-clear="undefined" :empty-values="['', null]">
     <router-view v-show="getLockScreen" />
     <LockScreen v-if="themeConfig.isLockScreen" />
     <Setings ref="setingsRef" v-show="getLockScreen" />

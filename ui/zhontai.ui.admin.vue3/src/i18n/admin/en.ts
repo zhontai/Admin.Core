@@ -1045,4 +1045,9 @@ export default {
   操作失败: 'Operation failed',
   后台权限管理框架: 'Backend Permission Management Framework',
   Cron表达式生成器: 'Cron Expression Generator',
+  用户回收站: 'User Recycle Bin',
+  Json编辑器: 'Json Editor',
+  任务描述: 'Task Description',
+  '请输入内容...': 'Please enter content...',
+  无相关图标: 'No related icons',
 }

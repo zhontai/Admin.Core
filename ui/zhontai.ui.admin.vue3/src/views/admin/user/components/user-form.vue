@@ -121,10 +121,7 @@
           </el-col>
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">
             <el-form-item :label="t('性别')">
-              <el-select v-model="form.staff.sex" :placeholder="t('请选择性别')" class="w100">
-                <el-option label="" :value="undefined" />
-                <el-option v-for="item in state.sexList" :key="item.label" :label="item.label" :value="item.value" />
-              </el-select>
+              <el-select v-model="form.staff.sex" :options="sexList" :placeholder="t('请选择性别')" class="w100"> </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -180,8 +177,10 @@ const state = reactive({
   orgs: [] as any,
   orgTreeData: [] as OrgGetListOutput[],
   roleTreeData: [] as RoleGetListOutput[],
-  sexList: toOptionsByValue(Sex),
 })
+
+const sexList = computed(() => toOptionsByValue(Sex, { includeAll: true, allOption: { label: '', value: undefined } }))
+
 const { form } = toRefs(state)
 
 const isUpdate = computed(() => {

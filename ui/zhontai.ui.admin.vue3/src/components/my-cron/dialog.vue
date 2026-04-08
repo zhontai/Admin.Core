@@ -1,5 +1,5 @@
 <template>
-  <el-drawer v-model="state.showDialog" :title="title" direction="rtl" destroy-on-close size="620">
+  <el-drawer v-model="state.showDialog" :title="title || t('Cron表达式生成器')" direction="rtl" destroy-on-close size="620">
     <div class="my-fill h100" style="padding: 10px">
       <MyCron ref="crontabRef" :expression="expression" :hide-component="['year']"></MyCron>
     </div>
@@ -16,7 +16,7 @@ import { t } from '/@/i18n'
 defineProps({
   title: {
     type: String,
-    default: () => t('Cron表达式生成器'),
+    default: '',
   },
 })
 

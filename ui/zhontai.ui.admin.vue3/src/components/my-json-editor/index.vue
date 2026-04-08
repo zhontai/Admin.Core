@@ -9,7 +9,7 @@ import { mergeWith, isObject } from 'lodash-es'
 import { storeToRefs } from 'pinia'
 import '/@/theme/ace-cloud9-night.scss'
 import { useThemeConfig } from '/@/stores/themeConfig'
-import { t } from '/@/i18n'
+import { lang } from '/@/i18n'
 
 const storesThemeConfig = useThemeConfig()
 const { themeConfig } = storeToRefs(storesThemeConfig)
@@ -50,6 +50,7 @@ onMounted(() => {
       statusBar: true,
       enableSort: false,
       enableTransform: false,
+      language: lang.value,
     },
     customOptions.value || {},
     customizer

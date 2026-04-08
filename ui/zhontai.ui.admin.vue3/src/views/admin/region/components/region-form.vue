@@ -18,9 +18,7 @@
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item :label="t('类型')" prop="level" :rules="[{ required: true, message: t('请选择类型'), trigger: ['change'] }]">
-              <el-select v-model="form.level" :placeholder="t('请选择类型')" class="w100">
-                <el-option v-for="item in state.regionLevelList" :key="item.label" :label="item.label" :value="item.value" />
-              </el-select>
+              <el-select v-model="form.level" :options="regionLevelList" :placeholder="t('请选择类型')" class="w100"> </el-select>
             </el-form-item>
           </el-col>
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -117,12 +115,13 @@ const formRef = useTemplateRef('formRef')
 const state = reactive({
   showDialog: false,
   sureLoading: false,
-  regionLevelList: toOptionsByValue(RegionLevelEnum),
   form: {
     enabled: true,
     hot: false,
   } as RegionUpdateInput & RegionGetOutput,
 })
+
+const regionLevelList = computed(() => toOptionsByValue(RegionLevelEnum))
 
 const { form } = toRefs(state)
 

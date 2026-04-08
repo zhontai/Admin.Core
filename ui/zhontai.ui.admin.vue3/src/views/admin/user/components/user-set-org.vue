@@ -3,7 +3,7 @@
     <el-dialog
       v-model="state.showDialog"
       destroy-on-close
-      :title="title"
+      :title="title || t('部门转移')"
       draggable
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -67,7 +67,7 @@ const userIds = defineModel('userIds', { type: Array, default: [] })
 defineProps({
   title: {
     type: String,
-    default: () => t('部门转移'),
+    default: '',
   },
 })
 

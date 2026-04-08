@@ -19,7 +19,7 @@ import '@wangeditor/editor/dist/css/style.css'
 import { IDomEditor, i18nChangeLanguage, i18nAddResources } from '@wangeditor/editor'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import { FileApi } from '/@/api/admin/File'
-import { t, locale } from '/@/i18n'
+import { t, lang } from '/@/i18n'
 
 type InsertFnType = (url: string, alt: string, href: string) => void
 type InsertVideoFnType = (url: string, poster: string) => void
@@ -34,7 +34,7 @@ const props = defineProps({
   // 内容框默认 placeholder
   placeholder: {
     type: String,
-    default: () => '请输入内容...',
+    default: () => t('请输入内容...'),
   },
   // https://www.wangeditor.com/v5/getting-started.html#mode-%E6%A8%A1%E5%BC%8F
   // 模式，可选 <default|simple>，默认 default
@@ -115,10 +115,8 @@ const handleChange = (editor: IDomEditor) => {
 }
 
 onMounted(() => {
-  if (locale.value === 'en') {
-    i18nChangeLanguage('en')
-  } else if (locale.value === 'zh-tw') {
-    i18nAddResources('zh-TW', {
+  if (lang.value === 'zh-TW') {
+    i18nAddResources(lang.value, {
       editor: {
         more: '更多',
         justify: '對齊',
@@ -247,10 +245,9 @@ onMounted(() => {
         selectLang: '選擇語言',
       },
     })
-    i18nChangeLanguage('zh-TW')
-  } else {
-    i18nChangeLanguage('zh-CN')
   }
+
+  i18nChangeLanguage(lang.value)
 })
 
 // 页面销毁时

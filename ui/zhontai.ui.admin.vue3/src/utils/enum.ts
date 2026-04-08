@@ -1,3 +1,5 @@
+import { t } from '/@/i18n'
+
 type EnumType = {
   [key: string]: {
     name: string
@@ -9,7 +11,14 @@ type EnumType = {
 // 下拉选项的接口
 interface DropdownOption {
   label: string
-  value: string | number
+  value: string | number | undefined
+}
+
+// 下拉选项生成函数的参数接口
+interface DropdownParams {
+  includeUnknown?: boolean // 是否包含 "Unknown" 选项，默认为 false
+  includeAll?: boolean // 是否包含 "全部" 选项，默认为 false
+  allOption?: DropdownOption // 自定义 "全部" 选项，默认为 { label: '全部', value: undefined }
 }
 
 /** 根据枚举 name 查找描述 */
@@ -28,23 +37,38 @@ export function getDescByValue<T extends EnumType>(enumObj: T, value: T[keyof T]
 }
 
 /** 枚举转换为下拉选项列表（使用值作为value） */
-export function toOptionsByValue<T extends EnumType>(enumObj: T, includeUnknown: boolean = false): DropdownOption[] {
-  return Object.values(enumObj).reduce((options, item) => {
-    if (includeUnknown || item.name !== 'Unknown') {
-      options.push({ label: item.desc, value: item.value })
+export function toOptionsByValue<T extends EnumType>(
+  enumObj: T,
+  params: DropdownParams = { includeUnknown: false, includeAll: false }
+): DropdownOption[] {
+  let options = Object.values(enumObj).reduce((options, item) => {
+    if (params.includeUnknown || item.name !== 'Unknown') {
+      options.push({ label: t(item.desc), value: item.value })
     }
+
     return options
   }, [] as DropdownOption[])
+  if (params.includeAll) {
+    options.unshift(params.allOption || { label: t('全部'), value: undefined })
+  }
+  return options
 }
 
 /** 转换为下拉选项列表（使用名称作为value） */
-export function toOptionsByName<T extends EnumType>(enumObj: T, includeUnknown: boolean = false): DropdownOption[] {
-  return Object.values(enumObj).reduce((options, item) => {
-    if (includeUnknown || item.name !== 'Unknown') {
+export function toOptionsByName<T extends EnumType>(
+  enumObj: T,
+  params: DropdownParams = { includeUnknown: false, includeAll: false }
+): DropdownOption[] {
+  let options = Object.values(enumObj).reduce((options, item) => {
+    if (params.includeUnknown || item.name !== 'Unknown') {
       options.push({ label: item.desc, value: item.name })
     }
     return options
   }, [] as DropdownOption[])
+  if (params.includeAll) {
+    options.unshift(params.allOption || { label: t('全部'), value: undefined })
+  }
+  return options
 }
 
 export default {
