@@ -46,7 +46,7 @@
               :inactive-value="false"
               inline-prompt
               :active-text="t('启用')"
-              in:active-text="t('禁用')"
+              :inactive-text="t('禁用')"
               :before-change="() => onSetEnableLog(row)"
             />
           </template>
@@ -61,7 +61,7 @@
               :inactive-value="false"
               inline-prompt
               :active-text="t('启用')"
-              in:active-text="t('禁用')"
+              :inactive-text="t('禁用')"
               :before-change="() => onSetEnableParams(row)"
             />
           </template>
@@ -76,7 +76,7 @@
               :inactive-value="false"
               inline-prompt
               :active-text="t('启用')"
-              in:active-text="t('禁用')"
+              :inactive-text="t('禁用')"
               :before-change="() => onSetEnableResult(row)"
             />
           </template>

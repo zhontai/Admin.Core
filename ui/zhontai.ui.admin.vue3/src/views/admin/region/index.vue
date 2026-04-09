@@ -92,7 +92,7 @@
               :inactive-value="false"
               inline-prompt
               :active-text="t('是')"
-              in:active-text="t('否')"
+              :inactive-text="t('否')"
               :before-change="() => onSetHot(row)"
             />
             <template v-else>
