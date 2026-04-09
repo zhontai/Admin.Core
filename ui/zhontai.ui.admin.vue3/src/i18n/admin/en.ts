@@ -1050,4 +1050,5 @@ export default {
   任务描述: 'Task Description',
   '请输入内容...': 'Please enter content...',
   无相关图标: 'No related icons',
+  退出中: 'Logging out',
 }
