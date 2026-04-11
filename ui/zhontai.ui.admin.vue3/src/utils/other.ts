@@ -5,8 +5,7 @@ import router from '/@/router/index'
 import pinia from '/@/stores/index'
 import { storeToRefs } from 'pinia'
 import { useThemeConfig } from '/@/stores/themeConfig'
-import { i18n } from '/@/i18n/index'
-import { Local } from '/@/utils/storage'
+import { i18n, t, locale } from '/@/i18n/index'
 import { verifyUrl } from '/@/utils/toolsValidate'
 
 // 引入组件
@@ -34,12 +33,13 @@ export function elSvg(app: App) {
 export function useTitle() {
   const stores = useThemeConfig(pinia)
   const { themeConfig } = storeToRefs(stores)
+  locale.value = themeConfig.value.globalI18n
   nextTick(() => {
     let webTitle = ''
-    let globalTitle: string = themeConfig.value.globalTitle
+    let globalTitle: string = t(themeConfig.value.globalTitle)
     const { path, meta } = router.currentRoute.value
     if (path === '/login') {
-      webTitle = <string>meta.title
+      webTitle = t(<string>meta.title)
     } else {
       webTitle = setTagsViewNameI18n(router.currentRoute.value)
     }
