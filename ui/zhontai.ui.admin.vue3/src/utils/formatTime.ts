@@ -1,3 +1,5 @@
+import { t } from '/@/i18n'
+
 /**
  * 时间日期转换
  * @param date 当前时间，new Date() 格式
@@ -24,25 +26,28 @@ export function formatDate(date: Date, format: string): string {
   }
   // 中文数字 (星期)
   const week: { [key: string]: string } = {
-    '0': '日',
-    '1': '一',
-    '2': '二',
-    '3': '三',
-    '4': '四',
-    '5': '五',
-    '6': '六',
+    '0': t('日'),
+    '1': t('一'),
+    '2': t('二'),
+    '3': t('三'),
+    '4': t('四'),
+    '5': t('五'),
+    '6': t('六'),
   }
   // 中文数字（季度）
   const quarter: { [key: string]: string } = {
-    '1': '一',
-    '2': '二',
-    '3': '三',
-    '4': '四',
+    '1': t('一'),
+    '2': t('二'),
+    '3': t('三'),
+    '4': t('四'),
   }
   if (/(W+)/.test(format))
-    format = format.replace(RegExp.$1, RegExp.$1.length > 1 ? (RegExp.$1.length > 2 ? '星期' + week[we] : '周' + week[we]) : week[we])
-  if (/(Q+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 4 ? '第' + quarter[qut] + '季度' : quarter[qut])
-  if (/(Z+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 3 ? '第' + z + '周' : z + '')
+    format = format.replace(
+      RegExp.$1,
+      RegExp.$1.length > 1 ? (RegExp.$1.length > 2 ? t('星期{we}', { we: week[we] }) : t('周{we}', { we: week[we] })) : week[we]
+    )
+  if (/(Q+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 4 ? t('第{qut}季度', { qut: quarter[qut] }) : quarter[qut])
+  if (/(Z+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 3 ? t('第{z}周', { z: z }) : z + '')
   for (let k in opt) {
     let r = new RegExp('(' + k + ')').exec(format)
     // 若输入的长度不为1，则前面补零
@@ -98,19 +103,31 @@ export function formatPast(param: string | Date, format: string = 'YYYY-mm-dd'):
   } else if (time < 60000 && time >= 10000) {
     // 超过10秒少于1分钟内
     s = Math.floor(time / 1000)
-    return `${s}秒前`
+    return t('{s}秒前', { s: s })
   } else if (time < 3600000 && time >= 60000) {
     // 超过1分钟少于1小时
     s = Math.floor(time / 60000)
-    return `${s}分钟前`
+    return t('{s}分钟前', { s: s })
   } else if (time < 86400000 && time >= 3600000) {
     // 超过1小时少于24小时
     s = Math.floor(time / 3600000)
-    return `${s}小时前`
+    return t('{s}小时前', { s: s })
   } else if (time < 259200000 && time >= 86400000) {
     // 超过1天少于3天内
     s = Math.floor(time / 86400000)
-    return `${s}天前`
+    return t('{s}天前', { s: s })
+  } else if (time < 604800000 && time >= 259200000) {
+    // 超过3天少于1周内
+    s = Math.floor(time / 604800000)
+    return t('{s}周前', { s: s })
+  } else if (time < 31536000000 && time >= 604800000) {
+    // 超过1周少于1年内
+    s = Math.floor(time / 31536000000)
+    return t('{s}月前', { s: s })
+  } else if (time >= 31536000000) {
+    // 超过1年
+    s = Math.floor(time / 31536000000)
+    return t('{s}年前', { s: s })
   } else {
     // 超过3天
     let date = typeof param === 'string' || 'object' ? new Date(param) : param
@@ -126,12 +143,12 @@ export function formatPast(param: string | Date, format: string = 'YYYY-mm-dd'):
  */
 export function formatAxis(param: Date): string {
   let hour: number = new Date(param).getHours()
-  if (hour < 6) return '凌晨好'
-  else if (hour < 9) return '早上好'
-  else if (hour < 12) return '上午好'
-  else if (hour < 14) return '中午好'
-  else if (hour < 17) return '下午好'
-  else if (hour < 19) return '傍晚好'
-  else if (hour < 22) return '晚上好'
-  else return '夜里好'
+  if (hour < 6) return t('凌晨好')
+  else if (hour < 9) return t('早上好')
+  else if (hour < 12) return t('上午好')
+  else if (hour < 14) return t('中午好')
+  else if (hour < 17) return t('下午好')
+  else if (hour < 19) return t('傍晚好')
+  else if (hour < 22) return t('晚上好')
+  else return t('夜里好')
 }
