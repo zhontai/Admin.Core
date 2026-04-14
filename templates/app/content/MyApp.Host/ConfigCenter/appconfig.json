@@ -171,9 +171,9 @@
       //默认语言
       "DefaultLang": "zh-CN",
       //语言列表
-      "Langs": [ "zh-CN", "en" ],
+      "Langs": [ "zh-CN", "zh-TW", "en" ],
       //语言请求解析列表
-      "RequestCultureProviders": [] //["QueryString","Cookie","AcceptLanguageHeader"]
+      "RequestCultureProviders": [ "AcceptLanguageHeader" ] //["QueryString","Cookie","AcceptLanguageHeader"]
     }
   }
 }
