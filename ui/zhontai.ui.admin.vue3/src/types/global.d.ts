@@ -12,6 +12,7 @@ declare module 'jsoneditor'
 declare module 'jquery'
 declare module '@vitejs/plugin-vue'
 declare module 'unplugin-auto-import/vite'
+declare module 'virtual:svg-icons-register'
 
 // 声明一个模块，防止引入文件时报错
 declare module '*.json'

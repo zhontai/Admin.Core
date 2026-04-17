@@ -52,8 +52,6 @@ for (const locale of supportedLocales) {
     name: locale,
     // Element Plus 语言包（注意：这里直接使用语言包对象，不是它的 el 属性）
     el: elementLocales[locale].el,
-    // 合并所有翻译片段
-    message: mergeObjects(fragments),
     ...mergeObjects(fragments),
   }
 }

@@ -84,6 +84,7 @@
     //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=devdb;Pooling=true;Minimum Pool Size=1"
     //Sqlite "Data Source=|DataDirectory|\\devdb.db; Pooling=true;Min Pool Size=1"
     //"Oracle" "user id=SYS;password=pwd; data source=//127.0.0.1:1521/XE;Pooling=true;Min Pool Size=1",
+    //Sqlite连接字符串中的DataDirectory为bin\Debug\net10.0目录
     "connectionString": "Data Source=|DataDirectory|\\devdb.db; Pooling=true;Min Pool Size=1",
 
     //指定程序集
@@ -132,7 +133,7 @@
         //MySql "Server=localhost; Port=3306; Database=admindb; Uid=root; Pwd=pwd; Charset=utf8mb4;SslMode=none;Min pool size=1;Allow User Variables=True"
         //SqlServer "Data Source=.;Integrated Security=True;Initial Catalog=admindb;Encrypt=True;TrustServerCertificate=True;Pooling=true;Min Pool Size=1"
         //PostgreSQL "Host=localhost;Port=5432;Username=postgres;Password=; Database=admindb;Pooling=true;Minimum Pool Size=1"
-        //Sqlite "Data Source=|DataDirectory|\\admindb.db; Pooling=true;Min Pool Size=1"
+        //Sqlite "Data Source=E:\\zhontai\\Admin.Core\\src\\modules\\admin\\ZhonTai.Admin.Host\\bin\\Debug\\net10.0\\admindb.db; Pooling=true;Min Pool Size=1"
         //* Sqlite数据库注意替换 E:\\zhontai 为你的项目路径
         "connectionString": "Data Source=E:\\zhontai\\Admin.Core\\src\\modules\\admin\\ZhonTai.Admin.Host\\bin\\Debug\\net10.0\\admindb.db; Pooling=true;Min Pool Size=1"
       }
