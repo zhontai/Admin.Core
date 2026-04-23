@@ -1,0 +1,11 @@
+{
+  "svg.preview.background": "transparent",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml,LICENSE,README.md,.gitignore",
+    ".env": ".env.*",
+    ".eslintrc.js": ".eslintignore",
+    ".editorconfig": ".prettierrc.cjs"
+  }
+}
