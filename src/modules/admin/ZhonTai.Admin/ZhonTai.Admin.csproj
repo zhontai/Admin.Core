@@ -6,12 +6,18 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-	  <Content Include="Resources\Resources.AdminLocalizer.zh-TW.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Resources\Resources.AdminLocalizer.en.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="Resources\Resources.AdminLocalizer.zh-TW.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>contentFiles\any\any\Resources</PackagePath>
+		</Content>
+		<Content Include="Resources\Resources.AdminLocalizer.en.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>contentFiles\any\any\Resources</PackagePath>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

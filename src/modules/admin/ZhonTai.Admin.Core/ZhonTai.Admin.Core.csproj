@@ -5,14 +5,19 @@
 		<OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
 	</PropertyGroup>
 	<ItemGroup>
+		<Content Include="Resources\Resources.AdminCoreLocalizer.zh-TW.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>contentFiles\any\any\Resources</PackagePath>
+		</Content>
 		
-	  <Content Include="Resources\Resources.AdminCoreLocalizer.zh-TW.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-		
-	  <Content Include="Resources\Resources.AdminCoreLocalizer.en.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="Resources\Resources.AdminCoreLocalizer.en.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>true</Pack>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>contentFiles\any\any\Resources</PackagePath>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -50,8 +55,8 @@
 		<PackageReference Include="Magicodes.IE.Excel.AspNetCore" Version="2.8.2" />
 		<PackageReference Include="MailKit" Version="4.16.0" />
 		<PackageReference Include="Mapster" Version="10.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.6" />
-		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="10.0.7" />
 		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.5.4" />
 		<PackageReference Include="My.Extensions.Localization.Json" Version="4.0.0" />
 		<PackageReference Include="NLog" Version="6.1.2" />
