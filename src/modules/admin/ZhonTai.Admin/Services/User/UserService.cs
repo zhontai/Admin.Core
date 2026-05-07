@@ -798,20 +798,36 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
         _userHelper.CheckPassword(input.NewPassword);
 
-        var entity = await _userRep.GetAsync(User.Id);
-        var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
-        if (oldPassword != entity.Password)
-        {
-            throw ResultOutput.Exception(_adminLocalizer["旧密码不正确"]);
-        }
+        var entity = await _userRep.GetAsync(User.Id) ?? throw ResultOutput.Exception(_adminLocalizer["用户不存在"]);
 
+        //验证旧密码
         if (entity.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
         {
+            var verifyResult = _passwordHasher.Value.VerifyHashedPassword(entity, entity.Password, input.OldPassword);
+            if (verifyResult == PasswordVerificationResult.Failed)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["旧密码不正确"]);
+            }
+        }
+        else
+        {
+            var oldPassword = MD5Encrypt.Encrypt32(input.OldPassword);
+            if (oldPassword != entity.Password)
+            {
+                throw ResultOutput.Exception(_adminLocalizer["旧密码不正确"]);
+            }
+        }
+
+        //新密码加密
+        if (_appConfig.PasswordHasher)
+        {
             entity.Password = _passwordHasher.Value.HashPassword(entity, input.NewPassword);
+            entity.PasswordEncryptType = PasswordEncryptType.PasswordHasher;
         }
         else
         {
             entity.Password = MD5Encrypt.Encrypt32(input.NewPassword);
+            entity.PasswordEncryptType = PasswordEncryptType.MD5Encrypt32;
         }
        
         await _userRep.UpdateAsync(entity);
