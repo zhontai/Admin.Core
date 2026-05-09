@@ -7,5 +7,8 @@
     ".env": ".env.*",
     ".eslintrc.js": ".eslintignore",
     ".editorconfig": ".prettierrc.cjs"
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "src/i18n"
+  ]
 }
