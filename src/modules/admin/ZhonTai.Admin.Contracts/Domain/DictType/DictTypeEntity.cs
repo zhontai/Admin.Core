@@ -21,7 +21,7 @@ public class DictTypeEntity : EntityBase, IChilds<DictTypeEntity>
     /// 上级分类
     /// </summary>
     [NotGen]
-    public DictEntity Parent { get; set; }
+    public DictTypeEntity Parent { get; set; }
 
     /// <summary>
     /// 子级列表
