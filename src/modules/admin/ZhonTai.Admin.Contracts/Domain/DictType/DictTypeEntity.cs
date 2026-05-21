@@ -1,7 +1,6 @@
 ﻿using ZhonTai.Admin.Core.Entities;
 using FreeSql.DataAnnotations;
 using ZhonTai.Admin.Core.Attributes;
-using ZhonTai.Admin.Domain.Dict;
 
 namespace ZhonTai.Admin.Domain.DictType;
 
