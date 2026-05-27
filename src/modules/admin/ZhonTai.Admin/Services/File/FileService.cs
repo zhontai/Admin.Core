@@ -24,7 +24,7 @@ namespace ZhonTai.Admin.Services;
 /// </summary>
 [Order(110)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class FileService : BaseService, IFileService, IDynamicApi
+public partial class FileService : BaseService, IFileService, IDynamicApi
 {
     private readonly IFileRepository _fileRep;
     private readonly IOSSServiceFactory _oSSServiceFactory;
@@ -88,10 +88,10 @@ public class FileService : BaseService, IFileService, IDynamicApi
             return;
         }
 
-        var shareFile = await _fileRep.Where(a=>a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
+        var shareFile = await _fileRep.Where(a => a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
         if (!shareFile)
         {
-            if(file.Provider.HasValue)
+            if (file.Provider.HasValue)
             {
                 var oSSService = _oSSServiceFactory.Create(file.Provider.ToString());
                 var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == file.Provider).FirstOrDefault();

@@ -5,7 +5,7 @@ using ZhonTai.Common.Extensions;
 
 namespace ZhonTai;
 
-public static class StringExtension
+public static partial class StringExtension
 {
     /// <summary>
     /// 判断字符串是否为Null、空

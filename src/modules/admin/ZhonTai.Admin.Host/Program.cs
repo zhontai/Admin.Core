@@ -138,7 +138,7 @@ new HostApp(new HostAppOptions
         context.Services.AddSlideCaptcha();
     },
     //配置Autofac容器
-    ConfigureAutofacContainer = (builder, context) => 
+    ConfigureAutofacContainer = (builder, context) =>
     {
         builder.RegisterGeneric(typeof(AdminRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
         builder.RegisterGeneric(typeof(LogRepositoryBase<>)).InstancePerLifetimeScope().PropertiesAutowired();
