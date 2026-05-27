@@ -24,7 +24,7 @@ namespace ZhonTai.Admin.Services;
 /// </summary>
 [Order(110)]
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class FileService : BaseService, IFileService, IDynamicApi
+public partial class FileService : BaseService, IFileService, IDynamicApi
 {
     private readonly IFileRepository _fileRep;
     private readonly IOSSServiceFactory _oSSServiceFactory;
