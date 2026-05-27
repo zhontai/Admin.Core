@@ -386,8 +386,8 @@ public class DictService : BaseService, IDictService, IDynamicApi
 
         //查询数据
         var dataList = await select.WhereDynamicFilter(input.DynamicFilter)
-            .ToListAsync(a => new DictExport 
-            { 
+            .ToListAsync(a => new DictExport
+            {
                 DictTypeName = a.DictType.Name,
                 ParentName = a.Parent.Name,
             });

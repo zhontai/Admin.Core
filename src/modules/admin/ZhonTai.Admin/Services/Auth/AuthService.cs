@@ -181,7 +181,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         var locationInfo = new LocationInfo();
         if (_appConfig.Value.IP2Region.Enable)
         {
-            if(IPHelper.IsIP(ip))
+            if (IPHelper.IsIP(ip))
             {
                 var region = AppInfo.GetRequiredService<ISearcher>().Search(ip);
                 locationInfo = LocationInfo.Parse(region);
@@ -255,7 +255,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var token = _userToken.Create([.. claims]);
 
-       return token;
+        return token;
     }
 
     /// <summary>
@@ -304,7 +304,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         string ivHexString = BitConverter.ToString(ivBytes);
         var iv = ivHexString.Replace("-", "").ToLower();
         //输出
-        var passwordKeyOutput= new AuthGetPasswordEncryptKeyOutput { Key = guid, EncryptKey = encryptKey, Iv = iv };
+        var passwordKeyOutput = new AuthGetPasswordEncryptKeyOutput { Key = guid, EncryptKey = encryptKey, Iv = iv };
         //写缓存
         await Cache.SetAsync(key, passwordKeyOutput, TimeSpan.FromMinutes(5));
         return passwordKeyOutput;
@@ -327,7 +327,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         var profile = await userRep
         .Where(u => u.Id == User.Id)
-        .FirstAsync(u => new AuthUserProfileOutput 
+        .FirstAsync(u => new AuthUserProfileOutput
         {
             DeptName = u.Org.Name,
             CorpName = u.Tenant.Org.Name,
@@ -348,7 +348,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         profile.WatermarkText = $"{profile.Name}@{profile.CorpName} {number}";
-            
+
         return profile;
     }
 
@@ -718,8 +718,8 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
                     throw ResultOutput.Exception(_adminLocalizer["企业已停用，禁止登录"]);
                 }
                 authLoginOutput.Tenant = tenant;
-            } 
-            
+            }
+
             var tokenInfo = GetTokenInfo(authLoginOutput);
             #endregion
 
@@ -1015,7 +1015,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
 
         UserEntity user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
 
-        if (user == null) 
+        if (user == null)
         {
             throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
         }
@@ -1239,7 +1239,7 @@ public class AuthService : BaseService, IAuthService, IDynamicApi
         }
 
         var user = await _userService.GetLoginUserAsync(userId.ToLong());
-        if(!(user?.Id > 0))
+        if (!(user?.Id > 0))
         {
             throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
         }

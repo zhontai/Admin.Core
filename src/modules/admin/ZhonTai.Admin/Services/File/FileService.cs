@@ -88,10 +88,10 @@ public class FileService : BaseService, IFileService, IDynamicApi
             return;
         }
 
-        var shareFile = await _fileRep.Where(a=>a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
+        var shareFile = await _fileRep.Where(a => a.Id != input.Id && a.LinkUrl == file.LinkUrl).AnyAsync();
         if (!shareFile)
         {
-            if(file.Provider.HasValue)
+            if (file.Provider.HasValue)
             {
                 var oSSService = _oSSServiceFactory.Create(file.Provider.ToString());
                 var oSSOptions = _oSSConfig.OSSConfigs.Where(a => a.Enable && a.Provider == file.Provider).FirstOrDefault();
