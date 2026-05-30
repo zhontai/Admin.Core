@@ -51,7 +51,7 @@ namespace ZhonTai.Admin.Services.Auth;
 /// 认证授权服务
 /// </summary>
 [DynamicApi(Area = AdminConsts.AreaName)]
-public class AuthService : BaseService, IAuthService, IDynamicApi
+public partial class AuthService : BaseService, IAuthService, IDynamicApi
 {
     private readonly UserHelper _userHelper;
     private readonly AdminLocalizer _adminLocalizer;
