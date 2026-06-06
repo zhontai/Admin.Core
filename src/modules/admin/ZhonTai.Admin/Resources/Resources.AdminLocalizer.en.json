@@ -101,5 +101,7 @@
   "此菜单已存在": "This menu already exists",
   "此权限点已存在": " This permission point already exists",
   "打印模板名称已存在": "Print template name already exists",
-  "打印模板编码已存在": "Print template code already exists"
+  "打印模板编码已存在": "Print template code already exists",
+  "分组": "Group",
+  "角色": "Role"
 }

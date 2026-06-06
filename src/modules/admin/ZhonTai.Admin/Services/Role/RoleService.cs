@@ -198,12 +198,12 @@ public class RoleService : BaseService, IRoleService, IDynamicApi
     {
         if (await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Name == input.Name))
         {
-            throw ResultOutput.Exception(_adminLocalizer["此{0}已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
+            throw ResultOutput.Exception(_adminLocalizer["此{0}已存在", input.Type == RoleType.Group ? _adminLocalizer["分组"] : _adminLocalizer["角色"]]);
         }
 
         if (input.Code.NotNull() && await _roleRep.Select.AnyAsync(a => a.ParentId == input.ParentId && a.Code == input.Code))
         {
-            throw ResultOutput.Exception(_adminLocalizer["此{0}编码已存在", input.Type == RoleType.Group ? "分组" : "角色"]);
+            throw ResultOutput.Exception(_adminLocalizer["此{0}编码已存在", input.Type == RoleType.Group ? _adminLocalizer["分组"] : _adminLocalizer["角色"]]);
         }
 
         var entity = Mapper.Map<RoleEntity>(input);
