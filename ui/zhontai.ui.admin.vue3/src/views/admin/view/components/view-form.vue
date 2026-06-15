@@ -50,8 +50,8 @@
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item :label="t('视图地址')" prop="path">
               <el-input v-model="form.path" clearable>
-                <template #prepend>{{ prependPath }}</template>
-                <template #append>.vue</template>
+                <template #prepend v-if="form.platform === PlatformType.Web.name">{{ prependPath }}</template>
+                <template #append v-if="form.platform === PlatformType.Web.name">.vue</template>
               </el-input>
             </el-form-item>
           </el-col>
@@ -95,6 +95,7 @@ import eventBus from '/@/utils/mitt'
 import { cloneDeep } from 'lodash-es'
 import { FormInstance } from 'element-plus'
 import { t } from '/@/i18n'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
 
 defineProps({
   title: {
