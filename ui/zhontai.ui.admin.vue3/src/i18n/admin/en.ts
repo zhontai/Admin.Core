@@ -1076,4 +1076,9 @@ export default {
   '周{we}': 'Week {we}',
   '第{qut}季度': 'Quarter {qut}',
   '第{z}周': 'Week {z}',
+  '已绑定手机：': 'Bound phone number: ',
+  '已绑定邮箱：': 'Bound email address: ',
+  更新个人信息: 'Update Personal Info',
+  个人信息: 'Personal Info',
+  更新信息: 'Update Info',
 }

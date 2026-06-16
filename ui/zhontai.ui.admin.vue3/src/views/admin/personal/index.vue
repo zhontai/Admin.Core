@@ -3,7 +3,7 @@
     <el-row>
       <!-- 个人信息 -->
       <el-col :xs="24" :sm="16">
-        <el-card shadow="hover" header="个人信息">
+        <el-card shadow="hover" :header="t('个人信息')">
           <div class="personal-user">
             <div class="personal-user-left">
               <el-upload
@@ -78,7 +78,7 @@
 
       <!-- 更新信息 -->
       <el-col :span="24">
-        <el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
+        <el-card shadow="hover" class="mt15 personal-edit" :header="t('更新信息')">
           <div class="personal-edit-title">{{ t('基本信息') }}</div>
           <el-form ref="formRef" :model="personalForm" label-width="60px" class="mt35 mb35">
             <el-row :gutter="35">
@@ -100,7 +100,7 @@
                         <el-icon>
                           <ele-Position />
                         </el-icon>
-                        更新个人信息
+                        {{ t('更新个人信息') }}
                       </el-button>
                     </template>
                   </el-popconfirm>
@@ -124,7 +124,7 @@
             <div class="personal-edit-safe-item">
               <div class="personal-edit-safe-item-left">
                 <div class="personal-edit-safe-item-left-label">{{ t('密保手机') }}</div>
-                <div class="personal-edit-safe-item-left-value">已绑定手机：{{ personalInfo.mobile }}</div>
+                <div class="personal-edit-safe-item-left-value">{{ t('已绑定手机：') }}{{ personalInfo.mobile }}</div>
               </div>
               <div class="personal-edit-safe-item-right">
                 <el-button text type="primary">{{ t('立即修改') }}</el-button>
@@ -135,7 +135,7 @@
             <div class="personal-edit-safe-item">
               <div class="personal-edit-safe-item-left">
                 <div class="personal-edit-safe-item-left-label">{{ t('密保邮箱') }}</div>
-                <div class="personal-edit-safe-item-left-value">已绑定邮箱：{{ personalInfo.email }}</div>
+                <div class="personal-edit-safe-item-left-value">{{ t('已绑定邮箱：') }}{{ personalInfo.email }}</div>
               </div>
               <div class="personal-edit-safe-item-right">
                 <el-button text type="primary">{{ t('立即修改') }}</el-button>
