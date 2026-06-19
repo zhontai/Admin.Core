@@ -248,7 +248,7 @@ const onViewCurrentChange = (data: ViewGetListOutput) => {
       state.form.label = data.label
     }
     if (!state.form.path) {
-      state.form.path = '/' + data.path
+      state.form.path = (data.path?.startsWith('/') ? '' : '/') + data.path
     }
   }
 }
