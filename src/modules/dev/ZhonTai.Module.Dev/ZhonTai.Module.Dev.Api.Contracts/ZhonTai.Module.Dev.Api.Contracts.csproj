@@ -24,10 +24,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="ZhonTai.Admin.Core" Version="10.0.3">
+		<PackageReference Include="ZhonTai.Admin.Core" Version="10.0.5">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
-		<PackageReference Include="ZhonTai.Admin.Contracts" Version="10.0.3">
+		<PackageReference Include="ZhonTai.Admin.Contracts" Version="10.0.5">
 			<IsBuild>true</IsBuild>
 		</PackageReference>
 	</ItemGroup>
@@ -35,10 +35,8 @@
 	<Target Name="AfterTargetsBuild" AfterTargets="Build">
 		<ItemGroup>
 			<PackageReferenceXmlFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.xml" />
-			<PackageReferenceJsonFiles Condition="'%(PackageReference.IsBuild)' == 'true'" Include="$(NugetPackageRoot)\$([MSBuild]::Escape('%(PackageReference.Identity)').ToLower())\%(PackageReference.Version)\**\*.json" />
 		</ItemGroup>
 
 		<Copy Condition="'%(PackageReferenceXmlFiles.Identity)' != ''" SourceFiles="@(PackageReferenceXmlFiles)" DestinationFolder="./../ZhonTai.Module.Dev.Host/$(OutDir)" />
-		<Copy Condition="'%(PackageReferenceJsonFiles.Identity)' != ''" SourceFiles="@(PackageReferenceJsonFiles)" DestinationFolder="./../ZhonTai.Module.Dev.Host/$(OutDir)Resources" />
 	</Target>
 </Project>
