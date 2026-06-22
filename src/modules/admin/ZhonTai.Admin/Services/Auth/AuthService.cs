@@ -675,7 +675,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var valid = user?.Id > 0;
             if (!valid)
             {
-                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+                throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
             }
 
             if (valid)
@@ -801,7 +801,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var user = await userRep.Select.Where(a => a.Mobile == input.Mobile).ToOneAsync();
             if (!(user?.Id > 0))
             {
-                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+                throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
             }
 
             if (!user.Enabled)
@@ -911,7 +911,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var user = await userRep.Select.Where(a => a.Email == input.Email).ToOneAsync();
             if (!(user?.Id > 0))
             {
-                throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+                throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
             }
 
             if (!user.Enabled)
@@ -1017,7 +1017,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
         if (user == null)
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+            throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
         }
 
         if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
@@ -1083,7 +1083,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
 
         if (user == null)
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+            throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
         }
 
         if (user.PasswordEncryptType == PasswordEncryptType.PasswordHasher)
@@ -1241,7 +1241,7 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
         var user = await _userService.GetLoginUserAsync(userId.ToLong());
         if (!(user?.Id > 0))
         {
-            throw ResultOutput.Exception(_adminLocalizer["账号不存在"]);
+            throw ResultOutput.Exception(_adminLocalizer["账号或密码错误"]);
         }
         if (!user.Enabled)
         {
