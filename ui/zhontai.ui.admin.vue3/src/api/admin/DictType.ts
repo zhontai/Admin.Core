@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   DictTypeAddInput,
   DictTypeGetListInput,
@@ -19,6 +18,7 @@ import {
   ResultOutputDictTypeGetOutput,
   ResultOutputInt64,
   ResultOutputListDictTypeGetListOutput,
+  ResultOutputObject,
   ResultOutputPageOutputDictTypeGetPageOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -116,12 +116,13 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
    * @secure
    */
   update = (data: DictTypeUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/dict-type/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -140,11 +141,12 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/dict-type/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -157,12 +159,13 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/dict-type/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -181,11 +184,12 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/dict-type/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -198,12 +202,13 @@ export class DictTypeApi<SecurityDataType = unknown> extends HttpClient<Security
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/dict-type/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

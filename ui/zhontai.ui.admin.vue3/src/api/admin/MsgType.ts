@@ -10,13 +10,13 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   MsgTypeAddInput,
   MsgTypeUpdateInput,
   ResultOutputInt64,
   ResultOutputListMsgTypeGetListOutput,
   ResultOutputMsgTypeGetOutput,
+  ResultOutputObject,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
 
@@ -98,12 +98,13 @@ export class MsgTypeApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   update = (data: MsgTypeUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg-type/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -122,11 +123,12 @@ export class MsgTypeApi<SecurityDataType = unknown> extends HttpClient<SecurityD
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg-type/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -139,12 +141,13 @@ export class MsgTypeApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg-type/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -163,11 +166,12 @@ export class MsgTypeApi<SecurityDataType = unknown> extends HttpClient<SecurityD
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg-type/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -180,12 +184,13 @@ export class MsgTypeApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg-type/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

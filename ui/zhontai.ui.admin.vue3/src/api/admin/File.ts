@@ -10,12 +10,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   FileDeleteInput,
   PageInputFileGetPageInput,
   ResultOutputFileEntity,
   ResultOutputListFileEntity,
+  ResultOutputObject,
   ResultOutputPageOutputFileGetPageOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -50,12 +50,13 @@ export class FileApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   delete = (data: FileDeleteInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/file/delete`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**

@@ -10,10 +10,10 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputSiteMsgGetPageInput,
   ResultOutputBoolean,
+  ResultOutputObject,
   ResultOutputPageOutputSiteMsgGetPageOutput,
   ResultOutputSiteMsgGetContentOutput,
 } from './data-contracts'
@@ -90,10 +90,11 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   setAllRead = (params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/site-msg/set-all-read`,
       method: 'POST',
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -112,11 +113,12 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/site-msg/set-read`,
       method: 'POST',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -129,12 +131,13 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   batchSetRead = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/site-msg/batch-set-read`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -153,11 +156,12 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/site-msg/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -170,12 +174,13 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/site-msg/batch-soft-delete`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

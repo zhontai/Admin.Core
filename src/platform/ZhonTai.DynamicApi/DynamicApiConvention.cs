@@ -154,7 +154,7 @@ public class DynamicApiConvention : IApplicationModelConvention
             {
                 var returnType = action.ActionMethod.GetReturnType();
 
-                if (returnType == typeof(void)) continue;
+                //if (returnType == typeof(void)) continue;
                 action.Filters.Add(new FormatResultAttribute(returnType));
             }
         }

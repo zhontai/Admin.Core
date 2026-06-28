@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputRegionGetPageInput,
   RegionAddInput,
@@ -21,6 +20,7 @@ import {
   RegionUpdateInput,
   ResultOutputInt64,
   ResultOutputListRegionGetChildListOutput,
+  ResultOutputObject,
   ResultOutputPageOutputRegionGetPageOutput,
   ResultOutputRegionGetOutput,
 } from './data-contracts'
@@ -118,12 +118,13 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   update = (data: RegionUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -142,11 +143,12 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -165,11 +167,12 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -182,12 +185,13 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   setEnable = (data: RegionSetEnableInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/set-enable`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -200,12 +204,13 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   setHot = (data: RegionSetHotInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/set-hot`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -218,12 +223,13 @@ export class RegionApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   syncData = (data: RegionLevel, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/region/sync-data`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

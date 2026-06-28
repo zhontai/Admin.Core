@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   ApiAddInput,
   ApiSetEnableLogInput,
@@ -23,6 +22,7 @@ import {
   ResultOutputInt64,
   ResultOutputListApiGetListOutput,
   ResultOutputListProjectConfig,
+  ResultOutputObject,
   ResultOutputPageOutputApiEntity,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -123,12 +123,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   update = (data: ApiUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -141,12 +142,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   setEnableLog = (data: ApiSetEnableLogInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/set-enable-log`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -159,12 +161,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   setEnableParams = (data: ApiSetEnableParamsInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/set-enable-params`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -177,12 +180,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   setEnableResult = (data: ApiSetEnableResultInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/set-enable-result`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -201,11 +205,12 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -218,12 +223,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -242,11 +248,12 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -259,12 +266,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -277,12 +285,13 @@ export class ApiApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   sync = (data: ApiSyncInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/api/sync`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**

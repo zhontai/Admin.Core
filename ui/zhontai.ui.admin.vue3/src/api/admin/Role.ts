@@ -10,12 +10,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputRoleGetPageInput,
   ResultOutputInt64,
   ResultOutputListRoleGetListOutput,
   ResultOutputListRoleGetRoleUserListOutput,
+  ResultOutputObject,
   ResultOutputPageOutputRoleGetPageOutput,
   ResultOutputRoleGetOutput,
   RoleAddInput,
@@ -132,12 +132,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   addRoleUser = (data: RoleAddRoleUserListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/add-role-user`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -150,12 +151,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   removeRoleUser = (data: RoleAddRoleUserListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/remove-role-user`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -187,12 +189,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   update = (data: RoleUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -211,11 +214,12 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -228,12 +232,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -252,11 +257,12 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -269,12 +275,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -287,12 +294,13 @@ export class RoleApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   setDataScope = (data: RoleSetDataScopeInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/role/set-data-scope`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

@@ -7,6 +7,11 @@ namespace ZhonTai.DynamicApi.Attributes;
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 public class FormatResultAttribute : ProducesResponseTypeAttribute
 {
+    /// <summary>
+    /// The type of the result when the action returns void.
+    /// </summary>
+    private static readonly Type _voidResultType = AppConsts.FormatResultType.MakeGenericType(typeof(object));
+
     public FormatResultAttribute(int statusCode) : base(statusCode)
     {
     }
@@ -26,6 +31,10 @@ public class FormatResultAttribute : ProducesResponseTypeAttribute
         if (type != null && type != typeof(void))
         {
             Type = AppConsts.FormatResultType.MakeGenericType(type);
+        }
+        else
+        {
+            Type = _voidResultType;
         }
     }
 }

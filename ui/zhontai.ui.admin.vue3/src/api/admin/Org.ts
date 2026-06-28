@@ -10,13 +10,13 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   OrgAddInput,
   OrgUpdateInput,
   ResultOutputInt64,
   ResultOutputListOrgGetListOutput,
   ResultOutputListOrgGetSimpleListWithPathOutput,
+  ResultOutputObject,
   ResultOutputOrgGetOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -115,12 +115,13 @@ export class OrgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   update = (data: OrgUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/org/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -139,11 +140,12 @@ export class OrgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/org/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -162,11 +164,12 @@ export class OrgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/org/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
 }

@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   AuthChangePasswordByEmailInput,
   AuthChangePasswordByMobileInput,
@@ -25,6 +24,7 @@ import {
   ResultOutputAuthUserProfileOutput,
   ResultOutputBoolean,
   ResultOutputListAuthUserMenuOutput,
+  ResultOutputObject,
   ResultOutputTokenInfo,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -196,12 +196,13 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   changePasswordByEmail = (data: AuthChangePasswordByEmailInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/auth/change-password-by-email`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -214,12 +215,13 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   changePasswordByMobile = (data: AuthChangePasswordByMobileInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/auth/change-password-by-mobile`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -232,12 +234,13 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   regByEmail = (data: AuthRegByEmailInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/auth/reg-by-email`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -250,12 +253,13 @@ export class AuthApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   regByMobile = (data: AuthRegByMobileInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/auth/reg-by-mobile`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**

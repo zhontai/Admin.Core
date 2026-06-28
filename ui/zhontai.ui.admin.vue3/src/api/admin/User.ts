@@ -10,11 +10,11 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInput,
   PageInputUserGetPageInput,
   ResultOutputInt64,
+  ResultOutputObject,
   ResultOutputPageOutputUserGetDeletedUserPageOutput,
   ResultOutputPageOutputUserGetPageOutput,
   ResultOutputString,
@@ -162,12 +162,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   update = (data: UserUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -199,12 +200,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   updateMember = (data: UserUpdateMemberInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/update-member`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -217,12 +219,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   updateBasic = (data: UserUpdateBasicInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/update-basic`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -235,12 +238,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   changePassword = (data: UserChangePasswordInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/change-password`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -272,12 +276,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   setManager = (data: UserSetManagerInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/set-manager`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -290,12 +295,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   setEnable = (data: UserSetEnableInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/set-enable`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -308,12 +314,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   restore = (data: UserRestoreInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/restore`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -326,12 +333,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchSetOrg = (data: UserBatchSetOrgInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/batch-set-org`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -350,11 +358,12 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -367,12 +376,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -391,11 +401,12 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -408,12 +419,13 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -485,11 +497,12 @@ export class UserApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/user/force-offline`,
       method: 'POST',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
 }

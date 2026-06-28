@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   DocAddGroupInput,
   DocAddImageInput,
@@ -25,6 +24,7 @@ import {
   ResultOutputInt64,
   ResultOutputListDocListOutput,
   ResultOutputListString,
+  ResultOutputObject,
   ResultOutputString,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -220,12 +220,13 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   updateGroup = (data: DocUpdateGroupInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/update-group`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -238,12 +239,13 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   updateMenu = (data: DocUpdateMenuInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/update-menu`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -256,12 +258,13 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   updateContent = (data: DocUpdateContentInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/update-content`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -280,11 +283,12 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -304,11 +308,12 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/delete-image`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -327,11 +332,12 @@ export class DocApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/doc/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**

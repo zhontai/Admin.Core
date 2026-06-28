@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PermissionAddDotInput,
   PermissionAddGroupInput,
@@ -24,6 +23,7 @@ import {
   ResultOutputListInt64,
   ResultOutputListPermissionGetListOutput,
   ResultOutputListPermissionGetPermissionListOutput,
+  ResultOutputObject,
   ResultOutputPermissionGetDotOutput,
   ResultOutputPermissionGetGroupOutput,
   ResultOutputPermissionGetMenuOutput,
@@ -239,12 +239,13 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @secure
    */
   updateGroup = (data: PermissionUpdateGroupInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/update-group`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -257,12 +258,13 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @secure
    */
   updateMenu = (data: PermissionUpdateMenuInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/update-menu`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -275,12 +277,13 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @secure
    */
   updateDot = (data: PermissionUpdateDotInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/update-dot`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -299,11 +302,12 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -322,11 +326,12 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -339,12 +344,13 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
    * @secure
    */
   assign = (data: PermissionAssignInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/permission/assign`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

@@ -10,9 +10,9 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputTaskGetPageInput,
+  ResultOutputObject,
   ResultOutputPageOutputTaskGetPageOutput,
   ResultOutputString,
   ResultOutputTaskGetOutput,
@@ -116,12 +116,13 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   update = (data: TaskUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -139,11 +140,12 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/pause`,
       method: 'POST',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -161,11 +163,12 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/resume`,
       method: 'POST',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -183,11 +186,12 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/run`,
       method: 'POST',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -205,11 +209,12 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -222,12 +227,13 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchRun = (data: string[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/batch-run`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -240,12 +246,13 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchPause = (data: string[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/batch-pause`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -258,12 +265,13 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchResume = (data: string[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/batch-resume`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -276,12 +284,13 @@ export class TaskApi<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @secure
    */
   batchDelete = (data: string[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/task/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

@@ -10,8 +10,7 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
-import { ResultOutputListObject } from './data-contracts'
+import { ResultOutputListObject, ResultOutputObject } from './data-contracts'
 import { HttpClient, RequestParams } from './http-client'
 
 export class CacheApi<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
@@ -48,11 +47,12 @@ export class CacheApi<SecurityDataType = unknown> extends HttpClient<SecurityDat
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/cache/clear`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
 }

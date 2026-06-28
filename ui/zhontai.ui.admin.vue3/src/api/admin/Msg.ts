@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   MsgAddInput,
   MsgAddMsgUserListInput,
@@ -19,6 +18,7 @@ import {
   ResultOutputInt64,
   ResultOutputListMsgGetMsgUserListOutput,
   ResultOutputMsgGetOutput,
+  ResultOutputObject,
   ResultOutputPageOutputMsgGetPageOutput,
 } from './data-contracts'
 import { ContentType, HttpClient, RequestParams } from './http-client'
@@ -106,12 +106,13 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   addMsgUser = (data: MsgAddMsgUserListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/add-msg-user`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -124,12 +125,13 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   removeMsgUser = (data: MsgAddMsgUserListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/remove-msg-user`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -161,12 +163,13 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   update = (data: MsgUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -185,11 +188,12 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -202,12 +206,13 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -226,11 +231,12 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -243,12 +249,13 @@ export class MsgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/msg/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

@@ -10,10 +10,10 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   ResultOutputInt64,
   ResultOutputListSearchTemplateGetListOutput,
+  ResultOutputObject,
   ResultOutputSearchTemplateGetUpdateOutput,
   SearchTemplateSaveInput,
 } from './data-contracts'
@@ -103,11 +103,12 @@ export class SearchTemplateApi<SecurityDataType = unknown> extends HttpClient<Se
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/search-template/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
 }

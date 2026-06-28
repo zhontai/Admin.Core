@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputPrintTemplateGetPageInput,
   PrintTemplateAddInput,
@@ -18,6 +17,7 @@ import {
   PrintTemplateUpdateInput,
   PrintTemplateUpdateTemplateInput,
   ResultOutputInt64,
+  ResultOutputObject,
   ResultOutputPageOutputPrintTemplateGetPageOutput,
   ResultOutputPrintTemplateGetOutput,
   ResultOutputPrintTemplateGetUpdateTemplateOutput,
@@ -121,12 +121,13 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
    * @secure
    */
   update = (data: PrintTemplateUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -139,12 +140,13 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
    * @secure
    */
   updateTemplate = (data: PrintTemplateUpdateTemplateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/update-template`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -157,12 +159,13 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
    * @secure
    */
   setEnable = (data: PrintTemplateSetEnableInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/set-enable`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -181,11 +184,12 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -198,12 +202,13 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -222,11 +227,12 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -239,12 +245,13 @@ export class PrintTemplateApi<SecurityDataType = unknown> extends HttpClient<Sec
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/print-template/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

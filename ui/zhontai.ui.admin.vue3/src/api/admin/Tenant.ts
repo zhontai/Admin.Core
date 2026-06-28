@@ -10,10 +10,10 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputTenantGetPageInput,
   ResultOutputInt64,
+  ResultOutputObject,
   ResultOutputPageOutputTenantGetPageOutput,
   ResultOutputTenantGetOutput,
   ResultOutputTokenInfo,
@@ -96,12 +96,13 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   update = (data: TenantUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/tenant/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -120,11 +121,12 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/tenant/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -143,11 +145,12 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/tenant/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -160,12 +163,13 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/tenant/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -178,12 +182,13 @@ export class TenantApi<SecurityDataType = unknown> extends HttpClient<SecurityDa
    * @secure
    */
   setEnable = (data: TenantSetEnableInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/tenant/set-enable`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**

@@ -10,7 +10,6 @@
  * ---------------------------------------------------------------
  */
 
-import { AxiosResponse } from 'axios'
 import {
   PageInputPkgGetPageInput,
   PageInputPkgGetPkgTenantListInput,
@@ -22,6 +21,7 @@ import {
   ResultOutputListInt64,
   ResultOutputListPkgGetListOutput,
   ResultOutputListPkgGetPkgTenantListOutput,
+  ResultOutputObject,
   ResultOutputPageOutputPkgGetPageOutput,
   ResultOutputPageOutputPkgGetPkgTenantListOutput,
   ResultOutputPkgGetOutput,
@@ -181,12 +181,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   setPkgPermissions = (data: PkgSetPkgPermissionsInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/set-pkg-permissions`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -199,12 +200,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   addPkgTenant = (data: PkgAddPkgTenantListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/add-pkg-tenant`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -217,12 +219,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   removePkgTenant = (data: PkgAddPkgTenantListInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/remove-pkg-tenant`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -254,12 +257,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   update = (data: PkgUpdateInput, params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/update`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -278,11 +282,12 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -295,12 +300,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/batch-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
   /**
@@ -319,11 +325,12 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
     },
     params: RequestParams = {}
   ) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/soft-delete`,
       method: 'DELETE',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     })
   /**
@@ -336,12 +343,13 @@ export class PkgApi<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @secure
    */
   batchSoftDelete = (data: number[], params: RequestParams = {}) =>
-    this.request<AxiosResponse, any>({
+    this.request<ResultOutputObject, any>({
       path: `/api/admin/pkg/batch-soft-delete`,
       method: 'PUT',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

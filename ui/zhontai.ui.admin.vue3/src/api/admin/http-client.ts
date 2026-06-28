@@ -13,8 +13,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults, RawAxiosRequestHeaders, ResponseType } from 'axios'
 import { ElLoading, ElMessage, LoadingOptions } from 'element-plus'
 import { AuthApi } from '/@/api/admin/Auth'
+import { lang, t } from '/@/i18n'
 import { useUserInfo } from '/@/stores/userInfo'
-import { t, lang } from '/@/i18n'
 
 export type QueryParamsType = Record<string | number, any>
 
@@ -281,6 +281,7 @@ export class HttpClient<SecurityDataType = unknown> {
     this.instance.interceptors.request.use(
       (config) => {
         config.headers['accept-language'] = lang.value
+
         this.removePending(config)
         cancelRepeatRequest && this.addPending(config)
 
