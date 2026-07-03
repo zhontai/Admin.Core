@@ -56,8 +56,6 @@ onMounted(() => {
   if (typeof route.query.groupIds == 'string') state.filter.groupIds = route.query.groupIds?.split(',')
 })
 
-onBeforeMount(() => {})
-
 const onQuery = async () => {
   state.loading = true
   const res = await new DevProjectGenApi().generate(state.filter, { showErrorMessage: false }).catch(() => {

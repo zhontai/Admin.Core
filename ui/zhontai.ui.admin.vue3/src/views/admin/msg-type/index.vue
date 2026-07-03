@@ -94,7 +94,7 @@ onMounted(() => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshMsgType')
 })
 

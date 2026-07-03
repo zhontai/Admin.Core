@@ -190,7 +190,7 @@ onMounted(() => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshPkg')
 })
 

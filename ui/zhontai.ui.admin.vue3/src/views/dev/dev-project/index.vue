@@ -163,7 +163,7 @@ onMounted(() => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshDevProject')
 })
 

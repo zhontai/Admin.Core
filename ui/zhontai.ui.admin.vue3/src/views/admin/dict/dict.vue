@@ -126,7 +126,7 @@ onMounted(async () => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshDict')
 })
 

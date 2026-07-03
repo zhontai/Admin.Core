@@ -79,7 +79,7 @@ onMounted(() => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshOrgImg')
 })
 

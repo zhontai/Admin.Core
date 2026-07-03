@@ -147,7 +147,7 @@ onMounted(() => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshDevGroup')
 })
 

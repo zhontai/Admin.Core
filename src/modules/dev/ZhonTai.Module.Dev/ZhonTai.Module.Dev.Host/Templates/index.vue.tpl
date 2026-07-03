@@ -396,7 +396,7 @@ onMounted(() => {
 })
 
 // 组件卸载前移除事件监听
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refresh@(entityNamePc)')
 })
 @foreach(var incField in includeFieldEntitys){

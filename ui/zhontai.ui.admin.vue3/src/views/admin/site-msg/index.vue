@@ -171,7 +171,7 @@ onMounted(async () => {
   })
 })
 
-onBeforeMount(() => {
+onBeforeUnmount(() => {
   eventBus.off('refreshSiteMsg')
 })
 
