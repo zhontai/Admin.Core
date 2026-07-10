@@ -733,7 +733,8 @@ onMounted(() => {
     Local.set('frequency', 1)
     // 监听窗口大小改变，非默认布局，设置成默认布局（适配移动端）
     mittBus.on('layoutMobileResize', (res: LayoutMobileResize) => {
-      getThemeConfig.value.layout = res.layout
+      // 注释掉的原因：布局改变导致组件卸载再挂载，接口会再次请求
+      // getThemeConfig.value.layout = res.layout
       getThemeConfig.value.isDrawer = false
       initLayoutChangeFun()
       state.isMobile = other.isMobile()
