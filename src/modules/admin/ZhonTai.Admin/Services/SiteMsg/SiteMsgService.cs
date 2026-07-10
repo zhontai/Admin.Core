@@ -111,6 +111,19 @@ public class SiteMsgService : BaseService, IDynamicApi
         return data;
     }
 
+
+    /// <summary>
+    /// 获得未读数量
+    /// </summary>
+    /// <returns></returns>
+    [Login]
+    [HttpGet]
+    public async Task<long> GetUnreadCountAsync()
+    {
+        var count = await _msgUserRep.Select.Where(a => a.UserId == User.Id && a.IsRead == false).CountAsync();
+        return count;
+    }
+
     /// <summary>
     /// 是否未读
     /// </summary>
@@ -120,7 +133,6 @@ public class SiteMsgService : BaseService, IDynamicApi
     public async Task<bool> IsUnreadAsync()
     {
         var hasUnread = await _msgUserRep.Select.Where(a => a.UserId == User.Id && a.IsRead == false).AnyAsync();
-
         return hasUnread;
     }
 
