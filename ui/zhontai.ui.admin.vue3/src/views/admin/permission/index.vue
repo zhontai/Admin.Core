@@ -297,6 +297,7 @@ const onEdit = (row: PermissionGetListOutput) => {
 }
 
 const onCopy = (row: PermissionGetListOutput) => {
+  row.platform = state.filter.platform
   switch (row.type) {
     case 1:
       state.permissionFormTitle = t('新增分组')

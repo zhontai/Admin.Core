@@ -13,7 +13,7 @@
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item :label="t('所属平台')">
-              <el-select v-model="form.platform" disabled :placeholder="t('请选择所属平台')" class="w100">
+              <el-select v-model="form.platform" :disabled="!state.isCopy" :placeholder="t('请选择所属平台')" class="w100">
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
@@ -177,6 +177,7 @@ const formRef = useTemplateRef('formRef')
 const state = reactive({
   showDialog: false,
   sureLoading: false,
+  isCopy: false,
   form: { enabled: true, isKeepAlive: true } as PermissionUpdateMenuInput,
   viewTreeData: [] as ViewGetListOutput[],
   dictData: {
@@ -213,7 +214,7 @@ const open = async (
   isCopy = false
 ) => {
   proxy.$modal.loading()
-
+  state.isCopy = isCopy
   await getDictList()
   await getViews(row.platform as string)
 
