@@ -158,6 +158,41 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
     }
 
     /// <summary>
+    /// 查询简单权限列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<List<PermissionGetSimpleListOutput>> GetSimpleListAsync(PermissionGetSimpleListInput input)
+    {
+        var platform = input?.Platform?.Trim();
+
+        var select = _permissionRep.Select;
+        if (platform.NotNull())
+        {
+            Expression<Func<PermissionEntity, bool>> where = null;
+            where = where.And(a => a.Platform == platform);
+            if (platform.ToLower() == AdminConsts.WebName)
+            {
+                where = where.Or(a => string.IsNullOrEmpty(a.Platform));
+            }
+            select = select.Where(where);
+        }
+        else
+        {
+            select = select.Where(a => string.IsNullOrEmpty(a.Platform));
+        }
+
+        var data = await select
+            .WhereIf(input?.Type != null && input.Type == PermissionType.Group, a => a.Type == input.Type)
+            .WhereIf(input?.Type != null && input.Type != PermissionType.Group, a => a.Type == input.Type || a.Type == PermissionType.Group)
+            .OrderBy(a => new { a.ParentId, a.Sort })
+            .ToListAsync<PermissionGetSimpleListOutput>();
+
+        return data;
+    }
+
+    /// <summary>
     /// 查询授权权限列表
     /// </summary>
     /// <param name="platform"></param>
