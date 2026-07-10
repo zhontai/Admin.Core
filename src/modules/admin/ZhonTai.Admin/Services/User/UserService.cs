@@ -488,8 +488,8 @@ public partial class UserService : BaseService, IUserService, IDynamicApi
 
             //角色权限点编码
             output.Codes = await _permissionRep.Value.Where(p => _permissionRep.Value.Orm.Select<UserRoleEntity, RolePermissionEntity>()
-                .InnerJoin((ur, rp) => ur.RoleId == rp.RoleId && ur.UserId == User.Id
-                && rp.PermissionId == p.Id && p.Type == PermissionType.Dot && p.Code != null && p.Code != "").Any()
+                .InnerJoin((ur, rp) => ur.RoleId == rp.RoleId && ur.UserId == User.Id)
+                .Where((ur,rp) => rp.PermissionId == p.Id && p.Type == PermissionType.Dot && p.Code != null && p.Code != "").Any()
             ).ToListAsync(p => p.Code);
             output.Codes = output.Codes.Distinct().ToList();
 
