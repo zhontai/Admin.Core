@@ -313,7 +313,7 @@ const syncApi = async (swaggerResource: any) => {
     tags.forEach((t: any) => {
       apis[apis.length] = {
         label: t.description,
-        path: t.name,
+        path: code + '/' + t.name,
         parentPath: code,
       }
     })
@@ -324,7 +324,7 @@ const syncApi = async (swaggerResource: any) => {
       const keys = Object.keys(value as any)
       const values = Object.values(value as any)
       const v = values && values.length > 0 ? values[0] : ({} as any)
-      const parentPath = v.tags && v.tags.length > 0 ? v.tags[0] : ''
+      const parentPath = v.tags && v.tags.length > 0 ? (code + '/' + v.tags[0]) : ''
       apis[apis.length] = {
         label: v.summary,
         path: key,

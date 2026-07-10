@@ -953,7 +953,7 @@
               },
               {
                 "id": 161227168706629,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "新增分组",
                 "code": "api:admin:permission:addgroup",
@@ -984,11 +984,11 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:53:58"
               },
               {
                 "id": 161227168706630,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "新增菜单",
                 "code": "api:admin:permission:addmenu",
@@ -1019,11 +1019,11 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:54:18"
               },
               {
                 "id": 161227168710726,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "修改分组",
                 "code": "api:admin:permission:updategroup",
@@ -1054,11 +1054,11 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:54:40"
               },
               {
                 "id": 161227168714821,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "修改菜单",
                 "code": "api:admin:permission:updatemenu",
@@ -1089,7 +1089,7 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:54:59"
               },
               {
                 "id": 161227168718917,
@@ -1128,7 +1128,7 @@
               },
               {
                 "id": 161227168727110,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "新增权限点",
                 "code": "api:admin:permission:adddot",
@@ -1159,11 +1159,11 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:54:28"
               },
               {
                 "id": 161227168731205,
-                "platform": null,
+                "platform": "web",
                 "parentId": 161227168702533,
                 "label": "修改权限点",
                 "code": "api:admin:permission:updatedot",
@@ -1194,7 +1194,7 @@
                 "modifiedUserId": 161223411986501,
                 "modifiedUserName": "admin",
                 "modifiedUserRealName": "管理员",
-                "modifiedTime": "2024-01-31T18:09:02"
+                "modifiedTime": "2026-07-10T22:55:17"
               }
             ],
             "isDeleted": false,
