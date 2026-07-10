@@ -6,6 +6,9 @@ using ZhonTai.Admin.Services.Api.Dto;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
+/// <summary>
+/// Api文档处理器
+/// </summary>
 public class ApiDocumentHandler : IApiDocumentHandler
 {
     private readonly AppConfig _appConfig;
@@ -22,6 +25,10 @@ public class ApiDocumentHandler : IApiDocumentHandler
         _logger = logger;
     }
 
+    /// <summary>
+    /// 同步Api文档
+    /// </summary>
+    /// <returns></returns>
     public async Task SyncAsync()
     {
         try
@@ -40,8 +47,8 @@ public class ApiDocumentHandler : IApiDocumentHandler
                     var apiSyncDto = new ApiSyncModel()
                     {
                         Label = tag.Description,
+                        Path = project.Code.ToLower() + "/" + tag.Name,
                         ParentPath = project.Code.ToLower(),
-                        Path = tag.Name
                     };
                     apis.Add(apiSyncDto);
                 }
@@ -53,7 +60,7 @@ public class ApiDocumentHandler : IApiDocumentHandler
                         var apiSyncDto = new ApiSyncModel()
                         {
                             Path = path.Key,
-                            ParentPath = openApiOperation.Value.Tags.First().Name,
+                            ParentPath = project.Code.ToLower() + "/" + openApiOperation.Value.Tags.First().Name,
                             HttpMethods = openApiOperation.Key.Method.ToLower(),
                             Label = openApiOperation.Value.Summary
                         };
