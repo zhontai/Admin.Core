@@ -8,7 +8,81 @@
     ".eslintrc.js": ".eslintignore",
     ".editorconfig": ".prettierrc.cjs"
   },
-  "i18n-ally.localesPaths": [
-    "src/i18n"
-  ]
+  "i18n-ally.localesPaths": ["src/i18n"],
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.options": {
+    "extensions": [".js", ".vue", ".ts", ".tsx"]
+  },
+  "eslint.validate": ["vue", "html", "javascript", "graphql", "javascriptreact", "json", "typescript", "typescriptreact", "vue-html"],
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "files.associations": {
+    "*.cjson": "jsonc",
+    "*.wxss": "css",
+    "*.wxs": "javascript",
+    "*.nvue": "vue",
+    "*.ejs": ""
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.formatOnType": true,
+  "js/ts.format.enable": false,
+  "search.followSymlinks": false,
+  "backgroundCover.opacity": 0.5,
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "markdownlint.config": {
+    "default": true,
+    "no-hard-tabs": false,
+    "no-inline-html": false,
+    "first-line-heading": false,
+    "heading-increment": false,
+    "no-bare-urls": false
+  },
+  "editor.minimap.enabled": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "explorer.confirmDelete": false,
+  "editor.quickSuggestions": {
+    "strings": true,
+    "comments": true,
+    "other": true
+  },
+  "html-css-class-completion.includeGlobPattern": "src/theme/**/*.{css,scss,sass,html}",
+  "path-intellisense.mappings": {
+    "/@": "${workspaceRoot}/src"
+  },
+  "markdown-preview-enhanced.previewTheme": "vue.css",
+  "chatgpt.lang": "cn",
+  "chatgpt.temperature": 0.9,
+  "git.confirmSync": false,
+  "fileheader.Author": "xiaoxue",
+  "fileheader.LastModifiedBy": "xiaoxue",
+  "security.workspace.trust.untrustedFiles": "open"
 }
