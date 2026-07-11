@@ -123,20 +123,11 @@
       </el-table>
     </el-card>
 
-    <permission-group-form
-      ref="permissionGroupFormRef"
-      :title="state.permissionFormTitle"
-    ></permission-group-form>
+    <permission-group-form ref="permissionGroupFormRef" :title="state.permissionFormTitle"></permission-group-form>
 
-    <permission-menu-form
-      ref="permissionMenuFormRef"
-      :title="state.permissionFormTitle"
-    ></permission-menu-form>
+    <permission-menu-form ref="permissionMenuFormRef" :title="state.permissionFormTitle"></permission-menu-form>
 
-    <permission-dot-form
-      ref="permissionDotFormRef"
-      :title="state.permissionFormTitle"
-    ></permission-dot-form>
+    <permission-dot-form ref="permissionDotFormRef" :title="state.permissionFormTitle"></permission-dot-form>
   </my-layout>
 </template>
 
@@ -191,9 +182,6 @@ const state = reactive({
 onMounted(async () => {
   await getDictList()
   await onQuery()
-  state.expandRowKeys = treeToList(cloneDeep(state.permissionTreeData))
-    .filter((a: PermissionGetListOutput) => a.opened === true)
-    .map((a: PermissionGetListOutput) => a.id + '') as string[]
   eventBus.off('refreshPermission')
   eventBus.on('refreshPermission', async () => {
     onQuery()
@@ -222,13 +210,20 @@ const onQuery = async () => {
     })
   if (res && res.data && res.data.length > 0) {
     const label = state.filter.label || ''
-    state.permissionTreeData = markRaw(filterTree(listToTree(cloneDeep(res.data)), '', {
-      filterWhere: (item: any, keyword: string) => {
-        return item.label?.toLocaleLowerCase().indexOf(label) > -1 || item.path?.toLocaleLowerCase().indexOf(label) > -1
-      },
-    }))
+    state.permissionTreeData = markRaw(
+      filterTree(listToTree(cloneDeep(res.data)), '', {
+        filterWhere: (item: any, keyword: string) => {
+          return item.label?.toLocaleLowerCase().indexOf(label) > -1 || item.path?.toLocaleLowerCase().indexOf(label) > -1
+        },
+      })
+    )
+
+    state.expandRowKeys = res.data
+      .filter((a: PermissionGetListOutput) => a.opened === true)
+      .map((a: PermissionGetListOutput) => a.id + '') as string[]
   } else {
     state.permissionTreeData = []
+    state.expandRowKeys = []
   }
   state.loading = false
 }
