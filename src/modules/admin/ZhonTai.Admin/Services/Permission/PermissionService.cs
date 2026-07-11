@@ -283,7 +283,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
 
         if (entity.Sort == 0)
         {
-            var sort = await _permissionRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _permissionRep.Select.Where(a => a.Platform == input.Platform && a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
 
@@ -307,7 +307,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         entity.Type = PermissionType.Menu;
         if (entity.Sort == 0)
         {
-            var sort = await _permissionRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _permissionRep.Select.Where(a => a.Platform == input.Platform && a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         await _permissionRep.InsertAsync(entity);
@@ -342,7 +342,7 @@ public class PermissionService : BaseService, IPermissionService, IDynamicApi
         entity.Type = PermissionType.Dot;
         if (entity.Sort == 0)
         {
-            var sort = await _permissionRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _permissionRep.Select.Where(a => a.Platform == input.Platform && a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         await _permissionRep.InsertAsync(entity);

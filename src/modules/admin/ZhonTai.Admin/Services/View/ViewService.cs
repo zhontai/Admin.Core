@@ -93,7 +93,7 @@ public class ViewService : BaseService, IViewService, IDynamicApi
         var entity = Mapper.Map<ViewEntity>(input);
         if (entity.Sort == 0)
         {
-            var sort = await _viewRep.Select.Where(a => a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
+            var sort = await _viewRep.Select.Where(a => a.Platform == input.Platform && a.ParentId == input.ParentId).MaxAsync(a => a.Sort);
             entity.Sort = sort + 1;
         }
         await _viewRep.InsertAsync(entity);
