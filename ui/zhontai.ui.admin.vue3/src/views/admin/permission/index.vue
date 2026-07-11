@@ -237,7 +237,7 @@ const onAdd = (row: PermissionGetListOutput) => {
         platform: state.filter.platform,
         enabled: true,
         opened: true,
-        icon: 'ele-Memo',
+        icon: '',
         parentId: row.parentId,
       })
       break
@@ -248,7 +248,7 @@ const onAdd = (row: PermissionGetListOutput) => {
         platform: state.filter.platform,
         enabled: true,
         isKeepAlive: true,
-        icon: 'ele-Memo',
+        icon: '',
         parentId: row.parentId,
       })
       break

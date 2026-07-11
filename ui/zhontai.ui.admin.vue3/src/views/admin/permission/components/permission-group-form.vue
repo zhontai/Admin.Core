@@ -160,13 +160,14 @@ const open = async (
     id: 0,
     enabled: true,
     opened: true,
-    icon: 'ele-Memo',
+    icon: '',
     parentId: undefined,
   },
   isCopy = false
 ) => {
   proxy.$modal.loading()
   state.isCopy = isCopy
+  row.icon = row.icon || (row.platform === PlatformType.Web.name ? 'ele-Memo' : '')
   await getDictList()
   await getPermissionTreeData(row.platform)
 

@@ -234,13 +234,14 @@ const open = async (
     id: 0,
     enabled: true,
     isKeepAlive: true,
-    icon: 'ele-Memo',
+    icon: '',
     parentId: undefined,
   },
   isCopy = false
 ) => {
   proxy.$modal.loading()
   state.isCopy = isCopy
+  row.icon = row.icon || (row.platform === PlatformType.Web.name ? 'ele-Memo' : row.platform === PlatformType.App.name ? 'apps' : '')
   await getDictList()
   await getViews(row.platform as string)
   await getPermissionTreeData(row.platform)
