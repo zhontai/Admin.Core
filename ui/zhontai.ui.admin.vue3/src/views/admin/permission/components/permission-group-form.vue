@@ -13,7 +13,13 @@
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item :label="t('所属平台')">
-              <el-select v-model="form.platform" :disabled="!state.isCopy" :placeholder="t('请选择所属平台')" class="w100">
+              <el-select
+                v-model="form.platform"
+                :disabled="!state.isCopy"
+                :placeholder="t('请选择所属平台')"
+                class="w100"
+                @change="handlePlatformChang"
+              >
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
@@ -22,7 +28,7 @@
             <el-form-item :label="t('上级分组')">
               <el-tree-select
                 v-model="form.parentId"
-                :data="permissionTreeData"
+                :data="state.permissionTreeData"
                 node-key="id"
                 check-strictly
                 default-expand-all
@@ -87,11 +93,14 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-group-form">
-import { PermissionGetListOutput, PermissionUpdateGroupInput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import { PermissionGetSimpleListOutput, PermissionUpdateGroupInput, DictGetListOutput, PermissionType } from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import eventBus from '/@/utils/mitt'
 import { DictApi } from '/@/api/admin/Dict'
 import { t } from '/@/i18n'
+import { listToTree } from '/@/utils/tree'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+import { PermissionType as PermissionTypeEnum } from '/@/api/admin/enum-contracts'
 
 // 引入组件
 const MySelectIcon = defineAsyncComponent(() => import('/@/components/my-select-icon/index.vue'))
@@ -105,10 +114,6 @@ defineProps({
   title: {
     type: String,
     default: '',
-  },
-  permissionTreeData: {
-    type: Array as PropType<PermissionGetListOutput[]>,
-    default: () => [],
   },
 })
 
@@ -124,13 +129,28 @@ const state = reactive({
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
   },
+  permissionTreeData: [] as PermissionGetSimpleListOutput[],
 })
 const { form } = toRefs(state)
 
+// 获取字典列表
 const getDictList = async () => {
   const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
   if (res?.success && res.data) {
     state.dictData = markRaw(res.data)
+  }
+}
+
+// 获取权限分组树数据
+const getPermissionTreeData = async (platform: string | undefined | null = PlatformType.Web.name) => {
+  const res = await new PermissionApi()
+    .getSimpleList({
+      platform,
+      type: PermissionTypeEnum.Group.value as PermissionType,
+    })
+    .catch(() => {})
+  if (res?.success) {
+    state.permissionTreeData = markRaw(listToTree(res.data || []))
   }
 }
 
@@ -148,11 +168,10 @@ const open = async (
   proxy.$modal.loading()
   state.isCopy = isCopy
   await getDictList()
-  if (row.id > 0) {
-    const res = await new PermissionApi().getGroup({ id: row.id }).catch(() => {
-      proxy.$modal.closeLoading()
-    })
+  await getPermissionTreeData(row.platform)
 
+  if (row.id > 0) {
+    const res = await new PermissionApi().getGroup({ id: row.id }).catch(() => {})
     if (res?.success) {
       let formData = res.data as PermissionUpdateGroupInput
       formData.platform = row.platform
@@ -163,6 +182,7 @@ const open = async (
   } else {
     state.form = row
   }
+
   proxy.$modal.closeLoading()
   state.showDialog = true
 }
@@ -197,6 +217,14 @@ const onSure = () => {
       state.showDialog = false
     }
   })
+}
+
+// 平台改变
+const handlePlatformChang = async (value: string = PlatformType.Web.name) => {
+  proxy.$modal.loading()
+  state.form.parentId = undefined
+  await getPermissionTreeData(value)
+  proxy.$modal.closeLoading()
 }
 
 defineExpose({

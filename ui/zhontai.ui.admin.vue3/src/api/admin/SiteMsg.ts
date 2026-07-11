@@ -13,6 +13,7 @@
 import {
   PageInputSiteMsgGetPageInput,
   ResultOutputBoolean,
+  ResultOutputInt64,
   ResultOutputObject,
   ResultOutputPageOutputSiteMsgGetPageOutput,
   ResultOutputSiteMsgGetContentOutput,
@@ -60,6 +61,23 @@ export class SiteMsgApi<SecurityDataType = unknown> extends HttpClient<SecurityD
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags site-msg
+   * @name GetUnreadCount
+   * @summary 获得未读数量
+   * @request GET:/api/admin/site-msg/get-unread-count
+   * @secure
+   */
+  getUnreadCount = (params: RequestParams = {}) =>
+    this.request<ResultOutputInt64, any>({
+      path: `/api/admin/site-msg/get-unread-count`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     })

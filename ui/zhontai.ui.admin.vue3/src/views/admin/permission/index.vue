@@ -126,19 +126,16 @@
     <permission-group-form
       ref="permissionGroupFormRef"
       :title="state.permissionFormTitle"
-      :permission-tree-data="state.formPermissionGroupTreeData"
     ></permission-group-form>
 
     <permission-menu-form
       ref="permissionMenuFormRef"
       :title="state.permissionFormTitle"
-      :permission-tree-data="state.formPermissionGroupTreeData"
     ></permission-menu-form>
 
     <permission-dot-form
       ref="permissionDotFormRef"
       :title="state.permissionFormTitle"
-      :permission-tree-data="state.formPermissionMenuTreeData"
     ></permission-dot-form>
   </my-layout>
 </template>
@@ -185,8 +182,6 @@ const state = reactive({
     name: '',
   } as PermissionGetListInput,
   permissionTreeData: [] as Array<PermissionGetListOutput>,
-  formPermissionGroupTreeData: [] as Array<PermissionGetListOutput>,
-  formPermissionMenuTreeData: [] as Array<PermissionGetListOutput>,
   expandRowKeys: [] as string[],
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
@@ -227,17 +222,13 @@ const onQuery = async () => {
     })
   if (res && res.data && res.data.length > 0) {
     const label = state.filter.label || ''
-    state.permissionTreeData = filterTree(listToTree(cloneDeep(res.data)), '', {
+    state.permissionTreeData = markRaw(filterTree(listToTree(cloneDeep(res.data)), '', {
       filterWhere: (item: any, keyword: string) => {
         return item.label?.toLocaleLowerCase().indexOf(label) > -1 || item.path?.toLocaleLowerCase().indexOf(label) > -1
       },
-    })
-    state.formPermissionGroupTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1))
-    state.formPermissionMenuTreeData = listToTree(cloneDeep(res.data).filter((a: any) => a.type === 1 || a.type === 2))
+    }))
   } else {
     state.permissionTreeData = []
-    state.formPermissionGroupTreeData = []
-    state.formPermissionMenuTreeData = []
   }
   state.loading = false
 }

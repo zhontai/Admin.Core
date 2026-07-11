@@ -13,7 +13,13 @@
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
             <el-form-item :label="t('所属平台')">
-              <el-select v-model="form.platform" :disabled="!state.isCopy" :placeholder="t('请选择所属平台')" class="w100">
+              <el-select
+                v-model="form.platform"
+                :disabled="!state.isCopy"
+                :placeholder="t('请选择所属平台')"
+                @change="handlePlatformChang"
+                class="w100"
+              >
                 <el-option v-for="item in state.dictData[DictType.PlatForm.name]" :key="item.code" :label="item.name" :value="item.code" />
               </el-select>
             </el-form-item>
@@ -22,7 +28,7 @@
             <el-form-item :label="t('上级菜单')">
               <el-tree-select
                 v-model="form.parentId"
-                :data="permissionTreeData"
+                :data="state.permissionTreeData"
                 node-key="id"
                 check-strictly
                 default-expand-all
@@ -102,7 +108,13 @@
 </template>
 
 <script lang="ts" setup name="admin/permission/permission-dot-form">
-import { PermissionGetListOutput, PermissionUpdateDotInput, ApiGetListOutput, DictGetListOutput } from '/@/api/admin/data-contracts'
+import {
+  PermissionGetSimpleListOutput,
+  PermissionUpdateDotInput,
+  ApiGetListOutput,
+  DictGetListOutput,
+  PermissionType,
+} from '/@/api/admin/data-contracts'
 import { PermissionApi } from '/@/api/admin/Permission'
 import { ApiApi } from '/@/api/admin/Api'
 import { listToTree, treeToList } from '/@/utils/tree'
@@ -110,6 +122,8 @@ import eventBus from '/@/utils/mitt'
 import { trimStart, replace, cloneDeep } from 'lodash-es'
 import { DictApi } from '/@/api/admin/Dict'
 import { t } from '/@/i18n'
+import { PlatformType } from '/@/api/admin.extend/enum-contracts'
+import { PermissionType as PermissionTypeEnum } from '/@/api/admin/enum-contracts'
 
 /** 字典分类 */
 const DictType = {
@@ -120,10 +134,6 @@ defineProps({
   title: {
     type: String,
     default: '',
-  },
-  permissionTreeData: {
-    type: Array as PropType<PermissionGetListOutput[]>,
-    default: () => [],
   },
 })
 
@@ -141,10 +151,12 @@ const state = reactive({
   dictData: {
     [DictType.PlatForm.name]: [] as DictGetListOutput[] | null,
   },
+  permissionTreeData: [] as PermissionGetSimpleListOutput[],
 })
 
 const { form } = toRefs(state)
 
+// 获得字典数据
 const getDictList = async () => {
   const res = await new DictApi().getList([DictType.PlatForm.name]).catch(() => {})
   if (res?.success && res.data) {
@@ -152,12 +164,26 @@ const getDictList = async () => {
   }
 }
 
+// 获得API接口树数据
 const getApis = async () => {
   const res = await new ApiApi().getList()
   if (res?.success && res.data && res.data.length > 0) {
     state.apiTreeData = listToTree(res.data) as ApiGetListOutput[]
   } else {
     state.apiTreeData = []
+  }
+}
+
+// 获得权限菜单树数据
+const getPermissionTreeData = async (platform: string | undefined | null = PlatformType.Web.name) => {
+  const res = await new PermissionApi()
+    .getSimpleList({
+      platform,
+      type: PermissionTypeEnum.Menu.value as PermissionType,
+    })
+    .catch(() => {})
+  if (res?.success) {
+    state.permissionTreeData = markRaw(listToTree(res.data || []))
   }
 }
 
@@ -174,15 +200,14 @@ const open = async (
   state.isCopy = isCopy
   await getDictList()
   await getApis()
+  await getPermissionTreeData(row.platform)
 
   state.expandRowKeys = treeToList(cloneDeep(state.apiTreeData))
     .filter((a: ApiGetListOutput) => a.parentId === 0)
     .map((a: ApiGetListOutput) => a.id) as number[]
 
   if (row.id > 0) {
-    const res = await new PermissionApi().getDot({ id: row.id }).catch(() => {
-      proxy.$modal.closeLoading()
-    })
+    const res = await new PermissionApi().getDot({ id: row.id }).catch(() => {})
 
     if (res?.success) {
       let formData = res.data as PermissionUpdateDotInput
@@ -199,11 +224,13 @@ const open = async (
   state.showDialog = true
 }
 
+// API接口搜索过滤
 const onApiFilterNode = (value: string, data: ApiGetListOutput) => {
   if (!value) return true
   return data.label?.indexOf(value) !== -1 || data.path?.indexOf(value) !== -1
 }
 
+// API接口选择改变
 const onApiCurrentChange = (data: ApiGetListOutput) => {
   if (data?.httpMethods) {
     if (!state.form.label) {
@@ -213,6 +240,14 @@ const onApiCurrentChange = (data: ApiGetListOutput) => {
       state.form.code = trimStart(replace(data.path || '', /\//g, ':'), ':')
     }
   }
+}
+
+// 平台改变
+const handlePlatformChang = async (value: string = PlatformType.Web.name) => {
+  proxy.$modal.loading()
+  state.form.parentId = undefined
+  await getPermissionTreeData(value)
+  proxy.$modal.closeLoading()
 }
 
 // 取消

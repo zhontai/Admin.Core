@@ -16,6 +16,7 @@ import {
   PermissionAddMenuInput,
   PermissionAssignInput,
   PermissionGetListInput,
+  PermissionGetSimpleListInput,
   PermissionUpdateDotInput,
   PermissionUpdateGroupInput,
   PermissionUpdateMenuInput,
@@ -23,6 +24,7 @@ import {
   ResultOutputListInt64,
   ResultOutputListPermissionGetListOutput,
   ResultOutputListPermissionGetPermissionListOutput,
+  ResultOutputListPermissionGetSimpleListOutput,
   ResultOutputObject,
   ResultOutputPermissionGetDotOutput,
   ResultOutputPermissionGetGroupOutput,
@@ -115,6 +117,25 @@ export class PermissionApi<SecurityDataType = unknown> extends HttpClient<Securi
   getList = (data: PermissionGetListInput, params: RequestParams = {}) =>
     this.request<ResultOutputListPermissionGetListOutput, any>({
       path: `/api/admin/permission/get-list`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags permission
+   * @name GetSimpleList
+   * @summary 查询简单权限列表
+   * @request POST:/api/admin/permission/get-simple-list
+   * @secure
+   */
+  getSimpleList = (data: PermissionGetSimpleListInput, params: RequestParams = {}) =>
+    this.request<ResultOutputListPermissionGetSimpleListOutput, any>({
+      path: `/api/admin/permission/get-simple-list`,
       method: 'POST',
       body: data,
       secure: true,

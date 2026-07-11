@@ -2883,6 +2883,30 @@ export interface PermissionGetPermissionListOutput {
   children?: PermissionGetPermissionListOutput[] | null
 }
 
+/** 查询简单权限列表 */
+export interface PermissionGetSimpleListInput {
+  /** 平台 */
+  platform?: string | null
+  /** 权限类型:Group=1,Menu=2,Dot=3 */
+  type?: PermissionType
+}
+
+/** 简单权限列表 */
+export interface PermissionGetSimpleListOutput {
+  /**
+   * 权限Id
+   * @format int64
+   */
+  id?: number
+  /**
+   * 父级节点
+   * @format int64
+   */
+  parentId?: number
+  /** 权限名称 */
+  label?: string | null
+}
+
 /**
  * 权限类型:Group=1,Menu=2,Dot=3
  * @format int32
@@ -4010,6 +4034,18 @@ export interface ResultOutputListPermissionGetPermissionListOutput {
   msg?: string | null
   /** 数据 */
   data?: PermissionGetPermissionListOutput[] | null
+}
+
+/** 结果输出 */
+export interface ResultOutputListPermissionGetSimpleListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: PermissionGetSimpleListOutput[] | null
 }
 
 /** 结果输出 */
