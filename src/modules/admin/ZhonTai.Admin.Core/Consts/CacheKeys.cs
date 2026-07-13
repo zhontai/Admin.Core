@@ -58,6 +58,12 @@ public static partial class CacheKeys
     public const string ExcelErrorMark = "admin:excel:error_mark:";
 
     /// <summary>
+    /// 单点登录票据 admin:sso:ticket:appId:ticket
+    /// </summary>
+    [Description("单点登录票据")]
+    public const string SsoTicket = "admin:sso:ticket:";
+
+    /// <summary>
     /// 获取短信验证码缓存键
     /// </summary>
     /// <param name="mobile">手机号</param>
@@ -81,7 +87,7 @@ public static partial class CacheKeys
     /// <returns></returns>
     public static string GetDataPermissionKey(long userId, string apiPath = null)
     {
-        if(apiPath.IsNull())
+        if (apiPath.IsNull())
         {
             apiPath = AppInfo.CurrentDataPermissionApiPath;
         }
@@ -110,4 +116,12 @@ public static partial class CacheKeys
     /// <param name="fileId">文件Id</param>
     /// <returns></returns>
     public static string GetExcelErrorMarkKey(long userId, string fileId) => $"{ExcelErrorMark}{userId}{(fileId.NotNull() ? (":" + fileId) : "")}";
+
+    /// <summary>
+    /// 获取单点登录票据缓存键
+    /// </summary>
+    /// <param name="appId">应用Id</param>
+    /// <param name="ticket">票据</param>
+    /// <returns></returns>
+    public static string GetSsoTicketKey(string appId, string ticket) => $"{SsoTicket}{appId}:{ticket}";
 }

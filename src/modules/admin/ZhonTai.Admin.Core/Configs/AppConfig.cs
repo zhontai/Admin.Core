@@ -183,6 +183,11 @@ public class AppConfig
     /// IP地址定位配置
     /// </summary>
     public IP2RegionConfig IP2Region { get; set; } = new IP2RegionConfig();
+
+    /// <summary>
+    /// 单点登录配置
+    /// </summary>
+    public SsoConfig Sso { get; set; } = new SsoConfig();
 }
 
 /// <summary>
@@ -246,6 +251,22 @@ public class IP2RegionConfig
     /// 数据库路径
     /// </summary>
     public string DbPath { get; set; }
+}
+
+/// <summary>
+/// 单点登录配置
+/// </summary>
+public class SsoConfig
+{
+    /// <summary>
+    /// 票据有效期（分钟），默认5分钟
+    /// </summary>
+    public int TicketExpireMinutes { get; set; } = 5;
+
+    /// <summary>
+    /// 校验请求时间戳允许的误差（秒），默认300秒（5分钟），用于防止包重放
+    /// </summary>
+    public int TimestampExpireSeconds { get; set; } = 300;
 }
 
 /// <summary>
@@ -316,7 +337,7 @@ public class ApiUIConfig
     public bool Enable { get; set; } = false;
 
 
-    private string _RoutePrefix="";
+    private string _RoutePrefix = "";
     /// <summary>
     /// 访问地址
     /// </summary>
@@ -507,7 +528,7 @@ public class TaskSchedulerUIConfig
     public string Path { get; set; } = "/task";
 }
 
-public class IdGeneratorConfig: IdGeneratorOptions
+public class IdGeneratorConfig : IdGeneratorOptions
 {
     public string CachePrefix { get; set; } = "zhontai:workerid:";
 }
