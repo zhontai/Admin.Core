@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using ZhonTai.Admin.Domain.UserStaff;
 
 namespace ZhonTai.Admin.Services.Auth.Dto;
 
@@ -18,10 +19,19 @@ public class AuthUserProfileOutput
     public string Name { get; set; }
 
     /// <summary>
+    /// 性别
+    /// </summary>
+    public Sex? Sex { get; set; }
+
+    /// <summary>
     /// 手机号
     /// </summary>
-    [JsonIgnore]
     public string Mobile { get; set; }
+
+    /// <summary>
+    /// 邮箱
+    /// </summary>
+    public string Email { get; set; }
 
     /// <summary>
     /// 昵称
@@ -47,6 +57,11 @@ public class AuthUserProfileOutput
     /// 主属部门
     /// </summary>
     public string DeptName { get; set; }
+
+    /// <summary>
+    /// 企业微信名片
+    /// </summary>
+    public string WorkWeChatCard { get; set; }
 
     /// <summary>
     /// 水印文案
