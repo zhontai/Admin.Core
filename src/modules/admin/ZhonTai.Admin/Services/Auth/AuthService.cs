@@ -331,7 +331,9 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
         {
             DeptName = u.Org.Name,
             CorpName = u.Tenant.Org.Name,
-            Position = u.Staff.Position
+            Position = u.Staff.Position,
+            Sex = u.Staff.Sex,
+            WorkWeChatCard = u.Staff.WorkWeChatCard,
         });
 
         var mobile = profile.Mobile?.ToString();
@@ -346,6 +348,9 @@ public partial class AuthService : BaseService, IAuthService, IDynamicApi
             var userId = User.Id.ToString();
             number = userId.Length >= 4 ? userId.Substring(userId.Length - 4) : userId;
         }
+
+        profile.Mobile = DataMaskHelper.PhoneMask(profile.Mobile);
+        profile.Email = DataMaskHelper.EmailMask(profile.Email);
 
         profile.WatermarkText = $"{profile.Name}@{profile.CorpName} {number}";
 

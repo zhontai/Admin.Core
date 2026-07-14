@@ -526,6 +526,12 @@ export interface AuthUserProfileOutput {
   userName?: string | null
   /** 姓名 */
   name?: string | null
+  /** 性别:Unknown(未知)=0,Male(男)=1,Female(女)=2 */
+  sex?: Sex
+  /** 手机号 */
+  mobile?: string | null
+  /** 邮箱 */
+  email?: string | null
   /** 昵称 */
   nickName?: string | null
   /** 头像 */
@@ -536,6 +542,8 @@ export interface AuthUserProfileOutput {
   position?: string | null
   /** 主属部门 */
   deptName?: string | null
+  /** 企业微信名片 */
+  workWeChatCard?: string | null
   /** 水印文案 */
   watermarkText?: string | null
 }
