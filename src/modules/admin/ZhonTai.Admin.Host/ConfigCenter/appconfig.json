@@ -148,6 +148,13 @@
       "Enable": true,
       //绝对数据库路径，为空则默认使用网站根目录/ip2region.xdb
       "DbPath": ""
+    }, 
+    //单点登录（一次性Ticket授权码方案）
+    "Sso": {
+      //票据有效期（分钟）
+      "TicketExpireMinutes": 5,
+      //校验请求时间戳允许的误差（秒），用于防止包重放
+      "TimestampExpireSeconds": 300
     }
   }
 }
