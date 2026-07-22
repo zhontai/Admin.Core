@@ -2185,6 +2185,24 @@ export interface PageInputSiteMsgGetPageInput {
 }
 
 /** 分页信息输入 */
+export interface PageInputSsoAppManageGetListInput {
+  dynamicFilter?: DynamicFilterInfo
+  /** 排序列表 */
+  sortList?: SortInput[] | null
+  /**
+   * 当前页标
+   * @format int32
+   */
+  currentPage?: number
+  /**
+   * 每页大小
+   * @format int32
+   */
+  pageSize?: number
+  filter?: SsoAppManageGetListInput
+}
+
+/** 分页信息输入 */
 export interface PageInputTaskGetPageInput {
   dynamicFilter?: DynamicFilterInfo
   /** 排序列表 */
@@ -2401,6 +2419,17 @@ export interface PageOutputSiteMsgGetPageOutput {
   total?: number
   /** 数据 */
   list?: SiteMsgGetPageOutput[] | null
+}
+
+/** 分页信息输出 */
+export interface PageOutputSsoAppManageGetListOutput {
+  /**
+   * 数据总数
+   * @format int64
+   */
+  total?: number
+  /** 数据 */
+  list?: SsoAppManageGetListOutput[] | null
 }
 
 /** 分页信息输出 */
@@ -4141,6 +4170,18 @@ export interface ResultOutputListSearchTemplateGetListOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputListSsoAppManageButtonOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 数据 */
+  data?: SsoAppManageButtonOutput[] | null
+}
+
+/** 结果输出 */
 export interface ResultOutputListString {
   /** 是否成功标记 */
   success?: boolean
@@ -4369,6 +4410,18 @@ export interface ResultOutputPageOutputSiteMsgGetPageOutput {
 }
 
 /** 结果输出 */
+export interface ResultOutputPageOutputSsoAppManageGetListOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 分页信息输出 */
+  data?: PageOutputSsoAppManageGetListOutput
+}
+
+/** 结果输出 */
 export interface ResultOutputPageOutputTaskGetPageOutput {
   /** 是否成功标记 */
   success?: boolean
@@ -4546,6 +4599,30 @@ export interface ResultOutputSiteMsgGetContentOutput {
   msg?: string | null
   /** 消息内容 */
   data?: SiteMsgGetContentOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputSsoAppManageGetOutput {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 应用详情输出 */
+  data?: SsoAppManageGetOutput
+}
+
+/** 结果输出 */
+export interface ResultOutputSsoUserInfo {
+  /** 是否成功标记 */
+  success?: boolean
+  /** 编码 */
+  code?: string | null
+  /** 消息 */
+  msg?: string | null
+  /** 票据兑换返回的用户信息 */
+  data?: SsoUserInfo
 }
 
 /** 结果输出 */
@@ -5052,6 +5129,159 @@ export interface SortInput {
  * @format int32
  */
 export type SortOrder = 0 | 1
+
+/** 新增应用输入（密钥由系统自动生成） */
+export interface SsoAppManageAddInput {
+  /**
+   * 应用Id
+   * @minLength 1
+   */
+  appId: string
+  /** 应用名称 */
+  appName?: string | null
+  /** 回调地址 */
+  callbackUrl?: string | null
+  /**
+   * 状态：1启用 0禁用
+   * @format int32
+   */
+  status?: number
+}
+
+/** 单点登录按钮应用输出（脱敏，供前端渲染按钮，不含密钥） */
+export interface SsoAppManageButtonOutput {
+  /** 应用Id */
+  appId?: string | null
+  /** 应用名称 */
+  appName?: string | null
+  /** 图标（前端按钮展示用） */
+  icon?: string | null
+  /**
+   * 排序（升序）
+   * @format int32
+   */
+  sort?: number
+  /** 回调地址（含 {ticket}/{appId} 占位符） */
+  callbackUrl?: string | null
+}
+
+export interface SsoAppManageGetListInput {
+  /** 应用名称 */
+  name?: string | null
+}
+
+/** 应用列表输出 */
+export interface SsoAppManageGetListOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 应用Id */
+  appId?: string | null
+  /** 应用名称 */
+  appName?: string | null
+  /** 回调地址 */
+  callbackUrl?: string | null
+  /**
+   * 状态：1启用 0禁用
+   * @format int32
+   */
+  status?: number
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createdTime?: string | null
+}
+
+/** 应用详情输出 */
+export interface SsoAppManageGetOutput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id?: number
+  /** 应用Id */
+  appId?: string | null
+  /** 应用名称 */
+  appName?: string | null
+  /** 回调地址 */
+  callbackUrl?: string | null
+  /**
+   * 状态：1启用 0禁用
+   * @format int32
+   */
+  status?: number
+  /**
+   * 创建时间
+   * @format date-time
+   */
+  createdTime?: string | null
+  /** 应用密钥（仅详情返回，列表不返回） */
+  appSecret?: string | null
+}
+
+/** 修改应用输入 */
+export interface SsoAppManageUpdateInput {
+  /**
+   * 主键Id
+   * @format int64
+   */
+  id: number
+  /** 应用名称 */
+  appName?: string | null
+  /** 回调地址 */
+  callbackUrl?: string | null
+  /**
+   * 状态：1启用 0禁用
+   * @format int32
+   */
+  status?: number
+}
+
+/** 生成票据输入 */
+export interface SsoTicketInput {
+  /** 第三方应用Id */
+  appId?: string | null
+}
+
+/** 票据兑换返回的用户信息 */
+export interface SsoUserInfo {
+  /**
+   * 用户Id
+   * @format int64
+   */
+  userId?: number
+  /** 用户名 */
+  userName?: string | null
+  /** 姓名 */
+  name?: string | null
+  /**
+   * 租户Id
+   * @format int64
+   */
+  tenantId?: number | null
+  /** 浙政钉用户登录账号 */
+  account?: string | null
+  /**
+   * 浙政钉用户账号id
+   * @format int64
+   */
+  accountId?: number
+}
+
+/** 校验票据输入（第三方系统后端调用） */
+export interface SsoValidateInput {
+  /** 第三方应用Id */
+  appId?: string | null
+  /** 票据 */
+  ticket?: string | null
+  /** 请求时间戳（格式：yyyyMMddHHmmsszzz，如 20260713134853+08:00；兼容 yyyyMMddHHmmss 本地时间） */
+  timestamp?: string | null
+  /** 签名：SM3-HMAC(AppId + Ticket + Timestamp + AppSecret)，Base64，大小写不敏感 */
+  sign?: string | null
+}
 
 /** 员工添加 */
 export interface StaffAddInput {
