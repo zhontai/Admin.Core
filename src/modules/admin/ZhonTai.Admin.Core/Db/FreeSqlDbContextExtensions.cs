@@ -77,7 +77,7 @@ public static class FreeSqlDbContextExtensions
             that.CodeFirst.SyncStructure<TaskInfo>();
             that.CodeFirst.SyncStructure<TaskLog>();
             that.CodeFirst.SyncStructure<TaskInfoExt>();
-            Console.WriteLine($"sync structure {dbConfig.Key} {dbConfig.Type} scheduler succeed");
+            Console.WriteLine($"sync structure {dbConfig.Key} {dbConfig.Type} scheduler succeed{Environment.NewLine}");
         }
         
     }

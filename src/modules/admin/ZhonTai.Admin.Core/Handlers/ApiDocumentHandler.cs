@@ -3,11 +3,12 @@ using Swashbuckle.AspNetCore.Swagger;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.GrpcServices;
 using ZhonTai.Admin.Core.GrpcServices.Dtos;
+using ZhonTai.Common.Helpers;
 
 namespace ZhonTai.Admin.Core.Handlers;
 
 /// <summary>
-/// Api文档处理器
+/// Api Document Handler
 /// </summary>
 public class ApiDocumentHandler : IApiDocumentHandler
 {
@@ -26,7 +27,7 @@ public class ApiDocumentHandler : IApiDocumentHandler
     }
 
     /// <summary>
-    /// 同步Api文档
+    /// Sync Api Document
     /// </summary>
     /// <returns></returns>
     public async Task SyncAsync()
@@ -37,38 +38,28 @@ public class ApiDocumentHandler : IApiDocumentHandler
             return;
         }
 
-        var tasks = projects.Select(SyncProjectAsync);
-
-        try
+        var isFirst = true;
+        foreach (var project in projects)
         {
-            await Task.WhenAll(tasks);
-        }
-        catch (Exception ex)
-        {
-            // 记录聚合异常
-            if (ex is AggregateException aggEx)
+            try
             {
-                foreach (var innerEx in aggEx.InnerExceptions)
+                if (project.AutoSyncToDb == true)
                 {
-                    _logger.LogError(innerEx, "API文档同步失败");
+                    await SyncProjectAsync(project, isFirst);
+                    isFirst = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                _logger.LogError(ex, "API文档同步失败");
+                _logger.LogError(ex, "API document sync failed");
             }
         }
     }
 
-    private async Task SyncProjectAsync(ProjectConfig project)
+    private async Task SyncProjectAsync(ProjectConfig project, bool isFirst = false)
     {
         try
         {
-            if (project.AutoSyncToDb == false)
-            {
-                return;
-            }
-
             var apis = new List<ApiSyncGrpcInput.Models.ApiSyncModel>();
             var apiDocument = _swaggerProvider.GetSwagger(project.Code.ToLower());
 
@@ -108,14 +99,15 @@ public class ApiDocumentHandler : IApiDocumentHandler
                 return;
             }
 
+            Console.WriteLine($"{(isFirst ? Environment.NewLine : "")}Start syncing {project.Name} API document");
             var apiSyncInput = new ApiSyncGrpcInput { Apis = apis };
             await _apiGrpcService.SyncAsync(apiSyncInput);
 
-            Console.WriteLine($"{project.Name}同步{apis.Count}个接口成功");
+            ConsoleHelper.WriteSuccessLine($"{project.Name} synced {apis.Count} APIs successfully{Environment.NewLine}");
         }
         catch (Exception)
         {
-            Console.WriteLine($"{project.Name}同步失败");
+            ConsoleHelper.WriteErrorLine($"{project.Name} sync failed");
             throw;
         }
     }

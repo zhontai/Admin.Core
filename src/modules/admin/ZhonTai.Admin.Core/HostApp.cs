@@ -974,7 +974,7 @@ public class HostApp
 
         //同步接口数据
         var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
-        Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
+        apiDocumentHandler.SyncAsync().Wait();
 
         //IP限流
         var rateLimitConfig = AppInfo.GetOptions<RateLimitConfig>();
