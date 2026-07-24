@@ -43,7 +43,9 @@ public class JsonHelper
             //自定义转换器
             Converters =
             {
-                //new StringNumberConverter(),
+                // 字符串转换器，允许非字符串值（数字、布尔等）反序列化为字符串属性
+                new StringConverter(),
+                // 日期时间转换器
                 new DateTimeConverter(),
                 // 日期时间转换器
                 new NullableDateTimeConverter(),

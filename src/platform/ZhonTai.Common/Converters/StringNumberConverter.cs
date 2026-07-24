@@ -4,32 +4,38 @@ using System.Text.Json.Serialization;
 namespace ZhonTai.Common.Converters;
 
 /// <summary>
-/// 字符串数字转换器
+/// 字符串转换器，允许非字符串值（数字、布尔等）反序列化为字符串属性
 /// </summary>
-public class StringNumberConverter : JsonConverter<string>
+public class StringConverter : JsonConverter<string>
 {
     public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.TokenType == JsonTokenType.Number)
+        switch (reader.TokenType)
         {
-            // 处理各种数字类型
-            if (reader.TryGetInt32(out int intValue))
-                return intValue.ToString();
-            if (reader.TryGetInt64(out long longValue))
-                return longValue.ToString();
-            if (reader.TryGetDouble(out double doubleValue))
-                return doubleValue.ToString();
-            if (reader.TryGetDecimal(out decimal decimalValue))
-                return decimalValue.ToString();
-        }
+            case JsonTokenType.Number:
+                if (reader.TryGetDecimal(out decimal decimalValue))
+                    return decimalValue.ToString();
+                if (reader.TryGetInt64(out long longValue))
+                    return longValue.ToString();
+                if (reader.TryGetDouble(out double doubleValue))
+                    return doubleValue.ToString();
+                return string.Empty;
 
-        if (reader.TokenType == JsonTokenType.String)
-        {
-            return reader.GetString();
-        }
+            case JsonTokenType.String:
+                return reader.GetString() ?? string.Empty;
 
-        // 如果是其他类型，转换为字符串
-        return reader.GetString() ?? string.Empty;
+            case JsonTokenType.True:
+                return "true";
+
+            case JsonTokenType.False:
+                return "false";
+
+            case JsonTokenType.Null:
+                return string.Empty;
+
+            default:
+                return string.Empty;
+        }
     }
 
     public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
