@@ -44,7 +44,7 @@ public class DateTimeConverter : JsonConverter<DateTime>
 /// <summary>
 /// 可空日期时间转换器
 /// </summary>
-public class NullableDateTimeConverter : JsonConverter<DateTime?>
+public class DateTimeNullableConverter : JsonConverter<DateTime?>
 {
     public override DateTime? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

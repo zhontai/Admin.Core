@@ -45,10 +45,12 @@ public class JsonHelper
             {
                 // 字符串转换器，允许非字符串值（数字、布尔等）反序列化为字符串属性
                 new StringConverter(),
+                // 可空字符串转换器，允许非字符串值（数字、布尔等）反序列化为可空字符串属性
+                new StringNullableConverter(),
                 // 日期时间转换器
                 new DateTimeConverter(),
-                // 日期时间转换器
-                new NullableDateTimeConverter(),
+                // 可空日期时间转换器
+                new DateTimeNullableConverter(),
                 // 弹性枚举转换器，支持字符串和数字两种方式
                 new FlexibleEnumConverter(),
             },
