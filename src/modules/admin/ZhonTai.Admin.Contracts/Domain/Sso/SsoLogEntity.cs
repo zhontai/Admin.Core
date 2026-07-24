@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Contracts.Domain.Sso;
 /// <summary>
 /// 单点登录审计日志
 /// </summary>
-[Table(Name = "ad_sso_log")]
+[Table(Name = DbConsts.TableNamePrefix + "sso_log")]
 public partial class SsoLogEntity : EntityAdd
 {
     /// <summary>

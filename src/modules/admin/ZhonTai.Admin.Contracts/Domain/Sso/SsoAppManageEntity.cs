@@ -6,7 +6,7 @@ namespace ZhonTai.Admin.Contracts.Domain.Sso;
 /// <summary>
 /// 单点登录第三方应用配置
 /// </summary>
-[Table(Name = "ad_sso_app")]
+[Table(Name = DbConsts.TableNamePrefix + "sso_app")]
 [Index("idx_{tablename}_01", nameof(AppId), true)]
 public partial class SsoAppManageEntity : EntityBase
 {
