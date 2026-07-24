@@ -49,7 +49,7 @@
         {
           "name": "中台Admin权限管理",
           "code": "admin",
-          "version": "v10.0.3",
+          "version": "v10.1.0",
           "description": "",
           //自动同步接口到数据库
           "autoSyncToDb": false
