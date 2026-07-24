@@ -1,6 +1,7 @@
-﻿using ZhonTai.Admin.Core.Repositories;
-using FreeScheduler;
+﻿using FreeScheduler;
+using System.Data;
 using ZhonTai.Admin.Core.Configs;
+using ZhonTai.Admin.Core.Repositories;
 using ZhonTai.Admin.Domain;
 
 namespace ZhonTai.Admin.Core.Db;
@@ -72,9 +73,11 @@ public static class FreeSqlDbContextExtensions
 
         if (dbConfig.SyncStructure)
         {
+            Console.WriteLine($"{Environment.NewLine}sync scheduler {dbConfig.Key} {dbConfig.Type} structure started");
             that.CodeFirst.SyncStructure<TaskInfo>();
             that.CodeFirst.SyncStructure<TaskLog>();
             that.CodeFirst.SyncStructure<TaskInfoExt>();
+            Console.WriteLine($"sync structure {dbConfig.Key} {dbConfig.Type} scheduler succeed");
         }
         
     }

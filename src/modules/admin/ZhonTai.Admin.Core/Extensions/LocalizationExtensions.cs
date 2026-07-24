@@ -5,7 +5,7 @@ using ZhonTai.Admin.Core.Configs;
 
 namespace ZhonTai.Admin.Core.Extensions;
 
-public static class ApplicationBuilderExtensions
+public static class LocalizationExtensions
 {
     /// <summary>
     /// 使用多语言

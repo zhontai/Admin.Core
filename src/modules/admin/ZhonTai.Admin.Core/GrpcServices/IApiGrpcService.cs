@@ -12,4 +12,6 @@ namespace ZhonTai.Admin.Core.GrpcServices;
 public interface IApiGrpcService
 {
     Task<GrpcOutput<List<ApiGrpcOutput>>> GetApiList(CallContext context = default);
+
+    Task SyncAsync(ApiSyncGrpcInput input, CallContext context = default);
 }

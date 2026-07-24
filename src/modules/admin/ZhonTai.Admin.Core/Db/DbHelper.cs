@@ -492,7 +492,7 @@ public class DbHelper
                 db.Aop.AuditValue -= SyncDataAuditValue;
             }
 
-            Console.WriteLine($"sync {dbConfig.Key} data succeed{Environment.NewLine}");
+            Console.WriteLine($"sync {dbConfig.Key} data succeed");
         }
         catch (Exception ex)
         {
@@ -528,7 +528,7 @@ public class DbHelper
                 }
             }
 
-            Console.WriteLine($"generate {dbConfig.Key} data succeed{Environment.NewLine}");
+            Console.WriteLine($"generate {dbConfig.Key} data succeed");
         }
         catch (Exception ex)
         {
@@ -583,7 +583,7 @@ public class DbHelper
                 freeSqlBuilder.UseMonitorCommand(cmd => { }, (cmd, traceLog) =>
                 {
                     //Console.WriteLine($"{cmd.CommandText}\n{traceLog}{Environment.NewLine}");
-                    Console.WriteLine($"{cmd.CommandText}{Environment.NewLine}");
+                    Console.WriteLine($"{Environment.NewLine}{cmd.CommandText}");
                 });
             }
 
@@ -694,7 +694,7 @@ public class DbHelper
                     {
                         MiniProfiler.Current.CustomTiming("CurdBefore", e.Sql);
                     }
-                    Console.WriteLine($"{e.Sql}{Environment.NewLine}");
+                    Console.WriteLine($"{Environment.NewLine}{e.Sql}");
                 };
                 fsql.Aop.CurdAfter += (s, e) =>
                 {

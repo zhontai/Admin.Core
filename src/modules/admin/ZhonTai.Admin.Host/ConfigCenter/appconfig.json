@@ -45,14 +45,14 @@
       "routePrefix": "doc/admin/swagger",
       //地址
       "url": "http://localhost:18010",
-      //自动同步文档到数据库
-      "enableAutoSync": false,
       "projects": [
         {
           "name": "中台Admin权限管理",
           "code": "admin",
           "version": "v10.0.3",
-          "description": ""
+          "description": "",
+          //自动同步接口到数据库
+          "autoSyncToDb": false
         }
       ]
     },

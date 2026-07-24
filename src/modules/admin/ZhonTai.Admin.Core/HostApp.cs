@@ -790,7 +790,7 @@ public class HostApp
         }
 
         // Api文档处理
-        //services.AddSingleton<IApiDocumentHandler, ApiDocumentHandler>();
+        services.AddSingleton<IApiDocumentHandler, ApiDocumentHandler>();
 
         //Grpc
         services.AddCodeFirstGrpc(options =>
@@ -955,13 +955,6 @@ public class HostApp
             app.UseFreeSchedulerUI(appConfig.TaskSchedulerUI.Path.NotNull() ? appConfig.TaskSchedulerUI.Path : "/task");
         }
 
-        //自动同步接口数据
-        //if (appConfig.Swagger.EnableAutoSync)
-        //{
-        //    var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
-        //    Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
-        //}
-
         //Grpc
         var rpcConfig = AppInfo.GetOptions<RpcConfig>();
         if (rpcConfig?.Grpc != null && rpcConfig.Grpc.Enable)
@@ -978,6 +971,10 @@ public class HostApp
 
         //for postman
         app.MapCodeFirstGrpcReflectionService();
+
+        //同步接口数据
+        var apiDocumentHandler = app.Services.GetService<IApiDocumentHandler>();
+        Task.Run(async () => { await apiDocumentHandler.SyncAsync(); });
 
         //IP限流
         var rateLimitConfig = AppInfo.GetOptions<RateLimitConfig>();

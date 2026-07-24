@@ -319,11 +319,6 @@ public class SwaggerConfig
     /// 项目列表
     /// </summary>
     public List<ProjectConfig> Projects { get; set; }
-
-    /// <summary>
-    /// 启用自动同步
-    /// </summary>
-    public bool EnableAutoSync { get; set; }
 }
 
 /// <summary>
@@ -483,6 +478,11 @@ public class ProjectConfig
     /// 描述
     /// </summary>
     public string Description { get; set; }
+
+    /// <summary>
+    /// 自动同步接口到数据库
+    /// </summary>
+    public bool AutoSyncToDb { get; set; } = false;
 }
 
 /// <summary>

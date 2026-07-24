@@ -3,7 +3,7 @@
 public interface IApiDocumentHandler
 {
     /// <summary>
-    /// 同步API文档数据
+    /// 同步Api文档
     /// </summary>
     /// <returns></returns>
     Task SyncAsync();

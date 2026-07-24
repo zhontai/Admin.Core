@@ -13,7 +13,7 @@ namespace ZhonTai.Admin.Core.Db;
 /// <summary>
 /// 数据库服务集合扩展
 /// </summary>
-public static class DBServiceCollectionExtensions
+public static class DBExtensions
 {
     /// <summary>
     /// 添加数据库

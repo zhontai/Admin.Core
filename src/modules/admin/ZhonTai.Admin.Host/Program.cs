@@ -9,7 +9,6 @@ using Savorboard.CAP.InMemoryMessageQueue;
 using ZhonTai.Admin.Core;
 using ZhonTai.Admin.Core.Configs;
 using ZhonTai.Admin.Core.Consts;
-using ZhonTai.Admin.Core.Db;
 using ZhonTai.Admin.Core.Startup;
 using ZhonTai.Admin.Services.TaskScheduler;
 using ZhonTai.Admin.Tools.TaskScheduler;
@@ -40,10 +39,10 @@ new HostApp(new HostAppOptions
     //配置FreeSql
     ConfigureFreeSql = (freeSql, dbConfig) =>
     {
-        if (dbConfig.Key == DbKeys.TaskDb)
-        {
-            freeSql.SyncSchedulerStructure(dbConfig, TaskSchedulerServiceExtensions.ConfigureScheduler);
-        }
+        //if (dbConfig.Key == DbKeys.TaskDb)
+        //{
+        //    freeSql.SyncSchedulerStructure(dbConfig, TaskSchedulerServiceExtensions.ConfigureScheduler);
+        //}
     },
     //配置前置服务
     ConfigurePreServices = context =>

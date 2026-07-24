@@ -26,7 +26,7 @@ public class TestMemberExpressionVisitor : ExpressionVisitor
     }
 }
 
-public static class FreeSqlExt
+public static class FreeSqlExtensions
 {
     /// <summary>
     /// 执行忽略列查询
