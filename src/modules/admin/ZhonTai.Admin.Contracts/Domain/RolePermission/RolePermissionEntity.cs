@@ -27,13 +27,13 @@ public class RolePermissionEntity : EntityAdd
     /// <summary>
     /// 权限Id
     /// </summary>
-	public long PermissionId { get; set; }
+    [Column(IsPrimary = true)]
+    public long PermissionId { get; set; }
 
     /// <summary>
     /// 角色
     /// </summary>
     [NotGen]
-    [Column(IsPrimary = true)]
     public RoleEntity Role { get; set; }
 
     /// <summary>
