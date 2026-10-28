@@ -70,7 +70,7 @@
           "code": "admin",
           "version": "v10.1.0",
           "description": "权限管理",
-          //自动同步接口到数据库
+          ////自动同步接口到数据库
           "autoSyncToDb": false
         }
         ////#endif
